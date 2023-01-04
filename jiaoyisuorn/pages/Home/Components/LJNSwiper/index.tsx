@@ -29,7 +29,7 @@ export default index;
 
 const styles = StyleSheet.create({
   container: {
-    height: px2vw(146),
+    height: px2vw(160),
   },
   wrapper: {
     height: px2vw(146),

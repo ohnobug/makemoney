@@ -1,15 +1,16 @@
 import React from "react";
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions, ScrollView } from "react-native";
 import LJNSwiper from "./Components/LJNSwiper";
 import LJNHotInfo from "./Components/LJNHotInfo";
 import LJNNav from "./Components/LJNNav";
 import LJNFunctions from "./Components/LJNFunctions";
+import LJNList from "./Components/LJNList";
 
 type Props = {};
 
 export default function index({}: Props) {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* 轮播图 */}
       <LJNSwiper />
 
@@ -21,7 +22,10 @@ export default function index({}: Props) {
 
       {/* 功能区 */}
       <LJNFunctions />
-    </View>
+
+      {/* 榜单 */}
+      <LJNList />
+    </ScrollView>
   );
 }
 

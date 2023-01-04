@@ -131,15 +131,18 @@ const styles = StyleSheet.create({
     height: px2vw(12),
     display: "flex",
     justifyContent: "center",
+    alignItems: "center",
     flexDirection: "row",
     marginBottom: px2vw(11),
   },
   ljn_currency_name: {
     color: "#777f8c",
     marginRight: px2vw(3),
+    fontSize: px2vw(12),
   },
   ljn_currency_name_float: {
     color: "#dc6d63",
+    fontSize: px2vw(10),
   },
   ljn_currency_price_area: {
     height: px2vw(14),
@@ -157,6 +160,7 @@ const styles = StyleSheet.create({
   },
   ljn_currency_kline: {
     color: "#f77f68",
+    fontSize: px2vw(14),
   },
   // --------------------------------------热门信息区域 end
 });

@@ -9,7 +9,7 @@ const index = (props: Props) => {
   return (
     <View style={styles.ljn_container}>
       <View style={styles.ljn_container_area_1}>
-        <view style={styles.ljn_function_left_area}>
+        <View style={styles.ljn_function_left_area}>
           <View style={styles.ljn_function_area_title1}>
             <Text style={styles.ljn_function_area_title1_inner}>新币专区</Text>
           </View>
@@ -29,18 +29,18 @@ const index = (props: Props) => {
               500U锦鲤大奖等你拿
             </Text>
           </View>
-        </view>
-        <view style={styles.ljn_function_right_area}>
+        </View>
+        <View style={styles.ljn_function_right_area}>
           <View style={styles.ljn_function_right_area_img}>
             <Image
               style={styles.ljn_function_right_area_img_inner}
               source={require("../../../../assets/images/function1icon.png")}
             />
           </View>
-        </view>
+        </View>
       </View>
       <View style={styles.ljn_container_area_2}>
-        <view style={styles.ljn_function_left_area}>
+        <View style={styles.ljn_function_left_area}>
           <View style={styles.ljn_function_area_title1}>
             <Text style={styles.ljn_function_area_title1_inner}>快捷买币</Text>
           </View>
@@ -60,18 +60,18 @@ const index = (props: Props) => {
               1.00 CNY/USDT
             </Text>
           </View>
-        </view>
-        <view style={styles.ljn_function_right_area}>
+        </View>
+        <View style={styles.ljn_function_right_area}>
           <View style={styles.ljn_function_right_area_img}>
             <Image
               style={styles.ljn_function_right_area_img_inner}
               source={require("../../../../assets/images/function2icon.png")}
             />
           </View>
-        </view>
+        </View>
       </View>
       <View style={styles.ljn_container_area_3}>
-        <view style={styles.ljn_function_left_area}>
+        <View style={styles.ljn_function_left_area}>
           <View style={styles.ljn_function_area_title1}>
             <Text style={styles.ljn_function_area_title1_inner}>果果理财</Text>
           </View>
@@ -91,18 +91,18 @@ const index = (props: Props) => {
               轻松保本稳健赚
             </Text>
           </View>
-        </view>
-        <view style={styles.ljn_function_right_area}>
+        </View>
+        <View style={styles.ljn_function_right_area}>
           <View style={styles.ljn_function_right_area_img}>
             <Image
               style={styles.ljn_function_right_area_img_inner}
               source={require("../../../../assets/images/function3icon.png")}
             />
           </View>
-        </view>
+        </View>
       </View>
       <View style={styles.ljn_container_area_4}>
-        <view style={styles.ljn_function_left_area}>
+        <View style={styles.ljn_function_left_area}>
           <View style={styles.ljn_function_area_title1}>
             <Text style={styles.ljn_function_area_title1_inner}>直播</Text>
             <Text style={styles.ljn_function_area_title1_inner2}>正在直播</Text>
@@ -123,15 +123,15 @@ const index = (props: Props) => {
               观看：410
             </Text>
           </View>
-        </view>
-        <view style={styles.ljn_function_right_area}>
+        </View>
+        <View style={styles.ljn_function_right_area}>
           <View style={styles.ljn_function_right_area_img}>
             <Image
               style={styles.ljn_function_right_area_img_inner}
               source={require("../../../../assets/images/function4icon.png")}
             />
           </View>
-        </view>
+        </View>
       </View>
     </View>
   );
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.areaBackgroundColor,
     height: px2vw(160),
     borderRadius: px2vw(10),
+    marginBottom: px2vw(10),
   },
   ljn_container_area_1: {
     paddingTop: px2vw(13),
