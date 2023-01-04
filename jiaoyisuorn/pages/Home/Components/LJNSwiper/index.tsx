@@ -1,8 +1,6 @@
 import React from "react";
-// import { useAppDispatch, useAppSelector } from "../../../../hooks";
-// import { getCount } from "../../../../store/SystemSlice";
 import { View, Text, StyleSheet } from "react-native";
-import Swiper from "react-native-swiper/src";
+import Swiper from "react-native-web-swiper";
 import { px2vw } from "../../../../utils/utils";
 
 type Props = {};
@@ -10,7 +8,14 @@ type Props = {};
 const index = (props: Props) => {
   return (
     <View style={styles.container}>
-      <Swiper style={styles.wrapper} showsButtons={true}>
+      <Swiper
+        controlsProps={{
+          // prevTitle: "",
+          // nextTitle: "",
+          prevPos: false,
+          nextPos: false,
+        }}
+      >
         <View style={styles.slide1}>
           <Text style={styles.text}>Hello Swiper</Text>
         </View>
@@ -32,7 +37,7 @@ const styles = StyleSheet.create({
     height: px2vw(160),
   },
   wrapper: {
-    height: px2vw(146),
+    // height: px2vw(146),
   },
   slide1: {
     flex: 1,
