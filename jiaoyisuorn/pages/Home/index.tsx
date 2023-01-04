@@ -1,58 +1,36 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { getCount } from "../../store/SystemSlice";
-import { View, Text, StyleSheet } from "react-native";
-import Swiper from "react-native-swiper/src";
-import { px2vw } from "../../utils/utils";
+import { View, StyleSheet, Dimensions } from "react-native";
+import LJNSwiper from "./Components/LJNSwiper";
+import LJNHotInfo from "./Components/LJNHotInfo";
+import LJNNav from "./Components/LJNNav";
+import LJNFunctions from "./Components/LJNFunctions";
 
 type Props = {};
 
 export default function index({}: Props) {
-  const dispatch = useAppDispatch();
-  const count = useAppSelector(getCount);
-
   return (
-    <View>
-      <Swiper style={styles.wrapper} showsButtons={true}>
-        <View style={styles.slide1}>
-          <Text style={styles.text}>Hello Swiper</Text>
-        </View>
-        <View style={styles.slide2}>
-          <Text style={styles.text}>Beautiful</Text>
-        </View>
-        <View style={styles.slide3}>
-          <Text style={styles.text}>And simple</Text>
-        </View>
-      </Swiper>
+    <View style={styles.container}>
+      {/* 轮播图 */}
+      <LJNSwiper />
+
+      {/* 热门信息 */}
+      <LJNHotInfo />
+
+      {/* 导航区 */}
+      <LJNNav />
+
+      {/* 功能区 */}
+      <LJNFunctions />
     </View>
   );
 }
 
+const screen = Dimensions.get("screen");
+
 const styles = StyleSheet.create({
-  wrapper: {
-    height: px2vw(300),
-  },
-  slide1: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#9DD6EB",
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#97CAE5",
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#92BBD9",
-  },
-  text: {
-    color: "#fff",
-    fontSize: 30,
-    fontWeight: "bold",
+  container: {
+    backgroundColor: "#0f131f",
+    height: screen.height,
+    display: "flex",
   },
 });
