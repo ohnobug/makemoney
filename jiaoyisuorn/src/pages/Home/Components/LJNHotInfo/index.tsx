@@ -323,7 +323,7 @@ const styles = StyleSheet.create({
   },
   ljn_title_area_left_title_after_inner: {
     color: "white",
-    fontSize: px2vw(10),
+    fontSize: px2vw(12),
   },
   ljn_title_area_right: {
     flex: 1,
