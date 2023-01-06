@@ -172,9 +172,9 @@ const index = (props: Props) => {
         chart2Ref.current.getEchartsInstance().setOption(option2Init);
         chart3Ref.current.getEchartsInstance().setOption(option3Init);
       } else {
-        chart1Ref.current.setOption(option1Init);
-        chart2Ref.current.setOption(option2Init);
-        chart3Ref.current.setOption(option3Init);
+        chart1Ref.current?.setOption(option1Init);
+        chart2Ref.current?.setOption(option2Init);
+        chart3Ref.current?.setOption(option3Init);
       }
     }, 1000);
   }, []);

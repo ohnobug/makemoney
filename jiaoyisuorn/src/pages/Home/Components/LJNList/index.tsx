@@ -5,8 +5,15 @@ import {
   Text,
   Image,
   LayoutRectangle,
+  Animated,
 } from "react-native";
-import React, { useLayoutEffect, useReducer, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import { px2vw } from "../../../../utils/utils";
 import { theme } from "../../../../themes/default/styles";
 
@@ -22,46 +29,59 @@ interface IListItem {
 
 type IInitState = Array<{
   title: string;
-  layout?: LayoutRectangle | null;
+  layout1?: LayoutRectangle | null;
+  layout2?: LayoutRectangle | null;
 }>;
 
-const initState: IInitState = [
-  { title: "自选", layout: null },
-  { title: "热榜", layout: null },
-  { title: "涨幅榜", layout: null },
-  { title: "新币榜", layout: null },
-  { title: "成交额榜", layout: null },
-  { title: "跌幅榜", layout: null },
-  { title: "自选", layout: null },
-  { title: "热榜", layout: null },
-  { title: "涨幅榜", layout: null },
-  { title: "新币榜", layout: null },
-  { title: "成交额榜", layout: null },
-  { title: "跌幅榜", layout: null },
-];
+// const initState: IInitState = [
+//   { title: "自选", layout: null },
+//   { title: "热榜", layout: null },
+//   { title: "涨幅榜", layout: null },
+//   { title: "新币榜", layout: null },
+//   { title: "成交额榜", layout: null },
+//   { title: "跌幅榜", layout: null },
+//   { title: "自选", layout: null },
+//   { title: "热榜", layout: null },
+//   { title: "涨幅榜", layout: null },
+//   { title: "新币榜", layout: null },
+//   { title: "成交额榜", layout: null },
+//   { title: "跌幅榜", layout: null },
+// ];
 
-const tabsReducer = (
-  preState: IInitState,
-  action: { type: string; payload: any }
-) => {
-  switch (action.type) {
-    case "updateX":
-      preState[action.payload.index].layout = action.payload.layout;
-      break;
-  }
+// const tabsReducer = (
+//   preState: IInitState,
+//   action: { type: string; payload: any }
+// ) => {
+//   switch (action.type) {
+//     case "updateX":
+//       preState[action.payload.index].layout = action.payload.layout;
+//       break;
+//   }
 
-  return [...preState];
-};
+//   return [...preState];
+// };
 
 const index = (props: Props) => {
   // 当前点击的tab
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // tab滑动的话，不能触发点击时间
-  const [canClick, setCanClick] = useState<boolean>();
-
   // tabs的信息
-  const [tabs, dispatch] = useReducer(tabsReducer, initState);
+  // const [tabs, dispatch] = useReducer(tabsReducer, initState);
+
+  const tabs: IInitState = useRef([
+    { title: "自选", layout1: null, layout2: null },
+    { title: "热榜", layout1: null, layout2: null },
+    { title: "涨幅榜", layout1: null, layout2: null },
+    { title: "新币榜", layout1: null, layout2: null },
+    { title: "成交额榜", layout1: null, layout2: null },
+    { title: "跌幅榜", layout1: null, layout2: null },
+    { title: "自选", layout1: null, layout2: null },
+    { title: "热榜", layout1: null, layout2: null },
+    { title: "涨幅榜", layout1: null, layout2: null },
+    { title: "新币榜", layout1: null, layout2: null },
+    { title: "成交额榜", layout1: null, layout2: null },
+    { title: "跌幅榜", layout1: null, layout2: null },
+  ]).current;
 
   // 滚动对象
   let scroll = useRef<any>(null);
@@ -223,6 +243,18 @@ const index = (props: Props) => {
     }, 1000);
   }, []);
 
+  const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
+
+  const spring = (value: number) => {
+    let c: Animated.TimingAnimationConfig = {
+      toValue: value,
+      // duration: 10000,
+      useNativeDriver: false,
+    };
+
+    Animated.timing(fadeAnim, c).start();
+  };
+
   return (
     <View style={styles.ljn_container}>
       {/* tabs */}
@@ -233,35 +265,42 @@ const index = (props: Props) => {
           showsHorizontalScrollIndicator={false}
           snapToAlignment="center"
           ref={scroll}
-          onTouchMove={() => {
-            setCanClick(false);
-          }}
         >
+          <Animated.View
+            style={{
+              ...styles.ljn_fly_bottom,
+              ...{
+                width: tabs[activeIndex].layout2?.width,
+                left: fadeAnim,
+              },
+            }}
+          ></Animated.View>
+
           {tabs.map((item, index) => {
             return (
               <View
                 onLayout={(event) => {
                   const layout: LayoutRectangle = event.nativeEvent.layout;
-                  dispatch({
-                    type: "updateX",
-                    payload: {
-                      index: index,
-                      layout: layout,
-                    },
-                  });
+                  tabs[index].layout1 = layout;
                 }}
-                style={styles.ljn_tab}
+                style={{
+                  ...styles.ljn_tab,
+                }}
                 key={index}
-                onTouchEnd={(e) => {
-                  if (!canClick) {
-                    setCanClick(true);
-                    return;
-                  }
+                onTouchEnd={() => {
+                  // 设置当前激活的tab
                   setActiveIndex(index);
+
+                  // 下方蓝色方块动画
+                  spring(
+                    (item.layout1 as LayoutRectangle).x +
+                      (item.layout2 as LayoutRectangle).x
+                  );
+
                   let value =
-                    (item.layout as LayoutRectangle).x -
+                    (item.layout1 as LayoutRectangle).x -
                     px2vw(375 / 2) +
-                    (item.layout?.width as number) / 2;
+                    (item.layout1?.width as number) / 2;
 
                   if (value < 0) value = 0;
                   scroll.current.scrollTo({
@@ -270,23 +309,19 @@ const index = (props: Props) => {
                   });
                 }}
               >
-                <View
+                <Text
+                  onLayout={(event) => {
+                    const layout: LayoutRectangle = event.nativeEvent.layout;
+                    tabs[index].layout2 = layout;
+                  }}
                   style={Object.assign(
                     {},
-                    styles.ljn_tab_item,
-                    activeIndex === index ? styles.ljn_tab_item_active : null
+                    styles.ljn_tab_text,
+                    activeIndex === index ? styles.ljn_tab_text_active : null
                   )}
                 >
-                  <Text
-                    style={Object.assign(
-                      {},
-                      styles.ljn_tab_text,
-                      activeIndex === index ? styles.ljn_tab_text_active : null
-                    )}
-                  >
-                    {item.title}
-                  </Text>
-                </View>
+                  {item.title}
+                </Text>
               </View>
             );
           })}
@@ -368,25 +403,24 @@ const styles = StyleSheet.create({
   },
   ljn_tabs: {
     width: px2vw(375),
-    height: px2vw(40),
+    height: px2vw(43),
     borderBottomWidth: px2vw(1),
     borderBottomColor: "#272f3c",
   },
   ljn_tab: {
-    // width: px2vw(62.5),
     paddingLeft: px2vw(10),
     paddingRight: px2vw(10),
-  },
-  ljn_tab_item: {
-    height: px2vw(38),
-    borderBottomWidth: px2vw(3),
+    height: px2vw(40),
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    borderBottomColor: theme.areaBackgroundColor,
   },
-  ljn_tab_item_active: {
-    borderBottomColor: "#32a1fc",
+  ljn_fly_bottom: {
+    height: px2vw(3),
+    backgroundColor: "#32a1fc",
+    position: "absolute",
+    bottom: 0,
+    left: 0,
   },
   ljn_tab_text: {
     color: "#5c6175",
