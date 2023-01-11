@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import React, { useState } from "react";
 import { px2vw } from "../../utils/utils";
 import { useNavigate } from "react-router-native";
-import { useAppSelector } from "../../../hooks";
+import { useAppSelector } from "../../hooks";
 import { selectTabbarIndex, setTabbarIndex } from "../../store/SystemSlice";
 import { useAppDispatch } from "../../hooks";
 

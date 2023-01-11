@@ -4,6 +4,7 @@ import { px2vw } from "../../../../utils/utils";
 import { theme } from "../../../../themes/default/styles";
 // android/ios
 import { ECharts } from "react-native-echarts-wrapper";
+
 // web
 import ReactECharts from "echarts-for-react";
 
@@ -51,6 +52,13 @@ const option1Init = {
       type: "line",
       smooth: true,
       symbol: "none", //去掉折线上的小圆点
+      itemStyle: {
+        normal: {
+          lineStyle: {
+            color: "#bc5e62",
+          },
+        },
+      },
     },
   ],
 };
@@ -97,6 +105,13 @@ const option2Init = {
       type: "line",
       smooth: true,
       symbol: "none", //去掉折线上的小圆点
+      itemStyle: {
+        normal: {
+          lineStyle: {
+            color: "#bc5e62",
+          },
+        },
+      },
     },
   ],
 };
@@ -143,6 +158,13 @@ const option3Init = {
       type: "line",
       smooth: true,
       symbol: "none", //去掉折线上的小圆点
+      itemStyle: {
+        normal: {
+          lineStyle: {
+            color: "#bc5e62",
+          },
+        },
+      },
     },
   ],
 };
@@ -195,6 +217,10 @@ const index = (props: Props) => {
   }, []);
 
   let chart1: any, chart2: any, chart3: any;
+  const [show1, setShow1] = useState(Platform.OS === "web" ? true : false);
+  const [show2, setShow2] = useState(Platform.OS === "web" ? true : false);
+  const [show3, setShow3] = useState(Platform.OS === "web" ? true : false);
+
   if (Platform.OS === "web") {
     chart1 = <ReactECharts ref={chart1Ref} option={option1Init} />;
     chart2 = <ReactECharts ref={chart2Ref} option={option2Init} />;
@@ -204,20 +230,37 @@ const index = (props: Props) => {
       <ECharts
         ref={chart1Ref}
         option={option1Init}
+        onLoadEnd={() => {
+          setTimeout(() => {
+            setShow1(true);
+          }, 500);
+        }}
         backgroundColor="rgba(93, 169, 81, 0.3)"
       />
     );
     chart2 = (
       <ECharts
+        canvas={true}
         ref={chart2Ref}
         option={option2Init}
+        onLoadEnd={() => {
+          setTimeout(() => {
+            setShow2(true);
+          }, 500);
+        }}
         backgroundColor="rgba(93, 169, 81, 0.3)"
       />
     );
     chart3 = (
       <ECharts
+        canvas={true}
         ref={chart3Ref}
         option={option3Init}
+        onLoadEnd={() => {
+          setTimeout(() => {
+            setShow3(true);
+          }, 500);
+        }}
         backgroundColor="rgba(93, 169, 81, 0.3)"
       />
     );
@@ -254,18 +297,13 @@ const index = (props: Props) => {
           <View style={styles.ljn_currency_price_area}>
             <Text style={styles.ljn_currency_price_title}>16,722.41</Text>
           </View>
-          <View style={styles.ljn_currency_kline_area}>{chart1}</View>
-        </View>
-        <View style={styles.ljn_hotinfo}>
-          <View style={styles.ljn_currency_name_area}>
-            <Text style={styles.ljn_currency_name}>BTC/USDT</Text>
-            <Text style={styles.ljn_currency_name_float}>-0.07%</Text>
-          </View>
-          <View style={styles.ljn_currency_price_area}>
-            <Text style={styles.ljn_currency_price_title}>16,722.41</Text>
-          </View>
-          <View style={styles.ljn_currency_kline_area}>
-            <View style={styles.ljn_currency_kline_area}>{chart2}</View>
+          <View
+            style={StyleSheet.flatten([
+              styles.ljn_currency_kline_area,
+              { top: show1 ? 0 : 999, position: "relative" },
+            ])}
+          >
+            {chart1}
           </View>
         </View>
         <View style={styles.ljn_hotinfo}>
@@ -276,8 +314,30 @@ const index = (props: Props) => {
           <View style={styles.ljn_currency_price_area}>
             <Text style={styles.ljn_currency_price_title}>16,722.41</Text>
           </View>
-          <View style={styles.ljn_currency_kline_area}>
-            <View style={styles.ljn_currency_kline_area}>{chart3}</View>
+          <View
+            style={StyleSheet.flatten([
+              styles.ljn_currency_kline_area,
+              { top: show1 ? 0 : 999, position: "relative" },
+            ])}
+          >
+            {chart2}
+          </View>
+        </View>
+        <View style={styles.ljn_hotinfo}>
+          <View style={styles.ljn_currency_name_area}>
+            <Text style={styles.ljn_currency_name}>BTC/USDT</Text>
+            <Text style={styles.ljn_currency_name_float}>-0.07%</Text>
+          </View>
+          <View style={styles.ljn_currency_price_area}>
+            <Text style={styles.ljn_currency_price_title}>16,722.41</Text>
+          </View>
+          <View
+            style={StyleSheet.flatten([
+              styles.ljn_currency_kline_area,
+              { top: show1 ? 0 : 999, position: "relative" },
+            ])}
+          >
+            {chart3}
           </View>
         </View>
       </View>

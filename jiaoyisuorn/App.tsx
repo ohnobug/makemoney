@@ -3,7 +3,7 @@ import store from "./src/store";
 import router from "./src/router";
 // import { Provider as PaperProvider } from "react-native-paper";
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { StatusBar } from "react-native";
 
 export default function App() {
