@@ -30,7 +30,7 @@ export default function index({}: Props) {
               color: "white",
             }}
           >
-            资产
+            行情
           </Text>
         </View>
       </ScrollView>

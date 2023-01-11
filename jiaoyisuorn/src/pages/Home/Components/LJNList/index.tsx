@@ -1,5 +1,5 @@
-import { StyleSheet, View, Text, Image, PanResponder } from "react-native";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { StyleSheet, View, Text, Image } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
 import { px2vw } from "../../../../utils/utils";
 import { theme } from "../../../../themes/default/styles";
 import Swiper from "../../../../library/react-native-web-swiper/src/index";
@@ -8,6 +8,79 @@ import LJNHeaderScroll from "./Components/LJNHeaderScroll";
 type Props = { setScrollEnabled: (v: boolean) => void };
 
 let timer: any;
+
+interface ISwiperSliceProps {
+  index?: number;
+  activeIndex?: number;
+  list: IListItem[];
+}
+
+const SwiperSlice = (props: ISwiperSliceProps) => {
+  return (
+    <View style={styles.ljn_list}>
+      {/* 列表标题 */}
+      <View style={styles.ljn_list_title_area}>
+        <View style={styles.ljn_list_title1}>
+          <Text style={styles.ljn_list_title_inner}>名称</Text>
+        </View>
+        <View style={styles.ljn_list_title2}>
+          <Text style={styles.ljn_list_title_inner}>最新价格</Text>
+        </View>
+        <View style={styles.ljn_list_title3}>
+          <Text style={styles.ljn_list_title_inner}>涨跌幅</Text>
+        </View>
+      </View>
+
+      {/* 列表 */}
+      <View style={styles.ljn_list_inner}>
+        {props.list
+          ? props.list.map((item, index) => {
+              return (
+                <View style={styles.ljn_list_item} key={index}>
+                  <View style={styles.ljn_list_item_column1}>
+                    <Image
+                      style={styles.ljn_list_item_icon}
+                      source={item.icon}
+                    />
+                    {item.name}
+                  </View>
+                  <View style={styles.ljn_list_item_column2}>
+                    <Text style={styles.ljn_list_item_column2_text}>
+                      {item.price}
+                    </Text>
+                  </View>
+                  <View style={styles.ljn_list_item_column3}>
+                    {item.float.indexOf("-") === 0 ? (
+                      <View style={styles.ljn_list_item_float_btn_down}>
+                        <Text style={styles.ljn_list_item_float_btn_text}>
+                          {item.float}
+                        </Text>
+                      </View>
+                    ) : (
+                      <View style={styles.ljn_list_item_float_btn_up}>
+                        <Text style={styles.ljn_list_item_float_btn_text}>
+                          {item.float}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                </View>
+              );
+            })
+          : null}
+      </View>
+
+      {/* 查看更多 */}
+      <View style={styles.ljn_showmore}>
+        <Text style={styles.ljn_showmore_text}>查看更多</Text>
+        <Image
+          style={styles.ljn_showmore_icon}
+          source={require("../../../../assets/images/arrow_right.png")}
+        />
+      </View>
+    </View>
+  );
+};
 
 const index = (props: Props) => {
   // 当前点击的tab
@@ -23,7 +96,7 @@ const index = (props: Props) => {
   useEffect(() => {
     setInterval(() => {
       let newList = list.map((titem) => {
-        titem.list.map((item) => {
+        let nlist = titem.list.map((item) => {
           item.price =
             Math.round(
               (Math.trunc(Math.random() * 1000) +
@@ -39,15 +112,18 @@ const index = (props: Props) => {
           }
           return item;
         });
+
+        titem.list = [...nlist];
         return titem;
       });
-      setList(() => JSON.parse(JSON.stringify(newList)));
+      // setList([...newList]);
+      setList(JSON.parse(JSON.stringify(newList)));
     }, 1000);
   }, []);
 
-  useEffect(() => {
-    console.log(list[0].list[0].float);
-  }, [list]);
+  // useEffect(() => {
+  //   console.log(list[0].list[0].float);
+  // }, [list]);
 
   const onHeaderScrollChange = (index: number) => {
     // 改变tabs的位置
@@ -83,6 +159,7 @@ const index = (props: Props) => {
     //   console.log("动画播放完成释放");
     //   props.setScrollEnabled(true);
     // },
+    // onPanResponderTerminationRequest: () => false,
     onPanResponderTerminate: () => {
       console.log("onPanResponderTerminate");
       if (timer) {
@@ -108,20 +185,20 @@ const index = (props: Props) => {
 
       {/* 列表区域 可以左右滑动 */}
       <View style={styles.ljn_list_area}>
-        {/* <Swiper>
-          <View>
-            <Text>{list[0].list[0].float}</Text>
-          </View>
-        </Swiper> */}
-
         <Swiper
           ref={myswiper}
           loop={false}
           vertical={false}
-          minDistanceToCapture={10}
-          minDistanceForAction={0}
+          minDistanceToCapture={25}
+          // minDistanceForAction={0}
           onIndexChanged={(e: number) => changeIndex(e)}
           controlsEnabled={false}
+          // springConfig={{
+          //   overshootClamping: false,
+          //   speed: 12,
+          //   bounciness: 0,
+          // friction: 30,
+          // }}
           controlsProps={{
             prevPos: false,
             nextPos: false,
@@ -129,68 +206,7 @@ const index = (props: Props) => {
           {..._swiperPan}
         >
           {list.map((item1, index1) => {
-            return (
-              <View key={index1} style={styles.ljn_list}>
-                {/* 列表标题 */}
-                <View style={styles.ljn_list_title_area}>
-                  <View style={styles.ljn_list_title1}>
-                    <Text style={styles.ljn_list_title_inner}>名称</Text>
-                  </View>
-                  <View style={styles.ljn_list_title2}>
-                    <Text style={styles.ljn_list_title_inner}>最新价格</Text>
-                  </View>
-                  <View style={styles.ljn_list_title3}>
-                    <Text style={styles.ljn_list_title_inner}>涨跌幅</Text>
-                  </View>
-                </View>
-
-                {/* 列表 */}
-                <View style={styles.ljn_list_inner}>
-                  {item1.list.map((item, index) => {
-                    return (
-                      <View style={styles.ljn_list_item} key={index}>
-                        <View style={styles.ljn_list_item_column1}>
-                          <Image
-                            style={styles.ljn_list_item_icon}
-                            source={item.icon}
-                          />
-                          {item.name}
-                        </View>
-                        <View style={styles.ljn_list_item_column2}>
-                          <Text style={styles.ljn_list_item_column2_text}>
-                            {item.price}
-                          </Text>
-                        </View>
-                        <View style={styles.ljn_list_item_column3}>
-                          {item.float.indexOf("-") === 0 ? (
-                            <View style={styles.ljn_list_item_float_btn_down}>
-                              <Text style={styles.ljn_list_item_float_btn_text}>
-                                {item.float}
-                              </Text>
-                            </View>
-                          ) : (
-                            <View style={styles.ljn_list_item_float_btn_up}>
-                              <Text style={styles.ljn_list_item_float_btn_text}>
-                                {item.float}
-                              </Text>
-                            </View>
-                          )}
-                        </View>
-                      </View>
-                    );
-                  })}
-                </View>
-
-                {/* 查看更多 */}
-                <View style={styles.ljn_showmore}>
-                  <Text style={styles.ljn_showmore_text}>查看更多</Text>
-                  <Image
-                    style={styles.ljn_showmore_icon}
-                    source={require("../../../../assets/images/arrow_right.png")}
-                  />
-                </View>
-              </View>
-            );
+            return <SwiperSlice key={index1} list={item1.list} />;
           })}
         </Swiper>
       </View>
@@ -518,12 +534,12 @@ const initData2: Array<IList> = [
   { tabname: "热榜", list: initData },
   { tabname: "涨幅榜", list: initData },
   { tabname: "新币榜", list: initData },
-  { tabname: "成交额榜", list: initData },
-  { tabname: "跌幅榜", list: initData },
-  { tabname: "自选", list: initData },
-  { tabname: "热榜", list: initData },
-  { tabname: "涨幅榜", list: initData },
-  { tabname: "新币榜", list: initData },
-  { tabname: "成交额榜", list: initData },
-  { tabname: "跌幅榜", list: initData },
+  // { tabname: "成交额榜", list: initData },
+  // { tabname: "跌幅榜", list: initData },
+  // { tabname: "自选", list: initData },
+  // { tabname: "热榜", list: initData },
+  // { tabname: "涨幅榜", list: initData },
+  // { tabname: "新币榜", list: initData },
+  // { tabname: "成交额榜", list: initData },
+  // { tabname: "跌幅榜", list: initData },
 ];

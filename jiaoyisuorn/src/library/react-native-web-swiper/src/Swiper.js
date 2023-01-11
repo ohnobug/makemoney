@@ -130,7 +130,7 @@ class Swiper extends React.Component {
   _getPanResponderCallbacks() {
     return {
       onPanResponderTerminationRequest: () => false,
-      onStartShouldSetPanResponderCapture() {
+      onStartShouldSetPanResponderCapture(e, gestureState) {
         return false;
       },
       onStartShouldSetPanResponder() {

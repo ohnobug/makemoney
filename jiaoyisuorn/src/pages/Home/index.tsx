@@ -4,7 +4,6 @@ import {
   StyleSheet,
   ScrollView,
   PanResponder,
-  InteractionManager,
   Dimensions,
 } from "react-native";
 import LJNSwiper from "./Components/LJNSwiper";
@@ -17,8 +16,16 @@ import { px2vw } from "../../utils/utils";
 
 type Props = {};
 
+// let timer: any;
 export default function index({}: Props) {
   const [scrollEnabled, setScrollEnabled] = useState(true);
+
+  const mySetScrollEnabled = (value: boolean) => {
+    if (scrollEnabled !== value) {
+      setScrollEnabled(value);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -28,7 +35,7 @@ export default function index({}: Props) {
         scrollEnabled={scrollEnabled}
       >
         {/* 轮播图 */}
-        <LJNSwiper setScrollEnabled={setScrollEnabled} />
+        <LJNSwiper setScrollEnabled={mySetScrollEnabled} />
 
         {/* 热门信息 */}
         <LJNHotInfo />
@@ -40,7 +47,7 @@ export default function index({}: Props) {
         <LJNFunctions />
 
         {/* 榜单 */}
-        <LJNList setScrollEnabled={setScrollEnabled} />
+        <LJNList setScrollEnabled={mySetScrollEnabled} />
       </ScrollView>
 
       <View style={styles.ljn_footer}>
@@ -50,13 +57,14 @@ export default function index({}: Props) {
   );
 }
 
-const screen = Dimensions.get("screen");
+// 考虑web端
+// const screen = Dimensions.get("screen");
 const window = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
-    top: screen.height - window.height,
+    // position: "absolute",
+    // top: screen.height - window.height,
     flex: 1,
     display: "flex",
     flexDirection: "column",

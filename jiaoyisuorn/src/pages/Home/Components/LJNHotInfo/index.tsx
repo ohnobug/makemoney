@@ -168,15 +168,30 @@ const index = (props: Props) => {
       option3Init.series[0].data.push(Math.trunc(Math.random() * 100));
 
       if (Platform.OS === "web") {
-        chart1Ref.current.getEchartsInstance().setOption(option1Init);
-        chart2Ref.current.getEchartsInstance().setOption(option2Init);
-        chart3Ref.current.getEchartsInstance().setOption(option3Init);
+        chart1Ref.current &&
+          chart1Ref.current.getEchartsInstance().setOption(option1Init);
+        chart2Ref.current &&
+          chart2Ref.current.getEchartsInstance().setOption(option2Init);
+        chart3Ref.current &&
+          chart3Ref.current.getEchartsInstance().setOption(option3Init);
       } else {
-        chart1Ref.current?.setOption(option1Init);
-        chart2Ref.current?.setOption(option2Init);
-        chart3Ref.current?.setOption(option3Init);
+        chart1Ref.current && chart1Ref.current.setOption(option1Init);
+        chart2Ref.current && chart2Ref.current.setOption(option2Init);
+        chart3Ref.current && chart3Ref.current.setOption(option3Init);
       }
     }, 1000);
+
+    return () => {
+      if (Platform.OS === "web") {
+        chart1Ref.current = null;
+        chart1Ref.current = null;
+        chart1Ref.current = null;
+      } else {
+        chart1Ref.current = null;
+        chart1Ref.current = null;
+        chart1Ref.current = null;
+      }
+    };
   }, []);
 
   let chart1: any, chart2: any, chart3: any;

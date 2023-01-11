@@ -31,7 +31,7 @@ const index = ({ activeIndex, onChange, tabs }: Props) => {
   const spring = (x: number, width: number) => {
     let c: Animated.TimingAnimationConfig = {
       toValue: x,
-      duration: 200,
+      duration: 300,
       useNativeDriver: false,
     };
     Animated.timing(springLeft, c).start();
@@ -174,13 +174,13 @@ const index = ({ activeIndex, onChange, tabs }: Props) => {
         {..._pan1.panHandlers}
       >
         <Animated.View
-          style={{
-            ...styles.ljn_fly_bottom,
-            ...{
+          style={StyleSheet.flatten([
+            styles.ljn_fly_bottom,
+            {
               width: springWidth,
               left: springLeft,
             },
-          }}
+          ])}
         ></Animated.View>
 
         {tabs.map((item, index) => {

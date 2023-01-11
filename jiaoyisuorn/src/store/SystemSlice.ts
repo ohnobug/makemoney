@@ -2,27 +2,24 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from ".";
 
 interface IinitialState {
-  count: number;
+  tabbarIndex: number;
 }
 
 const initialState: IinitialState = {
-  count: 100,
+  tabbarIndex: 0,
 };
 
 const SystemSlice = createSlice({
   name: "system",
   initialState,
   reducers: {
-    add(state) {
-      state.count++;
-    },
-    reduce(state) {
-      state.count--;
+    setTabbarIndex(state, action) {
+      state.tabbarIndex = action.payload;
     },
   },
 });
 
-export const { add, reduce } = SystemSlice.actions;
-export const getCount = (state: RootState) => state.system.count;
+export const { setTabbarIndex } = SystemSlice.actions;
+export const selectTabbarIndex = (state: RootState) => state.system.tabbarIndex;
 
 export default SystemSlice.reducer;

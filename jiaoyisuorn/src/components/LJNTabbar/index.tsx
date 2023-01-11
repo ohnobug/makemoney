@@ -1,53 +1,78 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React, { useState } from "react";
 import { px2vw } from "../../utils/utils";
+import { useNavigate } from "react-router-native";
+import { useAppSelector } from "../../../hooks";
+import { selectTabbarIndex, setTabbarIndex } from "../../store/SystemSlice";
+import { useAppDispatch } from "../../hooks";
 
 type Props = {};
 
 const index = (props: Props) => {
+  const navigate = useNavigate();
   const [tabs, setTabs] = useState([
     {
       title: "首页",
-      path: "",
+      path: "/",
       icon: require("../../assets/images/nav1icon.png"),
     },
     {
       title: "行情",
-      path: "",
+      path: "/quotation",
       icon: require("../../assets/images/nav2icon.png"),
     },
     {
       title: "交易",
-      path: "",
+      path: "/trade",
       icon: require("../../assets/images/nav3icon.png"),
     },
     {
       title: "合约",
-      path: "",
+      path: "/contract",
       icon: require("../../assets/images/nav4icon.png"),
     },
     {
       title: "资产",
-      path: "",
+      path: "/assets",
       icon: require("../../assets/images/nav5icon.png"),
     },
     {
       title: "我的",
-      path: "",
+      path: "/user",
       icon: require("../../assets/images/nav6icon.png"),
     },
   ]);
+
+  const dispatch = useAppDispatch();
+  const tabbarIndex = useAppSelector(selectTabbarIndex);
 
   return (
     <View style={styles.ljn_tabbar}>
       {tabs.map((item, index) => {
         return (
-          <View style={styles.ljn_tabbar_item} key={index}>
+          <View
+            style={styles.ljn_tabbar_item}
+            key={index}
+            onStartShouldSetResponderCapture={() => true}
+            onResponderGrant={() => {
+              dispatch(setTabbarIndex(index));
+              navigate(item.path);
+            }}
+          >
             <View style={styles.ljn_tabbar_item_img_area}>
               <Image style={styles.ljn_tabbar_item_img} source={item.icon} />
             </View>
             <View style={styles.ljn_tabbar_item_title_area}>
-              <Text style={styles.ljn_tabbar_item_title}>{item.title}</Text>
+              <Text
+                style={StyleSheet.flatten([
+                  styles.ljn_tabbar_item_title,
+                  index === tabbarIndex
+                    ? styles.ljn_tabbar_item_title_active
+                    : {},
+                ])}
+              >
+                {item.title}
+              </Text>
             </View>
           </View>
         );
@@ -102,5 +127,9 @@ const styles = StyleSheet.create({
   ljn_tabbar_item_title: {
     fontSize: px2vw(12),
     color: "#dae4f0",
+  },
+  ljn_tabbar_item_title_active: {
+    color: "#3c8aff",
+    fontWeight: "600",
   },
 });
