@@ -4,64 +4,19 @@ import Swiper from "../../../../library/react-native-web-swiper/src/index";
 import { px2vw } from "../../../../utils/utils";
 
 type Props = {
-  setScrollEnabled: Function;
+  setScrollEnabled?: Function;
 };
 
-let timer: any;
 const index = (props: Props) => {
-  const swiperRef = useRef<any>();
-
-  const _swiperPan = {
-    onPanResponderGrant: () => {
-      props.setScrollEnabled(false);
-      console.log("onPanResponderGrant");
-    },
-    onPanResponderMove: () => {
-      props.setScrollEnabled(false);
-      console.log("onPanResponderMove");
-    },
-    onPanResponderRelease: () => {
-      console.log("onPanResponderRelease");
-
-      if (timer) {
-        console.log("清理时钟");
-        clearTimeout(timer);
-      }
-      timer = setTimeout(() => {
-        console.log("释放了");
-        props.setScrollEnabled(true);
-      }, 500);
-    },
-    // onAnimationEnd: () => {
-    //   console.log("动画播放完成释放");
-    //   props.setScrollEnabled(true);
-    // },
-    onPanResponderTerminate: () => {
-      console.log("onPanResponderTerminate");
-      if (timer) {
-        console.log("清理时钟");
-        clearTimeout(timer);
-      }
-
-      timer = setTimeout(() => {
-        console.log("释放了");
-        props.setScrollEnabled(true);
-      }, 500);
-    },
-  };
-
   return (
     <View style={styles.container}>
       <Swiper
-        {..._swiperPan}
-        ref={swiperRef}
         horizontal
         directionalLockEnabled
         loop={false}
         vertical={false}
-        minDistanceToCapture={10}
+        minDistanceToCapture={0}
         minDistanceForAction={0}
-        // controlsEnabled={false}
         controlsProps={{
           prevPos: false,
           nextPos: false,

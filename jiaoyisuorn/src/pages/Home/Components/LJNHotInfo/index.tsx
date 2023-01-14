@@ -233,7 +233,7 @@ const index = (props: Props) => {
         onLoadEnd={() => {
           setTimeout(() => {
             setShow1(true);
-          }, 500);
+          }, 300);
         }}
         backgroundColor="rgba(93, 169, 81, 0.3)"
       />
@@ -246,7 +246,7 @@ const index = (props: Props) => {
         onLoadEnd={() => {
           setTimeout(() => {
             setShow2(true);
-          }, 500);
+          }, 300);
         }}
         backgroundColor="rgba(93, 169, 81, 0.3)"
       />
@@ -259,7 +259,7 @@ const index = (props: Props) => {
         onLoadEnd={() => {
           setTimeout(() => {
             setShow3(true);
-          }, 500);
+          }, 300);
         }}
         backgroundColor="rgba(93, 169, 81, 0.3)"
       />

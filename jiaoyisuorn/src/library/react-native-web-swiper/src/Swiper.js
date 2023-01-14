@@ -303,6 +303,21 @@ class Swiper extends React.Component {
                 transform: [{ translateX: pan.x }, { translateY: pan.y }],
               },
             ])}
+            onTouchEndCapture={(e) => {
+              this.props.onTouchEndCapture && this.props.onTouchEndCapture(e);
+            }}
+            onTouchStart={(e) => {
+              this.props.onTouchStart && this.props.onTouchStart(e);
+            }}
+            onTouchMove={(e) => {
+              this.props.onTouchMove && this.props.onTouchMove(e);
+            }}
+            onTouchEnd={(e) => {
+              this.props.onTouchEnd && this.props.onTouchEnd(e);
+            }}
+            onTouchCancel={(e) => {
+              this.props.onTouchCancel && this.props.onTouchCancel(e);
+            }}
             {...this._panResponder.panHandlers}
           >
             {this.children.map((el, i) => (
@@ -374,6 +389,13 @@ Swiper.propTypes = {
   Controls: PropTypes.func,
 
   theme: PropTypes.object,
+
+  // ------------------------------------
+  onTouchStart: PropTypes.func,
+  onTouchMove: PropTypes.func,
+  onTouchEnd: PropTypes.func,
+  onTouchEndCapture: PropTypes.func,
+  onTouchCancel: PropTypes.func,
 };
 
 Swiper.defaultProps = {

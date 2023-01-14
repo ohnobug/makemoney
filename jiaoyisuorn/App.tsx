@@ -21,3 +21,42 @@ export default function App() {
     </>
   );
 }
+
+// 代码片段
+// let _pan1 = useRef(
+//   PanResponder.create({
+//     onStartShouldSetPanResponderCapture(e, gesture) {
+//       return false;
+//     },
+//     onStartShouldSetPanResponder(e, gesture) {
+//       return false;
+//     },
+//     onMoveShouldSetPanResponderCapture(e, gesture) {
+//       return false;
+//     },
+//     onMoveShouldSetPanResponder(e, gesture) {
+//       return false;
+//     },
+//     onPanResponderTerminationRequest(e, gesture) {
+//       return false;
+//     },
+//     onPanResponderGrant(e, gesture) {
+//       console.log("scroll onPanResponderGrant");
+//     },
+//     onPanResponderStart(e, gesture) {
+//       console.log("scroll onPanResponderStart");
+//     },
+//     onPanResponderMove(e, gesture) {
+//       console.log("scroll onPanResponderMove");
+//     },
+//     onPanResponderEnd(e, gesture) {
+//       console.log("scroll onPanResponderEnd");
+//     },
+//     onPanResponderReject(e, gesture) {
+//       console.log("scroll onPanResponderReject");
+//     },
+//     onPanResponderTerminate(e, gesture) {
+//       console.log("scroll onPanResponderTerminate");
+//     },
+//   })
+// ).current;
