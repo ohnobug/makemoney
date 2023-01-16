@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View, Image } from "react-native";
-import React, { useState } from "react";
-import { px2vw } from "../../../../utils/utils";
-import { theme } from "../../../../themes/default/styles";
-// import { Image } from "react-native-svg";
+import { Text, View, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import { useAppSelector } from "../../../../hooks";
+import { setTheme } from "./styles";
+import { selectTheme } from "../../../../store/SystemSlice";
 
 type Props = {};
 
@@ -60,13 +60,18 @@ const index = (props: Props) => {
     },
   ]);
 
+  const theme = useAppSelector(selectTheme);
+  const [styles, setStyles] = useState<any>(setTheme(theme));
+  useEffect(() => {
+    setStyles(setTheme(theme));
+  }, [theme]);
+
   return (
     <View style={styles.ljn_list_area}>
       {list.map((item, index) => {
         return (
           <View style={styles.ljn_list_item} key={index}>
             <View style={styles.ljn_list_item_icon}>
-              {/* <Text style={styles.ljn_list_item_icon_inner}>{item.icon}</Text> */}
               <Image style={styles.ljn_list_item_icon_img} source={item.icon} />
             </View>
             <View style={styles.ljn_list_item_title}>
@@ -80,45 +85,3 @@ const index = (props: Props) => {
 };
 
 export default index;
-
-const styles = StyleSheet.create({
-  ljn_list_area: {
-    // height: px2vw(170),
-    backgroundColor: theme.areaBackgroundColor,
-    paddingTop: px2vw(12),
-    paddingBottom: px2vw(8),
-    paddingLeft: px2vw(0),
-    paddingRight: px2vw(0),
-    borderRadius: px2vw(10),
-    marginBottom: px2vw(10),
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-  },
-  ljn_list_item: {
-    flexGrow: 1,
-    flexBasis: px2vw(68.2),
-    height: px2vw(65),
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    marginBottom: px2vw(10),
-  },
-  ljn_list_item_icon: {
-    width: px2vw(35),
-    height: px2vw(35),
-    marginBottom: px2vw(8),
-    // backgroundColor: "blue",
-  },
-  ljn_list_item_icon_img: {
-    width: px2vw(35),
-    height: px2vw(35),
-  },
-  ljn_list_item_title: {},
-  ljn_list_item_title_inner: {
-    color: "white",
-    textAlign: "center",
-    fontSize: px2vw(11),
-  },
-});

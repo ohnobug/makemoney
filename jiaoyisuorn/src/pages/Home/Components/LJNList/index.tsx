@@ -1,12 +1,13 @@
 /// <reference path="../../index.d.ts" />
-
-import { StyleSheet, View, Text, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { debounce, px2vw } from "../../../../utils/utils";
-import { theme } from "../../../../themes/default/styles";
+import { debounce } from "../../../../utils/utils";
 import Swiper from "../../../../library/react-native-web-swiper/src/index";
 import LJNHeaderScroll from "./Components/LJNHeaderScroll";
 import emitter from "../../../../bus";
+import { setTheme } from "./styles";
+import { useAppSelector } from "../../../../hooks";
+import { selectTheme } from "../../../../store/SystemSlice";
 
 // 接收父组件ref
 let bigScrollView: any;
@@ -16,11 +17,15 @@ emitter.on("getBigScrollView", (e) => {
 
 type Props = {};
 const index = (props: Props) => {
-  const [list, setList] = useState(initData2);
+  const theme = useAppSelector(selectTheme);
+  const [styles, setStyles] = useState<any>(setTheme(theme));
+  useEffect(() => {
+    setStyles(setTheme(theme));
+  }, [theme]);
 
+  const [list, setList] = useState(initData2);
   // 滑动列表
   let myswiper = useRef<any>(null);
-
   // 顶部滑动
   let myswiperHeader = useRef<any>(null);
 
@@ -53,7 +58,6 @@ const index = (props: Props) => {
 
   const fd = useCallback(
     debounce(() => {
-      console.log("允许大屏幕滚动");
       bigScrollView?.setNativeProps({
         scrollEnabled: true,
       });
@@ -119,6 +123,12 @@ interface ISwiperSliceProps {
   list?: IListItem[];
 }
 const SwiperSlice = ({ list = [] }: ISwiperSliceProps) => {
+  const theme = useAppSelector(selectTheme);
+  const [styles, setStyles] = useState<any>(setTheme(theme));
+  useEffect(() => {
+    setStyles(setTheme(theme));
+  }, [theme]);
+
   return (
     <View style={styles.ljn_list}>
       {/* 列表标题 */}
@@ -180,303 +190,92 @@ const SwiperSlice = ({ list = [] }: ISwiperSliceProps) => {
   );
 };
 
-const styles = StyleSheet.create({
-  ljn_container: {
-    height: px2vw(570),
-    backgroundColor: theme.areaBackgroundColor,
-    borderRadius: px2vw(10),
-    marginBottom: px2vw(10),
-    display: "flex",
-    flexDirection: "column",
-  },
+// 标题
+const CoinName = ({ name1, name2 }: { name1: string; name2: string }) => {
+  const theme = useAppSelector(selectTheme);
+  const [styles, setStyles] = useState<any>(setTheme(theme));
+  useEffect(() => {
+    setStyles(setTheme(theme));
+  }, [theme]);
 
-  // ----------------------------------列表 start
-  ljn_list_area: {
-    display: "flex",
-    flex: 1,
-    // backgroundColor: "blue",
-  },
-
-  // -------------------- 标题 start
-  ljn_list_title_area: {
-    display: "flex",
-    flexDirection: "row",
-    marginBottom: px2vw(5),
-    minHeight: px2vw(30),
-    marginTop: px2vw(5),
-    // backgroundColor: "blue",
-    flex: 0,
-  },
-  ljn_list_title1: {
-    flex: 1.5,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  ljn_list_title2: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  ljn_list_title3: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-end",
-  },
-  ljn_list_title_inner: {
-    fontSize: px2vw(14),
-    color: "#707589",
-  },
-  // -------------------- 标题 end
-
-  ljn_list: {
-    display: "flex",
-    flex: 1,
-    flexDirection: "column",
-    paddingLeft: px2vw(12),
-    paddingRight: px2vw(12),
-    // backgroundColor: "red",
-  },
-  ljn_list_inner: {
-    flex: 1,
-  },
-
-  ljn_list_item: {
-    display: "flex",
-    flexDirection: "row",
-    height: px2vw(30),
-    marginBottom: px2vw(15),
-    backgroundColor: "#18202d",
-  },
-  ljn_list_item_column1: {
-    flex: 1.5,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
-  ljn_list_item_column2: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    paddingRight: px2vw(32),
-  },
-  ljn_list_item_column2_text: {
-    color: "white",
-    fontSize: px2vw(14),
-  },
-  ljn_list_item_column3: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    // backgroundColor: "yellow",
-  },
-  ljn_list_item_icon: {
-    width: px2vw(25),
-    height: px2vw(25),
-  },
-  ljn_list_item_name: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    marginLeft: px2vw(6),
-  },
-  ljn_list_item_name1: {
-    color: "white",
-    fontSize: px2vw(14),
-    fontWeight: "600",
-  },
-  ljn_list_item_name2: {
-    color: "#434b58",
-    fontSize: px2vw(12),
-    marginLeft: px2vw(3),
-  },
-  ljn_list_item_name3: {
-    color: "#434b58",
-    fontSize: px2vw(10),
-  },
-  ljn_list_item_float_btn_up: {
-    height: px2vw(30),
-    width: px2vw(70),
-    backgroundColor: "#11b394",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: px2vw(4),
-  },
-  ljn_list_item_float_btn_down: {
-    height: px2vw(30),
-    width: px2vw(70),
-    backgroundColor: "#dc291b",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: px2vw(4),
-  },
-  ljn_list_item_float_btn_text: {
-    color: "white",
-  },
-  // ---------------------------------- 列表end
-
-  ljn_showmore: {
-    flex: 1,
-    maxHeight: px2vw(50),
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    // backgroundColor: "red",
-  },
-  ljn_showmore_text: {
-    color: "#707589",
-    fontSize: px2vw(12),
-  },
-  ljn_showmore_icon: {
-    marginLeft: px2vw(5),
-    width: px2vw(15),
-    height: px2vw(15),
-  },
-});
+  return (
+    <View style={styles.ljn_list_item_name}>
+      <Text style={styles.ljn_list_item_name1}>{name1}</Text>
+      <Text style={styles.ljn_list_item_name2}>/</Text>
+      <Text style={styles.ljn_list_item_name3}>{name2}</Text>
+    </View>
+  );
+};
 
 const img = require("../../../../assets/images/nav1icon.png");
-
 const initData = [
   {
     key: "1",
     icon: img,
-    name: (
-      <View style={styles.ljn_list_item_name}>
-        <Text style={styles.ljn_list_item_name1}>HT</Text>
-        <Text style={styles.ljn_list_item_name2}>/</Text>
-        <Text style={styles.ljn_list_item_name3}>USDT</Text>
-      </View>
-    ),
+    name: <CoinName name1="HKT" name2="USDT" />,
     price: 5.3251,
     float: "+0.91%",
   },
   {
     key: "2",
     icon: img,
-    name: (
-      <View style={styles.ljn_list_item_name}>
-        <Text style={styles.ljn_list_item_name1}>TRX</Text>
-        <Text style={styles.ljn_list_item_name2}>/</Text>
-        <Text style={styles.ljn_list_item_name3}>USDT</Text>
-      </View>
-    ),
+    name: <CoinName name1="TRX" name2="USDT" />,
     price: 0.055375,
     float: "+0.04%",
   },
   {
     key: "3",
     icon: img,
-    name: (
-      <View style={styles.ljn_list_item_name}>
-        <Text style={styles.ljn_list_item_name1}>PI</Text>
-        <Text style={styles.ljn_list_item_name2}>/</Text>
-        <Text style={styles.ljn_list_item_name3}>USDT</Text>
-      </View>
-    ),
+    name: <CoinName name1="PI" name2="USDT" />,
     price: 79.498777,
     float: "-20.89%",
   },
   {
     key: "4",
     icon: img,
-    name: (
-      <View style={styles.ljn_list_item_name}>
-        <Text style={styles.ljn_list_item_name1}>FIL</Text>
-        <Text style={styles.ljn_list_item_name2}>/</Text>
-        <Text style={styles.ljn_list_item_name3}>USDT</Text>
-      </View>
-    ),
+    name: <CoinName name1="FIL" name2="USDT" />,
     price: 3.2908,
     float: "+4.92%",
   },
   {
     key: "5",
     icon: img,
-    name: (
-      <View style={styles.ljn_list_item_name}>
-        <Text style={styles.ljn_list_item_name1}>ETH</Text>
-        <Text style={styles.ljn_list_item_name2}>/</Text>
-        <Text style={styles.ljn_list_item_name3}>USDT</Text>
-      </View>
-    ),
+    name: <CoinName name1="ETH" name2="USDT" />,
     price: 1248.23,
     float: "+3.00%",
   },
   {
     key: "6",
     icon: img,
-    name: (
-      <View style={styles.ljn_list_item_name}>
-        <Text style={styles.ljn_list_item_name1}>SOL</Text>
-        <Text style={styles.ljn_list_item_name2}>/</Text>
-        <Text style={styles.ljn_list_item_name3}>USDT</Text>
-      </View>
-    ),
+    name: <CoinName name1="SOL" name2="USDT" />,
     price: 13.7589,
     float: "+5.20%",
   },
   {
     key: "7",
     icon: img,
-    name: (
-      <View style={styles.ljn_list_item_name}>
-        <Text style={styles.ljn_list_item_name1}>BTC</Text>
-        <Text style={styles.ljn_list_item_name2}>/</Text>
-        <Text style={styles.ljn_list_item_name3}>USDT</Text>
-      </View>
-    ),
+    name: <CoinName name1="BTC" name2="USDT" />,
     price: 16854.3,
     float: "+1.06%",
   },
   {
     key: "8",
     icon: img,
-    name: (
-      <View style={styles.ljn_list_item_name}>
-        <Text style={styles.ljn_list_item_name1}>ETC</Text>
-        <Text style={styles.ljn_list_item_name2}>/</Text>
-        <Text style={styles.ljn_list_item_name3}>USDT</Text>
-      </View>
-    ),
+    name: <CoinName name1="ETC" name2="USDT" />,
     price: 17.619,
     float: "+10.70%",
   },
   {
     key: "9",
     icon: img,
-    name: (
-      <View style={styles.ljn_list_item_name}>
-        <Text style={styles.ljn_list_item_name1}>LTC</Text>
-        <Text style={styles.ljn_list_item_name2}>/</Text>
-        <Text style={styles.ljn_list_item_name3}>USDT</Text>
-      </View>
-    ),
+    name: <CoinName name1="LTC" name2="USDT" />,
     price: 76.62,
     float: "+2.62%",
   },
   {
     key: "10",
     icon: img,
-    name: (
-      <View style={styles.ljn_list_item_name}>
-        <Text style={styles.ljn_list_item_name1}>OP</Text>
-        <Text style={styles.ljn_list_item_name2}>/</Text>
-        <Text style={styles.ljn_list_item_name3}>USDT</Text>
-      </View>
-    ),
+    name: <CoinName name1="OP" name2="USDT" />,
     price: 1.0177,
     float: "+4.60%",
   },

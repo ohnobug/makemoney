@@ -11,6 +11,9 @@ import {
 import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import { px2vw } from "../../../../../../utils/utils";
 import LJNScrollView from "../../../../../../components/LJNScrollView";
+import { useAppSelector } from "../../../../../../hooks";
+import { setTheme } from "./styles";
+import { selectTheme } from "../../../../../../store/SystemSlice";
 
 type Props = {
   list: string[];
@@ -19,6 +22,12 @@ type Props = {
 
 // 位置信息
 const index = ({ list, onChange }: Props, ref: any) => {
+  const theme = useAppSelector(selectTheme);
+  const [styles, setStyles] = useState<any>(setTheme(theme));
+  useEffect(() => {
+    setStyles(setTheme(theme));
+  }, [theme]);
+
   let TabPositionInfo: { x: number; width: number }[] = useRef([]).current;
   // 滚动对象
   let myScrollView = useRef<ScrollView>(null);
@@ -80,91 +89,56 @@ const index = ({ list, onChange }: Props, ref: any) => {
   }, [activeIndex]);
 
   return (
-    <View style={styles.ljn_tabs}>
-      <LJNScrollView
-        style={styles.ljn_tabs}
-        horizontal={true}
-        ref={myScrollView}
-        children={
-          <>
-            <Animated.View
-              style={StyleSheet.flatten([
-                styles.ljn_fly_bottom,
-                {
-                  width: springWidth,
-                  left: springLeft,
-                },
-              ])}
-            ></Animated.View>
+    <LJNScrollView
+      style={styles.ljn_tabs}
+      horizontal={true}
+      ref={myScrollView}
+      children={
+        <>
+          <Animated.View
+            style={StyleSheet.flatten([
+              styles.ljn_fly_bottom,
+              {
+                width: springWidth,
+                left: springLeft,
+              },
+            ])}
+          ></Animated.View>
 
-            {list.map((item, index) => {
-              return (
-                <View
-                  onLayout={(event) => {
-                    const layout: LayoutRectangle = event.nativeEvent.layout;
-                    TabPositionInfo.push({
-                      x: layout.x + px2vw(10),
-                      width: layout.width - px2vw(20),
-                    });
-                  }}
-                  style={styles.ljn_tab}
-                  key={index}
-                  onTouchEnd={() => {
-                    setActiveIndex(index);
-                  }}
+          {list.map((item, index) => {
+            return (
+              <View
+                onLayout={(event) => {
+                  const layout: LayoutRectangle = event.nativeEvent.layout;
+                  TabPositionInfo.push({
+                    x: layout.x + px2vw(10),
+                    width: layout.width - px2vw(20),
+                  });
+                }}
+                style={styles.ljn_tab}
+                key={index}
+                onTouchEnd={() => {
+                  setActiveIndex(index);
+                }}
+              >
+                <Text
+                  style={StyleSheet.flatten([
+                    styles.ljn_tab_text,
+                    index === activeIndex ? styles.ljn_tab_text_active : null,
+                  ])}
                 >
-                  <Text
-                    style={StyleSheet.flatten([
-                      styles.ljn_tab_text,
-                      index === activeIndex ? styles.ljn_tab_text_active : null,
-                    ])}
-                  >
-                    {item}
-                  </Text>
-                </View>
-              );
-            })}
-          </>
-        }
-      />
-    </View>
+                  {item}
+                </Text>
+              </View>
+            );
+          })}
+        </>
+      }
+    />
   );
 };
 
 export default React.forwardRef(index);
-
-const styles = StyleSheet.create({
-  ljn_tabs: {
-    flex: 1,
-    width: px2vw(375),
-    maxHeight: px2vw(43),
-    borderBottomWidth: px2vw(1),
-    borderBottomColor: "#272f3c",
-  },
-  ljn_tab: {
-    paddingLeft: px2vw(10),
-    paddingRight: px2vw(10),
-    height: px2vw(40),
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  ljn_fly_bottom: {
-    height: px2vw(3),
-    backgroundColor: "#32a1fc",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-  },
-  ljn_tab_text: {
-    color: "#5c6175",
-    fontSize: px2vw(14),
-    fontWeight: "600",
-  },
-  ljn_tab_text_active: {
-    color: "#32a1fc",
-  },
-});
 
 interface ITabPositionInfo {
   x: number;

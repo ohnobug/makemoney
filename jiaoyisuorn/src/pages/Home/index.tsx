@@ -1,14 +1,17 @@
-import React, { useEffect, useRef } from "react";
-import { View, StyleSheet, Dimensions, ScrollView } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { View, Text, ScrollView, Button } from "react-native";
 import LJNSwiper from "./Components/LJNSwiper";
 import LJNHotInfo from "./Components/LJNHotInfo";
 import LJNNav from "./Components/LJNNav";
 import LJNFunctions from "./Components/LJNFunctions";
 import LJNList from "./Components/LJNList";
 import LJNTabbar from "../../components/LJNTabbar";
-import { px2vw } from "../../utils/utils";
 import emitter from "../../bus";
 import LJNScrollView from "../../components/LJNScrollView";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { selectTheme } from "../../store/SystemSlice";
+import { setTheme } from "./styles";
+import { setTheme as reduxSetTheme } from "../../store/SystemSlice";
 
 type Props = {};
 export default function index({}: Props) {
@@ -17,6 +20,14 @@ export default function index({}: Props) {
   useEffect(() => {
     emitter.emit("getBigScrollView", bigScrollView.current);
   }, [bigScrollView]);
+
+  const theme = useAppSelector(selectTheme);
+  const [styles, setStyles] = useState<any>(setTheme(theme));
+  useEffect(() => {
+    setStyles(setTheme(theme));
+  }, [theme]);
+
+  const dispatch = useAppDispatch();
 
   return (
     <View style={styles.container}>
@@ -51,27 +62,3 @@ export default function index({}: Props) {
     </View>
   );
 }
-
-// 考虑web端
-// const screen = Dimensions.get("screen");
-const window = Dimensions.get("window");
-
-const styles = StyleSheet.create({
-  container: {
-    // position: "absolute",
-    // top: screen.height - window.height,
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-  },
-  ljn_main: {
-    flex: 1,
-    maxHeight: window.height - px2vw(60),
-    backgroundColor: "#0f131f",
-    // #0f131f
-  },
-  ljn_footer: {
-    flex: 0,
-    minHeight: px2vw(60),
-  },
-});

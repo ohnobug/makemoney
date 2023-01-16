@@ -3,10 +3,12 @@ import { RootState } from ".";
 
 interface IinitialState {
   tabbarIndex: number;
+  theme: string;
 }
 
 const initialState: IinitialState = {
   tabbarIndex: 0,
+  theme: "dark",
 };
 
 const SystemSlice = createSlice({
@@ -16,10 +18,14 @@ const SystemSlice = createSlice({
     setTabbarIndex(state, action) {
       state.tabbarIndex = action.payload;
     },
+    setTheme(state, action) {
+      state.theme = action.payload;
+    },
   },
 });
 
-export const { setTabbarIndex } = SystemSlice.actions;
+export const { setTabbarIndex, setTheme } = SystemSlice.actions;
 export const selectTabbarIndex = (state: RootState) => state.system.tabbarIndex;
+export const selectTheme = (state: RootState) => state.system.theme;
 
 export default SystemSlice.reducer;

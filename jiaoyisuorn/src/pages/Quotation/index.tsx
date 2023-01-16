@@ -1,19 +1,16 @@
-import React, { useState } from "react";
-import { View, StyleSheet, ScrollView, Text } from "react-native";
+import React from "react";
+import { View, StyleSheet, ScrollView, Text, Button } from "react-native";
 import LJNTabbar from "../../components/LJNTabbar";
 import { px2vw } from "../../utils/utils";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import { selectTheme, setTheme } from "../../store/SystemSlice";
 
 type Props = {};
 
 // let timer: any;
 export default function index({}: Props) {
-  const [scrollEnabled, setScrollEnabled] = useState(true);
-
-  const mySetScrollEnabled = (value: boolean) => {
-    if (scrollEnabled !== value) {
-      setScrollEnabled(value);
-    }
-  };
+  const dispatch = useAppDispatch();
+  const theme = useAppSelector(selectTheme);
 
   return (
     <View style={styles.container}>
@@ -21,17 +18,30 @@ export default function index({}: Props) {
         directionalLockEnabled={true}
         horizontal={false}
         style={styles.ljn_main}
-        scrollEnabled={scrollEnabled}
       >
-        <View style={styles.ljn_big_box}>
-          <Text
-            style={{
-              fontSize: px2vw(50),
-              color: "white",
-            }}
-          >
-            行情
-          </Text>
+        <Button
+          onPress={() => {
+            dispatch(setTheme("dark"));
+          }}
+          title="黑"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+        <Button
+          onPress={() => {
+            dispatch(setTheme("light"));
+          }}
+          title="白"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+
+        <View
+          style={{
+            backgroundColor: "red",
+          }}
+        >
+          <Text style={{ color: "white" }}>{theme}</Text>
         </View>
       </ScrollView>
 
