@@ -1,5 +1,5 @@
-import { Platform, ScrollView, StyleProp, ViewStyle } from "react-native";
-import React, { MutableRefObject, useRef } from "react";
+import { ScrollView, StyleProp, ViewStyle } from "react-native";
+import React from "react";
 
 type Props = {
   children: JSX.Element;
@@ -9,18 +9,18 @@ type Props = {
 
 const index = (
   { children = <></>, style = {}, horizontal = false }: Props,
-  ref: MutableRefObject<ScrollView>
+  ref: any
 ) => {
   return (
     <ScrollView
       style={style}
+      ref={ref}
+      horizontal={horizontal}
       bounces={false}
       alwaysBounceHorizontal={false}
       alwaysBounceVertical={false}
-      horizontal={horizontal}
-      directionalLockEnabled
+      directionalLockEnabled={true}
       showsHorizontalScrollIndicator={false}
-      ref={ref}
       scrollEnabled={true}
     >
       {children}

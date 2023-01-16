@@ -1,20 +1,123 @@
 /// <reference path="../../index.d.ts" />
+
 import { StyleSheet, View, Text, Image } from "react-native";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { px2vw } from "../../../../utils/utils";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { debounce, px2vw } from "../../../../utils/utils";
 import { theme } from "../../../../themes/default/styles";
 import Swiper from "../../../../library/react-native-web-swiper/src/index";
 import LJNHeaderScroll from "./Components/LJNHeaderScroll";
-import context from "../../../../ctx";
+import emitter from "../../../../bus";
+
+// 接收父组件ref
+let bigScrollView: any;
+emitter.on("getBigScrollView", (e) => {
+  bigScrollView = e;
+});
 
 type Props = {};
+const index = (props: Props) => {
+  const [list, setList] = useState(initData2);
+
+  // 滑动列表
+  let myswiper = useRef<any>(null);
+
+  // 顶部滑动
+  let myswiperHeader = useRef<any>(null);
+
+  useEffect(() => {
+    setInterval(() => {
+      let newList = list.map((titem) => {
+        let nlist = titem.list.map((item) => {
+          item.price =
+            Math.round(
+              (Math.trunc(Math.random() * 1000) +
+                Math.trunc(Math.random() * 10000) / 10000) *
+                10000
+            ) / 10000;
+          let float: number = Math.random() * 100;
+          let sign = Math.random() > 0.5;
+          if (sign) {
+            item.float = "-" + float.toFixed(2) + "%";
+          } else {
+            item.float = "+" + float.toFixed(2) + "%";
+          }
+          return item;
+        });
+
+        titem.list = [...nlist];
+        return titem;
+      });
+      setList([...newList]);
+    }, 2000);
+  }, []);
+
+  const fd = useCallback(
+    debounce(() => {
+      console.log("允许大屏幕滚动");
+      bigScrollView?.setNativeProps({
+        scrollEnabled: true,
+      });
+    }, 500),
+    []
+  );
+
+  return (
+    <View style={styles.ljn_container}>
+      {/* tabs */}
+      <LJNHeaderScroll
+        ref={myswiperHeader}
+        list={list.map((item) => item.tabname)}
+        onChange={(n: number) => {
+          myswiper.current.goTo(n);
+        }}
+      />
+
+      {/* 列表区域 可以左右滑动 */}
+      <View style={styles.ljn_list_area}>
+        <Swiper
+          ref={myswiper}
+          loop={false}
+          vertical={false}
+          minDistanceToCapture={10}
+          minDistanceForAction={0.1}
+          onAnimationStart={() => {
+            bigScrollView?.setNativeProps({
+              scrollEnabled: false,
+            });
+          }}
+          onAnimationEnd={() => {
+            fd();
+          }}
+          onIndexChanged={(n: number) => {
+            myswiperHeader.current.goTo(n);
+          }}
+          springConfig={{
+            stiffness: 100,
+            damping: 100,
+            mass: 0.3,
+          }}
+          controlsEnabled={false}
+          controlsProps={{
+            prevPos: false,
+            nextPos: false,
+          }}
+        >
+          {list.map((item1, index1) => {
+            return <SwiperSlice key={index1} list={item1.list} />;
+          })}
+        </Swiper>
+      </View>
+    </View>
+  );
+};
+
+export default index;
 
 interface ISwiperSliceProps {
   index?: number;
   activeIndex?: number;
   list?: IListItem[];
 }
-
 const SwiperSlice = ({ list = [] }: ISwiperSliceProps) => {
   return (
     <View style={styles.ljn_list}>
@@ -76,91 +179,6 @@ const SwiperSlice = ({ list = [] }: ISwiperSliceProps) => {
     </View>
   );
 };
-
-// 起始位置
-// type IPosition = any;
-const index = (props: Props) => {
-  // const { bigScrollView } = useContext(context);
-
-  const [list, setList] = useState(initData2);
-
-  // 滑动列表
-  let myswiper = useRef<any>(null);
-
-  // 顶部滑动
-  let myswiperHeader = useRef<any>(null);
-
-  useEffect(() => {
-    setInterval(() => {
-      let newList = list.map((titem) => {
-        let nlist = titem.list.map((item) => {
-          item.price =
-            Math.round(
-              (Math.trunc(Math.random() * 1000) +
-                Math.trunc(Math.random() * 10000) / 10000) *
-                10000
-            ) / 10000;
-          let float: number = Math.random() * 100;
-          let sign = Math.random() > 0.5;
-          if (sign) {
-            item.float = "-" + float.toFixed(2) + "%";
-          } else {
-            item.float = "+" + float.toFixed(2) + "%";
-          }
-          return item;
-        });
-
-        titem.list = [...nlist];
-        return titem;
-      });
-      setList(JSON.parse(JSON.stringify(newList)));
-    }, 2000);
-  }, []);
-
-  return (
-    <View style={styles.ljn_container}>
-      {/* tabs */}
-      <LJNHeaderScroll
-        ref={myswiperHeader}
-        list={list.map((item) => item.tabname)}
-        onChange={(n: number) => {
-          myswiper.current.goTo(n);
-        }}
-      />
-
-      {/* 列表区域 可以左右滑动 */}
-      <View style={styles.ljn_list_area}>
-        <Swiper
-          ref={myswiper}
-          loop={false}
-          vertical={false}
-          minDistanceToCapture={0}
-          minDistanceForAction={0.1}
-          onIndexChanged={(n: number) => {
-            myswiperHeader.current.goTo(n);
-          }}
-          springConfig={{
-            tension: 30,
-            friction: 200,
-            // speed: 10,
-            // bounciness: 3,
-          }}
-          controlsEnabled={false}
-          controlsProps={{
-            prevPos: false,
-            nextPos: false,
-          }}
-        >
-          {list.map((item1, index1) => {
-            return <SwiperSlice key={index1} list={item1.list} />;
-          })}
-        </Swiper>
-      </View>
-    </View>
-  );
-};
-
-export default index;
 
 const styles = StyleSheet.create({
   ljn_container: {

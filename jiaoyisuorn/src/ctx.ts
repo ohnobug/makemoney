@@ -1,5 +1,10 @@
 import { createContext } from "react";
+import { ScrollView } from "react-native";
 
-const context = createContext<any>({});
+interface IContext {
+  bigScrollView?: ScrollView;
+}
+
+const context = createContext<IContext>({});
 
 export default context;

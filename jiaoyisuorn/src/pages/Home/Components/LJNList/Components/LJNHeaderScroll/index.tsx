@@ -81,13 +81,6 @@ const index = ({ list, onChange }: Props, ref: any) => {
 
   return (
     <View style={styles.ljn_tabs}>
-      {/* <View
-        onTouchStart={() => {
-          setActiveIndex(3);
-        }}
-      >
-        <Text>text</Text>
-      </View> */}
       <LJNScrollView
         style={styles.ljn_tabs}
         horizontal={true}

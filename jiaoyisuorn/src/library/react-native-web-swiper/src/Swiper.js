@@ -144,14 +144,14 @@ class Swiper extends React.Component {
           return false;
         }
 
-        this.props.onAnimationStart &&
-          this.props.onAnimationStart(this.getActiveIndex());
-
         const allow =
           Math.abs(vertical ? gestureState.dy : gestureState.dx) >
           minDistanceToCapture;
 
         if (allow) {
+          this.props.onAnimationStart &&
+            this.props.onAnimationStart(this.getActiveIndex());
+
           this.stopAutoplay();
         }
 

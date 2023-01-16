@@ -1,13 +1,26 @@
-import React, { useRef } from "react";
-import { View, Image, StyleSheet, PanResponder } from "react-native";
+import React, { useCallback } from "react";
+import { View, Image, StyleSheet } from "react-native";
 import Swiper from "../../../../library/react-native-web-swiper/src/index";
-import { px2vw } from "../../../../utils/utils";
+import { debounce, px2vw } from "../../../../utils/utils";
+import emitter from "../../../../bus";
 
-type Props = {
-  setScrollEnabled?: Function;
-};
+// 接收父组件ref
+let bigScrollView: any;
+emitter.on("getBigScrollView", (e) => {
+  bigScrollView = e;
+});
 
+type Props = {};
 const index = (props: Props) => {
+  const fd = useCallback(
+    debounce(() => {
+      bigScrollView?.setNativeProps({
+        scrollEnabled: true,
+      });
+    }, 500),
+    []
+  );
+
   return (
     <View style={styles.container}>
       <Swiper
@@ -15,11 +28,19 @@ const index = (props: Props) => {
         directionalLockEnabled
         loop={false}
         vertical={false}
-        minDistanceToCapture={0}
-        minDistanceForAction={0}
+        minDistanceToCapture={10}
+        minDistanceForAction={0.1}
         controlsProps={{
           prevPos: false,
           nextPos: false,
+        }}
+        onAnimationStart={() => {
+          bigScrollView?.setNativeProps({
+            scrollEnabled: false,
+          });
+        }}
+        onAnimationEnd={() => {
+          fd();
         }}
       >
         {[

@@ -6,3 +6,14 @@ export function px2vw(value: number) {
   const baseWidth = 375;
   return (value / baseWidth) * deviceInfo.width;
 }
+
+// 防抖
+export function debounce(fn: any, wait: number) {
+  var timer: any = null;
+  return function () {
+    if (timer !== null) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(fn, wait);
+  };
+}

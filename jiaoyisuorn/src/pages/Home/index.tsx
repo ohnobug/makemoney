@@ -7,46 +7,42 @@ import LJNFunctions from "./Components/LJNFunctions";
 import LJNList from "./Components/LJNList";
 import LJNTabbar from "../../components/LJNTabbar";
 import { px2vw } from "../../utils/utils";
+import emitter from "../../bus";
 import LJNScrollView from "../../components/LJNScrollView";
-import ctx from "../../ctx";
-
-const { Provider } = ctx;
 
 type Props = {};
 export default function index({}: Props) {
   let bigScrollView = useRef<ScrollView>(null);
 
+  useEffect(() => {
+    emitter.emit("getBigScrollView", bigScrollView.current);
+  }, [bigScrollView]);
+
   return (
     <View style={styles.container}>
       <LJNScrollView
-        ref={bigScrollView}
-        horizontal={false}
         style={styles.ljn_main}
+        horizontal={false}
+        ref={bigScrollView}
         children={
           <>
-            <Provider
-              value={{
-                bigScrollView: bigScrollView,
-              }}
-            >
-              {/* 轮播图 */}
-              <LJNSwiper />
+            {/* 轮播图 */}
+            <LJNSwiper />
 
-              {/* 热门信息 */}
-              <LJNHotInfo />
+            {/* 热门信息 */}
+            <LJNHotInfo />
 
-              {/* 导航区 */}
-              <LJNNav />
+            {/* 导航区 */}
+            <LJNNav />
 
-              {/* 功能区 */}
-              <LJNFunctions />
+            {/* 功能区 */}
+            <LJNFunctions />
 
-              {/* 榜单 */}
-              <LJNList />
-            </Provider>
+            {/* 榜单 */}
+            <LJNList />
           </>
         }
-      />
+      ></LJNScrollView>
 
       {/* 底部 */}
       <View style={styles.ljn_footer}>
