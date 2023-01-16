@@ -22,6 +22,8 @@ const index = (
       directionalLockEnabled={true}
       showsHorizontalScrollIndicator={false}
       scrollEnabled={true}
+      overScrollMode={"never"}
+      showsVerticalScrollIndicator={false}
     >
       {children}
     </ScrollView>

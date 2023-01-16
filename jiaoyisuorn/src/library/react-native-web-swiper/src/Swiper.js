@@ -144,14 +144,24 @@ class Swiper extends React.Component {
           return false;
         }
 
-        const allow =
+        let allow = false;
+
+        // 如果竖向的滑动范围比横向的大，也不允许横向滑动
+        if (Math.abs(gestureState.dy) > Math.abs(gestureState.dx)) {
+          this.props.onNotAllowScroll &&
+            this.props.onNotAllowScroll(this.getActiveIndex());
+          allow = false;
+          return allow;
+        }
+
+        // 如果横向滚动大于指定的值，则运行滚动
+        allow =
           Math.abs(vertical ? gestureState.dy : gestureState.dx) >
           minDistanceToCapture;
 
         if (allow) {
           this.props.onAnimationStart &&
             this.props.onAnimationStart(this.getActiveIndex());
-
           this.stopAutoplay();
         }
 
@@ -396,6 +406,8 @@ Swiper.propTypes = {
   onTouchEnd: PropTypes.func,
   onTouchEndCapture: PropTypes.func,
   onTouchCancel: PropTypes.func,
+  // 不允许滑动swiper
+  onNotAllowScroll: PropTypes.func,
 };
 
 Swiper.defaultProps = {

@@ -27,8 +27,6 @@ export default function index({}: Props) {
     setStyles(setTheme(theme));
   }, [theme]);
 
-  const dispatch = useAppDispatch();
-
   return (
     <View style={styles.container}>
       <LJNScrollView

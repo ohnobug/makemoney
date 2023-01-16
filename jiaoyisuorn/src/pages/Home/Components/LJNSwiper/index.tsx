@@ -28,7 +28,7 @@ const index = (props: Props) => {
         directionalLockEnabled
         loop={false}
         vertical={false}
-        minDistanceToCapture={10}
+        minDistanceToCapture={3}
         minDistanceForAction={0.1}
         controlsProps={{
           prevPos: false,
@@ -41,6 +41,11 @@ const index = (props: Props) => {
         }}
         onAnimationEnd={() => {
           fd();
+        }}
+        onNotAllowScroll={() => {
+          bigScrollView?.setNativeProps({
+            scrollEnabled: true,
+          });
         }}
       >
         {[

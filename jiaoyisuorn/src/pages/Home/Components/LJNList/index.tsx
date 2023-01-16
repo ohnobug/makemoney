@@ -54,6 +54,10 @@ const index = (props: Props) => {
       });
       setList([...newList]);
     }, 2000);
+
+    return () => {
+      bigScrollView = null;
+    };
   }, []);
 
   const fd = useCallback(
@@ -82,8 +86,8 @@ const index = (props: Props) => {
           ref={myswiper}
           loop={false}
           vertical={false}
-          minDistanceToCapture={10}
-          minDistanceForAction={0.1}
+          minDistanceToCapture={3}
+          minDistanceForAction={0.01}
           onAnimationStart={() => {
             bigScrollView?.setNativeProps({
               scrollEnabled: false,
@@ -91,6 +95,11 @@ const index = (props: Props) => {
           }}
           onAnimationEnd={() => {
             fd();
+          }}
+          onNotAllowScroll={() => {
+            bigScrollView?.setNativeProps({
+              scrollEnabled: true,
+            });
           }}
           onIndexChanged={(n: number) => {
             myswiperHeader.current.goTo(n);
