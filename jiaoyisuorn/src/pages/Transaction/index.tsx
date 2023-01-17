@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ScrollView, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Text,
+  Animated,
+  Button,
+} from "react-native";
 import LJNTabbar from "../../components/LJNTabbar";
 import { px2vw } from "../../utils/utils";
 
@@ -7,13 +14,9 @@ type Props = {};
 
 // let timer: any;
 export default function index({}: Props) {
-  const [scrollEnabled, setScrollEnabled] = useState(true);
+  const [count, setCount] = useState(0);
 
-  const mySetScrollEnabled = (value: boolean) => {
-    if (scrollEnabled !== value) {
-      setScrollEnabled(value);
-    }
-  };
+  const [arr, setArr] = useState<number[]>([1]);
 
   return (
     <View style={styles.container}>
@@ -21,17 +24,27 @@ export default function index({}: Props) {
         directionalLockEnabled={true}
         horizontal={false}
         style={styles.ljn_main}
-        scrollEnabled={scrollEnabled}
+        scrollEnabled={true}
       >
         <View style={styles.ljn_big_box}>
-          <Text
-            style={{
-              fontSize: px2vw(50),
-              color: "white",
-            }}
-          >
-            交易
-          </Text>
+          <Text style={{ color: "red" }}>交易 {count}</Text>
+
+          <Animated.View>
+            <Text style={{ color: "red" }}>
+              {arr.join(" + ")} ={" "}
+              {arr.reduce((total, item) => (total += item), 0)}
+            </Text>
+            <Text style={{ color: "red" }}>交易 {count}</Text>
+            <Button
+              onPress={() => {
+                setCount(count + 1);
+                arr.push(arr.length + 1);
+
+                setArr([...arr]);
+              }}
+              title="hello"
+            />
+          </Animated.View>
         </View>
       </ScrollView>
 

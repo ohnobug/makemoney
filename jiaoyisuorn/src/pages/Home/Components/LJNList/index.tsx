@@ -8,6 +8,7 @@ import emitter from "../../../../bus";
 import { setTheme } from "./styles";
 import { useAppSelector } from "../../../../hooks";
 import { selectTheme } from "../../../../store/SystemSlice";
+import LJNLoading from "../../../../components/LJNLoading";
 
 // 接收父组件ref
 let bigScrollView: any;
@@ -29,8 +30,18 @@ const index = (props: Props) => {
   // 顶部滑动
   let myswiperHeader = useRef<any>(null);
 
+  let [show, setShow] = useState(false);
   useEffect(() => {
-    setInterval(() => {
+    let timer = setTimeout(() => {
+      setShow(true);
+    }, 0);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  useEffect(() => {
+    let timerMock = setInterval(() => {
       let newList = list.map((titem) => {
         let nlist = titem.list.map((item) => {
           item.price =
@@ -53,10 +64,10 @@ const index = (props: Props) => {
         return titem;
       });
       setList([...newList]);
-    }, 2000);
+    }, 1000);
 
     return () => {
-      bigScrollView = null;
+      clearInterval(timerMock);
     };
   }, []);
 
@@ -76,49 +87,47 @@ const index = (props: Props) => {
         ref={myswiperHeader}
         list={list.map((item) => item.tabname)}
         onChange={(n: number) => {
-          myswiper.current.goTo(n);
+          myswiper.current?.goTo(n);
         }}
       />
-
-      {/* 列表区域 可以左右滑动 */}
       <View style={styles.ljn_list_area}>
-        <Swiper
-          ref={myswiper}
-          loop={false}
-          vertical={false}
-          minDistanceToCapture={3}
-          minDistanceForAction={0.01}
-          onAnimationStart={() => {
-            bigScrollView?.setNativeProps({
-              scrollEnabled: false,
-            });
-          }}
-          onAnimationEnd={() => {
-            fd();
-          }}
-          onNotAllowScroll={() => {
-            bigScrollView?.setNativeProps({
-              scrollEnabled: true,
-            });
-          }}
-          onIndexChanged={(n: number) => {
-            myswiperHeader.current.goTo(n);
-          }}
-          springConfig={{
-            stiffness: 100,
-            damping: 100,
-            mass: 0.3,
-          }}
-          controlsEnabled={false}
-          controlsProps={{
-            prevPos: false,
-            nextPos: false,
-          }}
-        >
-          {list.map((item1, index1) => {
-            return <SwiperSlice key={index1} list={item1.list} />;
-          })}
-        </Swiper>
+        {/* 列表区域 可以左右滑动 */}
+        {show ? (
+          <Swiper
+            ref={myswiper}
+            loop={false}
+            vertical={false}
+            minDistanceToCapture={10}
+            minDistanceForAction={0.1}
+            onAnimationStart={() => {
+              bigScrollView?.setNativeProps({
+                scrollEnabled: false,
+              });
+            }}
+            onAnimationEnd={() => {
+              fd();
+            }}
+            onIndexChanged={(n: number) => {
+              myswiperHeader.current.goTo(n);
+            }}
+            springConfig={{
+              stiffness: 100,
+              damping: 100,
+              mass: 0.2,
+            }}
+            controlsEnabled={false}
+            controlsProps={{
+              prevPos: false,
+              nextPos: false,
+            }}
+          >
+            {list.map((item1, index1) => {
+              return <SwiperSlice key={index1} list={item1.list} />;
+            })}
+          </Swiper>
+        ) : (
+          <LJNLoading />
+        )}
       </View>
     </View>
   );
@@ -127,8 +136,6 @@ const index = (props: Props) => {
 export default index;
 
 interface ISwiperSliceProps {
-  index?: number;
-  activeIndex?: number;
   list?: IListItem[];
 }
 const SwiperSlice = ({ list = [] }: ISwiperSliceProps) => {

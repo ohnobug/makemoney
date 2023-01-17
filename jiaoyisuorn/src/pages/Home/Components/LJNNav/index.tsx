@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../../../hooks";
 import { setTheme } from "./styles";
 import { selectTheme } from "../../../../store/SystemSlice";
+import LJNLoading from "../../../../components/LJNLoading";
 
 type Props = {};
 
@@ -66,20 +67,40 @@ const index = (props: Props) => {
     setStyles(setTheme(theme));
   }, [theme]);
 
+  let [show, setShow] = useState(false);
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setShow(true);
+    }, 0);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
     <View style={styles.ljn_list_area}>
-      {list.map((item, index) => {
-        return (
-          <View style={styles.ljn_list_item} key={index}>
-            <View style={styles.ljn_list_item_icon}>
-              <Image style={styles.ljn_list_item_icon_img} source={item.icon} />
+      {show ? (
+        list.map((item, index) => {
+          return (
+            <View style={styles.ljn_list_item} key={index}>
+              <View style={styles.ljn_list_item_icon}>
+                <Image
+                  style={styles.ljn_list_item_icon_img}
+                  source={item.icon}
+                />
+              </View>
+              <View style={styles.ljn_list_item_title}>
+                <Text style={styles.ljn_list_item_title_inner}>
+                  {item.title}
+                </Text>
+              </View>
             </View>
-            <View style={styles.ljn_list_item_title}>
-              <Text style={styles.ljn_list_item_title_inner}>{item.title}</Text>
-            </View>
-          </View>
-        );
-      })}
+          );
+        })
+      ) : (
+        <LJNLoading />
+      )}
     </View>
   );
 };

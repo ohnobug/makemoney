@@ -1,4 +1,4 @@
-import React, { cloneElement } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import {
   Animated,
@@ -330,7 +330,7 @@ class Swiper extends React.Component {
             }}
             {...this._panResponder.panHandlers}
           >
-            {this.children.map((el, i) => (
+            {this.props.children.map((el, i) => (
               <View
                 key={i}
                 style={StyleSheet.flatten([
@@ -338,14 +338,16 @@ class Swiper extends React.Component {
                   slideWrapperStyle,
                 ])}
               >
-                {cloneElement(el, {
+                {el}
+                {/* {cloneElement(el, {
                   activeIndex: this.getActiveIndex(),
                   index: i,
                   isActive: i === this.getActiveIndex(),
-                })}
+                })} */}
               </View>
             ))}
           </Animated.View>
+
           {controlsEnabled && (
             <Controls
               {...controlsProps}

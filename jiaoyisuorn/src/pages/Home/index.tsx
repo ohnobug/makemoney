@@ -8,10 +8,9 @@ import LJNList from "./Components/LJNList";
 import LJNTabbar from "../../components/LJNTabbar";
 import emitter from "../../bus";
 import LJNScrollView from "../../components/LJNScrollView";
-import { useAppDispatch, useAppSelector } from "../../hooks";
+import { useAppSelector } from "../../hooks";
 import { selectTheme } from "../../store/SystemSlice";
 import { setTheme } from "./styles";
-import { setTheme as reduxSetTheme } from "../../store/SystemSlice";
 
 type Props = {};
 export default function index({}: Props) {

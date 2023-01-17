@@ -13,7 +13,7 @@ export function setTheme(name: string) {
 
   return StyleSheet.create({
     ljn_list_area: {
-      // height: px2vw(170),
+      height: px2vw(170),
       backgroundColor: theme.areaBackgroundColor,
       paddingTop: px2vw(12),
       paddingBottom: px2vw(8),

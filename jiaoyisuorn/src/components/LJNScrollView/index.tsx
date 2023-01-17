@@ -24,6 +24,8 @@ const index = (
       scrollEnabled={true}
       overScrollMode={"never"}
       showsVerticalScrollIndicator={false}
+      disableIntervalMomentum={true}
+      disableScrollViewPanResponder={true}
     >
       {children}
     </ScrollView>

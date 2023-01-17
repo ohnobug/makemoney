@@ -27,7 +27,7 @@ const index = (props: Props) => {
     },
     {
       title: "交易",
-      path: "/trade",
+      path: "/transaction",
       icon: require("../../assets/images/nav3icon.png"),
     },
     {
