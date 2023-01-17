@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from ".";
+import emitter from "../bus";
 
 interface IinitialState {
   tabbarIndex: number;
@@ -20,6 +21,7 @@ const SystemSlice = createSlice({
     },
     setTheme(state, action) {
       state.theme = action.payload;
+      emitter.emit("setTheme", action.payload);
     },
   },
 });

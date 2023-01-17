@@ -21,7 +21,6 @@ export function setTheme(name: string) {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "#9DD6EB",
     },
     image: {
       width: "100%",

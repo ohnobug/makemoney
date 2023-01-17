@@ -43,7 +43,7 @@ const index = (props: Props) => {
   }, [theme]);
 
   return (
-    <View style={StyleSheet.flatten([styles.container])}>
+    <View style={styles.container}>
       {show ? (
         <Swiper
           horizontal
@@ -85,12 +85,13 @@ const index = (props: Props) => {
           })}
         </Swiper>
       ) : (
-        <View style={styles.slide1}>
-          <Image
-            style={styles.image}
-            source={require("../../../../assets/images/ad1.jpg")}
-          />
-        </View>
+        <LJNLoading />
+        // <View style={styles.slide1}>
+        //   <Image
+        //     style={styles.image}
+        //     source={require("../../../../assets/images/ad1.jpg")}
+        //   />
+        // </View>
       )}
     </View>
   );

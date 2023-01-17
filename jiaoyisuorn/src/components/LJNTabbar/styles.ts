@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import { px2vw } from "../../utils/utils";
 import darkTheme from "../../themes/default/styles";
 import lightTheme from "../../themes/light/styles";
@@ -52,7 +52,7 @@ export function setTheme(name: string) {
       color: theme.titleTextColor,
     },
     ljn_tabbar_item_title_active: {
-      color: "#3c8aff",
+      color: name === "dark" ? "white" : "#0089ff",
       fontWeight: "600",
     },
   });

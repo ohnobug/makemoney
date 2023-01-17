@@ -58,7 +58,10 @@ const index = (props: Props) => {
   let chart2Ref = useRef<any>(null);
   let chart3Ref = useRef<any>(null);
 
-  let chart1: any, chart2: any, chart3: any;
+  let chart1 = useRef<any>(null).current,
+    chart2 = useRef<any>(null).current,
+    chart3 = useRef<any>(null).current;
+  let [chartShow, setChartShow] = useState(false);
   if (Platform.OS === "web") {
     chart1 = <ReactECharts ref={chart1Ref} option={option1Init} />;
     chart2 = <ReactECharts ref={chart2Ref} option={option2Init} />;
@@ -70,7 +73,7 @@ const index = (props: Props) => {
         onLoadEnd={() => {
           setTimeout(() => {
             setChartShow(true);
-          }, 300);
+          }, 400);
         }}
         ref={chart1Ref}
         option={option1Init}
@@ -82,7 +85,7 @@ const index = (props: Props) => {
         onLoadEnd={() => {
           setTimeout(() => {
             setChartShow(true);
-          }, 300);
+          }, 400);
         }}
         ref={chart2Ref}
         option={option2Init}
@@ -94,7 +97,7 @@ const index = (props: Props) => {
         onLoadEnd={() => {
           setTimeout(() => {
             setChartShow(true);
-          }, 300);
+          }, 400);
         }}
         ref={chart3Ref}
         option={option3Init}
@@ -102,9 +105,13 @@ const index = (props: Props) => {
     );
   }
 
-  let [chartShow, setChartShow] = useState(false);
   let [show, setShow] = useState(false);
   useEffect(() => {
+    // web端默认可以显示
+    if (Platform.OS === "web") {
+      setChartShow(true);
+    }
+
     let timer = setTimeout(() => {
       setShow(true);
     }, 0);

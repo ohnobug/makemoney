@@ -14,36 +14,49 @@ export default function index({}: Props) {
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        directionalLockEnabled={true}
-        horizontal={false}
-        style={styles.ljn_main}
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#333333",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
-        <Button
-          onPress={() => {
-            dispatch(setTheme("dark"));
-          }}
-          title="黑"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
-        <Button
-          onPress={() => {
-            dispatch(setTheme("light"));
-          }}
-          title="白"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
-
+        <Text style={{ fontSize: px2vw(50), color: "red" }}>
+          当前主题{theme}
+        </Text>
+      </View>
+      <View style={styles.ljn_main}>
         <View
           style={{
-            backgroundColor: "red",
+            flex: 1,
+            backgroundColor: "black",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          onTouchStart={() => {
+            dispatch(setTheme("dark"));
           }}
         >
-          <Text style={{ color: "white" }}>{theme}</Text>
+          <Text style={{ fontSize: px2vw(30), color: "red" }}>黑色主题</Text>
         </View>
-      </ScrollView>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          onTouchStart={() => {
+            dispatch(setTheme("light"));
+          }}
+        >
+          <Text style={{ fontSize: px2vw(30), color: "red" }}>白色主题</Text>
+        </View>
+      </View>
 
       <View style={styles.ljn_footer}>
         <LJNTabbar />
@@ -61,16 +74,10 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   ljn_main: {
-    flex: 1,
-    // maxHeight: window.height - px2vw(60),
+    flex: 3,
     backgroundColor: "#0f131f",
-    // #0f131f
-  },
-  ljn_big_box: {
-    height: px2vw(500),
     display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: "row",
   },
   ljn_footer: {
     flex: 0,
