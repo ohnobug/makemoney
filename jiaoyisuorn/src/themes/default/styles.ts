@@ -6,7 +6,8 @@ const theme: {
   titleTextColor: "#afb2be",
   textColor: "white",
   reverseTextColor: "white",
-  borderColor: "#202a3a",
+  // borderColor: "#202a3a",
+  borderColor: "#383d49",
 };
 
 export default theme;
