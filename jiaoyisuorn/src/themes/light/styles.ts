@@ -1,6 +1,4 @@
-const theme: {
-  [key: string]: string;
-} = {
+const theme: ITheme = {
   backgroundColor: "#e5e5e5",
   areaBackgroundColor: "#ffffff",
   titleTextColor: "#4c5166",

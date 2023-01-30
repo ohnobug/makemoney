@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { px2vw } from "../../utils/utils";
-import darkTheme from "../../themes/default/styles";
-import lightTheme from "../../themes/light/styles";
+import { px2vw } from "../../../../utils/utils";
+import darkTheme from "../../../../themes/default/styles";
+import lightTheme from "../../../../themes/light/styles";
 
 const window = Dimensions.get("window");
 export function setTheme(name: string) {
@@ -215,7 +215,6 @@ export function setTheme(name: string) {
       color: "#009bff",
       fontSize: px2vw(14),
     },
-
     ljn_userinfo_level_row2: {
       height: px2vw(30),
       display: "flex",
@@ -229,17 +228,45 @@ export function setTheme(name: string) {
       fontSize: px2vw(12),
     },
 
-    // 活动中心区域
-    ljn_activation_area: {
+    // 功能区1
+    ljn_userinfo_detail_func1: {
+      borderBottomColor: theme.borderColor,
+      borderBottomWidth: px2vw(1),
+    },
+    ljn_list_area: {
+      backgroundColor: theme.areaBackgroundColor,
       display: "flex",
-      flexWrap: "wrap",
       flexDirection: "row",
-      justifyContent: "space-between",
+      flexWrap: "wrap",
+    },
+    ljn_list_item: {
+      flexGrow: 1,
+      flexBasis: px2vw(68.2),
+      height: px2vw(65),
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "column",
+      marginTop: px2vw(5),
+    },
+    ljn_list_item_icon: {
+      width: px2vw(30),
+      height: px2vw(30),
+      marginBottom: px2vw(2),
+      // backgroundColor: "blue",
+    },
+    ljn_list_item_icon_img: {
+      width: px2vw(30),
+      height: px2vw(30),
+    },
+    ljn_list_item_title: {},
+    ljn_list_item_title_inner: {
+      color: theme.titleTextColor,
+      textAlign: "center",
+      fontSize: px2vw(11),
     },
 
-    ljn_footer: {
-      flex: 0,
-      minHeight: px2vw(60),
-    },
+    // 功能区2
+    ljn_userinfo_detail_func2: {},
   });
 }

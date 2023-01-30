@@ -9,6 +9,7 @@ import { setTheme } from "./styles";
 import { useAppSelector } from "../../../../hooks";
 import { selectTheme } from "../../../../store/SystemSlice";
 import LJNLoading from "../../../../components/LJNLoading";
+import LJNIcon from "../../../../components/LJNIcon";
 
 // 接收父组件ref
 let bigScrollView: any;
@@ -34,7 +35,7 @@ const index = (props: Props) => {
   useEffect(() => {
     let timer = setTimeout(() => {
       setShow(true);
-    }, 0);
+    }, 100);
     return () => {
       clearTimeout(timer);
     };
@@ -67,6 +68,8 @@ const index = (props: Props) => {
     }, 1000);
 
     return () => {
+      // 如果不加该行，可能会操作已经被销毁的View
+      bigScrollView = null;
       clearInterval(timerMock);
     };
   }, []);
@@ -82,53 +85,55 @@ const index = (props: Props) => {
 
   return (
     <View style={styles.ljn_container}>
-      {/* tabs */}
-      <LJNHeaderScroll
-        ref={myswiperHeader}
-        list={list.map((item) => item.tabname)}
-        onChange={(n: number) => {
-          myswiper.current?.goTo(n);
-        }}
-      />
-      <View style={styles.ljn_list_area}>
-        {/* 列表区域 可以左右滑动 */}
-        {show ? (
-          <Swiper
-            ref={myswiper}
-            loop={false}
-            vertical={false}
-            minDistanceToCapture={10}
-            minDistanceForAction={0.1}
-            onAnimationStart={() => {
-              bigScrollView?.setNativeProps({
-                scrollEnabled: false,
-              });
+      {show ? (
+        <>
+          {/* tabs */}
+          <LJNHeaderScroll
+            ref={myswiperHeader}
+            list={list.map((item) => item.tabname)}
+            onChange={(n: number) => {
+              myswiper.current?.goTo(n);
             }}
-            onAnimationEnd={() => {
-              fd();
-            }}
-            onIndexChanged={(n: number) => {
-              myswiperHeader.current.goTo(n);
-            }}
-            springConfig={{
-              stiffness: 100,
-              damping: 100,
-              mass: 0.2,
-            }}
-            controlsEnabled={false}
-            controlsProps={{
-              prevPos: false,
-              nextPos: false,
-            }}
-          >
-            {list.map((item1, index1) => {
-              return <SwiperSlice key={index1} list={item1.list} />;
-            })}
-          </Swiper>
-        ) : (
-          <LJNLoading />
-        )}
-      </View>
+          />
+          <View style={styles.ljn_list_area}>
+            {/* 列表区域 可以左右滑动 */}
+            <Swiper
+              ref={myswiper}
+              loop={false}
+              vertical={false}
+              minDistanceToCapture={10}
+              minDistanceForAction={0.1}
+              onAnimationStart={() => {
+                bigScrollView?.setNativeProps({
+                  scrollEnabled: false,
+                });
+              }}
+              onAnimationEnd={() => {
+                fd();
+              }}
+              onIndexChanged={(n: number) => {
+                myswiperHeader.current.goTo(n);
+              }}
+              springConfig={{
+                stiffness: 100,
+                damping: 100,
+                mass: 0.2,
+              }}
+              controlsEnabled={false}
+              controlsProps={{
+                prevPos: false,
+                nextPos: false,
+              }}
+            >
+              {list.map((item1, index1) => {
+                return <SwiperSlice key={index1} list={item1.list} />;
+              })}
+            </Swiper>
+          </View>
+        </>
+      ) : (
+        <LJNLoading />
+      )}
     </View>
   );
 };
@@ -197,10 +202,9 @@ const SwiperSlice = ({ list = [] }: ISwiperSliceProps) => {
       {/* 查看更多 */}
       <View style={styles.ljn_showmore}>
         <Text style={styles.ljn_showmore_text}>查看更多</Text>
-        <Image
-          style={styles.ljn_showmore_icon}
-          source={require("../../../../assets/images/arrow_right.png")}
-        />
+        <View style={styles.ljn_showmore_icon}>
+          <LJNIcon title="jinrujiantouxiao" size={15} />
+        </View>
       </View>
     </View>
   );

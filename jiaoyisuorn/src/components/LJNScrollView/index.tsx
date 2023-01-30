@@ -21,9 +21,9 @@ const index = (
       alwaysBounceVertical={false}
       directionalLockEnabled={true}
       showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
       scrollEnabled={true}
       overScrollMode={"never"}
-      showsVerticalScrollIndicator={false}
       disableIntervalMomentum={true}
       disableScrollViewPanResponder={true}
     >

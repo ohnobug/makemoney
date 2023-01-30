@@ -6,6 +6,7 @@ import Assets from "../pages/Assets";
 import Transaction from "../pages/Transaction";
 import Contract from "../pages/Contract";
 import Quotation from "../pages/Quotation";
+import Setting from "../pages/Setting";
 
 const router = (
   <NativeRouter>
@@ -17,6 +18,7 @@ const router = (
         <Route path="contract" element={<Contract />}></Route>
         <Route path="assets" element={<Assets />}></Route>
         <Route path="user" element={<User />}></Route>
+        <Route path="setting" element={<Setting />}></Route>
       </Route>
     </Routes>
   </NativeRouter>

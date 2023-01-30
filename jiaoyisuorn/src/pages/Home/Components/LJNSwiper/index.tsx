@@ -16,6 +16,14 @@ emitter.on("getBigScrollView", (e) => {
 
 type Props = {};
 const index = (props: Props) => {
+  const [list, setList] = useState([
+    require("../../../../assets/images/ad1.jpg"),
+    require("../../../../assets/images/ad2.jpg"),
+    require("../../../../assets/images/ad3.jpg"),
+    require("../../../../assets/images/ad4.jpg"),
+    require("../../../../assets/images/ad5.jpg"),
+  ]);
+
   const fd = useCallback(
     debounce(() => {
       bigScrollView?.setNativeProps({
@@ -32,6 +40,8 @@ const index = (props: Props) => {
     }, 100);
 
     return () => {
+      // 如果不加该行，可能会操作已经被销毁的View
+      bigScrollView = null;
       clearTimeout(timer);
     };
   }, []);
@@ -46,16 +56,10 @@ const index = (props: Props) => {
     <View style={styles.container}>
       {show ? (
         <Swiper
-          horizontal
-          directionalLockEnabled
           loop={false}
           vertical={false}
-          minDistanceToCapture={3}
+          minDistanceToCapture={10}
           minDistanceForAction={0.1}
-          controlsProps={{
-            prevPos: false,
-            nextPos: false,
-          }}
           onAnimationStart={() => {
             bigScrollView?.setNativeProps({
               scrollEnabled: false,
@@ -64,34 +68,27 @@ const index = (props: Props) => {
           onAnimationEnd={() => {
             fd();
           }}
-          onNotAllowScroll={() => {
-            bigScrollView?.setNativeProps({
-              scrollEnabled: true,
-            });
+          springConfig={{
+            stiffness: 100,
+            damping: 100,
+            mass: 0.2,
+          }}
+          controlsEnabled={true}
+          controlsProps={{
+            prevPos: false,
+            nextPos: false,
           }}
         >
-          {[
-            require("../../../../assets/images/ad1.jpg"),
-            require("../../../../assets/images/ad2.jpg"),
-            require("../../../../assets/images/ad3.jpg"),
-            require("../../../../assets/images/ad4.jpg"),
-            require("../../../../assets/images/ad5.jpg"),
-          ].map((item, index) => {
+          {list.map((item, index) => {
             return (
-              <View style={styles.slide1} key={index}>
-                <Image style={styles.image} source={item} />
+              <View style={styles.ljn_slide} key={index}>
+                <Image style={styles.ljn_slide_image} source={item} />
               </View>
             );
           })}
         </Swiper>
       ) : (
         <LJNLoading />
-        // <View style={styles.slide1}>
-        //   <Image
-        //     style={styles.image}
-        //     source={require("../../../../assets/images/ad1.jpg")}
-        //   />
-        // </View>
       )}
     </View>
   );

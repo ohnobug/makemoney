@@ -4,7 +4,7 @@ import darkTheme from "../../../../themes/default/styles";
 import lightTheme from "../../../../themes/light/styles";
 
 export function setTheme(name: string) {
-  let theme: any;
+  let theme: ITheme;
   if (name === "dark") {
     theme = darkTheme;
   } else {
@@ -169,8 +169,6 @@ export function setTheme(name: string) {
     },
     ljn_showmore_icon: {
       marginLeft: px2vw(5),
-      width: px2vw(15),
-      height: px2vw(15),
     },
   });
 }

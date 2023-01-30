@@ -4,7 +4,7 @@ import darkTheme from "../../../../themes/default/styles";
 import lightTheme from "../../../../themes/light/styles";
 
 export function setTheme(name: string) {
-  let theme: any;
+  let theme: ITheme;
   if (name === "dark") {
     theme = darkTheme;
   } else {
@@ -17,12 +17,12 @@ export function setTheme(name: string) {
       height: px2vw(160),
       backgroundColor: theme.areaBackgroundColor,
     },
-    slide1: {
+    ljn_slide: {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
     },
-    image: {
+    ljn_slide_image: {
       width: "100%",
       height: "100%",
     },

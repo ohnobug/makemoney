@@ -1,7 +1,7 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { px2vw } from "../../utils/utils";
+import { StyleSheet } from "react-native";
 import darkTheme from "../../themes/default/styles";
 import lightTheme from "../../themes/light/styles";
+import { px2vw } from "../../utils/utils";
 
 export function setTheme(name: string) {
   let theme: ITheme;
@@ -12,14 +12,19 @@ export function setTheme(name: string) {
   }
 
   return StyleSheet.create({
-    ljn_container: {
-      flex: 1,
+    ljn_button: {
+      flex: 0,
+      width: "100%",
+      minHeight: px2vw(47),
+      backgroundColor: "#0094ff",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      borderRadius: px2vw(5),
     },
-    ljn_container_text: {
+    ljn_button_text: {
       color: theme.textColor,
+      fontSize: px2vw(16),
     },
   });
 }

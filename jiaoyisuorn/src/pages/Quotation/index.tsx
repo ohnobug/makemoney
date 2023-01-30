@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, ScrollView, Text, Button } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import LJNTabbar from "../../components/LJNTabbar";
 import { px2vw } from "../../utils/utils";
 import { useAppDispatch, useAppSelector } from "../../hooks";

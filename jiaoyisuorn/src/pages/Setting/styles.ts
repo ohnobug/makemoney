@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { px2vw } from "../../utils/utils";
 import darkTheme from "../../themes/default/styles";
 import lightTheme from "../../themes/light/styles";
@@ -13,7 +13,7 @@ export function setTheme(name: string) {
   }
 
   return StyleSheet.create({
-    container: {
+    ljn_container: {
       flex: 1,
       display: "flex",
       flexDirection: "column",
@@ -21,11 +21,24 @@ export function setTheme(name: string) {
     },
     ljn_main: {
       flex: 1,
-      maxHeight: window.height - px2vw(60),
+      maxHeight: window.height - px2vw(190),
     },
-    ljn_footer: {
+    ljn_logout_area: {
       flex: 0,
-      minHeight: px2vw(60),
+      flexBasis: px2vw(150),
+      padding: px2vw(10),
+      display: "flex",
+      alignItems: "center",
+      // backgroundColor: "red",
+      flexDirection: "column",
+    },
+    ljn_switch_account: {
+      marginBottom: px2vw(31),
+      color: theme.textColor,
+    },
+    ljn_logout: {
+      color: theme.textColor,
+      fontSize: px2vw(14),
     },
   });
 }

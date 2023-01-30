@@ -4,7 +4,7 @@ import darkTheme from "../../themes/default/styles";
 import lightTheme from "../../themes/light/styles";
 
 export function setTheme(name: string) {
-  let theme: any;
+  let theme: ITheme;
   if (name === "dark") {
     theme = darkTheme;
   } else {
