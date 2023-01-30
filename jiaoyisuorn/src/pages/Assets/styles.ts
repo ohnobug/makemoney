@@ -160,7 +160,7 @@ export function setTheme(name: string) {
     },
     ljn_assets_benefit_info3_value: {
       fontSize: px2vw(14),
-      color: theme.textColor,
+      color: "white",
     },
 
     ljn_list_area: {
