@@ -23,7 +23,7 @@ export function setTheme(name: string) {
       borderRadius: px2vw(5),
     },
     ljn_button_text: {
-      color: theme.textColor,
+      color: "white",
       fontSize: px2vw(16),
     },
   });

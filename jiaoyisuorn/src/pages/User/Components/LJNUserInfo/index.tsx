@@ -71,10 +71,10 @@ const index = (props: Props) => {
         <>
           <View style={styles.ljn_header_function}>
             <View style={styles.ljn_header_function_btn}>
-              <LJNIcon title="yuyan" color={themeStyles?.textColor} size={20} />
+              <LJNIcon title="yuyan" size={20} />
             </View>
             <View style={styles.ljn_header_function_btn}>
-              <LJNIcon title="xinxi" color={themeStyles?.textColor} size={18} />
+              <LJNIcon title="xinxi" size={18} />
             </View>
             <View
               style={styles.ljn_header_function_btn}
@@ -82,11 +82,7 @@ const index = (props: Props) => {
                 navigate("/setting");
               }}
             >
-              <LJNIcon
-                title="shezhi"
-                color={themeStyles?.textColor}
-                size={20}
-              />
+              <LJNIcon title="shezhi" size={20} />
             </View>
           </View>
 

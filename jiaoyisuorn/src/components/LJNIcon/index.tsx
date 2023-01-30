@@ -13,7 +13,7 @@ type Props = {
 
 const index = ({ title, size = 20, color = "" }: Props) => {
   const theme = useAppSelector(selectTheme);
-  const [IconColor, setIconColor] = useState<string>("");
+  const [IconColor, setIconColor] = useState<string>(color);
   useEffect(() => {
     if (color === "") {
       if (theme === "dark") {
