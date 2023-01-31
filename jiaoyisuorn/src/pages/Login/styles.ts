@@ -55,9 +55,9 @@ export function setTheme(name: string) {
       flex: 1,
       paddingLeft: px2vw(25),
       paddingRight: px2vw(25),
-      color: "white",
+      color: theme.textColor,
       fontSize: px2vw(16),
-      fontWeight: 600,
+      fontWeight: "600",
     },
     ljn_login_form_row2: {
       flex: 1,
@@ -72,7 +72,7 @@ export function setTheme(name: string) {
       justifyContent: "center",
     },
     ljn_login_form_row3_text: {
-      color: theme.primaryColor,
+      // color: theme.primaryColor,
     },
 
     ljn_other_login_style: {
@@ -115,7 +115,6 @@ export function setTheme(name: string) {
       fontSize: px2vw(12),
     },
     ljn_user_agreement: {
-      color: theme.primaryColor,
       fontSize: px2vw(12),
     },
   });

@@ -16,7 +16,6 @@ type Props = {
 const index = (props: Props) => {
   const theme = useAppSelector(selectTheme);
   const [styles, setStyles] = useState<any>(setTheme(theme));
-
   useEffect(() => {
     setStyles(setTheme(theme));
   }, []);

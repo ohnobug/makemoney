@@ -1,26 +1,23 @@
 import {
-  Text,
-  View,
-  StyleSheet,
-  StyleProp,
-  ViewStyle,
-  TouchableOpacity,
   GestureResponderEvent,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextProps,
+  TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks";
-import { selectTheme } from "../../store/SystemSlice";
 import { setTheme } from "./styles";
+import { selectTheme } from "../../store/SystemSlice";
 
 type Props = {
   title: string;
-  size?: "small" | "middle" | "normal" | "big";
-  block?: boolean;
+  style?: StyleProp<TextProps>;
   onPress?: (event: GestureResponderEvent) => void | undefined;
-  style?: StyleProp<ViewStyle>;
 };
 
-const index = ({ title, size = "normal", onPress, style }: Props) => {
+const index = ({ title, style, onPress }: Props) => {
   const theme = useAppSelector(selectTheme);
   const [styles, setStyles] = useState<any>(setTheme(theme));
   useEffect(() => {
@@ -28,12 +25,8 @@ const index = ({ title, size = "normal", onPress, style }: Props) => {
   }, []);
 
   return (
-    <TouchableOpacity
-      activeOpacity={0.6}
-      style={StyleSheet.flatten([styles["ljn_" + size + "_button"], style])}
-      onPress={onPress}
-    >
-      <Text style={styles["ljn_" + size + "_button_text"]}>{title}</Text>
+    <TouchableOpacity activeOpacity={0.6} onPress={onPress}>
+      <Text style={StyleSheet.flatten([styles.ljn_link, style])}>{title}</Text>
     </TouchableOpacity>
   );
 };

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Platform,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { setTheme } from "./styles";
@@ -14,6 +15,7 @@ import LJNHeader from "../../components/LJNHeader";
 import LJNButton from "../../components/LJNButton";
 import LJNHeaderScroll from "../../components/LJNHeaderScroll";
 import LJNLineTitle from "../../components/LJNLineTitle";
+import LJNLink from "../../components/LJNLink";
 
 type Props = {};
 
@@ -77,7 +79,10 @@ const index = (props: Props) => {
               />
             </View>
             <View style={styles.ljn_login_form_row3}>
-              <Text style={styles.ljn_login_form_row3_text}>密码登录</Text>
+              <LJNLink
+                title="密码登录"
+                style={styles.ljn_login_form_row3_text}
+              ></LJNLink>
             </View>
           </View>
         </View>
@@ -85,7 +90,10 @@ const index = (props: Props) => {
         {/* 其他方式 */}
         <LJNLineTitle title={"其他方式"} />
         <View style={styles.ljn_other_login_style}>
-          <View style={styles.ljn_other_login_style_item}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={styles.ljn_other_login_style_item}
+          >
             <View style={styles.ljn_other_login_logo}>
               <Image
                 style={styles.ljn_other_login_logo_img}
@@ -95,9 +103,12 @@ const index = (props: Props) => {
             <View style={styles.ljn_other_login_title}>
               <Text style={styles.ljn_other_login_title_text}>Facebook</Text>
             </View>
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.ljn_other_login_style_item}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={styles.ljn_other_login_style_item}
+          >
             <View style={styles.ljn_other_login_logo}>
               <Image
                 style={styles.ljn_other_login_logo_img}
@@ -107,9 +118,12 @@ const index = (props: Props) => {
             <View style={styles.ljn_other_login_title}>
               <Text style={styles.ljn_other_login_title_text}>Google</Text>
             </View>
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.ljn_other_login_style_item}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={styles.ljn_other_login_style_item}
+          >
             <View style={styles.ljn_other_login_logo}>
               <Image
                 style={styles.ljn_other_login_logo_img}
@@ -119,14 +133,17 @@ const index = (props: Props) => {
             <View style={styles.ljn_other_login_title}>
               <Text style={styles.ljn_other_login_title_text}>Twitter</Text>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.ljn_tips_text}>
           <Text style={styles.ljn_user_tips_text}>继续注册即代表同意</Text>
-          <Text style={styles.ljn_user_agreement}>《用户协议》</Text>
+          <LJNLink
+            title="《用户协议》"
+            style={styles.ljn_user_agreement}
+          ></LJNLink>
           <Text style={styles.ljn_user_tips_text}>和</Text>
-          <Text style={styles.ljn_user_agreement}>《用户协议》</Text>
+          <LJNLink title="《隐私协议》"></LJNLink>
         </View>
       </View>
     </View>

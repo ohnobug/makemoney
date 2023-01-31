@@ -1,5 +1,5 @@
-import { View, Button, Text, Alert } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import { View } from "react-native";
+import React, { useEffect, useState } from "react";
 import LJNHeader from "../../components/LJNHeader";
 import LJNList from "../../components/LJNList";
 import { setTheme } from "./styles";
@@ -7,6 +7,8 @@ import { useAppSelector } from "../../hooks";
 import { selectTheme } from "../../store/SystemSlice";
 import LJNScrollView from "../../components/LJNScrollView";
 import LJNButton from "../../components/LJNButton";
+import LJNLink from "../../components/LJNLink";
+import { Navigate, useNavigate } from "react-router-native";
 
 type Props = {};
 
@@ -27,6 +29,7 @@ const listData2 = [
 ];
 
 const index = (props: Props) => {
+  const navigate = useNavigate();
   const theme = useAppSelector(selectTheme);
   const [styles, setStyles] = useState<any>(setTheme(theme));
   useEffect(() => {
@@ -52,7 +55,13 @@ const index = (props: Props) => {
           onPress={() => {}}
           title="切换账号登录"
         />
-        <Text style={styles.ljn_logout}>退出</Text>
+        <LJNLink
+          title="退出"
+          style={styles.ljn_logout}
+          onPress={() => {
+            navigate("/login");
+          }}
+        />
       </View>
     </View>
   );
