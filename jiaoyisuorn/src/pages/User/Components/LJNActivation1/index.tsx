@@ -6,13 +6,15 @@ import { setTheme } from "./styles";
 import LJNIcon from "../../../../components/LJNIcon";
 import LJNButton from "../../../../components/LJNButton";
 import LJNLoading from "../../../../components/LJNLoading";
+import { useNavigate } from "react-router-native";
 
 type Props = {};
 
 const index = (props: Props) => {
+  const navigate = useNavigate();
+
   const theme = useAppSelector(selectTheme);
   const [styles, setStyles] = useState<any>(setTheme(theme));
-
   useEffect(() => {
     setStyles(setTheme(theme));
   }, [theme]);
@@ -55,9 +57,11 @@ const index = (props: Props) => {
             </View>
             <View style={styles.ljn_activation_row3}>
               <LJNButton
-                style={styles.ljn_activation_row3_button}
+                size="small"
                 title={"去完成"}
-                onPress={() => {}}
+                onPress={() => {
+                  navigate("/login");
+                }}
               />
             </View>
           </View>

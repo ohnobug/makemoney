@@ -1,8 +1,19 @@
-import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Platform,
+  Image,
+} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
 import { setTheme } from "./styles";
 import { useAppSelector } from "../../hooks";
 import { selectTheme } from "../../store/SystemSlice";
+import LJNHeader from "../../components/LJNHeader";
+import LJNButton from "../../components/LJNButton";
+import LJNHeaderScroll from "../../components/LJNHeaderScroll";
+import LJNLineTitle from "../../components/LJNLineTitle";
 
 type Props = {};
 
@@ -13,9 +24,111 @@ const index = (props: Props) => {
     setStyles(setTheme(theme));
   }, [theme]);
 
+  // 顶部滑动
+  let myswiperHeader = useRef<any>(null);
+
+  // 输入框
+  const [text, setText] = useState("");
+
   return (
-    <View>
-      <Text>index</Text>
+    <View style={styles.ljn_container}>
+      <LJNHeader title={""} />
+      <View style={styles.ljn_main}>
+        {/* 标题 */}
+        <View style={styles.ljn_login_title}>
+          <Text style={styles.ljn_login_title_text}>注册/登录您的账号</Text>
+        </View>
+
+        {/* 登录表单 */}
+        <View style={styles.ljn_login_form_area}>
+          {/* tabs */}
+          <LJNHeaderScroll
+            ref={myswiperHeader}
+            list={["邮箱", "手机号"]}
+            onChange={(n: number) => {}}
+          />
+
+          <View style={styles.ljn_login_form}>
+            <View style={styles.ljn_login_form_row1}>
+              <TextInput
+                editable
+                multiline={false}
+                maxLength={40}
+                onChangeText={(val: string) => {
+                  setText(val);
+                }}
+                value={text}
+                style={StyleSheet.flatten([
+                  styles.ljn_login_form_row1_input,
+                  Platform.OS === "web"
+                    ? {
+                        outline: "none",
+                      }
+                    : null,
+                ])}
+              />
+            </View>
+            <View style={styles.ljn_login_form_row2}>
+              <LJNButton
+                size="normal"
+                title={"获取验证码"}
+                style={{ width: "100%" }}
+                onPress={() => {}}
+              />
+            </View>
+            <View style={styles.ljn_login_form_row3}>
+              <Text style={styles.ljn_login_form_row3_text}>密码登录</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* 其他方式 */}
+        <LJNLineTitle title={"其他方式"} />
+        <View style={styles.ljn_other_login_style}>
+          <View style={styles.ljn_other_login_style_item}>
+            <View style={styles.ljn_other_login_logo}>
+              <Image
+                style={styles.ljn_other_login_logo_img}
+                source={require("../../assets/images/facebook_logo.png")}
+              />
+            </View>
+            <View style={styles.ljn_other_login_title}>
+              <Text style={styles.ljn_other_login_title_text}>Facebook</Text>
+            </View>
+          </View>
+
+          <View style={styles.ljn_other_login_style_item}>
+            <View style={styles.ljn_other_login_logo}>
+              <Image
+                style={styles.ljn_other_login_logo_img}
+                source={require("../../assets/images/google_logo.png")}
+              />
+            </View>
+            <View style={styles.ljn_other_login_title}>
+              <Text style={styles.ljn_other_login_title_text}>Google</Text>
+            </View>
+          </View>
+
+          <View style={styles.ljn_other_login_style_item}>
+            <View style={styles.ljn_other_login_logo}>
+              <Image
+                style={styles.ljn_other_login_logo_img}
+                source={require("../../assets/images/twitter_logo.png")}
+              />
+            </View>
+            <View style={styles.ljn_other_login_title}>
+              <Text style={styles.ljn_other_login_title_text}>Twitter</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.ljn_tips_text}>
+          <Text style={styles.ljn_user_tips_text}>继续注册即代表同意</Text>
+          <Text style={styles.ljn_user_agreement}>《用户协议》</Text>
+          <Text style={styles.ljn_user_tips_text}>和</Text>
+          <Text style={styles.ljn_user_agreement}>《用户协议》</Text>
+        </View>
+      </View>
     </View>
   );
 };

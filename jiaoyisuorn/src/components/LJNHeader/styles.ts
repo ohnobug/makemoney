@@ -13,6 +13,8 @@ export function setTheme(name: string) {
 
   return StyleSheet.create({
     ljn_header: {
+      flexBasis: px2vw(40),
+      flex: 0,
       height: px2vw(40),
       // backgroundColor: "red",
       display: "flex",

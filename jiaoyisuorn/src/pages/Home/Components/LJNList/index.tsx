@@ -3,13 +3,13 @@ import { View, Text, Image } from "react-native";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { debounce } from "../../../../utils/utils";
 import Swiper from "../../../../library/react-native-web-swiper/src/index";
-import LJNHeaderScroll from "./Components/LJNHeaderScroll";
 import emitter from "../../../../bus";
 import { setTheme } from "./styles";
 import { useAppSelector } from "../../../../hooks";
 import { selectTheme } from "../../../../store/SystemSlice";
 import LJNLoading from "../../../../components/LJNLoading";
 import LJNIcon from "../../../../components/LJNIcon";
+import LJNHeaderScroll from "../../../../components/LJNHeaderScroll";
 
 // 接收父组件ref
 let bigScrollView: any;

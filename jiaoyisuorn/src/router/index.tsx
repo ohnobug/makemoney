@@ -7,18 +7,20 @@ import Transaction from "../pages/Transaction";
 import Contract from "../pages/Contract";
 import Quotation from "../pages/Quotation";
 import Setting from "../pages/Setting";
+import Login from "../pages/Login";
 
 const router = (
   <NativeRouter>
     <Routes>
       <Route path="/" element={<AppInner />}>
-        <Route index={true} element={<Home />}></Route>
+        <Route index element={<Home />}></Route>
         <Route path="quotation" element={<Quotation />}></Route>
         <Route path="transaction" element={<Transaction />}></Route>
         <Route path="contract" element={<Contract />}></Route>
         <Route path="assets" element={<Assets />}></Route>
         <Route path="user" element={<User />}></Route>
         <Route path="setting" element={<Setting />}></Route>
+        <Route path="login" element={<Login />}></Route>
       </Route>
     </Routes>
   </NativeRouter>

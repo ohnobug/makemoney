@@ -5,4 +5,5 @@ interface ITheme {
   textColor: string;
   reverseTextColor: string;
   borderColor: string;
+  primaryColor: string;
 }

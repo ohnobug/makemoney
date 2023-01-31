@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
-import { px2vw } from "../../../../../../utils/utils";
-import darkTheme from "../../../../../../themes/default/styles";
-import lightTheme from "../../../../../../themes/light/styles";
+import { px2vw } from "../../utils/utils";
+import darkTheme from "../../themes/default/styles";
+import lightTheme from "../../themes/light/styles";
 
 export function setTheme(name: string) {
   let theme: ITheme;
@@ -14,11 +14,11 @@ export function setTheme(name: string) {
   return StyleSheet.create({
     ljn_tabs: {
       flex: 1,
-      width: px2vw(375),
+      // width: px2vw(375),
       maxHeight: px2vw(43),
       borderBottomWidth: px2vw(1),
       borderBottomColor: theme.borderColor,
-      backgroundColor: theme.areaBackgroundColor,
+      // backgroundColor: theme.areaBackgroundColor,
     },
     ljn_tab: {
       paddingLeft: px2vw(10),

@@ -5,6 +5,7 @@ const theme: ITheme = {
   textColor: "#5c6175",
   reverseTextColor: "#5c6175",
   borderColor: "#cfcfcf",
+  primaryColor: "#0094ff",
 };
 
 export default theme;

@@ -84,9 +84,5 @@ export function setTheme(name: string) {
       justifyContent: "center",
       alignItems: "center",
     },
-    ljn_activation_row3_button: {
-      width: px2vw(80),
-      minHeight: px2vw(27),
-    },
   });
 }

@@ -193,7 +193,7 @@ export function setTheme(name: string) {
       fontSize: px2vw(11),
     },
     ljn_quick_recharge: {
-      height: px2vw(600),
+      height: px2vw(500),
       backgroundColor: theme.areaBackgroundColor,
     },
 
@@ -225,7 +225,6 @@ export function setTheme(name: string) {
     },
     ljn_emptyblock_row3: {
       flex: 1,
-      minHeight: px2vw(40),
       width: px2vw(160),
       marginLeft: "auto",
       marginRight: "auto",

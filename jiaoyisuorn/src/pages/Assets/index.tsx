@@ -158,6 +158,7 @@ export default function index({}: Props) {
                   </Text>
                 </View>
                 <LJNButton
+                  size="middle"
                   style={styles.ljn_emptyblock_row3}
                   title={"去入金"}
                   onPress={() => {}}

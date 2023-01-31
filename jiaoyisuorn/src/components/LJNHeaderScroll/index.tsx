@@ -1,5 +1,3 @@
-/// <reference path="../../../../index.d.ts" />
-
 import {
   Animated,
   LayoutRectangle,
@@ -9,11 +7,11 @@ import {
   View,
 } from "react-native";
 import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
-import { px2vw } from "../../../../../../utils/utils";
-import LJNScrollView from "../../../../../../components/LJNScrollView";
-import { useAppSelector } from "../../../../../../hooks";
+import { px2vw } from "../../utils/utils";
+import LJNScrollView from "../../components/LJNScrollView";
+import { useAppSelector } from "../../hooks";
 import { setTheme } from "./styles";
-import { selectTheme } from "../../../../../../store/SystemSlice";
+import { selectTheme } from "../../store/SystemSlice";
 
 type Props = {
   list: string[];
@@ -139,8 +137,3 @@ const index = ({ list, onChange }: Props, ref: any) => {
 };
 
 export default React.forwardRef(index);
-
-interface ITabPositionInfo {
-  x: number;
-  width: number;
-}

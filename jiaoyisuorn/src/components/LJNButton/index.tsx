@@ -1,4 +1,4 @@
-import { StyleSheetProperties, Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks";
 import { selectTheme } from "../../store/SystemSlice";
@@ -6,11 +6,13 @@ import { setTheme } from "./styles";
 
 type Props = {
   title: string;
-  onPress: Function;
-  style?: StyleSheetProperties;
+  size?: "small" | "middle" | "normal" | "big";
+  block?: boolean;
+  onPress?: Function;
+  style?: StyleProp<ViewStyle>;
 };
 
-const index = ({ title, onPress, style }: Props) => {
+const index = ({ title, size = "normal", onPress, style }: Props) => {
   const theme = useAppSelector(selectTheme);
   const [styles, setStyles] = useState<any>(setTheme(theme));
   useEffect(() => {
@@ -19,12 +21,12 @@ const index = ({ title, onPress, style }: Props) => {
 
   return (
     <View
-      style={StyleSheet.flatten([styles.ljn_button, style])}
+      style={StyleSheet.flatten([styles["ljn_" + size + "_button"], style])}
       onTouchEnd={() => {
-        onPress();
+        onPress && onPress();
       }}
     >
-      <Text style={styles.ljn_button_text}>{title}</Text>
+      <Text style={styles["ljn_" + size + "_button_text"]}>{title}</Text>
     </View>
   );
 };
