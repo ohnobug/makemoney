@@ -21,14 +21,18 @@ export function setTheme(name: string) {
       borderBottomColor: theme.areaBackgroundColor,
     },
     ljn_list_item: {
-      display: "flex",
-      alignItems: "center",
       height: px2vw(64),
-      flexDirection: "row",
-      borderBottomWidth: px2vw(1),
       borderBottomColor: theme.borderColor,
+      borderBottomWidth: px2vw(1),
       marginLeft: px2vw(17),
       marginRight: px2vw(17),
+      display: "flex",
+    },
+    ljn_list_item_inner: {
+      height: px2vw(64),
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
     },
     ljn_list_item_title: {
       flex: 1,

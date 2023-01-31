@@ -27,7 +27,11 @@ export function setTheme(name: string) {
       alignItems: "flex-start",
     },
     ljn_header_left_icon: {
-      marginLeft: px2vw(17),
+      paddingLeft: px2vw(17),
+      paddingRight: px2vw(17),
+      height: px2vw(40),
+      display: "flex",
+      justifyContent: "center",
     },
     ljn_header_middle: {
       flex: 1,

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-native";
 import { useAppSelector } from "../../hooks";
@@ -60,11 +60,11 @@ const index = (props: Props) => {
     <View style={styles.ljn_tabbar}>
       {tabs.map((item, index) => {
         return (
-          <View
+          <TouchableOpacity
+            activeOpacity={0.6}
             style={styles.ljn_tabbar_item}
             key={index}
-            onStartShouldSetResponderCapture={() => true}
-            onResponderGrant={() => {
+            onPress={() => {
               dispatch(setTabbarIndex(index));
               navigate(item.path);
             }}
@@ -84,7 +84,7 @@ const index = (props: Props) => {
                 {item.title}
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
         );
       })}
     </View>

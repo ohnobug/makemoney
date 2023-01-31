@@ -1,4 +1,4 @@
-import { Text, View, Image, StyleSheet } from "react-native";
+import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks";
 import { selectTheme } from "../../store/SystemSlice";
@@ -33,21 +33,30 @@ const index = (props: Props) => {
             ])}
             key={index}
           >
-            <View style={styles.ljn_list_item_title}>
-              <Text style={styles.ljn_list_item_title_text}>{item.title}</Text>
-            </View>
-            <View style={styles.ljn_list_item_desc}>
-              {item.desc ? (
-                <Text style={styles.ljn_list_item_desc_text}>{item.desc}</Text>
-              ) : null}
-            </View>
-            <View style={styles.ljn_list_item_icon}>
-              {item.desc ? (
-                <View style={styles.ljn_list_item_icon_img}>
-                  <LJNIcon title="jinrujiantouxiao" size={14} />
-                </View>
-              ) : null}
-            </View>
+            <TouchableOpacity
+              style={styles.ljn_list_item_inner}
+              activeOpacity={0.6}
+            >
+              <View style={styles.ljn_list_item_title}>
+                <Text style={styles.ljn_list_item_title_text}>
+                  {item.title}
+                </Text>
+              </View>
+              <View style={styles.ljn_list_item_desc}>
+                {item.desc ? (
+                  <Text style={styles.ljn_list_item_desc_text}>
+                    {item.desc}
+                  </Text>
+                ) : null}
+              </View>
+              <View style={styles.ljn_list_item_icon}>
+                {item.desc ? (
+                  <View style={styles.ljn_list_item_icon_img}>
+                    <LJNIcon title="jinrujiantouxiao" size={14} />
+                  </View>
+                ) : null}
+              </View>
+            </TouchableOpacity>
           </View>
         );
       })}

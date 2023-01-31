@@ -27,7 +27,7 @@ const index = (props: Props) => {
             navigate(-1);
           }}
         >
-          <LJNIcon title={"xitongfanhui"} size={18} />
+          <LJNIcon title={"xitongfanhui"} size={20} />
         </View>
       </View>
       <View style={styles.ljn_header_middle}>
