@@ -39,7 +39,7 @@ const index = (props: Props) => {
         chart2Ref.current && chart2Ref.current.setOption(option2Init);
         chart3Ref.current && chart3Ref.current.setOption(option3Init);
       }
-    }, 1000);
+    }, 2000);
 
     return () => {
       if (Platform.OS === "web") {

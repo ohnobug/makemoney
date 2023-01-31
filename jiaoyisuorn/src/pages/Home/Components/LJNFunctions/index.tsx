@@ -13,7 +13,7 @@ const index = (props: Props) => {
     setStyles(setTheme(theme));
   }, [theme]);
 
-  let [show, setShow] = useState(false);
+  let [show, setShow] = useState(true);
   useEffect(() => {
     let timer = setTimeout(() => {
       setShow(true);

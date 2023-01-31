@@ -155,20 +155,15 @@ export function setTheme(name: string) {
     // ---------------------------------- 列表end
 
     ljn_showmore: {
-      flex: 1,
-      maxHeight: px2vw(50),
+      flexBasis: px2vw(50),
       display: "flex",
       flexDirection: "row",
       justifyContent: "center",
       alignItems: "center",
-      // backgroundColor: "red",
     },
     ljn_showmore_text: {
       color: "#707589",
       fontSize: px2vw(12),
-    },
-    ljn_showmore_icon: {
-      marginLeft: px2vw(5),
     },
   });
 }

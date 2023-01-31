@@ -13,9 +13,10 @@ const router = (
   <NativeRouter>
     <Routes>
       <Route path="/" element={<AppInner />}>
-        <Route index element={<Home />}></Route>
+        <Route path="/" element={<Home />}></Route>
         <Route path="quotation" element={<Quotation />}></Route>
-        <Route path="transaction" element={<Transaction />}></Route>
+        {/* <Route path="transaction" element={<Transaction />}></Route> */}
+        <Route index path="transaction" element={<Transaction />}></Route>
         <Route path="contract" element={<Contract />}></Route>
         <Route path="assets" element={<Assets />}></Route>
         <Route path="user" element={<User />}></Route>

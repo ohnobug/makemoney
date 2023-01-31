@@ -25,7 +25,7 @@ export function setTheme(name: string) {
     },
     // 用户信息
     ljn_header_area: {
-      height: px2vw(350),
+      height: px2vw(368),
       backgroundColor: theme.areaBackgroundColor,
       borderBottomLeftRadius: px2vw(10),
       borderBottomRightRadius: px2vw(10),
@@ -181,10 +181,10 @@ export function setTheme(name: string) {
       borderRadius: px2vw(10),
       borderWidth: px2vw(1),
       borderColor: theme.borderColor,
-      paddingTop: px2vw(3),
-      paddingRight: px2vw(8),
-      paddingBottom: px2vw(3),
-      paddingLeft: px2vw(8),
+      paddingTop: px2vw(6),
+      paddingRight: px2vw(11),
+      paddingBottom: px2vw(6),
+      paddingLeft: px2vw(11),
       marginBottom: px2vw(5),
     },
     ljn_userinfo_level_row1: {

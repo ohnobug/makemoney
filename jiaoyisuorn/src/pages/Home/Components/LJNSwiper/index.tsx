@@ -88,7 +88,9 @@ const index = (props: Props) => {
           })}
         </Swiper>
       ) : (
-        <LJNLoading />
+        <View style={styles.ljn_slide}>
+          <Image style={styles.ljn_slide_image} source={list[0]} />
+        </View>
       )}
     </View>
   );

@@ -8,12 +8,12 @@ import emitter from "./src/bus";
 
 export default function App() {
   const [theme, setTheme] = useState("dark");
-
   useEffect(() => {
     emitter.on("setTheme", (val: string) => {
       setTheme(val);
     });
   }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar

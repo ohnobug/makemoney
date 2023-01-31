@@ -50,9 +50,10 @@ export function setTheme(name: string) {
     ljn_tabbar_item_title: {
       fontSize: px2vw(12),
       color: theme.titleTextColor,
+      transform: [{ scale: 0.85 }],
     },
     ljn_tabbar_item_title_active: {
-      color: name === "dark" ? "white" : "#0089ff",
+      color: name === "dark" ? "white" : theme.primaryColor,
       fontWeight: "600",
     },
   });
