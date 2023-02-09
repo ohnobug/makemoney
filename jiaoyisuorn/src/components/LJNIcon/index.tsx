@@ -4,6 +4,7 @@ import { useAppSelector } from "../../hooks";
 import { selectTheme } from "../../store/SystemSlice";
 import darkTheme from "../../themes/default/styles";
 import lightTheme from "../../themes/light/styles";
+import { px2vw } from "../../utils/utils";
 
 type Props = {
   title: string;
@@ -14,6 +15,9 @@ type Props = {
 const index = ({ title, size = 20, color = "" }: Props) => {
   const theme = useAppSelector(selectTheme);
   const [IconColor, setIconColor] = useState<string>(color);
+
+  size = px2vw(size);
+
   useEffect(() => {
     if (color === "") {
       if (theme === "dark") {

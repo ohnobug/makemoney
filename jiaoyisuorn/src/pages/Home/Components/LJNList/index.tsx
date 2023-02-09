@@ -1,7 +1,7 @@
 /// <reference path="../../index.d.ts" />
 import { View, Text, Image } from "react-native";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { debounce } from "../../../../utils/utils";
+import { debounce, px2vw } from "../../../../utils/utils";
 import Swiper from "../../../../library/react-native-web-swiper/src/index";
 import emitter from "../../../../bus";
 import { setTheme } from "./styles";
@@ -95,6 +95,7 @@ const index = (props: Props) => {
               myswiper.current?.goTo(n);
             }}
           />
+
           <View style={styles.ljn_list_area}>
             {/* 列表区域 可以左右滑动 */}
             <Swiper

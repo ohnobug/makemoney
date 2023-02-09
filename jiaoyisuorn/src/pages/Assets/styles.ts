@@ -35,7 +35,6 @@ export function setTheme(name: string) {
       height: px2vw(30),
       display: "flex",
       flexDirection: "row",
-      // backgroundColor: "red",
       marginBottom: px2vw(8),
     },
     ljn_header_left: {

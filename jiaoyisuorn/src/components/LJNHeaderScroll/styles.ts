@@ -13,12 +13,12 @@ export function setTheme(name: string) {
 
   return StyleSheet.create({
     ljn_tabs: {
-      flex: 1,
-      // width: px2vw(375),
+      flex: 0,
+      flexBasis: px2vw(43),
       maxHeight: px2vw(43),
+      // width: px2vw(375),
       borderBottomWidth: px2vw(1),
       borderBottomColor: theme.borderColor,
-      // backgroundColor: theme.areaBackgroundColor,
     },
     ljn_tab: {
       paddingLeft: px2vw(10),

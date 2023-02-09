@@ -7,6 +7,7 @@ import LJNIcon from "../../../../components/LJNIcon";
 import LJNButton from "../../../../components/LJNButton";
 import LJNLoading from "../../../../components/LJNLoading";
 import { useNavigate } from "react-router-native";
+import { px2vw } from "../../../../utils/utils";
 
 type Props = {};
 

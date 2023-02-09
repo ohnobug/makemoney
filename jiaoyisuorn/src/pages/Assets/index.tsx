@@ -8,6 +8,7 @@ import { setTheme } from "./styles";
 import LJNButton from "../../components/LJNButton";
 import LJNScrollView from "../../components/LJNScrollView";
 import LJNEmptyBlock from "../../components/LJNEmptyBlock";
+import { px2vw } from "../../utils/utils";
 
 type Props = {};
 
