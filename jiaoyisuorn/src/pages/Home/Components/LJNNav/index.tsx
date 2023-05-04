@@ -1,9 +1,9 @@
-import { Text, View, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useAppSelector } from "../../../../hooks";
-import { setTheme } from "./styles";
-import { selectTheme } from "../../../../store/SystemSlice";
+import { Image, Text, View } from "react-native";
 import LJNLoading from "../../../../components/LJNLoading";
+import { useStyles } from "../../../../hooks";
+import { setTheme } from "./styles";
+import { useNavigate } from "react-router-native";
 
 type Props = {};
 
@@ -37,7 +37,7 @@ const index = (props: Props) => {
     {
       icon: require("../../../../assets/images/nav6icon.png"),
       title: "社区",
-      path: "/",
+      path: "/gallery",
     },
     {
       icon: require("../../../../assets/images/nav7icon.png"),
@@ -61,11 +61,7 @@ const index = (props: Props) => {
     },
   ]);
 
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   let [show, setShow] = useState(true);
   useEffect(() => {
@@ -78,12 +74,21 @@ const index = (props: Props) => {
     };
   }, []);
 
+  const navigate = useNavigate();
+
   return (
     <View style={styles.ljn_list_area}>
       {show ? (
         list.map((item, index) => {
           return (
-            <View style={styles.ljn_list_item} key={index}>
+            <View
+              style={styles.ljn_list_item}
+              key={index}
+              onTouchEnd={() => {
+                console.log(item.path);
+                navigate(item.path);
+              }}
+            >
               <View style={styles.ljn_list_item_icon}>
                 <Image
                   style={styles.ljn_list_item_icon_img}

@@ -1,21 +1,15 @@
-import { View } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import LJNHeaderScroll from "../../../../components/LJNHeaderScroll";
-import { useAppSelector } from "../../../../hooks";
-import { selectTheme } from "../../../../store/SystemSlice";
+import { View } from "react-native";
 import LJNEmptyBlock from "../../../../components/LJNEmptyBlock";
-import { px2vw } from "../../../../utils/utils";
-import { setTheme } from "./styles";
+import LJNHeaderScroll from "../../../../components/LJNHeaderScroll";
 import LJNLoading from "../../../../components/LJNLoading";
+import { useStyles } from "../../../../hooks";
+import { setTheme } from "./styles";
 
 type Props = {};
 
 const index = (props: Props) => {
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   // 顶部滑动
   let myswiperHeader = useRef<any>(null);

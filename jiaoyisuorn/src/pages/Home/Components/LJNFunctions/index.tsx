@@ -1,17 +1,12 @@
-import { Text, View, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import { setTheme } from "./styles";
-import { useAppSelector } from "../../../../hooks";
-import { selectTheme } from "../../../../store/SystemSlice";
+import { Image, Text, View } from "react-native";
 import LJNLoading from "../../../../components/LJNLoading";
+import { useStyles } from "../../../../hooks";
+import { setTheme } from "./styles";
 
 type Props = {};
 const index = (props: Props) => {
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   let [show, setShow] = useState(true);
   useEffect(() => {

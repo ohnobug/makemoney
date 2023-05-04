@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View } from "react-native";
-import LJNTabbar from "../../components/LJNTabbar";
 import LJNScrollView from "../../components/LJNScrollView";
-import { useAppSelector } from "../../hooks";
-import { selectTheme } from "../../store/SystemSlice";
-import { setTheme } from "./styles";
+import LJNTabbar from "../../components/LJNTabbar";
+import { useStyles } from "../../hooks";
 import LJNActivation1 from "./Components/LJNActivation1";
 import LJNUserInfo from "./Components/LJNUserInfo";
+import { setTheme } from "./styles";
 
 type Props = {};
 
 export default function index({}: Props) {
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   return (
     <View style={styles.container}>

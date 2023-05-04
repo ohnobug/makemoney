@@ -1,24 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { View, ScrollView, Text, StyleSheet } from "react-native";
-import LJNTabbar from "../../components/LJNTabbar";
-import { useAppSelector } from "../../hooks";
-import { selectTheme } from "../../store/SystemSlice";
-import { setTheme } from "./styles";
+import React, { useRef } from "react";
+import { ScrollView, View } from "react-native";
 import LJNScrollView from "../../components/LJNScrollView";
-import { px2vw } from "../../utils/utils";
-import LJNHeaderScroll from "../../components/LJNHeaderScroll";
-import LJNEmptyBlock from "../../components/LJNEmptyBlock";
-import LJNTradeOperation from "./Components/LJNTradeOperation";
+import LJNTabbar from "../../components/LJNTabbar";
+import { useStyles } from "../../hooks";
 import LJNAssetsInfo from "./Components/LJNAssetsInfo";
+import LJNTradeOperation from "./Components/LJNTradeOperation";
+import { setTheme } from "./styles";
 
 type Props = {};
 
 export default function index({}: Props) {
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   let bigScrollView = useRef<ScrollView>(null);
 

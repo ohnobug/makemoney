@@ -1,24 +1,18 @@
-import { StyleSheet, Text, View, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useAppSelector } from "../../../../hooks";
-import { selectTheme } from "../../../../store/SystemSlice";
-import { setTheme } from "./styles";
-import LJNIcon from "../../../../components/LJNIcon";
-import LJNButton from "../../../../components/LJNButton";
-import LJNLoading from "../../../../components/LJNLoading";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { useNavigate } from "react-router-native";
-import { px2vw } from "../../../../utils/utils";
+import LJNButton from "../../../../components/LJNButton";
+import LJNIcon from "../../../../components/LJNIcon";
+import LJNLoading from "../../../../components/LJNLoading";
+import { useStyles } from "../../../../hooks";
+import { setTheme } from "./styles";
 
 type Props = {};
 
 const index = (props: Props) => {
   const navigate = useNavigate();
 
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   let [show, setShow] = useState(false);
   useEffect(() => {

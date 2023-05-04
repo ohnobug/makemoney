@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, Image, StyleSheet } from "react-native";
-import Swiper from "../../../../library/react-native-web-swiper/src/index";
-import { debounce, px2vw } from "../../../../utils/utils";
+import { Image, View } from "react-native";
 import emitter from "../../../../bus";
-import LJNLoading from "../../../../components/LJNLoading";
-import { useAppSelector } from "../../../../hooks";
-import { selectTheme } from "../../../../store/SystemSlice";
+import { useStyles } from "../../../../hooks";
+import Swiper from "../../../../library/react-native-web-swiper/src/index";
+import { debounce } from "../../../../utils/utils";
 import { setTheme } from "./styles";
 
 // 接收父组件ref
@@ -46,11 +44,7 @@ const index = (props: Props) => {
     };
   }, []);
 
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   return (
     <View style={styles.container}>

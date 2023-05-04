@@ -1,18 +1,16 @@
-import { StyleSheet, Text, View, Image, Platform } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import { ECharts } from "react-native-echarts-wrapper"; // android/ios
 import ReactECharts from "echarts-for-react"; // web
-import { useAppSelector } from "../../../../hooks";
-import { selectTheme } from "../../../../store/SystemSlice";
-import { setTheme } from "./styles";
+import React, { useEffect, useRef, useState } from "react";
+import { Image, Platform, StyleSheet, Text, View } from "react-native";
+import { ECharts } from "react-native-echarts-wrapper"; // android/ios
 import LJNLoading from "../../../../components/LJNLoading";
+import { useStyles } from "../../../../hooks";
+import { setTheme } from "./styles";
 
 type Props = {};
 const index = (props: Props) => {
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
+  const styles = useStyles(setTheme);
+
   useEffect(() => {
-    setStyles(setTheme(theme));
     option1Init.backgroundColor = styles.ljn_echartsbg.backgroundColor;
     option2Init.backgroundColor = styles.ljn_echartsbg.backgroundColor;
     option3Init.backgroundColor = styles.ljn_echartsbg.backgroundColor;
@@ -52,7 +50,7 @@ const index = (props: Props) => {
         chart1Ref.current = null;
       }
     };
-  }, [theme]);
+  }, [styles]);
 
   let chart1Ref = useRef<any>(null);
   let chart2Ref = useRef<any>(null);

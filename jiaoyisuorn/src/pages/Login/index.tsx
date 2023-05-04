@@ -1,30 +1,25 @@
+import React, { useRef, useState } from "react";
 import {
-  View,
+  Image,
+  Platform,
+  StyleSheet,
   Text,
   TextInput,
-  StyleSheet,
-  Platform,
-  Image,
   TouchableOpacity,
+  View,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import { setTheme } from "./styles";
-import { useAppSelector } from "../../hooks";
-import { selectTheme } from "../../store/SystemSlice";
-import LJNHeader from "../../components/LJNHeader";
 import LJNButton from "../../components/LJNButton";
+import LJNHeader from "../../components/LJNHeader";
 import LJNHeaderScroll from "../../components/LJNHeaderScroll";
 import LJNLineTitle from "../../components/LJNLineTitle";
 import LJNLink from "../../components/LJNLink";
+import { useStyles } from "../../hooks";
+import { setTheme } from "./styles";
 
 type Props = {};
 
 const index = (props: Props) => {
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   // 顶部滑动
   let myswiperHeader = useRef<any>(null);

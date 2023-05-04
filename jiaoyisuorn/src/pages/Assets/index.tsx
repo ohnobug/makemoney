@@ -1,23 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { View, Image, ScrollView, Text } from "react-native";
-import LJNTabbar from "../../components/LJNTabbar";
-import LJNIcon from "../../components/LJNIcon";
-import { useAppSelector } from "../../hooks";
-import { selectTheme } from "../../store/SystemSlice";
-import { setTheme } from "./styles";
-import LJNButton from "../../components/LJNButton";
-import LJNScrollView from "../../components/LJNScrollView";
+import React, { useRef, useState } from "react";
+import { Image, ScrollView, Text, View } from "react-native";
 import LJNEmptyBlock from "../../components/LJNEmptyBlock";
-import { px2vw } from "../../utils/utils";
+import LJNIcon from "../../components/LJNIcon";
+import LJNScrollView from "../../components/LJNScrollView";
+import LJNTabbar from "../../components/LJNTabbar";
+import { useStyles } from "../../hooks";
+import { setTheme } from "./styles";
 
 type Props = {};
 
 export default function index({}: Props) {
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   const [list, setList] = useState([
     {

@@ -1,15 +1,14 @@
 /// <reference path="../../index.d.ts" />
-import { View, Text, Image } from "react-native";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { debounce, px2vw } from "../../../../utils/utils";
-import Swiper from "../../../../library/react-native-web-swiper/src/index";
+import { Image, Text, View } from "react-native";
 import emitter from "../../../../bus";
-import { setTheme } from "./styles";
-import { useAppSelector } from "../../../../hooks";
-import { selectTheme } from "../../../../store/SystemSlice";
-import LJNLoading from "../../../../components/LJNLoading";
-import LJNIcon from "../../../../components/LJNIcon";
 import LJNHeaderScroll from "../../../../components/LJNHeaderScroll";
+import LJNIcon from "../../../../components/LJNIcon";
+import LJNLoading from "../../../../components/LJNLoading";
+import { useStyles } from "../../../../hooks";
+import Swiper from "../../../../library/react-native-web-swiper/src/index";
+import { debounce } from "../../../../utils/utils";
+import { setTheme } from "./styles";
 
 // 接收父组件ref
 let bigScrollView: any;
@@ -19,11 +18,7 @@ emitter.on("getBigScrollView", (e) => {
 
 type Props = {};
 const index = (props: Props) => {
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   const [list, setList] = useState(initData2);
   // 滑动列表
@@ -145,11 +140,7 @@ interface ISwiperSliceProps {
   list?: IListItem[];
 }
 const SwiperSlice = ({ list = [] }: ISwiperSliceProps) => {
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   return (
     <View style={styles.ljn_list}>
@@ -211,11 +202,7 @@ const SwiperSlice = ({ list = [] }: ISwiperSliceProps) => {
 
 // 标题
 const CoinName = ({ name1, name2 }: { name1: string; name2: string }) => {
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   return (
     <View style={styles.ljn_list_item_name}>

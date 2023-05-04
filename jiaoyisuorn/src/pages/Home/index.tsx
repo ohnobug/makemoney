@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { View, Text, ScrollView, Button } from "react-native";
-import LJNSwiper from "./Components/LJNSwiper";
-import LJNHotInfo from "./Components/LJNHotInfo";
-import LJNNav from "./Components/LJNNav";
-import LJNFunctions from "./Components/LJNFunctions";
-import LJNList from "./Components/LJNList";
-import LJNTabbar from "../../components/LJNTabbar";
+import React, { useEffect, useRef } from "react";
+import { ScrollView, View } from "react-native";
 import emitter from "../../bus";
 import LJNScrollView from "../../components/LJNScrollView";
-import { useAppSelector } from "../../hooks";
-import { selectTheme } from "../../store/SystemSlice";
+import LJNTabbar from "../../components/LJNTabbar";
+import { useStyles } from "../../hooks";
+import LJNFunctions from "./Components/LJNFunctions";
+import LJNHotInfo from "./Components/LJNHotInfo";
+import LJNList from "./Components/LJNList";
+import LJNNav from "./Components/LJNNav";
+import LJNSwiper from "./Components/LJNSwiper";
 import { setTheme } from "./styles";
 
 type Props = {};
@@ -20,11 +19,7 @@ export default function index({}: Props) {
     emitter.emit("getBigScrollView", bigScrollView.current);
   }, [bigScrollView]);
 
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   return (
     <View style={styles.container}>

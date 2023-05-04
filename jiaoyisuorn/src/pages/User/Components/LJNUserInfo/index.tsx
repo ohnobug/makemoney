@@ -1,30 +1,16 @@
-import { Text, View, Image } from "react-native";
 import React, { useEffect, useState } from "react";
+import { Image, Text, View } from "react-native";
 import { useNavigate } from "react-router-native";
-import { useAppSelector } from "../../../../hooks";
-import { selectTheme } from "../../../../store/SystemSlice";
-import { setTheme } from "./styles";
-import darkTheme from "../../../../themes/default/styles";
-import lightTheme from "../../../../themes/light/styles";
 import LJNIcon from "../../../../components/LJNIcon";
 import LJNLoading from "../../../../components/LJNLoading";
+import { useStyles } from "../../../../hooks";
+import { setTheme } from "./styles";
 
 type Props = {};
 
 const index = (props: Props) => {
   const navigate = useNavigate();
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  const [themeStyles, setThemeStyles] = useState<ITheme>();
-  useEffect(() => {
-    if (theme === "dark") {
-      setThemeStyles(darkTheme);
-    } else {
-      setThemeStyles(lightTheme);
-    }
-
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   const [list, setList] = useState([
     {

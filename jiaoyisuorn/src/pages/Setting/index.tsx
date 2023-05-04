@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import LJNHeader from "../../components/LJNHeader";
 import LJNList from "../../components/LJNList";
 import { setTheme } from "./styles";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector, useStyles } from "../../hooks";
 import { selectTheme } from "../../store/SystemSlice";
 import LJNScrollView from "../../components/LJNScrollView";
 import LJNButton from "../../components/LJNButton";
@@ -30,11 +30,7 @@ const listData2 = [
 
 const index = (props: Props) => {
   const navigate = useNavigate();
-  const theme = useAppSelector(selectTheme);
-  const [styles, setStyles] = useState<any>(setTheme(theme));
-  useEffect(() => {
-    setStyles(setTheme(theme));
-  }, [theme]);
+  const styles = useStyles(setTheme);
 
   return (
     <View style={styles.ljn_container}>
