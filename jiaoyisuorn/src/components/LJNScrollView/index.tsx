@@ -1,5 +1,6 @@
 import { ScrollView, StyleProp, ViewStyle } from "react-native";
 import React from "react";
+import { px2vw } from "../../utils/utils";
 
 type Props = {
   children: JSX.Element;
@@ -13,6 +14,9 @@ const index = (
 ) => {
   return (
     <ScrollView
+      contentContainerStyle={{
+        paddingBottom: px2vw(20),
+      }}
       style={style}
       ref={ref}
       horizontal={horizontal}

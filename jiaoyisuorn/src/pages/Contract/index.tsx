@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, ScrollView, Text } from "react-native";
 import LJNTabbar from "../../components/LJNTabbar";
 import { px2vw } from "../../utils/utils";
+import AppStylesConfig from "../../AppStylesConfig";
 
 type Props = {};
 
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   },
   ljn_main: {
     flex: 1,
-    // maxHeight: window.height - px2vw(60),
+    // maxHeight: window.height - AppStylesConfig.tabbarHeight,
     backgroundColor: "#0f131f",
     // #0f131f
   },
@@ -64,6 +65,6 @@ const styles = StyleSheet.create({
   },
   ljn_footer: {
     flex: 0,
-    minHeight: px2vw(60),
+    minHeight: AppStylesConfig.tabbarHeight,
   },
 });

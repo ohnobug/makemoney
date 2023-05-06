@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { px2vw } from "../../../../utils/utils";
+import cssConfig from "../cssConfig";
 
 export function setTheme(name: string) {
   return StyleSheet.create({
@@ -11,10 +12,10 @@ export function setTheme(name: string) {
       flexWrap: "wrap",
     },
     ljn_gallery_item: {
-      height: px2vw(123.665),
-      flexBasis: px2vw(123.665),
-      marginLeft: px2vw(1),
-      marginBottom: px2vw(1),
+      height: cssConfig.boxSize,
+      flexBasis: cssConfig.boxSize,
+      marginLeft: cssConfig.boxGap,
+      marginBottom: cssConfig.boxGap,
     },
     ljn_gallery_item_image: {
       width: "100%",

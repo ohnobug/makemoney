@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 import { px2vw } from "../../../../utils/utils";
+import cssConfig from "../cssConfig";
+import AppStylesConfig from "../../../../AppStylesConfig";
 
 export function setTheme(name: string) {
   return StyleSheet.create({
@@ -8,9 +10,9 @@ export function setTheme(name: string) {
       flexDirection: "row",
     },
     ljn_gallery_list_left: {
-      marginLeft: px2vw(1),
-      flexBasis: px2vw(123.665),
-      height: px2vw(248.33),
+      marginLeft: cssConfig.boxGap,
+      flexBasis: cssConfig.boxSize,
+      height: cssConfig.boxSize * 2 + cssConfig.boxGap,
     },
     ljn_gallery_list_left_image: {
       width: "100%",
@@ -24,10 +26,10 @@ export function setTheme(name: string) {
       justifyContent: "flex-start",
     },
     ljn_gallery_item: {
-      height: px2vw(123.665),
-      flexBasis: px2vw(123.665),
-      marginLeft: px2vw(1),
-      marginBottom: px2vw(1),
+      height: cssConfig.boxSize,
+      flexBasis: cssConfig.boxSize,
+      marginLeft: cssConfig.boxGap,
+      marginBottom: cssConfig.boxGap,
     },
     ljn_gallery_item_image: {
       width: "100%",
@@ -35,7 +37,7 @@ export function setTheme(name: string) {
     },
     ljn_footer: {
       flex: 0,
-      minHeight: px2vw(60),
+      minHeight: AppStylesConfig.tabbarHeight,
     },
   });
 }
