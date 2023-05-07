@@ -1,7 +1,5 @@
 import { StyleSheet } from "react-native";
-import { px2vw } from "../../../../utils/utils";
 import cssConfig from "../cssConfig";
-import AppStylesConfig from "../../../../AppStylesConfig";
 
 export function setTheme(name: string) {
   return StyleSheet.create({
@@ -13,6 +11,11 @@ export function setTheme(name: string) {
       marginLeft: cssConfig.boxGap,
       flexBasis: cssConfig.boxSize,
       height: cssConfig.boxSize * 2 + cssConfig.boxGap,
+    },
+    ljn_gallery_item_video: {
+      width: cssConfig.boxSize - cssConfig.boxGap,
+      height: cssConfig.boxSize * 2 + cssConfig.boxGap,
+      position: "relative",
     },
     ljn_gallery_list_left_image: {
       width: "100%",
@@ -31,13 +34,10 @@ export function setTheme(name: string) {
       marginLeft: cssConfig.boxGap,
       marginBottom: cssConfig.boxGap,
     },
+
     ljn_gallery_item_image: {
-      width: "100%",
+      width: cssConfig.boxSize,
       height: "100%",
-    },
-    ljn_footer: {
-      flex: 0,
-      minHeight: AppStylesConfig.tabbarHeight,
     },
   });
 }

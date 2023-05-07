@@ -181,7 +181,7 @@ const index = (props: Props) => {
         ref={bigScrollView}
         children={
           <>
-            {new Array(50).fill(0).map((item, index) => {
+            {new Array(20).fill(0).map((item, index) => {
               let r = 1 + ~~(Math.random() * 4);
 
               if (r === 1) {

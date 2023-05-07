@@ -35,9 +35,5 @@ export function setTheme(name: string) {
       width: "100%",
       height: "100%",
     },
-    ljn_footer: {
-      flex: 0,
-      minHeight: AppStylesConfig.tabbarHeight,
-    },
   });
 }
