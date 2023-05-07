@@ -4,6 +4,7 @@ import LJNTabbar from "../../components/LJNTabbar";
 import { px2vw } from "../../utils/utils";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { selectTheme, setTheme } from "../../store/SystemSlice";
+import AppStylesConfig from "../../AppStylesConfig";
 
 type Props = {};
 
@@ -81,6 +82,6 @@ const styles = StyleSheet.create({
   },
   ljn_footer: {
     flex: 0,
-    minHeight: px2vw(60),
+    minHeight: AppStylesConfig.tabbarHeight,
   },
 });

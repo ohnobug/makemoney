@@ -1,15 +1,14 @@
 {
-  "web": {
-    "name": "H币交易所"
-  },
   "cli": {
-    "version": ">= 3.0.0"
+    "version": ">= 3.1.1"
   },
   "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
     "preview": {
-      "android": {
-        "buildType": "apk"
-      }
+      "distribution": "internal"
     },
     "production": {}
   },

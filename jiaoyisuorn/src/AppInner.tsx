@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { BackHandler, Platform, ToastAndroid } from "react-native";
+import { BackHandler, Platform } from "react-native";
 import { Outlet, useLocation, useNavigate } from "react-router-native";
 
 if (Platform.OS === "web") {
@@ -27,7 +27,7 @@ export default function AppInner() {
           BackHandler.exitApp();
         } else if (backCount >= 2) {
           if (Platform.OS === "android") {
-            ToastAndroid.show("再按一次退出", 300);
+            // ToastAndroid.show("再按一次退出", 300);
           }
         } else {
           console.log("返回:", location.pathname);
