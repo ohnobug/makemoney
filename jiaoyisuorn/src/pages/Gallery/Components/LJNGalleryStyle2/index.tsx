@@ -23,7 +23,7 @@ const index = ({ gallery }: Props) => {
   return (
     <View style={styles.ljn_gallery_list} onLayout={handleLayout}>
       <View style={styles.ljn_gallery_list_left}>
-        <View style={styles.ljn_gallery_item}>
+        <View style={styles.ljn_gallery_list_left_item}>
           <VideoPlay style={styles.ljn_gallery_item_video} />
         </View>
       </View>

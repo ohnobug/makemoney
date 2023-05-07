@@ -11,6 +11,8 @@ export default function index({ style }: Props) {
       ref={(ref: any) => {
         video.current = ref;
       }}
+      muted
+      autoPlay
       style={style}
       src={noav}
     />

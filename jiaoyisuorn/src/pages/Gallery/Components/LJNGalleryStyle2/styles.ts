@@ -12,10 +12,14 @@ export function setTheme(name: string) {
       flexBasis: cssConfig.boxSize,
       height: cssConfig.boxSize * 2 + cssConfig.boxGap,
     },
+    ljn_gallery_list_left_item: {
+      height: cssConfig.boxSize * 2 + cssConfig.boxGap,
+    },
     ljn_gallery_item_video: {
-      width: cssConfig.boxSize - cssConfig.boxGap,
+      width: cssConfig.boxSize,
       height: cssConfig.boxSize * 2 + cssConfig.boxGap,
       position: "relative",
+      objectFit: "cover",
     },
     ljn_gallery_list_left_image: {
       width: "100%",
