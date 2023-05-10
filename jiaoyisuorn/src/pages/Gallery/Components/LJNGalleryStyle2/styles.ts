@@ -21,10 +21,7 @@ export function setTheme(name: string) {
       position: "relative",
       objectFit: "cover",
     },
-    ljn_gallery_list_left_image: {
-      width: "100%",
-      height: "100%",
-    },
+
     ljn_gallery_list_right: {
       flex: 1,
       display: "flex",

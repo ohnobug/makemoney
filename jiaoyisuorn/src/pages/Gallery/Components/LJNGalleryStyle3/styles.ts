@@ -33,9 +33,11 @@ export function setTheme(name: string) {
       height: cssConfig.boxSize * 2 + cssConfig.boxGap,
       marginRight: cssConfig.boxGap,
     },
-    ljn_gallery_list_right_image: {
-      width: "100%",
-      height: "100%",
+    ljn_gallery_item_video: {
+      width: cssConfig.boxSize,
+      height: cssConfig.boxSize * 2 + cssConfig.boxGap,
+      position: "relative",
+      objectFit: "cover",
     },
   });
 }

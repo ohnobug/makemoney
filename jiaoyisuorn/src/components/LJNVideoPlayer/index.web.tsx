@@ -1,18 +1,33 @@
-import React, { useRef } from "react";
-type Props = { style: any };
+import React, { useEffect, useRef } from "react";
 
 const noav = require("../../assets/noav.mp4");
 
-export default function index({ style }: Props) {
+type Props = { style: any; autoPlay?: boolean };
+export default function index({ style, autoPlay = false }: Props) {
   const video = useRef(null);
+
+  useEffect(() => {
+    if (autoPlay) {
+      video.current.play();
+    } else {
+      video.current.pause();
+    }
+  }, [autoPlay]);
 
   return (
     <video
       ref={(ref: any) => {
         video.current = ref;
       }}
+      onLoadedMetadata={() => {
+        if (autoPlay) {
+          video.current.play();
+        } else {
+          video.current.pause();
+        }
+      }}
       muted
-      autoPlay
+      autoPlay={false}
       style={style}
       src={noav}
     />

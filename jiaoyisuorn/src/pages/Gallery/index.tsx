@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Image, Platform, ScrollView, View } from "react-native";
 import emitter from "../../bus";
 import LJNScrollView from "../../components/LJNScrollView";
@@ -148,7 +148,6 @@ let imagesArr = [
 type Props = {};
 const index = (props: Props) => {
   let bigScrollView = useRef<ScrollView>(null);
-
   useEffect(() => {
     emitter.emit("getBigScrollView", bigScrollView.current);
   }, [bigScrollView]);
@@ -173,25 +172,64 @@ const index = (props: Props) => {
     });
   };
 
+  // 记录滚动的位置
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const handleScroll = (event) => {
+    const position = event.nativeEvent.contentOffset.y;
+    setScrollPosition(position);
+  };
+
+  const [list, setList] = useState(
+    new Array(100).fill(0).map((item) => {
+      return {
+        type: 1 + ~~(Math.random() * 4),
+        data: makeData(6),
+      };
+    })
+  );
+
   return (
     <View style={styles.container}>
       <LJNScrollView
         style={styles.ljn_main}
         horizontal={false}
         ref={bigScrollView}
+        onScroll={handleScroll}
         children={
           <>
-            {new Array(20).fill(0).map((item, index) => {
-              let r = 1 + ~~(Math.random() * 4);
-
-              if (r === 1) {
-                return <LJNGalleryStyle1 gallery={makeData(6)} key={index} />;
-              } else if (r === 2) {
-                return <LJNGalleryStyle2 gallery={makeData(5)} key={index} />;
-              } else if (r === 3) {
-                return <LJNGalleryStyle3 gallery={makeData(5)} key={index} />;
-              } else if (r === 4) {
-                return <LJNGalleryStyle4 gallery={makeData(5)} key={index} />;
+            {list.map((item, index) => {
+              if (item.type == 1) {
+                return (
+                  <LJNGalleryStyle1
+                    gallery={item.data}
+                    scrollPosition={scrollPosition}
+                    key={index}
+                  />
+                );
+              } else if (item.type == 2) {
+                return (
+                  <LJNGalleryStyle2
+                    gallery={item.data.slice(1)}
+                    scrollPosition={scrollPosition}
+                    key={index}
+                  />
+                );
+              } else if (item.type == 3) {
+                return (
+                  <LJNGalleryStyle3
+                    gallery={item.data.slice(1)}
+                    scrollPosition={scrollPosition}
+                    key={index}
+                  />
+                );
+              } else if (item.type == 4) {
+                return (
+                  <LJNGalleryStyle4
+                    gallery={item.data.slice(1)}
+                    scrollPosition={scrollPosition}
+                    key={index}
+                  />
+                );
               }
             })}
           </>
