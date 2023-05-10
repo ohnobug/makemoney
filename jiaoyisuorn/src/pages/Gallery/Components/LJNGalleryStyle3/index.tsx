@@ -1,21 +1,25 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { Image, StyleSheet, View } from "react-native";
-import VideoPlay from "../../../../components/LJNVideoPlayer";
+import LJNVideoPlayer from "../../../../components/LJNVideoPlayer";
 import { useStyles } from "../../../../hooks";
 import { useActiveBox } from "../componentsHooks";
 import { setTheme } from "./styles";
+import cssConfig from "../cssConfig";
 
 type Props = {
   gallery: {
     image: string;
     url: string;
   }[];
+  index: number;
   scrollPosition: number;
 };
 
-const index = ({ gallery, scrollPosition }: Props) => {
+const index = ({ gallery, index, scrollPosition }: Props) => {
   const styles = useStyles(setTheme);
-  const [apply, handleLayout] = useActiveBox(scrollPosition);
+
+  let componentY = useRef(index * ((cssConfig.boxSize + cssConfig.boxGap) * 2));
+  const apply = useActiveBox(componentY.current, scrollPosition);
 
   return (
     <>
@@ -28,7 +32,6 @@ const index = ({ gallery, scrollPosition }: Props) => {
               //   backgroundColor: apply ? "red" : "blue",
               // },
             ])}
-            onLayout={handleLayout}
           >
             <View style={styles.ljn_gallery_list_left}>
               {gallery.slice(1).map((item, index) => {
@@ -46,10 +49,19 @@ const index = ({ gallery, scrollPosition }: Props) => {
             </View>
 
             <View style={styles.ljn_gallery_list_right}>
-              <VideoPlay
-                style={styles.ljn_gallery_item_video}
-                autoPlay={apply}
-              />
+              {apply ? (
+                <LJNVideoPlayer
+                  autoPlay={apply}
+                  style={StyleSheet.flatten([styles.ljn_gallery_item_video])}
+                />
+              ) : (
+                <Image
+                  style={styles.ljn_gallery_item_video}
+                  source={{
+                    uri: gallery[0].image,
+                  }}
+                />
+              )}
             </View>
           </View>
         );

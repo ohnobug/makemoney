@@ -3,30 +3,26 @@ import cssConfig from "./cssConfig";
 
 const boxHeight = (cssConfig.boxSize + cssConfig.boxGap) * 2;
 export function useActiveBox(
+  componentY: number,
   scrollPosition: number
-): [boolean, (event: any) => void] {
-  let componentY = useRef(0);
+): boolean {
   const [apply, setApply] = useState(false);
 
-  const handleLayout = (event: any) => {
-    const { x, y, width, height } = event.nativeEvent.layout;
-    console.log("视图布局发生变化：", { x, y, width, height });
-    componentY.current = y;
-
+  useEffect(() => {
     if (
-      componentY.current >= scrollPosition - (boxHeight - 100) &&
-      componentY.current <= scrollPosition + 100
+      componentY >= scrollPosition - (boxHeight - 100) &&
+      componentY <= scrollPosition + 100
     ) {
       setApply(true);
     } else {
       setApply(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (
-      componentY.current >= scrollPosition - (boxHeight - 100) &&
-      componentY.current <= scrollPosition + 100
+      componentY >= scrollPosition - (boxHeight - 100) &&
+      componentY <= scrollPosition + 100
     ) {
       setApply(true);
     } else {
@@ -34,5 +30,5 @@ export function useActiveBox(
     }
   }, [scrollPosition]);
 
-  return [apply, handleLayout];
+  return apply;
 }

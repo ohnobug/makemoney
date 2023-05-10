@@ -14,7 +14,11 @@ export default function index({ style, autoPlay = false }: Props) {
       isLooping
       isMuted
       resizeMode={ResizeMode.COVER}
-      videoStyle={style}
+      style={style}
+      videoStyle={{
+        width: "100%",
+        height: "100%",
+      }}
       shouldPlay={autoPlay}
       source={noav}
     />

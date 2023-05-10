@@ -1,14 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Image, Platform, ScrollView, View } from "react-native";
-import emitter from "../../bus";
-import LJNScrollView from "../../components/LJNScrollView";
+import React, { useState } from "react";
+import { Image, Platform, View, VirtualizedList } from "react-native";
 import LJNTabbar from "../../components/LJNTabbar";
 import { useStyles } from "../../hooks";
-import { setTheme } from "./styles";
-import LJNGalleryStyle1 from "./Components/LJNGalleryStyle1";
 import LJNGalleryStyle2 from "./Components/LJNGalleryStyle2";
-import LJNGalleryStyle3 from "./Components/LJNGalleryStyle3";
-import LJNGalleryStyle4 from "./Components/LJNGalleryStyle4";
+import { setTheme } from "./styles";
+import cssConfig from "./Components/cssConfig";
 
 let imagesArr = [
   require("../../assets/gallery/1.jpg"),
@@ -145,96 +141,103 @@ let imagesArr = [
   require("../../assets/gallery/132.jpg"),
 ];
 
+const makeData = (n: number) => {
+  return new Array(n).fill("").map(() => {
+    let exampleImageUri;
+    if (Platform.OS === "web") {
+      exampleImageUri = imagesArr[~~(Math.random() * 132)];
+    } else {
+      exampleImageUri = Image.resolveAssetSource(
+        imagesArr[~~(Math.random() * 132)]
+      ).uri;
+    }
+
+    return {
+      url: "",
+      image: exampleImageUri,
+    };
+  });
+};
+
+const list = new Array(50).fill(0).map((item, index) => {
+  return {
+    id: index,
+    type: 1 + ~~(Math.random() * 4),
+    data: makeData(6),
+  };
+});
+
 type Props = {};
 const index = (props: Props) => {
-  let bigScrollView = useRef<ScrollView>(null);
-  useEffect(() => {
-    emitter.emit("getBigScrollView", bigScrollView.current);
-  }, [bigScrollView]);
-
   const styles = useStyles(setTheme);
-
-  const makeData = (n: number) => {
-    return new Array(n).fill("").map(() => {
-      let exampleImageUri;
-      if (Platform.OS === "web") {
-        exampleImageUri = imagesArr[~~(Math.random() * 132)];
-      } else {
-        exampleImageUri = Image.resolveAssetSource(
-          imagesArr[~~(Math.random() * 132)]
-        ).uri;
-      }
-
-      return {
-        url: "",
-        image: exampleImageUri,
-      };
-    });
-  };
 
   // 记录滚动的位置
   const [scrollPosition, setScrollPosition] = useState(0);
   const handleScroll = (event) => {
     const position = event.nativeEvent.contentOffset.y;
+    console.log(position);
     setScrollPosition(position);
   };
 
-  const [list, setList] = useState(
-    new Array(100).fill(0).map((item) => {
-      return {
-        type: 1 + ~~(Math.random() * 4),
-        data: makeData(6),
-      };
-    })
-  );
+  const renderItem = (kkk) => {
+    const { item, index } = kkk;
+    if (item.type == 1) {
+      return (
+        <LJNGalleryStyle2
+          index={index}
+          gallery={item.data.slice(1)}
+          scrollPosition={scrollPosition}
+        />
+      );
+    } else if (item.type == 2) {
+      return (
+        <LJNGalleryStyle2
+          index={index}
+          gallery={item.data.slice(1)}
+          scrollPosition={scrollPosition}
+        />
+      );
+    } else if (item.type == 3) {
+      return (
+        <LJNGalleryStyle2
+          index={index}
+          gallery={item.data.slice(1)}
+          scrollPosition={scrollPosition}
+        />
+      );
+    } else if (item.type == 4) {
+      return (
+        <LJNGalleryStyle2
+          index={index}
+          gallery={item.data.slice(1)}
+          scrollPosition={scrollPosition}
+        />
+      );
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <LJNScrollView
-        style={styles.ljn_main}
-        horizontal={false}
-        ref={bigScrollView}
-        onScroll={handleScroll}
-        children={
-          <>
-            {list.map((item, index) => {
-              if (item.type == 1) {
-                return (
-                  <LJNGalleryStyle1
-                    gallery={item.data}
-                    scrollPosition={scrollPosition}
-                    key={index}
-                  />
-                );
-              } else if (item.type == 2) {
-                return (
-                  <LJNGalleryStyle2
-                    gallery={item.data.slice(1)}
-                    scrollPosition={scrollPosition}
-                    key={index}
-                  />
-                );
-              } else if (item.type == 3) {
-                return (
-                  <LJNGalleryStyle3
-                    gallery={item.data.slice(1)}
-                    scrollPosition={scrollPosition}
-                    key={index}
-                  />
-                );
-              } else if (item.type == 4) {
-                return (
-                  <LJNGalleryStyle4
-                    gallery={item.data.slice(1)}
-                    scrollPosition={scrollPosition}
-                    key={index}
-                  />
-                );
-              }
-            })}
-          </>
-        }
-      ></LJNScrollView>
+      <View style={styles.ljn_main}>
+        <VirtualizedList
+          data={list}
+          renderItem={renderItem}
+          keyExtractor={(item: any) => item.id}
+          getItemCount={(data) => data.length}
+          getItem={(data, index) => data[index]}
+          getItemLayout={(data: any, index: number) => {
+            const height = (cssConfig.boxGap + cssConfig.boxSize) * 2;
+            return { length: height, offset: height * index, index: index };
+          }}
+          initialNumToRender={3} // 首批渲染的元素数量
+          windowSize={3} // 渲染区域高度
+          maxToRenderPerBatch={5} // 增量渲染最大数量
+          scrollEnabled
+          scrollEventThrottle={16}
+          debug
+          onScroll={handleScroll}
+        />
+      </View>
 
       {/* 底部 */}
       <View style={styles.ljn_footer}>

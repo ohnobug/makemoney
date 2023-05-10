@@ -1,21 +1,24 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import { useStyles } from "../../../../hooks";
 import { useActiveBox } from "../componentsHooks";
 import { setTheme } from "./styles";
+import cssConfig from "../cssConfig";
 
 type Props = {
   gallery: {
     image: string;
     url: string;
   }[];
+  index: number;
   scrollPosition: number;
 };
 
-const index = ({ gallery, scrollPosition }: Props) => {
+const index = ({ gallery, index, scrollPosition }: Props) => {
   const styles = useStyles(setTheme);
 
-  const [apply, handleLayout] = useActiveBox(scrollPosition);
+  let componentY = useRef(index * ((cssConfig.boxSize + cssConfig.boxGap) * 2));
+  const apply = useActiveBox(componentY.current, scrollPosition);
 
   return (
     <>
@@ -28,7 +31,6 @@ const index = ({ gallery, scrollPosition }: Props) => {
               //   backgroundColor: apply ? "red" : "blue",
               // },
             ])}
-            onLayout={handleLayout}
           >
             {gallery.map((item, index) => {
               return (

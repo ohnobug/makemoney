@@ -13,12 +13,13 @@ export function setTheme(name: string) {
 
   return StyleSheet.create({
     container: {
-      width: px2vw(375),
+      width: "100%",
       height: px2vw(160),
       backgroundColor: theme.areaBackgroundColor,
     },
     ljn_slide: {
       flex: 1,
+      display: "flex",
       justifyContent: "center",
       alignItems: "center",
     },

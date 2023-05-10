@@ -1,60 +1,75 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import { useStyles } from "../../../../hooks";
 import { setTheme } from "./styles";
-import VideoPlay from "../../../../components/LJNVideoPlayer";
 import { useActiveBox } from "../componentsHooks";
+import cssConfig from "../cssConfig";
+import LJNVideoPlayer from "../../../../components/LJNVideoPlayer";
 
 type Props = {
   gallery: {
     image: string;
     url: string;
   }[];
-  scrollPosition: number;
+  index: number;
+  scrollPosition?: number;
 };
 
-const index = ({ gallery, scrollPosition }: Props) => {
+const index = ({ gallery, index, scrollPosition = 0 }: Props) => {
   const styles = useStyles(setTheme);
 
-  const [apply, handleLayout] = useActiveBox(scrollPosition);
+  let componentY = useRef(index * ((cssConfig.boxSize + cssConfig.boxGap) * 2));
+  const apply = useActiveBox(componentY.current, scrollPosition);
+
+  // const [canPlay, setCanPlay] = useState(false);
+  // const timer = useRef(null);
+  // useEffect(() => {
+  //   if (apply) {
+  //     timer.current = setTimeout(() => {
+  //       setCanPlay(true);
+  //     }, 500);
+  //   } else {
+  //     setCanPlay(false);
+  //     clearTimeout(timer.current);
+  //   }
+  // }, [apply]);
 
   return (
     <>
-      {useMemo(() => {
-        return (
-          <View
-            style={StyleSheet.flatten([
-              styles.ljn_gallery_list,
-              // {
-              //   backgroundColor: apply ? "red" : "blue",
-              // },
-            ])}
-            onLayout={handleLayout}
-          >
-            <View style={styles.ljn_gallery_list_left}>
-              <View style={styles.ljn_gallery_list_left_item}>
-                <VideoPlay
-                  style={styles.ljn_gallery_item_video}
+      <View
+        style={StyleSheet.flatten([
+          styles.ljn_gallery_list,
+          // {
+          //   backgroundColor: apply ? "red" : "yellow",
+          // },
+        ])}
+      >
+        <View style={styles.ljn_gallery_list_left}>
+          <View style={styles.ljn_gallery_list_left_item}>
+            {useMemo(() => {
+              return (
+                <LJNVideoPlayer
                   autoPlay={apply}
+                  style={StyleSheet.flatten([styles.ljn_gallery_item_video])}
                 />
-              </View>
-            </View>
-
-            <View style={styles.ljn_gallery_list_right}>
-              {gallery.slice(1).map((item, index) => (
-                <View style={styles.ljn_gallery_item} key={index}>
-                  <Image
-                    style={styles.ljn_gallery_item_image}
-                    source={{
-                      uri: item.image,
-                    }}
-                  />
-                </View>
-              ))}
-            </View>
+              );
+            }, [apply])}
           </View>
-        );
-      }, [apply])}
+        </View>
+
+        <View style={styles.ljn_gallery_list_right}>
+          {gallery.slice(1).map((item, index) => (
+            <View style={styles.ljn_gallery_item} key={index}>
+              <Image
+                style={styles.ljn_gallery_item_image}
+                source={{
+                  uri: item.image,
+                }}
+              />
+            </View>
+          ))}
+        </View>
+      </View>
     </>
   );
 };

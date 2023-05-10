@@ -1,8 +1,7 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { px2vw } from "../../utils/utils";
+import { Dimensions, StyleSheet } from "react-native";
+import AppStylesConfig from "../../AppStylesConfig";
 import darkTheme from "../../themes/default/styles";
 import lightTheme from "../../themes/light/styles";
-import AppStylesConfig from "../../AppStylesConfig";
 
 const window = Dimensions.get("window");
 export function setTheme(name: string) {
