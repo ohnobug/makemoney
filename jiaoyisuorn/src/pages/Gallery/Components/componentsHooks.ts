@@ -10,8 +10,8 @@ export function useActiveBox(
 
   useEffect(() => {
     if (
-      componentY >= scrollPosition - (boxHeight - 100) &&
-      componentY <= scrollPosition + 100
+      componentY >= scrollPosition - (boxHeight - 200) &&
+      componentY <= scrollPosition + 200
     ) {
       setApply(true);
     } else {
@@ -21,8 +21,8 @@ export function useActiveBox(
 
   useEffect(() => {
     if (
-      componentY >= scrollPosition - (boxHeight - 100) &&
-      componentY <= scrollPosition + 100
+      componentY >= scrollPosition - (boxHeight - 200) &&
+      componentY <= scrollPosition + 200
     ) {
       setApply(true);
     } else {

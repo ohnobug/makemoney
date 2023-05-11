@@ -6,6 +6,7 @@ export function setTheme(name: string) {
     ljn_gallery_list: {
       display: "flex",
       flexDirection: "row",
+      height: (cssConfig.boxSize + cssConfig.boxGap) * 2,
     },
     ljn_gallery_list_left: {
       marginLeft: cssConfig.boxGap,
@@ -18,7 +19,7 @@ export function setTheme(name: string) {
     ljn_gallery_item_video: {
       width: cssConfig.boxSize,
       height: cssConfig.boxSize * 2 + cssConfig.boxGap,
-      position: "relative",
+      position: "absolute",
       objectFit: "cover",
     },
     ljn_gallery_list_right: {

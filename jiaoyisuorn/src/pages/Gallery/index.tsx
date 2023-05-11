@@ -3,8 +3,8 @@ import { Image, Platform, View, VirtualizedList } from "react-native";
 import LJNTabbar from "../../components/LJNTabbar";
 import { useStyles } from "../../hooks";
 import LJNGalleryStyle2 from "./Components/LJNGalleryStyle2";
-import { setTheme } from "./styles";
 import cssConfig from "./Components/cssConfig";
+import { setTheme } from "./styles";
 
 let imagesArr = [
   require("../../assets/gallery/1.jpg"),
@@ -167,13 +167,15 @@ const list = new Array(50).fill(0).map((item, index) => {
   };
 });
 
+const HEIGHT = (cssConfig.boxGap + cssConfig.boxSize) * 2;
+
 type Props = {};
 const index = (props: Props) => {
   const styles = useStyles(setTheme);
 
   // 记录滚动的位置
   const [scrollPosition, setScrollPosition] = useState(0);
-  const handleScroll = (event) => {
+  const handleScroll = (event: any) => {
     const position = event.nativeEvent.contentOffset.y;
     console.log(position);
     setScrollPosition(position);
@@ -226,15 +228,15 @@ const index = (props: Props) => {
           getItemCount={(data) => data.length}
           getItem={(data, index) => data[index]}
           getItemLayout={(data: any, index: number) => {
-            const height = (cssConfig.boxGap + cssConfig.boxSize) * 2;
-            return { length: height, offset: height * index, index: index };
+            return { length: HEIGHT, offset: HEIGHT * index, index: index };
           }}
           initialNumToRender={3} // 首批渲染的元素数量
           windowSize={3} // 渲染区域高度
           maxToRenderPerBatch={5} // 增量渲染最大数量
           scrollEnabled
           scrollEventThrottle={16}
-          debug
+          // debug
+          // onScrollEndDrag={handleScroll}
           onScroll={handleScroll}
         />
       </View>
