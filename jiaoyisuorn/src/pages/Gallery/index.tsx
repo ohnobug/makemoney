@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Image, Platform, View, VirtualizedList } from "react-native";
 import LJNTabbar from "../../components/LJNTabbar";
 import { useStyles } from "../../hooks";
+import LJNGalleryStyle1 from "./Components/LJNGalleryStyle1";
 import LJNGalleryStyle2 from "./Components/LJNGalleryStyle2";
+import LJNGalleryStyle3 from "./Components/LJNGalleryStyle3";
+import LJNGalleryStyle4 from "./Components/LJNGalleryStyle4";
 import cssConfig from "./Components/cssConfig";
 import { setTheme } from "./styles";
 
@@ -159,15 +162,15 @@ const makeData = (n: number) => {
   });
 };
 
-const list = new Array(50).fill(0).map((item, index) => {
+const HEIGHT = (cssConfig.boxGap + cssConfig.boxSize) * 2;
+const list = new Array(10000).fill(0).map((item, index) => {
   return {
     id: index,
     type: 1 + ~~(Math.random() * 4),
     data: makeData(6),
+    offset: index * HEIGHT,
   };
 });
-
-const HEIGHT = (cssConfig.boxGap + cssConfig.boxSize) * 2;
 
 type Props = {};
 const index = (props: Props) => {
@@ -175,44 +178,58 @@ const index = (props: Props) => {
 
   // 记录滚动的位置
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [direction, setDirection] = useState<"UP" | "DOWN">("UP");
   const handleScroll = (event: any) => {
     const position = event.nativeEvent.contentOffset.y;
-    console.log(position);
     setScrollPosition(position);
+
+    if (position - scrollPosition > 0) {
+      setDirection("UP");
+    } else {
+      setDirection("DOWN");
+    }
   };
 
   const renderItem = (kkk) => {
     const { item, index } = kkk;
     if (item.type == 1) {
       return (
-        <LJNGalleryStyle2
+        <LJNGalleryStyle1
           index={index}
-          gallery={item.data.slice(1)}
+          offset={item.offset}
+          gallery={item.data}
           scrollPosition={scrollPosition}
+          direction={direction}
         />
       );
     } else if (item.type == 2) {
       return (
         <LJNGalleryStyle2
           index={index}
+          offset={item.offset}
           gallery={item.data.slice(1)}
           scrollPosition={scrollPosition}
+          direction={direction}
         />
       );
     } else if (item.type == 3) {
       return (
-        <LJNGalleryStyle2
+        <LJNGalleryStyle3
           index={index}
+          offset={item.offset}
           gallery={item.data.slice(1)}
           scrollPosition={scrollPosition}
+          direction={direction}
         />
       );
     } else if (item.type == 4) {
       return (
-        <LJNGalleryStyle2
+        <LJNGalleryStyle4
           index={index}
+          offset={item.offset}
           gallery={item.data.slice(1)}
           scrollPosition={scrollPosition}
+          direction={direction}
         />
       );
     }

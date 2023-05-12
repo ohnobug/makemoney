@@ -1,44 +1,61 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useReducer } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import { useStyles } from "../../../../hooks";
 import { useActiveBox } from "../componentsHooks";
 import { setTheme } from "./styles";
-import cssConfig from "../cssConfig";
 
 type Props = {
   gallery: {
     image: string;
     url: string;
   }[];
+  offset: number;
   index: number;
-  scrollPosition: number;
+  scrollPosition?: number;
+  direction?: "UP" | "DOWN";
 };
 
-const index = ({ gallery, index, scrollPosition }: Props) => {
+const index = ({
+  gallery,
+  offset,
+  index,
+  scrollPosition = 0,
+  direction = "UP",
+}: Props) => {
   const styles = useStyles(setTheme);
 
-  let componentY = useRef(index * ((cssConfig.boxSize + cssConfig.boxGap) * 2));
-  const apply = useActiveBox(componentY.current, scrollPosition);
+  useActiveBox(offset, scrollPosition, direction, index);
+
+  const [state, stateDispatch] = useReducer(
+    (preState, action) => {
+      preState[action.payload] = true;
+      return { ...preState };
+    },
+    {
+      img0: false,
+      img1: false,
+      img2: false,
+      img3: false,
+      img4: false,
+      img5: false,
+    }
+  );
 
   return (
     <>
       {useMemo(() => {
         return (
-          <View
-            style={StyleSheet.flatten([
-              styles.ljn_gallery_list,
-              // {
-              //   backgroundColor: apply ? "red" : "blue",
-              // },
-            ])}
-          >
+          <View style={StyleSheet.flatten([styles.ljn_gallery_list])}>
             {gallery.map((item, index) => {
               return (
                 <View style={styles.ljn_gallery_item} key={index}>
                   <Image
                     style={styles.ljn_gallery_item_image}
                     source={{
-                      uri: item.image,
+                      uri: state[`img${index}`] ? item.image : item.image,
+                    }}
+                    onLoadEnd={() => {
+                      stateDispatch({ payload: `img${index}` });
                     }}
                   />
                 </View>
@@ -46,7 +63,7 @@ const index = ({ gallery, index, scrollPosition }: Props) => {
             })}
           </View>
         );
-      }, [apply])}
+      }, [state])}
     </>
   );
 };

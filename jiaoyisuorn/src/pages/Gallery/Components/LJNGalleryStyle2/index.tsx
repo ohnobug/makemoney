@@ -1,15 +1,8 @@
-import React, {
-  useEffect,
-  useLayoutEffect,
-  useReducer,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useMemo, useReducer, useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import LJNVideoPlayer from "../../../../components/LJNVideoPlayer";
 import { useStyles } from "../../../../hooks";
 import { useActiveBox } from "../componentsHooks";
-import cssConfig from "../cssConfig";
 import { setTheme } from "./styles";
 
 type Props = {
@@ -17,28 +10,41 @@ type Props = {
     image: string;
     url: string;
   }[];
+  offset: number;
   index: number;
   scrollPosition?: number;
+  direction?: "UP" | "DOWN";
 };
 
-const index = ({ gallery, index, scrollPosition = 0 }: Props) => {
+const index = ({
+  gallery,
+  offset,
+  index,
+  scrollPosition = 0,
+  direction = "UP",
+}: Props) => {
   const styles = useStyles(setTheme);
 
-  let componentY = useRef(index * ((cssConfig.boxSize + cssConfig.boxGap) * 2));
-  const apply = useActiveBox(componentY.current, scrollPosition);
-
+  // 显示视频
+  const canPlay = useActiveBox(offset, scrollPosition, direction, index);
   const [showVideo, setShowVideo] = useState(false);
   useEffect(() => {
-    let timer = setTimeout(() => {
-      setShowVideo(apply);
-    }, 300);
+    let timer;
+    if (canPlay) {
+      // 加时钟的原因是为了避免快速滚动的过程中产生多个视频实例
+      timer = setTimeout(() => {
+        setShowVideo(true);
+      }, 300);
+    } else {
+      setShowVideo(false);
+    }
 
     return () => {
       clearTimeout(timer);
     };
-  }, [apply]);
+  }, [canPlay]);
 
-  const [state, dispatch] = useReducer(
+  const [state, stateDispatch] = useReducer(
     (preState, action) => {
       preState[action.payload] = true;
       return { ...preState };
@@ -53,58 +59,54 @@ const index = ({ gallery, index, scrollPosition = 0 }: Props) => {
   );
 
   return (
-    <View
-      style={StyleSheet.flatten([
-        styles.ljn_gallery_list,
-        // {
-        //   backgroundColor: apply ? "red" : "yellow",
-        // },
-      ])}
-    >
-      <View style={styles.ljn_gallery_list_left}>
-        <View style={styles.ljn_gallery_list_left_item}>
-          {showVideo ? (
-            <LJNVideoPlayer
-              autoPlay={apply}
-              style={StyleSheet.flatten([
-                styles.ljn_gallery_item_video,
-                {
-                  zIndex: 999,
-                },
-              ])}
-            />
-          ) : (
-            <></>
-          )}
+    <>
+      {useMemo(
+        () => (
+          <View style={StyleSheet.flatten([styles.ljn_gallery_list])}>
+            <View style={styles.ljn_gallery_list_left}>
+              {showVideo ? (
+                <LJNVideoPlayer
+                  autoPlay={true}
+                  style={StyleSheet.flatten([
+                    styles.ljn_gallery_item_video,
+                    {
+                      zIndex: 999,
+                    },
+                  ])}
+                />
+              ) : null}
 
-          <Image
-            style={styles.ljn_gallery_item_video}
-            source={{
-              uri: state.img0 ? gallery[0].image : gallery[0].image,
-            }}
-            onLoad={() => {
-              dispatch({ payload: "img0" });
-            }}
-          />
-        </View>
-      </View>
+              <Image
+                style={styles.ljn_gallery_item_video}
+                source={{
+                  uri: state.img0 ? gallery[0].image : gallery[0].image,
+                }}
+                onLoad={() => {
+                  stateDispatch({ payload: "img0" });
+                }}
+              />
+            </View>
 
-      <View style={styles.ljn_gallery_list_right}>
-        {gallery.slice(1).map((item, index) => (
-          <View style={styles.ljn_gallery_item} key={index}>
-            <Image
-              style={styles.ljn_gallery_item_image}
-              source={{
-                uri: state[`img${index}`] ? item.image : item.image,
-              }}
-              onLoadEnd={() => {
-                dispatch({ payload: `img${index}` });
-              }}
-            />
+            <View style={styles.ljn_gallery_list_right}>
+              {gallery.slice(1).map((item, index) => (
+                <View style={styles.ljn_gallery_item} key={index}>
+                  <Image
+                    style={styles.ljn_gallery_item_image}
+                    source={{
+                      uri: state[`img${index + 1}`] ? item.image : item.image,
+                    }}
+                    onLoadEnd={() => {
+                      stateDispatch({ payload: `img${index + 1}` });
+                    }}
+                  />
+                </View>
+              ))}
+            </View>
           </View>
-        ))}
-      </View>
-    </View>
+        ),
+        [state, showVideo]
+      )}
+    </>
   );
 };
 
