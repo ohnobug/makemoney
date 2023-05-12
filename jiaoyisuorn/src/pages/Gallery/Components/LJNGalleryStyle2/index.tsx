@@ -34,7 +34,7 @@ const index = ({
       // 加时钟的原因是为了避免快速滚动的过程中产生多个视频实例
       timer = setTimeout(() => {
         setShowVideo(true);
-      }, 300);
+      }, 500);
     } else {
       setShowVideo(false);
     }

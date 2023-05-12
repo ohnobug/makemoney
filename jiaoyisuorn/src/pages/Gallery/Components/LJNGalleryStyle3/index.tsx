@@ -32,7 +32,7 @@ const index = ({
     // 加时钟的原因是为了避免快速滚动的过程中产生多个视频实例
     let timer = setTimeout(() => {
       setShowVideo(canPlay);
-    }, 300);
+    }, 500);
 
     return () => {
       clearTimeout(timer);

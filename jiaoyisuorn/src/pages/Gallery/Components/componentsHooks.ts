@@ -32,8 +32,8 @@ export function useActiveBox(
       // 目前没有在播的
       if (direction === "UP") {
         if (
-          componentOffset - scrollPosition >= -(BOXHEIGHT / 2) &&
-          componentOffset - scrollPosition <= BOXHEIGHT / 2
+          componentOffset - scrollPosition >= -(0.5 * BOXHEIGHT) &&
+          componentOffset - scrollPosition <= 0.5 * BOXHEIGHT
         ) {
           if (play === false) {
             dispatch(setGalleryPlayIndex(index));
@@ -47,8 +47,8 @@ export function useActiveBox(
         }
       } else {
         if (
-          componentOffset + BOXHEIGHT >= scrollPosition + 2.5 * BOXHEIGHT &&
-          componentOffset + BOXHEIGHT <= scrollPosition + 3 * BOXHEIGHT
+          componentOffset - scrollPosition >= 1 * BOXHEIGHT &&
+          componentOffset - scrollPosition <= 1.5 * BOXHEIGHT
         ) {
           if (play === false) {
             dispatch(setGalleryPlayIndex(index));
@@ -69,7 +69,7 @@ export function useActiveBox(
         // console.log(index);
         if (direction === "UP") {
           // 本盒子向上走
-          if (componentOffset - scrollPosition <= -(BOXHEIGHT / 2)) {
+          if (componentOffset - scrollPosition <= -(0.5 * BOXHEIGHT)) {
             if (play === true) {
               console.log("向上超出释放", index);
               setPlay(false);
@@ -78,10 +78,7 @@ export function useActiveBox(
           }
         } else {
           // 本盒子向下走
-          if (
-            componentOffset - scrollPosition >=
-            BOXHEIGHT * 2 + (cssConfig.boxSize + cssConfig.boxGap)
-          ) {
+          if (componentOffset - scrollPosition >= BOXHEIGHT * 2) {
             console.log("向下超出释放", index);
             if (play === true) {
               setPlay(false);
