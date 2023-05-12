@@ -27,7 +27,6 @@ export function setTheme(name: string) {
       width: "100%",
       height: "100%",
     },
-
     ljn_gallery_list_right: {
       flexBasis: cssConfig.boxSize,
       height: cssConfig.boxSize * 2 + cssConfig.boxGap,
@@ -36,7 +35,7 @@ export function setTheme(name: string) {
     ljn_gallery_item_video: {
       width: cssConfig.boxSize,
       height: cssConfig.boxSize * 2 + cssConfig.boxGap,
-      position: "relative",
+      position: "absolute",
       objectFit: "cover",
     },
   });

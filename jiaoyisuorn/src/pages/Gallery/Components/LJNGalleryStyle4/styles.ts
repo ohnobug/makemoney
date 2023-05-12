@@ -17,10 +17,9 @@ export function setTheme(name: string) {
     ljn_gallery_item_video: {
       width: cssConfig.boxSize,
       height: cssConfig.boxSize * 2 + cssConfig.boxGap,
-      position: "relative",
+      position: "absolute",
       objectFit: "cover",
     },
-
     ljn_gallery_list_side: {
       flexBasis: cssConfig.boxSize + cssConfig.boxGap,
       display: "flex",

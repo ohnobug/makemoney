@@ -19,7 +19,7 @@ export function useActiveBox(
   useEffect(() => {
     return () => {
       if (play) {
-        console.log("销毁释放", index);
+        // console.log("销毁释放", index);
         setPlay(false);
         dispatch(setGalleryPlayIndex(-1));
       }
@@ -47,10 +47,8 @@ export function useActiveBox(
         }
       } else {
         if (
-          componentOffset + BOXHEIGHT - (scrollPosition + 3 * BOXHEIGHT) >=
-            -(BOXHEIGHT / 2) &&
-          componentOffset + BOXHEIGHT - (scrollPosition + 3 * BOXHEIGHT) <=
-            BOXHEIGHT / 2
+          componentOffset + BOXHEIGHT >= scrollPosition + 2.5 * BOXHEIGHT &&
+          componentOffset + BOXHEIGHT <= scrollPosition + 3 * BOXHEIGHT
         ) {
           if (play === false) {
             dispatch(setGalleryPlayIndex(index));
@@ -68,7 +66,7 @@ export function useActiveBox(
 
       // 且在播的属于本盒子
       if (galleryPlayIndex === index) {
-        console.log(index);
+        // console.log(index);
         if (direction === "UP") {
           // 本盒子向上走
           if (componentOffset - scrollPosition <= -(BOXHEIGHT / 2)) {
