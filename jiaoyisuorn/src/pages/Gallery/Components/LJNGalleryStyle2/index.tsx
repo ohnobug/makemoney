@@ -1,4 +1,4 @@
-import React, { useMemo, useReducer, useRef } from "react";
+import React, { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import LJNVideoPlayer from "../../../../components/LJNVideoPlayer";
@@ -59,14 +59,24 @@ const index = ({
     }
   );
 
-  const lastClickItem = useRef(null);
+  const [lastClickItem, setLastClickItem] = useState(null);
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    if (lastClickItem && show) {
+      showModal(true, lastClickItem);
+    }
+
+    if (show === false) {
+      showModal(false);
+    }
+  }, [lastClickItem, show]);
 
   const panGesture = Gesture.Pan()
     .activateAfterLongPress(200)
     .runOnJS(true)
     .onStart(() => {
       console.log("进来了");
-      showModal(true, lastClickItem.current);
+      setShow(true);
       childSetScrollEnabled(false);
     })
     .onUpdate((e) => {
@@ -74,7 +84,7 @@ const index = ({
     })
     .onEnd((e) => {
       console.log("出去了");
-      showModal(false);
+      setShow(false);
       childSetScrollEnabled(true);
     });
 
@@ -87,11 +97,11 @@ const index = ({
               style={styles.ljn_gallery_list_left}
               key={index}
               onPressIn={() => {
-                lastClickItem.current = gallery[0];
+                setLastClickItem(gallery[0]);
               }}
             >
-              <GestureDetector gesture={panGesture}>
-                {canPlay ? (
+              {canPlay ? (
+                <GestureDetector gesture={panGesture}>
                   <LJNVideoPlayer
                     autoPlay={true}
                     style={StyleSheet.flatten([
@@ -101,8 +111,10 @@ const index = ({
                       },
                     ])}
                   />
-                ) : null}
+                </GestureDetector>
+              ) : null}
 
+              <GestureDetector gesture={panGesture}>
                 <Image
                   style={styles.ljn_gallery_item_video}
                   source={
@@ -125,7 +137,7 @@ const index = ({
                   style={styles.ljn_gallery_item}
                   key={index}
                   onPressIn={() => {
-                    lastClickItem.current = item;
+                    setLastClickItem(item);
                   }}
                 >
                   <GestureDetector gesture={panGesture}>

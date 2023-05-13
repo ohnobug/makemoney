@@ -1,4 +1,4 @@
-import React, { useMemo, useReducer, useRef } from "react";
+import React, { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { useStyles } from "../../../../hooks";
@@ -49,14 +49,24 @@ const index = ({
     }
   );
 
-  const lastClickItem = useRef(null);
+  const [lastClickItem, setLastClickItem] = useState(null);
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    if (lastClickItem && show) {
+      showModal(true, lastClickItem);
+    }
+
+    if (show === false) {
+      showModal(false);
+    }
+  }, [lastClickItem, show]);
 
   const panGesture = Gesture.Pan()
     .activateAfterLongPress(200)
     .runOnJS(true)
     .onStart(() => {
       console.log("进来了");
-      showModal(true, lastClickItem.current);
+      setShow(true);
       childSetScrollEnabled(false);
     })
     .onUpdate((e) => {
@@ -64,7 +74,7 @@ const index = ({
     })
     .onEnd((e) => {
       console.log("出去了");
-      showModal(false);
+      setShow(false);
       childSetScrollEnabled(true);
     });
 
@@ -79,7 +89,7 @@ const index = ({
                   style={styles.ljn_gallery_item}
                   key={index}
                   onPressIn={() => {
-                    lastClickItem.current = item;
+                    setLastClickItem(item);
                   }}
                 >
                   <GestureDetector gesture={panGesture}>
