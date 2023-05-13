@@ -1,5 +1,6 @@
-import React, { useMemo, useReducer } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import React, { useMemo, useReducer, useRef } from "react";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import LJNVideoPlayer from "../../../../components/LJNVideoPlayer";
 import { useStyles } from "../../../../hooks";
 import { useActiveBox } from "../componentsHooks";
@@ -17,6 +18,8 @@ type Props = {
   scrollPosition?: number;
   direction?: "UP" | "DOWN";
   scrollState?: "handleScroll" | "autoScroll" | "scrollEnd";
+  showModal?: any;
+  childSetScrollEnabled?: any;
 };
 
 const index = ({
@@ -26,6 +29,8 @@ const index = ({
   scrollPosition = 0,
   direction = "UP",
   scrollState = "scrollEnd",
+  showModal,
+  childSetScrollEnabled,
 }: Props) => {
   const styles = useStyles(setTheme);
 
@@ -54,56 +59,91 @@ const index = ({
     }
   );
 
+  const lastClickItem = useRef(null);
+
+  const panGesture = Gesture.Pan()
+    .activateAfterLongPress(200)
+    .runOnJS(true)
+    .onStart(() => {
+      console.log("进来了");
+      showModal(true, lastClickItem.current);
+      childSetScrollEnabled(false);
+    })
+    .onUpdate((e) => {
+      console.log("移动");
+    })
+    .onEnd((e) => {
+      console.log("出去了");
+      showModal(false);
+      childSetScrollEnabled(true);
+    });
+
   return (
     <>
       {useMemo(
         () => (
           <View style={StyleSheet.flatten([styles.ljn_gallery_list])}>
-            <View style={styles.ljn_gallery_list_left}>
-              {canPlay ? (
-                <LJNVideoPlayer
-                  autoPlay={true}
-                  style={StyleSheet.flatten([
-                    styles.ljn_gallery_item_video,
-                    {
-                      zIndex: 999,
-                    },
-                  ])}
-                />
-              ) : null}
+            <TouchableOpacity
+              style={styles.ljn_gallery_list_left}
+              key={index}
+              onPressIn={() => {
+                lastClickItem.current = gallery[0];
+              }}
+            >
+              <GestureDetector gesture={panGesture}>
+                {canPlay ? (
+                  <LJNVideoPlayer
+                    autoPlay={true}
+                    style={StyleSheet.flatten([
+                      styles.ljn_gallery_item_video,
+                      {
+                        zIndex: 999,
+                      },
+                    ])}
+                  />
+                ) : null}
 
-              <Image
-                style={styles.ljn_gallery_item_video}
-                source={
-                  state.img0
-                    ? {
-                        uri: gallery[0].image,
-                      }
-                    : boxempty
-                }
-                onLoad={() => {
-                  stateDispatch({ payload: "img0" });
-                }}
-              />
-            </View>
+                <Image
+                  style={styles.ljn_gallery_item_video}
+                  source={
+                    state.img0
+                      ? {
+                          uri: gallery[0].image,
+                        }
+                      : boxempty
+                  }
+                  onLoad={() => {
+                    stateDispatch({ payload: "img0" });
+                  }}
+                />
+              </GestureDetector>
+            </TouchableOpacity>
 
             <View style={styles.ljn_gallery_list_right}>
               {gallery.slice(1).map((item, index) => (
-                <View style={styles.ljn_gallery_item} key={index}>
-                  <Image
-                    style={styles.ljn_gallery_item_image}
-                    source={
-                      state[`img${index + 1}`]
-                        ? {
-                            uri: item.image,
-                          }
-                        : boxempty
-                    }
-                    onLoadEnd={() => {
-                      stateDispatch({ payload: `img${index + 1}` });
-                    }}
-                  />
-                </View>
+                <TouchableOpacity
+                  style={styles.ljn_gallery_item}
+                  key={index}
+                  onPressIn={() => {
+                    lastClickItem.current = item;
+                  }}
+                >
+                  <GestureDetector gesture={panGesture}>
+                    <Image
+                      style={styles.ljn_gallery_item_image}
+                      source={
+                        state[`img${index + 1}`]
+                          ? {
+                              uri: item.image,
+                            }
+                          : boxempty
+                      }
+                      onLoadEnd={() => {
+                        stateDispatch({ payload: `img${index + 1}` });
+                      }}
+                    />
+                  </GestureDetector>
+                </TouchableOpacity>
               ))}
             </View>
           </View>

@@ -225,63 +225,83 @@ const index = (props: Props) => {
 
   const renderItem = (kkk) => {
     const { item, index } = kkk;
-    // if (item.type == 1) {
-    return (
-      <LJNGalleryStyle1
-        childSetScrollEnabled={childSetScrollEnabled}
-        showModal={(show: boolean, data?: any) => {
-          if (show) {
-            photoModal.current.display(true, data);
-          } else {
-            photoModal.current.display(false);
-          }
-        }}
-        scrollState={scrollState}
-        index={index}
-        offset={item.offset}
-        gallery={item.data}
-        scrollPosition={scrollPosition}
-        direction={direction}
-      />
-    );
-    // }
-    // } else if (item.type == 2) {
-    //   return (
-    //     <LJNGalleryStyle2
-    //       callModal={callModal}
-    //       scrollState={scrollState}
-    //       index={index}
-    //       offset={item.offset}
-    //       gallery={item.data.slice(1)}
-    //       scrollPosition={scrollPosition}
-    //       direction={direction}
-    //     />
-    //   );
-    // } else if (item.type == 3) {
-    //   return (
-    //     <LJNGalleryStyle3
-    //       callModal={callModal}
-    //       scrollState={scrollState}
-    //       index={index}
-    //       offset={item.offset}
-    //       gallery={item.data.slice(1)}
-    //       scrollPosition={scrollPosition}
-    //       direction={direction}
-    //     />
-    //   );
-    // } else if (item.type == 4) {
-    //   return (
-    //     <LJNGalleryStyle4
-    //       callModal={callModal}
-    //       scrollState={scrollState}
-    //       index={index}
-    //       offset={item.offset}
-    //       gallery={item.data.slice(1)}
-    //       scrollPosition={scrollPosition}
-    //       direction={direction}
-    //     />
-    //   );
-    // }
+    if (item.type == 1) {
+      return (
+        <LJNGalleryStyle1
+          childSetScrollEnabled={childSetScrollEnabled}
+          showModal={(show: boolean, data?: any) => {
+            if (show) {
+              photoModal.current.display(true, data);
+            } else {
+              photoModal.current.display(false);
+            }
+          }}
+          scrollState={scrollState}
+          index={index}
+          offset={item.offset}
+          gallery={item.data}
+          scrollPosition={scrollPosition}
+          direction={direction}
+        />
+      );
+    } else if (item.type == 2) {
+      return (
+        <LJNGalleryStyle2
+          childSetScrollEnabled={childSetScrollEnabled}
+          showModal={(show: boolean, data?: any) => {
+            if (show) {
+              photoModal.current.display(true, data);
+            } else {
+              photoModal.current.display(false);
+            }
+          }}
+          scrollState={scrollState}
+          index={index}
+          offset={item.offset}
+          gallery={item.data.slice(1)}
+          scrollPosition={scrollPosition}
+          direction={direction}
+        />
+      );
+    } else if (item.type == 3) {
+      return (
+        <LJNGalleryStyle3
+          childSetScrollEnabled={childSetScrollEnabled}
+          showModal={(show: boolean, data?: any) => {
+            if (show) {
+              photoModal.current.display(true, data);
+            } else {
+              photoModal.current.display(false);
+            }
+          }}
+          scrollState={scrollState}
+          index={index}
+          offset={item.offset}
+          gallery={item.data.slice(1)}
+          scrollPosition={scrollPosition}
+          direction={direction}
+        />
+      );
+    } else if (item.type == 4) {
+      return (
+        <LJNGalleryStyle4
+          childSetScrollEnabled={childSetScrollEnabled}
+          showModal={(show: boolean, data?: any) => {
+            if (show) {
+              photoModal.current.display(true, data);
+            } else {
+              photoModal.current.display(false);
+            }
+          }}
+          scrollState={scrollState}
+          index={index}
+          offset={item.offset}
+          gallery={item.data.slice(1)}
+          scrollPosition={scrollPosition}
+          direction={direction}
+        />
+      );
+    }
   };
 
   const onScrollEnd = debounce(() => {
