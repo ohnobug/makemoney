@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { BackHandler, Platform } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Outlet, useLocation, useNavigate } from "react-router-native";
 
 if (Platform.OS === "web") {
@@ -56,8 +57,8 @@ export default function AppInner() {
   }, [location]);
 
   return (
-    <>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <Outlet />
-    </>
+    </GestureHandlerRootView>
   );
 }

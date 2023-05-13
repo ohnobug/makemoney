@@ -1,7 +1,5 @@
 import { StyleSheet } from "react-native";
-import { px2vw } from "../../../../utils/utils";
 import cssConfig from "../cssConfig";
-import AppStylesConfig from "../../../../AppStylesConfig";
 
 export function setTheme(name: string) {
   return StyleSheet.create({

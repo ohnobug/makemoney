@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Image, Platform, View, VirtualizedList } from "react-native";
+import { Button, Image, Platform, View, VirtualizedList } from "react-native";
 import LJNTabbar from "../../components/LJNTabbar";
 import { useStyles } from "../../hooks";
 import LJNGalleryStyle1 from "./Components/LJNGalleryStyle1";
@@ -8,7 +8,10 @@ import LJNGalleryStyle3 from "./Components/LJNGalleryStyle3";
 import LJNGalleryStyle4 from "./Components/LJNGalleryStyle4";
 import cssConfig from "./Components/cssConfig";
 import { setTheme } from "./styles";
+import LJNModal from "./Components/LJNModal";
+import { debounce } from "../../utils/utils";
 
+// 图片准备
 let imagesArr = [
   require("../../assets/gallery/1.jpg"),
   require("../../assets/gallery/2.jpg"),
@@ -144,6 +147,7 @@ let imagesArr = [
   require("../../assets/gallery/132.jpg"),
 ];
 
+// 生成数据
 const makeData = (n: number) => {
   return new Array(n).fill("").map(() => {
     let exampleImageUri;
@@ -162,8 +166,11 @@ const makeData = (n: number) => {
   });
 };
 
+// 盒子高度
 const HEIGHT = (cssConfig.boxGap + cssConfig.boxSize) * 2;
-const list = new Array(100000).fill(0).map((item, index) => {
+
+// 模拟数据生成
+const list = new Array(1000).fill(0).map((item, index) => {
   return {
     id: index,
     type: 1 + ~~(Math.random() * 4),
@@ -178,8 +185,11 @@ const index = (props: Props) => {
 
   // 记录滚动的位置
   const [scrollPosition, setScrollPosition] = useState(0);
+
+  // 滚动方向
   const [direction, setDirection] = useState<"UP" | "DOWN">("UP");
-  // 滚动状态
+
+  // 滚动状态（手工滚动、自动滚动、自动滚动完成）
   const [scrollState, setScrollState] = useState<
     "handleScroll" | "autoScroll" | "scrollEnd"
   >("scrollEnd");
@@ -187,10 +197,8 @@ const index = (props: Props) => {
   const beginScroll = useRef(0);
   const handleScroll = (event: any) => {
     const position = event.nativeEvent.contentOffset.y;
-
-    if (position - scrollPosition === 0) {
-      return;
-    }
+    // 兼容web
+    if (position - scrollPosition === 0) return;
 
     setScrollPosition(position);
 
@@ -200,118 +208,136 @@ const index = (props: Props) => {
       console.log("手工滚动开始");
     }
 
+    // 方向计算
     if (position - scrollPosition > 0) {
-      console.log(position, scrollPosition, position - scrollPosition, "UP");
       setDirection("UP");
     } else {
-      console.log(position, scrollPosition, position - scrollPosition, "DOWN");
       setDirection("DOWN");
     }
   };
 
+  const photoModal = useRef(null);
+
+  const [scrollEnabled, setScrollEnabled] = useState(true);
+  const childSetScrollEnabled = (b: boolean) => {
+    setScrollEnabled(b);
+  };
+
   const renderItem = (kkk) => {
     const { item, index } = kkk;
-    if (item.type == 1) {
-      return (
-        <LJNGalleryStyle1
-          scrollState={scrollState}
-          index={index}
-          offset={item.offset}
-          gallery={item.data}
-          scrollPosition={scrollPosition}
-          direction={direction}
-        />
-      );
-    } else if (item.type == 2) {
-      return (
-        <LJNGalleryStyle2
-          scrollState={scrollState}
-          index={index}
-          offset={item.offset}
-          gallery={item.data.slice(1)}
-          scrollPosition={scrollPosition}
-          direction={direction}
-        />
-      );
-    } else if (item.type == 3) {
-      return (
-        <LJNGalleryStyle3
-          scrollState={scrollState}
-          index={index}
-          offset={item.offset}
-          gallery={item.data.slice(1)}
-          scrollPosition={scrollPosition}
-          direction={direction}
-        />
-      );
-    } else if (item.type == 4) {
-      return (
-        <LJNGalleryStyle4
-          scrollState={scrollState}
-          index={index}
-          offset={item.offset}
-          gallery={item.data.slice(1)}
-          scrollPosition={scrollPosition}
-          direction={direction}
-        />
-      );
-    }
+    // if (item.type == 1) {
+    return (
+      <LJNGalleryStyle1
+        childSetScrollEnabled={childSetScrollEnabled}
+        showModal={(show: boolean, data?: any) => {
+          if (show) {
+            photoModal.current.display(true, data);
+          } else {
+            photoModal.current.display(false);
+          }
+        }}
+        scrollState={scrollState}
+        index={index}
+        offset={item.offset}
+        gallery={item.data}
+        scrollPosition={scrollPosition}
+        direction={direction}
+      />
+    );
+    // }
+    // } else if (item.type == 2) {
+    //   return (
+    //     <LJNGalleryStyle2
+    //       callModal={callModal}
+    //       scrollState={scrollState}
+    //       index={index}
+    //       offset={item.offset}
+    //       gallery={item.data.slice(1)}
+    //       scrollPosition={scrollPosition}
+    //       direction={direction}
+    //     />
+    //   );
+    // } else if (item.type == 3) {
+    //   return (
+    //     <LJNGalleryStyle3
+    //       callModal={callModal}
+    //       scrollState={scrollState}
+    //       index={index}
+    //       offset={item.offset}
+    //       gallery={item.data.slice(1)}
+    //       scrollPosition={scrollPosition}
+    //       direction={direction}
+    //     />
+    //   );
+    // } else if (item.type == 4) {
+    //   return (
+    //     <LJNGalleryStyle4
+    //       callModal={callModal}
+    //       scrollState={scrollState}
+    //       index={index}
+    //       offset={item.offset}
+    //       gallery={item.data.slice(1)}
+    //       scrollPosition={scrollPosition}
+    //       direction={direction}
+    //     />
+    //   );
+    // }
   };
 
-  const timer = useRef(null);
-  const onScrollEnd = () => {
-    if (!timer.current) {
-      timer.current = setTimeout(() => {
-        console.log("自动滚动结束");
-        // 动画完了释放
-        setScrollState("scrollEnd");
-        // 重置
-        beginScroll.current = 0;
-        timer.current = 0;
-      }, 30);
-    }
-  };
+  const onScrollEnd = debounce(() => {
+    console.log("自动滚动结束");
+    // 动画完了释放
+    setScrollState("scrollEnd");
+    // 重置
+    beginScroll.current = 0;
+  }, 30);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.ljn_main}>
-        <VirtualizedList
-          horizontal={false}
-          data={list}
-          renderItem={renderItem}
-          keyExtractor={(item: any) => item.id}
-          getItemCount={(data) => data.length}
-          getItem={(data, index) => data[index]}
-          getItemLayout={(data: any, index: number) => {
-            return { length: HEIGHT, offset: HEIGHT * index, index: index };
-          }}
-          initialNumToRender={5} // 首批渲染的元素数量
-          windowSize={5} // 渲染区域高度
-          maxToRenderPerBatch={20} // 增量渲染最大数量
-          scrollEnabled
-          scrollEventThrottle={16}
-          // debug
-          onScrollEndDrag={(e) => {
-            console.log("自动滚动开始");
-            setScrollState("autoScroll");
-          }}
-          onMomentumScrollEnd={onScrollEnd}
-          onScroll={handleScroll}
-          onTouchEnd={() => {
-            console.log("web自动滚动开始");
-            setScrollState("autoScroll");
-            setTimeout(() => {
-              onScrollEnd();
-            }, 2000);
-          }}
-        />
-      </View>
+    <>
+      <View style={styles.container}>
+        <View style={styles.ljn_main}>
+          <VirtualizedList
+            horizontal={false}
+            data={list}
+            renderItem={renderItem}
+            keyExtractor={(item: any) => item.id}
+            getItemCount={(data) => data.length}
+            getItem={(data, index) => data[index]}
+            getItemLayout={(data: any, index: number) => {
+              return { length: HEIGHT, offset: HEIGHT * index, index: index };
+            }}
+            initialNumToRender={5} // 首批渲染的元素数量
+            windowSize={5} // 渲染区域高度
+            maxToRenderPerBatch={20} // 增量渲染最大数量
+            scrollEnabled={scrollEnabled}
+            scrollEventThrottle={16}
+            // debug
+            onScrollEndDrag={(e) => {
+              console.log("自动滚动开始");
+              setScrollState("autoScroll");
+            }}
+            onMomentumScrollEnd={onScrollEnd}
+            onScroll={handleScroll}
+            onTouchEnd={() => {
+              if (Platform.OS === "web") {
+                console.log("web自动滚动开始");
+                setScrollState("autoScroll");
+                setTimeout(() => {
+                  onScrollEnd();
+                }, 2000);
+              }
+            }}
+          />
 
-      {/* 底部 */}
-      <View style={styles.ljn_footer}>
-        <LJNTabbar />
+          <LJNModal ref={photoModal} />
+        </View>
+
+        {/* 底部 */}
+        <View style={styles.ljn_footer}>
+          <LJNTabbar />
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 
