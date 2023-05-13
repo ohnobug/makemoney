@@ -3,6 +3,7 @@ import { Image, StyleSheet, View } from "react-native";
 import { useStyles } from "../../../../hooks";
 import { useActiveBox } from "../componentsHooks";
 import { setTheme } from "./styles";
+const boxempty = require("../../../../assets/images/boxempty.png");
 
 type Props = {
   gallery: {
@@ -13,6 +14,7 @@ type Props = {
   index: number;
   scrollPosition?: number;
   direction?: "UP" | "DOWN";
+  scrollState?: "handleScroll" | "autoScroll" | "scrollEnd";
 };
 
 const index = ({
@@ -21,10 +23,11 @@ const index = ({
   index,
   scrollPosition = 0,
   direction = "UP",
+  scrollState = "scrollEnd",
 }: Props) => {
   const styles = useStyles(setTheme);
 
-  useActiveBox(offset, scrollPosition, direction, index);
+  useActiveBox(offset, scrollPosition, direction, index, scrollState);
 
   const [state, stateDispatch] = useReducer(
     (preState, action) => {
@@ -51,9 +54,13 @@ const index = ({
                 <View style={styles.ljn_gallery_item} key={index}>
                   <Image
                     style={styles.ljn_gallery_item_image}
-                    source={{
-                      uri: state[`img${index}`] ? item.image : item.image,
-                    }}
+                    source={
+                      state[`img${index}`]
+                        ? {
+                            uri: item.image,
+                          }
+                        : boxempty
+                    }
                     onLoadEnd={() => {
                       stateDispatch({ payload: `img${index}` });
                     }}

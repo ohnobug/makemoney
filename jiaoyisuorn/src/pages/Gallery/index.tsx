@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Image, Platform, View, VirtualizedList } from "react-native";
 import LJNTabbar from "../../components/LJNTabbar";
 import { useStyles } from "../../hooks";
@@ -163,7 +163,7 @@ const makeData = (n: number) => {
 };
 
 const HEIGHT = (cssConfig.boxGap + cssConfig.boxSize) * 2;
-const list = new Array(10000).fill(0).map((item, index) => {
+const list = new Array(100000).fill(0).map((item, index) => {
   return {
     id: index,
     type: 1 + ~~(Math.random() * 4),
@@ -179,9 +179,23 @@ const index = (props: Props) => {
   // 记录滚动的位置
   const [scrollPosition, setScrollPosition] = useState(0);
   const [direction, setDirection] = useState<"UP" | "DOWN">("UP");
+  // 滚动状态
+  const [scrollState, setScrollState] = useState<
+    "handleScroll" | "autoScroll" | "scrollEnd"
+  >("scrollEnd");
+
+  const beginScroll = useRef(0);
+  const beginScrollPositionY = useRef(0);
   const handleScroll = (event: any) => {
     const position = event.nativeEvent.contentOffset.y;
     setScrollPosition(position);
+
+    if (beginScroll.current === 0) {
+      beginScroll.current = new Date().getTime();
+      beginScrollPositionY.current = position;
+      setScrollState("handleScroll");
+      console.log("手工滚动开始");
+    }
 
     if (position - scrollPosition > 0) {
       setDirection("UP");
@@ -195,6 +209,7 @@ const index = (props: Props) => {
     if (item.type == 1) {
       return (
         <LJNGalleryStyle1
+          scrollState={scrollState}
           index={index}
           offset={item.offset}
           gallery={item.data}
@@ -205,6 +220,7 @@ const index = (props: Props) => {
     } else if (item.type == 2) {
       return (
         <LJNGalleryStyle2
+          scrollState={scrollState}
           index={index}
           offset={item.offset}
           gallery={item.data.slice(1)}
@@ -215,6 +231,7 @@ const index = (props: Props) => {
     } else if (item.type == 3) {
       return (
         <LJNGalleryStyle3
+          scrollState={scrollState}
           index={index}
           offset={item.offset}
           gallery={item.data.slice(1)}
@@ -225,6 +242,7 @@ const index = (props: Props) => {
     } else if (item.type == 4) {
       return (
         <LJNGalleryStyle4
+          scrollState={scrollState}
           index={index}
           offset={item.offset}
           gallery={item.data.slice(1)}
@@ -235,10 +253,26 @@ const index = (props: Props) => {
     }
   };
 
+  const timer = useRef(null);
+  const onScrollEnd = () => {
+    if (!timer.current) {
+      timer.current = setTimeout(() => {
+        console.log("自动滚动结束");
+        // 动画完了释放
+        setScrollState("scrollEnd");
+        // 重置
+        beginScroll.current = 0;
+        beginScrollPositionY.current = 0;
+        timer.current = 0;
+      }, 30);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.ljn_main}>
         <VirtualizedList
+          horizontal={false}
           data={list}
           renderItem={renderItem}
           keyExtractor={(item: any) => item.id}
@@ -247,13 +281,23 @@ const index = (props: Props) => {
           getItemLayout={(data: any, index: number) => {
             return { length: HEIGHT, offset: HEIGHT * index, index: index };
           }}
-          initialNumToRender={3} // 首批渲染的元素数量
-          windowSize={3} // 渲染区域高度
-          maxToRenderPerBatch={5} // 增量渲染最大数量
+          initialNumToRender={5} // 首批渲染的元素数量
+          windowSize={5} // 渲染区域高度
+          maxToRenderPerBatch={20} // 增量渲染最大数量
           scrollEnabled
           scrollEventThrottle={16}
           // debug
-          // onScrollEndDrag={handleScroll}
+          onScrollEndDrag={(e) => {
+            // // 手指释放时触发
+            // let v =
+            //   Math.abs(
+            //     e.nativeEvent.contentOffset.y - beginScrollPositionY.current
+            //   ) /
+            //   (new Date().getTime() - beginScroll.current);
+            console.log("自动滚动开始");
+            setScrollState("autoScroll");
+          }}
+          onMomentumScrollEnd={onScrollEnd}
           onScroll={handleScroll}
         />
       </View>

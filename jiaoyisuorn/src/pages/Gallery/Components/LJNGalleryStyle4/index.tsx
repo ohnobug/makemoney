@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useReducer, useState } from "react";
+import React, { useMemo, useReducer } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import LJNVideoPlayer from "../../../../components/LJNVideoPlayer";
 import { useStyles } from "../../../../hooks";
 import { useActiveBox } from "../componentsHooks";
 import { setTheme } from "./styles";
+const boxempty = require("../../../../assets/images/boxempty.png");
 
 type Props = {
   gallery: {
@@ -14,6 +15,7 @@ type Props = {
   index: number;
   scrollPosition?: number;
   direction?: "UP" | "DOWN";
+  scrollState?: "handleScroll" | "autoScroll" | "scrollEnd";
 };
 
 const index = ({
@@ -22,22 +24,18 @@ const index = ({
   index,
   scrollPosition = 0,
   direction = "UP",
+  scrollState = "scrollEnd",
 }: Props) => {
   const styles = useStyles(setTheme);
 
   // 显示视频
-  const canPlay = useActiveBox(offset, scrollPosition, direction, index);
-  const [showVideo, setShowVideo] = useState(false);
-  useEffect(() => {
-    // 加时钟的原因是为了避免快速滚动的过程中产生多个视频实例
-    let timer = setTimeout(() => {
-      setShowVideo(canPlay);
-    }, 500);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [canPlay]);
+  const canPlay = useActiveBox(
+    offset,
+    scrollPosition,
+    direction,
+    index,
+    scrollState
+  );
 
   const [state, stateDispatch] = useReducer(
     (preState, action) => {
@@ -62,9 +60,13 @@ const index = ({
               <View style={styles.ljn_gallery_item}>
                 <Image
                   style={styles.ljn_gallery_item_image}
-                  source={{
-                    uri: state.img1 ? gallery[1].image : gallery[1].image,
-                  }}
+                  source={
+                    state.img1
+                      ? {
+                          uri: gallery[1].image,
+                        }
+                      : boxempty
+                  }
                   onLoadEnd={() => {
                     stateDispatch({ payload: `img1` });
                   }}
@@ -73,9 +75,13 @@ const index = ({
               <View style={styles.ljn_gallery_item}>
                 <Image
                   style={styles.ljn_gallery_item_image}
-                  source={{
-                    uri: state.img2 ? gallery[2].image : gallery[2].image,
-                  }}
+                  source={
+                    state.img2
+                      ? {
+                          uri: gallery[2].image,
+                        }
+                      : boxempty
+                  }
                   onLoadEnd={() => {
                     stateDispatch({ payload: `img2` });
                   }}
@@ -84,7 +90,7 @@ const index = ({
             </View>
 
             <View style={styles.ljn_gallery_list_middle}>
-              {showVideo ? (
+              {canPlay ? (
                 <LJNVideoPlayer
                   autoPlay={true}
                   style={StyleSheet.flatten([
@@ -98,9 +104,13 @@ const index = ({
 
               <Image
                 style={styles.ljn_gallery_item_video}
-                source={{
-                  uri: state.img0 ? gallery[0].image : gallery[0].image,
-                }}
+                source={
+                  state.img0
+                    ? {
+                        uri: gallery[0].image,
+                      }
+                    : boxempty
+                }
                 onLoad={() => {
                   stateDispatch({ payload: "img0" });
                 }}
@@ -111,9 +121,13 @@ const index = ({
               <View style={styles.ljn_gallery_item}>
                 <Image
                   style={styles.ljn_gallery_item_image}
-                  source={{
-                    uri: state.img3 ? gallery[3].image : gallery[3].image,
-                  }}
+                  source={
+                    state.img3
+                      ? {
+                          uri: gallery[3].image,
+                        }
+                      : boxempty
+                  }
                   onLoad={() => {
                     stateDispatch({ payload: "img3" });
                   }}
@@ -122,9 +136,13 @@ const index = ({
               <View style={styles.ljn_gallery_item}>
                 <Image
                   style={styles.ljn_gallery_item_image}
-                  source={{
-                    uri: state.img4 ? gallery[4].image : gallery[4].image,
-                  }}
+                  source={
+                    state.img4
+                      ? {
+                          uri: gallery[4].image,
+                        }
+                      : boxempty
+                  }
                   onLoad={() => {
                     stateDispatch({ payload: "img4" });
                   }}
@@ -133,7 +151,7 @@ const index = ({
             </View>
           </View>
         );
-      }, [state, showVideo])}
+      }, [state, canPlay])}
     </>
   );
 };
