@@ -29,6 +29,14 @@ export function useActiveBox(
 
   const galleryPlayIndex = useAppSelector(selectGalleryPlayIndex);
   useLayoutEffect(() => {
+    // console.group();
+    // console.table({
+    //   scrollPosition: scrollPosition,
+    //   direction: direction,
+    //   galleryPlayIndex: galleryPlayIndex,
+    //   scrollState: scrollState,
+    // });
+    // console.groupEnd();
     if (["handleScroll", "scrollEnd"].includes(scrollState)) {
       if (galleryPlayIndex === -1) {
         // 目前没有在播的

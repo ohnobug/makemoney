@@ -185,21 +185,26 @@ const index = (props: Props) => {
   >("scrollEnd");
 
   const beginScroll = useRef(0);
-  const beginScrollPositionY = useRef(0);
   const handleScroll = (event: any) => {
     const position = event.nativeEvent.contentOffset.y;
+
+    if (position - scrollPosition === 0) {
+      return;
+    }
+
     setScrollPosition(position);
 
     if (beginScroll.current === 0) {
       beginScroll.current = new Date().getTime();
-      beginScrollPositionY.current = position;
       setScrollState("handleScroll");
       console.log("手工滚动开始");
     }
 
     if (position - scrollPosition > 0) {
+      console.log(position, scrollPosition, position - scrollPosition, "UP");
       setDirection("UP");
     } else {
+      console.log(position, scrollPosition, position - scrollPosition, "DOWN");
       setDirection("DOWN");
     }
   };
@@ -262,7 +267,6 @@ const index = (props: Props) => {
         setScrollState("scrollEnd");
         // 重置
         beginScroll.current = 0;
-        beginScrollPositionY.current = 0;
         timer.current = 0;
       }, 30);
     }
@@ -288,17 +292,18 @@ const index = (props: Props) => {
           scrollEventThrottle={16}
           // debug
           onScrollEndDrag={(e) => {
-            // // 手指释放时触发
-            // let v =
-            //   Math.abs(
-            //     e.nativeEvent.contentOffset.y - beginScrollPositionY.current
-            //   ) /
-            //   (new Date().getTime() - beginScroll.current);
             console.log("自动滚动开始");
             setScrollState("autoScroll");
           }}
           onMomentumScrollEnd={onScrollEnd}
           onScroll={handleScroll}
+          onTouchEnd={() => {
+            console.log("web自动滚动开始");
+            setScrollState("autoScroll");
+            setTimeout(() => {
+              onScrollEnd();
+            }, 2000);
+          }}
         />
       </View>
 
