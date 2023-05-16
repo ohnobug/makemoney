@@ -10,6 +10,7 @@ import cssConfig from "./Components/cssConfig";
 import { setTheme } from "./styles";
 import LJNModal from "./Components/LJNModal";
 import { debounce } from "../../utils/utils";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 // 图片准备
 let imagesArr = [
@@ -170,7 +171,7 @@ const makeData = (n: number) => {
 const HEIGHT = (cssConfig.boxGap + cssConfig.boxSize) * 2;
 
 // 模拟数据生成
-const list = new Array(1000).fill(0).map((item, index) => {
+const list = new Array(100).fill(0).map((item, index) => {
   return {
     id: index,
     type: 1 + ~~(Math.random() * 4),
@@ -223,85 +224,61 @@ const index = (props: Props) => {
     setScrollEnabled(b);
   };
 
+  const [longTapPosition, setLongTapPosition] = useState({ x: 0, y: 0 });
+  const [tapPosition, setTapPosition] = useState({ x: 0, y: 0 });
+
   const renderItem = (kkk) => {
     const { item, index } = kkk;
-    if (item.type == 1) {
-      return (
-        <LJNGalleryStyle1
-          childSetScrollEnabled={childSetScrollEnabled}
-          showModal={(show: boolean, data?: any) => {
-            if (show) {
-              photoModal.current.display(true, data);
-            } else {
-              photoModal.current.display(false);
-            }
-          }}
-          scrollState={scrollState}
-          index={index}
-          offset={item.offset}
-          gallery={item.data}
-          scrollPosition={scrollPosition}
-          direction={direction}
-        />
-      );
-    } else if (item.type == 2) {
-      return (
-        <LJNGalleryStyle2
-          childSetScrollEnabled={childSetScrollEnabled}
-          showModal={(show: boolean, data?: any) => {
-            if (show) {
-              photoModal.current.display(true, data);
-            } else {
-              photoModal.current.display(false);
-            }
-          }}
-          scrollState={scrollState}
-          index={index}
-          offset={item.offset}
-          gallery={item.data.slice(1)}
-          scrollPosition={scrollPosition}
-          direction={direction}
-        />
-      );
-    } else if (item.type == 3) {
-      return (
-        <LJNGalleryStyle3
-          childSetScrollEnabled={childSetScrollEnabled}
-          showModal={(show: boolean, data?: any) => {
-            if (show) {
-              photoModal.current.display(true, data);
-            } else {
-              photoModal.current.display(false);
-            }
-          }}
-          scrollState={scrollState}
-          index={index}
-          offset={item.offset}
-          gallery={item.data.slice(1)}
-          scrollPosition={scrollPosition}
-          direction={direction}
-        />
-      );
-    } else if (item.type == 4) {
-      return (
-        <LJNGalleryStyle4
-          childSetScrollEnabled={childSetScrollEnabled}
-          showModal={(show: boolean, data?: any) => {
-            if (show) {
-              photoModal.current.display(true, data);
-            } else {
-              photoModal.current.display(false);
-            }
-          }}
-          scrollState={scrollState}
-          index={index}
-          offset={item.offset}
-          gallery={item.data.slice(1)}
-          scrollPosition={scrollPosition}
-          direction={direction}
-        />
-      );
-    }
+    // if (item.type == 1) {
+    return (
+      <LJNGalleryStyle1
+        scrollState={scrollState}
+        index={index}
+        offset={item.offset}
+        gallery={item.data}
+        scrollPosition={scrollPosition}
+        direction={direction}
+        longTapPosition={longTapPosition}
+        tapPosition={tapPosition}
+        showModal={(item: any) => {
+          photoModal.current.display(true, item);
+        }}
+      />
+    );
+    // } else if (item.type == 2) {
+    //   return (
+    //     <LJNGalleryStyle2
+    //       scrollState={scrollState}
+    //       index={index}
+    //       offset={item.offset}
+    //       gallery={item.data.slice(1)}
+    //       scrollPosition={scrollPosition}
+    //       direction={direction}
+    //     />
+    //   );
+    // } else if (item.type == 3) {
+    //   return (
+    //     <LJNGalleryStyle3
+    //       scrollState={scrollState}
+    //       index={index}
+    //       offset={item.offset}
+    //       gallery={item.data.slice(1)}
+    //       scrollPosition={scrollPosition}
+    //       direction={direction}
+    //     />
+    //   );
+    // } else if (item.type == 4) {
+    //   return (
+    //     <LJNGalleryStyle4
+    //       scrollState={scrollState}
+    //       index={index}
+    //       offset={item.offset}
+    //       gallery={item.data.slice(1)}
+    //       scrollPosition={scrollPosition}
+    //       direction={direction}
+    //     />
+    //   );
+    // }
   };
 
   const onScrollEnd = debounce(() => {
@@ -312,42 +289,87 @@ const index = (props: Props) => {
     beginScroll.current = 0;
   }, 30);
 
+  // 长按
+  const panGesture = Gesture.Pan()
+    .activateAfterLongPress(120)
+    .runOnJS(true)
+    .onStart((e) => {
+      setLongTapPosition({
+        x: e.x,
+        y: e.y,
+      });
+    })
+    .onUpdate((e) => {
+      // setLongTapPosition({
+      //   x: e.x,
+      //   y: e.y,
+      // });
+    })
+    .onEnd((e) => {
+      setLongTapPosition({
+        x: 0,
+        y: 0,
+      });
+      photoModal.current && photoModal.current.display(false);
+    });
+
+  // 点击
+  const singleTap = Gesture.Tap()
+    .maxDuration(250)
+    .runOnJS(true)
+    .onStart((e) => {
+      setTapPosition({
+        x: e.x,
+        y: e.y,
+      });
+    })
+    .onEnd((e) => {
+      setTapPosition({
+        x: 0,
+        y: 0,
+      });
+    });
+
   return (
     <>
       <View style={styles.container}>
         <View style={styles.ljn_main}>
-          <VirtualizedList
-            horizontal={false}
-            data={list}
-            renderItem={renderItem}
-            keyExtractor={(item: any) => item.id}
-            getItemCount={(data) => data.length}
-            getItem={(data, index) => data[index]}
-            getItemLayout={(data: any, index: number) => {
-              return { length: HEIGHT, offset: HEIGHT * index, index: index };
-            }}
-            initialNumToRender={5} // 首批渲染的元素数量
-            windowSize={5} // 渲染区域高度
-            maxToRenderPerBatch={20} // 增量渲染最大数量
-            scrollEnabled={scrollEnabled}
-            scrollEventThrottle={16}
-            // debug
-            onScrollEndDrag={(e) => {
-              console.log("自动滚动开始");
-              setScrollState("autoScroll");
-            }}
-            onMomentumScrollEnd={onScrollEnd}
-            onScroll={handleScroll}
-            onTouchEnd={() => {
-              if (Platform.OS === "web") {
-                console.log("web自动滚动开始");
+          <GestureDetector
+            gesture={Gesture.Simultaneous(singleTap, panGesture)}
+          >
+            <VirtualizedList
+              horizontal={false}
+              data={list}
+              renderItem={renderItem}
+              keyExtractor={(item: any) => item.id}
+              getItemCount={(data) => data.length}
+              getItem={(data, index) => data[index]}
+              getItemLayout={(data: any, index: number) => {
+                return { length: HEIGHT, offset: HEIGHT * index, index: index };
+              }}
+              initialNumToRender={5} // 首批渲染的元素数量
+              windowSize={5} // 渲染区域高度
+              maxToRenderPerBatch={20} // 增量渲染最大数量
+              scrollEnabled={scrollEnabled}
+              scrollEventThrottle={16}
+              // debug
+              onScrollEndDrag={(e) => {
+                console.log("自动滚动开始");
                 setScrollState("autoScroll");
-                setTimeout(() => {
-                  onScrollEnd();
-                }, 2000);
-              }
-            }}
-          />
+              }}
+              onMomentumScrollEnd={onScrollEnd}
+              onScroll={handleScroll}
+              onTouchEnd={() => {
+                if (Platform.OS === "web") {
+                  console.log("web自动滚动开始");
+                  setScrollState("autoScroll");
+                  setTimeout(() => {
+                    onScrollEnd();
+                  }, 2000);
+                }
+              }}
+            />
+          </GestureDetector>
 
           <LJNModal ref={photoModal} />
         </View>

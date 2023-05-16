@@ -18,3 +18,20 @@ export function debounce(fn: any, wait: number) {
     timer = setTimeout(fn, wait);
   };
 }
+
+// 点击检测
+export function checkTap(
+  targetRange: { x1: number; y1: number; x2: number; y2: number },
+  tapPosition: { x: number; y: number }
+) {
+  if (
+    tapPosition.x > targetRange.x1 &&
+    tapPosition.x < targetRange.x2 &&
+    tapPosition.y > targetRange.y1 &&
+    tapPosition.y < targetRange.y2
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}

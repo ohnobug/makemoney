@@ -5,6 +5,9 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { StatusBar } from "react-native";
 import emitter from "./src/bus";
+import { enableExperimentalWebImplementation } from "react-native-gesture-handler";
+
+enableExperimentalWebImplementation(true);
 
 export default function App() {
   const [theme, setTheme] = useState("dark");

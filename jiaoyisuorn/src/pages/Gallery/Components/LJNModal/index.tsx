@@ -31,7 +31,7 @@ const index = ({}: Props, ref) => {
     <View
       style={StyleSheet.flatten([
         styles.ljn_modal_container,
-        { display: show ? "flex" : "none" },
+        { display: show ? "flex" : "none", userSelect: "none" },
       ])}
     >
       {data ? (
