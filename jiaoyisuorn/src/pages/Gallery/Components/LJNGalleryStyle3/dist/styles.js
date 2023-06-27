@@ -10,6 +10,20 @@ function setTheme(name) {
             flexDirection: "row"
         },
         ljn_gallery_list_left: {
+            marginLeft: cssConfig_1["default"].boxGap,
+            flexBasis: cssConfig_1["default"].boxSize,
+            height: cssConfig_1["default"].boxSize * 2 + cssConfig_1["default"].boxGap
+        },
+        ljn_gallery_item_video: {
+            width: cssConfig_1["default"].boxSize - cssConfig_1["default"].boxGap,
+            height: cssConfig_1["default"].boxSize * 2 + cssConfig_1["default"].boxGap,
+            position: "relative"
+        },
+        ljn_gallery_list_left_image: {
+            width: "100%",
+            height: "100%"
+        },
+        ljn_gallery_list_right: {
             flex: 1,
             display: "flex",
             flexWrap: "wrap",
@@ -23,16 +37,7 @@ function setTheme(name) {
             marginBottom: cssConfig_1["default"].boxGap
         },
         ljn_gallery_item_image: {
-            width: "100%",
-            height: "100%"
-        },
-        ljn_gallery_list_right: {
-            flexBasis: cssConfig_1["default"].boxSize,
-            height: cssConfig_1["default"].boxSize * 2 + cssConfig_1["default"].boxGap,
-            marginRight: cssConfig_1["default"].boxGap
-        },
-        ljn_gallery_list_right_image: {
-            width: "100%",
+            width: cssConfig_1["default"].boxSize,
             height: "100%"
         }
     });

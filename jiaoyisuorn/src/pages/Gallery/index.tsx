@@ -229,56 +229,79 @@ const index = (props: Props) => {
 
   const renderItem = (kkk) => {
     const { item, index } = kkk;
-    // if (item.type == 1) {
-    return (
-      <LJNGalleryStyle1
-        scrollState={scrollState}
-        index={index}
-        offset={item.offset}
-        gallery={item.data}
-        scrollPosition={scrollPosition}
-        direction={direction}
-        longTapPosition={longTapPosition}
-        tapPosition={tapPosition}
-        showModal={(item: any) => {
-          photoModal.current.display(true, item);
-        }}
-      />
-    );
-    // } else if (item.type == 2) {
-    //   return (
-    //     <LJNGalleryStyle2
-    //       scrollState={scrollState}
-    //       index={index}
-    //       offset={item.offset}
-    //       gallery={item.data.slice(1)}
-    //       scrollPosition={scrollPosition}
-    //       direction={direction}
-    //     />
-    //   );
-    // } else if (item.type == 3) {
-    //   return (
-    //     <LJNGalleryStyle3
-    //       scrollState={scrollState}
-    //       index={index}
-    //       offset={item.offset}
-    //       gallery={item.data.slice(1)}
-    //       scrollPosition={scrollPosition}
-    //       direction={direction}
-    //     />
-    //   );
-    // } else if (item.type == 4) {
-    //   return (
-    //     <LJNGalleryStyle4
-    //       scrollState={scrollState}
-    //       index={index}
-    //       offset={item.offset}
-    //       gallery={item.data.slice(1)}
-    //       scrollPosition={scrollPosition}
-    //       direction={direction}
-    //     />
-    //   );
-    // }
+    if (item.type == 1) {
+      return (
+        <LJNGalleryStyle1
+          key={index}
+          scrollState={scrollState}
+          index={index}
+          offset={item.offset}
+          gallery={item.data}
+          scrollPosition={scrollPosition}
+          direction={direction}
+          longTapPosition={longTapPosition}
+          tapPosition={tapPosition}
+          longTap={(item: any) => {
+            console.log("ttttttttttttttt");
+            photoModal.current.display(true, item);
+          }}
+        />
+      );
+    } else if (item.type == 2) {
+      return (
+        <LJNGalleryStyle2
+          key={index}
+          scrollState={scrollState}
+          index={index}
+          offset={item.offset}
+          gallery={item.data.slice(1)}
+          scrollPosition={scrollPosition}
+          direction={direction}
+          longTapPosition={longTapPosition}
+          tapPosition={tapPosition}
+          longTap={(item: any) => {
+            console.log("ttttttttttttttt");
+            photoModal.current.display(true, item);
+          }}
+        />
+      );
+    } else if (item.type == 3) {
+      return (
+        <LJNGalleryStyle3
+          key={index}
+          scrollState={scrollState}
+          index={index}
+          offset={item.offset}
+          gallery={item.data.slice(1)}
+          scrollPosition={scrollPosition}
+          direction={direction}
+          longTapPosition={longTapPosition}
+          tapPosition={tapPosition}
+          longTap={(item: any) => {
+            console.log("ttttttttttttttt");
+            photoModal.current.display(true, item);
+          }}
+        />
+      );
+    } else if (item.type == 4) {
+      return (
+        <LJNGalleryStyle4
+          key={index}
+          scrollState={scrollState}
+          index={index}
+          offset={item.offset}
+          gallery={item.data.slice(1)}
+          scrollPosition={scrollPosition}
+          direction={direction}
+          longTapPosition={longTapPosition}
+          tapPosition={tapPosition}
+          longTap={(item: any) => {
+            console.log("ttttttttttttttt");
+            photoModal.current.display(true, item);
+          }}
+        />
+      );
+    }
   };
 
   const onScrollEnd = debounce(() => {
@@ -290,7 +313,7 @@ const index = (props: Props) => {
   }, 30);
 
   // 长按
-  const panGesture = Gesture.Pan()
+  const longTap = Gesture.Pan()
     .activateAfterLongPress(120)
     .runOnJS(true)
     .onStart((e) => {
@@ -334,9 +357,7 @@ const index = (props: Props) => {
     <>
       <View style={styles.container}>
         <View style={styles.ljn_main}>
-          <GestureDetector
-            gesture={Gesture.Simultaneous(singleTap, panGesture)}
-          >
+          <GestureDetector gesture={Gesture.Simultaneous(singleTap, longTap)}>
             <VirtualizedList
               horizontal={false}
               data={list}

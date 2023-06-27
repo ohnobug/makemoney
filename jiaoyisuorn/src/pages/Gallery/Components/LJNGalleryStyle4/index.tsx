@@ -1,10 +1,110 @@
-import React, { useMemo, useReducer } from "react";
+import React, { useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
 import LJNVideoPlayer from "../../../../components/LJNVideoPlayer";
 import { useStyles } from "../../../../hooks";
 import { useActiveBox } from "../componentsHooks";
 import { setTheme } from "./styles";
-const boxempty = require("../../../../assets/images/boxempty.png");
+import cssConfig from "../cssConfig";
+import { checkTap } from "../../../../utils/utils";
+import LJNImage from "../../../../components/LJNImage";
+
+// 长短按判断
+function componentCheckTap(
+  longTapPosition,
+  tapPosition,
+  offset,
+  scrollPosition,
+  list,
+  longTap,
+  tap
+) {
+  const boxPosition = useRef([
+    // 第一列
+    {
+      x1: cssConfig.boxGap,
+      y1: 0,
+      x2: cssConfig.boxGap + cssConfig.boxSize,
+      y2: (cssConfig.boxSize + cssConfig.boxGap) * 2,
+    },
+    // 第一行第二个
+    {
+      x1: cssConfig.boxGap + cssConfig.boxSize + cssConfig.boxGap,
+      y1: 0,
+      x2: (cssConfig.boxGap + cssConfig.boxSize) * 2,
+      y2: cssConfig.boxSize,
+    },
+    // 第一行第三个
+    {
+      x1: (cssConfig.boxGap + cssConfig.boxSize) * 2 + cssConfig.boxGap,
+      y1: 0,
+      x2: (cssConfig.boxGap + cssConfig.boxSize) * 3,
+      y2: cssConfig.boxSize,
+    },
+    // 第二行第二个
+    {
+      x1: cssConfig.boxGap + cssConfig.boxSize + cssConfig.boxGap,
+      y1: cssConfig.boxSize + cssConfig.boxGap,
+      x2: (cssConfig.boxGap + cssConfig.boxSize) * 2,
+      y2: cssConfig.boxSize + cssConfig.boxGap + cssConfig.boxSize,
+    },
+    // 第二行第三个
+    {
+      x1: (cssConfig.boxGap + cssConfig.boxSize) * 2 + cssConfig.boxGap,
+      y1: cssConfig.boxSize + cssConfig.boxGap,
+      x2: (cssConfig.boxGap + cssConfig.boxSize) * 3,
+      y2: cssConfig.boxSize + cssConfig.boxGap + cssConfig.boxSize,
+    },
+  ]).current;
+
+  // 长按处理
+  const [longTabTarget, setLongTabTarget] = useState(-1);
+  useEffect(() => {
+    for (let i = 0; i < boxPosition.length; i++) {
+      const rantagle = {
+        x1: boxPosition[i].x1,
+        y1: boxPosition[i].y1 + (offset - scrollPosition),
+        x2: boxPosition[i].x2,
+        y2: boxPosition[i].y2 + (offset - scrollPosition),
+      };
+
+      if (checkTap(rantagle, longTapPosition)) {
+        console.log("你在", i, "中长按");
+        longTap && longTap(list[i]);
+        setLongTabTarget(i);
+        break;
+      } else {
+        setLongTabTarget(-1);
+      }
+    }
+  }, [longTapPosition, scrollPosition]);
+
+  // 短按
+  const [tabTarget, setTabTarget] = useState(-1);
+  useEffect(() => {
+    for (let i = 0; i < boxPosition.length; i++) {
+      if (
+        checkTap(
+          {
+            x1: boxPosition[i].x1,
+            y1: boxPosition[i].y1 + (offset - scrollPosition),
+            x2: boxPosition[i].x2,
+            y2: boxPosition[i].y2 + (offset - scrollPosition),
+          },
+          tapPosition
+        )
+      ) {
+        console.log("你在", i, "中短按");
+        tap && tap(list[i]);
+        setTabTarget(i);
+        break;
+      } else {
+        setTabTarget(-1);
+      }
+    }
+  }, [tapPosition, scrollPosition]);
+
+  return [longTabTarget, tabTarget];
+}
 
 type Props = {
   gallery: {
@@ -16,6 +116,10 @@ type Props = {
   scrollPosition?: number;
   direction?: "UP" | "DOWN";
   scrollState?: "handleScroll" | "autoScroll" | "scrollEnd";
+  longTapPosition?: { x: number; y: number };
+  tapPosition?: { x: number; y: number };
+  longTap?: any;
+  tap?: any;
 };
 
 const index = ({
@@ -25,6 +129,10 @@ const index = ({
   scrollPosition = 0,
   direction = "UP",
   scrollState = "scrollEnd",
+  longTapPosition = { x: 0, y: 0 },
+  tapPosition = { x: 0, y: 0 },
+  longTap,
+  tap,
 }: Props) => {
   const styles = useStyles(setTheme);
 
@@ -37,18 +145,14 @@ const index = ({
     scrollState
   );
 
-  const [state, stateDispatch] = useReducer(
-    (preState, action) => {
-      preState[action.payload] = true;
-      return { ...preState };
-    },
-    {
-      img0: false,
-      img1: false,
-      img2: false,
-      img3: false,
-      img4: false,
-    }
+  const [longTabTarget, tabTarget] = componentCheckTap(
+    longTapPosition,
+    tapPosition,
+    offset,
+    scrollPosition,
+    gallery,
+    longTap,
+    tap
   );
 
   return (
@@ -58,34 +162,16 @@ const index = ({
           <View style={StyleSheet.flatten([styles.ljn_gallery_list])}>
             <View style={styles.ljn_gallery_list_side}>
               <View style={styles.ljn_gallery_item}>
-                <Image
+                <LJNImage
                   style={styles.ljn_gallery_item_image}
-                  source={
-                    state.img1
-                      ? {
-                          uri: gallery[1].image,
-                        }
-                      : boxempty
-                  }
-                  onLoadEnd={() => {
-                    stateDispatch({ payload: `img1` });
-                  }}
+                  img={gallery[1].image}
                 />
               </View>
 
               <View style={styles.ljn_gallery_item}>
-                <Image
+                <LJNImage
                   style={styles.ljn_gallery_item_image}
-                  source={
-                    state.img2
-                      ? {
-                          uri: gallery[2].image,
-                        }
-                      : boxempty
-                  }
-                  onLoadEnd={() => {
-                    stateDispatch({ payload: `img2` });
-                  }}
+                  img={gallery[2].image}
                 />
               </View>
             </View>
@@ -103,57 +189,30 @@ const index = ({
                 />
               ) : null}
 
-              <Image
+              <LJNImage
                 style={styles.ljn_gallery_item_video}
-                source={
-                  state.img0
-                    ? {
-                        uri: gallery[0].image,
-                      }
-                    : boxempty
-                }
-                onLoad={() => {
-                  stateDispatch({ payload: "img0" });
-                }}
+                img={gallery[0].image}
               />
             </View>
 
             <View style={styles.ljn_gallery_list_side}>
               <View style={styles.ljn_gallery_item}>
-                <Image
+                <LJNImage
                   style={styles.ljn_gallery_item_image}
-                  source={
-                    state.img3
-                      ? {
-                          uri: gallery[3].image,
-                        }
-                      : boxempty
-                  }
-                  onLoad={() => {
-                    stateDispatch({ payload: "img3" });
-                  }}
+                  img={gallery[3].image}
                 />
               </View>
 
               <View style={styles.ljn_gallery_item}>
-                <Image
+                <LJNImage
                   style={styles.ljn_gallery_item_image}
-                  source={
-                    state.img4
-                      ? {
-                          uri: gallery[4].image,
-                        }
-                      : boxempty
-                  }
-                  onLoad={() => {
-                    stateDispatch({ payload: "img4" });
-                  }}
+                  img={gallery[4].image}
                 />
               </View>
             </View>
           </View>
         );
-      }, [state, canPlay])}
+      }, [canPlay])}
     </>
   );
 };

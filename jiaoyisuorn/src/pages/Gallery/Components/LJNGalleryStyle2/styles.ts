@@ -7,6 +7,7 @@ export function setTheme(name: string) {
       display: "flex",
       flexDirection: "row",
       height: (cssConfig.boxSize + cssConfig.boxGap) * 2,
+      // backgroundColor: "red",
     },
     ljn_gallery_list_left: {
       marginLeft: cssConfig.boxGap,
@@ -32,9 +33,8 @@ export function setTheme(name: string) {
       marginLeft: cssConfig.boxGap,
       marginBottom: cssConfig.boxGap,
     },
-
     ljn_gallery_item_image: {
-      width: cssConfig.boxSize,
+      width: "100%",
       height: "100%",
     },
   });

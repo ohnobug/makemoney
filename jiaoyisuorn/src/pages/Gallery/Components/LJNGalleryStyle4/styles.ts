@@ -6,6 +6,7 @@ export function setTheme(name: string) {
     ljn_gallery_list: {
       display: "flex",
       flexDirection: "row",
+      height: (cssConfig.boxSize + cssConfig.boxGap) * 2,
     },
     ljn_gallery_list_middle: {
       flexBasis: cssConfig.boxSize,

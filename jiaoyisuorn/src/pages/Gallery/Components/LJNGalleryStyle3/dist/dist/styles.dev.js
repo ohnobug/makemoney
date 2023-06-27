@@ -11,7 +11,7 @@ function setTheme(name) {
   return react_native_1.StyleSheet.create({
     ljn_gallery_list: {
       display: "flex",
-      flexDirection: "row-reverse",
+      flexDirection: "row",
       gap: utils_1.px2vw(1),
       marginBottom: utils_1.px2vw(1)
     },

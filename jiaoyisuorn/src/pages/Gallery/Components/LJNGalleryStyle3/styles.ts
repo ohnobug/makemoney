@@ -1,21 +1,31 @@
 import { StyleSheet } from "react-native";
-import { px2vw } from "../../../../utils/utils";
 import cssConfig from "../cssConfig";
-import AppStylesConfig from "../../../../AppStylesConfig";
 
 export function setTheme(name: string) {
   return StyleSheet.create({
     ljn_gallery_list: {
       display: "flex",
       flexDirection: "row",
+      height: (cssConfig.boxSize + cssConfig.boxGap) * 2,
     },
-
     ljn_gallery_list_left: {
       flex: 1,
       display: "flex",
       flexWrap: "wrap",
       flexDirection: "row",
       justifyContent: "flex-start",
+      height: cssConfig.boxSize * 2 + cssConfig.boxGap,
+    },
+    ljn_gallery_item_video: {
+      width: cssConfig.boxSize,
+      height: cssConfig.boxSize * 2 + cssConfig.boxGap,
+      position: "absolute",
+      objectFit: "cover",
+    },
+    ljn_gallery_list_right: {
+      marginRight: cssConfig.boxGap,
+      flexBasis: cssConfig.boxSize,
+      height: cssConfig.boxSize * 2 + cssConfig.boxGap,
     },
     ljn_gallery_item: {
       height: cssConfig.boxSize,
@@ -24,19 +34,8 @@ export function setTheme(name: string) {
       marginBottom: cssConfig.boxGap,
     },
     ljn_gallery_item_image: {
-      width: "100%",
-      height: "100%",
-    },
-    ljn_gallery_list_right: {
-      flexBasis: cssConfig.boxSize,
-      height: cssConfig.boxSize * 2 + cssConfig.boxGap,
-      marginRight: cssConfig.boxGap,
-    },
-    ljn_gallery_item_video: {
       width: cssConfig.boxSize,
-      height: cssConfig.boxSize * 2 + cssConfig.boxGap,
-      position: "absolute",
-      objectFit: "cover",
+      height: "100%",
     },
   });
 }

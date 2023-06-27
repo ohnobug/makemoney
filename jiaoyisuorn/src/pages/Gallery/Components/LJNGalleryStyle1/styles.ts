@@ -1,15 +1,14 @@
 import { StyleSheet } from "react-native";
-import { px2vw } from "../../../../utils/utils";
 import cssConfig from "../cssConfig";
 
 export function setTheme(name: string) {
   return StyleSheet.create({
     ljn_gallery_list: {
       display: "flex",
-      // backgroundColor: "red",
       flexDirection: "row",
       justifyContent: "flex-start",
       flexWrap: "wrap",
+      height: (cssConfig.boxSize + cssConfig.boxGap) * 2,
     },
     ljn_gallery_item: {
       height: cssConfig.boxSize,
@@ -18,8 +17,8 @@ export function setTheme(name: string) {
       marginBottom: cssConfig.boxGap,
     },
     ljn_gallery_item_image: {
-      width: "100%",
-      height: "100%",
+      width: cssConfig.boxSize,
+      height: cssConfig.boxSize,
     },
   });
 }

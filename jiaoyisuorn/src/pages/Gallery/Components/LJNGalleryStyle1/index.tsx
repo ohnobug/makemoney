@@ -1,58 +1,22 @@
-import React, { useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import LJNImage from "../../../../components/LJNImage";
 import { useStyles } from "../../../../hooks";
-import { useActiveBox } from "../componentsHooks";
-import { setTheme } from "./styles";
-import cssConfig from "../cssConfig";
 import { checkTap } from "../../../../utils/utils";
+import { useActiveBox } from "../componentsHooks";
+import cssConfig from "../cssConfig";
+import { setTheme } from "./styles";
 
-const boxempty = require("../../../../assets/images/boxempty.png");
-
-type Props = {
-  gallery: {
-    image: string;
-    url: string;
-  }[];
-  offset: number;
-  index: number;
-  scrollPosition?: number;
-  direction?: "UP" | "DOWN";
-  scrollState?: "handleScroll" | "autoScroll" | "scrollEnd";
-  longTapPosition?: { x: number; y: number };
-  tapPosition?: { x: number; y: number };
-  showModal?: any;
-};
-
-const index = ({
-  gallery,
+// 长短按判断
+function componentCheckTap(
+  longTapPosition,
+  tapPosition,
   offset,
-  index,
-  scrollPosition = 0,
-  direction = "UP",
-  scrollState = "scrollEnd",
-  longTapPosition = { x: 0, y: 0 },
-  tapPosition = { x: 0, y: 0 },
-  showModal,
-}: Props) => {
-  const styles = useStyles(setTheme);
-
-  useActiveBox(offset, scrollPosition, direction, index, scrollState);
-
-  const [state, stateDispatch] = useReducer(
-    (preState, action) => {
-      preState[action.payload] = true;
-      return { ...preState };
-    },
-    {
-      img0: false,
-      img1: false,
-      img2: false,
-      img3: false,
-      img4: false,
-      img5: false,
-    }
-  );
-
+  scrollPosition,
+  list,
+  longTap,
+  tap
+) {
   const boxPosition = useRef([
     // 第一行第一个
     {
@@ -133,19 +97,16 @@ const index = ({
   const [longTabTarget, setLongTabTarget] = useState(-1);
   useEffect(() => {
     for (let i = 0; i < boxPosition.length; i++) {
-      if (
-        checkTap(
-          {
-            x1: boxPosition[i].x1,
-            y1: boxPosition[i].y1 + (offset - scrollPosition),
-            x2: boxPosition[i].x2,
-            y2: boxPosition[i].y2 + (offset - scrollPosition),
-          },
-          longTapPosition
-        )
-      ) {
+      const rantagle = {
+        x1: boxPosition[i].x1,
+        y1: boxPosition[i].y1 + (offset - scrollPosition),
+        x2: boxPosition[i].x2,
+        y2: boxPosition[i].y2 + (offset - scrollPosition),
+      };
+
+      if (checkTap(rantagle, longTapPosition)) {
         console.log("你在", i, "中长按");
-        showModal(gallery[i]);
+        longTap && longTap(list[i]);
         setLongTabTarget(i);
         break;
       } else {
@@ -170,6 +131,7 @@ const index = ({
         )
       ) {
         console.log("你在", i, "中短按");
+        tap && tap(list[i]);
         setTabTarget(i);
         break;
       } else {
@@ -177,6 +139,52 @@ const index = ({
       }
     }
   }, [tapPosition, scrollPosition]);
+
+  return [longTabTarget, tabTarget];
+}
+
+type Props = {
+  gallery: {
+    image: string;
+    url: string;
+  }[];
+  offset: number;
+  index: number;
+  scrollPosition?: number;
+  direction?: "UP" | "DOWN";
+  scrollState?: "handleScroll" | "autoScroll" | "scrollEnd";
+  longTapPosition?: { x: number; y: number };
+  tapPosition?: { x: number; y: number };
+  longTap?: any;
+  tap?: any;
+};
+
+const index = ({
+  gallery,
+  offset,
+  index,
+  scrollPosition = 0,
+  direction = "UP",
+  scrollState = "scrollEnd",
+  longTapPosition = { x: 0, y: 0 },
+  tapPosition = { x: 0, y: 0 },
+  longTap,
+  tap,
+}: Props) => {
+  const styles = useStyles(setTheme);
+
+  // 将是否激活状态更新到react-redux
+  useActiveBox(offset, scrollPosition, direction, index, scrollState);
+
+  const [longTabTarget, tabTarget] = componentCheckTap(
+    longTapPosition,
+    tapPosition,
+    offset,
+    scrollPosition,
+    gallery,
+    longTap,
+    tap
+  );
 
   return (
     <>
@@ -195,18 +203,9 @@ const index = ({
                   key={index}
                 >
                   {longTabTarget === index ? null : (
-                    <Image
+                    <LJNImage
                       style={styles.ljn_gallery_item_image}
-                      source={
-                        state[`img${index}`]
-                          ? {
-                              uri: item.image,
-                            }
-                          : boxempty
-                      }
-                      onLoadEnd={() => {
-                        stateDispatch({ payload: `img${index}` });
-                      }}
+                      img={item.image}
                     />
                   )}
                 </View>
@@ -214,7 +213,7 @@ const index = ({
             })}
           </View>
         );
-      }, [state, longTabTarget])}
+      }, [longTabTarget])}
     </>
   );
 };

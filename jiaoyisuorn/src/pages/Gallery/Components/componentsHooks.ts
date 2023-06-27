@@ -8,11 +8,11 @@ import cssConfig from "./cssConfig";
 
 const BOXHEIGHT = (cssConfig.boxSize + cssConfig.boxGap) * 2;
 export function useActiveBox(
-  componentOffset: number,
-  scrollPosition: number,
-  direction: "UP" | "DOWN",
-  index: number,
-  scrollState?: "handleScroll" | "autoScroll" | "scrollEnd"
+  componentOffset: number, // 组件位置
+  scrollPosition: number, // 滚动位置
+  direction: "UP" | "DOWN", // 滚动方向
+  index: number, // 索引
+  scrollState?: "handleScroll" | "autoScroll" | "scrollEnd" // 滚动状态
 ): boolean {
   const [play, setPlay] = useState(false);
   const dispatch = useAppDispatch();
@@ -37,6 +37,8 @@ export function useActiveBox(
     //   scrollState: scrollState,
     // });
     // console.groupEnd();
+
+    // 如果手动滚动，或者滚动结束，则进入判断状态
     if (["handleScroll", "scrollEnd"].includes(scrollState)) {
       if (galleryPlayIndex === -1) {
         // 目前没有在播的
