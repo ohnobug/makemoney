@@ -4,6 +4,7 @@ import { useStyles } from "../../../../hooks";
 import { px2vw } from "../../../../utils/utils";
 import { setTheme } from "./styles";
 const boxempty = require("../../../../assets/images/boxempty.png");
+const likeicon = require("../../../../assets/images/likeicon.png");
 
 type Props = {};
 
@@ -36,6 +37,7 @@ const index = ({}: Props, ref) => {
     >
       {data ? (
         <View style={StyleSheet.flatten([styles.ljn_modal_box])}>
+          {/* 图片盒子 */}
           <View style={styles.ljn_modal_photo_box}>
             <Image
               style={styles.ljn_modal_photo_box_photo}
@@ -51,8 +53,45 @@ const index = ({}: Props, ref) => {
               }}
             />
           </View>
+
+          {/* 弹窗标题 */}
           <View style={styles.ljn_modal_title_box}>
-            <Text style={styles.ljn_modal_title_inner}>恭喜发财</Text>
+            <View style={styles.ljn_modal_title_box_like_btn_box}>
+              <Image
+                style={styles.ljn_modal_title_box_like_btn}
+                source={likeicon}
+                onLoadEnd={() => {
+                  setLoaded(true);
+                }}
+              />
+            </View>
+            <View style={styles.ljn_modal_title_box_like_btn_box}>
+              <Image
+                style={styles.ljn_modal_title_box_like_btn}
+                source={likeicon}
+                onLoadEnd={() => {
+                  setLoaded(true);
+                }}
+              />
+            </View>
+            <View style={styles.ljn_modal_title_box_like_btn_box}>
+              <Image
+                style={styles.ljn_modal_title_box_like_btn}
+                source={likeicon}
+                onLoadEnd={() => {
+                  setLoaded(true);
+                }}
+              />
+            </View>
+            <View style={styles.ljn_modal_title_box_like_btn_box}>
+              <Image
+                style={styles.ljn_modal_title_box_like_btn}
+                source={likeicon}
+                onLoadEnd={() => {
+                  setLoaded(true);
+                }}
+              />
+            </View>
           </View>
         </View>
       ) : (

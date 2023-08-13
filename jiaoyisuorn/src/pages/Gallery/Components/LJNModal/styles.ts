@@ -1,7 +1,17 @@
 import { StyleSheet } from "react-native";
 import { px2vw } from "../../../../utils/utils";
+import cssConfig from "../cssConfig";
+import darkTheme from "../../../../themes/default/styles";
+import lightTheme from "../../../../themes/light/styles";
 
 export function setTheme(name: string) {
+  let theme: ITheme;
+  if (name === "dark") {
+    theme = darkTheme;
+  } else {
+    theme = lightTheme;
+  }
+
   return StyleSheet.create({
     ljn_modal_container: {
       flex: 1,
@@ -16,7 +26,7 @@ export function setTheme(name: string) {
     ljn_modal_box: {
       width: px2vw(320),
       height: px2vw(370),
-      backgroundColor: "black",
+      backgroundColor: theme.areaBackgroundColor,
       position: "absolute",
       zIndex: 99999,
       left: px2vw(375 / 2 - 320 / 2),
@@ -27,6 +37,8 @@ export function setTheme(name: string) {
       alignItems: "center",
       borderRadius: px2vw(5),
     },
+
+    // 图片盒子
     ljn_modal_photo_box: {
       flex: 1,
       // backgroundColor: "blue",
@@ -38,19 +50,33 @@ export function setTheme(name: string) {
       width: px2vw(300),
       height: px2vw(300),
     },
+
+    // 弹窗标题盒子
     ljn_modal_title_box: {
       width: px2vw(300),
       flexBasis: px2vw(40),
       marginBottom: px2vw(10),
-      // backgroundColor: "green",
+      backgroundColor: "green",
       display: "flex",
       flexDirection: "row",
       justifyContent: "center",
-      // alignContent: "center",
+      alignItems: "center",
     },
-    ljn_modal_title_inner: {
-      color: "white",
-      fontSize: px2vw(24),
+
+    ljn_modal_title_box_like_btn_box: {
+      flex: 1,
+      display: "flex",
+      alignItems: "center",
+    },
+
+    // 点赞按钮
+    ljn_modal_title_box_like_btn: {
+      display: "flex",
+      justifyContent: "center",
+      width: px2vw(25),
+      height: px2vw(25),
+      // backgroundColor: "red",
+      marginRight: px2vw(5),
     },
   });
 }
