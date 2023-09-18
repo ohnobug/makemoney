@@ -196,9 +196,9 @@ const index = ({
                 <View
                   style={StyleSheet.flatten([
                     styles.ljn_gallery_item,
-                    {
-                      backgroundColor: longTabTarget === index ? "red" : "blue",
-                    },
+                    // {
+                    //   backgroundColor: longTabTarget === index ? "red" : "blue",
+                    // },
                   ])}
                   key={index}
                 >

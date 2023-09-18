@@ -1,16 +1,16 @@
 import React, { useRef, useState } from "react";
-import { Button, Image, Platform, View, VirtualizedList } from "react-native";
+import { Image, Platform, View, VirtualizedList } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import LJNTabbar from "../../components/LJNTabbar";
 import { useStyles } from "../../hooks";
+import { debounce } from "../../utils/utils";
 import LJNGalleryStyle1 from "./Components/LJNGalleryStyle1";
 import LJNGalleryStyle2 from "./Components/LJNGalleryStyle2";
 import LJNGalleryStyle3 from "./Components/LJNGalleryStyle3";
 import LJNGalleryStyle4 from "./Components/LJNGalleryStyle4";
+import LJNModal from "./Components/LJNModal";
 import cssConfig from "./Components/cssConfig";
 import { setTheme } from "./styles";
-import LJNModal from "./Components/LJNModal";
-import { debounce } from "../../utils/utils";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 // 图片准备
 let imagesArr = [

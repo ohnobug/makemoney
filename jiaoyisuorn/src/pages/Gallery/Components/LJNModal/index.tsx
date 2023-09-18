@@ -1,8 +1,8 @@
-import React, { useImperativeHandle, forwardRef, useState } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
+import { Image, StyleSheet, View } from "react-native";
 import { useStyles } from "../../../../hooks";
-import { px2vw } from "../../../../utils/utils";
 import { setTheme } from "./styles";
+import LJNIcon from "../../../../components/LJNIcon";
 const boxempty = require("../../../../assets/images/boxempty.png");
 const likeicon = require("../../../../assets/images/likeicon.png");
 
@@ -57,40 +57,16 @@ const index = ({}: Props, ref) => {
           {/* 弹窗标题 */}
           <View style={styles.ljn_modal_title_box}>
             <View style={styles.ljn_modal_title_box_like_btn_box}>
-              <Image
-                style={styles.ljn_modal_title_box_like_btn}
-                source={likeicon}
-                onLoadEnd={() => {
-                  setLoaded(true);
-                }}
-              />
+              <LJNIcon title={"like"} size={17} />
             </View>
             <View style={styles.ljn_modal_title_box_like_btn_box}>
-              <Image
-                style={styles.ljn_modal_title_box_like_btn}
-                source={likeicon}
-                onLoadEnd={() => {
-                  setLoaded(true);
-                }}
-              />
+              <LJNIcon title={"like"} size={17} />
             </View>
             <View style={styles.ljn_modal_title_box_like_btn_box}>
-              <Image
-                style={styles.ljn_modal_title_box_like_btn}
-                source={likeicon}
-                onLoadEnd={() => {
-                  setLoaded(true);
-                }}
-              />
+              <LJNIcon title={"like"} size={17} />
             </View>
             <View style={styles.ljn_modal_title_box_like_btn_box}>
-              <Image
-                style={styles.ljn_modal_title_box_like_btn}
-                source={likeicon}
-                onLoadEnd={() => {
-                  setLoaded(true);
-                }}
-              />
+              <LJNIcon title={"like"} size={17} />
             </View>
           </View>
         </View>

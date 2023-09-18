@@ -56,7 +56,7 @@ export function setTheme(name: string) {
       width: px2vw(300),
       flexBasis: px2vw(40),
       marginBottom: px2vw(10),
-      backgroundColor: "green",
+      // backgroundColor: "green",
       display: "flex",
       flexDirection: "row",
       justifyContent: "center",
@@ -75,7 +75,6 @@ export function setTheme(name: string) {
       justifyContent: "center",
       width: px2vw(25),
       height: px2vw(25),
-      // backgroundColor: "red",
       marginRight: px2vw(5),
     },
   });

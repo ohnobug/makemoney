@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import LJNImage from "../../../../components/LJNImage";
 import LJNVideoPlayer from "../../../../components/LJNVideoPlayer";
 import { useStyles } from "../../../../hooks";
-import { useActiveBox } from "../componentsHooks";
-import { setTheme } from "./styles";
-import cssConfig from "../cssConfig";
 import { checkTap } from "../../../../utils/utils";
-import LJNImage from "../../../../components/LJNImage";
+import { useActiveBox } from "../componentsHooks";
+import cssConfig from "../cssConfig";
+import { setTheme } from "./styles";
 
 // 长短按判断
 function componentCheckTap(
