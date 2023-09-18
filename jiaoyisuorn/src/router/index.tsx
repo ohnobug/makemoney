@@ -1,4 +1,8 @@
 import { NativeRouter, Route, Routes } from "react-router-native";
+import { BrowserRouter } from "react-router-dom";
+import { Platform } from "react-native";
+import Gallery from "../pages/Gallery";
+import Chat from "../pages/Chat";
 import Home from "../pages/Home";
 import AppInner from "../AppInner";
 import User from "../pages/User";
@@ -8,9 +12,6 @@ import Contract from "../pages/Contract";
 import Quotation from "../pages/Quotation";
 import Setting from "../pages/Setting";
 import Login from "../pages/Login";
-import { BrowserRouter } from "react-router-dom";
-import Gallery from "../pages/Gallery";
-import { Platform } from "react-native";
 
 const webRouter = (
   <BrowserRouter>
@@ -21,7 +22,7 @@ const webRouter = (
         {/* 报价 */}
         <Route path="quotation" element={<Quotation />}></Route>
         {/* 交易 */}
-        <Route index path="transaction" element={<Transaction />}></Route>
+        <Route path="transaction" element={<Transaction />}></Route>
         {/* 合约 */}
         <Route path="contract" element={<Contract />}></Route>
         {/* 资源 */}
@@ -34,6 +35,8 @@ const webRouter = (
         <Route path="login" element={<Login />}></Route>
         {/* 相册 */}
         <Route path="gallery" element={<Gallery />}></Route>
+        {/* 聊天窗口 */}
+        <Route index path="chat" element={<Chat />}></Route>
       </Route>
     </Routes>
   </BrowserRouter>
@@ -48,7 +51,7 @@ const nativeRouter = (
         {/* 报价 */}
         <Route path="quotation" element={<Quotation />}></Route>
         {/* 交易 */}
-        <Route index path="transaction" element={<Transaction />}></Route>
+        <Route path="transaction" element={<Transaction />}></Route>
         {/* 合约 */}
         <Route path="contract" element={<Contract />}></Route>
         {/* 资源 */}
@@ -61,6 +64,8 @@ const nativeRouter = (
         <Route path="login" element={<Login />}></Route>
         {/* 相册 */}
         <Route path="gallery" element={<Gallery />}></Route>
+        {/* 聊天窗口 */}
+        <Route index path="chat" element={<Chat />}></Route>
       </Route>
     </Routes>
   </NativeRouter>

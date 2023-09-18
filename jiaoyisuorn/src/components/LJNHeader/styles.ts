@@ -13,10 +13,10 @@ export function setTheme(name: string) {
 
   return StyleSheet.create({
     ljn_header: {
-      flexBasis: px2vw(40),
+      flexBasis: px2vw(44),
       flex: 0,
-      height: px2vw(40),
-      // backgroundColor: "red",
+      height: px2vw(44),
+      backgroundColor: theme.headerBackgroundColor,
       display: "flex",
       flexDirection: "row",
     },
@@ -40,7 +40,7 @@ export function setTheme(name: string) {
       alignItems: "center",
     },
     ljn_header_middle_title: {
-      fontSize: px2vw(18),
+      fontSize: px2vw(16),
       color: theme.titleTextColor,
       fontWeight: "600",
     },

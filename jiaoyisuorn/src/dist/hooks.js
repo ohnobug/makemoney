@@ -8,10 +8,15 @@ var SystemSlice_1 = require("./store/SystemSlice");
 exports.useAppDispatch = react_redux_1.useDispatch;
 exports.useAppSelector = react_redux_1.useSelector;
 exports.useStyles = function (setTheme) {
-    var theme = exports.useAppSelector(SystemSlice_1.selectTheme);
-    var _a = react_1.useState(setTheme(theme)), styles = _a[0], setStyles = _a[1];
-    react_1.useEffect(function () {
-        setStyles(setTheme(theme));
-    }, [theme]);
-    return styles;
+  var theme = exports.useAppSelector(SystemSlice_1.selectAppTheme);
+  var _a = react_1.useState(setTheme(theme)),
+    styles = _a[0],
+    setStyles = _a[1];
+  react_1.useEffect(
+    function () {
+      setStyles(setTheme(theme));
+    },
+    [theme]
+  );
+  return styles;
 };

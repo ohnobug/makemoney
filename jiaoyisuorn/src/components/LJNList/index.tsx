@@ -1,7 +1,7 @@
 import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks";
-import { selectTheme } from "../../store/SystemSlice";
+import { selectAppTheme } from "../../store/SystemSlice";
 import { setTheme } from "./styles";
 import LJNIcon from "../LJNIcon";
 
@@ -14,7 +14,7 @@ type Props = {
 };
 
 const index = (props: Props) => {
-  const theme = useAppSelector(selectTheme);
+  const theme = useAppSelector(selectAppTheme);
   const [styles, setStyles] = useState<any>(setTheme(theme));
   useEffect(() => {
     setStyles(setTheme(theme));

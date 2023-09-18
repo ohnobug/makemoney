@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import IconFont from "./iconfont";
 import { useAppSelector } from "../../hooks";
-import { selectTheme } from "../../store/SystemSlice";
+import { selectAppTheme } from "../../store/SystemSlice";
 import darkTheme from "../../themes/default/styles";
 import lightTheme from "../../themes/light/styles";
 import { px2vw } from "../../utils/utils";
@@ -13,7 +13,7 @@ type Props = {
 };
 
 const index = ({ title, size = 20, color = "" }: Props) => {
-  const theme = useAppSelector(selectTheme);
+  const theme = useAppSelector(selectAppTheme);
   const [IconColor, setIconColor] = useState<string>(color);
 
   size = px2vw(size);

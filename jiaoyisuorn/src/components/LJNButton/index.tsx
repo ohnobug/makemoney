@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks";
-import { selectTheme } from "../../store/SystemSlice";
+import { selectAppTheme } from "../../store/SystemSlice";
 import { setTheme } from "./styles";
 
 type Props = {
@@ -21,7 +21,7 @@ type Props = {
 };
 
 const index = ({ title, size = "normal", onPress, style }: Props) => {
-  const theme = useAppSelector(selectTheme);
+  const theme = useAppSelector(selectAppTheme);
   const [styles, setStyles] = useState<any>(setTheme(theme));
   useEffect(() => {
     setStyles(setTheme(theme));

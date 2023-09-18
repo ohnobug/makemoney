@@ -5,13 +5,13 @@ import LJNIcon from "../../../../components/LJNIcon";
 import LJNLoading from "../../../../components/LJNLoading";
 import { useAppSelector, useStyles } from "../../../../hooks";
 import { setTheme } from "./styles";
-import { selectTheme } from "../../../../store/SystemSlice";
+import { selectAppTheme } from "../../../../store/SystemSlice";
 
 type Props = {};
 
 /* 买卖操作 */
 const index = (props: Props) => {
-  const theme = useAppSelector(selectTheme);
+  const theme = useAppSelector(selectAppTheme);
 
   const styles = useStyles(setTheme);
 

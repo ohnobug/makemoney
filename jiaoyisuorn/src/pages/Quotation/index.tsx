@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from "react-native";
 import LJNTabbar from "../../components/LJNTabbar";
 import { px2vw } from "../../utils/utils";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { selectTheme, setTheme } from "../../store/SystemSlice";
+import { selectAppTheme, setAppTheme } from "../../store/SystemSlice";
 import AppStylesConfig from "../../AppStylesConfig";
 
 type Props = {};
@@ -11,7 +11,7 @@ type Props = {};
 // let timer: any;
 export default function index({}: Props) {
   const dispatch = useAppDispatch();
-  const theme = useAppSelector(selectTheme);
+  const theme = useAppSelector(selectAppTheme);
 
   return (
     <View style={styles.container}>
@@ -38,7 +38,7 @@ export default function index({}: Props) {
             alignItems: "center",
           }}
           onTouchStart={() => {
-            dispatch(setTheme("dark"));
+            dispatch(setAppTheme("dark"));
           }}
         >
           <Text style={{ fontSize: px2vw(30), color: "red" }}>黑色主题</Text>
@@ -52,7 +52,7 @@ export default function index({}: Props) {
             alignItems: "center",
           }}
           onTouchStart={() => {
-            dispatch(setTheme("light"));
+            dispatch(setAppTheme("light"));
           }}
         >
           <Text style={{ fontSize: px2vw(30), color: "red" }}>白色主题</Text>

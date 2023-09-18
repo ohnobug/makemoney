@@ -11,7 +11,7 @@ import { px2vw } from "../../utils/utils";
 import LJNScrollView from "../../components/LJNScrollView";
 import { useAppSelector } from "../../hooks";
 import { setTheme } from "./styles";
-import { selectTheme } from "../../store/SystemSlice";
+import { selectAppTheme } from "../../store/SystemSlice";
 
 type Props = {
   list: string[];
@@ -20,7 +20,7 @@ type Props = {
 
 // 位置信息
 const index = ({ list, onChange }: Props, ref: any) => {
-  const theme = useAppSelector(selectTheme);
+  const theme = useAppSelector(selectAppTheme);
   const [styles, setStyles] = useState<any>(setTheme(theme));
   useEffect(() => {
     setStyles(setTheme(theme));

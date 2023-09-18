@@ -1,10 +1,10 @@
-import { Text, View, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import { setTheme } from "./styles";
-import { useAppSelector } from "../../hooks";
-import { selectTheme } from "../../store/SystemSlice";
-import LJNIcon from "../LJNIcon";
+import { Text, View } from "react-native";
 import { useNavigate } from "react-router-native";
+import { useAppSelector } from "../../hooks";
+import { selectAppTheme } from "../../store/SystemSlice";
+import LJNIcon from "../LJNIcon";
+import { setTheme } from "./styles";
 
 type Props = {
   title: string;
@@ -12,7 +12,7 @@ type Props = {
 
 const index = (props: Props) => {
   const navigate = useNavigate();
-  const theme = useAppSelector(selectTheme);
+  const theme = useAppSelector(selectAppTheme);
   const [styles, setStyles] = useState<any>(setTheme(theme));
   useEffect(() => {
     setStyles(setTheme(theme));
@@ -27,7 +27,7 @@ const index = (props: Props) => {
             navigate(-1);
           }}
         >
-          <LJNIcon title={"xitongfanhui"} size={20} />
+          <LJNIcon title={"xitongfanhui"} size={17} />
         </View>
       </View>
       <View style={styles.ljn_header_middle}>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-native";
 import { useAppSelector } from "../../hooks";
 import {
   selectTabbarIndex,
-  selectTheme,
+  selectAppTheme,
   setTabbarIndex,
 } from "../../store/SystemSlice";
 import { useAppDispatch } from "../../hooks";
@@ -21,10 +21,15 @@ const index = (props: Props) => {
       icon: require("../../assets/images/nav1icon.png"),
     },
     {
-      title: "行情",
-      path: "/quotation",
+      title: "微信",
+      path: "/chat",
       icon: require("../../assets/images/nav2icon.png"),
     },
+    // {
+    //   title: "行情",
+    //   path: "/quotation",
+    //   icon: require("../../assets/images/nav2icon.png"),
+    // },
     {
       title: "交易",
       path: "/transaction",
@@ -50,7 +55,7 @@ const index = (props: Props) => {
   const dispatch = useAppDispatch();
   const tabbarIndex = useAppSelector(selectTabbarIndex);
 
-  const theme = useAppSelector(selectTheme);
+  const theme = useAppSelector(selectAppTheme);
   const [styles, setStyles] = useState<any>(setTheme(theme));
   useEffect(() => {
     setStyles(setTheme(theme));

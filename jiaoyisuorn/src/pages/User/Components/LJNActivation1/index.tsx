@@ -7,11 +7,13 @@ import LJNLoading from "../../../../components/LJNLoading";
 import { useStyles } from "../../../../hooks";
 import { setTheme } from "./styles";
 
-type Props = {};
+type Props = {
+  title: string;
+  buttonText: string;
+  onClick: Function;
+};
 
-const index = (props: Props) => {
-  const navigate = useNavigate();
-
+const index = ({ title, buttonText, onClick }: Props) => {
   const styles = useStyles(setTheme);
 
   let [show, setShow] = useState(false);
@@ -31,7 +33,7 @@ const index = (props: Props) => {
           <View style={styles.ljn_activation_header}>
             <View style={styles.ljn_activation_header_left}>
               <Text style={styles.ljn_activation_header_left_title}>
-                新手任务
+                {title}
               </Text>
             </View>
             <View style={styles.ljn_activation_header_right}>
@@ -53,9 +55,9 @@ const index = (props: Props) => {
             <View style={styles.ljn_activation_row3}>
               <LJNButton
                 size="small"
-                title={"去完成"}
+                title={buttonText}
                 onPress={() => {
-                  navigate("/login");
+                  onClick && onClick();
                 }}
               />
             </View>

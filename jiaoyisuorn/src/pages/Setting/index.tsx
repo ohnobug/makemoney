@@ -1,14 +1,13 @@
+import React from "react";
 import { View } from "react-native";
-import React, { useEffect, useState } from "react";
-import LJNHeader from "../../components/LJNHeader";
-import LJNList from "../../components/LJNList";
-import { setTheme } from "./styles";
-import { useAppSelector, useStyles } from "../../hooks";
-import { selectTheme } from "../../store/SystemSlice";
-import LJNScrollView from "../../components/LJNScrollView";
+import { useNavigate } from "react-router-native";
 import LJNButton from "../../components/LJNButton";
+import LJNHeader from "../../components/LJNHeader";
 import LJNLink from "../../components/LJNLink";
-import { Navigate, useNavigate } from "react-router-native";
+import LJNList from "../../components/LJNList";
+import LJNScrollView from "../../components/LJNScrollView";
+import { useStyles } from "../../hooks";
+import { setTheme } from "./styles";
 
 type Props = {};
 

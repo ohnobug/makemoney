@@ -6,4 +6,11 @@ interface ITheme {
   reverseTextColor: string;
   borderColor: string;
   primaryColor: string;
+
+  headerBackgroundColor: string;
+
+  chatBackgroundColor: string;
+  chatBorderColor: string;
+  chatFriendNameColor: string;
+  chatMessageColor: string;
 }
