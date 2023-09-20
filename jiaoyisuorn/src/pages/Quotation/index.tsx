@@ -82,6 +82,6 @@ const styles = StyleSheet.create({
   },
   ljn_footer: {
     flex: 0,
-    minHeight: AppStylesConfig.tabbarHeight,
+    minHeight: px2vw(AppStylesConfig.tabbarHeight),
   },
 });

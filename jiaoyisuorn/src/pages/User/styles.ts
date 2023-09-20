@@ -22,7 +22,7 @@ export function setTheme(name: string) {
     },
     ljn_main: {
       flex: 1,
-      maxHeight: window.height - AppStylesConfig.tabbarHeight,
+      maxHeight: window.height - px2vw(AppStylesConfig.tabbarHeight),
     },
     // 用户信息
     ljn_header_area: {
@@ -240,7 +240,7 @@ export function setTheme(name: string) {
 
     ljn_footer: {
       flex: 0,
-      minHeight: AppStylesConfig.tabbarHeight,
+      minHeight: px2vw(AppStylesConfig.tabbarHeight),
     },
   });
 }

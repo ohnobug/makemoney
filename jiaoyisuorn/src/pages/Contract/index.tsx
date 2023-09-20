@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   ljn_main: {
     flex: 1,
-    // maxHeight: window.height - AppStylesConfig.tabbarHeight,
+    // maxHeight: window.height - px2vw(AppStylesConfig.tabbarHeight),
     backgroundColor: "#0f131f",
     // #0f131f
   },
@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
   },
   ljn_footer: {
     flex: 0,
-    minHeight: AppStylesConfig.tabbarHeight,
+    minHeight: px2vw(AppStylesConfig.tabbarHeight),
   },
 });

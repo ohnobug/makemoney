@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import AppStylesConfig from "../../AppStylesConfig";
 import darkTheme from "../../themes/default/styles";
 import lightTheme from "../../themes/light/styles";
@@ -13,6 +13,7 @@ export function setTheme(name: string) {
     theme = lightTheme;
   }
 
+  const window = Dimensions.get("window");
   return StyleSheet.create({
     container: {
       flex: 1,
@@ -22,6 +23,14 @@ export function setTheme(name: string) {
     },
     ljn_main: {
       flex: 1,
+      maxHeight:
+        window.height -
+        px2vw(AppStylesConfig.tabbarHeight) -
+        px2vw(AppStylesConfig.headerHeight),
+    },
+    ljn_footer: {
+      flex: 0,
+      minHeight: px2vw(AppStylesConfig.tabbarHeight),
     },
     ljn_big_box: {
       height: px2vw(500),
@@ -29,56 +38,54 @@ export function setTheme(name: string) {
       alignItems: "center",
       justifyContent: "center",
     },
-    ljn_footer: {
-      flex: 0,
-      minHeight: AppStylesConfig.tabbarHeight,
-    },
-
     // 聊天项
     ljn_chat_item: {
       backgroundColor: theme.chatBackgroundColor,
       padding: 0,
-      height: px2vw(70),
+      height: px2vw(69),
       marginHorizontal: 15,
       display: "flex",
       flexDirection: "row",
     },
     // 头像盒子
     ljn_avatar_box: {
-      flexBasis: px2vw(46 + 13),
+      flexBasis: px2vw(47 + 10),
       display: "flex",
       justifyContent: "center",
     },
     // 头像
     ljn_avatar: {
-      width: px2vw(46),
-      height: px2vw(46),
+      width: px2vw(46.5),
+      height: px2vw(46.5),
       borderRadius: px2vw(5),
     },
     // 聊天窗口信息
     ljn_chat_message_info: {
       flex: 1,
-      borderBottomWidth: px2vw(1),
+      borderBottomWidth: px2vw(0.8),
       borderBottomColor: theme.chatBorderColor,
-      paddingVertical: 12,
+      paddingTop: px2vw(13),
     },
     // 好友信息行
     ljn_chat_friend_info_row: {
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
+      marginBottom: px2vw(4),
       // height: px2vw(30),
+      // marginBottom: px2vw(4),
+      // marginTop: px2vw(1),
     },
     // 好友名字盒子
     ljn_chat_friend_name_box: {
       maxWidth: "70%",
       // backgroundColor: "blue",
-      marginBottom: px2vw(3),
     },
     // 好友名字
     ljn_chat_friend_name: {
       fontSize: px2vw(16),
       color: theme.chatFriendNameColor,
+      fontWeight: "500",
     },
     // 聊天日期盒子
     ljn_chat_date_box: {

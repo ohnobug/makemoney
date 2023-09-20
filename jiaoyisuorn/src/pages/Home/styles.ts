@@ -22,11 +22,11 @@ export function setTheme(name: string) {
     },
     ljn_main: {
       flex: 1,
-      maxHeight: window.height - AppStylesConfig.tabbarHeight,
+      maxHeight: window.height - px2vw(AppStylesConfig.tabbarHeight),
     },
     ljn_footer: {
       flex: 0,
-      minHeight: AppStylesConfig.tabbarHeight,
+      minHeight: px2vw(AppStylesConfig.tabbarHeight),
     },
   });
 }

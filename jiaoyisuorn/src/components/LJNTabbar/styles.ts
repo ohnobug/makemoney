@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import { px2vw } from "../../utils/utils";
 import darkTheme from "../../themes/default/styles";
 import lightTheme from "../../themes/light/styles";
+import AppStylesConfig from "../../AppStylesConfig";
 
 export function setTheme(name: string) {
   let theme: ITheme;
@@ -13,7 +14,7 @@ export function setTheme(name: string) {
 
   return StyleSheet.create({
     ljn_tabbar: {
-      height: px2vw(60),
+      height: px2vw(AppStylesConfig.tabbarHeight),
       paddingTop: px2vw(5),
       paddingBottom: px2vw(5),
       display: "flex",

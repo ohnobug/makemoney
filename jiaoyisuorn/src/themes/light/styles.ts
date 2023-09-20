@@ -12,9 +12,9 @@ const theme: ITheme = {
 
   // 聊天窗口文字
   chatBackgroundColor: "white",
-  chatBorderColor: "#e8e8e8",
-  chatFriendNameColor: "#181818",
-  chatMessageColor: "#5e5e5e",
+  chatBorderColor: "#ebebeb",
+  chatFriendNameColor: "#191919",
+  chatMessageColor: "#c8c8c8",
 };
 
 export default theme;

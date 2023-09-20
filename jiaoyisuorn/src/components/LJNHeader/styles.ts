@@ -1,7 +1,8 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { px2vw } from "../../utils/utils";
+import { StyleSheet } from "react-native";
+import AppStylesConfig from "../../AppStylesConfig";
 import darkTheme from "../../themes/default/styles";
 import lightTheme from "../../themes/light/styles";
+import { px2vw } from "../../utils/utils";
 
 export function setTheme(name: string) {
   let theme: ITheme;
@@ -13,9 +14,9 @@ export function setTheme(name: string) {
 
   return StyleSheet.create({
     ljn_header: {
-      flexBasis: px2vw(44),
+      height: px2vw(AppStylesConfig.headerHeight),
+      flexBasis: px2vw(AppStylesConfig.headerHeight),
       flex: 0,
-      height: px2vw(44),
       backgroundColor: theme.headerBackgroundColor,
       display: "flex",
       flexDirection: "row",

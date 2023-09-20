@@ -2,6 +2,7 @@ import { Dimensions, StyleSheet } from "react-native";
 import AppStylesConfig from "../../AppStylesConfig";
 import darkTheme from "../../themes/default/styles";
 import lightTheme from "../../themes/light/styles";
+import { px2vw } from "../../utils/utils";
 
 const window = Dimensions.get("window");
 export function setTheme(name: string) {
@@ -21,10 +22,10 @@ export function setTheme(name: string) {
     },
     ljn_main: {
       flex: 1,
-      maxHeight: window.height - AppStylesConfig.tabbarHeight,
+      maxHeight: window.height - px2vw(AppStylesConfig.tabbarHeight),
     },
     ljn_footer: {
-      minHeight: AppStylesConfig.tabbarHeight,
+      minHeight: px2vw(AppStylesConfig.tabbarHeight),
     },
   });
 }
