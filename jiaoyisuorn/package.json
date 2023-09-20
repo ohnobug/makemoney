@@ -42,7 +42,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build:web": "expo export:web"
+    "build:web": "expo export:web",
+    "build:app": "cd D://facaiProject && rm -rf src && cp -rf D://jiaoyisuo/jiaoyisuorn/src ./ && npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/build/intermediates/res/merged/release/ && rm -rf android/app/src/main/res/drawable-* && rm -rf android/app/src/main/res/raw/* && cd android && gradlew assembleRelease && cd .. && adb.exe install D:/facaiProject/android/app/build/outputs/apk/release/app-release.apk"
   },
   "version": "1.0.0",
   "private": true,

@@ -14,7 +14,7 @@ const theme: ITheme = {
   chatBackgroundColor: "white",
   chatBorderColor: "#ebebeb",
   chatFriendNameColor: "#191919",
-  chatMessageColor: "#c8c8c8",
+  chatMessageColor: "#b2b2b2",
 };
 
 export default theme;

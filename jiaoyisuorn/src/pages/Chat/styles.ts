@@ -85,7 +85,7 @@ export function setTheme(name: string) {
     ljn_chat_friend_name: {
       fontSize: px2vw(16),
       color: theme.chatFriendNameColor,
-      fontWeight: "500",
+      // fontWeight: "500",
     },
     // 聊天日期盒子
     ljn_chat_date_box: {
