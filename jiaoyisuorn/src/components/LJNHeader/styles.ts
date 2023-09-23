@@ -14,8 +14,8 @@ export function setTheme(name: string) {
 
   return StyleSheet.create({
     ljn_header: {
-      height: px2vw(AppStylesConfig.headerHeight),
-      flexBasis: px2vw(AppStylesConfig.headerHeight),
+      height: AppStylesConfig.headerHeight,
+      flexBasis: AppStylesConfig.headerHeight,
       flex: 0,
       backgroundColor: theme.headerBackgroundColor,
       display: "flex",

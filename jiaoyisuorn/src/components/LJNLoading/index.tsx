@@ -17,7 +17,9 @@ const index = ({ size = 14 }: Props) => {
 
   useEffect(() => {
     setStyles(setTheme(theme));
+  }, [theme]);
 
+  useEffect(() => {
     let timer = setInterval(() => {
       dotlength += 1;
       if (dotlength > 3) dotlength = 0;

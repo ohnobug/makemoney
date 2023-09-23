@@ -7,6 +7,7 @@ import { selectAppTheme } from "store/SystemSlice";
 import darkTheme from "themes/default/styles";
 import lightTheme from "themes/light/styles";
 import { setTheme } from "./styles";
+import { useFocusEffect } from "@react-navigation/native";
 
 type ItemProps = {
   id: string;
@@ -784,6 +785,10 @@ function Item({ id, friendName, message, notice, avatar }: ItemProps) {
 type Props = any;
 export default function SlideChat({ navigation }: Props) {
   const styles = useStyles(setTheme);
+
+  useFocusEffect(() => {
+    console.log("来到微信了");
+  });
 
   return (
     <View style={styles.container}>

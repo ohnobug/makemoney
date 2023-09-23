@@ -18,7 +18,7 @@ const index = (props: Props) => {
   const [styles, setStyles] = useState<any>(setTheme(theme));
   useEffect(() => {
     setStyles(setTheme(theme));
-  }, []);
+  }, [theme]);
 
   return (
     <View style={styles.ljn_list}>

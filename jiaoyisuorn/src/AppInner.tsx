@@ -53,9 +53,9 @@ function IconImg({ focused, color, name }: r) {
     <Image
       source={focused ? navIcons[name][0] : navIcons[name][1]}
       style={{
-        width: px2vw(25),
-        height: px2vw(25),
-        borderRadius: px2vw(25),
+        width: px2vw(28),
+        height: px2vw(28),
+        borderRadius: px2vw(28),
       }}
     />
   );
@@ -87,11 +87,19 @@ function IndexScreen() {
           appTheme === "dark"
             ? darkTheme.reverseTextColor
             : lightTheme.reverseTextColor,
-        tabBarLabelStyle: {
-          fontSize: px2vw(10),
-        },
+
         tabBarIndicatorStyle: {
           display: "none",
+        },
+        tabBarLabelStyle: {
+          fontSize: px2vw(10),
+          marginTop: px2vw(-0.1),
+        },
+        tabBarIconStyle: {
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: px2vw(-3),
         },
       }}
     >
@@ -116,17 +124,6 @@ function IndexScreen() {
           ),
         }}
         component={SlideChat}
-      />
-      <Tab.Screen
-        name="contract"
-        options={{
-          title: "合约",
-          tabBarShowIcon: true,
-          tabBarIcon: ({ focused, color }) => (
-            <IconImg focused={focused} color={color} name="contract" />
-          ),
-        }}
-        component={SlideContract}
       />
       <Tab.Screen
         name="transaction"

@@ -25,7 +25,7 @@ const index = ({ title, size = "normal", onPress, style }: Props) => {
   const [styles, setStyles] = useState<any>(setTheme(theme));
   useEffect(() => {
     setStyles(setTheme(theme));
-  }, []);
+  }, [theme]);
 
   return (
     <TouchableOpacity

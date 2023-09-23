@@ -13,10 +13,13 @@ type Props = {
 const LJNHeader = (props: Props) => {
   const { title, onBack } = props;
   const theme = useAppSelector(selectAppTheme);
+
+  // console.log("头部主题");
+
   const [styles, setStyles] = useState<any>(setTheme(theme));
   useEffect(() => {
     setStyles(setTheme(theme));
-  }, []);
+  }, [theme]);
 
   return (
     <View style={styles.ljn_header}>

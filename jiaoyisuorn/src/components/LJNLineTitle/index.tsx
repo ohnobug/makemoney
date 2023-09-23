@@ -13,7 +13,7 @@ const index = ({ title }: Props) => {
   const [styles, setStyles] = useState<any>(setTheme(theme));
   useEffect(() => {
     setStyles(setTheme(theme));
-  }, []);
+  }, [theme]);
 
   return (
     <View style={styles.ljn_line_title}>

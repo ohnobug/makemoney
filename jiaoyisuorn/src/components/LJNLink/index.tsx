@@ -22,7 +22,7 @@ const index = ({ title, style, onPress }: Props) => {
   const [styles, setStyles] = useState<any>(setTheme(theme));
   useEffect(() => {
     setStyles(setTheme(theme));
-  }, []);
+  }, [theme]);
 
   return (
     <TouchableOpacity activeOpacity={0.6} onPress={onPress}>
