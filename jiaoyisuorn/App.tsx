@@ -1,10 +1,10 @@
-import AppInner from "AppInner";
+import AppInner from "./src/AppInner";
 import React, { useEffect, useState } from "react";
 import { StatusBar, StyleSheet } from "react-native";
 import { enableExperimentalWebImplementation } from "react-native-gesture-handler";
 import emitter from "./src/bus";
 import { Provider } from "react-redux";
-import store from "store";
+import store from "./src/store";
 import { SafeAreaView } from "react-native-safe-area-context";
 import darkTheme from "./src/themes/default/styles";
 import lightTheme from "./src/themes/light/styles";
