@@ -7,7 +7,7 @@ import context from "pages/SlideHome/context";
 
 type Props = {};
 
-const index = ({}: Props) => {
+const LJNNav = ({}: Props) => {
   const [list, setList] = useState([
     {
       icon: require("assets/images/nav1icon.png"),
@@ -36,8 +36,8 @@ const index = ({}: Props) => {
     },
     {
       icon: require("assets/images/nav6icon.png"),
-      title: "社区",
-      screen: "gallery",
+      title: "图片墙",
+      screen: "galleryScreen",
       path: "gallery",
     },
     {
@@ -112,4 +112,4 @@ const index = ({}: Props) => {
   );
 };
 
-export default index;
+export default LJNNav;

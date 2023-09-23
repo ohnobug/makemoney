@@ -7,7 +7,6 @@ import { selectAppTheme } from "store/SystemSlice";
 import darkTheme from "themes/default/styles";
 import lightTheme from "themes/light/styles";
 import { setTheme } from "./styles";
-import context from "./context";
 
 type ItemProps = {
   id: string;
@@ -781,8 +780,6 @@ function Item({ id, friendName, message, notice, avatar }: ItemProps) {
     </View>
   );
 }
-
-const { Provider } = context;
 
 type Props = any;
 export default function SlideChat({ navigation }: Props) {

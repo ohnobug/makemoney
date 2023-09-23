@@ -59,7 +59,7 @@ var styles = react_native_1.StyleSheet.create({
   },
   ljn_main: {
     flex: 1,
-    // maxHeight: window.height - px2vw(AppStylesConfig.tabbarHeight),
+    // maxHeight: window.height - AppStylesConfig.tabbarHeight,
     backgroundColor: "#0f131f",
   },
   ljn_big_box: {

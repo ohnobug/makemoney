@@ -22,7 +22,7 @@ export function setTheme(name: string) {
     ljn_main: {
       flex: 1,
       backgroundColor: theme.backgroundColor,
-      maxHeight: window.height - px2vw(AppStylesConfig.tabbarHeight),
+      maxHeight: window.height - AppStylesConfig.tabbarHeight,
     },
     ljn_assets_area: {
       height: px2vw(271),
@@ -199,7 +199,7 @@ export function setTheme(name: string) {
 
     ljn_footer: {
       flex: 0,
-      minHeight: px2vw(AppStylesConfig.tabbarHeight),
+      minHeight: AppStylesConfig.tabbarHeight,
     },
   });
 }

@@ -1,6 +1,7 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+// import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AppStylesConfig from "AppStylesConfig";
 import { useAppSelector } from "hooks";
 import Gallery from "pages/Gallery";
@@ -12,7 +13,7 @@ import SlideContract from "pages/SlideContract";
 import SlideHome from "pages/SlideHome";
 import SlideTransaction from "pages/SlideTransaction";
 import SlideUser from "pages/SlideUser";
-import React, { ReactNode } from "react";
+import React from "react";
 import { Image } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { selectAppTheme } from "store/SystemSlice";
@@ -66,20 +67,27 @@ function IndexScreen() {
 
   return (
     <Tab.Navigator
+      initialLayout={{
+        width: px2vw(375),
+        height: AppStylesConfig.tabbarHeight,
+      }}
       tabBarPosition="bottom"
       screenOptions={{
         tabBarStyle: {
+          minHeight: AppStylesConfig.tabbarHeight,
           height: AppStylesConfig.tabbarHeight,
+          maxHeight: AppStylesConfig.tabbarHeight,
           backgroundColor:
             appTheme === "dark"
               ? darkTheme.headerBackgroundColor
               : lightTheme.headerBackgroundColor,
         },
+        tabBarActiveTintColor: lightTheme.primaryColor,
+        tabBarInactiveTintColor:
+          appTheme === "dark"
+            ? darkTheme.reverseTextColor
+            : lightTheme.reverseTextColor,
         tabBarLabelStyle: {
-          color:
-            appTheme === "dark"
-              ? darkTheme.reverseTextColor
-              : lightTheme.reverseTextColor,
           fontSize: px2vw(10),
         },
         tabBarIndicatorStyle: {
@@ -157,7 +165,56 @@ function IndexScreen() {
   );
 }
 
-const Stack = createStackNavigator();
+// 首页屏幕
+function GalleryScreen() {
+  const appTheme = useAppSelector(selectAppTheme);
+
+  return (
+    <Tab.Navigator
+      initialLayout={{
+        width: px2vw(375),
+        height: AppStylesConfig.tabbarHeight,
+      }}
+      tabBarPosition="bottom"
+      screenOptions={{
+        tabBarStyle: {
+          minHeight: AppStylesConfig.tabbarHeight,
+          height: AppStylesConfig.tabbarHeight,
+          maxHeight: AppStylesConfig.tabbarHeight,
+          backgroundColor:
+            appTheme === "dark"
+              ? darkTheme.headerBackgroundColor
+              : lightTheme.headerBackgroundColor,
+        },
+        tabBarActiveTintColor: lightTheme.primaryColor,
+        tabBarInactiveTintColor:
+          appTheme === "dark"
+            ? darkTheme.reverseTextColor
+            : lightTheme.reverseTextColor,
+        tabBarLabelStyle: {
+          fontSize: px2vw(10),
+        },
+        tabBarIndicatorStyle: {
+          display: "none",
+        },
+      }}
+    >
+      <Tab.Screen
+        name="gallery"
+        options={{
+          title: "图片墙",
+          tabBarShowIcon: true,
+          tabBarIcon: ({ focused, color }) => (
+            <IconImg focused={focused} color={color} name="index" />
+          ),
+        }}
+        component={Gallery}
+      />
+    </Tab.Navigator>
+  );
+}
+
+const Stack = createNativeStackNavigator();
 const Tab = createMaterialTopTabNavigator();
 export default function AppInner() {
   return (
@@ -173,8 +230,8 @@ export default function AppInner() {
 
           {/* 图片墙 */}
           <Stack.Screen
-            name="gallery"
-            component={Gallery}
+            name="galleryScreen"
+            component={GalleryScreen}
             options={{ headerShown: false }}
           />
           {/* 设置 */}

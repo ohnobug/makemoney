@@ -15,23 +15,22 @@ export function setTheme(name: string) {
 
   const window = Dimensions.get("window");
   return StyleSheet.create({
-    // container: {
-    //   flex: 1,
-    //   display: "flex",
-    //   flexDirection: "column",
-    //   backgroundColor: theme.chatBackgroundColor,
-    // },
+    container: {
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      backgroundColor: theme.chatBackgroundColor,
+    },
     ljn_main: {
       flex: 1,
-      backgroundColor: theme.chatBackgroundColor,
       maxHeight:
         window.height -
-        px2vw(AppStylesConfig.tabbarHeight) -
-        px2vw(AppStylesConfig.headerHeight),
+        AppStylesConfig.tabbarHeight -
+        AppStylesConfig.headerHeight,
     },
     ljn_footer: {
       flex: 0,
-      minHeight: px2vw(AppStylesConfig.tabbarHeight),
+      minHeight: AppStylesConfig.tabbarHeight,
     },
     ljn_big_box: {
       height: px2vw(500),

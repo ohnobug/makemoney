@@ -23,7 +23,7 @@ export function setTheme(name: string) {
     ljn_main: {
       flex: 1,
       backgroundColor: theme.backgroundColor,
-      maxHeight: window.height - px2vw(AppStylesConfig.tabbarHeight),
+      maxHeight: window.height - AppStylesConfig.tabbarHeight,
     },
     // 用户信息
     ljn_header_area: {
@@ -241,7 +241,7 @@ export function setTheme(name: string) {
 
     ljn_footer: {
       flex: 0,
-      minHeight: px2vw(AppStylesConfig.tabbarHeight),
+      minHeight: AppStylesConfig.tabbarHeight,
     },
   });
 }

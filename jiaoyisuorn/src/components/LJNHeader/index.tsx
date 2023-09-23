@@ -1,7 +1,6 @@
+import { useAppSelector } from "hooks";
 import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
-import { useNavigate } from "react-router-native";
-import { useAppSelector } from "hooks";
 import { selectAppTheme } from "store/SystemSlice";
 import LJNIcon from "../LJNIcon";
 import { setTheme } from "./styles";

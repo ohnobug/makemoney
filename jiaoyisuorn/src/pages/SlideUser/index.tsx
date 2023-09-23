@@ -14,7 +14,6 @@ type Props = any;
 export default function SlideUser({ navigation }: Props) {
   const styles = useStyles(setTheme);
 
-  const navigate = navigation.navigate;
   const theme = useAppSelector(selectAppTheme);
   const dispatch = useAppDispatch();
 
@@ -36,7 +35,7 @@ export default function SlideUser({ navigation }: Props) {
             <LJNActivation1
               title={"新手任务"}
               onClick={() => {
-                navigate("/login");
+                navigation.navigate("login", "login");
               }}
               buttonText={"去完成"}
             />

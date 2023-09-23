@@ -25,12 +25,12 @@ export function setTheme(name: string) {
       flex: 1,
       maxHeight:
         window.height -
-        px2vw(AppStylesConfig.tabbarHeight) -
-        px2vw(AppStylesConfig.headerHeight),
+        AppStylesConfig.tabbarHeight -
+        AppStylesConfig.headerHeight,
     },
     ljn_footer: {
       flex: 0,
-      minHeight: px2vw(AppStylesConfig.tabbarHeight),
+      minHeight: AppStylesConfig.tabbarHeight,
     },
     ljn_big_box: {
       height: px2vw(500),

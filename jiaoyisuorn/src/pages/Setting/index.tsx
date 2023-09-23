@@ -33,7 +33,7 @@ const Setting = ({ navigation }: Props) => {
       <LJNHeader
         title={"设置"}
         onBack={() => {
-          navigation.navigate("home", { screen: "user" });
+          navigation.goBack();
         }}
       />
       <LJNScrollView

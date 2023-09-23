@@ -31,7 +31,12 @@ const Login = ({ navigation }: Props) => {
 
   return (
     <View style={styles.ljn_container}>
-      <LJNHeader title={""} navigation={navigation} />
+      <LJNHeader
+        title={""}
+        onBack={() => {
+          navigation.goBack();
+        }}
+      />
 
       <View style={styles.ljn_main}>
         {/* 标题 */}
