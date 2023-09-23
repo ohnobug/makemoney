@@ -22,7 +22,7 @@ const index = (props: Props) => {
     },
     {
       title: "微信",
-      path: "/chat",
+      path: "/recentcontacts",
       icon: require("../../assets/images/nav2icon.png"),
     },
     // {
