@@ -885,7 +885,7 @@ export default function index({}: Props) {
     });
 
   return (
-    <View style={styles.container}>
+    <>
       <LJNHeader title={"最近联系人"}></LJNHeader>
 
       <View style={styles.ljn_main}>
@@ -932,10 +932,6 @@ export default function index({}: Props) {
           />
         </GestureDetector>
       </View>
-
-      <View style={styles.ljn_footer}>
-        <LJNTabbar />
-      </View>
-    </View>
+    </>
   );
 }

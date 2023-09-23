@@ -1,11 +1,10 @@
-import { Provider } from "react-redux";
-import store from "./src/store";
-import router from "./src/router";
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
-import { StatusBar } from "react-native";
-import emitter from "./src/bus";
+import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import { enableExperimentalWebImplementation } from "react-native-gesture-handler";
+import { Provider } from "react-redux";
+import emitter from "./src/bus";
+import router from "./src/router";
+import store from "./src/store";
 import darkTheme from "./src/themes/default/styles";
 import lightTheme from "./src/themes/light/styles";
 
@@ -15,7 +14,7 @@ export default function App() {
   const [appTheme, setAppTheme] = useState("dark");
   useEffect(() => {
     emitter.on("setAppTheme", (val: string) => {
-      console.log("tttt");
+      console.log("设置主题成功!", val);
       setAppTheme(val);
     });
   }, []);

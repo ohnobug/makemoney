@@ -1,14 +1,12 @@
-import React, { useRef, useState } from "react";
-import { Image, Platform, Text, View, VirtualizedList } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import LJNHeader from "components/LJNHeader";
 import LJNIcon from "components/LJNIcon";
 import { useAppSelector, useStyles } from "hooks";
+import React from "react";
+import { FlatList, Image, Text, View } from "react-native";
 import { selectAppTheme } from "store/SystemSlice";
 import darkTheme from "themes/default/styles";
 import lightTheme from "themes/light/styles";
 import { setTheme } from "./styles";
-import { debounce } from "utils/utils";
 
 type ItemProps = {
   id: string;
@@ -788,145 +786,25 @@ type Props = {};
 export default function index({}: Props) {
   const styles = useStyles(setTheme);
 
-  // 滚动状态（手工滚动、自动滚动、自动滚动完成）
-  const [scrollState, setScrollState] = useState<
-    "handleScroll" | "autoScroll" | "scrollEnd"
-  >("scrollEnd");
-  const [longTapPosition, setLongTapPosition] = useState({ x: 0, y: 0 });
-  const [tapPosition, setTapPosition] = useState({ x: 0, y: 0 });
-
-  // 记录滚动的位置
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  // 滚动方向
-  const [direction, setDirection] = useState<"UP" | "DOWN">("UP");
-
-  const beginScroll = useRef(0);
-
-  const [scrollEnabled, setScrollEnabled] = useState(true);
-  const childSetScrollEnabled = (b: boolean) => {
-    setScrollEnabled(b);
-  };
-
-  const onScrollEnd = debounce(() => {
-    console.log("自动滚动结束");
-    // 动画完了释放
-    setScrollState("scrollEnd");
-    // 重置
-    beginScroll.current = 0;
-  }, 30);
-
-  const handleScroll = (event: any) => {
-    const position = event.nativeEvent.contentOffset.y;
-    // 兼容web
-    if (position - scrollPosition === 0) return;
-
-    setScrollPosition(position);
-
-    if (beginScroll.current === 0) {
-      beginScroll.current = new Date().getTime();
-      setScrollState("handleScroll");
-      console.log("手工滚动开始");
-    }
-
-    // 方向计算
-    if (position - scrollPosition > 0) {
-      setDirection("UP");
-    } else {
-      setDirection("DOWN");
-    }
-  };
-
-  // 长按
-  const longTap = Gesture.Pan()
-    .activateAfterLongPress(120)
-    .runOnJS(true)
-    .onStart((e) => {
-      setLongTapPosition({
-        x: e.x,
-        y: e.y,
-      });
-    })
-    .onUpdate((e) => {
-      // setLongTapPosition({
-      //   x: e.x,
-      //   y: e.y,
-      // });
-    })
-    .onEnd((e) => {
-      setLongTapPosition({
-        x: 0,
-        y: 0,
-      });
-      console.log("长按");
-    });
-
-  // 点击
-  const singleTap = Gesture.Tap()
-    .maxDuration(250)
-    .runOnJS(true)
-    .onStart((e) => {
-      setTapPosition({
-        x: e.x,
-        y: e.y,
-      });
-    })
-    .onEnd((e) => {
-      setTapPosition({
-        x: 0,
-        y: 0,
-      });
-      console.log("点击");
-    });
-
   return (
-    <>
-      <LJNHeader title={"最近联系人"}></LJNHeader>
+    <View style={styles.container}>
+      <LJNHeader title={"微信"}></LJNHeader>
 
       <View style={styles.ljn_main}>
-        <GestureDetector gesture={Gesture.Simultaneous(singleTap, longTap)}>
-          <VirtualizedList
-            horizontal={false}
-            data={DATA}
-            renderItem={({ item }) => (
-              <Item
-                id={item.id}
-                friendName={item.friendName}
-                notice={item.notice}
-                message={item.message}
-                avatar={item.avatar}
-              />
-            )}
-            keyExtractor={(item: any) => item.id}
-            getItemCount={(data) => data.length}
-            getItem={(data, index) => data[index]}
-            getItemLayout={(data: any, index: number) => {
-              return { length: 70, offset: 70 * index, index: index };
-            }}
-            initialNumToRender={5} // 首批渲染的元素数量
-            windowSize={5} // 渲染区域高度
-            maxToRenderPerBatch={20} // 增量渲染最大数量
-            scrollEnabled={scrollEnabled}
-            scrollEventThrottle={16}
-            // debug
-            onScrollEndDrag={(e) => {
-              console.log("自动滚动开始");
-              setScrollState("autoScroll");
-            }}
-            onMomentumScrollEnd={onScrollEnd}
-            onScroll={handleScroll}
-            onTouchEnd={() => {
-              if (Platform.OS === "web") {
-                console.log("web自动滚动开始");
-                setScrollState("autoScroll");
-                setTimeout(() => {
-                  onScrollEnd();
-                }, 2000);
-              }
-            }}
-          />
-        </GestureDetector>
+        <FlatList
+          data={DATA}
+          renderItem={({ item }) => (
+            <Item
+              id={item.id}
+              friendName={item.friendName}
+              notice={item.notice}
+              message={item.message}
+              avatar={item.avatar}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+        />
       </View>
-    </>
+    </View>
   );
 }
