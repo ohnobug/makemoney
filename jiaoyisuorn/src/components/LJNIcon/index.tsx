@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import IconFont from "./iconfont";
-import { useAppSelector } from "../../hooks";
-import { selectAppTheme } from "../../store/SystemSlice";
-import darkTheme from "../../themes/default/styles";
-import lightTheme from "../../themes/light/styles";
-import { px2vw } from "../../utils/utils";
+import { useAppSelector } from "hooks";
+import { selectAppTheme } from "store/SystemSlice";
+import darkTheme from "themes/default/styles";
+import lightTheme from "themes/light/styles";
+import { px2vw } from "utils/utils";
 
 type Props = {
   title: string;

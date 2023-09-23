@@ -1,15 +1,12 @@
+import { useStyles } from "hooks";
 import React from "react";
 import { View } from "react-native";
-import { useNavigate } from "react-router-native";
 import LJNButton from "../../components/LJNButton";
 import LJNHeader from "../../components/LJNHeader";
 import LJNLink from "../../components/LJNLink";
 import LJNList from "../../components/LJNList";
 import LJNScrollView from "../../components/LJNScrollView";
-import { useStyles } from "../../hooks";
 import { setTheme } from "./styles";
-
-type Props = {};
 
 const listData1 = [
   { title: "安全设置", desc: "", url: "" },
@@ -27,13 +24,18 @@ const listData2 = [
   { title: "关于我们", desc: "版本号 9.5.0", url: "" },
 ];
 
-const index = (props: Props) => {
-  const navigate = useNavigate();
+type Props = any;
+const Setting = ({ navigation }: Props) => {
   const styles = useStyles(setTheme);
 
   return (
     <View style={styles.ljn_container}>
-      <LJNHeader title={"设置"} />
+      <LJNHeader
+        title={"设置"}
+        onBack={() => {
+          navigation.navigate("home", { screen: "user" });
+        }}
+      />
       <LJNScrollView
         style={styles.ljn_main}
         horizontal={false}
@@ -47,14 +49,16 @@ const index = (props: Props) => {
       <View style={styles.ljn_logout_area}>
         <LJNButton
           style={styles.ljn_switch_account}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate("login", "login");
+          }}
           title="切换账号登录"
         />
         <LJNLink
           title="退出"
           style={styles.ljn_logout}
           onPress={() => {
-            navigate("/login");
+            navigation.navigate("login");
           }}
         />
       </View>
@@ -62,4 +66,4 @@ const index = (props: Props) => {
   );
 };
 
-export default index;
+export default Setting;

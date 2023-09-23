@@ -1,4 +1,4 @@
-import { px2vw } from "../../../utils/utils";
+import { px2vw } from "utils/utils";
 
 const gap = 2;
 

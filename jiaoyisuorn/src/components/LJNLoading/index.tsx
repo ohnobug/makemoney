@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { setTheme } from "./styles";
-import { useAppSelector } from "../../hooks";
-import { selectAppTheme } from "../../store/SystemSlice";
-import { px2vw } from "../../utils/utils";
+import { useAppSelector } from "hooks";
+import { selectAppTheme } from "store/SystemSlice";
+import { px2vw } from "utils/utils";
 
 type Props = {
   size?: number;

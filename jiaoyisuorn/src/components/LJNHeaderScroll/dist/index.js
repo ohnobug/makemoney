@@ -2,11 +2,11 @@
 exports.__esModule = true;
 var react_native_1 = require("react-native");
 var react_1 = require("react");
-var utils_1 = require("../../utils/utils");
+var utils_1 = require("utils/utils");
 var LJNScrollView_1 = require("../../components/LJNScrollView");
-var hooks_1 = require("../../hooks");
+var hooks_1 = require("hooks");
 var styles_1 = require("./styles");
-var SystemSlice_1 = require("../../store/SystemSlice");
+var SystemSlice_1 = require("store/SystemSlice");
 // 位置信息
 var index = function (_a, ref) {
   var list = _a.list,

@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
-import { px2vw } from "../../utils/utils";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { selectAppTheme, setAppTheme } from "../../store/SystemSlice";
+import { px2vw } from "utils/utils";
+import { useAppDispatch, useAppSelector } from "hooks";
+import { selectAppTheme, setAppTheme } from "store/SystemSlice";
 import AppStylesConfig from "../../AppStylesConfig";
 
 type Props = {};

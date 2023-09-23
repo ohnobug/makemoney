@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { Image, Platform, View, VirtualizedList } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { useStyles } from "../../hooks";
-import { debounce } from "../../utils/utils";
+import { useStyles } from "hooks";
+import { debounce } from "utils/utils";
 import LJNGalleryStyle1 from "./Components/LJNGalleryStyle1";
 import LJNGalleryStyle2 from "./Components/LJNGalleryStyle2";
 import LJNGalleryStyle3 from "./Components/LJNGalleryStyle3";
@@ -180,7 +180,7 @@ const list = new Array(100).fill(0).map((item, index) => {
 });
 
 type Props = {};
-const index = (props: Props) => {
+const Gallery = (props: Props) => {
   const styles = useStyles(setTheme);
 
   // 记录滚动的位置
@@ -391,4 +391,4 @@ const index = (props: Props) => {
   );
 };
 
-export default index;
+export default Gallery;

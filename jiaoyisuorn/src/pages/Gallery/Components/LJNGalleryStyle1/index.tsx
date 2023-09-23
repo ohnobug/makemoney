@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import LJNImage from "../../../../components/LJNImage";
-import { useStyles } from "../../../../hooks";
-import { checkTap } from "../../../../utils/utils";
+import LJNImage from "components/LJNImage";
+import { useStyles } from "hooks";
+import { checkTap } from "utils/utils";
 import { useActiveBox } from "../componentsHooks";
 import cssConfig from "../cssConfig";
 import { setTheme } from "./styles";

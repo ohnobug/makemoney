@@ -1,10 +1,10 @@
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 import { Image, StyleSheet, View } from "react-native";
-import { useStyles } from "../../../../hooks";
+import { useStyles } from "hooks";
 import { setTheme } from "./styles";
-import LJNIcon from "../../../../components/LJNIcon";
-const boxempty = require("../../../../assets/images/boxempty.png");
-const likeicon = require("../../../../assets/images/likeicon.png");
+import LJNIcon from "components/LJNIcon";
+const boxempty = require("assets/images/boxempty.png");
+const likeicon = require("assets/images/likeicon.png");
 
 type Props = {};
 

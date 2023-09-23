@@ -13,12 +13,14 @@ import LJNHeader from "../../components/LJNHeader";
 import LJNHeaderScroll from "../../components/LJNHeaderScroll";
 import LJNLineTitle from "../../components/LJNLineTitle";
 import LJNLink from "../../components/LJNLink";
-import { useStyles } from "../../hooks";
+import { useStyles } from "hooks";
 import { setTheme } from "./styles";
 
-type Props = {};
+type Props = {
+  navigation: any;
+};
 
-const index = (props: Props) => {
+const Login = ({ navigation }: Props) => {
   const styles = useStyles(setTheme);
 
   // 顶部滑动
@@ -29,7 +31,8 @@ const index = (props: Props) => {
 
   return (
     <View style={styles.ljn_container}>
-      <LJNHeader title={""} />
+      <LJNHeader title={""} navigation={navigation} />
+
       <View style={styles.ljn_main}>
         {/* 标题 */}
         <View style={styles.ljn_login_title}>
@@ -92,7 +95,7 @@ const index = (props: Props) => {
             <View style={styles.ljn_other_login_logo}>
               <Image
                 style={styles.ljn_other_login_logo_img}
-                source={require("../../assets/images/facebook_logo.png")}
+                source={require("assets/images/facebook_logo.png")}
               />
             </View>
             <View style={styles.ljn_other_login_title}>
@@ -107,7 +110,7 @@ const index = (props: Props) => {
             <View style={styles.ljn_other_login_logo}>
               <Image
                 style={styles.ljn_other_login_logo_img}
-                source={require("../../assets/images/google_logo.png")}
+                source={require("assets/images/google_logo.png")}
               />
             </View>
             <View style={styles.ljn_other_login_title}>
@@ -122,7 +125,7 @@ const index = (props: Props) => {
             <View style={styles.ljn_other_login_logo}>
               <Image
                 style={styles.ljn_other_login_logo_img}
-                source={require("../../assets/images/twitter_logo.png")}
+                source={require("assets/images/twitter_logo.png")}
               />
             </View>
             <View style={styles.ljn_other_login_title}>
@@ -145,4 +148,4 @@ const index = (props: Props) => {
   );
 };
 
-export default index;
+export default Login;

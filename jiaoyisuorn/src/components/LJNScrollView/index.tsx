@@ -6,7 +6,7 @@ import {
   ViewStyle,
 } from "react-native";
 import React from "react";
-import { px2vw } from "../../utils/utils";
+import { px2vw } from "utils/utils";
 
 type Props = {
   children: JSX.Element;

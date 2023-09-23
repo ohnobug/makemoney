@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useAppSelector } from "../../hooks";
-import { selectAppTheme, setTheme } from "../../store/SystemSlice";
+import { useAppSelector } from "hooks";
+import { selectAppTheme, setTheme } from "store/SystemSlice";
 
 type Props = {};
 

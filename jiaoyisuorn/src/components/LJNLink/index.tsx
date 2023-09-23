@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from "hooks";
 import { setTheme } from "./styles";
-import { selectAppTheme } from "../../store/SystemSlice";
+import { selectAppTheme } from "store/SystemSlice";
 
 type Props = {
   title: string;

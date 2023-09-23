@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
-import { px2vw } from "../../../../utils/utils";
+import { px2vw } from "utils/utils";
 import cssConfig from "../cssConfig";
-import darkTheme from "../../../../themes/default/styles";
-import lightTheme from "../../../../themes/light/styles";
+import darkTheme from "themes/default/styles";
+import lightTheme from "themes/light/styles";
 
 export function setTheme(name: string) {
   let theme: ITheme;

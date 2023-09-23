@@ -2,20 +2,19 @@
 exports.__esModule = true;
 exports.setTheme = void 0;
 var react_native_1 = require("react-native");
-var styles_1 = require("../../themes/default/styles");
-var styles_2 = require("../../themes/light/styles");
+var styles_1 = require("themes/default/styles");
+var styles_2 = require("themes/light/styles");
 function setTheme(name) {
-    var theme;
-    if (name === "dark") {
-        theme = styles_1["default"];
-    }
-    else {
-        theme = styles_2["default"];
-    }
-    return react_native_1.StyleSheet.create({
-        ljn_link: {
-            color: theme.primaryColor
-        }
-    });
+  var theme;
+  if (name === "dark") {
+    theme = styles_1["default"];
+  } else {
+    theme = styles_2["default"];
+  }
+  return react_native_1.StyleSheet.create({
+    ljn_link: {
+      color: theme.primaryColor,
+    },
+  });
 }
 exports.setTheme = setTheme;

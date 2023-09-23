@@ -5,7 +5,7 @@ exports.setTheme = void 0;
 
 var react_native_1 = require("react-native");
 
-var utils_1 = require("../../../../utils/utils");
+var utils_1 = require("utils/utils");
 
 function setTheme(name) {
   return react_native_1.StyleSheet.create({

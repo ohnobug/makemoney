@@ -2,11 +2,11 @@
 exports.__esModule = true;
 var react_1 = require("react");
 var iconfont_1 = require("./iconfont");
-var hooks_1 = require("../../hooks");
-var SystemSlice_1 = require("../../store/SystemSlice");
-var styles_1 = require("../../themes/default/styles");
-var styles_2 = require("../../themes/light/styles");
-var utils_1 = require("../../utils/utils");
+var hooks_1 = require("hooks");
+var SystemSlice_1 = require("store/SystemSlice");
+var styles_1 = require("themes/default/styles");
+var styles_2 = require("themes/light/styles");
+var utils_1 = require("utils/utils");
 var index = function (_a) {
   var title = _a.title,
     _b = _a.size,

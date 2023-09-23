@@ -2,8 +2,8 @@
 exports.__esModule = true;
 var react_native_1 = require("react-native");
 var react_1 = require("react");
-var hooks_1 = require("../../hooks");
-var SystemSlice_1 = require("../../store/SystemSlice");
+var hooks_1 = require("hooks");
+var SystemSlice_1 = require("store/SystemSlice");
 var styles_1 = require("./styles");
 var LJNButton_1 = require("../LJNButton");
 var index = function (props) {

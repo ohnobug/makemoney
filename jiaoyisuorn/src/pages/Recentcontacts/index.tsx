@@ -4,11 +4,11 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import LJNHeader from "../../components/LJNHeader";
 import LJNIcon from "../../components/LJNIcon";
 import LJNTabbar from "../../components/LJNTabbar";
-import { useAppSelector, useStyles } from "../../hooks";
-import { selectAppTheme } from "../../store/SystemSlice";
-import darkTheme from "../../themes/default/styles";
-import lightTheme from "../../themes/light/styles";
-import { debounce } from "../../utils/utils";
+import { useAppSelector, useStyles } from "hooks";
+import { selectAppTheme } from "store/SystemSlice";
+import darkTheme from "themes/default/styles";
+import lightTheme from "themes/light/styles";
+import { debounce } from "utils/utils";
 import { setTheme } from "./styles";
 import LJNImage from "../../components/LJNImage";
 

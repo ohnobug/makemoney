@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { setTheme } from "./styles";
-import { useAppSelector } from "../../hooks";
-import { selectAppTheme } from "../../store/SystemSlice";
+import { useAppSelector } from "hooks";
+import { selectAppTheme } from "store/SystemSlice";
 
 type Props = {
   title: string;

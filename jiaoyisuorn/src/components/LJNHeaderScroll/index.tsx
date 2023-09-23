@@ -7,11 +7,11 @@ import {
   View,
 } from "react-native";
 import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
-import { px2vw } from "../../utils/utils";
+import { px2vw } from "utils/utils";
 import LJNScrollView from "../../components/LJNScrollView";
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from "hooks";
 import { setTheme } from "./styles";
-import { selectAppTheme } from "../../store/SystemSlice";
+import { selectAppTheme } from "store/SystemSlice";
 
 type Props = {
   list: string[];

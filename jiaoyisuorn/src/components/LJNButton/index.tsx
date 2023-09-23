@@ -8,8 +8,8 @@ import {
   GestureResponderEvent,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useAppSelector } from "../../hooks";
-import { selectAppTheme } from "../../store/SystemSlice";
+import { useAppSelector } from "hooks";
+import { selectAppTheme } from "store/SystemSlice";
 import { setTheme } from "./styles";
 
 type Props = {

@@ -1,9 +1,6 @@
+import { useAppDispatch, useAppSelector } from "hooks";
 import { useLayoutEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../hooks";
-import {
-  selectGalleryPlayIndex,
-  setGalleryPlayIndex,
-} from "../../../store/SystemSlice";
+import { selectGalleryPlayIndex, setGalleryPlayIndex } from "store/SystemSlice";
 import cssConfig from "./cssConfig";
 
 const BOXHEIGHT = (cssConfig.boxSize + cssConfig.boxGap) * 2;

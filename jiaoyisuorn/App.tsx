@@ -1,10 +1,11 @@
+import AppInner from "AppInner";
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
+import { StatusBar, StyleSheet } from "react-native";
 import { enableExperimentalWebImplementation } from "react-native-gesture-handler";
-import { Provider } from "react-redux";
 import emitter from "./src/bus";
-import router from "./src/router";
-import store from "./src/store";
+import { Provider } from "react-redux";
+import store from "store";
+import { SafeAreaView } from "react-native-safe-area-context";
 import darkTheme from "./src/themes/default/styles";
 import lightTheme from "./src/themes/light/styles";
 
@@ -31,7 +32,9 @@ export default function App() {
             : lightTheme.headerBackgroundColor
         }
       />
-      <Provider store={store}>{router}</Provider>
+      <Provider store={store}>
+        <AppInner />
+      </Provider>
     </SafeAreaView>
   );
 }

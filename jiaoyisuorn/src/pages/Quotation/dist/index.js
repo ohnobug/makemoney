@@ -3,9 +3,9 @@ exports.__esModule = true;
 var react_1 = require("react");
 var react_native_1 = require("react-native");
 var LJNTabbar_1 = require("../../components/LJNTabbar");
-var utils_1 = require("../../utils/utils");
-var hooks_1 = require("../../hooks");
-var SystemSlice_1 = require("../../store/SystemSlice");
+var utils_1 = require("utils/utils");
+var hooks_1 = require("hooks");
+var SystemSlice_1 = require("store/SystemSlice");
 var AppStylesConfig_1 = require("../../AppStylesConfig");
 // let timer: any;
 function index(_a) {
