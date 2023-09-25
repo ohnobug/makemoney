@@ -796,6 +796,9 @@ export default function SlideChat({ navigation }: Props) {
 
       <View style={styles.ljn_main}>
         <FlatList
+          initialNumToRender={20} // 首批渲染的元素数量
+          windowSize={15} // 渲染区域高度
+          maxToRenderPerBatch={80} // 增量渲染最大数量
           data={DATA}
           renderItem={({ item }) => (
             <Item

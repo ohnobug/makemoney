@@ -5,10 +5,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { Image, Platform, StyleSheet, Text, View } from "react-native";
 import { ECharts } from "react-native-echarts-wrapper"; // android/ios
 import { setTheme } from "./styles";
+import { selectAppTheme } from "store/SystemSlice";
+import { useAppSelector } from "hooks";
 
 type Props = {};
 const index = (props: Props) => {
   const styles = useStyles(setTheme);
+  const appTheme = useAppSelector(selectAppTheme);
 
   useEffect(() => {
     option1Init.backgroundColor = styles.ljn_echartsbg.backgroundColor;
@@ -50,7 +53,7 @@ const index = (props: Props) => {
         chart1Ref.current = null;
       }
     };
-  }, [styles]);
+  }, [appTheme]);
 
   let chart1Ref = useRef<any>(null);
   let chart2Ref = useRef<any>(null);

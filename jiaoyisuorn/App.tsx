@@ -1,13 +1,17 @@
-import AppInner from "./src/AppInner";
+import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect, useState } from "react";
 import { StatusBar, StyleSheet } from "react-native";
 import { enableExperimentalWebImplementation } from "react-native-gesture-handler";
-import emitter from "./src/bus";
-import { Provider } from "react-redux";
-import store from "./src/store";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Provider } from "react-redux";
+import AppInner from "./src/AppInner";
+import emitter from "./src/bus";
+import store from "./src/store";
 import darkTheme from "./src/themes/default/styles";
 import lightTheme from "./src/themes/light/styles";
+
+// Keep the splash screen visible while we fetch resources
+SplashScreen.preventAutoHideAsync();
 
 enableExperimentalWebImplementation(true);
 
@@ -18,6 +22,15 @@ export default function App() {
       console.log("设置主题成功!", val);
       setAppTheme(val);
     });
+  }, []);
+
+  useEffect(() => {
+    async function prepare() {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      await SplashScreen.hideAsync();
+    }
+
+    prepare();
   }, []);
 
   return (

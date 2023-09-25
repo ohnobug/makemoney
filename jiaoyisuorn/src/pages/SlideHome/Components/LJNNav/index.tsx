@@ -12,27 +12,32 @@ const LJNNav = ({}: Props) => {
     {
       icon: require("assets/images/nav1icon.png"),
       title: "CNY买币",
-      path: "/",
+      screen: "home",
+      path: "index",
     },
     {
       icon: require("assets/images/nav2icon.png"),
       title: "交易机器人",
-      path: "/",
+      screen: "home",
+      path: "index",
     },
     {
       icon: require("assets/images/nav3icon.png"),
       title: "USDT合约",
-      path: "/",
+      screen: "home",
+      path: "index",
     },
     {
       icon: require("assets/images/nav4icon.png"),
       title: "理财",
-      path: "/",
+      screen: "home",
+      path: "index",
     },
     {
       icon: require("assets/images/nav5icon.png"),
-      title: "跟单 ",
-      path: "/",
+      title: "跟单",
+      screen: "home",
+      path: "index",
     },
     {
       icon: require("assets/images/nav6icon.png"),
@@ -43,22 +48,26 @@ const LJNNav = ({}: Props) => {
     {
       icon: require("assets/images/nav7icon.png"),
       title: "HT专区",
-      path: "/",
+      screen: "home",
+      path: "index",
     },
     {
       icon: require("assets/images/nav8icon.png"),
       title: "福利中心",
-      path: "/",
+      screen: "home",
+      path: "index",
     },
     {
       icon: require("assets/images/nav9icon.png"),
       title: "邀请返佣",
-      path: "/",
+      screen: "home",
+      path: "index",
     },
     {
       icon: require("assets/images/nav10icon.png"),
       title: "PI交易赛",
-      path: "/",
+      screen: "home",
+      path: "index",
     },
   ]);
 
@@ -87,7 +96,7 @@ const LJNNav = ({}: Props) => {
               style={styles.ljn_list_item}
               key={index}
               onTouchEnd={() => {
-                console.log("调整到", item.path);
+                console.log("跳转到", item.path);
                 navigate(item.screen, { screen: item.path });
               }}
             >

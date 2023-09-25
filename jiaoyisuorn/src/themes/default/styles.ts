@@ -8,7 +8,7 @@ const theme: ITheme = {
   primaryColor: "#0094ff",
 
   // 头部背景颜色
-  headerBackgroundColor: "#262b2f",
+  headerBackgroundColor: "#0f1724",
 
   // 聊天窗口文字
   chatBackgroundColor: "#181818",

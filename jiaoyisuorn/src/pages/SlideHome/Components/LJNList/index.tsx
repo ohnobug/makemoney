@@ -289,8 +289,8 @@ const initData = [
 
 const initData2: Array<IList> = [
   { tabname: "自选", list: initData },
-  { tabname: "热榜", list: initData },
+  // { tabname: "热榜", list: initData },
   { tabname: "涨幅榜", list: initData },
-  { tabname: "新币榜", list: initData },
+  // { tabname: "新币榜", list: initData },
   { tabname: "成交额榜", list: initData },
 ];

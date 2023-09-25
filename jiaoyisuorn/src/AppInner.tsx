@@ -9,7 +9,6 @@ import Login from "pages/Login";
 import Setting from "pages/Setting";
 import SlideAssets from "pages/SlideAssets";
 import SlideChat from "pages/SlideChat";
-import SlideContract from "pages/SlideContract";
 import SlideHome from "pages/SlideHome";
 import SlideTransaction from "pages/SlideTransaction";
 import SlideUser from "pages/SlideUser";
@@ -48,14 +47,14 @@ const navIcons = {
   ],
 };
 
-function IconImg({ focused, color, name }: r) {
+function IconImg({ focused, color, name }: any) {
   return (
     <Image
       source={focused ? navIcons[name][0] : navIcons[name][1]}
       style={{
-        width: px2vw(28),
-        height: px2vw(28),
-        borderRadius: px2vw(28),
+        width: px2vw(26),
+        height: px2vw(26),
+        borderRadius: px2vw(26),
       }}
     />
   );
@@ -73,6 +72,7 @@ function IndexScreen() {
       }}
       tabBarPosition="bottom"
       screenOptions={{
+        tabBarAndroidRipple: { borderless: false },
         tabBarStyle: {
           minHeight: AppStylesConfig.tabbarHeight,
           height: AppStylesConfig.tabbarHeight,

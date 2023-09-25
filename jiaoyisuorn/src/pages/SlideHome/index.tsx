@@ -1,8 +1,8 @@
 import emitter from "bus";
 import LJNScrollView from "components/LJNScrollView";
 import { useStyles } from "hooks";
-import React, { useContext, useEffect, useRef } from "react";
-import { ScrollView, View, Text } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { ScrollView } from "react-native";
 import LJNFunctions from "./Components/LJNFunctions";
 import LJNHotInfo from "./Components/LJNHotInfo";
 import LJNList from "./Components/LJNList";
