@@ -24,50 +24,33 @@ export default function SlideHome({ navigation }: Props) {
 
   const styles = useStyles(setTheme);
 
-  const [itIsFocused, setItIsFocused] = useState(false);
-  useFocusEffect(
-    useCallback(() => {
-      setItIsFocused(true);
-
-      return () => {};
-    }, [])
-  );
-
   return (
-    <>
-      {itIsFocused ? (
-        <LJNScrollView
-          style={styles.ljn_main}
-          horizontal={false}
-          ref={bigScrollView}
-          children={
-            <Provider
-              value={{
-                navigate: navigation.navigate,
-              }}
-            >
-              {/* 轮播图 */}
-              <LJNSwiper />
+    <LJNScrollView
+      style={styles.ljn_main}
+      horizontal={false}
+      ref={bigScrollView}
+      children={
+        <Provider
+          value={{
+            navigate: navigation.navigate,
+          }}
+        >
+          {/* 轮播图 */}
+          <LJNSwiper />
 
-              {/* 热门信息 */}
-              <LJNHotInfo />
+          {/* 热门信息 */}
+          <LJNHotInfo />
 
-              {/* 导航区 */}
-              <LJNNav />
+          {/* 导航区 */}
+          <LJNNav />
 
-              {/* 功能区 */}
-              <LJNFunctions />
+          {/* 功能区 */}
+          <LJNFunctions />
 
-              {/* 榜单 */}
-              <LJNList />
-            </Provider>
-          }
-        ></LJNScrollView>
-      ) : (
-        <View>
-          <Text>加载中...</Text>
-        </View>
-      )}
-    </>
+          {/* 榜单 */}
+          <LJNList />
+        </Provider>
+      }
+    ></LJNScrollView>
   );
 }

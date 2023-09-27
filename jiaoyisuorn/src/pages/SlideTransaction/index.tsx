@@ -16,34 +16,27 @@ export default function SlideTransaction({ navigation }: Props) {
 
   let bigScrollView = useRef<ScrollView>(null);
 
-  // const isFocused = useIsFocused();
-  const [itIsFocused, setItIsFocused] = useState(false);
-
   return (
-    <>
-      {itIsFocused ? (
-        <LJNScrollView
-          style={styles.ljn_main}
-          horizontal={false}
-          ref={bigScrollView}
-          children={
-            <Provider
-              value={{
-                navigate: navigation.navigate,
-              }}
-            >
-              {/* 资产区域 */}
-              <View style={styles.container}>
-                {/* 买卖操作 */}
-                <LJNTradeOperation />
+    <LJNScrollView
+      style={styles.ljn_main}
+      horizontal={false}
+      ref={bigScrollView}
+      children={
+        <Provider
+          value={{
+            navigate: navigation.navigate,
+          }}
+        >
+          {/* 资产区域 */}
+          <View style={styles.container}>
+            {/* 买卖操作 */}
+            <LJNTradeOperation />
 
-                {/* 资产信息 */}
-                <LJNAssetsInfo />
-              </View>
-            </Provider>
-          }
-        />
-      ) : null}
-    </>
+            {/* 资产信息 */}
+            <LJNAssetsInfo />
+          </View>
+        </Provider>
+      }
+    />
   );
 }

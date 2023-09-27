@@ -18,56 +18,39 @@ export default function SlideUser({ navigation }: Props) {
   const theme = useAppSelector(selectAppTheme);
   const dispatch = useAppDispatch();
 
-  const [itIsFocused, setItIsFocused] = useState(false);
-  useFocusEffect(
-    useCallback(() => {
-      setItIsFocused(true);
-
-      return () => {};
-    }, [])
-  );
-
   return (
-    <>
-      {itIsFocused ? (
-        <LJNScrollView
-          style={styles.ljn_main}
-          horizontal={false}
-          children={
-            <Provider
-              value={{
-                navigate: navigation.navigate,
-              }}
-            >
-              {/* 用户信息区域 */}
-              <LJNUserInfo />
+    <LJNScrollView
+      style={styles.ljn_main}
+      horizontal={false}
+      children={
+        <Provider
+          value={{
+            navigate: navigation.navigate,
+          }}
+        >
+          {/* 用户信息区域 */}
+          <LJNUserInfo />
 
-              {/* 其他信息 */}
-              <View style={styles.ljn_activation_area}>
-                <LJNActivation1
-                  title={"新手任务"}
-                  onClick={() => {
-                    navigation.navigate("login", "login");
-                  }}
-                  buttonText={"去完成"}
-                />
-                <LJNActivation1
-                  title={"切换主题"}
-                  onClick={() => {
-                    // console.log(theme);
-                    dispatch(setAppTheme(theme === "dark" ? "light" : "dark"));
-                  }}
-                  buttonText={"切换"}
-                />
-              </View>
-            </Provider>
-          }
-        />
-      ) : (
-        <View>
-          <Text>加载中...</Text>
-        </View>
-      )}
-    </>
+          {/* 其他信息 */}
+          <View style={styles.ljn_activation_area}>
+            <LJNActivation1
+              title={"新手任务"}
+              onClick={() => {
+                navigation.navigate("login", "login");
+              }}
+              buttonText={"去完成"}
+            />
+            <LJNActivation1
+              title={"切换主题"}
+              onClick={() => {
+                // console.log(theme);
+                dispatch(setAppTheme(theme === "dark" ? "light" : "dark"));
+              }}
+              buttonText={"切换"}
+            />
+          </View>
+        </Provider>
+      }
+    />
   );
 }

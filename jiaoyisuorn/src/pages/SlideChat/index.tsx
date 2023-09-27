@@ -786,45 +786,28 @@ type Props = any;
 export default function SlideChat({ navigation }: Props) {
   const styles = useStyles(setTheme);
 
-  const [itIsFocused, setItIsFocused] = useState(false);
-  useFocusEffect(
-    useCallback(() => {
-      setItIsFocused(true);
-
-      return () => {};
-    }, [])
-  );
-
   return (
-    <>
-      {itIsFocused ? (
-        <View style={styles.container}>
-          <LJNHeader title={"微信"}></LJNHeader>
+    <View style={styles.container}>
+      <LJNHeader title={"微信"}></LJNHeader>
 
-          <View style={styles.ljn_main}>
-            <FlatList
-              initialNumToRender={20} // 首批渲染的元素数量
-              windowSize={15} // 渲染区域高度
-              maxToRenderPerBatch={80} // 增量渲染最大数量
-              data={DATA}
-              renderItem={({ item }) => (
-                <Item
-                  id={item.id}
-                  friendName={item.friendName}
-                  notice={item.notice}
-                  message={item.message}
-                  avatar={item.avatar}
-                />
-              )}
-              keyExtractor={(item) => item.id}
+      <View style={styles.ljn_main}>
+        <FlatList
+          initialNumToRender={20} // 首批渲染的元素数量
+          windowSize={15} // 渲染区域高度
+          maxToRenderPerBatch={80} // 增量渲染最大数量
+          data={DATA}
+          renderItem={({ item }) => (
+            <Item
+              id={item.id}
+              friendName={item.friendName}
+              notice={item.notice}
+              message={item.message}
+              avatar={item.avatar}
             />
-          </View>
-        </View>
-      ) : (
-        <View>
-          <Text>加载中...</Text>
-        </View>
-      )}
-    </>
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
+    </View>
   );
 }

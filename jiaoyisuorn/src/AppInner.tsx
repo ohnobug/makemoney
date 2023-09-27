@@ -12,7 +12,7 @@ import SlideChat from "pages/SlideChat";
 import SlideHome from "pages/SlideHome";
 import SlideUser from "pages/SlideUser";
 import React from "react";
-import { Image } from "react-native";
+import { Image, View, Text } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { selectAppTheme } from "store/SystemSlice";
 import darkTheme from "themes/default/styles";
@@ -71,6 +71,19 @@ function IndexScreen() {
       }}
       tabBarPosition="bottom"
       screenOptions={{
+        lazyPlaceholder: () => {
+          return (
+            <View
+              style={{
+                display: "flex",
+                flex: 1,
+              }}
+            >
+              <Text>加载中...</Text>
+            </View>
+          );
+        },
+        lazy: true,
         tabBarAndroidRipple: { borderless: false },
         tabBarStyle: {
           minHeight: AppStylesConfig.tabbarHeight,
@@ -103,26 +116,26 @@ function IndexScreen() {
       }}
     >
       <Tab.Screen
-        name="index"
-        options={{
-          title: "首页",
-          tabBarShowIcon: true,
-          tabBarIcon: ({ focused, color }) => (
-            <IconImg focused={focused} color={color} name="index" />
-          ),
-        }}
-        component={SlideHome}
-      />
-      <Tab.Screen
         name="chat"
         options={{
           title: "微信",
           tabBarShowIcon: true,
           tabBarIcon: ({ focused, color }) => (
-            <IconImg focused={focused} color={color} name="chat" />
+            <IconImg focused={focused} color={color} name="index" />
           ),
         }}
         component={SlideChat}
+      />
+      <Tab.Screen
+        name="index"
+        options={{
+          title: "交易所",
+          tabBarShowIcon: true,
+          tabBarIcon: ({ focused, color }) => (
+            <IconImg focused={focused} color={color} name="chat" />
+          ),
+        }}
+        component={SlideHome}
       />
       {/* <Tab.Screen
         name="transaction"
