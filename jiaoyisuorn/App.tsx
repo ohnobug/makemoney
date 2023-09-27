@@ -26,7 +26,7 @@ export default function App() {
 
   useEffect(() => {
     async function prepare() {
-      await new Promise((resolve) => setTimeout(resolve, 300));
+      await new Promise((resolve) => setTimeout(resolve, 0));
       await SplashScreen.hideAsync();
     }
 

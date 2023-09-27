@@ -10,7 +10,6 @@ import Setting from "pages/Setting";
 import SlideAssets from "pages/SlideAssets";
 import SlideChat from "pages/SlideChat";
 import SlideHome from "pages/SlideHome";
-import SlideTransaction from "pages/SlideTransaction";
 import SlideUser from "pages/SlideUser";
 import React from "react";
 import { Image } from "react-native";
@@ -125,7 +124,7 @@ function IndexScreen() {
         }}
         component={SlideChat}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="transaction"
         options={{
           title: "交易",
@@ -135,7 +134,7 @@ function IndexScreen() {
           ),
         }}
         component={SlideTransaction}
-      />
+      /> */}
       <Tab.Screen
         name="assets"
         options={{

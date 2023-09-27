@@ -1,13 +1,13 @@
 import LJNHeader from "components/LJNHeader";
 import LJNIcon from "components/LJNIcon";
 import { useAppSelector, useStyles } from "hooks";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { FlatList, Image, Text, View } from "react-native";
 import { selectAppTheme } from "store/SystemSlice";
 import darkTheme from "themes/default/styles";
 import lightTheme from "themes/light/styles";
 import { setTheme } from "./styles";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 
 type ItemProps = {
   id: string;
@@ -786,32 +786,45 @@ type Props = any;
 export default function SlideChat({ navigation }: Props) {
   const styles = useStyles(setTheme);
 
-  useFocusEffect(() => {
-    console.log("来到微信了");
-  });
+  const [itIsFocused, setItIsFocused] = useState(false);
+  useFocusEffect(
+    useCallback(() => {
+      setItIsFocused(true);
+
+      return () => {};
+    }, [])
+  );
 
   return (
-    <View style={styles.container}>
-      <LJNHeader title={"微信"}></LJNHeader>
+    <>
+      {itIsFocused ? (
+        <View style={styles.container}>
+          <LJNHeader title={"微信"}></LJNHeader>
 
-      <View style={styles.ljn_main}>
-        <FlatList
-          initialNumToRender={20} // 首批渲染的元素数量
-          windowSize={15} // 渲染区域高度
-          maxToRenderPerBatch={80} // 增量渲染最大数量
-          data={DATA}
-          renderItem={({ item }) => (
-            <Item
-              id={item.id}
-              friendName={item.friendName}
-              notice={item.notice}
-              message={item.message}
-              avatar={item.avatar}
+          <View style={styles.ljn_main}>
+            <FlatList
+              initialNumToRender={20} // 首批渲染的元素数量
+              windowSize={15} // 渲染区域高度
+              maxToRenderPerBatch={80} // 增量渲染最大数量
+              data={DATA}
+              renderItem={({ item }) => (
+                <Item
+                  id={item.id}
+                  friendName={item.friendName}
+                  notice={item.notice}
+                  message={item.message}
+                  avatar={item.avatar}
+                />
+              )}
+              keyExtractor={(item) => item.id}
             />
-          )}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
-    </View>
+          </View>
+        </View>
+      ) : (
+        <View>
+          <Text>加载中...</Text>
+        </View>
+      )}
+    </>
   );
 }
