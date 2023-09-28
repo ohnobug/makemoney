@@ -65,6 +65,7 @@ function IndexScreen() {
 
   return (
     <Tab.Navigator
+      backBehavior="none"
       initialLayout={{
         width: px2vw(375),
         height: AppStylesConfig.tabbarHeight,

@@ -1,5 +1,5 @@
 import * as SplashScreen from "expo-splash-screen";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { StatusBar, StyleSheet } from "react-native";
 import { enableExperimentalWebImplementation } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -10,8 +10,12 @@ import store from "./src/store";
 import darkTheme from "./src/themes/default/styles";
 import lightTheme from "./src/themes/light/styles";
 
-// Keep the splash screen visible while we fetch resources
-SplashScreen.preventAutoHideAsync();
+// Prevent native splash screen from autohiding before App component declaration
+SplashScreen.preventAutoHideAsync()
+  .then((result) =>
+    console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`)
+  )
+  .catch(console.warn); // it's good to explicitly catch and inspect any error
 
 enableExperimentalWebImplementation(true);
 
@@ -24,17 +28,35 @@ export default function App() {
     });
   }, []);
 
+  const [appIsReady, setAppIsReady] = useState(false);
+
   useEffect(() => {
     async function prepare() {
-      // await new Promise((resolve) => setTimeout(resolve, 0));
-      await SplashScreen.hideAsync();
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 0));
+        console.log("成功进入app");
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
     }
 
     prepare();
   }, []);
 
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
       <StatusBar
         barStyle={appTheme === "dark" ? "light-content" : "dark-content"}
         hidden={false}
