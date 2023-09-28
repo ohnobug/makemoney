@@ -20,6 +20,8 @@ export function setTheme(name: string) {
       backgroundColor: theme.headerBackgroundColor,
       display: "flex",
       flexDirection: "row",
+      borderBottomColor: theme.headerBorderBottomColor,
+      borderBottomWidth: px2vw(0.5),
     },
     ljn_header_left: {
       flex: 1,

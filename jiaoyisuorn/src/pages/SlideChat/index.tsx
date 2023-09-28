@@ -1,13 +1,12 @@
 import LJNHeader from "components/LJNHeader";
 import LJNIcon from "components/LJNIcon";
 import { useAppSelector, useStyles } from "hooks";
-import React, { useCallback, useState } from "react";
-import { FlatList, Image, Text, View } from "react-native";
+import React from "react";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { selectAppTheme } from "store/SystemSlice";
 import darkTheme from "themes/default/styles";
 import lightTheme from "themes/light/styles";
 import { setTheme } from "./styles";
-import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 
 type ItemProps = {
   id: string;
@@ -738,7 +737,7 @@ function Item({ id, friendName, message, notice, avatar }: ItemProps) {
   const theme = useAppSelector(selectAppTheme);
 
   return (
-    <View style={styles.ljn_chat_item}>
+    <View style={notice ? styles.ljn_chat_item_notice : styles.ljn_chat_item}>
       {/* 头像 */}
       <View style={styles.ljn_avatar_box}>
         <Image style={styles.ljn_avatar} source={avatar} />
@@ -785,10 +784,26 @@ function Item({ id, friendName, message, notice, avatar }: ItemProps) {
 type Props = any;
 export default function SlideChat({ navigation }: Props) {
   const styles = useStyles(setTheme);
+  const theme = useAppSelector(selectAppTheme);
 
   return (
     <View style={styles.container}>
       <LJNHeader title={"微信"}></LJNHeader>
+
+      <View style={styles.ljn_chat_login_status}>
+        <View style={styles.ljn_chat_login_status_icon}>
+          <LJNIcon
+            title={"diannao"}
+            size={20}
+            color={
+              theme === "dark"
+                ? darkTheme.chatStatusTextColor
+                : lightTheme.chatStatusTextColor
+            }
+          />
+        </View>
+        <Text style={styles.ljn_chat_login_status_text}>Windows微信已登录</Text>
+      </View>
 
       <View style={styles.ljn_main}>
         <FlatList
@@ -796,6 +811,7 @@ export default function SlideChat({ navigation }: Props) {
           windowSize={15} // 渲染区域高度
           maxToRenderPerBatch={80} // 增量渲染最大数量
           data={DATA}
+          showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <Item
               id={item.id}

@@ -8,8 +8,12 @@ interface ITheme {
   primaryColor: string;
 
   headerBackgroundColor: string;
+  headerBorderBottomColor: string;
+
+  chatStatusTextColor: string;
 
   chatBackgroundColor: string;
+  chatNoticeBackgroundColor: string;
   chatBorderColor: string;
   chatFriendNameColor: string;
   chatMessageColor: string;

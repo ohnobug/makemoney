@@ -20,7 +20,7 @@ SplashScreen.preventAutoHideAsync()
 enableExperimentalWebImplementation(true);
 
 export default function App() {
-  const [appTheme, setAppTheme] = useState("dark");
+  const [appTheme, setAppTheme] = useState("light");
   useEffect(() => {
     emitter.on("setAppTheme", (val: string) => {
       console.log("设置主题成功!", val);

@@ -3,7 +3,7 @@
     "@expo/config-plugins": "~7.2.2",
     "@expo/webpack-config": "^19.0.0",
     "@react-navigation/bottom-tabs": "^6.5.9",
-    "x": "^6.6.3",
+    "@react-navigation/material-top-tabs": "^6.6.4",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "@react-navigation/stack": "^6.3.17",
@@ -19,7 +19,7 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-native": "^0.72.4",
+    "react-native": "0.72.5",
     "react-native-echarts-wrapper": "^2.0.0",
     "react-native-gesture-handler": "~2.12.0",
     "react-native-pager-view": "6.2.0",
@@ -32,7 +32,8 @@
     "react-native-web": "~0.19.6",
     "react-native-web-swiper": "^2.2.3",
     "react-native-webview": "13.2.2",
-    "react-redux": "^8.0.5"
+    "react-redux": "^8.0.5",
+    "x": "^6.6.3"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

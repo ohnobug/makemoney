@@ -1,4 +1,7 @@
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import {
+  MaterialTopTabNavigationOptions,
+  createMaterialTopTabNavigator,
+} from "@react-navigation/material-top-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 // import { createStackNavigator } from "@react-navigation/stack";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -12,11 +15,9 @@ import SlideChat from "pages/SlideChat";
 import SlideHome from "pages/SlideHome";
 import SlideUser from "pages/SlideUser";
 import React from "react";
-import { Image, View, Text } from "react-native";
+import { Image } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { selectAppTheme } from "store/SystemSlice";
-import darkTheme from "themes/default/styles";
-import lightTheme from "themes/light/styles";
 import { px2vw } from "utils/utils";
 
 const navIcons = {
@@ -62,6 +63,8 @@ function IconImg({ focused, color, name }: any) {
 // 首页屏幕
 function IndexScreen() {
   const appTheme = useAppSelector(selectAppTheme);
+  const screenOptions: MaterialTopTabNavigationOptions =
+    AppStylesConfig.tabbarConfig(appTheme) as MaterialTopTabNavigationOptions;
 
   return (
     <Tab.Navigator
@@ -71,50 +74,7 @@ function IndexScreen() {
         height: AppStylesConfig.tabbarHeight,
       }}
       tabBarPosition="bottom"
-      screenOptions={{
-        lazyPlaceholder: () => {
-          return (
-            <View
-              style={{
-                display: "flex",
-                flex: 1,
-              }}
-            >
-              <Text>加载中...</Text>
-            </View>
-          );
-        },
-        lazy: true,
-        tabBarAndroidRipple: { borderless: false },
-        tabBarStyle: {
-          minHeight: AppStylesConfig.tabbarHeight,
-          height: AppStylesConfig.tabbarHeight,
-          maxHeight: AppStylesConfig.tabbarHeight,
-          backgroundColor:
-            appTheme === "dark"
-              ? darkTheme.headerBackgroundColor
-              : lightTheme.headerBackgroundColor,
-        },
-        tabBarActiveTintColor: lightTheme.primaryColor,
-        tabBarInactiveTintColor:
-          appTheme === "dark"
-            ? darkTheme.reverseTextColor
-            : lightTheme.reverseTextColor,
-
-        tabBarIndicatorStyle: {
-          display: "none",
-        },
-        tabBarLabelStyle: {
-          fontSize: px2vw(10),
-          marginTop: px2vw(-0.1),
-        },
-        tabBarIconStyle: {
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: px2vw(-3),
-        },
-      }}
+      screenOptions={screenOptions}
     >
       <Tab.Screen
         name="chat"
@@ -178,6 +138,8 @@ function IndexScreen() {
 // 首页屏幕
 function GalleryScreen() {
   const appTheme = useAppSelector(selectAppTheme);
+  const screenOptions: MaterialTopTabNavigationOptions =
+    AppStylesConfig.tabbarConfig(appTheme) as MaterialTopTabNavigationOptions;
 
   return (
     <Tab.Navigator
@@ -186,28 +148,7 @@ function GalleryScreen() {
         height: AppStylesConfig.tabbarHeight,
       }}
       tabBarPosition="bottom"
-      screenOptions={{
-        tabBarStyle: {
-          minHeight: AppStylesConfig.tabbarHeight,
-          height: AppStylesConfig.tabbarHeight,
-          maxHeight: AppStylesConfig.tabbarHeight,
-          backgroundColor:
-            appTheme === "dark"
-              ? darkTheme.headerBackgroundColor
-              : lightTheme.headerBackgroundColor,
-        },
-        tabBarActiveTintColor: lightTheme.primaryColor,
-        tabBarInactiveTintColor:
-          appTheme === "dark"
-            ? darkTheme.reverseTextColor
-            : lightTheme.reverseTextColor,
-        tabBarLabelStyle: {
-          fontSize: px2vw(10),
-        },
-        tabBarIndicatorStyle: {
-          display: "none",
-        },
-      }}
+      screenOptions={screenOptions}
     >
       <Tab.Screen
         name="gallery"

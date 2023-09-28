@@ -38,12 +38,38 @@ export function setTheme(name: string) {
       alignItems: "center",
       justifyContent: "center",
     },
+    // 登录状态
+    ljn_chat_login_status: {
+      height: px2vw(47),
+      borderBottomWidth: px2vw(0.5),
+      borderBottomColor: theme.headerBorderBottomColor,
+      backgroundColor: theme.headerBackgroundColor,
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      paddingHorizontal: px2vw(27),
+    },
+    ljn_chat_login_status_icon: {
+      marginRight: px2vw(23),
+    },
+    // 登录状态文字
+    ljn_chat_login_status_text: {
+      fontSize: px2vw(13),
+      color: theme.chatStatusTextColor,
+    },
     // 聊天项
     ljn_chat_item: {
       backgroundColor: theme.chatBackgroundColor,
-      padding: 0,
       height: px2vw(69),
-      marginHorizontal: 15,
+      paddingHorizontal: px2vw(15),
+      display: "flex",
+      flexDirection: "row",
+    },
+    // 聊天项
+    ljn_chat_item_notice: {
+      backgroundColor: theme.chatNoticeBackgroundColor,
+      height: px2vw(69),
+      paddingHorizontal: px2vw(15),
       display: "flex",
       flexDirection: "row",
     },
@@ -62,7 +88,7 @@ export function setTheme(name: string) {
     // 聊天窗口信息
     ljn_chat_message_info: {
       flex: 1,
-      borderBottomWidth: px2vw(0.8),
+      borderBottomWidth: px2vw(0.5),
       borderBottomColor: theme.chatBorderColor,
       paddingTop: px2vw(13),
     },

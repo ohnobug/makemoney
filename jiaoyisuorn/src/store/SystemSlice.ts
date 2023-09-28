@@ -10,7 +10,7 @@ interface IinitialState {
 
 const initialState: IinitialState = {
   tabbarIndex: 0,
-  appTheme: "dark",
+  appTheme: "light",
   galleryPlayIndex: -1,
 };
 
