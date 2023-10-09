@@ -762,10 +762,45 @@ type ItemProps = {
   message: string;
   notice: boolean;
   avatar: any;
+  tapPosition: {
+    x: number;
+    y: number;
+  };
+  scrollPosition: number;
+  navigation: any;
+  offset: number;
 };
-function Item({ id, friendName, message, notice, avatar }: ItemProps) {
+function Item({
+  id,
+  friendName,
+  message,
+  notice,
+  avatar,
+  tapPosition,
+  scrollPosition,
+  navigation,
+  offset,
+}: ItemProps) {
   const styles = useStyles(setTheme);
   const theme = useAppSelector(selectAppTheme);
+
+  useEffect(() => {
+    if (
+      checkTap(
+        {
+          x1: 0,
+          y1: 0 + (offset - scrollPosition),
+          x2: px2vw(375),
+          y2: HEIGHT + (offset - scrollPosition),
+        },
+        tapPosition
+      )
+    ) {
+      // console.log("你在", i, "中短按");
+      console.log("你按的是", friendName);
+      navigation.navigate("chatMessage");
+    }
+  }, [tapPosition, scrollPosition]);
 
   return (
     <View style={notice ? styles.ljn_chat_item_notice : styles.ljn_chat_item}>
@@ -882,33 +917,6 @@ export default function SlideChat({ navigation }: Props) {
       });
     });
 
-  useEffect(() => {
-    for (let i = 0; i < myData.length; i++) {
-      // console.log({
-      //   x1: 0,
-      //   y1: 0 + (myData.offset - scrollPosition),
-      //   x2: px2vw(375),
-      //   y2: HEIGHT + (myData.offset - scrollPosition),
-      // });
-      if (
-        checkTap(
-          {
-            x1: 0,
-            y1: 0 + (myData[i].offset - scrollPosition),
-            x2: px2vw(375),
-            y2: HEIGHT + (myData[i].offset - scrollPosition),
-          },
-          tapPosition
-        )
-      ) {
-        // console.log("你在", i, "中短按");
-        console.log("你按的是", myData[i]);
-        navigation.navigate("chatMessage");
-        break;
-      }
-    }
-  }, [tapPosition, scrollPosition]);
-
   return (
     <View style={styles.container}>
       <LJNHeader title={"幂信"}></LJNHeader>
@@ -934,7 +942,7 @@ export default function SlideChat({ navigation }: Props) {
             initialNumToRender={20} // 首批渲染的元素数量
             windowSize={15} // 渲染区域高度
             maxToRenderPerBatch={80} // 增量渲染最大数量
-            data={DATA}
+            data={myData}
             getItemLayout={(data: any, index: number) => {
               return { length: HEIGHT, offset: HEIGHT * index, index: index };
             }}
@@ -947,6 +955,10 @@ export default function SlideChat({ navigation }: Props) {
                 notice={item.notice}
                 message={item.message}
                 avatar={item.avatar}
+                tapPosition={tapPosition}
+                scrollPosition={scrollPosition}
+                navigation={navigation}
+                offset={item.offset}
               />
             )}
             keyExtractor={(item) => item.id}

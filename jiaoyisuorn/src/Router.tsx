@@ -18,7 +18,9 @@ import SlideUser from "pages/SlideUser";
 import { Image } from "react-native";
 import { selectAppTheme } from "store/SystemSlice";
 import { px2vw } from "utils/utils";
-import { Animated, View, TouchableOpacity } from "react-native";
+import { Animated, View, TouchableOpacity, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { setTheme } from "./TabbarStyles";
 
 const navIcons = {
   index: [
@@ -48,13 +50,15 @@ const navIcons = {
 };
 
 function MyTabBar({ state, descriptors, navigation, position }) {
-  return (
-    <View
-      style={{ flexDirection: "row", height: AppStylesConfig.tabbarHeight }}
-    >
-      {state.routes.map((route, index) => {
-        if (index == 1) return;
+  const theme = useAppSelector(selectAppTheme);
+  const [styles, setStyles] = useState<any>(setTheme(theme));
+  useEffect(() => {
+    setStyles(setTheme(theme));
+  }, [theme]);
 
+  return (
+    <View style={styles.ljn_tabbar}>
+      {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined
@@ -85,13 +89,13 @@ function MyTabBar({ state, descriptors, navigation, position }) {
           });
         };
 
-        const inputRange = state.routes.map((_, i) => i);
-        const opacity = position.interpolate({
-          inputRange,
-          outputRange: inputRange.map((i) => (i === index ? 1 : 0.5)),
-        });
+        // const inputRange = state.routes.map((_, i) => i);
+        // const opacity = position.interpolate({
+        //   inputRange,
+        //   outputRange: inputRange.map((i) => (i === index ? 1 : 0.5)),
+        // });
 
-        console.log(options);
+        // console.log(options);
 
         return (
           <TouchableOpacity
@@ -102,30 +106,30 @@ function MyTabBar({ state, descriptors, navigation, position }) {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{ flex: 1 }}
+            style={styles.ljn_tabbar_item}
           >
-            {/* <Image
-              style={{}}
-              source={options}
-            /> */}
-            <Animated.Text style={{ opacity }}>{label}</Animated.Text>
+            <View style={styles.ljn_tabbar_item_img_area}>
+              <Image
+                source={
+                  isFocused ? navIcons[route.name][0] : navIcons[route.name][1]
+                }
+                style={styles.ljn_tabbar_item_img}
+              />
+            </View>
+            <View style={styles.ljn_tabbar_item_title_area}>
+              <Animated.Text
+                style={StyleSheet.flatten([
+                  styles.ljn_tabbar_item_title,
+                  isFocused ? styles.ljn_tabbar_item_title_active : {},
+                ])}
+              >
+                {label}
+              </Animated.Text>
+            </View>
           </TouchableOpacity>
         );
       })}
     </View>
-  );
-}
-
-function IconImg({ focused, color, name }: any) {
-  return (
-    <Image
-      source={focused ? navIcons[name][0] : navIcons[name][1]}
-      style={{
-        width: px2vw(26),
-        height: px2vw(26),
-        borderRadius: px2vw(26),
-      }}
-    />
   );
 }
 
@@ -151,20 +155,8 @@ function IndexScreen() {
         options={{
           title: "幂信",
           tabBarShowIcon: true,
-          tabBarIcon: ({ focused, color }) => (
-            <IconImg focused={focused} color={color} name="index" />
-          ),
         }}
         component={SlideChat}
-      />
-
-      {/* 聊天窗口 */}
-      <Tab.Screen
-        name="chatMessage"
-        options={{
-          tabBarStyle: { display: "none" },
-        }}
-        component={ChatMessage}
       />
 
       <Tab.Screen
@@ -172,9 +164,6 @@ function IndexScreen() {
         options={{
           title: "交易所",
           tabBarShowIcon: true,
-          tabBarIcon: ({ focused, color }) => (
-            <IconImg focused={focused} color={color} name="chat" />
-          ),
         }}
         component={SlideHome}
       />
@@ -194,9 +183,6 @@ function IndexScreen() {
         options={{
           title: "资产",
           tabBarShowIcon: true,
-          tabBarIcon: ({ focused, color }) => (
-            <IconImg focused={focused} color={color} name="assets" />
-          ),
         }}
         component={SlideAssets}
       />
@@ -205,9 +191,6 @@ function IndexScreen() {
         options={{
           title: "我的",
           tabBarShowIcon: true,
-          tabBarIcon: ({ focused, color }) => (
-            <IconImg focused={focused} color={color} name="user" />
-          ),
         }}
         component={SlideUser}
       />
@@ -235,9 +218,6 @@ function GalleryScreen() {
         options={{
           title: "图片墙",
           tabBarShowIcon: true,
-          tabBarIcon: ({ focused, color }) => (
-            <IconImg focused={focused} color={color} name="index" />
-          ),
         }}
         component={Gallery}
       />
@@ -251,12 +231,23 @@ const Tab = createMaterialTopTabNavigator();
 export default () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          animation: "slide_from_right",
+        }}
+      >
         {/* 首页屏幕 */}
         <Stack.Screen
           name="home"
           component={IndexScreen}
           options={{ headerShown: false }}
+        />
+
+        {/* 聊天窗口 */}
+        <Stack.Screen
+          name="chatMessage"
+          options={{ headerShown: false }}
+          component={ChatMessage}
         />
 
         {/* 图片墙 */}
@@ -265,12 +256,14 @@ export default () => {
           component={GalleryScreen}
           options={{ headerShown: false }}
         />
+
         {/* 设置 */}
         <Stack.Screen
           name="setting"
           component={Setting}
           options={{ headerShown: false }}
         />
+
         {/* 登录 */}
         <Stack.Screen
           name="login"

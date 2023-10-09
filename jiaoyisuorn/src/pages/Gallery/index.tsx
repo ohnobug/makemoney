@@ -180,8 +180,8 @@ const list = new Array(100).fill(0).map((item, index) => {
   };
 });
 
-type Props = {};
-const Gallery = (props: Props) => {
+type Props = any;
+const Gallery = ({ navigation }: Props) => {
   const styles = useStyles(setTheme);
 
   // 记录滚动的位置
@@ -278,7 +278,12 @@ const Gallery = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <LJNHeader title={"图墙"}></LJNHeader>
+      <LJNHeader
+        title={"图墙"}
+        onBack={() => {
+          navigation.navigate("home", "index");
+        }}
+      ></LJNHeader>
 
       <View style={styles.ljn_main}>
         <GestureDetector gesture={Gesture.Simultaneous(singleTap, longTap)}>
