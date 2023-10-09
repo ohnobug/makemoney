@@ -17,7 +17,7 @@ export function setTheme(name: string) {
       flexBasis: px2vw(43),
       maxHeight: px2vw(43),
       // width: px2vw(375),
-      borderBottomWidth: px2vw(1),
+      borderBottomWidth: px2vw(0.5),
       borderBottomColor: theme.borderColor,
     },
     ljn_tab: {

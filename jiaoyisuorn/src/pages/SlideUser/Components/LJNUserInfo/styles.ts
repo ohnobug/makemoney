@@ -25,7 +25,7 @@ export function setTheme(name: string) {
     },
     // 用户信息
     ljn_header_area: {
-      height: px2vw(350),
+      height: px2vw(290),
       backgroundColor: theme.areaBackgroundColor,
       borderBottomLeftRadius: px2vw(10),
       borderBottomRightRadius: px2vw(10),
@@ -230,8 +230,8 @@ export function setTheme(name: string) {
 
     // 功能区1
     ljn_userinfo_detail_func1: {
-      borderBottomColor: theme.borderColor,
-      borderBottomWidth: px2vw(1),
+      // borderBottomColor: theme.borderColor,
+      // borderBottomWidth: px2vw(0.5),
     },
     ljn_list_area: {
       backgroundColor: theme.areaBackgroundColor,

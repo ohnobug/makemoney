@@ -11,6 +11,9 @@ const theme: ITheme = {
   headerBackgroundColor: "#0f1724",
   headerBorderBottomColor: "#cbcbcb",
 
+  // tabbar背景颜色
+  tabbarBackgroundColor: "#f7f7f7",
+
   // 状态文字颜色
   chatStatusTextColor: "#757575",
 

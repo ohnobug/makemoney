@@ -28,6 +28,7 @@ export function setTheme(name: string) {
       display: "flex",
       justifyContent: "center",
       alignItems: "flex-start",
+      // backgroundColor: "red",
     },
     ljn_header_left_icon: {
       paddingLeft: px2vw(17),
@@ -52,6 +53,15 @@ export function setTheme(name: string) {
       display: "flex",
       justifyContent: "center",
       alignItems: "flex-end",
+    },
+    ljn_header_right_icon: {
+      paddingLeft: px2vw(17),
+      paddingRight: px2vw(17),
+      height: px2vw(40),
+      display: "flex",
+      justifyContent: "center",
+      marginTop: px2vw(4),
+      // backgroundColor: "red",
     },
   });
 }

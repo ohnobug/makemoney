@@ -31,7 +31,7 @@ export function setTheme(name: string) {
       display: "flex",
       justifyContent: "space-between",
       flexDirection: "row",
-      borderBottomWidth: px2vw(1),
+      borderBottomWidth: px2vw(0.5),
       borderBottomColor: theme.borderColor,
       marginBottom: px2vw(8),
     },

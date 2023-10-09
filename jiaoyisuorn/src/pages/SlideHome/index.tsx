@@ -1,9 +1,8 @@
-import { useFocusEffect } from "@react-navigation/native";
 import emitter from "bus";
 import LJNScrollView from "components/LJNScrollView";
 import { useStyles } from "hooks";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { ScrollView } from "react-native";
 import LJNFunctions from "./Components/LJNFunctions";
 import LJNHotInfo from "./Components/LJNHotInfo";
 import LJNList from "./Components/LJNList";

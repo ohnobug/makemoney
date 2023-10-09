@@ -1,5 +1,5 @@
 const theme: ITheme = {
-  backgroundColor: "#e5e5e5",
+  backgroundColor: "#ededed",
   areaBackgroundColor: "#ffffff",
   titleTextColor: "#171717",
   textColor: "#5c6175",
@@ -11,6 +11,9 @@ const theme: ITheme = {
   headerBackgroundColor: "#ededed",
   headerBorderBottomColor: "#cbcbcb",
 
+  // tabbar背景颜色
+  tabbarBackgroundColor: "#f7f7f7",
+
   // 状态文字颜色
   chatStatusTextColor: "#757575",
 
@@ -20,6 +23,7 @@ const theme: ITheme = {
   chatBorderColor: "#e4e4e4",
   chatFriendNameColor: "#191919",
   chatMessageColor: "#b2b2b2",
+  chatMessageBackgroundColor: "#f1f1f1",
 };
 
 export default theme;

@@ -43,7 +43,7 @@ export function setTheme(name: string) {
       height: px2vw(47),
       borderBottomWidth: px2vw(0.5),
       borderBottomColor: theme.headerBorderBottomColor,
-      backgroundColor: theme.headerBackgroundColor,
+      backgroundColor: theme.chatNoticeBackgroundColor,
       display: "flex",
       flexDirection: "row",
       alignItems: "center",
@@ -61,7 +61,7 @@ export function setTheme(name: string) {
     ljn_chat_item: {
       backgroundColor: theme.chatBackgroundColor,
       height: px2vw(69),
-      paddingHorizontal: px2vw(15),
+      paddingLeft: px2vw(15),
       display: "flex",
       flexDirection: "row",
     },
@@ -69,10 +69,20 @@ export function setTheme(name: string) {
     ljn_chat_item_notice: {
       backgroundColor: theme.chatNoticeBackgroundColor,
       height: px2vw(69),
-      paddingHorizontal: px2vw(15),
+      paddingLeft: px2vw(15),
       display: "flex",
       flexDirection: "row",
     },
+
+    // 聊天窗口信息
+    ljn_chat_message_info_notice: {
+      flex: 1,
+      borderBottomWidth: px2vw(0.5),
+      borderBottomColor: theme.headerBorderBottomColor,
+      paddingTop: px2vw(13),
+      paddingRight: px2vw(15),
+    },
+
     // 头像盒子
     ljn_avatar_box: {
       flexBasis: px2vw(47 + 10),
@@ -91,13 +101,14 @@ export function setTheme(name: string) {
       borderBottomWidth: px2vw(0.5),
       borderBottomColor: theme.chatBorderColor,
       paddingTop: px2vw(13),
+      paddingRight: px2vw(15),
     },
     // 好友信息行
     ljn_chat_friend_info_row: {
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
-      marginBottom: px2vw(4),
+      marginBottom: px2vw(2),
       // height: px2vw(30),
       // marginBottom: px2vw(4),
       // marginTop: px2vw(1),
@@ -124,7 +135,7 @@ export function setTheme(name: string) {
     },
     // 聊天日期
     ljn_chat_date: {
-      fontSize: px2vw(10),
+      fontSize: px2vw(11),
       color: theme.chatMessageColor,
     },
 
@@ -137,19 +148,20 @@ export function setTheme(name: string) {
 
     // 最后消息盒子
     ljn_chat_message_box: {
-      width: "70%",
+      width: "80%",
     },
     // 最后消息
     ljn_chat_message: {
       color: theme.chatMessageColor,
-      fontSize: px2vw(12),
+      fontSize: px2vw(11.5),
     },
     // 图标
     ljn_chat_message_icon: {
-      width: "30%",
+      // width: "30%",
       display: "flex",
-      justifyContent: "center",
-      alignItems: "flex-end",
+      flexDirection: "row",
+      justifyContent: "flex-start",
+      alignItems: "center",
       // backgroundColor: "red",
     },
   });

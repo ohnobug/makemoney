@@ -8,10 +8,11 @@ import { setTheme } from "./styles";
 type Props = {
   title: string;
   onBack?: Function | undefined;
+  onMore?: Function | undefined;
 };
 
 const LJNHeader = (props: Props) => {
-  const { title, onBack } = props;
+  const { title, onBack, onMore } = props;
   const theme = useAppSelector(selectAppTheme);
 
   // console.log("头部主题");
@@ -31,14 +32,25 @@ const LJNHeader = (props: Props) => {
               onBack();
             }}
           >
-            <LJNIcon title={"xitongfanhui"} size={17} />
+            <LJNIcon title={"fanhui"} size={20} />
           </View>
         ) : null}
       </View>
       <View style={styles.ljn_header_middle}>
         <Text style={styles.ljn_header_middle_title}>{title}</Text>
       </View>
-      <View style={styles.ljn_header_right}></View>
+      <View style={styles.ljn_header_right}>
+        {onMore ? (
+          <View
+            style={styles.ljn_header_right_icon}
+            onTouchEnd={() => {
+              onMore();
+            }}
+          >
+            <LJNIcon title={"gengduo1"} size={20} />
+          </View>
+        ) : null}
+      </View>
     </View>
   );
 };

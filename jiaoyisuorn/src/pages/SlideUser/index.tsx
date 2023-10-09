@@ -1,17 +1,16 @@
+import LJNFuncList from "components/LJNFuncList";
 import LJNScrollView from "components/LJNScrollView";
 import { useAppDispatch, useAppSelector, useStyles } from "hooks";
-import React, { useCallback, useState } from "react";
-import { View, Text } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import { selectAppTheme, setAppTheme } from "store/SystemSlice";
 import LJNActivation1 from "./Components/LJNActivation1";
 import LJNUserInfo from "./Components/LJNUserInfo";
-import { setTheme } from "./styles";
 import context from "./context";
-import { useFocusEffect } from "@react-navigation/native";
+import { setTheme } from "./styles";
+
 const { Provider } = context;
-
 type Props = any;
-
 export default function SlideUser({ navigation }: Props) {
   const styles = useStyles(setTheme);
 
@@ -49,6 +48,50 @@ export default function SlideUser({ navigation }: Props) {
               buttonText={"切换"}
             />
           </View>
+
+          {/* 功能列表 */}
+          <LJNFuncList
+            list={[
+              {
+                avatar: require("assets/images/func1.png"),
+                name: "服务",
+              },
+            ]}
+          />
+
+          <LJNFuncList
+            list={[
+              {
+                avatar: require("assets/images/func2.png"),
+                name: "收藏",
+              },
+              {
+                avatar: require("assets/images/func3.png"),
+                name: "朋友圈",
+              },
+              {
+                avatar: require("assets/images/func4.png"),
+                name: "视频号",
+              },
+              {
+                avatar: require("assets/images/func5.png"),
+                name: "卡包",
+              },
+              {
+                avatar: require("assets/images/func6.png"),
+                name: "表情",
+              },
+            ]}
+          />
+
+          <LJNFuncList
+            list={[
+              {
+                avatar: require("assets/images/func7.png"),
+                name: "设置",
+              },
+            ]}
+          />
         </Provider>
       }
     />

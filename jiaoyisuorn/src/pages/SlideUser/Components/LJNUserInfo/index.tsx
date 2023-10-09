@@ -179,7 +179,7 @@ const LJNUserInfo = (props: Props) => {
           </View>
 
           {/* 功能区2 */}
-          <View style={styles.ljn_userinfo_detail_func2}>
+          {/* <View style={styles.ljn_userinfo_detail_func2}>
             <View style={styles.ljn_list_area}>
               {list.map((item, index) => {
                 return (
@@ -199,7 +199,7 @@ const LJNUserInfo = (props: Props) => {
                 );
               })}
             </View>
-          </View>
+          </View> */}
         </>
       ) : (
         <LJNLoading />

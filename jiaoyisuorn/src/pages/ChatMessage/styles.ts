@@ -1,0 +1,144 @@
+import { Dimensions, StyleSheet } from "react-native";
+import AppStylesConfig from "AppStylesConfig";
+import darkTheme from "themes/default/styles";
+import lightTheme from "themes/light/styles";
+import { px2vw } from "utils/utils";
+
+export function setTheme(name: string) {
+  let theme: ITheme;
+
+  if (name === "dark") {
+    theme = darkTheme;
+  } else {
+    theme = lightTheme;
+  }
+
+  const window = Dimensions.get("window");
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      backgroundColor: theme.chatMessageBackgroundColor,
+    },
+    ljn_main: {
+      flex: 1,
+      maxHeight:
+        window.height -
+        AppStylesConfig.tabbarHeight -
+        AppStylesConfig.headerHeight,
+      paddingTop: px2vw(12),
+    },
+
+    // 时间盒子
+    ljn_message_time_box: {
+      height: px2vw(55),
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    // 时间显示
+    ljn_message_time: {
+      fontSize: px2vw(10),
+      color: theme.chatMessageColor,
+    },
+    // 聊天信息
+    ljn_message_item: {
+      display: "flex",
+      flexDirection: "row",
+      marginBottom: px2vw(12),
+    },
+    // 头像盒子
+    ljn_avatar_box: {
+      flexBasis: px2vw(60),
+      display: "flex",
+      alignItems: "center",
+      // backgroundColor: "blue",
+    },
+    // 头像
+    ljn_avatar: {
+      width: px2vw(39),
+      height: px2vw(39),
+      borderRadius: px2vw(4),
+    },
+    // 信息：名字 + 信息
+    ljn_message_info: {
+      display: "flex",
+      flexDirection: "column",
+    },
+    // 名字盒子
+    ljn_message_name_box: {
+      height: px2vw(19),
+      display: "flex",
+      justifyContent: "center",
+      // backgroundColor: "red",
+    },
+    // 名字
+    ljn_message_name: {
+      color: theme.chatMessageColor,
+      fontSize: px2vw(11),
+    },
+    // 消息盒子
+    ljn_message_box: {
+      flex: 0,
+      maxWidth: px2vw(260),
+      minHeight: px2vw(40),
+      backgroundColor: "white",
+      padding: px2vw(12),
+      display: "flex",
+      borderRadius: px2vw(5),
+    },
+    // 消息
+    ljn_message: {
+      fontSize: px2vw(16),
+    },
+    // 三角形图标
+    ljn_triangle: {
+      position: "absolute",
+      top: px2vw(29.2),
+      right: px2vw(-8.5),
+    },
+
+    // 我的消息盒子
+    ljn_message_item_belong_to_me: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      marginBottom: px2vw(12),
+    },
+    // 我的头像
+    ljn_avatar_box_belong_to_me: {
+      flexBasis: px2vw(60),
+      display: "flex",
+      alignItems: "center",
+      // backgroundColor: "blue",
+    },
+    // 我的头像
+    ljn_avatar_belong_to_me: {
+      width: px2vw(39),
+      height: px2vw(39),
+      borderRadius: px2vw(4),
+    },
+    // 我的消息
+    ljn_message_info_belong_to_me: {
+      display: "flex",
+      flexDirection: "column",
+      flex: 0,
+      maxWidth: px2vw(260),
+      minHeight: px2vw(40),
+      backgroundColor: "#95ec69",
+      padding: px2vw(12),
+      borderRadius: px2vw(5),
+    },
+    // 我的消息
+    ljn_message_belong_to_me: {
+      fontSize: px2vw(16),
+    },
+    // 三角形图标
+    ljn_triangle_belong_to_me: {
+      position: "absolute",
+      top: px2vw(13),
+      left: px2vw(-8.5),
+    },
+  });
+}
