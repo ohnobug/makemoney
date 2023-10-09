@@ -45,7 +45,7 @@ const DATA: ItemProps[] = [
 ];
 
 type Props = any;
-export default function ChatMessage({ onBack }: Props) {
+export default function ChatMessage({ navigation }: Props) {
   const styles = useStyles(setTheme);
   let bigScrollView = useRef<ScrollView>(null);
 
@@ -53,7 +53,7 @@ export default function ChatMessage({ onBack }: Props) {
     <View style={styles.container}>
       <LJNHeader
         onBack={() => {
-          onBack && onBack();
+          navigation.navigate("chat");
         }}
         onMore={() => {}}
         title={"美女如云"}
