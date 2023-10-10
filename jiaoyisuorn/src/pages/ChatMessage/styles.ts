@@ -75,7 +75,7 @@ export function setTheme(name: string) {
     },
     // 名字
     ljn_message_name: {
-      color: theme.chatMessageColor,
+      color: theme.chatBriefMessageColor,
       fontSize: px2vw(11),
     },
     // 消息盒子
@@ -91,11 +91,12 @@ export function setTheme(name: string) {
     // 消息
     ljn_message: {
       fontSize: px2vw(16),
+      color: theme.chatMessageColor,
     },
     // 三角形图标
     ljn_triangle: {
       position: "absolute",
-      top: px2vw(29.2),
+      top: px2vw(33),
       right: px2vw(-8.5),
     },
 
@@ -133,6 +134,7 @@ export function setTheme(name: string) {
     // 我的消息
     ljn_message_belong_to_me: {
       fontSize: px2vw(16),
+      color: theme.chatMessageColor,
     },
     // 三角形图标
     ljn_triangle_belong_to_me: {

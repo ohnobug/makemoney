@@ -23,5 +23,7 @@ interface ITheme {
   chatBorderColor: string;
   chatFriendNameColor: string;
   chatMessageColor: string;
+  chatBriefMessageColor: string; // 聊天消息摘要颜色
+  chatMessageColor: string; // 聊天消息颜色
   chatMessageBackgroundColor: string;
 }

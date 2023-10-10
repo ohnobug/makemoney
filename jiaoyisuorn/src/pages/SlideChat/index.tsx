@@ -1,14 +1,15 @@
 import LJNHeader from "components/LJNHeader";
 import LJNIcon from "components/LJNIcon";
 import { useAppSelector, useStyles } from "hooks";
-import React, { useEffect, useMemo, useState } from "react";
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { Gesture } from "react-native-gesture-handler";
 import { selectAppTheme } from "store/SystemSlice";
 import darkTheme from "themes/default/styles";
 import lightTheme from "themes/light/styles";
-import { setTheme } from "./styles";
 import { checkTap, px2vw } from "utils/utils";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { setTheme } from "./styles";
+import { FlashList } from "@shopify/flash-list";
 
 interface IData {
   id: string;
@@ -757,32 +758,32 @@ const myData: any = DATA.map((item: any, index) => {
 });
 
 type ItemProps = {
-  id: string;
-  friendName: string;
-  message: string;
-  notice: boolean;
-  avatar: any;
+  item: {
+    id: string;
+    friendName: string;
+    message: string;
+    notice: boolean;
+    avatar: any;
+    offset: number;
+  };
   tapPosition: {
     x: number;
     y: number;
   };
   scrollPosition: number;
   navigation: any;
-  offset: number;
 };
-function Item({
-  id,
-  friendName,
-  message,
-  notice,
-  avatar,
+
+function RenderItem({
+  item,
   tapPosition,
   scrollPosition,
   navigation,
-  offset,
 }: ItemProps) {
   const styles = useStyles(setTheme);
   const theme = useAppSelector(selectAppTheme);
+
+  const { id, friendName, message, notice, avatar, offset } = item;
 
   useEffect(() => {
     if (
@@ -802,8 +803,16 @@ function Item({
     }
   }, [tapPosition, scrollPosition]);
 
+  const onPress = () => {
+    // console.log("你点击了");
+    navigation.navigate("chatMessage");
+  };
+
   return (
-    <View style={notice ? styles.ljn_chat_item_notice : styles.ljn_chat_item}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={notice ? styles.ljn_chat_item_notice : styles.ljn_chat_item}
+    >
       {/* 头像 */}
       <View style={styles.ljn_avatar_box}>
         <Image style={styles.ljn_avatar} source={avatar} />
@@ -843,15 +852,15 @@ function Item({
                 size={16}
                 color={
                   theme === "dark"
-                    ? darkTheme.chatMessageColor
-                    : lightTheme.chatMessageColor
+                    ? darkTheme.chatBriefMessageColor
+                    : lightTheme.chatBriefMessageColor
                 }
               />
             ) : null}
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -871,7 +880,7 @@ export default function SlideChat({ navigation }: Props) {
   const [tapPosition, setTapPosition] = useState({ x: 0, y: 0 });
   // 长按
   const longTap = Gesture.Pan()
-    .activateAfterLongPress(120)
+    .activateAfterLongPress(400)
     .runOnJS(true)
     .onStart((e) => {
       console.log("长按", {
@@ -883,12 +892,6 @@ export default function SlideChat({ navigation }: Props) {
         y: e.y,
       });
     })
-    .onUpdate((e) => {
-      // setLongTapPosition({
-      //   x: e.x,
-      //   y: e.y,
-      // });
-    })
     .onEnd((e) => {
       setLongTapPosition({
         x: 0,
@@ -898,8 +901,10 @@ export default function SlideChat({ navigation }: Props) {
 
   // 点击
   const singleTap = Gesture.Tap()
-    .maxDuration(100)
+    .maxDuration(120)
     .runOnJS(true)
+    .maxDeltaY(5)
+    .maxDeltaX(5)
     .onStart((e) => {
       console.log("短按", {
         x: e.x,
@@ -916,6 +921,18 @@ export default function SlideChat({ navigation }: Props) {
         y: 0,
       });
     });
+
+  const _renderitem = useCallback(
+    ({ item }: any) => (
+      <RenderItem
+        item={item}
+        tapPosition={tapPosition}
+        scrollPosition={scrollPosition}
+        navigation={navigation}
+      />
+    ),
+    []
+  );
 
   return (
     <View style={styles.container}>
@@ -937,33 +954,35 @@ export default function SlideChat({ navigation }: Props) {
       </View>
 
       <View style={styles.ljn_main}>
-        <GestureDetector gesture={Gesture.Simultaneous(singleTap, longTap)}>
-          <FlatList
-            initialNumToRender={20} // 首批渲染的元素数量
-            windowSize={15} // 渲染区域高度
-            maxToRenderPerBatch={80} // 增量渲染最大数量
-            data={myData}
-            getItemLayout={(data: any, index: number) => {
-              return { length: HEIGHT, offset: HEIGHT * index, index: index };
-            }}
-            onScroll={handleScroll}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <Item
-                id={item.id}
-                friendName={item.friendName}
-                notice={item.notice}
-                message={item.message}
-                avatar={item.avatar}
-                tapPosition={tapPosition}
-                scrollPosition={scrollPosition}
-                navigation={navigation}
-                offset={item.offset}
-              />
-            )}
-            keyExtractor={(item) => item.id}
-          />
-        </GestureDetector>
+        <FlashList
+          renderItem={_renderitem}
+          // getItemType={({ item }: any) => {
+          //   return item.id;
+          // }}
+          estimatedItemSize={HEIGHT}
+          data={myData}
+        />
+        {/* <GestureDetector gesture={Gesture.Simultaneous(longTap)}> */}
+        {/* <FlatList
+          // removeClippedSubviews={false}
+          // pointerEvents="none"
+          // initialNumToRender={20} // 首批渲染的元素数量
+          // windowSize={15} // 渲染区域高度
+          // maxToRenderPerBatch={80} // 增量渲染最大数量
+          data={myData}
+          // alwaysBounceHorizontal={false}
+          // alwaysBounceVertical={false}
+          // bounces={false}
+          // overScrollMode="never"
+          getItemLayout={(data: any, index: number) => {
+            return { length: HEIGHT, offset: HEIGHT * index, index: index };
+          }}
+          onScroll={handleScroll}
+          showsVerticalScrollIndicator={false}
+          renderItem={_renderitem}
+          keyExtractor={(item) => item.id}
+        /> */}
+        {/* </GestureDetector> */}
       </View>
     </View>
   );

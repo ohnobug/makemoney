@@ -59,7 +59,7 @@ export function setTheme(name: string) {
     },
     // 聊天项
     ljn_chat_item: {
-      backgroundColor: theme.chatBackgroundColor,
+      // backgroundColor: theme.chatBackgroundColor,
       height: px2vw(69),
       paddingLeft: px2vw(15),
       display: "flex",
@@ -67,7 +67,7 @@ export function setTheme(name: string) {
     },
     // 聊天项
     ljn_chat_item_notice: {
-      backgroundColor: theme.chatNoticeBackgroundColor,
+      // backgroundColor: theme.chatNoticeBackgroundColor,
       height: px2vw(69),
       paddingLeft: px2vw(15),
       display: "flex",
@@ -136,7 +136,7 @@ export function setTheme(name: string) {
     // 聊天日期
     ljn_chat_date: {
       fontSize: px2vw(11),
-      color: theme.chatMessageColor,
+      color: theme.chatBriefMessageColor,
     },
 
     // 消息行
@@ -152,7 +152,7 @@ export function setTheme(name: string) {
     },
     // 最后消息
     ljn_chat_message: {
-      color: theme.chatMessageColor,
+      color: theme.chatBriefMessageColor,
       fontSize: px2vw(11.5),
     },
     // 图标

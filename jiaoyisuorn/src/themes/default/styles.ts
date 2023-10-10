@@ -22,7 +22,9 @@ const theme: ITheme = {
   chatNoticeBackgroundColor: "#ededed",
   chatBorderColor: "#181818",
   chatFriendNameColor: "#cecece",
-  chatMessageColor: "#5c5c5c",
+  chatBriefMessageColor: "#b2b2b2",
+  chatMessageColor: "#191919",
+  chatMessageBackgroundColor: "#f1f1f1",
 };
 
 export default theme;

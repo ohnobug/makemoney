@@ -233,6 +233,7 @@ export default () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
+          animationTypeForReplace: "push",
           animation: "slide_from_right",
         }}
       >
