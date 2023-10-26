@@ -1,4 +1,3 @@
-import AppStylesConfig from "AppStylesConfig";
 import { Dimensions, StyleSheet } from "react-native";
 import darkTheme from "themes/default/styles";
 import lightTheme from "themes/light/styles";
@@ -22,10 +21,7 @@ export function setTheme(name: string) {
     },
     ljn_main: {
       flex: 1,
-      maxHeight:
-        window.height -
-        AppStylesConfig.tabbarHeight -
-        AppStylesConfig.headerHeight,
+      maxHeight: window.height,
     },
   });
 }

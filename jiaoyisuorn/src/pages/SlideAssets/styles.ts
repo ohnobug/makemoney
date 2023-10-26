@@ -14,15 +14,10 @@ export function setTheme(name: string) {
   }
 
   return StyleSheet.create({
-    // container: {
-    //   flex: 1,
-    //   display: "flex",
-    //   flexDirection: "column",
-    // },
     ljn_main: {
       flex: 1,
       backgroundColor: theme.backgroundColor,
-      maxHeight: window.height - AppStylesConfig.tabbarHeight,
+      maxHeight: window.height,
     },
     ljn_assets_area: {
       height: px2vw(271),

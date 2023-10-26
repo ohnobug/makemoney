@@ -1,7 +1,6 @@
-import { useIsFocused } from "@react-navigation/native";
 import LJNScrollView from "components/LJNScrollView";
 import { useStyles } from "hooks";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { ScrollView, View } from "react-native";
 import LJNAssetsInfo from "./Components/LJNAssetsInfo";
 import LJNTradeOperation from "./Components/LJNTradeOperation";

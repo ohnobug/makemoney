@@ -2,7 +2,7 @@ import LJNHeader from "components/LJNHeader";
 import LJNIcon from "components/LJNIcon";
 import LJNScrollView from "components/LJNScrollView";
 import { useStyles } from "hooks";
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import { setTheme } from "./styles";
 
@@ -42,12 +42,115 @@ const DATA: ItemProps[] = [
     belongToMe: true,
     avatar: require("assets/chat/avatar/chat_5.jpg"),
   },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
+  {
+    id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+    friendName: "帅哥",
+    message: "我很高兴见到你。",
+    belongToMe: true,
+    avatar: require("assets/chat/avatar/chat_5.jpg"),
+  },
 ];
 
 type Props = any;
-export default function ChatMessage({ navigation }: Props) {
+export default function ChatMessage({ route, navigation }: Props) {
   const styles = useStyles(setTheme);
   let bigScrollView = useRef<ScrollView>(null);
+
+  const { friendInfo } = route.params;
+  // useEffect(() => {
+  //   console.log(friendInfo)
+  // }, [])
 
   return (
     <View style={styles.container}>
@@ -56,7 +159,7 @@ export default function ChatMessage({ navigation }: Props) {
           navigation.navigate("chat");
         }}
         onMore={() => {}}
-        title={"美女如云"}
+        title={friendInfo.friendName}
       ></LJNHeader>
       <LJNScrollView
         style={styles.ljn_main}
@@ -124,6 +227,25 @@ export default function ChatMessage({ navigation }: Props) {
           </>
         }
       />
+      {/* 输入框 */}
+      <View style={styles.ljn_footer_message_input}>
+        {/* 语音 */}
+        <View style={styles.ljn_footer_voice}>
+          <LJNIcon title={"yuyin1"} size={30} color="#000" />
+        </View>
+        {/* 输入框 */}
+        <View style={styles.ljn_footer_input}>
+          <View style={styles.ljn_footer_input_inner}></View>
+        </View>
+        {/* 表情包 */}
+        <View style={styles.ljn_footer_emoticons}>
+          <LJNIcon title={"biaoqingbao"} size={26.5} color="#000" />
+        </View>
+        {/* 更多 */}
+        <View style={styles.ljn_footer_more}>
+          <LJNIcon title={"jiahao1"} size={26} color="#000" />
+        </View>
+      </View>
     </View>
   );
 }

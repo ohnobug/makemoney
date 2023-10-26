@@ -17,12 +17,15 @@ const theme: ITheme = {
   // 状态文字颜色
   chatStatusTextColor: "#757575",
 
+  // 聊天的时间颜色
+  chatTimeColor: "#838383",
+
   // 聊天窗口文字
   chatBackgroundColor: "white",
   chatNoticeBackgroundColor: "#ededed",
   chatBorderColor: "#e4e4e4",
   chatFriendNameColor: "#191919",
-  chatBriefMessageColor: "#b2b2b2",
+  chatBriefMessageColor: "#afafb1",
   chatMessageColor: "#191919",
   chatMessageBackgroundColor: "#f1f1f1",
 };

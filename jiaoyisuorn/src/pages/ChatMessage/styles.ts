@@ -39,8 +39,8 @@ export function setTheme(name: string) {
     },
     // 时间显示
     ljn_message_time: {
-      fontSize: px2vw(10),
-      color: theme.chatMessageColor,
+      fontSize: px2vw(11),
+      color: theme.chatTimeColor,
     },
     // 聊天信息
     ljn_message_item: {
@@ -141,6 +141,47 @@ export function setTheme(name: string) {
       position: "absolute",
       top: px2vw(13),
       left: px2vw(-8.5),
+    },
+    // 底部输入框
+    ljn_footer_message_input: {
+      height: px2vw(53.5),
+      backgroundColor: theme.tabbarBackgroundColor,
+      display: "flex",
+      flexDirection: "row",
+      borderTopColor: theme.headerBorderBottomColor,
+      borderTopWidth: px2vw(0.5),
+    },
+    ljn_footer_voice: {
+      flexBasis: px2vw(45),
+      // backgroundColor: "red",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    },
+    // 输入框
+    ljn_footer_input: {
+      flex: 1,
+      // backgroundColor: "red",
+      display: "flex",
+      justifyContent: "center"
+    },
+    // 输入框内部
+    ljn_footer_input_inner: {
+      backgroundColor: "white",
+      height: px2vw(38)
+    },
+    ljn_footer_emoticons: {
+      flexBasis: px2vw(40),
+      display: "flex",
+      alignItems: "flex-end",
+      justifyContent: "center",
+      // backgroundColor: "red"
+    },
+    ljn_footer_more: {
+      flexBasis: px2vw(45),
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
     },
   });
 }

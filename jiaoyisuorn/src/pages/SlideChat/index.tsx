@@ -1,15 +1,15 @@
+import { FlashList } from "@shopify/flash-list";
 import LJNHeader from "components/LJNHeader";
 import LJNIcon from "components/LJNIcon";
 import { useAppSelector, useStyles } from "hooks";
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableHighlight, View } from "react-native";
 import { Gesture } from "react-native-gesture-handler";
 import { selectAppTheme } from "store/SystemSlice";
 import darkTheme from "themes/default/styles";
 import lightTheme from "themes/light/styles";
 import { checkTap, px2vw } from "utils/utils";
 import { setTheme } from "./styles";
-import { FlashList } from "@shopify/flash-list";
 
 interface IData {
   id: string;
@@ -803,16 +803,21 @@ function RenderItem({
     }
   }, [tapPosition, scrollPosition]);
 
-  const onPress = () => {
+  const onPress = (item: any) => {
     // console.log("你点击了");
-    navigation.navigate("chatMessage");
+    navigation.navigate("chatMessage", {
+      friendInfo: item
+    });
   };
 
   return (
-    <TouchableOpacity
-      onPress={onPress}
+    <TouchableHighlight
+      activeOpacity={0.1}
+      underlayColor={"#ededed"}
+      onPress={() => onPress(item)}
       style={notice ? styles.ljn_chat_item_notice : styles.ljn_chat_item}
     >
+      <>
       {/* 头像 */}
       <View style={styles.ljn_avatar_box}>
         <Image style={styles.ljn_avatar} source={avatar} />
@@ -860,7 +865,8 @@ function RenderItem({
           </View>
         </View>
       </View>
-    </TouchableOpacity>
+      </>
+    </TouchableHighlight>
   );
 }
 

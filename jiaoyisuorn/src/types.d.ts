@@ -17,6 +17,9 @@ interface ITheme {
   // 状态文字颜色
   chatStatusTextColor: string;
 
+  // 聊天的时间颜色
+  chatTimeColor: string,
+
   // 聊天窗口文字
   chatBackgroundColor: string;
   chatNoticeBackgroundColor: string;

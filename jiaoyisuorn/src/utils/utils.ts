@@ -1,9 +1,9 @@
-import { Dimensions } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 const deviceInfo = Dimensions.get("screen");
 // 转换单位
 export function px2vw(value: number) {
-  if (value === 0.5) return 0.6;
+  if (value === 0.5) return 0.4;
   const baseWidth = 375;
   return (value / baseWidth) * deviceInfo.width;
 }

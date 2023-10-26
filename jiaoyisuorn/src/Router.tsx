@@ -7,19 +7,24 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AppStylesConfig from "AppStylesConfig";
 import { useAppSelector } from "hooks";
-import Gallery from "pages/Gallery";
 import ChatMessage from "pages/ChatMessage";
+import Gallery from "pages/Gallery";
 import Login from "pages/Login";
 import Setting from "pages/Setting";
 import SlideAssets from "pages/SlideAssets";
 import SlideChat from "pages/SlideChat";
 import SlideHome from "pages/SlideHome";
 import SlideUser from "pages/SlideUser";
-import { Image } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  Animated,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { selectAppTheme } from "store/SystemSlice";
 import { px2vw } from "utils/utils";
-import { Animated, View, TouchableOpacity, StyleSheet } from "react-native";
-import { useEffect, useState } from "react";
 import { setTheme } from "./TabbarStyles";
 
 const navIcons = {
@@ -44,6 +49,11 @@ const navIcons = {
     require("assets/images/nav1icon.png"),
   ],
   user: [
+    require("assets/images/nav6icon.png"),
+    require("assets/images/nav2icon.png"),
+  ],
+
+  gallery: [
     require("assets/images/nav6icon.png"),
     require("assets/images/nav2icon.png"),
   ],
@@ -198,7 +208,7 @@ function IndexScreen() {
   );
 }
 
-// 首页屏幕
+// 图墙屏幕
 function GalleryScreen() {
   const appTheme = useAppSelector(selectAppTheme);
   const screenOptions: MaterialTopTabNavigationOptions =
@@ -206,6 +216,15 @@ function GalleryScreen() {
 
   return (
     <Tab.Navigator
+      // initialLayout={{
+      //   width: px2vw(375),
+      //   height: AppStylesConfig.tabbarHeight,
+      // }}
+      // tabBarPosition="bottom"
+      // screenOptions={screenOptions}
+
+      tabBar={(props) => <MyTabBar {...props} />}
+      backBehavior="none"
       initialLayout={{
         width: px2vw(375),
         height: AppStylesConfig.tabbarHeight,

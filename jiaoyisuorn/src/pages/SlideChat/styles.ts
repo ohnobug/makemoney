@@ -23,10 +23,7 @@ export function setTheme(name: string) {
     },
     ljn_main: {
       flex: 1,
-      maxHeight:
-        window.height -
-        AppStylesConfig.tabbarHeight -
-        AppStylesConfig.headerHeight,
+      maxHeight: window.height,
     },
     ljn_footer: {
       flex: 0,
@@ -67,7 +64,7 @@ export function setTheme(name: string) {
     },
     // 聊天项
     ljn_chat_item_notice: {
-      // backgroundColor: theme.chatNoticeBackgroundColor,
+      backgroundColor: theme.chatNoticeBackgroundColor,
       height: px2vw(69),
       paddingLeft: px2vw(15),
       display: "flex",

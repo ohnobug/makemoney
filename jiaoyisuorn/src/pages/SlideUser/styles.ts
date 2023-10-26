@@ -23,7 +23,7 @@ export function setTheme(name: string) {
     ljn_main: {
       flex: 1,
       backgroundColor: theme.backgroundColor,
-      maxHeight: window.height - AppStylesConfig.tabbarHeight,
+      maxHeight: window.height,
     },
     // 用户信息
     ljn_header_area: {
