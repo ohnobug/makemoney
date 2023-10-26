@@ -82,9 +82,10 @@ export function setTheme(name: string) {
     ljn_message_box: {
       flex: 0,
       maxWidth: px2vw(260),
-      minHeight: px2vw(40),
+      // minHeight: px2vw(40),
       backgroundColor: "white",
-      padding: px2vw(12),
+      paddingHorizontal: px2vw(12),
+      paddingVertical: px2vw(10),
       display: "flex",
       borderRadius: px2vw(5),
     },
@@ -96,7 +97,7 @@ export function setTheme(name: string) {
     // 三角形图标
     ljn_triangle: {
       position: "absolute",
-      top: px2vw(33),
+      top: px2vw(29),
       right: px2vw(-8.5),
     },
 
@@ -128,7 +129,8 @@ export function setTheme(name: string) {
       maxWidth: px2vw(260),
       minHeight: px2vw(40),
       backgroundColor: "#95ec69",
-      padding: px2vw(12),
+      paddingHorizontal: px2vw(12),
+      paddingVertical: px2vw(10),
       borderRadius: px2vw(5),
     },
     // 我的消息
@@ -139,7 +141,7 @@ export function setTheme(name: string) {
     // 三角形图标
     ljn_triangle_belong_to_me: {
       position: "absolute",
-      top: px2vw(13),
+      top: px2vw(11),
       left: px2vw(-8.5),
     },
     // 底部输入框
