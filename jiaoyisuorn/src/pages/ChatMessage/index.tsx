@@ -148,10 +148,13 @@ export default function ChatMessage({ route, navigation }: Props) {
   let bigScrollView = useRef<ScrollView>(null);
 
   const { friendInfo } = route.params;
-  // useEffect(() => {
-  //   console.log(friendInfo)
-  // }, [])
+  useEffect(() => {
+    // console.log(friendInfo)
 
+    bigScrollView.current.scrollToEnd()
+  }, [])
+
+  
   return (
     <View style={styles.container}>
       <LJNHeader

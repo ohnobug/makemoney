@@ -19,11 +19,17 @@ export default function index({ list }: Props) {
       {list.map((item, index) => {
         return (
           <TouchableOpacity
+            delayPressIn={100} 
+            delayPressOut={100} 
+            delayLongPress={100}
             key={index}
             style={{
               backgroundColor: "black",
             }}
             activeOpacity={0.8}
+            onPress={() => {
+              console.log('qqqqqq')
+            }}
           >
             <View style={styles.ljn_list_item}>
               {/* 头像 */}
