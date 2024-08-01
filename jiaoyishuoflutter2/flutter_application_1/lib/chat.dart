@@ -1,0 +1,348 @@
+import 'package:flutter/material.dart';
+
+class ChatListItem extends StatelessWidget {
+  final String id;
+  final String avatar;
+  final String friendName;
+  final String message;
+  final bool notice;
+
+  const ChatListItem({
+    super.key,
+    required this.id,
+    required this.avatar,
+    required this.friendName,
+    required this.message,
+    required this.notice,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 69.0,
+      padding: const EdgeInsets.only(left: 15.0),
+      child: Row(
+        children: [
+          // 头像
+          Container(
+            width: 57.0,
+            height: 57.0,
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                image: NetworkImage(avatar),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // 好友名称和日期
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // 好友名称
+                    Flexible(
+                      child: Text(
+                        friendName,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: notice ? Colors.red : Colors.black,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    // 日期
+                    Container(
+                      padding: const EdgeInsets.only(right: 15.0),
+                      child: Text(
+                        '17:25',
+                        style: TextStyle(
+                          fontSize: 11.0,
+                          color: notice ? Colors.red : Colors.black,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 5),
+                // 好友消息
+                Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        message,
+                        style: TextStyle(
+                          fontSize: 11.5,
+                          color: notice ? Colors.red : Colors.black,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    if (notice) ...[
+                      const SizedBox(width: 5),
+                      const Icon(
+                        Icons.notifications_active,
+                        size: 16.0,
+                        color: Colors.red,
+                      ),
+                    ]
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ChatListView extends StatefulWidget {
+  const ChatListView({super.key});
+
+  @override
+  ChatListViewState createState() => ChatListViewState();
+}
+
+class ChatListViewState extends State<ChatListView> {
+  final List<ChatListItem> chatItems = [
+    const ChatListItem(
+      id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+      friendName: "花重月数",
+      notice: true,
+      message: "今天天气真好，阳光明媚，让人心情愉悦。",
+      avatar: "assets/images/avatar/chat_1.jpg",
+    ),
+    const ChatListItem(
+      id: "4462b35d-e742-5011-9ed6-f10666ef8e9f",
+      friendName: "旧梦如风°",
+      notice: true,
+      message: "你吃过了吗？吃的什么？有没有想我？",
+      avatar: "assets/images/avatar/chat_2.jpg",
+    ),
+    const ChatListItem(
+      id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+      friendName: "蝶舞庄周",
+      notice: true,
+      message: "我很高兴见到你，今天看起来很不错。",
+      avatar: "assets/images/avatar/chat_3.jpg",
+    ),
+    const ChatListItem(
+      id: "6390e7d0-c8bd-5929-b537-76f6577c591c",
+      friendName: "绿逾初夏",
+      notice: false,
+      message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
+      avatar: "assets/images/avatar/chat_4.jpg",
+    ),
+    const ChatListItem(
+      id: "d87d7c11-04f1-569c-8fd3-de333397966c",
+      friendName: "余笙南吟",
+      notice: false,
+      message: "今天上班/上学累吗？要注意休息哦。",
+      avatar: "assets/images/avatar/chat_5.jpg",
+    ),
+    const ChatListItem(
+      id: "7c3f2f89-6eae-5658-bce9-b3d8e20e309c",
+      friendName: "陈情匿旧酒",
+      notice: false,
+      message: "这个周末有什么计划？有没有想好去哪里玩？",
+      avatar: "assets/images/avatar/chat_6.jpg",
+    ),
+    const ChatListItem(
+      id: "6b4ac788-576a-5a7c-be38-854571564bd1",
+      friendName: "白桃乌龙",
+      notice: false,
+      message: "你喜欢看什么电影？我最近看了一部不错的电影，推荐给你！",
+      avatar: "assets/images/avatar/chat_7.jpg",
+    ),
+    const ChatListItem(
+      id: "139bf645-623d-5791-ad6b-4907e5fc8309",
+      friendName: "清浅ˋ旧时光",
+      notice: false,
+      message: "你最近有没有去旅行？去了哪些地方？感觉怎么样？",
+      avatar: "assets/images/avatar/chat_8.jpg",
+    ),
+    const ChatListItem(
+      id: "35fe74be-e7cb-520e-9d79-1b19b1018249",
+      friendName: "荒碎梦残",
+      notice: false,
+      message: "我听说你最近升职了，恭喜你！一定能够做得更好！",
+      avatar: "assets/images/avatar/chat_9.jpg",
+    ),
+    const ChatListItem(
+      id: "18127772-a653-5ca6-ba2c-5b1b855aa236",
+      friendName: "无梦相赠",
+      notice: false,
+      message: "你今天穿得很漂亮，看起来很有气质。",
+      avatar: "assets/images/avatar/chat_10.jpg",
+    ),
+    const ChatListItem(
+      id: "a41401db-2dde-519d-bc9f-df6e51089c9e",
+      friendName: "离人泪",
+      notice: false,
+      message: "你最喜欢的颜色是什么？是不是很时尚？",
+      avatar: "assets/images/avatar/chat_11.jpg",
+    ),
+    const ChatListItem(
+      id: "335ebb66-9440-5a2e-9795-d1b10eaf626e",
+      friendName: "伊人在水一方",
+      notice: false,
+      message: "你最近有没有去尝试新的餐厅？有没有吃到什么特别好吃的菜？",
+      avatar: "assets/images/avatar/chat_12.jpg",
+    ),
+    const ChatListItem(
+      id: "abc8c77e-924c-5ba8-94bc-36978fda42c5",
+      friendName: "与我共梦",
+      notice: false,
+      message: "你的生日是今天吗？生日快乐啊！有没有想好怎么庆祝？",
+      avatar: "assets/images/avatar/chat_13.jpg",
+    ),
+    const ChatListItem(
+      id: "86f1db28-5c98-580d-b365-70a752fde80c",
+      friendName: "挽弦暮笙",
+      notice: false,
+      message: "你平常喜欢做什么样的运动？我最近喜欢上了瑜伽。",
+      avatar: "assets/images/avatar/chat_14.jpg",
+    ),
+    const ChatListItem(
+      id: "81fd1656-bfa0-5e12-bab4-9cbc208e3f4a",
+      friendName: "开始厌倦",
+      notice: false,
+      message: "我觉得你很有创造力，一定能够做出很多很棒的东西。",
+      avatar: "assets/images/avatar/chat_15.jpg",
+    ),
+    const ChatListItem(
+      id: "bbe17759-086d-51f6-871a-4fc5d7014fd3",
+      friendName: "仙女收纳盒",
+      notice: false,
+      message: "你最近有没有追什么好剧？有没有推荐的电视剧？",
+      avatar: "assets/images/avatar/chat_16.jpg",
+    ),
+    const ChatListItem(
+      id: "6e48d092-0d0e-5769-9837-96ee651c7a4b",
+      friendName: "華燈初上",
+      notice: false,
+      message: "我很喜欢你的发型，看起来很时尚，一定是精心打理过的。",
+      avatar: "assets/images/avatar/chat_17.jpg",
+    ),
+    const ChatListItem(
+      id: "dbc2eaca-56ce-5940-b9fc-9a42583ce674",
+      friendName: "袖手今生",
+      notice: false,
+      message: "你是什么星座的？我最近对星座运势感兴趣了。",
+      avatar: "assets/images/avatar/chat_18.jpg",
+    ),
+    const ChatListItem(
+      id: "be028228-1689-5058-903b-07b6d9380d78",
+      friendName: "ら道不清的忧伤",
+      notice: false,
+      message: "我觉得你笑起来很好看，让人感觉很温暖。",
+      avatar: "assets/images/avatar/chat_19.jpg",
+    ),
+    const ChatListItem(
+      id: "419adb76-6b8c-5602-a415-2d619b4fc17f",
+      friendName: "凉生",
+      notice: false,
+      message: "你愿意和我一起去旅行吗？我们可以一起去探索未知的地方。",
+      avatar: "assets/images/avatar/chat_20.jpg",
+    ),
+    const ChatListItem(
+      id: "b1b6b991-5f30-5039-896e-a8f694f94c4e",
+      friendName: "墨香九歌",
+      notice: false,
+      message: "你的梦想是什么？我最近梦想成为一名优秀的厨师。",
+      avatar: "assets/images/avatar/chat_21.jpg",
+    ),
+    const ChatListItem(
+      id: "d70f0966-df79-530c-b18d-bcf61e402bb8",
+      friendName: "暖栀",
+      notice: false,
+      message: "你最近有没有学到什么新知识？我最近在学习一门新技能。",
+      avatar: "assets/images/avatar/chat_22.jpg",
+    ),
+    const ChatListItem(
+      id: "0d0618d4-4520-5d8c-8c3f-e9fdf7048a3c",
+      friendName: "等待许了苍老",
+      notice: false,
+      message: "我听说你要搬家了，是吗？祝贺你！新家在哪里？是不是很期待？",
+      avatar: "assets/images/avatar/chat_23.jpg",
+    ),
+    const ChatListItem(
+      id: "6cdd7427-24d6-5014-a9c8-019dfbba891f",
+      friendName: "笙歌白云",
+      notice: false,
+      message: "你喜欢什么样的音乐？我最近迷上了一种新的音乐风格。",
+      avatar: "assets/images/avatar/chat_24.jpg",
+    ),
+    const ChatListItem(
+      id: "97937063-66d6-56db-8265-3b671f199a50",
+      friendName: "万幸得以相识",
+      notice: false,
+      message: "我觉得你非常有魅力，你的个性很吸引人。",
+      avatar: "assets/images/avatar/chat_25.jpg",
+    ),
+    const ChatListItem(
+      id: "5e2a94a2-89d4-5b3f-9af2-b01d4d6aeec6",
+      friendName: "凤鸣寂寥",
+      notice: false,
+      message: "我很喜欢和你聊天，每次都能学到很多东西。",
+      avatar: "assets/images/avatar/chat_26.jpg",
+    ),
+    const ChatListItem(
+      id: "a94752c7-3a67-5f61-bde4-6dc3a907c1d4",
+      friendName: "余生不过一盏茶",
+      notice: false,
+      message: "你会做饭吗？我最近学会了做一道新菜，很好吃哦。",
+      avatar: "assets/images/avatar/chat_27.jpg",
+    ),
+    const ChatListItem(
+      id: "1c400b91-d94e-520f-badb-85f5299e3e41",
+      friendName: "丢了梦想的猎手",
+      notice: false,
+      message: "你喜欢看什么类型的书？我最近在读一本很有趣的小说。",
+      avatar: "assets/images/avatar/chat_28.jpg",
+    ),
+    const ChatListItem(
+      id: "c9e9f259-833b-5cb7-853e-511b00d38051",
+      friendName: "今朝有酒今朝醉",
+      notice: false,
+      message: "你最近有没有参加什么有趣的活动？有没有结识到新朋友？",
+      avatar: "assets/images/avatar/chat_29.jpg",
+    ),
+    const ChatListItem(
+      id: "0b4265b0-0b9a-5684-b7d2-baf26f1f6887",
+      friendName: "旧事酒浓",
+      notice: false,
+      message: "我听说你最近去旅游了，怎么样？玩得开心吗？",
+      avatar: "assets/images/avatar/chat_30.jpg",
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50.0), // 此处设置您想要的高度，例如 80.0
+        child: AppBar(
+          centerTitle: true, // 添加这一行
+          title: const Text('微信', style: TextStyle(fontSize: 16),),
+          // titleTextStyle: const TextStyle(fontSize: 20),
+        ),
+      ),
+      body: ListView.builder(
+        itemCount: chatItems.length,
+        itemBuilder: (context, index) {
+          return chatItems[index];
+        },
+      ),
+    );
+  }
+}
