@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/provider.dart';
+import 'package:flutter_application_1/services.dart';
 import 'package:provider/provider.dart';
 import 'logger.dart';
 import 'user.dart';
@@ -35,11 +36,12 @@ class TabBarApp extends StatelessWidget {
         designSize: const Size(375, 667),
         minTextAdapt: true,
         splitScreenMode: true,
+        enableScaleWH: () => false,
+        enableScaleText: () => false,
         builder: (context, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'First Method',
-            // You can use the library anywhere in the app even in theme
             theme: ThemeData(
               primarySwatch: Colors.blue,
               textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
@@ -48,12 +50,52 @@ class TabBarApp extends StatelessWidget {
           );
         },
         child: MaterialApp(
-          // theme: ThemeData(
-          //   useMaterial3: true,
-          //   fontFamily: "MyFont"
-          // ),
+          initialRoute: '/',
+          onGenerateRoute: (settings) {
+            if (settings.name == '/') {
+              return PageRouteBuilder<dynamic>(
+                pageBuilder: (BuildContext context, Animation<double> animation,
+                        Animation<double> secondaryAnimation) =>
+                    const TabBarExample(),
+                transitionsBuilder: (
+                  BuildContext context,
+                  Animation<double> animation,
+                  Animation<double> secondaryAnimation,
+                  Widget child,
+                ) {
+                  final Tween<Offset> offsetTween = Tween<Offset>(
+                      begin: const Offset(0.0, 0.0),
+                      end: const Offset(-1.0, 0.0));
+                  final Animation<Offset> slideOutLeftAnimation =
+                      offsetTween.animate(secondaryAnimation);
+                  return SlideTransition(
+                      position: slideOutLeftAnimation, child: child);
+                },
+              );
+            } else if (settings.name == '/services') {
+              return PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    const Services(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(1.0, 0.0);
+                  const end = Offset.zero;
+                  const curve = Curves.ease;
+
+                  var tween = Tween(begin: begin, end: end)
+                      .chain(CurveTween(curve: curve));
+
+                  return SlideTransition(
+                    position: animation.drive(tween),
+                    child: child,
+                  );
+                },
+              );
+            }
+
+            return null;
+          },
           theme: themeProvider.themeData,
-          home: const TabBarExample(),
           scrollBehavior: const MaterialScrollBehavior().copyWith(
             dragDevices: {
               PointerDeviceKind.mouse,
@@ -96,7 +138,7 @@ class _TabBarExampleState extends State<TabBarExample>
     return Scaffold(
       bottomNavigationBar: TabBar(
         dividerColor: const Color.fromARGB(255, 218, 218, 218),
-        labelColor: const Color.fromARGB(255, 24, 174, 23),
+        labelColor: const Color.fromARGB(255, 43, 174, 106),
         unselectedLabelColor: const Color.fromARGB(255, 0, 0, 0),
         indicator: const BoxDecoration(),
         indicatorColor: Colors.transparent,
@@ -104,25 +146,25 @@ class _TabBarExampleState extends State<TabBarExample>
         controller: _tabController,
         overlayColor: WidgetStateProperty.all(const Color(0x00000000)),
         // TabBarTheme: ThemeData(useMaterial3: false),
-        tabs: const <Widget>[
+        tabs: <Widget>[
           Tab(
-            height: 58,
-            icon: Icon(Icons.cloud_outlined),
+            height: 58.w,
+            icon: const Icon(Icons.cloud_outlined),
             text: "微信",
           ),
           Tab(
-            height: 58,
-            icon: Icon(Icons.beach_access_sharp),
+            height: 58.w,
+            icon: const Icon(Icons.beach_access_sharp),
             text: "通信录",
           ),
           Tab(
-            height: 58,
-            icon: Icon(Icons.brightness_5_sharp),
+            height: 58.w,
+            icon: const Icon(Icons.brightness_5_sharp),
             text: "发现",
           ),
           Tab(
-            height: 58,
-            icon: Icon(Icons.brightness_6_sharp),
+            height: 58.w,
+            icon: const Icon(Icons.brightness_6_sharp),
             text: "我",
           ),
         ],

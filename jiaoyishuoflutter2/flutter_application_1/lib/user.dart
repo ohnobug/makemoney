@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_application_1/logger.dart';
+import 'package:flutter_application_1/logger.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'provider.dart';
 import 'package:provider/provider.dart';
-
 
 class LJNUserInfo extends StatefulWidget {
   const LJNUserInfo({super.key});
 
   @override
-  LJNUserInfoState createState() => LJNUserInfoState();
+  State<LJNUserInfo> createState() => _LJNUserInfoState();
 }
 
-class LJNUserInfoState extends State<LJNUserInfo> {
+class _LJNUserInfoState extends State<LJNUserInfo> {
   bool _show = false;
 
   @override
@@ -37,12 +37,11 @@ class LJNUserInfoState extends State<LJNUserInfo> {
   }
 
   Widget _buildUserInfo(ThemeData theme, Size screenSize) {
-
     return SingleChildScrollView(
         child: Column(children: [
       Container(
           constraints: BoxConstraints(minHeight: screenSize.height - 60),
-          color: const Color.fromARGB(255, 246, 246, 246),
+          color: const Color.fromARGB(255, 237, 237, 237),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -81,39 +80,42 @@ class LJNUserInfoState extends State<LJNUserInfo> {
                               color: Colors.black,
                             ),
                           ),
-                          const SizedBox(height: 12),
-                          const Row(
+                          SizedBox(height: 12.w),
+
+                          // 微信号
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 '微信号：TheMonsterClub',
                                 style: TextStyle(
-                                  fontSize: 14,
-                                  color: Color.fromARGB(255, 103, 103, 103),
+                                  fontSize: 14.w,
+                                  color: const Color.fromARGB(255, 116, 116, 116),
                                 ),
                               ),
                               Row(
                                 children: [
                                   Icon(
-                                    Icons.qr_code, // 示例图标
-                                    size: 20,
-                                    color: Colors.white,
+                                    Icons.qr_code,
+                                    size: 20.w,
+                                    color: const Color.fromARGB(255, 116, 116, 116),
                                   ),
-                                  SizedBox(width: 16),
+                                  SizedBox(width: 16.w),
                                   Icon(
-                                    Icons.add, // 示例图标
-                                    size: 20,
-                                    color: Colors.white,
+                                    Icons.add,
+                                    size: 20.w,
+                                    color: const Color.fromARGB(255, 116, 116, 116),
                                   ),
                                 ],
                               ),
                             ],
                           ),
-                          const SizedBox(height: 15),
+                          SizedBox(height: 15.w),
+                          
                           Row(
                             children: [
                               _buildStatusButton(theme, '+ 状态'),
-                              const SizedBox(width: 5),
+                              SizedBox(width: 8.w),
                               _buildStatusButton(theme, '+ 等四个朋友'),
                             ],
                           ),
@@ -188,20 +190,21 @@ class LJNUserInfoState extends State<LJNUserInfo> {
 
   Widget _buildStatusButton(ThemeData theme, String text) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      height: 24,
+      padding: const EdgeInsets.symmetric(horizontal: 10).w,
+      height: 24.w,
       decoration: BoxDecoration(
         border: Border.all(
-            // color: theme.accentColor, // 修改为你的边框颜色
-            // width: 1.2,
+            color: const Color.fromARGB(255, 231, 231, 231), // 修改为你的边框颜色
+            width: 1.w,
             ),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12).w,
       ),
       child: Center(
         child: Text(
           text,
           style: TextStyle(
-            color: theme.primaryColor,
+            fontSize: 13.w,
+            color: const Color.fromARGB(255, 116, 116, 116),
           ),
         ),
       ),
@@ -229,7 +232,7 @@ class FunctionView extends StatefulWidget {
   FunctionViewState createState() => FunctionViewState(chatItems);
 }
 
-class FunctionItem extends StatelessWidget {
+class FunctionItem extends StatefulWidget {
   final String id;
   final String icon;
   final String title;
@@ -246,72 +249,99 @@ class FunctionItem extends StatelessWidget {
   });
 
   @override
+  State<FunctionItem> createState() => _FunctionItemState();
+}
+
+class _FunctionItemState extends State<FunctionItem> {
+  bool isClicked = false;
+  Color containerColor = Colors.white;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 45.0,
-      padding: const EdgeInsets.only(left: 15.0, right: 0.0),
-      child: Row(
-        children: [
-          // 头像
-          Container(
-            width: 20.0,
-            height: 20.0,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              // borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: NetworkImage(icon),
-                fit: BoxFit.cover,
+    return GestureDetector(
+      onTapDown: (tapDownDetails) {
+        setState(() {
+          isClicked = true;
+          containerColor = const Color.fromARGB(255, 229, 229, 229);
+          // logger.info("点击");
+          Navigator.pushNamed(context, '/services');
+        });
+      },
+      onTapUp: (tapDownDetails) {
+        setState(() {
+          isClicked = false;
+          containerColor = Colors.white;
+          logger.info("点击");
+        });
+      },
+      child: Container(
+        height: 45.0,
+        padding: const EdgeInsets.only(left: 15.0, right: 0.0),
+        color: containerColor,
+        child: Row(
+          children: [
+            // 头像
+            Container(
+              width: 20.0,
+              height: 20.0,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                // borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: NetworkImage(widget.icon),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
+            const SizedBox(width: 10),
+            Expanded(
               child: Container(
-            height: 50,
-            decoration: underline
-                ? const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                    color: Color.fromARGB(255, 233, 233, 233),
-                    width: 0.5,
-                    style: BorderStyle.solid,
-                  )))
-                : const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Colors.transparent,
+                height: 50,
+                decoration: widget.underline
+                    ? const BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                        color: Color.fromARGB(255, 233, 233, 233),
                         width: 0.5,
                         style: BorderStyle.solid,
+                      )))
+                    : const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Colors.transparent,
+                            width: 0.5,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                      ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // 标题
+                    Flexible(
+                      child: Text(
+                        widget.title,
+                        style: const TextStyle(
+                          fontSize: 15.0,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                  ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // 标题
-                Flexible(
-                  child: Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 15.0,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
 
-                Container(
-                    margin: const EdgeInsets.only(right: 10),
-                    child: const Icon(
-                      Icons.notifications_active,
-                      size: 15.0,
-                      color: Color.fromARGB(255, 193, 193, 193),
-                    ))
-              ],
+                    Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        child: const Icon(
+                          Icons.notifications_active,
+                          size: 15.0,
+                          color: Color.fromARGB(255, 193, 193, 193),
+                        ))
+                  ],
+                ),
+              ),
             ),
-          )),
-        ],
+          ],
+        ),
       ),
     );
   }

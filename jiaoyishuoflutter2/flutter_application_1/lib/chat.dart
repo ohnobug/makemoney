@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatListItem extends StatelessWidget {
   final String id;
@@ -330,11 +331,11 @@ class ChatListViewState extends State<ChatListView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(45.0), // 此处设置您想要的高度，例如 80.0
+          preferredSize: Size.fromHeight(45.0.w), // 此处设置您想要的高度，例如 80.0
           child: AppBar(
             centerTitle: true, // 添加这一行
             title: const Text('微信'),
-            titleTextStyle: const TextStyle(fontSize: 16),
+            titleTextStyle: TextStyle(fontSize: 16.w),
           ),
         ),
         body: ScrollConfiguration(

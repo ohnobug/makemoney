@@ -40,27 +40,29 @@ class FunctionButtonState extends State<FunctionButton> {
         });
       },
       child: Container(
+        height: double.infinity,
+        width: double.infinity,
         decoration: BoxDecoration(
           color: _isPressed ? Colors.grey[200] : Colors.transparent, // 按下时背景色
-          borderRadius: BorderRadius.circular(10.0).w, // 圆角半径
-          // border: Border.all(
-          //   color: Colors.blue, // 边框颜色
-          //   width: 1.5,
-          // ),
+          borderRadius: BorderRadius.circular(5.0).w, // 圆角半径
         ),
-        // padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min, // 使按钮大小适应内容
             children: [
-              Icon(widget.icon, size: 30, color: Colors.blue), // 图标颜色
-              const SizedBox(height: 4), // 图标和标题之间的间距
+              Icon(
+                widget.icon,
+                size: 30.w,
+                // color: Colors.blue
+              ), // 图标颜色
+              SizedBox(height: 4.w), // 图标和标题之间的间距
               Text(
                 widget.title,
                 maxLines: 1,
-                style: const TextStyle(
-                    color: Colors.blue,
-                    fontSize: 9,
+                style: TextStyle(
+                    decoration: TextDecoration.none,
+                    color: const Color.fromARGB(255, 33, 33, 33),
+                    fontSize: 12.0.w,
                     overflow: TextOverflow.ellipsis), // 标题颜色
               ),
             ],
@@ -87,31 +89,45 @@ class FunctionButtonsSection extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.only(bottom: 8, left: 8, right: 8).w,
         decoration: BoxDecoration(
-        color: Colors.deepOrange,
-          borderRadius: BorderRadius.circular(10.0).w, // 圆角半径
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8.0).w,
         ),
-        padding: const EdgeInsets.all(8).w,
-        // padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.only(bottom: 8).w,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0).w,
-              child: Text(
-                title,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                      height: 40.w,
+                      padding: const EdgeInsets.only(left: 8).w,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                        ],
+                      )),
+                ),
+              ],
             ),
 
             // 使用 SizedBox 控制 GridView 的大小
-            SizedBox(
+            Container(
+              padding: const EdgeInsets.all(8.0).w,
               // height: 200, // 根据实际需要调整高度
               child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4, // 每行显示4个子组件
-                  crossAxisSpacing: 10, // 列间距
-                  mainAxisSpacing: 5, // 行间距
-                  childAspectRatio: (1 / 0.8),
+                  crossAxisSpacing: 8.w, // 列间距
+                  mainAxisSpacing: 6.w, // 行间距
+                  childAspectRatio: (1 / 1),
                 ),
                 itemCount: buttons.length,
                 itemBuilder: (context, index) {
