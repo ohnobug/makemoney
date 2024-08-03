@@ -131,9 +131,7 @@ class _TabBarExampleState extends State<TabBarExample>
         // physics: new NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: const <Widget>[
-          Center(
-            child: ChatListView(),
-          ),
+          ChatListView(),
           Center(
             child: Text("It's rainy here"),
           ),

@@ -25,8 +25,8 @@ class ChatListItem extends StatelessWidget {
         children: [
           // 头像
           Container(
-            width: 57.0,
-            height: 57.0,
+            width: 50.0,
+            height: 50.0,
             decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(10),
@@ -80,7 +80,7 @@ class ChatListItem extends StatelessWidget {
                         message,
                         style: TextStyle(
                           fontSize: 11.5,
-                          color: notice ? Colors.red : Colors.black,
+                          color: notice ? Colors.red : Color.fromARGB(255, 115, 115, 115),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -329,20 +329,22 @@ class ChatListViewState extends State<ChatListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50.0), // 此处设置您想要的高度，例如 80.0
-        child: AppBar(
-          centerTitle: true, // 添加这一行
-          title: const Text('微信', style: TextStyle(fontSize: 16),),
-          // titleTextStyle: const TextStyle(fontSize: 20),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(45.0), // 此处设置您想要的高度，例如 80.0
+          child: AppBar(
+            centerTitle: true, // 添加这一行
+            title: const Text('微信'),
+            titleTextStyle: const TextStyle(fontSize: 16),
+          ),
         ),
-      ),
-      body: ListView.builder(
-        itemCount: chatItems.length,
-        itemBuilder: (context, index) {
-          return chatItems[index];
-        },
-      ),
-    );
+        body: ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: ListView.builder(
+              itemCount: chatItems.length,
+              itemBuilder: (context, index) {
+                return chatItems[index];
+              },
+            )));
   }
 }
