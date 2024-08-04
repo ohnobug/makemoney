@@ -4,14 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'provider.dart';
 import 'package:provider/provider.dart';
 
-class LJNUserInfo extends StatefulWidget {
-  const LJNUserInfo({super.key});
+class LJNUserPage extends StatefulWidget {
+  const LJNUserPage({super.key});
 
   @override
-  State<LJNUserInfo> createState() => _LJNUserInfoState();
+  State<LJNUserPage> createState() => _LJNUserPageState();
 }
 
-class _LJNUserInfoState extends State<LJNUserInfo> {
+class _LJNUserPageState extends State<LJNUserPage> {
   bool _show = false;
 
   @override
@@ -40,87 +40,200 @@ class _LJNUserInfoState extends State<LJNUserInfo> {
     return SingleChildScrollView(
         child: Column(children: [
       Container(
-          constraints: BoxConstraints(minHeight: screenSize.height - 60),
+          constraints: BoxConstraints(minHeight: screenSize.height - 107.w),
           color: const Color.fromARGB(255, 237, 237, 237),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               // 顶部功能区域
               Container(
-                color: Colors.white, // 设置姓名部分的背景颜色
-                // height: 200.w,
+                color: Colors.white,
                 padding: const EdgeInsets.only(
-                    top: 28, left: 16, right: 16, bottom: 25),
-                margin: const EdgeInsets.only(bottom: 8),
+                        top: 56, left: 32, right: 32, bottom: 50)
+                    .w,
+                margin: const EdgeInsets.only(bottom: 16).w,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(5), // 设置圆角半径
+                      borderRadius: BorderRadius.circular(10).w,
                       child: Image.asset(
                         'images/avatar/chat_4.jpg',
-                        width: 60, // 设置宽度
-                        height: 60, // 设置高度
-                        fit: BoxFit.cover, // 确保图片覆盖整个容器
+                        width: 120.w,
+                        height: 120.w,
+                        fit: BoxFit.cover,
                       ),
                     ),
 
-                    const SizedBox(width: 16),
+                    SizedBox(width: 30.w),
 
                     // 用户信息区域
                     Expanded(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            '李俊杰',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.black,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '李俊杰',
+                              style: TextStyle(
+                                fontSize: 40.w,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 12.w),
 
-                          // 微信号
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '微信号：TheMonsterClub',
-                                style: TextStyle(
-                                  fontSize: 14.w,
-                                  color: const Color.fromARGB(255, 116, 116, 116),
+                            SizedBox(height: 20.w),
+
+                            // 微信号
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '微信号：TheMonsterClub',
+                                  style: TextStyle(
+                                    fontSize: 28.w,
+                                    color: const Color.fromARGB(
+                                        255, 111, 111, 111),
+                                  ),
                                 ),
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.qr_code,
-                                    size: 20.w,
-                                    color: const Color.fromARGB(255, 116, 116, 116),
-                                  ),
-                                  SizedBox(width: 16.w),
-                                  Icon(
-                                    Icons.add,
-                                    size: 20.w,
-                                    color: const Color.fromARGB(255, 116, 116, 116),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 15.w),
-                          
-                          Row(
-                            children: [
-                              _buildStatusButton(theme, '+ 状态'),
-                              SizedBox(width: 8.w),
-                              _buildStatusButton(theme, '+ 等四个朋友'),
-                            ],
-                          ),
-                        ],
-                      ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.qr_code_2,
+                                      size: 30.w,
+                                      color: const Color.fromARGB(
+                                          255, 170, 170, 170),
+                                    ),
+                                    SizedBox(width: 43.w),
+                                    Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: 28.w,
+                                      color: const Color.fromARGB(
+                                          255, 170, 170, 170),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 40.w),
+
+                            Row(
+                              children: [
+                                LJNStatusButton(
+                                    text: '+ 状态',
+                                    onPressed: () {
+                                      logger.info('点击状态');
+                                    }),
+                                SizedBox(width: 14.w),
+                                LJNStatusButton(
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          height: 60.w,
+                                          width: 70.w,
+                                          child: Stack(
+                                            children: <Widget>[
+                                              Positioned(
+                                                top: 6.w,
+                                                left: 0.w,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.white,
+                                                        width:
+                                                            2.0.w),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            200).w,
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                                1000)
+                                                            .w,
+                                                    child: Image.asset(
+                                                      'images/avatar/chat_4.jpg',
+                                                      width: 30.w,
+                                                      height: 30.w,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                top: 6.w,
+                                                left: 20.w,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.white,
+                                                        width: 2.0
+                                                            .w),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                                200)
+                                                            .w,
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                                1000)
+                                                            .w,
+                                                    child: Image.asset(
+                                                      'images/avatar/chat_5.jpg',
+                                                      width: 30.w,
+                                                      height: 30.w,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                top: 6.w,
+                                                left: 40.w,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Colors.white,
+                                                        width:
+                                                            2.0.w),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            200).w,
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                                100)
+                                                            .w,
+                                                    child: Image.asset(
+                                                      'images/avatar/chat_6.jpg',
+                                                      width: 30.w,
+                                                      height: 30.w,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(width: 10.w),
+                                        Text(
+                                          '等8个朋友',
+                                          style: TextStyle(
+                                            fontSize: 24.w,
+                                            color: const Color.fromARGB(
+                                                255, 116, 116, 116),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    onPressed: () {
+                                      logger.info('等四个朋友');
+                                    }),
+                              ],
+                            ),
+                          ]),
                     ),
                   ],
                 ),
@@ -187,28 +300,71 @@ class _LJNUserInfoState extends State<LJNUserInfo> {
           ))
     ]));
   }
+}
 
-  Widget _buildStatusButton(ThemeData theme, String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10).w,
-      height: 24.w,
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: const Color.fromARGB(255, 231, 231, 231), // 修改为你的边框颜色
-            width: 1.w,
+// 状态按钮
+class LJNStatusButton extends StatefulWidget {
+  final String? text;
+  final Widget? child;
+  final Function() onPressed;
+
+  const LJNStatusButton({
+    super.key,
+    this.text,
+    this.child,
+    required this.onPressed,
+  });
+
+  @override
+  State<LJNStatusButton> createState() => _LJNStatusButton();
+}
+
+class _LJNStatusButton extends State<LJNStatusButton> {
+  bool _isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: widget.onPressed,
+        onTapDown: (_) {
+          setState(() {
+            _isPressed = true;
+          });
+        },
+        onTapUp: (_) {
+          setState(() {
+            _isPressed = false;
+          });
+        },
+        onTapCancel: () {
+          setState(() {
+            _isPressed = false;
+          });
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12).w,
+          height: 48.w,
+          decoration: BoxDecoration(
+            color: _isPressed
+                ? const Color.fromARGB(255, 229, 229, 229)
+                : Colors.transparent,
+            border: Border.all(
+              color: const Color.fromARGB(255, 231, 231, 231),
+              width: 2.w,
             ),
-        borderRadius: BorderRadius.circular(12).w,
-      ),
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 13.w,
-            color: const Color.fromARGB(255, 116, 116, 116),
+            borderRadius: BorderRadius.circular(24).w,
           ),
-        ),
-      ),
-    );
+          child: widget.text == null
+              ? widget.child
+              : Center(
+                  child: Text(
+                  widget.text!,
+                  style: TextStyle(
+                    fontSize: 24.w,
+                    color: const Color.fromARGB(255, 116, 116, 116),
+                  ),
+                )),
+        ));
   }
 }
 
@@ -229,9 +385,27 @@ class FunctionView extends StatefulWidget {
   const FunctionView({super.key, required this.chatItems});
 
   @override
-  FunctionViewState createState() => FunctionViewState(chatItems);
+  State<FunctionView> createState() => _FunctionViewState();
 }
 
+class _FunctionViewState extends State<FunctionView> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: widget.chatItems.length * 105.0.w,
+      color: Colors.white,
+      margin: const EdgeInsets.only(bottom: 16).w,
+      child: ListView.builder(
+        itemCount: widget.chatItems.length,
+        itemBuilder: (context, index) {
+          return widget.chatItems[index];
+        },
+      ),
+    );
+  }
+}
+
+// 功能列表
 class FunctionItem extends StatefulWidget {
   final String id;
   final String icon;
@@ -263,27 +437,33 @@ class _FunctionItemState extends State<FunctionItem> {
         setState(() {
           isClicked = true;
           containerColor = const Color.fromARGB(255, 229, 229, 229);
-          // logger.info("点击");
-          Navigator.pushNamed(context, '/services');
+        });
+      },
+      onTapCancel: () {
+        setState(() {
+          isClicked = false;
+          containerColor = Colors.white;
+          logger.info("取消点击");
         });
       },
       onTapUp: (tapDownDetails) {
         setState(() {
           isClicked = false;
           containerColor = Colors.white;
-          logger.info("点击");
+
+          Navigator.pushNamed(context, '/services');
         });
       },
       child: Container(
-        height: 45.0,
-        padding: const EdgeInsets.only(left: 15.0, right: 0.0),
+        height: 105.0.w,
+        padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
         color: containerColor,
         child: Row(
           children: [
             // 头像
             Container(
-              width: 20.0,
-              height: 20.0,
+              width: 43.0.w,
+              height: 43.0.w,
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                 // borderRadius: BorderRadius.circular(10),
@@ -293,23 +473,24 @@ class _FunctionItemState extends State<FunctionItem> {
                 ),
               ),
             ),
-            const SizedBox(width: 10),
+            SizedBox(width: 20.w),
             Expanded(
               child: Container(
-                height: 50,
+                height: 100.w,
+                width: 400.w,
                 decoration: widget.underline
-                    ? const BoxDecoration(
+                    ? BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
-                        color: Color.fromARGB(255, 233, 233, 233),
-                        width: 0.5,
+                        color: const Color.fromARGB(255, 233, 233, 233),
+                        width: 1.w,
                         style: BorderStyle.solid,
                       )))
-                    : const BoxDecoration(
+                    : BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
                             color: Colors.transparent,
-                            width: 0.5,
+                            width: 1.w,
                             style: BorderStyle.solid,
                           ),
                         ),
@@ -321,8 +502,8 @@ class _FunctionItemState extends State<FunctionItem> {
                     Flexible(
                       child: Text(
                         widget.title,
-                        style: const TextStyle(
-                          fontSize: 15.0,
+                        style: TextStyle(
+                          fontSize: 30.0.w,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -330,11 +511,11 @@ class _FunctionItemState extends State<FunctionItem> {
                     ),
 
                     Container(
-                        margin: const EdgeInsets.only(right: 10),
-                        child: const Icon(
-                          Icons.notifications_active,
-                          size: 15.0,
-                          color: Color.fromARGB(255, 193, 193, 193),
+                        margin: const EdgeInsets.only(right: 35).w,
+                        child: Icon(
+                          Icons.arrow_forward_ios,
+                          size: 26.0.w,
+                          color: const Color.fromARGB(255, 170, 170, 170),
                         ))
                   ],
                 ),
@@ -342,27 +523,6 @@ class _FunctionItemState extends State<FunctionItem> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class FunctionViewState extends State<FunctionView> {
-  final List<FunctionItem> chatItems;
-
-  FunctionViewState(this.chatItems);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: chatItems.length * 45.0,
-      color: Colors.white,
-      margin: const EdgeInsets.only(bottom: 8),
-      child: ListView.builder(
-        itemCount: chatItems.length,
-        itemBuilder: (context, index) {
-          return chatItems[index];
-        },
       ),
     );
   }

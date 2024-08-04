@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/discovery.dart';
 import 'package:flutter_application_1/provider.dart';
 import 'package:flutter_application_1/services.dart';
 import 'package:provider/provider.dart';
@@ -33,11 +34,11 @@ class TabBarApp extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return ScreenUtilInit(
-        designSize: const Size(375, 667),
+        designSize: const Size(750, 1333),
         minTextAdapt: true,
         splitScreenMode: true,
-        enableScaleWH: () => false,
-        enableScaleText: () => false,
+        enableScaleWH: () => true,
+        enableScaleText: () => true,
         builder: (context, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -121,10 +122,43 @@ class _TabBarExampleState extends State<TabBarExample>
     with TickerProviderStateMixin {
   late final TabController _tabController;
 
+  int changeIcon = 0;
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
+    _tabController.animation!.addListener(() {
+      if (_tabController.animation!.value >= 0 &&
+          _tabController.animation!.value <= 0.5) {
+        setState(() {
+          changeIcon = 0;
+        });
+      }
+
+      if (_tabController.animation!.value > 0.5 &&
+          _tabController.animation!.value <= 1.5) {
+        setState(() {
+          changeIcon = 1;
+        });
+      }
+
+      if (_tabController.animation!.value > 1.5 &&
+          _tabController.animation!.value <= 2.5) {
+        setState(() {
+          changeIcon = 2;
+        });
+      }
+
+      if (_tabController.animation!.value > 2.5 &&
+          _tabController.animation!.value <= 3) {
+        setState(() {
+          changeIcon = 3;
+        });
+      }
+
+      logger.info(_tabController.animation!.value);
+    });
   }
 
   @override
@@ -135,56 +169,121 @@ class _TabBarExampleState extends State<TabBarExample>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: TabBar(
-        dividerColor: const Color.fromARGB(255, 218, 218, 218),
-        labelColor: const Color.fromARGB(255, 43, 174, 106),
-        unselectedLabelColor: const Color.fromARGB(255, 0, 0, 0),
-        indicator: const BoxDecoration(),
-        indicatorColor: Colors.transparent,
-        // indicatorWeight: 30,
-        controller: _tabController,
-        overlayColor: WidgetStateProperty.all(const Color(0x00000000)),
-        // TabBarTheme: ThemeData(useMaterial3: false),
-        tabs: <Widget>[
-          Tab(
-            height: 58.w,
-            icon: const Icon(Icons.cloud_outlined),
-            text: "微信",
-          ),
-          Tab(
-            height: 58.w,
-            icon: const Icon(Icons.beach_access_sharp),
-            text: "通信录",
-          ),
-          Tab(
-            height: 58.w,
-            icon: const Icon(Icons.brightness_5_sharp),
-            text: "发现",
-          ),
-          Tab(
-            height: 58.w,
-            icon: const Icon(Icons.brightness_6_sharp),
-            text: "我",
-          ),
-        ],
+    Icon icon1 = Icon(
+      const IconData(
+        0xe7b3,
+        fontFamily: 'Iconfont',
       ),
-      body: TabBarView(
-        // physics: new NeverScrollableScrollPhysics(),
-        controller: _tabController,
-        children: const <Widget>[
-          ChatListView(),
-          Center(
-            child: Text("It's rainy here"),
-          ),
-          Center(
-            child: Text("It's sunny here"),
-          ),
-          Center(
-            child: LJNUserInfo(),
-          ),
-        ],
-      ),
+      size: 45.w,
     );
+    Icon icon2 = Icon(
+      const IconData(
+        0xe608,
+        fontFamily: 'Iconfont',
+      ),
+      size: 45.w,
+    );
+    Icon icon3 = Icon(
+      const IconData(
+        0xe61c,
+        fontFamily: 'Iconfont',
+      ),
+      size: 45.w,
+    );
+    Icon icon4 = Icon(
+      const IconData(
+        0xe63f,
+        fontFamily: 'Iconfont',
+      ),
+      size: 45.w,
+    );
+
+    if (changeIcon == 0) {
+      icon1 = Icon(
+        const IconData(
+          0xe676,
+          fontFamily: 'Iconfont',
+        ),
+        size: 45.w,
+      );
+    } else if (changeIcon == 1) {
+      icon2 = Icon(
+        const IconData(
+          0xe609,
+          fontFamily: 'Iconfont',
+        ),
+        size: 45.w,
+      );
+    } else if (changeIcon == 2) {
+      icon3 = Icon(
+        const IconData(
+          0xe638,
+          fontFamily: 'Iconfont',
+        ),
+        size: 45.w,
+      );
+    } else if (changeIcon == 3) {
+      icon4 = Icon(
+        const IconData(
+          0xe62b,
+          fontFamily: 'Iconfont',
+        ),
+        size: 45.w,
+      );
+    }
+
+    return Scaffold(
+        bottomNavigationBar: ColoredBox(
+          color: const Color.fromARGB(255, 247, 247, 247),
+          child: TabBar(
+            dividerColor: const Color.fromARGB(255, 218, 218, 218),
+            labelColor: const Color.fromARGB(255, 43, 174, 106),
+            unselectedLabelColor: const Color.fromARGB(255, 0, 0, 0),
+            indicator: const BoxDecoration(),
+            indicatorColor: Colors.transparent,
+            // indicatorWeight: 30,
+            controller: _tabController,
+            overlayColor: WidgetStateProperty.all(const Color(0x00000000)),
+            // TabBarTheme: ThemeData(useMaterial3: false),
+            tabs: <Widget>[
+              Tab(
+                height: 106.w,
+                icon: icon1,
+                text: "微信",
+              ),
+              Tab(
+                height: 106.w,
+                icon: icon2,
+                text: "通信录",
+              ),
+              Tab(
+                height: 106.w,
+                icon: icon3,
+                text: "发现",
+              ),
+              Tab(
+                height: 106.w,
+                icon: icon4,
+                text: "我",
+              ),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          // physics: new NeverScrollableScrollPhysics(),
+          controller: _tabController,
+          children: const <Widget>[
+            ChatListView(),
+            Center(
+              child: Text("It's rainy here"),
+            ),
+            Center(
+              child: LJNDiscoveryPage(),
+            ),
+            Center(
+              child: LJNUserPage(),
+            ),
+          ],
+        ));
   }
 }

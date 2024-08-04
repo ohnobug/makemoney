@@ -42,7 +42,7 @@ class _ServicesState extends State<Services> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CollectionAndPayment(
-                      icon: Icons.settings,
+                      icon: Icons.aspect_ratio,
                       title: '收付款',
                       subTitle: "",
                       onPressed: () {
@@ -50,11 +50,11 @@ class _ServicesState extends State<Services> {
                       },
                     ),
                     CollectionAndPayment(
-                      icon: Icons.adb,
+                      icon: Icons.account_balance_wallet,
                       title: '钱包',
-                      subTitle: "¥ 999999999.00",
+                      subTitle: "¥ 5034593.36",
                       onPressed: () {
-                        logger.info('点击了收付款还款按钮~~');
+                        logger.info('点击了钱包按钮~~');
                       },
                     )
                   ],
@@ -295,14 +295,17 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
           color: _isPressed
               ? const Color.fromARGB(255, 39, 155, 94)
               : Colors.transparent, // 按下时背景色
-          borderRadius: BorderRadius.circular(8.0).w, // 圆角半径
+          borderRadius: BorderRadius.circular(8.0).w,
         ),
         child: Center(
           child: Column(
-            mainAxisSize: MainAxisSize.min, // 使按钮大小适应内容
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(widget.icon, size: 40.w, color: Colors.white), // 图标颜色
-              SizedBox(height: 8.w), // 图标和标题之间的间距
+              Icon(widget.icon, size: 40.w, color: Colors.white),
+
+              SizedBox(height: 5.w),
+
+              // 钱包、收付款
               Text(
                 widget.title,
                 maxLines: 1,
@@ -310,10 +313,10 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                     decoration: TextDecoration.none,
                     color: Colors.white,
                     fontSize: 16.0.w,
-                    overflow: TextOverflow.ellipsis), // 标题颜色
+                    overflow: TextOverflow.ellipsis),
               ),
 
-              SizedBox(height: 4.w), // 图标和标题之间的间距
+              SizedBox(height: 0.w),
 
               // 余额
               Text(
@@ -321,7 +324,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                 maxLines: 1,
                 style: TextStyle(
                     decoration: TextDecoration.none,
-                    color: const Color.fromARGB(255, 231, 231, 231),
+                    color: const Color.fromARGB(198, 255, 255, 255),
                     fontSize: 12.0.w,
                     overflow: TextOverflow.ellipsis),
               ),

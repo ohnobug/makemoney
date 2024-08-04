@@ -26,3 +26,6 @@ flutter:
     - family: MyFont
       fonts:
         - asset: assets/fonts/SourceHanSans-VF.ttf.ttc
+    - family: Iconfont
+      fonts:
+        - asset: assets/fonts/iconfont/iconfont.ttf
