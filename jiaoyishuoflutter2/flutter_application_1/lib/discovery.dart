@@ -1,5 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LJNDiscoveryPage extends StatefulWidget {
@@ -12,173 +12,125 @@ class LJNDiscoveryPage extends StatefulWidget {
 class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(90.0.w), // 此处设置您想要的高度，例如 80.0
           child: AppBar(
             centerTitle: true, // 添加这一行
-            title: const Text('服务'),
-            titleTextStyle: TextStyle(fontSize: 32.0.w),
+            title: const Text('微信'),
+            titleTextStyle: TextStyle(fontSize: 32.w),
             backgroundColor: const Color.fromARGB(255, 247, 247, 247),
             foregroundColor: const Color.fromARGB(255, 247, 247, 247),
           ),
         ),
-        body: NotificationListener(
-            onNotification: (ScrollNotification notification) {
-              if (notification is ScrollEndNotification) {
-                print('NotificationListener onNotification: ${notification.dragDetails?.primaryVelocity}');
-              }
-              return false;
-            },
-            child: SingleChildScrollView(
-                // scrollDirection: Axis.vertical,
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                child: Column(children: [
-                  Container(
-                      // height: MediaQuery.of(context).size.height,
-                      constraints:
-                          BoxConstraints(minHeight: screenSize.height - 107.w),
-                      color: const Color.fromARGB(255, 237, 237, 237),
-                      child: const Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            // 朋友圈
-                            FunctionView(chatItems: [
-                              FunctionItem(
-                                id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                title: "朋友圈",
-                                icon: "assets/images/icon/icon1.png",
-                                link: '',
-                                underline: false,
-                              )
-                            ]),
+        body: ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: ColoredBox(
+                color: const Color.fromARGB(255, 237, 237, 237),
+                child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(children: [
+                      // 朋友圈
+                      const FunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "朋友圈",
+                        icon: "assets/images/icon/icon1.png",
+                        link: '',
+                        underline: false,
+                      ),
+                      SizedBox(height: 16.w),
 
-                            // 视频号、直播
-                            FunctionView(chatItems: [
-                              FunctionItem(
-                                id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                title: "视频号",
-                                icon: "assets/images/icon/icon1.png",
-                                link: '',
-                                underline: true,
-                                showStyle: 1,
-                              ),
-                              FunctionItem(
-                                id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                title: "直播",
-                                icon: "assets/images/icon/icon1.png",
-                                link: '',
-                                underline: false,
-                                showStyle: 2,
-                              )
-                            ]),
+                      // 视频号、直播
+                      const FunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "视频号",
+                        icon: "assets/images/icon/icon1.png",
+                        link: '',
+                        underline: true,
+                        showStyle: 1,
+                      ),
+                      const FunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "直播",
+                        icon: "assets/images/icon/icon1.png",
+                        link: '',
+                        underline: false,
+                        showStyle: 2,
+                      ),
+                      SizedBox(height: 16.w),
 
-                            // 扫一扫、听一听
-                            FunctionView(chatItems: [
-                              FunctionItem(
-                                id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                title: "扫一扫",
-                                icon: "assets/images/icon/icon1.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              FunctionItem(
-                                id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                title: "听一听",
-                                icon: "assets/images/icon/icon1.png",
-                                link: '',
-                                underline: false,
-                              )
-                            ]),
+                      // 扫一扫、听一听
+                      const FunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "扫一扫",
+                        icon: "assets/images/icon/icon1.png",
+                        link: '',
+                        underline: true,
+                      ),
+                      const FunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "听一听",
+                        icon: "assets/images/icon/icon1.png",
+                        link: '',
+                        underline: false,
+                      ),
+                      SizedBox(height: 16.w),
 
-                            // 看一看、搜一搜
-                            FunctionView(chatItems: [
-                              FunctionItem(
-                                id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                title: "看一看",
-                                icon: "assets/images/icon/icon1.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              FunctionItem(
-                                id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                title: "搜一搜",
-                                icon: "assets/images/icon/icon1.png",
-                                link: '',
-                                underline: false,
-                              )
-                            ]),
+                      // 看一看、搜一搜
+                      const FunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "看一看",
+                        icon: "assets/images/icon/icon1.png",
+                        link: '',
+                        underline: true,
+                      ),
+                      const FunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "搜一搜",
+                        icon: "assets/images/icon/icon1.png",
+                        link: '',
+                        underline: false,
+                      ),
+                      SizedBox(height: 16.w),
 
-                            // 附近
-                            FunctionView(chatItems: [
-                              FunctionItem(
-                                id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                title: "附近",
-                                icon: "assets/images/icon/icon1.png",
-                                link: '',
-                                underline: false,
-                              ),
-                            ]),
+                      // 附近
+                      const FunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "附近",
+                        icon: "assets/images/icon/icon1.png",
+                        link: '',
+                        underline: false,
+                      ),
 
-                            // 购物、游戏
-                            FunctionView(chatItems: [
-                              FunctionItem(
-                                id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                title: "购物",
-                                icon: "assets/images/icon/icon1.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              FunctionItem(
-                                id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                title: "游戏",
-                                icon: "assets/images/icon/icon1.png",
-                                link: '',
-                                underline: true,
-                              )
-                            ]),
+                      SizedBox(height: 16.w),
 
-                            // 小程序
-                            FunctionView(chatItems: [
-                              FunctionItem(
-                                id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                title: "小程序",
-                                icon: "assets/images/icon/icon1.png",
-                                link: '',
-                                underline: false,
-                              ),
-                            ]),
-                          ]))
-                ]))));
-  }
-}
+                      // 购物、游戏
+                      const FunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "购物",
+                        icon: "assets/images/icon/icon1.png",
+                        link: '',
+                        underline: true,
+                      ),
+                      const FunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "游戏",
+                        icon: "assets/images/icon/icon1.png",
+                        link: '',
+                        underline: true,
+                      ),
+                      SizedBox(height: 16.w),
 
-class FunctionView extends StatefulWidget {
-  final List<FunctionItem> chatItems;
-
-  const FunctionView({super.key, required this.chatItems});
-
-  @override
-  State<FunctionView> createState() => _FunctionViewState();
-}
-
-class _FunctionViewState extends State<FunctionView> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: widget.chatItems.length * 105.0.w,
-      color: Colors.white,
-      margin: const EdgeInsets.only(bottom: 16).w,
-      child: ListView.builder(
-        itemCount: widget.chatItems.length,
-        itemBuilder: (context, index) {
-          return widget.chatItems[index];
-        },
-      ),
-    );
+                      // 小程序
+                      const FunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "小程序",
+                        icon: "assets/images/icon/icon1.png",
+                        link: '',
+                        underline: false,
+                      ),
+                    ])))));
   }
 }
 
@@ -211,48 +163,23 @@ class _FunctionItemState extends State<FunctionItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Listener(
-      // onTapDown: (tapDownDetails) {
-      //   setState(() {
-      //     isClicked = true;
-      //     containerColor = const Color.fromARGB(255, 229, 229, 229);
-      //   });
-      // },
-      // onTapCancel: () {
-      //   setState(() {
-      //     isClicked = false;
-      //     containerColor = Colors.white;
-      //     logger.info("取消点击");
-      //   });
-      // },
-      // onTapUp: (tapDownDetails) {
-      //   setState(() {
-      //     isClicked = false;
-      //     containerColor = Colors.white;
-
-      //     Navigator.pushNamed(context, '/services');
-      //   });
-      // },
-      onPointerMove: (PointerMoveEvent event) {
-        // 判断是否为垂直滚动方向的移动
-        if (event.delta.dy.abs() > event.delta.dx.abs()) {
-          // 将事件传递给父级的 SingleChildScrollView
-          print("aaaaaa");
-          GestureBinding.instance.pointerRouter.route(event);
-        } else {
-          // 处理您自己的水平方向的操作逻辑
-        }
-      },
-      onPointerDown: (event) {
+    return GestureDetector(
+      onTapDown: (tapDownDetails) {
         setState(() {
           containerColor = const Color.fromARGB(255, 229, 229, 229);
         });
       },
-      onPointerUp: (event) {
+      onTapCancel: () {
+        setState(() {
+          containerColor = Colors.white;
+          logger.info("取消点击");
+        });
+      },
+      onTapUp: (tapDownDetails) {
         setState(() {
           containerColor = Colors.white;
         });
-        // Navigator.pushNamed(context, '/services');
+        Navigator.pushNamed(context, '/services');
       },
       child: Container(
         height: 105.0.w,

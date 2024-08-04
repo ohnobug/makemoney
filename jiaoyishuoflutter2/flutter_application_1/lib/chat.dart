@@ -288,9 +288,9 @@ class ChatListViewState extends State<ChatListView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(90.0.w), // 此处设置您想要的高度，例如 80.0
+          preferredSize: Size.fromHeight(90.0.w),
           child: AppBar(
-            centerTitle: true, // 添加这一行
+            centerTitle: true,
             title: const Text('微信'),
             titleTextStyle: TextStyle(fontSize: 32.w),
             backgroundColor: const Color.fromARGB(255, 247, 247, 247),
@@ -301,6 +301,7 @@ class ChatListViewState extends State<ChatListView> {
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
               itemCount: chatItems.length,
               itemBuilder: (context, index) {
                 return chatItems[index];
@@ -358,24 +359,24 @@ class _ChatListItem extends State<ChatListItem> {
           color: _isPressed
               ? const Color.fromARGB(255, 229, 229, 229)
               : Colors.transparent,
-          height: 69.0,
-          padding: const EdgeInsets.only(left: 15.0),
+          height: 117.0.w,
+          padding: const EdgeInsets.only(left: 30.0).w,
           child: Row(
             children: [
               // 头像
               Container(
-                width: 50.0,
-                height: 50.0,
+                width: 90.0.w,
+                height: 90.0.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(8).w,
                   image: DecorationImage(
                     image: NetworkImage(widget.avatar),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 23.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -386,11 +387,11 @@ class _ChatListItem extends State<ChatListItem> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // 好友名称
-                        Flexible(
+                        Expanded(
                           child: Text(
                             widget.friendName,
                             style: TextStyle(
-                              fontSize: 16.0,
+                              fontSize: 30.0.w,
                               color: widget.notice ? Colors.red : Colors.black,
                             ),
                             maxLines: 1,
@@ -398,40 +399,42 @@ class _ChatListItem extends State<ChatListItem> {
                           ),
                         ),
                         // 日期
-                        Container(
-                          padding: const EdgeInsets.only(right: 15.0),
-                          child: Text(
-                            '17:25',
-                            style: TextStyle(
-                              fontSize: 11.0,
-                              color: widget.notice ? Colors.red : Colors.black,
-                            ),
+                        Text(
+                          '17:25',
+                          style: TextStyle(
+                            fontSize: 18.0.w,
+                            color: widget.notice ? Colors.red : const Color.fromARGB(255, 175, 175, 175),
                           ),
+                        ),
+                        SizedBox(
+                          width: 30.w,
                         )
                       ],
                     ),
-                    const SizedBox(height: 5),
+
+                    SizedBox(height: 12.w),
+
                     // 好友消息
                     Row(
                       children: [
-                        Flexible(
+                        Expanded(
                           child: Text(
                             widget.message,
-                            style: const TextStyle(
-                              fontSize: 11.5,
-                              color: Color.fromARGB(255, 115, 115, 115),
+                            style: TextStyle(
+                              fontSize: 25.w,
+                              color: const Color.fromARGB(255, 175, 175, 175),
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         if (widget.notice) ...[
-                          const SizedBox(width: 5),
-                          const Icon(
-                            Icons.notifications_active,
-                            size: 16.0,
-                            color: Colors.red,
+                          Icon(
+                            Icons.notifications_off_outlined,
+                            size: 25.0.w,
+                            color: const Color.fromARGB(255, 175, 175, 175),
                           ),
+                          SizedBox(width: 30.w),
                         ]
                       ],
                     ),
