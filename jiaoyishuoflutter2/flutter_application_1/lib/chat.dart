@@ -433,7 +433,7 @@ class _ChatListItem extends State<ChatListItem> {
                           ),
                         ),
 
-                        // if (widget.notice) ...[
+                        if (widget.notice) ...[
                         Container(
                           padding: EdgeInsets.only(right: 30.w),
                           child: Icon(
@@ -442,7 +442,7 @@ class _ChatListItem extends State<ChatListItem> {
                             color: const Color.fromARGB(255, 175, 175, 175),
                           ),
                         ),
-                        // ]
+                        ]
                       ],
                     ),
                   ],

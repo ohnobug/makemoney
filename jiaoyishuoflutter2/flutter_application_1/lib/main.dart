@@ -147,10 +147,10 @@ class _CustomTabbarState extends State<CustomTabbar>
     _tabController.animation!.addListener(() {
 
       if (_tabController.animation!.value == 1) {
-        logger.info("来了");
+        // logger.info("来了");
         store.dispatch({"type": "mainAnimation", "payload": true});
       } else {
-        logger.info("走了");
+        // logger.info("走了");
         store.dispatch({"type": "mainAnimation", "payload": false});
       }
 
@@ -261,6 +261,7 @@ class _CustomTabbarState extends State<CustomTabbar>
         bottomNavigationBar: ColoredBox(
           color: const Color.fromARGB(255, 247, 247, 247),
           child: TabBar(
+            // physics: const NeverScrollableScrollPhysics(),
             dividerColor: const Color.fromARGB(255, 218, 218, 218),
             labelColor: const Color.fromARGB(255, 43, 174, 106),
             unselectedLabelColor: const Color.fromARGB(255, 0, 0, 0),

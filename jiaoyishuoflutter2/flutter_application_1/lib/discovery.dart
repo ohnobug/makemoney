@@ -17,7 +17,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
           preferredSize: Size.fromHeight(90.0.w), // 此处设置您想要的高度，例如 80.0
           child: AppBar(
             centerTitle: true, // 添加这一行
-            title: const Text('微信'),
+            title: const Text('发现'),
             titleTextStyle: TextStyle(fontSize: 32.w),
             backgroundColor: const Color.fromARGB(255, 247, 247, 247),
             // foregroundColor: const Color.fromARGB(255, 247, 247, 247),
@@ -189,8 +189,8 @@ class _FunctionItemState extends State<FunctionItem> {
           children: [
             // 头像
             Container(
-              width: 45.0.w,
-              height: 45.0.w,
+              width: 43.0.w,
+              height: 43.0.w,
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                 // borderRadius: BorderRadius.circular(10),
