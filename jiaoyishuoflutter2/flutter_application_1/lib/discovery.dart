@@ -20,7 +20,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
             title: const Text('微信'),
             titleTextStyle: TextStyle(fontSize: 32.w),
             backgroundColor: const Color.fromARGB(255, 247, 247, 247),
-            foregroundColor: const Color.fromARGB(255, 247, 247, 247),
+            // foregroundColor: const Color.fromARGB(255, 247, 247, 247),
           ),
         ),
         body: ScrollConfiguration(
@@ -243,7 +243,8 @@ class _FunctionItemState extends State<FunctionItem> {
                       Flexible(
                           flex: 1,
                           child: Container(
-                              padding: const EdgeInsets.only(right: 20).w,
+                              padding:
+                                  const EdgeInsets.only(right: 28, left: 28).w,
                               // color: Colors.red,
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -259,15 +260,18 @@ class _FunctionItemState extends State<FunctionItem> {
                                           fit: BoxFit.cover,
                                         )),
                                     SizedBox(
-                                      width: 20.w,
+                                      width: 14.w,
                                     ),
-                                    Text(
+                                    Flexible(
+                                        child: Text(
                                       "爱八方集团💖陈翠",
                                       style: TextStyle(
                                           fontSize: 26.w,
                                           color: const Color.fromARGB(
                                               255, 80, 80, 80)),
-                                    ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    )),
                                     Text(
                                       " 最近💖",
                                       style: TextStyle(
@@ -281,21 +285,26 @@ class _FunctionItemState extends State<FunctionItem> {
                       Flexible(
                           flex: 1,
                           child: Container(
-                              padding: const EdgeInsets.only(right: 20).w,
+                              padding:
+                                  const EdgeInsets.only(left: 28, right: 28).w,
                               // color: Colors.red,
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      "小歪今天穿什么直播中",
-                                      style: TextStyle(
-                                          fontSize: 26.w,
-                                          color: const Color.fromARGB(
-                                              255, 80, 80, 80)),
+                                    Flexible(
+                                      child: Text(
+                                        "小歪今天穿什么直播中",
+                                        style: TextStyle(
+                                            fontSize: 26.w,
+                                            color: const Color.fromARGB(
+                                                255, 80, 80, 80)),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                                     SizedBox(
-                                      width: 20.w,
+                                      width: 14.w,
                                     ),
                                     ClipRRect(
                                         borderRadius:

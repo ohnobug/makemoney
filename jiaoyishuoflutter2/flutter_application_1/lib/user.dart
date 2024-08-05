@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'provider.dart';
-import 'package:provider/provider.dart';
+// import 'provider.dart';
+// import 'package:provider/provider.dart';
 
 class LJNUserPage extends StatefulWidget {
   const LJNUserPage({super.key});
@@ -28,15 +28,15 @@ class _LJNUserPageState extends State<LJNUserPage> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    final theme = Provider.of<ThemeProvider>(context).themeData;
+    // final theme = Provider.of<ThemeProvider>(context).themeData;
 
     return Scaffold(
       appBar: null,
-      body: _show ? _buildUserInfo(theme, screenSize) : const LJNLoading(),
+      body: _show ? _buildUserInfo(screenSize) : const LJNLoading(),
     );
   }
 
-  Widget _buildUserInfo(ThemeData theme, Size screenSize) {
+  Widget _buildUserInfo(Size screenSize) {
     return ColoredBox(
         color: const Color.fromARGB(255, 237, 237, 237),
         child: ScrollConfiguration(
@@ -46,7 +46,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                 physics: const BouncingScrollPhysics(),
                 child: Container(
                     constraints: BoxConstraints(
-                      minHeight: screenSize.height - 106.w,
+                      minHeight: screenSize.height - 115.w,
                     ),
                     color: const Color.fromARGB(255, 237, 237, 237),
                     child: Column(

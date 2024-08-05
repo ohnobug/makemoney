@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4424280",
+      "name": "收付款",
+      "font_class": "shoufukuan1",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "24268440",
+      "name": "钱包1-线型",
+      "font_class": "qianbao1-xianxing",
+      "unicode": "e6e4",
+      "unicode_decimal": 59108
+    },
+    {
       "icon_id": "11882837",
       "name": "bg-compass",
       "font_class": "bg-compass",

@@ -22,7 +22,7 @@ class _ServicesState extends State<Services> {
             title: const Text('服务'),
             titleTextStyle: TextStyle(fontSize: 32.w),
             backgroundColor: const Color.fromARGB(255, 247, 247, 247),
-            foregroundColor: const Color.fromARGB(255, 247, 247, 247),
+            // foregroundColor: const Color.fromARGB(255, 247, 247, 247),
           ),
         ),
         body: ColoredBox(
@@ -34,7 +34,7 @@ class _ServicesState extends State<Services> {
                     physics: const BouncingScrollPhysics(),
                     child: Container(
                       constraints:
-                          BoxConstraints(minHeight: screenSize.height - 106.w),
+                          BoxConstraints(minHeight: screenSize.height - 115.w),
                       color: const Color.fromARGB(255, 237, 237, 237),
                       child: Column(
                         children: [
@@ -51,7 +51,10 @@ class _ServicesState extends State<Services> {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 CollectionAndPayment(
-                                  icon: Icons.aspect_ratio,
+                                  icon: const IconData(
+                                    0xe658,
+                                    fontFamily: 'Iconfont',
+                                  ),
                                   title: '收付款',
                                   subTitle: "",
                                   onPressed: () {
@@ -59,7 +62,10 @@ class _ServicesState extends State<Services> {
                                   },
                                 ),
                                 CollectionAndPayment(
-                                  icon: Icons.account_balance_wallet,
+                                  icon: const IconData(
+                                    0xe6e4,
+                                    fontFamily: 'Iconfont',
+                                  ),
                                   title: '钱包',
                                   subTitle: "¥ 5034593.36",
                                   onPressed: () {
@@ -75,33 +81,33 @@ class _ServicesState extends State<Services> {
                             title: '金融理财',
                             buttons: [
                               FunctionButton(
-                                icon: Icons.settings,
+                                icon: "images/icon/server_icon1.png",
                                 title: '信用卡还款',
                                 onPressed: () {
                                   logger.info('点击了信用卡还款按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.help,
+                                icon: "images/icon/server_icon2.png",
                                 title: '微粒贷借钱',
                                 onPressed: () {
                                   logger.info('点击了微粒贷借钱按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.feedback,
+                                icon: "images/icon/server_icon3.png",
                                 title: '理财通',
                                 onPressed: () {
                                   logger.info('点击了理财通按钮~~');
                                 },
                               ),
-                              FunctionButton(
-                                icon: Icons.share,
-                                title: '保险服务',
-                                onPressed: () {
-                                  logger.info('点击了保险服务按钮~~');
-                                },
-                              ),
+                              // FunctionButton(
+                              //   icon: "images/icon/server_icon4.png",
+                              //   title: '保险服务',
+                              //   onPressed: () {
+                              //     logger.info('点击了保险服务按钮~~');
+                              //   },
+                              // ),
                             ],
                           ),
 
@@ -110,42 +116,42 @@ class _ServicesState extends State<Services> {
                             title: '生活服务',
                             buttons: [
                               FunctionButton(
-                                icon: Icons.settings,
+                                icon: "images/icon/server_icon4.png",
                                 title: '手机充值',
                                 onPressed: () {
                                   logger.info('点击了手机充值按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.help,
+                                icon: "images/icon/server_icon5.png",
                                 title: '生活缴费',
                                 onPressed: () {
                                   logger.info('点击了生活缴费按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.feedback,
+                                icon: "images/icon/server_icon6.png",
                                 title: 'Q币充值',
                                 onPressed: () {
                                   logger.info('点击了Q币充值按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.share,
+                                icon: "images/icon/server_icon7.png",
                                 title: '城市服务',
                                 onPressed: () {
                                   logger.info('点击了城市服务按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.settings,
+                                icon: "images/icon/server_icon8.png",
                                 title: '腾讯公益',
                                 onPressed: () {
                                   logger.info('点击了腾讯公益按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.help,
+                                icon: "images/icon/server_icon9.png",
                                 title: '医疗健康',
                                 onPressed: () {
                                   logger.info('点击了医疗健康按钮~~');
@@ -159,28 +165,28 @@ class _ServicesState extends State<Services> {
                             title: '交通出行',
                             buttons: [
                               FunctionButton(
-                                icon: Icons.settings,
+                                icon: "images/icon/server_icon10.png",
                                 title: '出行服务',
                                 onPressed: () {
                                   logger.info('点击了出行服务按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.help,
+                                icon: "images/icon/server_icon11.png",
                                 title: '火车票机票',
                                 onPressed: () {
                                   logger.info('点击了火车票机票按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.feedback,
+                                icon: "images/icon/server_icon12.png",
                                 title: '滴滴出行',
                                 onPressed: () {
                                   logger.info('点击了滴滴出行按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.share,
+                                icon: "images/icon/server_icon122.png",
                                 title: '酒店',
                                 onPressed: () {
                                   logger.info('点击了酒店按钮~~');
@@ -194,56 +200,56 @@ class _ServicesState extends State<Services> {
                             title: '购物消费',
                             buttons: [
                               FunctionButton(
-                                icon: Icons.settings,
+                                icon: "images/icon/server_icon13.png",
                                 title: '品牌发现',
                                 onPressed: () {
                                   logger.info('点击了品牌发现按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.help,
+                                icon: "images/icon/server_icon14.png",
                                 title: '京东购物',
                                 onPressed: () {
                                   logger.info('点击了京东购物按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.feedback,
+                                icon: "images/icon/server_icon15.png",
                                 title: '美团外卖',
                                 onPressed: () {
                                   logger.info('点击了美团外卖按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.share,
+                                icon: "images/icon/server_icon16.png",
                                 title: '电影演出玩乐',
                                 onPressed: () {
                                   logger.info('点击了电影演出玩乐按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.settings,
+                                icon: "images/icon/server_icon17.png",
                                 title: '美团特价',
                                 onPressed: () {
                                   logger.info('点击了美团特价按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.help,
+                                icon: "images/icon/server_icon18.png",
                                 title: '拼多多',
                                 onPressed: () {
                                   logger.info('点击了拼多多按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.feedback,
+                                icon: "images/icon/server_icon19.png",
                                 title: '唯品会特卖',
                                 onPressed: () {
                                   logger.info('点击了唯品会特卖按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: Icons.share,
+                                icon: "images/icon/server_icon20.png",
                                 title: '转转二手',
                                 onPressed: () {
                                   logger.info('点击了转转二手按钮~~');
@@ -303,39 +309,41 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
         decoration: BoxDecoration(
           color: _isPressed
               ? const Color.fromARGB(255, 39, 155, 94)
-              : Colors.transparent, // 按下时背景色
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(16.0).w,
         ),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(widget.icon, size: 80.w, color: Colors.white),
+              Icon(widget.icon, size: 70.w, color: Colors.white),
 
-              SizedBox(height: 10.w),
+              SizedBox(height: 15.w),
 
               // 钱包、收付款
               Text(
                 widget.title,
                 maxLines: 1,
                 style: TextStyle(
+                    // fontWeight: FontWeight.w100,
                     decoration: TextDecoration.none,
                     color: Colors.white,
-                    fontSize: 32.0.w,
+                    fontSize: 30.0.w,
                     overflow: TextOverflow.ellipsis),
               ),
 
-              SizedBox(height: 0.w),
+              SizedBox(height: 3.w),
 
               // 余额
               Text(
                 widget.subTitle,
                 maxLines: 1,
                 style: TextStyle(
-                    decoration: TextDecoration.none,
-                    color: const Color.fromARGB(198, 255, 255, 255),
-                    fontSize: 24.0.w,
-                    overflow: TextOverflow.ellipsis),
+                  decoration: TextDecoration.none,
+                  color: const Color.fromARGB(198, 255, 255, 255),
+                  fontSize: 25.0.w,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),
@@ -346,7 +354,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
 }
 
 class FunctionButton extends StatefulWidget {
-  final IconData icon;
+  final String icon;
   final String title;
   final VoidCallback onPressed;
 
@@ -394,12 +402,12 @@ class FunctionButtonState extends State<FunctionButton> {
           child: Column(
             mainAxisSize: MainAxisSize.min, // 使按钮大小适应内容
             children: [
-              Icon(
+              Image.asset(
                 widget.icon,
-                size: 60.w,
-                // color: Colors.blue
+                width: 60.w,
+                height: 60.w,
               ), // 图标颜色
-              SizedBox(height: 8.w), // 图标和标题之间的间距
+              SizedBox(height: 10.w), // 图标和标题之间的间距
               Text(
                 widget.title,
                 maxLines: 1,
@@ -446,17 +454,15 @@ class FunctionButtonsSection extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                      height: 80.w,
-                      padding: const EdgeInsets.only(left: 16).w,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            title,
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                        ],
+                      // height: 80.w,
+                      // color: Colors.amber,
+                      padding:
+                          const EdgeInsets.only(top: 33, bottom: 0, left: 30).w,
+                      child: Text(
+                        title,
+                        style: TextStyle(
+                            fontSize: 25.w,
+                            color: const Color.fromARGB(255, 87, 87, 87)),
                       )),
                 ),
               ],

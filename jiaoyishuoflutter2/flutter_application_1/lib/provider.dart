@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 // 主题数据
 final ThemeData lightTheme = ThemeData(
   useMaterial3: true,
-  tabBarTheme: const TabBarTheme(
-
-  ),
+  tabBarTheme: const TabBarTheme(),
   colorScheme: const ColorScheme.light(
     primaryContainer: Colors.white,
     primary: Colors.black,
@@ -33,6 +31,16 @@ class ThemeProvider with ChangeNotifier {
 
   void setTheme(ThemeData themeData) {
     _themeData = themeData;
+    notifyListeners();
+  }
+
+  // 切换动画
+  bool _isCompleted = false;
+
+  bool get isCompleted => _isCompleted;
+
+  void setIsCompleted(bool value) {
+    _isCompleted = value;
     notifyListeners();
   }
 }

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ChatListView extends StatefulWidget {
-  const ChatListView({super.key});
+class LJNChatListView extends StatefulWidget {
+  const LJNChatListView({super.key});
 
   @override
   ChatListViewState createState() => ChatListViewState();
 }
 
-class ChatListViewState extends State<ChatListView> {
+class ChatListViewState extends State<LJNChatListView> {
   final List<ChatListItem> chatItems = [
     ChatListItem(
         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
@@ -294,7 +294,7 @@ class ChatListViewState extends State<ChatListView> {
             title: const Text('微信'),
             titleTextStyle: TextStyle(fontSize: 32.w),
             backgroundColor: const Color.fromARGB(255, 247, 247, 247),
-            foregroundColor: const Color.fromARGB(255, 247, 247, 247),
+            // foregroundColor: const Color.fromARGB(255, 247, 247, 247),
           ),
         ),
         body: ScrollConfiguration(
@@ -369,7 +369,7 @@ class _ChatListItem extends State<ChatListItem> {
                 height: 90.0.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(8).w,
+                  borderRadius: BorderRadius.circular(10).w,
                   image: DecorationImage(
                     image: NetworkImage(widget.avatar),
                     fit: BoxFit.cover,
@@ -402,8 +402,10 @@ class _ChatListItem extends State<ChatListItem> {
                         Text(
                           '17:25',
                           style: TextStyle(
-                            fontSize: 18.0.w,
-                            color: widget.notice ? Colors.red : const Color.fromARGB(255, 175, 175, 175),
+                            fontSize: 21.0.w,
+                            color: widget.notice
+                                ? Colors.red
+                                : const Color.fromARGB(255, 175, 175, 175),
                           ),
                         ),
                         SizedBox(
@@ -412,30 +414,35 @@ class _ChatListItem extends State<ChatListItem> {
                       ],
                     ),
 
-                    SizedBox(height: 12.w),
+                    SizedBox(height: 15.w),
 
                     // 好友消息
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
+                        SizedBox(
+                          width: 460.w,
                           child: Text(
                             widget.message,
                             style: TextStyle(
-                              fontSize: 25.w,
+                              fontSize: 23.w,
                               color: const Color.fromARGB(255, 175, 175, 175),
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        if (widget.notice) ...[
-                          Icon(
+
+                        // if (widget.notice) ...[
+                        Container(
+                          padding: EdgeInsets.only(right: 30.w),
+                          child: Icon(
                             Icons.notifications_off_outlined,
-                            size: 25.0.w,
+                            size: 26.0.w,
                             color: const Color.fromARGB(255, 175, 175, 175),
                           ),
-                          SizedBox(width: 30.w),
-                        ]
+                        ),
+                        // ]
                       ],
                     ),
                   ],
