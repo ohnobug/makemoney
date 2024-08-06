@@ -268,18 +268,6 @@ class _CustomTabbarState extends State<CustomTabbar>
       );
     }
 
-    // 用户页面的tabbar背景颜色调控
-    Color appBarBackgroundColor = const Color.fromARGB(255, 247, 247, 247);
-    if (changeIcon == 3) {
-      if (store.state.mainpage4isload!) {
-        appBarBackgroundColor = Colors.white;
-      } else {
-        appBarBackgroundColor = const Color.fromARGB(255, 237, 237, 237);
-      }
-    } else {
-      appBarBackgroundColor = const Color.fromARGB(255, 247, 247, 247);
-    }
-
     return Scaffold(
         bottomNavigationBar: ColoredBox(
           color: const Color.fromARGB(255, 247, 247, 247),
@@ -287,7 +275,7 @@ class _CustomTabbarState extends State<CustomTabbar>
             // physics: const NeverScrollableScrollPhysics(),
             dividerColor: const Color.fromARGB(255, 218, 218, 218),
             labelColor: const Color.fromARGB(255, 43, 174, 106),
-            unselectedLabelColor: const Color.fromARGB(255, 0, 0, 0),
+            unselectedLabelColor: const Color.fromARGB(222, 0, 0, 0),
             indicator: const BoxDecoration(),
             indicatorColor: Colors.transparent,
             // indicatorWeight: 30,
@@ -318,58 +306,64 @@ class _CustomTabbarState extends State<CustomTabbar>
             ],
           ),
         ),
-        body: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(90.0.w),
-              child: AppBar(
-                centerTitle: true,
-                title: title,
-                titleTextStyle: TextStyle(fontSize: 32.w),
-                backgroundColor: appBarBackgroundColor,
-                primary: true,
-                actions: [
-                  if (changeIcon != 3) ...[
-                    IconButton(
-                      icon: Icon(
-                          size: 37.w,
-                          const IconData(
-                            0xe612,
-                            fontFamily: 'Iconfont',
-                          )),
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      padding: const EdgeInsets.only(right: 40.0).w,
-                      onPressed: () {
-                        // 处理搜索按钮的点击事件
-                      },
+        body: StoreConnector<StoreType, StoreType>(
+            converter: (store) => store.state,
+            builder: (context, state) {
+              return Scaffold(
+                  appBar: PreferredSize(
+                    preferredSize: Size.fromHeight(90.0.w),
+                    child: AppBar(
+                      centerTitle: true,
+                      title: title,
+                      titleTextStyle: TextStyle(fontSize: 32.w),
+                      backgroundColor: changeIcon == 3 && state.mainpage4isload!
+                          ? Colors.white
+                          : const Color.fromARGB(255, 237, 237, 237),
+                      primary: true,
+                      actions: [
+                        if (changeIcon != 3) ...[
+                          IconButton(
+                            icon: Icon(
+                                size: 37.w,
+                                const IconData(
+                                  0xe612,
+                                  fontFamily: 'Iconfont',
+                                )),
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
+                            padding: const EdgeInsets.only(right: 40.0).w,
+                            onPressed: () {
+                              // 处理搜索按钮的点击事件
+                            },
+                          ),
+                          IconButton(
+                            icon: Icon(
+                                size: 37.w,
+                                const IconData(
+                                  0xe726,
+                                  fontFamily: 'Iconfont',
+                                )),
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
+                            padding: const EdgeInsets.only(right: 33.0).w,
+                            onPressed: () {
+                              // 处理设置按钮的点击事件
+                            },
+                          ),
+                        ]
+                      ],
                     ),
-                    IconButton(
-                      icon: Icon(
-                          size: 37.w,
-                          const IconData(
-                            0xe726,
-                            fontFamily: 'Iconfont',
-                          )),
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      padding: const EdgeInsets.only(right: 33.0).w,
-                      onPressed: () {
-                        // 处理设置按钮的点击事件
-                      },
-                    ),
-                  ]
-                ],
-              ),
-            ),
-            body: TabBarView(
-              // physics: new NeverScrollableScrollPhysics(),
-              controller: _tabController,
-              children: const <Widget>[
-                LJNChatListView(),
-                LJNContactPage(),
-                LJNDiscoveryPage(),
-                LJNUserPage(),
-              ],
-            )));
+                  ),
+                  body: TabBarView(
+                    // physics: new NeverScrollableScrollPhysics(),
+                    controller: _tabController,
+                    children: const <Widget>[
+                      LJNChatListView(),
+                      LJNContactPage(),
+                      LJNDiscoveryPage(),
+                      LJNUserPage(),
+                    ],
+                  ));
+            }));
   }
 }

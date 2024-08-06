@@ -87,7 +87,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
                               children: [
                                 Text(
                                   "A",
-                                  style: TextStyle(fontSize: 17.w),
+                                  style: TextStyle(fontSize: 20.w),
                                 ),
                               ],
                             )),
@@ -205,7 +205,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
                               children: [
                                 Text(
                                   "B",
-                                  style: TextStyle(fontSize: 17.w),
+                                  style: TextStyle(fontSize: 20.w),
                                 ),
                               ],
                             )),
