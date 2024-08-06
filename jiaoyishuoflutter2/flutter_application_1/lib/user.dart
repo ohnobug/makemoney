@@ -16,7 +16,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(hours: 300), () {
+    Future.delayed(const Duration(milliseconds: 300), () {
       myStore.dispatch({"type": "mainpage4isload", "payload": true});
     });
   }

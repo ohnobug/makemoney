@@ -141,7 +141,9 @@ class _CustomTabbarState extends State<CustomTabbar>
 
     store = StoreProvider.of<StoreType>(context, listen: false);
 
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController =
+        TabController(length: 4, vsync: this, animationDuration: Duration.zero);
+
     _tabController.animation!.addListener(() {
       if (_tabController.animation!.value == 1) {
         // logger.info("来了");
@@ -270,7 +272,7 @@ class _CustomTabbarState extends State<CustomTabbar>
     Color appBarBackgroundColor = const Color.fromARGB(255, 247, 247, 247);
     if (changeIcon == 3) {
       if (store.state.mainpage4isload!) {
-        appBarBackgroundColor = const Color.fromARGB(255, 247, 247, 247);
+        appBarBackgroundColor = Colors.white;
       } else {
         appBarBackgroundColor = const Color.fromARGB(255, 237, 237, 237);
       }
