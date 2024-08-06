@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/pageloading.dart';
 import 'package:flutter_application_1/logger.dart';
+import 'package:flutter_application_1/store.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'provider.dart';
-// import 'package:provider/provider.dart';
 
 class LJNUserPage extends StatefulWidget {
   const LJNUserPage({super.key});
@@ -12,31 +13,27 @@ class LJNUserPage extends StatefulWidget {
 }
 
 class _LJNUserPageState extends State<LJNUserPage> {
-  bool _show = false;
-
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
-      setState(() {
-        _show = true;
-      });
+    Future.delayed(const Duration(hours: 300), () {
+      myStore.dispatch({"type": "mainpage4isload", "payload": true});
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-
-    // final theme = Provider.of<ThemeProvider>(context).themeData;
-
-    return Scaffold(
-      appBar: null,
-      body: _show ? _buildUserInfo(screenSize) : const LJNLoading(),
-    );
+    return StoreConnector<StoreType, StoreType>(
+        converter: (store) => store.state,
+        builder: (context, vm) {
+          return vm.mainpage4isload! ? _buildPage() : const LJNPageLoading();
+        });
   }
 
-  Widget _buildUserInfo(Size screenSize) {
+  // 另起一个函数方便管理
+  Widget _buildPage() {
+    Size screenSize = MediaQuery.of(context).size;
+
     return ColoredBox(
         color: const Color.fromARGB(255, 237, 237, 237),
         child: ScrollConfiguration(
@@ -46,7 +43,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                 physics: const BouncingScrollPhysics(),
                 child: Container(
                     constraints: BoxConstraints(
-                      minHeight: screenSize.height - 115.w,
+                      minHeight: screenSize.height - 205.w,
                     ),
                     color: const Color.fromARGB(255, 237, 237, 237),
                     child: Column(
@@ -56,7 +53,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                           Container(
                             color: Colors.white,
                             padding: const EdgeInsets.only(
-                                    top: 56, left: 32, right: 32, bottom: 50)
+                                    top: 30, left: 32, right: 32, bottom: 50)
                                 .w,
                             margin: const EdgeInsets.only(bottom: 16).w,
                             child: Row(
@@ -390,17 +387,6 @@ class _LJNStatusButton extends State<LJNStatusButton> {
   }
 }
 
-class LJNLoading extends StatelessWidget {
-  const LJNLoading({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-}
-
 // 功能列表
 class FunctionItem extends StatefulWidget {
   final String id;
@@ -458,8 +444,8 @@ class _FunctionItemState extends State<FunctionItem> {
           children: [
             // 头像
             Container(
-              width: 43.0.w,
-              height: 43.0.w,
+              width: 40.0.w,
+              height: 40.0.w,
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                 // borderRadius: BorderRadius.circular(10),

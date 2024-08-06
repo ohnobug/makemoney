@@ -1,15 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/pageloading.dart';
 import 'package:flutter_application_1/logger.dart';
+import 'package:flutter_application_1/store.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LJNChatListView extends StatefulWidget {
   const LJNChatListView({super.key});
 
   @override
-  ChatListViewState createState() => ChatListViewState();
+  State<LJNChatListView> createState() => _ChatListViewState();
 }
 
-class ChatListViewState extends State<LJNChatListView> {
+class _ChatListViewState extends State<LJNChatListView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 300), () {
+      myStore.dispatch({"type": "mainpage1isload", "payload": true});
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreConnector<StoreType, StoreType>(
+        converter: (store) => store.state,
+        builder: (context, vm) {
+          return vm.mainpage1isload! ? _buildPage() : const LJNPageLoading();
+        });
+  }
+
   final List<ChatListItem> chatItems = [
     ChatListItem(
         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
@@ -284,29 +304,16 @@ class ChatListViewState extends State<LJNChatListView> {
     ),
   ];
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(90.0.w),
-          child: AppBar(
-            centerTitle: true,
-            title: const Text('微信'),
-            titleTextStyle: TextStyle(fontSize: 32.w),
-            backgroundColor: const Color.fromARGB(255, 247, 247, 247),
-            // foregroundColor: const Color.fromARGB(255, 247, 247, 247),
-          ),
-        ),
-        body: ScrollConfiguration(
-            behavior:
-                ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: chatItems.length,
-              itemBuilder: (context, index) {
-                return chatItems[index];
-              },
-            )));
+  Widget _buildPage() {
+    return ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: chatItems.length,
+          itemBuilder: (context, index) {
+            return chatItems[index];
+          },
+        ));
   }
 }
 
@@ -432,16 +439,15 @@ class _ChatListItem extends State<ChatListItem> {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-
                         if (widget.notice) ...[
-                        Container(
-                          padding: EdgeInsets.only(right: 30.w),
-                          child: Icon(
-                            Icons.notifications_off_outlined,
-                            size: 26.0.w,
-                            color: const Color.fromARGB(255, 175, 175, 175),
+                          Container(
+                            padding: EdgeInsets.only(right: 30.w),
+                            child: Icon(
+                              Icons.notifications_off_outlined,
+                              size: 26.0.w,
+                              color: const Color.fromARGB(255, 175, 175, 175),
+                            ),
                           ),
-                        ),
                         ]
                       ],
                     ),

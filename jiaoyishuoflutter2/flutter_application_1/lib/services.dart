@@ -34,7 +34,7 @@ class _ServicesState extends State<Services> {
                     physics: const BouncingScrollPhysics(),
                     child: Container(
                       constraints:
-                          BoxConstraints(minHeight: screenSize.height - 115.w),
+                          BoxConstraints(minHeight: screenSize.height - 205.w),
                       color: const Color.fromARGB(255, 237, 237, 237),
                       child: Column(
                         children: [

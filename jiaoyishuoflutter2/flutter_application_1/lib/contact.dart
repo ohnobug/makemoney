@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/components/pageloading.dart';
 import 'package:flutter_application_1/logger.dart';
 import 'package:flutter_application_1/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:redux/redux.dart';
 
 class LJNContactPage extends StatefulWidget {
   const LJNContactPage({super.key});
@@ -14,379 +14,378 @@ class LJNContactPage extends StatefulWidget {
 
 class _LJNContactPageState extends State<LJNContactPage> {
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 300), () {
+      myStore.dispatch({"type": "mainpage2isload", "payload": true});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Store<bool> store = StoreProvider.of<bool>(context, listen: false);
+    return StoreConnector<StoreType, StoreType>(
+        converter: (store) => store.state,
+        builder: (context, vm) {
+          return vm.mainpage2isload! ? _buildPage() : const LJNPageLoading();
+        });
+  }
 
-    return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(90.0.w),
-          child: AppBar(
-            centerTitle: true,
-            title: const Text('通信录'),
-            titleTextStyle: TextStyle(fontSize: 32.w),
-            backgroundColor: const Color.fromARGB(255, 247, 247, 247),
-            foregroundColor: const Color.fromARGB(255, 247, 247, 247),
-          ),
-        ),
-        body: Stack(children: [
-          Positioned.fill(
-              child: ColoredBox(
-                  color: const Color.fromARGB(255, 237, 237, 237),
-                  child: ScrollConfiguration(
-                      behavior: ScrollConfiguration.of(context)
-                          .copyWith(scrollbars: false),
-                      child: SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        child: Column(
-                          children: [
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "新的朋友",
-                              icon: "assets/images/avatar/chat_1.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "仅聊天的朋友",
-                              icon: "assets/images/avatar/chat_2.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "群聊",
-                              icon: "assets/images/avatar/chat_3.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "标签",
-                              icon: "assets/images/avatar/chat_4.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "公众号",
-                              icon: "assets/images/avatar/chat_5.jpg",
-                              link: '',
-                              underline: false,
-                            ),
-                            Container(
-                                height: 60.w,
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                padding: EdgeInsets.only(left: 30.w),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "A",
-                                      style: TextStyle(fontSize: 17.w),
-                                    ),
-                                  ],
-                                )),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "天空飘来五个字那都不是事",
-                              icon: "assets/images/avatar/chat_1.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "本因",
-                              icon: "assets/images/avatar/chat_10.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "赵洵",
-                              icon: "assets/images/avatar/chat_11.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "定静师太",
-                              icon: "assets/images/avatar/chat_12.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "李秋水",
-                              icon: "assets/images/avatar/chat_13.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "谭婆",
-                              icon: "assets/images/avatar/chat_14.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "李傀儡",
-                              icon: "assets/images/avatar/chat_15.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "貂禅",
-                              icon: "assets/images/avatar/chat_16.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "何三七",
-                              icon: "assets/images/avatar/chat_17.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "孔融",
-                              icon: "assets/images/avatar/chat_18.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "齐堂主",
-                              icon: "assets/images/avatar/chat_19.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "博尔术",
-                              icon: "assets/images/avatar/chat_20.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "王语嫣",
-                              icon: "assets/images/avatar/chat_21.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "秦红棉",
-                              icon: "assets/images/avatar/chat_22.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "天竺僧人",
-                              icon: "assets/images/avatar/chat_23.jpg",
-                              link: '',
-                              underline: false,
-                            ),
-                            Container(
-                                height: 60.w,
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                padding: EdgeInsets.only(left: 30.w),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "B",
-                                      style: TextStyle(fontSize: 17.w),
-                                    ),
-                                  ],
-                                )),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "段延庆",
-                              icon: "assets/images/avatar/chat_33.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "令狐冲",
-                              icon: "assets/images/avatar/chat_34.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "英白罗",
-                              icon: "assets/images/avatar/chat_35.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "黄药师",
-                              icon: "assets/images/avatar/chat_36.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "李煜",
-                              icon: "assets/images/avatar/chat_37.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "云中鹤",
-                              icon: "assets/images/avatar/chat_38.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "劳德诺",
-                              icon: "assets/images/avatar/chat_39.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "包惜弱",
-                              icon: "assets/images/avatar/chat_40.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "游驹",
-                              icon: "assets/images/avatar/chat_41.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "钟万仇",
-                              icon: "assets/images/avatar/chat_42.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "渔人",
-                              icon: "assets/images/avatar/chat_43.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "单叔山",
-                              icon: "assets/images/avatar/chat_44.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "段誉",
-                              icon: "assets/images/avatar/chat_45.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "林震南",
-                              icon: "assets/images/avatar/chat_46.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            const ContactInformation(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                              title: "商鞅",
-                              icon: "assets/images/avatar/chat_47.jpg",
-                              link: '',
-                              underline: true,
-                            ),
-                            Container(
-                              width: double.infinity,
-                              height: 105.0.w,
-                              color: Colors.white,
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "2个朋友",
-                                      style: TextStyle(
-                                          fontSize: 30.w,
-                                          color: const Color.fromARGB(
-                                              255, 125, 125, 125)),
-                                    ),
-                                  ]),
-                            )
-                          ],
+  // 另起一个函数方便管理
+  Widget _buildPage() {
+    return Stack(children: [
+      Positioned.fill(
+          child: ColoredBox(
+              color: const Color.fromARGB(255, 237, 237, 237),
+              child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context)
+                      .copyWith(scrollbars: false),
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(
+                      children: [
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "新的朋友",
+                          icon: "assets/images/avatar/chat_1.jpg",
+                          link: '',
+                          underline: true,
                         ),
-                      )))),
-          // if (store.state)
-
-          StoreConnector<bool, bool>(
-            converter: (store) => store.state,
-            builder: (context, count) {
-              return Positioned(
-                  right: 0,
-                  top: 0,
-                  child: Visibility(
-                      visible: count,
-                      child: SizedBox(
-                        width: 40.w,
-                        height:
-                            MediaQuery.of(context).size.height - 115.w - 75.w,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 34.w,
-                              child: Icon(Icons.arrow_upward,
-                                  size: 22.w,
-                                  color: const Color.fromARGB(255, 20, 20, 20)),
-                            ),
-                            SizedBox(
-                              height: 34.w,
-                              child: Icon(Icons.star_outline_outlined,
-                                  size: 22.w,
-                                  color: const Color.fromARGB(255, 20, 20, 20)),
-                            ),
-                            for (int i = 0; i < 26; i++)
-                              SizedBox(
-                                height: 34.w,
-                                child: Text(
-                                  String.fromCharCode(65 + i),
-                                  style: TextStyle(
-                                      fontSize: 22.w,
-                                      color: const Color.fromARGB(
-                                          255, 20, 20, 20)),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "仅聊天的朋友",
+                          icon: "assets/images/avatar/chat_2.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "群聊",
+                          icon: "assets/images/avatar/chat_3.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "标签",
+                          icon: "assets/images/avatar/chat_4.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "公众号",
+                          icon: "assets/images/avatar/chat_5.jpg",
+                          link: '',
+                          underline: false,
+                        ),
+                        Container(
+                            height: 60.w,
+                            color: const Color.fromARGB(255, 237, 237, 237),
+                            padding: EdgeInsets.only(left: 30.w),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "A",
+                                  style: TextStyle(fontSize: 17.w),
                                 ),
-                              ),
-                            SizedBox(
-                              height: 34.w,
-                              child: Text(
-                                "#",
-                                style: TextStyle(
-                                    fontSize: 22.w,
-                                    color:
-                                        const Color.fromARGB(255, 20, 20, 20)),
-                              ),
-                            ),
-                          ],
+                              ],
+                            )),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "天空飘来五个字那都不是事",
+                          icon: "assets/images/avatar/chat_1.jpg",
+                          link: '',
+                          underline: true,
                         ),
-                      )));
-            },
-          ),
-        ]));
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "本因",
+                          icon: "assets/images/avatar/chat_10.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "赵洵",
+                          icon: "assets/images/avatar/chat_11.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "定静师太",
+                          icon: "assets/images/avatar/chat_12.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "李秋水",
+                          icon: "assets/images/avatar/chat_13.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "谭婆",
+                          icon: "assets/images/avatar/chat_14.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "李傀儡",
+                          icon: "assets/images/avatar/chat_15.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "貂禅",
+                          icon: "assets/images/avatar/chat_16.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "何三七",
+                          icon: "assets/images/avatar/chat_17.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "孔融",
+                          icon: "assets/images/avatar/chat_18.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "齐堂主",
+                          icon: "assets/images/avatar/chat_19.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "博尔术",
+                          icon: "assets/images/avatar/chat_20.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "王语嫣",
+                          icon: "assets/images/avatar/chat_21.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "秦红棉",
+                          icon: "assets/images/avatar/chat_22.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "天竺僧人",
+                          icon: "assets/images/avatar/chat_23.jpg",
+                          link: '',
+                          underline: false,
+                        ),
+                        Container(
+                            height: 60.w,
+                            color: const Color.fromARGB(255, 237, 237, 237),
+                            padding: EdgeInsets.only(left: 30.w),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "B",
+                                  style: TextStyle(fontSize: 17.w),
+                                ),
+                              ],
+                            )),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "段延庆",
+                          icon: "assets/images/avatar/chat_33.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "令狐冲",
+                          icon: "assets/images/avatar/chat_34.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "英白罗",
+                          icon: "assets/images/avatar/chat_35.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "黄药师",
+                          icon: "assets/images/avatar/chat_36.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "李煜",
+                          icon: "assets/images/avatar/chat_37.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "云中鹤",
+                          icon: "assets/images/avatar/chat_38.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "劳德诺",
+                          icon: "assets/images/avatar/chat_39.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "包惜弱",
+                          icon: "assets/images/avatar/chat_40.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "游驹",
+                          icon: "assets/images/avatar/chat_41.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "钟万仇",
+                          icon: "assets/images/avatar/chat_42.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "渔人",
+                          icon: "assets/images/avatar/chat_43.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "单叔山",
+                          icon: "assets/images/avatar/chat_44.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "段誉",
+                          icon: "assets/images/avatar/chat_45.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "林震南",
+                          icon: "assets/images/avatar/chat_46.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        const ContactInformation(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "商鞅",
+                          icon: "assets/images/avatar/chat_47.jpg",
+                          link: '',
+                          underline: true,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 105.0.w,
+                          color: Colors.white,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "2个朋友",
+                                  style: TextStyle(
+                                      fontSize: 30.w,
+                                      color: const Color.fromARGB(
+                                          255, 125, 125, 125)),
+                                ),
+                              ]),
+                        )
+                      ],
+                    ),
+                  )))),
+      StoreConnector<StoreType, StoreType>(
+        converter: (store) => store.state,
+        builder: (context, state) {
+          return Positioned(
+              right: 0,
+              top: 0,
+              child: Visibility(
+                  visible: state.contactazshow!,
+                  child: SizedBox(
+                    width: 40.w,
+                    height: MediaQuery.of(context).size.height - 115.w - 75.w,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 34.w,
+                          child: Icon(Icons.arrow_upward,
+                              size: 22.w,
+                              color: const Color.fromARGB(255, 20, 20, 20)),
+                        ),
+                        SizedBox(
+                          height: 34.w,
+                          child: Icon(Icons.star_outline_outlined,
+                              size: 22.w,
+                              color: const Color.fromARGB(255, 20, 20, 20)),
+                        ),
+                        for (int i = 0; i < 26; i++)
+                          SizedBox(
+                            height: 34.w,
+                            child: Text(
+                              String.fromCharCode(65 + i),
+                              style: TextStyle(
+                                  fontSize: 22.w,
+                                  color: const Color.fromARGB(255, 20, 20, 20)),
+                            ),
+                          ),
+                        SizedBox(
+                          height: 34.w,
+                          child: Text(
+                            "#",
+                            style: TextStyle(
+                                fontSize: 22.w,
+                                color: const Color.fromARGB(255, 20, 20, 20)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )));
+        },
+      ),
+    ]);
   }
 }
 

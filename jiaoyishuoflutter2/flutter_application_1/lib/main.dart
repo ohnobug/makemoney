@@ -14,8 +14,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
-
-
 void main() async {
   setupLogger(); // 配置全局 Logger
 
@@ -24,17 +22,16 @@ void main() async {
 
   await ScreenUtil.ensureScreenSize();
 
-
   runApp(
     ChangeNotifierProvider(
       create: (_) => provider.ThemeProvider(lightTheme),
-      child: TabBarApp(store: mystore),
+      child: TabBarApp(store: myStore),
     ),
   );
 }
 
 class TabBarApp extends StatelessWidget {
-  final Store<bool> store;
+  final Store<StoreType> store;
 
   const TabBarApp({super.key, required this.store});
 
@@ -42,7 +39,7 @@ class TabBarApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    return StoreProvider<bool>(
+    return StoreProvider(
         store: store,
         child: ScreenUtilInit(
             designSize: const Size(750, 1333),
@@ -63,6 +60,7 @@ class TabBarApp extends StatelessWidget {
               );
             },
             child: MaterialApp(
+              debugShowCheckedModeBanner: false,
               initialRoute: '/',
               onGenerateRoute: (settings) {
                 if (settings.name == '/') {
@@ -135,23 +133,22 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   int changeIcon = 0;
 
-  late Store<bool> store;
+  late Store<StoreType> store;
 
   @override
   void initState() {
     super.initState();
 
-    store = StoreProvider.of<bool>(context, listen: false);
+    store = StoreProvider.of<StoreType>(context, listen: false);
 
     _tabController = TabController(length: 4, vsync: this);
     _tabController.animation!.addListener(() {
-
       if (_tabController.animation!.value == 1) {
         // logger.info("来了");
-        store.dispatch({"type": "mainAnimation", "payload": true});
+        store.dispatch({"type": "contactazshow", "payload": true});
       } else {
         // logger.info("走了");
-        store.dispatch({"type": "mainAnimation", "payload": false});
+        store.dispatch({"type": "contactazshow", "payload": false});
       }
 
       if (_tabController.animation!.value >= 0 &&
@@ -223,7 +220,10 @@ class _CustomTabbarState extends State<CustomTabbar>
       size: 50.w,
     );
 
+    Text title = const Text("微信");
+
     if (changeIcon == 0) {
+      title = const Text("微信");
       icon1 = Icon(
         const IconData(
           0xe676,
@@ -232,6 +232,8 @@ class _CustomTabbarState extends State<CustomTabbar>
         size: 50.w,
       );
     } else if (changeIcon == 1) {
+      title = const Text("通信录");
+
       icon2 = Icon(
         const IconData(
           0xe609,
@@ -240,6 +242,8 @@ class _CustomTabbarState extends State<CustomTabbar>
         size: 50.w,
       );
     } else if (changeIcon == 2) {
+      title = const Text("发现");
+
       icon3 = Icon(
         const IconData(
           0xe638,
@@ -248,6 +252,11 @@ class _CustomTabbarState extends State<CustomTabbar>
         size: 50.w,
       );
     } else if (changeIcon == 3) {
+      title = const Text(
+        "",
+        style: TextStyle(color: Colors.white),
+      );
+
       icon4 = Icon(
         const IconData(
           0xe62b,
@@ -255,6 +264,18 @@ class _CustomTabbarState extends State<CustomTabbar>
         ),
         size: 50.w,
       );
+    }
+
+    // 用户页面的tabbar背景颜色调控
+    Color appBarBackgroundColor = const Color.fromARGB(255, 247, 247, 247);
+    if (changeIcon == 3) {
+      if (store.state.mainpage4isload!) {
+        appBarBackgroundColor = const Color.fromARGB(255, 247, 247, 247);
+      } else {
+        appBarBackgroundColor = const Color.fromARGB(255, 237, 237, 237);
+      }
+    } else {
+      appBarBackgroundColor = const Color.fromARGB(255, 247, 247, 247);
     }
 
     return Scaffold(
@@ -295,15 +316,58 @@ class _CustomTabbarState extends State<CustomTabbar>
             ],
           ),
         ),
-        body: TabBarView(
-          // physics: new NeverScrollableScrollPhysics(),
-          controller: _tabController,
-          children: const <Widget>[
-            LJNChatListView(),
-            LJNContactPage(),
-            LJNDiscoveryPage(),
-            LJNUserPage(),
-          ],
-        ));
+        body: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(90.0.w),
+              child: AppBar(
+                centerTitle: true,
+                title: title,
+                titleTextStyle: TextStyle(fontSize: 32.w),
+                backgroundColor: appBarBackgroundColor,
+                primary: true,
+                actions: [
+                  if (changeIcon != 3) ...[
+                    IconButton(
+                      icon: Icon(
+                          size: 37.w,
+                          const IconData(
+                            0xe612,
+                            fontFamily: 'Iconfont',
+                          )),
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      padding: const EdgeInsets.only(right: 40.0).w,
+                      onPressed: () {
+                        // 处理搜索按钮的点击事件
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(
+                          size: 37.w,
+                          const IconData(
+                            0xe726,
+                            fontFamily: 'Iconfont',
+                          )),
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      padding: const EdgeInsets.only(right: 33.0).w,
+                      onPressed: () {
+                        // 处理设置按钮的点击事件
+                      },
+                    ),
+                  ]
+                ],
+              ),
+            ),
+            body: TabBarView(
+              // physics: new NeverScrollableScrollPhysics(),
+              controller: _tabController,
+              children: const <Widget>[
+                LJNChatListView(),
+                LJNContactPage(),
+                LJNDiscoveryPage(),
+                LJNUserPage(),
+              ],
+            )));
   }
 }
