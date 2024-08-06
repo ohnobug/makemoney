@@ -1,11 +1,36 @@
+import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 
+// 主题数据
+final ThemeData lightTheme = ThemeData(
+  useMaterial3: true,
+  tabBarTheme: const TabBarTheme(),
+  colorScheme: const ColorScheme.light(
+    primaryContainer: Colors.white,
+    primary: Colors.black,
+    secondary: Colors.grey,
+  ),
+  primaryColor: Colors.black,
+);
+
+final ThemeData darkTheme = ThemeData(
+  useMaterial3: true,
+  colorScheme: const ColorScheme.dark(
+    primaryContainer: Colors.black,
+    primary: Colors.white,
+    secondary: Colors.grey,
+  ),
+  primaryColor: Colors.white,
+);
+
 class StoreType {
-  bool? contactazshow = false;   // 通信录中的 A-Z 是否显示
-  bool? mainpage1isload = false; // 页面 1 是否显示
-  bool? mainpage2isload = false; // 页面 2 是否显示
-  bool? mainpage3isload = false; // 页面 3 是否显示
-  bool? mainpage4isload = false; // 页面 4 是否显示
+  bool? contactazshow; // 通信录中的 A-Z 是否显示
+  bool? mainpage1isload; // 页面 1 是否显示
+  bool? mainpage2isload; // 页面 2 是否显示
+  bool? mainpage3isload; // 页面 3 是否显示
+  bool? mainpage4isload; // 页面 4 是否显示
+  bool? showpopup; // 扫一扫 是否显示
+  ThemeData? themeData;
 
   StoreType({
     this.contactazshow,
@@ -13,6 +38,8 @@ class StoreType {
     this.mainpage2isload,
     this.mainpage3isload,
     this.mainpage4isload,
+    this.showpopup,
+    this.themeData,
   });
 
   StoreType copyWith({
@@ -21,13 +48,17 @@ class StoreType {
     bool? mainpage2isload,
     bool? mainpage3isload,
     bool? mainpage4isload,
+    bool? showpopup,
+    ThemeData? themeData,
   }) {
     return StoreType(
-      contactazshow: contactazshow?? this.contactazshow,
-      mainpage1isload: mainpage1isload?? this.mainpage1isload,
-      mainpage2isload: mainpage2isload?? this.mainpage2isload,
-      mainpage3isload: mainpage3isload?? this.mainpage3isload,
-      mainpage4isload: mainpage4isload?? this.mainpage4isload,
+      contactazshow: contactazshow ?? this.contactazshow,
+      mainpage1isload: mainpage1isload ?? this.mainpage1isload,
+      mainpage2isload: mainpage2isload ?? this.mainpage2isload,
+      mainpage3isload: mainpage3isload ?? this.mainpage3isload,
+      mainpage4isload: mainpage4isload ?? this.mainpage4isload,
+      showpopup: showpopup ?? this.showpopup,
+      themeData: themeData ?? this.themeData,
     );
   }
 }
@@ -53,14 +84,19 @@ StoreType counterReducer(StoreType state, dynamic action) {
     return state.copyWith(mainpage4isload: action['payload']);
   }
 
+  if (action['type'] == "showpopup") {
+    return state.copyWith(showpopup: action['payload']);
+  }
+
   return state;
 }
 
 final myStore = Store<StoreType>(counterReducer,
     initialState: StoreType(
-      contactazshow: false,
-      mainpage1isload: false,
-      mainpage2isload: false,
-      mainpage3isload: false,
-      mainpage4isload: false,
-    ));
+        contactazshow: false,
+        mainpage1isload: false,
+        mainpage2isload: false,
+        mainpage3isload: false,
+        mainpage4isload: false,
+        showpopup: false,
+        themeData: lightTheme));
