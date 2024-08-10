@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/chat.dart';
 import 'package:flutter_application_1/discovery.dart';
 // import 'package:flutter_application_1/provider.dart';
 import 'package:flutter_application_1/services.dart';
@@ -8,7 +9,7 @@ import 'package:flutter_application_1/store.dart';
 import 'contact.dart';
 import 'logger.dart';
 import 'user.dart';
-import 'chat.dart';
+import 'home.dart';
 // import 'provider.dart' as provider;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -79,7 +80,26 @@ class TabBarApp extends StatelessWidget {
                 } else if (settings.name == '/services') {
                   return PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) =>
-                        const Services(),
+                        const LJNServicesPage(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      const begin = Offset(1.0, 0.0);
+                      const end = Offset.zero;
+                      const curve = Curves.ease;
+
+                      var tween = Tween(begin: begin, end: end)
+                          .chain(CurveTween(curve: curve));
+
+                      return SlideTransition(
+                        position: animation.drive(tween),
+                        child: child,
+                      );
+                    },
+                  );
+                } else if (settings.name == '/chat') {
+                  return PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const LJNChatPage(),
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
                       const begin = Offset(1.0, 0.0);
@@ -269,17 +289,14 @@ class _CustomTabbarState extends State<CustomTabbar>
                 bottomNavigationBar: ColoredBox(
                   color: const Color.fromARGB(255, 247, 247, 247),
                   child: TabBar(
-                    // physics: const NeverScrollableScrollPhysics(),
                     dividerColor: const Color.fromARGB(255, 218, 218, 218),
                     labelColor: const Color.fromARGB(255, 43, 174, 106),
                     unselectedLabelColor: const Color.fromARGB(222, 0, 0, 0),
                     indicator: const BoxDecoration(),
                     indicatorColor: Colors.transparent,
-                    // indicatorWeight: 30,
                     controller: _tabController,
                     overlayColor:
                         WidgetStateProperty.all(const Color(0x00000000)),
-                    // TabBarTheme: ThemeData(useMaterial3: false),
                     tabs: <Widget>[
                       Tab(
                         height: 115.w,
@@ -304,55 +321,67 @@ class _CustomTabbarState extends State<CustomTabbar>
                     ],
                   ),
                 ),
-                appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(90.0.w),
-                  child: AppBar(
-                    centerTitle: true,
-                    title: title,
-                    titleTextStyle: TextStyle(fontSize: 32.w),
-                    backgroundColor: changeIcon == 3 && vm.mainpage4isload!
-                        ? Colors.white
-                        : const Color.fromARGB(255, 237, 237, 237),
-                    primary: true,
-                    actions: [
-                      if (changeIcon != 3) ...[
-                        IconButton(
-                          icon: Icon(
-                              size: 37.w,
-                              const IconData(
-                                0xe612,
-                                fontFamily: 'Iconfont',
-                              )),
-                          highlightColor: Colors.transparent,
-                          splashColor: Colors.transparent,
-                          padding: const EdgeInsets.only(right: 40.0).w,
-                          onPressed: () {},
+                appBar: changeIcon == 3
+                    ? null
+                    : PreferredSize(
+                        preferredSize: Size.fromHeight(90.0.w),
+                        child: AppBar(
+                          centerTitle: true,
+                          title: title,
+                          titleTextStyle: TextStyle(fontSize: 32.w),
+                          backgroundColor:
+                              changeIcon == 3 && vm.mainpage4isload!
+                                  ? Colors.white
+                                  : const Color.fromARGB(255, 237, 237, 237),
+                          bottom: PreferredSize(
+                            preferredSize: Size.fromHeight(1.w),
+                            child: Container(
+                              color: const Color.fromARGB(255, 220, 220, 220),
+                              height: 1.w,
+                            ),
+                          ),
+                          primary: true,
+                          actions: [
+                            if (changeIcon != 3) ...[
+                              IconButton(
+                                icon: Icon(
+                                    size: 37.w,
+                                    const IconData(
+                                      0xe612,
+                                      fontFamily: 'Iconfont',
+                                    )),
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                padding: const EdgeInsets.only(right: 40.0).w,
+                                onPressed: () {},
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                    size: 37.w,
+                                    const IconData(
+                                      0xe726,
+                                      fontFamily: 'Iconfont',
+                                    )),
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                padding: const EdgeInsets.only(right: 33.0).w,
+                                onPressed: () {
+                                  vm.showpopup = !vm.showpopup!;
+                                  myStore.dispatch({
+                                    "type": "showpopup",
+                                    "payload": vm.showpopup
+                                  });
+                                },
+                              ),
+                            ]
+                          ],
                         ),
-                        IconButton(
-                          icon: Icon(
-                              size: 37.w,
-                              const IconData(
-                                0xe726,
-                                fontFamily: 'Iconfont',
-                              )),
-                          highlightColor: Colors.transparent,
-                          splashColor: Colors.transparent,
-                          padding: const EdgeInsets.only(right: 33.0).w,
-                          onPressed: () {
-                            vm.showpopup = !vm.showpopup!;
-                            myStore.dispatch(
-                                {"type": "showpopup", "payload": vm.showpopup});
-                          },
-                        ),
-                      ]
-                    ],
-                  ),
-                ),
+                      ),
                 body: TabBarView(
                   // physics: new NeverScrollableScrollPhysics(),
                   controller: _tabController,
                   children: const <Widget>[
-                    LJNChatListView(),
+                    LJNHomePage(),
                     LJNContactPage(),
                     LJNDiscoveryPage(),
                     LJNUserPage(),
@@ -400,189 +429,239 @@ class _CustomTabbarState extends State<CustomTabbar>
                                 height: 425.w,
                                 child: Column(
                                   children: [
-                                    SizedBox(
-                                      height: 105.w,
-                                      child: Row(children: [
-                                        SizedBox(
-                                          height: 105.w,
-                                          width: 105.w,
-                                          child: Center(
-                                            child: Icon(
-                                                color: Colors.white,
-                                                size: 50.w,
-                                                Icons.add_location_alt_sharp),
+                                    GestureDetector(
+                                      onTapDown: (details) {
+                                        logger.info("发起群聊被点击。");
+                                        myStore.dispatch({
+                                          "type": "showpopup",
+                                          "payload": false
+                                        });
+                                      },
+                                      child: SizedBox(
+                                        height: 105.w,
+                                        child: Row(children: [
+                                          SizedBox(
+                                            height: 105.w,
+                                            width: 105.w,
+                                            child: Center(
+                                              child: Icon(
+                                                  color: Colors.white,
+                                                  size: 50.w,
+                                                  Icons.add_location_alt_sharp),
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 20.w,
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                              height: double.infinity,
-                                              decoration: BoxDecoration(
-                                                  border: Border(
-                                                      bottom: BorderSide(
-                                                color: const Color.fromARGB(
-                                                    255, 85, 85, 85),
-                                                width: 2.w,
-                                                style: BorderStyle.solid,
-                                              ))),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '发起群聊',
-                                                    style: TextStyle(
-                                                        fontSize: 30.w,
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                        color: Colors.white),
-                                                  )
-                                                ],
-                                              )),
-                                        )
-                                      ]),
+                                          SizedBox(
+                                            width: 20.w,
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                                height: double.infinity,
+                                                decoration: BoxDecoration(
+                                                    border: Border(
+                                                        bottom: BorderSide(
+                                                  color: const Color.fromARGB(
+                                                      255, 85, 85, 85),
+                                                  width: 2.w,
+                                                  style: BorderStyle.solid,
+                                                ))),
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '发起群聊',
+                                                      style: TextStyle(
+                                                          fontSize: 30.w,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .none,
+                                                          color: Colors.white),
+                                                    )
+                                                  ],
+                                                )),
+                                          )
+                                        ]),
+                                      ),
                                     ),
-                                    SizedBox(
-                                      height: 105.w,
-                                      child: Row(children: [
-                                        SizedBox(
-                                          height: 105.w,
-                                          width: 105.w,
-                                          child: Center(
-                                            child: Icon(
-                                                color: Colors.white,
-                                                size: 50.w,
-                                                Icons.backup_table_rounded),
+                                    GestureDetector(
+                                      onTapDown: (details) {
+                                        logger.info("添加朋友被点击。");
+                                        myStore.dispatch({
+                                          "type": "showpopup",
+                                          "payload": false
+                                        });
+                                      },
+                                      child: SizedBox(
+                                        height: 105.w,
+                                        child: Row(children: [
+                                          SizedBox(
+                                            height: 105.w,
+                                            width: 105.w,
+                                            child: Center(
+                                              child: Icon(
+                                                  color: Colors.white,
+                                                  size: 50.w,
+                                                  Icons.backup_table_rounded),
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 20.w,
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                              height: double.infinity,
-                                              decoration: BoxDecoration(
-                                                  border: Border(
-                                                      bottom: BorderSide(
-                                                color: const Color.fromARGB(
-                                                    255, 85, 85, 85),
-                                                width: 2.w,
-                                                style: BorderStyle.solid,
-                                              ))),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '添加朋友',
-                                                    style: TextStyle(
-                                                        fontSize: 30.w,
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                        color: Colors.white),
-                                                  )
-                                                ],
-                                              )),
-                                        )
-                                      ]),
+                                          SizedBox(
+                                            width: 20.w,
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                                height: double.infinity,
+                                                decoration: BoxDecoration(
+                                                    border: Border(
+                                                        bottom: BorderSide(
+                                                  color: const Color.fromARGB(
+                                                      255, 85, 85, 85),
+                                                  width: 2.w,
+                                                  style: BorderStyle.solid,
+                                                ))),
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '添加朋友',
+                                                      style: TextStyle(
+                                                          fontSize: 30.w,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .none,
+                                                          color: Colors.white),
+                                                    )
+                                                  ],
+                                                )),
+                                          )
+                                        ]),
+                                      ),
                                     ),
-                                    SizedBox(
-                                      height: 105.w,
-                                      child: Row(children: [
-                                        SizedBox(
-                                          height: 105.w,
-                                          width: 105.w,
-                                          child: Center(
-                                            child: Icon(
-                                                color: Colors.white,
-                                                size: 50.w,
-                                                Icons.accessible_rounded),
+                                    GestureDetector(
+                                      onTapDown: (details) {
+                                        logger.info("扫一扫被点击。");
+                                        myStore.dispatch({
+                                          "type": "showpopup",
+                                          "payload": false
+                                        });
+                                      },
+                                      child: SizedBox(
+                                        height: 105.w,
+                                        child: Row(children: [
+                                          SizedBox(
+                                            height: 105.w,
+                                            width: 105.w,
+                                            child: Center(
+                                              child: Icon(
+                                                  color: Colors.white,
+                                                  size: 50.w,
+                                                  Icons.accessible_rounded),
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 20.w,
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                              height: double.infinity,
-                                              decoration: BoxDecoration(
-                                                  border: Border(
-                                                      bottom: BorderSide(
-                                                color: const Color.fromARGB(
-                                                    255, 85, 85, 85),
-                                                width: 2.w,
-                                                style: BorderStyle.solid,
-                                              ))),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '扫一扫',
-                                                    style: TextStyle(
-                                                        fontSize: 30.w,
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                        color: Colors.white),
-                                                  )
-                                                ],
-                                              )),
-                                        )
-                                      ]),
+                                          SizedBox(
+                                            width: 20.w,
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                                height: double.infinity,
+                                                decoration: BoxDecoration(
+                                                    border: Border(
+                                                        bottom: BorderSide(
+                                                  color: const Color.fromARGB(
+                                                      255, 85, 85, 85),
+                                                  width: 2.w,
+                                                  style: BorderStyle.solid,
+                                                ))),
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '扫一扫',
+                                                      style: TextStyle(
+                                                          fontSize: 30.w,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .none,
+                                                          color: Colors.white),
+                                                    )
+                                                  ],
+                                                )),
+                                          )
+                                        ]),
+                                      ),
                                     ),
-                                    SizedBox(
-                                      height: 105.w,
-                                      child: Row(children: [
-                                        SizedBox(
+                                    GestureDetector(
+                                        onTapDown: (details) {
+                                          logger.info("收付款被点击。");
+                                          myStore.dispatch({
+                                            "type": "showpopup",
+                                            "payload": false
+                                          });
+                                        },
+                                        child: SizedBox(
                                           height: 105.w,
-                                          width: 105.w,
-                                          child: Center(
-                                            child: Icon(
-                                                color: Colors.white,
-                                                size: 50.w,
-                                                Icons.qr_code_scanner),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 20.w,
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                              height: double.infinity,
-                                              decoration: BoxDecoration(
-                                                  border: Border(
-                                                      bottom: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.w,
-                                                style: BorderStyle.solid,
-                                              ))),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '收付款',
-                                                    style: TextStyle(
-                                                        fontSize: 30.w,
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                        color: Colors.white),
-                                                  )
-                                                ],
-                                              )),
-                                        )
-                                      ]),
-                                    )
+                                          child: Row(children: [
+                                            SizedBox(
+                                              height: 105.w,
+                                              width: 105.w,
+                                              child: Center(
+                                                child: Icon(
+                                                    color: Colors.white,
+                                                    size: 50.w,
+                                                    Icons.qr_code_scanner),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 20.w,
+                                            ),
+                                            Expanded(
+                                              child: Container(
+                                                  height: double.infinity,
+                                                  decoration: BoxDecoration(
+                                                      border: Border(
+                                                          bottom: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1.w,
+                                                    style: BorderStyle.solid,
+                                                  ))),
+                                                  child: Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        '收付款',
+                                                        style: TextStyle(
+                                                            fontSize: 30.w,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .none,
+                                                            color:
+                                                                Colors.white),
+                                                      )
+                                                    ],
+                                                  )),
+                                            )
+                                          ]),
+                                        ))
                                   ],
                                 ),
                               )

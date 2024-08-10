@@ -4,7 +4,6 @@ import 'package:redux/redux.dart';
 // 主题数据
 final ThemeData lightTheme = ThemeData(
   useMaterial3: true,
-  tabBarTheme: const TabBarTheme(),
   colorScheme: const ColorScheme.light(
     primaryContainer: Colors.white,
     primary: Colors.black,

@@ -32,15 +32,21 @@ class _LJNContactPageState extends State<LJNContactPage> {
 
   // 另起一个函数方便管理
   Widget _buildPage() {
+    Size screenSize = MediaQuery.of(context).size;
+
     return Stack(children: [
-      Positioned.fill(
-          child: ColoredBox(
-              color: const Color.fromARGB(255, 237, 237, 237),
-              child: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context)
-                      .copyWith(scrollbars: false),
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
+      Container(
+          height: screenSize.height - 210.w,
+          color: const Color.fromARGB(255, 237, 237, 237),
+          child: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Container(
+                    constraints: BoxConstraints(
+                      minHeight: screenSize.height - 205.w,
+                    ),
                     child: Column(
                       children: [
                         const ContactInformation(
@@ -332,8 +338,8 @@ class _LJNContactPageState extends State<LJNContactPage> {
                               ]),
                         )
                       ],
-                    ),
-                  )))),
+                    )),
+              ))),
       StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, state) {

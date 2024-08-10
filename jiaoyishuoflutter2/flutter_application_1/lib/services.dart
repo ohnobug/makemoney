@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'logger.dart';
 
-class Services extends StatefulWidget {
-  const Services({super.key});
+class LJNServicesPage extends StatefulWidget {
+  const LJNServicesPage({super.key});
 
   @override
-  State<Services> createState() => _ServicesState();
+  State<LJNServicesPage> createState() => _LJNServicesPage();
 }
 
-class _ServicesState extends State<Services> {
+class _LJNServicesPage extends State<LJNServicesPage> {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
