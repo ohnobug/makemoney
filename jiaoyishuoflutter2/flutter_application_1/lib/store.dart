@@ -10,6 +10,7 @@ final ThemeData lightTheme = ThemeData(
     secondary: Colors.grey,
   ),
   primaryColor: Colors.black,
+  fontFamily: "MyFont"
 );
 
 final ThemeData darkTheme = ThemeData(
@@ -20,6 +21,7 @@ final ThemeData darkTheme = ThemeData(
     secondary: Colors.grey,
   ),
   primaryColor: Colors.white,
+  fontFamily: "MyFont"
 );
 
 class StoreType {

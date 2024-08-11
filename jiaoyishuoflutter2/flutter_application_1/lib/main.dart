@@ -5,6 +5,7 @@ import 'package:flutter_application_1/discovery.dart';
 // import 'package:flutter_application_1/provider.dart';
 import 'package:flutter_application_1/services.dart';
 import 'package:flutter_application_1/store.dart';
+import 'package:flutter_application_1/test.dart';
 // import 'package:provider/provider.dart';
 import 'contact.dart';
 import 'logger.dart';
@@ -57,11 +58,12 @@ class TabBarApp extends StatelessWidget {
               initialRoute: '/',
               onGenerateRoute: (settings) {
                 if (settings.name == '/') {
-                  return PageRouteBuilder<dynamic>(
+                  return PageRouteBuilder(
                     pageBuilder: (BuildContext context,
                             Animation<double> animation,
                             Animation<double> secondaryAnimation) =>
-                        const CustomTabbar(),
+                        const PullDownAnimationScreen2(page: CustomTabbar()),
+                        // const CustomTabbar(),
                     transitionsBuilder: (
                       BuildContext context,
                       Animation<double> animation,

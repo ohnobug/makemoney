@@ -4,6 +4,7 @@ import 'package:flutter_application_1/logger.dart';
 import 'package:flutter_application_1/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:math' as math;
 
 class LJNHomePage extends StatefulWidget {
   const LJNHomePage({super.key});
@@ -352,7 +353,8 @@ class _ChatListViewState extends State<LJNHomePage> {
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
+              physics: const MyBouncingScrollPhysics(),
+              // physics: const ClampingScrollPhysics(),
               itemCount: itemCount,
               itemBuilder: (context, index) {
                 return chatItems.elementAtOrNull(index) != null
@@ -363,6 +365,195 @@ class _ChatListViewState extends State<LJNHomePage> {
                       );
               },
             )));
+  }
+}
+
+// 定义最小的抛射速度常量，值为 50.0
+const double kMinFlingVelocity = 50.0;
+// 定义最大的抛射速度常量，值为 8000.0
+const double kMaxFlingVelocity = 8000.0;
+
+// 定义一个名为 MyBouncingScrollPhysics 的类，它继承自 ScrollPhysics 类
+class MyBouncingScrollPhysics extends ScrollPhysics {
+  // 构造函数，接受一个 ScrollDecelerationRate 类型的参数 decelerationRate，默认值为 ScrollDecelerationRate.normal，并可以传入父类的实例 parent
+  const MyBouncingScrollPhysics({
+    this.decelerationRate = ScrollDecelerationRate.normal,
+    super.parent,
+  });
+
+  // 定义一个最终的 ScrollDecelerationRate 类型的属性 decelerationRate
+  final ScrollDecelerationRate decelerationRate;
+
+  // 重写 applyTo 方法，用于将当前的 MyBouncingScrollPhysics 应用到祖先的 ScrollPhysics 实例
+  @override
+  MyBouncingScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    // 返回一个新的 MyBouncingScrollPhysics 实例，构建父类实例并设置 decelerationRate
+    return MyBouncingScrollPhysics(
+        parent: buildParent(ancestor), decelerationRate: decelerationRate);
+  }
+
+  // 以下是一个方法，用于计算摩擦系数
+  /// 应用于过度滚动的倍数，使得滚动超过可滚动内容的边缘看起来比滚动列表更困难
+  /// 这是通过降低滚动效果输出与滚动手势输入的比率来实现的
+  ///
+  /// 这个因子从 0.52 开始，随着超过边缘的区域（由递增的 overscrollFraction 表示，当没有过度滚动时，overscrollFraction 从 0 开始）被拖动，过度滚动变得越来越困难
+  double frictionFactor(double overscrollFraction) {
+    // 根据 decelerationRate 的不同值进行计算
+    switch (decelerationRate) {
+      case ScrollDecelerationRate.fast:
+        // 快速减速情况下的计算方式
+        return 0.26 * math.pow(1 - overscrollFraction, 2);
+      case ScrollDecelerationRate.normal:
+        // 正常减速情况下的计算方式
+        return 0.52 * math.pow(1 - overscrollFraction, 2);
+    }
+  }
+
+  // 重写 applyPhysicsToUserOffset 方法，应用物理效果到用户的偏移量
+  @override
+  double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
+    // if (position.pixels <= 0 && offset.sign == 1) {
+
+    // logger.info(position.pixels);
+    //   return 0;
+    // }
+
+    // if (offset.sign == 1) return 0;
+
+    // 断言 offset 不为 0.0，以及位置的最小滚动范围小于等于最大滚动范围
+    assert(offset != 0.0);
+    assert(position.minScrollExtent <= position.maxScrollExtent);
+
+    // 如果位置没有超出范围，直接返回偏移量
+    if (!position.outOfRange) {
+      return offset;
+    }
+
+    // 计算超过起始位置的过度滚动量
+    final double overscrollPastStart =
+        math.max(position.minScrollExtent - position.pixels, 0.0);
+    // 计算超过结束位置的过度滚动量
+    final double overscrollPastEnd =
+        math.max(position.pixels - position.maxScrollExtent, 0.0);
+    // 取两者中的最大值作为总的过度滚动量
+    final double overscrollPast =
+        math.max(overscrollPastStart, overscrollPastEnd);
+    // 根据不同情况判断是否为缓动
+    final bool easing = (overscrollPastStart > 0.0 && offset < 0.0) ||
+        (overscrollPastEnd > 0.0 && offset > 0.0);
+
+    // 计算摩擦系数
+    final double friction = easing
+        // 缓动时应用较小的阻力与张力
+        ? frictionFactor(
+            (overscrollPast - offset.abs()) / position.viewportDimension)
+        : frictionFactor(overscrollPast / position.viewportDimension);
+    final double direction = offset.sign;
+
+    // 如果是缓动且减速率为快速
+    if (easing && decelerationRate == ScrollDecelerationRate.fast) {
+      return direction * offset.abs();
+    }
+    // 返回应用摩擦后的偏移量
+    return direction * _applyFriction(overscrollPast, offset.abs(), friction);
+  }
+
+  // 静态方法 _applyFriction，用于应用摩擦
+  static double _applyFriction(
+      double extentOutside, double absDelta, double gamma) {
+    // 断言 absDelta 大于 0
+    assert(absDelta > 0);
+    double total = 0.0;
+    // 如果超出范围的量大于 0
+    if (extentOutside > 0) {
+      // 计算到限制的增量
+      final double deltaToLimit = extentOutside / gamma;
+      // 如果 absDelta 小于到限制的增量
+      if (absDelta < deltaToLimit) {
+        // 返回 absDelta 乘以 gamma
+        return absDelta * gamma;
+      }
+      // 累计超出的总量
+      total += extentOutside;
+      absDelta -= deltaToLimit;
+    }
+    // 返回累计的总量加上剩余的 absDelta
+    return total + absDelta;
+  }
+
+  // 重写 applyBoundaryConditions 方法，应用边界条件，这里直接返回 0.0
+  @override
+  double applyBoundaryConditions(ScrollMetrics position, double value) => 0.0;
+
+  // 重写 createBallisticSimulation 方法，创建弹道模拟
+  @override
+  Simulation? createBallisticSimulation(
+      ScrollMetrics position, double velocity) {
+    final Tolerance tolerance = toleranceFor(position);
+    // 如果速度的绝对值大于等于容忍度或者位置超出范围
+    if (velocity.abs() >= tolerance.velocity || position.outOfRange) {
+      // 创建并返回一个 BouncingScrollSimulation 实例
+      return BouncingScrollSimulation(
+        spring: spring,
+        position: position.pixels,
+        velocity: velocity,
+        leadingExtent: position.minScrollExtent,
+        trailingExtent: position.maxScrollExtent,
+        tolerance: tolerance,
+        constantDeceleration: switch (decelerationRate) {
+          ScrollDecelerationRate.fast => 1400,
+          ScrollDecelerationRate.normal => 0,
+        },
+      );
+    }
+    // 否则返回 null
+    return null;
+  }
+
+  // 重写获取最小抛射速度的方法，这里是原来的两倍
+  @override
+  double get minFlingVelocity => kMinFlingVelocity * 2.0;
+
+  // 以下是关于动量积累的方法
+  /// 模拟 iOS 中通过重复抛射来增加滚动速度的动量积累函数
+  ///
+  /// 最后一次抛射的速度不是重要因素。现有速度和（相关的）自上次抛射以来的时间是速度传递计算的因素
+  @override
+  double carriedMomentum(double existingVelocity) {
+    // 根据现有速度计算并返回动量
+    return existingVelocity.sign *
+        math.min(0.000816 * math.pow(existingVelocity.abs(), 1.967).toDouble(),
+            40000.0);
+  }
+
+  // 通过观察得出，用于抵消手指在滚动后抬起时意外滚动的影响
+  @override
+  double get dragStartDistanceMotionThreshold => 3.5;
+
+  // 重写获取最大抛射速度的方法，根据减速率进行不同的计算
+  @override
+  double get maxFlingVelocity {
+    return switch (decelerationRate) {
+      ScrollDecelerationRate.fast => kMaxFlingVelocity * 8.0,
+      ScrollDecelerationRate.normal => super.maxFlingVelocity,
+    };
+  }
+
+  // 重写获取弹簧描述的方法，根据减速率返回不同的弹簧描述
+  @override
+  SpringDescription get spring {
+    switch (decelerationRate) {
+      case ScrollDecelerationRate.fast:
+        // 快速减速情况下的弹簧描述
+        return SpringDescription.withDampingRatio(
+          mass: 0.3,
+          stiffness: 75.0,
+          ratio: 1.3,
+        );
+      case ScrollDecelerationRate.normal:
+        // 正常减速情况下，返回父类的弹簧描述
+        return super.spring;
+    }
   }
 }
 
