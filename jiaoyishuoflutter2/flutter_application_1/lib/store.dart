@@ -10,7 +10,7 @@ final ThemeData lightTheme = ThemeData(
     secondary: Colors.grey,
   ),
   primaryColor: Colors.black,
-  fontFamily: "MyFont"
+  // fontFamily: "MyFont"
 );
 
 final ThemeData darkTheme = ThemeData(
@@ -21,7 +21,7 @@ final ThemeData darkTheme = ThemeData(
     secondary: Colors.grey,
   ),
   primaryColor: Colors.white,
-  fontFamily: "MyFont"
+  // fontFamily: "MyFont"
 );
 
 class StoreType {
@@ -32,6 +32,8 @@ class StoreType {
   bool? mainpage4isload; // 页面 4 是否显示
   bool? showpopup; // 扫一扫 是否显示
   ThemeData? themeData;
+  double? homeoffset;
+  String? homescrollverticaltapstatus;
 
   StoreType({
     this.contactazshow,
@@ -41,6 +43,8 @@ class StoreType {
     this.mainpage4isload,
     this.showpopup,
     this.themeData,
+    this.homeoffset,
+    this.homescrollverticaltapstatus,
   });
 
   StoreType copyWith({
@@ -51,16 +55,20 @@ class StoreType {
     bool? mainpage4isload,
     bool? showpopup,
     ThemeData? themeData,
+    double? homeoffset,
+    dynamic homescrollverticaltapstatus,
   }) {
     return StoreType(
-      contactazshow: contactazshow ?? this.contactazshow,
-      mainpage1isload: mainpage1isload ?? this.mainpage1isload,
-      mainpage2isload: mainpage2isload ?? this.mainpage2isload,
-      mainpage3isload: mainpage3isload ?? this.mainpage3isload,
-      mainpage4isload: mainpage4isload ?? this.mainpage4isload,
-      showpopup: showpopup ?? this.showpopup,
-      themeData: themeData ?? this.themeData,
-    );
+        contactazshow: contactazshow ?? this.contactazshow,
+        mainpage1isload: mainpage1isload ?? this.mainpage1isload,
+        mainpage2isload: mainpage2isload ?? this.mainpage2isload,
+        mainpage3isload: mainpage3isload ?? this.mainpage3isload,
+        mainpage4isload: mainpage4isload ?? this.mainpage4isload,
+        showpopup: showpopup ?? this.showpopup,
+        themeData: themeData ?? this.themeData,
+        homeoffset: homeoffset ?? this.homeoffset,
+        homescrollverticaltapstatus:
+            homescrollverticaltapstatus ?? this.homescrollverticaltapstatus);
   }
 }
 
@@ -89,6 +97,20 @@ StoreType counterReducer(StoreType state, dynamic action) {
     return state.copyWith(showpopup: action['payload']);
   }
 
+  if (action['type'] == "homeoffset") {
+    return state.copyWith(homeoffset: action['payload']);
+  }
+
+  if (action['type'] == "homescrollverticaltapstatus") {
+    double homeoffset = state.homeoffset!;
+    if (action['payload'] == 'ontapdown') {
+      homeoffset = 0;
+    }
+
+    return state.copyWith(
+        homescrollverticaltapstatus: action['payload'], homeoffset: homeoffset);
+  }
+
   return state;
 }
 
@@ -100,4 +122,6 @@ final myStore = Store<StoreType>(counterReducer,
         mainpage3isload: false,
         mainpage4isload: false,
         showpopup: false,
-        themeData: lightTheme));
+        themeData: lightTheme,
+        homeoffset: 0.0,
+        homescrollverticaltapstatus: ""));
