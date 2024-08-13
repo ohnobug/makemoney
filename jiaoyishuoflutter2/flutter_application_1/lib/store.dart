@@ -10,7 +10,7 @@ final ThemeData lightTheme = ThemeData(
     secondary: Colors.grey,
   ),
   primaryColor: Colors.black,
-  // fontFamily: "MyFont"
+  fontFamily: "notosanssc",
 );
 
 final ThemeData darkTheme = ThemeData(
@@ -21,7 +21,7 @@ final ThemeData darkTheme = ThemeData(
     secondary: Colors.grey,
   ),
   primaryColor: Colors.white,
-  // fontFamily: "MyFont"
+  fontFamily: "notosanssc"
 );
 
 class StoreType {
@@ -33,6 +33,7 @@ class StoreType {
   bool? showpopup; // 扫一扫 是否显示
   ThemeData? themeData;
   double? homeoffset;
+  double? homepositionpixels;
   String? homescrollverticaltapstatus;
 
   StoreType({
@@ -44,6 +45,7 @@ class StoreType {
     this.showpopup,
     this.themeData,
     this.homeoffset,
+    this.homepositionpixels,
     this.homescrollverticaltapstatus,
   });
 
@@ -56,6 +58,7 @@ class StoreType {
     bool? showpopup,
     ThemeData? themeData,
     double? homeoffset,
+    double? homepositionpixels,
     dynamic homescrollverticaltapstatus,
   }) {
     return StoreType(
@@ -67,6 +70,7 @@ class StoreType {
         showpopup: showpopup ?? this.showpopup,
         themeData: themeData ?? this.themeData,
         homeoffset: homeoffset ?? this.homeoffset,
+        homepositionpixels: homepositionpixels ?? this.homepositionpixels,
         homescrollverticaltapstatus:
             homescrollverticaltapstatus ?? this.homescrollverticaltapstatus);
   }
@@ -101,6 +105,11 @@ StoreType counterReducer(StoreType state, dynamic action) {
     return state.copyWith(homeoffset: action['payload']);
   }
 
+    if (action['type'] == "homepositionpixels") {
+    return state.copyWith(homepositionpixels: action['payload']);
+  }
+
+
   if (action['type'] == "homescrollverticaltapstatus") {
     double homeoffset = state.homeoffset!;
     if (action['payload'] == 'ontapdown') {
@@ -124,4 +133,5 @@ final myStore = Store<StoreType>(counterReducer,
         showpopup: false,
         themeData: lightTheme,
         homeoffset: 0.0,
+        homepositionpixels: 0.0,
         homescrollverticaltapstatus: ""));

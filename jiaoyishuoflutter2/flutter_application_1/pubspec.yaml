@@ -14,6 +14,7 @@ dependencies:
   logging: ^1.2.0
   flutter_redux: ^0.10.0
   redux: ^5.0.0
+  google_fonts: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -25,9 +26,12 @@ flutter:
   assets:
     - assets/images/
   fonts:
-    - family: MyFont
+    - family: SourceHanSans
       fonts:
-        - asset: assets/fonts/SourceHanSans-VF.ttf.ttc
+        - asset: ./assets/fonts/SourceHanSans-VF.ttf.ttc
+    - family: notosanssc
+      fonts:
+        - asset: ./assets/fonts/notosanssc.ttf
     - family: Iconfont
       fonts:
-        - asset: assets/fonts/iconfont/iconfont.ttf
+        - asset: ./assets/fonts/iconfont/iconfont.ttf

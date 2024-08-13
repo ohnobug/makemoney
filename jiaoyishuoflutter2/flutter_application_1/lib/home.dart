@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 import 'package:flutter_application_1/components/pageloading.dart';
 import 'package:flutter_application_1/logger.dart';
 import 'package:flutter_application_1/store.dart';
@@ -27,11 +29,11 @@ class _ChatListViewState extends State<LJNHomePage> {
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          return vm.mainpage1isload! ? _buildPage() : const LJNPageLoading();
+          return vm.mainpage1isload! ? _buildPage(vm) : const LJNPageLoading();
         });
   }
 
-  Widget _buildPage() {
+  Widget _buildPage(StoreType vm) {
     final List<ChatListItem> chatItems = [
       ChatListItem(
           id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
@@ -331,7 +333,6 @@ class _ChatListViewState extends State<LJNHomePage> {
         avatar: "assets/images/avatar/chat_30.jpg",
         onPressed: () {
           Navigator.pushNamed(context, '/chat');
-          logger.info('aaaaaaaaa');
         },
       ),
     ];
@@ -366,6 +367,7 @@ class _ChatListViewState extends State<LJNHomePage> {
                   });
                 },
                 child: ListView.builder(
+                  // physics: const RangeMaintainingScrollPhysics(),
                   physics: const MyBouncingScrollPhysics(),
                   // physics: const ClampingScrollPhysics(),
                   itemCount: itemCount,
@@ -385,6 +387,9 @@ class _ChatListViewState extends State<LJNHomePage> {
 const double kMinFlingVelocity = 50.0;
 // 定义最大的抛射速度常量，值为 8000.0
 const double kMaxFlingVelocity = 8000.0;
+
+  // 模拟的，用于下拉的时候将appbar也拉下来
+late MyBouncingScrollSimulation moniBouncingScrollSimulation;
 
 // 定义一个名为 MyBouncingScrollPhysics 的类，它继承自 ScrollPhysics 类
 class MyBouncingScrollPhysics extends ScrollPhysics {
@@ -425,6 +430,9 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
   // 重写 applyPhysicsToUserOffset 方法，应用物理效果到用户的偏移量
   @override
   double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
+    // logger.info("x: ${moniBouncingScrollSimulation.x(0.5)}");
+
+
     // 断言 offset 不为 0.0，以及位置的最小滚动范围小于等于最大滚动范围
     assert(offset != 0.0);
     assert(position.minScrollExtent <= position.maxScrollExtent);
@@ -456,9 +464,14 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
     final double direction = offset.sign;
 
     // =================================================================
+    logger.info(position.pixels);
+
+    myStore
+        .dispatch({"type": "homepositionpixels", "payload": position.pixels});
+
     // 如果在首页是下拉，则呼出小程序
     if (position.pixels <= 0 && offset.sign == 1) {
-      myStore.dispatch({"type": "homeoffset", "payload": offset * 5});
+      myStore.dispatch({"type": "homeoffset", "payload": offset * 2});
       return 0;
     }
     // =================================================================
@@ -498,11 +511,49 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
   @override
   double applyBoundaryConditions(ScrollMetrics position, double value) => 0.0;
 
+
   // 重写 createBallisticSimulation 方法，创建弹道模拟
   @override
   Simulation? createBallisticSimulation(
       ScrollMetrics position, double velocity) {
     final Tolerance tolerance = toleranceFor(position);
+
+    // logger.info("velocity: ${tolerance.velocity}, pixels: ${position.pixels}");
+    // 下拉列表的时候，列表上部不再有弹性（打算在此处劫持弹性）
+    if (velocity < 0 || position.pixels < 0) {
+      // 模拟的，用于下拉的时候将appbar也拉下来
+      moniBouncingScrollSimulation = MyBouncingScrollSimulation(
+        spring: spring,
+        position: position.pixels,
+        velocity: velocity,
+        leadingExtent: position.minScrollExtent,
+        trailingExtent: position.maxScrollExtent,
+        tolerance: tolerance,
+        constantDeceleration: switch (decelerationRate) {
+          ScrollDecelerationRate.fast => 1400,
+          ScrollDecelerationRate.normal => 0,
+        },
+      );
+
+      return BouncingScrollSimulation(
+        spring: SpringDescription.withDampingRatio(
+          mass: 0.1,
+          stiffness: 9000,
+          ratio: 1.3,
+        ),
+        position: position.pixels,
+        velocity: velocity,
+        leadingExtent: position.minScrollExtent,
+        trailingExtent: position.maxScrollExtent,
+        tolerance: tolerance,
+        constantDeceleration: switch (decelerationRate) {
+          ScrollDecelerationRate.fast => 1400,
+          ScrollDecelerationRate.normal => 0,
+        },
+      );
+    }
+
+
     // 如果速度的绝对值大于等于容忍度或者位置超出范围
     if (velocity.abs() >= tolerance.velocity || position.outOfRange) {
       // 创建并返回一个 BouncingScrollSimulation 实例
@@ -569,6 +620,166 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
     }
   }
 }
+
+
+
+
+
+class MyBouncingScrollSimulation extends Simulation {
+  /// Creates a simulation group for scrolling on iOS, with the given
+  /// parameters.
+  ///
+  /// The position and velocity arguments must use the same units as will be
+  /// expected from the [x] and [dx] methods respectively (typically logical
+  /// pixels and logical pixels per second respectively).
+  ///
+  /// The leading and trailing extents must use the unit of length, the same
+  /// unit as used for the position argument and as expected from the [x]
+  /// method (typically logical pixels).
+  ///
+  /// The units used with the provided [SpringDescription] must similarly be
+  /// consistent with the other arguments. A default set of constants is used
+  /// for the `spring` description if it is omitted; these defaults assume
+  /// that the unit of length is the logical pixel.
+  MyBouncingScrollSimulation({
+    required double position,
+    required double velocity,
+    required this.leadingExtent,
+    required this.trailingExtent,
+    required this.spring,
+    double constantDeceleration = 0,
+    super.tolerance,
+  }) : assert(leadingExtent <= trailingExtent) {
+    if (position < leadingExtent) {
+      _springSimulation = _underscrollSimulation(position, velocity);
+      _springTime = double.negativeInfinity;
+    } else if (position > trailingExtent) {
+      _springSimulation = _overscrollSimulation(position, velocity);
+      _springTime = double.negativeInfinity;
+    } else {
+      // Taken from UIScrollView.decelerationRate (.normal = 0.998)
+      // 0.998^1000 = ~0.135
+      _frictionSimulation = FrictionSimulation(0.135, position, velocity, constantDeceleration: constantDeceleration);
+      final double finalX = _frictionSimulation.finalX;
+      if (velocity > 0.0 && finalX > trailingExtent) {
+        _springTime = _frictionSimulation.timeAtX(trailingExtent);
+        _springSimulation = _overscrollSimulation(
+          trailingExtent,
+          math.min(_frictionSimulation.dx(_springTime), maxSpringTransferVelocity),
+        );
+        assert(_springTime.isFinite);
+      } else if (velocity < 0.0 && finalX < leadingExtent) {
+        _springTime = _frictionSimulation.timeAtX(leadingExtent);
+        _springSimulation = _underscrollSimulation(
+          leadingExtent,
+          math.min(_frictionSimulation.dx(_springTime), maxSpringTransferVelocity),
+        );
+        assert(_springTime.isFinite);
+      } else {
+        _springTime = double.infinity;
+      }
+    }
+  }
+
+  /// The maximum velocity that can be transferred from the inertia of a ballistic
+  /// scroll into overscroll.
+  static const double maxSpringTransferVelocity = 5000.0;
+
+  /// When [x] falls below this value the simulation switches from an internal friction
+  /// model to a spring model which causes [x] to "spring" back to [leadingExtent].
+  final double leadingExtent;
+
+  /// When [x] exceeds this value the simulation switches from an internal friction
+  /// model to a spring model which causes [x] to "spring" back to [trailingExtent].
+  final double trailingExtent;
+
+  /// The spring used to return [x] to either [leadingExtent] or [trailingExtent].
+  final SpringDescription spring;
+
+  late FrictionSimulation _frictionSimulation;
+  late Simulation _springSimulation;
+  late double _springTime;
+  double _timeOffset = 0.0;
+
+  Simulation _underscrollSimulation(double x, double dx) {
+    return ScrollSpringSimulation(spring, x, leadingExtent, dx);
+  }
+
+  Simulation _overscrollSimulation(double x, double dx) {
+    return ScrollSpringSimulation(spring, x, trailingExtent, dx);
+  }
+
+  Simulation _simulation(double time) {
+    final Simulation simulation;
+    if (time > _springTime) {
+      _timeOffset = _springTime.isFinite ? _springTime : 0.0;
+      simulation = _springSimulation;
+    } else {
+      _timeOffset = 0.0;
+      simulation = _frictionSimulation;
+    }
+    return simulation..tolerance = tolerance;
+  }
+
+  @override
+  double x(double time) {
+    var a = _simulation(time).x(time - _timeOffset);
+    print("time: ${time}    x: ${a}");
+    return a;
+  }
+
+  @override
+  double dx(double time) {
+    var a = _simulation(time).dx(time - _timeOffset);
+    print("time: ${time}    dx: ${a}");
+    return a;
+  }
+
+  @override
+  bool isDone(double time) => _simulation(time).isDone(time - _timeOffset);
+
+  @override
+  String toString() {
+    return '${objectRuntimeType(this, 'BouncingScrollSimulation')}(leadingExtent: $leadingExtent, trailingExtent: $trailingExtent)';
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class ChatListItem extends StatefulWidget {
   final String id;
