@@ -78,95 +78,98 @@ class _PullDownAnimationScreen2State extends State<PullDownAnimationScreen2>
             leiji1 = 0;
           }
 
-          return Stack(children: [
-            AnimatedBuilder(
-                animation: _controller1,
-                builder: (context, child) {
-                  return Transform.translate(
-                    offset: Offset(0, _animation1.value),
-                    child: GestureDetector(
-                        onPanUpdate: (detail) {
-                          leiji1 += detail.delta.dy;
+          return Container(
+            padding: EdgeInsets.only(top: 45.w),
+            child: Stack(children: [
+              AnimatedBuilder(
+                  animation: _controller1,
+                  builder: (context, child) {
+                    return Transform.translate(
+                      offset: Offset(0, _animation1.value),
+                      child: GestureDetector(
+                          onPanUpdate: (detail) {
+                            leiji1 += detail.delta.dy;
 
-                          _controller1.value +=
-                              detail.delta.dy / screenSize.height;
-                          _controller2.value +=
-                              detail.delta.dy / screenSize.height;
-                        },
-                        onPanEnd: (details) {
+                            _controller1.value +=
+                                detail.delta.dy / screenSize.height;
+                            _controller2.value +=
+                                detail.delta.dy / screenSize.height;
+                          },
+                          onPanEnd: (details) {
                             logger.info(leiji1);
                             logger.info(_controller1.value);
 
-                          // 向上滑
-                          if (leiji1 < 0 && _controller1.value <= 1) {
-                            _controller1.reverse();
-                            _controller2.reverse();
-                          } else {
-                            _controller1.forward();
-                            _controller2.forward();
-                          }
+                            // 向上滑
+                            if (leiji1 < 0 && _controller1.value <= 1) {
+                              _controller1.reverse();
+                              _controller2.reverse();
+                            } else {
+                              _controller1.forward();
+                              _controller2.forward();
+                            }
 
-                          // 向下滑
-                          if (leiji1 > 0 && _controller1.value >= 0.05) {
-                            _controller1.forward();
-                            _controller2.forward();
-                          } else {
-                            _controller1.reverse();
-                            _controller2.reverse();
-                          }
+                            // 向下滑
+                            if (leiji1 > 0 && _controller1.value >= 0.05) {
+                              _controller1.forward();
+                              _controller2.forward();
+                            } else {
+                              _controller1.reverse();
+                              _controller2.reverse();
+                            }
 
-                          leiji1 = 0;
-                        },
-                        child: Container(
-                          width: screenSize.width,
-                          height: screenSize.height,
-                          color: Colors.green,
-                        )),
-                  );
-                }),
-            AnimatedBuilder(
-                animation: _controller2,
-                builder: (context, child) {
-                  return Transform.translate(
-                      offset: Offset(0, _animation2.value), child: widget.page
-                      // GestureDetector(
-                      //   onPanUpdate: (detail) {
-                      //     leiji2 += detail.delta.dy;
+                            leiji1 = 0;
+                          },
+                          child: Container(
+                            width: screenSize.width,
+                            height: screenSize.height,
+                            color: Colors.green,
+                          )),
+                    );
+                  }),
+              AnimatedBuilder(
+                  animation: _controller2,
+                  builder: (context, child) {
+                    return Transform.translate(
+                        offset: Offset(0, _animation2.value), child: widget.page
+                        // GestureDetector(
+                        //   onPanUpdate: (detail) {
+                        //     leiji2 += detail.delta.dy;
 
-                      //     _controller1.value +=
-                      //         detail.delta.dy / screenSize.height;
-                      //     _controller2.value +=
-                      //         detail.delta.dy / screenSize.height;
-                      //   },
-                      //   onPanEnd: (details) {
-                      //     logger.info(_controller2.value);
+                        //     _controller1.value +=
+                        //         detail.delta.dy / screenSize.height;
+                        //     _controller2.value +=
+                        //         detail.delta.dy / screenSize.height;
+                        //   },
+                        //   onPanEnd: (details) {
+                        //     logger.info(_controller2.value);
 
-                      //     if (leiji2 > 0 && _controller2.value > 0.1) {
-                      //       _controller1.forward();
-                      //       _controller2.forward();
-                      //     } else {
-                      //       _controller1.reverse();
-                      //       _controller2.reverse();
-                      //     }
+                        //     if (leiji2 > 0 && _controller2.value > 0.1) {
+                        //       _controller1.forward();
+                        //       _controller2.forward();
+                        //     } else {
+                        //       _controller1.reverse();
+                        //       _controller2.reverse();
+                        //     }
 
-                      //     if (leiji2 < 0 && _controller2.value <= 0.9) {
-                      //       _controller1.reverse();
-                      //       _controller2.reverse();
-                      //     } else {
-                      //       _controller1.forward();
-                      //       _controller2.forward();
-                      //     }
+                        //     if (leiji2 < 0 && _controller2.value <= 0.9) {
+                        //       _controller1.reverse();
+                        //       _controller2.reverse();
+                        //     } else {
+                        //       _controller1.forward();
+                        //       _controller2.forward();
+                        //     }
 
-                      //     leiji2 = 0;
-                      //   },
-                      //   // child: Container(
-                      //   //   color: Colors.red,
-                      //   // )
-                      //   child: widget.page,
-                      // ),
-                      );
-                })
-          ]);
+                        //     leiji2 = 0;
+                        //   },
+                        //   // child: Container(
+                        //   //   color: Colors.red,
+                        //   // )
+                        //   child: widget.page,
+                        // ),
+                        );
+                  })
+            ]),
+          );
         });
   }
 
@@ -176,4 +179,8 @@ class _PullDownAnimationScreen2State extends State<PullDownAnimationScreen2>
     _controller2.dispose();
     super.dispose();
   }
+}
+
+extension on int {
+  get w => null;
 }
