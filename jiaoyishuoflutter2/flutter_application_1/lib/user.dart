@@ -72,7 +72,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10).w,
                                     child: Image.asset(
-                                      'images/avatar/chat_4.jpg',
+                                      'assets/images/avatar/chat_4.jpg',
                                       width: 120.w,
                                       height: 120.w,
                                       fit: BoxFit.cover,
@@ -172,7 +172,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                           .w,
                                                                   child: Image
                                                                       .asset(
-                                                                    'images/avatar/chat_4.jpg',
+                                                                    'assets/images/avatar/chat_4.jpg',
                                                                     width: 30.w,
                                                                     height:
                                                                         30.w,
@@ -206,7 +206,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                           .w,
                                                                   child: Image
                                                                       .asset(
-                                                                    'images/avatar/chat_5.jpg',
+                                                                    'assets/images/avatar/chat_5.jpg',
                                                                     width: 30.w,
                                                                     height:
                                                                         30.w,
@@ -240,7 +240,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                           .w,
                                                                   child: Image
                                                                       .asset(
-                                                                    'images/avatar/chat_6.jpg',
+                                                                    'assets/images/avatar/chat_6.jpg',
                                                                     width: 30.w,
                                                                     height:
                                                                         30.w,
@@ -479,7 +479,7 @@ class _FunctionItemState extends State<FunctionItem> {
                 shape: BoxShape.rectangle,
                 // borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: NetworkImage(widget.icon),
+                  image: AssetImage(widget.icon),
                   fit: BoxFit.cover,
                 ),
               ),

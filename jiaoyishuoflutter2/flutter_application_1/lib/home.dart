@@ -631,7 +631,7 @@ class _ChatListItem extends State<ChatListItem> {
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(10).w,
                   image: DecorationImage(
-                    image: NetworkImage(widget.avatar),
+                    image: AssetImage(widget.avatar),
                     fit: BoxFit.cover,
                   ),
                 ),

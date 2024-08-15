@@ -456,7 +456,7 @@ class _ContactInformationState extends State<ContactInformation> {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(7).w,
                 image: DecorationImage(
-                  image: NetworkImage(widget.icon),
+                  image: AssetImage(widget.icon),
                   fit: BoxFit.cover,
                 ),
               ),

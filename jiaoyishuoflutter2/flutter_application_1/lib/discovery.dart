@@ -212,7 +212,7 @@ class _FunctionItemState extends State<FunctionItem> {
                 shape: BoxShape.rectangle,
                 // borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: NetworkImage(widget.icon),
+                  image: AssetImage(widget.icon),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -271,7 +271,7 @@ class _FunctionItemState extends State<FunctionItem> {
                                         borderRadius:
                                             BorderRadius.circular(6).w,
                                         child: Image.asset(
-                                          'images/avatar/chat_4.jpg',
+                                          'assets/images/avatar/chat_4.jpg',
                                           width: 60.w,
                                           height: 60.w,
                                           fit: BoxFit.cover,
@@ -327,7 +327,7 @@ class _FunctionItemState extends State<FunctionItem> {
                                         borderRadius:
                                             BorderRadius.circular(500).w,
                                         child: Image.asset(
-                                          'images/avatar/chat_4.jpg',
+                                          'assets/images/avatar/chat_4.jpg',
                                           width: 60.w,
                                           height: 60.w,
                                           fit: BoxFit.cover,
