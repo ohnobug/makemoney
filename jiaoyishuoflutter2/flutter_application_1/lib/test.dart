@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/logger.dart';
 import 'package:flutter_application_1/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PullDownAnimationScreen2 extends StatefulWidget {
   final StatefulWidget page;
@@ -79,7 +80,7 @@ class _PullDownAnimationScreen2State extends State<PullDownAnimationScreen2>
           }
 
           return Container(
-            padding: EdgeInsets.only(top: 45.w),
+            padding: EdgeInsets.only(top: 45.0.w),
             child: Stack(children: [
               AnimatedBuilder(
                   animation: _controller1,
