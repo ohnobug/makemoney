@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/chat.dart';
 import 'package:flutter_application_1/discovery.dart';
 // import 'package:flutter_application_1/provider.dart';
@@ -328,6 +329,8 @@ class _CustomTabbarState extends State<CustomTabbar>
                     : PreferredSize(
                         preferredSize: Size.fromHeight(90.0.w),
                         child: AppBar(
+                          systemOverlayStyle: const SystemUiOverlayStyle(statusBarColor: Colors.red),
+                          // toolbarHeight: 0,
                           centerTitle: true,
                           title: title,
                           titleTextStyle: TextStyle(fontSize: 32.w),
