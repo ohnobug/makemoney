@@ -24,12 +24,12 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/images/avatar/
-    - assets/images/icon/
+    - assets/images/avatar_webp/
+    - assets/images/icon_webp/
   fonts:
-    - family: MyFont
-      fonts:
-        - asset: assets/fonts/SourceHanSans-VF.ttf.ttc
+    # - family: MyFont
+    #   fonts:
+    #     - asset: assets/fonts/SourceHanSans-VF.ttf.ttc
     - family: Iconfont
       fonts:
         - asset: assets/fonts/iconfont/iconfont.ttf

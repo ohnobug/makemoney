@@ -111,7 +111,7 @@ class _LJNChatPage extends State<LJNChatPage> {
                                                                   5)
                                                               .w,
                                                       child: Image.asset(
-                                                        "assets/images/avatar/chat_5.jpg",
+                                                        "assets/images/avatar_webp/chat_5.webp",
                                                         width: 78.w,
                                                         height: 78.w,
                                                       )))),
@@ -160,7 +160,7 @@ class _LJNChatPage extends State<LJNChatPage> {
                                                               .w,
                                                       child: Image.asset(
                                                         // fit: BoxFit.fitWidth,
-                                                        "assets/images/icon/left.png",
+                                                        "assets/images/icon_webp/left.webp",
                                                         width: 9.w,
                                                         fit: BoxFit.fill,
                                                       ),

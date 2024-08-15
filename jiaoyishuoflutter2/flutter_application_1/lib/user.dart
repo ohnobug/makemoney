@@ -72,7 +72,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10).w,
                                     child: Image.asset(
-                                      'assets/images/avatar/chat_4.jpg',
+                                      'assets/images/avatar_webp/chat_4.webp',
                                       width: 120.w,
                                       height: 120.w,
                                       fit: BoxFit.cover,
@@ -172,7 +172,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                           .w,
                                                                   child: Image
                                                                       .asset(
-                                                                    'assets/images/avatar/chat_4.jpg',
+                                                                    'assets/images/avatar_webp/chat_4.webp',
                                                                     width: 30.w,
                                                                     height:
                                                                         30.w,
@@ -206,7 +206,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                           .w,
                                                                   child: Image
                                                                       .asset(
-                                                                    'assets/images/avatar/chat_5.jpg',
+                                                                    'assets/images/avatar_webp/chat_5.webp',
                                                                     width: 30.w,
                                                                     height:
                                                                         30.w,
@@ -240,7 +240,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                           .w,
                                                                   child: Image
                                                                       .asset(
-                                                                    'assets/images/avatar/chat_6.jpg',
+                                                                    'assets/images/avatar_webp/chat_6.webp',
                                                                     width: 30.w,
                                                                     height:
                                                                         30.w,
@@ -285,7 +285,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "服务",
-                              icon: "assets/images/icon/icon1.png",
+                              icon: "assets/images/icon_webp/icon1.webp",
                               link: '',
                               underline: false,
                             ),
@@ -298,35 +298,35 @@ class _LJNUserPageState extends State<LJNUserPage> {
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "收藏",
-                              icon: "assets/images/icon/icon2.png",
+                              icon: "assets/images/icon_webp/icon2.webp",
                               link: '',
                               underline: true,
                             ),
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "朋友圈",
-                              icon: "assets/images/icon/icon3.png",
+                              icon: "assets/images/icon_webp/icon3.webp",
                               link: '',
                               underline: true,
                             ),
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "视频号",
-                              icon: "assets/images/icon/icon4.png",
+                              icon: "assets/images/icon_webp/icon4.webp",
                               link: '',
                               underline: true,
                             ),
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "订单与卡包",
-                              icon: "assets/images/icon/icon5.png",
+                              icon: "assets/images/icon_webp/icon5.webp",
                               link: '',
                               underline: true,
                             ),
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "表情",
-                              icon: "assets/images/icon/icon6.png",
+                              icon: "assets/images/icon_webp/icon6.webp",
                               link: '',
                               underline: false,
                             ),
@@ -339,7 +339,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "设置",
-                              icon: "assets/images/icon/icon7.png",
+                              icon: "assets/images/icon_webp/icon7.webp",
                               link: '',
                               underline: false,
                             ),

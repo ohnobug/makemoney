@@ -53,7 +53,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "朋友圈",
-                            icon: "assets/images/icon/discovery_icon1.png",
+                            icon: "assets/images/icon_webp/discovery_icon1.webp",
                             link: '',
                             underline: false,
                           ),
@@ -63,7 +63,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "视频号",
-                            icon: "assets/images/icon/discovery_icon2.png",
+                            icon: "assets/images/icon_webp/discovery_icon2.webp",
                             link: '',
                             underline: true,
                             showStyle: 1,
@@ -71,7 +71,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "直播",
-                            icon: "assets/images/icon/discovery_icon3.png",
+                            icon: "assets/images/icon_webp/discovery_icon3.webp",
                             link: '',
                             underline: false,
                             showStyle: 2,
@@ -82,14 +82,14 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "扫一扫",
-                            icon: "assets/images/icon/discovery_icon4.png",
+                            icon: "assets/images/icon_webp/discovery_icon4.webp",
                             link: '',
                             underline: true,
                           ),
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "听一听",
-                            icon: "assets/images/icon/discovery_icon5.png",
+                            icon: "assets/images/icon_webp/discovery_icon5.webp",
                             link: '',
                             underline: false,
                           ),
@@ -99,14 +99,14 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "看一看",
-                            icon: "assets/images/icon/discovery_icon6.png",
+                            icon: "assets/images/icon_webp/discovery_icon6.webp",
                             link: '',
                             underline: true,
                           ),
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "搜一搜",
-                            icon: "assets/images/icon/discovery_icon7.png",
+                            icon: "assets/images/icon_webp/discovery_icon7.webp",
                             link: '',
                             underline: false,
                           ),
@@ -116,7 +116,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "附近",
-                            icon: "assets/images/icon/discovery_icon8.png",
+                            icon: "assets/images/icon_webp/discovery_icon8.webp",
                             link: '',
                             underline: false,
                           ),
@@ -126,14 +126,14 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "购物",
-                            icon: "assets/images/icon/discovery_icon9.png",
+                            icon: "assets/images/icon_webp/discovery_icon9.webp",
                             link: '',
                             underline: true,
                           ),
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "游戏",
-                            icon: "assets/images/icon/discovery_icon10.png",
+                            icon: "assets/images/icon_webp/discovery_icon10.webp",
                             link: '',
                             underline: true,
                           ),
@@ -143,7 +143,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "小程序",
-                            icon: "assets/images/icon/discovery_icon11.png",
+                            icon: "assets/images/icon_webp/discovery_icon11.webp",
                             link: '',
                             underline: false,
                           ),
@@ -271,7 +271,7 @@ class _FunctionItemState extends State<FunctionItem> {
                                         borderRadius:
                                             BorderRadius.circular(6).w,
                                         child: Image.asset(
-                                          'assets/images/avatar/chat_4.jpg',
+                                          'assets/images/avatar_webp/chat_4.webp',
                                           width: 60.w,
                                           height: 60.w,
                                           fit: BoxFit.cover,
@@ -327,7 +327,7 @@ class _FunctionItemState extends State<FunctionItem> {
                                         borderRadius:
                                             BorderRadius.circular(500).w,
                                         child: Image.asset(
-                                          'assets/images/avatar/chat_4.jpg',
+                                          'assets/images/avatar_webp/chat_4.webp',
                                           width: 60.w,
                                           height: 60.w,
                                           fit: BoxFit.cover,
