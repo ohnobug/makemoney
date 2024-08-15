@@ -34,27 +34,6 @@ export function setTheme(name: string) {
       marginBottom: px2vw(12),
       padding: px2vw(10),
     },
-    // 顶部功能
-    ljn_header_function: {
-      height: px2vw(30),
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "flex-end",
-      alignItems: "center",
-      // marginBottom: px2vw(10),
-    },
-    // 顶部功能按钮
-    ljn_header_function_btn: {
-      flex: 0,
-      flexBasis: px2vw(25),
-      marginLeft: px2vw(25),
-      height: px2vw(30),
-      width: px2vw(30),
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "center",
-      alignItems: "center",
-    },
 
     // 用户名称信息
     ljn_userinfo_area: {
@@ -231,13 +210,6 @@ export function setTheme(name: string) {
       fontSize: px2vw(12),
     },
 
-    // 活动中心区域
-    ljn_activation_area: {
-      display: "flex",
-      flexWrap: "wrap",
-      flexDirection: "row",
-      justifyContent: "space-between",
-    },
 
     ljn_footer: {
       flex: 0,

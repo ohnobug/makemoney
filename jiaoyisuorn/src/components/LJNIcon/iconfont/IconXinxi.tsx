@@ -26,9 +26,7 @@ let IconXinxi: FunctionComponent<Props> = ({ size, color, ...rest }) => {
   );
 };
 
-IconXinxi.defaultProps = {
-  size: 18,
-};
+
 
 IconXinxi = React.memo ? React.memo(IconXinxi) : IconXinxi;
 

@@ -23,7 +23,7 @@ export function setTheme(name: string) {
       height: px2vw(271),
       backgroundColor: theme.areaBackgroundColor,
       borderBottomLeftRadius: px2vw(10),
-      borderBottomrightRadius: px2vw(10),
+      borderBottomRightRadius: px2vw(10),
       padding: px2vw(17),
       marginBottom: px2vw(10),
     },

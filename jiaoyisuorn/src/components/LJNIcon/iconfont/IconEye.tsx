@@ -22,9 +22,7 @@ let IconEye: FunctionComponent<Props> = ({ size, color, ...rest }) => {
   );
 };
 
-IconEye.defaultProps = {
-  size: 18,
-};
+
 
 IconEye = React.memo ? React.memo(IconEye) : IconEye;
 

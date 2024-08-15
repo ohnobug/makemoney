@@ -412,17 +412,17 @@ Swiper.propTypes = {
   onNotAllowScroll: PropTypes.func,
 };
 
-Swiper.defaultProps = {
-  vertical: false,
-  from: 0,
-  loop: false,
-  timeout: 0,
-  gesturesEnabled: () => true,
-  minDistanceToCapture: 5,
-  minDistanceForAction: 0.2,
-  positionFixed: false,
-  controlsEnabled: true,
-};
+// Swiper.defaultProps = {
+//   vertical: false,
+//   from: 0,
+//   loop: false,
+//   timeout: 0,
+//   gesturesEnabled: () => true,
+//   minDistanceToCapture: 5,
+//   minDistanceForAction: 0.2,
+//   positionFixed: false,
+//   controlsEnabled: true,
+// };
 
 const styles = {
   root: {

@@ -30,9 +30,7 @@ let IconGengduo1: FunctionComponent<Props> = ({ size, color, ...rest }) => {
   );
 };
 
-IconGengduo1.defaultProps = {
-  size: 18,
-};
+
 
 IconGengduo1 = React.memo ? React.memo(IconGengduo1) : IconGengduo1;
 

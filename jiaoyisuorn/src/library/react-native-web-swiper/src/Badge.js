@@ -55,10 +55,6 @@ Badge.propTypes = {
   status: PropTypes.oneOf(['primary', 'success', 'warning', 'error']),
 };
 
-Badge.defaultProps = {
-  status: 'primary',
-};
-
 const size = 18;
 const miniSize = 8;
 

@@ -35,7 +35,7 @@ export default function SlideHome({ navigation }: Props) {
           }}
         >
           {/* 轮播图 */}
-          <LJNSwiper />
+          {/* <LJNSwiper /> */}
 
           {/* 热门信息 */}
           <LJNHotInfo />
@@ -44,10 +44,10 @@ export default function SlideHome({ navigation }: Props) {
           <LJNNav />
 
           {/* 功能区 */}
-          <LJNFunctions />
+          {/* <LJNFunctions /> */}
 
           {/* 榜单 */}
-          <LJNList />
+          {/* <LJNList /> */}
         </Provider>
       }
     ></LJNScrollView>

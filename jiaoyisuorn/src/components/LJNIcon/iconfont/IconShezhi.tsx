@@ -22,9 +22,7 @@ let IconShezhi: FunctionComponent<Props> = ({ size, color, ...rest }) => {
   );
 };
 
-IconShezhi.defaultProps = {
-  size: 18,
-};
+
 
 IconShezhi = React.memo ? React.memo(IconShezhi) : IconShezhi;
 

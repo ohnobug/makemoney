@@ -7,6 +7,9 @@ const theme: ITheme = {
   borderColor: "#283241",
   primaryColor: "#0094ff",
 
+  // 余额颜色
+  blanceTextColor: "#94d6b3",
+
   // 头部背景颜色
   headerBackgroundColor: "#0f1724",
   headerBorderBottomColor: "#cbcbcb",
@@ -25,6 +28,7 @@ const theme: ITheme = {
   chatBriefMessageColor: "#b2b2b2",
   chatMessageColor: "#191919",
   chatMessageBackgroundColor: "#f1f1f1",
+  chatTimeColor: ""
 };
 
 export default theme;

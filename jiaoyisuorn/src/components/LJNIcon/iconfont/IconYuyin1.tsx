@@ -34,9 +34,7 @@ let IconYuyin1: FunctionComponent<Props> = ({ size, color, ...rest }) => {
   );
 };
 
-IconYuyin1.defaultProps = {
-  size: 18,
-};
+
 
 IconYuyin1 = React.memo ? React.memo(IconYuyin1) : IconYuyin1;
 

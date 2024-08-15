@@ -27,9 +27,7 @@ export default function index({ list }: Props) {
               backgroundColor: "black",
             }}
             activeOpacity={0.8}
-            onPress={() => {
-              console.log('qqqqqq')
-            }}
+            onPress={item.onPress ? item.onPress : null}
           >
             <View style={styles.ljn_list_item}>
               {/* 头像 */}
@@ -54,11 +52,7 @@ export default function index({ list }: Props) {
                   <LJNIcon
                     title={"jinrujiantouxiao"}
                     size={13}
-                    color={
-                      theme === "dark"
-                        ? darkTheme.chatMessageColor
-                        : lightTheme.chatMessageColor
-                    }
+                    color={theme === "dark" ? darkTheme.textColor : lightTheme.textColor}
                   />
                 </View>
               </View>

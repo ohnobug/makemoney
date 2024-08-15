@@ -164,6 +164,8 @@ export default function ChatMessage({ route, navigation }: Props) {
         onMore={() => {}}
         title={friendInfo.friendName}
       ></LJNHeader>
+
+      
       <LJNScrollView
         style={styles.ljn_main}
         horizontal={false}

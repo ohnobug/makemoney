@@ -34,9 +34,7 @@ let IconFenxiang2: FunctionComponent<Props> = ({ size, color, ...rest }) => {
   );
 };
 
-IconFenxiang2.defaultProps = {
-  size: 18,
-};
+
 
 IconFenxiang2 = React.memo ? React.memo(IconFenxiang2) : IconFenxiang2;
 

@@ -22,9 +22,7 @@ let IconJingyin105: FunctionComponent<Props> = ({ size, color, ...rest }) => {
   );
 };
 
-IconJingyin105.defaultProps = {
-  size: 18,
-};
+
 
 IconJingyin105 = React.memo ? React.memo(IconJingyin105) : IconJingyin105;
 

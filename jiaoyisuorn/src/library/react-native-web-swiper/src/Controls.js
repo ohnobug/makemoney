@@ -248,11 +248,6 @@ DefaultControls.propTypes = {
   goTo: PropTypes.func,
 };
 
-DefaultControls.defaultProps = {
-  prevTitle: 'Prev',
-  nextTitle: 'Next',
-};
-
 const styles = {
   row: {
     flexDirection: 'row',

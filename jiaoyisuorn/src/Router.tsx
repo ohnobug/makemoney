@@ -7,6 +7,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AppStylesConfig from "AppStylesConfig";
 import { useAppSelector } from "hooks";
+import Services from "pages/Services"
 import ChatMessage from "pages/ChatMessage";
 import Gallery from "pages/Gallery";
 import Login from "pages/Login";
@@ -15,6 +16,7 @@ import SlideAssets from "pages/SlideAssets";
 import SlideChat from "pages/SlideChat";
 import SlideHome from "pages/SlideHome";
 import SlideUser from "pages/SlideUser";
+
 import { useEffect, useState } from "react";
 import {
   Animated,
@@ -163,7 +165,7 @@ function IndexScreen() {
       <Tab.Screen
         name="chat"
         options={{
-          title: "幂信",
+          title: "微信",
           tabBarShowIcon: true,
         }}
         component={SlideChat}
@@ -172,7 +174,7 @@ function IndexScreen() {
       <Tab.Screen
         name="index"
         options={{
-          title: "交易所",
+          title: "通讯录",
           tabBarShowIcon: true,
         }}
         component={SlideHome}
@@ -191,7 +193,7 @@ function IndexScreen() {
       <Tab.Screen
         name="assets"
         options={{
-          title: "资产",
+          title: "发现",
           tabBarShowIcon: true,
         }}
         component={SlideAssets}
@@ -199,7 +201,7 @@ function IndexScreen() {
       <Tab.Screen
         name="user"
         options={{
-          title: "我的",
+          title: "我",
           tabBarShowIcon: true,
         }}
         component={SlideUser}
@@ -288,6 +290,13 @@ export default () => {
         <Stack.Screen
           name="login"
           component={Login}
+          options={{ headerShown: false }}
+        />
+
+        {/* 服务 */}
+        <Stack.Screen
+          name="services"
+          component={Services}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

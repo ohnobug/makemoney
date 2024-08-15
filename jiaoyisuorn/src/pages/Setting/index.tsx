@@ -1,11 +1,11 @@
 import { useStyles } from "hooks";
 import React from "react";
 import { View } from "react-native";
-import LJNButton from "../../components/LJNButton";
-import LJNHeader from "../../components/LJNHeader";
-import LJNLink from "../../components/LJNLink";
-import LJNList from "../../components/LJNList";
-import LJNScrollView from "../../components/LJNScrollView";
+import LJNButton from "components/LJNButton";
+import LJNHeader from "components/LJNHeader";
+import LJNLink from "components/LJNLink";
+import LJNList from "components/LJNList";
+import LJNScrollView from "components/LJNScrollView";
 import { setTheme } from "./styles";
 
 const listData1 = [

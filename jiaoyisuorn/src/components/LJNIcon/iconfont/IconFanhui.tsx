@@ -22,9 +22,7 @@ let IconFanhui: FunctionComponent<Props> = ({ size, color, ...rest }) => {
   );
 };
 
-IconFanhui.defaultProps = {
-  size: 18,
-};
+
 
 IconFanhui = React.memo ? React.memo(IconFanhui) : IconFanhui;
 

@@ -25,12 +25,12 @@ export function setTheme(name: string) {
     },
     // 用户信息
     ljn_header_area: {
-      height: px2vw(290),
+      height: px2vw(185),
       backgroundColor: theme.areaBackgroundColor,
       borderBottomLeftRadius: px2vw(10),
       borderBottomRightRadius: px2vw(10),
       marginBottom: px2vw(12),
-      padding: px2vw(10),
+      // padding: px2vw(10),
     },
     // 顶部功能
     ljn_header_function: {
@@ -40,6 +40,9 @@ export function setTheme(name: string) {
       justifyContent: "flex-end",
       alignItems: "center",
       // marginBottom: px2vw(10),
+      position: "absolute",
+      top: px2vw(30),
+      right: px2vw(13)
     },
     // 顶部功能按钮
     ljn_header_function_btn: {
@@ -56,124 +59,82 @@ export function setTheme(name: string) {
 
     // 用户名称信息
     ljn_userinfo_area: {
-      height: px2vw(77),
+      marginTop: px2vw(64),
+      // height: px2vw(77),
       // backgroundColor: "yellow",
       display: "flex",
       flexDirection: "row",
       marginBottom: px2vw(9),
     },
     ljn_userinfo_avatar_area: {
-      flexBasis: px2vw(92),
+      marginLeft: px2vw(23),
+      marginRight: px2vw(16),
+      // flexBasis: px2vw(92),
+      // backgroundColor: "blue",
     },
     ljn_userinfo_avatar_area_img: {
-      height: px2vw(65),
-      width: px2vw(65),
-      borderRadius: px2vw(65),
+      height: px2vw(60),
+      width: px2vw(60),
+      borderRadius: px2vw(5),
     },
     ljn_userinfo: {
       flex: 1,
       display: "flex",
       flexDirection: "column",
+      // backgroundColor: "yellow",
     },
     ljn_userinfo_username: {
-      marginBottom: px2vw(7),
-      height: px2vw(25),
+      marginTop: px2vw(5),
+      marginBottom: px2vw(12),
+      height: px2vw(22),
     },
     ljn_userinfo_username_text: {
-      fontSize: px2vw(19),
-      color: theme.textColor,
+      fontSize: px2vw(18),
+      color: "#000",
       fontWeight: "600",
     },
     ljn_userinfo_uid: {
       display: "flex",
       alignItems: "flex-start",
-      marginBottom: px2vw(7),
+      marginBottom: px2vw(15),
       height: px2vw(16),
     },
+    // 微信号
     ljn_userinfo_uid_area: {
-      backgroundColor: theme.backgroundColor,
+      // backgroundColor: "blue",
       display: "flex",
       flexDirection: "row",
       alignContent: "center",
       justifyContent: "center",
-      paddingLeft: px2vw(8),
-      paddingRight: px2vw(8),
+      // paddingLeft: px2vw(8),
+      // paddingRight: px2vw(8),
       height: px2vw(18),
       borderRadius: px2vw(8),
     },
+    ljn_userinfo_uid_text: {
+      // flexBasis: px2vw(200),
+      flex: 1,
+      color: theme.textColor,
+      fontSize: px2vw(14),
+    },
     ljn_userinfo_uid_copy_icon: {
+      flexBasis: px2vw(35),
       marginLeft: px2vw(5),
       display: "flex",
       alignContent: "center",
       justifyContent: "center",
     },
-    ljn_userinfo_uid_text: {
-      color: theme.titleTextColor,
-      fontSize: px2vw(12),
-    },
-    ljn_userinfo_about: {
+    ljn_userinfo_uid_copy_icon2: {
+      flexBasis: px2vw(20),
       display: "flex",
-      flexDirection: "row",
-    },
-    ljn_userinfo_about_inner: {
-      marginRight: px2vw(15),
-      display: "flex",
-      flexDirection: "row",
+      alignContent: "center",
+      justifyContent: "center",
+      paddingRight: px2vw(30),
+      // backgroundColor: "blue"
     },
 
-    ljn_userinfo_about_inner_val: {
-      color: theme.textColor,
-      fontSize: px2vw(12),
-      marginRight: px2vw(5),
-    },
-    ljn_userinfo_about_inner_title: {
-      fontSize: px2vw(12),
-      color: theme.titleTextColor,
-    },
 
-    ljn_userinfo_auth: {
-      flexBasis: px2vw(68),
-    },
-    ljn_userinfo_auth_btn1: {
-      height: px2vw(22),
-      borderColor: theme.borderColor,
-      borderWidth: px2vw(1),
-      borderTopStartRadius: px2vw(22),
-      borderBottomStartRadius: px2vw(22),
-      paddingLeft: px2vw(10),
-      paddingRight: px2vw(10),
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      marginBottom: px2vw(4),
-      marginTop: px2vw(15),
-      position: "relative",
-      right: px2vw(-10),
-    },
-    ljn_userinfo_auth_btn1_text: {
-      fontSize: px2vw(12),
-      color: theme.titleTextColor,
-    },
-    ljn_userinfo_auth_btn2: {
-      height: px2vw(22),
-      borderColor: theme.borderColor,
-      borderWidth: px2vw(1),
-      borderTopStartRadius: px2vw(22),
-      borderBottomStartRadius: px2vw(22),
-      paddingLeft: px2vw(10),
-      paddingRight: px2vw(10),
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      position: "relative",
-      right: px2vw(-10),
-    },
-    ljn_userinfo_auth_btn2_text: {
-      fontSize: px2vw(12),
-      color: theme.titleTextColor,
-    },
+
 
     // 用户等级
     ljn_userinfo_level_area: {
@@ -228,45 +189,5 @@ export function setTheme(name: string) {
       fontSize: px2vw(12),
     },
 
-    // 功能区1
-    ljn_userinfo_detail_func1: {
-      // borderBottomColor: theme.borderColor,
-      // borderBottomWidth: px2vw(0.5),
-    },
-    ljn_list_area: {
-      backgroundColor: theme.areaBackgroundColor,
-      display: "flex",
-      flexDirection: "row",
-      flexWrap: "wrap",
-    },
-    ljn_list_item: {
-      flexGrow: 1,
-      flexBasis: px2vw(68.2),
-      height: px2vw(65),
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      flexDirection: "column",
-      marginTop: px2vw(5),
-    },
-    ljn_list_item_icon: {
-      width: px2vw(30),
-      height: px2vw(30),
-      marginBottom: px2vw(2),
-      // backgroundColor: "blue",
-    },
-    ljn_list_item_icon_img: {
-      width: px2vw(30),
-      height: px2vw(30),
-    },
-    ljn_list_item_title: {},
-    ljn_list_item_title_inner: {
-      color: theme.titleTextColor,
-      textAlign: "center",
-      fontSize: px2vw(11),
-    },
-
-    // 功能区2
-    ljn_userinfo_detail_func2: {},
   });
 }

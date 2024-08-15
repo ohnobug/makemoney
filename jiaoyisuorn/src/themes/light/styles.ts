@@ -7,6 +7,9 @@ const theme: ITheme = {
   borderColor: "#e5e5e5",
   primaryColor: "#08bf62",
 
+  // 余额颜色
+  blanceTextColor: "#94d6b3",
+
   // 头部背景颜色
   headerBackgroundColor: "#ededed",
   headerBorderBottomColor: "#cbcbcb",

@@ -7,6 +7,9 @@ interface ITheme {
   borderColor: string;
   primaryColor: string;
 
+  // 余额颜色
+  blanceTextColor: string,
+
   // 头部背景颜色
   headerBackgroundColor: string;
   headerBorderBottomColor: string;

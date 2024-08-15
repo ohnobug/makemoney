@@ -2,11 +2,10 @@ import LJNEmptyBlock from "components/LJNEmptyBlock";
 import LJNIcon from "components/LJNIcon";
 import LJNScrollView from "components/LJNScrollView";
 import { useStyles } from "hooks";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import { setTheme } from "./styles";
-import context from "./context";
-import { useFocusEffect } from "@react-navigation/native";
+import context from "../../context";
 
 type Props = any;
 

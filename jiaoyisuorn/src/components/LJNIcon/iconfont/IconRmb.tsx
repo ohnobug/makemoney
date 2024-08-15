@@ -22,9 +22,7 @@ let IconRmb: FunctionComponent<Props> = ({ size, color, ...rest }) => {
   );
 };
 
-IconRmb.defaultProps = {
-  size: 18,
-};
+
 
 IconRmb = React.memo ? React.memo(IconRmb) : IconRmb;
 

@@ -34,9 +34,7 @@ let IconDianzan: FunctionComponent<Props> = ({ size, color, ...rest }) => {
   );
 };
 
-IconDianzan.defaultProps = {
-  size: 18,
-};
+
 
 IconDianzan = React.memo ? React.memo(IconDianzan) : IconDianzan;
 

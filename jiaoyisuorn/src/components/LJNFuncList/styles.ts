@@ -30,7 +30,9 @@ export function setTheme(name: string) {
     ljn_list_avatar_box: {
       flexBasis: px2vw(22 + 17),
       display: "flex",
-      justifyContent: "center",
+      // justifyContent: "center",
+      // alignItems: "center",
+      // backgroundColor: "blue",
     },
     // 头像
     ljn_list_avatar: {
@@ -42,7 +44,6 @@ export function setTheme(name: string) {
     ljn_list_message_info: {
       height: px2vw(53),
       flex: 1,
-      paddingRight: px2vw(15),
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
@@ -53,7 +54,6 @@ export function setTheme(name: string) {
     ljn_list_message_info_no_underline: {
       height: px2vw(53),
       flex: 1,
-      paddingRight: px2vw(15),
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
@@ -62,8 +62,8 @@ export function setTheme(name: string) {
     },
     // 好友名字盒子
     ljn_list_friend_name_box: {
+      width: "70%",
       maxWidth: "70%",
-      // backgroundColor: "red",
       display: "flex",
       justifyContent: "center",
     },
@@ -71,7 +71,6 @@ export function setTheme(name: string) {
     ljn_list_friend_name: {
       fontSize: px2vw(15),
       color: theme.chatFriendNameColor,
-      // fontWeight: "500",
     },
     // 图标盒子
     ljn_list_date_box: {
@@ -80,7 +79,7 @@ export function setTheme(name: string) {
       flexDirection: "row",
       justifyContent: "flex-end",
       alignItems: "center",
-      // backgroundColor: "red",
+      paddingRight: px2vw(18),
     },
   });
 }

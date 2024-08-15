@@ -942,7 +942,7 @@ export default function SlideChat({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <LJNHeader title={"幂信"}></LJNHeader>
+      <LJNHeader title={"微信"}></LJNHeader>
 
       <View style={styles.ljn_chat_login_status}>
         <View style={styles.ljn_chat_login_status_icon}>
@@ -956,7 +956,7 @@ export default function SlideChat({ navigation }: Props) {
             }
           />
         </View>
-        <Text style={styles.ljn_chat_login_status_text}>Windows幂信已登录</Text>
+        <Text style={styles.ljn_chat_login_status_text}>Windows微信已登录</Text>
       </View>
 
       <View style={styles.ljn_main}>

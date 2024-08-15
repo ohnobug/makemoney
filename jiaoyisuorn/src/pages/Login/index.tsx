@@ -8,11 +8,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import LJNButton from "../../components/LJNButton";
-import LJNHeader from "../../components/LJNHeader";
-import LJNHeaderScroll from "../../components/LJNHeaderScroll";
-import LJNLineTitle from "../../components/LJNLineTitle";
-import LJNLink from "../../components/LJNLink";
+import LJNButton from "components/LJNButton";
+import LJNHeader from "components/LJNHeader";
+import LJNHeaderScroll from "components/LJNHeaderScroll";
+import LJNLineTitle from "components/LJNLineTitle";
+import LJNLink from "components/LJNLink";
 import { useStyles } from "hooks";
 import { setTheme } from "./styles";
 

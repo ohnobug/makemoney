@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { ScrollView, View } from "react-native";
 import LJNAssetsInfo from "./Components/LJNAssetsInfo";
 import LJNTradeOperation from "./Components/LJNTradeOperation";
-import context from "./context";
+import context from "context";
 import { setTheme } from "./styles";
 
 const { Provider } = context;
