@@ -81,28 +81,28 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                             title: '金融理财',
                             buttons: [
                               FunctionButton(
-                                icon: "images/icon/server_icon1.png",
+                                icon: "assets/images/icon_webp/server_icon1.webp",
                                 title: '信用卡还款',
                                 onPressed: () {
                                   logger.info('点击了信用卡还款按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon2.png",
+                                icon: "assets/images/icon_webp/server_icon2.webp",
                                 title: '微粒贷借钱',
                                 onPressed: () {
                                   logger.info('点击了微粒贷借钱按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon3.png",
+                                icon: "assets/images/icon_webp/server_icon3.webp",
                                 title: '理财通',
                                 onPressed: () {
                                   logger.info('点击了理财通按钮~~');
                                 },
                               ),
                               // FunctionButton(
-                              //   icon: "images/icon/server_icon4.png",
+                              //   icon: "assets/images/icon_webp/server_icon4.webp",
                               //   title: '保险服务',
                               //   onPressed: () {
                               //     logger.info('点击了保险服务按钮~~');
@@ -116,42 +116,42 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                             title: '生活服务',
                             buttons: [
                               FunctionButton(
-                                icon: "images/icon/server_icon4.png",
+                                icon: "assets/images/icon_webp/server_icon4.webp",
                                 title: '手机充值',
                                 onPressed: () {
                                   logger.info('点击了手机充值按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon5.png",
+                                icon: "assets/images/icon_webp/server_icon5.webp",
                                 title: '生活缴费',
                                 onPressed: () {
                                   logger.info('点击了生活缴费按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon6.png",
+                                icon: "assets/images/icon_webp/server_icon6.webp",
                                 title: 'Q币充值',
                                 onPressed: () {
                                   logger.info('点击了Q币充值按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon7.png",
+                                icon: "assets/images/icon_webp/server_icon7.webp",
                                 title: '城市服务',
                                 onPressed: () {
                                   logger.info('点击了城市服务按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon8.png",
+                                icon: "assets/images/icon_webp/server_icon8.webp",
                                 title: '腾讯公益',
                                 onPressed: () {
                                   logger.info('点击了腾讯公益按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon9.png",
+                                icon: "assets/images/icon_webp/server_icon9.webp",
                                 title: '医疗健康',
                                 onPressed: () {
                                   logger.info('点击了医疗健康按钮~~');
@@ -165,28 +165,28 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                             title: '交通出行',
                             buttons: [
                               FunctionButton(
-                                icon: "images/icon/server_icon10.png",
+                                icon: "assets/images/icon_webp/server_icon10.webp",
                                 title: '出行服务',
                                 onPressed: () {
                                   logger.info('点击了出行服务按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon11.png",
+                                icon: "assets/images/icon_webp/server_icon11.webp",
                                 title: '火车票机票',
                                 onPressed: () {
                                   logger.info('点击了火车票机票按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon12.png",
+                                icon: "assets/images/icon_webp/server_icon12.webp",
                                 title: '滴滴出行',
                                 onPressed: () {
                                   logger.info('点击了滴滴出行按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon122.png",
+                                icon: "assets/images/icon_webp/server_icon122.webp",
                                 title: '酒店',
                                 onPressed: () {
                                   logger.info('点击了酒店按钮~~');
@@ -200,56 +200,56 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                             title: '购物消费',
                             buttons: [
                               FunctionButton(
-                                icon: "images/icon/server_icon13.png",
+                                icon: "assets/images/icon_webp/server_icon13.webp",
                                 title: '品牌发现',
                                 onPressed: () {
                                   logger.info('点击了品牌发现按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon14.png",
+                                icon: "assets/images/icon_webp/server_icon14.webp",
                                 title: '京东购物',
                                 onPressed: () {
                                   logger.info('点击了京东购物按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon15.png",
+                                icon: "assets/images/icon_webp/server_icon15.webp",
                                 title: '美团外卖',
                                 onPressed: () {
                                   logger.info('点击了美团外卖按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon16.png",
+                                icon: "assets/images/icon_webp/server_icon16.webp",
                                 title: '电影演出玩乐',
                                 onPressed: () {
                                   logger.info('点击了电影演出玩乐按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon17.png",
+                                icon: "assets/images/icon_webp/server_icon17.webp",
                                 title: '美团特价',
                                 onPressed: () {
                                   logger.info('点击了美团特价按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon18.png",
+                                icon: "assets/images/icon_webp/server_icon18.webp",
                                 title: '拼多多',
                                 onPressed: () {
                                   logger.info('点击了拼多多按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon19.png",
+                                icon: "assets/images/icon_webp/server_icon19.webp",
                                 title: '唯品会特卖',
                                 onPressed: () {
                                   logger.info('点击了唯品会特卖按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon: "images/icon/server_icon20.png",
+                                icon: "assets/images/icon_webp/server_icon20.webp",
                                 title: '转转二手',
                                 onPressed: () {
                                   logger.info('点击了转转二手按钮~~');

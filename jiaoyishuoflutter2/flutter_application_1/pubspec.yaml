@@ -25,13 +25,15 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/avatar_webp/
+    - assets/images/icon_webp/
   fonts:
-    - family: SourceHanSans
-      fonts:
-        - asset: ./assets/fonts/SourceHanSans-VF.ttf.ttc
-    - family: notosanssc
-      fonts:
-        - asset: ./assets/fonts/notosanssc.ttf
+    # - family: SourceHanSans
+    #   fonts:
+    #     - asset: ./assets/fonts/SourceHanSans-VF.ttf.ttc
+    # - family: notosanssc
+    #   fonts:
+    #     - asset: ./assets/fonts/notosanssc.ttf
     - family: Iconfont
       fonts:
         - asset: ./assets/fonts/iconfont/iconfont.ttf

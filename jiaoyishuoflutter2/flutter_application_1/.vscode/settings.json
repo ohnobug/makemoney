@@ -1,3 +1,4 @@
 {
-  "cmake.sourceDirectory": "D:/jiaoyisuo/jiaoyishuoflutter2/flutter_application_1/windows"
+  "cmake.sourceDirectory": "D:/jiaoyisuo/jiaoyishuoflutter2/flutter_application_1/windows",
+  "dart.flutterSdkPath": "~/dev/flutter"
 }
