@@ -160,7 +160,7 @@ class _LJNChatPage extends State<LJNChatPage> {
                                                               .w,
                                                       child: Image.asset(
                                                         // fit: BoxFit.fitWidth,
-                                                        "assets/images/icon_webp/left.webp",
+                                                        "assets/images/icon_webp/left.png",
                                                         width: 9.w,
                                                         fit: BoxFit.fill,
                                                       ),

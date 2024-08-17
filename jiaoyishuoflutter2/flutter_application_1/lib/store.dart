@@ -4,6 +4,9 @@ import 'package:redux/redux.dart';
 // 主题数据
 final ThemeData lightTheme = ThemeData(
   useMaterial3: true,
+  appBarTheme: const AppBarTheme(
+      titleTextStyle: TextStyle(color: Colors.black),
+      iconTheme: IconThemeData(color: Colors.black)),
   colorScheme: const ColorScheme.light(
     primaryContainer: Colors.white,
     primary: Colors.black,
@@ -15,6 +18,9 @@ final ThemeData lightTheme = ThemeData(
 
 final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
+    appBarTheme: const AppBarTheme(
+        titleTextStyle: TextStyle(color: Colors.black),
+        iconTheme: IconThemeData(color: Colors.black)),
     colorScheme: const ColorScheme.dark(
       primaryContainer: Colors.black,
       primary: Colors.white,

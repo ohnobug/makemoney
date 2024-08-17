@@ -146,11 +146,13 @@ class _CustomTabbarState extends State<CustomTabbar>
   int changeIcon = 0;
 
   // late Store<StoreType> mstore;
+  late EdgeInsets devicesPadding;
 
   @override
   void initState() {
     super.initState();
 
+    devicesPadding = MediaQuery.of(context).padding;
     // mstore = StoreProvider.of<StoreType>(context, listen: false);
 
     _tabController =
@@ -234,7 +236,7 @@ class _CustomTabbarState extends State<CustomTabbar>
       size: 50.w,
     );
 
-    late AppBar? appbar;
+    late AppBar appbar;
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -250,14 +252,14 @@ class _CustomTabbarState extends State<CustomTabbar>
 
             if (vm.homescrollpixels! < 0.0) {
               appbar = AppBar(
-                toolbarHeight: 90.w,
+                toolbarHeight: devicesPadding.top + 90.w,
                 backgroundColor: Colors.transparent,
                 foregroundColor: Colors.transparent,
               );
             } else {
               appbar = AppBar(
-                systemOverlayStyle: SystemUiOverlayStyle.dark,
-                toolbarHeight: 90.0.w,
+                // systemOverlayStyle: SystemUiOverlayStyle.dark,
+                toolbarHeight: devicesPadding.top + 90.w,
                 centerTitle: true,
                 title: const Text("微信"),
                 elevation: 0,
@@ -315,8 +317,8 @@ class _CustomTabbarState extends State<CustomTabbar>
             );
 
             appbar = AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle.dark,
-              toolbarHeight: 90.0.w,
+              // systemOverlayStyle: SystemUiOverlayStyle.dark,
+              toolbarHeight: devicesPadding.top + 90.w,
               centerTitle: true,
               title: const Text("通信录"),
               elevation: 0,
@@ -373,8 +375,8 @@ class _CustomTabbarState extends State<CustomTabbar>
             );
 
             appbar = AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle.dark,
-              toolbarHeight: 90.0.w,
+              // systemOverlayStyle: SystemUiOverlayStyle.dark,
+              toolbarHeight: devicesPadding.top + 90.w,
               centerTitle: true,
               title: const Text("发现"),
               elevation: 0,
@@ -431,8 +433,8 @@ class _CustomTabbarState extends State<CustomTabbar>
             );
 
             appbar = AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle.dark,
-              toolbarHeight: 90.0.w,
+              // systemOverlayStyle: SystemUiOverlayStyle.dark,
+              toolbarHeight: devicesPadding.top + 50.w,
               centerTitle: true,
               title: const Text(
                 "",
@@ -487,6 +489,7 @@ class _CustomTabbarState extends State<CustomTabbar>
           return Stack(
             children: [
               Scaffold(
+                primary: false,
                 bottomNavigationBar: ColoredBox(
                   color: const Color.fromARGB(255, 247, 247, 247),
                   child: TabBar(
@@ -853,15 +856,15 @@ class _CustomTabbarState extends State<CustomTabbar>
                     right: 0,
                     // bottom: 50,
                     child: Container(
-                        height: vm.homescrollpixels!.abs() + 90.w,
+                        height: vm.homescrollpixels!.abs() + devicesPadding.top + 90.w,
                         color: const Color.fromARGB(255, 237, 237, 237),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               AppBar(
-                                systemOverlayStyle: SystemUiOverlayStyle.dark,
-                                toolbarHeight: 90.0.w,
+                                // systemOverlayStyle: SystemUiOverlayStyle.dark,
+                                toolbarHeight:90.w,
                                 centerTitle: true,
                                 title: const Text("微信"),
                                 elevation: 1,
@@ -870,7 +873,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                     const Color.fromARGB(255, 237, 237, 237),
                                 foregroundColor:
                                     const Color.fromARGB(255, 237, 237, 237),
-                                primary: false,
+                                primary: true,
                                 actions: [
                                   IconButton(
                                     icon: Icon(

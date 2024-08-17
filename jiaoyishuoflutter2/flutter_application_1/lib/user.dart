@@ -64,7 +64,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                             Container(
                               color: Colors.white,
                               padding: const EdgeInsets.only(
-                                      top: 0, left: 32, right: 32, bottom: 50)
+                                      top: 60, left: 32, right: 32, bottom: 50)
                                   .w,
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
