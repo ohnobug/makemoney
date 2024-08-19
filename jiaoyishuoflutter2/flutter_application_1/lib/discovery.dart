@@ -35,6 +35,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
     Size screenSize = MediaQuery.of(context).size;
 
     return Container(
+        padding: EdgeInsets.only(top: 90.w),
         height: screenSize.height - 210.w,
         color: const Color.fromARGB(255, 237, 237, 237),
         child: ScrollConfiguration(
@@ -53,7 +54,8 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "朋友圈",
-                            icon: "assets/images/icon_webp/discovery_icon1.webp",
+                            icon:
+                                "assets/images/icon_webp/discovery_icon1.webp",
                             link: '',
                             underline: false,
                           ),
@@ -63,7 +65,8 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "视频号",
-                            icon: "assets/images/icon_webp/discovery_icon2.webp",
+                            icon:
+                                "assets/images/icon_webp/discovery_icon2.webp",
                             link: '',
                             underline: true,
                             showStyle: 1,
@@ -71,7 +74,8 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "直播",
-                            icon: "assets/images/icon_webp/discovery_icon3.webp",
+                            icon:
+                                "assets/images/icon_webp/discovery_icon3.webp",
                             link: '',
                             underline: false,
                             showStyle: 2,
@@ -82,14 +86,16 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "扫一扫",
-                            icon: "assets/images/icon_webp/discovery_icon4.webp",
+                            icon:
+                                "assets/images/icon_webp/discovery_icon4.webp",
                             link: '',
                             underline: true,
                           ),
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "听一听",
-                            icon: "assets/images/icon_webp/discovery_icon5.webp",
+                            icon:
+                                "assets/images/icon_webp/discovery_icon5.webp",
                             link: '',
                             underline: false,
                           ),
@@ -99,14 +105,16 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "看一看",
-                            icon: "assets/images/icon_webp/discovery_icon6.webp",
+                            icon:
+                                "assets/images/icon_webp/discovery_icon6.webp",
                             link: '',
                             underline: true,
                           ),
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "搜一搜",
-                            icon: "assets/images/icon_webp/discovery_icon7.webp",
+                            icon:
+                                "assets/images/icon_webp/discovery_icon7.webp",
                             link: '',
                             underline: false,
                           ),
@@ -116,7 +124,8 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "附近",
-                            icon: "assets/images/icon_webp/discovery_icon8.webp",
+                            icon:
+                                "assets/images/icon_webp/discovery_icon8.webp",
                             link: '',
                             underline: false,
                           ),
@@ -126,14 +135,16 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "购物",
-                            icon: "assets/images/icon_webp/discovery_icon9.webp",
+                            icon:
+                                "assets/images/icon_webp/discovery_icon9.webp",
                             link: '',
                             underline: true,
                           ),
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "游戏",
-                            icon: "assets/images/icon_webp/discovery_icon10.webp",
+                            icon:
+                                "assets/images/icon_webp/discovery_icon10.webp",
                             link: '',
                             underline: true,
                           ),
@@ -143,7 +154,8 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           const FunctionItem(
                             id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                             title: "小程序",
-                            icon: "assets/images/icon_webp/discovery_icon11.webp",
+                            icon:
+                                "assets/images/icon_webp/discovery_icon11.webp",
                             link: '',
                             underline: false,
                           ),

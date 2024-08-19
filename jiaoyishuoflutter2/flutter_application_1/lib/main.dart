@@ -148,6 +148,8 @@ class _CustomTabbarState extends State<CustomTabbar>
   late EdgeInsets devicesPadding;
   late AppBar? appbar;
 
+  double _appbarLeft = 0;
+
   @override
   void initState() {
     super.initState();
@@ -155,12 +157,20 @@ class _CustomTabbarState extends State<CustomTabbar>
         TabController(length: 4, vsync: this, animationDuration: Duration.zero);
 
     _tabController.animation!.addListener(() {
+      logger.info(_tabController.animation);
       if (_tabController.animation!.value == 1) {
         // logger.info("来了");
         myStore.dispatch({"type": "contactazshow", "payload": true});
       } else {
         // logger.info("走了");
         myStore.dispatch({"type": "contactazshow", "payload": false});
+      }
+
+      if (_tabController.animation!.value >= 2 &&
+          _tabController.animation!.value <= 3) {
+        setState(() {
+          _appbarLeft = 750.w * (2 - _tabController.animation!.value);
+        });
       }
 
       if (_tabController.animation!.value >= 0 &&
@@ -237,6 +247,8 @@ class _CustomTabbarState extends State<CustomTabbar>
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
+          Text appBarTitle = const Text("");
+
           if (changeIcon == 0) {
             icon1 = Icon(
               const IconData(
@@ -253,54 +265,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                 foregroundColor: Colors.transparent,
               );
             } else {
-              appbar = AppBar(
-                toolbarHeight: devicesPadding.top + 90.w,
-                centerTitle: true,
-                title: const Text("微信"),
-                elevation: 0,
-                titleTextStyle: TextStyle(fontSize: 32.w),
-                backgroundColor: const Color.fromARGB(255, 237, 237, 237),
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(1.w),
-                  child: Container(
-                    color: const Color.fromARGB(255, 220, 220, 220),
-                    height: 1.w,
-                  ),
-                ),
-                primary: true,
-                actions: [
-                  if (changeIcon != 3) ...[
-                    IconButton(
-                      icon: Icon(
-                          size: 37.w,
-                          const IconData(
-                            0xe612,
-                            fontFamily: 'Iconfont',
-                          )),
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      padding: const EdgeInsets.only(right: 40.0).w,
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(
-                          size: 37.w,
-                          const IconData(
-                            0xe726,
-                            fontFamily: 'Iconfont',
-                          )),
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      padding: const EdgeInsets.only(right: 33.0).w,
-                      onPressed: () {
-                        vm.showpopup = !vm.showpopup!;
-                        myStore.dispatch(
-                            {"type": "showpopup", "payload": vm.showpopup});
-                      },
-                    ),
-                  ]
-                ],
-              );
+              appBarTitle = const Text("微信");
             }
           } else if (changeIcon == 1) {
             icon2 = Icon(
@@ -311,55 +276,7 @@ class _CustomTabbarState extends State<CustomTabbar>
               size: 50.w,
             );
 
-            appbar = AppBar(
-              // systemOverlayStyle: SystemUiOverlayStyle.dark,
-              toolbarHeight: devicesPadding.top + 90.w,
-              centerTitle: true,
-              title: const Text("通信录"),
-              elevation: 0,
-              titleTextStyle: TextStyle(fontSize: 32.w),
-              backgroundColor: const Color.fromARGB(255, 237, 237, 237),
-              bottom: PreferredSize(
-                preferredSize: Size.fromHeight(1.w),
-                child: Container(
-                  color: const Color.fromARGB(255, 220, 220, 220),
-                  height: 1.w,
-                ),
-              ),
-              primary: true,
-              actions: [
-                if (changeIcon != 3) ...[
-                  IconButton(
-                    icon: Icon(
-                        size: 37.w,
-                        const IconData(
-                          0xe612,
-                          fontFamily: 'Iconfont',
-                        )),
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    padding: const EdgeInsets.only(right: 40.0).w,
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(
-                        size: 37.w,
-                        const IconData(
-                          0xe726,
-                          fontFamily: 'Iconfont',
-                        )),
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    padding: const EdgeInsets.only(right: 33.0).w,
-                    onPressed: () {
-                      vm.showpopup = !vm.showpopup!;
-                      myStore.dispatch(
-                          {"type": "showpopup", "payload": vm.showpopup});
-                    },
-                  ),
-                ]
-              ],
-            );
+            appBarTitle = const Text("通信录");
           } else if (changeIcon == 2) {
             icon3 = Icon(
               const IconData(
@@ -369,55 +286,7 @@ class _CustomTabbarState extends State<CustomTabbar>
               size: 50.w,
             );
 
-            appbar = AppBar(
-              // systemOverlayStyle: SystemUiOverlayStyle.dark,
-              toolbarHeight: devicesPadding.top + 90.w,
-              centerTitle: true,
-              title: const Text("发现"),
-              elevation: 0,
-              titleTextStyle: TextStyle(fontSize: 32.w),
-              backgroundColor: const Color.fromARGB(255, 237, 237, 237),
-              bottom: PreferredSize(
-                preferredSize: Size.fromHeight(1.w),
-                child: Container(
-                  color: const Color.fromARGB(255, 220, 220, 220),
-                  height: 1.w,
-                ),
-              ),
-              primary: true,
-              actions: [
-                if (changeIcon != 3) ...[
-                  IconButton(
-                    icon: Icon(
-                        size: 37.w,
-                        const IconData(
-                          0xe612,
-                          fontFamily: 'Iconfont',
-                        )),
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    padding: const EdgeInsets.only(right: 40.0).w,
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(
-                        size: 37.w,
-                        const IconData(
-                          0xe726,
-                          fontFamily: 'Iconfont',
-                        )),
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    padding: const EdgeInsets.only(right: 33.0).w,
-                    onPressed: () {
-                      vm.showpopup = !vm.showpopup!;
-                      myStore.dispatch(
-                          {"type": "showpopup", "payload": vm.showpopup});
-                    },
-                  ),
-                ]
-              ],
-            );
+            appBarTitle = const Text("发现");
           } else if (changeIcon == 3) {
             icon4 = Icon(
               const IconData(
@@ -427,7 +296,7 @@ class _CustomTabbarState extends State<CustomTabbar>
               size: 50.w,
             );
 
-            appbar = null;
+            appBarTitle = const Text("我的");
           }
 
           return Stack(
@@ -800,88 +669,63 @@ class _CustomTabbarState extends State<CustomTabbar>
               // ),
 
               // if (appbar != null)
-              Container(
-                  height:
-                      vm.homescrollpixels!.abs() + devicesPadding.top + 90.w,
-                  // vm.homescrollpixels!.abs() + devicesPadding.top + 90.w,
-                  color: Colors.red,
-                  // color: const Color.fromARGB(255, 237, 237, 237),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        AppBar(
-                          title: const Text("niubi"),
-                          backgroundColor: Colors.blue,
-                          toolbarHeight: 90.w,
-                        )
-                      ]))
-
-              // if (vm.homescrollpixels! < 0)
-              //   Positioned(
-              //       top: 0,
-              //       left: 0,
-              //       right: 0,
-              //       // bottom: 50,
-              //       child: Container(
-              //           height: vm.homescrollpixels!.abs() +
-              //               devicesPadding.top +
-              //               90.w,
-              //           color: const Color.fromARGB(255, 237, 237, 237),
-              //           child: Column(
-              //               mainAxisAlignment: MainAxisAlignment.end,
-              //               crossAxisAlignment: CrossAxisAlignment.center,
-              //               children: [
-              //                 AppBar(
-              //                   // systemOverlayStyle: SystemUiOverlayStyle.dark,
-              //                   toolbarHeight: 90.w,
-              //                   centerTitle: true,
-              //                   title: const Text("微信"),
-              //                   elevation: 1,
-              //                   titleTextStyle: TextStyle(fontSize: 32.w),
-              //                   backgroundColor:
-              //                       const Color.fromARGB(255, 237, 237, 237),
-              //                   foregroundColor:
-              //                       const Color.fromARGB(255, 237, 237, 237),
-              //                   primary: true,
-              //                   actions: [
-              //                     IconButton(
-              //                       icon: Icon(
-              //                           size: 37.w,
-              //                           const IconData(
-              //                             0xe612,
-              //                             fontFamily: 'Iconfont',
-              //                           )),
-              //                       highlightColor: Colors.transparent,
-              //                       splashColor: Colors.transparent,
-              //                       padding:
-              //                           const EdgeInsets.only(right: 40.0).w,
-              //                       onPressed: () {},
-              //                     ),
-              //                     IconButton(
-              //                       icon: Icon(
-              //                           size: 37.w,
-              //                           const IconData(
-              //                             0xe726,
-              //                             fontFamily: 'Iconfont',
-              //                           )),
-              //                       highlightColor: Colors.transparent,
-              //                       splashColor: Colors.transparent,
-              //                       padding:
-              //                           const EdgeInsets.only(right: 33.0).w,
-              //                       onPressed: () {
-              //                         vm.showpopup = !vm.showpopup!;
-              //                         myStore.dispatch({
-              //                           "type": "showpopup",
-              //                           "payload": vm.showpopup
-              //                         });
-              //                       },
-              //                     ),
-              //                   ],
-              //                 )
-              //               ]))),
-
-              // if (appbar != null) Container(height: 90.w, child: null, color: Colors.amber)
+              Transform.translate(
+                  offset: Offset(_appbarLeft, 0),
+                  child: Container(
+                      width: 750.0.w,
+                      height: vm.homescrollpixels!.abs() +
+                          devicesPadding.top +
+                          90.w,
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      // color: const Color.fromARGB(255, 237, 237, 237),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            AppBar(
+                              title: appBarTitle,
+                              centerTitle: true,
+                              titleTextStyle: TextStyle(fontSize: 32.w),
+                              toolbarHeight: 90.w,
+                              elevation: 1,
+                              backgroundColor:
+                                  const Color.fromARGB(255, 237, 237, 237),
+                              foregroundColor:
+                                  const Color.fromARGB(255, 237, 237, 237),
+                              actions: [
+                                IconButton(
+                                  icon: Icon(
+                                      size: 37.w,
+                                      const IconData(
+                                        0xe612,
+                                        fontFamily: 'Iconfont',
+                                      )),
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  padding: const EdgeInsets.only(right: 40.0).w,
+                                  onPressed: () {},
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                      size: 40.w,
+                                      const IconData(
+                                        0xe726,
+                                        fontFamily: 'Iconfont',
+                                      )),
+                                  highlightColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  padding: const EdgeInsets.only(right: 33.0).w,
+                                  onPressed: () {
+                                    vm.showpopup = !vm.showpopup!;
+                                    myStore.dispatch({
+                                      "type": "showpopup",
+                                      "payload": vm.showpopup
+                                    });
+                                  },
+                                ),
+                              ],
+                            )
+                          ])))
             ],
           );
         });
