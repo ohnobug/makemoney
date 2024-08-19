@@ -25,12 +25,12 @@ class _ChatListViewState extends State<LJNHomePage> {
 
     _customScrollController.addListener(() {
       if (_customScrollController.position.pixels <= 0) {
-        setState(() {
+        // setState(() {
           myStore.dispatch({
             "type": "homescrollpixels",
             "payload": _customScrollController.position.pixels
           });
-        });
+        // });
       }
     });
   }

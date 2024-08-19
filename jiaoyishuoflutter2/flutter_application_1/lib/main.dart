@@ -153,6 +153,9 @@ class _CustomTabbarState extends State<CustomTabbar>
   @override
   void initState() {
     super.initState();
+
+    myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
+
     _tabController =
         TabController(length: 4, vsync: this, animationDuration: Duration.zero);
 
@@ -202,16 +205,6 @@ class _CustomTabbarState extends State<CustomTabbar>
       }
 
       // logger.info(_tabController.animation!.value);
-    });
-
-    _tabController.addListener(() {
-      if (_tabController.indexIsChanging) {
-        logger.info('================================================');
-        logger.info(_tabController.index);
-        myStore.dispatch({"type": "homescrollpixels", "payload": 0});
-        logger.info('================================================');
-
-      }
     });
   }
 

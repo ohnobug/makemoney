@@ -16,6 +16,9 @@ class _LJNUserPageState extends State<LJNUserPage> {
   @override
   void initState() {
     super.initState();
+
+    myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
+
     Future.delayed(const Duration(milliseconds: 300), () {
       myStore.dispatch({"type": "mainpage4isload", "payload": true});
     });
@@ -64,7 +67,11 @@ class _LJNUserPageState extends State<LJNUserPage> {
                             Container(
                               color: Colors.white,
                               padding: EdgeInsets.only(
-                                      top: 120 + MediaQuery.of(context).padding.top, left: 32, right: 32, bottom: 50)
+                                      top: 120 +
+                                          MediaQuery.of(context).padding.top,
+                                      left: 32,
+                                      right: 32,
+                                      bottom: 50)
                                   .w,
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,

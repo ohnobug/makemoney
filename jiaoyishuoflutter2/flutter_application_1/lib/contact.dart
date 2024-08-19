@@ -16,6 +16,9 @@ class _LJNContactPageState extends State<LJNContactPage> {
   @override
   void initState() {
     super.initState();
+
+    myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
+
     Future.delayed(const Duration(milliseconds: 300), () {
       myStore.dispatch({"type": "mainpage2isload", "payload": true});
     });
