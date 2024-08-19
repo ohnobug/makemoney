@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_application_1/chat.dart';
 import 'package:flutter_application_1/discovery.dart';
 import 'package:flutter_application_1/services.dart';
@@ -147,14 +146,11 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   // late Store<StoreType> mstore;
   late EdgeInsets devicesPadding;
+  late AppBar? appbar;
 
   @override
   void initState() {
     super.initState();
-
-    devicesPadding = MediaQuery.of(context).padding;
-    // mstore = StoreProvider.of<StoreType>(context, listen: false);
-
     _tabController =
         TabController(length: 4, vsync: this, animationDuration: Duration.zero);
 
@@ -207,6 +203,8 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   @override
   Widget build(BuildContext context) {
+    devicesPadding = MediaQuery.of(context).padding;
+
     Icon icon1 = Icon(
       const IconData(
         0xe7b3,
@@ -236,8 +234,6 @@ class _CustomTabbarState extends State<CustomTabbar>
       size: 50.w,
     );
 
-    late AppBar appbar;
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -258,7 +254,6 @@ class _CustomTabbarState extends State<CustomTabbar>
               );
             } else {
               appbar = AppBar(
-                // systemOverlayStyle: SystemUiOverlayStyle.dark,
                 toolbarHeight: devicesPadding.top + 90.w,
                 centerTitle: true,
                 title: const Text("微信"),
@@ -432,64 +427,13 @@ class _CustomTabbarState extends State<CustomTabbar>
               size: 50.w,
             );
 
-            appbar = AppBar(
-              // systemOverlayStyle: SystemUiOverlayStyle.dark,
-              toolbarHeight: devicesPadding.top + 50.w,
-              centerTitle: true,
-              title: const Text(
-                "",
-                style: TextStyle(color: Colors.white),
-              ),
-              elevation: 0,
-              titleTextStyle: TextStyle(fontSize: 32.w),
-              backgroundColor: Colors.white,
-              bottom: PreferredSize(
-                preferredSize: Size.fromHeight(1.w),
-                child: Container(
-                  color: const Color.fromARGB(0, 220, 220, 220),
-                  height: 1.w,
-                ),
-              ),
-              primary: false,
-              actions: [
-                if (changeIcon != 3) ...[
-                  IconButton(
-                    icon: Icon(
-                        size: 37.w,
-                        const IconData(
-                          0xe612,
-                          fontFamily: 'Iconfont',
-                        )),
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    padding: const EdgeInsets.only(right: 40.0).w,
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(
-                        size: 37.w,
-                        const IconData(
-                          0xe726,
-                          fontFamily: 'Iconfont',
-                        )),
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    padding: const EdgeInsets.only(right: 33.0).w,
-                    onPressed: () {
-                      vm.showpopup = !vm.showpopup!;
-                      myStore.dispatch(
-                          {"type": "showpopup", "payload": vm.showpopup});
-                    },
-                  ),
-                ]
-              ],
-            );
+            appbar = null;
           }
 
           return Stack(
             children: [
               Scaffold(
-                primary: false,
+                primary: true,
                 bottomNavigationBar: ColoredBox(
                   color: const Color.fromARGB(255, 247, 247, 247),
                   child: TabBar(
@@ -525,7 +469,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                     ],
                   ),
                 ),
-                appBar: appbar,
+                appBar: null,
                 body: Stack(children: [
                   TabBarView(
                     // physics: new NeverScrollableScrollPhysics(),
@@ -849,67 +793,95 @@ class _CustomTabbarState extends State<CustomTabbar>
                     ),
                 ]),
               ),
-              if (vm.homescrollpixels! < 0)
-                Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    // bottom: 50,
-                    child: Container(
-                        height: vm.homescrollpixels!.abs() + devicesPadding.top + 90.w,
-                        color: const Color.fromARGB(255, 237, 237, 237),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              AppBar(
-                                // systemOverlayStyle: SystemUiOverlayStyle.dark,
-                                toolbarHeight:90.w,
-                                centerTitle: true,
-                                title: const Text("微信"),
-                                elevation: 1,
-                                titleTextStyle: TextStyle(fontSize: 32.w),
-                                backgroundColor:
-                                    const Color.fromARGB(255, 237, 237, 237),
-                                foregroundColor:
-                                    const Color.fromARGB(255, 237, 237, 237),
-                                primary: true,
-                                actions: [
-                                  IconButton(
-                                    icon: Icon(
-                                        size: 37.w,
-                                        const IconData(
-                                          0xe612,
-                                          fontFamily: 'Iconfont',
-                                        )),
-                                    highlightColor: Colors.transparent,
-                                    splashColor: Colors.transparent,
-                                    padding:
-                                        const EdgeInsets.only(right: 40.0).w,
-                                    onPressed: () {},
-                                  ),
-                                  IconButton(
-                                    icon: Icon(
-                                        size: 37.w,
-                                        const IconData(
-                                          0xe726,
-                                          fontFamily: 'Iconfont',
-                                        )),
-                                    highlightColor: Colors.transparent,
-                                    splashColor: Colors.transparent,
-                                    padding:
-                                        const EdgeInsets.only(right: 33.0).w,
-                                    onPressed: () {
-                                      vm.showpopup = !vm.showpopup!;
-                                      myStore.dispatch({
-                                        "type": "showpopup",
-                                        "payload": vm.showpopup
-                                      });
-                                    },
-                                  ),
-                                ],
-                              )
-                            ])))
+
+              // Container(r
+              //   height: 200.w,
+              //   color: Colors.blue,
+              // ),
+
+              // if (appbar != null)
+              Container(
+                  height:
+                      vm.homescrollpixels!.abs() + devicesPadding.top + 90.w,
+                  // vm.homescrollpixels!.abs() + devicesPadding.top + 90.w,
+                  color: Colors.red,
+                  // color: const Color.fromARGB(255, 237, 237, 237),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AppBar(
+                          title: const Text("niubi"),
+                          backgroundColor: Colors.blue,
+                          toolbarHeight: 90.w,
+                        )
+                      ]))
+
+              // if (vm.homescrollpixels! < 0)
+              //   Positioned(
+              //       top: 0,
+              //       left: 0,
+              //       right: 0,
+              //       // bottom: 50,
+              //       child: Container(
+              //           height: vm.homescrollpixels!.abs() +
+              //               devicesPadding.top +
+              //               90.w,
+              //           color: const Color.fromARGB(255, 237, 237, 237),
+              //           child: Column(
+              //               mainAxisAlignment: MainAxisAlignment.end,
+              //               crossAxisAlignment: CrossAxisAlignment.center,
+              //               children: [
+              //                 AppBar(
+              //                   // systemOverlayStyle: SystemUiOverlayStyle.dark,
+              //                   toolbarHeight: 90.w,
+              //                   centerTitle: true,
+              //                   title: const Text("微信"),
+              //                   elevation: 1,
+              //                   titleTextStyle: TextStyle(fontSize: 32.w),
+              //                   backgroundColor:
+              //                       const Color.fromARGB(255, 237, 237, 237),
+              //                   foregroundColor:
+              //                       const Color.fromARGB(255, 237, 237, 237),
+              //                   primary: true,
+              //                   actions: [
+              //                     IconButton(
+              //                       icon: Icon(
+              //                           size: 37.w,
+              //                           const IconData(
+              //                             0xe612,
+              //                             fontFamily: 'Iconfont',
+              //                           )),
+              //                       highlightColor: Colors.transparent,
+              //                       splashColor: Colors.transparent,
+              //                       padding:
+              //                           const EdgeInsets.only(right: 40.0).w,
+              //                       onPressed: () {},
+              //                     ),
+              //                     IconButton(
+              //                       icon: Icon(
+              //                           size: 37.w,
+              //                           const IconData(
+              //                             0xe726,
+              //                             fontFamily: 'Iconfont',
+              //                           )),
+              //                       highlightColor: Colors.transparent,
+              //                       splashColor: Colors.transparent,
+              //                       padding:
+              //                           const EdgeInsets.only(right: 33.0).w,
+              //                       onPressed: () {
+              //                         vm.showpopup = !vm.showpopup!;
+              //                         myStore.dispatch({
+              //                           "type": "showpopup",
+              //                           "payload": vm.showpopup
+              //                         });
+              //                       },
+              //                     ),
+              //                   ],
+              //                 )
+              //               ]))),
+
+              // if (appbar != null) Container(height: 90.w, child: null, color: Colors.amber)
             ],
           );
         });

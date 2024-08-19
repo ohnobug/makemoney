@@ -356,6 +356,7 @@ class _ChatListViewState extends State<LJNHomePage> {
     }
 
     return Container(
+        padding: EdgeInsets.only(top: 90.w),
         height: screenSize.height - 210.w,
         color: Colors.white,
         child: ScrollConfiguration(
