@@ -258,15 +258,7 @@ class _CustomTabbarState extends State<CustomTabbar>
               size: 50.w,
             );
 
-            if (vm.homescrollpixels! < 0.0) {
-              appbar = AppBar(
-                toolbarHeight: devicesPadding.top + 90.w,
-                backgroundColor: Colors.transparent,
-                foregroundColor: Colors.transparent,
-              );
-            } else {
-              appBarTitle = const Text("微信");
-            }
+            appBarTitle = const Text("微信");
           } else if (changeIcon == 1) {
             icon2 = Icon(
               const IconData(
@@ -341,7 +333,6 @@ class _CustomTabbarState extends State<CustomTabbar>
                 appBar: null,
                 body: Stack(children: [
                   TabBarView(
-                    // physics: new NeverScrollableScrollPhysics(),
                     controller: _tabController,
                     children: const <Widget>[
                       LJNHomePage(),
@@ -663,12 +654,6 @@ class _CustomTabbarState extends State<CustomTabbar>
                 ]),
               ),
 
-              // Container(r
-              //   height: 200.w,
-              //   color: Colors.blue,
-              // ),
-
-              // if (appbar != null)
               Transform.translate(
                   offset: Offset(_appbarLeft, 0),
                   child: Container(

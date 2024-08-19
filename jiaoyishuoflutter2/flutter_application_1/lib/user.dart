@@ -63,8 +63,8 @@ class _LJNUserPageState extends State<LJNUserPage> {
                             // 顶部功能区域
                             Container(
                               color: Colors.white,
-                              padding: const EdgeInsets.only(
-                                      top: 120, left: 32, right: 32, bottom: 50)
+                              padding: EdgeInsets.only(
+                                      top: 120 + MediaQuery.of(context).padding.top, left: 32, right: 32, bottom: 50)
                                   .w,
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
