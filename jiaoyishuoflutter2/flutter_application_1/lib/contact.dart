@@ -43,7 +43,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
       Container(
           padding:
               EdgeInsets.only(top: MediaQuery.of(context).padding.top + 90.w),
-          height: screenSize.height - 120.w,
+          height: screenSize.height - 106.w,
           color: const Color.fromARGB(255, 237, 237, 237),
           child: ScrollConfiguration(
               behavior:

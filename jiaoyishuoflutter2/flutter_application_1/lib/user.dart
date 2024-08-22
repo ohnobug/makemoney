@@ -38,7 +38,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
     Size screenSize = MediaQuery.of(context).size;
 
     return Container(
-        height: screenSize.height - 120.w,
+        height: screenSize.height - 116.w,
         color: const Color.fromARGB(255, 237, 237, 237),
         child: Stack(
           children: [
@@ -67,12 +67,11 @@ class _LJNUserPageState extends State<LJNUserPage> {
                             Container(
                               color: Colors.white,
                               padding: EdgeInsets.only(
-                                      top: 120 +
-                                          MediaQuery.of(context).padding.top,
-                                      left: 32,
-                                      right: 32,
-                                      bottom: 50)
-                                  .w,
+                                  top: 120.0.w +
+                                      MediaQuery.of(context).padding.top,
+                                  left: 32.w,
+                                  right: 32.w,
+                                  bottom: 50.w),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

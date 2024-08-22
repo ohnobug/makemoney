@@ -304,39 +304,50 @@ class _CustomTabbarState extends State<CustomTabbar>
               Scaffold(
                 primary: false,
                 bottomNavigationBar: ColoredBox(
-                  color: const Color.fromARGB(255, 247, 247, 247),
-                  child: TabBar(
-                    dividerColor: const Color.fromARGB(255, 218, 218, 218),
-                    labelColor: const Color.fromARGB(255, 43, 174, 106),
-                    unselectedLabelColor: const Color.fromARGB(222, 0, 0, 0),
-                    indicator: const BoxDecoration(),
-                    indicatorColor: Colors.transparent,
-                    controller: _tabController,
-                    overlayColor:
-                        WidgetStateProperty.all(const Color(0x00000000)),
-                    tabs: <Widget>[
-                      Tab(
-                        height: 115.w,
-                        icon: icon1,
-                        text: "微信",
-                      ),
-                      Tab(
-                        height: 115.w,
-                        icon: icon2,
-                        text: "通信录",
-                      ),
-                      Tab(
-                        height: 115.w,
-                        icon: icon3,
-                        text: "发现",
-                      ),
-                      Tab(
-                        height: 115.w,
-                        icon: icon4,
-                        text: "我",
-                      ),
-                    ],
-                  ),
+                  color: const Color.fromARGB(255, 237, 237, 237),
+                  child: Container(
+                      height: 106.w,
+                      decoration: BoxDecoration(
+                          border: Border(
+                              top: BorderSide(
+                        color: const Color.fromARGB(255, 220, 220, 220),
+                        width: 1.w,
+                        style: BorderStyle.solid,
+                      ))),
+                      child: TabBar(
+                        dividerColor: const Color.fromARGB(255, 218, 218, 218),
+                        labelColor: const Color.fromARGB(255, 43, 174, 106),
+                        labelStyle: TextStyle(fontSize: 21.w),
+                        unselectedLabelColor:
+                            const Color.fromARGB(222, 0, 0, 0),
+                        indicator: const BoxDecoration(),
+                        indicatorColor: Colors.transparent,
+                        controller: _tabController,
+                        overlayColor:
+                            WidgetStateProperty.all(const Color(0x00000000)),
+                        tabs: <Widget>[
+                          Tab(
+                            height: 105.w,
+                            icon: icon1,
+                            text: "微信",
+                          ),
+                          Tab(
+                            height: 105.w,
+                            icon: icon2,
+                            text: "通信录",
+                          ),
+                          Tab(
+                            height: 105.w,
+                            icon: icon3,
+                            text: "发现",
+                          ),
+                          Tab(
+                            height: 105.w,
+                            icon: icon4,
+                            text: "我",
+                          ),
+                        ],
+                      )),
                 ),
                 appBar: null,
                 body: TabBarView(
@@ -385,7 +396,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                       )),
                                   highlightColor: Colors.transparent,
                                   splashColor: Colors.transparent,
-                                  padding: const EdgeInsets.only(right: 40.0).w,
+                                  padding: const EdgeInsets.only(right: 20.0).w,
                                   onPressed: () {
                                     if (vm.homescrollpixels! == 0) {}
                                   },
