@@ -40,7 +40,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
     return Container(
         padding:
             EdgeInsets.only(top: MediaQuery.of(context).padding.top + 90.w),
-        height: screenSize.height - 210.w,
+        height: screenSize.height - 120.w,
         color: const Color.fromARGB(255, 237, 237, 237),
         child: ScrollConfiguration(
             behavior:

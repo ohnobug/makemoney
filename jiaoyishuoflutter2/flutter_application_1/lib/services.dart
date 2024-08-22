@@ -15,13 +15,24 @@ class _LJNServicesPage extends State<LJNServicesPage> {
     Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
+        primary: false,
         appBar: AppBar(
+          primary: true,
           centerTitle: true,
           title: const Text('服务'),
-          titleTextStyle: TextStyle(fontSize: 32.w),
-          backgroundColor: const Color.fromARGB(255, 247, 247, 247),
           toolbarHeight: MediaQuery.of(context).padding.top + 90.w,
-          // foregroundColor: const Color.fromARGB(255, 247, 247, 247),
+          titleTextStyle: TextStyle(fontSize: 32.w, color: Colors.black),
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          backgroundColor: const Color.fromARGB(255, 237, 237, 237),
+          foregroundColor: const Color.fromARGB(255, 237, 237, 237),
+          // bottom: PreferredSize(
+          //   preferredSize: Size.fromHeight(1.w),
+          //   child: Container(
+          //     color: const Color.fromARGB(255, 220, 220, 220),
+          //     height: 1.w,
+          //   ),
+          // ),
         ),
         body: ColoredBox(
             color: const Color.fromARGB(255, 237, 237, 237),

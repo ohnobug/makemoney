@@ -17,6 +17,8 @@ class _LJNContactPageState extends State<LJNContactPage> {
   void initState() {
     super.initState();
 
+    logger.info('contact...............');
+
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
 
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -41,7 +43,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
       Container(
           padding:
               EdgeInsets.only(top: MediaQuery.of(context).padding.top + 90.w),
-          height: screenSize.height - 210.w,
+          height: screenSize.height - 120.w,
           color: const Color.fromARGB(255, 237, 237, 237),
           child: ScrollConfiguration(
               behavior:

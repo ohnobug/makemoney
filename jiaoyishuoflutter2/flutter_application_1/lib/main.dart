@@ -60,7 +60,6 @@ class TabBarApp extends StatelessWidget {
                             Animation<double> animation,
                             Animation<double> secondaryAnimation) =>
                         const CustomTabbar(),
-                    // const CustomTabbar(),
                     transitionsBuilder: (
                       BuildContext context,
                       Animation<double> animation,
@@ -143,9 +142,6 @@ class _CustomTabbarState extends State<CustomTabbar>
   late final TabController _tabController;
 
   int changeIcon = 0;
-
-  // late Store<StoreType> mstore;
-  late EdgeInsets devicesPadding;
   late AppBar? appbar;
 
   double _appbarLeft = 0;
@@ -154,12 +150,18 @@ class _CustomTabbarState extends State<CustomTabbar>
   void initState() {
     super.initState();
 
-    myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
-
     _tabController =
         TabController(length: 4, vsync: this, animationDuration: Duration.zero);
 
     _tabController.animation!.addListener(() {
+      if (_tabController.indexIsChanging) {
+        setState(() {
+          _appbarLeft = 0;
+        });
+      }
+
+      logger.info("two two two: {${_tabController.animation!.value}}");
+
       logger.info(_tabController.animation);
       if (_tabController.animation!.value == 1) {
         // logger.info("来了");
@@ -204,7 +206,7 @@ class _CustomTabbarState extends State<CustomTabbar>
         });
       }
 
-      // logger.info(_tabController.animation!.value);
+      logger.info(_tabController.animation!.value);
     });
   }
 
@@ -216,7 +218,7 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   @override
   Widget build(BuildContext context) {
-    devicesPadding = MediaQuery.of(context).padding;
+    EdgeInsets devicesPadding = MediaQuery.of(context).padding;
 
     Icon icon1 = Icon(
       const IconData(
@@ -250,6 +252,8 @@ class _CustomTabbarState extends State<CustomTabbar>
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
+          logger.info("main main main: {${vm.homescrollpixels}}");
+
           Text appBarTitle = const Text("");
 
           if (changeIcon == 0) {
@@ -351,21 +355,22 @@ class _CustomTabbarState extends State<CustomTabbar>
                   offset: Offset(_appbarLeft, 0),
                   child: Container(
                       width: 750.0.w,
-                      height: vm.homescrollpixels!.abs() +
-                          devicesPadding.top +
-                          90.w,
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      // color: const Color.fromARGB(255, 237, 237, 237),
+                      height: vm.homescrollpixels! + devicesPadding.top + 90.w,
+                      color: const Color.fromARGB(255, 237, 237, 237),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            SizedBox(height: devicesPadding.top),
                             AppBar(
+                              primary: false,
                               title: appBarTitle,
                               centerTitle: true,
-                              titleTextStyle: TextStyle(fontSize: 32.w),
+                              titleTextStyle: TextStyle(
+                                  fontSize: 32.w, color: Colors.black),
                               toolbarHeight: 90.w,
-                              elevation: 1,
+                              elevation: 0,
+                              scrolledUnderElevation: 0,
                               backgroundColor:
                                   const Color.fromARGB(255, 237, 237, 237),
                               foregroundColor:
@@ -381,7 +386,9 @@ class _CustomTabbarState extends State<CustomTabbar>
                                   highlightColor: Colors.transparent,
                                   splashColor: Colors.transparent,
                                   padding: const EdgeInsets.only(right: 40.0).w,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    if (vm.homescrollpixels! == 0) {}
+                                  },
                                 ),
                                 IconButton(
                                   icon: Icon(
@@ -394,11 +401,13 @@ class _CustomTabbarState extends State<CustomTabbar>
                                   splashColor: Colors.transparent,
                                   padding: const EdgeInsets.only(right: 33.0).w,
                                   onPressed: () {
-                                    vm.showpopup = !vm.showpopup!;
-                                    myStore.dispatch({
-                                      "type": "showpopup",
-                                      "payload": vm.showpopup
-                                    });
+                                    if (vm.homescrollpixels! == 0) {
+                                      vm.showpopup = !vm.showpopup!;
+                                      myStore.dispatch({
+                                        "type": "showpopup",
+                                        "payload": vm.showpopup
+                                      });
+                                    }
                                   },
                                 ),
                               ],

@@ -21,48 +21,38 @@ class _LJNChatPage extends State<LJNChatPage> {
     return ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(90.0.w),
-              child: AppBar(
-                centerTitle: true,
-                title: const Text("请说英语"),
-                titleTextStyle: TextStyle(fontSize: 32.w),
-                backgroundColor: const Color.fromARGB(255, 237, 237, 237),
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(1.w),
-                  child: Container(
-                    color: const Color.fromARGB(255, 220, 220, 220),
-                    height: 1.w,
-                  ),
+            primary: false,
+            appBar: AppBar(
+              primary: true,
+              centerTitle: true,
+              elevation: 0,
+              scrolledUnderElevation: 0,
+              toolbarHeight: MediaQuery.of(context).padding.top + 90.w,
+              title: const Text("请说英语"),
+              titleTextStyle: TextStyle(fontSize: 32.w, color: Colors.black),
+              backgroundColor: const Color.fromARGB(255, 237, 237, 237),
+              foregroundColor: const Color.fromARGB(255, 237, 237, 237),
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(1.w),
+                child: Container(
+                  color: const Color.fromARGB(255, 220, 220, 220),
+                  height: 0.5.w,
                 ),
-                primary: false,
-                actions: [
-                  IconButton(
-                    icon: Icon(
-                        size: 37.w,
-                        const IconData(
-                          0xe612,
-                          fontFamily: 'Iconfont',
-                        )),
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    padding: const EdgeInsets.only(right: 40.0).w,
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(
-                        size: 37.w,
-                        const IconData(
-                          0xe726,
-                          fontFamily: 'Iconfont',
-                        )),
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    padding: const EdgeInsets.only(right: 33.0).w,
-                    onPressed: () {},
-                  ),
-                ],
               ),
+              actions: [
+                IconButton(
+                  icon: Icon(
+                      size: 37.w,
+                      const IconData(
+                        0xe726,
+                        fontFamily: 'Iconfont',
+                      )),
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  padding: const EdgeInsets.only(right: 33.0).w,
+                  onPressed: () {},
+                ),
+              ],
             ),
             body: Container(
                 height: screenSize.height - 210.w,
@@ -125,8 +115,9 @@ class _LJNChatPage extends State<LJNChatPage> {
                                                 Container(
                                                   padding:
                                                       const EdgeInsets.only(
-                                                        left: 23,
-                                                              top: 3, bottom: 10)
+                                                              left: 23,
+                                                              top: 3,
+                                                              bottom: 10)
                                                           .w,
                                                   // height: 33.w,
                                                   child: Column(
