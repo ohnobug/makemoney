@@ -1,7 +1,7 @@
 from random import Random
 import time
 from Crypto.Random import get_random_bytes
-from entryption.AES import AES_CBC_decode, AES_CBC_encode, AES_EAX_encode
+from entryption.AES import AES_CBC_decode, AES_CBC_encode
 from entryption.Shamir import Shamir_combine, Shamir_split
 
 # 加密
@@ -51,5 +51,11 @@ if __name__ == "__main__":
 
 当忘记密码后,找到不同的5好友,寻回密码份额,来还原 你的私钥。
 
-当然这个私钥还可以继续加密,用人脸AI模型生成嵌入向量. 并且使用余弦相似度得到距离.
+
+将私钥分成两份, 一份交给机构保管(冗余),一份朋友保管.
+
+
+============================================================================================
+
+节点颁发给个人的授权证书
 """
