@@ -10,25 +10,20 @@ class Group:
         self.messages = []              # 群消息历史
 
     def add_member(self, member):
-        """添加群成员"""
         if member not in self.members:
             self.members.append(member)
 
     def remove_member(self, member):
-        """移除群成员"""
         if member in self.members:
             self.members.remove(member)
 
     def post_announcement(self, announcement):
-        """发布群公告"""
         self.announcements.append(announcement)
 
     def send_message(self, message, sender):
-        """发送消息到群组"""
         self.messages.append((sender, message))
 
     def get_member_count(self):
-        """获取群成员数量"""
         return len(self.members)
 
     def __str__(self):
