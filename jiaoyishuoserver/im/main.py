@@ -12,11 +12,19 @@ allUserList = {}
 # 会话列表
 sessionList = {}
 
+# 同步关于某人信息
+def syncAbout(account, node):
+    pass
+
+# 处理消息
+def proccessNews(account, news):
+    pass
+
 # 消费者
 async def consumer(queue):
     while True:
         item = await queue.get()
-        if item['type'] == "live":
+        if item['type'] == "online":
             userData = item['data']
             allUserList[userData['account']] = userData
             print("加入用户成功, 当前用户数量:{}".format(len(allUserList)))
@@ -34,11 +42,13 @@ async def echo(websocket: ServerConnection, queue):
             jsonData = json.loads(data)
 
             # 上线
-            if jsonData['type'] == "live":
-                # 用户进入(缺: 查询过程, 得到用户信息)
-                # 需要考虑内网情况
+            if jsonData['type'] == "online":
+                # 用户的信息也是加密的
+                # 用户进入:
+                #   1,查询过程, 得到用户信息, 告知用户基础信息: 朋友圈\余额\个人信息等)
+                #   2,自行上传
+                # 可能需要考虑内网情况
                 # 服务器有义务帮忙寻找其它服务器同步用户的最新信息.
-
                 account = jsonData["data"]["account"]
                 await queue.put(jsonData)
 
@@ -48,17 +58,31 @@ async def echo(websocket: ServerConnection, queue):
                     "message": "success"
                 }))
 
+            # 离线
+            if jsonData['type'] == "offline":
+                # 上线离线都需要广播
+                pass
+
             # 获取消息
             if jsonData['type'] == "get_message":
                 # 服务节点需要主动帮忙收集其它节点关于该用户的消息(限制为100个节点, 因为好友可能在其它节点登录)
                 # 告知客户, 客户需要提供签名,才能得到对应消息
+
+                nodes = []
+                news = []
+                for node in nodes:
+                    news.append(syncAbout(account, node))
+
+                # 处理同步过来的消息,例如消息是否符合规定等
+                proccessNews(account, news)
+
                 pass
 
             # 发送消息
             if jsonData['type'] == "send_message" and account is not None:
                 # 发消息
 
-                # 发过来的消息是有有效期的(一年), 一年内需要消化,若不消化,则清空, 消费后, 记录仍然保留一个月
+                # 发过来的消息是有有效期的(一年), 一年内需要消化,若不消化,则清空, 消费后, 记录可能仍然保留一个月
                 # 接收者接收消息后,需要反馈
                 # 会冗余到其它节点
                 # 客户会对这些节点进行排序(常用节点排第一)
@@ -96,6 +120,23 @@ async def echo(websocket: ServerConnection, queue):
 
             # 修改个人资料(修改自己区块)
             if jsonData['type'] == "change_my_information":
+                pass
+
+            # 添加好友
+            if jsonData["type"] == "add_friend":
+                # 好友账号
+                friend_acount = ""
+
+                # 对该好友专属私钥保存在我的好友列表, 并且提供公钥给对方
+                # 待对方答应成为你的好友的时候,反馈回一个加密的对称密钥给你.(你可以用该好友专属私钥来取得)
+                # 后续,无论是对话\还是发朋友圈点赞,都是通过该对称密码来进行加密, 中间人无法盗取
+
+                pass
+
+            # 删除好友
+            if jsonData["type"] == "remove_friend":
+                # 在自己的好友列表中,直接删除对方即可.
+                # 服务器会检测对方最新的好友列表,看看是否包含你,如果不包含,则不往对方发送消息.
                 pass
 
         # print("正常断开")

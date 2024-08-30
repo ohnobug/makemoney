@@ -3,7 +3,6 @@ import json
 from hashlib import sha256
 import websockets
 from websockets.asyncio.server import serve, ServerConnection
-
 import Session
 
 # 用户列表

@@ -16,7 +16,10 @@ class User:
         education_school,                              # 用户毕业学校
         occupation,                                    # 用户职业
         friend_list,                                   # 好友列表
-        moments                                        # 用户朋友圈列表(所有历史发的朋友圈都在这里了, 点赞和评论的问题)
+        moments,                                       # 用户朋友圈列表(所有历史发的朋友圈都在这里了, 点赞和评论的问题)
+        likes,                                         # 点赞记录
+        comments,                                      # 评论记录
+        heights                                        # 区块高度(什么样的区块高度,才还原成现在这个样子的)                           
     ):
         self.account = account
         self.nickname = nickname
@@ -34,13 +37,9 @@ class User:
         self.occupation = occupation
         self.friend_list = friend_list
         self.moments = moments
-
-    def update_attribute(self, attribute_name, new_value):
-        if hasattr(self, attribute_name):
-            setattr(self, attribute_name, new_value)
-            return True
-        else:
-            return False
+        self.likes = likes
+        self.comments = comments
+        self.heights = heights
 
 
 if __name__ == "__main__":
