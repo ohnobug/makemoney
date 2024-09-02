@@ -73,6 +73,7 @@ async def echo(websocket: ServerConnection, queue):
             # 注册
             if jsonData['type'] == "register":
                 '''
+                # 整个过程,可本地进行
                 1, 注册提交的信息                
                 {
                     "type": "register",
@@ -98,12 +99,19 @@ async def echo(websocket: ServerConnection, queue):
 
                 2, 注册后, 建议用户去授权机构申请人个人认证证书
                 3, 保存私钥提醒
-                4, 进入用户界面
                 '''
 
             # 登录
             if jsonData['type'] == "login":
-                # 提供签名信息, 方可登录
+                """
+                1, 输入账号\选择目标节点(在选择的过程中,需要明示租赁费用)
+                2, 若目标节点无本用户信息, 则同步本地个人区块到远程节点, 远程节点验证区块准确性
+                3, 若目标节点有本用户信息, 则远程节点验证区块准确性
+                4, 同步最新区块
+
+
+                
+                """
                 pass
 
 
