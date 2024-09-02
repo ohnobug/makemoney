@@ -19,6 +19,7 @@ class User:
         moments,                                       # 用户朋友圈列表(所有历史发的朋友圈都在这里了, 点赞和评论的问题)
         likes,                                         # 点赞记录
         comments,                                      # 评论记录
+        certificate,                                   # 认证证书
         heights                                        # 区块高度(什么样的区块高度,才还原成现在这个样子的)                           
     ):
         self.account = account
