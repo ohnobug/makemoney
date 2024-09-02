@@ -41,6 +41,10 @@ class User:
         self.comments = comments
         self.heights = heights
 
+    # 发朋友圈
+    def post_on_moments(self):
+        pass
+
 
 if __name__ == "__main__":
     # 定义虚拟数据
