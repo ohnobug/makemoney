@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'logger.dart';
 
@@ -90,24 +91,21 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                             title: '金融理财',
                             buttons: [
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon1.png",
+                                icon: "images/icon/server_icon1.png",
                                 title: '信用卡还款',
                                 onPressed: () {
                                   logger.info('点击了信用卡还款按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon2.png",
+                                icon: "images/icon/server_icon2.png",
                                 title: '微粒贷借钱',
                                 onPressed: () {
                                   logger.info('点击了微粒贷借钱按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon3.png",
+                                icon: "images/icon/server_icon3.png",
                                 title: '理财通',
                                 onPressed: () {
                                   logger.info('点击了理财通按钮~~');
@@ -128,48 +126,42 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                             title: '生活服务',
                             buttons: [
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon4.png",
+                                icon: "images/icon/server_icon4.png",
                                 title: '手机充值',
                                 onPressed: () {
                                   logger.info('点击了手机充值按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon5.png",
+                                icon: "images/icon/server_icon5.png",
                                 title: '生活缴费',
                                 onPressed: () {
                                   logger.info('点击了生活缴费按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon6.png",
+                                icon: "images/icon/server_icon6.png",
                                 title: 'Q币充值',
                                 onPressed: () {
                                   logger.info('点击了Q币充值按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon7.png",
+                                icon: "images/icon/server_icon7.png",
                                 title: '城市服务',
                                 onPressed: () {
                                   logger.info('点击了城市服务按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon8.png",
+                                icon: "images/icon/server_icon8.png",
                                 title: '腾讯公益',
                                 onPressed: () {
                                   logger.info('点击了腾讯公益按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon9.png",
+                                icon: "images/icon/server_icon9.png",
                                 title: '医疗健康',
                                 onPressed: () {
                                   logger.info('点击了医疗健康按钮~~');
@@ -183,32 +175,28 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                             title: '交通出行',
                             buttons: [
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon10.png",
+                                icon: "images/icon/server_icon10.png",
                                 title: '出行服务',
                                 onPressed: () {
                                   logger.info('点击了出行服务按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon11.png",
+                                icon: "images/icon/server_icon11.png",
                                 title: '火车票机票',
                                 onPressed: () {
                                   logger.info('点击了火车票机票按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon12.png",
+                                icon: "images/icon/server_icon12.png",
                                 title: '滴滴出行',
                                 onPressed: () {
                                   logger.info('点击了滴滴出行按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon122.png",
+                                icon: "images/icon/server_icon122.png",
                                 title: '酒店',
                                 onPressed: () {
                                   logger.info('点击了酒店按钮~~');
@@ -222,64 +210,56 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                             title: '购物消费',
                             buttons: [
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon13.png",
+                                icon: "images/icon/server_icon13.png",
                                 title: '品牌发现',
                                 onPressed: () {
                                   logger.info('点击了品牌发现按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon14.png",
+                                icon: "images/icon/server_icon14.png",
                                 title: '京东购物',
                                 onPressed: () {
                                   logger.info('点击了京东购物按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon15.png",
+                                icon: "images/icon/server_icon15.png",
                                 title: '美团外卖',
                                 onPressed: () {
                                   logger.info('点击了美团外卖按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon16.png",
+                                icon: "images/icon/server_icon16.png",
                                 title: '电影演出玩乐',
                                 onPressed: () {
                                   logger.info('点击了电影演出玩乐按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon17.png",
+                                icon: "images/icon/server_icon17.png",
                                 title: '美团特价',
                                 onPressed: () {
                                   logger.info('点击了美团特价按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon18.png",
+                                icon: "images/icon/server_icon18.png",
                                 title: '拼多多',
                                 onPressed: () {
                                   logger.info('点击了拼多多按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon19.png",
+                                icon: "images/icon/server_icon19.png",
                                 title: '唯品会特卖',
                                 onPressed: () {
                                   logger.info('点击了唯品会特卖按钮~~');
                                 },
                               ),
                               FunctionButton(
-                                icon:
-                                    "images/icon/server_icon20.png",
+                                icon: "images/icon/server_icon20.png",
                                 title: '转转二手',
                                 onPressed: () {
                                   logger.info('点击了转转二手按钮~~');
@@ -324,13 +304,17 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
         });
       },
       onTapUp: (_) {
-        setState(() {
-          _isPressed = false;
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
         });
       },
       onTapCancel: () {
-        setState(() {
-          _isPressed = false;
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
         });
       },
       child: Container(
@@ -412,13 +396,17 @@ class FunctionButtonState extends State<FunctionButton> {
         });
       },
       onTapUp: (_) {
-        setState(() {
-          _isPressed = false;
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
         });
       },
       onTapCancel: () {
-        setState(() {
-          _isPressed = false;
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
         });
       },
       child: Container(
@@ -433,7 +421,7 @@ class FunctionButtonState extends State<FunctionButton> {
             mainAxisSize: MainAxisSize.min, // 使按钮大小适应内容
             children: [
               Image.asset(
-                widget.icon,
+                assetPath(widget.icon),
                 width: 60.w,
                 height: 60.w,
               ), // 图标颜色

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/pageloading.dart';
 import 'package:flutter_application_1/logger.dart';
 import 'package:flutter_application_1/store.dart';
+import 'package:flutter_application_1/tools/tools.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -489,7 +490,7 @@ class _ChatListItem extends State<ChatListItem> {
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(10).w,
                   image: DecorationImage(
-                    image: AssetImage(widget.avatar),
+                    image: AssetImage(assetPath(widget.avatar)),
                     fit: BoxFit.cover,
                   ),
                 ),
