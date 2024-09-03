@@ -284,7 +284,7 @@ class _FunctionItemState extends State<FunctionItem> {
                                         borderRadius:
                                             BorderRadius.circular(6).w,
                                         child: Image.asset(
-                                          'images/avatar_webp/chat_4.webp',
+                                          assetPath('images/avatar_webp/chat_4.webp'),
                                           width: 60.w,
                                           height: 60.w,
                                           fit: BoxFit.cover,
@@ -340,7 +340,7 @@ class _FunctionItemState extends State<FunctionItem> {
                                         borderRadius:
                                             BorderRadius.circular(500).w,
                                         child: Image.asset(
-                                          'images/avatar_webp/chat_4.webp',
+                                          assetPath('images/avatar_webp/chat_4.webp'),
                                           width: 60.w,
                                           height: 60.w,
                                           fit: BoxFit.cover,

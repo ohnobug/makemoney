@@ -427,7 +427,7 @@ class ChatListItem extends StatefulWidget {
   final String message;
   final bool notice;
   final bool underline;
-  final Function() onPressed;
+  final Function()? onPressed;
 
   const ChatListItem({
     super.key,
@@ -437,7 +437,7 @@ class ChatListItem extends StatefulWidget {
     required this.message,
     required this.notice,
     required this.underline,
-    required this.onPressed,
+    this.onPressed,
   });
 
   @override
@@ -447,11 +447,9 @@ class ChatListItem extends StatefulWidget {
 class _ChatListItem extends State<ChatListItem> {
   Color containerColor = Colors.white;
 
-  onPressed() {}
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: widget.onPressed,
         onTapDown: (_) {
           setState(() {
             containerColor = const Color.fromARGB(255, 229, 229, 229);
@@ -469,9 +467,7 @@ class _ChatListItem extends State<ChatListItem> {
             setState(() {
               containerColor = Colors.white;
             });
-            if (mounted) {
-              Navigator.pushNamed(context, '/services');
-            }
+            widget.onPressed!();
           });
 
           logger.info("弹起");

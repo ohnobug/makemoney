@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LJNChatPage extends StatefulWidget {
@@ -104,7 +105,7 @@ class _LJNChatPage extends State<LJNChatPage> {
                                                                   5)
                                                               .w,
                                                       child: Image.asset(
-                                                        "images/avatar_webp/chat_8.webp",
+                                                        assetPath("images/avatar_webp/chat_8.webp"),
                                                         width: 78.w,
                                                         height: 78.w,
                                                       )))),
@@ -157,7 +158,7 @@ class _LJNChatPage extends State<LJNChatPage> {
                                                                   left: 10)
                                                               .w,
                                                       child: Image.asset(
-                                                        "assets/images/icon_webp/left.png",
+                                                        assetPath("images/icon_webp/left.png"),
                                                         width: 10.w,
                                                         fit: BoxFit.fitWidth,
                                                       ),
@@ -303,7 +304,7 @@ class _LJNChatPage extends State<LJNChatPage> {
                                                                   right: 10)
                                                               .w,
                                                       child: Image.asset(
-                                                        "images/icon/right.png",
+                                                        assetPath("images/icon/right.png"),
                                                         width: 10.w,
                                                         fit: BoxFit.fitWidth,
                                                         // fit: BoxFit.fill,
@@ -338,7 +339,7 @@ class _LJNChatPage extends State<LJNChatPage> {
                                                                   5)
                                                               .w,
                                                       child: Image.asset(
-                                                        "images/avatar_webp/chat_4.webp",
+                                                        assetPath("images/avatar_webp/chat_4.webp"),
                                                         width: 78.w,
                                                         height: 78.w,
                                                       )))),

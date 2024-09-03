@@ -79,7 +79,8 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10).w,
                                     child: Image.asset(
-                                      'assets/images/avatar_webp/chat_4.webp',
+                                      assetPath(
+                                          'images/avatar_webp/chat_4.webp'),
                                       width: 120.w,
                                       height: 120.w,
                                       fit: BoxFit.cover,
