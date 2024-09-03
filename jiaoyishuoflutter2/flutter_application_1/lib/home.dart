@@ -60,7 +60,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: true,
           underline: true,
           message: "今天天气真好，阳光明媚，让人心情愉悦。",
-          avatar: "assets/images/avatar_webp/chat_1.webp",
+          avatar: "images/avatar_webp/chat_1.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('花重月数被点击~');
@@ -71,7 +71,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: true,
           underline: true,
           message: "你吃过了吗？吃的什么？有没有想我？",
-          avatar: "assets/images/avatar_webp/chat_2.webp",
+          avatar: "images/avatar_webp/chat_2.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('旧梦如风°被点击~');
@@ -82,7 +82,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: true,
           underline: true,
           message: "我很高兴见到你，今天看起来很不错。",
-          avatar: "assets/images/avatar_webp/chat_3.webp",
+          avatar: "images/avatar_webp/chat_3.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('蝶舞庄周被点击~');
@@ -93,7 +93,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
-          avatar: "assets/images/avatar_webp/chat_4.webp",
+          avatar: "images/avatar_webp/chat_4.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('绿逾初夏被点击~');
@@ -104,7 +104,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "今天上班/上学累吗？要注意休息哦。",
-          avatar: "assets/images/avatar_webp/chat_5.webp",
+          avatar: "images/avatar_webp/chat_5.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('余笙南吟被点击~');
@@ -115,7 +115,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "这个周末有什么计划？有没有想好去哪里玩？",
-          avatar: "assets/images/avatar_webp/chat_6.webp",
+          avatar: "images/avatar_webp/chat_6.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('陈情匿旧酒被点击~');
@@ -126,7 +126,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你喜欢看什么电影？我最近看了一部不错的电影，推荐给你！",
-          avatar: "assets/images/avatar_webp/chat_7.webp",
+          avatar: "images/avatar_webp/chat_7.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('白桃乌龙被点击~');
@@ -137,7 +137,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你最近有没有去旅行？去了哪些地方？感觉怎么样？",
-          avatar: "assets/images/avatar_webp/chat_8.webp",
+          avatar: "images/avatar_webp/chat_8.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('清浅ˋ旧时光被点击~');
@@ -148,7 +148,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "我听说你最近升职了，恭喜你！一定能够做得更好！",
-          avatar: "assets/images/avatar_webp/chat_9.webp",
+          avatar: "images/avatar_webp/chat_9.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('荒碎梦残被点击~');
@@ -159,7 +159,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你今天穿得很漂亮，看起来很有气质。",
-          avatar: "assets/images/avatar_webp/chat_10.webp",
+          avatar: "images/avatar_webp/chat_10.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('无梦相赠被点击~');
@@ -170,7 +170,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你最喜欢的颜色是什么？是不是很时尚？",
-          avatar: "assets/images/avatar_webp/chat_11.webp",
+          avatar: "images/avatar_webp/chat_11.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('离人泪被点击~');
@@ -181,7 +181,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你最近有没有去尝试新的餐厅？有没有吃到什么特别好吃的菜？",
-          avatar: "assets/images/avatar_webp/chat_12.webp",
+          avatar: "images/avatar_webp/chat_12.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('伊人在水一方被点击~');
@@ -192,7 +192,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你的生日是今天吗？生日快乐啊！有没有想好怎么庆祝？",
-          avatar: "assets/images/avatar_webp/chat_13.webp",
+          avatar: "images/avatar_webp/chat_13.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('与我共梦被点击~');
@@ -203,7 +203,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你平常喜欢做什么样的运动？我最近喜欢上了瑜伽。",
-          avatar: "assets/images/avatar_webp/chat_14.webp",
+          avatar: "images/avatar_webp/chat_14.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('挽弦暮笙被点击~');
@@ -214,7 +214,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "我觉得你很有创造力，一定能够做出很多很棒的东西。",
-          avatar: "assets/images/avatar_webp/chat_15.webp",
+          avatar: "images/avatar_webp/chat_15.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('开始厌倦被点击~');
@@ -225,7 +225,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你最近有没有追什么好剧？有没有推荐的电视剧？",
-          avatar: "assets/images/avatar_webp/chat_16.webp",
+          avatar: "images/avatar_webp/chat_16.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('仙女收纳盒被点击~');
@@ -236,7 +236,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "我很喜欢你的发型，看起来很时尚，一定是精心打理过的。",
-          avatar: "assets/images/avatar_webp/chat_17.webp",
+          avatar: "images/avatar_webp/chat_17.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('華燈初上被点击~');
@@ -247,7 +247,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你是什么星座的？我最近对星座运势感兴趣了。",
-          avatar: "assets/images/avatar_webp/chat_18.webp",
+          avatar: "images/avatar_webp/chat_18.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('袖手今生被点击~');
@@ -258,7 +258,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "我觉得你笑起来很好看，让人感觉很温暖。",
-          avatar: "assets/images/avatar_webp/chat_19.webp",
+          avatar: "images/avatar_webp/chat_19.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('ら道不清的忧伤被点击~');
@@ -269,7 +269,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你愿意和我一起去旅行吗？我们可以一起去探索未知的地方。",
-          avatar: "assets/images/avatar_webp/chat_20.webp",
+          avatar: "images/avatar_webp/chat_20.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('凉生被点击~');
@@ -280,7 +280,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你的梦想是什么？我最近梦想成为一名优秀的厨师。",
-          avatar: "assets/images/avatar_webp/chat_21.webp",
+          avatar: "images/avatar_webp/chat_21.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('墨香九歌被点击~');
@@ -291,7 +291,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你最近有没有学到什么新知识？我最近在学习一门新技能。",
-          avatar: "assets/images/avatar_webp/chat_22.webp",
+          avatar: "images/avatar_webp/chat_22.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('暖栀被点击~');
@@ -302,7 +302,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "我听说你要搬家了，是吗？祝贺你！新家在哪里？是不是很期待？",
-          avatar: "assets/images/avatar_webp/chat_23.webp",
+          avatar: "images/avatar_webp/chat_23.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('等待许了苍老被点击~');
@@ -313,7 +313,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你喜欢什么样的音乐？我最近迷上了一种新的音乐风格。",
-          avatar: "assets/images/avatar_webp/chat_24.webp",
+          avatar: "images/avatar_webp/chat_24.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('笙歌白云被点击~');
@@ -324,7 +324,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "我觉得你非常有魅力，你的个性很吸引人。",
-          avatar: "assets/images/avatar_webp/chat_25.webp",
+          avatar: "images/avatar_webp/chat_25.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('万幸得以相识被点击~');
@@ -335,7 +335,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "我很喜欢和你聊天，每次都能学到很多东西。",
-          avatar: "assets/images/avatar_webp/chat_26.webp",
+          avatar: "images/avatar_webp/chat_26.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('凤鸣寂寥被点击~');
@@ -346,7 +346,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你会做饭吗？我最近学会了做一道新菜，很好吃哦。",
-          avatar: "assets/images/avatar_webp/chat_27.webp",
+          avatar: "images/avatar_webp/chat_27.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('余生不过一盏茶被点击~');
@@ -357,7 +357,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你喜欢看什么类型的书？我最近在读一本很有趣的小说。",
-          avatar: "assets/images/avatar_webp/chat_28.webp",
+          avatar: "images/avatar_webp/chat_28.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('丢了梦想的猎手被点击~');
@@ -368,7 +368,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           notice: false,
           underline: true,
           message: "你最近有没有参加什么有趣的活动？有没有结识到新朋友？",
-          avatar: "assets/images/avatar_webp/chat_29.webp",
+          avatar: "images/avatar_webp/chat_29.webp",
           onPressed: () {
             Navigator.pushNamed(context, '/chat');
             logger.info('今朝有酒今朝醉被点击~');
@@ -379,7 +379,7 @@ class _ChatListViewState extends State<LJNHomePage> {
         notice: false,
         underline: false,
         message: "我听说你最近去旅游了，怎么样？玩得开心吗？",
-        avatar: "assets/images/avatar_webp/chat_30.webp",
+        avatar: "images/avatar_webp/chat_30.webp",
         onPressed: () {
           Navigator.pushNamed(context, '/chat');
         },
@@ -444,7 +444,7 @@ class ChatListItem extends StatefulWidget {
 }
 
 class _ChatListItem extends State<ChatListItem> {
-  bool _isPressed = false;
+  Color containerColor = Colors.white;
 
   onPressed() {}
   @override
@@ -453,24 +453,31 @@ class _ChatListItem extends State<ChatListItem> {
         onTap: widget.onPressed,
         onTapDown: (_) {
           setState(() {
-            _isPressed = true;
-          });
-        },
-        onTapUp: (_) {
-          setState(() {
-            _isPressed = false;
+            containerColor = const Color.fromARGB(255, 229, 229, 229);
           });
         },
         onTapCancel: () {
           setState(() {
-            _isPressed = false;
+            containerColor = Colors.white;
           });
+
+          logger.info("取消点击");
+        },
+        onTapUp: (tapDownDetails) {
+          Future.delayed(const Duration(milliseconds: 50), () {
+            setState(() {
+              containerColor = Colors.white;
+            });
+            if (mounted) {
+              Navigator.pushNamed(context, '/services');
+            }
+          });
+
+          logger.info("弹起");
         },
         child: Container(
-          color: _isPressed
-              ? const Color.fromARGB(255, 229, 229, 229)
-              : Colors.transparent,
-          height: 117.0.w,
+          color: containerColor,
+          height: 135.0.w,
           padding: const EdgeInsets.only(left: 30.0).w,
           child: Row(
             children: [
@@ -520,7 +527,7 @@ class _ChatListItem extends State<ChatListItem> {
                             child: Text(
                               widget.friendName,
                               style: TextStyle(
-                                fontSize: 30.0.w,
+                                fontSize: 32.0.w,
                                 color:
                                     widget.notice ? Colors.red : Colors.black,
                               ),
@@ -532,10 +539,10 @@ class _ChatListItem extends State<ChatListItem> {
                           Text(
                             '17:25',
                             style: TextStyle(
-                              fontSize: 21.0.w,
+                              fontSize: 22.0.w,
                               color: widget.notice
                                   ? Colors.red
-                                  : const Color.fromARGB(255, 175, 175, 175),
+                                  : const Color.fromARGB(255, 193, 193, 193),
                             ),
                           ),
                           SizedBox(
@@ -544,7 +551,7 @@ class _ChatListItem extends State<ChatListItem> {
                         ],
                       ),
 
-                      SizedBox(height: 0.w),
+                      SizedBox(height: 5.w),
 
                       // 好友消息
                       Row(
@@ -555,8 +562,8 @@ class _ChatListItem extends State<ChatListItem> {
                             child: Text(
                               widget.message,
                               style: TextStyle(
-                                fontSize: 23.w,
-                                color: const Color.fromARGB(255, 175, 175, 175),
+                                fontSize: 24.w,
+                                color: const Color.fromARGB(255, 193, 193, 193),
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -567,8 +574,8 @@ class _ChatListItem extends State<ChatListItem> {
                               padding: EdgeInsets.only(right: 30.w),
                               child: Icon(
                                 Icons.notifications_off_outlined,
-                                size: 26.0.w,
-                                color: const Color.fromARGB(255, 175, 175, 175),
+                                size: 32.0.w,
+                                color: const Color.fromARGB(255, 193, 193, 193),
                               ),
                             ),
                           ]

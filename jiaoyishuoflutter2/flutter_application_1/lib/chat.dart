@@ -44,7 +44,7 @@ class _LJNChatPage extends State<LJNChatPage> {
                   icon: Icon(
                       size: 37.w,
                       const IconData(
-                        0xe726,
+                        0xe659,
                         fontFamily: 'Iconfont',
                       )),
                   highlightColor: Colors.transparent,
@@ -80,9 +80,8 @@ class _LJNChatPage extends State<LJNChatPage> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
+                                          // 头像
                                           Container(
-                                              padding:
-                                                  EdgeInsets.only(left: 22.w),
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.rectangle,
                                                 borderRadius:
@@ -91,8 +90,10 @@ class _LJNChatPage extends State<LJNChatPage> {
                                               child: Container(
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
-                                                        color: Colors.white,
-                                                        width: 1.0.w),
+                                                        color: const Color
+                                                            .fromARGB(
+                                                            255, 244, 244, 244),
+                                                        width: 1.w),
                                                     borderRadius:
                                                         BorderRadius.circular(5)
                                                             .w,
@@ -103,10 +104,12 @@ class _LJNChatPage extends State<LJNChatPage> {
                                                                   5)
                                                               .w,
                                                       child: Image.asset(
-                                                        "assets/images/avatar_webp/chat_5.webp",
+                                                        "images/avatar_webp/chat_8.webp",
                                                         width: 78.w,
                                                         height: 78.w,
                                                       )))),
+                                          // SizedBox(width: 10.w,),
+                                          // 姓名与消息
                                           Expanded(
                                             child: Column(
                                               crossAxisAlignment:
@@ -114,12 +117,13 @@ class _LJNChatPage extends State<LJNChatPage> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: [
+                                                // 姓名
                                                 Container(
                                                   padding:
                                                       const EdgeInsets.only(
                                                               left: 23,
-                                                              top: 3,
-                                                              bottom: 10)
+                                                              top: 0,
+                                                              bottom: 3)
                                                           .w,
                                                   // height: 33.w,
                                                   child: Column(
@@ -140,6 +144,7 @@ class _LJNChatPage extends State<LJNChatPage> {
                                                         )
                                                       ]),
                                                 ),
+                                                // 消息
                                                 Row(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
@@ -148,14 +153,13 @@ class _LJNChatPage extends State<LJNChatPage> {
                                                     Container(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                                  top: 25,
-                                                                  left: 9)
+                                                                  top: 32,
+                                                                  left: 10)
                                                               .w,
                                                       child: Image.asset(
-                                                        // fit: BoxFit.fitWidth,
                                                         "assets/images/icon_webp/left.png",
-                                                        width: 9.w,
-                                                        fit: BoxFit.fill,
+                                                        width: 10.w,
+                                                        fit: BoxFit.fitWidth,
                                                       ),
                                                     ),
                                                     // 消息
@@ -163,24 +167,121 @@ class _LJNChatPage extends State<LJNChatPage> {
                                                         child: Container(
                                                       constraints:
                                                           const BoxConstraints(
-                                                              maxWidth: 258),
+                                                                  maxWidth: 510)
+                                                              .w,
                                                       // width: 640.w,
                                                       decoration: BoxDecoration(
                                                           color: Colors.white,
-                                                          border: Border.all(
-                                                              color:
-                                                                  Colors.white,
-                                                              width: 1.0.w),
+                                                          // border: Border.all(
+                                                          //     color:
+                                                          //         Colors.white,
+                                                          //     width: 1.0.w),
                                                           borderRadius:
                                                               BorderRadius
                                                                       .circular(
                                                                           8)
                                                                   .w),
                                                       padding: EdgeInsets.only(
-                                                          top: 24.w,
+                                                          top: 22.w,
                                                           bottom: 24.w,
-                                                          left: 22.w,
+                                                          left: 25.w,
                                                           right: 22.w),
+                                                      child: Text(
+                                                        softWrap: true,
+                                                        maxLines: 1000,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        "你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？",
+                                                        style: TextStyle(
+                                                            fontSize: 29.w,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                                    )),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+
+                                    // 自己发的消息
+                                    Container(
+                                      padding: const EdgeInsets.all(22).w,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          // 姓名与消息
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                // 姓名
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                              right: 23,
+                                                              top: 0,
+                                                              bottom: 3)
+                                                          .w,
+                                                  // height: 33.w,
+                                                  child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "李俊杰",
+                                                          style: TextStyle(
+                                                              fontSize: 20.w,
+                                                              color: const Color
+                                                                  .fromARGB(
+                                                                  255,
+                                                                  130,
+                                                                  130,
+                                                                  130)),
+                                                        )
+                                                      ]),
+                                                ),
+                                                // 消息
+                                                Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    // 消息
+                                                    Flexible(
+                                                        child: Container(
+                                                      constraints:
+                                                          const BoxConstraints(
+                                                                  maxWidth: 510)
+                                                              .w,
+                                                      // width: 640.w,
+                                                      decoration: BoxDecoration(
+                                                          color: const Color
+                                                              .fromARGB(255,
+                                                              158, 236, 114),
+                                                          // border: Border.all(
+                                                          //     color:
+                                                          //         Colors.white,
+                                                          //     width: 1.0.w),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                      .circular(
+                                                                          8)
+                                                                  .w),
+                                                      padding: EdgeInsets.only(
+                                                          top: 22.w,
+                                                          bottom: 22.w,
+                                                          left: 25.w,
+                                                          right: 25.w),
                                                       child: Text(
                                                         softWrap: true,
                                                         maxLines: 1000,
@@ -193,11 +294,54 @@ class _LJNChatPage extends State<LJNChatPage> {
                                                                 Colors.black),
                                                       ),
                                                     )),
+
+                                                    // 箭头
+                                                    Container(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                                  top: 32,
+                                                                  right: 10)
+                                                              .w,
+                                                      child: Image.asset(
+                                                        "images/icon/right.png",
+                                                        width: 10.w,
+                                                        fit: BoxFit.fitWidth,
+                                                        // fit: BoxFit.fill,
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
                                               ],
                                             ),
-                                          )
+                                          ),
+                                          // 头像
+                                          Container(
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.rectangle,
+                                                borderRadius:
+                                                    BorderRadius.circular(5).w,
+                                              ),
+                                              child: Container(
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: const Color
+                                                            .fromARGB(
+                                                            255, 244, 244, 244),
+                                                        width: 1.w),
+                                                    borderRadius:
+                                                        BorderRadius.circular(5)
+                                                            .w,
+                                                  ),
+                                                  child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                                  5)
+                                                              .w,
+                                                      child: Image.asset(
+                                                        "images/avatar_webp/chat_4.webp",
+                                                        width: 78.w,
+                                                        height: 78.w,
+                                                      )))),
                                         ],
                                       ),
                                     ),

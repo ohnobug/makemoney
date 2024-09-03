@@ -440,14 +440,21 @@ class _ContactInformationState extends State<ContactInformation> {
       onTapCancel: () {
         setState(() {
           containerColor = Colors.white;
-          logger.info("取消点击");
         });
+
+        logger.info("取消点击");
       },
       onTapUp: (tapDownDetails) {
-        setState(() {
-          containerColor = Colors.white;
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            containerColor = Colors.white;
+          });
+          if (mounted) {
+            Navigator.pushNamed(context, '/services');
+          }
         });
-        Navigator.pushNamed(context, '/services');
+
+        logger.info("弹起");
       },
       child: Container(
         height: 105.0.w,

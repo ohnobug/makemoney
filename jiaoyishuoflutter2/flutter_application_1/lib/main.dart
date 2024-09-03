@@ -316,7 +316,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                       ))),
                       child: TabBar(
                         dividerColor: const Color.fromARGB(255, 218, 218, 218),
-                        labelColor: const Color.fromARGB(255, 43, 174, 106),
+                        labelColor: const Color.fromARGB(255, 7, 193, 96),
                         labelStyle: TextStyle(fontSize: 21.w),
                         unselectedLabelColor:
                             const Color.fromARGB(222, 0, 0, 0),
@@ -441,7 +441,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                             color: Colors.transparent)),
                     Positioned(
                         right: 15.w,
-                        top: devicesPadding.top + 92.w,
+                        top: devicesPadding.top + 80.w,
                         child: SizedBox(
                           width: 320.w,
                           child: Column(
@@ -452,9 +452,18 @@ class _CustomTabbarState extends State<CustomTabbar>
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    Icon(
-                                        size: 28.w,
-                                        Icons.text_rotation_angledown_rounded)
+                                    SizedBox(
+                                        width: 36.w,
+                                        height: 20.w,
+                                        child: Icon(
+                                          color: const Color.fromARGB(
+                                              255, 76, 76, 76),
+                                          const IconData(
+                                            0xe62c,
+                                            fontFamily: 'Iconfont',
+                                          ),
+                                          size: 42.w,
+                                        ))
                                   ],
                                 ),
                               ),
@@ -483,13 +492,17 @@ class _CustomTabbarState extends State<CustomTabbar>
                                             width: 105.w,
                                             child: Center(
                                               child: Icon(
-                                                  color: Colors.white,
-                                                  size: 50.w,
-                                                  Icons.add_location_alt_sharp),
+                                                color: Colors.white,
+                                                const IconData(
+                                                  0xe676,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                size: 41.w,
+                                              ),
                                             ),
                                           ),
                                           SizedBox(
-                                            width: 20.w,
+                                            width: 0.w,
                                           ),
                                           Expanded(
                                             child: Container(
@@ -541,13 +554,17 @@ class _CustomTabbarState extends State<CustomTabbar>
                                             width: 105.w,
                                             child: Center(
                                               child: Icon(
-                                                  color: Colors.white,
-                                                  size: 50.w,
-                                                  Icons.backup_table_rounded),
+                                                color: Colors.white,
+                                                const IconData(
+                                                  0xe61f,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                size: 41.w,
+                                              ),
                                             ),
                                           ),
                                           SizedBox(
-                                            width: 20.w,
+                                            width: 0.w,
                                           ),
                                           Expanded(
                                             child: Container(
@@ -599,13 +616,17 @@ class _CustomTabbarState extends State<CustomTabbar>
                                             width: 105.w,
                                             child: Center(
                                               child: Icon(
-                                                  color: Colors.white,
-                                                  size: 50.w,
-                                                  Icons.accessible_rounded),
+                                                color: Colors.white,
+                                                const IconData(
+                                                  0xe69a,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                size: 41.w,
+                                              ),
                                             ),
                                           ),
                                           SizedBox(
-                                            width: 20.w,
+                                            width: 0.w,
                                           ),
                                           Expanded(
                                             child: Container(
@@ -657,13 +678,17 @@ class _CustomTabbarState extends State<CustomTabbar>
                                               width: 105.w,
                                               child: Center(
                                                 child: Icon(
-                                                    color: Colors.white,
-                                                    size: 50.w,
-                                                    Icons.qr_code_scanner),
+                                                color: Colors.white,
+                                                const IconData(
+                                                  0xe611,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                size: 41.w,
+                                              ),
                                               ),
                                             ),
                                             SizedBox(
-                                              width: 20.w,
+                                              width: 0.w,
                                             ),
                                             Expanded(
                                               child: Container(

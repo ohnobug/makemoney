@@ -291,7 +291,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "服务",
-                              icon: "assets/images/icon_webp/icon1.webp",
+                              icon: "images/icon/icon1.png",
                               link: '',
                               underline: false,
                             ),
@@ -304,35 +304,35 @@ class _LJNUserPageState extends State<LJNUserPage> {
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "收藏",
-                              icon: "assets/images/icon_webp/icon2.webp",
+                              icon: "images/icon/icon2.png",
                               link: '',
                               underline: true,
                             ),
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "朋友圈",
-                              icon: "assets/images/icon_webp/icon3.webp",
+                              icon: "images/icon/icon3.png",
                               link: '',
                               underline: true,
                             ),
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "视频号",
-                              icon: "assets/images/icon_webp/icon4.webp",
+                              icon: "images/icon/icon4.png",
                               link: '',
                               underline: true,
                             ),
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "订单与卡包",
-                              icon: "assets/images/icon_webp/icon5.webp",
+                              icon: "images/icon/icon5.png",
                               link: '',
                               underline: true,
                             ),
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "表情",
-                              icon: "assets/images/icon_webp/icon6.webp",
+                              icon: "images/icon/icon6.png",
                               link: '',
                               underline: false,
                             ),
@@ -345,7 +345,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                             const FunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "设置",
-                              icon: "assets/images/icon_webp/icon7.webp",
+                              icon: "images/icon/icon7.png",
                               link: '',
                               underline: false,
                             ),
@@ -444,7 +444,6 @@ class FunctionItem extends StatefulWidget {
 }
 
 class _FunctionItemState extends State<FunctionItem> {
-  bool isClicked = false;
   Color containerColor = Colors.white;
 
   @override
@@ -452,24 +451,27 @@ class _FunctionItemState extends State<FunctionItem> {
     return GestureDetector(
       onTapDown: (tapDownDetails) {
         setState(() {
-          isClicked = true;
           containerColor = const Color.fromARGB(255, 229, 229, 229);
         });
       },
       onTapCancel: () {
         setState(() {
-          isClicked = false;
           containerColor = Colors.white;
-          logger.info("取消点击");
         });
+
+        logger.info("取消点击");
       },
       onTapUp: (tapDownDetails) {
-        setState(() {
-          isClicked = false;
-          containerColor = Colors.white;
-
-          Navigator.pushNamed(context, '/services');
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            containerColor = Colors.white;
+          });
+          if (mounted) {
+            Navigator.pushNamed(context, '/services');
+          }
         });
+
+        logger.info("弹起");
       },
       child: Container(
         height: 105.0.w,
