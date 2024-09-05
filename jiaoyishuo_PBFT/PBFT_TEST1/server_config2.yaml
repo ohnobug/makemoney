@@ -1,0 +1,10 @@
+listen:
+  host: 127.0.0.1
+  port: 5002
+  id: "bbb"
+  information: "this is server 2"
+nodes:
+    - host: 127.0.0.1
+      port: 5001
+    - host: 127.0.0.1
+      port: 5003

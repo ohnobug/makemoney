@@ -57,6 +57,7 @@ async def syncOtherNode(node: Node):
     try:
         # 如果节点一直尚未进行连接, 则进行连接
         if node.websocket is None:
+            logger.info(f"ws://{node.host}:{node.port}/ws连接成功...")
             async with websockets.connect(f"ws://{node.host}:{node.port}/ws") as websocket:
                 logger.info(f"ws://{node.host}:{node.port}/ws连接成功...")
                 node.websocket = websocket
@@ -125,11 +126,11 @@ async def batchSyncOtherNodes(nodes):
 
         # 每隔3秒 同步一次通信录
         await asyncio.sleep(1)
-        logging.info("倒计时...1")
+        logger.info("倒计时...1")
         await asyncio.sleep(1)
-        logging.info("倒计时...2")
+        logger.info("倒计时...2")
         await asyncio.sleep(1)
-        logging.info("倒计时...3")
+        logger.info("倒计时...3")
 
 
 
