@@ -29,35 +29,51 @@ args = arg_parse()
 config = conf_parse(args.config)
 
 class ServerNode:
-    def __init__(self, websocket: ServerConnection, id):
+    def __init__(self, websocket: ServerConnection):
         self.websocket = websocket
-        self.id = id
-        self.sayHello = False
+        self.id = None
+
+    # 收到对方消息
+    async def receive_peer_info(self, data):
+        if data.get("id") is None:
+            return
+        else:
+            self.id = data.get("id")
+
+        if self.id in active_connected_nodes:
+            # 此前连接过, 现在该ID又连, 所以拒绝
+            await self.websocket.send(json.dumps({
+                "code": 200,
+                "message": f"该id此前已连接: {self.id}, 请断开之前的连接"
+            }))
+            await self.websocket.close()
+        elif self.id in nodes:
+            # 曾经连接过,但是后来断开了, 现在又来了
+            nodes[self.id].websocket = self.websocket
+            active_connected_nodes[self.id] = nodes[self.id]
+        elif self.id not in nodes:
+            # 未曾连接过
+            nodes[self.id] = self
+            active_connected_nodes[self.id] = self
 
     async def handle(self):
-        active_connected_nodes[self.id] = self
-        nodes[self.id] = self
-
-        print("连接上了: " + str(self.websocket.remote_address))
-
-        if (self.sayHello == False):
-            # 连接后自报家门
-            message = json.dumps({
-                "code": 200,
-                "message": "自报家门",
-                "data": {
-                    "id": config["listen"]["id"],
-                    "type": "node",
-                    "information": config["listen"]["information"]
-                }
-            })
-            await self.websocket.send(message)
-            self.sayHello = True
-
         while True:
             message = await self.websocket.recv()
-            print(f"我是{config['listen']['id']}, 我收到{self.id}的消息: \"{message}\"")
-            # await self.websocket.send("回显: " + message)
+
+            # 收到消息
+            connect_info = json.loads(message)
+
+            # 解析json包
+            data = connect_info.get("data", None)
+            if data is None:
+                continue
+
+            # 收到其它节点的消息
+            if data.get("type") == "node_info":
+                print(f"收到对等节点信息:{connect_info}")
+                await self.receive_peer_info(data)
+            else:
+                print(message)
 
     async def close(self):
         del active_connected_nodes[self.id]
@@ -78,32 +94,9 @@ nodes: dict[str, ServerNode] = {}
 # 建立连接
 async def connection(websocket: ServerConnection):
     try:
-        # 收到消息
-        message = await websocket.recv()
-        connect_info = json.loads(message)
-
-        data = connect_info.get("data", None)
-        if data is None:
-            return
-
-        if data.get("id") in active_connected_nodes:
-            # 此前连接过, 现在该ID又连, 所以拒绝
-            await websocket.send(json.dumps({
-                "code": 200,
-                "message": f"该id此前已连接: {data['id']}"
-            }))
-            await websocket.close()
-        elif data.get("id") in nodes:
-            # 曾经连接过,但是后来断开了, 现在又来了
-            nodes[data["id"]].websocket = websocket
-            websocket_list[websocket.id] = nodes[data["id"]]
-
-            active_connected_nodes[data["id"]] = nodes[data["id"]]
-            await active_connected_nodes[data["id"]].handle()
-        elif (data.get("type") == "node") and (data.get("id") is not None and data.get("id") not in nodes):
-            # 以websocket_id为维度存储引用
-            websocket_list[websocket.id] = ServerNode(websocket, data["id"])
-            await websocket_list[websocket.id].handle()
+        # 以websocket_id为维度存储引用
+        websocket_list[websocket.id] = ServerNode(websocket)
+        await websocket_list[websocket.id].handle()
     except ConnectionRefusedError:
         print(f"无法连接服务器")
         return
@@ -114,7 +107,7 @@ async def connection(websocket: ServerConnection):
         await websocket_list[websocket.id].close()
         print("断开连接 - 错误断开")
     except json.decoder.JSONDecodeError:
-        print(f"json解析错误: {message}")
+        print(f"json解析错误")
     except Exception as e:
         print(f"报错: {e}")
 
@@ -131,7 +124,7 @@ async def server(host, port):
 
             return connection.respond(HTTPStatus.OK, text=response)
 
-    def process_response(connection, request, response):
+    def process_response(connection: ServerConnection, request: Request, response: Response):
         response.headers["Content-Type"] = "application/json"
 
     async with serve(connection, host, port, process_request=process_request, process_response=process_response):
@@ -143,13 +136,15 @@ async def client(host, port):
     while True:
         try:
             async with connect(f"ws://{host}:{port}") as websocket:
+                print("连接上了: " + str(websocket.remote_address))
+
                 # 连接后自报家门
                 message = json.dumps({
                     "code": 200,
                     "message": "自报家门",
                     "data": {
                         "id": config["listen"]["id"],
-                        "type": "node",
+                        "type": "node_info",
                         "information": config["listen"]["information"]
                     }
                 })
@@ -165,12 +160,12 @@ async def client(host, port):
                 break
 
 
-async def sayHello():
-    while True:
-        await asyncio.sleep(1)
-        for node in active_connected_nodes.values():
-            print(f"正在发送给{node.id}当前时间")
-            await node.websocket.send(f"当前时间: {time.time()}")
+# async def sayHello():
+#     while True:
+#         await asyncio.sleep(1)
+#         for node in active_connected_nodes.values():
+#             print(f"正在发送给{node.id}当前时间")
+#             await node.websocket.send(f"当前时间: {time.time()}")
 
 async def main():
     reconnect_nodes = config["nodes"]
@@ -179,11 +174,11 @@ async def main():
 
     # 作为客户端, 连接其它节点
     tasks = [asyncio.create_task(client(nodeinfo["host"], nodeinfo["port"])) for nodeinfo in reconnect_nodes]
-    sayTask = asyncio.create_task(sayHello())
+    # sayTask = asyncio.create_task(sayHello())
 
     await serverTask
     await asyncio.gather(*tasks)
-    await sayTask
+    # await sayTask
 
 asyncio.run(main())
 
