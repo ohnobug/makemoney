@@ -38,16 +38,15 @@ class ServerNode:
         if data.get("id") is None:
             return
 
-        self.id = data.get("id")
-        if self.id in active_connected_nodes:
+        if data.get("id") in active_connected_nodes:
             print("该ID此前曾连接, 主动断开.", end="\n")
-            # 不能调用self.close() 会清理掉正在连接的socket
             await self.websocket.close()
         else:
             # 未曾连接过
+            self.id = data.get("id")
             active_connected_nodes[self.id] = self
             websocket_list[str(self.websocket.id)] = self
-            print(f"握手成功")
+            print(f"与{self.id}握手成功")
 
     async def handle(self):
         try:
@@ -83,6 +82,7 @@ class ServerNode:
         except ConnectionRefusedError:
             print(f"无法连接服务器")
         except websockets.ConnectionClosedOK:
+            await self.close()
             print("断开连接 - 正常退出")
         except websockets.ConnectionClosedError:
             await self.close()
@@ -119,7 +119,7 @@ async def server(host, port):
         response.headers["Content-Type"] = "application/json"
 
     async def handler(websocket):
-        print(f"客户进入:{websocket.remote_address[0]}:{websocket.remote_address[1]}...", end="")
+        print(f"客户进入:{websocket.local_address[0]}:{websocket.local_address[1]} <= {websocket.remote_address[0]}:{websocket.remote_address[1]}...", end="")
         await ServerNode(websocket).handle()
 
     async with serve(handler, host, port, process_request=process_request, process_response=process_response):
@@ -130,7 +130,7 @@ async def client(host, port):
     while len(websocket_list) == 0:
         try:
             async with connect(f"ws://{host}:{port}") as websocket:
-                print(f"建立连接:{websocket.remote_address[0]}:{websocket.remote_address[1]}...", end="")
+                print(f"建立连接:{websocket.local_address[0]}:{websocket.local_address[1]} => {websocket.remote_address[0]}:{websocket.remote_address[1]}...", end="")
                 await ServerNode(websocket).handle()
         except ConnectionRefusedError:
             print("无法连接服务器!!! 1秒后自动重连" + f"ws://{host}:{port}")
@@ -140,10 +140,10 @@ async def sayHello():
     while True:
         await asyncio.sleep(1)
         for node in active_connected_nodes.values():
-            print(f"给{node.id} 正在发送当前时间")
+            # print(f"给{node.id} 正在发送当前时间")
             await node.websocket.send(json.dumps({
                     "code": 200,
-                    "data": f"我是{config['listen']['id']}, 当前时间: {time.time()}"
+                    "data": f"now time: {time.time()}"
                 }))
 
 async def main():
