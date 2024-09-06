@@ -139,15 +139,15 @@ async def client(host, port):
             print("无法连接服务器!!! 1秒后自动重连" + f"ws://{host}:{port}")
             await asyncio.sleep(1)
 
-async def sayHello():
-    while True:
-        await asyncio.sleep(1)
-        for node in active_connected_nodes.values():
-            # print(f"给{node.id} 正在发送当前时间")
-            await node.websocket.send(json.dumps({
-                    "code": 200,
-                    "data": f"now time: {time.time()}"
-                }))
+# async def sayHello():
+#     while True:
+#         await asyncio.sleep(1)
+#         for node in active_connected_nodes.values():
+#             # print(f"给{node.id} 正在发送当前时间")
+#             await node.websocket.send(json.dumps({
+#                     "code": 200,
+#                     "data": f"now time: {time.time()}"
+#                 }))
 
 async def main():
     reconnect_nodes = config["nodes"]
@@ -156,10 +156,10 @@ async def main():
 
     # 作为客户端, 连接其它节点
     tasks = [asyncio.create_task(client(nodeinfo["host"], nodeinfo["port"])) for nodeinfo in reconnect_nodes]
-    sayTask = asyncio.create_task(sayHello())
+    # sayTask = asyncio.create_task(sayHello())
 
     await serverTask
     await asyncio.gather(*tasks)
-    await sayTask
+    # await sayTask
 
 asyncio.run(main())
