@@ -40,7 +40,7 @@ class ServerNode:
 
         if data.get("id") in active_connected_nodes:
             print("该ID此前曾连接, 主动断开.", end="\n")
-            await self.websocket.close()
+            await self.close()
         else:
             # 未曾连接过
             self.id = data.get("id")
@@ -73,7 +73,8 @@ class ServerNode:
                 await self.receive_peer_info(data)
             else:
                 print("打招呼失败, 收到非同类数据")
-                self.websocket.close()
+                await self.close()
+                return
 
             while True:
                 message = await self.websocket.recv()
@@ -93,7 +94,9 @@ class ServerNode:
             print(f"报错: {e}")
 
     async def close(self):
-        active_connected_nodes.pop(self.id, None)
+        if self.id is not None:
+            active_connected_nodes.pop(self.id, None)
+
         websocket_list.pop(str(self.websocket.id), None)
         await self.websocket.close()
 
@@ -119,7 +122,7 @@ async def server(host, port):
         response.headers["Content-Type"] = "application/json"
 
     async def handler(websocket):
-        print(f"客户进入:{websocket.local_address[0]}:{websocket.local_address[1]} <= {websocket.remote_address[0]}:{websocket.remote_address[1]}...", end="")
+        print(f"客户进入: {websocket.local_address[0]}:{websocket.local_address[1]:<6} => {websocket.remote_address[0]}:{websocket.remote_address[1]:<6}...", end="")
         await ServerNode(websocket).handle()
 
     async with serve(handler, host, port, process_request=process_request, process_response=process_response):
@@ -130,7 +133,7 @@ async def client(host, port):
     while len(websocket_list) == 0:
         try:
             async with connect(f"ws://{host}:{port}") as websocket:
-                print(f"建立连接:{websocket.local_address[0]}:{websocket.local_address[1]} => {websocket.remote_address[0]}:{websocket.remote_address[1]}...", end="")
+                print(f"建立连接: {websocket.local_address[0]}:{websocket.local_address[1]:<6} => {websocket.remote_address[0]}:{websocket.remote_address[1]:<6}...", end="")
                 await ServerNode(websocket).handle()
         except ConnectionRefusedError:
             print("无法连接服务器!!! 1秒后自动重连" + f"ws://{host}:{port}")
