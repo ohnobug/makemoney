@@ -633,7 +633,7 @@ class CustomScrollBehavior extends ScrollBehavior {
 class MyBouncingScrollPhysics extends ScrollPhysics {
   /// Creates scroll physics that bounce back from the edge.
   const MyBouncingScrollPhysics({
-    this.decelerationRate = ScrollDecelerationRate.fast,
+    this.decelerationRate = ScrollDecelerationRate.normal,
     super.parent,
   });
 

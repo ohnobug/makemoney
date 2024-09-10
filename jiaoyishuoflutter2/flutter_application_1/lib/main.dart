@@ -262,7 +262,7 @@ class _CustomTabbarState extends State<CustomTabbar>
 
           if (homescrollpixels <= 50 && slight == true) {
             slight = false;
-          } else if (slight == false && homescrollpixels >= 110) {
+          } else if (slight == false && homescrollpixels >= 200) {
             logger.info("震动：${MediaQuery.of(context).size.height}");
             slight = true;
             HapticFeedback.heavyImpact();
