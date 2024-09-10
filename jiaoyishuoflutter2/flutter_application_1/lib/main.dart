@@ -262,10 +262,14 @@ class _CustomTabbarState extends State<CustomTabbar>
 
           if (homescrollpixels <= 50 && slight == true) {
             slight = false;
-          } else if (slight == false && homescrollpixels >= 200) {
+          } else if (slight == false && homescrollpixels >= 180) {
             logger.info("震动：${MediaQuery.of(context).size.height}");
             slight = true;
-            HapticFeedback.heavyImpact();
+
+            // HapticFeedback.heavyImpact();
+
+            // 重击(需要加倒计时)
+            HapticFeedback.selectionClick();
           }
 
           Text appBarTitle = const Text("");
