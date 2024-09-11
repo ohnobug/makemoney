@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/chat.dart';
 import 'package:flutter_application_1/discovery.dart';
 import 'package:flutter_application_1/services.dart';
@@ -146,6 +147,9 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   double _appbarLeft = 0;
 
+  // 微微震动
+  bool slight = false;
+
   @override
   void initState() {
     super.initState();
@@ -252,7 +256,21 @@ class _CustomTabbarState extends State<CustomTabbar>
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          logger.info("main main main: {${vm.homescrollpixels}}");
+          var homescrollpixels = vm.homescrollpixels!;
+          // logger.info("main main main: {$homescrollpixels}");
+          // logger.info("媒体高度：${MediaQuery.of(context).size.height / 4 - 205.w}");
+
+          if (homescrollpixels <= 50 && slight == true) {
+            slight = false;
+          } else if (slight == false && homescrollpixels >= 180) {
+            logger.info("震动：${MediaQuery.of(context).size.height}");
+            slight = true;
+
+            // HapticFeedback.heavyImpact();
+
+            // 重击(需要加倒计时)
+            HapticFeedback.selectionClick();
+          }
 
           Text appBarTitle = const Text("");
 
@@ -366,7 +384,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                   offset: Offset(_appbarLeft, 0),
                   child: Container(
                       width: 750.0.w,
-                      height: vm.homescrollpixels! + devicesPadding.top + 90.w,
+                      height: homescrollpixels+ devicesPadding.top + 90.w,
                       color: const Color.fromARGB(255, 237, 237, 237),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -398,7 +416,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                   splashColor: Colors.transparent,
                                   padding: const EdgeInsets.only(right: 20.0).w,
                                   onPressed: () {
-                                    if (vm.homescrollpixels! == 0) {}
+                                    if (homescrollpixels == 0) {}
                                   },
                                 ),
                                 IconButton(
@@ -412,7 +430,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                   splashColor: Colors.transparent,
                                   padding: const EdgeInsets.only(right: 33.0).w,
                                   onPressed: () {
-                                    if (vm.homescrollpixels! == 0) {
+                                    if (homescrollpixels == 0) {
                                       vm.showpopup = !vm.showpopup!;
                                       myStore.dispatch({
                                         "type": "showpopup",
