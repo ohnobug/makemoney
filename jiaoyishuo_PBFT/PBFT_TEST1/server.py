@@ -84,7 +84,7 @@ class Node:
             # 握手
             await self.handshake()
 
-            # 开启定期查询节点任务
+            # 开启定期同步新节点任务
             asyncio.create_task(self.give_me_more_other_node_info())
 
             while True:
@@ -99,15 +99,12 @@ class Node:
                         # 如果ID等于本服务器 则直接跳过
                         if nodeinfo["id"] == config["listen"]["id"]:
                             continue
-
                         # 如果已曾连接 则跳过
                         if nodeinfo["id"] in nodeList.active_connected_nodes:
                             continue
-
                         # 未曾连接 则尝试连接
                         asyncio.create_task(client(nodeinfo["host"], nodeinfo["port"]))
-
-                if data["type"] == "give_me_more_other_node_info":
+                elif data["type"] == "give_me_more_other_node_info":
                     await self.websocket.send(json.dumps({
                         "type": "other_nodes",
                         "data": nodeList.get_all_nodes()
@@ -194,7 +191,8 @@ async def server(host, port):
         if request.path == '/health':
             response = json.dumps({
                 "code": 200,
-                "message": f"当前连接节点: {len(nodeList.active_connected_nodes)}"
+                "message": f"当前连接节点: {len(nodeList.active_connected_nodes)}",
+                "data": nodeList.get_all_nodes()
             }, ensure_ascii=False)
 
             return connection.respond(HTTPStatus.OK, text=response)
@@ -229,7 +227,5 @@ async def main():
         tasks = [asyncio.create_task(client(nodeinfo["host"], nodeinfo["port"])) for nodeinfo in reconnect_nodes]
 
     await serverTask
-    # await asyncio.gather(*tasks)
-
 
 asyncio.run(main())
