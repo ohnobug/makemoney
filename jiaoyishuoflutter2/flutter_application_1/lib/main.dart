@@ -1,10 +1,14 @@
+import 'dart:io';
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/chat.dart';
 import 'package:flutter_application_1/discovery.dart';
+import 'package:flutter_application_1/qrcodescanner.dart';
 import 'package:flutter_application_1/services.dart';
 import 'package:flutter_application_1/store.dart';
+import 'package:vibration/vibration.dart';
 import 'contact.dart';
 import 'logger.dart';
 import 'user.dart';
@@ -113,6 +117,11 @@ class TabBarApp extends StatelessWidget {
                         child: child,
                       );
                     },
+                  );
+                } else if (settings.name == '/qrcode_scanner') {
+                  return PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const LJNQRCodeScanner()
                   );
                 }
 
@@ -266,10 +275,10 @@ class _CustomTabbarState extends State<CustomTabbar>
             logger.info("震动：${MediaQuery.of(context).size.height}");
             slight = true;
 
+            if (!kIsWeb) {
+              Vibration.vibrate(duration: 15, amplitude: 200);
+            }
             // HapticFeedback.heavyImpact();
-
-            // 重击(需要加倒计时)
-            HapticFeedback.selectionClick();
           }
 
           Text appBarTitle = const Text("");
@@ -384,7 +393,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                   offset: Offset(_appbarLeft, 0),
                   child: Container(
                       width: 750.0.w,
-                      height: homescrollpixels+ devicesPadding.top + 90.w,
+                      height: homescrollpixels + devicesPadding.top + 90.w,
                       color: const Color.fromARGB(255, 237, 237, 237),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -620,11 +629,13 @@ class _CustomTabbarState extends State<CustomTabbar>
                                     ),
                                     GestureDetector(
                                       onTapDown: (details) {
+
                                         logger.info("扫一扫被点击。");
                                         myStore.dispatch({
                                           "type": "showpopup",
                                           "payload": false
                                         });
+                                      Navigator.pushNamed(context, '/qrcode_scanner');
                                       },
                                       child: SizedBox(
                                         height: 105.w,
@@ -696,13 +707,13 @@ class _CustomTabbarState extends State<CustomTabbar>
                                               width: 105.w,
                                               child: Center(
                                                 child: Icon(
-                                                color: Colors.white,
-                                                const IconData(
-                                                  0xe611,
-                                                  fontFamily: 'Iconfont',
+                                                  color: Colors.white,
+                                                  const IconData(
+                                                    0xe611,
+                                                    fontFamily: 'Iconfont',
+                                                  ),
+                                                  size: 41.w,
                                                 ),
-                                                size: 41.w,
-                                              ),
                                               ),
                                             ),
                                             SizedBox(
