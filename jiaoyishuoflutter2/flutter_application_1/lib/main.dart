@@ -45,17 +45,6 @@ class TabBarApp extends StatelessWidget {
             enableScaleText: () => true,
             builder: (context, child) {
               return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: 'First Method',
-                theme: ThemeData(
-                  primarySwatch: Colors.blue,
-                  textTheme:
-                      Typography.englishLike2018.apply(fontSizeFactor: 1.sp),
-                ),
-                home: child,
-              );
-            },
-            child: MaterialApp(
               debugShowCheckedModeBanner: false,
               initialRoute: '/',
               onGenerateRoute: (settings) {
@@ -120,8 +109,14 @@ class TabBarApp extends StatelessWidget {
                   );
                 } else if (settings.name == '/qrcode_scanner') {
                   return PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) =>
-                        const LJNQRCodeScanner()
+                    pageBuilder: (context, animation, secondaryAnimation) {
+                      return const LJNQRCodeScanner();
+                    },
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      // No transition animation
+                      return child;
+                    },
                   );
                 }
 
@@ -136,7 +131,9 @@ class TabBarApp extends StatelessWidget {
                   PointerDeviceKind.unknown
                 },
               ),
-            )));
+            );
+            }
+            ));
   }
 }
 
@@ -629,13 +626,13 @@ class _CustomTabbarState extends State<CustomTabbar>
                                     ),
                                     GestureDetector(
                                       onTapDown: (details) {
-
                                         logger.info("扫一扫被点击。");
                                         myStore.dispatch({
                                           "type": "showpopup",
                                           "payload": false
                                         });
-                                      Navigator.pushNamed(context, '/qrcode_scanner');
+                                        Navigator.pushNamed(
+                                            context, '/qrcode_scanner');
                                       },
                                       child: SizedBox(
                                         height: 105.w,

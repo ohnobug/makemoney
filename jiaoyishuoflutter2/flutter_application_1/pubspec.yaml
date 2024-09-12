@@ -19,6 +19,8 @@ dependencies:
   qr_flutter: ^4.1.0
   mobile_scanner: ^5.2.3
   audioplayers: ^6.1.0
+  fullscreen_window: ^1.1.0
+  status_bar_control: ^3.2.1
 
 dev_dependencies:
   flutter_test:

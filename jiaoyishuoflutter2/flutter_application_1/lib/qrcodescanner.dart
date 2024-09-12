@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/logger.dart';
-import 'package:flutter_application_1/tools/tools.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
@@ -15,11 +16,24 @@ class LJNQRCodeScanner extends StatefulWidget {
 class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
   Barcode? _barcode;
 
+  // 音频播放器
   late AudioPlayer player = AudioPlayer();
+
+  // 扫码控制器
+  final MobileScannerController controller = MobileScannerController(
+    torchEnabled: false,
+    returnImage: true,
+  );
 
   @override
   void initState() {
     super.initState();
+
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // 设置状态栏透明
+      statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
+    ));
+
     player = AudioPlayer();
     player.setReleaseMode(ReleaseMode.stop);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -29,8 +43,16 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
   }
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
+    // 退出全屏
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+    //     overlays: [SystemUiOverlay.top]);
+
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
+
     player.dispose();
+    await controller.dispose();
     super.dispose();
   }
 
@@ -39,16 +61,14 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
       return const Text(
         'Scan something!',
         overflow: TextOverflow.fade,
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Colors.white, fontSize: 26),
       );
     }
-
-    player.resume();
 
     return Text(
       value.displayValue ?? 'No display value.',
       overflow: TextOverflow.fade,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white, fontSize: 26),
     );
   }
 
@@ -62,30 +82,68 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Simple scanner')),
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          MobileScanner(
-            onDetect: _handleBarcode,
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
+    return Stack(
+      children: [
+        MobileScanner(
+          fit: BoxFit.cover,
+          controller: controller,
+          onDetect: _handleBarcode,
+        ),
+        Positioned.fill(
+            child: StreamBuilder<BarcodeCapture>(
+          stream: controller.barcodes,
+          builder: (context, snapshot) {
+            final barcode = snapshot.data;
+
+            if (barcode == null) return Container();
+            final barcodeImage = barcode.image;
+            if (barcodeImage == null) return Container();
+
+            return Image.memory(
+              barcodeImage,
+              fit: BoxFit.cover,
+              frameBuilder: (
+                BuildContext context,
+                Widget child,
+                int? frame,
+                bool? wasSynchronouslyLoaded,
+              ) {
+                if (wasSynchronouslyLoaded == true || frame != null) {
+                  // 播放音乐
+                  player.resume();
+
+                  // 停止扫码
+                  controller.stop();
+                  return child;
+                }
+
+                return const CircularProgressIndicator();
+              },
+            );
+          },
+        )),
+        Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: 100,
+            child: Align(
               alignment: Alignment.bottomCenter,
-              height: 100,
-              color: Colors.black.withOpacity(0.4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(child: Center(child: _buildBarcode(_barcode))),
-                ],
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                height: 100,
+                color: Colors.black.withOpacity(0.4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(child: Center(child: _buildBarcode(_barcode))),
+                  ],
+                ),
               ),
-            ),
-          ),
-        ],
-      ),
+            ))
+      ],
     );
   }
+
+
 }
