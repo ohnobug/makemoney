@@ -96,7 +96,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
                             Navigator.pushNamed(context, '/chat');
                           },
                         ),
-                        ContactInformation(
+                        const ContactInformation(
                           id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                           title: "公众号",
                           icon: "images/avatar_webp/chat_5.webp",
@@ -256,7 +256,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
                             Navigator.pushNamed(context, '/chat');
                           },
                         ),
-                        ContactInformation(
+                        const ContactInformation(
                           id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                           title: "天竺僧人",
                           icon: "images/avatar_webp/chat_23.webp",
@@ -511,7 +511,7 @@ class ContactInformation extends StatefulWidget {
   final int? showStyle;
   final Function()? onPressed;
 
-  ContactInformation({
+  const ContactInformation({
     super.key,
     required this.id,
     required this.icon,
