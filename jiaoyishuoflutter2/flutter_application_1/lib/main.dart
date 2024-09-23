@@ -748,8 +748,8 @@ class _PopupMenuState extends State<PopupMenu> {
                                           "type": "showpopup",
                                           "payload": false
                                         });
-                                        // Navigator.pushNamed(
-                                        // context, '/qrcode_scanner');
+                                        Navigator.pushNamed(
+                                            context, '/qrcode_scanner');
                                       });
 
                                       logger.info("弹起");
@@ -809,43 +809,44 @@ class _PopupMenuState extends State<PopupMenu> {
                                     ),
                                   ),
                                   GestureDetector(
-                                    onTapDown: (_) {
-                                      myStore.dispatch({
-                                        "type": "button4Bg",
-                                        "payload": const Color.fromARGB(
-                                            255, 68, 68, 68)
-                                      });
+                                      onTapDown: (_) {
+                                        myStore.dispatch({
+                                          "type": "button4Bg",
+                                          "payload": const Color.fromARGB(
+                                              255, 68, 68, 68)
+                                        });
 
-                                      logger.info("按下");
-                                    },
-                                    onTapCancel: () {
-                                      myStore.dispatch({
-                                        "type": "button4Bg",
-                                        "payload": const Color.fromARGB(
-                                            255, 76, 76, 76)
-                                      });
-
-                                      logger.info("取消按下");
-                                    },
-                                    onTapUp: (tapDownDetails) {
-                                      Future.delayed(
-                                          const Duration(milliseconds: 50), () {
+                                        logger.info("按下");
+                                      },
+                                      onTapCancel: () {
                                         myStore.dispatch({
                                           "type": "button4Bg",
                                           "payload": const Color.fromARGB(
                                               255, 76, 76, 76)
                                         });
 
-                                        myStore.dispatch({
-                                          "type": "showpopup",
-                                          "payload": false
-                                        });
-                                        // Navigator.pushNamed(
-                                        // context, '/qrcode_scanner');
-                                      });
+                                        logger.info("取消按下");
+                                      },
+                                      onTapUp: (tapDownDetails) {
+                                        Future.delayed(
+                                            const Duration(milliseconds: 50),
+                                            () {
+                                          myStore.dispatch({
+                                            "type": "button4Bg",
+                                            "payload": const Color.fromARGB(
+                                                255, 76, 76, 76)
+                                          });
 
-                                      logger.info("弹起");
-                                    },
+                                          myStore.dispatch({
+                                            "type": "showpopup",
+                                            "payload": false
+                                          });
+                                          // Navigator.pushNamed(
+                                          // context, '/qrcode_scanner');
+                                        });
+
+                                        logger.info("弹起");
+                                      },
                                       child: Container(
                                         color: vm.button4Bg,
                                         height: 105.w,
