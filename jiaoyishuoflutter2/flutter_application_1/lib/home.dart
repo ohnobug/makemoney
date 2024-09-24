@@ -396,30 +396,27 @@ class _ChatListViewState extends State<LJNHomePage> {
     }
 
     return ScrollConfiguration(
-        // behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         behavior: CustomScrollBehavior().copyWith(scrollbars: false),
-        child: MediaQuery.removePadding(
-            context: context,
-            removeTop: true,
-            child: ListView.builder(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).padding.top + 90.w),
-              primary: false,
-              itemCount: itemCount,
-              shrinkWrap: true,
-              controller: _customScrollController,
-              physics: const CustomScrollPhysics().applyTo(const MyBouncingScrollPhysics()),
-              // physics: const MyBouncingScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              itemBuilder: (context, index) {
-                return chatItems.elementAtOrNull(index) != null
-                    ? chatItems[index]
-                    : SizedBox(
-                        height: 117.w,
-                        // color: Colors.red,
-                      );
-              },
-            )));
+        child: ListView.builder(
+          padding:
+              EdgeInsets.only(top: MediaQuery.of(context).padding.top + 90.w),
+          primary: false,
+          itemCount: itemCount,
+          shrinkWrap: true,
+          controller: _customScrollController,
+          physics: const CustomScrollPhysics()
+              .applyTo(const MyBouncingScrollPhysics()),
+          // physics: const MyBouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          itemBuilder: (context, index) {
+            return chatItems.elementAtOrNull(index) != null
+                ? chatItems[index]
+                : SizedBox(
+                    height: 117.w,
+                    // color: Colors.red,
+                  );
+          },
+        ));
   }
 }
 
@@ -591,8 +588,6 @@ class _ChatListItem extends State<ChatListItem> {
   }
 }
 
-
-
 class CustomScrollPhysics extends ScrollPhysics {
   const CustomScrollPhysics({super.parent});
 
@@ -614,20 +609,13 @@ class CustomScrollPhysics extends ScrollPhysics {
   double get friction => 0.05; // 调整摩擦力，以改变滚动的减速特性
 }
 
-
-
 class CustomScrollBehavior extends ScrollBehavior {
-
   @override
   ScrollPhysics getScrollPhysics(BuildContext context) {
     return const CustomScrollPhysics();
     // return const CustomScrollPhysics().applyTo(const MyBouncingScrollPhysics());
   }
 }
-
-
-
-
 
 class MyBouncingScrollPhysics extends ScrollPhysics {
   /// Creates scroll physics that bounce back from the edge.
@@ -642,9 +630,7 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
   @override
   BouncingScrollPhysics applyTo(ScrollPhysics? ancestor) {
     return BouncingScrollPhysics(
-      parent: buildParent(ancestor),
-      decelerationRate: decelerationRate
-    );
+        parent: buildParent(ancestor), decelerationRate: decelerationRate);
   }
 
   /// The multiple applied to overscroll to make it appear that scrolling past
@@ -656,10 +642,11 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
   /// as more of the area past the edge is dragged in (represented by an increasing
   /// `overscrollFraction` which starts at 0 when there is no overscroll).
   double frictionFactor(double overscrollFraction) {
-    return math.pow(1 - overscrollFraction, 2) * switch (decelerationRate) {
-      ScrollDecelerationRate.fast   => 0.26,
-      ScrollDecelerationRate.normal => 0.52,
-    };
+    return math.pow(1 - overscrollFraction, 2) *
+        switch (decelerationRate) {
+          ScrollDecelerationRate.fast => 0.26,
+          ScrollDecelerationRate.normal => 0.52,
+        };
   }
 
   @override
@@ -671,15 +658,19 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
       return offset;
     }
 
-    final double overscrollPastStart = math.max(position.minScrollExtent - position.pixels, 0.0);
-    final double overscrollPastEnd = math.max(position.pixels - position.maxScrollExtent, 0.0);
-    final double overscrollPast = math.max(overscrollPastStart, overscrollPastEnd);
-    final bool easing = (overscrollPastStart > 0.0 && offset < 0.0)
-        || (overscrollPastEnd > 0.0 && offset > 0.0);
+    final double overscrollPastStart =
+        math.max(position.minScrollExtent - position.pixels, 0.0);
+    final double overscrollPastEnd =
+        math.max(position.pixels - position.maxScrollExtent, 0.0);
+    final double overscrollPast =
+        math.max(overscrollPastStart, overscrollPastEnd);
+    final bool easing = (overscrollPastStart > 0.0 && offset < 0.0) ||
+        (overscrollPastEnd > 0.0 && offset > 0.0);
 
     final double friction = easing
         // Apply less resistance when easing the overscroll vs tensioning.
-        ? frictionFactor((overscrollPast - offset.abs()) / position.viewportDimension)
+        ? frictionFactor(
+            (overscrollPast - offset.abs()) / position.viewportDimension)
         : frictionFactor(overscrollPast / position.viewportDimension);
     final double direction = offset.sign;
 
@@ -689,7 +680,8 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
     return direction * _applyFriction(overscrollPast, offset.abs(), friction);
   }
 
-  static double _applyFriction(double extentOutside, double absDelta, double gamma) {
+  static double _applyFriction(
+      double extentOutside, double absDelta, double gamma) {
     assert(absDelta > 0);
     double total = 0.0;
     if (extentOutside > 0) {
@@ -707,7 +699,8 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
   double applyBoundaryConditions(ScrollMetrics position, double value) => 0.0;
 
   @override
-  Simulation? createBallisticSimulation(ScrollMetrics position, double velocity) {
+  Simulation? createBallisticSimulation(
+      ScrollMetrics position, double velocity) {
     final Tolerance tolerance = toleranceFor(position);
     if (velocity.abs() >= tolerance.velocity || position.outOfRange) {
       return BouncingScrollSimulation(
@@ -748,7 +741,8 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
   @override
   double carriedMomentum(double existingVelocity) {
     return existingVelocity.sign *
-        math.min(0.000816 * math.pow(existingVelocity.abs(), 1.967).toDouble(), 40000.0);
+        math.min(0.000816 * math.pow(existingVelocity.abs(), 1.967).toDouble(),
+            40000.0);
   }
 
   // Eyeballed from observation to counter the effect of an unintended scroll
@@ -777,6 +771,6 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
         return super.spring;
     }
   }
-  
+
   get math => null;
 }

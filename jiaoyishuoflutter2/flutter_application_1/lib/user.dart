@@ -38,8 +38,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
   Widget _buildPage() {
     Size screenSize = MediaQuery.of(context).size;
 
-    return Container(
-        height: screenSize.height - 116.w,
+    return ColoredBox(
         color: const Color.fromARGB(255, 237, 237, 237),
         child: Stack(
           children: [

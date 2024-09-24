@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/chat.dart';
 import 'package:flutter_application_1/discovery.dart';
+import 'package:flutter_application_1/home.dart';
 import 'package:flutter_application_1/qrcodescanner.dart';
 import 'package:flutter_application_1/services.dart';
 import 'package:flutter_application_1/store.dart';
@@ -11,7 +12,6 @@ import 'package:vibration/vibration.dart';
 import 'contact.dart';
 import 'logger.dart';
 import 'user.dart';
-import 'home.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -405,9 +405,10 @@ class _CustomTabbarState extends State<CustomTabbar>
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            SizedBox(height: devicesPadding.top),
+                            // SizedBox(height: devicesPadding.top), // 状态栏高度
                             AppBar(
-                              primary: false,
+                              // App标题栏
+                              primary: true,
                               title: appBarTitle,
                               centerTitle: true,
                               titleTextStyle: TextStyle(
