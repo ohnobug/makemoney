@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/components/LJNReceiveMessage.dart';
-import 'package:flutter_application_1/components/LJNSendButton.dart';
 import 'package:flutter_application_1/logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,12 +13,11 @@ class LJNChatPage extends StatefulWidget {
   State<LJNChatPage> createState() => _LJNChatPage();
 }
 
-class _LJNChatPage extends State<LJNChatPage> with WidgetsBindingObserver {
+class _LJNChatPage extends State<LJNChatPage>
+    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   String message = "";
   bool showSendButton = false;
   bool showPlusIcon = true;
-
-  late LJNSendButton _sendButton;
 
   // 输入框控制器，一般用于获取文本、修改文本等
   TextEditingController inputController = TextEditingController();
@@ -33,12 +31,35 @@ class _LJNChatPage extends State<LJNChatPage> with WidgetsBindingObserver {
 
   final ScrollController _scrollController = ScrollController();
 
+  late AnimationController _animationController;
+  late Animation<double> _widthAnimation;
+  late Animation<Color?> _colorAnimation;
+  double _width = 0;
+  Color _color = const Color.fromARGB(255, 76, 190, 102);
+
   @override
   void initState() {
     super.initState();
 
-
-    _sendButton = const LJNSendButton();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 60),
+    );
+    _widthAnimation = Tween<double>(begin: 45.w, end: 113.w).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+    _colorAnimation = ColorTween(
+      begin: const Color.fromARGB(179, 76, 190, 103),
+      end: const Color.fromARGB(255, 76, 190, 102),
+    ).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
 
     // inputController.text =
     // "生活就像一幅绚丽多彩的画卷，每个人都是这幅画的创作者。在这漫长的人生旅途中，我们用自己的经历、情感和梦想为这幅画增添着独特的色彩。";
@@ -173,6 +194,7 @@ class _LJNChatPage extends State<LJNChatPage> with WidgetsBindingObserver {
                           logger.info("语音被点击");
                         },
                       ),
+                      // 消息框
                       Expanded(
                           child: TextField(
                         autofocus: false,
@@ -195,14 +217,17 @@ class _LJNChatPage extends State<LJNChatPage> with WidgetsBindingObserver {
                             ),
                           );
 
-                          if (inputController.text.isNotEmpty) {
-                            setState(() {
-                              showSendButton = true;
+                          if (inputController.text.isEmpty) {
+                            _animationController.reverse().whenComplete(() {
+                              setState(() {
+                                showPlusIcon = true;
+                              });
                             });
                           } else {
                             setState(() {
-                              showSendButton = false;
+                              showPlusIcon = false;
                             });
+                            _animationController.forward();
                           }
                         },
                         decoration: InputDecoration(
@@ -231,32 +256,59 @@ class _LJNChatPage extends State<LJNChatPage> with WidgetsBindingObserver {
                             )),
                         highlightColor: Colors.transparent,
                         splashColor: Colors.transparent,
-                        padding:
-                            const EdgeInsets.only(left: 20.0, right: 12.0).w,
+                        padding: const EdgeInsets.only(left: 20.0).w,
                         onPressed: () {
                           logger.info("笑脸被点击");
                         },
                       ),
+                      AnimatedBuilder(
+                        animation: _animationController,
+                        builder: (context, child) {
+                          _width = _widthAnimation.value;
+                          _color = _colorAnimation.value!;
 
-                      if (showSendButton) _sendButton
-                      // Visibility(
-                      //     visible: !showSendButton,
-                      //     child: IconButton(
-                      //       icon: Icon(
-                      //           size: 52.w,
-                      //           const IconData(
-                      //             0xe726,
-                      //             fontFamily: 'Iconfont',
-                      //           )),
-                      //       highlightColor: Colors.transparent,
-                      //       splashColor: Colors.transparent,
-                      //       padding:
-                      //           const EdgeInsets.only(left: 12.0, right: 20.0)
-                      //               .w,
-                      //       onPressed: () {
-                      //         logger.info("加号被点击");
-                      //       },
-                      //     ))
+                          return Visibility(
+                              visible: !showPlusIcon,
+                              child: Container(
+                                margin: const EdgeInsets.only(
+                                        left: 20, bottom: 8, right: 15)
+                                    .w,
+                                width: _width,
+                                height: 60.w,
+                                decoration: BoxDecoration(
+                                  color: _color,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.w)),
+                                ),
+                                child: _width >= 113.w
+                                    ? Center(
+                                        child: Text(
+                                          "发送",
+                                          style: TextStyle(
+                                              fontSize: 27.w,
+                                              color: Colors.white),
+                                        ),
+                                      )
+                                    : null,
+                              ));
+                        },
+                      ),
+                      Visibility(
+                          visible: showPlusIcon,
+                          child: IconButton(
+                            icon: Icon(
+                                size: 52.w,
+                                const IconData(
+                                  0xe726,
+                                  fontFamily: 'Iconfont',
+                                )),
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
+                            padding: const EdgeInsets.all(0),
+                            onPressed: () {
+                              logger.info("加号被点击");
+                            },
+                          ))
                     ],
                   )))
         ],
