@@ -208,7 +208,10 @@ class _LJNChatPage extends State<LJNChatPage>
                         controller: inputController,
                         focusNode: inputFocusNode,
                         cursorColor: const Color.fromRGBO(62, 174, 86, 1.0),
+                        // cursorHeight: 44.w,
+                        cursorWidth: 3.w,
                         style: TextStyle(fontSize: 30.w, color: Colors.black),
+                        // strutStyle: StrutStyle(fontSize: 20.w),
                         maxLines: 5,
                         minLines: 1,
                         onTapOutside: (event) {
@@ -244,7 +247,7 @@ class _LJNChatPage extends State<LJNChatPage>
                           hoverColor: Colors.white,
                           isCollapsed: true,
                           contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 20, horizontal: 20)
+                                  vertical: 16, horizontal: 16)
                               .w,
                           border: outlineInputBorder,
                           focusedBorder: outlineInputBorder,
