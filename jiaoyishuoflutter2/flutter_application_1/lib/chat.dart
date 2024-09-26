@@ -45,7 +45,7 @@ class _LJNChatPage extends State<LJNChatPage>
       vsync: this,
       duration: const Duration(milliseconds: 60),
     );
-    _widthAnimation = Tween<double>(begin: 45.w, end: 113.w).animate(
+    _widthAnimation = Tween<double>(begin: 60.w, end: 113.w).animate(
       CurvedAnimation(
         parent: _animationController,
         curve: Curves.easeInOut,
@@ -179,21 +179,28 @@ class _LJNChatPage extends State<LJNChatPage>
                     // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      IconButton(
-                        icon: Icon(
-                            size: 52.w,
-                            const IconData(
-                              0xe66c,
-                              fontFamily: 'Iconfont',
-                            )),
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        padding:
-                            const EdgeInsets.only(left: 20.0, right: 20.0).w,
-                        onPressed: () {
-                          logger.info("语音被点击");
-                        },
-                      ),
+                      Container(
+                          // color: Colors.amber,
+                          width: 55.w,
+                          height: 55.w,
+                          margin: EdgeInsets.only(
+                              left: 20.w, right: 20.w, bottom: 10.w),
+                          child: IconButton(
+                            icon: Icon(
+                                size: 54.w,
+                                const IconData(
+                                  0xe66c,
+                                  fontFamily: 'Iconfont',
+                                )),
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
+                            padding:
+                                const EdgeInsets.all(0)
+                                    .w,
+                            onPressed: () {
+                              logger.info("语音被点击");
+                            },
+                          )),
                       // 消息框
                       Expanded(
                           child: TextField(
@@ -247,20 +254,26 @@ class _LJNChatPage extends State<LJNChatPage>
                           errorBorder: outlineInputBorder,
                         ),
                       )),
-                      IconButton(
-                        icon: Icon(
-                            size: 46.w,
-                            const IconData(
-                              0xe702,
-                              fontFamily: 'Iconfont',
-                            )),
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        padding: const EdgeInsets.only(left: 20.0).w,
-                        onPressed: () {
-                          logger.info("笑脸被点击");
-                        },
-                      ),
+                      Container(
+                          // color: Colors.amber,
+                          width: 55.w,
+                          height: 55.w,
+                          margin: EdgeInsets.only(
+                              left: 20.w, right: 25.w, bottom: 10.w),
+                          child: IconButton(
+                            icon: Icon(
+                                size: 47.w,
+                                const IconData(
+                                  0xe702,
+                                  fontFamily: 'Iconfont',
+                                )),
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
+                            padding: const EdgeInsets.all(0),
+                            onPressed: () {
+                              logger.info("笑脸被点击");
+                            },
+                          )),
                       AnimatedBuilder(
                         animation: _animationController,
                         builder: (context, child) {
@@ -270,9 +283,9 @@ class _LJNChatPage extends State<LJNChatPage>
                           return Visibility(
                               visible: !showPlusIcon,
                               child: Container(
-                                margin: const EdgeInsets.only(
-                                        left: 20, bottom: 8, right: 15)
-                                    .w,
+                                margin:
+                                    const EdgeInsets.only(bottom: 8, right: 15)
+                                        .w,
                                 width: _width,
                                 height: 60.w,
                                 decoration: BoxDecoration(
@@ -295,20 +308,26 @@ class _LJNChatPage extends State<LJNChatPage>
                       ),
                       Visibility(
                           visible: showPlusIcon,
-                          child: IconButton(
-                            icon: Icon(
-                                size: 52.w,
-                                const IconData(
-                                  0xe726,
-                                  fontFamily: 'Iconfont',
-                                )),
-                            highlightColor: Colors.transparent,
-                            splashColor: Colors.transparent,
-                            padding: const EdgeInsets.all(0),
-                            onPressed: () {
-                              logger.info("加号被点击");
-                            },
-                          ))
+                          child: Container(
+                              // color: Colors.amber,
+                              width: 55.w,
+                              height: 55.w,
+                              margin:
+                                  EdgeInsets.only(right: 20.w, bottom: 10.w),
+                              child: IconButton(
+                                icon: Icon(
+                                    size: 55.w,
+                                    const IconData(
+                                      0xe726,
+                                      fontFamily: 'Iconfont',
+                                    )),
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                padding: const EdgeInsets.all(0),
+                                onPressed: () {
+                                  logger.info("加号被点击");
+                                },
+                              )))
                     ],
                   )))
         ],
