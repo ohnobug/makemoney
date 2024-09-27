@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/chat.dart';
 import 'package:flutter_application_1/discovery.dart';
 import 'package:flutter_application_1/home.dart';
@@ -23,6 +24,10 @@ void main() async {
   setupLogger();
   logger.info('Application is starting...');
   await ScreenUtil.ensureScreenSize();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent, // 设置状态栏透明
+    statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
+  ));
 
   runApp(
     const TabBarApp(),

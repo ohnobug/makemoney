@@ -109,7 +109,8 @@ class _LJNChatPage extends State<LJNChatPage>
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(90.0.w + _statusHeight),
           child: Container(
-            margin: EdgeInsets.only(top: _statusHeight),
+            color: const Color.fromARGB(255, 237, 237, 237),
+            padding: EdgeInsets.only(top: _statusHeight),
             child: AppBar(
               primary: false,
               centerTitle: true,

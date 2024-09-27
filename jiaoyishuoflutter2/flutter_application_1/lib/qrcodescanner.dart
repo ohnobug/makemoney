@@ -30,7 +30,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // 设置状态栏透明
-      statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
+      statusBarIconBrightness: Brightness.light, // 设置状态栏图标颜色
     ));
 
     player = AudioPlayer();
@@ -44,11 +44,10 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
   @override
   Future<void> dispose() async {
     // 退出全屏
-    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-    //     overlays: [SystemUiOverlay.top]);
-
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: SystemUiOverlay.values);
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // 设置状态栏透明
+      statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
+    ));
 
     player.dispose();
     await controller.dispose();

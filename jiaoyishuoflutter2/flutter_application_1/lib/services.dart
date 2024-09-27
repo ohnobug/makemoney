@@ -29,6 +29,7 @@ class _LJNServicesPage extends State<LJNServicesPage> {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(90.0.w + _statusHeight),
             child: Container(
+                color: const Color.fromARGB(255, 237, 237, 237),
                 margin: EdgeInsets.only(top: _statusHeight),
                 child: AppBar(
                   primary: false,
