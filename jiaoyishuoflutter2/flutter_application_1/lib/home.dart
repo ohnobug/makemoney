@@ -391,20 +391,12 @@ class _ChatListViewState extends State<LJNHomePage> {
       ),
     ];
 
-    // Size screenSize = MediaQuery.of(context).size;
-
-    int itemCount = chatItems.length;
-    if (itemCount < 10) {
-      itemCount = 10;
-    }
-
     return ScrollConfiguration(
         behavior: CustomScrollBehavior().copyWith(scrollbars: false),
         child: ListView.builder(
-          padding:
-              EdgeInsets.only(top: _statusHeight + 90.w),
+          padding: EdgeInsets.only(top: _statusHeight + 90.w),
           primary: false,
-          itemCount: itemCount,
+          itemCount: chatItems.length,
           shrinkWrap: true,
           controller: _customScrollController,
           physics: const CustomScrollPhysics()
@@ -412,12 +404,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           // physics: const MyBouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
-            return chatItems.elementAtOrNull(index) != null
-                ? chatItems[index]
-                : SizedBox(
-                    height: 117.w,
-                    // color: Colors.red,
-                  );
+            return chatItems[index];
           },
         ));
   }

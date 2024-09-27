@@ -45,7 +45,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
         child: ColoredBox(
             color: const Color.fromARGB(255, 237, 237, 237),
             child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
                 child: Column(children: [
                   SizedBox(height: _statusHeight + 90.w),
 

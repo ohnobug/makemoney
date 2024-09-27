@@ -112,6 +112,19 @@ class _LJNChatPage extends State<LJNChatPage>
             color: const Color.fromARGB(255, 237, 237, 237),
             padding: EdgeInsets.only(top: _statusHeight),
             child: AppBar(
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black,
+                  size: 36.w,
+                ),
+                color: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                disabledColor: Colors.transparent,
+                onPressed: () => Navigator.of(context).pop(),
+              ),
               primary: false,
               centerTitle: true,
               elevation: 0,
@@ -129,6 +142,7 @@ class _LJNChatPage extends State<LJNChatPage>
                 ),
               ),
               actions: [
+                // 三个点
                 IconButton(
                   icon: Icon(
                       size: 37.w,
@@ -155,7 +169,7 @@ class _LJNChatPage extends State<LJNChatPage>
                         .copyWith(scrollbars: false),
                     child: SingleChildScrollView(
                       controller: _scrollController,
-                      physics: const BouncingScrollPhysics(),
+                      physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
                       child: const Column(
                         children: [
                           LJNReceiveMessage(),

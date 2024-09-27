@@ -59,7 +59,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
               behavior:
                   ScrollConfiguration.of(context).copyWith(scrollbars: false),
               child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
+                  physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
                   child: Container(
                       constraints: BoxConstraints(
                         minHeight: screenSize.height - 115.w,

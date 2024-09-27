@@ -30,8 +30,21 @@ class _LJNServicesPage extends State<LJNServicesPage> {
             preferredSize: Size.fromHeight(90.0.w + _statusHeight),
             child: Container(
                 color: const Color.fromARGB(255, 237, 237, 237),
-                margin: EdgeInsets.only(top: _statusHeight),
+                padding: EdgeInsets.only(top: _statusHeight),
                 child: AppBar(
+                  leading: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.black,
+                      size: 36.w,
+                    ),
+                    color: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    disabledColor: Colors.transparent,
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
                   primary: false,
                   centerTitle: true,
                   title: const Text('服务'),
@@ -49,6 +62,21 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                   //     height: 1.w,
                   //   ),
                   // ),
+                  actions: [
+                    // 三个点
+                    IconButton(
+                      icon: Icon(
+                          size: 37.w,
+                          const IconData(
+                            0xe659,
+                            fontFamily: 'Iconfont',
+                          )),
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      padding: const EdgeInsets.only(right: 33.0).w,
+                      onPressed: () {},
+                    ),
+                  ],
                 ))),
         body: ColoredBox(
             color: const Color.fromARGB(255, 237, 237, 237),
@@ -56,7 +84,8 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                 behavior:
                     ScrollConfiguration.of(context).copyWith(scrollbars: false),
                 child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
+                    physics: const AlwaysScrollableScrollPhysics(
+                        parent: BouncingScrollPhysics()),
                     child: Container(
                       constraints:
                           BoxConstraints(minHeight: screenSize.height - 205.w),
@@ -68,7 +97,7 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                             height: 274.w,
                             margin: const EdgeInsets.all(16).w,
                             decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 7, 193, 96),
+                              color: const Color.fromARGB(255, 77, 174, 107),
                               borderRadius: BorderRadius.circular(16.0).w,
                             ),
                             padding: const EdgeInsets.all(16).w,
@@ -371,7 +400,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                 maxLines: 1,
                 style: TextStyle(
                   decoration: TextDecoration.none,
-                  color: const Color.fromARGB(198, 255, 255, 255),
+                  color: const Color.fromARGB(255, 165, 214, 192),
                   fontSize: 25.0.w,
                   overflow: TextOverflow.ellipsis,
                 ),
