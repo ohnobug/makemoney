@@ -14,9 +14,13 @@ class LJNUserPage extends StatefulWidget {
 }
 
 class _LJNUserPageState extends State<LJNUserPage> {
+  double _statusHeight = 0;
+
   @override
   void initState() {
     super.initState();
+
+    _statusHeight = MediaQuery.of(context).padding.top;
 
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
 
@@ -67,8 +71,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                             Container(
                               color: Colors.white,
                               padding: EdgeInsets.only(
-                                  top: 120.0.w +
-                                      MediaQuery.of(context).padding.top,
+                                  top: 120.0.w + _statusHeight,
                                   left: 32.w,
                                   right: 32.w,
                                   bottom: 50.w),

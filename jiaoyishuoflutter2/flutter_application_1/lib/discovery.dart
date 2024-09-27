@@ -14,9 +14,13 @@ class LJNDiscoveryPage extends StatefulWidget {
 }
 
 class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
+  double _statusHeight = 0;
+
   @override
   void initState() {
     super.initState();
+
+    _statusHeight = MediaQuery.of(context).padding.top;
 
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
 
@@ -43,7 +47,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
             child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(children: [
-                  SizedBox(height: MediaQuery.of(context).padding.top + 90.w),
+                  SizedBox(height: _statusHeight + 90.w),
 
                   // 朋友圈
                   const FunctionItem(

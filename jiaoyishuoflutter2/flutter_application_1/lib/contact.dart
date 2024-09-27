@@ -14,9 +14,13 @@ class LJNContactPage extends StatefulWidget {
 }
 
 class _LJNContactPageState extends State<LJNContactPage> {
+  double _statusHeight = 0;
+
   @override
   void initState() {
     super.initState();
+
+    _statusHeight = MediaQuery.of(context).padding.top;
 
     logger.info('contact...............');
 
@@ -45,7 +49,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
-                SizedBox(height: MediaQuery.of(context).padding.top + 90.w),
+                SizedBox(height: _statusHeight + 90.w),
                 ContactInformation(
                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "新的朋友",

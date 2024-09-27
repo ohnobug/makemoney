@@ -34,6 +34,9 @@ class _LJNChatPage extends State<LJNChatPage>
   late AnimationController _animationController;
   late Animation<double> _widthAnimation;
   late Animation<Color?> _colorAnimation;
+
+  double _statusHeight = 0;
+
   double _width = 0;
   Color _color = const Color.fromARGB(255, 76, 190, 102);
 
@@ -41,11 +44,15 @@ class _LJNChatPage extends State<LJNChatPage>
   void initState() {
     super.initState();
 
+    _statusHeight = MediaQuery.of(context).padding.top;
+
+    logger.info("MediaQuery.of(context).padding.top 高度: ${_statusHeight}");
+
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 60),
     );
-    _widthAnimation = Tween<double>(begin: 60.w, end: 113.w).animate(
+    _widthAnimation = Tween<double>(begin: 62.w, end: 113.w).animate(
       CurvedAnimation(
         parent: _animationController,
         curve: Curves.easeInOut,
@@ -99,41 +106,47 @@ class _LJNChatPage extends State<LJNChatPage>
 
     return Scaffold(
       primary: false,
-      appBar: AppBar(
-        primary: true,
-        centerTitle: true,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        toolbarHeight: MediaQuery.of(context).padding.top + 90.w,
-        title: const Text("请说英语"),
-        titleTextStyle: TextStyle(fontSize: 32.w, color: Colors.black),
-        backgroundColor: const Color.fromARGB(255, 237, 237, 237),
-        foregroundColor: const Color.fromARGB(255, 237, 237, 237),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1.w),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(90.0.w + _statusHeight),
           child: Container(
-            color: const Color.fromARGB(255, 220, 220, 220),
-            height: 0.5.w,
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(
-                size: 37.w,
-                const IconData(
-                  0xe659,
-                  fontFamily: 'Iconfont',
-                )),
-            highlightColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            padding: const EdgeInsets.only(right: 33.0).w,
-            onPressed: () {},
-          ),
-        ],
-      ),
+            margin: EdgeInsets.only(top: _statusHeight),
+            child: AppBar(
+              primary: false,
+              centerTitle: true,
+              elevation: 0,
+              scrolledUnderElevation: 0,
+              toolbarHeight: 90.w,
+              title: const Text("请说英语"),
+              titleTextStyle: TextStyle(fontSize: 32.w, color: Colors.black),
+              backgroundColor: const Color.fromARGB(255, 237, 237, 237),
+              foregroundColor: const Color.fromARGB(255, 237, 237, 237),
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(1.w),
+                child: Container(
+                  color: const Color.fromARGB(255, 220, 220, 220),
+                  height: 0.5.w,
+                ),
+              ),
+              actions: [
+                IconButton(
+                  icon: Icon(
+                      size: 37.w,
+                      const IconData(
+                        0xe659,
+                        fontFamily: 'Iconfont',
+                      )),
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  padding: const EdgeInsets.only(right: 33.0).w,
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          )),
       body: Column(
         children: [
           Expanded(
+              flex: 1,
               child: ColoredBox(
                   color: const Color.fromARGB(255, 237, 237, 237),
                   child: ScrollConfiguration(
@@ -161,10 +174,13 @@ class _LJNChatPage extends State<LJNChatPage>
                       ),
                     ),
                   ))),
+
+          // 输入部分
           Expanded(
               flex: 0,
               child: Container(
-                  constraints: BoxConstraints(minHeight: 107.w),
+                  constraints:
+                      BoxConstraints(minHeight: 107.w, maxHeight: 107.w),
                   width: screenSize.width,
                   padding: const EdgeInsets.only(top: 16, bottom: 16).w,
                   decoration: BoxDecoration(
@@ -181,22 +197,20 @@ class _LJNChatPage extends State<LJNChatPage>
                     children: [
                       Container(
                           // color: Colors.amber,
-                          width: 55.w,
-                          height: 55.w,
+                          width: 57.w,
+                          height: 57.w,
                           margin: EdgeInsets.only(
                               left: 20.w, right: 20.w, bottom: 10.w),
                           child: IconButton(
                             icon: Icon(
-                                size: 54.w,
+                                size: 56.w,
                                 const IconData(
                                   0xe66c,
                                   fontFamily: 'Iconfont',
                                 )),
                             highlightColor: Colors.transparent,
                             splashColor: Colors.transparent,
-                            padding:
-                                const EdgeInsets.all(0)
-                                    .w,
+                            padding: const EdgeInsets.all(0).w,
                             onPressed: () {
                               logger.info("语音被点击");
                             },
@@ -247,7 +261,7 @@ class _LJNChatPage extends State<LJNChatPage>
                           hoverColor: Colors.white,
                           isCollapsed: true,
                           contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 16, horizontal: 16)
+                                  vertical: 14, horizontal: 16)
                               .w,
                           border: outlineInputBorder,
                           focusedBorder: outlineInputBorder,
@@ -259,13 +273,13 @@ class _LJNChatPage extends State<LJNChatPage>
                       )),
                       Container(
                           // color: Colors.amber,
-                          width: 55.w,
-                          height: 55.w,
+                          width: 57.w,
+                          height: 57.w,
                           margin: EdgeInsets.only(
                               left: 20.w, right: 25.w, bottom: 10.w),
                           child: IconButton(
                             icon: Icon(
-                                size: 47.w,
+                                size: 49.w,
                                 const IconData(
                                   0xe702,
                                   fontFamily: 'Iconfont',
@@ -313,13 +327,13 @@ class _LJNChatPage extends State<LJNChatPage>
                           visible: showPlusIcon,
                           child: Container(
                               // color: Colors.amber,
-                              width: 55.w,
-                              height: 55.w,
+                              width: 57.w,
+                              height: 57.w,
                               margin:
                                   EdgeInsets.only(right: 20.w, bottom: 10.w),
                               child: IconButton(
                                 icon: Icon(
-                                    size: 55.w,
+                                    size: 57.w,
                                     const IconData(
                                       0xe726,
                                       fontFamily: 'Iconfont',

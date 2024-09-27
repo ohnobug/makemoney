@@ -11,30 +11,44 @@ class LJNServicesPage extends StatefulWidget {
 }
 
 class _LJNServicesPage extends State<LJNServicesPage> {
+  double _statusHeight = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _statusHeight = MediaQuery.of(context).padding.top;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
         primary: false,
-        appBar: AppBar(
-          primary: true,
-          centerTitle: true,
-          title: const Text('服务'),
-          toolbarHeight: MediaQuery.of(context).padding.top + 90.w,
-          titleTextStyle: TextStyle(fontSize: 32.w, color: Colors.black),
-          elevation: 0,
-          scrolledUnderElevation: 0,
-          backgroundColor: const Color.fromARGB(255, 237, 237, 237),
-          foregroundColor: const Color.fromARGB(255, 237, 237, 237),
-          // bottom: PreferredSize(
-          //   preferredSize: Size.fromHeight(1.w),
-          //   child: Container(
-          //     color: const Color.fromARGB(255, 220, 220, 220),
-          //     height: 1.w,
-          //   ),
-          // ),
-        ),
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+            child: Container(
+                margin: EdgeInsets.only(top: _statusHeight),
+                child: AppBar(
+                  primary: false,
+                  centerTitle: true,
+                  title: const Text('服务'),
+                  toolbarHeight: 90.w,
+                  titleTextStyle:
+                      TextStyle(fontSize: 32.w, color: Colors.black),
+                  elevation: 0,
+                  scrolledUnderElevation: 0,
+                  backgroundColor: const Color.fromARGB(255, 237, 237, 237),
+                  foregroundColor: const Color.fromARGB(255, 237, 237, 237),
+                  // bottom: PreferredSize(
+                  //   preferredSize: Size.fromHeight(1.w),
+                  //   child: Container(
+                  //     color: const Color.fromARGB(255, 220, 220, 220),
+                  //     height: 1.w,
+                  //   ),
+                  // ),
+                ))),
         body: ColoredBox(
             color: const Color.fromARGB(255, 237, 237, 237),
             child: ScrollConfiguration(
@@ -69,7 +83,7 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                   subTitle: "",
                                   onPressed: () {
                                     Navigator.pushNamed(
-                                            context, '/video_player');
+                                        context, '/video_player');
                                     logger.info('点击了收付款还款按钮~~');
                                   },
                                 ),

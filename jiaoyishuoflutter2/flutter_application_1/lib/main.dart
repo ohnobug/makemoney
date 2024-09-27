@@ -165,9 +165,13 @@ class _CustomTabbarState extends State<CustomTabbar>
   // 微微震动
   bool slight = false;
 
+  double _statusHeight = 0;
+
   @override
   void initState() {
     super.initState();
+
+    _statusHeight = MediaQuery.of(context).padding.top;
 
     _tabController =
         TabController(length: 4, vsync: this, animationDuration: Duration.zero);
@@ -237,8 +241,6 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   @override
   Widget build(BuildContext context) {
-    EdgeInsets devicesPadding = MediaQuery.of(context).padding;
-
     Icon icon1 = Icon(
       const IconData(
         0xe7b3,
@@ -399,16 +401,15 @@ class _CustomTabbarState extends State<CustomTabbar>
                   offset: Offset(_appbarLeft, 0),
                   child: Container(
                       width: 750.0.w,
-                      height: homescrollpixels + devicesPadding.top + 90.w,
+                      height: homescrollpixels + _statusHeight + 90.w,
                       color: const Color.fromARGB(255, 237, 237, 237),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            // SizedBox(height: devicesPadding.top), // 状态栏高度
                             AppBar(
                               // App标题栏
-                              primary: true,
+                              primary: false,
                               title: appBarTitle,
                               centerTitle: true,
                               titleTextStyle: TextStyle(
@@ -475,10 +476,17 @@ class PopupMenu extends StatefulWidget {
 }
 
 class _PopupMenuState extends State<PopupMenu> {
+  double _statusHeight = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _statusHeight = MediaQuery.of(context).padding.top;
+  }
+
   @override
   Widget build(BuildContext context) {
-    EdgeInsets devicesPadding = MediaQuery.of(context).padding;
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -498,7 +506,7 @@ class _PopupMenuState extends State<PopupMenu> {
                           color: Colors.transparent)),
                   Positioned(
                       right: 15.w,
-                      top: devicesPadding.top + 80.w,
+                      top: _statusHeight + 80.w,
                       child: SizedBox(
                         width: 320.w,
                         child: Column(

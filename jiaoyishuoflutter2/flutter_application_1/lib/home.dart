@@ -16,10 +16,13 @@ class LJNHomePage extends StatefulWidget {
 
 class _ChatListViewState extends State<LJNHomePage> {
   final _customScrollController = ScrollController();
+  double _statusHeight = 0;
 
   @override
   void initState() {
     super.initState();
+
+    _statusHeight = MediaQuery.of(context).padding.top;
 
     Future.delayed(const Duration(milliseconds: 300), () {
       myStore.dispatch({"type": "mainpage1isload", "payload": true});
@@ -399,7 +402,7 @@ class _ChatListViewState extends State<LJNHomePage> {
         behavior: CustomScrollBehavior().copyWith(scrollbars: false),
         child: ListView.builder(
           padding:
-              EdgeInsets.only(top: MediaQuery.of(context).padding.top + 90.w),
+              EdgeInsets.only(top: _statusHeight + 90.w),
           primary: false,
           itemCount: itemCount,
           shrinkWrap: true,
