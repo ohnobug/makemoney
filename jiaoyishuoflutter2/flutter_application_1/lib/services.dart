@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +18,11 @@ class _LJNServicesPage extends State<LJNServicesPage> {
   void initState() {
     super.initState();
 
-    _statusHeight = MediaQuery.of(context).padding.top;
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
   }
 
   @override

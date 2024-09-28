@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/pageloading.dart';
 import 'package:flutter_application_1/logger.dart';
@@ -20,8 +21,12 @@ class _LJNContactPageState extends State<LJNContactPage> {
   void initState() {
     super.initState();
 
-    _statusHeight = MediaQuery.of(context).padding.top;
-
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
+    
     logger.info('contact...............');
 
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});

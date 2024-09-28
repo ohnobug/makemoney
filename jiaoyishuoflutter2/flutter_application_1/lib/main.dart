@@ -8,6 +8,7 @@ import 'package:flutter_application_1/home.dart';
 import 'package:flutter_application_1/qrcodescanner.dart';
 import 'package:flutter_application_1/services.dart';
 import 'package:flutter_application_1/store.dart';
+import 'package:flutter_application_1/tools/tools.dart';
 import 'package:flutter_application_1/videoplayer.dart';
 import 'package:vibration/vibration.dart';
 import 'contact.dart';
@@ -28,6 +29,12 @@ void main() async {
     statusBarColor: Colors.transparent, // 设置状态栏透明
     statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
   ));
+
+  myStore.dispatch({"type": "userinfoName", "payload": "李俊男"});
+  myStore.dispatch({
+    "type": "userinfoAvatar",
+    "payload": assetPath("images/avatar_webp/chat_103.webp")
+  });
 
   runApp(
     const TabBarApp(),
@@ -176,7 +183,11 @@ class _CustomTabbarState extends State<CustomTabbar>
   void initState() {
     super.initState();
 
-    _statusHeight = MediaQuery.of(context).padding.top;
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
 
     _tabController =
         TabController(length: 4, vsync: this, animationDuration: Duration.zero);
@@ -285,7 +296,7 @@ class _CustomTabbarState extends State<CustomTabbar>
           if (homescrollpixels <= 50 && slight == true) {
             slight = false;
           } else if (slight == false && homescrollpixels >= 180) {
-            logger.info("震动：${MediaQuery.of(context).size.height}");
+            // logger.info("震动：${MediaQuery.of(context).size.height}");
             slight = true;
 
             if (!kIsWeb) {
@@ -487,7 +498,11 @@ class _PopupMenuState extends State<PopupMenu> {
   void initState() {
     super.initState();
 
-    _statusHeight = MediaQuery.of(context).padding.top;
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
   }
 
   @override

@@ -19,6 +19,12 @@ class _LJNVideoState extends State<LJNVideo> {
       ..initialize().then((_) {
         setState(() {});
       });
+
+    // _controller = VideoPlayerController.networkUrl(Uri.parse(
+    //     'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'))
+    //   ..initialize().then((_) {
+    //     setState(() {});
+    //   });
   }
 
   @override

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/pageloading.dart';
 import 'package:flutter_application_1/logger.dart';
@@ -20,8 +21,12 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
   void initState() {
     super.initState();
 
-    _statusHeight = MediaQuery.of(context).padding.top;
-
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
+    
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
 
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -135,7 +140,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                     title: "游戏",
                     icon: "images/icon/discovery_icon10.png",
                     link: '',
-                    underline: true,
+                    underline: false,
                   ),
                   SizedBox(height: 16.w),
 

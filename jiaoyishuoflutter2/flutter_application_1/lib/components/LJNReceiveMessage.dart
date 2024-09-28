@@ -3,7 +3,15 @@ import 'package:flutter_application_1/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LJNReceiveMessage extends StatefulWidget {
-  const LJNReceiveMessage({super.key});
+  const LJNReceiveMessage(
+      {super.key,
+      required this.message,
+      required this.showName,
+      required this.name});
+
+  final String name;
+  final bool showName;
+  final String message;
 
   @override
   State<LJNReceiveMessage> createState() => _LJNReceiveMessage();
@@ -19,25 +27,13 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // 头像
-          Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5).w,
-              ),
-              child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: const Color.fromARGB(255, 244, 244, 244),
-                        width: 1.w),
-                    borderRadius: BorderRadius.circular(5).w,
-                  ),
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(5).w,
-                      child: Image.asset(
-                        assetPath("images/avatar_webp/chat_8.webp"),
-                        width: 78.w,
-                        height: 78.w,
-                      )))),
+          ClipRRect(
+              borderRadius: BorderRadius.circular(8).w,
+              child: Image.asset(
+                assetPath("images/avatar_webp/chat_8.webp"),
+                width: 78.w,
+                height: 78.w,
+              )),
           // SizedBox(width: 10.w,),
           // 姓名与消息
           Expanded(
@@ -46,20 +42,23 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // 姓名
-                Container(
-                  padding: const EdgeInsets.only(left: 23, top: 0, bottom: 3).w,
-                  // height: 33.w,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "许信将",
-                          style: TextStyle(
-                              fontSize: 20.w,
-                              color: const Color.fromARGB(255, 130, 130, 130)),
-                        )
-                      ]),
-                ),
+                if (widget.showName)
+                  Container(
+                    padding:
+                        const EdgeInsets.only(left: 23, top: 0, bottom: 3).w,
+                    // height: 33.w,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            widget.name,
+                            style: TextStyle(
+                                fontSize: 20.w,
+                                color:
+                                    const Color.fromARGB(255, 130, 130, 130)),
+                          )
+                        ]),
+                  ),
                 // 消息
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,7 +90,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                         softWrap: true,
                         maxLines: 1000,
                         overflow: TextOverflow.ellipsis,
-                        "你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？你那个中介靠谱吗？",
+                        widget.message,
                         style: TextStyle(fontSize: 29.w, color: Colors.black),
                       ),
                     )),

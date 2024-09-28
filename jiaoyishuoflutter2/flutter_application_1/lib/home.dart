@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/pageloading.dart';
@@ -22,7 +23,11 @@ class _ChatListViewState extends State<LJNHomePage> {
   void initState() {
     super.initState();
 
-    _statusHeight = MediaQuery.of(context).padding.top;
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
 
     Future.delayed(const Duration(milliseconds: 300), () {
       myStore.dispatch({"type": "mainpage1isload", "payload": true});

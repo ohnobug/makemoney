@@ -30,6 +30,9 @@ final ThemeData darkTheme = ThemeData(
     fontFamily: "notosanssc");
 
 class StoreType {
+  String? userinfoName;
+  String? userinfoAvatar;
+
   bool? contactazshow; // 通信录中的 A-Z 是否显示
   bool? mainpage1isload; // 页面 1 是否显示
   bool? mainpage2isload; // 页面 2 是否显示
@@ -46,6 +49,8 @@ class StoreType {
   double? homescrollpixels; // 首页滚动情况
 
   StoreType({
+    this.userinfoName,
+    this.userinfoAvatar,
     this.contactazshow,
     this.mainpage1isload,
     this.mainpage2isload,
@@ -61,6 +66,8 @@ class StoreType {
   });
 
   StoreType copyWith({
+    String? userinfoName,
+    String? userinfoAvatar,
     bool? contactazshow,
     bool? mainpage1isload,
     bool? mainpage2isload,
@@ -75,6 +82,8 @@ class StoreType {
     Color? button4Bg,
   }) {
     return StoreType(
+      userinfoName: userinfoName ?? this.userinfoName,
+      userinfoAvatar: userinfoAvatar ?? this.userinfoAvatar,
       contactazshow: contactazshow ?? this.contactazshow,
       mainpage1isload: mainpage1isload ?? this.mainpage1isload,
       mainpage2isload: mainpage2isload ?? this.mainpage2isload,
@@ -92,6 +101,14 @@ class StoreType {
 }
 
 StoreType counterReducer(StoreType state, dynamic action) {
+  if (action['type'] == "userinfoName") {
+    return state.copyWith(userinfoName: action['payload']);
+  }
+
+  if (action['type'] == "userinfoAvatar") {
+    return state.copyWith(userinfoAvatar: action['payload']);
+  }
+
   if (action['type'] == "contactazshow") {
     return state.copyWith(contactazshow: action['payload']);
   }
@@ -141,6 +158,8 @@ StoreType counterReducer(StoreType state, dynamic action) {
 
 final myStore = Store<StoreType>(counterReducer,
     initialState: StoreType(
+        userinfoName: "",
+        userinfoAvatar: "",
         contactazshow: false,
         mainpage1isload: false,
         mainpage2isload: false,
