@@ -10,7 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'components/LJNMyMessage.dart';
 
 class LJNChatPage extends StatefulWidget {
-  const LJNChatPage({super.key});
+  const LJNChatPage({super.key, required this.title});
+
+  final String title;
 
   @override
   State<LJNChatPage> createState() => _LJNChatPage();
@@ -39,7 +41,11 @@ class _LJNChatPage extends State<LJNChatPage>
   late Animation<Color?> _colorAnimation;
 
   List<StatefulWidget> messageList = [
-    // LJNReceiveMessage(),
+    LJNReceiveMessage(
+      message: '在吗？在这里干什么？',
+      showName: false,
+      name: '秋天的风',
+    ),
     // LJNMyMessage(),
     // LJNReceiveMessage(),
     // LJNMyMessage(),
@@ -59,6 +65,8 @@ class _LJNChatPage extends State<LJNChatPage>
   double _width = 0;
   Color _color = const Color.fromARGB(255, 76, 190, 102);
 
+  String title = "";
+
   @override
   void initState() {
     super.initState();
@@ -70,6 +78,10 @@ class _LJNChatPage extends State<LJNChatPage>
     }
 
     logger.info("高度: $_statusHeight");
+
+    // setState(() {
+    //   title = arguments["title"]!;
+    // });
 
     _animationController = AnimationController(
       vsync: this,
@@ -126,6 +138,10 @@ class _LJNChatPage extends State<LJNChatPage>
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
+    var args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>?;
+
+    logger.info(args);
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -156,7 +172,7 @@ class _LJNChatPage extends State<LJNChatPage>
                     elevation: 0,
                     scrolledUnderElevation: 0,
                     toolbarHeight: 90.w,
-                    title: const Text("请说英语"),
+                    title: Text(widget.title),
                     titleTextStyle:
                         TextStyle(fontSize: 32.w, color: Colors.black),
                     backgroundColor: const Color.fromARGB(255, 237, 237, 237),
@@ -189,22 +205,27 @@ class _LJNChatPage extends State<LJNChatPage>
               children: [
                 Expanded(
                     flex: 1,
-                    child: ColoredBox(
-                        color: const Color.fromARGB(255, 237, 237, 237),
-                        child: ScrollConfiguration(
-                          behavior: ScrollConfiguration.of(context)
-                              .copyWith(scrollbars: false),
-                          child: SingleChildScrollView(
-                            controller: _scrollController,
-                            physics: const AlwaysScrollableScrollPhysics(
-                                parent: BouncingScrollPhysics()),
-                            child: messageList.isEmpty
-                                ? Container()
-                                : Column(
-                                    children: messageList,
-                                  ),
-                          ),
-                        ))),
+                    child: Listener(
+                      onPointerDown: (event) {
+                        SystemChannels.textInput.invokeMethod("TextInput.hide");
+                      },
+                      child: ColoredBox(
+                          color: const Color.fromARGB(255, 237, 237, 237),
+                          child: ScrollConfiguration(
+                            behavior: ScrollConfiguration.of(context)
+                                .copyWith(scrollbars: false),
+                            child: SingleChildScrollView(
+                              controller: _scrollController,
+                              physics: const AlwaysScrollableScrollPhysics(
+                                  parent: BouncingScrollPhysics()),
+                              child: messageList.isEmpty
+                                  ? Container()
+                                  : Column(
+                                      children: messageList,
+                                    ),
+                            ),
+                          )),
+                    )),
 
                 // 输入部分
                 Expanded(
@@ -260,10 +281,6 @@ class _LJNChatPage extends State<LJNChatPage>
                               // strutStyle: StrutStyle(fontSize: 20.w),
                               maxLines: 5,
                               minLines: 1,
-                              onTapOutside: (event) {
-                                SystemChannels.textInput
-                                    .invokeMethod("TextInput.hide");
-                              },
                               onChanged: (newText) {
                                 inputController.value =
                                     inputController.value.copyWith(
@@ -344,6 +361,15 @@ class _LJNChatPage extends State<LJNChatPage>
                                               showName: false,
                                             ));
                                             inputController.text = "";
+
+                                            // SystemChannels.textInput
+                                            //     .invokeMethod("TextInput.show");
+                                            // WidgetsBinding.instance
+                                            // .addPostFrameCallback((_) {
+                                            // inputFocusNode.requestFocus()
+                                            // FocusScope.of(context)
+                                            // .requestFocus(inputFocusNode);
+                                            // });
                                           });
                                         },
                                         child: Container(

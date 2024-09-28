@@ -26,7 +26,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
     } else {
       _statusHeight = MediaQuery.of(context).padding.top;
     }
-    
+
     logger.info('contact...............');
 
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
@@ -51,7 +51,8 @@ class _LJNContactPageState extends State<LJNContactPage> {
       ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
           child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+            physics: const AlwaysScrollableScrollPhysics(
+                parent: BouncingScrollPhysics()),
             child: Column(
               children: [
                 SizedBox(height: _statusHeight + 90.w),
@@ -62,7 +63,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                     link: '',
                     underline: true,
                     onPressed: () {
-                      Navigator.pushNamed(context, '/chat');
+                      Navigator.pushNamed(context, '/chat',
+                          arguments: <String, String>{
+                            'title': "新的朋友",
+                            'icon': "images/avatar_webp/chat_1.webp",
+                          });
                     }),
                 ContactInformation(
                   id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
@@ -71,7 +76,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "仅聊天的朋友",
+                          'icon': "images/avatar_webp/chat_2.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -81,7 +90,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "群聊",
+                          'icon': "images/avatar_webp/chat_3.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -91,7 +104,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "标签",
+                          'icon': "images/avatar_webp/chat_4.webp",
+                        });
                   },
                 ),
                 const ContactInformation(
@@ -121,7 +138,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "天空飘来五个字那都不是事",
+                          'icon': "images/avatar_webp/chat_1.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -131,7 +152,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "本因",
+                          'icon': "images/avatar_webp/chat_10.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -141,7 +166,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "赵洵",
+                          'icon': "images/avatar_webp/chat_11.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -151,7 +180,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "定静师太",
+                          'icon': "images/avatar_webp/chat_12.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -161,7 +194,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "李秋水",
+                          'icon': "images/avatar_webp/chat_13.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -171,7 +208,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "谭婆",
+                          'icon': "images/avatar_webp/chat_14.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -181,7 +222,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "李傀儡",
+                          'icon': "images/avatar_webp/chat_15.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -191,7 +236,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "貂禅",
+                          'icon': "images/avatar_webp/chat_16.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -201,7 +250,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "何三七",
+                          'icon': "images/avatar_webp/chat_17.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -211,7 +264,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "孔融",
+                          'icon': "images/avatar_webp/chat_18.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -221,7 +278,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "齐堂主",
+                          'icon': "images/avatar_webp/chat_19.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -231,7 +292,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "博尔术",
+                          'icon': "images/avatar_webp/chat_20.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -241,7 +306,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "王语嫣",
+                          'icon': "images/avatar_webp/chat_21.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -251,7 +320,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "秦红棉",
+                          'icon': "images/avatar_webp/chat_22.webp",
+                        });
                   },
                 ),
                 const ContactInformation(
@@ -281,7 +354,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "段延庆",
+                          'icon': "images/avatar_webp/chat_33.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -291,7 +368,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "令狐冲",
+                          'icon': "images/avatar_webp/chat_34.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -301,7 +382,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "英白罗",
+                          'icon': "images/avatar_webp/chat_35.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -311,7 +396,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "黄药师",
+                          'icon': "images/avatar_webp/chat_36.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -321,7 +410,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "李煜",
+                          'icon': "images/avatar_webp/chat_37.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -331,7 +424,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "云中鹤",
+                          'icon': "images/avatar_webp/chat_38.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -341,7 +438,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "劳德诺",
+                          'icon': "images/avatar_webp/chat_39.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -351,7 +452,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "包惜弱",
+                          'icon': "images/avatar_webp/chat_40.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -361,7 +466,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "游驹",
+                          'icon': "images/avatar_webp/chat_41.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -371,7 +480,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "钟万仇",
+                          'icon': "images/avatar_webp/chat_42.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -381,7 +494,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "渔人",
+                          'icon': "images/avatar_webp/chat_43.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -391,7 +508,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "单叔山",
+                          'icon': "images/avatar_webp/chat_44.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -401,7 +522,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "段誉",
+                          'icon': "images/avatar_webp/chat_45.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -411,7 +536,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "林震南",
+                          'icon': "images/avatar_webp/chat_46.webp",
+                        });
                   },
                 ),
                 ContactInformation(
@@ -421,7 +550,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   link: '',
                   underline: true,
                   onPressed: () {
-                    Navigator.pushNamed(context, '/chat');
+                    Navigator.pushNamed(context, '/chat',
+                        arguments: <String, String>{
+                          'title': "商鞅",
+                          'icon': "images/avatar_webp/chat_47.webp",
+                        });
                   },
                 ),
                 Container(

@@ -66,13 +66,16 @@ class _ChatListViewState extends State<LJNHomePage> {
     final List<ChatListItem> chatItems = [
       ChatListItem(
           id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-          friendName: "花重月数",
+          friendName: "花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数",
           notice: true,
           underline: true,
           message: "今天天气真好，阳光明媚，让人心情愉悦。",
           avatar: "images/avatar_webp/chat_1.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数",
+              'icon': "images/avatar_webp/chat_1.webp",
+            });
             logger.info('花重月数被点击~');
           }),
       ChatListItem(
@@ -83,7 +86,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你吃过了吗？吃的什么？有没有想我？",
           avatar: "images/avatar_webp/chat_2.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "旧梦如风°",
+              'icon': "images/avatar_webp/chat_2.webp",
+            });
             logger.info('旧梦如风°被点击~');
           }),
       ChatListItem(
@@ -94,7 +100,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "我很高兴见到你，今天看起来很不错。",
           avatar: "images/avatar_webp/chat_3.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "蝶舞庄周",
+              'icon': "images/avatar_webp/chat_3.webp",
+            });
             logger.info('蝶舞庄周被点击~');
           }),
       ChatListItem(
@@ -105,7 +114,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
           avatar: "images/avatar_webp/chat_4.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "绿逾初夏",
+              'icon': "images/avatar_webp/chat_4.webp",
+            });
             logger.info('绿逾初夏被点击~');
           }),
       ChatListItem(
@@ -116,7 +128,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "今天上班/上学累吗？要注意休息哦。",
           avatar: "images/avatar_webp/chat_5.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "余笙南吟",
+              'icon': "images/avatar_webp/chat_5.webp",
+            });
             logger.info('余笙南吟被点击~');
           }),
       ChatListItem(
@@ -127,7 +142,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "这个周末有什么计划？有没有想好去哪里玩？",
           avatar: "images/avatar_webp/chat_6.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "陈情匿旧酒",
+              'icon': "images/avatar_webp/chat_6.webp",
+            });
             logger.info('陈情匿旧酒被点击~');
           }),
       ChatListItem(
@@ -138,7 +156,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你喜欢看什么电影？我最近看了一部不错的电影，推荐给你！",
           avatar: "images/avatar_webp/chat_7.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "白桃乌龙",
+              'icon': "images/avatar_webp/chat_7.webp",
+            });
             logger.info('白桃乌龙被点击~');
           }),
       ChatListItem(
@@ -149,7 +170,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你最近有没有去旅行？去了哪些地方？感觉怎么样？",
           avatar: "images/avatar_webp/chat_8.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "清浅ˋ旧时光",
+              'icon': "images/avatar_webp/chat_8.webp",
+            });
             logger.info('清浅ˋ旧时光被点击~');
           }),
       ChatListItem(
@@ -160,7 +184,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "我听说你最近升职了，恭喜你！一定能够做得更好！",
           avatar: "images/avatar_webp/chat_9.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "荒碎梦残",
+              'icon': "images/avatar_webp/chat_9.webp",
+            });
             logger.info('荒碎梦残被点击~');
           }),
       ChatListItem(
@@ -171,7 +198,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你今天穿得很漂亮，看起来很有气质。",
           avatar: "images/avatar_webp/chat_10.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "无梦相赠",
+              'icon': "images/avatar_webp/chat_10.webp",
+            });
             logger.info('无梦相赠被点击~');
           }),
       ChatListItem(
@@ -182,7 +212,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你最喜欢的颜色是什么？是不是很时尚？",
           avatar: "images/avatar_webp/chat_11.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "离人泪",
+              'icon': "images/avatar_webp/chat_11.webp",
+            });
             logger.info('离人泪被点击~');
           }),
       ChatListItem(
@@ -193,7 +226,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你最近有没有去尝试新的餐厅？有没有吃到什么特别好吃的菜？",
           avatar: "images/avatar_webp/chat_12.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "伊人在水一方",
+              'icon': "images/avatar_webp/chat_12.webp",
+            });
             logger.info('伊人在水一方被点击~');
           }),
       ChatListItem(
@@ -204,7 +240,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你的生日是今天吗？生日快乐啊！有没有想好怎么庆祝？",
           avatar: "images/avatar_webp/chat_13.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "与我共梦",
+              'icon': "images/avatar_webp/chat_13.webp",
+            });
             logger.info('与我共梦被点击~');
           }),
       ChatListItem(
@@ -215,7 +254,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你平常喜欢做什么样的运动？我最近喜欢上了瑜伽。",
           avatar: "images/avatar_webp/chat_14.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "挽弦暮笙",
+              'icon': "images/avatar_webp/chat_14.webp",
+            });
             logger.info('挽弦暮笙被点击~');
           }),
       ChatListItem(
@@ -226,7 +268,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "我觉得你很有创造力，一定能够做出很多很棒的东西。",
           avatar: "images/avatar_webp/chat_15.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "开始厌倦",
+              'icon': "images/avatar_webp/chat_15.webp",
+            });
             logger.info('开始厌倦被点击~');
           }),
       ChatListItem(
@@ -237,7 +282,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你最近有没有追什么好剧？有没有推荐的电视剧？",
           avatar: "images/avatar_webp/chat_16.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "仙女收纳盒",
+              'icon': "images/avatar_webp/chat_16.webp",
+            });
             logger.info('仙女收纳盒被点击~');
           }),
       ChatListItem(
@@ -248,7 +296,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "我很喜欢你的发型，看起来很时尚，一定是精心打理过的。",
           avatar: "images/avatar_webp/chat_17.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "華燈初上",
+              'icon': "images/avatar_webp/chat_17.webp",
+            });
             logger.info('華燈初上被点击~');
           }),
       ChatListItem(
@@ -259,7 +310,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你是什么星座的？我最近对星座运势感兴趣了。",
           avatar: "images/avatar_webp/chat_18.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "袖手今生",
+              'icon': "images/avatar_webp/chat_18.webp",
+            });
             logger.info('袖手今生被点击~');
           }),
       ChatListItem(
@@ -270,7 +324,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "我觉得你笑起来很好看，让人感觉很温暖。",
           avatar: "images/avatar_webp/chat_19.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "ら道不清的忧伤",
+              'icon': "images/avatar_webp/chat_19.webp",
+            });
             logger.info('ら道不清的忧伤被点击~');
           }),
       ChatListItem(
@@ -281,7 +338,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你愿意和我一起去旅行吗？我们可以一起去探索未知的地方。",
           avatar: "images/avatar_webp/chat_20.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "凉生",
+              'icon': "images/avatar_webp/chat_20.webp",
+            });
             logger.info('凉生被点击~');
           }),
       ChatListItem(
@@ -292,7 +352,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你的梦想是什么？我最近梦想成为一名优秀的厨师。",
           avatar: "images/avatar_webp/chat_21.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "墨香九歌",
+              'icon': "images/avatar_webp/chat_21.webp",
+            });
             logger.info('墨香九歌被点击~');
           }),
       ChatListItem(
@@ -303,7 +366,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你最近有没有学到什么新知识？我最近在学习一门新技能。",
           avatar: "images/avatar_webp/chat_22.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "暖栀",
+              'icon': "images/avatar_webp/chat_22.webp",
+            });
             logger.info('暖栀被点击~');
           }),
       ChatListItem(
@@ -314,7 +380,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "我听说你要搬家了，是吗？祝贺你！新家在哪里？是不是很期待？",
           avatar: "images/avatar_webp/chat_23.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "等待许了苍老",
+              'icon': "images/avatar_webp/chat_23.webp",
+            });
             logger.info('等待许了苍老被点击~');
           }),
       ChatListItem(
@@ -325,7 +394,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你喜欢什么样的音乐？我最近迷上了一种新的音乐风格。",
           avatar: "images/avatar_webp/chat_24.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "笙歌白云",
+              'icon': "images/avatar_webp/chat_24.webp",
+            });
             logger.info('笙歌白云被点击~');
           }),
       ChatListItem(
@@ -336,7 +408,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "我觉得你非常有魅力，你的个性很吸引人。",
           avatar: "images/avatar_webp/chat_25.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "万幸得以相识",
+              'icon': "images/avatar_webp/chat_25.webp",
+            });
             logger.info('万幸得以相识被点击~');
           }),
       ChatListItem(
@@ -347,7 +422,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "我很喜欢和你聊天，每次都能学到很多东西。",
           avatar: "images/avatar_webp/chat_26.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "凤鸣寂寥",
+              'icon': "images/avatar_webp/chat_26.webp",
+            });
             logger.info('凤鸣寂寥被点击~');
           }),
       ChatListItem(
@@ -358,7 +436,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你会做饭吗？我最近学会了做一道新菜，很好吃哦。",
           avatar: "images/avatar_webp/chat_27.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "余生不过一盏茶",
+              'icon': "images/avatar_webp/chat_27.webp",
+            });
             logger.info('余生不过一盏茶被点击~');
           }),
       ChatListItem(
@@ -369,7 +450,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你喜欢看什么类型的书？我最近在读一本很有趣的小说。",
           avatar: "images/avatar_webp/chat_28.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "丢了梦想的猎手",
+              'icon': "images/avatar_webp/chat_28.webp",
+            });
             logger.info('丢了梦想的猎手被点击~');
           }),
       ChatListItem(
@@ -380,7 +464,10 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你最近有没有参加什么有趣的活动？有没有结识到新朋友？",
           avatar: "images/avatar_webp/chat_29.webp",
           onPressed: () {
-            Navigator.pushNamed(context, '/chat');
+            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+              'title': "今朝有酒今朝醉",
+              'icon': "images/avatar_webp/chat_29.webp",
+            });
             logger.info('今朝有酒今朝醉被点击~');
           }),
       ChatListItem(
@@ -391,7 +478,10 @@ class _ChatListViewState extends State<LJNHomePage> {
         message: "我听说你最近去旅游了，怎么样？玩得开心吗？",
         avatar: "images/avatar_webp/chat_30.webp",
         onPressed: () {
-          Navigator.pushNamed(context, '/chat');
+          Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+            'title': "旧事酒浓",
+            'icon': "images/avatar_webp/chat_30.webp",
+          });
         },
       ),
     ];
@@ -527,6 +617,7 @@ class _ChatListItem extends State<ChatListItem> {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
+                          SizedBox(width: 10.w,),
                           // 日期
                           Text(
                             '17:25',

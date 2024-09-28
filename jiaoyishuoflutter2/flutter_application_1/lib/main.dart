@@ -100,9 +100,12 @@ class TabBarApp extends StatelessWidget {
                       },
                     );
                   } else if (settings.name == '/chat') {
+                    var arguments = settings.arguments as Map<String, String>;
+                    String title = arguments['title'] as String;
+
                     return PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          const LJNChatPage(),
+                          LJNChatPage(title: title),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         const begin = Offset(1.0, 0.0);
