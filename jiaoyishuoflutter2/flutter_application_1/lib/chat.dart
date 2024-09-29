@@ -41,7 +41,7 @@ class _LJNChatPage extends State<LJNChatPage>
   late Animation<Color?> _colorAnimation;
 
   List<StatefulWidget> messageList = [
-    LJNReceiveMessage(
+    const LJNReceiveMessage(
       message: '在吗？在这里干什么？',
       showName: false,
       name: '秋天的风',

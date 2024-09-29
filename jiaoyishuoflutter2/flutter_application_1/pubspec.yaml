@@ -47,3 +47,8 @@ flutter:
     - family: Iconfont
       fonts:
         - asset: ./assets/fonts/iconfont/iconfont.ttf
+
+  module:
+    androidX: true
+    androidPackage: com.example.flutter_application_1
+    iosBundleIdentifier: com.example.flutter_application_1

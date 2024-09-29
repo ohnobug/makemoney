@@ -14,7 +14,7 @@ class _LJNTimeMessage extends State<LJNTimeMessage> {
     // 对方发的消息
     return Container(
       padding: const EdgeInsets.all(22).w,
-      child: Text("2024年9月29日00:48:46"),
+      child: const Text("2024年9月29日00:48:46"),
     );
   }
 }
