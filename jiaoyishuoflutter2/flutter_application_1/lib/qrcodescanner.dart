@@ -125,95 +125,191 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
         )),
 
         Positioned.fill(
-            child: Column(
-          children: [
-            SizedBox(
-              height: 25.w,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 38.w),
-                  width: 45.w,
-                  height: 45.w,
-                  child: IconButton(
-                    icon: Icon(
-                        size: 45.w,
-                        const IconData(
-                          0xe601,
-                          fontFamily: 'Iconfont',
-                        )),
-                    color: Colors.white,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    disabledColor: Colors.transparent,
-                    onPressed: () => Navigator.of(context).pop(),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 25.w,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 38.w),
+                    width: 45.w,
+                    height: 45.w,
+                    child: IconButton(
+                      icon: Icon(
+                          size: 45.w,
+                          const IconData(
+                            0xe601,
+                            fontFamily: 'Iconfont',
+                          )),
+                      color: Colors.white,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      disabledColor: Colors.transparent,
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 38.w),
-                  width: 45.w,
-                  height: 45.w,
-                  child: IconButton(
-                    icon: Icon(
-                        size: 45.w,
-                        const IconData(
-                          0xe659,
-                          fontFamily: 'Iconfont',
-                        )),
-                    color: Colors.white,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    disabledColor: Colors.transparent,
-                    onPressed: () => Navigator.of(context).pop(),
+                  Container(
+                    margin: EdgeInsets.only(right: 38.w),
+                    width: 45.w,
+                    height: 45.w,
+                    child: IconButton(
+                      icon: Icon(
+                          size: 45.w,
+                          const IconData(
+                            0xe659,
+                            fontFamily: 'Iconfont',
+                          )),
+                      color: Colors.white,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      disabledColor: Colors.transparent,
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 690.w,
-                  width: 640.w,
-                  margin: EdgeInsets.only(top: 260.w),
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(160, 168, 168, 168),
-                      border: Border.all(
-                        color: const Color.fromARGB(255, 231, 231, 231),
-                        width: 2.w,
-                        style: BorderStyle.solid,
-                      )),
-                  child: null,
-                )
-              ],
-            )
-          ],
-        )),
-
-        Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            height: 100,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                alignment: Alignment.bottomCenter,
-                height: 100,
-                color: Colors.black.withOpacity(0.4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(child: Center(child: _buildBarcode(_barcode))),
-                  ],
+                ],
+              ),
+              // 中间扫码框
+              Expanded(
+                  flex: 919,
+                  child: Center(
+                    child: Container(
+                      height: 690.w,
+                      width: 640.w,
+                      // margin: EdgeInsets.only(top: 235.w),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(160, 168, 168, 168),
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 231, 231, 231),
+                            width: 2.w,
+                            style: BorderStyle.solid,
+                          )),
+                      child: null,
+                    ),
+                  )),
+              // 轻触照亮按钮
+              Expanded(
+                flex: 295,
+                child: Container(
+                  color: const Color.fromARGB(159, 72, 255, 0),
+                  // height: 295.w,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                            size: 80.w,
+                            const IconData(
+                              0xe601,
+                              fontFamily: 'Iconfont',
+                            )),
+                        color: Colors.white,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        disabledColor: Colors.transparent,
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                      Text(
+                        "轻触照亮",
+                        style: TextStyle(fontSize: 25.w),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ))
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                            size: 92.w,
+                            const IconData(
+                              0xe601,
+                              fontFamily: 'Iconfont',
+                            )),
+                        color: Colors.white,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        disabledColor: Colors.transparent,
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                      Text(
+                        "我的二维码",
+                        style: TextStyle(fontSize: 23.w),
+                      )
+                    ],
+                  ),
+                  SizedBox(width: 25.w),
+                  Container(
+                    width: 390.w,
+                    height: 90.w,
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 247, 247, 247),
+                        border: Border(
+                            top: BorderSide(
+                          color: const Color.fromARGB(255, 231, 231, 231),
+                          width: 2.w,
+                          style: BorderStyle.solid,
+                        ))),
+                  ),
+                  SizedBox(width: 25.w),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                            size: 92.w,
+                            const IconData(
+                              0xe601,
+                              fontFamily: 'Iconfont',
+                            )),
+                        color: Colors.white,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        disabledColor: Colors.transparent,
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                      Text("相册", style: TextStyle(fontSize: 23.w))
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+          // Positioned(
+          //     left: 0,
+          //     right: 0,
+          //     bottom: 0,
+          //     height: 100,
+          //     child: Align(
+          //       alignment: Alignment.bottomCenter,
+          //       child: Container(
+          //         alignment: Alignment.bottomCenter,
+          //         height: 100,
+          //         color: Colors.black.withOpacity(0.4),
+          //         child: Row(
+          //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //           children: [
+          //             Expanded(child: Center(child: _buildBarcode(_barcode))),
+          //           ],
+          //         ),
+          //       ),
+          //     ))
+        )
       ],
     );
   }
