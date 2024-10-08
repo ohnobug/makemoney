@@ -128,7 +128,7 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                     fontFamily: 'Iconfont',
                                   ),
                                   title: '钱包',
-                                  subTitle: "¥ 5034593.36",
+                                  subTitle: "¥ 504593.36",
                                   onPressed: () {
                                     logger.info('点击了钱包按钮~~');
                                   },

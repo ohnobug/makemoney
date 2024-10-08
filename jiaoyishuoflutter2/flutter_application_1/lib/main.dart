@@ -30,10 +30,10 @@ void main() async {
     statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
   ));
 
-  myStore.dispatch({"type": "userinfoName", "payload": "李俊男"});
+  myStore.dispatch({"type": "userinfoName", "payload": "李俊杰"});
   myStore.dispatch({
     "type": "userinfoAvatar",
-    "payload": assetPath("images/avatar_webp/chat_103.webp")
+    "payload": assetPath("images/avatar/my.jpg")
   });
 
   runApp(

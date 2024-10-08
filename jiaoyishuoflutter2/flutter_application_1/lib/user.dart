@@ -84,8 +84,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                               borderRadius:
                                                   BorderRadius.circular(10).w,
                                               child: Image.asset(
-                                                assetPath(
-                                                    'images/avatar_webp/chat_4.webp'),
+                                                vm.userinfoAvatar as String,
                                                 width: 120.w,
                                                 height: 120.w,
                                                 fit: BoxFit.cover,
