@@ -16,6 +16,7 @@ import 'logger.dart';
 import 'user.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 // import 'package:flutter_application_1/provider.dart';
 // import 'package:provider/provider.dart';
@@ -29,6 +30,9 @@ void main() async {
     statusBarColor: Colors.transparent, // 设置状态栏透明
     statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
   ));
+
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   myStore.dispatch({"type": "userinfoName", "payload": "李俊杰"});
   myStore.dispatch({
@@ -251,6 +255,9 @@ class _CustomTabbarState extends State<CustomTabbar>
 
       logger.info(_tabController.animation!.value);
     });
+
+    // 移除开屏动画
+    FlutterNativeSplash.remove();
   }
 
   @override
