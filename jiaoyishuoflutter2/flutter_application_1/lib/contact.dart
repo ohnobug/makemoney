@@ -59,62 +59,62 @@ class _LJNContactPageState extends State<LJNContactPage> {
                 ContactInformation(
                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "新的朋友",
-                    icon: "images/avatar_webp/chat_1.webp",
+                    icon: "images/avatar/01.png",
                     link: '',
                     underline: true,
                     onPressed: () {
                       Navigator.pushNamed(context, '/chat',
                           arguments: <String, String>{
                             'title': "新的朋友",
-                            'icon': "images/avatar_webp/chat_1.webp",
+                            'icon': "images/avatar/01.png",
                           });
                     }),
                 ContactInformation(
                   id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                   title: "仅聊天的朋友",
-                  icon: "images/avatar_webp/chat_2.webp",
+                  icon: "images/avatar/02.png",
                   link: '',
                   underline: true,
                   onPressed: () {
                     Navigator.pushNamed(context, '/chat',
                         arguments: <String, String>{
                           'title': "仅聊天的朋友",
-                          'icon': "images/avatar_webp/chat_2.webp",
+                          'icon': "images/avatar/02.png",
                         });
                   },
                 ),
                 ContactInformation(
                   id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                   title: "群聊",
-                  icon: "images/avatar_webp/chat_3.webp",
+                  icon: "images/avatar/03.png",
                   link: '',
                   underline: true,
                   onPressed: () {
                     Navigator.pushNamed(context, '/chat',
                         arguments: <String, String>{
                           'title': "群聊",
-                          'icon': "images/avatar_webp/chat_3.webp",
+                          'icon': "images/avatar/03.png",
                         });
                   },
                 ),
                 ContactInformation(
                   id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                   title: "标签",
-                  icon: "images/avatar_webp/chat_4.webp",
+                  icon: "images/avatar/04.png",
                   link: '',
                   underline: true,
                   onPressed: () {
                     Navigator.pushNamed(context, '/chat',
                         arguments: <String, String>{
                           'title': "标签",
-                          'icon': "images/avatar_webp/chat_4.webp",
+                          'icon': "images/avatar/04.png",
                         });
                   },
                 ),
                 const ContactInformation(
                   id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                   title: "公众号",
-                  icon: "images/avatar_webp/chat_5.webp",
+                  icon: "images/avatar/05.png",
                   link: '',
                   underline: false,
                 ),

@@ -7,11 +7,13 @@ class LJNReceiveMessage extends StatefulWidget {
       {super.key,
       required this.message,
       required this.showName,
+      required this.friendAvatar,
       required this.name});
 
   final String name;
   final bool showName;
   final String message;
+  final String friendAvatar;
 
   @override
   State<LJNReceiveMessage> createState() => _LJNReceiveMessage();
@@ -30,7 +32,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
           ClipRRect(
               borderRadius: BorderRadius.circular(8).w,
               child: Image.asset(
-                assetPath("images/avatar_webp/chat_8.webp"),
+                widget.friendAvatar,
                 width: 78.w,
                 height: 78.w,
               )),

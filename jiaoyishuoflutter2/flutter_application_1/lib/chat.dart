@@ -10,9 +10,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'components/LJNMyMessage.dart';
 
 class LJNChatPage extends StatefulWidget {
-  const LJNChatPage({super.key, required this.title});
+  const LJNChatPage({super.key, required this.title, required this.icon});
 
   final String title;
+  final String icon;
 
   @override
   State<LJNChatPage> createState() => _LJNChatPage();
@@ -41,11 +42,6 @@ class _LJNChatPage extends State<LJNChatPage>
   late Animation<Color?> _colorAnimation;
 
   List<StatefulWidget> messageList = [
-    const LJNReceiveMessage(
-      message: '在吗？在这里干什么？',
-      showName: false,
-      name: '秋天的风',
-    ),
     // LJNMyMessage(),
     // LJNReceiveMessage(),
     // LJNMyMessage(),
@@ -65,8 +61,6 @@ class _LJNChatPage extends State<LJNChatPage>
   double _width = 0;
   Color _color = const Color.fromARGB(255, 76, 190, 102);
 
-  String title = "";
-
   @override
   void initState() {
     super.initState();
@@ -82,6 +76,13 @@ class _LJNChatPage extends State<LJNChatPage>
     // setState(() {
     //   title = arguments["title"]!;
     // });
+
+    messageList.add(LJNReceiveMessage(
+      message: '在吗？在这里干什么？',
+      showName: false,
+      friendAvatar: widget.icon,
+      name: widget.title,
+    ));
 
     _animationController = AnimationController(
       vsync: this,
