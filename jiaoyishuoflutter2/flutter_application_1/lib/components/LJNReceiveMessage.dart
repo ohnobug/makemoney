@@ -32,7 +32,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
           ClipRRect(
               borderRadius: BorderRadius.circular(8).w,
               child: Image.asset(
-                widget.friendAvatar,
+                assetPath(widget.friendAvatar),
                 width: 78.w,
                 height: 78.w,
               )),
