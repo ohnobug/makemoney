@@ -31,7 +31,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 flutter:
-  uses-material-design: true
+  uses-material-design: false
   assets:
     - assets/images/
     - assets/images/avatar/
@@ -39,6 +39,7 @@ flutter:
     - assets/images/icon_webp/
     - assets/images/icon/
     - assets/sounds/
+    - assets/lotties/
   fonts:
     # - family: SourceHanSans
     #   fonts:

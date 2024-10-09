@@ -119,16 +119,18 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
   Widget _buildBarcode(Barcode? value) {
     if (value == null) {
       return const Text(
-        'Scan something!',
+        '扫码结果',
         overflow: TextOverflow.fade,
-        style: TextStyle(color: Colors.white, fontSize: 26),
+        style: TextStyle(
+            color: Colors.white, fontSize: 26, decoration: TextDecoration.none),
       );
     }
 
     return Text(
       value.displayValue ?? 'No display value.',
       overflow: TextOverflow.fade,
-      style: const TextStyle(color: Colors.white, fontSize: 26),
+      style: const TextStyle(
+          color: Colors.white, fontSize: 26, decoration: TextDecoration.none),
     );
   }
 
@@ -239,7 +241,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
               // 中间扫码框
               Expanded(
                 flex: 919,
-                child: Container(
+                child: SizedBox(
                   // color: Color.fromARGB(193, 247, 0, 0),
                   height: 690.w,
                   width: 640.w,
@@ -290,7 +292,10 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                       ),
                       Text(
                         "轻触照亮",
-                        style: TextStyle(fontSize: 25.w),
+                        style: TextStyle(
+                            fontSize: 25.w,
+                            color: Colors.white,
+                            decoration: TextDecoration.none),
                       )
                     ],
                   ),
@@ -325,7 +330,10 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                           ),
                           Text(
                             "我的二维码",
-                            style: TextStyle(fontSize: 23.w),
+                            style: TextStyle(
+                                fontSize: 23.w,
+                                color: Colors.white,
+                                decoration: TextDecoration.none),
                           )
                         ],
                       ),
@@ -362,7 +370,11 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                             disabledColor: Colors.transparent,
                             onPressed: () => Navigator.of(context).pop(),
                           ),
-                          Text("相册", style: TextStyle(fontSize: 23.w))
+                          Text("相册",
+                              style: TextStyle(
+                                  fontSize: 23.w,
+                                  color: Colors.white,
+                                  decoration: TextDecoration.none))
                         ],
                       ),
                     ],

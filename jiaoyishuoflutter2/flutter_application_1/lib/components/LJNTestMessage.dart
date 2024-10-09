@@ -99,8 +99,6 @@ class _LJNTestMessage extends State<LJNTestMessage>
                               fit: BoxFit.fill,
                               controller: _controller,
                               onLoaded: (composition) {
-                                // Configure the AnimationController with the duration of the
-                                // Lottie file and start the animation.
                                 _controller
                                   ..duration = composition.duration
                                   ..forward();
