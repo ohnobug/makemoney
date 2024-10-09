@@ -21,10 +21,8 @@ Depends on all your plugins, and provides a function to register them.
   s.dependency 'Flutter'
   s.dependency 'audioplayers_darwin'
   s.dependency 'device_info_plus'
-  s.dependency 'flutter_native_splash'
   s.dependency 'mobile_scanner'
   s.dependency 'path_provider_foundation'
-  s.dependency 'status_bar_control'
   s.dependency 'vibration'
   s.dependency 'video_player_avfoundation'
 end

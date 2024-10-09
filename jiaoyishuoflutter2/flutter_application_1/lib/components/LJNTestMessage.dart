@@ -92,17 +92,23 @@ class _LJNTestMessage extends State<LJNTestMessage>
                                 borderRadius: BorderRadius.circular(8).w),
                             padding: EdgeInsets.symmetric(
                                 horizontal: 25.w, vertical: 18.w),
-                            child: Lottie.asset(
-                              assetPath('lotties/Animation1.json'),
-                              width: 300.w,
-                              height: 300.w,
-                              fit: BoxFit.fill,
-                              controller: _controller,
-                              onLoaded: (composition) {
-                                _controller
-                                  ..duration = composition.duration
-                                  ..forward();
+                            child: GestureDetector(
+                              onTap: () {
+                                _controller.reset();
+                                _controller.forward();
                               },
+                              child: Lottie.asset(
+                                assetPath('lotties/Animation1.json'),
+                                width: 300.w,
+                                height: 300.w,
+                                fit: BoxFit.fill,
+                                controller: _controller,
+                                onLoaded: (composition) {
+                                  _controller
+                                    ..duration = composition.duration
+                                    ..forward();
+                                },
+                              ),
                             ),
                           )),
 
