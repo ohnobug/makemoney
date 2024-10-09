@@ -17,12 +17,13 @@ dependencies:
   google_fonts: ^6.2.1
   vibration: ^2.0.0
   qr_flutter: ^4.1.0
-  mobile_scanner: ^5.2.3
+  mobile_scanner: ^6.0.0
   audioplayers: ^6.1.0
   fullscreen_window: ^1.1.0
   status_bar_control: ^3.2.1
   video_player: ^2.9.1
   flutter_native_splash: ^2.4.1
+  lottie: ^3.1.2
 
 dev_dependencies:
   flutter_test:

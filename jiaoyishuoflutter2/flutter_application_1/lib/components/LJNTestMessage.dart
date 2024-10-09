@@ -3,9 +3,10 @@ import 'package:flutter_application_1/store.dart';
 import 'package:flutter_application_1/tools/tools.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
-class LJNMyMessage extends StatefulWidget {
-  const LJNMyMessage(
+class LJNTestMessage extends StatefulWidget {
+  const LJNTestMessage(
       {super.key,
       required this.message,
       required this.showName,
@@ -16,10 +17,26 @@ class LJNMyMessage extends StatefulWidget {
   final String message;
 
   @override
-  State<LJNMyMessage> createState() => _LJNMyMessage();
+  State<LJNTestMessage> createState() => _LJNTestMessage();
 }
 
-class _LJNMyMessage extends State<LJNMyMessage> {
+class _LJNTestMessage extends State<LJNTestMessage>
+    with TickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = AnimationController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // 对方发的消息
@@ -75,28 +92,19 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                                 borderRadius: BorderRadius.circular(8).w),
                             padding: EdgeInsets.symmetric(
                                 horizontal: 25.w, vertical: 18.w),
-                            child: 
-                            // Text.rich(
-                            //   TextSpan(
-                            //     children: [
-                            //       TextSpan(text: 'Click'),
-                            //       WidgetSpan(
-                            //           child: Icon(
-                            //         Icons.add,
-                            //         color: Colors.amber,
-                            //       )),
-                            //       TextSpan(text: 'to add'),
-                            //     ],
-                            //   ),
-                            // ),
-
-                            Text(
-                              softWrap: true,
-                              maxLines: 1000,
-                              overflow: TextOverflow.ellipsis,
-                              widget.message,
-                              style: TextStyle(
-                                  fontSize: 30.w, color: Colors.black),
+                            child: Lottie.asset(
+                              assetPath('lotties/Animation1.json'),
+                              width: 300.w,
+                              height: 300.w,
+                              fit: BoxFit.fill,
+                              controller: _controller,
+                              onLoaded: (composition) {
+                                // Configure the AnimationController with the duration of the
+                                // Lottie file and start the animation.
+                                _controller
+                                  ..duration = composition.duration
+                                  ..forward();
+                              },
                             ),
                           )),
 

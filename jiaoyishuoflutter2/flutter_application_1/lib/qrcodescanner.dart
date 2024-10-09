@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/logger.dart';
+import 'package:flutter_application_1/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'dart:async';
@@ -13,7 +15,8 @@ class LJNQRCodeScanner extends StatefulWidget {
   State<LJNQRCodeScanner> createState() => _LJNQRCodeScannerState();
 }
 
-class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
+class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
+    with SingleTickerProviderStateMixin {
   Barcode? _barcode;
 
   // 音频播放器
@@ -25,14 +28,71 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
     returnImage: true,
   );
 
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  late Animation<double> _opacityAnimation;
+  double _statusHeight = 0;
+
   @override
   void initState() {
     super.initState();
+
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // 设置状态栏透明
       statusBarIconBrightness: Brightness.light, // 设置状态栏图标颜色
     ));
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 3000),
+    );
+
+    _animation = Tween<double>(begin: 0.w, end: 690.w).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.linear,
+      ),
+    );
+
+    // 使用 TweenSequence 创建分为三个阶段的透明度动画
+    _opacityAnimation = TweenSequence([
+      // 入场阶段: 透明度从 0.0 增加到 1.0
+      TweenSequenceItem(
+        tween: Tween<double>(begin: 0.0, end: 1.0)
+            .chain(CurveTween(curve: Curves.easeIn)),
+        weight: 1.0, // 这里可以调整时间比例
+      ),
+      // 保持阶段: 透明度保持在 1.0
+      TweenSequenceItem(
+        tween: ConstantTween<double>(1.0), // 保持不变
+        weight: 8.0, // 这个阶段的时间
+      ),
+      // 退出阶段: 透明度从 1.0 减少到 0.0
+      TweenSequenceItem(
+        tween: Tween<double>(begin: 1.0, end: 0.0)
+            .chain(CurveTween(curve: Curves.easeOut)),
+        weight: 1.0, // 退出阶段的时间比例
+      ),
+    ]).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.linear, // 整体动画的曲线
+      ),
+    );
+
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _controller.reset();
+        _controller.forward();
+      }
+    });
+    _controller.forward();
 
     player = AudioPlayer();
     player.setReleaseMode(ReleaseMode.stop);
@@ -51,6 +111,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
     ));
 
     player.dispose();
+    _controller.dispose();
     await controller.dispose();
     super.dispose();
   }
@@ -127,9 +188,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
         Positioned.fill(
           child: Column(
             children: [
-              SizedBox(
-                height: 25.w,
-              ),
+              SizedBox(height: _statusHeight),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -174,29 +233,43 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 200.w,
+              ),
               // 中间扫码框
               Expanded(
-                  flex: 919,
-                  child: Center(
-                    child: Container(
-                      height: 690.w,
-                      width: 640.w,
-                      // margin: EdgeInsets.only(top: 235.w),
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(160, 168, 168, 168),
-                          border: Border.all(
-                            color: const Color.fromARGB(255, 231, 231, 231),
-                            width: 2.w,
-                            style: BorderStyle.solid,
-                          )),
-                      child: null,
-                    ),
-                  )),
+                flex: 919,
+                child: Container(
+                  // color: Color.fromARGB(193, 247, 0, 0),
+                  height: 690.w,
+                  width: 640.w,
+                  child: Stack(
+                    children: [
+                      AnimatedBuilder(
+                        animation: _animation,
+                        builder: (context, child) {
+                          return Positioned(
+                              left: 0,
+                              top: _animation.value,
+                              child: FadeTransition(
+                                  opacity: _opacityAnimation, // 透明度动画
+                                  child: Image.asset(
+                                    assetPath('images/avatar/scaner_line.png'),
+                                    width: 640.w,
+                                    // height: 20.w,
+                                    fit: BoxFit.fitWidth,
+                                  )));
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              ),
               // 轻触照亮按钮
               Expanded(
                 flex: 295,
                 child: Container(
-                  color: const Color.fromARGB(159, 72, 255, 0),
+                  // color: const Color.fromARGB(159, 72, 255, 0),
                   // height: 295.w,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -223,92 +296,103 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
                   ),
                 ),
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+
+              // 两按钮
+              Padding(
+                  padding: EdgeInsets.only(left: 25.w, right: 25.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      IconButton(
-                        icon: Icon(
-                            size: 92.w,
-                            const IconData(
-                              0xe601,
-                              fontFamily: 'Iconfont',
-                            )),
-                        color: Colors.white,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        disabledColor: Colors.transparent,
-                        onPressed: () => Navigator.of(context).pop(),
+                      // 我的二维码
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                                size: 92.w,
+                                const IconData(
+                                  0xe601,
+                                  fontFamily: 'Iconfont',
+                                )),
+                            color: Colors.white,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            disabledColor: Colors.transparent,
+                            onPressed: () => Navigator.of(context).pop(),
+                          ),
+                          Text(
+                            "我的二维码",
+                            style: TextStyle(fontSize: 23.w),
+                          )
+                        ],
                       ),
-                      Text(
-                        "我的二维码",
-                        style: TextStyle(fontSize: 23.w),
-                      )
-                    ],
-                  ),
-                  SizedBox(width: 25.w),
-                  Container(
-                    width: 390.w,
-                    height: 90.w,
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 247, 247, 247),
-                        border: Border(
-                            top: BorderSide(
-                          color: const Color.fromARGB(255, 231, 231, 231),
-                          width: 2.w,
-                          style: BorderStyle.solid,
-                        ))),
-                  ),
-                  SizedBox(width: 25.w),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                            size: 92.w,
-                            const IconData(
-                              0xe601,
-                              fontFamily: 'Iconfont',
-                            )),
-                        color: Colors.white,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        disabledColor: Colors.transparent,
-                        onPressed: () => Navigator.of(context).pop(),
+
+                      Container(
+                        width: 390.w,
+                        height: 90.w,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 247, 247, 247),
+                            border: Border(
+                                top: BorderSide(
+                              color: const Color.fromARGB(255, 231, 231, 231),
+                              width: 2.w,
+                              style: BorderStyle.solid,
+                            ))),
                       ),
-                      Text("相册", style: TextStyle(fontSize: 23.w))
+
+                      // 相册按钮
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                                size: 92.w,
+                                const IconData(
+                                  0xe601,
+                                  fontFamily: 'Iconfont',
+                                )),
+                            color: Colors.white,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            disabledColor: Colors.transparent,
+                            onPressed: () => Navigator.of(context).pop(),
+                          ),
+                          Text("相册", style: TextStyle(fontSize: 23.w))
+                        ],
+                      ),
                     ],
-                  ),
-                ],
+                  )),
+
+              SizedBox(
+                height: 35.w,
               ),
+
+              Container(
+                  color: Color.fromARGB(162, 0, 0, 0),
+                  width: 750.w,
+                  height: 135.w,
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      height: 100,
+                      color: Colors.black.withOpacity(0.4),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                              child: Center(child: _buildBarcode(_barcode))),
+                        ],
+                      ),
+                    ),
+                  ))
             ],
           ),
-
-          // Positioned(
-          //     left: 0,
-          //     right: 0,
-          //     bottom: 0,
-          //     height: 100,
-          //     child: Align(
-          //       alignment: Alignment.bottomCenter,
-          //       child: Container(
-          //         alignment: Alignment.bottomCenter,
-          //         height: 100,
-          //         color: Colors.black.withOpacity(0.4),
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //           children: [
-          //             Expanded(child: Center(child: _buildBarcode(_barcode))),
-          //           ],
-          //         ),
-          //       ),
-          //     ))
         )
       ],
     );

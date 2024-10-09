@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/components/LJNReceiveMessage.dart';
+import 'package:flutter_application_1/components/LJNTestMessage.dart';
 import 'package:flutter_application_1/logger.dart';
 import 'package:flutter_application_1/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -81,6 +82,13 @@ class _LJNChatPage extends State<LJNChatPage>
       message: '在吗？在这里干什么？',
       showName: false,
       friendAvatar: widget.icon,
+      name: widget.title,
+    ));
+
+    messageList.add(LJNTestMessage(
+      message: '在吗？在这里干什么？',
+      showName: false,
+      // friendAvatar: widget.icon,
       name: widget.title,
     ));
 

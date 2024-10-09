@@ -13,7 +13,7 @@ class _LJNTimeMessage extends State<LJNTimeMessage> {
   Widget build(BuildContext context) {
     // 对方发的消息
     return Container(
-      padding: const EdgeInsets.all(22).w,
+      padding: EdgeInsets.only(left: 22.w, right: 22.w, top: 22.w),
       child: const Text("2024年9月29日00:48:46"),
     );
   }
