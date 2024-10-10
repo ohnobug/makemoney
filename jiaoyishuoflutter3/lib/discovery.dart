@@ -26,7 +26,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
     } else {
       _statusHeight = MediaQuery.of(context).padding.top;
     }
-    
+
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
 
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -50,7 +50,8 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
         child: ColoredBox(
             color: const Color.fromARGB(255, 237, 237, 237),
             child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+                physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics()),
                 child: Column(children: [
                   SizedBox(height: _statusHeight + 90.w),
 
@@ -352,7 +353,10 @@ class _FunctionItemState extends State<FunctionItem> {
                     Container(
                         margin: const EdgeInsets.only(right: 32).w,
                         child: Icon(
-                          Icons.arrow_forward_ios,
+                          const IconData(
+                            0xed9d,
+                            fontFamily: 'Iconfont',
+                          ),
                           size: 26.0.w,
                           color: const Color.fromARGB(255, 170, 170, 170),
                         ))

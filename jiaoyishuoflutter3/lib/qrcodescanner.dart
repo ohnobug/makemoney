@@ -38,7 +38,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
     super.initState();
 
     if (kIsWeb) {
-      _statusHeight = 0;
+      _statusHeight = 30.w;
     } else {
       _statusHeight = MediaQuery.of(context).padding.top;
     }
@@ -53,7 +53,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
       duration: const Duration(milliseconds: 3000),
     );
 
-    _animation = Tween<double>(begin: 0.w, end: 690.w).animate(
+    _animation = Tween<double>(begin: 0.0, end: 690.h).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Curves.linear,
@@ -118,19 +118,21 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
 
   Widget _buildBarcode(Barcode? value) {
     if (value == null) {
-      return const Text(
+      return Text(
         '扫码结果',
         overflow: TextOverflow.fade,
         style: TextStyle(
-            color: Colors.white, fontSize: 26, decoration: TextDecoration.none),
+            color: Colors.white,
+            fontSize: 26.w,
+            decoration: TextDecoration.none),
       );
     }
 
     return Text(
       value.displayValue ?? 'No display value.',
       overflow: TextOverflow.fade,
-      style: const TextStyle(
-          color: Colors.white, fontSize: 26, decoration: TextDecoration.none),
+      style: TextStyle(
+          color: Colors.white, fontSize: 26.w, decoration: TextDecoration.none),
     );
   }
 
@@ -191,59 +193,58 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
           child: Column(
             children: [
               SizedBox(height: _statusHeight),
+
+              // 顶层的两按钮
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 38.w),
+                    margin: EdgeInsets.only(left: 39.w),
                     width: 45.w,
                     height: 45.w,
-                    child: IconButton(
-                      icon: Icon(
-                          size: 45.w,
-                          const IconData(
-                            0xe601,
-                            fontFamily: 'Iconfont',
-                          )),
-                      color: Colors.white,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      disabledColor: Colors.transparent,
-                      onPressed: () => Navigator.of(context).pop(),
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(), // 点击事件
+                      child: Icon(
+                        const IconData(
+                          0xe601,
+                          fontFamily: 'Iconfont',
+                        ),
+                        size: 45.w, // 图标的大小
+                        color: Colors.white, // 图标颜色
+                      ),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(right: 38.w),
+                    margin: EdgeInsets.only(right: 39.w),
                     width: 45.w,
                     height: 45.w,
-                    child: IconButton(
-                      icon: Icon(
-                          size: 45.w,
-                          const IconData(
-                            0xe659,
-                            fontFamily: 'Iconfont',
-                          )),
-                      color: Colors.white,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      disabledColor: Colors.transparent,
-                      onPressed: () => Navigator.of(context).pop(),
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(), // 点击事件
+                      child: Icon(
+                        const IconData(
+                          0xe609,
+                          fontFamily: 'Iconfont',
+                        ),
+                        size: 45.w, // 图标的大小
+                        color: Colors.white, // 图标颜色
+                      ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 200.w,
-              ),
+
+              // SizedBox(
+              //   height: 200.w,
+              // ),
+
               // 中间扫码框
               Expanded(
                 flex: 919,
-                child: SizedBox(
+                child: Center(
+                    child: SizedBox(
                   // color: Color.fromARGB(193, 247, 0, 0),
-                  height: 690.w,
+                  height: 690.h,
                   width: 640.w,
                   child: Stack(
                     children: [
@@ -265,40 +266,57 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                       )
                     ],
                   ),
-                ),
+                )),
               ),
+
               // 轻触照亮按钮
               Expanded(
                 flex: 295,
-                child: Container(
-                  // color: const Color.fromARGB(159, 72, 255, 0),
-                  // height: 295.w,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                            size: 80.w,
-                            const IconData(
-                              0xe601,
-                              fontFamily: 'Iconfont',
-                            )),
-                        color: Colors.white,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        disabledColor: Colors.transparent,
-                        onPressed: () => Navigator.of(context).pop(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 77.w, // 容器宽度
+                      height: 77.w, // 容器高度
+                      decoration: const BoxDecoration(
+                        color: Colors.transparent, // 容器背景颜色
                       ),
-                      Text(
-                        "轻触照亮",
-                        style: TextStyle(
-                            fontSize: 25.w,
-                            color: Colors.white,
-                            decoration: TextDecoration.none),
-                      )
-                    ],
-                  ),
+                      child: Center(
+                        // 使图标居中
+                        child: GestureDetector(
+                          onTap: () => Navigator.of(context).pop(), // 点击事件
+                          child: Icon(
+                            const IconData(
+                              0xe615,
+                              fontFamily: 'Iconfont',
+                            ),
+                            size: 60.w, // 图标大小
+                            color: Colors.white, // 图标颜色
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30.w,
+                    ),
+                    Text(
+                      "轻触照亮",
+                      style: TextStyle(
+                          fontSize: 25.w,
+                          color: Colors.white,
+                          decoration: TextDecoration.none),
+                    ),
+                    Text(
+                      "识别二维码 / 花草 / 动物 / 商品等",
+                      style: TextStyle(
+                          fontSize: 25.w,
+                          color: Colors.white,
+                          decoration: TextDecoration.none),
+                    ),
+                    SizedBox(
+                      height: 30.w,
+                    ),
+                  ],
                 ),
               ),
 
@@ -314,27 +332,34 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          IconButton(
-                            icon: Icon(
-                                size: 92.w,
-                                const IconData(
-                                  0xe601,
-                                  fontFamily: 'Iconfont',
-                                )),
-                            color: Colors.white,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            disabledColor: Colors.transparent,
-                            onPressed: () => Navigator.of(context).pop(),
+                          Container(
+                              width: 90.w,
+                              height: 90.w,
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(255, 76, 76, 76),
+                                shape: BoxShape
+                                    .circle, // Makes the container circular
+                              ),
+                              child: GestureDetector(
+                                onTap: () =>
+                                    Navigator.of(context).pop(), // 点击事件
+                                child: Icon(
+                                  const IconData(
+                                    0xe64b,
+                                    fontFamily: 'Iconfont',
+                                  ),
+                                  size: 30.w, // 图标的大小
+                                  color: Colors.white, // 图标颜色
+                                ),
+                              )),
+                          SizedBox(
+                            height: 9.w,
                           ),
-                          Text(
-                            "我的二维码",
-                            style: TextStyle(
-                                fontSize: 23.w,
-                                color: Colors.white,
-                                decoration: TextDecoration.none),
-                          )
+                          Text("我的二维码",
+                              style: TextStyle(
+                                  fontSize: 22.w,
+                                  color: Colors.white,
+                                  decoration: TextDecoration.none))
                         ],
                       ),
 
@@ -342,13 +367,9 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                         width: 390.w,
                         height: 90.w,
                         decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 247, 247, 247),
-                            border: Border(
-                                top: BorderSide(
-                              color: const Color.fromARGB(255, 231, 231, 231),
-                              width: 2.w,
-                              style: BorderStyle.solid,
-                            ))),
+                          color: const Color.fromARGB(255, 247, 247, 247),
+                          borderRadius: BorderRadius.circular(12.w),
+                        ),
                       ),
 
                       // 相册按钮
@@ -356,23 +377,32 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          IconButton(
-                            icon: Icon(
-                                size: 92.w,
-                                const IconData(
-                                  0xe601,
-                                  fontFamily: 'Iconfont',
-                                )),
-                            color: Colors.white,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            disabledColor: Colors.transparent,
-                            onPressed: () => Navigator.of(context).pop(),
+                          Container(
+                              width: 90.w,
+                              height: 90.w,
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(255, 76, 76, 76),
+                                shape: BoxShape
+                                    .circle, // Makes the container circular
+                              ),
+                              child: GestureDetector(
+                                onTap: () =>
+                                    Navigator.of(context).pop(), // 点击事件
+                                child: Icon(
+                                  const IconData(
+                                    0xe6ba,
+                                    fontFamily: 'Iconfont',
+                                  ),
+                                  size: 30.w, // 图标的大小
+                                  color: Colors.white, // 图标颜色
+                                ),
+                              )),
+                          SizedBox(
+                            height: 9.w,
                           ),
                           Text("相册",
                               style: TextStyle(
-                                  fontSize: 23.w,
+                                  fontSize: 22.w,
                                   color: Colors.white,
                                   decoration: TextDecoration.none))
                         ],
@@ -392,7 +422,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       alignment: Alignment.bottomCenter,
-                      height: 100,
+                      height: 135.w,
                       color: Colors.black.withOpacity(0.4),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

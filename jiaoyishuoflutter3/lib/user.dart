@@ -141,8 +141,11 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                             SizedBox(
                                                                 width: 43.w),
                                                             Icon(
-                                                              Icons
-                                                                  .arrow_forward_ios,
+                                                              const IconData(
+                                                                0xed9d,
+                                                                fontFamily:
+                                                                    'Iconfont',
+                                                              ),
                                                               size: 28.w,
                                                               color: const Color
                                                                   .fromARGB(
@@ -547,7 +550,10 @@ class _FunctionItemState extends State<FunctionItem> {
                     Container(
                         margin: const EdgeInsets.only(right: 35).w,
                         child: Icon(
-                          Icons.arrow_forward_ios,
+                          const IconData(
+                            0xed9d,
+                            fontFamily: 'Iconfont',
+                          ),
                           size: 26.0.w,
                           color: const Color.fromARGB(255, 170, 170, 170),
                         ))

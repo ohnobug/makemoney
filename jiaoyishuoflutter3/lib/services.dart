@@ -37,18 +37,16 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                 color: const Color.fromARGB(255, 237, 237, 237),
                 padding: EdgeInsets.only(top: _statusHeight),
                 child: AppBar(
-                  leading: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.black,
-                      size: 36.w,
+                  leading: GestureDetector(
+                    onTap: () => Navigator.of(context).pop(), // 点击事件
+                    child: Icon(
+                      const IconData(
+                        0xed9e,
+                        fontFamily: 'Iconfont',
+                      ), // 使用的图标
+                      color: Colors.black, // 图标颜色
+                      size: 36.w, // 图标大小
                     ),
-                    color: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    disabledColor: Colors.transparent,
-                    onPressed: () => Navigator.of(context).pop(),
                   ),
                   primary: false,
                   centerTitle: true,
@@ -69,17 +67,20 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                   // ),
                   actions: [
                     // 三个点
-                    IconButton(
-                      icon: Icon(
-                          size: 37.w,
+                    GestureDetector(
+                      onTap: () {
+                        // 点击事件
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                        child: Icon(
                           const IconData(
                             0xe659,
                             fontFamily: 'Iconfont',
-                          )),
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      padding: const EdgeInsets.only(right: 33.0).w,
-                      onPressed: () {},
+                          ),
+                          size: 37.w, // 图标大小
+                        ),
+                      ),
                     ),
                   ],
                 ))),

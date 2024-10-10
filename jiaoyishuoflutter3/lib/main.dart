@@ -33,14 +33,12 @@ void main() async {
     statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
   ));
 
-  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();  
+  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   myStore.dispatch({"type": "userinfoName", "payload": "李俊杰"});
-  myStore.dispatch({
-    "type": "userinfoAvatar",
-    "payload": assetPath("images/avatar/my.jpg")
-  });
+  myStore.dispatch(
+      {"type": "userinfoAvatar", "payload": assetPath("images/avatar/my.jpg")});
 
   runApp(
     const TabBarApp(),
@@ -451,31 +449,26 @@ class _CustomTabbarState extends State<CustomTabbar>
                               foregroundColor:
                                   const Color.fromARGB(255, 237, 237, 237),
                               actions: [
-                                IconButton(
-                                  icon: Icon(
-                                      size: 37.w,
+                                GestureDetector(
+                                  onTap: () {
+                                    if (homescrollpixels == 0) {
+                                      // 处理逻辑
+                                    }
+                                  },
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.only(right: 20.w), // 设置右侧内边距
+                                    child: Icon(
                                       const IconData(
                                         0xe612,
                                         fontFamily: 'Iconfont',
-                                      )),
-                                  highlightColor: Colors.transparent,
-                                  splashColor: Colors.transparent,
-                                  padding: const EdgeInsets.only(right: 20.0).w,
-                                  onPressed: () {
-                                    if (homescrollpixels == 0) {}
-                                  },
+                                      ),
+                                      size: 37.w, // 图标大小
+                                    ),
+                                  ),
                                 ),
-                                IconButton(
-                                  icon: Icon(
-                                      size: 40.w,
-                                      const IconData(
-                                        0xe726,
-                                        fontFamily: 'Iconfont',
-                                      )),
-                                  highlightColor: Colors.transparent,
-                                  splashColor: Colors.transparent,
-                                  padding: const EdgeInsets.only(right: 33.0).w,
-                                  onPressed: () {
+                                GestureDetector(
+                                  onTap: () {
                                     if (homescrollpixels == 0) {
                                       vm.showpopup = !vm.showpopup!;
                                       myStore.dispatch({
@@ -484,6 +477,17 @@ class _CustomTabbarState extends State<CustomTabbar>
                                       });
                                     }
                                   },
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                                    child: Icon(
+                                      const IconData(
+                                        0xe726,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      size: 40.w, // 图标大小
+                                    ),
+                                  ),
                                 ),
                               ],
                             )

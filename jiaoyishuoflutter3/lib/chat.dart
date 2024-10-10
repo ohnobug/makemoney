@@ -163,18 +163,16 @@ class _LJNChatPage extends State<LJNChatPage>
                   color: const Color.fromARGB(255, 237, 237, 237),
                   padding: EdgeInsets.only(top: _statusHeight),
                   child: AppBar(
-                    leading: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.black,
-                        size: 36.w,
+                    leading: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(), // 点击事件
+                      child: Icon(
+                        const IconData(
+                          0xed9e,
+                          fontFamily: 'Iconfont',
+                        ), // 使用的图标
+                        color: Colors.black, // 图标颜色
+                        size: 36.w, // 图标大小
                       ),
-                      color: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      disabledColor: Colors.transparent,
-                      onPressed: () => Navigator.of(context).pop(),
                     ),
                     primary: false,
                     centerTitle: true,
@@ -195,17 +193,20 @@ class _LJNChatPage extends State<LJNChatPage>
                     ),
                     actions: [
                       // 三个点
-                      IconButton(
-                        icon: Icon(
-                            size: 37.w,
+                      GestureDetector(
+                        onTap: () {
+                          // 点击事件
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                          child: Icon(
                             const IconData(
                               0xe659,
                               fontFamily: 'Iconfont',
-                            )),
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        padding: const EdgeInsets.only(right: 33.0).w,
-                        onPressed: () {},
+                            ),
+                            size: 37.w, // 图标大小
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -261,19 +262,17 @@ class _LJNChatPage extends State<LJNChatPage>
                                 height: 57.w,
                                 margin: EdgeInsets.only(
                                     left: 20.w, right: 20.w, bottom: 10.w),
-                                child: IconButton(
-                                  icon: Icon(
-                                      size: 56.w,
-                                      const IconData(
-                                        0xe66c,
-                                        fontFamily: 'Iconfont',
-                                      )),
-                                  highlightColor: Colors.transparent,
-                                  splashColor: Colors.transparent,
-                                  padding: const EdgeInsets.all(0).w,
-                                  onPressed: () {
-                                    logger.info("语音被点击");
+                                child: GestureDetector(
+                                  onTap: () {
+                                    logger.info("语音被点击"); // 点击事件
                                   },
+                                  child: Icon(
+                                    const IconData(
+                                      0xe66c,
+                                      fontFamily: 'Iconfont',
+                                    ),
+                                    size: 56.w, // 图标大小
+                                  ),
                                 )),
                             // 消息框
                             Expanded(
@@ -332,25 +331,24 @@ class _LJNChatPage extends State<LJNChatPage>
                               ),
                             )),
                             Container(
-                                // color: Colors.amber,
-                                width: 57.w,
-                                height: 57.w,
-                                margin: EdgeInsets.only(
-                                    left: 20.w, right: 25.w, bottom: 10.w),
-                                child: IconButton(
-                                  icon: Icon(
-                                      size: 49.w,
-                                      const IconData(
-                                        0xe702,
-                                        fontFamily: 'Iconfont',
-                                      )),
-                                  highlightColor: Colors.transparent,
-                                  splashColor: Colors.transparent,
-                                  padding: const EdgeInsets.all(0),
-                                  onPressed: () {
-                                    logger.info("笑脸被点击");
-                                  },
-                                )),
+                              // color: Colors.amber,
+                              width: 57.w,
+                              height: 57.w,
+                              margin: EdgeInsets.only(
+                                  left: 20.w, right: 25.w, bottom: 10.w),
+                              child: GestureDetector(
+                                onTap: () {
+                                  logger.info("笑脸被点击"); // 点击事件
+                                },
+                                child: Icon(
+                                  const IconData(
+                                    0xe702,
+                                    fontFamily: 'Iconfont',
+                                  ),
+                                  size: 49.w, // 图标大小
+                                ),
+                              ),
+                            ),
                             AnimatedBuilder(
                               animation: _animationController,
                               builder: (context, child) {
@@ -413,19 +411,17 @@ class _LJNChatPage extends State<LJNChatPage>
                                     height: 57.w,
                                     margin: EdgeInsets.only(
                                         right: 20.w, bottom: 10.w),
-                                    child: IconButton(
-                                      icon: Icon(
-                                          size: 57.w,
-                                          const IconData(
-                                            0xe726,
-                                            fontFamily: 'Iconfont',
-                                          )),
-                                      highlightColor: Colors.transparent,
-                                      splashColor: Colors.transparent,
-                                      padding: const EdgeInsets.all(0),
-                                      onPressed: () {
-                                        logger.info("加号被点击");
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        logger.info("加号被点击"); // 点击事件
                                       },
+                                      child: Icon(
+                                        const IconData(
+                                          0xe726,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        size: 57.w, // 图标大小
+                                      ),
                                     )))
                           ],
                         )))
