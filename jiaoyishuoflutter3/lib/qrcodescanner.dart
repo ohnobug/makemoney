@@ -53,7 +53,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
       duration: const Duration(milliseconds: 3000),
     );
 
-    _animation = Tween<double>(begin: 0.0, end: 690.h).animate(
+    _animation = Tween<double>(begin: 0.0, end: 690.w).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Curves.linear,
@@ -242,9 +242,9 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
               Expanded(
                 flex: 4,
                 child: Center(
-                    child: Container(
-                  color: const Color.fromARGB(193, 247, 0, 0),
-                  height: 300.h,
+                    child: SizedBox(
+                  // color: const Color.fromARGB(193, 247, 0, 0),
+                  height: 690.w,
                   width: 640.w,
                   child: Stack(
                     children: [
@@ -358,7 +358,8 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                           Text("我的二维码",
                               style: TextStyle(
                                   fontSize: 22.w,
-                                  color: Colors.white,
+                                  color:
+                                      const Color.fromARGB(255, 209, 209, 209),
                                   decoration: TextDecoration.none))
                         ],
                       ),
@@ -415,7 +416,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
               ),
 
               Container(
-                  color: Color.fromARGB(162, 0, 0, 0),
+                  color: const Color.fromARGB(162, 0, 0, 0),
                   width: 750.w,
                   height: 135.w,
                   child: Align(
