@@ -240,11 +240,11 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
 
               // 中间扫码框
               Expanded(
-                flex: 919,
+                flex: 4,
                 child: Center(
-                    child: SizedBox(
-                  // color: Color.fromARGB(193, 247, 0, 0),
-                  height: 690.h,
+                    child: Container(
+                  color: const Color.fromARGB(193, 247, 0, 0),
+                  height: 300.h,
                   width: 640.w,
                   child: Stack(
                     children: [
@@ -271,7 +271,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
 
               // 轻触照亮按钮
               Expanded(
-                flex: 295,
+                flex: 1,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
