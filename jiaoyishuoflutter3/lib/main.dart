@@ -10,6 +10,7 @@ import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
+import 'package:jiaoyishuoflutter3/wallet.dart';
 import 'package:vibration/vibration.dart';
 import 'contact.dart';
 import 'logger.dart';
@@ -146,6 +147,25 @@ class TabBarApp extends StatelessWidget {
                           (context, animation, secondaryAnimation, child) {
                         // No transition animation
                         return child;
+                      },
+                    );
+                  } else if (settings.name == '/wallet') {
+                    return PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          const LJNWalletPage(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.ease;
+
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+
+                        return SlideTransition(
+                          position: animation.drive(tween),
+                          child: child,
+                        );
                       },
                     );
                   }
@@ -440,7 +460,9 @@ class _CustomTabbarState extends State<CustomTabbar>
                               title: appBarTitle,
                               centerTitle: true,
                               titleTextStyle: TextStyle(
-                                  fontSize: 32.w, color: Colors.black),
+                                  fontSize: 30.w,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500),
                               toolbarHeight: 90.w,
                               elevation: 0,
                               scrolledUnderElevation: 0,
@@ -455,7 +477,9 @@ class _CustomTabbarState extends State<CustomTabbar>
                                       // 处理逻辑
                                     }
                                   },
-                                  child: Padding(
+                                  child: Container(
+                                    color: Colors.transparent,
+                                    height: 90.w,
                                     padding:
                                         EdgeInsets.only(right: 33.w), // 设置右侧内边距
                                     child: Icon(
@@ -477,7 +501,9 @@ class _CustomTabbarState extends State<CustomTabbar>
                                       });
                                     }
                                   },
-                                  child: Padding(
+                                  child: Container(
+                                    color: Colors.transparent,
+                                    height: 90.w,
                                     padding:
                                         EdgeInsets.only(right: 40.w), // 设置右侧内边距
                                     child: Icon(

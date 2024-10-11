@@ -5,7 +5,9 @@ import 'package:redux/redux.dart';
 final ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   appBarTheme: const AppBarTheme(
-      titleTextStyle: TextStyle(color: Colors.black),
+      // titleTextStyle: TextStyle(
+      //   fontSize: 30.w,
+      //     color: Color.fromARGB(255, 157, 17, 17), fontWeight: FontWeight.w500),
       iconTheme: IconThemeData(color: Colors.black)),
   colorScheme: const ColorScheme.light(
     primaryContainer: Colors.white,
@@ -19,7 +21,9 @@ final ThemeData lightTheme = ThemeData(
 final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     appBarTheme: const AppBarTheme(
-        titleTextStyle: TextStyle(color: Colors.black),
+        // titleTextStyle: TextStyle(
+        //     color: Color.fromARGB(255, 157, 17, 17),
+        //     fontWeight: FontWeight.w500),
         iconTheme: IconThemeData(color: Colors.black)),
     colorScheme: const ColorScheme.dark(
       primaryContainer: Colors.black,
@@ -101,6 +105,10 @@ class StoreType {
 }
 
 StoreType counterReducer(StoreType state, dynamic action) {
+  if (action['type'] == "themeData") {
+    return state.copyWith(themeData: action['payload']);
+  }
+
   if (action['type'] == "userinfoName") {
     return state.copyWith(userinfoName: action['payload']);
   }

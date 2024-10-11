@@ -38,7 +38,9 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                 padding: EdgeInsets.only(top: _statusHeight),
                 child: AppBar(
                   leading: GestureDetector(
-                    onTap: () => Navigator.of(context).pop(), // 点击事件
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    }, // 点击事件
                     child: Icon(
                       const IconData(
                         0xed9e,
@@ -52,8 +54,10 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                   centerTitle: true,
                   title: const Text('服务'),
                   toolbarHeight: 90.w,
-                  titleTextStyle:
-                      TextStyle(fontSize: 32.w, color: Colors.black),
+                  titleTextStyle: TextStyle(
+                      fontSize: 30.w,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500),
                   elevation: 0,
                   scrolledUnderElevation: 0,
                   backgroundColor: const Color.fromARGB(255, 237, 237, 237),
@@ -131,7 +135,8 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                   title: '钱包',
                                   subTitle: "¥504593.36",
                                   onPressed: () {
-                                    logger.info('点击了钱包按钮~~');
+                                    // logger.info('点击了钱包按钮~~');
+                                    Navigator.pushNamed(context, '/wallet');
                                   },
                                 )
                               ],

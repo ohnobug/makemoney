@@ -180,8 +180,10 @@ class _LJNChatPage extends State<LJNChatPage>
                     scrolledUnderElevation: 0,
                     toolbarHeight: 90.w,
                     title: Text(widget.title),
-                    titleTextStyle:
-                        TextStyle(fontSize: 32.w, color: Colors.black),
+                    titleTextStyle: TextStyle(
+                        fontSize: 30.w,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500),
                     backgroundColor: const Color.fromARGB(255, 237, 237, 237),
                     foregroundColor: const Color.fromARGB(255, 237, 237, 237),
                     bottom: PreferredSize(
