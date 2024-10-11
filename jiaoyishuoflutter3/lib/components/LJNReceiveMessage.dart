@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../tools/tools.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LJNReceiveMessage extends StatefulWidget {

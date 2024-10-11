@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './components/LJNReceiveMessage.dart';
-import './components/LJNTestMessage.dart';
-import './logger.dart';
-import './store.dart';
+import 'package:jiaoyishuoflutter3/components/LJNReceiveMessage.dart';
+import 'package:jiaoyishuoflutter3/components/LJNTestMessage.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
+import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

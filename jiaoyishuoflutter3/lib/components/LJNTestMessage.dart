@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../store.dart';
-import '../tools/tools.dart';
+import 'package:jiaoyishuoflutter3/store.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
@@ -105,7 +105,7 @@ class _LJNTestMessage extends State<LJNTestMessage>
                                 controller: _controller,
                                 onLoaded: (composition) {
                                   _controller
-                                    ..duration = composition.duration
+                                    ..duration = const Duration(milliseconds: 600)
                                     ..forward();
                                 },
                               ),

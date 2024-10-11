@@ -2,14 +2,14 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './chat.dart';
-import './discovery.dart';
-import './home.dart';
-import './qrcodescanner.dart';
-import './services.dart';
-import './store.dart';
-import './tools/tools.dart';
-import './videoplayer.dart';
+import 'package:jiaoyishuoflutter3/chat.dart';
+import 'package:jiaoyishuoflutter3/discovery.dart';
+import 'package:jiaoyishuoflutter3/home.dart';
+import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
+import 'package:jiaoyishuoflutter3/services.dart';
+import 'package:jiaoyishuoflutter3/store.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/videoplayer.dart';
 import 'package:vibration/vibration.dart';
 import 'contact.dart';
 import 'logger.dart';
@@ -18,7 +18,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-// import './provider.dart';
+// import 'package:jiaoyishuoflutter3/provider.dart';
 // import 'package:provider/provider.dart';
 // import 'provider.dart' as provider;
 
@@ -457,7 +457,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                   },
                                   child: Padding(
                                     padding:
-                                        EdgeInsets.only(right: 20.w), // 设置右侧内边距
+                                        EdgeInsets.only(right: 33.w), // 设置右侧内边距
                                     child: Icon(
                                       const IconData(
                                         0xe612,
@@ -479,7 +479,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                   },
                                   child: Padding(
                                     padding:
-                                        EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                                        EdgeInsets.only(right: 40.w), // 设置右侧内边距
                                     child: Icon(
                                       const IconData(
                                         0xe726,
