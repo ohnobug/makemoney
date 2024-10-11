@@ -42,12 +42,12 @@ flutter:
     - assets/sounds/
     - assets/lotties/
   fonts:
-    # - family: SourceHanSans
-    #   fonts:
-    #     - asset: ./assets/fonts/SourceHanSans-VF.ttf.ttc
-    # - family: notosanssc
-    #   fonts:
-    #     - asset: ./assets/fonts/notosanssc.ttf
+    - family: SourceHanSans
+      fonts:
+        - asset: ./assets/fonts/SourceHanSans-VF.ttf.ttc
+    - family: notosanssc
+      fonts:
+        - asset: ./assets/fonts/notosanssc.ttf
     - family: Iconfont
       fonts:
         - asset: ./assets/fonts/iconfont/iconfont.ttf

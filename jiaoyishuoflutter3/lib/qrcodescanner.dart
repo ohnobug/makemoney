@@ -336,7 +336,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                               width: 90.w,
                               height: 90.w,
                               decoration: const BoxDecoration(
-                                color: Color.fromARGB(255, 76, 76, 76),
+                                color: Colors.white,
                                 shape: BoxShape
                                     .circle, // Makes the container circular
                               ),
@@ -357,9 +357,9 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                           ),
                           Text("我的二维码",
                               style: TextStyle(
-                                  fontSize: 22.w,
+                                  fontSize: 20.w,
                                   color:
-                                      const Color.fromARGB(255, 209, 209, 209),
+                                      Colors.white,
                                   decoration: TextDecoration.none))
                         ],
                       ),
@@ -403,7 +403,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                           ),
                           Text("相册",
                               style: TextStyle(
-                                  fontSize: 22.w,
+                                  fontSize: 20.w,
                                   color: Colors.white,
                                   decoration: TextDecoration.none))
                         ],
