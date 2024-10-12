@@ -90,7 +90,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           ),
                           Flexible(
                               child: Text(
-                            "爱八方集团💖陈翠",
+                            "💖清风奶茶妹",
                             style: TextStyle(
                                 fontSize: 26.w,
                                 color: const Color.fromARGB(255, 80, 80, 80)),
