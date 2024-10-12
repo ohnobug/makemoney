@@ -401,7 +401,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                       child: TabBar(
                         dividerColor: const Color.fromARGB(255, 218, 218, 218),
                         labelColor: const Color.fromARGB(255, 7, 193, 96),
-                        labelStyle: TextStyle(fontSize: 21.w),
+                        labelStyle: TextStyle(fontSize: 22.w),
                         unselectedLabelColor:
                             const Color.fromARGB(222, 0, 0, 0),
                         indicator: const BoxDecoration(),

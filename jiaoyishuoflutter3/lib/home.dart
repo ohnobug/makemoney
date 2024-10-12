@@ -680,7 +680,7 @@ class _ChatListItem extends State<ChatListItem> {
                             child: Text(
                               widget.message,
                               style: TextStyle(
-                                fontSize: 24.w,
+                                fontSize: 25.w,
                                 color: const Color.fromARGB(255, 193, 193, 193),
                               ),
                               maxLines: 1,
