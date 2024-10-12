@@ -129,7 +129,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                 Text(
                                   '¥${vm.walletBalance}',
                                   style: TextStyle(
-                                      fontSize: 24.w,
+                                      fontSize: 27.w,
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,
                                       fontFamily: "Rubik"),
@@ -148,17 +148,34 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(
-                                  '收益率1.64%',
-                                  style: TextStyle(
-                                      fontSize: 24.w,
-                                      color: const Color.fromARGB(
-                                          255, 249, 136, 39)),
+                                Text.rich(
+                                  TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: '收益率1.64%',
+                                        style: TextStyle(
+                                          fontSize: 27.w,
+                                          color: const Color.fromARGB(
+                                              255, 249, 136, 39),
+                                        ),
+                                      ),
+                                      // TextSpan(
+                                      //   text: '1.64%',
+                                      //   style: TextStyle(
+                                      //     fontSize: 27.w,
+                                      //     fontWeight:
+                                      //         FontWeight.bold, // 设置不同的字体样式
+                                      //     color: const Color.fromARGB(
+                                      //         255, 249, 136, 39),
+                                      //   ),
+                                      // ),
+                                    ],
+                                  ),
                                 ),
                                 Text(
                                   '¥${vm.walletFoundationBalance}',
                                   style: TextStyle(
-                                      fontSize: 24.w,
+                                      fontSize: 27.w,
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,
                                       fontFamily: "Rubik"),

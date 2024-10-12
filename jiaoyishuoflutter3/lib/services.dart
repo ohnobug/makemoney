@@ -427,7 +427,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                 widget.subTitle,
                 maxLines: 1,
                 style: TextStyle(
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     decoration: TextDecoration.none,
                     color: const Color.fromARGB(255, 165, 214, 192),
                     fontSize: 25.0.w,
@@ -507,7 +507,7 @@ class FunctionButtonState extends State<FunctionButton> {
                 style: TextStyle(
                     decoration: TextDecoration.none,
                     color: const Color.fromARGB(255, 33, 33, 33),
-                    fontSize: 24.0.w,
+                    fontSize: 25.0.w,
                     overflow: TextOverflow.ellipsis), // 标题颜色
               ),
             ],

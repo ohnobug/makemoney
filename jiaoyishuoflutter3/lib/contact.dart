@@ -738,7 +738,7 @@ class _ContactInformationState extends State<ContactInformation> {
                       child: Text(
                         widget.title,
                         style: TextStyle(
-                          fontSize: 30.0.w,
+                          fontSize: 31.0.w,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
