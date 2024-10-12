@@ -203,6 +203,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
+                        color: Colors.transparent,
                         margin: EdgeInsets.only(left: 39.w),
                         width: 46.w,
                         height: 46.w,
@@ -219,9 +220,10 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                         ),
                       ),
                       Container(
+                        color: Colors.transparent,
                         margin: EdgeInsets.only(right: 39.w),
-                        width: 45.w,
-                        height: 45.w,
+                        width: 46.w,
+                        height: 46.w,
                         child: GestureDetector(
                           onTap: () => Navigator.of(context).pop(), // 点击事件
                           child: Icon(
@@ -346,7 +348,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                                 width: 90.w,
                                 height: 90.w,
                                 decoration: const BoxDecoration(
-                                  color: Color.fromARGB(200, 69, 69, 69),
+                                  color: Color.fromARGB(235, 73, 73, 73),
                                   shape: BoxShape.circle,
                                 ),
                                 child: GestureDetector(
@@ -375,11 +377,52 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                       Expanded(
                         flex: 2,
                         child: Container(
+                          padding: EdgeInsets.all(15.w),
                           // width: 390.w,
                           height: 90.w,
                           decoration: BoxDecoration(
                             color: const Color.fromARGB(255, 247, 247, 247),
                             borderRadius: BorderRadius.circular(12.w),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 1.w, color: Colors.white),
+                                  borderRadius:
+                                      BorderRadius.circular(6.w), // 可以调整圆角的半径大小
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        assetPath('images/avatar/baolong.png')),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                width: 61.w,
+                                height: 61.w,
+                              ),
+                              SizedBox(width: 15.w),
+                              Expanded(
+                                flex: 1,
+                                  child: Text(
+                                "暴龙太阳眼睛",
+                                style: TextStyle(fontSize: 27.w),
+                              )),
+                              SizedBox(width: 15.w),
+                              Container(
+                                  color: Colors.transparent,
+                                  width: 21.w,
+                                  // margin: const EdgeInsets.only(right: 15).w,
+                                  child: Icon(
+                                    const IconData(
+                                      0xed9d,
+                                      fontFamily: 'Iconfont',
+                                    ),
+                                    size: 21.0.w,
+                                    color: Colors.black,
+                                  ))
+                            ],
                           ),
                         ),
                       ),
@@ -393,7 +436,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                                 width: 90.w,
                                 height: 90.w,
                                 decoration: const BoxDecoration(
-                                  color: Color.fromARGB(200, 69, 69, 69),
+                                  color: Color.fromARGB(235, 73, 73, 73),
                                   shape: BoxShape.circle,
                                 ),
                                 child: GestureDetector(

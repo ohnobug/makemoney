@@ -1,6 +1,6 @@
 name: jiaoyishuoflutter3
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
@@ -30,7 +30,6 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^4.0.0
 
-
 flutter:
   uses-material-design: false
   assets:
@@ -42,12 +41,18 @@ flutter:
     - assets/sounds/
     - assets/lotties/
   fonts:
-    - family: SourceHanSans
+    - family: Rubik
       fonts:
-        - asset: ./assets/fonts/SourceHanSans-VF.ttf.ttc
-    - family: notosanssc
+        - asset: ./assets/fonts/Rubik-VariableFont_wght.ttf
+    - family: AlibabaPuHuiTi
       fonts:
-        - asset: ./assets/fonts/notosanssc.ttf
+        - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.ttf
+    # - family: SourceHanSans
+    #   fonts:
+    #     - asset: ./assets/fonts/SourceHanSans-VF.ttf.ttc
+    # - family: notosanssc
+    #   fonts:
+    #     - asset: ./assets/fonts/notosanssc.ttf
     - family: Iconfont
       fonts:
         - asset: ./assets/fonts/iconfont/iconfont.ttf

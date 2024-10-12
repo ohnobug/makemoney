@@ -302,7 +302,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                             255, 237, 237, 237),
                                       ),
 
-                                      const FunctionItem(
+                                      const LJNFunctionItem(
                                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                         title: "服务",
                                         icon: "images/icon/icon1.png",
@@ -316,35 +316,35 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                             255, 237, 237, 237),
                                       ),
 
-                                      const FunctionItem(
+                                      const LJNFunctionItem(
                                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                         title: "收藏",
                                         icon: "images/icon/icon2.png",
                                         link: '',
                                         underline: true,
                                       ),
-                                      const FunctionItem(
+                                      const LJNFunctionItem(
                                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                         title: "朋友圈",
                                         icon: "images/icon/icon3.png",
                                         link: '',
                                         underline: true,
                                       ),
-                                      const FunctionItem(
+                                      const LJNFunctionItem(
                                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                         title: "视频号",
                                         icon: "images/icon/icon4.png",
                                         link: '',
                                         underline: true,
                                       ),
-                                      const FunctionItem(
+                                      const LJNFunctionItem(
                                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                         title: "订单与卡包",
                                         icon: "images/icon/icon5.png",
                                         link: '',
                                         underline: true,
                                       ),
-                                      const FunctionItem(
+                                      const LJNFunctionItem(
                                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                         title: "表情",
                                         icon: "images/icon/icon6.png",
@@ -358,7 +358,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                             255, 237, 237, 237),
                                       ),
 
-                                      const FunctionItem(
+                                      const LJNFunctionItem(
                                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                         title: "设置",
                                         icon: "images/icon/icon7.png",
@@ -441,14 +441,14 @@ class _LJNStatusButton extends State<LJNStatusButton> {
 }
 
 // 功能列表
-class FunctionItem extends StatefulWidget {
+class LJNFunctionItem extends StatefulWidget {
   final String id;
   final String icon;
   final String title;
   final String link;
   final bool underline;
 
-  const FunctionItem({
+  const LJNFunctionItem({
     super.key,
     required this.id,
     required this.icon,
@@ -458,10 +458,10 @@ class FunctionItem extends StatefulWidget {
   });
 
   @override
-  State<FunctionItem> createState() => _FunctionItemState();
+  State<LJNFunctionItem> createState() => _LJNFunctionItemState();
 }
 
-class _FunctionItemState extends State<FunctionItem> {
+class _LJNFunctionItemState extends State<LJNFunctionItem> {
   Color containerColor = Colors.white;
 
   @override
