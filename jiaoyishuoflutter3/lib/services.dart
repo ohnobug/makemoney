@@ -170,18 +170,25 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                         logger.info('点击了信用卡还款按钮~~');
                                       },
                                     ),
+                                    // FunctionButton(
+                                    //   icon: "images/icon/server_icon2.png",
+                                    //   title: '微粒贷借钱',
+                                    //   onPressed: () {
+                                    //     logger.info('点击了微粒贷借钱按钮~~');
+                                    //   },
+                                    // ),
                                     FunctionButton(
                                       icon: "images/icon/server_icon2.png",
-                                      title: '微粒贷借钱',
+                                      title: '理财通',
                                       onPressed: () {
-                                        logger.info('点击了微粒贷借钱按钮~~');
+                                        logger.info('点击了理财通按钮~~');
                                       },
                                     ),
                                     FunctionButton(
                                       icon: "images/icon/server_icon3.png",
-                                      title: '理财通',
+                                      title: '保险服务',
                                       onPressed: () {
-                                        logger.info('点击了理财通按钮~~');
+                                        logger.info('点击了保险服务按钮~~');
                                       },
                                     ),
                                     // FunctionButton(

@@ -111,7 +111,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                       child: Text(
                         widget.title,
                         style: TextStyle(
-                          fontSize: 30.0.w,
+                          fontSize: 32.0.w,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -121,7 +121,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                     Flexible(
                         flex: 1,
                         child: Container(
-                          padding: const EdgeInsets.only(right: 20, left: 20).w,
+                          padding: const EdgeInsets.only(right: 10, left: 10).w,
                           // color: Colors.red,
                           child: widget.showStyle,
                         )),
