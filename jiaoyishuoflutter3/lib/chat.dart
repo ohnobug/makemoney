@@ -165,13 +165,17 @@ class _LJNChatPage extends State<LJNChatPage>
                   child: AppBar(
                     leading: GestureDetector(
                       onTap: () => Navigator.of(context).pop(), // 点击事件
-                      child: Icon(
-                        const IconData(
-                          0xed9e,
-                          fontFamily: 'Iconfont',
-                        ), // 使用的图标
-                        color: Colors.black, // 图标颜色
-                        size: 36.w, // 图标大小
+                      child: Container(
+                        // 加盒子是为了扩大点击区域
+                        color: Colors.transparent,
+                        child: Icon(
+                          const IconData(
+                            0xed9e,
+                            fontFamily: 'Iconfont',
+                          ), // 使用的图标
+                          color: Colors.black, // 图标颜色
+                          size: 36.w, // 图标大小
+                        ),
                       ),
                     ),
                     primary: false,
@@ -199,7 +203,9 @@ class _LJNChatPage extends State<LJNChatPage>
                         onTap: () {
                           // 点击事件
                         },
-                        child: Padding(
+                        child: Container(
+                          height: 90.w,
+                          color: Colors.transparent,
                           padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
                           child: Icon(
                             const IconData(

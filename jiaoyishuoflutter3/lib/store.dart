@@ -34,8 +34,10 @@ final ThemeData darkTheme = ThemeData(
     fontFamily: "notosanssc");
 
 class StoreType {
-  String? userinfoName;
-  String? userinfoAvatar;
+  String? userinfoName; // 用户名
+  double? walletBalance; // 余额
+  double? walletFoundationBalance; // 基金余额
+  String? userinfoAvatar; // 头像
 
   bool? contactazshow; // 通信录中的 A-Z 是否显示
   bool? mainpage1isload; // 页面 1 是否显示
@@ -54,6 +56,8 @@ class StoreType {
 
   StoreType({
     this.userinfoName,
+    this.walletBalance,
+    this.walletFoundationBalance,
     this.userinfoAvatar,
     this.contactazshow,
     this.mainpage1isload,
@@ -71,6 +75,8 @@ class StoreType {
 
   StoreType copyWith({
     String? userinfoName,
+    double? walletBalance,
+    double? walletFoundationBalance,
     String? userinfoAvatar,
     bool? contactazshow,
     bool? mainpage1isload,
@@ -87,6 +93,9 @@ class StoreType {
   }) {
     return StoreType(
       userinfoName: userinfoName ?? this.userinfoName,
+      walletBalance: walletBalance ?? this.walletBalance,
+      walletFoundationBalance:
+          walletFoundationBalance ?? this.walletFoundationBalance,
       userinfoAvatar: userinfoAvatar ?? this.userinfoAvatar,
       contactazshow: contactazshow ?? this.contactazshow,
       mainpage1isload: mainpage1isload ?? this.mainpage1isload,
@@ -111,6 +120,14 @@ StoreType counterReducer(StoreType state, dynamic action) {
 
   if (action['type'] == "userinfoName") {
     return state.copyWith(userinfoName: action['payload']);
+  }
+
+  if (action['type'] == "walletBalance") {
+    return state.copyWith(walletBalance: action['payload']);
+  }
+
+  if (action['type'] == "walletFoundationBalance") {
+    return state.copyWith(walletFoundationBalance: action['payload']);
   }
 
   if (action['type'] == "userinfoAvatar") {
@@ -167,6 +184,7 @@ StoreType counterReducer(StoreType state, dynamic action) {
 final myStore = Store<StoreType>(counterReducer,
     initialState: StoreType(
         userinfoName: "",
+        walletBalance: 0.0,
         userinfoAvatar: "",
         contactazshow: false,
         mainpage1isload: false,

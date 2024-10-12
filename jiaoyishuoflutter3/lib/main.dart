@@ -38,6 +38,8 @@ void main() async {
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   myStore.dispatch({"type": "userinfoName", "payload": "李俊杰"});
+  myStore.dispatch({"type": "walletBalance", "payload": 520357.32});
+  myStore.dispatch({"type": "walletFoundationBalance", "payload": 0});
   myStore.dispatch(
       {"type": "userinfoAvatar", "payload": assetPath("images/avatar/my.jpg")});
 

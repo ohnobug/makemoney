@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'logger.dart';
@@ -29,304 +31,319 @@ class _LJNServicesPage extends State<LJNServicesPage> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    return Scaffold(
-        primary: false,
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(90.0.w + _statusHeight),
-            child: Container(
-                color: const Color.fromARGB(255, 237, 237, 237),
-                padding: EdgeInsets.only(top: _statusHeight),
-                child: AppBar(
-                  leading: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    }, // 点击事件
-                    child: Icon(
-                      const IconData(
-                        0xed9e,
-                        fontFamily: 'Iconfont',
-                      ), // 使用的图标
-                      color: Colors.black, // 图标颜色
-                      size: 36.w, // 图标大小
-                    ),
-                  ),
-                  primary: false,
-                  centerTitle: true,
-                  title: const Text('服务'),
-                  toolbarHeight: 90.w,
-                  titleTextStyle: TextStyle(
-                      fontSize: 30.w,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500),
-                  elevation: 0,
-                  scrolledUnderElevation: 0,
-                  backgroundColor: const Color.fromARGB(255, 237, 237, 237),
-                  foregroundColor: const Color.fromARGB(255, 237, 237, 237),
-                  // bottom: PreferredSize(
-                  //   preferredSize: Size.fromHeight(1.w),
-                  //   child: Container(
-                  //     color: const Color.fromARGB(255, 220, 220, 220),
-                  //     height: 1.w,
-                  //   ),
-                  // ),
-                  actions: [
-                    // 三个点
-                    GestureDetector(
-                      onTap: () {
-                        // 点击事件
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                        child: Icon(
-                          const IconData(
-                            0xe659,
-                            fontFamily: 'Iconfont',
-                          ),
-                          size: 37.w, // 图标大小
-                        ),
-                      ),
-                    ),
-                  ],
-                ))),
-        body: ColoredBox(
-            color: const Color.fromARGB(255, 237, 237, 237),
-            child: ScrollConfiguration(
-                behavior:
-                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                child: SingleChildScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(
-                        parent: BouncingScrollPhysics()),
-                    child: Container(
-                      constraints:
-                          BoxConstraints(minHeight: screenSize.height - 205.w),
+    return StoreConnector<StoreType, StoreType>(
+        converter: (store) => store.state,
+        builder: (context, vm) {
+          return Scaffold(
+              primary: false,
+              appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+                  child: Container(
                       color: const Color.fromARGB(255, 237, 237, 237),
-                      child: Column(
-                        children: [
-                          // 余额
-                          Container(
-                            height: 274.w,
-                            margin: const EdgeInsets.all(16).w,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 77, 174, 107),
-                              borderRadius: BorderRadius.circular(16.0).w,
+                      padding: EdgeInsets.only(top: _statusHeight),
+                      child: AppBar(
+                        leading: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          }, // 点击事件
+                          child: Container(
+                            // 加盒子是为了扩大点击区域
+                            color: Colors.transparent,
+                            child: Icon(
+                              const IconData(
+                                0xed9e,
+                                fontFamily: 'Iconfont',
+                              ), // 使用的图标
+                              color: Colors.black, // 图标颜色
+                              size: 36.w, // 图标大小
                             ),
-                            padding: const EdgeInsets.all(16).w,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                CollectionAndPayment(
-                                  icon: const IconData(
-                                    0xe658,
-                                    fontFamily: 'Iconfont',
-                                  ),
-                                  title: '收付款',
-                                  subTitle: "",
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, '/video_player');
-                                    logger.info('点击了收付款还款按钮~~');
-                                  },
+                          ),
+                        ),
+                        primary: false,
+                        centerTitle: true,
+                        title: const Text('服务'),
+                        toolbarHeight: 90.w,
+                        titleTextStyle: TextStyle(
+                            fontSize: 30.w,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500),
+                        elevation: 0,
+                        scrolledUnderElevation: 0,
+                        backgroundColor:
+                            const Color.fromARGB(255, 237, 237, 237),
+                        foregroundColor:
+                            const Color.fromARGB(255, 237, 237, 237),
+                        // bottom: PreferredSize(
+                        //   preferredSize: Size.fromHeight(1.w),
+                        //   child: Container(
+                        //     color: const Color.fromARGB(255, 220, 220, 220),
+                        //     height: 1.w,
+                        //   ),
+                        // ),
+                        actions: [
+                          // 三个点
+                          GestureDetector(
+                            onTap: () {
+                              // 点击事件
+                            },
+                            child: Container(
+                              height: 90.w,
+                              color: Colors.transparent,
+                              padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                              child: Icon(
+                                const IconData(
+                                  0xe659,
+                                  fontFamily: 'Iconfont',
                                 ),
-                                CollectionAndPayment(
-                                  icon: const IconData(
-                                    0xe6e4,
-                                    fontFamily: 'Iconfont',
-                                  ),
-                                  title: '钱包',
-                                  subTitle: "¥504593.36",
-                                  onPressed: () {
-                                    // logger.info('点击了钱包按钮~~');
-                                    Navigator.pushNamed(context, '/wallet');
-                                  },
-                                )
-                              ],
+                                size: 37.w, // 图标大小
+                              ),
                             ),
-                          ),
-
-                          // 金融理财
-                          FunctionButtonsSection(
-                            title: '金融理财',
-                            buttons: [
-                              FunctionButton(
-                                icon: "images/icon/server_icon1.png",
-                                title: '信用卡还款',
-                                onPressed: () {
-                                  logger.info('点击了信用卡还款按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon2.png",
-                                title: '微粒贷借钱',
-                                onPressed: () {
-                                  logger.info('点击了微粒贷借钱按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon3.png",
-                                title: '理财通',
-                                onPressed: () {
-                                  logger.info('点击了理财通按钮~~');
-                                },
-                              ),
-                              // FunctionButton(
-                              //   icon: "images/icon/server_icon4.png",
-                              //   title: '保险服务',
-                              //   onPressed: () {
-                              //     logger.info('点击了保险服务按钮~~');
-                              //   },
-                              // ),
-                            ],
-                          ),
-
-                          // 生活服务
-                          FunctionButtonsSection(
-                            title: '生活服务',
-                            buttons: [
-                              FunctionButton(
-                                icon: "images/icon/server_icon4.png",
-                                title: '手机充值',
-                                onPressed: () {
-                                  logger.info('点击了手机充值按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon5.png",
-                                title: '生活缴费',
-                                onPressed: () {
-                                  logger.info('点击了生活缴费按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon6.png",
-                                title: 'Q币充值',
-                                onPressed: () {
-                                  logger.info('点击了Q币充值按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon7.png",
-                                title: '城市服务',
-                                onPressed: () {
-                                  logger.info('点击了城市服务按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon8.png",
-                                title: '腾讯公益',
-                                onPressed: () {
-                                  logger.info('点击了腾讯公益按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon9.png",
-                                title: '医疗健康',
-                                onPressed: () {
-                                  logger.info('点击了医疗健康按钮~~');
-                                },
-                              ),
-                            ],
-                          ),
-
-                          // 交通出行
-                          FunctionButtonsSection(
-                            title: '交通出行',
-                            buttons: [
-                              FunctionButton(
-                                icon: "images/icon/server_icon10.png",
-                                title: '出行服务',
-                                onPressed: () {
-                                  logger.info('点击了出行服务按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon11.png",
-                                title: '火车票机票',
-                                onPressed: () {
-                                  logger.info('点击了火车票机票按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon12.png",
-                                title: '滴滴出行',
-                                onPressed: () {
-                                  logger.info('点击了滴滴出行按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon122.png",
-                                title: '酒店',
-                                onPressed: () {
-                                  logger.info('点击了酒店按钮~~');
-                                },
-                              ),
-                            ],
-                          ),
-
-                          // 购物消费
-                          FunctionButtonsSection(
-                            title: '购物消费',
-                            buttons: [
-                              FunctionButton(
-                                icon: "images/icon/server_icon13.png",
-                                title: '品牌发现',
-                                onPressed: () {
-                                  logger.info('点击了品牌发现按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon14.png",
-                                title: '京东购物',
-                                onPressed: () {
-                                  logger.info('点击了京东购物按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon15.png",
-                                title: '美团外卖',
-                                onPressed: () {
-                                  logger.info('点击了美团外卖按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon16.png",
-                                title: '电影演出玩乐',
-                                onPressed: () {
-                                  logger.info('点击了电影演出玩乐按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon17.png",
-                                title: '美团特价',
-                                onPressed: () {
-                                  logger.info('点击了美团特价按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon18.png",
-                                title: '拼多多',
-                                onPressed: () {
-                                  logger.info('点击了拼多多按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon19.png",
-                                title: '唯品会特卖',
-                                onPressed: () {
-                                  logger.info('点击了唯品会特卖按钮~~');
-                                },
-                              ),
-                              FunctionButton(
-                                icon: "images/icon/server_icon20.png",
-                                title: '转转二手',
-                                onPressed: () {
-                                  logger.info('点击了转转二手按钮~~');
-                                },
-                              ),
-                            ],
                           ),
                         ],
-                      ),
-                    )))));
+                      ))),
+              body: ColoredBox(
+                  color: const Color.fromARGB(255, 237, 237, 237),
+                  child: ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(
+                              parent: BouncingScrollPhysics()),
+                          child: Container(
+                            constraints: BoxConstraints(
+                                minHeight: screenSize.height - 205.w),
+                            color: const Color.fromARGB(255, 237, 237, 237),
+                            child: Column(
+                              children: [
+                                // 余额
+                                Container(
+                                  height: 274.w,
+                                  margin: const EdgeInsets.all(16).w,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromARGB(255, 77, 174, 107),
+                                    borderRadius: BorderRadius.circular(16.0).w,
+                                  ),
+                                  padding: const EdgeInsets.all(16).w,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      CollectionAndPayment(
+                                        icon: const IconData(
+                                          0xe658,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        title: '收付款',
+                                        subTitle: "",
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, '/video_player');
+                                          logger.info('点击了收付款还款按钮~~');
+                                        },
+                                      ),
+                                      CollectionAndPayment(
+                                        icon: const IconData(
+                                          0xe6e4,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        title: '钱包',
+                                        subTitle: "¥${vm.walletBalance}",
+                                        onPressed: () {
+                                          // logger.info('点击了钱包按钮~~');
+                                          Navigator.pushNamed(
+                                              context, '/wallet');
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                ),
+
+                                // 金融理财
+                                FunctionButtonsSection(
+                                  title: '金融理财',
+                                  buttons: [
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon1.png",
+                                      title: '信用卡还款',
+                                      onPressed: () {
+                                        logger.info('点击了信用卡还款按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon2.png",
+                                      title: '微粒贷借钱',
+                                      onPressed: () {
+                                        logger.info('点击了微粒贷借钱按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon3.png",
+                                      title: '理财通',
+                                      onPressed: () {
+                                        logger.info('点击了理财通按钮~~');
+                                      },
+                                    ),
+                                    // FunctionButton(
+                                    //   icon: "images/icon/server_icon4.png",
+                                    //   title: '保险服务',
+                                    //   onPressed: () {
+                                    //     logger.info('点击了保险服务按钮~~');
+                                    //   },
+                                    // ),
+                                  ],
+                                ),
+
+                                // 生活服务
+                                FunctionButtonsSection(
+                                  title: '生活服务',
+                                  buttons: [
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon4.png",
+                                      title: '手机充值',
+                                      onPressed: () {
+                                        logger.info('点击了手机充值按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon5.png",
+                                      title: '生活缴费',
+                                      onPressed: () {
+                                        logger.info('点击了生活缴费按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon6.png",
+                                      title: 'Q币充值',
+                                      onPressed: () {
+                                        logger.info('点击了Q币充值按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon7.png",
+                                      title: '城市服务',
+                                      onPressed: () {
+                                        logger.info('点击了城市服务按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon8.png",
+                                      title: '腾讯公益',
+                                      onPressed: () {
+                                        logger.info('点击了腾讯公益按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon9.png",
+                                      title: '医疗健康',
+                                      onPressed: () {
+                                        logger.info('点击了医疗健康按钮~~');
+                                      },
+                                    ),
+                                  ],
+                                ),
+
+                                // 交通出行
+                                FunctionButtonsSection(
+                                  title: '交通出行',
+                                  buttons: [
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon10.png",
+                                      title: '出行服务',
+                                      onPressed: () {
+                                        logger.info('点击了出行服务按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon11.png",
+                                      title: '火车票机票',
+                                      onPressed: () {
+                                        logger.info('点击了火车票机票按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon12.png",
+                                      title: '滴滴出行',
+                                      onPressed: () {
+                                        logger.info('点击了滴滴出行按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon122.png",
+                                      title: '酒店',
+                                      onPressed: () {
+                                        logger.info('点击了酒店按钮~~');
+                                      },
+                                    ),
+                                  ],
+                                ),
+
+                                // 购物消费
+                                FunctionButtonsSection(
+                                  title: '购物消费',
+                                  buttons: [
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon13.png",
+                                      title: '品牌发现',
+                                      onPressed: () {
+                                        logger.info('点击了品牌发现按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon14.png",
+                                      title: '京东购物',
+                                      onPressed: () {
+                                        logger.info('点击了京东购物按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon15.png",
+                                      title: '美团外卖',
+                                      onPressed: () {
+                                        logger.info('点击了美团外卖按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon16.png",
+                                      title: '电影演出玩乐',
+                                      onPressed: () {
+                                        logger.info('点击了电影演出玩乐按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon17.png",
+                                      title: '美团特价',
+                                      onPressed: () {
+                                        logger.info('点击了美团特价按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon18.png",
+                                      title: '拼多多',
+                                      onPressed: () {
+                                        logger.info('点击了拼多多按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon19.png",
+                                      title: '唯品会特卖',
+                                      onPressed: () {
+                                        logger.info('点击了唯品会特卖按钮~~');
+                                      },
+                                    ),
+                                    FunctionButton(
+                                      icon: "images/icon/server_icon20.png",
+                                      title: '转转二手',
+                                      onPressed: () {
+                                        logger.info('点击了转转二手按钮~~');
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )))));
+        });
   }
 }
 

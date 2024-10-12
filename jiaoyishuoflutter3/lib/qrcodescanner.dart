@@ -203,6 +203,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
+                        color: Colors.transparent,
                         margin: EdgeInsets.only(left: 39.w),
                         width: 46.w,
                         height: 46.w,
@@ -219,9 +220,10 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                         ),
                       ),
                       Container(
+                        color: Colors.transparent,
                         margin: EdgeInsets.only(right: 39.w),
-                        width: 45.w,
-                        height: 45.w,
+                        width: 46.w,
+                        height: 46.w,
                         child: GestureDetector(
                           onTap: () => Navigator.of(context).pop(), // 点击事件
                           child: Icon(
@@ -346,7 +348,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                                 width: 90.w,
                                 height: 90.w,
                                 decoration: const BoxDecoration(
-                                  color: Color.fromARGB(200, 69, 69, 69),
+                                  color: Color.fromARGB(235, 73, 73, 73),
                                   shape: BoxShape.circle,
                                 ),
                                 child: GestureDetector(
@@ -393,7 +395,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                                 width: 90.w,
                                 height: 90.w,
                                 decoration: const BoxDecoration(
-                                  color: Color.fromARGB(200, 69, 69, 69),
+                                  color: Color.fromARGB(235, 73, 73, 73),
                                   shape: BoxShape.circle,
                                 ),
                                 child: GestureDetector(
