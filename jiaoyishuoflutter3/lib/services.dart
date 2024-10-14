@@ -423,11 +423,11 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                     // fontWeight: FontWeight.w100,
                     decoration: TextDecoration.none,
                     color: Colors.white,
-                    fontSize: 30.0.w,
+                    fontSize: 32.0.w,
                     overflow: TextOverflow.ellipsis),
               ),
 
-              SizedBox(height: 3.w),
+              SizedBox(height: 1.w),
 
               // 余额
               Text(
@@ -436,7 +436,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                 style: TextStyle(
                     // fontWeight: FontWeight.w600,
                     decoration: TextDecoration.none,
-                    color: const Color.fromARGB(255, 156, 221, 180),
+                    color: const Color.fromARGB(255, 166, 223, 187),
                     fontSize: 27.0.w,
                     overflow: TextOverflow.ellipsis,
                     fontFamily: "Quicksand-Medium"),
