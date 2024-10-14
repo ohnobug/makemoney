@@ -403,7 +403,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
         width: 272.w,
         decoration: BoxDecoration(
           color: _isPressed
-              ? const Color.fromARGB(255, 77, 174, 107)
+              ? const Color.fromARGB(255, 67, 157, 95)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(16.0).w,
         ),
