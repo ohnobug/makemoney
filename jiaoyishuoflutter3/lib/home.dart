@@ -72,6 +72,7 @@ class _ChatListViewState extends State<LJNHomePage> {
         message: "今天天气真好，阳光明媚，让人心情愉悦。",
         avatar: "images/avatar_webp/chat_1.webp",
         lastedTime: "16:56",
+        badge: 100,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数",
@@ -88,6 +89,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "[图片]",
           avatar: "images/avatar/webwxgeticon.jpg",
           lastedTime: "16:49",
+          badge: 99,
           onPressed: () {
             Navigator.pushNamed(context, '/chat', arguments: <String, String>{
               'title': "文件传输助手",
@@ -103,6 +105,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "这个怎么样调试?",
           avatar: "images/avatar/webwxgetheadimg.jpg",
           lastedTime: "16:40",
+          badge: 9,
           onPressed: () {
             Navigator.pushNamed(context, '/chat', arguments: <String, String>{
               'title': "华南理工大学 软件开发群",
@@ -118,6 +121,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
           avatar: "images/avatar_webp/chat_4.webp",
           lastedTime: "16:33",
+          badge: -1,
           onPressed: () {
             Navigator.pushNamed(context, '/chat', arguments: <String, String>{
               'title': "绿逾初夏",
@@ -133,6 +137,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "今天上班/上学累吗？要注意休息哦。",
           avatar: "images/avatar_webp/chat_5.webp",
           lastedTime: "16:25",
+          badge: -1,
           onPressed: () {
             Navigator.pushNamed(context, '/chat', arguments: <String, String>{
               'title': "余笙南吟",
@@ -148,6 +153,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           message: "这个周末有什么计划？有没有想好去哪里玩？",
           avatar: "images/avatar_webp/chat_6.webp",
           lastedTime: "16:18",
+          badge: -1,
           onPressed: () {
             Navigator.pushNamed(context, '/chat', arguments: <String, String>{
               'title': "陈情匿旧酒",
@@ -544,6 +550,7 @@ class ChatListItem extends StatefulWidget {
   final bool notice;
   final bool underline;
   final String lastedTime;
+  final int? badge;
   final Function()? onPressed;
 
   const ChatListItem({
@@ -555,6 +562,7 @@ class ChatListItem extends StatefulWidget {
     required this.notice,
     required this.underline,
     required this.lastedTime,
+    this.badge,
     this.onPressed,
   });
 
@@ -590,121 +598,168 @@ class _ChatListItem extends State<ChatListItem> {
 
           logger.info("弹起");
         },
-        child: Container(
-          color: containerColor,
-          height: 135.0.w,
-          padding: const EdgeInsets.only(left: 30.0).w,
-          child: Row(
-            children: [
-              // 头像
-              Container(
-                width: 90.0.w,
-                height: 90.0.w,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10).w,
-                  image: DecorationImage(
-                    image: AssetImage(assetPath(widget.avatar)),
-                    fit: BoxFit.cover,
+        child: Stack(
+          children: [
+            Container(
+              color: containerColor,
+              height: 135.0.w,
+              padding: const EdgeInsets.only(left: 30.0).w,
+              child: Row(
+                children: [
+                  // 头像
+                  Container(
+                    width: 90.0.w,
+                    height: 90.0.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(10).w,
+                      image: DecorationImage(
+                        image: AssetImage(assetPath(widget.avatar)),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(width: 23.w),
-              Expanded(
-                child: Container(
-                  decoration: widget.underline
-                      ? BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                          color: const Color.fromARGB(255, 233, 233, 233),
-                          width: 1.w,
-                          style: BorderStyle.solid,
-                        )))
-                      : BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Colors.transparent,
+
+                  SizedBox(width: 23.w),
+                  Expanded(
+                    child: Container(
+                      decoration: widget.underline
+                          ? BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                              color: const Color.fromARGB(255, 233, 233, 233),
                               width: 1.w,
                               style: BorderStyle.solid,
-                            ),
-                          ),
-                        ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // 好友名称和日期
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // 好友名称
-                          Expanded(
-                            child: Text(
-                              widget.friendName,
-                              style: TextStyle(
-                                fontSize: 32.0.w,
-                                color:
-                                    widget.notice ? Colors.red : Colors.black,
+                            )))
+                          : BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1.w,
+                                  style: BorderStyle.solid,
+                                ),
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
                             ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // 好友名称和日期
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // 好友名称
+                              Expanded(
+                                child: Text(
+                                  widget.friendName,
+                                  style: TextStyle(
+                                    fontSize: 32.0.w,
+                                    color: widget.notice
+                                        ? Colors.red
+                                        : Colors.black,
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              // 日期
+                              Text(
+                                widget.lastedTime,
+                                style: TextStyle(
+                                  fontSize: 24.0.w,
+                                  color: widget.notice
+                                      ? Colors.red
+                                      : const Color.fromARGB(
+                                          255, 193, 193, 193),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 30.w,
+                              )
+                            ],
                           ),
-                          SizedBox(
-                            width: 10.w,
+
+                          SizedBox(height: 2.w),
+
+                          // 好友消息
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: 460.w,
+                                child: Text(
+                                  widget.message,
+                                  style: TextStyle(
+                                    fontSize: 25.w,
+                                    color: const Color.fromARGB(
+                                        255, 193, 193, 193),
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              if (widget.notice) ...[
+                                Container(
+                                  padding: EdgeInsets.only(right: 30.w),
+                                  child: Icon(
+                                    Icons.notifications_off_outlined,
+                                    size: 32.0.w,
+                                    color: const Color.fromARGB(
+                                        255, 193, 193, 193),
+                                  ),
+                                ),
+                              ]
+                            ],
                           ),
-                          // 日期
-                          Text(
-                            widget.lastedTime,
-                            style: TextStyle(
-                              fontSize: 22.0.w,
-                              color: widget.notice
-                                  ? Colors.red
-                                  : const Color.fromARGB(255, 193, 193, 193),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 30.w,
-                          )
                         ],
                       ),
-
-                      SizedBox(height: 5.w),
-
-                      // 好友消息
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: 460.w,
-                            child: Text(
-                              widget.message,
-                              style: TextStyle(
-                                fontSize: 25.w,
-                                color: const Color.fromARGB(255, 193, 193, 193),
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          if (widget.notice) ...[
-                            Container(
-                              padding: EdgeInsets.only(right: 30.w),
-                              child: Icon(
-                                Icons.notifications_off_outlined,
-                                size: 32.0.w,
-                                color: const Color.fromARGB(255, 193, 193, 193),
-                              ),
-                            ),
-                          ]
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+
+            // 角标
+            if (widget.badge != null)
+              if (widget.badge! > 0)
+                Positioned(
+                    left: 95.w,
+                    top: 16.w,
+                    child: Container(
+                      width: 35.w, // 盒子宽度
+                      height: 35.w, // 盒子高度
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle, // 圆形
+                        color: Color.fromRGBO(246, 89, 87, 1), // 盒子颜色
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        widget.badge.toString(), // 这里可以替换成你想要显示的数字
+                        maxLines: 1,
+                        style: TextStyle(
+                            fontSize: 20.w, // 数字大小
+                            color: Colors.white, // 数字颜色
+                            fontWeight: FontWeight.w600,
+                            fontFamily: "Rubik-Light"),
+                      ),
+                    ))
+              else if (widget.badge! == -1)
+                Positioned(
+                    left: 109.w,
+                    top: 20.w,
+                    child: Container(
+                      width: 20.w, // 盒子宽度
+                      height: 20.w, // 盒子高度
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle, // 圆形
+                        color: Color.fromRGBO(246, 89, 87, 1), // 盒子颜色
+                      ),
+                      child: null,
+                    ))
+          ],
         ));
   }
 }

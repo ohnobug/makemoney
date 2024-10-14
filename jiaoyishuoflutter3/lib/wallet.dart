@@ -128,11 +128,12 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                               children: [
                                 Text(
                                   '¥${vm.walletBalance}',
+                                  // '¥201.12',
                                   style: TextStyle(
-                                      fontSize: 30.w,
+                                      fontSize: 29.w,
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,
-                                      fontFamily: "Rubik"),
+                                      fontFamily: "Outfit-Regular"),
                                 )
                               ]),
                           underline: true,
@@ -175,10 +176,10 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                 Text(
                                   '¥${vm.walletFoundationBalance}',
                                   style: TextStyle(
-                                      fontSize: 30.w,
+                                      fontSize: 29.w,
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,
-                                      fontFamily: "Rubik"),
+                                      fontFamily: "Outfit-Regular"),
                                 )
                               ]),
                           underline: true,

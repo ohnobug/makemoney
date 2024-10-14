@@ -6,7 +6,8 @@ import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNFunctionItem extends StatefulWidget {
   final String id;
-  final String icon;
+  final String? icon;
+  final double? height;
   final String title;
   final String link;
   final bool underline;
@@ -15,7 +16,8 @@ class LJNFunctionItem extends StatefulWidget {
   const LJNFunctionItem({
     super.key,
     required this.id,
-    required this.icon,
+    this.icon,
+    this.height,
     required this.title,
     required this.link,
     required this.underline,
@@ -59,30 +61,33 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
         logger.info("弹起");
       },
       child: Container(
-        height: 105.0.w,
+        height: widget.height ?? 105.0.w,
         padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
         color: containerColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // 头像
-            Container(
-              width: 40.0.w,
-              height: 40.0.w,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                // borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: AssetImage(assetPath(widget.icon)),
-                  fit: BoxFit.cover,
+            if (widget.icon != null) ...[
+              // 头像
+              Container(
+                width: 40.0.w,
+                height: 40.0.w,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  // borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: AssetImage(assetPath(widget.icon!)),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(width: 20.w),
+              SizedBox(width: 20.w)
+            ],
             Expanded(
               child: Container(
-                height: 100.w,
+                height: double.infinity,
+                // height: double.infinity,
                 width: 400.w,
                 decoration: widget.underline
                     ? BoxDecoration(
@@ -111,8 +116,9 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                       child: Text(
                         widget.title,
                         style: TextStyle(
-                          fontSize: 32.0.w,
-                        ),
+                            fontSize: 32.0.w,
+                            fontFamily: "AlibabaPuHuiTi",
+                            fontWeight: FontWeight.w500),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -127,14 +133,14 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                         )),
 
                     Container(
-                      width: 26.w,
+                        width: 27.w,
                         margin: const EdgeInsets.only(right: 32).w,
                         child: Icon(
                           const IconData(
                             0xed9d,
                             fontFamily: 'Iconfont',
                           ),
-                          size: 26.0.w,
+                          size: 27.0.w,
                           color: const Color.fromARGB(255, 175, 175, 175),
                         ))
                   ],

@@ -205,8 +205,8 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                       Container(
                         color: Colors.transparent,
                         margin: EdgeInsets.only(left: 39.w),
-                        width: 46.w,
-                        height: 46.w,
+                        width: 48.w,
+                        height: 48.w,
                         child: GestureDetector(
                           onTap: () => Navigator.of(context).pop(), // 点击事件
                           child: Icon(
@@ -214,7 +214,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                               0xe601,
                               fontFamily: 'Iconfont',
                             ),
-                            size: 46.w, // 图标的大小
+                            size: 48.w, // 图标的大小
                             color: Colors.white, // 图标颜色
                           ),
                         ),
@@ -222,8 +222,8 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                       Container(
                         color: Colors.transparent,
                         margin: EdgeInsets.only(right: 39.w),
-                        width: 46.w,
-                        height: 46.w,
+                        width: 48.w,
+                        height: 48.w,
                         child: GestureDetector(
                           onTap: () => Navigator.of(context).pop(), // 点击事件
                           child: Icon(
@@ -231,7 +231,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                               0xe659,
                               fontFamily: 'Iconfont',
                             ),
-                            size: 45.w, // 图标的大小
+                            size: 48.w, // 图标的大小
                             color: Colors.white, // 图标颜色
                           ),
                         ),
@@ -312,7 +312,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                         Text(
                           "轻触照亮",
                           style: TextStyle(
-                              fontSize: 25.w,
+                              fontSize: 26.w,
                               fontWeight: FontWeight.normal,
                               color: Colors.white,
                               decoration: TextDecoration.none),
@@ -320,7 +320,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                         Text(
                           "识别二维码 / 花草 / 动物 / 商品等",
                           style: TextStyle(
-                              fontSize: 25.w,
+                              fontSize: 26.w,
                               fontWeight: FontWeight.normal,
                               color: Colors.white,
                               decoration: TextDecoration.none),
@@ -348,7 +348,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                                 width: 90.w,
                                 height: 90.w,
                                 decoration: const BoxDecoration(
-                                  color: Color.fromARGB(235, 73, 73, 73),
+                                  color: Color.fromARGB(80, 230, 230, 230),
                                   shape: BoxShape.circle,
                                 ),
                                 child: GestureDetector(
@@ -367,7 +367,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                             ),
                             Text("我的二维码",
                                 style: TextStyle(
-                                    fontSize: 20.w,
+                                    fontSize: 22.w,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.white,
                                     decoration: TextDecoration.none))
@@ -381,7 +381,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                           // width: 390.w,
                           height: 90.w,
                           decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 247, 247, 247),
+                            color: const Color.fromARGB(150, 240, 240, 240),
                             borderRadius: BorderRadius.circular(12.w),
                           ),
                           child: Row(
@@ -404,11 +404,11 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                               ),
                               SizedBox(width: 15.w),
                               Expanded(
-                                flex: 1,
+                                  flex: 1,
                                   child: Text(
-                                "暴龙太阳眼睛",
-                                style: TextStyle(fontSize: 27.w),
-                              )),
+                                    "暴龙太阳眼睛",
+                                    style: TextStyle(fontSize: 27.w),
+                                  )),
                               SizedBox(width: 15.w),
                               Container(
                                   color: Colors.transparent,
@@ -436,7 +436,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                                 width: 90.w,
                                 height: 90.w,
                                 decoration: const BoxDecoration(
-                                  color: Color.fromARGB(235, 73, 73, 73),
+                                  color: Color.fromARGB(80, 230, 230, 230),
                                   shape: BoxShape.circle,
                                 ),
                                 child: GestureDetector(
@@ -455,7 +455,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                             ),
                             Text("相册",
                                 style: TextStyle(
-                                    fontSize: 20.w,
+                                    fontSize: 22.w,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.white,
                                     decoration: TextDecoration.none))

@@ -436,10 +436,10 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
                     decoration: TextDecoration.none,
-                    color: const Color.fromARGB(255, 165, 214, 192),
-                    fontSize: 25.0.w,
+                    color: const Color.fromARGB(255, 145, 223, 173),
+                    fontSize: 26.0.w,
                     overflow: TextOverflow.ellipsis,
-                    fontFamily: "Rubik"),
+                    fontFamily: "Outfit-Light"),
               ),
             ],
           ),

@@ -9,6 +9,7 @@ import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/userinfo.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
 import 'package:jiaoyishuoflutter3/wallet.dart';
 import 'package:vibration/vibration.dart';
@@ -155,6 +156,25 @@ class TabBarApp extends StatelessWidget {
                     return PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
                           const LJNWalletPage(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.ease;
+
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+
+                        return SlideTransition(
+                          position: animation.drive(tween),
+                          child: child,
+                        );
+                      },
+                    );
+                  } else if (settings.name == '/userinfo') {
+                    return PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          const LJNUserinfoPage(),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         const begin = Offset(1.0, 0.0);
@@ -400,7 +420,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                       ))),
                       child: TabBar(
                         dividerColor: const Color.fromARGB(255, 218, 218, 218),
-                        labelColor: const Color.fromARGB(255, 7, 193, 96),
+                        labelColor: const Color.fromARGB(255, 7, 192, 103),
                         labelStyle: TextStyle(fontSize: 22.w),
                         unselectedLabelColor:
                             const Color.fromARGB(222, 0, 0, 0),

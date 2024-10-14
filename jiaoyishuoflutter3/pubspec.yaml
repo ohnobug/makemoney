@@ -41,9 +41,15 @@ flutter:
     - assets/sounds/
     - assets/lotties/
   fonts:
-    - family: Rubik
+    - family: Outfit-Light
       fonts:
-        - asset: ./assets/fonts/Rubik-VariableFont_wght.ttf
+        - asset: ./assets/fonts/Barlow-Regular.ttf
+    - family: Outfit-Regular
+      fonts:
+        - asset: ./assets/fonts/Barlow-Regular.ttf
+    - family: Rubik-Light
+      fonts:
+        - asset: ./assets/fonts/Rubik-Light.ttf
     - family: AlibabaPuHuiTi
       fonts:
         - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.ttf
