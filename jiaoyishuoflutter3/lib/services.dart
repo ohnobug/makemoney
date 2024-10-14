@@ -403,7 +403,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
         width: 272.w,
         decoration: BoxDecoration(
           color: _isPressed
-              ? const Color.fromARGB(255, 39, 155, 94)
+              ? const Color.fromARGB(255, 77, 174, 107)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(16.0).w,
         ),
@@ -434,12 +434,12 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                 widget.subTitle,
                 maxLines: 1,
                 style: TextStyle(
-                    fontWeight: FontWeight.w600,
+                    // fontWeight: FontWeight.w600,
                     decoration: TextDecoration.none,
-                    color: const Color.fromARGB(255, 145, 223, 173),
-                    fontSize: 26.0.w,
+                    color: const Color.fromARGB(255, 156, 221, 180),
+                    fontSize: 27.0.w,
                     overflow: TextOverflow.ellipsis,
-                    fontFamily: "Outfit-Light"),
+                    fontFamily: "Quicksand-Medium"),
               ),
             ],
           ),

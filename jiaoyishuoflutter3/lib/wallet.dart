@@ -133,7 +133,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                       fontSize: 29.w,
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,
-                                      fontFamily: "Outfit-Regular"),
+                                      fontFamily: "Quicksand-Medium"),
                                 )
                               ]),
                           underline: true,
@@ -155,7 +155,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                       TextSpan(
                                         text: '收益率1.64%',
                                         style: TextStyle(
-                                          fontSize: 25.w,
+                                          fontSize: 23.w,
                                           color: const Color.fromARGB(
                                               255, 249, 136, 39),
                                         ),
@@ -179,7 +179,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                       fontSize: 29.w,
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,
-                                      fontFamily: "Outfit-Regular"),
+                                      fontFamily: "Quicksand-Medium"),
                                 )
                               ]),
                           underline: true,

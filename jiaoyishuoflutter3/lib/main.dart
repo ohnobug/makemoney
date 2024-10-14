@@ -509,7 +509,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                         0xe612,
                                         fontFamily: 'Iconfont',
                                       ),
-                                      size: 37.w, // 图标大小
+                                      size: 38.w, // 图标大小
                                     ),
                                   ),
                                 ),

@@ -168,7 +168,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                     fontFamily:
                                                                         'Iconfont',
                                                                   ),
-                                                                  size: 28.w,
+                                                                  size: 26.w,
                                                                   color: const Color
                                                                       .fromARGB(
                                                                       255,

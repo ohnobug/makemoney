@@ -41,12 +41,12 @@ flutter:
     - assets/sounds/
     - assets/lotties/
   fonts:
-    - family: Outfit-Light
-      fonts:
-        - asset: ./assets/fonts/Barlow-Regular.ttf
     - family: Outfit-Regular
       fonts:
-        - asset: ./assets/fonts/Barlow-Regular.ttf
+        - asset: ./assets/fonts/Quicksand-Regular.ttf
+    - family: Quicksand-Medium
+      fonts:
+        - asset: ./assets/fonts/Quicksand-Medium.ttf
     - family: Rubik-Light
       fonts:
         - asset: ./assets/fonts/Rubik-Light.ttf
