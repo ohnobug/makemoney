@@ -9,7 +9,7 @@ class LJNFunctionItem extends StatefulWidget {
   final String? icon;
   final double? height;
   final String title;
-  final String link;
+  final String? link;
   final bool underline;
   final Widget? showStyle;
 
@@ -19,7 +19,7 @@ class LJNFunctionItem extends StatefulWidget {
     this.icon,
     this.height,
     required this.title,
-    required this.link,
+    this.link,
     required this.underline,
     this.showStyle,
   });
@@ -54,7 +54,9 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
           });
 
           if (mounted) {
-            Navigator.pushNamed(context, '/services');
+            if (widget.link != null) {
+              Navigator.pushNamed(context, widget.link!);
+            }
           }
         });
 

@@ -53,12 +53,18 @@ flutter:
     - family: AlibabaPuHuiTi
       fonts:
         - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.ttf
-    # - family: SourceHanSans
+    - family: NotoColorEmoji-Regular
+      fonts:
+        - asset: ./assets/fonts/NotoColorEmoji-Regular.ttf
+    # - family: Roboto
     #   fonts:
-    #     - asset: ./assets/fonts/SourceHanSans-VF.ttf.ttc
+    #     - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.ttf
+    # - family: Noto Sans SC
+    #   fonts:
+    #     - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.ttf
     # - family: notosanssc
     #   fonts:
-    #     - asset: ./assets/fonts/notosanssc.ttf
+    #     - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.ttf
     - family: Iconfont
       fonts:
         - asset: ./assets/fonts/iconfont/iconfont.ttf

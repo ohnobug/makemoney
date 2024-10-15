@@ -61,7 +61,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "朋友圈",
                     icon: "images/icon/discovery_icon1.png",
-                    link: '',
+                    link: '/friendmoments',
                     underline: false,
                   ),
                   SizedBox(height: 16.w),
@@ -90,7 +90,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           ),
                           Flexible(
                               child: Text(
-                            "爱八方集团💖陈翠",
+                            "李俊南集团💖李俊男",
                             style: TextStyle(
                                 fontSize: 26.w,
                                 color: const Color.fromARGB(255, 80, 80, 80)),

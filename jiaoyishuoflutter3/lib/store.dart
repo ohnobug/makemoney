@@ -9,6 +9,8 @@ final ThemeData lightTheme = ThemeData(
       //   fontSize: 30.w,
       //     color: Color.fromARGB(255, 157, 17, 17), fontWeight: FontWeight.w500),
       iconTheme: IconThemeData(color: Colors.black)),
+  // tabBarTheme:
+  //     const TabBarTheme(labelStyle: TextStyle(fontFamily: "AlibabaPuHuiTi")),
   colorScheme: const ColorScheme.light(
     primaryContainer: Colors.white,
     primary: Colors.black,
@@ -16,23 +18,26 @@ final ThemeData lightTheme = ThemeData(
   ),
   primaryColor: Colors.black,
   fontFamily: "AlibabaPuHuiTi",
+  fontFamilyFallback: const ['Noto Sans SC'],
 );
 
 final ThemeData darkTheme = ThemeData(
-    useMaterial3: true,
-    appBarTheme: const AppBarTheme(
-        // titleTextStyle: TextStyle(
-        //     color: Color.fromARGB(255, 157, 17, 17),
-        //     fontWeight: FontWeight.w500),
-        iconTheme: IconThemeData(color: Colors.black)),
-    colorScheme: const ColorScheme.dark(
-      primaryContainer: Colors.black,
-      primary: Colors.white,
-      secondary: Colors.grey,
-    ),
-    primaryColor: Colors.white,
-    fontFamily: "AlibabaPuHuiTi",
-    );
+  useMaterial3: true,
+  appBarTheme: const AppBarTheme(
+      // titleTextStyle: TextStyle(
+      //     color: Color.fromARGB(255, 157, 17, 17),
+      //     fontWeight: FontWeight.w500),
+      iconTheme: IconThemeData(color: Colors.black)),
+  // tabBarTheme:
+  //     const TabBarTheme(labelStyle: TextStyle(fontFamily: "AlibabaPuHuiTi")),
+  colorScheme: const ColorScheme.dark(
+    primaryContainer: Colors.black,
+    primary: Colors.white,
+    secondary: Colors.grey,
+  ),
+  primaryColor: Colors.white,
+  fontFamilyFallback: const ['Noto Sans SC'],
+);
 
 class StoreType {
   String? userinfoName; // 用户名

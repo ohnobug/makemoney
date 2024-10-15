@@ -124,7 +124,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                               vm.userinfoName
                                                                   as String,
                                                               style: TextStyle(
-                                                                fontSize: 40.w,
+                                                                fontSize: 42.w,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w600,
@@ -168,7 +168,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                     fontFamily:
                                                                         'Iconfont',
                                                                   ),
-                                                                  size: 26.w,
+                                                                  size: 24.w,
                                                                   color: const Color
                                                                       .fromARGB(
                                                                       255,
