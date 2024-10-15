@@ -53,6 +53,9 @@ flutter:
     - family: AlibabaPuHuiTi
       fonts:
         - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.ttf
+    - family: AlibabaPuHuiTi-Medium
+      fonts:
+        - asset: ./assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf
     - family: NotoColorEmoji-Regular
       fonts:
         - asset: ./assets/fonts/NotoColorEmoji-Regular.ttf

@@ -89,20 +89,20 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                             width: 14.w,
                           ),
                           Flexible(
-                              child: Text(
-                            "李俊南集团💖李俊男",
-                            style: TextStyle(
-                                fontSize: 26.w,
-                                color: const Color.fromARGB(255, 80, 80, 80)),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                              child: RichText(
+                            text: TextSpan(
+                              children: buildTextSpans(
+                                  "李俊南集团💖李俊男  最近💖",
+                                  TextStyle(
+                                      fontSize: 26.w,
+                                      color:
+                                          const Color.fromARGB(255, 80, 80, 80),
+                                      fontFamily: "AlibabaPuHuiTi"),
+                                  TextStyle(
+                                      fontSize: 26.w,
+                                      fontFamily: "NotoColorEmoji-Regular")),
+                            ),
                           )),
-                          Text(
-                            " 最近💖",
-                            style: TextStyle(
-                                fontSize: 26.w,
-                                color: const Color.fromARGB(255, 80, 80, 80)),
-                          ),
                         ]),
                   ),
                   LJNFunctionItem(

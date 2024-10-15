@@ -60,8 +60,9 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage> {
                           child: Column(
                             children: [
                               // 背景信息
-                              SizedBox(
+                              Container(
                                   height: _statusHeight + 630.w,
+                                  color: Colors.white,
                                   width: 750.w,
                                   child: Stack(
                                     children: [
@@ -278,22 +279,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage> {
   }
 }
 
-// 正则表达式匹配所有 emoji
-final RegExp emojiRegex = RegExp(
-  r'[\u{1F600}-\u{1F64F}]|' // 表情符号
-  r'[\u{1F300}-\u{1F5FF}]|' // 符号和图形
-  r'[\u{1F680}-\u{1F6FF}]|' // 交通工具和符号
-  r'[\u{1F700}-\u{1F77F}]|' // 箭头、符号
-  r'[\u{1F780}-\u{1F7FF}]|' // 符号
-  r'[\u{1F800}-\u{1F8FF}]|' // 符号
-  r'[\u{2600}-\u{26FF}]|' // 各类符号
-  r'[\u{2700}-\u{27BF}]|' // 各类符号
-  r'[\u{1F900}-\u{1F9FF}]|' // 各类符号
-  r'[\u{1FA70}-\u{1FAFF}]|' // emoji v12.0
-  r'[\u{200D}]|' // 零宽字符
-  r'[\u{2640}\u{2642}]', // 性别符号
-  unicode: true,
-);
+
 
 class TweetWidget extends StatelessWidget {
   final String time;
@@ -309,51 +295,6 @@ class TweetWidget extends StatelessWidget {
     required this.tweetContent,
   });
 
-  // 解析推文内容，将emoji和文本分开处理
-  List<TextSpan> _buildTextSpans(String text) {
-    List<TextSpan> spans = [];
-    final matches = emojiRegex.allMatches(text);
-    int lastMatchEnd = 0;
-
-    for (final match in matches) {
-      // 添加前面的非emoji文本
-      if (match.start > lastMatchEnd) {
-        spans.add(
-          TextSpan(
-            text: text.substring(lastMatchEnd, match.start),
-            style: TextStyle(
-                fontSize: 30.w,
-                color: Colors.black,
-                fontFamily: "AlibabaPuHuiTi"),
-          ),
-        );
-      }
-      // 添加emoji
-      spans.add(
-        TextSpan(
-          text: match.group(0),
-          style:
-              TextStyle(fontSize: 30.w, fontFamily: "NotoColorEmoji-Regular"),
-        ),
-      );
-      lastMatchEnd = match.end;
-    }
-
-    // 添加最后的非emoji文本
-    if (lastMatchEnd < text.length) {
-      spans.add(
-        TextSpan(
-          text: text.substring(lastMatchEnd),
-          style: TextStyle(
-              fontSize: 30.w,
-              color: Colors.black,
-              fontFamily: "AlibabaPuHuiTi"),
-        ),
-      );
-    }
-
-    return spans;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -397,17 +338,20 @@ class TweetWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    // 姓名
                     Text(
                       name,
                       style: TextStyle(
                         fontSize: 30.w,
+                        fontFamily: "AlibabaPuHuiTi-Medium",
                         // fontWeight: FontWeight.w600,
                         color: const Color.fromARGB(255, 58, 81, 124),
                       ),
                     ),
+                    // 推文
                     RichText(
                       text: TextSpan(
-                        children: _buildTextSpans(tweetContent),
+                        children: buildTextSpans(tweetContent, TextStyle(fontSize: 30.w), TextStyle(fontSize: 30.w)),
                       ),
                     ),
                     SizedBox(height: 20.w),
@@ -442,6 +386,7 @@ class TweetWidget extends StatelessWidget {
                                   fontFamily: 'Iconfont',
                                 ),
                                 size: 37.w,
+                                color: const Color.fromARGB(255, 58, 81, 124),
                               ),
                             ),
                           ),
