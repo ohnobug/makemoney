@@ -40,6 +40,7 @@ void main() async {
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   myStore.dispatch({"type": "userinfoName", "payload": "李俊杰"});
+  myStore.dispatch({"type": "userinfoAccount", "payload": "TheMonsterClub"});
   myStore.dispatch({"type": "walletBalance", "payload": 502547.36});
   myStore.dispatch({"type": "walletFoundationBalance", "payload": 0.0});
   myStore.dispatch(

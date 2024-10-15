@@ -113,114 +113,118 @@ class _LJNWalletPage extends State<LJNWalletPage> {
               body: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)
                       .copyWith(scrollbars: false),
-                  child: ColoredBox(
-                      color: const Color.fromARGB(255, 237, 237, 237),
-                      child: Column(children: [
-                        // 朋友圈
-                        LJNFunctionItem(
-                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                          title: "零钱",
-                          icon: "images/icon/discovery_icon1.png",
-                          link: '',
-                          showStyle: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '¥${vm.walletBalance}',
-                                  // '¥201.12',
-                                  style: TextStyle(
-                                      fontSize: 29.w,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "Quicksand-Medium"),
-                                )
-                              ]),
-                          underline: true,
-                        ),
+                  child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(
+                          parent: BouncingScrollPhysics()),
+                      child: ColoredBox(
+                          color: const Color.fromARGB(255, 237, 237, 237),
+                          child: Column(children: [
+                            // 朋友圈
+                            LJNFunctionItem(
+                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                              title: "零钱",
+                              icon: "images/icon/discovery_icon1.png",
+                              link: '',
+                              showStyle: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '¥${vm.walletBalance}',
+                                      // '¥201.12',
+                                      style: TextStyle(
+                                          fontSize: 29.w,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "Quicksand-Medium"),
+                                    )
+                                  ]),
+                              underline: true,
+                            ),
 
-                        // 视频号、直播
-                        LJNFunctionItem(
-                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                          title: "零钱通",
-                          icon: "images/icon/discovery_icon2.png",
-                          link: '',
-                          showStyle: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
+                            // 视频号、直播
+                            LJNFunctionItem(
+                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                              title: "零钱通",
+                              icon: "images/icon/discovery_icon2.png",
+                              link: '',
+                              showStyle: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text.rich(
                                       TextSpan(
-                                        text: '收益率1.64%',
-                                        style: TextStyle(
-                                          fontSize: 23.w,
-                                          color: const Color.fromARGB(
-                                              255, 249, 136, 39),
-                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text: '收益率1.64%',
+                                            style: TextStyle(
+                                              fontSize: 23.w,
+                                              color: const Color.fromARGB(
+                                                  255, 249, 136, 39),
+                                            ),
+                                          ),
+                                          // TextSpan(
+                                          //   text: '1.64%',
+                                          //   style: TextStyle(
+                                          //     fontSize: 27.w,
+                                          //     fontWeight:
+                                          //         FontWeight.bold, // 设置不同的字体样式
+                                          //     color: const Color.fromARGB(
+                                          //         255, 249, 136, 39),
+                                          //   ),
+                                          // ),
+                                        ],
                                       ),
-                                      // TextSpan(
-                                      //   text: '1.64%',
-                                      //   style: TextStyle(
-                                      //     fontSize: 27.w,
-                                      //     fontWeight:
-                                      //         FontWeight.bold, // 设置不同的字体样式
-                                      //     color: const Color.fromARGB(
-                                      //         255, 249, 136, 39),
-                                      //   ),
-                                      // ),
-                                    ],
-                                  ),
-                                ),
-                                Text(
-                                  '¥${vm.walletFoundationBalance}',
-                                  style: TextStyle(
-                                      fontSize: 29.w,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "Quicksand-Medium"),
-                                )
-                              ]),
-                          underline: true,
-                        ),
-                        const LJNFunctionItem(
-                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                          title: "银行卡",
-                          icon: "images/icon/discovery_icon3.png",
-                          link: '',
-                          underline: true,
-                        ),
+                                    ),
+                                    Text(
+                                      '¥${vm.walletFoundationBalance}',
+                                      style: TextStyle(
+                                          fontSize: 29.w,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "Quicksand-Medium"),
+                                    )
+                                  ]),
+                              underline: true,
+                            ),
+                            const LJNFunctionItem(
+                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                              title: "银行卡",
+                              icon: "images/icon/discovery_icon3.png",
+                              link: '',
+                              underline: true,
+                            ),
 
-                        // 扫一扫、听一听
-                        const LJNFunctionItem(
-                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                          title: "亲属卡",
-                          icon: "images/icon/discovery_icon4.png",
-                          link: '',
-                          underline: false,
-                        ),
+                            // 扫一扫、听一听
+                            const LJNFunctionItem(
+                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                              title: "亲属卡",
+                              icon: "images/icon/discovery_icon4.png",
+                              link: '',
+                              underline: false,
+                            ),
 
-                        SizedBox(height: 16.w),
+                            SizedBox(height: 16.w),
 
-                        const LJNFunctionItem(
-                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                          title: "支付分",
-                          icon: "images/icon/discovery_icon5.png",
-                          link: '',
-                          underline: false,
-                        ),
-                        SizedBox(height: 16.w),
+                            const LJNFunctionItem(
+                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                              title: "支付分",
+                              icon: "images/icon/discovery_icon5.png",
+                              link: '',
+                              underline: false,
+                            ),
+                            SizedBox(height: 16.w),
 
-                        // 消费者保护
-                        const LJNFunctionItem(
-                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                          title: "消费者保护",
-                          icon: "images/icon/discovery_icon6.png",
-                          link: '',
-                          underline: false,
-                        ),
-                      ]))));
+                            // 消费者保护
+                            const LJNFunctionItem(
+                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                              title: "消费者保护",
+                              icon: "images/icon/discovery_icon6.png",
+                              link: '',
+                              underline: false,
+                            ),
+                          ])))));
         });
   }
 }

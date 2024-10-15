@@ -116,9 +116,12 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                   behavior: ScrollConfiguration.of(context)
                       .copyWith(scrollbars: false),
                   child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(
+                          parent: BouncingScrollPhysics()),
                       child: Container(
                           constraints: BoxConstraints(
-                              minHeight: screenSize.height - 90.w - _statusHeight),
+                              minHeight:
+                                  screenSize.height - 90.w - _statusHeight),
                           color: const Color.fromARGB(255, 237, 237, 237),
                           child: Column(children: [
                             // 头像
@@ -143,7 +146,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                   ]),
                               underline: true,
                             ),
-                            // 视频号、直播
+                            // 姓名
                             LJNFunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "名字",
@@ -154,7 +157,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      '李俊男',
+                                      vm.userinfoName!,
                                       style: TextStyle(
                                         fontSize: 30.w,
                                         color: const Color.fromARGB(
@@ -181,7 +184,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'TheMonsterClub',
+                                      vm.userinfoAccount!,
                                       style: TextStyle(
                                         fontSize: 30.w,
                                         color: const Color.fromARGB(

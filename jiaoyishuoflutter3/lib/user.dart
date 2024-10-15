@@ -149,7 +149,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                   .spaceBetween,
                                                           children: [
                                                             Text(
-                                                              '微信号：TheMonsterClub',
+                                                              '微信号：${vm.userinfoAccount}',
                                                               style: TextStyle(
                                                                 fontSize: 28.w,
                                                                 color: const Color
@@ -336,9 +336,11 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                         title: "服务",
                                         icon: "images/icon/icon1.png",
-                                        link: '',
+                                        link: '/services',
                                         underline: false,
                                       ),
+
+                                      // 间隔
                                       Container(
                                         width: double.infinity,
                                         height: 16.w,
