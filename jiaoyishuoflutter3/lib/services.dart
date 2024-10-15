@@ -561,7 +561,7 @@ class FunctionButtonsSection extends StatelessWidget {
                       child: Text(
                         title,
                         style: TextStyle(
-                            fontSize: 25.w,
+                            fontSize: 27.w,
                             color: const Color.fromARGB(255, 87, 87, 87)),
                       )),
                 ),

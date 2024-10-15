@@ -45,6 +45,8 @@ class _LJNWalletPage extends State<LJNWalletPage> {
 
   // 另起一个函数方便管理
   Widget _buildPage() {
+    Size screenSize = MediaQuery.of(context).size;
+
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -110,14 +112,17 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                           fontWeight: FontWeight.w500)))),
                         ],
                       ))),
-              body: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context)
-                      .copyWith(scrollbars: false),
-                  child: SingleChildScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(
-                          parent: BouncingScrollPhysics()),
-                      child: ColoredBox(
-                          color: const Color.fromARGB(255, 237, 237, 237),
+              body: Container(
+                  constraints: BoxConstraints(
+                    minHeight: screenSize.height - (90.0.w + _statusHeight),
+                  ),
+                  color: const Color.fromARGB(255, 237, 237, 237),
+                  child: ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(
+                              parent: BouncingScrollPhysics()),
                           child: Column(children: [
                             // 朋友圈
                             LJNFunctionItem(

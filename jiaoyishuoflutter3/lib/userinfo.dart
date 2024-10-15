@@ -115,14 +115,13 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
               body: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)
                       .copyWith(scrollbars: false),
-                  child: SingleChildScrollView(
-                      physics: const AlwaysScrollableScrollPhysics(
-                          parent: BouncingScrollPhysics()),
-                      child: Container(
-                          constraints: BoxConstraints(
-                              minHeight:
-                                  screenSize.height - 90.w - _statusHeight),
-                          color: const Color.fromARGB(255, 237, 237, 237),
+                  child: Container(
+                      constraints: BoxConstraints(
+                          minHeight: screenSize.height - 90.w - _statusHeight),
+                      color: const Color.fromARGB(255, 237, 237, 237),
+                      child: SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(
+                              parent: BouncingScrollPhysics()),
                           child: Column(children: [
                             // 头像
                             LJNFunctionItem(

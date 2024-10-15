@@ -30,7 +30,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Size screenSize = MediaQuery.of(context).size;
+    Size screenSize = MediaQuery.of(context).size;
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -38,217 +38,242 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage> {
           return Scaffold(
               primary: false,
               appBar: null,
-              body: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context)
-                      .copyWith(scrollbars: false),
-                  child: SingleChildScrollView(
-                      controller: _scrollController,
-                      physics: const AlwaysScrollableScrollPhysics(
-                          parent: BouncingScrollPhysics()),
-                      child: Column(
-                        children: [
-                          // 背景信息
-                          SizedBox(
-                              height: _statusHeight + 630.w,
-                              width: 750.w,
-                              child: Stack(
-                                children: [
-                                  // 背景
-                                  Image.asset(
-                                    assetPath('images/avatar/fj.jpg'),
-                                    width: 750.w,
-                                    height: _statusHeight + 530.w,
-                                    fit: BoxFit.cover,
+              body: Stack(
+                children: [
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Container(
+                      width: screenSize.width,
+                      height: _statusHeight + 530.w,
+                      color: const Color.fromARGB(255, 48, 48, 48),
+                    ),
+                  ),
+
+                  ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: SingleChildScrollView(
+                          controller: _scrollController,
+                          physics: const AlwaysScrollableScrollPhysics(
+                              parent: BouncingScrollPhysics()),
+                          child: Column(
+                            children: [
+                              // 背景信息
+                              SizedBox(
+                                  height: _statusHeight + 630.w,
+                                  width: 750.w,
+                                  child: Stack(
+                                    children: [
+                                      // 背景
+                                      Image.asset(
+                                        assetPath('images/avatar/fj.jpg'),
+                                        width: 750.w,
+                                        height: _statusHeight + 530.w,
+                                        fit: BoxFit.cover,
+                                      ),
+
+                                      // 头像以及姓名
+                                      Positioned(
+                                          top: _statusHeight + 460.w,
+                                          child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 35.w),
+                                              width: 750.w,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                      margin: EdgeInsets.only(
+                                                          right: 15.w,
+                                                          top: 10.w),
+                                                      child: Text(
+                                                        vm.userinfoName!,
+                                                        style: TextStyle(
+                                                            fontSize: 40.w,
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      )),
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                                10)
+                                                            .w,
+                                                    child: Image.asset(
+                                                      vm.userinfoAvatar
+                                                          as String,
+                                                      width: 120.w,
+                                                      height: 120.w,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ],
+                                              )))
+                                    ],
+                                  )),
+
+                              // 样式1
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_1.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_2.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_3.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_4.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_5.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_6.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_7.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_8.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_9.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_10.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_11.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_12.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_13.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_14.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                              const TweetWidget(
+                                time: "一分钟前",
+                                avatarUrl: 'images/avatar_webp/chat_15.webp',
+                                name: "考研第一名",
+                                tweetContent:
+                                    "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
+                              ),
+                            ],
+                          ))),
+                  // 返回按钮
+                  Positioned(
+                      top: 45.w,
+                      child: Container(
+                          width: 750.w,
+                          padding: EdgeInsets.symmetric(horizontal: 34.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                  // wallet
+                                }, // 点击事件
+                                child: Container(
+                                  color: Colors.transparent,
+                                  child: Icon(
+                                    const IconData(
+                                      0xed9e,
+                                      fontFamily: 'Iconfont',
+                                    ), // 使用的图标
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255), // 图标颜色
+                                    size: 40.w, // 图标大小
                                   ),
-
-                                  // 返回按钮
-                                  Positioned(
-                                      top: 45.w,
-                                      child: Container(
-                                          width: 750.w,
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 34.w),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Navigator.of(context).pop();
-                                                  // wallet
-                                                }, // 点击事件
-                                                child: Container(
-                                                  color: Colors.transparent,
-                                                  child: Icon(
-                                                    const IconData(
-                                                      0xed9e,
-                                                      fontFamily: 'Iconfont',
-                                                    ), // 使用的图标
-                                                    color: const Color.fromARGB(
-                                                        255,
-                                                        255,
-                                                        255,
-                                                        255), // 图标颜色
-                                                    size: 40.w, // 图标大小
-                                                  ),
-                                                ),
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Navigator.of(context).pop();
-                                                  // wallet
-                                                }, // 点击事件
-                                                child: Container(
-                                                  color: Colors.transparent,
-                                                  child: Icon(
-                                                    const IconData(
-                                                      0xe64d,
-                                                      fontFamily: 'Iconfont',
-                                                    ), // 使用的图标
-                                                    color: const Color.fromARGB(
-                                                        255,
-                                                        255,
-                                                        255,
-                                                        255), // 图标颜色
-                                                    size: 45.w, // 图标大小
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ))),
-
-                                  // 头像以及姓名
-                                  Positioned(
-                                      top: _statusHeight + 460.w,
-                                      child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 35.w),
-                                          width: 750.w,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                  margin: EdgeInsets.only(
-                                                      right: 15.w, top: 10.w),
-                                                  child: Text(
-                                                    vm.userinfoName!,
-                                                    style: TextStyle(
-                                                        fontSize: 40.w,
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                  )),
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10).w,
-                                                child: Image.asset(
-                                                  vm.userinfoAvatar as String,
-                                                  width: 120.w,
-                                                  height: 120.w,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ],
-                                          )))
-                                ],
-                              )),
-
-                          // 样式1
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_1.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_2.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_3.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_4.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_5.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_6.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_7.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_8.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_9.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_10.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_11.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_12.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_13.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_14.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                          const TweetWidget(
-                            time: "一分钟前",
-                            avatarUrl: 'images/avatar_webp/chat_15.webp',
-                            name: "考研第一名",
-                            tweetContent: "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️",
-                          ),
-                        ],
-                      ))));
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                  // wallet
+                                }, // 点击事件
+                                child: Container(
+                                  color: Colors.transparent,
+                                  child: Icon(
+                                    const IconData(
+                                      0xe64d,
+                                      fontFamily: 'Iconfont',
+                                    ), // 使用的图标
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255), // 图标颜色
+                                    size: 45.w, // 图标大小
+                                  ),
+                                ),
+                              )
+                            ],
+                          ))),
+                ],
+              ));
         });
   }
 }
@@ -336,6 +361,7 @@ class TweetWidget extends StatelessWidget {
       width: 750.w,
       padding: EdgeInsets.only(top: 22.w, bottom: 22.w),
       decoration: BoxDecoration(
+        color: Colors.white,
         border: Border(
           bottom: BorderSide(
             color: const Color.fromARGB(255, 243, 243, 243),
@@ -375,8 +401,8 @@ class TweetWidget extends StatelessWidget {
                       name,
                       style: TextStyle(
                         fontSize: 30.w,
-                        fontWeight: FontWeight.w600,
-                        color: const Color.fromARGB(255, 74, 88, 142),
+                        // fontWeight: FontWeight.w600,
+                        color: const Color.fromARGB(255, 58, 81, 124),
                       ),
                     ),
                     RichText(
@@ -412,7 +438,7 @@ class TweetWidget extends StatelessWidget {
                             child: Center(
                               child: Icon(
                                 const IconData(
-                                  0xe659,
+                                  0xe667,
                                   fontFamily: 'Iconfont',
                                 ),
                                 size: 37.w,
