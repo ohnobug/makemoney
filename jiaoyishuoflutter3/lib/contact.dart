@@ -47,7 +47,19 @@ class _LJNContactPageState extends State<LJNContactPage> {
 
   // 另起一个函数方便管理
   Widget _buildPage() {
+    Size screenSize = MediaQuery.of(context).size;
+
     return Stack(children: [
+      Positioned(
+        left: 0,
+        top: 0,
+        child: Container(
+          width: screenSize.width,
+          height: screenSize.height / 2,
+          color: const Color.fromARGB(255, 237, 237, 237),
+        ),
+      ),
+
       ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
           child: SingleChildScrollView(
@@ -581,11 +593,11 @@ class _LJNContactPageState extends State<LJNContactPage> {
       StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, state) {
-          return Positioned(
-              right: 0,
-              top: 0,
-              child: Visibility(
-                  visible: state.contactazshow!,
+          return Visibility(
+              visible: state.contactazshow!,
+              child: Positioned(
+                  right: 0,
+                  top: 0,
                   child: SizedBox(
                     width: 40.w,
                     height: MediaQuery.of(context).size.height - 115.w - 75.w,

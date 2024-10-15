@@ -129,7 +129,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                             width: 14.w,
                           ),
                           ClipRRect(
-                              borderRadius: BorderRadius.circular(500).w,
+                              borderRadius: BorderRadius.circular(60).w,
                               child: Image.asset(
                                 assetPath('images/avatar_webp/chat_4.webp'),
                                 width: 60.w,
@@ -145,7 +145,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "扫一扫",
                     icon: "images/icon/discovery_icon4.png",
-                    link: '',
+                    link: '/qrcode_scanner',
                     underline: true,
                   ),
                   const LJNFunctionItem(

@@ -653,11 +653,11 @@ class _ChatListItem extends State<ChatListItem> {
                                 child: Text(
                                   widget.friendName,
                                   style: TextStyle(
-                                    fontSize: 32.0.w,
-                                    color: widget.notice
-                                        ? Colors.red
-                                        : Colors.black,
-                                  ),
+                                      fontSize: 32.0.w,
+                                      color: widget.notice
+                                          ? Colors.red
+                                          : Colors.black,
+                                      fontFamily: "AlibabaPuHuiTi"),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -688,19 +688,30 @@ class _ChatListItem extends State<ChatListItem> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
+                              // 文本
                               SizedBox(
-                                width: 460.w,
-                                child: Text(
-                                  widget.message,
-                                  style: TextStyle(
-                                    fontSize: 25.w,
-                                    color: const Color.fromARGB(
-                                        255, 193, 193, 193),
-                                  ),
+                                width: 500.w,
+                                child: RichText(
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
+                                  text: TextSpan(
+                                    children: buildTextSpans(
+                                        widget.message,
+                                        TextStyle(
+                                          fontSize: 25.w,
+                                          color: const Color.fromARGB(
+                                              255, 180, 180, 180),
+                                        ),
+                                        TextStyle(
+                                          fontSize: 25.w,
+                                          color: const Color.fromARGB(
+                                              255, 180, 180, 180),
+                                        )),
+                                  ),
                                 ),
                               ),
+
+                              // 铃铛
                               if (widget.notice) ...[
                                 Container(
                                   padding: EdgeInsets.only(right: 30.w),
@@ -708,7 +719,7 @@ class _ChatListItem extends State<ChatListItem> {
                                     Icons.notifications_off_outlined,
                                     size: 32.0.w,
                                     color: const Color.fromARGB(
-                                        255, 193, 193, 193),
+                                        255, 180, 180, 180),
                                   ),
                                 ),
                               ]

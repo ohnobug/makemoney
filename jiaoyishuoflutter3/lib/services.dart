@@ -130,10 +130,13 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       CollectionAndPayment(
-                                        icon: const IconData(
-                                          0xe658,
-                                          fontFamily: 'Iconfont',
-                                        ),
+                                        icon: Icon(
+                                            const IconData(
+                                              0xe607,
+                                              fontFamily: 'Iconfont',
+                                            ),
+                                            size: 50.w,
+                                            color: Colors.white),
                                         title: '收付款',
                                         subTitle: "",
                                         onPressed: () {
@@ -143,10 +146,13 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                         },
                                       ),
                                       CollectionAndPayment(
-                                        icon: const IconData(
-                                          0xe6e4,
-                                          fontFamily: 'Iconfont',
-                                        ),
+                                        icon: Icon(
+                                            const IconData(
+                                              0xe6e4,
+                                              fontFamily: 'Iconfont',
+                                            ),
+                                            size: 70.w,
+                                            color: Colors.white),
                                         title: '钱包',
                                         subTitle: "¥${vm.walletBalance}",
                                         onPressed: () {
@@ -356,7 +362,7 @@ class _LJNServicesPage extends State<LJNServicesPage> {
 
 // 收付款
 class CollectionAndPayment extends StatefulWidget {
-  final IconData icon;
+  final Icon icon;
   final String title;
   final VoidCallback onPressed;
   final String subTitle;
@@ -411,7 +417,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(widget.icon, size: 70.w, color: Colors.white),
+              widget.icon,
 
               SizedBox(height: 15.w),
 
@@ -436,10 +442,10 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                 style: TextStyle(
                     // fontWeight: FontWeight.w600,
                     decoration: TextDecoration.none,
-                    color: const Color.fromARGB(255, 166, 223, 187),
+                    color: const Color.fromARGB(180, 255, 255, 255),
                     fontSize: 27.0.w,
                     overflow: TextOverflow.ellipsis,
-                    fontFamily: "Quicksand-Medium"),
+                    fontFamily: "Quicksand"),
               ),
             ],
           ),

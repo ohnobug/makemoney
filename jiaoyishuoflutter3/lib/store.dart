@@ -16,6 +16,11 @@ final ThemeData lightTheme = ThemeData(
     primary: Colors.black,
     secondary: Colors.grey,
   ),
+  tabBarTheme: const TabBarTheme(
+    labelStyle: TextStyle(
+      fontFamily: "AlibabaPuHuiTi"
+    )
+  ),
   primaryColor: Colors.black,
   fontFamily: "AlibabaPuHuiTi",
   fontFamilyFallback: const ['Noto Sans SC'],
@@ -34,6 +39,11 @@ final ThemeData darkTheme = ThemeData(
     primaryContainer: Colors.black,
     primary: Colors.white,
     secondary: Colors.grey,
+  ),
+  tabBarTheme: const TabBarTheme(
+    labelStyle: TextStyle(
+      fontFamily: "AlibabaPuHuiTi"
+    )
   ),
   primaryColor: Colors.white,
   fontFamilyFallback: const ['Noto Sans SC'],

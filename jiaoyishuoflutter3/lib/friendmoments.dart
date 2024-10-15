@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -279,8 +281,6 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage> {
   }
 }
 
-
-
 class TweetWidget extends StatelessWidget {
   final String time;
   final String avatarUrl;
@@ -295,9 +295,57 @@ class TweetWidget extends StatelessWidget {
     required this.tweetContent,
   });
 
+  // 生成随机数
+  int generateRandomNumber() {
+    var random = Random();
+    return random.nextInt(103) + 1; // 生成1到103的随机数
+  }
 
   @override
   Widget build(BuildContext context) {
+    final List<String> names = [
+      "刘德华💖",
+      "周杰伦",
+      "王菲",
+      "张学友",
+      "李宇春💖",
+      "特朗普",
+      "史泰龙",
+      "阿诺舒华"
+    ]; // 人名列表
+
+    List<TextSpan> textSpans = [];
+
+    for (int index = 0; index < names.length; index++) {
+      final name = names[index];
+
+      textSpans.add(
+        TextSpan(
+          children: buildTextSpans(
+              name,
+              TextStyle(
+                  fontSize: 27.w,
+                  color: const Color.fromARGB(255, 58, 81, 124),
+                  fontFamily: "AlibabaPuHuiTi-Medium"),
+              TextStyle(fontSize: 27.w, fontFamily: "NotoColorEmoji-Regular")),
+        ),
+      );
+
+      if (index != names.length - 1) {
+        // 逗号
+        textSpans.add(
+          TextSpan(
+            text: ", ",
+            style: TextStyle(
+              fontSize: 27.w,
+              color: const Color.fromARGB(255, 58, 81, 124),
+              fontFamily: "AlibabaPuHuiTi-Medium",
+            ),
+          ),
+        );
+      }
+    }
+
     return Container(
       width: 750.w,
       padding: EdgeInsets.only(top: 22.w, bottom: 22.w),
@@ -351,10 +399,45 @@ class TweetWidget extends StatelessWidget {
                     // 推文
                     RichText(
                       text: TextSpan(
-                        children: buildTextSpans(tweetContent, TextStyle(fontSize: 30.w), TextStyle(fontSize: 30.w)),
+                        children: buildTextSpans(
+                            tweetContent,
+                            TextStyle(fontSize: 30.w),
+                            TextStyle(fontSize: 30.w)),
                       ),
                     ),
                     SizedBox(height: 20.w),
+
+                    SizedBox(
+                      // color: Colors.amber,
+                      width: 570.w,
+                      height: 570.w,
+                      child: GridView.builder(
+                        scrollDirection: Axis.horizontal,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3, // 每行 3 列
+                          mainAxisSpacing: 6.w,
+                          crossAxisSpacing: 6.w,
+                          childAspectRatio: 1,
+                        ),
+                        itemCount: 9,
+                        itemBuilder: (context, index) {
+                          return Image(
+                            image: ResizeImage(
+                              AssetImage(assetPath(
+                                  'images/avatar_webp/chat_${generateRandomNumber()}.webp')),
+                              width: 200,
+                              height: 200,
+                            ),
+                            fit: BoxFit.cover, // 保持原来的 fit 方式
+                          );
+                        },
+                      ),
+                    ),
+
+                    SizedBox(height: 20.w),
+
                     // 显示时间与更多
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -393,6 +476,47 @@ class TweetWidget extends StatelessWidget {
                         ),
                       ],
                     ),
+
+                    SizedBox(height: 20.w),
+
+                    Container(
+                      constraints: BoxConstraints(minHeight: 51.w),
+                      padding: EdgeInsets.only(
+                          left: 18.w, right: 18.w, top: 15.w, bottom: 15.w),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 247, 247, 247),
+                        borderRadius: BorderRadius.circular(5.w), // 设置圆角
+                      ),
+                      child: Column(
+                        // 将 Row 改为 Column
+                        crossAxisAlignment: CrossAxisAlignment.start, // 修改对齐方式
+                        children: [
+                          RichText(
+                            maxLines: 1000,
+                            overflow: TextOverflow.visible,
+                            text: TextSpan(children: [
+                              WidgetSpan(
+                                child: Icon(
+                                  const IconData(
+                                    0xe70a,
+                                    fontFamily: 'Iconfont',
+                                  ),
+                                  color: const Color.fromARGB(
+                                      255, 58, 81, 124), // 图标颜色
+                                  size: 30.w, // 图标大小
+                                ),
+                              ),
+                              WidgetSpan(
+                                child: SizedBox(width: 3.w), // 图标和文本之间的间距
+                              ),
+                              TextSpan(
+                                  text: ' ', style: TextStyle(fontSize: 27.w)),
+                              ...textSpans
+                            ]),
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 )),
           ),
