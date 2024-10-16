@@ -187,14 +187,12 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                       child: Stack(
                         children: [
                           // 背景图片
-                          Positioned(
-                              top: 0,
-                              child: Image.asset(
-                                assetPath('images/avatar/fj.jpg'),
-                                width: 750.w,
-                                height: _statusHeight + 530.w,
-                                fit: BoxFit.cover,
-                              )),
+                          Image.asset(
+                            assetPath('images/avatar/fj.jpg'),
+                            width: 750.w,
+                            height: _statusHeight + 530.w,
+                            fit: BoxFit.cover,
+                          ),
 
                           // 头像及昵称
                           Positioned(
