@@ -37,7 +37,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
     });
 
     contactList = [
-      // SizedBox(height: _statusHeight + 90.w),
       ContactInformation(
           id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
           title: "新的朋友",
@@ -529,6 +528,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
       ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: ListView.builder(
+          padding: EdgeInsets.only(top: _statusHeight + 90.w),
           physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics()),
           itemCount: contactList.length, // contactList 是你的联系人数据列表

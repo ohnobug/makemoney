@@ -213,7 +213,7 @@ class TabBarApp extends StatelessWidget {
                       },
                     );
                   } else if (settings.name == '/pocketmoney') {
-                  // } else if (settings.name == '/') {
+                    // } else if (settings.name == '/') {
                     return PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
                           const LJNPocketMoneyPage(),
@@ -508,8 +508,9 @@ class _CustomTabbarState extends State<CustomTabbar>
               ),
 
               // 浮动在顶部的appbar
-              Transform.translate(
-                  offset: Offset(_appbarLeft, 0),
+              Positioned(
+                  top: 0,
+                  left: _appbarLeft,
                   child: Container(
                       width: 750.0.w,
                       height: homescrollpixels + _statusHeight + 90.w,
