@@ -120,7 +120,7 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                 ClipRRect(
                     borderRadius: BorderRadius.circular(10).w,
                     child: Image.asset(
-                      vm.userinfoAvatar as String,
+                      vm.userinfoAvatar!,
                       width: 78.w,
                       height: 78.w,
                     )),

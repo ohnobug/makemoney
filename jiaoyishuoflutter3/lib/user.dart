@@ -92,8 +92,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                       BorderRadius.circular(10)
                                                           .w,
                                                   child: Image.asset(
-                                                    assetPath(
-                                                        vm.userinfoAvatar!),
+                                                    vm.userinfoAvatar!,
                                                     width: 120.w,
                                                     height: 120.w,
                                                     fit: BoxFit.cover,

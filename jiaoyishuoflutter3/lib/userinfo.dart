@@ -136,7 +136,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(10).w,
                                       child: Image.asset(
-                                        vm.userinfoAvatar as String,
+                                        vm.userinfoAvatar!,
                                         width: 120.w,
                                         height: 120.w,
                                         fit: BoxFit.cover,

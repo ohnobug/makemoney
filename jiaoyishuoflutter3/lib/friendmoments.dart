@@ -24,6 +24,8 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
   late AnimationController _controller; // 动画控制器
   late Animation<double> _opacity; // 透明度动画
 
+  late List<Map<String, String>> tweetList;
+
   @override
   void initState() {
     super.initState();
@@ -60,21 +62,9 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
     } else {
       _statusHeight = MediaQuery.of(context).padding.top;
     }
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose(); // 避免内存泄漏
-    _controller.dispose(); // 释放资源
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
 
     // Tweet数据
-    List<Map<String, String>> tweetList = [
+    tweetList = [
       {
         "time": "一分钟前",
         "avatarUrl": 'images/avatar_webp/chat_1.webp',
@@ -148,6 +138,18 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
         "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
       },
     ];
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose(); // 避免内存泄漏
+    _controller.dispose(); // 释放资源
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
 
     return StoreConnector<StoreType, StoreType>(
       converter: (store) => store.state,
@@ -170,6 +172,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
 
               // 使用 ListView 代替 SingleChildScrollView
               ListView.builder(
+                primary: false,
                 controller: _scrollController,
                 physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics()),
@@ -220,7 +223,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10).w,
                                     child: Image.asset(
-                                      assetPath(vm.userinfoAvatar!),
+                                      vm.userinfoAvatar!,
                                       width: 120.w,
                                       height: 120.w,
                                       fit: BoxFit.cover,
@@ -457,6 +460,7 @@ class TweetWidget extends StatelessWidget {
                       width: 570.w,
                       height: 570.w,
                       child: GridView.builder(
+                        primary: false,
                         scrollDirection: Axis.horizontal,
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

@@ -527,8 +527,8 @@ class _ChatListViewState extends State<LJNHomePage> {
     return ScrollConfiguration(
         behavior: CustomScrollBehavior().copyWith(scrollbars: false),
         child: ListView.builder(
-          padding: EdgeInsets.only(top: _statusHeight + 90.w),
           primary: false,
+          padding: EdgeInsets.only(top: _statusHeight + 90.w),
           itemCount: chatItems.length,
           shrinkWrap: true,
           controller: _customScrollController,

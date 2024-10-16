@@ -528,6 +528,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
       ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: ListView.builder(
+          primary: false,
           padding: EdgeInsets.only(top: _statusHeight + 90.w),
           physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics()),
