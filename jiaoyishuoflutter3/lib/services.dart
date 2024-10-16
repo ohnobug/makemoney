@@ -121,7 +121,7 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                   margin: const EdgeInsets.all(16).w,
                                   decoration: BoxDecoration(
                                     color:
-                                        const Color.fromARGB(255, 77, 174, 107),
+                                        const Color.fromRGBO(77, 174, 107, 1),
                                     borderRadius: BorderRadius.circular(16.0).w,
                                   ),
                                   padding: const EdgeInsets.all(16).w,
@@ -132,10 +132,10 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                       CollectionAndPayment(
                                         icon: Icon(
                                             const IconData(
-                                              0xe607,
+                                              0xe658,
                                               fontFamily: 'Iconfont',
                                             ),
-                                            size: 50.w,
+                                            size: 75.w,
                                             color: Colors.white),
                                         title: '收付款',
                                         subTitle: "",
@@ -151,7 +151,7 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                               0xe6e4,
                                               fontFamily: 'Iconfont',
                                             ),
-                                            size: 70.w,
+                                            size: 75.w,
                                             color: Colors.white),
                                         title: '钱包',
                                         subTitle: "¥${vm.walletBalance}",
@@ -417,9 +417,13 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              widget.icon,
+              Container(
+                  color: Colors.transparent,
+                  width: 90.w,
+                  height: 90.w,
+                  child: Center(child: widget.icon)),
 
-              SizedBox(height: 15.w),
+              // SizedBox(height: 15.w),
 
               // 钱包、收付款
               Text(
@@ -442,7 +446,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                 style: TextStyle(
                     // fontWeight: FontWeight.w600,
                     decoration: TextDecoration.none,
-                    color: const Color.fromARGB(180, 255, 255, 255),
+                    color: const Color.fromARGB(160, 255, 255, 255),
                     fontSize: 27.0.w,
                     overflow: TextOverflow.ellipsis,
                     fontFamily: "Quicksand"),
