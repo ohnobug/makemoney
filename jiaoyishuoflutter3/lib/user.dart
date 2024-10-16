@@ -5,6 +5,7 @@ import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import 'components/LJNFunctionItem.dart';
 
@@ -91,7 +92,8 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                       BorderRadius.circular(10)
                                                           .w,
                                                   child: Image.asset(
-                                                    vm.userinfoAvatar as String,
+                                                    assetPath(
+                                                        vm.userinfoAvatar!),
                                                     width: 120.w,
                                                     height: 120.w,
                                                     fit: BoxFit.cover,

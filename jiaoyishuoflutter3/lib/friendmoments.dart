@@ -191,7 +191,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                             fit: BoxFit.cover,
                           ),
 
-                          // 头像及姓名
+                          // 头像及昵称
                           Positioned(
                             top: _statusHeight + 460.w,
                             child: Container(
@@ -201,6 +201,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  // 昵称
                                   Container(
                                     margin:
                                         EdgeInsets.only(right: 15.w, top: 10.w),
@@ -213,6 +214,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                       ),
                                     ),
                                   ),
+                                  // 头像
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10).w,
                                     child: Image.asset(

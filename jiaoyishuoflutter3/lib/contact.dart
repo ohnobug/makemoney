@@ -37,7 +37,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
     });
 
     contactList = [
-      SizedBox(height: _statusHeight + 90.w),
+      // SizedBox(height: _statusHeight + 90.w),
       ContactInformation(
           id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
           title: "新的朋友",
