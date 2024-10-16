@@ -52,18 +52,12 @@ class _ChatListViewState extends State<LJNHomePage> {
       }
     });
   }
+  
+  late final List<ChatListItem> chatItems;
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return vm.mainpage1isload! ? _buildPage(vm) : const LJNPageLoading();
-        });
-  }
-
-  Widget _buildPage(StoreType vm) {
-    final List<ChatListItem> chatItems = [
+    chatItems = [
       ChatListItem(
         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         friendName: "花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数",
@@ -83,7 +77,7 @@ class _ChatListViewState extends State<LJNHomePage> {
       ),
       ChatListItem(
           id: "4462b35d-e742-5011-9ed6-f10666ef8e9f",
-          friendName: "文件传输助手",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "[图片]",
@@ -115,7 +109,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "6390e7d0-c8bd-5929-b537-76f6577c591c",
-          friendName: "绿逾初夏",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
@@ -131,7 +125,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "d87d7c11-04f1-569c-8fd3-de333397966c",
-          friendName: "余笙南吟",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "今天上班/上学累吗？要注意休息哦。",
@@ -147,7 +141,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "7c3f2f89-6eae-5658-bce9-b3d8e20e309c",
-          friendName: "陈情匿旧酒",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "这个周末有什么计划？有没有想好去哪里玩？",
@@ -163,7 +157,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "6b4ac788-576a-5a7c-be38-854571564bd1",
-          friendName: "白桃乌龙",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你喜欢看什么电影？我最近看了一部不错的电影，推荐给你！",
@@ -178,7 +172,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "139bf645-623d-5791-ad6b-4907e5fc8309",
-          friendName: "清浅ˋ旧时光",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你最近有没有去旅行？去了哪些地方？感觉怎么样？",
@@ -193,7 +187,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "35fe74be-e7cb-520e-9d79-1b19b1018249",
-          friendName: "荒碎梦残",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "我听说你最近升职了，恭喜你！一定能够做得更好！",
@@ -208,7 +202,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "18127772-a653-5ca6-ba2c-5b1b855aa236",
-          friendName: "无梦相赠",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你今天穿得很漂亮，看起来很有气质。",
@@ -223,7 +217,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "a41401db-2dde-519d-bc9f-df6e51089c9e",
-          friendName: "离人泪",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你最喜欢的颜色是什么？是不是很时尚？",
@@ -238,7 +232,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "335ebb66-9440-5a2e-9795-d1b10eaf626e",
-          friendName: "伊人在水一方",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你最近有没有去尝试新的餐厅？有没有吃到什么特别好吃的菜？",
@@ -253,7 +247,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "abc8c77e-924c-5ba8-94bc-36978fda42c5",
-          friendName: "与我共梦",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你的生日是今天吗？生日快乐啊！有没有想好怎么庆祝？",
@@ -268,7 +262,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "86f1db28-5c98-580d-b365-70a752fde80c",
-          friendName: "挽弦暮笙",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你平常喜欢做什么样的运动？我最近喜欢上了瑜伽。",
@@ -283,7 +277,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "81fd1656-bfa0-5e12-bab4-9cbc208e3f4a",
-          friendName: "开始厌倦",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "我觉得你很有创造力，一定能够做出很多很棒的东西。",
@@ -298,7 +292,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "bbe17759-086d-51f6-871a-4fc5d7014fd3",
-          friendName: "仙女收纳盒",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你最近有没有追什么好剧？有没有推荐的电视剧？",
@@ -313,7 +307,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "6e48d092-0d0e-5769-9837-96ee651c7a4b",
-          friendName: "華燈初上",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "我很喜欢你的发型，看起来很时尚，一定是精心打理过的。",
@@ -328,7 +322,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "dbc2eaca-56ce-5940-b9fc-9a42583ce674",
-          friendName: "袖手今生",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你是什么星座的？我最近对星座运势感兴趣了。",
@@ -343,7 +337,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "be028228-1689-5058-903b-07b6d9380d78",
-          friendName: "ら道不清的忧伤",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "我觉得你笑起来很好看，让人感觉很温暖。",
@@ -358,7 +352,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "419adb76-6b8c-5602-a415-2d619b4fc17f",
-          friendName: "凉生",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你愿意和我一起去旅行吗？我们可以一起去探索未知的地方。",
@@ -373,7 +367,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "b1b6b991-5f30-5039-896e-a8f694f94c4e",
-          friendName: "墨香九歌",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你的梦想是什么？我最近梦想成为一名优秀的厨师。",
@@ -388,7 +382,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "d70f0966-df79-530c-b18d-bcf61e402bb8",
-          friendName: "暖栀",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你最近有没有学到什么新知识？我最近在学习一门新技能。",
@@ -403,7 +397,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "0d0618d4-4520-5d8c-8c3f-e9fdf7048a3c",
-          friendName: "等待许了苍老",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "我听说你要搬家了，是吗？祝贺你！新家在哪里？是不是很期待？",
@@ -418,7 +412,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "6cdd7427-24d6-5014-a9c8-019dfbba891f",
-          friendName: "笙歌白云",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你喜欢什么样的音乐？我最近迷上了一种新的音乐风格。",
@@ -433,7 +427,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "97937063-66d6-56db-8265-3b671f199a50",
-          friendName: "万幸得以相识",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "我觉得你非常有魅力，你的个性很吸引人。",
@@ -448,7 +442,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "5e2a94a2-89d4-5b3f-9af2-b01d4d6aeec6",
-          friendName: "凤鸣寂寥",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "我很喜欢和你聊天，每次都能学到很多东西。",
@@ -463,7 +457,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "a94752c7-3a67-5f61-bde4-6dc3a907c1d4",
-          friendName: "余生不过一盏茶",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你会做饭吗？我最近学会了做一道新菜，很好吃哦。",
@@ -478,7 +472,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "1c400b91-d94e-520f-badb-85f5299e3e41",
-          friendName: "丢了梦想的猎手",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你喜欢看什么类型的书？我最近在读一本很有趣的小说。",
@@ -493,7 +487,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "c9e9f259-833b-5cb7-853e-511b00d38051",
-          friendName: "今朝有酒今朝醉",
+          friendName: mockName(),
           notice: false,
           underline: true,
           message: "你最近有没有参加什么有趣的活动？有没有结识到新朋友？",
@@ -523,6 +517,14 @@ class _ChatListViewState extends State<LJNHomePage> {
       ),
     ];
 
+    return StoreConnector<StoreType, StoreType>(
+        converter: (store) => store.state,
+        builder: (context, vm) {
+          return vm.mainpage1isload! ? _buildPage(vm) : const LJNPageLoading();
+        });
+  }
+
+  Widget _buildPage(StoreType vm) {
     return ScrollConfiguration(
         behavior: CustomScrollBehavior().copyWith(scrollbars: false),
         child: ListView.builder(
@@ -650,18 +652,24 @@ class _ChatListItem extends State<ChatListItem> {
                             children: [
                               // 好友名称
                               Expanded(
-                                child: Text(
-                                  widget.friendName,
-                                  style: TextStyle(
-                                      fontSize: 32.0.w,
-                                      color: widget.notice
-                                          ? Colors.red
-                                          : Colors.black,
-                                      fontFamily: "AlibabaPuHuiTi"),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                                  child: RichText(
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(
+                                  children: buildTextSpans(
+                                      widget.friendName,
+                                      TextStyle(
+                                          fontSize: 32.0.w,
+                                          color: widget.notice
+                                              ? Colors.red
+                                              : Colors.black,
+                                          fontFamily: "AlibabaPuHuiTi"),
+                                      TextStyle(
+                                          fontSize: 32.w,
+                                          fontFamily:
+                                              "NotoColorEmoji-Regular")),
                                 ),
-                              ),
+                              )),
                               SizedBox(
                                 width: 10.w,
                               ),

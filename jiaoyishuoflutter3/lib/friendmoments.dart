@@ -17,9 +17,21 @@ class LJNFriendmomentsPage extends StatefulWidget {
 class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage> {
   double _statusHeight = 0;
 
+  final ScrollController _scrollController = ScrollController();
+
+  double scrollPosition = 0;
+
   @override
   void initState() {
     super.initState();
+
+    // 添加监听器以监控滚动
+    _scrollController.addListener(() {
+      // logger.info(_scrollController.position.pixels); // 获取滚动位置
+      setState(() {
+        scrollPosition = _scrollController.position.pixels;
+      });
+    });
 
     if (kIsWeb) {
       _statusHeight = 0;
@@ -28,7 +40,11 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage> {
     }
   }
 
-  final ScrollController _scrollController = ScrollController();
+  @override
+  void dispose() {
+    _scrollController.dispose(); // 避免内存泄漏
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +58,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage> {
               appBar: null,
               body: Stack(
                 children: [
+                  // 背景
                   Positioned(
                     left: 0,
                     top: 0,
@@ -52,6 +69,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage> {
                     ),
                   ),
 
+                  // 滚动
                   ScrollConfiguration(
                       behavior: ScrollConfiguration.of(context)
                           .copyWith(scrollbars: false),
@@ -228,53 +246,76 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage> {
                               ),
                             ],
                           ))),
-                  // 返回按钮
-                  Positioned(
-                      top: _statusHeight + 45.w,
+
+                  // App标题栏
+                  AppBar(
+                    primary: false,
+                    title: scrollPosition > (_statusHeight + 460.w)
+                        ? const Text("朋友圈")
+                        : null,
+                    centerTitle: true,
+                    titleTextStyle: TextStyle(
+                        fontSize: 30.w,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "AlibabaPuHuiTi-Medium"),
+                    toolbarHeight: 90.w,
+                    elevation: 0,
+                    scrolledUnderElevation: 0,
+                    backgroundColor: scrollPosition > (_statusHeight + 460.w)
+                        ? const Color.fromARGB(255, 237, 237, 237)
+                        : Colors.transparent,
+                    foregroundColor: scrollPosition > (_statusHeight + 460.w)
+                        ? const Color.fromARGB(255, 237, 237, 237)
+                        : Colors.transparent,
+                    leading: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(), // 点击事件
                       child: Container(
-                          width: 750.w,
-                          padding: EdgeInsets.symmetric(horizontal: 34.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                  // wallet
-                                }, // 点击事件
-                                child: Container(
-                                  color: Colors.transparent,
-                                  child: Icon(
-                                    const IconData(
-                                      0xed9e,
-                                      fontFamily: 'Iconfont',
-                                    ), // 使用的图标
-                                    color: const Color.fromARGB(
-                                        255, 255, 255, 255), // 图标颜色
-                                    size: 40.w, // 图标大小
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pop();
-                                  // wallet
-                                }, // 点击事件
-                                child: Container(
-                                  color: Colors.transparent,
-                                  child: Icon(
-                                    const IconData(
-                                      0xe64d,
-                                      fontFamily: 'Iconfont',
-                                    ), // 使用的图标
-                                    color: const Color.fromARGB(
-                                        255, 255, 255, 255), // 图标颜色
-                                    size: 45.w, // 图标大小
-                                  ),
-                                ),
-                              )
-                            ],
-                          ))),
+                        // 加盒子是为了扩大点击区域
+                        color: Colors.transparent,
+                        child: Icon(
+                          const IconData(
+                            0xed9e,
+                            fontFamily: 'Iconfont',
+                          ), // 使用的图标
+                          color: Colors.black, // 图标颜色
+                          size: 36.w, // 图标大小
+                        ),
+                      ),
+                    ),
+                    actions: [
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          color: Colors.transparent,
+                          height: 90.w,
+                          padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                          child: Icon(
+                            const IconData(
+                              0xe612,
+                              fontFamily: 'Iconfont',
+                            ),
+                            size: 38.w, // 图标大小
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          color: Colors.transparent,
+                          height: 90.w,
+                          padding: EdgeInsets.only(right: 40.w), // 设置右侧内边距
+                          child: Icon(
+                            const IconData(
+                              0xe64d,
+                              fontFamily: 'Iconfont',
+                            ),
+                            size: 40.w, // 图标大小
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ));
         });
