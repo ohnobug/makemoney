@@ -6,6 +6,7 @@ import 'package:jiaoyishuoflutter3/chat.dart';
 import 'package:jiaoyishuoflutter3/discovery.dart';
 import 'package:jiaoyishuoflutter3/friendmoments.dart';
 import 'package:jiaoyishuoflutter3/home.dart';
+import 'package:jiaoyishuoflutter3/pocketmoney.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
@@ -196,6 +197,26 @@ class TabBarApp extends StatelessWidget {
                     return PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
                           const LJNFriendmomentsPage(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.ease;
+
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+
+                        return SlideTransition(
+                          position: animation.drive(tween),
+                          child: child,
+                        );
+                      },
+                    );
+                  } else if (settings.name == '/pocketmoney') {
+                  // } else if (settings.name == '/') {
+                    return PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          const LJNPocketMoneyPage(),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         const begin = Offset(1.0, 0.0);
@@ -506,8 +527,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                   fontSize: 30.w,
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
-                                  fontFamily: "AlibabaPuHuiTi-Medium"
-                                  ),
+                                  fontFamily: "AlibabaPuHuiTi-Medium"),
                               toolbarHeight: 90.w,
                               elevation: 0,
                               scrolledUnderElevation: 0,

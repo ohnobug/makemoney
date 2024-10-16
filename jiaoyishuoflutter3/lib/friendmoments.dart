@@ -230,7 +230,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage> {
                           ))),
                   // 返回按钮
                   Positioned(
-                      top: 45.w,
+                      top: _statusHeight + 45.w,
                       child: Container(
                           width: 750.w,
                           padding: EdgeInsets.symmetric(horizontal: 34.w),
@@ -414,8 +414,7 @@ class TweetWidget extends StatelessWidget {
                       child: GridView.builder(
                         scrollDirection: Axis.horizontal,
                         physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3, // 每行 3 列
                           mainAxisSpacing: 6.w,
                           crossAxisSpacing: 6.w,

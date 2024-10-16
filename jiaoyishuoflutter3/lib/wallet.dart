@@ -129,7 +129,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "零钱",
                               icon: "images/icon/discovery_icon1.png",
-                              link: '',
+                              link: '/pocketmoney',
                               showStyle: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.center,
