@@ -92,7 +92,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
       },
       {
         "time": "一分钟前",
-        "avatarUrl": 'images/avatar_webp/chat_2.webp',
+        "avatarUrl": 'images/avatar_webp/chat_5.webp',
         "name": "史登达",
         "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
         "imageList": const [
@@ -107,7 +107,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
       },
       {
         "time": "一分钟前",
-        "avatarUrl": 'images/avatar_webp/chat_2.webp',
+        "avatarUrl": 'images/avatar_webp/chat_8.webp',
         "name": "平婆婆",
         "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
         "imageList": const [
@@ -121,56 +121,80 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
       },
       {
         "time": "一分钟前",
-        "avatarUrl": 'images/avatar_webp/chat_2.webp',
+        "avatarUrl": 'images/avatar_webp/chat_9.webp',
         "name": "哑梢公💖👉🫖",
         "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "imageList": const [
+          'images/avatar_webp/chat_15.webp',
+          'images/avatar_webp/chat_16.webp',
+          'images/avatar_webp/chat_17.webp',
+          'images/avatar_webp/chat_18.webp',
+          'images/avatar_webp/chat_19.webp',
+        ],
         "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
       },
       {
         "time": "一分钟前",
-        "avatarUrl": 'images/avatar_webp/chat_2.webp',
+        "avatarUrl": 'images/avatar_webp/chat_60.webp',
         "name": "余兆兴",
         "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
         "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
       },
       {
         "time": "一分钟前",
-        "avatarUrl": 'images/avatar_webp/chat_2.webp',
+        "avatarUrl": 'images/avatar_webp/chat_65.webp',
         "name": "云中鹤",
         "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "imageList": const [
+          'images/avatar_webp/chat_20.webp',
+          'images/avatar_webp/chat_21.webp',
+          'images/avatar_webp/chat_22.webp',
+          'images/avatar_webp/chat_23.webp',
+          'images/avatar_webp/chat_24.webp',
+          'images/avatar_webp/chat_25.webp',
+        ],
         "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
       },
       {
         "time": "一分钟前",
-        "avatarUrl": 'images/avatar_webp/chat_2.webp',
+        "avatarUrl": 'images/avatar_webp/chat_52.webp',
         "name": "农夫",
         "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "imageList": const [
+          'images/avatar_webp/chat_28.webp',
+          'images/avatar_webp/chat_29.webp',
+          'images/avatar_webp/chat_30.webp',
+          'images/avatar_webp/chat_31.webp',
+          'images/avatar_webp/chat_32.webp',
+          'images/avatar_webp/chat_33.webp',
+          'images/avatar_webp/chat_34.webp',
+        ],
         "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
       },
       {
         "time": "一分钟前",
-        "avatarUrl": 'images/avatar_webp/chat_2.webp',
+        "avatarUrl": 'images/avatar_webp/chat_43.webp',
         "name": "贾人达",
         "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
         "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
       },
       {
         "time": "一分钟前",
-        "avatarUrl": 'images/avatar_webp/chat_2.webp',
+        "avatarUrl": 'images/avatar_webp/chat_47.webp',
         "name": "段正明",
         "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
         "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
       },
       {
         "time": "一分钟前",
-        "avatarUrl": 'images/avatar_webp/chat_2.webp',
+        "avatarUrl": 'images/avatar_webp/chat_35.webp',
         "name": "易堂主",
         "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
         "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
       },
       {
         "time": "一分钟前",
-        "avatarUrl": 'images/avatar_webp/chat_2.webp',
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
         "name": "钟镇",
         "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
         "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
@@ -235,7 +259,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                           .toInt(), // 新的高度
                                     ),
                                     width: 750.w,
-                                    height: 630.w,
+                                    height: 730.w,
                                     fit: BoxFit.cover,
                                   )),
 
