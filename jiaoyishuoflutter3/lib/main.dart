@@ -525,9 +525,8 @@ class _CustomTabbarState extends State<CustomTabbar>
                               title: appBarTitle,
                               centerTitle: true,
                               titleTextStyle: TextStyle(
-                                  fontSize: 30.w,
+                                  fontSize: 32.w,
                                   color: Colors.black,
-                                  fontWeight: FontWeight.w500,
                                   fontFamily: "AlibabaPuHuiTi-Medium"),
                               toolbarHeight: 90.w,
                               elevation: 0,

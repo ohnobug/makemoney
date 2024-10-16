@@ -94,9 +94,8 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                         overflow: TextOverflow.ellipsis,
                         widget.message,
                         style: TextStyle(
-                          fontSize: 30.w,
+                          fontSize: 32.w,
                           color: Colors.black,
-                          fontFamily: "AlibabaPuHuiTi-Medium"
                         ),
                       ),
                     )),

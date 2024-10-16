@@ -75,28 +75,28 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                                 borderRadius: BorderRadius.circular(8).w),
                             padding: EdgeInsets.symmetric(
                                 horizontal: 25.w, vertical: 18.w),
-                            child: 
-                            // Text.rich(
-                            //   TextSpan(
-                            //     children: [
-                            //       TextSpan(text: 'Click'),
-                            //       WidgetSpan(
-                            //           child: Icon(
-                            //         Icons.add,
-                            //         color: Colors.amber,
-                            //       )),
-                            //       TextSpan(text: 'to add'),
-                            //     ],
-                            //   ),
-                            // ),
+                            child:
+                                // Text.rich(
+                                //   TextSpan(
+                                //     children: [
+                                //       TextSpan(text: 'Click'),
+                                //       WidgetSpan(
+                                //           child: Icon(
+                                //         Icons.add,
+                                //         color: Colors.amber,
+                                //       )),
+                                //       TextSpan(text: 'to add'),
+                                //     ],
+                                //   ),
+                                // ),
 
-                            Text(
+                                Text(
                               softWrap: true,
                               maxLines: 1000,
                               overflow: TextOverflow.ellipsis,
                               widget.message,
                               style: TextStyle(
-                                  fontSize: 30.w, color: Colors.black),
+                                  fontSize: 32.w, color: Colors.black),
                             ),
                           )),
 

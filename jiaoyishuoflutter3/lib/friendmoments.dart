@@ -339,9 +339,8 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                     title: const Text("朋友圈"),
                     centerTitle: true,
                     titleTextStyle: TextStyle(
-                      fontSize: 30.w,
+                      fontSize: 32.w,
                       color: Color.fromARGB(_opacity.value.toInt(), 0, 0, 0),
-                      fontWeight: FontWeight.w500,
                       fontFamily: "AlibabaPuHuiTi-Medium",
                     ),
                     toolbarHeight: 90.w,

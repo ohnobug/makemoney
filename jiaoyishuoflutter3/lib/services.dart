@@ -64,9 +64,9 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                         title: const Text('服务'),
                         toolbarHeight: 90.w,
                         titleTextStyle: TextStyle(
-                            fontSize: 30.w,
+                            fontSize: 32.w,
                             color: Colors.black,
-                            fontWeight: FontWeight.w500),
+                            fontFamily: "AlibabaPuHuiTi-Medium"),
                         elevation: 0,
                         scrolledUnderElevation: 0,
                         backgroundColor:
