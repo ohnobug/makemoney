@@ -18,6 +18,7 @@ class LJNHomePage extends StatefulWidget {
 class _ChatListViewState extends State<LJNHomePage> {
   final _customScrollController = ScrollController();
   double _statusHeight = 0;
+  late final List<ChatListItem> chatItems;
 
   @override
   void initState() {
@@ -51,12 +52,7 @@ class _ChatListViewState extends State<LJNHomePage> {
         }
       }
     });
-  }
-  
-  late final List<ChatListItem> chatItems;
 
-  @override
-  Widget build(BuildContext context) {
     chatItems = [
       ChatListItem(
         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
@@ -516,7 +512,10 @@ class _ChatListViewState extends State<LJNHomePage> {
         },
       ),
     ];
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
