@@ -54,7 +54,7 @@ List<TextSpan> buildTextSpans(
       .merge(iconTextStyle);
 
   iconTextStyle =
-      iconTextStyle.merge(TextStyle(fontSize: iconTextStyle.fontSize! * 0.5));
+      iconTextStyle.merge(TextStyle(fontSize: iconTextStyle.fontSize! * 0.9));
 
   for (final match in matches) {
     // 添加前面的非emoji文本
