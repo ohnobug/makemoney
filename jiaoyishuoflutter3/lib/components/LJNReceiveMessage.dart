@@ -28,14 +28,26 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/profile');
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.w),
+                child: Image(
+                  image: ResizeImage(
+                    AssetImage(widget.friendAvatar),
+                    width: 156.w.toInt(),
+                    height: 156.w.toInt(),
+                  ),
+                  width: 78.w,
+                  height: 78.w,
+                  fit: BoxFit.cover,
+                ),
+              ))
           // 头像
-          ClipRRect(
-              borderRadius: BorderRadius.circular(8).w,
-              child: Image.asset(
-                assetPath(widget.friendAvatar),
-                width: 78.w,
-                height: 78.w,
-              )),
+          ,
+
           // SizedBox(width: 10.w,),
           // 姓名与消息
           Expanded(

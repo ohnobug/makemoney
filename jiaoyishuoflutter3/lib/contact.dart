@@ -514,49 +514,53 @@ class _LJNContactPageState extends State<LJNContactPage> {
     Size screenSize = MediaQuery.of(context).size;
 
     return Stack(children: [
-      Positioned(
-        left: 0,
-        top: 0,
-        child: Container(
-          width: screenSize.width,
-          height: screenSize.height / 2,
-          color: const Color.fromARGB(255, 237, 237, 237),
-        ),
-      ),
-
       // 联系人
       ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-        child: ListView.builder(
-          primary: false,
-          padding: EdgeInsets.only(top: _statusHeight + 90.w),
-          physics: const AlwaysScrollableScrollPhysics(
-              parent: BouncingScrollPhysics()),
-          itemCount: contactList.length, // contactList 是你的联系人数据列表
-          itemBuilder: (context, index) {
-            if (contactList[index] is String) {
-              // 如果是字母分隔符
-              return Container(
-                height: 60.w,
-                color: const Color.fromARGB(255, 237, 237, 237),
-                padding: EdgeInsets.only(left: 30.w),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      contactList[index],
-                      style: TextStyle(fontSize: 20.w),
+        child: Container(
+            constraints: BoxConstraints(
+                minHeight: screenSize.height - 90.w - _statusHeight),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 237, 237, 237),
+                  Colors.white,
+                ],
+                stops: [0.3, 0.5],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            child: ListView.builder(
+              primary: false,
+              padding: EdgeInsets.only(top: _statusHeight + 90.w),
+              physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
+              itemCount: contactList.length, // contactList 是你的联系人数据列表
+              itemBuilder: (context, index) {
+                if (contactList[index] is String) {
+                  // 如果是字母分隔符
+                  return Container(
+                    height: 60.w,
+                    color: const Color.fromARGB(255, 237, 237, 237),
+                    padding: EdgeInsets.only(left: 30.w),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          contactList[index],
+                          style: TextStyle(fontSize: 20.w),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              );
-            } else if (contactList[index] is ContactInformation) {
-              return contactList[index];
-            } else {
-              return contactList[index];
-            }
-          },
-        ),
+                  );
+                } else if (contactList[index] is ContactInformation) {
+                  return contactList[index];
+                } else {
+                  return contactList[index];
+                }
+              },
+            )),
       ),
 
       // 右边的字母表
@@ -705,7 +709,7 @@ class _ContactInformationState extends State<ContactInformation> {
                     ? BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
-                        color: const Color.fromARGB(255, 233, 233, 233),
+                        color: const Color.fromARGB(255, 242, 242, 242),
                         width: 1.w,
                         style: BorderStyle.solid,
                       )))

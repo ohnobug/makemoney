@@ -73,7 +73,7 @@ class _ChatListViewState extends State<LJNHomePage> {
       ),
       ChatListItem(
           id: "4462b35d-e742-5011-9ed6-f10666ef8e9f",
-          friendName: mockName(),
+          friendName: '文件传输助手',
           notice: false,
           underline: true,
           message: "[图片]",
@@ -601,6 +601,7 @@ class _ChatListItem extends State<ChatListItem> {
         },
         child: Stack(
           children: [
+            // 头像以及名称日期等信息
             Container(
               color: containerColor,
               height: 135.0.w,
@@ -622,13 +623,14 @@ class _ChatListItem extends State<ChatListItem> {
                   ),
 
                   SizedBox(width: 23.w),
+                  
                   Expanded(
                     child: Container(
                       decoration: widget.underline
                           ? BoxDecoration(
                               border: Border(
                                   bottom: BorderSide(
-                              color: const Color.fromARGB(255, 233, 233, 233),
+                              color: const Color.fromARGB(255, 242, 242, 242),
                               width: 1.w,
                               style: BorderStyle.solid,
                             )))

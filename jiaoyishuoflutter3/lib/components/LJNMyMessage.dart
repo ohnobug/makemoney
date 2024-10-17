@@ -116,14 +116,23 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                     ],
                   ),
                 ),
-                // 头像
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(10).w,
-                    child: Image.asset(
-                      vm.userinfoAvatar!,
-                      width: 78.w,
-                      height: 78.w,
-                    )),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/profile');
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.w),
+                      child: Image(
+                        image: ResizeImage(
+                          vm.userinfoAvatar as ImageProvider<Object>,
+                          width: 156.w.toInt(),
+                          height: 156.w.toInt(),
+                        ),
+                        width: 78.w,
+                        height: 78.w,
+                        fit: BoxFit.cover,
+                      ),
+                    ))
               ],
             ),
           );

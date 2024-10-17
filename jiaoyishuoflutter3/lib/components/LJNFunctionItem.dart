@@ -95,7 +95,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                     ? BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
-                        color: const Color.fromARGB(255, 233, 233, 233),
+                        color: const Color.fromARGB(255, 242, 242, 242),
                         width: 1.w,
                         style: BorderStyle.solid,
                       )))
