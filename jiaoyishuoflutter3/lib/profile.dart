@@ -199,7 +199,7 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                height: 16.w,
+                                                height: 20.w,
                                               ),
                                               RichText(
                                                 text: TextSpan(
@@ -207,7 +207,7 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                                       '昵称: 如来佛祖🙏',
                                                       TextStyle(
                                                         height: 1.08,
-                                                        fontSize: 25.w,
+                                                        fontSize: 26.w,
                                                         color: const Color
                                                             .fromARGB(
                                                             255, 99, 99, 99),
@@ -216,17 +216,17 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                                       ),
                                                       TextStyle(
                                                         height: 1.08,
-                                                        fontSize: 25.w,
+                                                        fontSize: 26.w,
                                                       )),
                                                 ),
                                               ),
                                               SizedBox(
-                                                height: 16.w,
+                                                height: 20.w,
                                               ),
                                               Text('微信号: RulaiLoveYou',
                                                   style: TextStyle(
                                                     height: 1.08,
-                                                    fontSize: 25.w,
+                                                    fontSize: 26.w,
                                                     color: const Color.fromARGB(
                                                         255, 99, 99, 99),
                                                   )),

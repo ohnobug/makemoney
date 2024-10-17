@@ -40,14 +40,21 @@ List<TextSpan> buildTextSpans(
   final matches = emojiRegex.allMatches(text);
   int lastMatchEnd = 0;
 
-  fontTextStyle = TextStyle(height: 1.08,
-          color: Colors.black, fontSize: 30.w, fontFamily: "AlibabaPuHuiTi")
+  fontTextStyle = TextStyle(
+          height: 1.08,
+          color: Colors.black,
+          fontSize: 30.w,
+          fontFamily: "AlibabaPuHuiTi")
       .merge(fontTextStyle);
-  iconTextStyle = TextStyle(height: 1.08,
+  iconTextStyle = TextStyle(
+          height: 1.08,
           color: Colors.black,
           fontSize: 30.w,
           fontFamily: "NotoColorEmoji-Regular")
       .merge(iconTextStyle);
+
+  iconTextStyle =
+      iconTextStyle.merge(TextStyle(fontSize: iconTextStyle.fontSize! * 0.5));
 
   for (final match in matches) {
     // 添加前面的非emoji文本
@@ -76,8 +83,6 @@ List<TextSpan> buildTextSpans(
 
   return spans;
 }
-
-
 
 String mockName() {
   List<String> names = [

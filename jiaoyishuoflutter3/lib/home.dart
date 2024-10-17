@@ -695,7 +695,7 @@ class _ChatListItem extends State<ChatListItem> {
                             ],
                           ),
 
-                          SizedBox(height: 2.w),
+                          SizedBox(height: 17.w),
 
                           // 好友消息
                           Row(

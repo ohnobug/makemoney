@@ -117,9 +117,10 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                       // width: 100.w,
                       child: Text(
                         widget.title,
-                        style: TextStyle(height: 1.08,
+                        style: TextStyle(
+                            height: 1.08,
                             fontSize: 32.0.w,
-                            fontFamily: "AlibabaPuHuiTi",
+                            fontFamily: "AlibabaPuHuiTi-Medium",
                             fontWeight: FontWeight.w500),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

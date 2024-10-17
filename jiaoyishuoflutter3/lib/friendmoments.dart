@@ -524,20 +524,18 @@ class TweetWidget extends StatelessWidget {
                               // fontWeight: FontWeight.w600,
                               color: const Color.fromARGB(255, 58, 81, 124),
                             ),
-                            TextStyle(
-                                height: 1.08, fontSize: 31.w)),
+                            TextStyle(height: 1.08, fontSize: 32.w)),
                       ),
                     ),
+                    SizedBox(height: 15.w),
 
                     // 推文
                     RichText(
                       text: TextSpan(
                         children: buildTextSpans(
                             tweetContent,
-                            TextStyle(
-                                height: 1.08, fontSize: 31.w),
-                            TextStyle(
-                                height: 1.08, fontSize: 31.w)),
+                            TextStyle(height: 1.08, fontSize: 31.w),
+                            TextStyle(height: 1.08, fontSize: 31.w)),
                       ),
                     ),
                     SizedBox(height: 20.w),

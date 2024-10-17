@@ -63,7 +63,8 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                         centerTitle: true,
                         title: const Text('服务'),
                         toolbarHeight: 90.w,
-                        titleTextStyle: TextStyle(height: 1.08,
+                        titleTextStyle: TextStyle(
+                            height: 1.08,
                             fontSize: 32.w,
                             color: Colors.black,
                             fontFamily: "AlibabaPuHuiTi-Medium"),
@@ -424,12 +425,14 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                   child: Center(child: widget.icon)),
 
               // SizedBox(height: 15.w),
+              SizedBox(height: 10.w),
 
               // 钱包、收付款
               Text(
                 widget.title,
                 maxLines: 1,
-                style: TextStyle(height: 1.08,
+                style: TextStyle(
+                    height: 1.08,
                     // fontWeight: FontWeight.w100,
                     decoration: TextDecoration.none,
                     color: Colors.white,
@@ -437,13 +440,14 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                     overflow: TextOverflow.ellipsis),
               ),
 
-              SizedBox(height: 1.w),
+              SizedBox(height: 15.w),
 
               // 余额
               Text(
                 widget.subTitle,
                 maxLines: 1,
-                style: TextStyle(height: 1.08,
+                style: TextStyle(
+                    height: 1,
                     // fontWeight: FontWeight.w600,
                     decoration: TextDecoration.none,
                     color: const Color.fromARGB(160, 255, 255, 255),
@@ -517,11 +521,12 @@ class FunctionButtonState extends State<FunctionButton> {
                 width: 60.w,
                 height: 60.w,
               ), // 图标颜色
-              SizedBox(height: 10.w), // 图标和标题之间的间距
+              SizedBox(height: 25.w), // 图标和标题之间的间距
               Text(
                 widget.title,
                 maxLines: 1,
-                style: TextStyle(height: 1.08,
+                style: TextStyle(
+                    height: 1.08,
                     decoration: TextDecoration.none,
                     color: const Color.fromARGB(255, 33, 33, 33),
                     fontSize: 25.0.w,
@@ -570,8 +575,9 @@ class FunctionButtonsSection extends StatelessWidget {
                           const EdgeInsets.only(top: 33, bottom: 0, left: 30).w,
                       child: Text(
                         title,
-                        style: TextStyle(height: 1.08,
-                            fontSize: 27.w,
+                        style: TextStyle(
+                            height: 1.08,
+                            fontSize: 25.w,
                             color: const Color.fromARGB(255, 87, 87, 87)),
                       )),
                 ),
