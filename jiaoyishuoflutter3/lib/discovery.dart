@@ -79,8 +79,12 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                         children: [
                           ClipRRect(
                               borderRadius: BorderRadius.circular(6).w,
-                              child: Image.asset(
-                                assetPath('images/avatar_webp/chat_4.webp'),
+                              child: Image(
+                                image: ResizeImage(
+                                    AssetImage(assetPath(
+                                        'images/avatar_webp/chat_4.webp')),
+                                    width: 120.w.toInt(),
+                                    height: 120.w.toInt()),
                                 width: 60.w,
                                 height: 60.w,
                                 fit: BoxFit.cover,
@@ -94,11 +98,13 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                               children: buildTextSpans(
                                   "李俊南集团💖李俊男  最近💖",
                                   TextStyle(
+                                      height: 1.08,
                                       fontSize: 26.w,
                                       color:
                                           const Color.fromARGB(255, 80, 80, 80),
                                       fontFamily: "AlibabaPuHuiTi"),
                                   TextStyle(
+                                      height: 1.08,
                                       fontSize: 26.w,
                                       fontFamily: "NotoColorEmoji-Regular")),
                             ),
@@ -119,6 +125,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                             child: Text(
                               "小歪今天穿什么直播中",
                               style: TextStyle(
+                                  height: 1.08,
                                   fontSize: 26.w,
                                   color: const Color.fromARGB(255, 80, 80, 80)),
                               maxLines: 1,
@@ -130,8 +137,12 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           ),
                           ClipRRect(
                               borderRadius: BorderRadius.circular(60).w,
-                              child: Image.asset(
-                                assetPath('images/avatar_webp/chat_4.webp'),
+                              child: Image(
+                                image: ResizeImage(
+                                    AssetImage(assetPath(
+                                        'images/avatar_webp/chat_4.webp')),
+                                    width: 120.w.toInt(),
+                                    height: 120.w.toInt()),
                                 width: 60.w,
                                 height: 60.w,
                                 fit: BoxFit.cover,

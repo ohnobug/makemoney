@@ -616,14 +616,15 @@ class _ChatListItem extends State<ChatListItem> {
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.circular(10).w,
                       image: DecorationImage(
-                        image: AssetImage(assetPath(widget.avatar)),
+                        image: ResizeImage(AssetImage(assetPath(widget.avatar)),
+                            width: 180.w.toInt(), height: 180.w.toInt()),
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
 
                   SizedBox(width: 23.w),
-                  
+
                   Expanded(
                     child: Container(
                       decoration: widget.underline
@@ -631,14 +632,14 @@ class _ChatListItem extends State<ChatListItem> {
                               border: Border(
                                   bottom: BorderSide(
                               color: const Color.fromARGB(255, 242, 242, 242),
-                              width: 1.w,
+                              width: 1.5.w,
                               style: BorderStyle.solid,
                             )))
                           : BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
                                   color: Colors.transparent,
-                                  width: 1.w,
+                                  width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
                               ),
@@ -660,12 +661,14 @@ class _ChatListItem extends State<ChatListItem> {
                                   children: buildTextSpans(
                                       widget.friendName,
                                       TextStyle(
+                                          height: 1.08,
                                           fontSize: 32.0.w,
                                           color: widget.notice
                                               ? Colors.red
                                               : Colors.black,
                                           fontFamily: "AlibabaPuHuiTi"),
                                       TextStyle(
+                                          height: 1.08,
                                           fontSize: 32.w,
                                           fontFamily:
                                               "NotoColorEmoji-Regular")),
@@ -678,6 +681,7 @@ class _ChatListItem extends State<ChatListItem> {
                               Text(
                                 widget.lastedTime,
                                 style: TextStyle(
+                                  height: 1.08,
                                   fontSize: 24.0.w,
                                   color: widget.notice
                                       ? Colors.red
@@ -707,11 +711,13 @@ class _ChatListItem extends State<ChatListItem> {
                                     children: buildTextSpans(
                                         widget.message,
                                         TextStyle(
+                                          height: 1.08,
                                           fontSize: 25.w,
                                           color: const Color.fromARGB(
                                               255, 180, 180, 180),
                                         ),
                                         TextStyle(
+                                          height: 1.08,
                                           fontSize: 25.w,
                                           color: const Color.fromARGB(
                                               255, 180, 180, 180),
@@ -760,6 +766,7 @@ class _ChatListItem extends State<ChatListItem> {
                         widget.badge.toString(), // 这里可以替换成你想要显示的数字
                         maxLines: 1,
                         style: TextStyle(
+                            height: 1.08,
                             fontSize: 20.w, // 数字大小
                             color: Colors.white, // 数字颜色
                             fontWeight: FontWeight.w600,

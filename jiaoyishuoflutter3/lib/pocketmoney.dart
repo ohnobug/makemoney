@@ -107,6 +107,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                   Text(
                     "我的零钱",
                     style: TextStyle(
+                        height: 1.08,
                         fontSize: 32.w,
                         fontFamily: "AlibabaPuHuiTi-Medium",
                         color: const Color.fromARGB(255, 16, 16, 16)),
@@ -136,6 +137,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                         TextSpan(
                           text: vm.walletBalance.toString(),
                           style: TextStyle(
+                            height: 1.08,
                             fontSize: 68.w,
                             fontWeight: FontWeight.bold,
                             fontFamily: "Quicksand",
@@ -151,6 +153,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                   Text(
                     "转入零钱通 , 能赚又能花",
                     style: TextStyle(
+                        height: 1.08,
                         color: const Color.fromARGB(255, 239, 154, 81),
                         fontSize: 30.w,
                         fontFamily: "AlibabaPuHuiTi-Medium"),
@@ -170,6 +173,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                       child: Text(
                         "充值",
                         style: TextStyle(
+                          height: 1.08,
                           color: const Color.fromARGB(255, 255, 255, 255),
                           fontSize: 32.w,
                           fontFamily: "AlibabaPuHuiTi-Medium",
@@ -191,6 +195,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                       child: Text(
                         "提现",
                         style: TextStyle(
+                          height: 1.08,
                           color: const Color.fromARGB(255, 16, 16, 16),
                           fontSize: 32.w,
                           fontFamily: "AlibabaPuHuiTi-Medium",
@@ -206,6 +211,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                     TextSpan(
                       text: "常见问题",
                       style: TextStyle(
+                          height: 1.08,
                           color: const Color.fromARGB(255, 58, 81, 124),
                           fontSize: 25.w,
                           fontFamily: "AlibabaPuHuiTi-Medium"),
@@ -213,6 +219,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                     TextSpan(
                       text: " | ",
                       style: TextStyle(
+                          height: 1.08,
                           color: const Color.fromARGB(255, 169, 169, 169),
                           fontSize: 25.w,
                           fontFamily: "AlibabaPuHuiTi-Medium"),
@@ -220,6 +227,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                     TextSpan(
                       text: "账户升级服务",
                       style: TextStyle(
+                          height: 1.08,
                           color: const Color.fromARGB(255, 58, 81, 124),
                           fontSize: 25.w,
                           fontFamily: "AlibabaPuHuiTi-Medium"),
@@ -231,6 +239,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                   Text(
                     "本服务由财付通和微众银行提供",
                     style: TextStyle(
+                        height: 1.08,
                         color: const Color.fromARGB(255, 169, 169, 169),
                         fontSize: 20.w,
                         fontFamily: "AlibabaPuHuiTi-Medium"),
@@ -287,10 +296,14 @@ class TweetWidget extends StatelessWidget {
           children: buildTextSpans(
               name,
               TextStyle(
+                  height: 1.08,
                   fontSize: 27.w,
                   color: const Color.fromARGB(255, 58, 81, 124),
                   fontFamily: "AlibabaPuHuiTi-Medium"),
-              TextStyle(fontSize: 27.w, fontFamily: "NotoColorEmoji-Regular")),
+              TextStyle(
+                  height: 1.08,
+                  fontSize: 27.w,
+                  fontFamily: "NotoColorEmoji-Regular")),
         ),
       );
 
@@ -300,6 +313,7 @@ class TweetWidget extends StatelessWidget {
           TextSpan(
             text: ", ",
             style: TextStyle(
+              height: 1.08,
               fontSize: 27.w,
               color: const Color.fromARGB(255, 58, 81, 124),
               fontFamily: "AlibabaPuHuiTi-Medium",
@@ -316,8 +330,8 @@ class TweetWidget extends StatelessWidget {
         color: Colors.white,
         border: Border(
           bottom: BorderSide(
-            color: const Color.fromARGB(255, 243, 243, 243),
-            width: 2.w,
+            color: const Color.fromARGB(255, 242, 242, 242),
+            width: 1.5.w,
           ),
         ),
       ),
@@ -332,8 +346,9 @@ class TweetWidget extends StatelessWidget {
             margin: EdgeInsets.only(left: 37.w),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.w),
-              child: Image.asset(
-                assetPath(avatarUrl),
+              child: Image(
+                image: ResizeImage(AssetImage(assetPath(avatarUrl)),
+                    height: 154.w.toInt(), width: 154.w.toInt()),
                 width: 77.w,
                 height: 77.w,
                 fit: BoxFit.cover,
@@ -353,6 +368,7 @@ class TweetWidget extends StatelessWidget {
                     Text(
                       name,
                       style: TextStyle(
+                        height: 1.08,
                         fontSize: 30.w,
                         fontFamily: "AlibabaPuHuiTi-Medium",
                         // fontWeight: FontWeight.w600,
@@ -364,8 +380,8 @@ class TweetWidget extends StatelessWidget {
                       text: TextSpan(
                         children: buildTextSpans(
                             tweetContent,
-                            TextStyle(fontSize: 30.w),
-                            TextStyle(fontSize: 30.w)),
+                            TextStyle(height: 1.08, fontSize: 30.w),
+                            TextStyle(height: 1.08, fontSize: 30.w)),
                       ),
                     ),
                     SizedBox(height: 20.w),
@@ -389,8 +405,8 @@ class TweetWidget extends StatelessWidget {
                             image: ResizeImage(
                               AssetImage(assetPath(
                                   'images/avatar_webp/chat_${generateRandomNumber()}.webp')),
-                              width: 200,
-                              height: 200,
+                              width: 380.w.toInt(),
+                              height: 380.w.toInt(),
                             ),
                             fit: BoxFit.cover, // 保持原来的 fit 方式
                           );
@@ -408,6 +424,7 @@ class TweetWidget extends StatelessWidget {
                         Text(
                           time,
                           style: TextStyle(
+                            height: 1.08,
                             fontSize: 26.w,
                             color: const Color.fromARGB(255, 156, 156, 156),
                           ),
@@ -472,7 +489,9 @@ class TweetWidget extends StatelessWidget {
                                 child: SizedBox(width: 3.w), // 图标和文本之间的间距
                               ),
                               TextSpan(
-                                  text: ' ', style: TextStyle(fontSize: 27.w)),
+                                  text: ' ',
+                                  style:
+                                      TextStyle(height: 1.08, fontSize: 27.w)),
                               ...textSpans
                             ]),
                           ),

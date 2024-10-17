@@ -4,6 +4,7 @@ import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import 'components/LJNFunctionItem.dart';
 
@@ -55,7 +56,7 @@ class _LJNProfilePage extends State<LJNProfilePage> {
               appBar: PreferredSize(
                   preferredSize: Size.fromHeight(90.0.w + _statusHeight),
                   child: Container(
-                      color: const Color.fromARGB(255, 237, 237, 237),
+                      color: Colors.white,
                       padding: EdgeInsets.only(top: _statusHeight),
                       child: AppBar(
                         leading: GestureDetector(
@@ -80,6 +81,7 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                         title: const Text(''),
                         toolbarHeight: 90.w,
                         titleTextStyle: TextStyle(
+                            height: 1.08,
                             fontSize: 32.w,
                             color: Colors.black,
                             fontFamily: "AlibabaPuHuiTi-Medium"),
@@ -138,7 +140,7 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                         bottom: BorderSide(
                                       color: const Color.fromARGB(
                                           255, 242, 242, 242),
-                                      width: 1.w,
+                                      width: 1.5.w,
                                       style: BorderStyle.solid,
                                     ))),
                                 child: Column(
@@ -164,7 +166,8 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                               width: 120.w,
                                               height: 120.w,
                                               image: ResizeImage(
-                                                AssetImage(vm.userinfoAvatar!),
+                                                AssetImage(assetPath(
+                                                    vm.userinfoAvatar!)),
                                                 width: 240.w.toInt(),
                                                 height: 240.w.toInt(),
                                               ),
@@ -178,29 +181,51 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                '如来佛祖',
-                                                style: TextStyle(
-                                                  fontSize: 40.w,
-                                                  color: Colors.black,
-                                                  fontFamily:
-                                                      "AlibabaPuHuiTi-Medium",
+                                              RichText(
+                                                text: TextSpan(
+                                                  children: buildTextSpans(
+                                                      '如来佛祖🙏',
+                                                      TextStyle(
+                                                        height: 1.08,
+                                                        fontSize: 40.w,
+                                                        color: Colors.black,
+                                                        fontFamily:
+                                                            "AlibabaPuHuiTi-Medium",
+                                                      ),
+                                                      TextStyle(
+                                                        height: 1.08,
+                                                        fontSize: 40.w,
+                                                      )),
                                                 ),
                                               ),
                                               SizedBox(
                                                 height: 16.w,
                                               ),
-                                              Text('昵称: 如来佛祖',
-                                                  style: TextStyle(
-                                                    fontSize: 25.w,
-                                                    color: const Color.fromARGB(
-                                                        255, 99, 99, 99),
-                                                  )),
+                                              RichText(
+                                                text: TextSpan(
+                                                  children: buildTextSpans(
+                                                      '昵称: 如来佛祖🙏',
+                                                      TextStyle(
+                                                        height: 1.08,
+                                                        fontSize: 25.w,
+                                                        color: const Color
+                                                            .fromARGB(
+                                                            255, 99, 99, 99),
+                                                        fontFamily:
+                                                            "AlibabaPuHuiTi-Medium",
+                                                      ),
+                                                      TextStyle(
+                                                        height: 1.08,
+                                                        fontSize: 25.w,
+                                                      )),
+                                                ),
+                                              ),
                                               SizedBox(
                                                 height: 16.w,
                                               ),
                                               Text('微信号: RulaiLoveYou',
                                                   style: TextStyle(
+                                                    height: 1.08,
                                                     fontSize: 25.w,
                                                     color: const Color.fromARGB(
                                                         255, 99, 99, 99),
@@ -247,8 +272,12 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Image.asset(
-                                          vm.userinfoAvatar!,
+                                        Image(
+                                          image: ResizeImage(
+                                              AssetImage(assetPath(
+                                                  'images/avatar_webp/chat_81.webp')),
+                                              width: 180.w.toInt(),
+                                              height: 180.w.toInt()),
                                           width: 90.w,
                                           height: 90.w,
                                           fit: BoxFit.cover,
@@ -256,8 +285,12 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                         SizedBox(
                                           width: 15.w,
                                         ),
-                                        Image.asset(
-                                          vm.userinfoAvatar!,
+                                        Image(
+                                          image: ResizeImage(
+                                              AssetImage(assetPath(
+                                                  'images/avatar_webp/chat_92.webp')),
+                                              width: 180.w.toInt(),
+                                              height: 180.w.toInt()),
                                           width: 90.w,
                                           height: 90.w,
                                           fit: BoxFit.cover,
@@ -265,8 +298,12 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                         SizedBox(
                                           width: 15.w,
                                         ),
-                                        Image.asset(
-                                          vm.userinfoAvatar!,
+                                        Image(
+                                          image: ResizeImage(
+                                              AssetImage(assetPath(
+                                                  'images/avatar_webp/chat_93.webp')),
+                                              width: 180.w.toInt(),
+                                              height: 180.w.toInt()),
                                           width: 90.w,
                                           height: 90.w,
                                           fit: BoxFit.cover,
@@ -274,12 +311,16 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                         SizedBox(
                                           width: 15.w,
                                         ),
-                                        Image.asset(
-                                          vm.userinfoAvatar!,
+                                        Image(
+                                          image: ResizeImage(
+                                              AssetImage(assetPath(
+                                                  'images/avatar_webp/chat_86.webp')),
+                                              width: 180.w.toInt(),
+                                              height: 180.w.toInt()),
                                           width: 90.w,
                                           height: 90.w,
                                           fit: BoxFit.cover,
-                                        )
+                                        ),
                                       ])),
                               underline: true,
                             ),
@@ -305,6 +346,7 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                         child: Text(
                                           '如来佛祖',
                                           style: TextStyle(
+                                              height: 1.08,
                                               fontSize: 32.0.w,
                                               fontFamily: "AlibabaPuHuiTi",
                                               fontWeight: FontWeight.w500),
@@ -321,8 +363,12 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Image.asset(
-                                              vm.userinfoAvatar!,
+                                            Image(
+                                              image: ResizeImage(
+                                                  AssetImage(assetPath(
+                                                      'images/avatar_webp/chat_94.webp')),
+                                                  width: 180.w.toInt(),
+                                                  height: 180.w.toInt()),
                                               width: 90.w,
                                               height: 90.w,
                                               fit: BoxFit.cover,
@@ -330,8 +376,12 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                             SizedBox(
                                               width: 15.w,
                                             ),
-                                            Image.asset(
-                                              vm.userinfoAvatar!,
+                                            Image(
+                                              image: ResizeImage(
+                                                  AssetImage(assetPath(
+                                                      'images/avatar_webp/chat_95.webp')),
+                                                  width: 180.w.toInt(),
+                                                  height: 180.w.toInt()),
                                               width: 90.w,
                                               height: 90.w,
                                               fit: BoxFit.cover,
@@ -339,8 +389,12 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                             SizedBox(
                                               width: 15.w,
                                             ),
-                                            Image.asset(
-                                              vm.userinfoAvatar!,
+                                            Image(
+                                              image: ResizeImage(
+                                                  AssetImage(assetPath(
+                                                      'images/avatar_webp/chat_96.webp')),
+                                                  width: 180.w.toInt(),
+                                                  height: 180.w.toInt()),
                                               width: 90.w,
                                               height: 90.w,
                                               fit: BoxFit.cover,
@@ -348,8 +402,12 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                             SizedBox(
                                               width: 15.w,
                                             ),
-                                            Image.asset(
-                                              vm.userinfoAvatar!,
+                                            Image(
+                                              image: ResizeImage(
+                                                  AssetImage(assetPath(
+                                                      'images/avatar_webp/chat_97.webp')),
+                                                  width: 180.w.toInt(),
+                                                  height: 180.w.toInt()),
                                               width: 90.w,
                                               height: 90.w,
                                               fit: BoxFit.cover,

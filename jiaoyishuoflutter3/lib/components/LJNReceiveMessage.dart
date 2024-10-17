@@ -32,11 +32,12 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
               onTap: () {
                 Navigator.pushNamed(context, '/profile');
               },
+              // 头像
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.w),
                 child: Image(
                   image: ResizeImage(
-                    AssetImage(widget.friendAvatar),
+                    AssetImage(assetPath(widget.friendAvatar)),
                     width: 156.w.toInt(),
                     height: 156.w.toInt(),
                   ),
@@ -44,9 +45,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                   height: 78.w,
                   fit: BoxFit.cover,
                 ),
-              ))
-          // 头像
-          ,
+              )),
 
           // SizedBox(width: 10.w,),
           // 姓名与消息
@@ -67,6 +66,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                           Text(
                             widget.name,
                             style: TextStyle(
+                                height: 1.08,
                                 fontSize: 20.w,
                                 color:
                                     const Color.fromARGB(255, 130, 130, 130)),
@@ -106,6 +106,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                         overflow: TextOverflow.ellipsis,
                         widget.message,
                         style: TextStyle(
+                          // height: 1.08,
                           fontSize: 32.w,
                           color: Colors.black,
                         ),

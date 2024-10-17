@@ -282,6 +282,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                         child: Text(
                                           vm.userinfoName!,
                                           style: TextStyle(
+                                            height: 1.08,
                                             fontSize: 40.w,
                                             color: Colors.white,
                                             fontWeight: FontWeight.w600,
@@ -294,7 +295,8 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                             BorderRadius.circular(10.w),
                                         child: Image(
                                           image: ResizeImage(
-                                            AssetImage(vm.userinfoAvatar!),
+                                            AssetImage(
+                                                assetPath(vm.userinfoAvatar!)),
                                             width: 240.w.toInt(),
                                             height: 240.w.toInt(),
                                           ),
@@ -339,6 +341,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                     title: const Text("朋友圈"),
                     centerTitle: true,
                     titleTextStyle: TextStyle(
+                      height: 1.08,
                       fontSize: 32.w,
                       color: Color.fromARGB(_opacity.value.toInt(), 0, 0, 0),
                       fontFamily: "AlibabaPuHuiTi-Medium",
@@ -428,10 +431,14 @@ class TweetWidget extends StatelessWidget {
           children: buildTextSpans(
               name,
               TextStyle(
+                  height: 1.08,
                   fontSize: 27.w,
                   color: const Color.fromARGB(255, 58, 81, 124),
                   fontFamily: "AlibabaPuHuiTi-Medium"),
-              TextStyle(fontSize: 27.w, fontFamily: "NotoColorEmoji-Regular")),
+              TextStyle(
+                  height: 1.08,
+                  fontSize: 27.w,
+                  fontFamily: "NotoColorEmoji-Regular")),
         ),
       );
 
@@ -441,6 +448,7 @@ class TweetWidget extends StatelessWidget {
           TextSpan(
             text: ", ",
             style: TextStyle(
+              height: 1.08,
               fontSize: 28.w,
               color: const Color.fromARGB(255, 58, 81, 124),
               fontFamily: "AlibabaPuHuiTi-Medium",
@@ -467,8 +475,8 @@ class TweetWidget extends StatelessWidget {
             width: 0.w,
           ),
           bottom: BorderSide(
-            color: const Color.fromARGB(255, 243, 243, 243),
-            width: 2.w,
+            color: const Color.fromARGB(255, 242, 242, 242),
+            width: 1.5.w,
           ),
         ),
       ),
@@ -510,12 +518,14 @@ class TweetWidget extends StatelessWidget {
                         children: buildTextSpans(
                             name,
                             TextStyle(
+                              height: 1.08,
                               fontSize: 32.w,
                               fontFamily: "AlibabaPuHuiTi-Medium",
                               // fontWeight: FontWeight.w600,
                               color: const Color.fromARGB(255, 58, 81, 124),
                             ),
-                            TextStyle(fontSize: 31.w)),
+                            TextStyle(
+                                height: 1.08, fontSize: 31.w)),
                       ),
                     ),
 
@@ -524,8 +534,10 @@ class TweetWidget extends StatelessWidget {
                       text: TextSpan(
                         children: buildTextSpans(
                             tweetContent,
-                            TextStyle(fontSize: 31.w),
-                            TextStyle(fontSize: 31.w)),
+                            TextStyle(
+                                height: 1.08, fontSize: 31.w),
+                            TextStyle(
+                                height: 1.08, fontSize: 31.w)),
                       ),
                     ),
                     SizedBox(height: 20.w),
@@ -572,6 +584,7 @@ class TweetWidget extends StatelessWidget {
                     Text(
                       "深圳市 · 南山区腾讯总部",
                       style: TextStyle(
+                        height: 1.08,
                         fontSize: 26.w,
                         color: const Color.fromARGB(255, 58, 81, 124),
                       ),
@@ -587,6 +600,7 @@ class TweetWidget extends StatelessWidget {
                         Text(
                           time,
                           style: TextStyle(
+                            height: 1.08,
                             fontSize: 26.w,
                             color: const Color.fromARGB(255, 156, 156, 156),
                           ),

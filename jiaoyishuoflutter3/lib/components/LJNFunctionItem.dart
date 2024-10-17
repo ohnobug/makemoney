@@ -96,14 +96,14 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                         border: Border(
                             bottom: BorderSide(
                         color: const Color.fromARGB(255, 242, 242, 242),
-                        width: 1.w,
+                        width: 1.5.w,
                         style: BorderStyle.solid,
                       )))
                     : BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
                             color: Colors.transparent,
-                            width: 1.w,
+                            width: 1.5.w,
                             style: BorderStyle.solid,
                           ),
                         ),
@@ -117,7 +117,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                       // width: 100.w,
                       child: Text(
                         widget.title,
-                        style: TextStyle(
+                        style: TextStyle(height: 1.08,
                             fontSize: 32.0.w,
                             fontFamily: "AlibabaPuHuiTi",
                             fontWeight: FontWeight.w500),

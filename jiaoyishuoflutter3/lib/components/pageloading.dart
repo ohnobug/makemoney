@@ -29,7 +29,7 @@ class LJNPageLoading extends StatelessWidget {
                   ),
                   const Text(
                     "正在加载...",
-                    style: TextStyle(color: Color.fromARGB(255, 165, 165, 165)),
+                    style: TextStyle(height: 1.08,color: Color.fromARGB(255, 165, 165, 165)),
                   )
                 ])));
   }

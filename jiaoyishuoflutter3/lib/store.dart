@@ -5,19 +5,19 @@ import 'package:redux/redux.dart';
 final ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   appBarTheme: const AppBarTheme(
-      // titleTextStyle: TextStyle(
+      // titleTextStyle: TextStyle(height: 1.08,
       //   fontSize: 30.w,
       //     color: Color.fromARGB(255, 157, 17, 17), fontWeight: FontWeight.w500),
       iconTheme: IconThemeData(color: Colors.black)),
   // tabBarTheme:
-  //     const TabBarTheme(labelStyle: TextStyle(fontFamily: "AlibabaPuHuiTi")),
+  //     const TabBarTheme(labelStyle: TextStyle(height: 1.08,fontFamily: "AlibabaPuHuiTi")),
   colorScheme: const ColorScheme.light(
     primaryContainer: Colors.white,
     primary: Colors.black,
     secondary: Colors.grey,
   ),
-  tabBarTheme:
-      const TabBarTheme(labelStyle: TextStyle(fontFamily: "AlibabaPuHuiTi")),
+  tabBarTheme: const TabBarTheme(
+      labelStyle: TextStyle(height: 1.08, fontFamily: "AlibabaPuHuiTi")),
   primaryColor: Colors.black,
   fontFamily: "AlibabaPuHuiTi",
   fontFamilyFallback: const ['Noto Sans SC'],
@@ -26,20 +26,21 @@ final ThemeData lightTheme = ThemeData(
 final ThemeData darkTheme = ThemeData(
   useMaterial3: true,
   appBarTheme: const AppBarTheme(
-      // titleTextStyle: TextStyle(
+      // titleTextStyle: TextStyle(height: 1.08,
       //     color: Color.fromARGB(255, 157, 17, 17),
       //     fontWeight: FontWeight.w500),
       iconTheme: IconThemeData(color: Colors.black)),
   // tabBarTheme:
-  //     const TabBarTheme(labelStyle: TextStyle(fontFamily: "AlibabaPuHuiTi")),
+  //     const TabBarTheme(labelStyle: TextStyle(height: 1.08,fontFamily: "AlibabaPuHuiTi")),
   colorScheme: const ColorScheme.dark(
     primaryContainer: Colors.black,
     primary: Colors.white,
     secondary: Colors.grey,
   ),
-  tabBarTheme:
-      const TabBarTheme(labelStyle: TextStyle(fontFamily: "AlibabaPuHuiTi")),
-  primaryColor: Colors.white,
+  tabBarTheme: const TabBarTheme(
+      labelStyle: TextStyle(height: 1.08, fontFamily: "AlibabaPuHuiTi")),
+  primaryColor: Colors.black,
+  fontFamily: "AlibabaPuHuiTi",
   fontFamilyFallback: const ['Noto Sans SC'],
 );
 

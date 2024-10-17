@@ -4,6 +4,7 @@ import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import 'components/LJNFunctionItem.dart';
 
@@ -79,7 +80,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                         centerTitle: true,
                         title: const Text('个人信息'),
                         toolbarHeight: 90.w,
-                        titleTextStyle: TextStyle(
+                        titleTextStyle: TextStyle(height: 1.08,
                             fontSize: 32.w,
                             color: Colors.black,
                             fontFamily: "AlibabaPuHuiTi-Medium"),
@@ -106,7 +107,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                           //         color: Colors.transparent,
                           //         padding: EdgeInsets.only(right: 33.w),
                           //         child: Text("账单",
-                          //             style: TextStyle(
+                          //             style: TextStyle(height: 1.08,
                           //                 color: Colors.black,
                           //                 fontSize: 30.w,
                           //                 fontWeight: FontWeight.w500)))),
@@ -135,8 +136,12 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                   children: [
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(10).w,
-                                      child: Image.asset(
-                                        vm.userinfoAvatar!,
+                                      child: Image(
+                                        image: ResizeImage(
+                                            AssetImage(
+                                                assetPath(vm.userinfoAvatar!)),
+                                            width: 240.w.toInt(),
+                                            height: 240.w.toInt()),
                                         width: 120.w,
                                         height: 120.w,
                                         fit: BoxFit.cover,
@@ -157,7 +162,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                   children: [
                                     Text(
                                       vm.userinfoName!,
-                                      style: TextStyle(
+                                      style: TextStyle(height: 1.08,
                                         fontSize: 30.w,
                                         color: const Color.fromARGB(
                                             255, 170, 170, 170),
@@ -184,7 +189,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                   children: [
                                     Text(
                                       vm.userinfoAccount!,
-                                      style: TextStyle(
+                                      style: TextStyle(height: 1.08,
                                         fontSize: 30.w,
                                         color: const Color.fromARGB(
                                             255, 170, 170, 170),
@@ -237,7 +242,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                   children: [
                                     Text(
                                       'SISTER SISTER - JAVA',
-                                      style: TextStyle(
+                                      style: TextStyle(height: 1.08,
                                         fontSize: 29.w,
                                         color: const Color.fromARGB(
                                             255, 170, 170, 170),
@@ -260,7 +265,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                   children: [
                                     Text(
                                       '3个',
-                                      style: TextStyle(
+                                      style: TextStyle(height: 1.08,
                                         fontSize: 29.w,
                                         color: const Color.fromARGB(
                                             255, 170, 170, 170),

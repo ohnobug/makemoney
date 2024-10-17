@@ -5,6 +5,7 @@ import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import 'components/LJNFunctionItem.dart';
 
@@ -51,8 +52,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                           parent: BouncingScrollPhysics()),
                       child: Container(
                           constraints: BoxConstraints(
-                              minHeight:
-                                  screenSize.height - 90.w - _statusHeight),
+                              minHeight: screenSize.height - 106.w),
                           decoration: const BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
@@ -87,8 +87,12 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(10).w,
-                                            child: Image.asset(
-                                              vm.userinfoAvatar!,
+                                            child: Image(
+                                              image: ResizeImage(
+                                                  AssetImage(assetPath(
+                                                      vm.userinfoAvatar!)),
+                                                  width: 240.w.toInt(),
+                                                  height: 240.w.toInt()),
                                               width: 120.w,
                                               height: 120.w,
                                               fit: BoxFit.cover,
@@ -116,7 +120,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                       child: Text(
                                                         vm.userinfoName
                                                             as String,
-                                                        style: TextStyle(
+                                                        style: TextStyle(height: 1.08,
                                                           fontSize: 42.w,
                                                           fontWeight:
                                                               FontWeight.w600,
@@ -140,7 +144,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                     children: [
                                                       Text(
                                                         '微信号：${vm.userinfoAccount}',
-                                                        style: TextStyle(
+                                                        style: TextStyle(height: 1.08,
                                                           fontSize: 28.w,
                                                           color: const Color
                                                               .fromARGB(255,
@@ -296,7 +300,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                 width: 10.w),
                                                             Text(
                                                               '等8个朋友',
-                                                              style: TextStyle(
+                                                              style: TextStyle(height: 1.08,
                                                                 fontSize: 24.w,
                                                                 color: const Color
                                                                     .fromARGB(
@@ -445,7 +449,7 @@ class _LJNStatusButton extends State<LJNStatusButton> {
                 : Colors.transparent,
             border: Border.all(
               color: const Color.fromARGB(255, 231, 231, 231),
-              width: 2.w,
+              width: 1.w,
             ),
             borderRadius: BorderRadius.circular(24).w,
           ),
@@ -454,7 +458,7 @@ class _LJNStatusButton extends State<LJNStatusButton> {
               : Center(
                   child: Text(
                   widget.text!,
-                  style: TextStyle(
+                  style: TextStyle(height: 1.08,
                     fontSize: 24.w,
                     color: const Color.fromARGB(255, 116, 116, 116),
                   ),

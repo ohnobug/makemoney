@@ -185,6 +185,7 @@ class _LJNChatPage extends State<LJNChatPage>
                     toolbarHeight: 90.w,
                     title: Text(widget.title),
                     titleTextStyle: TextStyle(
+                      height: 1.08,
                       fontSize: 32.w,
                       color: Colors.black,
                       fontFamily: "AlibabaPuHuiTi-Medium",
@@ -258,7 +259,7 @@ class _LJNChatPage extends State<LJNChatPage>
                             border: Border(
                                 top: BorderSide(
                               color: const Color.fromARGB(255, 231, 231, 231),
-                              width: 2.w,
+                              width: 1.5.w,
                               style: BorderStyle.solid,
                             ))),
                         child: Row(
@@ -294,7 +295,9 @@ class _LJNChatPage extends State<LJNChatPage>
                               // cursorHeight: 44.w,
                               cursorWidth: 3.w,
                               style: TextStyle(
-                                  fontSize: 30.w, color: Colors.black),
+                                  // height: 1.08,
+                                  fontSize: 30.w,
+                                  color: Colors.black),
                               // strutStyle: StrutStyle(fontSize: 20.w),
                               maxLines: 5,
                               minLines: 1,
@@ -404,6 +407,7 @@ class _LJNChatPage extends State<LJNChatPage>
                                                   child: Text(
                                                     "发送",
                                                     style: TextStyle(
+                                                        height: 1.08,
                                                         fontSize: 27.w,
                                                         color: Colors.white),
                                                   ),

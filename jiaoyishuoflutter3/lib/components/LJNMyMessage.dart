@@ -50,6 +50,7 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                                 Text(
                                   widget.name,
                                   style: TextStyle(
+                                      height: 1.08,
                                       fontSize: 20.w,
                                       color: const Color.fromARGB(
                                           255, 130, 130, 130)),
@@ -96,7 +97,9 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                               overflow: TextOverflow.ellipsis,
                               widget.message,
                               style: TextStyle(
-                                  fontSize: 32.w, color: Colors.black),
+                                  // height: 1.08,
+                                  fontSize: 32.w,
+                                  color: Colors.black),
                             ),
                           )),
 
@@ -124,7 +127,7 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                       borderRadius: BorderRadius.circular(8.w),
                       child: Image(
                         image: ResizeImage(
-                          vm.userinfoAvatar as ImageProvider<Object>,
+                          AssetImage(assetPath(vm.userinfoAvatar!)),
                           width: 156.w.toInt(),
                           height: 156.w.toInt(),
                         ),

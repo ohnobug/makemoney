@@ -67,6 +67,7 @@ class _LJNTestMessage extends State<LJNTestMessage>
                                 Text(
                                   widget.name,
                                   style: TextStyle(
+                                      height: 1.08,
                                       fontSize: 20.w,
                                       color: const Color.fromARGB(
                                           255, 130, 130, 130)),
@@ -105,7 +106,8 @@ class _LJNTestMessage extends State<LJNTestMessage>
                                 controller: _controller,
                                 onLoaded: (composition) {
                                   _controller
-                                    ..duration = const Duration(milliseconds: 600)
+                                    ..duration =
+                                        const Duration(milliseconds: 600)
                                     ..forward();
                                 },
                               ),
@@ -130,11 +132,15 @@ class _LJNTestMessage extends State<LJNTestMessage>
                 ),
                 // 头像
                 ClipRRect(
-                    borderRadius: BorderRadius.circular(10).w,
-                    child: Image.asset(
-                      vm.userinfoAvatar!,
+                    borderRadius: BorderRadius.circular(8).w,
+                    child: Image(
+                      image: ResizeImage(
+                          AssetImage(assetPath(vm.userinfoAvatar!)),
+                          width: 156.w.toInt(),
+                          height: 156.w.toInt()),
                       width: 78.w,
                       height: 78.w,
+                      fit: BoxFit.cover,
                     )),
               ],
             ),

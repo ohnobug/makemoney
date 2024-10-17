@@ -11,7 +11,6 @@ import 'package:jiaoyishuoflutter3/profile.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
 import 'package:jiaoyishuoflutter3/wallet.dart';
@@ -45,8 +44,8 @@ void main() async {
   myStore.dispatch({"type": "userinfoAccount", "payload": "TheMonsterClub"});
   myStore.dispatch({"type": "walletBalance", "payload": 502547.36});
   myStore.dispatch({"type": "walletFoundationBalance", "payload": 0.0});
-  myStore.dispatch(
-      {"type": "userinfoAvatar", "payload": assetPath("images/avatar/my.jpg")});
+  myStore
+      .dispatch({"type": "userinfoAvatar", "payload": "images/avatar/my.jpg"});
 
   runApp(
     const TabBarApp(),
@@ -476,13 +475,14 @@ class _CustomTabbarState extends State<CustomTabbar>
                           border: Border(
                               top: BorderSide(
                         color: const Color.fromARGB(255, 220, 220, 220),
-                        width: 1.w,
+                        width: 1.5.w,
                         style: BorderStyle.solid,
                       ))),
                       child: TabBar(
                         dividerColor: const Color.fromARGB(255, 218, 218, 218),
                         labelColor: const Color.fromARGB(255, 7, 192, 103),
-                        labelStyle: TextStyle(fontSize: 22.w),
+                        labelStyle: TextStyle(
+                            height: 1.08, fontSize: 22.w),
                         unselectedLabelColor:
                             const Color.fromARGB(222, 0, 0, 0),
                         indicator: const BoxDecoration(),
@@ -544,6 +544,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                               title: appBarTitle,
                               centerTitle: true,
                               titleTextStyle: TextStyle(
+                                  height: 1.08,
                                   fontSize: 32.w,
                                   color: Colors.black,
                                   fontFamily: "AlibabaPuHuiTi-Medium"),
@@ -755,7 +756,7 @@ class _PopupMenuState extends State<PopupMenu> {
                                                       bottom: BorderSide(
                                                 color: const Color.fromARGB(
                                                     255, 85, 85, 85),
-                                                width: 2.w,
+                                                width: 1.5.w,
                                                 style: BorderStyle.solid,
                                               ))),
                                               child: Row(
@@ -767,6 +768,7 @@ class _PopupMenuState extends State<PopupMenu> {
                                                   Text(
                                                     '发起群聊',
                                                     style: TextStyle(
+                                                        height: 1.08,
                                                         fontSize: 30.w,
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -847,7 +849,7 @@ class _PopupMenuState extends State<PopupMenu> {
                                                       bottom: BorderSide(
                                                 color: const Color.fromARGB(
                                                     255, 85, 85, 85),
-                                                width: 2.w,
+                                                width: 1.5.w,
                                                 style: BorderStyle.solid,
                                               ))),
                                               child: Row(
@@ -859,6 +861,7 @@ class _PopupMenuState extends State<PopupMenu> {
                                                   Text(
                                                     '添加朋友',
                                                     style: TextStyle(
+                                                        height: 1.08,
                                                         fontSize: 30.w,
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -939,7 +942,7 @@ class _PopupMenuState extends State<PopupMenu> {
                                                       bottom: BorderSide(
                                                 color: const Color.fromARGB(
                                                     255, 85, 85, 85),
-                                                width: 2.w,
+                                                width: 1.5.w,
                                                 style: BorderStyle.solid,
                                               ))),
                                               child: Row(
@@ -951,6 +954,7 @@ class _PopupMenuState extends State<PopupMenu> {
                                                   Text(
                                                     '扫一扫',
                                                     style: TextStyle(
+                                                        height: 1.08,
                                                         fontSize: 30.w,
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -1031,7 +1035,7 @@ class _PopupMenuState extends State<PopupMenu> {
                                                     border: Border(
                                                         bottom: BorderSide(
                                                   color: Colors.transparent,
-                                                  width: 1.w,
+                                                  width: 1.5.w,
                                                   style: BorderStyle.solid,
                                                 ))),
                                                 child: Row(
@@ -1043,6 +1047,7 @@ class _PopupMenuState extends State<PopupMenu> {
                                                     Text(
                                                       '收付款',
                                                       style: TextStyle(
+                                                          height: 1.08,
                                                           fontSize: 30.w,
                                                           fontWeight:
                                                               FontWeight.normal,

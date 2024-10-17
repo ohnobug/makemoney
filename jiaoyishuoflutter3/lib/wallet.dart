@@ -79,7 +79,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                         centerTitle: true,
                         title: const Text('钱包'),
                         toolbarHeight: 90.w,
-                        titleTextStyle: TextStyle(
+                        titleTextStyle: TextStyle(height: 1.08,
                             fontSize: 32.w,
                             color: Colors.black,
                             fontFamily: "AlibabaPuHuiTi-Medium"),
@@ -106,7 +106,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                   color: Colors.transparent,
                                   padding: EdgeInsets.only(right: 33.w),
                                   child: Text("账单",
-                                      style: TextStyle(
+                                      style: TextStyle(height: 1.08,
                                           color: Colors.black,
                                           fontSize: 30.w,
                                           fontWeight: FontWeight.w500)))),
@@ -137,7 +137,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                     Text(
                                       '¥${vm.walletBalance}',
                                       // '¥201.12',
-                                      style: TextStyle(
+                                      style: TextStyle(height: 1.08,
                                           fontSize: 29.w,
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,
@@ -163,7 +163,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                         children: [
                                           TextSpan(
                                             text: '收益率1.64%',
-                                            style: TextStyle(
+                                            style: TextStyle(height: 1.08,
                                               fontSize: 23.w,
                                               color: const Color.fromARGB(
                                                   255, 249, 136, 39),
@@ -171,7 +171,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                           ),
                                           // TextSpan(
                                           //   text: '1.64%',
-                                          //   style: TextStyle(
+                                          //   style: TextStyle(height: 1.08,
                                           //     fontSize: 27.w,
                                           //     fontWeight:
                                           //         FontWeight.bold, // 设置不同的字体样式
@@ -184,7 +184,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                     ),
                                     Text(
                                       '¥${vm.walletFoundationBalance}',
-                                      style: TextStyle(
+                                      style: TextStyle(height: 1.08,
                                           fontSize: 29.w,
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,

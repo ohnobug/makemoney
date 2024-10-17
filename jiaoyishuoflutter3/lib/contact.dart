@@ -492,6 +492,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
               Text(
                 "2个朋友",
                 style: TextStyle(
+                    height: 1.08,
                     fontSize: 30.w,
                     color: const Color.fromARGB(255, 125, 125, 125)),
               ),
@@ -549,7 +550,10 @@ class _LJNContactPageState extends State<LJNContactPage> {
                       children: [
                         Text(
                           contactList[index],
-                          style: TextStyle(fontSize: 20.w),
+                          style: TextStyle(
+                            height: 1.08,
+                            fontSize: 20.w,
+                          ),
                         ),
                       ],
                     ),
@@ -605,6 +609,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
                             child: Text(
                               String.fromCharCode(65 + i),
                               style: TextStyle(
+                                  height: 1.08,
                                   fontSize: 22.w,
                                   color: const Color.fromARGB(255, 20, 20, 20)),
                             ),
@@ -614,6 +619,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
                           child: Text(
                             "#",
                             style: TextStyle(
+                                height: 1.08,
                                 fontSize: 22.w,
                                 color: const Color.fromARGB(255, 20, 20, 20)),
                           ),
@@ -695,7 +701,8 @@ class _ContactInformationState extends State<ContactInformation> {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(7).w,
                 image: DecorationImage(
-                  image: AssetImage(assetPath(widget.icon)),
+                  image: ResizeImage(AssetImage(assetPath(widget.icon)),
+                      width: 150.w.toInt(), height: 150.w.toInt()),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -710,14 +717,14 @@ class _ContactInformationState extends State<ContactInformation> {
                         border: Border(
                             bottom: BorderSide(
                         color: const Color.fromARGB(255, 242, 242, 242),
-                        width: 1.w,
+                        width: 1.5.w,
                         style: BorderStyle.solid,
                       )))
                     : BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
                             color: Colors.transparent,
-                            width: 1.w,
+                            width: 1.5.w,
                             style: BorderStyle.solid,
                           ),
                         ),
@@ -732,6 +739,7 @@ class _ContactInformationState extends State<ContactInformation> {
                       child: Text(
                         widget.title,
                         style: TextStyle(
+                          height: 1.08,
                           fontSize: 32.0.w,
                         ),
                         maxLines: 1,

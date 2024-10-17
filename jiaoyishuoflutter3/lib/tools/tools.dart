@@ -40,10 +40,10 @@ List<TextSpan> buildTextSpans(
   final matches = emojiRegex.allMatches(text);
   int lastMatchEnd = 0;
 
-  fontTextStyle = TextStyle(
+  fontTextStyle = TextStyle(height: 1.08,
           color: Colors.black, fontSize: 30.w, fontFamily: "AlibabaPuHuiTi")
       .merge(fontTextStyle);
-  iconTextStyle = TextStyle(
+  iconTextStyle = TextStyle(height: 1.08,
           color: Colors.black,
           fontSize: 30.w,
           fontFamily: "NotoColorEmoji-Regular")
