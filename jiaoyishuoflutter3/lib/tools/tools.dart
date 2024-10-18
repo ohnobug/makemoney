@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // 字体缩放
 double fontSizeScale(double size) {
-  return size * 1.08;
+  return size * 1.0;
 }
 
 // 图片路径修正

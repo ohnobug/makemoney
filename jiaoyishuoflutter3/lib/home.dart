@@ -105,7 +105,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           }),
       ChatListItem(
           id: "6390e7d0-c8bd-5929-b537-76f6577c591c",
-          friendName: mockName(),
+          friendName: "邓子乔",
           notice: false,
           underline: true,
           message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
@@ -645,6 +645,7 @@ class _ChatListItem extends State<ChatListItem> {
                         children: [
                           // 好友名称和消息时间
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               // 好友名称
@@ -673,21 +674,17 @@ class _ChatListItem extends State<ChatListItem> {
                                 width: 10.w,
                               ),
                               // 消息时间
-                              Expanded(
-                                  flex: 0,
-                                  child: Container(
-                                      height: 18.w,
-                                      child: Text(
-                                        widget.lastedTime,
-                                        style: TextStyle(
-                                          height: 1.08,
-                                          fontSize: fontSizeScale(18.0.w),
-                                          color: widget.notice
-                                              ? Colors.red
-                                              : const Color.fromARGB(
-                                                  255, 193, 193, 193),
-                                        ),
-                                      ))),
+                              Text(
+                                widget.lastedTime,
+                                style: TextStyle(
+                                  height: 1.08,
+                                  fontSize: fontSizeScale(20.0.w),
+                                  color: widget.notice
+                                      ? Colors.red
+                                      : const Color.fromARGB(
+                                          255, 193, 193, 193),
+                                ),
+                              ),
 
                               SizedBox(
                                 width: 30.w,
@@ -695,7 +692,7 @@ class _ChatListItem extends State<ChatListItem> {
                             ],
                           ),
 
-                          SizedBox(height: 13.w),
+                          SizedBox(height: 10.w),
 
                           // 好友消息
                           Row(
@@ -716,13 +713,13 @@ class _ChatListItem extends State<ChatListItem> {
                                         widget.message,
                                         TextStyle(
                                           height: 1.08,
-                                          fontSize: fontSizeScale(23.w),
+                                          fontSize: fontSizeScale(25.w),
                                           color: const Color.fromARGB(
                                               255, 180, 180, 180),
                                         ),
                                         TextStyle(
                                           height: 1.08,
-                                          fontSize: fontSizeScale(23.w),
+                                          fontSize: fontSizeScale(25.w),
                                           color: const Color.fromARGB(
                                               255, 180, 180, 180),
                                         )),
@@ -742,7 +739,7 @@ class _ChatListItem extends State<ChatListItem> {
                                           0xe62d,
                                           fontFamily: 'Iconfont',
                                         ),
-                                        size: 23.0.w,
+                                        size: 25.0.w,
                                         color: const Color.fromARGB(
                                             255, 180, 180, 180))
                                     : null,
