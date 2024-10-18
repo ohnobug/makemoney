@@ -6,6 +6,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'components/LJNFunctionItem.dart';
+import 'tools/tools.dart';
 
 class LJNWalletPage extends StatefulWidget {
   const LJNWalletPage({super.key});
@@ -79,8 +80,9 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                         centerTitle: true,
                         title: const Text('钱包'),
                         toolbarHeight: 90.w,
-                        titleTextStyle: TextStyle(height: 1.08,
-                            fontSize: 32.w,
+                        titleTextStyle: TextStyle(
+                            height: 1.08,
+                            fontSize: fontSizeScale(32.w),
                             color: Colors.black,
                             fontFamily: "AlibabaPuHuiTi-Medium"),
                         elevation: 0,
@@ -106,9 +108,10 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                   color: Colors.transparent,
                                   padding: EdgeInsets.only(right: 33.w),
                                   child: Text("账单",
-                                      style: TextStyle(height: 1.08,
+                                      style: TextStyle(
+                                          height: 1.08,
                                           color: Colors.black,
-                                          fontSize: 30.w,
+                                          fontSize: fontSizeScale(30.w),
                                           fontWeight: FontWeight.w500)))),
                         ],
                       ))),
@@ -137,8 +140,9 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                     Text(
                                       '¥${vm.walletBalance}',
                                       // '¥201.12',
-                                      style: TextStyle(height: 1.08,
-                                          fontSize: 29.w,
+                                      style: TextStyle(
+                                          height: 1.08,
+                                          fontSize: fontSizeScale(29.w),
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,
                                           fontFamily: "Quicksand-Medium"),
@@ -163,8 +167,9 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                         children: [
                                           TextSpan(
                                             text: '收益率1.64%',
-                                            style: TextStyle(height: 1.08,
-                                              fontSize: 23.w,
+                                            style: TextStyle(
+                                              height: 1.08,
+                                              fontSize: fontSizeScale(23.w),
                                               color: const Color.fromARGB(
                                                   255, 249, 136, 39),
                                             ),
@@ -172,7 +177,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                           // TextSpan(
                                           //   text: '1.64%',
                                           //   style: TextStyle(height: 1.08,
-                                          //     fontSize: 27.w,
+                                          //     fontSize: fontSizeScale(27.w),
                                           //     fontWeight:
                                           //         FontWeight.bold, // 设置不同的字体样式
                                           //     color: const Color.fromARGB(
@@ -184,8 +189,9 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                     ),
                                     Text(
                                       '¥${vm.walletFoundationBalance}',
-                                      style: TextStyle(height: 1.08,
-                                          fontSize: 29.w,
+                                      style: TextStyle(
+                                          height: 1.08,
+                                          fontSize: fontSizeScale(29.w),
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,
                                           fontFamily: "Quicksand-Medium"),

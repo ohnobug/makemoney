@@ -65,7 +65,7 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                         toolbarHeight: 90.w,
                         titleTextStyle: TextStyle(
                             height: 1.08,
-                            fontSize: 32.w,
+                            fontSize: fontSizeScale(32.w),
                             color: Colors.black,
                             fontFamily: "AlibabaPuHuiTi-Medium"),
                         elevation: 0,
@@ -436,7 +436,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                     // fontWeight: FontWeight.w100,
                     decoration: TextDecoration.none,
                     color: Colors.white,
-                    fontSize: 32.0.w,
+                    fontSize: fontSizeScale(32.0.w),
                     overflow: TextOverflow.ellipsis),
               ),
 
@@ -451,7 +451,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                     // fontWeight: FontWeight.w600,
                     decoration: TextDecoration.none,
                     color: const Color.fromARGB(160, 255, 255, 255),
-                    fontSize: 27.0.w,
+                    fontSize: fontSizeScale(27.0.w),
                     overflow: TextOverflow.ellipsis,
                     fontFamily: "Quicksand"),
               ),
@@ -529,7 +529,7 @@ class FunctionButtonState extends State<FunctionButton> {
                     height: 1.08,
                     decoration: TextDecoration.none,
                     color: const Color.fromARGB(255, 33, 33, 33),
-                    fontSize: 25.0.w,
+                    fontSize: fontSizeScale(25.0.w),
                     overflow: TextOverflow.ellipsis), // 标题颜色
               ),
             ],
@@ -577,7 +577,7 @@ class FunctionButtonsSection extends StatelessWidget {
                         title,
                         style: TextStyle(
                             height: 1.08,
-                            fontSize: 25.w,
+                            fontSize: fontSizeScale(25.w),
                             color: const Color.fromARGB(255, 87, 87, 87)),
                       )),
                 ),

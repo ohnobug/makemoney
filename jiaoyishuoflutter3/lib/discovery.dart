@@ -99,13 +99,13 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                                   "李俊南集团💖李俊男  最近💖",
                                   TextStyle(
                                       height: 1.08,
-                                      fontSize: 26.w,
+                                      fontSize: fontSizeScale(26.w),
                                       color:
                                           const Color.fromARGB(255, 80, 80, 80),
                                       fontFamily: "AlibabaPuHuiTi"),
                                   TextStyle(
                                       height: 1.08,
-                                      fontSize: 26.w,
+                                      fontSize: fontSizeScale(26.w),
                                       fontFamily: "NotoColorEmoji-Regular")),
                             ),
                           )),
@@ -126,7 +126,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                               "小歪今天穿什么直播中",
                               style: TextStyle(
                                   height: 1.08,
-                                  fontSize: 26.w,
+                                  fontSize: fontSizeScale(26.w),
                                   color: const Color.fromARGB(255, 80, 80, 80)),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

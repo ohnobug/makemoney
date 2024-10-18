@@ -30,7 +30,13 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
         children: [
           GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/profile');
+                Navigator.pushNamed(context, '/profile',
+                    arguments: <String, String>{
+                      'name': widget.name,
+                      'avatar': widget.friendAvatar,
+                      'nickname': widget.name,
+                      'account': "tathagata_buddha_loveyou",
+                    });
               },
               // 头像
               child: ClipRRect(
@@ -67,7 +73,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                             widget.name,
                             style: TextStyle(
                                 height: 1.08,
-                                fontSize: 20.w,
+                                fontSize: fontSizeScale(20.w),
                                 color:
                                     const Color.fromARGB(255, 130, 130, 130)),
                           )
@@ -90,13 +96,8 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                     Flexible(
                         child: Container(
                       constraints: const BoxConstraints(maxWidth: 510).w,
-                      // width: 640.w,
                       decoration: BoxDecoration(
                           color: Colors.white,
-                          // border: Border.all(
-                          //     color:
-                          //         Colors.white,
-                          //     width: 1.0.w),
                           borderRadius: BorderRadius.circular(8).w),
                       padding: EdgeInsets.only(
                           top: 22.w, bottom: 24.w, left: 25.w, right: 22.w),
@@ -106,8 +107,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                         overflow: TextOverflow.ellipsis,
                         widget.message,
                         style: TextStyle(
-                          // height: 1.08,
-                          fontSize: 32.w,
+                          fontSize: fontSizeScale(32.w),
                           color: Colors.black,
                         ),
                       ),

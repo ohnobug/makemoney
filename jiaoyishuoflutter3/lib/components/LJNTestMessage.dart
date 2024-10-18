@@ -68,7 +68,7 @@ class _LJNTestMessage extends State<LJNTestMessage>
                                   widget.name,
                                   style: TextStyle(
                                       height: 1.08,
-                                      fontSize: 20.w,
+                                      fontSize: fontSizeScale(20.w),
                                       color: const Color.fromARGB(
                                           255, 130, 130, 130)),
                                 )
@@ -131,16 +131,28 @@ class _LJNTestMessage extends State<LJNTestMessage>
                   ),
                 ),
                 // 头像
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(8).w,
-                    child: Image(
-                      image: ResizeImage(
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/profile',
+                          arguments: <String, String>{
+                            'name': vm.userinfoName!,
+                            'avatar': vm.userinfoAvatar!,
+                            'nickname': vm.userinfoName!,
+                            'account': vm.userinfoAccount!,
+                          });
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.w),
+                      child: Image(
+                        image: ResizeImage(
                           AssetImage(assetPath(vm.userinfoAvatar!)),
                           width: 156.w.toInt(),
-                          height: 156.w.toInt()),
-                      width: 78.w,
-                      height: 78.w,
-                      fit: BoxFit.cover,
+                          height: 156.w.toInt(),
+                        ),
+                        width: 78.w,
+                        height: 78.w,
+                        fit: BoxFit.cover,
+                      ),
                     )),
               ],
             ),

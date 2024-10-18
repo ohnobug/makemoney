@@ -9,6 +9,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'components/LJNMyMessage.dart';
+import 'tools/tools.dart';
 
 class LJNChatPage extends StatefulWidget {
   const LJNChatPage({super.key, required this.title, required this.icon});
@@ -186,7 +187,7 @@ class _LJNChatPage extends State<LJNChatPage>
                     title: Text(widget.title),
                     titleTextStyle: TextStyle(
                       height: 1.08,
-                      fontSize: 32.w,
+                      fontSize: fontSizeScale(32.w),
                       color: Colors.black,
                       fontFamily: "AlibabaPuHuiTi-Medium",
                     ),
@@ -296,9 +297,9 @@ class _LJNChatPage extends State<LJNChatPage>
                               cursorWidth: 3.w,
                               style: TextStyle(
                                   // height: 1.08,
-                                  fontSize: 30.w,
+                                  fontSize: fontSizeScale(30.w),
                                   color: Colors.black),
-                              // strutStyle: StrutStyle(fontSize: 20.w),
+                              // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
                               maxLines: 5,
                               minLines: 1,
                               onChanged: (newText) {
@@ -408,7 +409,8 @@ class _LJNChatPage extends State<LJNChatPage>
                                                     "发送",
                                                     style: TextStyle(
                                                         height: 1.08,
-                                                        fontSize: 27.w,
+                                                        fontSize:
+                                                            fontSizeScale(27.w),
                                                         color: Colors.white),
                                                   ),
                                                 )

@@ -6,7 +6,7 @@ final ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   appBarTheme: const AppBarTheme(
       // titleTextStyle: TextStyle(height: 1.08,
-      //   fontSize: 30.w,
+      //   fontSize: fontSizeScale(30.w),
       //     color: Color.fromARGB(255, 157, 17, 17), fontWeight: FontWeight.w500),
       iconTheme: IconThemeData(color: Colors.black)),
   // tabBarTheme:

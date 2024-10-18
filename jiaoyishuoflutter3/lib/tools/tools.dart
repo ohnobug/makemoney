@@ -5,6 +5,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// 字体缩放
+double fontSizeScale(double size) {
+  return size * 1.08;
+}
+
+// 图片路径修正
 String assetPath(String path) {
   if (kIsWeb) {
     return path;
@@ -18,6 +24,7 @@ String assetPath(String path) {
 }
 
 // 正则表达式匹配所有 emoji
+// 解析推文内容，将emoji和文本分开处理
 final RegExp emojiRegex = RegExp(
   r'[\u{1F600}-\u{1F64F}]|' // 表情符号
   r'[\u{1F300}-\u{1F5FF}]|' // 符号和图形
@@ -33,7 +40,6 @@ final RegExp emojiRegex = RegExp(
   r'[\u{2640}\u{2642}]', // 性别符号
   unicode: true,
 );
-// 解析推文内容，将emoji和文本分开处理
 List<TextSpan> buildTextSpans(
     String text, TextStyle fontTextStyle, TextStyle iconTextStyle) {
   List<TextSpan> spans = [];
@@ -43,18 +49,18 @@ List<TextSpan> buildTextSpans(
   fontTextStyle = TextStyle(
           height: 1.08,
           color: Colors.black,
-          fontSize: 30.w,
+          fontSize: fontSizeScale(30.w),
           fontFamily: "AlibabaPuHuiTi")
       .merge(fontTextStyle);
   iconTextStyle = TextStyle(
           height: 1.08,
           color: Colors.black,
-          fontSize: 30.w,
+          fontSize: fontSizeScale(30.w),
           fontFamily: "NotoColorEmoji-Regular")
       .merge(iconTextStyle);
 
   iconTextStyle =
-      iconTextStyle.merge(TextStyle(fontSize: iconTextStyle.fontSize! * 0.9));
+      iconTextStyle.merge(TextStyle(fontSize: iconTextStyle.fontSize! * 0.95));
 
   for (final match in matches) {
     // 添加前面的非emoji文本
@@ -84,6 +90,7 @@ List<TextSpan> buildTextSpans(
   return spans;
 }
 
+// 随机人名
 String mockName() {
   List<String> names = [
     "星愿",

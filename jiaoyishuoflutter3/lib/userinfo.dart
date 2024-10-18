@@ -80,8 +80,9 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                         centerTitle: true,
                         title: const Text('个人信息'),
                         toolbarHeight: 90.w,
-                        titleTextStyle: TextStyle(height: 1.08,
-                            fontSize: 32.w,
+                        titleTextStyle: TextStyle(
+                            height: 1.08,
+                            fontSize: fontSizeScale(32.w),
                             color: Colors.black,
                             fontFamily: "AlibabaPuHuiTi-Medium"),
                         elevation: 0,
@@ -109,7 +110,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                           //         child: Text("账单",
                           //             style: TextStyle(height: 1.08,
                           //                 color: Colors.black,
-                          //                 fontSize: 30.w,
+                          //                 fontSize: fontSizeScale(30.w),
                           //                 fontWeight: FontWeight.w500)))),
                         ],
                       ))),
@@ -162,8 +163,9 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                   children: [
                                     Text(
                                       vm.userinfoName!,
-                                      style: TextStyle(height: 1.08,
-                                        fontSize: 30.w,
+                                      style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(30.w),
                                         color: const Color.fromARGB(
                                             255, 170, 170, 170),
                                       ),
@@ -189,8 +191,9 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                   children: [
                                     Text(
                                       vm.userinfoAccount!,
-                                      style: TextStyle(height: 1.08,
-                                        fontSize: 30.w,
+                                      style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(30.w),
                                         color: const Color.fromARGB(
                                             255, 170, 170, 170),
                                       ),
@@ -242,8 +245,9 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                   children: [
                                     Text(
                                       'SISTER SISTER - JAVA',
-                                      style: TextStyle(height: 1.08,
-                                        fontSize: 29.w,
+                                      style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(29.w),
                                         color: const Color.fromARGB(
                                             255, 170, 170, 170),
                                       ),
@@ -265,8 +269,9 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                   children: [
                                     Text(
                                       '3个',
-                                      style: TextStyle(height: 1.08,
-                                        fontSize: 29.w,
+                                      style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(29.w),
                                         color: const Color.fromARGB(
                                             255, 170, 170, 170),
                                       ),

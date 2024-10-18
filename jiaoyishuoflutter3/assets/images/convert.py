@@ -1,7 +1,8 @@
 import cv2  
 import os  
 
-os.chdir("./assets./images")
+# os.chdir("./assets/images")
+os.chdir("./")
 
 
 def convert(source_folder, target_folder):
@@ -13,6 +14,8 @@ def convert(source_folder, target_folder):
     for filename in os.listdir(source_folder):  
         if filename.endswith('.png') or filename.endswith('.jpg'):  # 确保只处理PNG文件  
             img_path = os.path.join(source_folder, filename)  
+
+            print(img_path)
             img = cv2.imread(img_path)  # 读取图片  
             
             # 构造目标文件路径  

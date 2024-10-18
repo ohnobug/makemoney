@@ -108,7 +108,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                     "我的零钱",
                     style: TextStyle(
                         height: 1.08,
-                        fontSize: 32.w,
+                        fontSize: fontSizeScale(32.w),
                         fontFamily: "AlibabaPuHuiTi-Medium",
                         color: const Color.fromARGB(255, 16, 16, 16)),
                   ),
@@ -138,7 +138,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                           text: vm.walletBalance.toString(),
                           style: TextStyle(
                             height: 1.08,
-                            fontSize: 68.w,
+                            fontSize: fontSizeScale(68.w),
                             fontWeight: FontWeight.bold,
                             fontFamily: "Quicksand",
                             color: const Color.fromARGB(255, 16, 16, 16),
@@ -155,7 +155,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                     style: TextStyle(
                         height: 1.08,
                         color: const Color.fromARGB(255, 239, 154, 81),
-                        fontSize: 30.w,
+                        fontSize: fontSizeScale(30.w),
                         fontFamily: "AlibabaPuHuiTi-Medium"),
                   ),
                   const Expanded(
@@ -175,7 +175,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                         style: TextStyle(
                           height: 1.08,
                           color: const Color.fromARGB(255, 255, 255, 255),
-                          fontSize: 32.w,
+                          fontSize: fontSizeScale(32.w),
                           fontFamily: "AlibabaPuHuiTi-Medium",
                         ),
                       ),
@@ -197,7 +197,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                         style: TextStyle(
                           height: 1.08,
                           color: const Color.fromARGB(255, 16, 16, 16),
-                          fontSize: 32.w,
+                          fontSize: fontSizeScale(32.w),
                           fontFamily: "AlibabaPuHuiTi-Medium",
                         ),
                       ),
@@ -213,7 +213,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                       style: TextStyle(
                           height: 1.08,
                           color: const Color.fromARGB(255, 58, 81, 124),
-                          fontSize: 25.w,
+                          fontSize: fontSizeScale(25.w),
                           fontFamily: "AlibabaPuHuiTi-Medium"),
                     ),
                     TextSpan(
@@ -221,7 +221,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                       style: TextStyle(
                           height: 1.08,
                           color: const Color.fromARGB(255, 169, 169, 169),
-                          fontSize: 25.w,
+                          fontSize: fontSizeScale(25.w),
                           fontFamily: "AlibabaPuHuiTi-Medium"),
                     ),
                     TextSpan(
@@ -229,7 +229,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                       style: TextStyle(
                           height: 1.08,
                           color: const Color.fromARGB(255, 58, 81, 124),
-                          fontSize: 25.w,
+                          fontSize: fontSizeScale(25.w),
                           fontFamily: "AlibabaPuHuiTi-Medium"),
                     ),
                   ])),
@@ -241,7 +241,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                     style: TextStyle(
                         height: 1.08,
                         color: const Color.fromARGB(255, 169, 169, 169),
-                        fontSize: 20.w,
+                        fontSize: fontSizeScale(20.w),
                         fontFamily: "AlibabaPuHuiTi-Medium"),
                   ),
                   SizedBox(
@@ -297,12 +297,12 @@ class TweetWidget extends StatelessWidget {
               name,
               TextStyle(
                   height: 1.08,
-                  fontSize: 27.w,
+                  fontSize: fontSizeScale(27.w),
                   color: const Color.fromARGB(255, 58, 81, 124),
                   fontFamily: "AlibabaPuHuiTi-Medium"),
               TextStyle(
                   height: 1.08,
-                  fontSize: 27.w,
+                  fontSize: fontSizeScale(27.w),
                   fontFamily: "NotoColorEmoji-Regular")),
         ),
       );
@@ -314,7 +314,7 @@ class TweetWidget extends StatelessWidget {
             text: ", ",
             style: TextStyle(
               height: 1.08,
-              fontSize: 27.w,
+              fontSize: fontSizeScale(27.w),
               color: const Color.fromARGB(255, 58, 81, 124),
               fontFamily: "AlibabaPuHuiTi-Medium",
             ),
@@ -369,7 +369,7 @@ class TweetWidget extends StatelessWidget {
                       name,
                       style: TextStyle(
                         height: 1.08,
-                        fontSize: 30.w,
+                        fontSize: fontSizeScale(30.w),
                         fontFamily: "AlibabaPuHuiTi-Medium",
                         // fontWeight: FontWeight.w600,
                         color: const Color.fromARGB(255, 58, 81, 124),
@@ -380,8 +380,10 @@ class TweetWidget extends StatelessWidget {
                       text: TextSpan(
                         children: buildTextSpans(
                             tweetContent,
-                            TextStyle(height: 1.08, fontSize: 30.w),
-                            TextStyle(height: 1.08, fontSize: 30.w)),
+                            TextStyle(
+                                height: 1.08, fontSize: fontSizeScale(30.w)),
+                            TextStyle(
+                                height: 1.08, fontSize: fontSizeScale(30.w))),
                       ),
                     ),
                     SizedBox(height: 20.w),
@@ -425,7 +427,7 @@ class TweetWidget extends StatelessWidget {
                           time,
                           style: TextStyle(
                             height: 1.08,
-                            fontSize: 26.w,
+                            fontSize: fontSizeScale(26.w),
                             color: const Color.fromARGB(255, 156, 156, 156),
                           ),
                         ),
@@ -490,8 +492,9 @@ class TweetWidget extends StatelessWidget {
                               ),
                               TextSpan(
                                   text: ' ',
-                                  style:
-                                      TextStyle(height: 1.08, fontSize: 27.w)),
+                                  style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(27.w))),
                               ...textSpans
                             ]),
                           ),

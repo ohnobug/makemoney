@@ -121,9 +121,10 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
       return Text(
         '扫码结果',
         overflow: TextOverflow.fade,
-        style: TextStyle(height: 1.08,
+        style: TextStyle(
+            height: 1.08,
             color: Colors.white,
-            fontSize: 26.w,
+            fontSize: fontSizeScale(26.w),
             decoration: TextDecoration.none),
       );
     }
@@ -131,8 +132,11 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
     return Text(
       value.displayValue ?? 'No display value.',
       overflow: TextOverflow.fade,
-      style: TextStyle(height: 1.08,
-          color: Colors.white, fontSize: 26.w, decoration: TextDecoration.none),
+      style: TextStyle(
+          height: 1.08,
+          color: Colors.white,
+          fontSize: fontSizeScale(26.w),
+          decoration: TextDecoration.none),
     );
   }
 
@@ -311,16 +315,18 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                         ),
                         Text(
                           "轻触照亮",
-                          style: TextStyle(height: 1.08,
-                              fontSize: 26.w,
+                          style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(26.w),
                               fontWeight: FontWeight.normal,
                               color: Colors.white,
                               decoration: TextDecoration.none),
                         ),
                         Text(
                           "识别二维码 / 花草 / 动物 / 商品等",
-                          style: TextStyle(height: 1.08,
-                              fontSize: 26.w,
+                          style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(26.w),
                               fontWeight: FontWeight.normal,
                               color: Colors.white,
                               decoration: TextDecoration.none),
@@ -366,8 +372,9 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                               height: 3.w,
                             ),
                             Text("我的二维码",
-                                style: TextStyle(height: 1.08,
-                                    fontSize: 22.w,
+                                style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(22.w),
                                     fontWeight: FontWeight.normal,
                                     color: Colors.white,
                                     decoration: TextDecoration.none))
@@ -410,7 +417,9 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                                   flex: 1,
                                   child: Text(
                                     "暴龙太阳眼睛",
-                                    style: TextStyle(height: 1.08,fontSize: 27.w),
+                                    style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(27.w)),
                                   )),
                               SizedBox(width: 15.w),
                               Container(
@@ -457,8 +466,9 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                               height: 3.w,
                             ),
                             Text("相册",
-                                style: TextStyle(height: 1.08,
-                                    fontSize: 22.w,
+                                style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(22.w),
                                     fontWeight: FontWeight.normal,
                                     color: Colors.white,
                                     decoration: TextDecoration.none))

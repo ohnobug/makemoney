@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
-class LJNFunctionItem extends StatefulWidget {
+class LJNVideoFunctionItem extends StatefulWidget {
   final String id;
   final String? icon;
   final double? height;
@@ -13,7 +13,7 @@ class LJNFunctionItem extends StatefulWidget {
   final bool underline;
   final Widget? showStyle;
 
-  const LJNFunctionItem({
+  const LJNVideoFunctionItem({
     super.key,
     required this.id,
     this.icon,
@@ -25,10 +25,10 @@ class LJNFunctionItem extends StatefulWidget {
   });
 
   @override
-  State<LJNFunctionItem> createState() => _LJNFunctionItemState();
+  State<LJNVideoFunctionItem> createState() => _LJNVideoFunctionItemState();
 }
 
-class _LJNFunctionItemState extends State<LJNFunctionItem> {
+class _LJNVideoFunctionItemState extends State<LJNVideoFunctionItem> {
   // bool isClicked = false;
   Color containerColor = Colors.white;
 
@@ -70,28 +70,11 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
           mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (widget.icon != null) ...[
-              // 头像
-              Container(
-                width: 40.0.w,
-                height: 40.0.w,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  // borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: AssetImage(assetPath(widget.icon!)),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              SizedBox(width: 20.w)
-            ],
             Expanded(
               child: Container(
                 height: double.infinity,
-                // height: double.infinity,
-                // width: 400.w,
                 decoration: BoxDecoration(
+                    // color: Colors.red,
                     border: Border(
                         bottom: BorderSide(
                   color: widget.underline
@@ -101,22 +84,26 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                   style: BorderStyle.solid,
                 ))),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // 标题
                     Expanded(
                       flex: 0,
                       // width: 100.w,
-                      child: Text(
-                        widget.title,
-                        style: TextStyle(
-                          height: 1.08,
-                          fontSize: fontSizeScale(30.0.w),
-                          // fontFamily: "AlibabaPuHuiTi",
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      child: Container(
+                          // color: Colors.red,
+                          padding: EdgeInsets.only(top: 38.w),
+                          child: Text(
+                            widget.title,
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(30.0.w),
+                              // fontFamily: "AlibabaPuHuiTi",
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          )),
                     ),
 
                     Flexible(
@@ -129,7 +116,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
 
                     Container(
                         width: 27.w,
-                        margin: const EdgeInsets.only(right: 32).w,
+                        margin: const EdgeInsets.only(right: 32, top: 133).w,
                         child: Icon(
                           const IconData(
                             0xed9d,

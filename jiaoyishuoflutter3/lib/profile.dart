@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:jiaoyishuoflutter3/components/LJNFunctionItemButton.dart';
 import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -7,9 +8,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import 'components/LJNFunctionItem.dart';
+import 'components/LJNVideoFunctionItem.dart';
 
 class LJNProfilePage extends StatefulWidget {
-  const LJNProfilePage({super.key});
+  const LJNProfilePage({
+    super.key,
+    this.name,
+    this.avatar,
+    this.nickname,
+    this.account,
+  });
+
+  final String? name;
+  final String? avatar;
+  final String? nickname;
+  final String? account;
 
   @override
   State<LJNProfilePage> createState() => _LJNProfilePage();
@@ -82,7 +95,7 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                         toolbarHeight: 90.w,
                         titleTextStyle: TextStyle(
                             height: 1.08,
-                            fontSize: 32.w,
+                            fontSize: fontSizeScale(32.w),
                             color: Colors.black,
                             fontFamily: "AlibabaPuHuiTi-Medium"),
                         elevation: 0,
@@ -166,8 +179,8 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                               width: 120.w,
                                               height: 120.w,
                                               image: ResizeImage(
-                                                AssetImage(assetPath(
-                                                    vm.userinfoAvatar!)),
+                                                AssetImage(
+                                                    assetPath(widget.avatar!)),
                                                 width: 240.w.toInt(),
                                                 height: 240.w.toInt(),
                                               ),
@@ -181,33 +194,41 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
+
+                                              // 姓名
                                               RichText(
                                                 text: TextSpan(
                                                   children: buildTextSpans(
-                                                      '如来佛祖🙏',
+                                                      widget.name!,
                                                       TextStyle(
                                                         height: 1.08,
-                                                        fontSize: 40.w,
+                                                        fontSize:
+                                                            fontSizeScale(40.w),
                                                         color: Colors.black,
                                                         fontFamily:
                                                             "AlibabaPuHuiTi-Medium",
                                                       ),
                                                       TextStyle(
                                                         height: 1.08,
-                                                        fontSize: 40.w,
+                                                        fontSize:
+                                                            fontSizeScale(40.w),
                                                       )),
                                                 ),
                                               ),
+                                              
                                               SizedBox(
                                                 height: 20.w,
                                               ),
+
+                                              // 昵称
                                               RichText(
                                                 text: TextSpan(
                                                   children: buildTextSpans(
-                                                      '昵称: 如来佛祖🙏',
+                                                      '昵称: ${widget.nickname!}',
                                                       TextStyle(
                                                         height: 1.08,
-                                                        fontSize: 26.w,
+                                                        fontSize:
+                                                            fontSizeScale(27.w),
                                                         color: const Color
                                                             .fromARGB(
                                                             255, 99, 99, 99),
@@ -216,17 +237,22 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                                       ),
                                                       TextStyle(
                                                         height: 1.08,
-                                                        fontSize: 26.w,
+                                                        fontSize:
+                                                            fontSizeScale(27.w),
                                                       )),
                                                 ),
                                               ),
+                                              
                                               SizedBox(
                                                 height: 20.w,
                                               ),
-                                              Text('微信号: RulaiLoveYou',
+
+                                              // 微信号
+                                              Text('微信号: ${widget.account!}',
                                                   style: TextStyle(
                                                     height: 1.08,
-                                                    fontSize: 26.w,
+                                                    fontSize:
+                                                        fontSizeScale(27.w),
                                                     color: const Color.fromARGB(
                                                         255, 99, 99, 99),
                                                   )),
@@ -326,7 +352,7 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                             ),
 
                             // 视频号
-                            LJNFunctionItem(
+                            LJNVideoFunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "视频号",
                               link: '',
@@ -337,26 +363,30 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       // 标题
                                       Expanded(
                                         flex: 0,
                                         // width: 100.w,
-                                        child: Text(
-                                          '如来佛祖',
-                                          style: TextStyle(
-                                              height: 1.08,
-                                              fontSize: 32.0.w,
-                                              fontFamily: "AlibabaPuHuiTi",
-                                              fontWeight: FontWeight.w500),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
+                                        child: Container(
+                                            // color: Colors.red,
+                                            padding: EdgeInsets.only(top: 38.w),
+                                            child: Text(
+                                              widget.name!,
+                                              style: TextStyle(
+                                                height: 1.08,
+                                                fontSize: fontSizeScale(30.0.w),
+                                                // fontFamily: "AlibabaPuHuiTi",
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            )),
                                       ),
                                       SizedBox(
                                         height: 28.w,
                                       ),
+                                      // 视频
                                       Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
@@ -429,6 +459,33 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                             Container(
                                 color: const Color.fromARGB(255, 237, 237, 237),
                                 height: 16.w),
+
+                            LJNFunctionItemButton(
+                              title: '发信息',
+                              underline: true,
+                              icon: Icon(
+                                const IconData(
+                                  0xe7b3,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                color: const Color.fromARGB(
+                                    255, 58, 81, 124), // 图标颜色
+                                size: fontSizeScale(35.w), // 图标大小
+                              ),
+                            ),
+                            LJNFunctionItemButton(
+                              title: '音视频通话',
+                              underline: false,
+                              icon: Icon(
+                                const IconData(
+                                  0xe88d,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                color: const Color.fromARGB(
+                                    255, 58, 81, 124), // 图标颜色
+                                size: fontSizeScale(35.w), // 图标大小
+                              ),
+                            )
                           ])))));
         });
   }

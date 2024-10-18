@@ -283,7 +283,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                           vm.userinfoName!,
                                           style: TextStyle(
                                             height: 1.08,
-                                            fontSize: 40.w,
+                                            fontSize: fontSizeScale(40.w),
                                             color: Colors.white,
                                             fontWeight: FontWeight.w600,
                                           ),
@@ -342,7 +342,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                     centerTitle: true,
                     titleTextStyle: TextStyle(
                       height: 1.08,
-                      fontSize: 32.w,
+                      fontSize: fontSizeScale(32.w),
                       color: Color.fromARGB(_opacity.value.toInt(), 0, 0, 0),
                       fontFamily: "AlibabaPuHuiTi-Medium",
                     ),
@@ -432,12 +432,12 @@ class TweetWidget extends StatelessWidget {
               name,
               TextStyle(
                   height: 1.08,
-                  fontSize: 27.w,
+                  fontSize: fontSizeScale(27.w),
                   color: const Color.fromARGB(255, 58, 81, 124),
                   fontFamily: "AlibabaPuHuiTi-Medium"),
               TextStyle(
                   height: 1.08,
-                  fontSize: 27.w,
+                  fontSize: fontSizeScale(27.w),
                   fontFamily: "NotoColorEmoji-Regular")),
         ),
       );
@@ -449,7 +449,7 @@ class TweetWidget extends StatelessWidget {
             text: ", ",
             style: TextStyle(
               height: 1.08,
-              fontSize: 28.w,
+              fontSize: fontSizeScale(28.w),
               color: const Color.fromARGB(255, 58, 81, 124),
               fontFamily: "AlibabaPuHuiTi-Medium",
             ),
@@ -519,12 +519,13 @@ class TweetWidget extends StatelessWidget {
                             name,
                             TextStyle(
                               height: 1.08,
-                              fontSize: 32.w,
+                              fontSize: fontSizeScale(32.w),
                               fontFamily: "AlibabaPuHuiTi-Medium",
                               // fontWeight: FontWeight.w600,
                               color: const Color.fromARGB(255, 58, 81, 124),
                             ),
-                            TextStyle(height: 1.08, fontSize: 32.w)),
+                            TextStyle(
+                                height: 1.08, fontSize: fontSizeScale(32.w))),
                       ),
                     ),
                     SizedBox(height: 15.w),
@@ -534,8 +535,10 @@ class TweetWidget extends StatelessWidget {
                       text: TextSpan(
                         children: buildTextSpans(
                             tweetContent,
-                            TextStyle(height: 1.08, fontSize: 31.w),
-                            TextStyle(height: 1.08, fontSize: 31.w)),
+                            TextStyle(
+                                height: 1.08, fontSize: fontSizeScale(31.w)),
+                            TextStyle(
+                                height: 1.08, fontSize: fontSizeScale(31.w))),
                       ),
                     ),
                     SizedBox(height: 20.w),
@@ -583,7 +586,7 @@ class TweetWidget extends StatelessWidget {
                       "深圳市 · 南山区腾讯总部",
                       style: TextStyle(
                         height: 1.08,
-                        fontSize: 26.w,
+                        fontSize: fontSizeScale(26.w),
                         color: const Color.fromARGB(255, 58, 81, 124),
                       ),
                     ),
@@ -599,7 +602,7 @@ class TweetWidget extends StatelessWidget {
                           time,
                           style: TextStyle(
                             height: 1.08,
-                            fontSize: 26.w,
+                            fontSize: fontSizeScale(26.w),
                             color: const Color.fromARGB(255, 156, 156, 156),
                           ),
                         ),

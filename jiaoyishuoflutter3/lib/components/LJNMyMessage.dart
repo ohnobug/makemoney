@@ -51,7 +51,7 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                                   widget.name,
                                   style: TextStyle(
                                       height: 1.08,
-                                      fontSize: 20.w,
+                                      fontSize: fontSizeScale(20.w),
                                       color: const Color.fromARGB(
                                           255, 130, 130, 130)),
                                 )
@@ -66,39 +66,18 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                           Flexible(
                               child: Container(
                             constraints: const BoxConstraints(maxWidth: 510).w,
-                            // width: 640.w,
                             decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 158, 236, 114),
-                                // border: Border.all(
-                                //     color:
-                                //         Colors.white,
-                                //     width: 1.0.w),
                                 borderRadius: BorderRadius.circular(8).w),
                             padding: EdgeInsets.symmetric(
                                 horizontal: 25.w, vertical: 18.w),
-                            child:
-                                // Text.rich(
-                                //   TextSpan(
-                                //     children: [
-                                //       TextSpan(text: 'Click'),
-                                //       WidgetSpan(
-                                //           child: Icon(
-                                //         Icons.add,
-                                //         color: Colors.amber,
-                                //       )),
-                                //       TextSpan(text: 'to add'),
-                                //     ],
-                                //   ),
-                                // ),
-
-                                Text(
+                            child: Text(
                               softWrap: true,
                               maxLines: 1000,
                               overflow: TextOverflow.ellipsis,
                               widget.message,
                               style: TextStyle(
-                                  // height: 1.08,
-                                  fontSize: 32.w,
+                                  fontSize: fontSizeScale(32.w),
                                   color: Colors.black),
                             ),
                           )),
@@ -111,7 +90,6 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                               assetPath("images/icon/right.png"),
                               width: 10.w,
                               fit: BoxFit.fitWidth,
-                              // fit: BoxFit.fill,
                             ),
                           ),
                         ],
@@ -119,9 +97,17 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                     ],
                   ),
                 ),
+
+                // 头像
                 GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/profile');
+                      Navigator.pushNamed(context, '/profile',
+                          arguments: <String, String>{
+                            'name': vm.userinfoName!,
+                            'avatar': vm.userinfoAvatar!,
+                            'nickname': vm.userinfoName!,
+                            'account': vm.userinfoAccount!,
+                          });
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8.w),

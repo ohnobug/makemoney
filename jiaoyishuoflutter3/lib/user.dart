@@ -122,7 +122,9 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                             as String,
                                                         style: TextStyle(
                                                           height: 1.08,
-                                                          fontSize: 42.w,
+                                                          fontSize:
+                                                              fontSizeScale(
+                                                                  42.w),
                                                           fontWeight:
                                                               FontWeight.w600,
                                                           color: Colors.black,
@@ -149,7 +151,9 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                               '微信号：${vm.userinfoAccount}',
                                                               style: TextStyle(
                                                                 height: 1.08,
-                                                                fontSize: 28.w,
+                                                                fontSize:
+                                                                    fontSizeScale(
+                                                                        28.w),
                                                                 color: const Color
                                                                     .fromARGB(
                                                                     255,
@@ -458,7 +462,7 @@ class _LJNStatusButton extends State<LJNStatusButton> {
                   widget.text!,
                   style: TextStyle(
                     height: 1.08,
-                    fontSize: 24.w,
+                    fontSize: fontSizeScale(24.w),
                     color: const Color.fromARGB(255, 116, 116, 116),
                   ),
                 )),

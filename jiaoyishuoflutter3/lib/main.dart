@@ -17,6 +17,7 @@ import 'package:jiaoyishuoflutter3/wallet.dart';
 import 'package:vibration/vibration.dart';
 import 'contact.dart';
 import 'logger.dart';
+import 'tools/tools.dart';
 import 'user.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -55,16 +56,18 @@ void main() async {
 class TabBarApp extends StatelessWidget {
   const TabBarApp({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return StoreProvider(
         store: myStore,
         child: ScreenUtilInit(
-            designSize: const Size(750, 1333),
+            designSize: const Size(750, 1334),
+            ensureScreenSize: true,
             minTextAdapt: true,
             splitScreenMode: true,
             enableScaleWH: () => true,
-            enableScaleText: () => true,
+            enableScaleText: () => false,
             builder: (context, child) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
@@ -232,9 +235,21 @@ class TabBarApp extends StatelessWidget {
                       },
                     );
                   } else if (settings.name == '/profile') {
+                    var arguments =
+                        settings.arguments as Map<String, String>? ?? {};
+
+                    String avatar = arguments['avatar'] ?? "";
+                    String name = arguments['name'] ?? "";
+                    String nickname = arguments['nickname'] ?? "";
+                    String account = arguments['account'] ?? "";
+
                     return PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          const LJNProfilePage(),
+                          LJNProfilePage(
+                              name: name,
+                              nickname: nickname,
+                              account: account,
+                              avatar: avatar),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         const begin = Offset(1.0, 0.0);
@@ -482,7 +497,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                         dividerColor: const Color.fromARGB(255, 218, 218, 218),
                         labelColor: const Color.fromARGB(255, 7, 192, 103),
                         labelStyle: TextStyle(
-                            height: 1.08, fontSize: 22.w),
+                            height: 1.08, fontSize: fontSizeScale(22.w)),
                         unselectedLabelColor:
                             const Color.fromARGB(222, 0, 0, 0),
                         indicator: const BoxDecoration(),
@@ -545,7 +560,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                               centerTitle: true,
                               titleTextStyle: TextStyle(
                                   height: 1.08,
-                                  fontSize: 32.w,
+                                  fontSize: fontSizeScale(32.w),
                                   color: Colors.black,
                                   fontFamily: "AlibabaPuHuiTi-Medium"),
                               toolbarHeight: 90.w,
@@ -689,6 +704,7 @@ class _PopupMenuState extends State<PopupMenu> {
                               height: 425.w,
                               child: Column(
                                 children: [
+                                  // 发起群聊
                                   GestureDetector(
                                     onTapDown: (_) {
                                       myStore.dispatch({
@@ -769,7 +785,8 @@ class _PopupMenuState extends State<PopupMenu> {
                                                     '发起群聊',
                                                     style: TextStyle(
                                                         height: 1.08,
-                                                        fontSize: 30.w,
+                                                        fontSize:
+                                                            fontSizeScale(30.w),
                                                         fontWeight:
                                                             FontWeight.normal,
                                                         decoration:
@@ -782,6 +799,7 @@ class _PopupMenuState extends State<PopupMenu> {
                                       ]),
                                     ),
                                   ),
+                                  // 添加朋友
                                   GestureDetector(
                                     onTapDown: (_) {
                                       myStore.dispatch({
@@ -862,7 +880,8 @@ class _PopupMenuState extends State<PopupMenu> {
                                                     '添加朋友',
                                                     style: TextStyle(
                                                         height: 1.08,
-                                                        fontSize: 30.w,
+                                                        fontSize:
+                                                            fontSizeScale(30.w),
                                                         fontWeight:
                                                             FontWeight.normal,
                                                         decoration:
@@ -875,6 +894,7 @@ class _PopupMenuState extends State<PopupMenu> {
                                       ]),
                                     ),
                                   ),
+                                  // 扫一扫
                                   GestureDetector(
                                     onTapDown: (_) {
                                       myStore.dispatch({
@@ -955,7 +975,8 @@ class _PopupMenuState extends State<PopupMenu> {
                                                     '扫一扫',
                                                     style: TextStyle(
                                                         height: 1.08,
-                                                        fontSize: 30.w,
+                                                        fontSize:
+                                                            fontSizeScale(30.w),
                                                         fontWeight:
                                                             FontWeight.normal,
                                                         decoration:
@@ -968,6 +989,7 @@ class _PopupMenuState extends State<PopupMenu> {
                                       ]),
                                     ),
                                   ),
+                                  // 收付款
                                   GestureDetector(
                                       onTapDown: (_) {
                                         myStore.dispatch({
@@ -1048,7 +1070,9 @@ class _PopupMenuState extends State<PopupMenu> {
                                                       '收付款',
                                                       style: TextStyle(
                                                           height: 1.08,
-                                                          fontSize: 30.w,
+                                                          fontSize:
+                                                              fontSizeScale(
+                                                                  30.w),
                                                           fontWeight:
                                                               FontWeight.normal,
                                                           decoration:

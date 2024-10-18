@@ -57,7 +57,7 @@ class _ChatListViewState extends State<LJNHomePage> {
       ChatListItem(
         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         friendName: "花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数",
-        notice: false,
+        notice: true,
         underline: true,
         message: "今天天气真好，阳光明媚，让人心情愉悦。",
         avatar: "images/avatar_webp/chat_1.webp",
@@ -625,30 +625,25 @@ class _ChatListItem extends State<ChatListItem> {
 
                   SizedBox(width: 23.w),
 
+                  // 右边区域
                   Expanded(
                     child: Container(
-                      decoration: widget.underline
-                          ? BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                              color: const Color.fromARGB(255, 242, 242, 242),
-                              width: 1.5.w,
-                              style: BorderStyle.solid,
-                            )))
-                          : BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.5.w,
-                                  style: BorderStyle.solid,
-                                ),
-                              ),
-                            ),
+                      // alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          // color: Colors.red,
+                          border: Border(
+                              bottom: BorderSide(
+                        color: widget.underline
+                            ? const Color.fromARGB(255, 242, 242, 242)
+                            : Colors.transparent,
+                        width: 1.5.w,
+                        style: BorderStyle.solid,
+                      ))),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // 好友名称和日期
+                          // 好友名称和消息时间
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -662,14 +657,14 @@ class _ChatListItem extends State<ChatListItem> {
                                       widget.friendName,
                                       TextStyle(
                                           height: 1.08,
-                                          fontSize: 32.0.w,
+                                          fontSize: fontSizeScale(30.0.w),
                                           color: widget.notice
                                               ? Colors.red
                                               : Colors.black,
                                           fontFamily: "AlibabaPuHuiTi"),
                                       TextStyle(
                                           height: 1.08,
-                                          fontSize: 32.w,
+                                          fontSize: fontSizeScale(30.w),
                                           fontFamily:
                                               "NotoColorEmoji-Regular")),
                                 ),
@@ -677,33 +672,42 @@ class _ChatListItem extends State<ChatListItem> {
                               SizedBox(
                                 width: 10.w,
                               ),
-                              // 日期
-                              Text(
-                                widget.lastedTime,
-                                style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: 24.0.w,
-                                  color: widget.notice
-                                      ? Colors.red
-                                      : const Color.fromARGB(
-                                          255, 193, 193, 193),
-                                ),
-                              ),
+                              // 消息时间
+                              Expanded(
+                                  flex: 0,
+                                  child: Container(
+                                      height: 18.w,
+                                      child: Text(
+                                        widget.lastedTime,
+                                        style: TextStyle(
+                                          height: 1.08,
+                                          fontSize: fontSizeScale(18.0.w),
+                                          color: widget.notice
+                                              ? Colors.red
+                                              : const Color.fromARGB(
+                                                  255, 193, 193, 193),
+                                        ),
+                                      ))),
+
                               SizedBox(
                                 width: 30.w,
                               )
                             ],
                           ),
 
-                          SizedBox(height: 17.w),
+                          SizedBox(height: 13.w),
 
                           // 好友消息
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               // 文本
-                              SizedBox(
-                                width: 500.w,
+                              Expanded(
+                                flex: 1,
+                                // color: Colors.amber,
+                                // width: 400.w,
+                                // margin: EdgeInsets.only(right: 65.w),
                                 child: RichText(
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -712,13 +716,13 @@ class _ChatListItem extends State<ChatListItem> {
                                         widget.message,
                                         TextStyle(
                                           height: 1.08,
-                                          fontSize: 25.w,
+                                          fontSize: fontSizeScale(23.w),
                                           color: const Color.fromARGB(
                                               255, 180, 180, 180),
                                         ),
                                         TextStyle(
                                           height: 1.08,
-                                          fontSize: 25.w,
+                                          fontSize: fontSizeScale(23.w),
                                           color: const Color.fromARGB(
                                               255, 180, 180, 180),
                                         )),
@@ -727,17 +731,22 @@ class _ChatListItem extends State<ChatListItem> {
                               ),
 
                               // 铃铛
-                              if (widget.notice) ...[
-                                Container(
-                                  padding: EdgeInsets.only(right: 30.w),
-                                  child: Icon(
-                                    Icons.notifications_off_outlined,
-                                    size: 32.0.w,
-                                    color: const Color.fromARGB(
-                                        255, 180, 180, 180),
-                                  ),
-                                ),
-                              ]
+                              Container(
+                                width: 30.w,
+                                height: 30.w,
+                                // color: Colors.red,
+                                margin: EdgeInsets.only(right: 30.w),
+                                child: widget.notice
+                                    ? Icon(
+                                        const IconData(
+                                          0xe62d,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        size: 23.0.w,
+                                        color: const Color.fromARGB(
+                                            255, 180, 180, 180))
+                                    : null,
+                              ),
                             ],
                           ),
                         ],
@@ -767,7 +776,7 @@ class _ChatListItem extends State<ChatListItem> {
                         maxLines: 1,
                         style: TextStyle(
                             height: 1.08,
-                            fontSize: 20.w, // 数字大小
+                            fontSize: fontSizeScale(20.w), // 数字大小
                             color: Colors.white, // 数字颜色
                             fontWeight: FontWeight.w600,
                             fontFamily: "Rubik-Light"),

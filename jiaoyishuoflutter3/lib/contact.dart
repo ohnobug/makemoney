@@ -493,7 +493,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
                 "2个朋友",
                 style: TextStyle(
                     height: 1.08,
-                    fontSize: 30.w,
+                    fontSize: fontSizeScale(30.w),
                     color: const Color.fromARGB(255, 125, 125, 125)),
               ),
             ]),
@@ -552,7 +552,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
                           contactList[index],
                           style: TextStyle(
                             height: 1.08,
-                            fontSize: 20.w,
+                            fontSize: fontSizeScale(20.w),
                           ),
                         ),
                       ],
@@ -610,7 +610,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
                               String.fromCharCode(65 + i),
                               style: TextStyle(
                                   height: 1.08,
-                                  fontSize: 22.w,
+                                  fontSize: fontSizeScale(22.w),
                                   color: const Color.fromARGB(255, 20, 20, 20)),
                             ),
                           ),
@@ -620,7 +620,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
                             "#",
                             style: TextStyle(
                                 height: 1.08,
-                                fontSize: 22.w,
+                                fontSize: fontSizeScale(22.w),
                                 color: const Color.fromARGB(255, 20, 20, 20)),
                           ),
                         ),
@@ -740,7 +740,7 @@ class _ContactInformationState extends State<ContactInformation> {
                         widget.title,
                         style: TextStyle(
                           height: 1.08,
-                          fontSize: 32.0.w,
+                          fontSize: fontSizeScale(32.0.w),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
