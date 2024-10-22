@@ -57,12 +57,6 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
     // 定义透明度动画
     _opacity = Tween<double>(begin: 0.0, end: 255.0).animate(_controller);
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     // Tweet数据
     tweetList = [
       {
@@ -211,6 +205,12 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
+
     return StoreConnector<StoreType, StoreType>(
       converter: (store) => store.state,
       builder: (context, vm) {

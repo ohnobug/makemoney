@@ -20,16 +20,16 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
   @override
   void initState() {
     super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     if (kIsWeb) {
       _statusHeight = 0;
     } else {
       _statusHeight = MediaQuery.of(context).padding.top;
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {

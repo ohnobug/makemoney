@@ -22,12 +22,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
   void initState() {
     super.initState();
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     logger.info('contact...............');
 
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
@@ -513,6 +507,12 @@ class _LJNContactPageState extends State<LJNContactPage> {
   // 另起一个函数方便管理
   Widget _buildPage() {
     Size screenSize = MediaQuery.of(context).size;
+
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
 
     return Stack(children: [
       // 联系人

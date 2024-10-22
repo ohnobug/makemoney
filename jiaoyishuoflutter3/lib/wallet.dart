@@ -22,12 +22,6 @@ class _LJNWalletPage extends State<LJNWalletPage> {
   void initState() {
     super.initState();
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
 
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -46,6 +40,11 @@ class _LJNWalletPage extends State<LJNWalletPage> {
 
   // 另起一个函数方便管理
   Widget _buildPage() {
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
     Size screenSize = MediaQuery.of(context).size;
 
     return StoreConnector<StoreType, StoreType>(

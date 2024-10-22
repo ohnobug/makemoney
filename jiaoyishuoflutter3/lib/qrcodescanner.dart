@@ -37,12 +37,6 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
   void initState() {
     super.initState();
 
-    if (kIsWeb) {
-      _statusHeight = 30.w;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // 设置状态栏透明
       statusBarIconBrightness: Brightness.light, // 设置状态栏图标颜色
@@ -150,6 +144,11 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+      _statusHeight = 30.w;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
     return Scaffold(
         primary: false,
         appBar: null,

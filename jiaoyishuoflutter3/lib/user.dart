@@ -23,12 +23,6 @@ class _LJNUserPageState extends State<LJNUserPage> {
   void initState() {
     super.initState();
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
 
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -38,6 +32,12 @@ class _LJNUserPageState extends State<LJNUserPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
+
     Size screenSize = MediaQuery.of(context).size;
 
     return StoreConnector<StoreType, StoreType>(

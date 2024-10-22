@@ -56,7 +56,6 @@ void main() async {
 class TabBarApp extends StatelessWidget {
   const TabBarApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return StoreProvider(
@@ -308,12 +307,6 @@ class _CustomTabbarState extends State<CustomTabbar>
   void initState() {
     super.initState();
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     _tabController =
         TabController(length: 4, vsync: this, animationDuration: Duration.zero);
 
@@ -385,6 +378,12 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
+
     Icon icon1 = Icon(
       const IconData(
         0xe7b3,
@@ -640,16 +639,16 @@ class _PopupMenuState extends State<PopupMenu> {
   @override
   void initState() {
     super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     if (kIsWeb) {
       _statusHeight = 0;
     } else {
       _statusHeight = MediaQuery.of(context).padding.top;
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {

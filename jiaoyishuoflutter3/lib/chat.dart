@@ -67,18 +67,6 @@ class _LJNChatPage extends State<LJNChatPage>
   void initState() {
     super.initState();
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
-    logger.info("高度: $_statusHeight");
-
-    // setState(() {
-    //   title = arguments["title"]!;
-    // });
-
     messageList.add(LJNReceiveMessage(
       message: '在吗？在这里干什么？',
       showName: false,
@@ -151,7 +139,12 @@ class _LJNChatPage extends State<LJNChatPage>
     var args =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>?;
 
-    logger.info(args);
+    // logger.info(args);
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,

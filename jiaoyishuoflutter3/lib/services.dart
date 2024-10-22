@@ -19,17 +19,17 @@ class _LJNServicesPage extends State<LJNServicesPage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
 
     if (kIsWeb) {
       _statusHeight = 0;
     } else {
       _statusHeight = MediaQuery.of(context).padding.top;
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,

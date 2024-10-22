@@ -24,12 +24,6 @@ class _ChatListViewState extends State<LJNHomePage> {
   void initState() {
     super.initState();
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     Future.delayed(const Duration(milliseconds: 300), () {
       myStore.dispatch({"type": "mainpage1isload", "payload": true});
     });
@@ -524,6 +518,12 @@ class _ChatListViewState extends State<LJNHomePage> {
   }
 
   Widget _buildPage(StoreType vm) {
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
+
     return ScrollConfiguration(
         behavior: CustomScrollBehavior().copyWith(scrollbars: false),
         child: ListView.builder(

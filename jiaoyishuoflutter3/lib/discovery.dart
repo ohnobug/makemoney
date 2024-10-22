@@ -22,12 +22,6 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
   void initState() {
     super.initState();
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
 
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -46,6 +40,12 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
 
   // 另起一个函数方便管理
   Widget _buildPage() {
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
+
     return ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: ColoredBox(
