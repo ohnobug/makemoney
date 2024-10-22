@@ -166,7 +166,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                         "转入零钱通 , 能赚又能花",
                         style: TextStyle(
                             height: 1.08,
-                            color: const Color.fromARGB(255, 239, 154, 81),
+                            color: const Color.fromARGB(255, 231, 159, 83),
                             fontSize: fontSizeScale(30.w),
                             fontFamily: "AlibabaPuHuiTi-Medium"),
                       ),

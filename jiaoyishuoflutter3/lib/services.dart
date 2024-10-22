@@ -122,7 +122,7 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                   margin: const EdgeInsets.all(16).w,
                                   decoration: BoxDecoration(
                                     color:
-                                        const Color.fromRGBO(77, 174, 107, 1),
+                                        const Color.fromARGB(255, 77, 174, 107),
                                     borderRadius: BorderRadius.circular(16.0).w,
                                   ),
                                   padding: const EdgeInsets.all(16).w,
@@ -160,16 +160,20 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                             children: [
                                               WidgetSpan(
                                                 child: SizedBox(
-                                                  width: 22.w,
+                                                    width: 22.w,
                                                     child: Icon(
-                                                  color: const Color.fromARGB(
-                                                      160, 255, 255, 255),
-                                                  const IconData(
-                                                    0xe90d,
-                                                    fontFamily: 'Iconfont',
-                                                  ),
-                                                  size: 25.w, // 图标大小
-                                                )),
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              156,
+                                                              215,
+                                                              179),
+                                                      const IconData(
+                                                        0xe90d,
+                                                        fontFamily: 'Iconfont',
+                                                      ),
+                                                      size: 25.w, // 图标大小
+                                                    )),
                                                 alignment:
                                                     PlaceholderAlignment.middle,
                                               ),
@@ -180,7 +184,7 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                                   height: 1.08,
                                                   fontSize: fontSizeScale(27.w),
                                                   color: const Color.fromARGB(
-                                                      160, 255, 255, 255),
+                                                      255, 156, 215, 179),
                                                   // fontWeight: FontWeight.w500,
                                                   fontFamily: "Quicksand",
                                                 ),
