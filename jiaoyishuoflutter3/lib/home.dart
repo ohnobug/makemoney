@@ -108,14 +108,14 @@ class _ChatListViewState extends State<LJNHomePage> {
           badge: -1,
           onPressed: () {
             Navigator.pushNamed(context, '/chat', arguments: <String, String>{
-              'title': "绿逾初夏",
+              'title': "邓子乔",
               'icon': "images/avatar_webp/chat_4.webp",
             });
             logger.info('绿逾初夏被点击~');
           }),
       ChatListItem(
           id: "d87d7c11-04f1-569c-8fd3-de333397966c",
-          friendName: mockName(),
+          friendName: "邻小虎",
           notice: false,
           underline: true,
           message: "今天上班/上学累吗？要注意休息哦。",
@@ -435,7 +435,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           friendName: mockName(),
           notice: false,
           underline: true,
-          message: "我很喜欢和你聊天，每次都能学到很多东西。",
+          message: "💖我很喜欢和你聊天，每次都能学到很多东西。",
           avatar: "images/avatar_webp/chat_26.webp",
           lastedTime: "13:40",
           onPressed: () {
@@ -450,7 +450,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           friendName: mockName(),
           notice: false,
           underline: true,
-          message: "你会做饭吗？我最近学会了做一道新菜，很好吃哦。",
+          message: "你会做饭吗？🤗我最近学会了做一道新菜，很好吃哦。",
           avatar: "images/avatar_webp/chat_27.webp",
           lastedTime: "13:33",
           onPressed: () {
@@ -678,11 +678,12 @@ class _ChatListItem extends State<ChatListItem> {
                                 widget.lastedTime,
                                 style: TextStyle(
                                   height: 1.08,
-                                  fontSize: fontSizeScale(20.0.w),
+                                  // fontFamily: "Roboto-Regular",
+                                  fontSize: fontSizeScale(23.0.w),
                                   color: widget.notice
                                       ? Colors.red
                                       : const Color.fromARGB(
-                                          255, 193, 193, 193),
+                                          255, 170, 170, 170),
                                 ),
                               ),
 
@@ -715,13 +716,13 @@ class _ChatListItem extends State<ChatListItem> {
                                           height: 1.08,
                                           fontSize: fontSizeScale(25.w),
                                           color: const Color.fromARGB(
-                                              255, 180, 180, 180),
+                                              255, 170, 170, 170),
                                         ),
                                         TextStyle(
                                           height: 1.08,
                                           fontSize: fontSizeScale(25.w),
                                           color: const Color.fromARGB(
-                                              255, 180, 180, 180),
+                                              255, 170, 170, 170),
                                         )),
                                   ),
                                 ),
@@ -732,14 +733,15 @@ class _ChatListItem extends State<ChatListItem> {
                                 width: 30.w,
                                 height: 30.w,
                                 // color: Colors.red,
-                                margin: EdgeInsets.only(right: 30.w),
+                                margin:
+                                    EdgeInsets.only(left: 30.w, right: 30.w),
                                 child: widget.notice
                                     ? Icon(
                                         const IconData(
-                                          0xe62d,
+                                          0xe606,
                                           fontFamily: 'Iconfont',
                                         ),
-                                        size: 25.0.w,
+                                        size: 28.0.w,
                                         color: const Color.fromARGB(
                                             255, 180, 180, 180))
                                     : null,

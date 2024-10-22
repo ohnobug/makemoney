@@ -162,6 +162,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                     111),
                                                               ),
                                                             ),
+                                                            // 二维码图标
                                                             Row(
                                                               children: [
                                                                 Icon(
@@ -170,7 +171,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                     fontFamily:
                                                                         'Iconfont',
                                                                   ),
-                                                                  size: 24.w,
+                                                                  size: 23.w,
                                                                   color: const Color
                                                                       .fromARGB(
                                                                       255,
@@ -370,7 +371,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                 ),
                                 const LJNFunctionItem(
                                   id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                  title: "订单与卡包",
+                                  title: "小店订单与卡包",
                                   icon: "images/icon/icon5.png",
                                   link: '',
                                   underline: true,

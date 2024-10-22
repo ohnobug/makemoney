@@ -136,15 +136,35 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      '¥${vm.walletBalance}',
-                                      // '¥201.12',
-                                      style: TextStyle(
-                                          height: 1.08,
-                                          fontSize: fontSizeScale(29.w),
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "Quicksand-Medium"),
+                                    Text.rich(
+                                      TextSpan(
+                                        children: [
+                                          WidgetSpan(
+                                            child: SizedBox(
+                                                width: 22.w,
+                                                child: Icon(
+                                                  const IconData(
+                                                    0xe90d,
+                                                    fontFamily: 'Iconfont',
+                                                  ),
+                                                  size: 25.w, // 图标大小
+                                                )),
+                                            alignment: PlaceholderAlignment
+                                                .middle, // 使图标与文本垂直居中对齐
+                                          ),
+                                          TextSpan(
+                                            text: vm.walletBalance.toString(),
+                                            style: TextStyle(
+                                              height: 1.08,
+                                              fontSize: fontSizeScale(29.w),
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: "Quicksand",
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      textAlign: TextAlign.center,
                                     )
                                   ]),
                               underline: true,
@@ -173,27 +193,39 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                                   255, 249, 136, 39),
                                             ),
                                           ),
-                                          // TextSpan(
-                                          //   text: '1.64%',
-                                          //   style: TextStyle(height: 1.08,
-                                          //     fontSize: fontSizeScale(27.w),
-                                          //     fontWeight:
-                                          //         FontWeight.bold, // 设置不同的字体样式
-                                          //     color: const Color.fromARGB(
-                                          //         255, 249, 136, 39),
-                                          //   ),
-                                          // ),
                                         ],
                                       ),
                                     ),
-                                    Text(
-                                      '¥${vm.walletFoundationBalance}',
-                                      style: TextStyle(
-                                          height: 1.08,
-                                          fontSize: fontSizeScale(29.w),
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "Quicksand-Medium"),
+                                    Text.rich(
+                                      TextSpan(
+                                        children: [
+                                          WidgetSpan(
+                                            child: SizedBox(
+                                                width: 22.w,
+                                                child: Icon(
+                                                  const IconData(
+                                                    0xe90d,
+                                                    fontFamily: 'Iconfont',
+                                                  ),
+                                                  size: 25.w, // 图标大小
+                                                )),
+                                            alignment: PlaceholderAlignment
+                                                .middle, // 使图标与文本垂直居中对齐
+                                          ),
+                                          TextSpan(
+                                            text: vm.walletFoundationBalance
+                                                .toString(),
+                                            style: TextStyle(
+                                              height: 1.08,
+                                              fontSize: fontSizeScale(29.w),
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: "Quicksand",
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      textAlign: TextAlign.center,
                                     )
                                   ]),
                               underline: true,

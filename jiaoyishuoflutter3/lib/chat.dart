@@ -136,8 +136,6 @@ class _LJNChatPage extends State<LJNChatPage>
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    var args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>?;
 
     // logger.info(args);
     if (kIsWeb) {

@@ -66,7 +66,7 @@ class TabBarApp extends StatelessWidget {
             minTextAdapt: true,
             splitScreenMode: true,
             enableScaleWH: () => true,
-            enableScaleText: () => false,
+            enableScaleText: () => true,
             builder: (context, child) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
@@ -389,28 +389,28 @@ class _CustomTabbarState extends State<CustomTabbar>
         0xe7b3,
         fontFamily: 'Iconfont',
       ),
-      size: 50.w,
+      size: 45.w,
     );
     Icon icon2 = Icon(
       const IconData(
         0xe608,
         fontFamily: 'Iconfont',
       ),
-      size: 50.w,
+      size: 48.w,
     );
     Icon icon3 = Icon(
       const IconData(
         0xe61c,
         fontFamily: 'Iconfont',
       ),
-      size: 50.w,
+      size: 43.w,
     );
     Icon icon4 = Icon(
       const IconData(
         0xe63f,
         fontFamily: 'Iconfont',
       ),
-      size: 50.w,
+      size: 45.w,
     );
 
     return StoreConnector<StoreType, StoreType>(
@@ -440,7 +440,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                 0xe676,
                 fontFamily: 'Iconfont',
               ),
-              size: 50.w,
+              size: 45.w,
             );
 
             appBarTitle = const Text("微信");
@@ -450,7 +450,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                 0xe609,
                 fontFamily: 'Iconfont',
               ),
-              size: 50.w,
+              size: 48.w,
             );
 
             appBarTitle = const Text("通信录");
@@ -460,7 +460,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                 0xe638,
                 fontFamily: 'Iconfont',
               ),
-              size: 50.w,
+              size: 43.w,
             );
 
             appBarTitle = const Text("发现");
@@ -470,7 +470,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                 0xe62b,
                 fontFamily: 'Iconfont',
               ),
-              size: 50.w,
+              size: 48.w,
             );
 
             appBarTitle = const Text("我的");
@@ -507,22 +507,42 @@ class _CustomTabbarState extends State<CustomTabbar>
                         tabs: <Widget>[
                           Tab(
                             height: 105.w,
-                            icon: icon1,
+                            iconMargin: EdgeInsets.only(bottom: 8.w),
+                            icon: SizedBox(
+                                height: 50.w,
+                                width: 50.w,
+                                // color: Colors.red,
+                                child: Center(child: icon1)),
                             text: "微信",
                           ),
                           Tab(
                             height: 105.w,
-                            icon: icon2,
+                            iconMargin: EdgeInsets.only(bottom: 8.w),
+                            icon: SizedBox(
+                                height: 50.w,
+                                width: 50.w,
+                                // color: Colors.red,
+                                child: Center(child: icon2)),
                             text: "通信录",
                           ),
                           Tab(
                             height: 105.w,
-                            icon: icon3,
+                            iconMargin: EdgeInsets.only(bottom: 8.w),
+                            icon: SizedBox(
+                                height: 50.w,
+                                width: 50.w,
+                                // color: Colors.red,
+                                child: Center(child: icon3)),
                             text: "发现",
                           ),
                           Tab(
                             height: 105.w,
-                            icon: icon4,
+                            iconMargin: EdgeInsets.only(bottom: 8.w),
+                            icon: SizedBox(
+                                height: 50.w,
+                                width: 50.w,
+                                // color: Colors.red,
+                                child: Center(child: icon4)),
                             text: "我",
                           ),
                         ],
@@ -586,7 +606,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                         0xe612,
                                         fontFamily: 'Iconfont',
                                       ),
-                                      size: 38.w, // 图标大小
+                                      size: 40.w, // 图标大小
                                     ),
                                   ),
                                 ),
@@ -610,7 +630,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                         0xe726,
                                         fontFamily: 'Iconfont',
                                       ),
-                                      size: 40.w, // 图标大小
+                                      size: 42.w, // 图标大小
                                     ),
                                   ),
                                 ),
