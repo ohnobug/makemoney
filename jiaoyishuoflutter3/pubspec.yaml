@@ -50,12 +50,25 @@ flutter:
     - family: Rubik-Light
       fonts:
         - asset: ./assets/fonts/Rubik-Light.ttf
+
+
+    # - family: AlibabaPuHuiTi
+    #   fonts:
+    #     - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.ttf
+    # - family: AlibabaPuHuiTi-Medium
+    #   fonts:
+    #     - asset: ./assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf
+
+
+
     - family: AlibabaPuHuiTi
       fonts:
-        - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.ttf
+        - asset: ./assets/fonts/google_fonts/AlibabaPuHuiTi-3-55-Regular.ttf
     - family: AlibabaPuHuiTi-Medium
       fonts:
-        - asset: ./assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf
+        - asset: ./assets/fonts/google_fonts/AlibabaPuHuiTi-3-65-Medium.ttf
+
+
     - family: NotoColorEmoji-Regular
       fonts:
         - asset: ./assets/fonts/NotoColorEmoji-Regular.ttf

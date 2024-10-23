@@ -67,7 +67,7 @@ class TabBarApp extends StatelessWidget {
             minTextAdapt: true,
             splitScreenMode: true,
             enableScaleWH: () => true,
-            enableScaleText: () => false,
+            enableScaleText: () => true,
             builder: (context, child) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,

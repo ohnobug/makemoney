@@ -643,6 +643,10 @@ class _ChatListItem extends State<ChatListItem> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          SizedBox(
+                            width: 12.w,
+                          ),
+
                           // 好友名称和消息时间
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -678,7 +682,7 @@ class _ChatListItem extends State<ChatListItem> {
                                 widget.lastedTime,
                                 style: TextStyle(
                                   height: 1.08,
-                                  fontSize: fontSizeScale(20.0.w),
+                                  fontSize: fontSizeScale(18.0.w),
                                   color: widget.notice
                                       ? Colors.red
                                       : const Color.fromARGB(
@@ -699,7 +703,6 @@ class _ChatListItem extends State<ChatListItem> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              // 文本
                               Expanded(
                                 flex: 1,
                                 // color: Colors.amber,
