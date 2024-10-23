@@ -29,6 +29,8 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
   // 最后点击更多的位置
   late Offset lastedMoreButtonPosition = const Offset(0, 0);
   late bool likeBoxVisible = false;
+  // 列表是否在滚动
+  late bool _isScrolling = false;
 
   @override
   void initState() {
@@ -250,107 +252,125 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                       //     likeBoxVisible = false;
                       //   });
                       // },
-                      child: ListView.builder(
-                        primary: false,
-                        controller: _scrollController,
-                        physics: const AlwaysScrollableScrollPhysics(
-                            parent: BouncingScrollPhysics()),
-                        itemCount: tweetList.length + 1, // +1 是因为还包含头像部分
-                        itemBuilder: (context, index) {
-                          if (index == 0) {
-                            // 头像及背景信息部分
-                            return Container(
-                              height: (_statusHeight + 630.w),
-                              color: Colors.white,
-                              width: 750.w,
-                              child: Stack(
-                                children: [
-                                  // 背景图片
-                                  Transform.translate(
-                                      offset: Offset(0, -100.w),
-                                      child: Image(
-                                        image: ResizeImage(
-                                          AssetImage(assetPath(
-                                              'images/avatar/fj.jpg')),
-                                          width: 1500.w.toInt(),
-                                          height: (_statusHeight + 1260.w)
-                                              .toInt(), // 新的高度
-                                        ),
-                                        width: 750.w,
-                                        height: 730.w,
-                                        fit: BoxFit.cover,
-                                      )),
+                      child: NotificationListener<ScrollNotification>(
+                          onNotification: (ScrollNotification notification) {
+                            if (notification is ScrollUpdateNotification) {
+                              // 用户正在滚动
+                              setState(() {
+                                _isScrolling = true;
+                              });
+                            } else if (notification is ScrollEndNotification) {
+                              // 用户停止滚动
+                              setState(() {
+                                _isScrolling = false;
+                              });
+                            }
+                            return true; // 返回 true 表示已处理该通知
+                          },
+                          child: ListView.builder(
+                            primary: false,
+                            controller: _scrollController,
+                            physics: const AlwaysScrollableScrollPhysics(
+                                parent: BouncingScrollPhysics()),
+                            itemCount: tweetList.length + 1, // +1 是因为还包含头像部分
+                            itemBuilder: (context, index) {
+                              if (index == 0) {
+                                // 头像及背景信息部分
+                                return Container(
+                                  height: (_statusHeight + 630.w),
+                                  color: Colors.white,
+                                  width: 750.w,
+                                  child: Stack(
+                                    children: [
+                                      // 背景图片
+                                      Transform.translate(
+                                          offset: Offset(0, -100.w),
+                                          child: Image(
+                                            image: ResizeImage(
+                                              AssetImage(assetPath(
+                                                  'images/avatar/fj.jpg')),
+                                              width: 1500.w.toInt(),
+                                              height: (_statusHeight + 1260.w)
+                                                  .toInt(), // 新的高度
+                                            ),
+                                            width: 750.w,
+                                            height: 730.w,
+                                            fit: BoxFit.cover,
+                                          )),
 
-                                  // 头像及昵称
-                                  Positioned(
-                                    top: _statusHeight + 460.w,
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 35.w),
-                                      width: 750.w,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          // 昵称
-                                          Container(
-                                            margin: EdgeInsets.only(
-                                                right: 15.w, top: 5.w),
-                                            child: Text(
-                                              vm.userinfoName!,
-                                              style: TextStyle(
-                                                height: 1.08,
-                                                fontSize: fontSizeScale(40.w),
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600,
+                                      // 头像及昵称
+                                      Positioned(
+                                        top: _statusHeight + 460.w,
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 35.w),
+                                          width: 750.w,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              // 昵称
+                                              Container(
+                                                margin: EdgeInsets.only(
+                                                    right: 15.w, top: 5.w),
+                                                child: Text(
+                                                  vm.userinfoName!,
+                                                  style: TextStyle(
+                                                    height: 1.08,
+                                                    fontSize:
+                                                        fontSizeScale(40.w),
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                          // 头像
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.w),
-                                            child: Image(
-                                              image: ResizeImage(
-                                                AssetImage(assetPath(
-                                                    vm.userinfoAvatar!)),
-                                                width: 240.w.toInt(),
-                                                height: 240.w.toInt(),
+                                              // 头像
+                                              ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.w),
+                                                child: Image(
+                                                  image: ResizeImage(
+                                                    AssetImage(assetPath(
+                                                        vm.userinfoAvatar!)),
+                                                    width: 240.w.toInt(),
+                                                    height: 240.w.toInt(),
+                                                  ),
+                                                  width: 120.w,
+                                                  height: 120.w,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
-                                              width: 120.w,
-                                              height: 120.w,
-                                              fit: BoxFit.cover,
-                                            ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            );
-                          } else {
-                            // Tweet列表
-                            var tweet = tweetList[index - 1]; // 减去头像部分
-                            return TweetWidget(
-                                time: tweet["time"]!,
-                                avatarUrl: tweet["avatarUrl"]!,
-                                name: tweet["name"]!,
-                                tweetContent: tweet["tweetContent"]!,
-                                likes: tweet["likes"],
-                                imageList: tweet["imageList"],
-                                moreOnPress: (Offset position) {
-                                  // logger.info(position);
-                                  setState(() {
-                                    lastedMoreButtonPosition = position;
-                                    likeBoxVisible = true;
-                                  });
-                                });
-                          }
-                        },
-                      ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                // Tweet列表
+                                var tweet = tweetList[index - 1]; // 减去头像部分
+                                return TweetWidget(
+                                    time: tweet["time"]!,
+                                    avatarUrl: tweet["avatarUrl"]!,
+                                    name: tweet["name"]!,
+                                    tweetContent: tweet["tweetContent"]!,
+                                    likes: tweet["likes"],
+                                    imageList: tweet["imageList"],
+                                    moreOnPress: (Offset position) {
+                                      // 如果列表在滚动, 则更多按钮不能被点击
+                                      if (_isScrolling) return;
+
+                                      setState(() {
+                                        lastedMoreButtonPosition = position;
+                                        likeBoxVisible = true;
+                                      });
+                                    });
+                              }
+                            },
+                          )),
                     ),
                   ])),
 
@@ -763,7 +783,7 @@ class _TweetWidget extends State<TweetWidget> {
 
                     SizedBox(height: 18.w),
 
-                    // 点赞
+                    // 点赞人员列表
                     Container(
                       constraints: BoxConstraints(minHeight: 51.w),
                       padding: EdgeInsets.only(
