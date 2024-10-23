@@ -34,10 +34,10 @@ void main() async {
   setupLogger();
   logger.info('Application is starting...');
   await ScreenUtil.ensureScreenSize();
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // 设置状态栏透明
-    statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
-  ));
+  // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  //   statusBarColor: Colors.transparent, // 设置状态栏透明
+  //   statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
+  // ));
 
   // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
