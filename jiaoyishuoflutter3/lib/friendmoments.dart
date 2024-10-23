@@ -40,6 +40,10 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
 
     // 添加监听器以监控滚动
     _scrollController.addListener(() {
+      // logger.info("pixels:${_scrollController.position.pixels}");
+      // logger.info("minScrollExtent:${_scrollController.position.minScrollExtent}");
+      // logger.info("maxScrollExtent:${_scrollController.position.maxScrollExtent}");
+
       setState(() {
         scrollPosition = _scrollController.position.pixels;
 
@@ -247,11 +251,6 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                           likeBoxVisible = false;
                         });
                       },
-                      // onPanUpdate: (details) {
-                      //   setState(() {
-                      //     likeBoxVisible = false;
-                      //   });
-                      // },
                       child: NotificationListener<ScrollNotification>(
                           onNotification: (ScrollNotification notification) {
                             if (notification is ScrollUpdateNotification) {

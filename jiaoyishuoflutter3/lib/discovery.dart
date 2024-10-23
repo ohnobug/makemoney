@@ -71,7 +71,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "视频号",
                     icon: "images/icon/discovery_icon2.png",
-                    link: '/video_player',
+                    link: '/ins',
                     underline: true,
                     showStyle: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
