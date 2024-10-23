@@ -23,12 +23,6 @@ class _LJNUserPageState extends State<LJNUserPage> {
   void initState() {
     super.initState();
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
 
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -38,6 +32,12 @@ class _LJNUserPageState extends State<LJNUserPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
+
     Size screenSize = MediaQuery.of(context).size;
 
     return StoreConnector<StoreType, StoreType>(
@@ -162,6 +162,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                     111),
                                                               ),
                                                             ),
+                                                            // 二维码图标
                                                             Row(
                                                               children: [
                                                                 Icon(
@@ -170,7 +171,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                                     fontFamily:
                                                                         'Iconfont',
                                                                   ),
-                                                                  size: 24.w,
+                                                                  size: 23.w,
                                                                   color: const Color
                                                                       .fromARGB(
                                                                       255,
@@ -370,7 +371,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                 ),
                                 const LJNFunctionItem(
                                   id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                  title: "订单与卡包",
+                                  title: "小店订单与卡包",
                                   icon: "images/icon/icon5.png",
                                   link: '',
                                   underline: true,

@@ -19,17 +19,17 @@ class _LJNServicesPage extends State<LJNServicesPage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
 
     if (kIsWeb) {
       _statusHeight = 0;
     } else {
       _statusHeight = MediaQuery.of(context).padding.top;
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -118,11 +118,11 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                               children: [
                                 // 余额
                                 Container(
-                                  height: 274.w,
+                                  height: 272.w,
                                   margin: const EdgeInsets.all(16).w,
                                   decoration: BoxDecoration(
                                     color:
-                                        const Color.fromRGBO(77, 174, 107, 1),
+                                        const Color.fromARGB(255, 77, 174, 107),
                                     borderRadius: BorderRadius.circular(16.0).w,
                                   ),
                                   padding: const EdgeInsets.all(16).w,
@@ -136,10 +136,10 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                               0xe658,
                                               fontFamily: 'Iconfont',
                                             ),
-                                            size: 75.w,
+                                            size: 72.w,
                                             color: Colors.white),
                                         title: '收付款',
-                                        subTitle: "",
+                                        subTitle: " ",
                                         onPressed: () {
                                           Navigator.pushNamed(
                                               context, '/video_player');
@@ -152,10 +152,47 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                               0xe6e4,
                                               fontFamily: 'Iconfont',
                                             ),
-                                            size: 75.w,
+                                            size: 72.w,
                                             color: Colors.white),
                                         title: '钱包',
-                                        subTitle: "¥${vm.walletBalance}",
+                                        subTitle: Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              WidgetSpan(
+                                                child: SizedBox(
+                                                    width: 22.w,
+                                                    child: Icon(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              156,
+                                                              215,
+                                                              179),
+                                                      const IconData(
+                                                        0xe90d,
+                                                        fontFamily: 'Iconfont',
+                                                      ),
+                                                      size: 25.w, // 图标大小
+                                                    )),
+                                                alignment:
+                                                    PlaceholderAlignment.middle,
+                                              ),
+                                              TextSpan(
+                                                text:
+                                                    vm.walletBalance.toString(),
+                                                style: TextStyle(
+                                                  height: 1.08,
+                                                  fontSize: fontSizeScale(27.w),
+                                                  color: const Color.fromARGB(
+                                                      255, 156, 215, 179),
+                                                  // fontWeight: FontWeight.w500,
+                                                  fontFamily: "Quicksand",
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
                                         onPressed: () {
                                           // logger.info('点击了钱包按钮~~');
                                           Navigator.pushNamed(
@@ -366,14 +403,14 @@ class CollectionAndPayment extends StatefulWidget {
   final Icon icon;
   final String title;
   final VoidCallback onPressed;
-  final String subTitle;
+  final Object? subTitle;
 
   const CollectionAndPayment(
       {super.key,
       required this.icon,
       required this.title,
       required this.onPressed,
-      required this.subTitle});
+      this.subTitle});
 
   @override
   State<CollectionAndPayment> createState() => _CollectionAndPaymentState();
@@ -440,21 +477,23 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                     overflow: TextOverflow.ellipsis),
               ),
 
-              SizedBox(height: 15.w),
+              SizedBox(height: 10.w),
 
-              // 余额
-              Text(
-                widget.subTitle,
-                maxLines: 1,
-                style: TextStyle(
-                    height: 1,
-                    // fontWeight: FontWeight.w600,
-                    decoration: TextDecoration.none,
-                    color: const Color.fromARGB(160, 255, 255, 255),
-                    fontSize: fontSizeScale(27.0.w),
-                    overflow: TextOverflow.ellipsis,
-                    fontFamily: "Quicksand"),
-              ),
+              if (widget.subTitle is String)
+                // 余额
+                Text(
+                  widget.subTitle.toString(),
+                  maxLines: 1,
+                  style: TextStyle(
+                      height: 1,
+                      // fontWeight: FontWeight.w600,
+                      decoration: TextDecoration.none,
+                      color: const Color.fromARGB(160, 255, 255, 255),
+                      fontSize: fontSizeScale(29.0.w),
+                      overflow: TextOverflow.ellipsis,
+                      fontFamily: "Quicksand"),
+                ),
+              if (widget.subTitle is Widget) widget.subTitle as Widget
             ],
           ),
         ),
@@ -518,10 +557,10 @@ class FunctionButtonState extends State<FunctionButton> {
             children: [
               Image.asset(
                 assetPath(widget.icon),
-                width: 60.w,
-                height: 60.w,
+                width: 57.w,
+                height: 57.w,
               ), // 图标颜色
-              SizedBox(height: 25.w), // 图标和标题之间的间距
+              SizedBox(height: 16.w), // 图标和标题之间的间距
               Text(
                 widget.title,
                 maxLines: 1,
@@ -572,12 +611,12 @@ class FunctionButtonsSection extends StatelessWidget {
                       // height: 80.w,
                       // color: Colors.amber,
                       padding:
-                          const EdgeInsets.only(top: 33, bottom: 0, left: 30).w,
+                          EdgeInsets.only(top: 33.w, bottom: 16.w, left: 30.w),
                       child: Text(
                         title,
                         style: TextStyle(
                             height: 1.08,
-                            fontSize: fontSizeScale(25.w),
+                            fontSize: fontSizeScale(27.w),
                             color: const Color.fromARGB(255, 87, 87, 87)),
                       )),
                 ),

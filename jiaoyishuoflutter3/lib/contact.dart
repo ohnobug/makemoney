@@ -22,12 +22,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
   void initState() {
     super.initState();
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     logger.info('contact...............');
 
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
@@ -514,6 +508,12 @@ class _LJNContactPageState extends State<LJNContactPage> {
   Widget _buildPage() {
     Size screenSize = MediaQuery.of(context).size;
 
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
+
     return Stack(children: [
       // 联系人
       ScrollConfiguration(
@@ -575,7 +575,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
               visible: state.contactazshow!,
               child: Positioned(
                   right: 0,
-                  top: ((MediaQuery.of(context).size.height - 986.w) / 2),
+                  top: ((MediaQuery.of(context).size.height - 986.w) / 2) + 40.w,
                   child: SizedBox(
                     width: 40.w,
                     // height: MediaQuery.of(context).size.height - 115.w - 75.w,
@@ -707,7 +707,7 @@ class _ContactInformationState extends State<ContactInformation> {
                 ),
               ),
             ),
-            SizedBox(width: 30.w),
+            SizedBox(width: 25.w),
             Expanded(
               child: Container(
                 height: 100.w,
@@ -740,7 +740,7 @@ class _ContactInformationState extends State<ContactInformation> {
                         widget.title,
                         style: TextStyle(
                           height: 1.08,
-                          fontSize: fontSizeScale(32.0.w),
+                          fontSize: fontSizeScale(33.0.w),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

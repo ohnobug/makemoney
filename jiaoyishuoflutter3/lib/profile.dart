@@ -35,12 +35,6 @@ class _LJNProfilePage extends State<LJNProfilePage> {
   void initState() {
     super.initState();
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
 
     Future.delayed(const Duration(milliseconds: 300), () {
@@ -60,6 +54,11 @@ class _LJNProfilePage extends State<LJNProfilePage> {
   // 另起一个函数方便管理
   Widget _buildPage() {
     Size screenSize = MediaQuery.of(context).size;
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -194,7 +193,6 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-
                                               // 姓名
                                               RichText(
                                                 text: TextSpan(
@@ -215,7 +213,7 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                                       )),
                                                 ),
                                               ),
-                                              
+
                                               SizedBox(
                                                 height: 20.w,
                                               ),
@@ -242,7 +240,7 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                                                       )),
                                                 ),
                                               ),
-                                              
+
                                               SizedBox(
                                                 height: 20.w,
                                               ),

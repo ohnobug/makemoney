@@ -37,12 +37,6 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
   void initState() {
     super.initState();
 
-    if (kIsWeb) {
-      _statusHeight = 30.w;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // 设置状态栏透明
       statusBarIconBrightness: Brightness.light, // 设置状态栏图标颜色
@@ -118,14 +112,24 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
 
   Widget _buildBarcode(Barcode? value) {
     if (value == null) {
-      return Text(
-        '扫码结果',
-        overflow: TextOverflow.fade,
-        style: TextStyle(
-            height: 1.08,
-            color: Colors.white,
-            fontSize: fontSizeScale(26.w),
-            decoration: TextDecoration.none),
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '扫一扫',
+            overflow: TextOverflow.fade,
+            style: TextStyle(
+                height: 1.08,
+                color: Colors.white,
+                fontSize: fontSizeScale(32.w),
+                decoration: TextDecoration.none),
+          ),
+          Text(
+            "•",
+            style: TextStyle(color: Colors.white, fontSize: 30.w),
+          )
+        ],
       );
     }
 
@@ -150,6 +154,11 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+      _statusHeight = 30.w;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
     return Scaffold(
         primary: false,
         appBar: null,
@@ -209,8 +218,8 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                       Container(
                         color: Colors.transparent,
                         margin: EdgeInsets.only(left: 39.w),
-                        width: 48.w,
-                        height: 48.w,
+                        width: 50.w,
+                        height: 50.w,
                         child: GestureDetector(
                           onTap: () => Navigator.of(context).pop(), // 点击事件
                           child: Icon(
@@ -218,7 +227,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                               0xe601,
                               fontFamily: 'Iconfont',
                             ),
-                            size: 48.w, // 图标的大小
+                            size: 50.w, // 图标的大小
                             color: Colors.white, // 图标颜色
                           ),
                         ),
@@ -226,8 +235,8 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                       Container(
                         color: Colors.transparent,
                         margin: EdgeInsets.only(right: 39.w),
-                        width: 48.w,
-                        height: 48.w,
+                        width: 50.w,
+                        height: 50.w,
                         child: GestureDetector(
                           onTap: () => Navigator.of(context).pop(), // 点击事件
                           child: Icon(
@@ -235,7 +244,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                               0xe659,
                               fontFamily: 'Iconfont',
                             ),
-                            size: 48.w, // 图标的大小
+                            size: 50.w, // 图标的大小
                             color: Colors.white, // 图标颜色
                           ),
                         ),
@@ -326,7 +335,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                           "识别二维码 / 花草 / 动物 / 商品等",
                           style: TextStyle(
                               height: 1.08,
-                              fontSize: fontSizeScale(26.w),
+                              fontSize: fontSizeScale(28.w),
                               fontWeight: FontWeight.normal,
                               color: Colors.white,
                               decoration: TextDecoration.none),
@@ -369,7 +378,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                                   ),
                                 )),
                             SizedBox(
-                              height: 3.w,
+                              height: 5.w,
                             ),
                             Text("我的二维码",
                                 style: TextStyle(
@@ -463,7 +472,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                                   ),
                                 )),
                             SizedBox(
-                              height: 3.w,
+                              height: 5.w,
                             ),
                             Text("相册",
                                 style: TextStyle(

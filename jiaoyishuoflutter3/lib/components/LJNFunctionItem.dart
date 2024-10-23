@@ -84,7 +84,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                   ),
                 ),
               ),
-              SizedBox(width: 20.w)
+              SizedBox(width: 25.w)
             ],
             Expanded(
               child: Container(
@@ -111,8 +111,8 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                         widget.title,
                         style: TextStyle(
                           height: 1.08,
-                          fontSize: fontSizeScale(30.0.w),
-                          // fontFamily: "AlibabaPuHuiTi",
+                          fontSize: fontSizeScale(32.0.w),
+                          fontFamily: "AlibabaPuHuiTi",
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -128,14 +128,14 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                         )),
 
                     Container(
-                        width: 27.w,
+                        width: 28.w,
                         margin: const EdgeInsets.only(right: 32).w,
                         child: Icon(
                           const IconData(
                             0xed9d,
                             fontFamily: 'Iconfont',
                           ),
-                          size: 27.0.w,
+                          size: 28.0.w,
                           color: const Color.fromARGB(255, 175, 175, 175),
                         ))
                   ],
