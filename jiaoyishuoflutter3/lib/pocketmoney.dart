@@ -132,7 +132,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                         TextSpan(
                           children: [
                             WidgetSpan(
-                              alignment: PlaceholderAlignment.middle, // 向上对齐
+                              alignment: PlaceholderAlignment.middle,
                               child: Baseline(
                                 baseline: -7.5.w, // 根据文字的 fontSize 调整基线
                                 baselineType: TextBaseline.alphabetic,

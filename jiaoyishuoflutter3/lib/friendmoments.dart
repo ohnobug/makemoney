@@ -26,6 +26,10 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
 
   late List<Map<String, dynamic>> tweetList;
 
+  // 最后点击更多的位置
+  late Offset lastedMoreButtonPosition = const Offset(0, 0);
+  late bool likeBoxVisible = false;
+
   @override
   void initState() {
     super.initState();
@@ -34,7 +38,6 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
 
     // 添加监听器以监控滚动
     _scrollController.addListener(() {
-      // logger.info(_scrollController.position.pixels); // 获取滚动位置
       setState(() {
         scrollPosition = _scrollController.position.pixels;
 
@@ -45,6 +48,9 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
               (_scrollController.position.pixels - beginPosition) /
                   (beginPosition + 40.w - beginPosition);
         }
+
+        // 点赞盒子隐藏
+        likeBoxVisible = false;
       });
     });
 
@@ -232,100 +238,202 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
               MediaQuery.removePadding(
                   context: context,
                   removeTop: true, // 移除顶部的padding
-                  child: ListView.builder(
-                    primary: false,
-                    controller: _scrollController,
-                    physics: const AlwaysScrollableScrollPhysics(
-                        parent: BouncingScrollPhysics()),
-                    itemCount: tweetList.length + 1, // +1 是因为还包含头像部分
-                    itemBuilder: (context, index) {
-                      if (index == 0) {
-                        // 头像及背景信息部分
-                        return Container(
-                          height: (_statusHeight + 630.w),
-                          color: Colors.white,
-                          width: 750.w,
-                          child: Stack(
-                            children: [
-                              // 背景图片
-                              Transform.translate(
-                                  offset: Offset(0, -100.w),
-                                  child: Image(
-                                    image: ResizeImage(
-                                      AssetImage(
-                                          assetPath('images/avatar/fj.jpg')),
-                                      width: 1500.w.toInt(),
-                                      height: (_statusHeight + 1260.w)
-                                          .toInt(), // 新的高度
-                                    ),
-                                    width: 750.w,
-                                    height: 730.w,
-                                    fit: BoxFit.cover,
-                                  )),
+                  child: Stack(children: [
+                    GestureDetector(
+                      onTapDown: (TapDownDetails details) {
+                        setState(() {
+                          likeBoxVisible = false;
+                        });
+                      },
+                      // onPanUpdate: (details) {
+                      //   setState(() {
+                      //     likeBoxVisible = false;
+                      //   });
+                      // },
+                      child: ListView.builder(
+                        primary: false,
+                        controller: _scrollController,
+                        physics: const AlwaysScrollableScrollPhysics(
+                            parent: BouncingScrollPhysics()),
+                        itemCount: tweetList.length + 1, // +1 是因为还包含头像部分
+                        itemBuilder: (context, index) {
+                          if (index == 0) {
+                            // 头像及背景信息部分
+                            return Container(
+                              height: (_statusHeight + 630.w),
+                              color: Colors.white,
+                              width: 750.w,
+                              child: Stack(
+                                children: [
+                                  // 背景图片
+                                  Transform.translate(
+                                      offset: Offset(0, -100.w),
+                                      child: Image(
+                                        image: ResizeImage(
+                                          AssetImage(assetPath(
+                                              'images/avatar/fj.jpg')),
+                                          width: 1500.w.toInt(),
+                                          height: (_statusHeight + 1260.w)
+                                              .toInt(), // 新的高度
+                                        ),
+                                        width: 750.w,
+                                        height: 730.w,
+                                        fit: BoxFit.cover,
+                                      )),
 
-                              // 头像及昵称
-                              Positioned(
-                                top: _statusHeight + 460.w,
-                                child: Container(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 35.w),
-                                  width: 750.w,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // 昵称
-                                      Container(
-                                        margin: EdgeInsets.only(
-                                            right: 15.w, top: 5.w),
-                                        child: Text(
-                                          vm.userinfoName!,
-                                          style: TextStyle(
-                                            height: 1.08,
-                                            fontSize: fontSizeScale(40.w),
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
+                                  // 头像及昵称
+                                  Positioned(
+                                    top: _statusHeight + 460.w,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 35.w),
+                                      width: 750.w,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          // 昵称
+                                          Container(
+                                            margin: EdgeInsets.only(
+                                                right: 15.w, top: 5.w),
+                                            child: Text(
+                                              vm.userinfoName!,
+                                              style: TextStyle(
+                                                height: 1.08,
+                                                fontSize: fontSizeScale(40.w),
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      // 头像
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(10.w),
-                                        child: Image(
-                                          image: ResizeImage(
-                                            AssetImage(
-                                                assetPath(vm.userinfoAvatar!)),
-                                            width: 240.w.toInt(),
-                                            height: 240.w.toInt(),
+                                          // 头像
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10.w),
+                                            child: Image(
+                                              image: ResizeImage(
+                                                AssetImage(assetPath(
+                                                    vm.userinfoAvatar!)),
+                                                width: 240.w.toInt(),
+                                                height: 240.w.toInt(),
+                                              ),
+                                              width: 120.w,
+                                              height: 120.w,
+                                              fit: BoxFit.cover,
+                                            ),
                                           ),
-                                          width: 120.w,
-                                          height: 120.w,
-                                          fit: BoxFit.cover,
-                                        ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      } else {
-                        // Tweet列表
-                        var tweet = tweetList[index - 1]; // 减去头像部分
-                        return TweetWidget(
-                          time: tweet["time"]!,
-                          avatarUrl: tweet["avatarUrl"]!,
-                          name: tweet["name"]!,
-                          tweetContent: tweet["tweetContent"]!,
-                          likes: tweet["likes"],
-                          imageList: tweet["imageList"],
-                        );
-                      }
-                    },
-                  )),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          } else {
+                            // Tweet列表
+                            var tweet = tweetList[index - 1]; // 减去头像部分
+                            return TweetWidget(
+                                time: tweet["time"]!,
+                                avatarUrl: tweet["avatarUrl"]!,
+                                name: tweet["name"]!,
+                                tweetContent: tweet["tweetContent"]!,
+                                likes: tweet["likes"],
+                                imageList: tweet["imageList"],
+                                moreOnPress: (Offset position) {
+                                  // logger.info(position);
+                                  setState(() {
+                                    lastedMoreButtonPosition = position;
+                                    likeBoxVisible = true;
+                                  });
+                                });
+                          }
+                        },
+                      ),
+                    ),
+                  ])),
+
+              // 弹框
+              Visibility(
+                  visible: likeBoxVisible,
+                  child: Positioned(
+                      top: lastedMoreButtonPosition.dy - 22.w,
+                      left: lastedMoreButtonPosition.dx - 360.w - 5.w,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 40.w, vertical: 0.w),
+                        width: 360.w,
+                        height: 75.w,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 76, 76, 76),
+                          borderRadius: BorderRadius.all(Radius.circular(10.w)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text.rich(
+                              TextSpan(children: [
+                                WidgetSpan(
+                                    alignment: PlaceholderAlignment.middle,
+                                    style: const TextStyle(height: 1.08),
+                                    child: Icon(
+                                      const IconData(
+                                        0xe682,
+                                        fontFamily: 'Iconfont',
+                                      ), // 使用的图标
+                                      color: Colors.white, // 图标颜色
+                                      size: 32.w, // 图标大小
+                                    )),
+                                WidgetSpan(
+                                    child: SizedBox(
+                                  width: 8.w,
+                                )),
+                                TextSpan(
+                                    text: "点赞",
+                                    style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: 28.w,
+                                        color: Colors.white)),
+                              ]),
+                              // textAlign: TextAlign.center,
+                            ),
+                            Container(
+                              // margin: EdgeInsets.only(left: 42.w, right: 42.w),
+                              height: 45.w,
+                              width: 2.w,
+                              color: const Color.fromARGB(255, 134, 134, 134),
+                            ),
+                            Text.rich(
+                              TextSpan(children: [
+                                WidgetSpan(
+                                    alignment: PlaceholderAlignment.middle,
+                                    style: const TextStyle(height: 1.08),
+                                    child: Icon(
+                                      const IconData(
+                                        0xe605,
+                                        fontFamily: 'Iconfont',
+                                      ), // 使用的图标
+                                      color: Colors.white, // 图标颜色
+                                      size: 30.w, // 图标大小
+                                    )),
+                                WidgetSpan(
+                                    child: SizedBox(
+                                  width: 8.w,
+                                )),
+                                TextSpan(
+                                    text: "评论",
+                                    style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: 28.w,
+                                        color: Colors.white)),
+                              ]),
+                              // textAlign: TextAlign.center,
+                            )
+                          ],
+                        ),
+                      ))),
 
               // 顶部透明 AppBar
               Positioned(
@@ -394,37 +502,51 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
   }
 }
 
-// 推文
-class TweetWidget extends StatelessWidget {
+class TweetWidget extends StatefulWidget {
   final String time;
   final String avatarUrl;
   final String name;
   final String tweetContent;
   final List<String>? imageList;
   final List<String>? likes;
+  final Function moreOnPress;
 
-  const TweetWidget({
-    super.key,
-    required this.time,
-    required this.avatarUrl,
-    required this.name,
-    required this.tweetContent,
-    this.likes,
-    this.imageList,
-  });
+  const TweetWidget(
+      {super.key,
+      required this.time,
+      required this.avatarUrl,
+      required this.name,
+      required this.tweetContent,
+      this.likes,
+      this.imageList,
+      required this.moreOnPress});
 
+  @override
+  State<TweetWidget> createState() => _TweetWidget();
+}
+
+// 推文
+class _TweetWidget extends State<TweetWidget> {
   // 生成随机数
   int generateRandomNumber() {
     var random = Random();
     return random.nextInt(103) + 1; // 生成1到103的随机数
   }
 
+  // 最后点击更多位置
+  late Offset morePosition;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     List<TextSpan> textSpans = [];
 
-    for (int index = 0; index < likes!.length; index++) {
-      final name = likes![index];
+    for (int index = 0; index < widget.likes!.length; index++) {
+      final name = widget.likes![index];
 
       textSpans.add(
         TextSpan(
@@ -442,7 +564,7 @@ class TweetWidget extends StatelessWidget {
         ),
       );
 
-      if (index != likes!.length - 1) {
+      if (index != widget.likes!.length - 1) {
         // 逗号
         textSpans.add(
           TextSpan(
@@ -493,7 +615,7 @@ class TweetWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.w),
               child: Image(
                 image: ResizeImage(
-                  AssetImage(assetPath(avatarUrl)),
+                  AssetImage(assetPath(widget.avatarUrl)),
                   width: 154.w.toInt(),
                   height: 154.w.toInt(),
                 ),
@@ -516,7 +638,7 @@ class TweetWidget extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         children: buildTextSpans(
-                            name,
+                            widget.name,
                             TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(32.w),
@@ -534,7 +656,7 @@ class TweetWidget extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         children: buildTextSpans(
-                            tweetContent,
+                            widget.tweetContent,
                             TextStyle(
                                 height: 1.08, fontSize: fontSizeScale(31.w)),
                             TextStyle(
@@ -544,11 +666,13 @@ class TweetWidget extends StatelessWidget {
                     SizedBox(height: 20.w),
 
                     // 九宫格
-                    if (imageList != null) ...[
+                    if (widget.imageList != null) ...[
                       SizedBox(
                         // color: Colors.amber,
                         width: 570.w,
-                        height: (194.w * (imageList!.length / 3).ceil()) - 6.w,
+                        height:
+                            (194.w * (widget.imageList!.length / 3).ceil()) -
+                                6.w,
                         child: GridView.builder(
                           primary: false,
                           scrollDirection: Axis.vertical,
@@ -560,14 +684,15 @@ class TweetWidget extends StatelessWidget {
                             crossAxisSpacing: 6.w,
                             childAspectRatio: 1,
                           ),
-                          itemCount: imageList?.length,
+                          itemCount: widget.imageList?.length,
                           itemBuilder: (context, index) {
-                            if (imageList![index] == '') {
+                            if (widget.imageList![index] == '') {
                               return const SizedBox();
                             } else {
                               return Image(
                                   image: ResizeImage(
-                                    AssetImage(assetPath(imageList![index])),
+                                    AssetImage(
+                                        assetPath(widget.imageList![index])),
                                     width: 380.w.toInt(),
                                     height: 380.w.toInt(),
                                   ),
@@ -599,7 +724,7 @@ class TweetWidget extends StatelessWidget {
                       children: [
                         // 时间
                         Text(
-                          time,
+                          widget.time,
                           style: TextStyle(
                             height: 1.08,
                             fontSize: fontSizeScale(26.w),
@@ -608,8 +733,11 @@ class TweetWidget extends StatelessWidget {
                         ),
                         // 更多
                         GestureDetector(
-                          onTap: () {
-                            // 点击事件
+                          onTapDown: (TapDownDetails details) {
+                            // 获取点击的位置
+                            Offset position =
+                                details.globalPosition - details.localPosition;
+                            widget.moreOnPress(position);
                           },
                           child: Container(
                             height: 38.w,
