@@ -4,11 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:video_player/video_player.dart';
 
 class LJNInsPage extends StatefulWidget {
   const LJNInsPage({super.key});
@@ -218,6 +218,9 @@ class _LJNInsPage extends State<LJNInsPage> {
                     ),
                   ],
                 ),
+              
+              
+                // Container()
               ],
             ),
           );
@@ -355,14 +358,14 @@ class SmallImageBox extends StatelessWidget {
 }
 
 // 大视频
-class VideoBox extends StatefulWidget {
+class VideoBox2 extends StatefulWidget {
   final String videoPath; // 图片路径
   final bool canPlay;
   final Function() onTap; // 点击事件
   final Function() onLongPress; // 长按事件
   final Function() onTapCancel; // 释放事件
 
-  const VideoBox(
+  const VideoBox2(
       {super.key,
       required this.videoPath,
       required this.canPlay,
@@ -371,25 +374,25 @@ class VideoBox extends StatefulWidget {
       required this.onTapCancel});
 
   @override
-  State<VideoBox> createState() => _VideoBox();
+  State<VideoBox2> createState() => _VideoBox2();
 }
 
-class _VideoBox extends State<VideoBox> {
-  late VlcPlayerController _videoPlayerController;
+class _VideoBox2 extends State<VideoBox2> {
+  late VideoPlayerController _controller;
 
   Future<void> initializePlayer() async {}
 
   // 监听 scrollPixels 的变化，类似于 useEffect 的效果
   @override
-  void didUpdateWidget(VideoBox oldWidget) {
+  void didUpdateWidget(VideoBox2 oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     // 检查 scrollPixels 是否发生变化
     if (oldWidget.canPlay != widget.canPlay) {
       if (widget.canPlay) {
-        _videoPlayerController.play();
+        _controller.play();
       } else {
-        _videoPlayerController.pause();
+        _controller.pause();
       }
     }
   }
@@ -398,19 +401,29 @@ class _VideoBox extends State<VideoBox> {
   void initState() {
     super.initState();
 
-    _videoPlayerController = VlcPlayerController.asset(
+    // _videoPlayerController = VlcPlayerController.asset(
+    //   assetPath('images/ins/video.mp4'),
+    //   hwAcc: HwAcc.auto,
+    //   autoPlay: true,
+    //   options: VlcPlayerOptions(),
+    // );
+
+    _controller = VideoPlayerController.asset(
       assetPath('images/ins/video.mp4'),
-      hwAcc: HwAcc.auto,
-      autoPlay: true,
-      options: VlcPlayerOptions(),
-    );
+      videoPlayerOptions: VideoPlayerOptions(
+        mixWithOthers: true,
+        allowBackgroundPlayback: false,
+      ),
+    )..initialize().then((_) {
+        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {});
+      });
   }
 
   @override
   void dispose() async {
+    _controller.dispose();
     super.dispose();
-    await _videoPlayerController.stopRendererScanning();
-    // await _videoViewController.dispose();
   }
 
   @override
@@ -425,18 +438,12 @@ class _VideoBox extends State<VideoBox> {
             width: (MediaQuery.of(context).size.width - 2.w) / 3,
             height: 500.w,
             color: const Color.fromARGB(255, 247, 247, 247),
-            child: VlcPlayer(
-              controller: _videoPlayerController,
-              aspectRatio:
-                  500.w / ((MediaQuery.of(context).size.width - 2.w) / 3),
-              placeholder: Center(
-                  child: SizedBox(
-                      width: 40.w,
-                      height: 40.w,
-                      child: CircularProgressIndicator(
-                          strokeWidth: 4.w,
-                          color: const Color.fromARGB(255, 165, 165, 165)))),
-            ),
+            child: _controller.value.isInitialized
+                ? AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: VideoPlayer(_controller),
+                  )
+                : Container(),
           ),
           Positioned(
             top: 15.w,
@@ -541,7 +548,7 @@ class _LJNInsStyle extends State<LJNInsStyle> {
             onLongPress: () {},
             onTapCancel: () {},
           )
-        : VideoBox(
+        : VideoBox2(
             videoPath: '',
             onTap: () {},
             onLongPress: () {},
@@ -621,3 +628,111 @@ class _LJNInsStyle extends State<LJNInsStyle> {
         ));
   }
 }
+
+
+
+
+
+
+
+// // 大视频
+// class VideoBox extends StatefulWidget {
+//   final String videoPath; // 图片路径
+//   final bool canPlay;
+//   final Function() onTap; // 点击事件
+//   final Function() onLongPress; // 长按事件
+//   final Function() onTapCancel; // 释放事件
+
+//   const VideoBox(
+//       {super.key,
+//       required this.videoPath,
+//       required this.canPlay,
+//       required this.onTap,
+//       required this.onLongPress,
+//       required this.onTapCancel});
+
+//   @override
+//   State<VideoBox> createState() => _VideoBox();
+// }
+
+// class _VideoBox extends State<VideoBox> {
+//   late VlcPlayerController _videoPlayerController;
+
+//   Future<void> initializePlayer() async {}
+
+//   // 监听 scrollPixels 的变化，类似于 useEffect 的效果
+//   @override
+//   void didUpdateWidget(VideoBox oldWidget) {
+//     super.didUpdateWidget(oldWidget);
+
+//     // 检查 scrollPixels 是否发生变化
+//     if (oldWidget.canPlay != widget.canPlay) {
+//       if (widget.canPlay) {
+//         _videoPlayerController.play();
+//       } else {
+//         _videoPlayerController.pause();
+//       }
+//     }
+//   }
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     _videoPlayerController = VlcPlayerController.asset(
+//       assetPath('images/ins/video.mp4'),
+//       hwAcc: HwAcc.auto,
+//       autoPlay: true,
+//       options: VlcPlayerOptions(),
+//     );
+//   }
+
+//   @override
+//   void dispose() async {
+//     super.dispose();
+//     await _videoPlayerController.stopRendererScanning();
+//     // await _videoViewController.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: widget.onTap,
+//       onLongPress: widget.onLongPress,
+//       onTapCancel: widget.onTapCancel,
+//       child: Stack(
+//         children: [
+//           Container(
+//             width: (MediaQuery.of(context).size.width - 2.w) / 3,
+//             height: 500.w,
+//             color: const Color.fromARGB(255, 247, 247, 247),
+//             child: VlcPlayer(
+//               controller: _videoPlayerController,
+//               aspectRatio:
+//                   500.w / ((MediaQuery.of(context).size.width - 2.w) / 3),
+//               placeholder: Center(
+//                   child: SizedBox(
+//                       width: 40.w,
+//                       height: 40.w,
+//                       child: CircularProgressIndicator(
+//                           strokeWidth: 4.w,
+//                           color: const Color.fromARGB(255, 165, 165, 165)))),
+//             ),
+//           ),
+//           Positioned(
+//             top: 15.w,
+//             left: 200.w,
+//             child: Icon(
+//               color: Colors.white,
+//               const IconData(
+//                 0xe61d,
+//                 fontFamily: 'Iconfont',
+//               ),
+//               size: 32.w, // 图标大小
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
