@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -98,8 +100,43 @@ class _LJNInsPage extends State<LJNInsPage> {
     }
   }
 
+  bool isInsideBox = false;
+  final GlobalKey boxKey = GlobalKey();
+  void checkIfInsideBox(Offset position) {
+    // 获取目标盒子的渲染对象
+    final renderBox = boxKey.currentContext?.findRenderObject() as RenderBox;
+
+    // 获取盒子的实际边界
+    final boxRect =
+        renderBox.localToGlobal(Offset.zero) & renderBox.size; // 盒子的边界
+
+    logger.info(position);
+
+    // 盒子边界
+    // logger.info(boxRect);
+
+    // 检查鼠标位置是否在盒子内
+    setState(() {
+      isInsideBox = boxRect.contains(position);
+    });
+  }
+
+  // 大图可视
+  bool bigImgVisible = false;
+  ImageInfo? bigImgInfo;
+
+  // 显示大图
+  void showBigImg(ImageInfo? info, bool? show) {
+    setState(() {
+      bigImgVisible = show ?? false;
+      bigImgInfo = info;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+
     if (kIsWeb) {
       _statusHeight = 0;
     } else {
@@ -193,6 +230,8 @@ class _LJNInsPage extends State<LJNInsPage> {
                           if ((index + 1) % 3 == 1) {
                             // 样式1
                             return LJNInsStyle(
+                              checkIfInsideBox: checkIfInsideBox,
+                              showBigImg: showBigImg,
                               scrollPixels: scrollPixels,
                               imageList: mylist[index],
                               bigImgPosition: 1,
@@ -200,6 +239,8 @@ class _LJNInsPage extends State<LJNInsPage> {
                           } else if ((index + 1) % 3 == 2) {
                             // 样式2
                             return LJNInsStyle(
+                              checkIfInsideBox: checkIfInsideBox,
+                              showBigImg: showBigImg,
                               scrollPixels: scrollPixels,
                               imageList: mylist[index],
                               bigImgPosition: 2,
@@ -207,6 +248,8 @@ class _LJNInsPage extends State<LJNInsPage> {
                           } else {
                             // 样式3
                             return LJNInsStyle(
+                              checkIfInsideBox: checkIfInsideBox,
+                              showBigImg: showBigImg,
                               scrollPixels: scrollPixels,
                               imageList: mylist[index],
                               bigImgPosition: 3,
@@ -218,9 +261,128 @@ class _LJNInsPage extends State<LJNInsPage> {
                     ),
                   ],
                 ),
-              
-              
-                // Container()
+
+                // 图片展示
+                Visibility(
+                    visible: bigImgVisible,
+                    child: SizedBox(
+                      height: screenSize.height,
+                      width: screenSize.width,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          // 背景容器
+                          Container(
+                            color: const Color.fromARGB(71, 0, 0, 0), // 背景颜色
+                          ),
+                          // 背景毛玻璃效果
+                          BackdropFilter(
+                            filter: ImageFilter.blur(
+                                sigmaX: 5.0, sigmaY: 5.0), // 模糊强度
+                            child: Container(
+                              color: Colors.transparent, // 透明背景以显示毛玻璃效果
+                            ),
+                          ),
+                          // 前景内容
+                          Center(
+                            child: Stack(
+                              children: [
+                                // 图片裁剪
+                                ClipRRect(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(10.w)), // 圆角前景
+                                  child: Container(
+                                    width: screenSize.width - 60.w,
+                                    constraints: BoxConstraints(
+                                      maxHeight: screenSize.height - 30.w * 2,
+                                    ),
+                                    decoration: const BoxDecoration(
+                                        color: Color.fromARGB(
+                                            255, 255, 255, 255) // 前景颜色及透明度
+                                        ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        // 图片
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              10.w), // 圆角图片
+                                          child: SizedBox(
+                                            width: screenSize.width - 60.w,
+                                            height: 500.w,
+                                            child: bigImgInfo != null
+                                                ? Image.asset(
+                                                    assetPath(
+                                                        bigImgInfo!.source),
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : null,
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Container(
+                                              key: boxKey,
+                                              color: isInsideBox
+                                                  ? const Color.fromARGB(
+                                                      255, 50, 199, 5)
+                                                  : const Color.fromARGB(255, 5,
+                                                      108, 139), // 扩大点击区域
+                                              width: 80.w,
+                                              height: 80.w,
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe722,
+                                                  fontFamily: 'Iconfont',
+                                                ), // 使用的图标
+                                                color: Colors.black, // 图标颜色
+                                                size: 36.w, // 图标大小
+                                              ),
+                                            )
+                                            // ...List.generate(5, (i) {
+
+                                            // })
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
+                                // 关闭按钮
+                                Positioned(
+                                    top: 20.w,
+                                    right: 20.w,
+                                    child: Container(
+                                      color: const Color.fromARGB(
+                                          0, 255, 255, 255),
+                                      margin: EdgeInsets.only(left: 39.w),
+                                      width: 55.w,
+                                      height: 55.w,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            bigImgVisible = false;
+                                          });
+                                        },
+                                        child: Icon(
+                                          const IconData(
+                                            0xe601,
+                                            fontFamily: 'Iconfont',
+                                          ),
+                                          size: 55.w, // 图标的大小
+                                          color: Colors.white, // 图标颜色
+                                        ),
+                                      ),
+                                    ))
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
               ],
             ),
           );
@@ -230,16 +392,30 @@ class _LJNInsPage extends State<LJNInsPage> {
 
 class BigImageBox extends StatefulWidget {
   final String image; // 图片路径
-  final Function() onTap; // 点击事件
-  final Function() onLongPress; // 长按事件
-  final Function() onTapCancel; // 释放事件
 
-  const BigImageBox(
-      {super.key,
-      required this.image,
-      required this.onTap,
-      required this.onLongPress,
-      required this.onTapCancel});
+  final Function()? onTap;
+  final Function()? onTapCancel;
+  final Function()? onLongPress;
+  final Function()? onLongPressCancel;
+  final Function(LongPressStartDetails)? onLongPressStart;
+  final Function(LongPressEndDetails)? onLongPressEnd;
+  final Function()? onLongPressUp;
+  final Function(LongPressDownDetails)? onLongPressDown;
+  final Function(LongPressMoveUpdateDetails)? onLongPressMoveUpdate;
+
+  const BigImageBox({
+    super.key,
+    required this.image,
+    this.onTap,
+    this.onTapCancel,
+    this.onLongPress,
+    this.onLongPressCancel,
+    this.onLongPressStart,
+    this.onLongPressEnd,
+    this.onLongPressUp,
+    this.onLongPressDown,
+    this.onLongPressMoveUpdate,
+  });
 
   @override
   State<BigImageBox> createState() => _BigImageBox();
@@ -261,8 +437,18 @@ class _BigImageBox extends State<BigImageBox> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
-      onLongPress: widget.onLongPress,
       onTapCancel: widget.onTapCancel,
+      onLongPress: widget.onLongPress,
+      onLongPressCancel: widget.onLongPressCancel,
+      onLongPressStart: (LongPressStartDetails details) =>
+          widget.onLongPressStart!(details),
+      onLongPressEnd: (LongPressEndDetails details) =>
+          widget.onLongPressEnd!(details),
+      onLongPressUp: widget.onLongPressUp,
+      onLongPressDown: (LongPressDownDetails details) =>
+          widget.onLongPressDown!(details),
+      onLongPressMoveUpdate: (LongPressMoveUpdateDetails details) =>
+          widget.onLongPressMoveUpdate!(details),
       child: Stack(
         children: [
           Container(
@@ -298,6 +484,7 @@ class SmallImageBox extends StatelessWidget {
   final bool isPics; // 是否图片
   final Function() onTap; // 点击事件
   final Function() onLongPress; // 长按事件
+  final Function() onLongPressCancel; // 长按取消事件
   final Function() onTapCancel; // 释放事件
 
   const SmallImageBox({
@@ -306,6 +493,7 @@ class SmallImageBox extends StatelessWidget {
     required this.isPics,
     required this.onTap,
     required this.onLongPress,
+    required this.onLongPressCancel,
     required this.onTapCancel,
   });
 
@@ -314,6 +502,7 @@ class SmallImageBox extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       onLongPress: onLongPress,
+      onLongPressCancel: onLongPressCancel,
       onTapCancel: onTapCancel,
       child: Stack(
         children: [
@@ -363,6 +552,7 @@ class VideoBox2 extends StatefulWidget {
   final bool canPlay;
   final Function() onTap; // 点击事件
   final Function() onLongPress; // 长按事件
+  final Function() onLongPressCancel; // 长按取消事件
   final Function() onTapCancel; // 释放事件
 
   const VideoBox2(
@@ -371,6 +561,7 @@ class VideoBox2 extends StatefulWidget {
       required this.canPlay,
       required this.onTap,
       required this.onLongPress,
+      required this.onLongPressCancel,
       required this.onTapCancel});
 
   @override
@@ -468,13 +659,16 @@ class LJNInsStyle extends StatefulWidget {
   final List<ImageInfo> imageList;
   final int bigImgPosition;
   final double scrollPixels;
+  final Function showBigImg;
+  final Function checkIfInsideBox;
 
-  const LJNInsStyle({
-    super.key,
-    required this.imageList,
-    required this.bigImgPosition,
-    required this.scrollPixels,
-  });
+  const LJNInsStyle(
+      {super.key,
+      required this.imageList,
+      required this.bigImgPosition,
+      required this.scrollPixels,
+      required this.showBigImg,
+      required this.checkIfInsideBox});
 
   @override
   State<LJNInsStyle> createState() => _LJNInsStyle();
@@ -544,16 +738,29 @@ class _LJNInsStyle extends State<LJNInsStyle> {
     var a = widget.imageList[0].isPics
         ? BigImageBox(
             image: widget.imageList[0].source,
-            onTap: () {},
-            onLongPress: () {},
-            onTapCancel: () {},
+            onLongPress: () {
+              widget.showBigImg(widget.imageList[0], true);
+            },
+            onLongPressUp: () {
+              widget.showBigImg(widget.imageList[0], false);
+            },
+            onLongPressMoveUpdate: (details) {
+              // 更新手指位置并检查是否在盒子内
+              widget.checkIfInsideBox(details.globalPosition);
+              // logger.info('onLongPressMoveUpdate');
+            },
           )
         : VideoBox2(
             videoPath: '',
-            onTap: () {},
-            onLongPress: () {},
-            onTapCancel: () {},
             canPlay: canPlay,
+            onTap: () {},
+            onTapCancel: () {},
+            onLongPress: () {
+              widget.showBigImg(widget.imageList[0], true);
+            },
+            onLongPressCancel: () {
+              widget.showBigImg(widget.imageList[0], false);
+            },
           );
 
     // 两图
@@ -563,8 +770,13 @@ class _LJNInsStyle extends State<LJNInsStyle> {
           image: widget.imageList[1].source,
           isPics: widget.imageList[1].isPics,
           onTap: () {},
-          onLongPress: () {},
           onTapCancel: () {},
+          onLongPress: () {
+            widget.showBigImg(widget.imageList[1], true);
+          },
+          onLongPressCancel: () {
+            widget.showBigImg(widget.imageList[1], false);
+          },
         ),
         SizedBox(
           height: 1.w,
@@ -573,8 +785,13 @@ class _LJNInsStyle extends State<LJNInsStyle> {
           image: widget.imageList[2].source,
           isPics: widget.imageList[2].isPics,
           onTap: () {},
-          onLongPress: () {},
           onTapCancel: () {},
+          onLongPress: () {
+            widget.showBigImg(widget.imageList[2], true);
+          },
+          onLongPressCancel: () {
+            widget.showBigImg(widget.imageList[2], false);
+          },
         ),
       ],
     );
@@ -586,8 +803,13 @@ class _LJNInsStyle extends State<LJNInsStyle> {
           image: widget.imageList[3].source,
           isPics: widget.imageList[3].isPics,
           onTap: () {},
-          onLongPress: () {},
           onTapCancel: () {},
+          onLongPress: () {
+            widget.showBigImg(widget.imageList[3], true);
+          },
+          onLongPressCancel: () {
+            widget.showBigImg(widget.imageList[3], false);
+          },
         ),
         SizedBox(
           height: 1.w,
@@ -596,8 +818,13 @@ class _LJNInsStyle extends State<LJNInsStyle> {
           image: widget.imageList[4].source,
           isPics: widget.imageList[4].isPics,
           onTap: () {},
-          onLongPress: () {},
           onTapCancel: () {},
+          onLongPress: () {
+            widget.showBigImg(widget.imageList[4], true);
+          },
+          onLongPressCancel: () {
+            widget.showBigImg(widget.imageList[4], false);
+          },
         ),
       ],
     );

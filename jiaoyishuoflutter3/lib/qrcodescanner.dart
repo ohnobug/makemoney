@@ -215,6 +215,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      // 关闭按钮
                       Container(
                         color: Colors.transparent,
                         margin: EdgeInsets.only(left: 39.w),
@@ -232,6 +233,8 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                           ),
                         ),
                       ),
+
+                      // 更多按钮
                       Container(
                         color: Colors.transparent,
                         margin: EdgeInsets.only(right: 39.w),
