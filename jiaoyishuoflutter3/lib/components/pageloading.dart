@@ -22,7 +22,9 @@ class LJNPageLoading extends StatelessWidget {
                     height: 40.w,
                     child: CircularProgressIndicator(
                         strokeWidth: 3.w,
-                        color: const Color.fromARGB(255, 165, 165, 165)),
+                        color: const Color.fromARGB(255, 165, 165, 165)
+                        
+                        ),
                   ),
                   SizedBox(
                     width: 26.w,

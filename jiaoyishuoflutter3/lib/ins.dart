@@ -400,7 +400,7 @@ class _VideoBox extends State<VideoBox> {
 
     _videoPlayerController = VlcPlayerController.asset(
       assetPath('images/ins/video.mp4'),
-      hwAcc: HwAcc.full,
+      hwAcc: HwAcc.auto,
       autoPlay: true,
       options: VlcPlayerOptions(),
     );
@@ -427,8 +427,15 @@ class _VideoBox extends State<VideoBox> {
             color: const Color.fromARGB(255, 247, 247, 247),
             child: VlcPlayer(
               controller: _videoPlayerController,
-              aspectRatio: 16 / 9,
-              placeholder: const Center(child: CircularProgressIndicator()),
+              aspectRatio:
+                  500.w / ((MediaQuery.of(context).size.width - 2.w) / 3),
+              placeholder: Center(
+                  child: SizedBox(
+                      width: 40.w,
+                      height: 40.w,
+                      child: CircularProgressIndicator(
+                          strokeWidth: 4.w,
+                          color: const Color.fromARGB(255, 165, 165, 165)))),
             ),
           ),
           Positioned(
@@ -498,8 +505,8 @@ class _LJNInsStyle extends State<LJNInsStyle> {
         myPosition = position;
 
         // 当前盒子小于屏幕一半,即可播放
-        if (position.dy < MediaQuery.of(context).size.height - 500.w &&
-            position.dy > 500.w) {
+        if ((position.dy < (MediaQuery.of(context).size.height - 500.w)) &&
+            (position.dy > 20.w)) {
           canPlay = true;
         } else {
           canPlay = false;
