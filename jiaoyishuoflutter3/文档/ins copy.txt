@@ -9,6 +9,7 @@ import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:video_player/video_player.dart';
 
 class LJNInsPage extends StatefulWidget {
   const LJNInsPage({super.key});
@@ -52,6 +53,76 @@ List<List<ImageInfo>> generateRandomImageList(int rows, int cols) {
   });
 }
 
+class VideoState {
+  double width;
+  double height;
+  Offset offset;
+  String videoResource;
+  bool isUse;
+  bool visible;
+
+  // 定义监听器列表
+  final List<VoidCallback> _listeners = [];
+
+  VideoState(
+      {required this.width,
+      required this.height,
+      required this.offset,
+      required this.videoResource,
+      required this.isUse,
+      required this.visible});
+
+  bool application() {
+    if (!isUse) {
+      isUse = true;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // 设置位置
+  void setOffset(Offset position) {
+    // logger.info("设置位置: $offset");
+    offset = position;
+    notifyListeners();
+  }
+
+  // 设置位置
+  void setVisible(bool v) {
+    visible = v;
+    notifyListeners();
+  }
+
+  void release() {
+    // 在这里实现释放正在使用的状态的逻辑
+    visible = false;
+    width = 0;
+    height = 0;
+    offset = Offset.zero;
+    isUse = false;
+    videoResource = '';
+    notifyListeners();
+  }
+
+  // 添加监听器方法
+  void addListener(VoidCallback listener) {
+    _listeners.add(listener);
+  }
+
+  // 移除监听器方法
+  void removeListener(VoidCallback listener) {
+    _listeners.remove(listener);
+  }
+
+  // 通知监听器方法
+  void notifyListeners() {
+    for (var listener in _listeners) {
+      listener();
+    }
+  }
+}
+
 class _LJNInsPage extends State<LJNInsPage> {
   double _statusHeight = 0;
 
@@ -61,11 +132,69 @@ class _LJNInsPage extends State<LJNInsPage> {
 
   bool setStatusLight = false;
 
+  List<VideoState> videoStateList = List.generate(
+    3,
+    (i) => VideoState(
+      width: 0,
+      height: 0,
+      offset: const Offset(0, 0),
+      videoResource: "",
+      isUse: false,
+      visible: false,
+    ),
+  );
+
+  VideoState? applicationVideoFunc() {
+    for (var videoState in videoStateList) {
+      if (videoState.application()) {
+        return videoState;
+      }
+    }
+    return null;
+  }
+
+  Offset video1Offset = const Offset(0, 0);
+  Offset video2Offset = const Offset(0, 0);
+  Offset video3Offset = const Offset(0, 0);
+
+  bool video1Visible = false;
+  bool video2Visible = false;
+  bool video3Visible = false;
+
   @override
   void initState() {
     super.initState();
+
     mylist = generateRandomImageList(1000, 5);
+
     _scrollController.addListener(_scrollListener);
+
+    videoStateList[0].addListener(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        setState(() {
+          video1Offset = videoStateList[0].offset;
+          video1Visible = videoStateList[0].visible;
+        });
+      });
+
+      videoStateList[1].addListener(() {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          setState(() {
+            video2Offset = videoStateList[1].offset;
+            video2Visible = videoStateList[1].visible;
+          });
+        });
+      });
+
+      videoStateList[2].addListener(() {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          setState(() {
+            video3Offset = videoStateList[2].offset;
+            video3Visible = videoStateList[2].visible;
+          });
+        });
+      });
+    });
   }
 
   @override
@@ -193,6 +322,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                           if ((index + 1) % 3 == 1) {
                             // 样式1
                             return LJNInsStyle(
+                              applicationVideoFunc: applicationVideoFunc,
                               scrollPixels: scrollPixels,
                               imageList: mylist[index],
                               bigImgPosition: 1,
@@ -200,6 +330,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                           } else if ((index + 1) % 3 == 2) {
                             // 样式2
                             return LJNInsStyle(
+                              applicationVideoFunc: applicationVideoFunc,
                               scrollPixels: scrollPixels,
                               imageList: mylist[index],
                               bigImgPosition: 2,
@@ -207,6 +338,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                           } else {
                             // 样式3
                             return LJNInsStyle(
+                              applicationVideoFunc: applicationVideoFunc,
                               scrollPixels: scrollPixels,
                               imageList: mylist[index],
                               bigImgPosition: 3,
@@ -357,7 +489,6 @@ class SmallImageBox extends StatelessWidget {
 // 大视频
 class VideoBox extends StatefulWidget {
   final String videoPath; // 图片路径
-  final bool canPlay;
   final Function() onTap; // 点击事件
   final Function() onLongPress; // 长按事件
   final Function() onTapCancel; // 释放事件
@@ -365,7 +496,6 @@ class VideoBox extends StatefulWidget {
   const VideoBox(
       {super.key,
       required this.videoPath,
-      required this.canPlay,
       required this.onTap,
       required this.onLongPress,
       required this.onTapCancel});
@@ -379,29 +509,14 @@ class _VideoBox extends State<VideoBox> {
 
   Future<void> initializePlayer() async {}
 
-  // 监听 scrollPixels 的变化，类似于 useEffect 的效果
-  @override
-  void didUpdateWidget(VideoBox oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    // 检查 scrollPixels 是否发生变化
-    if (oldWidget.canPlay != widget.canPlay) {
-      if (widget.canPlay) {
-        _videoPlayerController.play();
-      } else {
-        _videoPlayerController.pause();
-      }
-    }
-  }
-
   @override
   void initState() {
     super.initState();
 
-    _videoPlayerController = VlcPlayerController.asset(
-      assetPath('images/ins/video.mp4'),
+    _videoPlayerController = VlcPlayerController.network(
+      'https://media.w3.org/2010/05/sintel/trailer.mp4',
       hwAcc: HwAcc.full,
-      autoPlay: true,
+      autoPlay: false,
       options: VlcPlayerOptions(),
     );
   }
@@ -454,13 +569,14 @@ class LJNInsStyle extends StatefulWidget {
   final List<ImageInfo> imageList;
   final int bigImgPosition;
   final double scrollPixels;
+  final Function applicationVideoFunc;
 
-  const LJNInsStyle({
-    super.key,
-    required this.imageList,
-    required this.bigImgPosition,
-    required this.scrollPixels,
-  });
+  const LJNInsStyle(
+      {super.key,
+      required this.imageList,
+      required this.bigImgPosition,
+      required this.scrollPixels,
+      required this.applicationVideoFunc});
 
   @override
   State<LJNInsStyle> createState() => _LJNInsStyle();
@@ -482,10 +598,14 @@ class _LJNInsStyle extends State<LJNInsStyle> {
   }
 
   late bool canPlay = false;
+
   late Offset myPosition = const Offset(0, 0);
+
+  VideoState? videoState;
 
   // 获取位置的方法
   void _getPosition() {
+    // 通过 GlobalKey 获取 RenderBox
     final RenderBox? renderBox =
         _containerKey.currentContext?.findRenderObject() as RenderBox?;
 
@@ -499,10 +619,26 @@ class _LJNInsStyle extends State<LJNInsStyle> {
 
         // 当前盒子小于屏幕一半,即可播放
         if (position.dy < MediaQuery.of(context).size.height - 500.w &&
-            position.dy > 500.w) {
+            position.dy > 50.w) {
           canPlay = true;
+
+          videoState ??= widget.applicationVideoFunc();
+
+          videoState?.setVisible(true);
+          double dx = 0;
+          if (widget.bigImgPosition == 1) {
+            dx = 0;
+          } else if (widget.bigImgPosition == 2) {
+            dx = ((MediaQuery.of(context).size.width - 2.w) / 3) + 1.w;
+          } else if (widget.bigImgPosition == 3) {
+            dx = ((MediaQuery.of(context).size.width - 2.w) / 3) * 2 + 2.w;
+          }
+
+          videoState?.setOffset(Offset(dx, position.dy));
         } else {
           canPlay = false;
+          videoState?.release();
+          videoState = null;
         }
       });
     } else {
@@ -527,20 +663,13 @@ class _LJNInsStyle extends State<LJNInsStyle> {
     // );
 
     // 大图
-    var a = widget.imageList[0].isPics
-        ? BigImageBox(
-            image: widget.imageList[0].source,
-            onTap: () {},
-            onLongPress: () {},
-            onTapCancel: () {},
-          )
-        : VideoBox(
-            videoPath: '',
-            onTap: () {},
-            onLongPress: () {},
-            onTapCancel: () {},
-            canPlay: canPlay,
-          );
+    var a = BigImageBox(
+      play: canPlay,
+      image: widget.imageList[0].source,
+      onTap: () {},
+      onLongPress: () {},
+      onTapCancel: () {},
+    );
 
     // 两图
     var b = Column(

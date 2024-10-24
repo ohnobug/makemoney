@@ -1,62 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 
-class LJNVideo extends StatefulWidget {
-  const LJNVideo({super.key});
+class LJNVideoPage extends StatefulWidget {
+  const LJNVideoPage({super.key});
 
   @override
-  State<LJNVideo> createState() => _LJNVideoState();
+  State<LJNVideoPage> createState() => _LJNVideoState();
 }
 
-class _LJNVideoState extends State<LJNVideo> {
-  late VideoPlayerController _controller;
+class _LJNVideoState extends State<LJNVideoPage> {
+  late VlcPlayerController _videoPlayerController;
+
+  Future<void> initializePlayer() async {}
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.networkUrl(Uri.parse(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'))
-      ..initialize().then((_) {
-        setState(() {});
-      });
 
-    // _controller = VideoPlayerController.networkUrl(Uri.parse(
-    //     'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'))
-    //   ..initialize().then((_) {
-    //     setState(() {});
-    //   });
+    _videoPlayerController = VlcPlayerController.network(
+      'https://media.w3.org/2010/05/sintel/trailer.mp4',
+      hwAcc: HwAcc.full,
+      autoPlay: false,
+      options: VlcPlayerOptions(),
+    );
+  }
+
+  @override
+  void dispose() async {
+    super.dispose();
+    await _videoPlayerController.stopRendererScanning();
+    // await _videoViewController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      primary: false,
-      body: Center(
-        child: _controller.value.isInitialized
-            ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              )
-            : Container(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _controller.value.isPlaying
-                ? _controller.pause()
-                : _controller.play();
-          });
-        },
-        child: Icon(
-          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-        ),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+        appBar: AppBar(),
+        body: Center(
+          child: VlcPlayer(
+            controller: _videoPlayerController,
+            aspectRatio: 16 / 9,
+            placeholder: const Center(child: CircularProgressIndicator()),
+          ),
+        ));
   }
 }

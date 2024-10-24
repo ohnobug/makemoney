@@ -662,7 +662,7 @@ class _ChatListItem extends State<ChatListItem> {
                                       widget.friendName,
                                       TextStyle(
                                           height: 1.08,
-                                          fontSize: fontSizeScale(30.0.w),
+                                          fontSize: fontSizeScale(32.0.w),
                                           color: widget.notice
                                               ? Colors.red
                                               : Colors.black,
