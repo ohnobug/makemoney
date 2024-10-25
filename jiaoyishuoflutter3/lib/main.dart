@@ -12,6 +12,7 @@ import 'package:jiaoyishuoflutter3/profile.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
+import 'package:jiaoyishuoflutter3/test2.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
 import 'package:jiaoyishuoflutter3/wallet.dart';
@@ -73,6 +74,27 @@ class TabBarApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 initialRoute: '/',
                 onGenerateRoute: (settings) {
+                  // return PageRouteBuilder(
+                  //   pageBuilder: (BuildContext context,
+                  //           Animation<double> animation,
+                  //           Animation<double> secondaryAnimation) =>
+                  //       const LJNTest2Page(),
+                  //   transitionsBuilder: (
+                  //     BuildContext context,
+                  //     Animation<double> animation,
+                  //     Animation<double> secondaryAnimation,
+                  //     Widget child,
+                  //   ) {
+                  //     final Tween<Offset> offsetTween = Tween<Offset>(
+                  //         begin: const Offset(0.0, 0.0),
+                  //         end: const Offset(-1.0, 0.0));
+                  //     final Animation<Offset> slideOutLeftAnimation =
+                  //         offsetTween.animate(secondaryAnimation);
+                  //     return SlideTransition(
+                  //         position: slideOutLeftAnimation, child: child);
+                  //   },
+                  // );
+
                   if (settings.name == '/') {
                     return PageRouteBuilder(
                       pageBuilder: (BuildContext context,

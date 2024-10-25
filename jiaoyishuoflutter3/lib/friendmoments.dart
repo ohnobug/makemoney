@@ -15,22 +15,25 @@ class LJNFriendmomentsPage extends StatefulWidget {
 }
 
 class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   double _statusHeight = 0;
 
   final ScrollController _scrollController = ScrollController();
   double scrollPosition = 0;
 
-  late AnimationController _controller; // 动画控制器
-  late Animation<double> _opacity; // 透明度动画
+  late AnimationController _appBarcontroller; // 动画控制器
+  late Animation<double> _appBarOpacity; // 透明度动画
 
   late List<Map<String, dynamic>> tweetList;
 
   // 最后点击更多的位置
-  late Offset lastedMoreButtonPosition = const Offset(0, 0);
+  late Offset lastedMoreButtonPosition = const Offset(-1000, -1000);
   late bool likeBoxVisible = false;
   // 列表是否在滚动
   late bool _isScrolling = false;
+
+  late AnimationController _likeController;
+  late Animation<double> _likeAnimation;
 
   @override
   void initState() {
@@ -48,26 +51,42 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
         scrollPosition = _scrollController.position.pixels;
 
         if (_scrollController.position.pixels - beginPosition <= 0) {
-          _controller.value = 0;
+          _appBarcontroller.value = 0;
         } else {
-          _controller.value =
+          _appBarcontroller.value =
               (_scrollController.position.pixels - beginPosition) /
                   (beginPosition + 40.w - beginPosition);
         }
-
-        // 点赞盒子隐藏
-        likeBoxVisible = false;
       });
+
+      hideLikeBox();
     });
 
     // 初始化 AnimationController
-    _controller = AnimationController(
-      duration: const Duration(seconds: 2), // 动画持续时间
+    _appBarcontroller = AnimationController(
+      duration: const Duration(seconds: 1), // 动画持续时间
       vsync: this,
     );
 
     // 定义透明度动画
-    _opacity = Tween<double>(begin: 0.0, end: 255.0).animate(_controller);
+    _appBarOpacity =
+        Tween<double>(begin: 0.0, end: 255.0).animate(_appBarcontroller);
+
+    // 点赞窗口AnimationController
+    _likeController = AnimationController(
+      duration: const Duration(milliseconds: 300), // 动画持续时间
+      vsync: this,
+    );
+
+    // 创建 Tween 来控制 left 从 360.w 到 0.w 的动画
+    _likeAnimation =
+        Tween<double>(begin: 360.w, end: 0.w).animate(CurvedAnimation(
+      parent: _likeController,
+      curve: Curves.easeInOut, // 这里设置加速曲线
+    ))
+          ..addListener(() {
+            setState(() {});
+          });
 
     // Tweet数据
     tweetList = [
@@ -211,8 +230,26 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
   @override
   void dispose() {
     _scrollController.dispose(); // 避免内存泄漏
-    _controller.dispose(); // 释放资源
+    _appBarcontroller.dispose(); // 释放资源
+    _likeController.dispose();
     super.dispose();
+  }
+
+  void showLikeBox(Offset position) {
+    setState(() {
+      _likeController.forward();
+      lastedMoreButtonPosition = position;
+      likeBoxVisible = true;
+    });
+  }
+
+  void hideLikeBox() {
+    setState(() {
+      _likeController.stop();
+      _likeController.reset();
+      lastedMoreButtonPosition = const Offset(-1000, -1000);
+      likeBoxVisible = false;
+    });
   }
 
   @override
@@ -240,16 +277,14 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                     color: const Color.fromARGB(255, 48, 48, 48),
                   )),
 
-              // 使用 ListView 代替 SingleChildScrollView
+              // 使用 ListView
               MediaQuery.removePadding(
                   context: context,
                   removeTop: true, // 移除顶部的padding
                   child: Stack(children: [
                     GestureDetector(
                       onTapDown: (TapDownDetails details) {
-                        setState(() {
-                          likeBoxVisible = false;
-                        });
+                        hideLikeBox();
                       },
                       child: NotificationListener<ScrollNotification>(
                           onNotification: (ScrollNotification notification) {
@@ -362,10 +397,11 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                       // 如果列表在滚动, 则更多按钮不能被点击
                                       if (_isScrolling) return;
 
-                                      setState(() {
-                                        lastedMoreButtonPosition = position;
-                                        likeBoxVisible = true;
-                                      });
+                                      if (likeBoxVisible) {
+                                        hideLikeBox();
+                                      } else {
+                                        showLikeBox(position);
+                                      }
                                     });
                               }
                             },
@@ -373,93 +409,110 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                     ),
                   ])),
 
-              // 弹框
-              Visibility(
-                  visible: likeBoxVisible,
-                  child: Positioned(
-                      top: lastedMoreButtonPosition.dy - 22.w,
-                      left: lastedMoreButtonPosition.dx - 360.w - 5.w,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 40.w, vertical: 0.w),
-                        width: 360.w,
-                        height: 75.w,
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 76, 76, 76),
-                          borderRadius: BorderRadius.all(Radius.circular(10.w)),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text.rich(
-                              TextSpan(children: [
-                                WidgetSpan(
-                                    alignment: PlaceholderAlignment.middle,
-                                    style: const TextStyle(height: 1.08),
-                                    child: Icon(
-                                      const IconData(
-                                        0xe682,
-                                        fontFamily: 'Iconfont',
-                                      ), // 使用的图标
-                                      color: Colors.white, // 图标颜色
-                                      size: 32.w, // 图标大小
-                                    )),
-                                WidgetSpan(
-                                    child: SizedBox(
-                                  width: 8.w,
-                                )),
-                                TextSpan(
-                                    text: "点赞",
-                                    style: TextStyle(
+              // 点赞弹框
+              Positioned(
+                  top: lastedMoreButtonPosition.dy,
+                  left: lastedMoreButtonPosition.dx,
+                  child: SizedBox(
+                    width: 360.w,
+                    height: 75.w,
+                    // color: const Color.fromARGB(255, 247, 19, 19), // 外层盒子的红色背景
+                    child: Stack(
+                      children: [
+                        // 红色盒子本身
+                        Positioned(
+                          top: 0,
+                          left: _likeAnimation.value,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 40.w, vertical: 0.w),
+                            width: 360.w,
+                            height: 75.w,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 76, 76, 76),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.w)),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text.rich(
+                                  TextSpan(children: [
+                                    WidgetSpan(
+                                      alignment: PlaceholderAlignment.middle,
+                                      child: Baseline(
+                                        baseline: 22.w,
+                                        baselineType: TextBaseline.alphabetic,
+                                        child: Icon(
+                                          const IconData(
+                                            0xe682,
+                                            fontFamily: 'Iconfont',
+                                          ),
+                                          color: Colors.white,
+                                          size: 31.w,
+                                        ),
+                                      ),
+                                    ),
+                                    WidgetSpan(
+                                      child: SizedBox(width: 8.w),
+                                    ),
+                                    TextSpan(
+                                      text: "赞",
+                                      style: TextStyle(
                                         height: 1.08,
                                         fontSize: 28.w,
-                                        color: Colors.white)),
-                              ]),
-                              // textAlign: TextAlign.center,
-                            ),
-                            Container(
-                              // margin: EdgeInsets.only(left: 42.w, right: 42.w),
-                              height: 45.w,
-                              width: 2.w,
-                              color: const Color.fromARGB(255, 134, 134, 134),
-                            ),
-                            Text.rich(
-                              TextSpan(children: [
-                                WidgetSpan(
-                                    alignment: PlaceholderAlignment.middle,
-                                    style: const TextStyle(height: 1.08),
-                                    child: Icon(
-                                      const IconData(
-                                        0xe605,
-                                        fontFamily: 'Iconfont',
-                                      ), // 使用的图标
-                                      color: Colors.white, // 图标颜色
-                                      size: 30.w, // 图标大小
-                                    )),
-                                WidgetSpan(
-                                    child: SizedBox(
-                                  width: 8.w,
-                                )),
-                                TextSpan(
-                                    text: "评论",
-                                    style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ]),
+                                ),
+                                Container(
+                                  height: 45.w,
+                                  width: 2.w,
+                                  color:
+                                      const Color.fromARGB(255, 134, 134, 134),
+                                ),
+                                Text.rich(
+                                  TextSpan(children: [
+                                    WidgetSpan(
+                                      alignment: PlaceholderAlignment.middle,
+                                      style: const TextStyle(height: 1.08),
+                                      child: Icon(
+                                        const IconData(0xe605,
+                                            fontFamily: 'Iconfont'),
+                                        color: Colors.white,
+                                        size: 28.w,
+                                      ),
+                                    ),
+                                    WidgetSpan(
+                                      child: SizedBox(width: 8.w),
+                                    ),
+                                    TextSpan(
+                                      text: "评论",
+                                      style: TextStyle(
                                         height: 1.08,
                                         fontSize: 28.w,
-                                        color: Colors.white)),
-                              ]),
-                              // textAlign: TextAlign.center,
-                            )
-                          ],
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ]),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ))),
+                      ],
+                    ),
+                  )),
 
               // 顶部透明 AppBar
               Positioned(
                 left: 0,
                 top: 0,
                 child: Container(
-                  color: Color.fromARGB(_opacity.value.toInt(), 237, 237, 237),
+                  color: Color.fromARGB(
+                      _appBarOpacity.value.toInt(), 237, 237, 237),
                   width: 750.w,
                   height: 90.0.w + _statusHeight,
                   padding: EdgeInsets.only(top: _statusHeight),
@@ -470,7 +523,8 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                     titleTextStyle: TextStyle(
                       height: 1.08,
                       fontSize: fontSizeScale(32.w),
-                      color: Color.fromARGB(_opacity.value.toInt(), 0, 0, 0),
+                      color:
+                          Color.fromARGB(_appBarOpacity.value.toInt(), 0, 0, 0),
                       fontFamily: "AlibabaPuHuiTi-Medium",
                     ),
                     toolbarHeight: 90.w,
@@ -484,7 +538,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                         color: Colors.transparent,
                         child: Icon(
                           const IconData(0xed9e, fontFamily: 'Iconfont'),
-                          color: _opacity.value.toInt() > 180
+                          color: _appBarOpacity.value.toInt() > 180
                               ? Colors.black
                               : Colors.white,
                           size: 36.w,
@@ -500,10 +554,14 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                           padding: EdgeInsets.only(right: 40.w),
                           child: Icon(
                             IconData(
-                                _opacity.value.toInt() > 180 ? 0xe68a : 0xe64d,
+                                _appBarOpacity.value.toInt() > 180
+                                    ? 0xe68a
+                                    : 0xe64d,
                                 fontFamily: 'Iconfont'),
-                            size: _opacity.value.toInt() > 180 ? 40.w : 40.w,
-                            color: _opacity.value.toInt() > 180
+                            size: _appBarOpacity.value.toInt() > 180
+                                ? 40.w
+                                : 40.w,
+                            color: _appBarOpacity.value.toInt() > 180
                                 ? Colors.black
                                 : Colors.white,
                           ),
@@ -555,9 +613,13 @@ class _TweetWidget extends State<TweetWidget> {
   // 最后点击更多位置
   late Offset morePosition;
 
+  late GlobalKey _morekey;
+
   @override
   void initState() {
     super.initState();
+
+    _morekey = GlobalKey();
   }
 
   @override
@@ -572,13 +634,15 @@ class _TweetWidget extends State<TweetWidget> {
           children: buildTextSpans(
               name,
               TextStyle(
-                  height: 1.08,
-                  fontSize: fontSizeScale(27.w),
+                  textBaseline: TextBaseline.alphabetic,
+                  height: 1.5,
+                  fontSize: fontSizeScale(29.w),
                   color: const Color.fromARGB(255, 58, 81, 124),
                   fontFamily: "AlibabaPuHuiTi-Medium"),
               TextStyle(
-                  height: 1.08,
-                  fontSize: fontSizeScale(27.w),
+                  textBaseline: TextBaseline.alphabetic,
+                  height: 1.5,
+                  fontSize: fontSizeScale(24.w),
                   fontFamily: "NotoColorEmoji-Regular")),
         ),
       );
@@ -598,12 +662,6 @@ class _TweetWidget extends State<TweetWidget> {
         );
       }
     }
-
-    // if (imageList != null) {
-    //   if (imageList!.length == 4) {
-    //     imageList?.insert(2, '1');
-    //   }
-    // }
 
     return Container(
       width: 750.w,
@@ -644,183 +702,227 @@ class _TweetWidget extends State<TweetWidget> {
               ),
             ),
           ),
+
+          SizedBox(
+            width: 20.w,
+          ),
+
           // 姓名和推文
           Expanded(
             flex: 1,
-            child: Container(
-                margin: EdgeInsets.only(left: 20.w, right: 25.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    // 姓名
-                    RichText(
-                      text: TextSpan(
-                        children: buildTextSpans(
-                            widget.name,
-                            TextStyle(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                // 推文
+                Container(
+                    margin: EdgeInsets.only(right: 25.w),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          // 姓名
+                          RichText(
+                            text: TextSpan(
+                              children: buildTextSpans(
+                                  widget.name,
+                                  TextStyle(
+                                    height: 1.4,
+                                    fontSize: fontSizeScale(33.w),
+                                    fontFamily: "AlibabaPuHuiTi-Medium",
+                                    // fontWeight: FontWeight.w600,
+                                    color:
+                                        const Color.fromARGB(255, 58, 81, 124),
+                                  ),
+                                  TextStyle(
+                                      height: 1.4,
+                                      fontSize: fontSizeScale(28.w))),
+                            ),
+                          ),
+                          // SizedBox(height: 0.w),
+
+                          // 推文
+                          RichText(
+                            text: TextSpan(
+                              children: buildTextSpans(
+                                  widget.tweetContent,
+                                  TextStyle(
+                                      height: 1.4,
+                                      fontSize: fontSizeScale(33.w)),
+                                  TextStyle(
+                                      height: 1.4,
+                                      fontSize: fontSizeScale(26.w))),
+                            ),
+                          ),
+                          SizedBox(height: 10.w),
+
+                          // 九宫格
+                          if (widget.imageList != null) ...[
+                            SizedBox(
+                              // color: Colors.amber,
+                              width: 570.w,
+                              height: (194.w *
+                                      (widget.imageList!.length / 3).ceil()) -
+                                  6.w,
+                              child: GridView.builder(
+                                primary: false,
+                                scrollDirection: Axis.vertical,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  mainAxisSpacing: 6.w,
+                                  crossAxisSpacing: 6.w,
+                                  childAspectRatio: 1,
+                                ),
+                                itemCount: widget.imageList?.length,
+                                itemBuilder: (context, index) {
+                                  if (widget.imageList![index] == '') {
+                                    return const SizedBox();
+                                  } else {
+                                    return Image(
+                                        image: ResizeImage(
+                                          AssetImage(assetPath(
+                                              widget.imageList![index])),
+                                          width: 380.w.toInt(),
+                                          height: 380.w.toInt(),
+                                        ),
+                                        width: 186.w,
+                                        height: 186.w,
+                                        fit: BoxFit.cover);
+                                  }
+                                },
+                              ),
+                            ),
+                            SizedBox(height: 18.w),
+                          ],
+
+                          // 定位信息
+                          Text(
+                            "深圳市 · 南山区腾讯总部",
+                            style: TextStyle(
                               height: 1.08,
-                              fontSize: fontSizeScale(32.w),
-                              fontFamily: "AlibabaPuHuiTi-Medium",
-                              // fontWeight: FontWeight.w600,
+                              fontSize: fontSizeScale(26.w),
                               color: const Color.fromARGB(255, 58, 81, 124),
                             ),
-                            TextStyle(
-                                height: 1.08, fontSize: fontSizeScale(32.w))),
-                      ),
-                    ),
-                    SizedBox(height: 15.w),
-
-                    // 推文
-                    RichText(
-                      text: TextSpan(
-                        children: buildTextSpans(
-                            widget.tweetContent,
-                            TextStyle(
-                                height: 1.08, fontSize: fontSizeScale(31.w)),
-                            TextStyle(
-                                height: 1.08, fontSize: fontSizeScale(31.w))),
-                      ),
-                    ),
-                    SizedBox(height: 20.w),
-
-                    // 九宫格
-                    if (widget.imageList != null) ...[
-                      SizedBox(
-                        // color: Colors.amber,
-                        width: 570.w,
-                        height:
-                            (194.w * (widget.imageList!.length / 3).ceil()) -
-                                6.w,
-                        child: GridView.builder(
-                          primary: false,
-                          scrollDirection: Axis.vertical,
-                          physics: const NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 6.w,
-                            crossAxisSpacing: 6.w,
-                            childAspectRatio: 1,
                           ),
-                          itemCount: widget.imageList?.length,
-                          itemBuilder: (context, index) {
-                            if (widget.imageList![index] == '') {
-                              return const SizedBox();
-                            } else {
-                              return Image(
-                                  image: ResizeImage(
-                                    AssetImage(
-                                        assetPath(widget.imageList![index])),
-                                    width: 380.w.toInt(),
-                                    height: 380.w.toInt(),
-                                  ),
-                                  width: 186.w,
-                                  height: 186.w,
-                                  fit: BoxFit.cover);
-                            }
-                          },
-                        ),
-                      ),
-                      SizedBox(height: 18.w),
-                    ],
+                          // SizedBox(height: 5.w),
+                        ])),
 
-                    // 定位信息
+                // 显示时间与更多
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // 时间
                     Text(
-                      "深圳市 · 南山区腾讯总部",
+                      widget.time,
                       style: TextStyle(
                         height: 1.08,
                         fontSize: fontSizeScale(26.w),
-                        color: const Color.fromARGB(255, 58, 81, 124),
+                        color: const Color.fromARGB(255, 156, 156, 156),
                       ),
                     ),
+                    // 更多
+                    GestureDetector(
+                      onTap: () {
+                        // 获取点击的位置
+                        final RenderBox? renderBox = _morekey.currentContext
+                            ?.findRenderObject() as RenderBox?;
 
-                    SizedBox(height: 16.w),
+                        if (renderBox != null) {
+                          // 获取相对于屏幕的偏移量
+                          final Offset position = renderBox.localToGlobal(
+                              Offset(
+                                  -350.w, (renderBox.size.height - 75.w) / 2));
 
-                    // 显示时间与更多
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // 时间
-                        Text(
-                          widget.time,
-                          style: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(26.w),
-                            color: const Color.fromARGB(255, 156, 156, 156),
-                          ),
-                        ),
-                        // 更多
-                        GestureDetector(
-                          onTapDown: (TapDownDetails details) {
-                            // 获取点击的位置
-                            Offset position =
-                                details.globalPosition - details.localPosition;
-                            widget.moreOnPress(position);
-                          },
-                          child: Container(
-                            height: 38.w,
-                            width: 60.w,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 248, 248, 248),
-                              borderRadius: BorderRadius.circular(6.w),
-                            ),
-                            child: Center(
-                              child: Icon(
-                                const IconData(
-                                  0xe667,
-                                  fontFamily: 'Iconfont',
-                                ),
-                                size: 37.w,
-                                color: const Color.fromARGB(255, 58, 81, 124),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 18.w),
-
-                    // 点赞人员列表
-                    Container(
-                      constraints: BoxConstraints(minHeight: 51.w),
-                      padding: EdgeInsets.only(
-                          left: 18.w, right: 18.w, top: 15.w, bottom: 15.w),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 247, 247, 247),
-                        borderRadius: BorderRadius.circular(5.w), // 设置圆角
-                      ),
-                      child: Column(
-                        // 将 Row 改为 Column
-                        crossAxisAlignment: CrossAxisAlignment.start, // 修改对齐方式
-                        children: [
-                          RichText(
-                            maxLines: 1000,
-                            overflow: TextOverflow.visible,
-                            text: TextSpan(children: [
-                              WidgetSpan(
-                                child: Icon(
-                                  const IconData(
-                                    0xe70a,
-                                    fontFamily: 'Iconfont',
+                          widget.moreOnPress(position);
+                        }
+                      },
+                      child: Container(
+                          key: _morekey,
+                          height: 70.w,
+                          width: 110.w,
+                          padding: EdgeInsets.only(left: 25.w, right: 25.w),
+                          color: Colors.transparent,
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 38.w,
+                                  width: 60.w,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                        255, 248, 248, 248),
+                                    borderRadius: BorderRadius.circular(6.w),
                                   ),
-                                  color: const Color.fromARGB(
-                                      255, 58, 81, 124), // 图标颜色
-                                  size: 30.w, // 图标大小
-                                ),
-                              ),
-                              WidgetSpan(
-                                child: SizedBox(width: 10.w), // 图标和文本之间的间距
-                              ),
-                              ...textSpans
-                            ]),
-                          ),
-                        ],
-                      ),
-                    )
+                                  child: Center(
+                                    child: Icon(
+                                      const IconData(
+                                        0xe667,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      size: 37.w,
+                                      color: const Color.fromARGB(
+                                          255, 58, 81, 124),
+                                    ),
+                                  ),
+                                )
+                              ])),
+                    ),
                   ],
-                )),
+                ),
+
+                // SizedBox(height: 5.w),
+
+                // 点赞人员列表
+                Container(
+                    margin: EdgeInsets.only(right: 25.w),
+                    child: Column(children: [
+                      Container(
+                        constraints: BoxConstraints(minHeight: 51.w),
+                        padding: EdgeInsets.only(
+                            left: 13.w, right: 13.w, top: 8.w, bottom: 8.w),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 247, 247, 247),
+                          borderRadius: BorderRadius.circular(5.w), // 设置圆角
+                        ),
+                        child: Column(
+                          // 将 Row 改为 Column
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start, // 修改对齐方式
+                          children: [
+                            RichText(
+                              maxLines: 1000,
+                              overflow: TextOverflow.visible,
+                              text: TextSpan(children: [
+                                WidgetSpan(
+                                  alignment: PlaceholderAlignment.middle,
+                                  style: const TextStyle(height: 1.08),
+                                  child: Icon(
+                                    const IconData(
+                                      0xe70a,
+                                      fontFamily: 'Iconfont',
+                                    ),
+                                    color: const Color.fromARGB(
+                                        255, 58, 81, 124), // 图标颜色
+                                    size: 28.w, // 图标大小
+                                  ),
+                                ),
+                                WidgetSpan(
+                                  alignment: PlaceholderAlignment.middle,
+                                  child: SizedBox(width: 10.w), // 图标和文本之间的间距
+                                ),
+                                ...textSpans
+                              ]),
+                            ),
+                          ],
+                        ),
+                      )
+                    ]))
+              ],
+            ),
           ),
         ],
       ),

@@ -40,9 +40,9 @@ final RegExp emojiRegex = RegExp(
   r'[\u{2640}\u{2642}]', // 性别符号
   unicode: true,
 );
-List<TextSpan> buildTextSpans(
+List<InlineSpan> buildTextSpans(
     String text, TextStyle fontTextStyle, TextStyle iconTextStyle) {
-  List<TextSpan> spans = [];
+  List<InlineSpan> spans = [];
   final matches = emojiRegex.allMatches(text);
   int lastMatchEnd = 0;
 
@@ -52,6 +52,7 @@ List<TextSpan> buildTextSpans(
           fontSize: fontSizeScale(30.w),
           fontFamily: "AlibabaPuHuiTi")
       .merge(fontTextStyle);
+
   iconTextStyle = TextStyle(
           height: 1.08,
           color: Colors.black,
@@ -59,8 +60,8 @@ List<TextSpan> buildTextSpans(
           fontFamily: "NotoColorEmoji-Regular")
       .merge(iconTextStyle);
 
-  iconTextStyle =
-      iconTextStyle.merge(TextStyle(fontSize: iconTextStyle.fontSize! * 0.95));
+  // iconTextStyle =
+  //     iconTextStyle.merge(TextStyle(fontSize: iconTextStyle.fontSize! * 0.95));
 
   for (final match in matches) {
     // 添加前面的非emoji文本
@@ -72,11 +73,23 @@ List<TextSpan> buildTextSpans(
     }
     // 添加emoji
     spans.add(
-      TextSpan(
-        text: match.group(0),
-        style: iconTextStyle,
-      ),
-    );
+        // 为了居中emoji
+        WidgetSpan(
+            alignment: PlaceholderAlignment.middle,
+            child: Transform.translate(
+                offset: const Offset(0, 0),
+                child: SizedBox(
+                  width: fontTextStyle.fontSize!,
+                  height: fontTextStyle.height! * fontTextStyle.fontSize!,
+                  // color: Colors.red,
+                  child: Center(
+                    child: Text(
+                      match.group(0) as String,
+                      style: iconTextStyle,
+                    ),
+                  ),
+                ))));
+
     lastMatchEnd = match.end;
   }
 
