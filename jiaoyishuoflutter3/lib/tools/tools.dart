@@ -76,19 +76,17 @@ List<InlineSpan> buildTextSpans(
         // 为了居中emoji
         WidgetSpan(
             alignment: PlaceholderAlignment.middle,
-            child: Transform.translate(
-                offset: const Offset(0, 0),
-                child: SizedBox(
-                  width: fontTextStyle.fontSize!,
-                  height: fontTextStyle.height! * fontTextStyle.fontSize!,
-                  // color: Colors.red,
-                  child: Center(
-                    child: Text(
-                      match.group(0) as String,
-                      style: iconTextStyle,
-                    ),
-                  ),
-                ))));
+            child: Container(
+              width: fontTextStyle.height! * iconTextStyle.fontSize!,
+              height: fontTextStyle.height! * iconTextStyle.fontSize!,
+              // color: Colors.red,
+              child: Center(
+                child: Text(
+                  match.group(0) as String,
+                  style: iconTextStyle,
+                ),
+              ),
+            )));
 
     lastMatchEnd = match.end;
   }

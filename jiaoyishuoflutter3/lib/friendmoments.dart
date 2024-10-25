@@ -751,9 +751,10 @@ class _TweetWidget extends State<TweetWidget> {
                                       fontSize: fontSizeScale(33.w)),
                                   TextStyle(
                                       height: 1.4,
-                                      fontSize: fontSizeScale(26.w))),
+                                      fontSize: fontSizeScale(28.w))),
                             ),
                           ),
+
                           SizedBox(height: 10.w),
 
                           // 九宫格
