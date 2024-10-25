@@ -117,29 +117,85 @@ class _LJNInsPage extends State<LJNInsPage> {
     }
   }
 
-  bool isInsideBox = false;
-  final GlobalKey boxKey = GlobalKey();
+  final GlobalKey likeBtnKey = GlobalKey();
+  final GlobalKey shareBtnKey = GlobalKey();
+  final GlobalKey gotoHomeBtnKey = GlobalKey();
+
+  bool isInsideLikeBtn = false;
+  bool isInsideShareBtn = false;
+  bool isInsideHomeBtn = false;
+
   void checkIfInsideBox(Offset position) {
-    RenderBox? renderBox;
-    if (boxKey.currentContext != null) {
-      renderBox = boxKey.currentContext!.findRenderObject() as RenderBox?;
+    {
+      RenderBox? renderBox;
+      if (likeBtnKey.currentContext != null) {
+        renderBox = likeBtnKey.currentContext!.findRenderObject() as RenderBox?;
+      }
+
+      Rect? boxRect;
+      if (renderBox != null) {
+        // 获取盒子的实际边界
+        boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+      }
+
+      bool isInside = false;
+      if (boxRect != null) {
+        // 检查鼠标位置是否在盒子内
+        isInside = boxRect.contains(position);
+      }
+
+      setState(() {
+        isInsideLikeBtn = isInside;
+      });
     }
 
-    Rect? boxRect;
-    if (renderBox != null) {
-      // 获取盒子的实际边界
-      boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+    {
+      RenderBox? renderBox;
+      if (shareBtnKey.currentContext != null) {
+        renderBox =
+            shareBtnKey.currentContext!.findRenderObject() as RenderBox?;
+      }
+
+      Rect? boxRect;
+      if (renderBox != null) {
+        // 获取盒子的实际边界
+        boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+      }
+
+      bool isInside = false;
+      if (boxRect != null) {
+        // 检查鼠标位置是否在盒子内
+        isInside = boxRect.contains(position);
+      }
+
+      setState(() {
+        isInsideShareBtn = isInside;
+      });
     }
 
-    bool isInside = false;
-    if (boxRect != null) {
-      // 检查鼠标位置是否在盒子内
-      isInside = boxRect.contains(position);
-    }
+    {
+      RenderBox? renderBox;
+      if (gotoHomeBtnKey.currentContext != null) {
+        renderBox =
+            gotoHomeBtnKey.currentContext!.findRenderObject() as RenderBox?;
+      }
 
-    setState(() {
-      isInsideBox = isInside;
-    });
+      Rect? boxRect;
+      if (renderBox != null) {
+        // 获取盒子的实际边界
+        boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+      }
+
+      bool isInside = false;
+      if (boxRect != null) {
+        // 检查鼠标位置是否在盒子内
+        isInside = boxRect.contains(position);
+      }
+
+      setState(() {
+        isInsideHomeBtn = isInside;
+      });
+    }
   }
 
   // 大图可视
@@ -378,31 +434,87 @@ class _LJNInsPage extends State<LJNInsPage> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
                                           children: [
+                                            // 点赞按钮
                                             Container(
-                                              key: boxKey,
+                                              key: likeBtnKey,
                                               decoration: BoxDecoration(
-                                                color: isInsideBox
+                                                color: isInsideLikeBtn
                                                     ? const Color.fromARGB(
                                                         255, 240, 240, 240)
                                                     : const Color.fromARGB(
                                                         255, 210, 210, 210),
                                                 borderRadius:
-                                                    BorderRadius.circular(
-                                                        30.w), // 设置圆角为 12.w
+                                                    BorderRadius.circular(30.w),
                                               ),
                                               // 扩大点击区域
-                                              width: 135.w,
-                                              height: 135.w,
+                                              width: 110.w,
+                                              height: 110.w,
                                               child: Icon(
                                                 const IconData(
                                                   0xe722,
                                                   fontFamily: 'Iconfont',
                                                 ), // 使用的图标
-                                                color: isInsideBox
+                                                color: isInsideLikeBtn
                                                     ? Colors.red
                                                     : const Color.fromARGB(255,
                                                         110, 110, 110), // 图标颜色
-                                                size: 100.w, // 图标大小
+                                                size: 80.w, // 图标大小
+                                              ),
+                                            ),
+
+                                            // 分享按钮
+                                            Container(
+                                              key: shareBtnKey,
+                                              decoration: BoxDecoration(
+                                                color: isInsideShareBtn
+                                                    ? const Color.fromARGB(
+                                                        255, 240, 240, 240)
+                                                    : const Color.fromARGB(
+                                                        255, 210, 210, 210),
+                                                borderRadius:
+                                                    BorderRadius.circular(30.w),
+                                              ),
+                                              // 扩大点击区域
+                                              width: 110.w,
+                                              height: 110.w,
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe600,
+                                                  fontFamily: 'Iconfont',
+                                                ), // 使用的图标
+                                                color: isInsideShareBtn
+                                                    ? Colors.red
+                                                    : const Color.fromARGB(255,
+                                                        110, 110, 110), // 图标颜色
+                                                size: 80.w, // 图标大小
+                                              ),
+                                            ),
+
+                                            // 去主页按钮
+                                            Container(
+                                              key: gotoHomeBtnKey,
+                                              decoration: BoxDecoration(
+                                                color: isInsideHomeBtn
+                                                    ? const Color.fromARGB(
+                                                        255, 240, 240, 240)
+                                                    : const Color.fromARGB(
+                                                        255, 210, 210, 210),
+                                                borderRadius:
+                                                    BorderRadius.circular(30.w),
+                                              ),
+                                              // 扩大点击区域
+                                              width: 110.w,
+                                              height: 110.w,
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe672,
+                                                  fontFamily: 'Iconfont',
+                                                ), // 使用的图标
+                                                color: isInsideHomeBtn
+                                                    ? Colors.red
+                                                    : const Color.fromARGB(255,
+                                                        110, 110, 110), // 图标颜色
+                                                size: 80.w, // 图标大小
                                               ),
                                             )
                                           ],
