@@ -202,9 +202,11 @@ class _LJNInsPage extends State<LJNInsPage> {
   bool bigImgVisible = false;
   ImageInfo? bigImgInfo;
 
-  // 显示大图
+  // 显示大图窗口
   void showBigImg(ImageInfo? info, bool? show) {
+    // 显示盒子
     if (show != null && show == true) {
+      // 播放视频
       if (!info!.isPics && _bigimgcontroller.value.isInitialized) {
         _bigimgcontroller.seekTo(const Duration(seconds: 0));
         _bigimgcontroller.play();
@@ -215,10 +217,60 @@ class _LJNInsPage extends State<LJNInsPage> {
         bigImgInfo = info;
       });
     } else {
+      // 关闭盒子
       Future.delayed(const Duration(milliseconds: 0), () {
+        // 用户触发了点赞
+        if (isInsideLikeBtn) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('提示'),
+                content: const Text('用户点赞了'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('确定'),
+                  )
+                ],
+              );
+            },
+          );
+        }
+
+        // 用户触发了去首页
+        if (isInsideHomeBtn) {
+          Navigator.pushNamed(context, '/friendmoments');
+        }
+
+        // 用户触发了分享
+        if (isInsideShareBtn) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('提示'),
+                content: const Text('用户点赞了'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('确定'),
+                  )
+                ],
+              );
+            },
+          );
+        }
+
+        // 停止视频
         if (!info!.isPics && _bigimgcontroller.value.isInitialized) {
           _bigimgcontroller.pause();
         }
+
         setState(() {
           bigImgVisible = false; // 更新状态
           bigImgInfo = info; // 更新信息
@@ -1124,6 +1176,7 @@ class _LJNInsStyle extends State<LJNInsStyle> {
   }
 }
 
+// 自定义手势识别(较原来缩短了长按时间)
 class MyGestureDetector extends StatelessWidget {
   final Widget child;
   final VoidCallback? onTap;
