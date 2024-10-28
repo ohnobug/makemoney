@@ -58,22 +58,40 @@ class _LJNTestPage extends State<LJNTestPage> {
         pages.add(Container(
           width: double.infinity,
           height: double.infinity,
-          // color: Colors.primaries[pages.length % Colors.primaries.length],
-          color: Colors.black,
+          color: Colors.primaries[pages.length % Colors.primaries.length],
+          // color: Colors.black,
           child: Stack(
             children: [
-              // 视频
+              
               Container(
-                width: double.infinity, // 按屏幕宽度适配
-                child: FittedBox(
-                  fit: BoxFit.cover, // 按宽度覆盖，同时保持比例
-                  child: SizedBox(
-                    width: videoController.value.size.width,
-                    height: videoController.value.size.height,
-                    child: VideoPlayer(videoController),
-                  ),
-                ),
-              ),
+                  width: 750.w,
+                  height: 300.w,
+                  child: FittedBox(
+                    fit: BoxFit.cover, // 居中裁剪
+                    child: SizedBox(
+                      width: videoController.value.size.width,
+                      height: videoController.value.size.height,
+                      child: videoController.value.isInitialized
+                          ? AspectRatio(
+                              aspectRatio: videoController.value.aspectRatio,
+                              child: VideoPlayer(videoController),
+                            )
+                          : Container(),
+                    ),
+                  )),
+
+              // // 视频
+              // SizedBox(
+              //   width: double.infinity, // 按屏幕宽度适配
+              //   child: FittedBox(
+              //     fit: BoxFit.cover, // 按宽度覆盖，同时保持比例
+              //     child: SizedBox(
+              //       width: videoController.value.size.width,
+              //       height: videoController.value.size.height,
+              //       child: VideoPlayer(videoController),
+              //     ),
+              //   ),
+              // ),
 
               // 简介
               Positioned(
@@ -282,36 +300,38 @@ class _LJNTestPage extends State<LJNTestPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: null,
       body: Column(
         children: [
-          Expanded(
-              flex: 1,
-              child: SizedBox(
-                  width: double.infinity,
-                  child: PageView.builder(
-                    controller: _controller,
-                    scrollDirection: Axis.vertical,
-                    itemCount: pages.length,
-                    itemBuilder: (context, index) {
-                      return pages[index];
-                    },
-                    onPageChanged: (index) {
-                      // 暂停其他视频
-                      for (int i = 0; i < videoControllers.length; i++) {
-                        if (i != index) {
-                          videoControllers[i].pause();
-                        } else {
-                          videoControllers[i].play(); // 播放当前视频
-                        }
-                      }
-                    },
-                  ))),
+          SizedBox(
+              width: 750.w,
+              height: screenSize.height - 115.w,
+              child: PageView.builder(
+                controller: _controller,
+                scrollDirection: Axis.vertical,
+                itemCount: pages.length,
+                // itemCount: null,
+                itemBuilder: (context, index) {
+                  return pages[index];
+                },
+                onPageChanged: (index) {
+                  // 暂停其他视频
+                  for (int i = 0; i < videoControllers.length; i++) {
+                    if (i != index) {
+                      videoControllers[i].pause();
+                    } else {
+                      videoControllers[i].play(); // 播放当前视频
+                    }
+                  }
+                },
+              )),
 
           // 底部
           Container(
-            width: double.infinity,
+            width: screenSize.width,
             height: 115.w,
             color: const Color.fromARGB(255, 80, 80, 80),
             child: Row(

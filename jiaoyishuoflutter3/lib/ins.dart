@@ -252,7 +252,7 @@ class _LJNInsPage extends State<LJNInsPage> {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text('提示'),
-                content: const Text('用户点赞了'),
+                content: const Text('用户点分享了'),
                 actions: [
                   TextButton(
                     onPressed: () {
