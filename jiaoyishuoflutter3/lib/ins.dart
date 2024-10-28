@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -118,10 +119,12 @@ class _LJNInsPage extends State<LJNInsPage> {
   }
 
   final GlobalKey likeBtnKey = GlobalKey();
+  final GlobalKey x2BtnKey = GlobalKey();
   final GlobalKey shareBtnKey = GlobalKey();
   final GlobalKey gotoHomeBtnKey = GlobalKey();
 
   bool isInsideLikeBtn = false;
+  bool isInsideX2Btn = false;
   bool isInsideShareBtn = false;
   bool isInsideHomeBtn = false;
 
@@ -194,6 +197,35 @@ class _LJNInsPage extends State<LJNInsPage> {
 
       setState(() {
         isInsideHomeBtn = isInside;
+      });
+    }
+
+    {
+      RenderBox? renderBox;
+      if (x2BtnKey.currentContext != null) {
+        renderBox = x2BtnKey.currentContext!.findRenderObject() as RenderBox?;
+      }
+
+      Rect? boxRect;
+      if (renderBox != null) {
+        // 获取盒子的实际边界
+        boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+      }
+
+      bool isInside = false;
+      if (boxRect != null) {
+        // 检查鼠标位置是否在盒子内
+        isInside = boxRect.contains(position);
+      }
+
+      // 二倍速
+      setState(() {
+        isInsideX2Btn = isInside;
+        if (isInside) {
+          _bigimgcontroller.setPlaybackSpeed(2);
+        } else {
+          _bigimgcontroller.setPlaybackSpeed(1);
+        }
       });
     }
   }
@@ -300,11 +332,15 @@ class _LJNInsPage extends State<LJNInsPage> {
                 CustomScrollView(
                   primary: false,
                   controller: _scrollController,
+                  physics: const AlwaysScrollableScrollPhysics(
+                      parent: BouncingScrollPhysics()),
                   scrollDirection: Axis.vertical,
                   slivers: <Widget>[
                     // SliverAppBar
                     SliverAppBar(
                       primary: false,
+                      leading: null,
+                      automaticallyImplyLeading: false,
                       expandedHeight: _statusHeight + 100.0.w,
                       systemOverlayStyle: SystemUiOverlayStyle(
                           statusBarColor: Colors.transparent, // 设置状态栏透明
@@ -319,50 +355,70 @@ class _LJNInsPage extends State<LJNInsPage> {
                               horizontal: 16.w, vertical: 0.w),
                           margin: EdgeInsets.only(top: _statusHeight),
                           // color: const Color.fromARGB(255, 221, 76, 76), // 设置背景颜色
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
-                                  // color: Colors.blue,
-                                  margin:
-                                      EdgeInsets.symmetric(horizontal: 15.w),
-                                  height: 65.w,
-                                  child: TextField(
-                                    onTapOutside: (event) {
-                                      FocusScope.of(context).unfocus();
-                                    },
-                                    cursorHeight: 35.w,
-                                    cursorWidth: 3.w,
-                                    decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        const IconData(
-                                          0xe612,
-                                          fontFamily: 'Iconfont',
+                              GestureDetector(
+                                onTap: () =>
+                                    Navigator.of(context).pop(), // 点击事件
+                                child: Container(
+                                  // 加盒子是为了扩大点击区域
+                                  color: Colors.transparent,
+                                  child: Icon(
+                                    const IconData(
+                                      0xed9e,
+                                      fontFamily: 'Iconfont',
+                                    ), // 使用的图标
+                                    color: Colors.black, // 图标颜色
+                                    size: 36.w, // 图标大小
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                      // color: Colors.blue,
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 15.w),
+                                      height: 65.w,
+                                      child: TextField(
+                                        onTapOutside: (event) {
+                                          FocusScope.of(context).unfocus();
+                                        },
+                                        cursorHeight: 35.w,
+                                        cursorWidth: 3.w,
+                                        decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            const IconData(
+                                              0xe612,
+                                              fontFamily: 'Iconfont',
+                                            ),
+                                            color: Colors.black,
+                                            size: 40.w,
+                                          ),
+                                          prefixIconConstraints: BoxConstraints(
+                                            minWidth: 70.w, // 控制图标与文字的最小宽度
+                                            // minHeight: 36.w,
+                                          ),
+                                          hintText: "搜索",
+                                          hintStyle: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 30.w,
+                                              color: const Color.fromARGB(
+                                                  255, 69, 75, 83)),
+                                          filled: true,
+                                          fillColor: const Color.fromARGB(
+                                              255, 217, 220, 224),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 8.0.w,
+                                              horizontal: 20.0.w),
                                         ),
-                                        color: Colors.black,
-                                        size: 40.w,
-                                      ),
-                                      prefixIconConstraints: BoxConstraints(
-                                        minWidth: 70.w, // 控制图标与文字的最小宽度
-                                        // minHeight: 36.w,
-                                      ),
-                                      hintText: "搜索",
-                                      hintStyle: TextStyle(
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 30.w,
-                                          color: const Color.fromARGB(
-                                              255, 69, 75, 83)),
-                                      filled: true,
-                                      fillColor: const Color.fromARGB(
-                                          255, 217, 220, 224),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: 8.0.w, horizontal: 20.0.w),
-                                    ),
-                                  )),
+                                      ))),
                             ],
                           ),
                         ),
@@ -507,6 +563,34 @@ class _LJNInsPage extends State<LJNInsPage> {
                                                   fontFamily: 'Iconfont',
                                                 ), // 使用的图标
                                                 color: isInsideLikeBtn
+                                                    ? Colors.red
+                                                    : const Color.fromARGB(255,
+                                                        110, 110, 110), // 图标颜色
+                                                size: 80.w, // 图标大小
+                                              ),
+                                            ),
+
+                                            // 二倍速
+                                            Container(
+                                              key: x2BtnKey,
+                                              decoration: BoxDecoration(
+                                                color: isInsideX2Btn
+                                                    ? const Color.fromARGB(
+                                                        255, 240, 240, 240)
+                                                    : const Color.fromARGB(
+                                                        255, 210, 210, 210),
+                                                borderRadius:
+                                                    BorderRadius.circular(30.w),
+                                              ),
+                                              // 扩大点击区域
+                                              width: 110.w,
+                                              height: 110.w,
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe600,
+                                                  fontFamily: 'Iconfont',
+                                                ), // 使用的图标
+                                                color: isInsideX2Btn
                                                     ? Colors.red
                                                     : const Color.fromARGB(255,
                                                         110, 110, 110), // 图标颜色
@@ -852,56 +936,43 @@ class VideoBox2 extends StatefulWidget {
 }
 
 class _VideoBox2 extends State<VideoBox2> {
-  late VideoPlayerController _controller;
-
-  Future<void> initializePlayer() async {}
-
-  // 监听 scrollPixels 的变化，类似于 useEffect 的效果
-  @override
-  void didUpdateWidget(VideoBox2 oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    // 检查 scrollPixels 是否发生变化
-    if (oldWidget.canPlay != widget.canPlay) {
-      if (widget.canPlay) {
-        _controller.play();
-      } else {
-        _controller.pause();
-      }
-    }
-  }
+  late final VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
-
-    // _videoPlayerController = VlcPlayerController.asset(
-    //   assetPath('images/ins/video.mp4'),
-    //   hwAcc: HwAcc.auto,
-    //   autoPlay: true,
-    //   options: VlcPlayerOptions(),
-    // );
-
     _controller = VideoPlayerController.asset(
-      assetPath('images/ins/video.mp4'),
+      assetPath(widget.videoPath),
       videoPlayerOptions: VideoPlayerOptions(
-        mixWithOthers: true,
-        allowBackgroundPlayback: false,
-      ),
+          mixWithOthers: true, allowBackgroundPlayback: false),
     )..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
+        setState(() {
+          _controller.setVolume(0);
+          _controller.setLooping(true);
+          _controller.play();
+        });
       });
-
-    _controller.setLooping(true);
-    _controller.setVolume(0);
-    _controller.pause();
   }
 
   @override
-  void dispose() async {
+  void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(VideoBox2 oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.canPlay != widget.canPlay) {
+      if (_controller.value.isInitialized) {
+        if (widget.canPlay) {
+          _controller.play();
+        } else {
+          _controller.pause();
+        }
+      }
+    }
   }
 
   @override
@@ -934,17 +1005,27 @@ class _VideoBox2 extends State<VideoBox2> {
       },
       child: Stack(
         children: [
-          Container(
-            width: (MediaQuery.of(context).size.width - 2.w) / 3,
-            height: 500.w,
-            color: const Color.fromARGB(255, 247, 247, 247),
-            child: _controller.value.isInitialized
-                ? AspectRatio(
-                    aspectRatio: _controller.value.aspectRatio,
-                    child: VideoPlayer(_controller),
-                  )
-                : Container(),
-          ),
+          SizedBox(
+              width: (MediaQuery.of(context).size.width - 2.w) / 3,
+              height: 500.w,
+              child: _controller.value.isInitialized
+                  ? FittedBox(
+                      clipBehavior: Clip.hardEdge,
+                      fit: BoxFit.cover, // 居中裁剪
+                      child: SizedBox(
+                          width: _controller.value.size.width,
+                          height: _controller.value.size.height,
+                          child: AspectRatio(
+                            aspectRatio: _controller.value.aspectRatio,
+                            child: VideoPlayer(_controller),
+                          )),
+                    )
+                  : Container(
+                      width: (MediaQuery.of(context).size.width - 2.w) / 3,
+                      height: 500.w,
+                      color: Colors.black87
+                      // child: const LJNPageLoading()
+                      )),
           Positioned(
             top: 15.w,
             left: 200.w,
@@ -954,7 +1035,7 @@ class _VideoBox2 extends State<VideoBox2> {
                 0xe61d,
                 fontFamily: 'Iconfont',
               ),
-              size: 32.w, // 图标大小
+              size: 32.w,
             ),
           )
         ],
@@ -1015,8 +1096,8 @@ class _LJNInsStyle extends State<LJNInsStyle> {
         myPosition = position;
 
         // 当前盒子小于屏幕一半,即可播放
-        if ((position.dy < (MediaQuery.of(context).size.height - 500.w)) &&
-            (position.dy > 20.w)) {
+        if ((position.dy < (MediaQuery.of(context).size.height - 500.w * 1)) &&
+            (position.dy > -(500.w * 1 / 3))) {
           canPlay = true;
         } else {
           canPlay = false;
@@ -1060,7 +1141,7 @@ class _LJNInsStyle extends State<LJNInsStyle> {
             },
           )
         : VideoBox2(
-            videoPath: '',
+            videoPath: 'images/ins/video.mp4',
             canPlay: canPlay,
             onLongPress: () {
               widget.showBigImg(widget.imageList[0], true);
@@ -1235,3 +1316,59 @@ class MyGestureDetector extends StatelessWidget {
     );
   }
 }
+
+// class VideoControllerProvider with ChangeNotifier {
+//   final List<VideoPlayerController> _freeControllers = [];
+//   int _controllerCount = 0;
+
+//   VideoPlayerController? obtainController(String videoPath) {
+//     if (videoPath == "") return null;
+
+//     if (_freeControllers.isNotEmpty) {
+//       final controller = _freeControllers.removeAt(0);
+//       if (!controller.value.isInitialized) {
+//         controller.initialize().then((_) {
+//           notifyListeners();
+//         });
+//       }
+//       return controller;
+//     } else if (_controllerCount < 3) {
+//       final controller = VideoPlayerController.asset(
+//         videoPath,
+//         videoPlayerOptions: VideoPlayerOptions(
+//             mixWithOthers: true, allowBackgroundPlayback: false),
+//       )..initialize().then((_) {
+//           notifyListeners();
+//         });
+
+//       _controllerCount++;
+//       return controller;
+//     } else {
+//       // No free controllers and reached max limit
+//       return null;
+//     }
+//   }
+
+//   void releaseController(VideoPlayerController controller) {
+//     if (!_freeControllers.contains(controller)) {
+//       _freeControllers.add(controller);
+//     }
+//     _controllerCount--;
+//     notifyListeners();
+//   }
+
+//   void removeAllControllers() {
+//     for (final controller in _freeControllers) {
+//       controller.dispose();
+//     }
+//     _freeControllers.clear();
+//     _controllerCount = 0;
+//     notifyListeners();
+//   }
+
+//   @override
+//   void dispose() {
+//     removeAllControllers();
+//     super.dispose();
+//   }
+// }

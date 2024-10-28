@@ -76,7 +76,7 @@ List<InlineSpan> buildTextSpans(
         // 为了居中emoji
         WidgetSpan(
             alignment: PlaceholderAlignment.middle,
-            child: Container(
+            child: SizedBox(
               width: fontTextStyle.height! * iconTextStyle.fontSize!,
               height: fontTextStyle.height! * iconTextStyle.fontSize!,
               // color: Colors.red,
