@@ -115,7 +115,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "直播",
                     icon: "images/icon/discovery_icon3.png",
-                    link: '',
+                    link: '/tiktik',
                     underline: false,
                     showStyle: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
