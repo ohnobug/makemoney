@@ -11,21 +11,27 @@ class LJNTestPage extends StatefulWidget {
 }
 
 class _LJNTestPage extends State<LJNTestPage> {
-  final PageController _controller = PageController();
+  final PageController _pageController = PageController();
   List<Widget> pages = [];
   List<VideoPlayerController> videoControllers = []; // 视频控制器列表
+  Size screenSize = const Size(0, 0);
 
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      screenSize = MediaQuery.of(context).size;
+    });
+
     addPage(); // 添加首页
     addPage(); // 添加第二页
 
     // 监听 PageController 的滚动
-    _controller.addListener(() {
+    _pageController.addListener(() {
       // 检查当前滚动位置是否接近最后一页
-      if (_controller.position.pixels >=
-          _controller.position.maxScrollExtent - 100) {
+      if (_pageController.position.pixels >=
+          _pageController.position.maxScrollExtent - 100) {
         addPage(); // 添加新页面
       }
     });
@@ -37,7 +43,7 @@ class _LJNTestPage extends State<LJNTestPage> {
     for (var controller in videoControllers) {
       controller.dispose();
     }
-    _controller.dispose(); // 清理控制器
+    _pageController.dispose(); // 清理控制器
     super.dispose();
   }
 
@@ -58,14 +64,13 @@ class _LJNTestPage extends State<LJNTestPage> {
         pages.add(Container(
           width: double.infinity,
           height: double.infinity,
-          color: Colors.primaries[pages.length % Colors.primaries.length],
-          // color: Colors.black,
+          // color: Colors.primaries[pages.length % Colors.primaries.length],
+          color: Colors.black,
           child: Stack(
             children: [
-              
-              Container(
+              SizedBox(
                   width: 750.w,
-                  height: 300.w,
+                  height: screenSize.height - 115.w,
                   child: FittedBox(
                     fit: BoxFit.cover, // 居中裁剪
                     child: SizedBox(
@@ -310,7 +315,7 @@ class _LJNTestPage extends State<LJNTestPage> {
               width: 750.w,
               height: screenSize.height - 115.w,
               child: PageView.builder(
-                controller: _controller,
+                controller: _pageController,
                 scrollDirection: Axis.vertical,
                 itemCount: pages.length,
                 // itemCount: null,
