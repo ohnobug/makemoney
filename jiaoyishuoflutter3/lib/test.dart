@@ -24,17 +24,20 @@ class _LJNTestPage extends State<LJNTestPage> {
       screenSize = MediaQuery.of(context).size;
     });
 
-    addPage(); // 添加首页
-    addPage(); // 添加第二页
+    for (var i = 0; i < 100; i++) {
+      addPage(); // 添加首页
+    }
 
-    // 监听 PageController 的滚动
-    _pageController.addListener(() {
-      // 检查当前滚动位置是否接近最后一页
-      if (_pageController.position.pixels >=
-          _pageController.position.maxScrollExtent - 100) {
-        addPage(); // 添加新页面
-      }
-    });
+    // addPage(); // 添加第二页
+
+    // // 监听 PageController 的滚动
+    // _pageController.addListener(() {
+    //   // 检查当前滚动位置是否接近最后一页
+    //   if (_pageController.position.pixels >=
+    //       _pageController.position.maxScrollExtent - 100) {
+    //     addPage(); // 添加新页面
+    //   }
+    // });
   }
 
   @override
