@@ -196,11 +196,11 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                             "images/miniprogram_icon/zhihuixiangji.jpg",
                                         title: "智慧相机",
                                         onPressed: () {}),
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/wangwangshangliao.jpg",
-                                        title: "旺旺商聊",
-                                        onPressed: () {}),
+                                    // FunctionButton(
+                                    //     icon:
+                                    //         "images/miniprogram_icon/wangwangshangliao.jpg",
+                                    //     title: "旺旺商聊",
+                                    //     onPressed: () {}),
                                     FunctionButton(
                                         icon:
                                             "images/miniprogram_icon/haimianbaobao.jpg",
@@ -423,7 +423,7 @@ class FunctionButtonsSection extends StatelessWidget {
                           );
                         },
                         child: Container(
-                          height: 90.w,
+                          // height: 90.w,
                           color: Colors.transparent,
                           padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
                           child: Icon(
@@ -517,8 +517,8 @@ class _FunctionListSection extends State<FunctionListSection> {
                           );
                         },
                         child: Container(
-                          height: 90.w,
-                          color: Colors.transparent,
+                          // height: 90.w,
+                          color: const Color.fromARGB(0, 0, 0, 0),
                           padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
                           child: Icon(
                             const IconData(
