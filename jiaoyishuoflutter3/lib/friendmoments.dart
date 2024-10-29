@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -245,10 +246,13 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
 
   void hideLikeBox() {
     setState(() {
-      _likeController.stop();
-      _likeController.reset();
-      lastedMoreButtonPosition = const Offset(-1000, -1000);
-      likeBoxVisible = false;
+      // _likeController.stop();
+      _likeController.reverse();
+
+      Timer(const Duration(milliseconds: 100), () {
+        lastedMoreButtonPosition = const Offset(-1000, -1000);
+        likeBoxVisible = false;
+      });
     });
   }
 
