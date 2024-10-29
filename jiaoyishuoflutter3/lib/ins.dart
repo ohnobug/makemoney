@@ -121,6 +121,7 @@ class _LJNInsPage extends State<LJNInsPage> {
 
   final GlobalKey likeBtnKey = GlobalKey();
   final GlobalKey xSpeedBtnKey = GlobalKey();
+  final GlobalKey downloadBtnKey = GlobalKey();
   final GlobalKey x1BtnKey = GlobalKey();
   final GlobalKey x2BtnKey = GlobalKey();
   final GlobalKey x3BtnKey = GlobalKey();
@@ -132,6 +133,7 @@ class _LJNInsPage extends State<LJNInsPage> {
   bool isInsideX1Btn = false;
   bool isInsideX2Btn = false;
   bool isInsideX3Btn = false;
+  bool isInsideDownloadBtn = false;
   bool isInsideShareBtn = false;
   bool isInsideHomeBtn = false;
 
@@ -235,6 +237,32 @@ class _LJNInsPage extends State<LJNInsPage> {
       });
     }
 
+    // 下载
+    {
+      RenderBox? renderBox;
+      if (downloadBtnKey.currentContext != null) {
+        renderBox =
+            downloadBtnKey.currentContext!.findRenderObject() as RenderBox?;
+      }
+
+      Rect? boxRect;
+      if (renderBox != null) {
+        // 获取盒子的实际边界
+        boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+      }
+
+      bool isInside = false;
+      if (boxRect != null) {
+        // 检查鼠标位置是否在盒子内
+        isInside = boxRect.contains(position);
+      }
+
+      setState(() {
+        isInsideDownloadBtn = isInside;
+      });
+    }
+
+    // 速度
     if (isInsideXSpeedBtn == true) {
       // 正常倍速
       {
@@ -381,6 +409,26 @@ class _LJNInsPage extends State<LJNInsPage> {
               return AlertDialog(
                 title: const Text('提示'),
                 content: const Text('用户点分享了'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('确定'),
+                  )
+                ],
+              );
+            },
+          );
+        }
+
+        if (isInsideDownloadBtn) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('提示'),
+                content: const Text('用户点下载了'),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -666,7 +714,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                                               ),
                                             ),
 
-                                            // 倍数
+                                            // 倍速
                                             ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(30.w),
@@ -701,15 +749,23 @@ class _LJNInsPage extends State<LJNInsPage> {
                                                                       .infinity,
                                                                   key: x1BtnKey,
                                                                   color: isInsideX1Btn
-                                                                      ? Colors
-                                                                          .red
+                                                                      ? const Color
+                                                                          .fromARGB(
+                                                                          255,
+                                                                          210,
+                                                                          210,
+                                                                          210)
                                                                       : Colors
-                                                                          .amber,
+                                                                          .red,
                                                                   child: Center(
                                                                       child:
                                                                           Text(
                                                                     "x1",
                                                                     style: TextStyle(
+                                                                        height:
+                                                                            1,
+                                                                        fontFamily:
+                                                                            "AlibabaPuHuiTi-Medium",
                                                                         fontSize:
                                                                             24.w),
                                                                   ))),
@@ -730,6 +786,10 @@ class _LJNInsPage extends State<LJNInsPage> {
                                                                           Text(
                                                                     "x2",
                                                                     style: TextStyle(
+                                                                        height:
+                                                                            1,
+                                                                        fontFamily:
+                                                                            "AlibabaPuHuiTi-Medium",
                                                                         fontSize:
                                                                             24.w),
                                                                   ))),
@@ -750,6 +810,10 @@ class _LJNInsPage extends State<LJNInsPage> {
                                                                           Text(
                                                                     "x3",
                                                                     style: TextStyle(
+                                                                        height:
+                                                                            1,
+                                                                        fontFamily:
+                                                                            "AlibabaPuHuiTi-Medium",
                                                                         fontSize:
                                                                             24.w),
                                                                   ))),
@@ -758,7 +822,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                                                         )
                                                       : Icon(
                                                           const IconData(
-                                                            0xe600,
+                                                            0xea7c,
                                                             fontFamily:
                                                                 'Iconfont',
                                                           ), // 使用的图标
@@ -791,10 +855,38 @@ class _LJNInsPage extends State<LJNInsPage> {
                                               height: 110.w,
                                               child: Icon(
                                                 const IconData(
-                                                  0xe600,
+                                                  0xe6c7,
                                                   fontFamily: 'Iconfont',
                                                 ), // 使用的图标
                                                 color: isInsideShareBtn
+                                                    ? Colors.red
+                                                    : const Color.fromARGB(255,
+                                                        110, 110, 110), // 图标颜色
+                                                size: 80.w, // 图标大小
+                                              ),
+                                            ),
+
+                                            // 下载按钮
+                                            Container(
+                                              key: downloadBtnKey,
+                                              decoration: BoxDecoration(
+                                                color: isInsideDownloadBtn
+                                                    ? const Color.fromARGB(
+                                                        255, 240, 240, 240)
+                                                    : const Color.fromARGB(
+                                                        255, 210, 210, 210),
+                                                borderRadius:
+                                                    BorderRadius.circular(30.w),
+                                              ),
+                                              // 扩大点击区域
+                                              width: 110.w,
+                                              height: 110.w,
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe683,
+                                                  fontFamily: 'Iconfont',
+                                                ), // 使用的图标
+                                                color: isInsideDownloadBtn
                                                     ? Colors.red
                                                     : const Color.fromARGB(255,
                                                         110, 110, 110), // 图标颜色
@@ -819,7 +911,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                                               height: 110.w,
                                               child: Icon(
                                                 const IconData(
-                                                  0xe672,
+                                                  0xe62b,
                                                   fontFamily: 'Iconfont',
                                                 ), // 使用的图标
                                                 color: isInsideHomeBtn
