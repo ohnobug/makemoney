@@ -127,7 +127,9 @@ class _LJNInsPage extends State<LJNInsPage> {
   final GlobalKey x3BtnKey = GlobalKey();
   final GlobalKey shareBtnKey = GlobalKey();
   final GlobalKey gotoHomeBtnKey = GlobalKey();
+  final GlobalKey collectBtnKey = GlobalKey();
 
+  bool isInsideCollectBtn = false;
   bool isInsideLikeBtn = false;
   bool isInsideXSpeedBtn = false;
   bool isInsideX1Btn = false;
@@ -212,31 +214,6 @@ class _LJNInsPage extends State<LJNInsPage> {
       });
     }
 
-    // 倍速
-    {
-      RenderBox? renderBox;
-      if (xSpeedBtnKey.currentContext != null) {
-        renderBox =
-            xSpeedBtnKey.currentContext!.findRenderObject() as RenderBox?;
-      }
-
-      Rect? boxRect;
-      if (renderBox != null) {
-        // 获取盒子的实际边界
-        boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
-      }
-
-      bool isInside = false;
-      if (boxRect != null) {
-        // 检查鼠标位置是否在盒子内
-        isInside = boxRect.contains(position);
-      }
-
-      setState(() {
-        isInsideXSpeedBtn = isInside;
-      });
-    }
-
     // 下载
     {
       RenderBox? renderBox;
@@ -262,95 +239,153 @@ class _LJNInsPage extends State<LJNInsPage> {
       });
     }
 
-    // 速度
-    if (isInsideXSpeedBtn == true) {
+    // 收藏
+    {
+      RenderBox? renderBox;
+      if (collectBtnKey.currentContext != null) {
+        renderBox =
+            collectBtnKey.currentContext!.findRenderObject() as RenderBox?;
+      }
+
+      Rect? boxRect;
+      if (renderBox != null) {
+        // 获取盒子的实际边界
+        boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+      }
+
+      bool isInside = false;
+      if (boxRect != null) {
+        // 检查鼠标位置是否在盒子内
+        isInside = boxRect.contains(position);
+      }
+
+      setState(() {
+        isInsideCollectBtn = isInside;
+      });
+    }
+
+    // 倍速
+    {
+      RenderBox? renderBox;
+      if (xSpeedBtnKey.currentContext != null) {
+        renderBox =
+            xSpeedBtnKey.currentContext!.findRenderObject() as RenderBox?;
+      }
+
+      Rect? boxRect;
+      if (renderBox != null) {
+        // 获取盒子的实际边界
+        boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+      }
+
+      bool isInside = false;
+      if (boxRect != null) {
+        // 检查鼠标位置是否在盒子内
+        isInside = boxRect.contains(position);
+      }
+
+      setState(() {
+        isInsideXSpeedBtn = isInside;
+
+        if (isInsideX1Btn || isInsideX2Btn || isInsideX3Btn) {
+          isInsideXSpeedBtn = true;
+        }
+
+        // if (isInside == false) {
+        //   _bigimgcontroller.setPlaybackSpeed(1);
+        // }
+      });
+    }
+
+    // 正常倍速
+    {
+      RenderBox? renderBox;
+      if (x1BtnKey.currentContext != null) {
+        renderBox = x1BtnKey.currentContext!.findRenderObject() as RenderBox?;
+      }
+
+      Rect? boxRect;
+      if (renderBox != null) {
+        // 获取盒子的实际边界
+        boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+      }
+
+      bool isInside = false;
+      if (boxRect != null) {
+        // 检查鼠标位置是否在盒子内
+        isInside = boxRect.contains(position);
+      }
+
       // 正常倍速
-      {
-        RenderBox? renderBox;
-        if (x1BtnKey.currentContext != null) {
-          renderBox = x1BtnKey.currentContext!.findRenderObject() as RenderBox?;
-        }
+      setState(() {
+        isInsideX1Btn = isInside;
 
-        Rect? boxRect;
-        if (renderBox != null) {
-          // 获取盒子的实际边界
-          boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+        if (isInside) {
+          _bigimgcontroller.setPlaybackSpeed(1);
         }
+      });
+    }
 
-        bool isInside = false;
-        if (boxRect != null) {
-          // 检查鼠标位置是否在盒子内
-          isInside = boxRect.contains(position);
-        }
+    // 二倍速
+    {
+      RenderBox? renderBox;
+      if (x2BtnKey.currentContext != null) {
+        renderBox = x2BtnKey.currentContext!.findRenderObject() as RenderBox?;
+      }
 
-        // 正常倍速
-        setState(() {
-          isInsideX1Btn = isInside;
-          if (isInside) {
-            _bigimgcontroller.setPlaybackSpeed(1);
-          }
-        });
+      Rect? boxRect;
+      if (renderBox != null) {
+        // 获取盒子的实际边界
+        boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+      }
+
+      bool isInside = false;
+      if (boxRect != null) {
+        // 检查鼠标位置是否在盒子内
+        isInside = boxRect.contains(position);
       }
 
       // 二倍速
-      {
-        RenderBox? renderBox;
-        if (x2BtnKey.currentContext != null) {
-          renderBox = x2BtnKey.currentContext!.findRenderObject() as RenderBox?;
-        }
+      setState(() {
+        isInsideX2Btn = isInside;
 
-        Rect? boxRect;
-        if (renderBox != null) {
-          // 获取盒子的实际边界
-          boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+        if (isInside) {
+          _bigimgcontroller.setPlaybackSpeed(2);
+        } else {
+          _bigimgcontroller.setPlaybackSpeed(1);
         }
+      });
+    }
 
-        bool isInside = false;
-        if (boxRect != null) {
-          // 检查鼠标位置是否在盒子内
-          isInside = boxRect.contains(position);
-        }
+    // 三倍速
+    {
+      RenderBox? renderBox;
+      if (x3BtnKey.currentContext != null) {
+        renderBox = x3BtnKey.currentContext!.findRenderObject() as RenderBox?;
+      }
 
-        // 二倍速
-        setState(() {
-          isInsideX2Btn = isInside;
-          if (isInside) {
-            _bigimgcontroller.setPlaybackSpeed(2);
-          } else {
-            _bigimgcontroller.setPlaybackSpeed(1);
-          }
-        });
+      Rect? boxRect;
+      if (renderBox != null) {
+        // 获取盒子的实际边界
+        boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+      }
+
+      bool isInside = false;
+      if (boxRect != null) {
+        // 检查鼠标位置是否在盒子内
+        isInside = boxRect.contains(position);
       }
 
       // 三倍速
-      {
-        RenderBox? renderBox;
-        if (x3BtnKey.currentContext != null) {
-          renderBox = x3BtnKey.currentContext!.findRenderObject() as RenderBox?;
-        }
+      setState(() {
+        isInsideX3Btn = isInside;
 
-        Rect? boxRect;
-        if (renderBox != null) {
-          // 获取盒子的实际边界
-          boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+        if (isInside) {
+          _bigimgcontroller.setPlaybackSpeed(3);
+        } else {
+          _bigimgcontroller.setPlaybackSpeed(1);
         }
-
-        bool isInside = false;
-        if (boxRect != null) {
-          // 检查鼠标位置是否在盒子内
-          isInside = boxRect.contains(position);
-        }
-
-        // 二倍速
-        setState(() {
-          isInsideX3Btn = isInside;
-          if (isInside) {
-            _bigimgcontroller.setPlaybackSpeed(3);
-          } else {
-            _bigimgcontroller.setPlaybackSpeed(1);
-          }
-        });
-      }
+      });
     }
   }
 
@@ -422,6 +457,7 @@ class _LJNInsPage extends State<LJNInsPage> {
           );
         }
 
+        // 下载按钮
         if (isInsideDownloadBtn) {
           showDialog(
             context: context,
@@ -429,6 +465,27 @@ class _LJNInsPage extends State<LJNInsPage> {
               return AlertDialog(
                 title: const Text('提示'),
                 content: const Text('用户点下载了'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('确定'),
+                  )
+                ],
+              );
+            },
+          );
+        }
+
+        // 收藏按钮
+        if (isInsideCollectBtn) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('提示'),
+                content: const Text('用户点收藏了'),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -450,10 +507,22 @@ class _LJNInsPage extends State<LJNInsPage> {
         setState(() {
           bigImgVisible = false; // 更新状态
           bigImgInfo = info; // 更新信息
+
+          isInsideCollectBtn = false;
+          isInsideLikeBtn = false;
+          isInsideXSpeedBtn = false;
+          isInsideX1Btn = false;
+          isInsideX2Btn = false;
+          isInsideX3Btn = false;
+          isInsideDownloadBtn = false;
+          isInsideShareBtn = false;
+          isInsideHomeBtn = false;
         });
       });
     }
   }
+
+  final random = Random();
 
   @override
   Widget build(BuildContext context) {
@@ -463,6 +532,37 @@ class _LJNInsPage extends State<LJNInsPage> {
       _statusHeight = 0;
     } else {
       _statusHeight = MediaQuery.of(context).padding.top;
+    }
+
+    Offset xSpeedSelectorPosition = const Offset(0, 0);
+    if (xSpeedBtnKey.currentContext != null) {
+      final RenderBox renderBox =
+          xSpeedBtnKey.currentContext!.findRenderObject() as RenderBox;
+      xSpeedSelectorPosition = renderBox.localToGlobal(Offset.zero);
+    }
+
+    Widget statusWidget = Container();
+    if (isInsideX2Btn) {
+      statusWidget =
+          Text("2倍速", style: TextStyle(fontSize: 26.w, color: Colors.white));
+    } else if (isInsideX3Btn) {
+      statusWidget =
+          Text("3倍速", style: TextStyle(fontSize: 26.w, color: Colors.white));
+    } else if (isInsideLikeBtn) {
+      statusWidget =
+          Text("点赞", style: TextStyle(fontSize: 26.w, color: Colors.white));
+    } else if (isInsideCollectBtn) {
+      statusWidget =
+          Text("收藏", style: TextStyle(fontSize: 26.w, color: Colors.white));
+    } else if (isInsideDownloadBtn) {
+      statusWidget =
+          Text("下载", style: TextStyle(fontSize: 26.w, color: Colors.white));
+    } else if (isInsideShareBtn) {
+      statusWidget =
+          Text("分享", style: TextStyle(fontSize: 26.w, color: Colors.white));
+    } else if (isInsideHomeBtn) {
+      statusWidget =
+          Text("查看首页", style: TextStyle(fontSize: 26.w, color: Colors.white));
     }
 
     return StoreConnector<StoreType, StoreType>(
@@ -574,34 +674,13 @@ class _LJNInsPage extends State<LJNInsPage> {
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
-                          if ((index + 1) % 3 == 1) {
-                            // 样式1
-                            return LJNInsStyle(
-                              checkIfInsideBox: checkIfInsideBox,
-                              showBigImg: showBigImg,
-                              scrollPixels: scrollPixels,
-                              imageList: mylist[index],
-                              bigImgPosition: 1,
-                            );
-                          } else if ((index + 1) % 3 == 2) {
-                            // 样式2
-                            return LJNInsStyle(
-                              checkIfInsideBox: checkIfInsideBox,
-                              showBigImg: showBigImg,
-                              scrollPixels: scrollPixels,
-                              imageList: mylist[index],
-                              bigImgPosition: 2,
-                            );
-                          } else {
-                            // 样式3
-                            return LJNInsStyle(
-                              checkIfInsideBox: checkIfInsideBox,
-                              showBigImg: showBigImg,
-                              scrollPixels: scrollPixels,
-                              imageList: mylist[index],
-                              bigImgPosition: 3,
-                            );
-                          }
+                          return LJNInsStyle(
+                            checkIfInsideBox: checkIfInsideBox,
+                            showBigImg: showBigImg,
+                            scrollPixels: scrollPixels,
+                            imageList: mylist[index],
+                            bigImgPosition: 1 + random.nextInt(3),
+                          );
                         },
                         childCount: mylist.length, // 这里替换为你的列表长度
                       ),
@@ -680,7 +759,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                                                 ))),
 
                                         SizedBox(
-                                          height: 10.w,
+                                          height: 5.w,
                                         ),
                                         Row(
                                           mainAxisAlignment:
@@ -715,134 +794,49 @@ class _LJNInsPage extends State<LJNInsPage> {
                                             ),
 
                                             // 倍速
-                                            ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(30.w),
-                                                child: Container(
-                                                  key: xSpeedBtnKey,
-                                                  decoration: BoxDecoration(
-                                                    color: isInsideXSpeedBtn
-                                                        ? const Color.fromARGB(
-                                                            255, 240, 240, 240)
-                                                        : const Color.fromARGB(
-                                                            255, 210, 210, 210),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            30.w),
-                                                  ),
-                                                  // 扩大点击区域
-                                                  width: 110.w,
-                                                  height: 110.w,
-                                                  child: isInsideXSpeedBtn
-                                                      ? Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: [
-                                                            Expanded(
-                                                              flex: 1,
-                                                              child: Container(
-                                                                  width: double
-                                                                      .infinity,
-                                                                  key: x1BtnKey,
-                                                                  color: isInsideX1Btn
-                                                                      ? const Color
-                                                                          .fromARGB(
-                                                                          255,
-                                                                          210,
-                                                                          210,
-                                                                          210)
-                                                                      : Colors
-                                                                          .red,
-                                                                  child: Center(
-                                                                      child:
-                                                                          Text(
-                                                                    "x1",
-                                                                    style: TextStyle(
-                                                                        height:
-                                                                            1,
-                                                                        fontFamily:
-                                                                            "AlibabaPuHuiTi-Medium",
-                                                                        fontSize:
-                                                                            24.w),
-                                                                  ))),
-                                                            ),
-                                                            Expanded(
-                                                              flex: 1,
-                                                              child: Container(
-                                                                  width: double
-                                                                      .infinity,
-                                                                  key: x2BtnKey,
-                                                                  color: isInsideX2Btn
-                                                                      ? Colors
-                                                                          .red
-                                                                      : Colors
-                                                                          .amber,
-                                                                  child: Center(
-                                                                      child:
-                                                                          Text(
-                                                                    "x2",
-                                                                    style: TextStyle(
-                                                                        height:
-                                                                            1,
-                                                                        fontFamily:
-                                                                            "AlibabaPuHuiTi-Medium",
-                                                                        fontSize:
-                                                                            24.w),
-                                                                  ))),
-                                                            ),
-                                                            Expanded(
-                                                              flex: 1,
-                                                              child: Container(
-                                                                  width: double
-                                                                      .infinity,
-                                                                  key: x3BtnKey,
-                                                                  color: isInsideX3Btn
-                                                                      ? Colors
-                                                                          .red
-                                                                      : Colors
-                                                                          .amber,
-                                                                  child: Center(
-                                                                      child:
-                                                                          Text(
-                                                                    "x3",
-                                                                    style: TextStyle(
-                                                                        height:
-                                                                            1,
-                                                                        fontFamily:
-                                                                            "AlibabaPuHuiTi-Medium",
-                                                                        fontSize:
-                                                                            24.w),
-                                                                  ))),
-                                                            )
-                                                          ],
-                                                        )
-                                                      : Icon(
-                                                          const IconData(
-                                                            0xea7c,
-                                                            fontFamily:
-                                                                'Iconfont',
-                                                          ), // 使用的图标
-                                                          color: isInsideX2Btn
-                                                              ? Colors.red
-                                                              : const Color
-                                                                  .fromARGB(
-                                                                  255,
-                                                                  110,
-                                                                  110,
-                                                                  110), // 图标颜色
-                                                          size: 80.w, // 图标大小
-                                                        ),
-                                                )),
+                                            if (bigImgInfo != null &&
+                                                bigImgInfo!.isPics == false)
+                                              ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30.w),
+                                                  child: Container(
+                                                    key: xSpeedBtnKey,
+                                                    decoration: BoxDecoration(
+                                                      color: isInsideXSpeedBtn
+                                                          ? const Color
+                                                              .fromARGB(255,
+                                                              240, 240, 240)
+                                                          : const Color
+                                                              .fromARGB(255,
+                                                              210, 210, 210),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30.w),
+                                                    ),
+                                                    // 扩大点击区域
+                                                    width: 110.w,
+                                                    height: 110.w,
+                                                    child: Icon(
+                                                      const IconData(
+                                                        0xea7c,
+                                                        fontFamily: 'Iconfont',
+                                                      ), // 使用的图标
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              110,
+                                                              110,
+                                                              110), // 图标颜色
+                                                      size: 80.w, // 图标大小
+                                                    ),
+                                                  )),
 
-                                            // 分享按钮
+                                            // 收藏按钮
                                             Container(
-                                              key: shareBtnKey,
+                                              key: collectBtnKey,
                                               decoration: BoxDecoration(
-                                                color: isInsideShareBtn
+                                                color: isInsideCollectBtn
                                                     ? const Color.fromARGB(
                                                         255, 240, 240, 240)
                                                     : const Color.fromARGB(
@@ -855,10 +849,10 @@ class _LJNInsPage extends State<LJNInsPage> {
                                               height: 110.w,
                                               child: Icon(
                                                 const IconData(
-                                                  0xe6c7,
+                                                  0xe602,
                                                   fontFamily: 'Iconfont',
                                                 ), // 使用的图标
-                                                color: isInsideShareBtn
+                                                color: isInsideCollectBtn
                                                     ? Colors.red
                                                     : const Color.fromARGB(255,
                                                         110, 110, 110), // 图标颜色
@@ -887,6 +881,34 @@ class _LJNInsPage extends State<LJNInsPage> {
                                                   fontFamily: 'Iconfont',
                                                 ), // 使用的图标
                                                 color: isInsideDownloadBtn
+                                                    ? Colors.red
+                                                    : const Color.fromARGB(255,
+                                                        110, 110, 110), // 图标颜色
+                                                size: 80.w, // 图标大小
+                                              ),
+                                            ),
+
+                                            // 分享按钮
+                                            Container(
+                                              key: shareBtnKey,
+                                              decoration: BoxDecoration(
+                                                color: isInsideShareBtn
+                                                    ? const Color.fromARGB(
+                                                        255, 240, 240, 240)
+                                                    : const Color.fromARGB(
+                                                        255, 210, 210, 210),
+                                                borderRadius:
+                                                    BorderRadius.circular(30.w),
+                                              ),
+                                              // 扩大点击区域
+                                              width: 110.w,
+                                              height: 110.w,
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe6c7,
+                                                  fontFamily: 'Iconfont',
+                                                ), // 使用的图标
+                                                color: isInsideShareBtn
                                                     ? Colors.red
                                                     : const Color.fromARGB(255,
                                                         110, 110, 110), // 图标颜色
@@ -924,7 +946,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                                           ],
                                         ),
                                         SizedBox(
-                                          height: 10.w,
+                                          height: 5.w,
                                         ),
                                       ],
                                     ),
@@ -932,37 +954,121 @@ class _LJNInsPage extends State<LJNInsPage> {
                                 ),
 
                                 // 关闭按钮
-                                // Positioned(
-                                //     top: 20.w,
-                                //     right: 20.w,
-                                //     child: Container(
-                                //       color: const Color.fromARGB(
-                                //           0, 255, 255, 255),
-                                //       margin: EdgeInsets.only(left: 39.w),
-                                //       width: 55.w,
-                                //       height: 55.w,
-                                //       child: GestureDetector(
-                                //         onTap: () {
-                                //           setState(() {
-                                //             bigImgVisible = false;
-                                //           });
-                                //         },
-                                //         child: Icon(
-                                //           const IconData(
-                                //             0xe601,
-                                //             fontFamily: 'Iconfont',
-                                //           ),
-                                //           size: 55.w, // 图标的大小
-                                //           color: Colors.white, // 图标颜色
-                                //         ),
-                                //       ),
-                                //     ))
+                                Positioned(
+                                    top: 20.w,
+                                    right: 20.w,
+                                    child: Container(
+                                      color: const Color.fromARGB(
+                                          0, 255, 255, 255),
+                                      margin: EdgeInsets.only(left: 39.w),
+                                      width: 55.w,
+                                      height: 55.w,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          // setState(() {
+                                          //   bigImgVisible = false;
+                                          // });
+                                        },
+                                        child: statusWidget,
+                                      ),
+                                    ))
                               ],
                             ),
                           ),
                         ],
                       ),
                     )),
+
+                // 加速按钮
+                if (isInsideXSpeedBtn)
+                  Positioned(
+                      left: xSpeedSelectorPosition.dx,
+                      top: xSpeedSelectorPosition.dy - (220.w / 2),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30.w),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                color: isInsideXSpeedBtn
+                                    ? const Color.fromARGB(255, 240, 240, 240)
+                                    : const Color.fromARGB(255, 210, 210, 210),
+                                borderRadius: BorderRadius.circular(30.w),
+                              ),
+                              // 扩大点击区域
+                              width: 110.w,
+                              height: 220.w,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                        width: double.infinity,
+                                        key: x3BtnKey,
+                                        color: isInsideX3Btn
+                                            ? Colors.red
+                                            : const Color.fromARGB(
+                                                255, 210, 210, 210),
+                                        child: Center(
+                                            child: Text(
+                                          "x3",
+                                          style: TextStyle(
+                                              color: isInsideX3Btn
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              height: 1,
+                                              fontFamily:
+                                                  "AlibabaPuHuiTi-Medium",
+                                              fontSize: 30.w),
+                                        ))),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                        width: double.infinity,
+                                        key: x2BtnKey,
+                                        color: isInsideX2Btn
+                                            ? Colors.red
+                                            : const Color.fromARGB(
+                                                255, 210, 210, 210),
+                                        child: Center(
+                                            child: Text(
+                                          "x2",
+                                          style: TextStyle(
+                                              color: isInsideX2Btn
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              height: 1,
+                                              fontFamily:
+                                                  "AlibabaPuHuiTi-Medium",
+                                              fontSize: 30.w),
+                                        ))),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                        width: double.infinity,
+                                        key: x1BtnKey,
+                                        color: isInsideX1Btn
+                                            ? Colors.red
+                                            : const Color.fromARGB(
+                                                255, 210, 210, 210),
+                                        child: Center(
+                                            child: Text(
+                                          "x1",
+                                          style: TextStyle(
+                                              color: isInsideX1Btn
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              height: 1,
+                                              fontFamily:
+                                                  "AlibabaPuHuiTi-Medium",
+                                              fontSize: 30.w),
+                                        ))),
+                                  ),
+                                ],
+                              ))))
               ],
             ),
           );
@@ -1003,13 +1109,23 @@ class BigImageBox extends StatefulWidget {
 
 // 大图片
 class _BigImageBox extends State<BigImageBox> {
+  Timer? _timer;
+  bool show = false;
+
   @override
   void initState() {
     super.initState();
+
+    _timer = Timer(const Duration(milliseconds: 100), () {
+      if (mounted) {
+        show = true;
+      }
+    });
   }
 
   @override
   void dispose() {
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -1047,18 +1163,12 @@ class _BigImageBox extends State<BigImageBox> {
             width: (MediaQuery.of(context).size.width - 2.w) / 3,
             height: 500.w,
             color: const Color.fromARGB(255, 247, 247, 247),
-            child: Image(
-              image: ResizeImage(
-                AssetImage(assetPath(widget.image)),
-                width: (((MediaQuery.of(context).size.width - 2.w) / 3) * 2)
-                    .w
-                    .toInt(),
-                height: 1000.w.toInt(),
-              ),
-              width: ((MediaQuery.of(context).size.width - 2.w) / 3).w,
-              height: 500.w,
-              fit: BoxFit.cover,
-            ),
+            child: show
+                ? Image.asset(
+                    fit: BoxFit.cover,
+                    assetPath(widget.image),
+                  )
+                : const LJNPageLoading(),
           ),
           Positioned(
             top: 15.w,
@@ -1111,13 +1221,23 @@ class SmallImageBox extends StatefulWidget {
 
 // 小图片
 class _SmallImageBox extends State<SmallImageBox> {
+  Timer? _timer;
+  bool show = false;
+
   @override
   void initState() {
     super.initState();
+
+    _timer = Timer(const Duration(milliseconds: 100), () {
+      if (mounted) {
+        show = true;
+      }
+    });
   }
 
   @override
   void dispose() {
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -1155,14 +1275,12 @@ class _SmallImageBox extends State<SmallImageBox> {
               width: (MediaQuery.of(context).size.width - 2.w) / 3,
               height: (500.w - 1.w) / 2,
               color: const Color.fromARGB(255, 247, 247, 247),
-              child: Image(
-                image: ResizeImage(AssetImage(assetPath(widget.image)),
-                    width: (((MediaQuery.of(context).size.width - 2.w) / 3) * 2)
-                        .w
-                        .toInt(),
-                    height: (500.w - 1.w).toInt()),
-                fit: BoxFit.cover,
-              )),
+              child: show
+                  ? Image.asset(
+                      assetPath(widget.image),
+                      fit: BoxFit.cover,
+                    )
+                  : const LJNPageLoading()),
           Positioned(
             top: 15.w,
             left: 200.w,
@@ -1216,7 +1334,7 @@ class VideoBox2 extends StatefulWidget {
 }
 
 class _VideoBox2 extends State<VideoBox2> {
-  late final VideoPlayerController _controller;
+  VideoPlayerController? _controller;
   late bool finalCountdownFinished = false;
   Timer? _timer;
 
@@ -1224,20 +1342,26 @@ class _VideoBox2 extends State<VideoBox2> {
   void initState() {
     super.initState();
 
-    _controller = VideoPlayerController.asset(
-      assetPath(widget.videoPath),
-      videoPlayerOptions: VideoPlayerOptions(
-          mixWithOthers: true, allowBackgroundPlayback: false),
-    )..initialize().then((_) {
-        setState(() {
-          _controller.setVolume(0);
-          _controller.setLooping(true);
-          _controller.play();
-        });
-      });
     // Start the countdown timer
-    _timer = Timer(const Duration(milliseconds: 300), () {
+    _timer = Timer(const Duration(milliseconds: 500), () {
       if (mounted) {
+        _controller = VideoPlayerController.asset(
+          assetPath(widget.videoPath),
+          videoPlayerOptions: VideoPlayerOptions(
+              mixWithOthers: true, allowBackgroundPlayback: false),
+        )..initialize().then((_) {
+            setState(() {
+              _controller?.setVolume(0);
+              _controller?.setLooping(true);
+
+              if (widget.canPlay) {
+                _controller?.play();
+              } else {
+                _controller?.pause();
+              }
+            });
+          });
+
         setState(() {
           finalCountdownFinished = true;
         });
@@ -1247,7 +1371,7 @@ class _VideoBox2 extends State<VideoBox2> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     _timer?.cancel();
     super.dispose();
   }
@@ -1257,11 +1381,11 @@ class _VideoBox2 extends State<VideoBox2> {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.canPlay != widget.canPlay) {
-      if (_controller.value.isInitialized) {
+      if (_controller != null && _controller!.value.isInitialized) {
         if (widget.canPlay) {
-          _controller.play();
+          _controller?.play();
         } else {
-          _controller.pause();
+          _controller?.pause();
         }
       }
     }
@@ -1300,18 +1424,20 @@ class _VideoBox2 extends State<VideoBox2> {
           SizedBox(
               width: (MediaQuery.of(context).size.width - 2.w) / 3,
               height: 500.w,
-              child: (_controller.value.isInitialized || finalCountdownFinished)
-                  ? FittedBox(
-                      clipBehavior: Clip.hardEdge,
-                      fit: BoxFit.cover, // 居中裁剪
-                      child: SizedBox(
-                          width: _controller.value.size.width,
-                          height: _controller.value.size.height,
-                          child: AspectRatio(
-                            aspectRatio: _controller.value.aspectRatio,
-                            child: VideoPlayer(_controller),
-                          )),
-                    )
+              child: finalCountdownFinished
+                  ? (_controller != null && _controller!.value.isInitialized
+                      ? FittedBox(
+                          clipBehavior: Clip.hardEdge,
+                          fit: BoxFit.cover, // 居中裁剪
+                          child: SizedBox(
+                              width: _controller!.value.size.width,
+                              height: _controller!.value.size.height,
+                              child: AspectRatio(
+                                aspectRatio: _controller!.value.aspectRatio,
+                                child: VideoPlayer(_controller!),
+                              )),
+                        )
+                      : const LJNPageLoading())
                   : const LJNPageLoading()),
           Positioned(
             top: 15.w,
