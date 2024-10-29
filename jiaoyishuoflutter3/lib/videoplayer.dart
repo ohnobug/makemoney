@@ -25,6 +25,7 @@ class _LJNVideoState extends State<LJNVideoPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Video Demo',
       home: Scaffold(
         body: Center(

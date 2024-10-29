@@ -297,87 +297,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
   }
 }
 
-class FunctionButton extends StatefulWidget {
-  final String icon;
-  final String title;
-  final VoidCallback onPressed;
-
-  const FunctionButton({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.onPressed,
-  });
-
-  @override
-  FunctionButtonState createState() => FunctionButtonState();
-}
-
-class FunctionButtonState extends State<FunctionButton> {
-  bool _isPressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onPressed,
-      onTapDown: (_) {
-        setState(() {
-          _isPressed = true;
-        });
-      },
-      onTapUp: (_) {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
-      onTapCancel: () {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
-      child: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: _isPressed ? Colors.grey[200] : Colors.transparent, // 按下时背景色
-          borderRadius: BorderRadius.circular(10.0).w, // 圆角半径
-        ),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min, // 使按钮大小适应内容
-            children: [
-              ClipOval(
-                child: Image.asset(
-                  assetPath(widget.icon),
-                  width: 95.w,
-                  height: 95.w,
-                  fit: BoxFit.cover, // 让图片完全填满圆形区域
-                ),
-              ),
-              SizedBox(height: 22.w), // 图标和标题之间的间距
-              Text(
-                widget.title,
-                maxLines: 1,
-                style: TextStyle(
-                    height: 1.08,
-                    decoration: TextDecoration.none,
-                    color: const Color.fromARGB(255, 92, 92, 92),
-                    fontSize: fontSizeScale(25.0.w),
-                    overflow: TextOverflow.ellipsis), // 标题颜色
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// FunctionButtonsSection 组件
+// 小程序按钮项组
 class FunctionButtonsSection extends StatelessWidget {
   final String title;
   final List<FunctionButton> buttons;
@@ -461,6 +381,88 @@ class FunctionButtonsSection extends StatelessWidget {
   }
 }
 
+// 小程序按钮
+class FunctionButton extends StatefulWidget {
+  final String icon;
+  final String title;
+  final VoidCallback onPressed;
+
+  const FunctionButton({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.onPressed,
+  });
+
+  @override
+  FunctionButtonState createState() => FunctionButtonState();
+}
+
+class FunctionButtonState extends State<FunctionButton> {
+  bool _isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: widget.onPressed,
+      onTapDown: (_) {
+        setState(() {
+          _isPressed = true;
+        });
+      },
+      onTapUp: (_) {
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
+        });
+      },
+      onTapCancel: () {
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
+        });
+      },
+      child: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: _isPressed ? Colors.grey[200] : Colors.transparent, // 按下时背景色
+          borderRadius: BorderRadius.circular(10.0).w, // 圆角半径
+        ),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // 使按钮大小适应内容
+            children: [
+              ClipOval(
+                child: Image.asset(
+                  assetPath(widget.icon),
+                  width: 95.w,
+                  height: 95.w,
+                  fit: BoxFit.cover, // 让图片完全填满圆形区域
+                ),
+              ),
+              SizedBox(height: 22.w), // 图标和标题之间的间距
+              Text(
+                widget.title,
+                maxLines: 1,
+                style: TextStyle(
+                    height: 1.08,
+                    decoration: TextDecoration.none,
+                    color: const Color.fromARGB(255, 92, 92, 92),
+                    fontSize: fontSizeScale(25.0.w),
+                    overflow: TextOverflow.ellipsis), // 标题颜色
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// 小程序列表项组
 class FunctionListSection extends StatefulWidget {
   final String title;
   final String moreUrl;
@@ -476,7 +478,6 @@ class FunctionListSection extends StatefulWidget {
   State<FunctionListSection> createState() => _FunctionListSection();
 }
 
-// FunctionListSection 组件
 class _FunctionListSection extends State<FunctionListSection> {
   @override
   void initState() {
@@ -555,6 +556,7 @@ class _FunctionListSection extends State<FunctionListSection> {
   }
 }
 
+// 小程序列表项
 class ChatListItem extends StatefulWidget {
   final String id;
   final String avatar;

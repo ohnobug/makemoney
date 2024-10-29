@@ -13,6 +13,8 @@ import 'package:jiaoyishuoflutter3/friendprofile.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
+import 'package:jiaoyishuoflutter3/homeminiprogram.dart';
+import 'package:jiaoyishuoflutter3/test.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
@@ -75,6 +77,27 @@ class TabBarApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 initialRoute: '/',
                 onGenerateRoute: (settings) {
+                  return PageRouteBuilder(
+                    pageBuilder: (BuildContext context,
+                            Animation<double> animation,
+                            Animation<double> secondaryAnimation) =>
+                        LJNTestPage(),
+                    transitionsBuilder: (
+                      BuildContext context,
+                      Animation<double> animation,
+                      Animation<double> secondaryAnimation,
+                      Widget child,
+                    ) {
+                      final Tween<Offset> offsetTween = Tween<Offset>(
+                          begin: const Offset(0.0, 0.0),
+                          end: const Offset(-1.0, 0.0));
+                      final Animation<Offset> slideOutLeftAnimation =
+                          offsetTween.animate(secondaryAnimation);
+                      return SlideTransition(
+                          position: slideOutLeftAnimation, child: child);
+                    },
+                  );
+
                   if (settings.name == '/') {
                     return PageRouteBuilder(
                       pageBuilder: (BuildContext context,
@@ -492,11 +515,10 @@ class _CustomTabbarState extends State<CustomTabbar>
             if (!kIsWeb) {
               Vibration.vibrate(duration: 15, amplitude: 200);
             }
-            // HapticFeedback.heavyImpact();
           }
 
+          // appbar标题
           Text appBarTitle = const Text("");
-
           if (changeIcon == 0) {
             icon1 = Icon(
               const IconData(
