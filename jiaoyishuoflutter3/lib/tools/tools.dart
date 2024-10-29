@@ -77,7 +77,7 @@ List<InlineSpan> buildTextSpans(
         WidgetSpan(
             alignment: PlaceholderAlignment.middle,
             child: SizedBox(
-              width: fontTextStyle.height! * iconTextStyle.fontSize!,
+              width: iconTextStyle.height! * iconTextStyle.fontSize! * 1.2,
               height: fontTextStyle.height! * iconTextStyle.fontSize!,
               // color: Colors.red,
               child: Center(
