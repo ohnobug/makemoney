@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
@@ -76,6 +75,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
     // 点赞窗口AnimationController
     _likeController = AnimationController(
       duration: const Duration(milliseconds: 300), // 动画持续时间
+      reverseDuration: const Duration(milliseconds: 100), // 动画持续时间
       vsync: this,
     );
 
@@ -247,9 +247,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
   void hideLikeBox() {
     setState(() {
       // _likeController.stop();
-      _likeController.reverse();
-
-      Timer(const Duration(milliseconds: 100), () {
+      _likeController.reverse().then((_) {
         lastedMoreButtonPosition = const Offset(-1000, -1000);
         likeBoxVisible = false;
       });

@@ -13,7 +13,6 @@ import 'package:jiaoyishuoflutter3/friendprofile.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
-import 'package:jiaoyishuoflutter3/homeminiprogram.dart';
 import 'package:jiaoyishuoflutter3/test.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
