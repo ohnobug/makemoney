@@ -40,6 +40,7 @@ flutter:
     - assets/images/icon_webp/
     - assets/images/icon/
     - assets/images/ins/
+    - assets/images/miniprogram_icon/
     - assets/sounds/
     - assets/lotties/
   fonts:

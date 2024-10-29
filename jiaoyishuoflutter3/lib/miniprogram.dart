@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'logger.dart';
 
 class LJNMiniProgramPage extends StatefulWidget {
   const LJNMiniProgramPage({super.key});
@@ -15,10 +15,68 @@ class LJNMiniProgramPage extends StatefulWidget {
 
 class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
   double _statusHeight = 0;
+  late final List<ChatListItem> chatItems;
+  late final List<ChatListItem> chatItems2;
 
   @override
   void initState() {
     super.initState();
+
+    chatItems = [
+      ChatListItem(
+        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+        friendName: "粤童年",
+        message: "今天天气真好，阳光明媚，让人心情愉悦。",
+        avatar: "images/miniprogram_icon/yuetongnianruanjian.jpg",
+        onPressed: () {},
+      ),
+      ChatListItem(
+          id: "4462b35d-e742-5011-9ed6-f10666ef8e9f",
+          friendName: '起点中文',
+          message: "[图片]",
+          avatar: "images/miniprogram_icon/qidianzhongwen.jpg",
+          onPressed: () {}),
+      ChatListItem(
+          id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+          friendName: "野花香电视剧",
+          message: "这个怎么样调试?",
+          avatar: "images/miniprogram_icon/yehuaxiangdianshiju.jpg",
+          onPressed: () {}),
+      ChatListItem(
+          id: "6390e7d0-c8bd-5929-b537-76f6577c591c",
+          friendName: "韵镖侠",
+          message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
+          avatar: "images/miniprogram_icon/yunbiaoxia.jpg",
+          onPressed: () {}),
+    ];
+
+    chatItems2 = [
+      ChatListItem(
+        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+        friendName: "蘑菇云游",
+        message: "今天天气真好，阳光明媚，让人心情愉悦。",
+        avatar: "images/miniprogram_icon/moguyunyou.jpg",
+        onPressed: () {},
+      ),
+      ChatListItem(
+          id: "4462b35d-e742-5011-9ed6-f10666ef8e9f",
+          friendName: '美图秀秀',
+          message: "[图片]",
+          avatar: "images/miniprogram_icon/meituxiuxiu.jpg",
+          onPressed: () {}),
+      ChatListItem(
+          id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
+          friendName: "百度翻译",
+          message: "这个怎么样调试?",
+          avatar: "images/miniprogram_icon/baidufanyi.jpg",
+          onPressed: () {}),
+      ChatListItem(
+          id: "6390e7d0-c8bd-5929-b537-76f6577c591c",
+          friendName: "淘无忧",
+          message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
+          avatar: "images/miniprogram_icon/taowuyou.jpg",
+          onPressed: () {}),
+    ];
   }
 
   @override
@@ -134,33 +192,30 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                   moreUrl: "/",
                                   buttons: [
                                     FunctionButton(
-                                      icon: "images/icon/server_icon1.png",
-                                      title: '信用卡还款',
-                                      onPressed: () {
-                                        logger.info('点击了信用卡还款按钮~~');
-                                      },
-                                    ),
+                                        icon:
+                                            "images/miniprogram_icon/zhihuixiangji.jpg",
+                                        title: "智慧相机",
+                                        onPressed: () {}),
                                     FunctionButton(
-                                      icon: "images/icon/server_icon2.png",
-                                      title: '理财通',
-                                      onPressed: () {
-                                        logger.info('点击了理财通按钮~~');
-                                      },
-                                    ),
+                                        icon:
+                                            "images/miniprogram_icon/wangwangshangliao.jpg",
+                                        title: "旺旺商聊",
+                                        onPressed: () {}),
                                     FunctionButton(
-                                      icon: "images/icon/server_icon3.png",
-                                      title: '保险服务',
-                                      onPressed: () {
-                                        logger.info('点击了保险服务按钮~~');
-                                      },
-                                    ),
+                                        icon:
+                                            "images/miniprogram_icon/haimianbaobao.jpg",
+                                        title: "海绵宝宝",
+                                        onPressed: () {}),
                                     FunctionButton(
-                                      icon: "images/icon/server_icon4.png",
-                                      title: '保险服务',
-                                      onPressed: () {
-                                        logger.info('点击了保险服务按钮~~');
-                                      },
-                                    ),
+                                        icon:
+                                            "images/miniprogram_icon/taowuyou.jpg",
+                                        title: "淘无忧",
+                                        onPressed: () {}),
+                                    FunctionButton(
+                                        icon:
+                                            "images/miniprogram_icon/wangzheyingdi.jpg",
+                                        title: "王者营地",
+                                        onPressed: () {}),
                                   ],
                                 ),
 
@@ -170,48 +225,70 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                   moreUrl: "",
                                   buttons: [
                                     FunctionButton(
-                                      icon: "images/icon/server_icon4.png",
-                                      title: '手机充值',
-                                      onPressed: () {
-                                        logger.info('点击了手机充值按钮~~');
-                                      },
-                                    ),
+                                        icon:
+                                            "images/miniprogram_icon/duitang.jpg",
+                                        title: "堆糖",
+                                        onPressed: () {}),
                                     FunctionButton(
-                                      icon: "images/icon/server_icon5.png",
-                                      title: '生活缴费',
-                                      onPressed: () {
-                                        logger.info('点击了生活缴费按钮~~');
-                                      },
-                                    ),
+                                        icon:
+                                            "images/miniprogram_icon/tiankongyueduqi.jpg",
+                                        title: "天空阅读器",
+                                        onPressed: () {}),
                                     FunctionButton(
-                                      icon: "images/icon/server_icon6.png",
-                                      title: 'Q币充值',
-                                      onPressed: () {
-                                        logger.info('点击了Q币充值按钮~~');
-                                      },
-                                    ),
+                                        icon:
+                                            "images/miniprogram_icon/qishuwang.jpg",
+                                        title: "奇书网",
+                                        onPressed: () {}),
                                     FunctionButton(
-                                      icon: "images/icon/server_icon7.png",
-                                      title: '城市服务',
-                                      onPressed: () {
-                                        logger.info('点击了城市服务按钮~~');
-                                      },
-                                    ),
+                                        icon:
+                                            "images/miniprogram_icon/xueyouyoujiao.jpg",
+                                        title: "学有优教",
+                                        onPressed: () {}),
                                     FunctionButton(
-                                      icon: "images/icon/server_icon8.png",
-                                      title: '腾讯公益',
-                                      onPressed: () {
-                                        logger.info('点击了腾讯公益按钮~~');
-                                      },
-                                    ),
+                                        icon:
+                                            "images/miniprogram_icon/haiziwang.jpg",
+                                        title: "孩子王",
+                                        onPressed: () {}),
                                     FunctionButton(
-                                      icon: "images/icon/server_icon9.png",
-                                      title: '医疗健康',
-                                      onPressed: () {
-                                        logger.info('点击了医疗健康按钮~~');
-                                      },
-                                    ),
+                                        icon:
+                                            "images/miniprogram_icon/qianbixiaoshuo.jpg",
+                                        title: "铅笔小说",
+                                        onPressed: () {}),
+                                    FunctionButton(
+                                        icon:
+                                            "images/miniprogram_icon/chengquanshipin.jpg",
+                                        title: "成全视频",
+                                        onPressed: () {}),
+                                    FunctionButton(
+                                        icon:
+                                            "images/miniprogram_icon/xiaomishangcheng.jpg",
+                                        title: "小米商城",
+                                        onPressed: () {}),
+                                    FunctionButton(
+                                        icon:
+                                            "images/miniprogram_icon/meituxiuxiu.jpg",
+                                        title: "美图秀秀",
+                                        onPressed: () {}),
+                                    FunctionButton(
+                                        icon:
+                                            "images/miniprogram_icon/luobokuaipao.jpg",
+                                        title: "萝卜快跑",
+                                        onPressed: () {}),
                                   ],
+                                ),
+
+                                // 交通出行
+                                FunctionListSection(
+                                  title: "交通出行",
+                                  moreUrl: '/',
+                                  chatItems: chatItems,
+                                ),
+
+                                // 附近小程序
+                                FunctionListSection(
+                                  title: "附近小程序",
+                                  moreUrl: '/',
+                                  chatItems: chatItems2,
                                 )
                               ],
                             ),
@@ -273,11 +350,14 @@ class FunctionButtonState extends State<FunctionButton> {
           child: Column(
             mainAxisSize: MainAxisSize.min, // 使按钮大小适应内容
             children: [
-              Image.asset(
-                assetPath(widget.icon),
-                width: 95.w,
-                height: 95.w,
-              ), // 图标颜色
+              ClipOval(
+                child: Image.asset(
+                  assetPath(widget.icon),
+                  width: 95.w,
+                  height: 95.w,
+                  fit: BoxFit.cover, // 让图片完全填满圆形区域
+                ),
+              ),
               SizedBox(height: 22.w), // 图标和标题之间的间距
               Text(
                 widget.title,
@@ -361,7 +441,6 @@ class FunctionButtonsSection extends StatelessWidget {
             // 使用 SizedBox 控制 GridView 的大小
             Container(
               padding: const EdgeInsets.all(16.0).w,
-              // height: 200, // 根据实际需要调整高度
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4, // 每行显示4个子组件
@@ -375,6 +454,262 @@ class FunctionButtonsSection extends StatelessWidget {
                 },
                 shrinkWrap: true, // 根据内容调整 GridView 大小
                 physics: const NeverScrollableScrollPhysics(), // 禁用滚动
+              ),
+            ),
+          ],
+        ));
+  }
+}
+
+class FunctionListSection extends StatefulWidget {
+  final String title;
+  final String moreUrl;
+  final List<ChatListItem> chatItems;
+
+  const FunctionListSection(
+      {super.key,
+      required this.title,
+      required this.chatItems,
+      required this.moreUrl});
+
+  @override
+  State<FunctionListSection> createState() => _FunctionListSection();
+}
+
+// FunctionListSection 组件
+class _FunctionListSection extends State<FunctionListSection> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: const EdgeInsets.only(bottom: 18, left: 18, right: 18).w,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.0).w,
+        ),
+        padding: const EdgeInsets.only(bottom: 16).w,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              padding: EdgeInsets.only(top: 33.w, bottom: 16.w, left: 30.w),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(widget.title,
+                        style: TextStyle(
+                          height: 1.08,
+                          fontSize: fontSizeScale(28.w),
+                          color: Colors.black,
+                        )),
+                    if (widget.moreUrl != '')
+                      // 三个点
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            widget.moreUrl,
+                          );
+                        },
+                        child: Container(
+                          height: 90.w,
+                          color: Colors.transparent,
+                          padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                          child: Icon(
+                            const IconData(
+                              0xe659,
+                              fontFamily: 'Iconfont',
+                            ),
+                            size: 37.w, // 图标大小
+                          ),
+                        ),
+                      )
+                  ]),
+            ),
+
+            // 使用 SizedBox 控制 GridView 的大小
+            Container(
+              // padding: const EdgeInsets.all(16.0).w,
+              child: ListView.builder(
+                primary: false,
+                // padding: EdgeInsets.only(top: _statusHeight + 90.w),
+                itemCount: widget.chatItems.length,
+                shrinkWrap: true,
+                // controller: _customScrollController,
+                // physics: const CustomScrollPhysics()
+                //     .applyTo(const MyBouncingScrollPhysics()),
+                // physics: const MyBouncingScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) {
+                  return widget.chatItems[index];
+                },
+              ),
+            ),
+          ],
+        ));
+  }
+}
+
+class ChatListItem extends StatefulWidget {
+  final String id;
+  final String avatar;
+  final String friendName;
+  final String message;
+  final Function()? onPressed;
+
+  const ChatListItem({
+    super.key,
+    required this.id,
+    required this.avatar,
+    required this.friendName,
+    required this.message,
+    this.onPressed,
+  });
+
+  @override
+  State<ChatListItem> createState() => _ChatListItem();
+}
+
+class _ChatListItem extends State<ChatListItem> {
+  Color containerColor = Colors.white;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTapDown: (_) {
+          setState(() {
+            containerColor = const Color.fromARGB(255, 229, 229, 229);
+          });
+        },
+        onTapCancel: () {
+          setState(() {
+            containerColor = Colors.white;
+          });
+
+          logger.info("取消点击");
+        },
+        onTapUp: (tapDownDetails) {
+          Future.delayed(const Duration(milliseconds: 50), () {
+            setState(() {
+              containerColor = Colors.white;
+            });
+            widget.onPressed!();
+          });
+
+          logger.info("弹起");
+        },
+        child: Stack(
+          children: [
+            // 头像以及名称日期等信息
+            Container(
+              color: containerColor,
+              height: 135.0.w,
+              padding: const EdgeInsets.only(left: 30.0).w,
+              child: Row(
+                children: [
+                  // 头像
+                  Container(
+                    width: 95.0.w,
+                    height: 95.0.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: ResizeImage(
+                          AssetImage(assetPath(widget.avatar)),
+                          width: 190.w.toInt(),
+                          height: 190.w.toInt(),
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(width: 23.w),
+
+                  // 右边区域
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 12.w,
+                        ),
+
+                        // 好友名称和消息时间
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // 好友名称
+                            Expanded(
+                                child: RichText(
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                children: buildTextSpans(
+                                    widget.friendName,
+                                    TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(28.0.w),
+                                        color: Colors.black,
+                                        fontFamily: "AlibabaPuHuiTi"),
+                                    TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(28.w),
+                                        fontFamily: "NotoColorEmoji-Regular")),
+                              ),
+                            )),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                          ],
+                        ),
+
+                        SizedBox(height: 10.w),
+
+                        // 好友消息
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              // color: Colors.amber,
+                              // width: 400.w,
+                              // margin: EdgeInsets.only(right: 65.w),
+                              child: RichText(
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(
+                                  children: buildTextSpans(
+                                      widget.message,
+                                      TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(25.w),
+                                        color: const Color.fromARGB(
+                                            255, 170, 170, 170),
+                                      ),
+                                      TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(25.w),
+                                        color: const Color.fromARGB(
+                                            255, 170, 170, 170),
+                                      )),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
