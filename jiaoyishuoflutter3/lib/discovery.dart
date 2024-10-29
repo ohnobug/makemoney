@@ -217,7 +217,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "小程序",
                     icon: "images/icon/discovery_icon11.png",
-                    link: '',
+                    link: '/miniprogram',
                     underline: false,
                   ),
                 ]))));

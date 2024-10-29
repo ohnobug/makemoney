@@ -7,6 +7,7 @@ import 'package:jiaoyishuoflutter3/discovery.dart';
 import 'package:jiaoyishuoflutter3/friendmoments.dart';
 import 'package:jiaoyishuoflutter3/home.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
+import 'package:jiaoyishuoflutter3/miniprogram.dart';
 import 'package:jiaoyishuoflutter3/pocketmoney.dart';
 import 'package:jiaoyishuoflutter3/friendprofile.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
@@ -291,6 +292,27 @@ class TabBarApp extends StatelessWidget {
                               Animation<double> animation,
                               Animation<double> secondaryAnimation) =>
                           const LJNTiktikPage(),
+                      transitionsBuilder: (
+                        BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation,
+                        Widget child,
+                      ) {
+                        final Tween<Offset> offsetTween = Tween<Offset>(
+                            begin: const Offset(0.0, 0.0),
+                            end: const Offset(-1.0, 0.0));
+                        final Animation<Offset> slideOutLeftAnimation =
+                            offsetTween.animate(secondaryAnimation);
+                        return SlideTransition(
+                            position: slideOutLeftAnimation, child: child);
+                      },
+                    );
+                  } else if (settings.name == '/miniprogram') {
+                    return PageRouteBuilder(
+                      pageBuilder: (BuildContext context,
+                              Animation<double> animation,
+                              Animation<double> secondaryAnimation) =>
+                          const LJNMiniProgramPage(),
                       transitionsBuilder: (
                         BuildContext context,
                         Animation<double> animation,
