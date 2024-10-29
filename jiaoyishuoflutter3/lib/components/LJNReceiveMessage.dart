@@ -30,7 +30,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
         children: [
           GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/profile',
+                Navigator.pushNamed(context, '/friendprofile',
                     arguments: <String, String>{
                       'name': widget.name,
                       'avatar': widget.friendAvatar,

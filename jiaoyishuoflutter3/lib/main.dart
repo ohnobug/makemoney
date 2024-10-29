@@ -8,7 +8,7 @@ import 'package:jiaoyishuoflutter3/friendmoments.dart';
 import 'package:jiaoyishuoflutter3/home.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/pocketmoney.dart';
-import 'package:jiaoyishuoflutter3/profile.dart';
+import 'package:jiaoyishuoflutter3/friendprofile.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
@@ -235,7 +235,7 @@ class TabBarApp extends StatelessWidget {
                         );
                       },
                     );
-                  } else if (settings.name == '/profile') {
+                  } else if (settings.name == '/friendprofile') {
                     var arguments =
                         settings.arguments as Map<String, String>? ?? {};
 
@@ -246,7 +246,7 @@ class TabBarApp extends StatelessWidget {
 
                     return PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          LJNProfilePage(
+                          LJNFriendProfilePage(
                               name: name,
                               nickname: nickname,
                               account: account,
@@ -290,7 +290,7 @@ class TabBarApp extends StatelessWidget {
                       pageBuilder: (BuildContext context,
                               Animation<double> animation,
                               Animation<double> secondaryAnimation) =>
-                          const LJNTestPage(),
+                          const LJNTiktikPage(),
                       transitionsBuilder: (
                         BuildContext context,
                         Animation<double> animation,

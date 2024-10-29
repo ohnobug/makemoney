@@ -133,7 +133,7 @@ class _LJNTestMessage extends State<LJNTestMessage>
                 // 头像
                 GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/profile',
+                      Navigator.pushNamed(context, '/friendprofile',
                           arguments: <String, String>{
                             'name': vm.userinfoName!,
                             'avatar': vm.userinfoAvatar!,

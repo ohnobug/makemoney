@@ -6,14 +6,14 @@ import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:video_player/video_player.dart';
 
-class LJNTestPage extends StatefulWidget {
-  const LJNTestPage({super.key});
+class LJNTiktikPage extends StatefulWidget {
+  const LJNTiktikPage({super.key});
 
   @override
-  State<LJNTestPage> createState() => _LJNTestPage();
+  State<LJNTiktikPage> createState() => _LJNTiktikPage();
 }
 
-class _LJNTestPage extends State<LJNTestPage> {
+class _LJNTiktikPage extends State<LJNTiktikPage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 

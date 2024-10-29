@@ -10,8 +10,8 @@ import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'components/LJNFunctionItem.dart';
 import 'components/LJNVideoFunctionItem.dart';
 
-class LJNProfilePage extends StatefulWidget {
-  const LJNProfilePage({
+class LJNFriendProfilePage extends StatefulWidget {
+  const LJNFriendProfilePage({
     super.key,
     this.name,
     this.avatar,
@@ -25,10 +25,10 @@ class LJNProfilePage extends StatefulWidget {
   final String? account;
 
   @override
-  State<LJNProfilePage> createState() => _LJNProfilePage();
+  State<LJNFriendProfilePage> createState() => _LJNFriendProfilePage();
 }
 
-class _LJNProfilePage extends State<LJNProfilePage> {
+class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
   double _statusHeight = 0;
 
   @override
@@ -353,7 +353,7 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                             LJNVideoFunctionItem(
                               id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "视频号",
-                              link: '',
+                              link: '/ins',
                               height: 216.w,
                               showStyle: Container(
                                   height: 215.w,
@@ -461,6 +461,7 @@ class _LJNProfilePage extends State<LJNProfilePage> {
                             LJNFunctionItemButton(
                               title: '发信息',
                               underline: true,
+                              link: '/chat',
                               icon: Icon(
                                 const IconData(
                                   0xe7b3,
