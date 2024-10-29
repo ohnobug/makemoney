@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
 
@@ -119,16 +120,23 @@ class _LJNInsPage extends State<LJNInsPage> {
   }
 
   final GlobalKey likeBtnKey = GlobalKey();
+  final GlobalKey xSpeedBtnKey = GlobalKey();
+  final GlobalKey x1BtnKey = GlobalKey();
   final GlobalKey x2BtnKey = GlobalKey();
+  final GlobalKey x3BtnKey = GlobalKey();
   final GlobalKey shareBtnKey = GlobalKey();
   final GlobalKey gotoHomeBtnKey = GlobalKey();
 
   bool isInsideLikeBtn = false;
+  bool isInsideXSpeedBtn = false;
+  bool isInsideX1Btn = false;
   bool isInsideX2Btn = false;
+  bool isInsideX3Btn = false;
   bool isInsideShareBtn = false;
   bool isInsideHomeBtn = false;
 
   void checkIfInsideBox(Offset position) {
+    // 点赞
     {
       RenderBox? renderBox;
       if (likeBtnKey.currentContext != null) {
@@ -152,6 +160,7 @@ class _LJNInsPage extends State<LJNInsPage> {
       });
     }
 
+    // 分享
     {
       RenderBox? renderBox;
       if (shareBtnKey.currentContext != null) {
@@ -176,6 +185,7 @@ class _LJNInsPage extends State<LJNInsPage> {
       });
     }
 
+    // 去主页
     {
       RenderBox? renderBox;
       if (gotoHomeBtnKey.currentContext != null) {
@@ -200,10 +210,12 @@ class _LJNInsPage extends State<LJNInsPage> {
       });
     }
 
+    // 倍速
     {
       RenderBox? renderBox;
-      if (x2BtnKey.currentContext != null) {
-        renderBox = x2BtnKey.currentContext!.findRenderObject() as RenderBox?;
+      if (xSpeedBtnKey.currentContext != null) {
+        renderBox =
+            xSpeedBtnKey.currentContext!.findRenderObject() as RenderBox?;
       }
 
       Rect? boxRect;
@@ -218,15 +230,99 @@ class _LJNInsPage extends State<LJNInsPage> {
         isInside = boxRect.contains(position);
       }
 
-      // 二倍速
       setState(() {
-        isInsideX2Btn = isInside;
-        if (isInside) {
-          _bigimgcontroller.setPlaybackSpeed(2);
-        } else {
-          _bigimgcontroller.setPlaybackSpeed(1);
-        }
+        isInsideXSpeedBtn = isInside;
       });
+    }
+
+    if (isInsideXSpeedBtn == true) {
+      // 正常倍速
+      {
+        RenderBox? renderBox;
+        if (x1BtnKey.currentContext != null) {
+          renderBox = x1BtnKey.currentContext!.findRenderObject() as RenderBox?;
+        }
+
+        Rect? boxRect;
+        if (renderBox != null) {
+          // 获取盒子的实际边界
+          boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+        }
+
+        bool isInside = false;
+        if (boxRect != null) {
+          // 检查鼠标位置是否在盒子内
+          isInside = boxRect.contains(position);
+        }
+
+        // 正常倍速
+        setState(() {
+          isInsideX1Btn = isInside;
+          if (isInside) {
+            _bigimgcontroller.setPlaybackSpeed(1);
+          }
+        });
+      }
+
+      // 二倍速
+      {
+        RenderBox? renderBox;
+        if (x2BtnKey.currentContext != null) {
+          renderBox = x2BtnKey.currentContext!.findRenderObject() as RenderBox?;
+        }
+
+        Rect? boxRect;
+        if (renderBox != null) {
+          // 获取盒子的实际边界
+          boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+        }
+
+        bool isInside = false;
+        if (boxRect != null) {
+          // 检查鼠标位置是否在盒子内
+          isInside = boxRect.contains(position);
+        }
+
+        // 二倍速
+        setState(() {
+          isInsideX2Btn = isInside;
+          if (isInside) {
+            _bigimgcontroller.setPlaybackSpeed(2);
+          } else {
+            _bigimgcontroller.setPlaybackSpeed(1);
+          }
+        });
+      }
+
+      // 三倍速
+      {
+        RenderBox? renderBox;
+        if (x3BtnKey.currentContext != null) {
+          renderBox = x3BtnKey.currentContext!.findRenderObject() as RenderBox?;
+        }
+
+        Rect? boxRect;
+        if (renderBox != null) {
+          // 获取盒子的实际边界
+          boxRect = renderBox.localToGlobal(Offset.zero) & renderBox.size;
+        }
+
+        bool isInside = false;
+        if (boxRect != null) {
+          // 检查鼠标位置是否在盒子内
+          isInside = boxRect.contains(position);
+        }
+
+        // 二倍速
+        setState(() {
+          isInsideX3Btn = isInside;
+          if (isInside) {
+            _bigimgcontroller.setPlaybackSpeed(3);
+          } else {
+            _bigimgcontroller.setPlaybackSpeed(1);
+          }
+        });
+      }
     }
   }
 
@@ -506,7 +602,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        // 图片
+                                        // 图片或者视频
                                         Flexible(
                                             fit: FlexFit.loose,
                                             child: SizedBox(
@@ -570,33 +666,113 @@ class _LJNInsPage extends State<LJNInsPage> {
                                               ),
                                             ),
 
-                                            // 二倍速
-                                            Container(
-                                              key: x2BtnKey,
-                                              decoration: BoxDecoration(
-                                                color: isInsideX2Btn
-                                                    ? const Color.fromARGB(
-                                                        255, 240, 240, 240)
-                                                    : const Color.fromARGB(
-                                                        255, 210, 210, 210),
+                                            // 倍数
+                                            ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(30.w),
-                                              ),
-                                              // 扩大点击区域
-                                              width: 110.w,
-                                              height: 110.w,
-                                              child: Icon(
-                                                const IconData(
-                                                  0xe600,
-                                                  fontFamily: 'Iconfont',
-                                                ), // 使用的图标
-                                                color: isInsideX2Btn
-                                                    ? Colors.red
-                                                    : const Color.fromARGB(255,
-                                                        110, 110, 110), // 图标颜色
-                                                size: 80.w, // 图标大小
-                                              ),
-                                            ),
+                                                child: Container(
+                                                  key: xSpeedBtnKey,
+                                                  decoration: BoxDecoration(
+                                                    color: isInsideXSpeedBtn
+                                                        ? const Color.fromARGB(
+                                                            255, 240, 240, 240)
+                                                        : const Color.fromARGB(
+                                                            255, 210, 210, 210),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            30.w),
+                                                  ),
+                                                  // 扩大点击区域
+                                                  width: 110.w,
+                                                  height: 110.w,
+                                                  child: isInsideXSpeedBtn
+                                                      ? Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: [
+                                                            Expanded(
+                                                              flex: 1,
+                                                              child: Container(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  key: x1BtnKey,
+                                                                  color: isInsideX1Btn
+                                                                      ? Colors
+                                                                          .red
+                                                                      : Colors
+                                                                          .amber,
+                                                                  child: Center(
+                                                                      child:
+                                                                          Text(
+                                                                    "x1",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            24.w),
+                                                                  ))),
+                                                            ),
+                                                            Expanded(
+                                                              flex: 1,
+                                                              child: Container(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  key: x2BtnKey,
+                                                                  color: isInsideX2Btn
+                                                                      ? Colors
+                                                                          .red
+                                                                      : Colors
+                                                                          .amber,
+                                                                  child: Center(
+                                                                      child:
+                                                                          Text(
+                                                                    "x2",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            24.w),
+                                                                  ))),
+                                                            ),
+                                                            Expanded(
+                                                              flex: 1,
+                                                              child: Container(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  key: x3BtnKey,
+                                                                  color: isInsideX3Btn
+                                                                      ? Colors
+                                                                          .red
+                                                                      : Colors
+                                                                          .amber,
+                                                                  child: Center(
+                                                                      child:
+                                                                          Text(
+                                                                    "x3",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            24.w),
+                                                                  ))),
+                                                            )
+                                                          ],
+                                                        )
+                                                      : Icon(
+                                                          const IconData(
+                                                            0xe600,
+                                                            fontFamily:
+                                                                'Iconfont',
+                                                          ), // 使用的图标
+                                                          color: isInsideX2Btn
+                                                              ? Colors.red
+                                                              : const Color
+                                                                  .fromARGB(
+                                                                  255,
+                                                                  110,
+                                                                  110,
+                                                                  110), // 图标颜色
+                                                          size: 80.w, // 图标大小
+                                                        ),
+                                                )),
 
                                             // 分享按钮
                                             Container(
@@ -779,8 +955,16 @@ class _BigImageBox extends State<BigImageBox> {
             width: (MediaQuery.of(context).size.width - 2.w) / 3,
             height: 500.w,
             color: const Color.fromARGB(255, 247, 247, 247),
-            child: Image.asset(
-              assetPath(widget.image),
+            child: Image(
+              image: ResizeImage(
+                AssetImage(assetPath(widget.image)),
+                width: (((MediaQuery.of(context).size.width - 2.w) / 3) * 2)
+                    .w
+                    .toInt(),
+                height: 1000.w.toInt(),
+              ),
+              width: ((MediaQuery.of(context).size.width - 2.w) / 3).w,
+              height: 500.w,
               fit: BoxFit.cover,
             ),
           ),
@@ -879,8 +1063,12 @@ class _SmallImageBox extends State<SmallImageBox> {
               width: (MediaQuery.of(context).size.width - 2.w) / 3,
               height: (500.w - 1.w) / 2,
               color: const Color.fromARGB(255, 247, 247, 247),
-              child: Image.asset(
-                assetPath(widget.image),
+              child: Image(
+                image: ResizeImage(AssetImage(assetPath(widget.image)),
+                    width: (((MediaQuery.of(context).size.width - 2.w) / 3) * 2)
+                        .w
+                        .toInt(),
+                    height: (500.w - 1.w).toInt()),
                 fit: BoxFit.cover,
               )),
           Positioned(
@@ -937,10 +1125,13 @@ class VideoBox2 extends StatefulWidget {
 
 class _VideoBox2 extends State<VideoBox2> {
   late final VideoPlayerController _controller;
+  late bool finalCountdownFinished = false;
+  Timer? _timer;
 
   @override
   void initState() {
     super.initState();
+
     _controller = VideoPlayerController.asset(
       assetPath(widget.videoPath),
       videoPlayerOptions: VideoPlayerOptions(
@@ -952,11 +1143,20 @@ class _VideoBox2 extends State<VideoBox2> {
           _controller.play();
         });
       });
+    // Start the countdown timer
+    _timer = Timer(const Duration(milliseconds: 300), () {
+      if (mounted) {
+        setState(() {
+          finalCountdownFinished = true;
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -1008,7 +1208,7 @@ class _VideoBox2 extends State<VideoBox2> {
           SizedBox(
               width: (MediaQuery.of(context).size.width - 2.w) / 3,
               height: 500.w,
-              child: _controller.value.isInitialized
+              child: (_controller.value.isInitialized || finalCountdownFinished)
                   ? FittedBox(
                       clipBehavior: Clip.hardEdge,
                       fit: BoxFit.cover, // 居中裁剪
@@ -1020,12 +1220,7 @@ class _VideoBox2 extends State<VideoBox2> {
                             child: VideoPlayer(_controller),
                           )),
                     )
-                  : Container(
-                      width: (MediaQuery.of(context).size.width - 2.w) / 3,
-                      height: 500.w,
-                      color: Colors.black87
-                      // child: const LJNPageLoading()
-                      )),
+                  : const LJNPageLoading()),
           Positioned(
             top: 15.w,
             left: 200.w,

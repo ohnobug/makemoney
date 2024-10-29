@@ -359,9 +359,8 @@ class _CustomTabbarState extends State<CustomTabbar>
         });
       }
 
-      logger.info("two two two: {${_tabController.animation!.value}}");
+      // logger.info(_tabController.animation);
 
-      logger.info(_tabController.animation);
       if (_tabController.animation!.value == 1) {
         // logger.info("来了");
         myStore.dispatch({"type": "contactazshow", "payload": true});

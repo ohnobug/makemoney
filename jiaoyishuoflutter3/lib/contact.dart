@@ -575,7 +575,8 @@ class _LJNContactPageState extends State<LJNContactPage> {
               visible: state.contactazshow!,
               child: Positioned(
                   right: 0,
-                  top: ((MediaQuery.of(context).size.height - 986.w) / 2) + 40.w,
+                  top:
+                      ((MediaQuery.of(context).size.height - 986.w) / 2) + 40.w,
                   child: SizedBox(
                     width: 40.w,
                     // height: MediaQuery.of(context).size.height - 115.w - 75.w,

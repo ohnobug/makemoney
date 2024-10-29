@@ -728,7 +728,7 @@ class _TweetWidget extends State<TweetWidget> {
                                   widget.name,
                                   TextStyle(
                                     height: 1.4,
-                                    fontSize: fontSizeScale(33.w),
+                                    fontSize: fontSizeScale(32.w),
                                     fontFamily: "AlibabaPuHuiTi-Medium",
                                     // fontWeight: FontWeight.w600,
                                     color:
@@ -748,7 +748,7 @@ class _TweetWidget extends State<TweetWidget> {
                                   widget.tweetContent,
                                   TextStyle(
                                       height: 1.4,
-                                      fontSize: fontSizeScale(33.w)),
+                                      fontSize: fontSizeScale(32.w)),
                                   TextStyle(
                                       height: 1.4,
                                       fontSize: fontSizeScale(28.w))),
