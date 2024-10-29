@@ -522,8 +522,6 @@ class _LJNInsPage extends State<LJNInsPage> {
     }
   }
 
-  final random = Random();
-
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -674,13 +672,34 @@ class _LJNInsPage extends State<LJNInsPage> {
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
-                          return LJNInsStyle(
-                            checkIfInsideBox: checkIfInsideBox,
-                            showBigImg: showBigImg,
-                            scrollPixels: scrollPixels,
-                            imageList: mylist[index],
-                            bigImgPosition: 1 + random.nextInt(3),
-                          );
+                          if ((index + 1) % 3 == 1) {
+                            // 样式1
+                            return LJNInsStyle(
+                              checkIfInsideBox: checkIfInsideBox,
+                              showBigImg: showBigImg,
+                              scrollPixels: scrollPixels,
+                              imageList: mylist[index],
+                              bigImgPosition: 1,
+                            );
+                          } else if ((index + 1) % 3 == 2) {
+                            // 样式2
+                            return LJNInsStyle(
+                              checkIfInsideBox: checkIfInsideBox,
+                              showBigImg: showBigImg,
+                              scrollPixels: scrollPixels,
+                              imageList: mylist[index],
+                              bigImgPosition: 2,
+                            );
+                          } else {
+                            // 样式3
+                            return LJNInsStyle(
+                              checkIfInsideBox: checkIfInsideBox,
+                              showBigImg: showBigImg,
+                              scrollPixels: scrollPixels,
+                              imageList: mylist[index],
+                              bigImgPosition: 3,
+                            );
+                          }
                         },
                         childCount: mylist.length, // 这里替换为你的列表长度
                       ),
@@ -958,19 +977,12 @@ class _LJNInsPage extends State<LJNInsPage> {
                                     top: 20.w,
                                     right: 20.w,
                                     child: Container(
-                                      color: const Color.fromARGB(
-                                          0, 255, 255, 255),
+                                      // color: const Color.fromARGB(
+                                      //     183, 192, 66, 66),
                                       margin: EdgeInsets.only(left: 39.w),
-                                      width: 55.w,
+                                      width: 200.w,
                                       height: 55.w,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          // setState(() {
-                                          //   bigImgVisible = false;
-                                          // });
-                                        },
-                                        child: statusWidget,
-                                      ),
+                                      child: Center(child: statusWidget),
                                     ))
                               ],
                             ),
@@ -1353,12 +1365,7 @@ class _VideoBox2 extends State<VideoBox2> {
             setState(() {
               _controller?.setVolume(0);
               _controller?.setLooping(true);
-
-              if (widget.canPlay) {
-                _controller?.play();
-              } else {
-                _controller?.pause();
-              }
+              _controller?.play();
             });
           });
 
