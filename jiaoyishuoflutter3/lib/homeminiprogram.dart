@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
@@ -19,12 +21,19 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
     super.initState();
 
     _scrollController.addListener(() {
-      if (_scrollController.position.atEdge) {
+      if (_scrollController.position.outOfRange) {
         if (_scrollController.position.pixels == 0) {
           logger.info("在边缘下拉");
         } else {
           logger.info("在边缘上拉");
           myStore.dispatch({"type": "showMiniProgramDrawer", "payload": false});
+          // 等恢复后, 该页面也需要重置一下滚动位置
+
+          Timer(const Duration(milliseconds: 600), () {
+            if (mounted) {
+              _scrollController.jumpTo(0);
+            }
+          });
         }
       }
     });
