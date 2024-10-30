@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -21,10 +23,15 @@ class _LJNTestPageState extends State<LJNTestPage>
   late Animation<double> _heightAnimation;
   double _appbarPosition = 0;
   Size _screenSize = const Size(0, 0);
+  ScrollPhysics? _physics;
 
   @override
   void initState() {
     super.initState();
+
+    setState(() {
+      _physics = const BouncingScrollPhysics();
+    });
 
     // 初始化 AnimationController
     _animationController = AnimationController(
@@ -40,6 +47,31 @@ class _LJNTestPageState extends State<LJNTestPage>
           });
 
     _heightAnimation.addListener(() {
+      if (_heightAnimation.isAnimating) {
+        setState(() {
+          _physics = const NeverScrollableScrollPhysics();
+        });
+      } else {
+        Timer(const Duration(milliseconds: 600), () {
+          setState(() {
+            _physics = const BouncingScrollPhysics();
+          });
+        });
+      }
+      // if (_heightAnimation.isCompleted) {
+      //   Timer(const Duration(milliseconds: 600), () {
+      //     if (mounted) {
+      //       setState(() {
+      //         _physics = const NeverScrollableScrollPhysics();
+      //       });
+      //     }
+      //   });
+      // } else if (_heightAnimation.value == 0) {
+      //   setState(() {
+      //     _physics = const BouncingScrollPhysics();
+      //   });
+      // }
+
       myStore.dispatch({
         "type": "homescrollpixels",
         "payload": _appbarPosition +
@@ -585,7 +617,8 @@ class _LJNTestPageState extends State<LJNTestPage>
                     // physics: _heightAnimation.value == 1
                     //     ? const NeverScrollableScrollPhysics()
                     //     : const BouncingScrollPhysics(),
-                    physics: const BouncingScrollPhysics(),
+                    // physics: const BouncingScrollPhysics(),
+                    physics: _physics,
                     slivers: <Widget>[
                       SliverAppBar(
                         primary: false,
@@ -595,12 +628,23 @@ class _LJNTestPageState extends State<LJNTestPage>
                         // collapsedHeight: _statusHeight + 90.w,
                         toolbarHeight: _statusHeight + 90.w,
                         collapsedHeight: _statusHeight + 90.w, // 收缩后的高度
-                        floating: true,
-                        snap: true,
-                        pinned: false,
+                        floating: false,
+                        snap: false,
+                        pinned: true,
                         stretch: true,
                         flexibleSpace: const LJNHomeMiniProgram(),
-                        backgroundColor: Colors.red,
+                        backgroundColor: const Color.fromARGB(255, 57, 55, 77),
+                      ),
+                      SliverToBoxAdapter(
+                        child: Container(
+                          height: _statusHeight + 90.w, // 容器的高度
+                          color: Colors.orange,
+                          alignment: Alignment.center,
+                          child: const Text(
+                            '这是一个 Container',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                        ),
                       ),
                       SliverFixedExtentList(
                         itemExtent: 135.0.w,
