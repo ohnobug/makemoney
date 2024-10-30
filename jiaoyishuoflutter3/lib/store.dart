@@ -50,6 +50,7 @@ class StoreType {
   double? walletBalance; // 余额
   double? walletFoundationBalance; // 基金余额
   String? userinfoAvatar; // 头像
+  bool? showMiniProgramDrawer; // 显示小程序抽屉
 
   bool? contactazshow; // 通信录中的 A-Z 是否显示
   bool? mainpage1isload; // 页面 1 是否显示
@@ -72,6 +73,7 @@ class StoreType {
     this.walletBalance,
     this.walletFoundationBalance,
     this.userinfoAvatar,
+    this.showMiniProgramDrawer,
     this.contactazshow,
     this.mainpage1isload,
     this.mainpage2isload,
@@ -92,6 +94,7 @@ class StoreType {
     double? walletBalance,
     double? walletFoundationBalance,
     String? userinfoAvatar,
+    bool? showMiniProgramDrawer,
     bool? contactazshow,
     bool? mainpage1isload,
     bool? mainpage2isload,
@@ -112,6 +115,8 @@ class StoreType {
       walletFoundationBalance:
           walletFoundationBalance ?? this.walletFoundationBalance,
       userinfoAvatar: userinfoAvatar ?? this.userinfoAvatar,
+      showMiniProgramDrawer:
+          showMiniProgramDrawer ?? this.showMiniProgramDrawer,
       contactazshow: contactazshow ?? this.contactazshow,
       mainpage1isload: mainpage1isload ?? this.mainpage1isload,
       mainpage2isload: mainpage2isload ?? this.mainpage2isload,
@@ -155,6 +160,10 @@ StoreType counterReducer(StoreType state, dynamic action) {
 
   if (action['type'] == "contactazshow") {
     return state.copyWith(contactazshow: action['payload']);
+  }
+
+  if (action['type'] == "showMiniProgramDrawer") {
+    return state.copyWith(showMiniProgramDrawer: action['payload']);
   }
 
   if (action['type'] == "mainpage1isload") {
@@ -207,6 +216,7 @@ final myStore = Store<StoreType>(counterReducer,
         walletBalance: 0.0,
         walletFoundationBalance: 0.0,
         userinfoAvatar: "",
+        showMiniProgramDrawer: false,
         contactazshow: false,
         mainpage1isload: false,
         mainpage2isload: false,

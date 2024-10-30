@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:jiaoyishuoflutter3/chat.dart';
 import 'package:jiaoyishuoflutter3/discovery.dart';
 import 'package:jiaoyishuoflutter3/friendmoments.dart';
-import 'package:jiaoyishuoflutter3/home.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/miniprogram.dart';
 import 'package:jiaoyishuoflutter3/pocketmoney.dart';
@@ -76,27 +75,6 @@ class TabBarApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 initialRoute: '/',
                 onGenerateRoute: (settings) {
-                  return PageRouteBuilder(
-                    pageBuilder: (BuildContext context,
-                            Animation<double> animation,
-                            Animation<double> secondaryAnimation) =>
-                        LJNTestPage(),
-                    transitionsBuilder: (
-                      BuildContext context,
-                      Animation<double> animation,
-                      Animation<double> secondaryAnimation,
-                      Widget child,
-                    ) {
-                      final Tween<Offset> offsetTween = Tween<Offset>(
-                          begin: const Offset(0.0, 0.0),
-                          end: const Offset(-1.0, 0.0));
-                      final Animation<Offset> slideOutLeftAnimation =
-                          offsetTween.animate(secondaryAnimation);
-                      return SlideTransition(
-                          position: slideOutLeftAnimation, child: child);
-                    },
-                  );
-
                   if (settings.name == '/') {
                     return PageRouteBuilder(
                       pageBuilder: (BuildContext context,
@@ -501,6 +479,7 @@ class _CustomTabbarState extends State<CustomTabbar>
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
+          // 震动控制
           var homescrollpixels = vm.homescrollpixels!;
           // logger.info("main main main: {$homescrollpixels}");
           // logger.info("媒体高度：${MediaQuery.of(context).size.height / 4 - 205.w}");
@@ -565,92 +544,96 @@ class _CustomTabbarState extends State<CustomTabbar>
               // 主界面
               Scaffold(
                 primary: false,
-                bottomNavigationBar: ColoredBox(
-                  color: const Color.fromARGB(255, 237, 237, 237),
-                  child: Container(
-                      height: 106.w,
-                      decoration: BoxDecoration(
-                          border: Border(
-                              top: BorderSide(
-                        color: const Color.fromARGB(255, 220, 220, 220),
-                        width: 1.5.w,
-                        style: BorderStyle.solid,
-                      ))),
-                      child: TabBar(
-                        dividerColor: const Color.fromARGB(255, 218, 218, 218),
-                        labelColor: const Color.fromARGB(255, 7, 192, 103),
-                        labelStyle: TextStyle(
-                            height: 1.08, fontSize: fontSizeScale(22.w)),
-                        unselectedLabelColor:
-                            const Color.fromARGB(222, 0, 0, 0),
-                        indicator: const BoxDecoration(),
-                        indicatorColor: Colors.transparent,
-                        controller: _tabController,
-                        overlayColor:
-                            WidgetStateProperty.all(const Color(0x00000000)),
-                        tabs: <Widget>[
-                          Tab(
-                            height: 105.w,
-                            iconMargin: EdgeInsets.only(bottom: 8.w),
-                            icon: SizedBox(
-                                height: 50.w,
-                                width: 50.w,
-                                // color: Colors.red,
-                                child: Center(child: icon1)),
-                            text: "微信",
-                          ),
-                          Tab(
-                            height: 105.w,
-                            iconMargin: EdgeInsets.only(bottom: 8.w),
-                            icon: SizedBox(
-                                height: 50.w,
-                                width: 50.w,
-                                // color: Colors.red,
-                                child: Center(child: icon2)),
-                            text: "通信录",
-                          ),
-                          Tab(
-                            height: 105.w,
-                            iconMargin: EdgeInsets.only(bottom: 8.w),
-                            icon: SizedBox(
-                                height: 50.w,
-                                width: 50.w,
-                                // color: Colors.red,
-                                child: Center(child: icon3)),
-                            text: "发现",
-                          ),
-                          Tab(
-                            height: 105.w,
-                            iconMargin: EdgeInsets.only(bottom: 8.w),
-                            icon: SizedBox(
-                                height: 50.w,
-                                width: 50.w,
-                                // color: Colors.red,
-                                child: Center(child: icon4)),
-                            text: "我",
-                          ),
-                        ],
-                      )),
-                ),
+                bottomNavigationBar: Visibility(
+                    visible: vm.showMiniProgramDrawer == false,
+                    child: Container(
+                        height: 106.w,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 237, 237, 237),
+                            border: Border(
+                                top: BorderSide(
+                              color: const Color.fromARGB(255, 220, 220, 220),
+                              width: 1.5.w,
+                              style: BorderStyle.solid,
+                            ))),
+                        child: TabBar(
+                          dividerColor:
+                              const Color.fromARGB(255, 218, 218, 218),
+                          labelColor: const Color.fromARGB(255, 7, 192, 103),
+                          labelStyle: TextStyle(
+                              height: 1.08, fontSize: fontSizeScale(22.w)),
+                          unselectedLabelColor:
+                              const Color.fromARGB(222, 0, 0, 0),
+                          indicator: const BoxDecoration(),
+                          indicatorColor: Colors.transparent,
+                          controller: _tabController,
+                          overlayColor:
+                              WidgetStateProperty.all(const Color(0x00000000)),
+                          tabs: <Widget>[
+                            Tab(
+                              height: 105.w,
+                              iconMargin: EdgeInsets.only(bottom: 8.w),
+                              icon: SizedBox(
+                                  height: 50.w,
+                                  width: 50.w,
+                                  // color: Colors.red,
+                                  child: Center(child: icon1)),
+                              text: "微信",
+                            ),
+                            Tab(
+                              height: 105.w,
+                              iconMargin: EdgeInsets.only(bottom: 8.w),
+                              icon: SizedBox(
+                                  height: 50.w,
+                                  width: 50.w,
+                                  // color: Colors.red,
+                                  child: Center(child: icon2)),
+                              text: "通信录",
+                            ),
+                            Tab(
+                              height: 105.w,
+                              iconMargin: EdgeInsets.only(bottom: 8.w),
+                              icon: SizedBox(
+                                  height: 50.w,
+                                  width: 50.w,
+                                  // color: Colors.red,
+                                  child: Center(child: icon3)),
+                              text: "发现",
+                            ),
+                            Tab(
+                              height: 105.w,
+                              iconMargin: EdgeInsets.only(bottom: 8.w),
+                              icon: SizedBox(
+                                  height: 50.w,
+                                  width: 50.w,
+                                  // color: Colors.red,
+                                  child: Center(child: icon4)),
+                              text: "我",
+                            ),
+                          ],
+                        ))),
                 appBar: null,
                 body: TabBarView(
                   controller: _tabController,
-                  children: const <Widget>[
-                    LJNHomePage(),
-                    LJNContactPage(),
-                    LJNDiscoveryPage(),
-                    LJNUserPage(),
+                  children: <Widget>[
+                    LJNTestPage(),
+                    // LJNHomePage(),
+                    const LJNContactPage(),
+                    const LJNDiscoveryPage(),
+                    const LJNUserPage(),
                   ],
                 ),
               ),
 
               // 浮动在顶部的appbar
               Positioned(
-                  top: 0,
+                  top: homescrollpixels,
                   left: _appbarLeft,
                   child: Container(
                       width: 750.0.w,
-                      height: homescrollpixels + _statusHeight + 90.w,
+                      height: vm.showMiniProgramDrawer == true
+                          ? 90.w
+                          : _statusHeight + 90.w,
                       color: const Color.fromARGB(255, 237, 237, 237),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,

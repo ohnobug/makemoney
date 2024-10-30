@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
+import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNHomeMiniProgram extends StatefulWidget {
@@ -15,6 +17,17 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
   @override
   void initState() {
     super.initState();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.atEdge) {
+        if (_scrollController.position.pixels == 0) {
+          logger.info("在边缘下拉");
+        } else {
+          logger.info("在边缘上拉");
+          myStore.dispatch({"type": "showMiniProgramDrawer", "payload": false});
+        }
+      }
+    });
   }
 
   @override

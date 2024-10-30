@@ -554,19 +554,19 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                           color: Colors.transparent,
                           height: 90.w,
                           padding: EdgeInsets.only(right: 40.w),
-                          child: Icon(
-                            IconData(
-                                _appBarOpacity.value.toInt() > 180
-                                    ? 0xe68a
-                                    : 0xe64d,
-                                fontFamily: 'Iconfont'),
-                            size: _appBarOpacity.value.toInt() > 180
-                                ? 40.w
-                                : 40.w,
-                            color: _appBarOpacity.value.toInt() > 180
-                                ? Colors.black
-                                : Colors.white,
-                          ),
+                          child: _appBarOpacity.value.toInt() > 180
+                              ? Icon(
+                                  const IconData(0xe68a,
+                                      fontFamily: 'Iconfont'),
+                                  size: 40.w,
+                                  color: Colors.black,
+                                )
+                              : Icon(
+                                  const IconData(0xe64d,
+                                      fontFamily: 'Iconfont'),
+                                  size: 40.w,
+                                  color: Colors.white,
+                                ),
                         ),
                       )
                     ],
