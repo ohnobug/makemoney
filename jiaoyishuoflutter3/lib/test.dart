@@ -1,16 +1,23 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/components/CustomPhysics.dart';
+import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/homeminiprogram.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'dart:math' as math;
+
+import 'package:vibration/vibration.dart';
 
 class LJNTestPage extends StatefulWidget {
+  const LJNTestPage({super.key});
+
   @override
   State<LJNTestPage> createState() => _LJNTestPageState();
 }
@@ -20,17 +27,21 @@ class _LJNTestPageState extends State<LJNTestPage>
   final ScrollController _scrollController = ScrollController();
 
   late AnimationController _animationController;
-  late Animation<double> _heightAnimation;
   double _appbarPosition = 0;
   Size _screenSize = const Size(0, 0);
-  ScrollPhysics? _physics;
+  ScrollPhysics _physics = const BouncingScrollPhysics();
+
+  bool _bee = false;
+  bool _canforword = false;
 
   @override
   void initState() {
     super.initState();
 
-    setState(() {
-      _physics = const BouncingScrollPhysics();
+    myStore.dispatch({"type": "showMiniProgramDrawer", "payload": false});
+
+    Future.delayed(const Duration(milliseconds: 300), () {
+      myStore.dispatch({"type": "mainpage1isload", "payload": true});
     });
 
     // 初始化 AnimationController
@@ -39,58 +50,46 @@ class _LJNTestPageState extends State<LJNTestPage>
       duration: const Duration(milliseconds: 300), // 动画持续时间
     );
 
-    // 设置高度动画，从100到360
-    _heightAnimation =
-        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController)
-          ..addListener(() {
-            setState(() {}); // 刷新界面
-          });
-
-    _heightAnimation.addListener(() {
-      if (_heightAnimation.isAnimating) {
-        setState(() {
-          _physics = const NeverScrollableScrollPhysics();
-        });
-      } else {
-        Timer(const Duration(milliseconds: 600), () {
-          setState(() {
-            _physics = const BouncingScrollPhysics();
-          });
-        });
-      }
-      // if (_heightAnimation.isCompleted) {
-      //   Timer(const Duration(milliseconds: 600), () {
-      //     if (mounted) {
-      //       setState(() {
-      //         _physics = const NeverScrollableScrollPhysics();
-      //       });
-      //     }
-      //   });
-      // } else if (_heightAnimation.value == 0) {
-      //   setState(() {
-      //     _physics = const BouncingScrollPhysics();
-      //   });
-      // }
-
+    _animationController.addListener(() {
       myStore.dispatch({
         "type": "homescrollpixels",
         "payload": _appbarPosition +
-            _heightAnimation.value * (_screenSize.height - 90.0.w)
+            _animationController.value *
+                (_screenSize.height - (90.0.w + _statusHeight))
       });
     });
 
     _scrollController.addListener(() {
       double offset = _scrollController.offset;
-      if (offset <= 0) {
+      logger.info(offset);
+
+      if (offset < 0) {
+        // 震动设置
+        double homescrollpixels = offset.abs();
+        if (_bee == false && homescrollpixels >= 240.w && !kIsWeb) {
+          _bee = true;
+          Vibration.vibrate(duration: 50, amplitude: 255);
+        }
+
+        if (homescrollpixels >= 230.w) {
+          _canforword = true;
+        }
+
         setState(() {
           _appbarPosition = offset.abs();
         });
       }
 
+      // 恢复可震动状态
+      if (offset.abs() < 50.w) {
+        _bee = false;
+      }
+
       myStore.dispatch({
         "type": "homescrollpixels",
         "payload": _appbarPosition +
-            _heightAnimation.value * (_screenSize.height - 90.0.w)
+            _animationController.value *
+                (_screenSize.height - (90.0.w + _statusHeight))
       });
     });
 
@@ -564,11 +563,23 @@ class _LJNTestPageState extends State<LJNTestPage>
 
   late final List<ChatListItem> chatItems;
 
-  bool canScroll = false;
   double _statusHeight = 0;
 
   @override
   Widget build(BuildContext context) {
+    return StoreConnector<StoreType, StoreType>(
+        converter: (store) => store.state,
+        builder: (context, vm) {
+          if (vm.showMiniProgramDrawer == false) {
+            _animationController.reverse();
+            _physics = const BouncingScrollPhysics();
+          }
+
+          return vm.mainpage1isload! ? _buildPage(vm) : const LJNPageLoading();
+        });
+  }
+
+  Widget _buildPage(StoreType vm) {
     _screenSize = MediaQuery.of(context).size;
 
     if (kIsWeb) {
@@ -577,87 +588,102 @@ class _LJNTestPageState extends State<LJNTestPage>
       _statusHeight = MediaQuery.of(context).padding.top;
     }
 
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          if (_animationController.isCompleted &&
-              !_animationController.isAnimating &&
-              vm.showMiniProgramDrawer == false) {
-            logger.info("恢复");
-            _animationController.reverse();
+    return Listener(
+        onPointerUp: (event) {
+          logger.info("释放：$_canforword");
+          if (_canforword) {
+            _canforword = false;
+            myStore
+                .dispatch({"type": "showMiniProgramDrawer", "payload": true});
+            _animationController.forward().then((_) {
+              setState(() {
+                _physics = const NeverScrollableScrollPhysics();
+                _animationController.value = 1;
+              });
+            });
           }
+        },
+        child: ScrollConfiguration(
+            behavior: CustomScrollBehavior().copyWith(scrollbars: false),
+            child: CustomScrollView(
+              primary: false,
+              shrinkWrap: true,
+              controller: _scrollController,
+              physics: _physics,
+              slivers: <Widget>[
+                SliverAppBar(
+                  primary: false,
+                  expandedHeight: _animationController.value *
+                      (_screenSize.height - (90.0.w + _statusHeight)),
+                  // 使用一个小于 toolbarHeight 的 collapsedHeight
+                  // collapsedHeight: _statusHeight + 90.w,
+                  toolbarHeight: 0,
+                  collapsedHeight: 0, // 收缩后的高度
+                  floating: true,
+                  snap: true,
+                  pinned: true,
+                  stretch: true,
+                  flexibleSpace: const LJNHomeMiniProgram(),
+                  backgroundColor: const Color.fromARGB(255, 57, 55, 77),
+                ),
+                SliverToBoxAdapter(
+                    child: Listener(
+                  onPointerDown: (event) {
+                    // 只控制向上，开始的情况不管
+                    if (_animationController.value == 0) return;
 
-          return Listener(
-              onPointerUp: (PointerUpEvent e) {
-                double offset = _scrollController.offset;
-                logger.info("手势释放了 $offset");
+                    setState(() {
+                      _physics = const NeverScrollableScrollPhysics();
+                    });
+                  },
+                  onPointerMove: (event) {
+                    // 只控制向上，开始的情况不管
+                    if (_animationController.value == 0) return;
 
-                // logger.info(_scrollController.offset);
-                if (offset < -150.0.w) {
-                  _animationController.forward();
-                  myStore.dispatch(
-                      {"type": "showMiniProgramDrawer", "payload": true});
-                  return;
-                }
+                    // 限制继续往下拖
+                    if (event.position.dy >
+                        (_screenSize.height - (90.0.w + _statusHeight))) {
+                      return;
+                    }
 
-                // 上拉
-                if (offset > 0.0.w && _heightAnimation.value > 0.0) {
-                  _animationController.reverse();
-                  myStore.dispatch(
-                      {"type": "showMiniProgramDrawer", "payload": false});
-                  return;
-                }
-              },
-              child: ScrollConfiguration(
-                  behavior: CustomScrollBehavior().copyWith(scrollbars: false),
-                  child: CustomScrollView(
-                    primary: false,
-                    shrinkWrap: true,
-                    controller: _scrollController,
-                    // physics: _heightAnimation.value == 1
-                    //     ? const NeverScrollableScrollPhysics()
-                    //     : const BouncingScrollPhysics(),
-                    // physics: const BouncingScrollPhysics(),
-                    physics: _physics,
-                    slivers: <Widget>[
-                      SliverAppBar(
-                        primary: false,
-                        expandedHeight: _heightAnimation.value *
-                            (_screenSize.height - 90.0.w),
-                        // 使用一个小于 toolbarHeight 的 collapsedHeight
-                        // collapsedHeight: _statusHeight + 90.w,
-                        toolbarHeight: _statusHeight + 90.w,
-                        collapsedHeight: _statusHeight + 90.w, // 收缩后的高度
-                        floating: false,
-                        snap: false,
-                        pinned: true,
-                        stretch: true,
-                        flexibleSpace: const LJNHomeMiniProgram(),
-                        backgroundColor: const Color.fromARGB(255, 57, 55, 77),
-                      ),
-                      SliverToBoxAdapter(
-                        child: Container(
-                          height: _statusHeight + 90.w, // 容器的高度
-                          color: Colors.orange,
-                          alignment: Alignment.center,
-                          child: const Text(
-                            '这是一个 Container',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          ),
-                        ),
-                      ),
-                      SliverFixedExtentList(
-                        itemExtent: 135.0.w,
-                        delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                            return chatItems[index];
-                          },
-                          childCount: chatItems.length,
-                        ),
-                      ),
-                    ],
-                  )));
-        });
+                    logger.info("来了");
+                    setState(() {
+                      _animationController.value =
+                          event.position.dy / _screenSize.height;
+                    });
+                  },
+                  onPointerUp: (event) {
+                    // 只控制向上，开始的情况不管
+                    if (_animationController.value == 0) return;
+
+                    // 恢复
+                    _animationController.reverse().then((_) {
+                      _canforword = true;
+                      myStore.dispatch(
+                          {"type": "showMiniProgramDrawer", "payload": false});
+                      _physics = const BouncingScrollPhysics();
+                      _animationController.value = 0;
+                    });
+                  },
+                  child: Container(
+                    height: _statusHeight + 90.w, // 容器的高度
+                    // color: Colors.orange,
+                    color: const Color.fromARGB(255, 33, 125, 255),
+                    alignment: Alignment.center,
+                    child: null,
+                  ),
+                )),
+                SliverFixedExtentList(
+                  itemExtent: 135.0.w,
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return chatItems[index];
+                    },
+                    childCount: chatItems.length,
+                  ),
+                ),
+              ],
+            )));
   }
 }
 
@@ -917,5 +943,166 @@ class _ChatListItem extends State<ChatListItem> {
                     ))
           ],
         ));
+  }
+}
+
+class HomeBouncingScrollPhysics extends ScrollPhysics {
+  /// Creates scroll physics that bounce back from the edge.
+  const HomeBouncingScrollPhysics({
+    this.decelerationRate = ScrollDecelerationRate.normal,
+    super.parent,
+  });
+
+  /// Used to determine parameters for friction simulations.
+  final ScrollDecelerationRate decelerationRate;
+
+  @override
+  HomeBouncingScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    return HomeBouncingScrollPhysics(
+        parent: buildParent(ancestor), decelerationRate: decelerationRate);
+  }
+
+  /// The multiple applied to overscroll to make it appear that scrolling past
+  /// the edge of the scrollable contents is harder than scrolling the list.
+  /// This is done by reducing the ratio of the scroll effect output vs the
+  /// scroll gesture input.
+  ///
+  /// This factor starts at 0.52 and progressively becomes harder to overscroll
+  /// as more of the area past the edge is dragged in (represented by an increasing
+  /// `overscrollFraction` which starts at 0 when there is no overscroll).
+  double frictionFactor(double overscrollFraction) {
+    return math.pow(1 - overscrollFraction, 2) *
+        switch (decelerationRate) {
+          ScrollDecelerationRate.fast => 0.26,
+          ScrollDecelerationRate.normal => 0.52,
+        };
+  }
+
+  @override
+  double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
+    assert(offset != 0.0);
+    assert(position.minScrollExtent <= position.maxScrollExtent);
+
+    if (!position.outOfRange) {
+      return offset;
+    }
+
+    final double overscrollPastStart =
+        math.max(position.minScrollExtent - position.pixels, 0.0);
+    final double overscrollPastEnd =
+        math.max(position.pixels - position.maxScrollExtent, 0.0);
+    final double overscrollPast =
+        math.max(overscrollPastStart, overscrollPastEnd);
+    final bool easing = (overscrollPastStart > 0.0 && offset < 0.0) ||
+        (overscrollPastEnd > 0.0 && offset > 0.0);
+
+    final double friction = easing
+        // Apply less resistance when easing the overscroll vs tensioning.
+        ? frictionFactor(
+            (overscrollPast - offset.abs()) / position.viewportDimension)
+        : frictionFactor(overscrollPast / position.viewportDimension);
+    final double direction = offset.sign;
+
+    if (easing && decelerationRate == ScrollDecelerationRate.fast) {
+      return direction * offset.abs();
+    }
+    return direction * _applyFriction(overscrollPast, offset.abs(), friction);
+  }
+
+  static double _applyFriction(
+      double extentOutside, double absDelta, double gamma) {
+    assert(absDelta > 0);
+    double total = 0.0;
+    if (extentOutside > 0) {
+      final double deltaToLimit = extentOutside / gamma;
+      if (absDelta < deltaToLimit) {
+        return absDelta * gamma;
+      }
+      total += extentOutside;
+      absDelta -= deltaToLimit;
+    }
+    return total + absDelta;
+  }
+
+  @override
+  double applyBoundaryConditions(ScrollMetrics position, double value) => 0.0;
+
+  @override
+  Simulation? createBallisticSimulation(
+      ScrollMetrics position, double velocity) {
+    logger.info("position: ${position.pixels}   velocity: $velocity");
+    // return null;
+
+    // if (velocity > 0) return null;
+
+    final Tolerance tolerance = toleranceFor(position);
+    if (velocity.abs() >= tolerance.velocity || position.outOfRange) {
+      return BouncingScrollSimulation(
+        spring: spring,
+        position: position.pixels,
+        velocity: velocity,
+        leadingExtent: position.minScrollExtent,
+        trailingExtent: position.maxScrollExtent,
+        tolerance: tolerance,
+        constantDeceleration: switch (decelerationRate) {
+          ScrollDecelerationRate.fast => 1400,
+          ScrollDecelerationRate.normal => 0,
+        },
+      );
+    }
+    return null;
+  }
+
+  // The ballistic simulation here decelerates more slowly than the one for
+  // ClampingScrollPhysics so we require a more deliberate input gesture
+  // to trigger a fling.
+  @override
+  double get minFlingVelocity => kMinFlingVelocity * 2.0;
+
+  // Methodology:
+  // 1- Use https://github.com/flutter/platform_tests/tree/master/scroll_overlay to test with
+  //    Flutter and platform scroll views superimposed.
+  // 3- If the scrollables stopped overlapping at any moment, adjust the desired
+  //    output value of this function at that input speed.
+  // 4- Feed new input/output set into a power curve fitter. Change function
+  //    and repeat from 2.
+  // 5- Repeat from 2 with medium and slow flings.
+  /// Momentum build-up function that mimics iOS's scroll speed increase with repeated flings.
+  ///
+  /// The velocity of the last fling is not an important factor. Existing speed
+  /// and (related) time since last fling are factors for the velocity transfer
+  /// calculations.
+  @override
+  double carriedMomentum(double existingVelocity) {
+    logger.info("aaaaaaaaaaaaaaaaaaaaaaaaaaa:${existingVelocity.sign}");
+
+    return existingVelocity.sign *
+        math.min(0.000816 * math.pow(existingVelocity.abs(), 1.967).toDouble(),
+            40000.0);
+  }
+
+  @override
+  double get dragStartDistanceMotionThreshold => 3.5;
+
+  @override
+  double get maxFlingVelocity {
+    return switch (decelerationRate) {
+      ScrollDecelerationRate.fast => kMaxFlingVelocity * 8.0,
+      ScrollDecelerationRate.normal => super.maxFlingVelocity,
+    };
+  }
+
+  @override
+  SpringDescription get spring {
+    switch (decelerationRate) {
+      case ScrollDecelerationRate.fast:
+        return SpringDescription.withDampingRatio(
+          mass: 0.3,
+          stiffness: 75.0,
+          ratio: 1.3,
+        );
+      case ScrollDecelerationRate.normal:
+        return super.spring;
+    }
   }
 }

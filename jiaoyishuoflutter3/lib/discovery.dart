@@ -23,6 +23,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
     super.initState();
 
     myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
+    myStore.dispatch({"type": "showMiniProgramDrawer", "payload": false});
 
     Future.delayed(const Duration(milliseconds: 300), () {
       myStore.dispatch({"type": "mainpage3isload", "payload": true});

@@ -362,9 +362,6 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   double _appbarLeft = 0;
 
-  // 微微震动
-  bool slight = false;
-
   double _statusHeight = 0;
 
   @override
@@ -479,21 +476,7 @@ class _CustomTabbarState extends State<CustomTabbar>
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          // 震动控制
           var homescrollpixels = vm.homescrollpixels!;
-          // logger.info("main main main: {$homescrollpixels}");
-          // logger.info("媒体高度：${MediaQuery.of(context).size.height / 4 - 205.w}");
-
-          if (homescrollpixels <= 50 && slight == true) {
-            slight = false;
-          } else if (slight == false && homescrollpixels >= 180) {
-            // logger.info("震动：${MediaQuery.of(context).size.height}");
-            slight = true;
-
-            if (!kIsWeb) {
-              Vibration.vibrate(duration: 15, amplitude: 200);
-            }
-          }
 
           // appbar标题
           Text appBarTitle = const Text("");
@@ -614,20 +597,23 @@ class _CustomTabbarState extends State<CustomTabbar>
                         ))),
                 appBar: null,
                 body: TabBarView(
+                  physics: vm.showMiniProgramDrawer == true
+                      ? const NeverScrollableScrollPhysics()
+                      : const BouncingScrollPhysics(),
                   controller: _tabController,
-                  children: <Widget>[
+                  children: const <Widget>[
                     LJNTestPage(),
                     // LJNHomePage(),
-                    const LJNContactPage(),
-                    const LJNDiscoveryPage(),
-                    const LJNUserPage(),
+                    LJNContactPage(),
+                    LJNDiscoveryPage(),
+                    LJNUserPage(),
                   ],
                 ),
               ),
 
               // 浮动在顶部的appbar
               Visibility(
-                visible: false,
+                visible: vm.showMiniProgramDrawer != true,
                 child: Positioned(
                     top: homescrollpixels,
                     left: _appbarLeft,
@@ -637,7 +623,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                         color: const Color.fromARGB(255, 237, 237, 237),
                         child: Column(
                             mainAxisAlignment: vm.showMiniProgramDrawer == true
-                                ? MainAxisAlignment.start
+                                ? MainAxisAlignment.center
                                 : MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
