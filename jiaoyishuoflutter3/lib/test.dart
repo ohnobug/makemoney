@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +10,6 @@ import 'package:jiaoyishuoflutter3/homeminiprogram.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
-import 'dart:math' as math;
 
 import 'package:vibration/vibration.dart';
 
@@ -35,9 +33,9 @@ class _LJNTestPageState extends State<LJNTestPage>
   bool _canforword = false;
   double homescrollpixels = 0;
   double _lastPosition = 0;
-  double _previousY = 0;
-  double _startHomescrollpixels = 0;
-  bool _canReverse = false;
+  // double _previousY = 0;
+  // double _startHomescrollpixels = 0;
+  // bool _canReverse = false;
 
   @override
   void initState() {
@@ -64,6 +62,7 @@ class _LJNTestPageState extends State<LJNTestPage>
       if (_animationController.value == 0 && _scrollController.offset == 0) {
         setState(() {
           _physics = const FastBouncingAcceleratedScrollPhysics();
+          myStore.dispatch({"type": "showMiniProgramDrawer", "payload": true});
         });
       } else if (_animationController.value == 1 &&
           _scrollController.offset == 0) {
@@ -84,6 +83,7 @@ class _LJNTestPageState extends State<LJNTestPage>
       if (_animationController.value == 0 && _scrollController.offset == 0) {
         setState(() {
           _physics = const FastBouncingAcceleratedScrollPhysics();
+          myStore.dispatch({"type": "showMiniProgramDrawer", "payload": true});
         });
       } else if (_animationController.value == 1 &&
           _scrollController.offset == 0) {
@@ -133,10 +133,6 @@ class _LJNTestPageState extends State<LJNTestPage>
 
       // 关于此处_edgeOutRangePosition为什么要乘2
       // 因为弹性下拉的时候, 列表占了一份_edgeOutRangePosition, 顶部的SliverAppBar占了一份_edgeOutRangePosition. 所以要乘2
-
-      // _animationController.value =
-      //     _edgeOutRangePosition / (_screenSize.height - (90.w + _statusHeight));
-
       myStore.dispatch({
         "type": "homescrollpixels",
         "payload": _edgeOutRangePosition * 2 +
