@@ -33,6 +33,11 @@ class _LJNTestPageState extends State<LJNTestPage>
 
   bool _bee = false;
   bool _canforword = false;
+  double homescrollpixels = 0;
+  double _lastPosition = 0;
+  double _previousY = 0;
+  double _startHomescrollpixels = 0;
+  bool _canReverse = false;
 
   @override
   void initState() {
@@ -51,32 +56,53 @@ class _LJNTestPageState extends State<LJNTestPage>
     );
 
     _animationController.addListener(() {
+      // logger.info("qqqqqqqqqqqqqqqqq_animationController.value : ${_animationController.value}");
+      // logger.info("qqqqqqqqqqqqqqqqq_screenSize.height : ${_screenSize.height}");
+      // logger.info("qqqqqqqqqqqqqqqqq(90.0.w + _statusHeight) : ${(90.0.w + _statusHeight)}");
+      // logger.info(
+      //     "qqqqqqqqqqqqqqqqq_screenSize.height - (90.0.w + _statusHeight): ${_screenSize.height - (90.0.w + _statusHeight)}");
+
       myStore.dispatch({
         "type": "homescrollpixels",
-        "payload": _appbarPosition +
+        "payload": _lastPosition * 2 +
             _animationController.value *
-                (_screenSize.height - (90.0.w + _statusHeight))
+                (_screenSize.height - (90.w + _statusHeight))
       });
     });
 
     _scrollController.addListener(() {
+      if (_animationController.value == 1 && _scrollController.offset == 0) {
+        // _physics = const NeverScrollableScrollPhysics();
+
+        myStore.dispatch({
+          "type": "homescrollpixels",
+          "payload": _animationController.value *
+              (_screenSize.height - (90.w + _statusHeight))
+        });
+      }
+
       double offset = _scrollController.offset;
-      logger.info(offset);
+      // logger.info(offset);
 
       if (offset < 0) {
         // 震动设置
-        double homescrollpixels = offset.abs();
+        homescrollpixels = offset.abs();
+
         if (_bee == false && homescrollpixels >= 240.w && !kIsWeb) {
           _bee = true;
-          Vibration.vibrate(duration: 50, amplitude: 255);
+          // Vibration.vibrate(duration: 50, amplitude: 255);
         }
 
-        if (homescrollpixels >= 230.w) {
+        if (homescrollpixels >= 240.w) {
           _canforword = true;
         }
 
         setState(() {
           _appbarPosition = offset.abs();
+        });
+      } else {
+        setState(() {
+          _appbarPosition = 0;
         });
       }
 
@@ -85,11 +111,14 @@ class _LJNTestPageState extends State<LJNTestPage>
         _bee = false;
       }
 
+      // 关于此处_appbarPosition为什么要乘2
+      // 因为弹性下拉的时候, 列表占了一份_appbarPosition, 顶部的SliverAppBar占了一份_appbarPosition. 所以要乘2
+
       myStore.dispatch({
         "type": "homescrollpixels",
-        "payload": _appbarPosition +
+        "payload": _appbarPosition * 2 +
             _animationController.value *
-                (_screenSize.height - (90.0.w + _statusHeight))
+                (_screenSize.height - (90.w + _statusHeight))
       });
     });
 
@@ -570,11 +599,6 @@ class _LJNTestPageState extends State<LJNTestPage>
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          if (vm.showMiniProgramDrawer == false) {
-            _animationController.reverse();
-            _physics = const BouncingScrollPhysics();
-          }
-
           return vm.mainpage1isload! ? _buildPage(vm) : const LJNPageLoading();
         });
   }
@@ -590,17 +614,15 @@ class _LJNTestPageState extends State<LJNTestPage>
 
     return Listener(
         onPointerUp: (event) {
+          _lastPosition = _appbarPosition;
           logger.info("释放：$_canforword");
+
           if (_canforword) {
             _canforword = false;
             myStore
                 .dispatch({"type": "showMiniProgramDrawer", "payload": true});
-            _animationController.forward().then((_) {
-              setState(() {
-                _physics = const NeverScrollableScrollPhysics();
-                _animationController.value = 1;
-              });
-            });
+
+            _animationController.forward();
           }
         },
         child: ScrollConfiguration(
@@ -613,14 +635,13 @@ class _LJNTestPageState extends State<LJNTestPage>
               slivers: <Widget>[
                 SliverAppBar(
                   primary: false,
-                  expandedHeight: _animationController.value *
-                      (_screenSize.height - (90.0.w + _statusHeight)),
+                  expandedHeight: vm.homescrollpixels! - _appbarPosition,
                   // 使用一个小于 toolbarHeight 的 collapsedHeight
                   // collapsedHeight: _statusHeight + 90.w,
                   toolbarHeight: 0,
                   collapsedHeight: 0, // 收缩后的高度
-                  floating: true,
-                  snap: true,
+                  floating: false,
+                  snap: false,
                   pinned: true,
                   stretch: true,
                   flexibleSpace: const LJNHomeMiniProgram(),
@@ -628,49 +649,123 @@ class _LJNTestPageState extends State<LJNTestPage>
                 ),
                 SliverToBoxAdapter(
                     child: Listener(
-                  onPointerDown: (event) {
-                    // 只控制向上，开始的情况不管
-                    if (_animationController.value == 0) return;
-
-                    setState(() {
-                      _physics = const NeverScrollableScrollPhysics();
-                    });
-                  },
-                  onPointerMove: (event) {
-                    // 只控制向上，开始的情况不管
-                    if (_animationController.value == 0) return;
-
-                    // 限制继续往下拖
-                    if (event.position.dy >
-                        (_screenSize.height - (90.0.w + _statusHeight))) {
-                      return;
-                    }
-
-                    logger.info("来了");
-                    setState(() {
-                      _animationController.value =
-                          event.position.dy / _screenSize.height;
-                    });
-                  },
                   onPointerUp: (event) {
-                    // 只控制向上，开始的情况不管
-                    if (_animationController.value == 0) return;
-
-                    // 恢复
-                    _animationController.reverse().then((_) {
-                      _canforword = true;
-                      myStore.dispatch(
-                          {"type": "showMiniProgramDrawer", "payload": false});
-                      _physics = const BouncingScrollPhysics();
-                      _animationController.value = 0;
+                    // logger.info(
+                    //     "_animationController.isAnimating: ${_animationController.isAnimating}");
+                    // logger.info(
+                    //     "_animationController.isCompleted: ${_animationController.isCompleted}");
+                    // logger.info(
+                    //     "_animationController.isDismissed: ${_animationController.isDismissed}");
+                    // logger.info(
+                    //     "_animationController.isForwardOrCompleted: ${_animationController.isForwardOrCompleted}");
+                    setState(() {
+                      _animationController.reverse();
                     });
                   },
+                  // onPointerDown: (event) {
+                  //   // 当手指按下时记录当前位置
+                  //   _previousY = event.position.dy;
+                  //   _startHomescrollpixels = vm.homescrollpixels!;
+
+                  //   // setState(() {
+                  //   //   _physics = const BouncingScrollPhysics();
+                  //   // });
+                  // },
+                  // onPointerMove: (event) {
+                  //   // 不接受下拉
+                  //   if (_previousY - event.position.dy < 0) {
+                  //     return;
+                  //   }
+
+                  //   logger.info(
+                  //       "_previousY - event.position.dy: ${_previousY - event.position.dy}");
+
+                  //   if (_previousY - event.position.dy > 5) {
+                  //     _canReverse = true;
+                  //   }
+
+                  //   myStore.dispatch({
+                  //     "type": "homescrollpixels",
+                  //     "payload": _startHomescrollpixels -
+                  //         (_previousY - event.position.dy)
+                  //   });
+                  // },
+                  // onPointerUp: (event) {
+                  //   // logger.info("ccccccccccccc: $_canReverse");
+                  //   if (_canReverse) {
+                  //     logger.info("ccccccccccccc: $_canReverse");
+                  //     _animationController.reverse().then((_) {
+                  //       myStore.dispatch({
+                  //         "type": "showMiniProgramDrawer",
+                  //         "payload": false
+                  //       });
+
+                  //       _canReverse = false;
+                  //     });
+                  //   }
+                  // },
                   child: Container(
                     height: _statusHeight + 90.w, // 容器的高度
                     // color: Colors.orange,
                     color: const Color.fromARGB(255, 33, 125, 255),
                     alignment: Alignment.center,
-                    child: null,
+                    child: Container(
+                        width: 750.0.w,
+                        height: _statusHeight + 90.w,
+                        color: const Color.fromARGB(255, 237, 237, 237),
+                        child: Column(
+                            mainAxisAlignment: vm.showMiniProgramDrawer == true
+                                ? MainAxisAlignment.center
+                                : MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              AppBar(
+                                // App标题栏
+                                primary: false,
+                                title: const Text("微信"),
+                                centerTitle: true,
+                                titleTextStyle: TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(32.w),
+                                    color: Colors.black,
+                                    fontFamily: "AlibabaPuHuiTi-Medium"),
+                                toolbarHeight: 90.w,
+                                elevation: 0,
+                                scrolledUnderElevation: 0,
+                                backgroundColor:
+                                    const Color.fromARGB(255, 237, 237, 237),
+                                foregroundColor:
+                                    const Color.fromARGB(255, 237, 237, 237),
+                                actions: [
+                                  Container(
+                                    color: Colors.transparent,
+                                    height: 90.w,
+                                    padding:
+                                        EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                                    child: Icon(
+                                      const IconData(
+                                        0xe612,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      size: 40.w, // 图标大小
+                                    ),
+                                  ),
+                                  Container(
+                                    color: Colors.transparent,
+                                    height: 90.w,
+                                    padding:
+                                        EdgeInsets.only(right: 40.w), // 设置右侧内边距
+                                    child: Icon(
+                                      const IconData(
+                                        0xe726,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      size: 42.w, // 图标大小
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ])),
                   ),
                 )),
                 SliverFixedExtentList(

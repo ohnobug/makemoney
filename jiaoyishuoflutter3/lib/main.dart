@@ -476,8 +476,6 @@ class _CustomTabbarState extends State<CustomTabbar>
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          var homescrollpixels = vm.homescrollpixels!;
-
           // appbar标题
           Text appBarTitle = const Text("");
           if (changeIcon == 0) {
@@ -613,9 +611,10 @@ class _CustomTabbarState extends State<CustomTabbar>
 
               // 浮动在顶部的appbar
               Visibility(
+                // visible: true,
                 visible: vm.showMiniProgramDrawer != true,
                 child: Positioned(
-                    top: homescrollpixels,
+                    top: vm.homescrollpixels,
                     left: _appbarLeft,
                     child: Container(
                         width: 750.0.w,
@@ -646,11 +645,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                     const Color.fromARGB(255, 237, 237, 237),
                                 actions: [
                                   GestureDetector(
-                                    onTap: () {
-                                      if (homescrollpixels == 0) {
-                                        // 处理逻辑
-                                      }
-                                    },
+                                    onTap: () {},
                                     child: Container(
                                       color: Colors.transparent,
                                       height: 90.w,
@@ -667,7 +662,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      if (homescrollpixels == 0) {
+                                      if (vm.homescrollpixels == 0) {
                                         vm.showpopup = !vm.showpopup!;
                                         myStore.dispatch({
                                           "type": "showpopup",
