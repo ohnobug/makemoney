@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/CustomPhysics.dart';
 import 'package:jiaoyishuoflutter3/components/pageloading.dart';
+import 'package:jiaoyishuoflutter3/homeminiprogram.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
@@ -22,6 +23,10 @@ class _ChatListViewState extends State<LJNHome22Page>
   late final List<ChatListItem> chatItems;
   late AnimationController _animationController;
   // late Animation<double> _heightAnimation;
+  ScrollPhysics _physics = const MyBouncingScrollPhysics();
+  double _targetHeight = 0;
+
+  // bool _forwarding = false;
 
   @override
   void initState() {
@@ -34,39 +39,21 @@ class _ChatListViewState extends State<LJNHome22Page>
     _animationController = AnimationController(
       vsync: this,
       lowerBound: 0.0,
-      upperBound: 900.0.w,
-      duration: const Duration(milliseconds: 10000), // 动画持续时间
+      upperBound: 1.0,
+      duration: const Duration(milliseconds: 300), // 动画持续时间
     );
 
+    // WidgetsBinding.instance.addPostFrameCallback((_) async {
+    // });
     _animationController.addListener(() {
-      logger.info("滚动: ${_animationController.value}");
-      myStore.dispatch(
-          {"type": "homescrollpixels", "payload": _animationController.value});
+      // logger.info("滚动: ${_animationController.value}");
+      myStore.dispatch({
+        "type": "homescrollpixels",
+        "payload": _animationController.value * _targetHeight
+      });
     });
 
-    _customScrollController.addListener(() {
-      logger.info("this is :{${_customScrollController.position.pixels}}");
-
-      // 下拉的时候
-      if (_customScrollController.position.pixels <= 0) {
-        _animationController.value =
-            _customScrollController.position.pixels.abs();
-
-        myStore.dispatch({
-          "type": "homescrollpixels",
-          "payload": _customScrollController.position.pixels.abs()
-        });
-      } else {
-        // 上拉
-        double newValue = myStore.state.homescrollpixels! +
-            _customScrollController.position.pixels;
-        if (newValue < 0) {
-          myStore.dispatch({"type": "homescrollpixels", "payload": newValue});
-        } else {
-          myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
-        }
-      }
-    });
+    _customScrollController.addListener(scrollListener);
 
     chatItems = [
       ChatListItem(
@@ -529,6 +516,30 @@ class _ChatListViewState extends State<LJNHome22Page>
     ];
   }
 
+  void scrollListener() {
+    logger.info("this is :{${_customScrollController.position.pixels}}");
+
+    // 下拉的时候
+    if (_customScrollController.position.pixels <= 0) {
+      // _animationController.value =
+      //     _customScrollController.position.pixels.abs();
+
+      myStore.dispatch({
+        "type": "homescrollpixels",
+        "payload": _customScrollController.position.pixels.abs()
+      });
+    } else {
+      // 上拉
+      double newValue = myStore.state.homescrollpixels +
+          _customScrollController.position.pixels;
+      if (newValue < 0) {
+        myStore.dispatch({"type": "homescrollpixels", "payload": newValue});
+      } else {
+        myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<StoreType, StoreType>(
@@ -547,51 +558,68 @@ class _ChatListViewState extends State<LJNHome22Page>
       _statusHeight = MediaQuery.of(context).padding.top;
     }
 
+    _targetHeight = screenSize.height - (90.w + _statusHeight);
+
     return Stack(
       children: [
+        // 列表
         Positioned(
-            top: vm.homescrollpixels,
+            top: _animationController.value * _targetHeight +
+                90.w +
+                _statusHeight,
             left: 0,
             child: Listener(
                 onPointerUp: (event) {
-                  logger
-                      .info("成功啦, ${_customScrollController.position.pixels}");
+                  logger.info(
+                      "this is成功啦, ${_customScrollController.position.pixels}");
                   if (_customScrollController.position.pixels < -100) {
-                    // _animationController.value = vm.homescrollpixels!;
+                    // _forwarding = true;
+                    logger.info(
+                        "this is vm.homescrollpixels!: ${vm.homescrollpixels}");
+                    _animationController.value =
+                        vm.homescrollpixels / _targetHeight;
                     _customScrollController.jumpTo(0);
+                    _physics = const NeverScrollableScrollPhysics();
                     myStore.dispatch(
                         {"type": "showMiniProgramDrawer", "payload": true});
 
-                    _animationController.forward();
+                    _customScrollController.removeListener(scrollListener);
+
+                    _animationController.forward().then((_) {
+                      _physics = const MyBouncingScrollPhysics();
+                    });
                   }
                 },
                 child: SizedBox(
                     width: screenSize.width,
                     height: screenSize.height,
                     child: ScrollConfiguration(
-                        behavior:
-                            CustomScrollBehavior().copyWith(scrollbars: false),
+                        behavior: CustomScrollBehavior().copyWith(
+                          scrollbars: false,
+                          physics: _physics,
+                        ),
                         child: ListView.builder(
                           primary: false,
-                          padding: EdgeInsets.only(top: _statusHeight + 90.w),
+                          padding: const EdgeInsets.all(0),
                           itemCount: chatItems.length,
                           shrinkWrap: true,
                           controller: _customScrollController,
-                          physics: const CustomScrollPhysics()
-                              .applyTo(const MyBouncingScrollPhysics()),
-                          // physics: const MyBouncingScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           itemBuilder: (context, index) {
                             return chatItems[index];
                           },
                         ))))),
+
+        // 小程序
         Positioned(
             top: 0,
             left: 0,
             child: Container(
+              constraints: BoxConstraints(maxHeight: vm.homescrollpixels!),
               height: vm.homescrollpixels,
               width: 750.w,
-              color: const Color.fromARGB(255, 195, 231, 32),
+              color: const Color.fromARGB(255, 54, 49, 76),
+              child: const LJNHomeMiniProgram(),
             )),
       ],
     );

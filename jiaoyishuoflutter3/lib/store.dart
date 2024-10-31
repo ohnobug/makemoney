@@ -65,7 +65,9 @@ class StoreType {
   Color? button4Bg;
 
   ThemeData? themeData;
-  double? homescrollpixels; // 首页滚动情况
+  double homescrollpixels = 0; // 首页滚动情况
+
+  Size? screenSize;
 
   StoreType({
     this.userinfoName,
@@ -81,7 +83,8 @@ class StoreType {
     this.mainpage4isload,
     this.showpopup,
     this.themeData,
-    this.homescrollpixels,
+    required this.homescrollpixels,
+    this.screenSize,
     this.button1Bg,
     this.button2Bg,
     this.button3Bg,
@@ -103,6 +106,7 @@ class StoreType {
     bool? showpopup,
     ThemeData? themeData,
     double? homescrollpixels,
+    Size? screenSize,
     Color? button1Bg,
     Color? button2Bg,
     Color? button3Bg,
@@ -125,6 +129,7 @@ class StoreType {
       showpopup: showpopup ?? this.showpopup,
       themeData: themeData ?? this.themeData,
       homescrollpixels: homescrollpixels ?? this.homescrollpixels,
+      screenSize: screenSize ?? this.screenSize,
       button1Bg: button1Bg ?? this.button1Bg,
       button2Bg: button2Bg ?? this.button2Bg,
       button3Bg: button3Bg ?? this.button3Bg,
@@ -190,6 +195,10 @@ StoreType counterReducer(StoreType state, dynamic action) {
     return state.copyWith(homescrollpixels: action['payload']);
   }
 
+  if (action['type'] == "screenSize") {
+    return state.copyWith(screenSize: action['payload']);
+  }
+
   if (action['type'] == "button1Bg") {
     return state.copyWith(button1Bg: action['payload']);
   }
@@ -225,6 +234,7 @@ final myStore = Store<StoreType>(counterReducer,
         showpopup: false,
         themeData: lightTheme,
         homescrollpixels: 0.0,
+        screenSize: const Size(0, 0),
         button1Bg: const Color.fromARGB(255, 76, 76, 76),
         button2Bg: const Color.fromARGB(255, 76, 76, 76),
         button3Bg: const Color.fromARGB(255, 76, 76, 76),

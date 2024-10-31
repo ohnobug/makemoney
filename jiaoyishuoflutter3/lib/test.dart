@@ -11,7 +11,6 @@ import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
-import 'package:vibration/vibration.dart';
 
 class LJNTestPage extends StatefulWidget {
   const LJNTestPage({super.key});

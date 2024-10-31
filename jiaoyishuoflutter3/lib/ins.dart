@@ -351,8 +351,6 @@ class _LJNInsPage extends State<LJNInsPage> {
 
         if (isInside) {
           _bigimgcontroller.setPlaybackSpeed(2);
-        } else {
-          _bigimgcontroller.setPlaybackSpeed(1);
         }
       });
     }
@@ -382,10 +380,13 @@ class _LJNInsPage extends State<LJNInsPage> {
 
         if (isInside) {
           _bigimgcontroller.setPlaybackSpeed(3);
-        } else {
-          _bigimgcontroller.setPlaybackSpeed(1);
         }
       });
+    }
+
+    // 三个都不在
+    if (!isInsideX1Btn && !isInsideX2Btn && !isInsideX3Btn) {
+      _bigimgcontroller.setPlaybackSpeed(1);
     }
   }
 

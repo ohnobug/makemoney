@@ -13,12 +13,10 @@ import 'package:jiaoyishuoflutter3/friendprofile.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
-import 'package:jiaoyishuoflutter3/test.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
 import 'package:jiaoyishuoflutter3/wallet.dart';
-import 'package:vibration/vibration.dart';
 import 'contact.dart';
 import 'logger.dart';
 import 'tools/tools.dart';
@@ -612,17 +610,22 @@ class _CustomTabbarState extends State<CustomTabbar>
 
               // 浮动在顶部的appbar
               Visibility(
-                // visible: true,
-                visible: vm.showMiniProgramDrawer == false,
+                visible: true,
+                // visible: vm.showMiniProgramDrawer == false,
                 child: Positioned(
                     top: vm.homescrollpixels,
                     left: _appbarLeft,
                     child: Container(
                         width: 750.0.w,
                         height: _statusHeight + 90.w,
-                        // color: const Color.fromARGB(255, 237, 237, 237),
-                        color: const Color.fromARGB(255, 223, 61, 209),
+                        color: vm.homescrollpixels == 0
+                            ? const Color.fromARGB(255, 237, 237, 237)
+                            : Colors.transparent,
+                        // color: const Color.fromARGB(255, 223, 61, 209),
                         child: Column(
+                            // mainAxisAlignment: vm.showMiniProgramDrawer == false
+                            //     ? MainAxisAlignment.end
+                            //     : MainAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [

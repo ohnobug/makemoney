@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
+import 'dart:math' as math;
 
 class CustomScrollPhysics extends ScrollPhysics {
   const CustomScrollPhysics({super.parent});
@@ -12,7 +14,8 @@ class CustomScrollPhysics extends ScrollPhysics {
 
   @override
   double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
-    logger.info(offset);
+    logger.info("ttttttt来了aaaaaaaa");
+
     // 增加用户拖动的偏移量
     return offset * 1.3; // 乘以一个大于1的系数来增加滚动距离
   }
@@ -23,18 +26,22 @@ class CustomScrollPhysics extends ScrollPhysics {
   double get friction => 0.05; // 调整摩擦力，以改变滚动的减速特性
 }
 
+// 隐藏滚动条用
 class CustomScrollBehavior extends ScrollBehavior {
   @override
   ScrollPhysics getScrollPhysics(BuildContext context) {
+    logger.info("ttttttt来了ttttttttttt");
+
     return const CustomScrollPhysics();
     // return const CustomScrollPhysics().applyTo(const MyBouncingScrollPhysics());
   }
 }
 
+// 弹性
 class MyBouncingScrollPhysics extends ScrollPhysics {
   /// Creates scroll physics that bounce back from the edge.
   const MyBouncingScrollPhysics({
-    this.decelerationRate = ScrollDecelerationRate.normal,
+    this.decelerationRate = ScrollDecelerationRate.fast,
     super.parent,
   });
 
@@ -43,6 +50,8 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
 
   @override
   BouncingScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    logger.info("ttttttt来了22");
+
     return BouncingScrollPhysics(
         parent: buildParent(ancestor), decelerationRate: decelerationRate);
   }
@@ -55,16 +64,22 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
   /// This factor starts at 0.52 and progressively becomes harder to overscroll
   /// as more of the area past the edge is dragged in (represented by an increasing
   /// `overscrollFraction` which starts at 0 when there is no overscroll).
+  /// 拖拽的时候的弹性
   double frictionFactor(double overscrollFraction) {
+    // return 0;
+    logger.info("ttttttt来了tttttttttwwwwwwww");
+
     return math.pow(1 - overscrollFraction, 2) *
         switch (decelerationRate) {
-          ScrollDecelerationRate.fast => 0.26,
+          ScrollDecelerationRate.fast => 1.5,
           ScrollDecelerationRate.normal => 0.52,
         };
   }
 
   @override
   double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
+    logger.info("ttttttt来了");
+
     assert(offset != 0.0);
     assert(position.minScrollExtent <= position.maxScrollExtent);
 
@@ -96,6 +111,8 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
 
   static double _applyFriction(
       double extentOutside, double absDelta, double gamma) {
+    logger.info("ttttttt来了333");
+
     assert(absDelta > 0);
     double total = 0.0;
     if (extentOutside > 0) {
@@ -110,11 +127,16 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
   }
 
   @override
-  double applyBoundaryConditions(ScrollMetrics position, double value) => 0.0;
+  double applyBoundaryConditions(ScrollMetrics position, double value) {
+    logger.info("ttttttt来了444");
+    return 0.0;
+  }
 
   @override
   Simulation? createBallisticSimulation(
       ScrollMetrics position, double velocity) {
+    logger.info("ttttttt来了55555");
+
     final Tolerance tolerance = toleranceFor(position);
     if (velocity.abs() >= tolerance.velocity || position.outOfRange) {
       return BouncingScrollSimulation(
@@ -134,10 +156,14 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
   }
 
   // The ballistic simulation here decelerates more slowly than the one for
-  // ClampingScrollPhysics so we require a more deliberate input gesture
+  // MyClampingScrollPhysics so we require a more deliberate input gesture
   // to trigger a fling.
   @override
-  double get minFlingVelocity => kMinFlingVelocity * 2.0;
+  double get minFlingVelocity {
+    logger.info("ttttttt来了gaa");
+
+    return kMinFlingVelocity * 2.0;
+  }
 
   // Methodology:
   // 1- Use https://github.com/flutter/platform_tests/tree/master/scroll_overlay to test with
@@ -154,6 +180,8 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
   /// calculations.
   @override
   double carriedMomentum(double existingVelocity) {
+    logger.info("ttttttt来了pppppppppp");
+
     return existingVelocity.sign *
         math.min(0.000816 * math.pow(existingVelocity.abs(), 1.967).toDouble(),
             40000.0);
@@ -174,6 +202,8 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
 
   @override
   SpringDescription get spring {
+    logger.info("ttttttt来了77777777");
+
     switch (decelerationRate) {
       case ScrollDecelerationRate.fast:
         return SpringDescription.withDampingRatio(
@@ -185,6 +215,126 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
         return super.spring;
     }
   }
+}
 
-  get math => null;
+// 正常滚动
+class MyClampingScrollPhysics extends ScrollPhysics {
+  /// Creates scroll physics that prevent the scroll offset from exceeding the
+  /// bounds of the content.
+  const MyClampingScrollPhysics({super.parent});
+
+  @override
+  MyClampingScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    logger.info("ccccccccccc来了1111111111");
+    return MyClampingScrollPhysics(parent: buildParent(ancestor));
+  }
+
+  @override
+  double applyBoundaryConditions(ScrollMetrics position, double value) {
+    logger.info("ccccccccccc来了2222222222222");
+
+    // return 500.w;
+    assert(() {
+      if (value == position.pixels) {
+        throw FlutterError.fromParts(<DiagnosticsNode>[
+          ErrorSummary(
+              '$runtimeType.applyBoundaryConditions() was called redundantly.'),
+          ErrorDescription(
+            'The proposed new position, $value, is exactly equal to the current position of the '
+            'given ${position.runtimeType}, ${position.pixels}.\n'
+            'The applyBoundaryConditions method should only be called when the value is '
+            'going to actually change the pixels, otherwise it is redundant.',
+          ),
+          DiagnosticsProperty<ScrollPhysics>(
+              'The physics object in question was', this,
+              style: DiagnosticsTreeStyle.errorProperty),
+          DiagnosticsProperty<ScrollMetrics>(
+              'The position object in question was', position,
+              style: DiagnosticsTreeStyle.errorProperty),
+        ]);
+      }
+      return true;
+    }());
+
+    logger.info("ccccccccccc来了2222222222222a");
+
+    if (value < position.pixels &&
+        position.pixels <= position.minScrollExtent) {
+      // Underscroll.
+      logger.info("ccccccccccc来了2222222222222aUnderscroll.");
+
+      return value - position.pixels;
+    }
+    if (position.maxScrollExtent <= position.pixels &&
+        position.pixels < value) {
+      // Overscroll.
+      logger.info("ccccccccccc来了2222222222222aOverscroll.");
+
+      return value - position.pixels;
+    }
+    if (value < position.minScrollExtent &&
+        position.minScrollExtent < position.pixels) {
+      // Hit top edge.
+      logger.info("ccccccccccc来了2222222222222aHit top edge.");
+
+      return value - position.minScrollExtent;
+    }
+    if (position.pixels < position.maxScrollExtent &&
+        position.maxScrollExtent < value) {
+      // Hit bottom edge.
+      logger.info("ccccccccccc来了2222222222222aHit bottom edge.");
+
+      return value - position.maxScrollExtent;
+    }
+    return 0.0;
+  }
+
+  @override
+  Simulation? createBallisticSimulation(
+      ScrollMetrics position, double velocity) {
+    logger.info("ccccccccccc来了333333333333");
+
+    final Tolerance tolerance = toleranceFor(position);
+    if (position.outOfRange) {
+      double? end;
+      if (position.pixels > position.maxScrollExtent) {
+        end = position.maxScrollExtent;
+      }
+      if (position.pixels < position.minScrollExtent) {
+        end = position.minScrollExtent;
+      }
+      assert(end != null);
+      return ScrollSpringSimulation(
+        spring,
+        position.pixels,
+        end!,
+        math.min(0.0, velocity),
+        tolerance: tolerance,
+      );
+    }
+    if (velocity.abs() < tolerance.velocity) {
+      logger.info("qqqqqqqqq velocity.abs() < tolerance.velocity");
+      return null;
+    }
+    if (velocity > 0.0 && position.pixels >= position.maxScrollExtent) {
+      logger.info(
+          "qqqqqqqqq velocity > 0.0 && position.pixels >= position.maxScrollExtent");
+      return null;
+    }
+    if (velocity < 0.0 && position.pixels <= position.minScrollExtent) {
+      logger.info(
+          "qqqqqqqqq velocity < 0.0 && position.pixels <= position.minScrollExtent");
+      return null;
+    }
+
+    // logger.info("qqqqqqqqqqqqqqqqqqq: ${velocity}");
+
+    return ClampingScrollSimulation(
+      position: position.pixels,
+      velocity: velocity,
+      tolerance: tolerance,
+    );
+
+    // return null;
+  }
 }
