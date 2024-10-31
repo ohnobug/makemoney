@@ -1,166 +1,71 @@
-import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/components/CustomPhysics.dart';
 import 'package:jiaoyishuoflutter3/components/pageloading.dart';
-import 'package:jiaoyishuoflutter3/homeminiprogram.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:vibration/vibration.dart';
-
-class LJNTestPage extends StatefulWidget {
-  const LJNTestPage({super.key});
+class LJNHome22Page extends StatefulWidget {
+  const LJNHome22Page({super.key});
 
   @override
-  State<LJNTestPage> createState() => _LJNTestPageState();
+  State<LJNHome22Page> createState() => _ChatListViewState();
 }
 
-class _LJNTestPageState extends State<LJNTestPage>
+class _ChatListViewState extends State<LJNHome22Page>
     with SingleTickerProviderStateMixin {
-  final ScrollController _scrollController = ScrollController();
-
+  final _customScrollController = ScrollController();
+  double _statusHeight = 0;
+  late final List<ChatListItem> chatItems;
   late AnimationController _animationController;
-  double _edgeOutRangePosition = 0;
-  Size _screenSize = const Size(0, 0);
-  ScrollPhysics _physics = const FastBouncingAcceleratedScrollPhysics();
-
-  bool _bee = false;
-  bool _canforword = false;
-  double homescrollpixels = 0;
-  double _lastPosition = 0;
-  // double _previousY = 0;
-  // double _startHomescrollpixels = 0;
-  // bool _canReverse = false;
+  // late Animation<double> _heightAnimation;
 
   @override
   void initState() {
     super.initState();
 
-    myStore.dispatch({"type": "showMiniProgramDrawer", "payload": false});
-
     Future.delayed(const Duration(milliseconds: 300), () {
       myStore.dispatch({"type": "mainpage1isload", "payload": true});
     });
 
-    // 初始化 AnimationController
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300), // 动画持续时间
+      lowerBound: 0.0,
+      upperBound: 900.0.w,
+      duration: const Duration(milliseconds: 10000), // 动画持续时间
     );
 
     _animationController.addListener(() {
-      // logger.info("qqqqqqqqqqqqqqqqq_animationController.value : ${_animationController.value}");
-      // logger.info("qqqqqqqqqqqqqqqqq_screenSize.height : ${_screenSize.height}");
-      // logger.info("qqqqqqqqqqqqqqqqq(90.0.w + _statusHeight) : ${(90.0.w + _statusHeight)}");
-      // logger.info(
-      //     "qqqqqqqqqqqqqqqqq_screenSize.height - (90.0.w + _statusHeight): ${_screenSize.height - (90.0.w + _statusHeight)}");
-
-      if (_animationController.value == 0 && _scrollController.offset == 0) {
-        setState(() {
-          logger.info("在顶部老弟: $homescrollpixels");
-
-          _physics = const FastBouncingAcceleratedScrollPhysics();
-          myStore.dispatch({"type": "showMiniProgramDrawer", "payload": false});
-        });
-      } else if (_animationController.value == 1 &&
-          _scrollController.offset == 0) {
-        setState(() {
-          _physics = const NeverScrollableScrollPhysics();
-          logger.info("恢复啦老弟: $homescrollpixels");
-          _canforword = false;
-          myStore.dispatch({"type": "showMiniProgramDrawer", "payload": true});
-        });
-      }
-
-      // if (_animationController.isAnimating) {
-      //   setState(() {
-      //     _physics = const NeverScrollableScrollPhysics();
-      //   });
-      // }
-
-      myStore.dispatch({
-        "type": "homescrollpixels",
-        "payload": _lastPosition * 2 +
-            _animationController.value *
-                (_screenSize.height - (90.w + _statusHeight))
-      });
+      logger.info("滚动: ${_animationController.value}");
+      myStore.dispatch(
+          {"type": "homescrollpixels", "payload": _animationController.value});
     });
 
-    _scrollController.addListener(() {
-      logger.info("来了老弟: ${_scrollController.offset}");
+    _customScrollController.addListener(() {
+      logger.info("this is :{${_customScrollController.position.pixels}}");
 
-      if (_animationController.value == 0 && _scrollController.offset == 0) {
-        // setState(() {
-        logger.info("有弹性了 老弟");
+      // 下拉的时候
+      if (_customScrollController.position.pixels <= 0) {
+        _animationController.value =
+            _customScrollController.position.pixels.abs();
 
-        // _physics = const FastBouncingAcceleratedScrollPhysics();
-        myStore.dispatch({"type": "showMiniProgramDrawer", "payload": false});
-        // });
-      } else if (_animationController.value == 1 &&
-          _scrollController.offset == 0) {
-        // setState(() {
-        // _physics = const NeverScrollableScrollPhysics();
-        logger.info("恢复啦老弟: $homescrollpixels");
-        _canforword = false;
-        myStore.dispatch({"type": "showMiniProgramDrawer", "payload": true});
-        // });
-      }
-
-      // myStore.dispatch({
-      //   "type": "homescrollpixels",
-      //   "payload": _animationController.value *
-      //       (_screenSize.height - (90.w + _statusHeight))
-      // });
-
-      double offset = _scrollController.offset;
-      // logger.info(offset);
-
-      if (offset < 0) {
-        // 震动设置
-        homescrollpixels = offset.abs();
-
-        if (_bee == false && homescrollpixels >= 150.w && !kIsWeb) {
-          _bee = true;
-          // Vibration.vibrate(duration: 50, amplitude: 255);
-        }
-
-        if (homescrollpixels >= 150.w) {
-          logger.info("来了老弟: $homescrollpixels");
-          _canforword = true;
-        }
-
-        setState(() {
-          _edgeOutRangePosition = offset.abs();
+        myStore.dispatch({
+          "type": "homescrollpixels",
+          "payload": _customScrollController.position.pixels.abs()
         });
       } else {
-        setState(() {
-          _edgeOutRangePosition = 0;
-
-          _physics = const BouncingScrollPhysics();
-          _canforword = false;
+        // 上拉
+        double newValue = myStore.state.homescrollpixels! +
+            _customScrollController.position.pixels;
+        if (newValue < 0) {
+          myStore.dispatch({"type": "homescrollpixels", "payload": newValue});
+        } else {
           myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
-          myStore.dispatch({"type": "showMiniProgramDrawer", "payload": false});
-        });
+        }
       }
-
-      // 恢复可震动状态
-      if (offset.abs() < 50.w) {
-        _bee = false;
-      }
-
-      // 关于此处_edgeOutRangePosition为什么要乘2
-      // 因为弹性下拉的时候, 列表占了一份_edgeOutRangePosition, 顶部的SliverAppBar占了一份_edgeOutRangePosition. 所以要乘2
-      myStore.dispatch({
-        "type": "homescrollpixels",
-        "payload": _edgeOutRangePosition * 2 +
-            _animationController.value *
-                (_screenSize.height - (90.w + _statusHeight))
-      });
     });
 
     chatItems = [
@@ -625,17 +530,6 @@ class _LJNTestPageState extends State<LJNTestPage>
   }
 
   @override
-  void dispose() {
-    _scrollController.dispose();
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  late final List<ChatListItem> chatItems;
-
-  double _statusHeight = 0;
-
-  @override
   Widget build(BuildContext context) {
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -645,7 +539,7 @@ class _LJNTestPageState extends State<LJNTestPage>
   }
 
   Widget _buildPage(StoreType vm) {
-    _screenSize = MediaQuery.of(context).size;
+    Size screenSize = MediaQuery.of(context).size;
 
     if (kIsWeb) {
       _statusHeight = 0;
@@ -653,169 +547,54 @@ class _LJNTestPageState extends State<LJNTestPage>
       _statusHeight = MediaQuery.of(context).padding.top;
     }
 
-    return Listener(
-        onPointerUp: (event) {
-          _lastPosition = _edgeOutRangePosition;
-          logger.info("释放：$_canforword");
+    return Stack(
+      children: [
+        Positioned(
+            top: vm.homescrollpixels,
+            left: 0,
+            child: Listener(
+                onPointerUp: (event) {
+                  logger
+                      .info("成功啦, ${_customScrollController.position.pixels}");
+                  if (_customScrollController.position.pixels < -100) {
+                    // _animationController.value = vm.homescrollpixels!;
+                    _customScrollController.jumpTo(0);
+                    myStore.dispatch(
+                        {"type": "showMiniProgramDrawer", "payload": true});
 
-          if (_canforword) {
-            myStore
-                .dispatch({"type": "showMiniProgramDrawer", "payload": true});
-            _animationController.forward();
-          }
-        },
-        child: ScrollConfiguration(
-            behavior: CustomScrollBehavior().copyWith(scrollbars: false),
-            child: CustomScrollView(
-              primary: false,
-              shrinkWrap: true,
-              controller: _scrollController,
-              physics: _physics,
-              slivers: <Widget>[
-                SliverAppBar(
-                  primary: false,
-                  expandedHeight: vm.homescrollpixels! - _edgeOutRangePosition,
-                  // 使用一个小于 toolbarHeight 的 collapsedHeight
-                  // collapsedHeight: _statusHeight + 90.w,
-                  toolbarHeight: 0,
-                  collapsedHeight: 0, // 收缩后的高度
-                  floating: false,
-                  snap: false,
-                  pinned: true,
-                  stretch: true,
-                  flexibleSpace: const LJNHomeMiniProgram(),
-                  // backgroundColor: const Color.fromARGB(255, 57, 55, 77),
-                  backgroundColor: const Color.fromARGB(255, 24, 44, 223),
-                ),
-                SliverToBoxAdapter(
-                    child: Listener(
-                  onPointerUp: (event) {
-                    // logger.info(
-                    //     "_animationController.isAnimating: ${_animationController.isAnimating}");
-                    // logger.info(
-                    //     "_animationController.isCompleted: ${_animationController.isCompleted}");
-                    // logger.info(
-                    //     "_animationController.isDismissed: ${_animationController.isDismissed}");
-                    // logger.info(
-                    //     "_animationController.isForwardOrCompleted: ${_animationController.isForwardOrCompleted}");
-                    _animationController.reverse();
-                  },
-                  // onPointerDown: (event) {
-                  //   // 当手指按下时记录当前位置
-                  //   _previousY = event.position.dy;
-                  //   _startHomescrollpixels = vm.homescrollpixels!;
-
-                  //   // setState(() {
-                  //   //   _physics = const FastBouncingAcceleratedScrollPhysics();
-                  //   // });
-                  // },
-                  // onPointerMove: (event) {
-                  //   // 不接受下拉
-                  //   if (_previousY - event.position.dy < 0) {
-                  //     return;
-                  //   }
-
-                  //   logger.info(
-                  //       "_previousY - event.position.dy: ${_previousY - event.position.dy}");
-
-                  //   if (_previousY - event.position.dy > 5) {
-                  //     _canReverse = true;
-                  //   }
-
-                  //   myStore.dispatch({
-                  //     "type": "homescrollpixels",
-                  //     "payload": _startHomescrollpixels -
-                  //         (_previousY - event.position.dy)
-                  //   });
-                  // },
-                  // onPointerUp: (event) {
-                  //   // logger.info("ccccccccccccc: $_canReverse");
-                  //   if (_canReverse) {
-                  //     logger.info("ccccccccccccc: $_canReverse");
-                  //     _animationController.reverse().then((_) {
-                  //       myStore.dispatch({
-                  //         "type": "showMiniProgramDrawer",
-                  //         "payload": false
-                  //       });
-
-                  //       _canReverse = false;
-                  //     });
-                  //   }
-                  // },
-                  child: Container(
-                    height: _statusHeight + 90.w, // 容器的高度
-                    // color: Colors.orange,
-                    color: const Color.fromARGB(255, 33, 125, 255),
-                    alignment: Alignment.center,
-                    child: Container(
-                        width: 750.0.w,
-                        height: _statusHeight + 90.w,
-                        // color: const Color.fromARGB(255, 237, 237, 237),
-                        color: const Color.fromARGB(255, 81, 194, 214),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              AppBar(
-                                // App标题栏
-                                primary: false,
-                                title: const Text("微信"),
-                                centerTitle: true,
-                                titleTextStyle: TextStyle(
-                                    height: 1.08,
-                                    fontSize: fontSizeScale(32.w),
-                                    color: Colors.black,
-                                    fontFamily: "AlibabaPuHuiTi-Medium"),
-                                toolbarHeight: 90.w,
-                                elevation: 0,
-                                scrolledUnderElevation: 0,
-                                backgroundColor:
-                                    const Color.fromARGB(255, 237, 237, 237),
-                                foregroundColor:
-                                    const Color.fromARGB(255, 237, 237, 237),
-                                actions: [
-                                  Container(
-                                    color: Colors.transparent,
-                                    height: 90.w,
-                                    padding:
-                                        EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                                    child: Icon(
-                                      const IconData(
-                                        0xe612,
-                                        fontFamily: 'Iconfont',
-                                      ),
-                                      size: 40.w, // 图标大小
-                                    ),
-                                  ),
-                                  Container(
-                                    color: Colors.transparent,
-                                    height: 90.w,
-                                    padding:
-                                        EdgeInsets.only(right: 40.w), // 设置右侧内边距
-                                    child: Icon(
-                                      const IconData(
-                                        0xe726,
-                                        fontFamily: 'Iconfont',
-                                      ),
-                                      size: 42.w, // 图标大小
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ])),
-                  ),
-                )),
-                SliverFixedExtentList(
-                  itemExtent: 135.0.w,
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return chatItems[index];
-                    },
-                    childCount: chatItems.length,
-                  ),
-                ),
-              ],
-            )));
+                    _animationController.forward();
+                  }
+                },
+                child: SizedBox(
+                    width: screenSize.width,
+                    height: screenSize.height,
+                    child: ScrollConfiguration(
+                        behavior:
+                            CustomScrollBehavior().copyWith(scrollbars: false),
+                        child: ListView.builder(
+                          primary: false,
+                          padding: EdgeInsets.only(top: _statusHeight + 90.w),
+                          itemCount: chatItems.length,
+                          shrinkWrap: true,
+                          controller: _customScrollController,
+                          physics: const CustomScrollPhysics()
+                              .applyTo(const MyBouncingScrollPhysics()),
+                          // physics: const MyBouncingScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (context, index) {
+                            return chatItems[index];
+                          },
+                        ))))),
+        Positioned(
+            top: 0,
+            left: 0,
+            child: Container(
+              height: vm.homescrollpixels,
+              width: 750.w,
+              color: const Color.fromARGB(255, 195, 231, 32),
+            )),
+      ],
+    );
   }
 }
 
@@ -1075,31 +854,5 @@ class _ChatListItem extends State<ChatListItem> {
                     ))
           ],
         ));
-  }
-}
-
-// 加速停止弹性
-class FastBouncingAcceleratedScrollPhysics extends BouncingScrollPhysics {
-  const FastBouncingAcceleratedScrollPhysics({super.parent});
-
-  @override
-  FastBouncingAcceleratedScrollPhysics applyTo(ScrollPhysics? ancestor) {
-    return FastBouncingAcceleratedScrollPhysics(parent: buildParent(ancestor));
-  }
-
-  // 自定义滚动加速
-  @override
-  double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
-    // 将 offset 放大，以增加滚动速度
-    const double accelerationFactor = 1.5; // 数值越大，加速度越高
-    return super
-        .applyPhysicsToUserOffset(position, offset * accelerationFactor);
-  }
-
-  // 边缘弹性加速停止
-  @override
-  double frictionFactor(double overscrollFraction) {
-    // 增加返回值，加速边缘的停止效果
-    return 0.5 * super.frictionFactor(overscrollFraction);
   }
 }

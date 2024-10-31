@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:jiaoyishuoflutter3/chat.dart';
 import 'package:jiaoyishuoflutter3/discovery.dart';
 import 'package:jiaoyishuoflutter3/friendmoments.dart';
+import 'package:jiaoyishuoflutter3/home22.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/miniprogram.dart';
 import 'package:jiaoyishuoflutter3/pocketmoney.dart';
@@ -600,8 +601,8 @@ class _CustomTabbarState extends State<CustomTabbar>
                       : const BouncingScrollPhysics(),
                   controller: _tabController,
                   children: const <Widget>[
-                    LJNTestPage(),
-                    // LJNHomePage(),
+                    // LJNTestPage(),
+                    LJNHome22Page(),
                     LJNContactPage(),
                     LJNDiscoveryPage(),
                     LJNUserPage(),
@@ -612,18 +613,17 @@ class _CustomTabbarState extends State<CustomTabbar>
               // 浮动在顶部的appbar
               Visibility(
                 // visible: true,
-                visible: vm.showMiniProgramDrawer != true,
+                visible: vm.showMiniProgramDrawer == false,
                 child: Positioned(
                     top: vm.homescrollpixels,
                     left: _appbarLeft,
                     child: Container(
                         width: 750.0.w,
                         height: _statusHeight + 90.w,
-                        color: const Color.fromARGB(255, 237, 237, 237),
+                        // color: const Color.fromARGB(255, 237, 237, 237),
+                        color: const Color.fromARGB(255, 223, 61, 209),
                         child: Column(
-                            mainAxisAlignment: vm.showMiniProgramDrawer == true
-                                ? MainAxisAlignment.center
-                                : MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               AppBar(
