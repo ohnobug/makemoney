@@ -27,9 +27,9 @@ class _LJNTestPageState extends State<LJNTestPage>
   final ScrollController _scrollController = ScrollController();
 
   late AnimationController _animationController;
-  double _appbarPosition = 0;
+  double _edgeOutRangePosition = 0;
   Size _screenSize = const Size(0, 0);
-  ScrollPhysics _physics = const BouncingScrollPhysics();
+  ScrollPhysics _physics = const FastBouncingAcceleratedScrollPhysics();
 
   bool _bee = false;
   bool _canforword = false;
@@ -61,6 +61,16 @@ class _LJNTestPageState extends State<LJNTestPage>
       // logger.info("qqqqqqqqqqqqqqqqq(90.0.w + _statusHeight) : ${(90.0.w + _statusHeight)}");
       // logger.info(
       //     "qqqqqqqqqqqqqqqqq_screenSize.height - (90.0.w + _statusHeight): ${_screenSize.height - (90.0.w + _statusHeight)}");
+      if (_animationController.value == 0 && _scrollController.offset == 0) {
+        setState(() {
+          _physics = const FastBouncingAcceleratedScrollPhysics();
+        });
+      } else if (_animationController.value == 1 &&
+          _scrollController.offset == 0) {
+        setState(() {
+          _physics = const NeverScrollableScrollPhysics();
+        });
+      }
 
       myStore.dispatch({
         "type": "homescrollpixels",
@@ -71,14 +81,23 @@ class _LJNTestPageState extends State<LJNTestPage>
     });
 
     _scrollController.addListener(() {
-      if (_animationController.value == 1 && _scrollController.offset == 0) {
-        // _physics = const NeverScrollableScrollPhysics();
-
-        myStore.dispatch({
-          "type": "homescrollpixels",
-          "payload": _animationController.value *
-              (_screenSize.height - (90.w + _statusHeight))
+      if (_animationController.value == 0 && _scrollController.offset == 0) {
+        setState(() {
+          _physics = const FastBouncingAcceleratedScrollPhysics();
         });
+      } else if (_animationController.value == 1 &&
+          _scrollController.offset == 0) {
+        setState(() {
+          _physics = const NeverScrollableScrollPhysics();
+          logger.info("恢复啦老弟: $homescrollpixels");
+          _canforword = false;
+        });
+
+        // myStore.dispatch({
+        //   "type": "homescrollpixels",
+        //   "payload": _animationController.value *
+        //       (_screenSize.height - (90.w + _statusHeight))
+        // });
       }
 
       double offset = _scrollController.offset;
@@ -88,21 +107,22 @@ class _LJNTestPageState extends State<LJNTestPage>
         // 震动设置
         homescrollpixels = offset.abs();
 
-        if (_bee == false && homescrollpixels >= 240.w && !kIsWeb) {
+        if (_bee == false && homescrollpixels >= 200.w && !kIsWeb) {
           _bee = true;
           // Vibration.vibrate(duration: 50, amplitude: 255);
         }
 
-        if (homescrollpixels >= 240.w) {
+        if (homescrollpixels >= 200.w) {
+          logger.info("来了老弟: $homescrollpixels");
           _canforword = true;
         }
 
         setState(() {
-          _appbarPosition = offset.abs();
+          _edgeOutRangePosition = offset.abs();
         });
       } else {
         setState(() {
-          _appbarPosition = 0;
+          _edgeOutRangePosition = 0;
         });
       }
 
@@ -111,12 +131,15 @@ class _LJNTestPageState extends State<LJNTestPage>
         _bee = false;
       }
 
-      // 关于此处_appbarPosition为什么要乘2
-      // 因为弹性下拉的时候, 列表占了一份_appbarPosition, 顶部的SliverAppBar占了一份_appbarPosition. 所以要乘2
+      // 关于此处_edgeOutRangePosition为什么要乘2
+      // 因为弹性下拉的时候, 列表占了一份_edgeOutRangePosition, 顶部的SliverAppBar占了一份_edgeOutRangePosition. 所以要乘2
+
+      // _animationController.value =
+      //     _edgeOutRangePosition / (_screenSize.height - (90.w + _statusHeight));
 
       myStore.dispatch({
         "type": "homescrollpixels",
-        "payload": _appbarPosition * 2 +
+        "payload": _edgeOutRangePosition * 2 +
             _animationController.value *
                 (_screenSize.height - (90.w + _statusHeight))
       });
@@ -614,14 +637,12 @@ class _LJNTestPageState extends State<LJNTestPage>
 
     return Listener(
         onPointerUp: (event) {
-          _lastPosition = _appbarPosition;
+          _lastPosition = _edgeOutRangePosition;
           logger.info("释放：$_canforword");
 
           if (_canforword) {
-            _canforword = false;
             myStore
                 .dispatch({"type": "showMiniProgramDrawer", "payload": true});
-
             _animationController.forward();
           }
         },
@@ -635,7 +656,7 @@ class _LJNTestPageState extends State<LJNTestPage>
               slivers: <Widget>[
                 SliverAppBar(
                   primary: false,
-                  expandedHeight: vm.homescrollpixels! - _appbarPosition,
+                  expandedHeight: vm.homescrollpixels! - _edgeOutRangePosition,
                   // 使用一个小于 toolbarHeight 的 collapsedHeight
                   // collapsedHeight: _statusHeight + 90.w,
                   toolbarHeight: 0,
@@ -658,9 +679,7 @@ class _LJNTestPageState extends State<LJNTestPage>
                     //     "_animationController.isDismissed: ${_animationController.isDismissed}");
                     // logger.info(
                     //     "_animationController.isForwardOrCompleted: ${_animationController.isForwardOrCompleted}");
-                    setState(() {
-                      _animationController.reverse();
-                    });
+                    _animationController.reverse();
                   },
                   // onPointerDown: (event) {
                   //   // 当手指按下时记录当前位置
@@ -668,7 +687,7 @@ class _LJNTestPageState extends State<LJNTestPage>
                   //   _startHomescrollpixels = vm.homescrollpixels!;
 
                   //   // setState(() {
-                  //   //   _physics = const BouncingScrollPhysics();
+                  //   //   _physics = const FastBouncingAcceleratedScrollPhysics();
                   //   // });
                   // },
                   // onPointerMove: (event) {
@@ -1041,163 +1060,28 @@ class _ChatListItem extends State<ChatListItem> {
   }
 }
 
-class HomeBouncingScrollPhysics extends ScrollPhysics {
-  /// Creates scroll physics that bounce back from the edge.
-  const HomeBouncingScrollPhysics({
-    this.decelerationRate = ScrollDecelerationRate.normal,
-    super.parent,
-  });
-
-  /// Used to determine parameters for friction simulations.
-  final ScrollDecelerationRate decelerationRate;
+// 加速停止弹性
+class FastBouncingAcceleratedScrollPhysics extends BouncingScrollPhysics {
+  const FastBouncingAcceleratedScrollPhysics({super.parent});
 
   @override
-  HomeBouncingScrollPhysics applyTo(ScrollPhysics? ancestor) {
-    return HomeBouncingScrollPhysics(
-        parent: buildParent(ancestor), decelerationRate: decelerationRate);
+  FastBouncingAcceleratedScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    return FastBouncingAcceleratedScrollPhysics(parent: buildParent(ancestor));
   }
 
-  /// The multiple applied to overscroll to make it appear that scrolling past
-  /// the edge of the scrollable contents is harder than scrolling the list.
-  /// This is done by reducing the ratio of the scroll effect output vs the
-  /// scroll gesture input.
-  ///
-  /// This factor starts at 0.52 and progressively becomes harder to overscroll
-  /// as more of the area past the edge is dragged in (represented by an increasing
-  /// `overscrollFraction` which starts at 0 when there is no overscroll).
-  double frictionFactor(double overscrollFraction) {
-    return math.pow(1 - overscrollFraction, 2) *
-        switch (decelerationRate) {
-          ScrollDecelerationRate.fast => 0.26,
-          ScrollDecelerationRate.normal => 0.52,
-        };
-  }
-
+  // 自定义滚动加速
   @override
   double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
-    assert(offset != 0.0);
-    assert(position.minScrollExtent <= position.maxScrollExtent);
-
-    if (!position.outOfRange) {
-      return offset;
-    }
-
-    final double overscrollPastStart =
-        math.max(position.minScrollExtent - position.pixels, 0.0);
-    final double overscrollPastEnd =
-        math.max(position.pixels - position.maxScrollExtent, 0.0);
-    final double overscrollPast =
-        math.max(overscrollPastStart, overscrollPastEnd);
-    final bool easing = (overscrollPastStart > 0.0 && offset < 0.0) ||
-        (overscrollPastEnd > 0.0 && offset > 0.0);
-
-    final double friction = easing
-        // Apply less resistance when easing the overscroll vs tensioning.
-        ? frictionFactor(
-            (overscrollPast - offset.abs()) / position.viewportDimension)
-        : frictionFactor(overscrollPast / position.viewportDimension);
-    final double direction = offset.sign;
-
-    if (easing && decelerationRate == ScrollDecelerationRate.fast) {
-      return direction * offset.abs();
-    }
-    return direction * _applyFriction(overscrollPast, offset.abs(), friction);
+    // 将 offset 放大，以增加滚动速度
+    const double accelerationFactor = 1.5; // 数值越大，加速度越高
+    return super
+        .applyPhysicsToUserOffset(position, offset * accelerationFactor);
   }
 
-  static double _applyFriction(
-      double extentOutside, double absDelta, double gamma) {
-    assert(absDelta > 0);
-    double total = 0.0;
-    if (extentOutside > 0) {
-      final double deltaToLimit = extentOutside / gamma;
-      if (absDelta < deltaToLimit) {
-        return absDelta * gamma;
-      }
-      total += extentOutside;
-      absDelta -= deltaToLimit;
-    }
-    return total + absDelta;
-  }
-
+  // 边缘弹性加速停止
   @override
-  double applyBoundaryConditions(ScrollMetrics position, double value) => 0.0;
-
-  @override
-  Simulation? createBallisticSimulation(
-      ScrollMetrics position, double velocity) {
-    logger.info("position: ${position.pixels}   velocity: $velocity");
-    // return null;
-
-    // if (velocity > 0) return null;
-
-    final Tolerance tolerance = toleranceFor(position);
-    if (velocity.abs() >= tolerance.velocity || position.outOfRange) {
-      return BouncingScrollSimulation(
-        spring: spring,
-        position: position.pixels,
-        velocity: velocity,
-        leadingExtent: position.minScrollExtent,
-        trailingExtent: position.maxScrollExtent,
-        tolerance: tolerance,
-        constantDeceleration: switch (decelerationRate) {
-          ScrollDecelerationRate.fast => 1400,
-          ScrollDecelerationRate.normal => 0,
-        },
-      );
-    }
-    return null;
-  }
-
-  // The ballistic simulation here decelerates more slowly than the one for
-  // ClampingScrollPhysics so we require a more deliberate input gesture
-  // to trigger a fling.
-  @override
-  double get minFlingVelocity => kMinFlingVelocity * 2.0;
-
-  // Methodology:
-  // 1- Use https://github.com/flutter/platform_tests/tree/master/scroll_overlay to test with
-  //    Flutter and platform scroll views superimposed.
-  // 3- If the scrollables stopped overlapping at any moment, adjust the desired
-  //    output value of this function at that input speed.
-  // 4- Feed new input/output set into a power curve fitter. Change function
-  //    and repeat from 2.
-  // 5- Repeat from 2 with medium and slow flings.
-  /// Momentum build-up function that mimics iOS's scroll speed increase with repeated flings.
-  ///
-  /// The velocity of the last fling is not an important factor. Existing speed
-  /// and (related) time since last fling are factors for the velocity transfer
-  /// calculations.
-  @override
-  double carriedMomentum(double existingVelocity) {
-    logger.info("aaaaaaaaaaaaaaaaaaaaaaaaaaa:${existingVelocity.sign}");
-
-    return existingVelocity.sign *
-        math.min(0.000816 * math.pow(existingVelocity.abs(), 1.967).toDouble(),
-            40000.0);
-  }
-
-  @override
-  double get dragStartDistanceMotionThreshold => 3.5;
-
-  @override
-  double get maxFlingVelocity {
-    return switch (decelerationRate) {
-      ScrollDecelerationRate.fast => kMaxFlingVelocity * 8.0,
-      ScrollDecelerationRate.normal => super.maxFlingVelocity,
-    };
-  }
-
-  @override
-  SpringDescription get spring {
-    switch (decelerationRate) {
-      case ScrollDecelerationRate.fast:
-        return SpringDescription.withDampingRatio(
-          mass: 0.3,
-          stiffness: 75.0,
-          ratio: 1.3,
-        );
-      case ScrollDecelerationRate.normal:
-        return super.spring;
-    }
+  double frictionFactor(double overscrollFraction) {
+    // 增加返回值，加速边缘的停止效果
+    return 0.5 * super.frictionFactor(overscrollFraction);
   }
 }
