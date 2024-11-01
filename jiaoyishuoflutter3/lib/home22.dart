@@ -609,8 +609,8 @@ class _ChatListViewState extends State<LJNHome22Page>
                     ),
                     child: ListView.builder(
                       primary: false,
-                      padding: EdgeInsets.only(top: 5.w),
-                      // padding: EdgeInsets.all(0.w),
+                      // padding: EdgeInsets.only(top: 5.w),
+                      padding: EdgeInsets.all(0.w),
                       itemCount: chatItems.length,
                       shrinkWrap: true,
                       controller: _customScrollController,
