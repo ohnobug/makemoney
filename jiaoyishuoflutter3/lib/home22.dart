@@ -536,7 +536,7 @@ class _ChatListViewState extends State<LJNHome22Page>
         vsync: this,
         lowerBound: 0,
         upperBound: screenSize.height - (90.w + _statusHeight * 2),
-        duration: const Duration(milliseconds: 30000), // 动画持续时间
+        duration: const Duration(milliseconds: 300), // 动画持续时间
       );
 
       _animationController!.addListener(() {
