@@ -437,6 +437,8 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+
     if (kIsWeb) {
       _statusHeight = 0;
     } else {
@@ -475,6 +477,15 @@ class _CustomTabbarState extends State<CustomTabbar>
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
+          double target = screenSize.height * 0.75;
+          double opacity = 1;
+          if (vm.homescrollpixels > (target - 200.w)) {
+            opacity = 1 -
+                ((vm.homescrollpixels - (target - 200.w)) /
+                    (target - (target - 200.w)));
+            if (opacity < 0) opacity = 0;
+          }
+
           // appbar标题
           Text appBarTitle = const Text("");
           if (changeIcon == 0) {
@@ -610,8 +621,7 @@ class _CustomTabbarState extends State<CustomTabbar>
 
               // 浮动在顶部的appbar
               Visibility(
-                visible: false,
-                // visible: vm.showMiniProgramDrawer == false,
+                visible: opacity <= 0 ? false : true,
                 child: Positioned(
                     top: vm.homescrollpixels,
                     left: _appbarLeft,
@@ -621,75 +631,81 @@ class _CustomTabbarState extends State<CustomTabbar>
                         color: vm.homescrollpixels == 0
                             ? const Color.fromARGB(255, 237, 237, 237)
                             : Colors.transparent,
-                        // color: const Color.fromARGB(255, 223, 61, 209),
-                        child: Column(
-                            // mainAxisAlignment: vm.showMiniProgramDrawer == false
-                            //     ? MainAxisAlignment.end
-                            //     : MainAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              AppBar(
-                                // App标题栏
-                                primary: false,
-                                title: appBarTitle,
-                                centerTitle: true,
-                                titleTextStyle: TextStyle(
-                                    height: 1.08,
-                                    fontSize: fontSizeScale(32.w),
-                                    color: Colors.black,
-                                    fontFamily: "AlibabaPuHuiTi-Medium"),
-                                toolbarHeight: 90.w,
-                                elevation: 0,
-                                scrolledUnderElevation: 0,
-                                backgroundColor:
-                                    const Color.fromARGB(255, 237, 237, 237),
-                                foregroundColor:
-                                    const Color.fromARGB(255, 237, 237, 237),
-                                actions: [
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Container(
-                                      color: Colors.transparent,
-                                      height: 90.w,
-                                      padding: EdgeInsets.only(
-                                          right: 33.w), // 设置右侧内边距
-                                      child: Icon(
-                                        const IconData(
-                                          0xe612,
-                                          fontFamily: 'Iconfont',
-                                        ),
-                                        size: 40.w, // 图标大小
-                                      ),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      if (vm.homescrollpixels == 0) {
-                                        vm.showpopup = !vm.showpopup!;
-                                        myStore.dispatch({
-                                          "type": "showpopup",
-                                          "payload": vm.showpopup
-                                        });
-                                      }
-                                    },
-                                    child: Container(
-                                      color: Colors.transparent,
-                                      height: 90.w,
-                                      padding: EdgeInsets.only(
-                                          right: 40.w), // 设置右侧内边距
-                                      child: Icon(
-                                        const IconData(
-                                          0xe726,
-                                          fontFamily: 'Iconfont',
-                                        ),
-                                        size: 42.w, // 图标大小
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ]))),
+                        child: Listener(
+                            onPointerUp: (event) {
+                              myStore.dispatch({
+                                "type": "showMiniProgramDrawer",
+                                "payload": false
+                              });
+                            },
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Opacity(
+                                      opacity: opacity,
+                                      child: AppBar(
+                                        // App标题栏
+                                        primary: false,
+                                        title: appBarTitle,
+                                        centerTitle: true,
+                                        titleTextStyle: TextStyle(
+                                            height: 1.08,
+                                            fontSize: fontSizeScale(32.w),
+                                            color: Colors.black,
+                                            fontFamily:
+                                                "AlibabaPuHuiTi-Medium"),
+                                        toolbarHeight: 90.w,
+                                        elevation: 0,
+                                        scrolledUnderElevation: 0,
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 237, 237, 237),
+                                        foregroundColor: const Color.fromARGB(
+                                            255, 237, 237, 237),
+                                        actions: [
+                                          GestureDetector(
+                                            onTap: () {},
+                                            child: Container(
+                                              color: Colors.transparent,
+                                              height: 90.w,
+                                              padding: EdgeInsets.only(
+                                                  right: 33.w), // 设置右侧内边距
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe612,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                size: 40.w, // 图标大小
+                                              ),
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              if (vm.homescrollpixels == 0) {
+                                                vm.showpopup = !vm.showpopup!;
+                                                myStore.dispatch({
+                                                  "type": "showpopup",
+                                                  "payload": vm.showpopup
+                                                });
+                                              }
+                                            },
+                                            child: Container(
+                                              color: Colors.transparent,
+                                              height: 90.w,
+                                              padding: EdgeInsets.only(
+                                                  right: 40.w), // 设置右侧内边距
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe726,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                size: 42.w, // 图标大小
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                ])))),
               ),
 
               // 弹出的扫码界面

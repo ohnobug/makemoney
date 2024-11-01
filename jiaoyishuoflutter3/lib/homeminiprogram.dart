@@ -75,7 +75,6 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram>
 
   @override
   Widget build(BuildContext context) {
-    // _screenSize = MediaQuery.of(context).size;
     if (kIsWeb) {
       _statusHeight = 0;
     } else {
@@ -89,18 +88,10 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram>
 
           return boxHeight < (90.w)
               ? Container(
-                  constraints: BoxConstraints(maxHeight: 20.w),
-                  width: 750.w,
-                  height: 20.w,
-                  color: const Color.fromARGB(255, 11, 209, 100),
-                  child: Container(
-                    width: 10.w,
-                    height: 10.w,
-                    color: Colors.red,
-                  ),
+                  color: const Color.fromARGB(255, 50, 48, 70),
                 )
               : ColoredBox(
-                  color: const Color.fromARGB(255, 54, 49, 76),
+                  color: const Color.fromARGB(255, 50, 48, 70),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,

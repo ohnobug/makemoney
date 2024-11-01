@@ -22,7 +22,7 @@ class _ChatListViewState extends State<LJNHome22Page>
   double _statusHeight = 0;
   late final List<ChatListItem> chatItems;
   AnimationController? _animationController;
-  // late Animation<double> _heightAnimation;
+
   ScrollPhysics _physics = const MyBouncingScrollPhysics();
 
   @override
@@ -529,13 +529,14 @@ class _ChatListViewState extends State<LJNHome22Page>
       _statusHeight = MediaQuery.of(context).padding.top;
     }
 
+    // 释放动画
     if (_animationController == null) {
       // 这里描述的是appbar的位置, listview依据这个位置进行调整
       _animationController = AnimationController(
         vsync: this,
         lowerBound: 0,
-        upperBound: screenSize.height - (90.w + _statusHeight),
-        duration: const Duration(milliseconds: 300), // 动画持续时间
+        upperBound: screenSize.height - (90.w + _statusHeight * 2),
+        duration: const Duration(milliseconds: 30000), // 动画持续时间
       );
 
       _animationController!.addListener(() {
@@ -562,18 +563,24 @@ class _ChatListViewState extends State<LJNHome22Page>
       _statusHeight = MediaQuery.of(context).padding.top;
     }
 
+    double target = screenSize.height * 0.75;
+    double opacity = ((vm.homescrollpixels + 90.w + _statusHeight) - target) /
+        ((screenSize.height - _statusHeight) - target);
+    if (opacity < 0) opacity = 0;
+
     return Stack(
       children: [
         // 列表
         Positioned(
+            // 不能使用vm.homescrollpixels, 需要用_animationController!.value
             top: (90.w + _statusHeight) + _animationController!.value,
             left: 0,
             width: screenSize.width,
-            height: screenSize.height,
+            height: screenSize.height - 106.w,
             child: Listener(
                 onPointerUp: (event) {
-                  logger.info(
-                      "this is成功啦, ${_customScrollController.position.pixels}");
+                  logger
+                      .info("释放那一刻 ${_customScrollController.position.pixels}");
                   if (_customScrollController.position.pixels < -100) {
                     // _forwarding = true;
                     logger.info(
@@ -581,7 +588,6 @@ class _ChatListViewState extends State<LJNHome22Page>
 
                     // ???
                     _animationController!.value = vm.homescrollpixels;
-
                     _customScrollController.jumpTo(0);
                     _physics = const NeverScrollableScrollPhysics();
                     myStore.dispatch(
@@ -590,7 +596,9 @@ class _ChatListViewState extends State<LJNHome22Page>
                     _customScrollController.removeListener(scrollListener);
 
                     _animationController!.forward().then((_) {
+                      _customScrollController.jumpTo(0);
                       _physics = const MyBouncingScrollPhysics();
+                      _customScrollController.addListener(scrollListener);
                     });
                   }
                 },
@@ -601,8 +609,8 @@ class _ChatListViewState extends State<LJNHome22Page>
                     ),
                     child: ListView.builder(
                       primary: false,
-                      // padding: EdgeInsets.only(top: 90.w),
-                      padding: EdgeInsets.all(0.w),
+                      padding: EdgeInsets.only(top: 5.w),
+                      // padding: EdgeInsets.all(0.w),
                       itemCount: chatItems.length,
                       shrinkWrap: true,
                       controller: _customScrollController,
@@ -617,9 +625,95 @@ class _ChatListViewState extends State<LJNHome22Page>
           top: 0,
           left: 0,
           height: vm.homescrollpixels + 90.w + _statusHeight,
-          width: 750.w,
+          width: screenSize.width,
           child: const LJNHomeMiniProgram(),
         ),
+
+        // 遮盖
+        Positioned(
+            height: 90.w + _statusHeight,
+            width: 750.w,
+            top: vm.homescrollpixels + _statusHeight,
+            child: Opacity(
+                opacity: opacity,
+                child: Listener(
+                    onPointerUp: (event) {
+                      // _forwarding = true;
+                      logger.info(
+                          "this is vm.homescrollpixels!: ${vm.homescrollpixels}");
+
+                      // ???
+                      _animationController!.value = vm.homescrollpixels;
+                      _customScrollController.jumpTo(0);
+                      _physics = const NeverScrollableScrollPhysics();
+                      myStore.dispatch(
+                          {"type": "showMiniProgramDrawer", "payload": false});
+
+                      _customScrollController.removeListener(scrollListener);
+
+                      _animationController!.reverse().then((_) {
+                        _customScrollController.jumpTo(0);
+                        _physics = const MyBouncingScrollPhysics();
+                        _customScrollController.addListener(scrollListener);
+                      });
+                    },
+                    child: Container(
+                        width: 750.0.w,
+                        height: 90.w,
+                        color: const Color.fromARGB(255, 121, 115, 149),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              AppBar(
+                                // App标题栏
+                                primary: false,
+                                title: const Text("微信"),
+                                centerTitle: true,
+                                titleTextStyle: TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(32.w),
+                                    color: Colors.white,
+                                    fontFamily: "AlibabaPuHuiTi-Medium"),
+                                toolbarHeight: 90.w,
+                                elevation: 0,
+                                scrolledUnderElevation: 0,
+                                backgroundColor:
+                                    const Color.fromARGB(255, 121, 115, 149),
+                                foregroundColor:
+                                    const Color.fromARGB(255, 121, 115, 149),
+                                actions: [
+                                  Container(
+                                    color: Colors.transparent,
+                                    height: 90.w,
+                                    padding:
+                                        EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                                    child: Icon(
+                                      color: Colors.white,
+                                      const IconData(
+                                        0xe612,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      size: 40.w, // 图标大小
+                                    ),
+                                  ),
+                                  Container(
+                                    color: Colors.transparent,
+                                    height: 90.w,
+                                    padding:
+                                        EdgeInsets.only(right: 40.w), // 设置右侧内边距
+                                    child: Icon(
+                                      color: Colors.white,
+                                      const IconData(
+                                        0xe726,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      size: 42.w, // 图标大小
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ]))))),
       ],
     );
   }
