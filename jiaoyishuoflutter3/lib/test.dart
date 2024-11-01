@@ -673,7 +673,7 @@ class _LJNTestPageState extends State<LJNTestPage>
               slivers: <Widget>[
                 SliverAppBar(
                   primary: false,
-                  expandedHeight: vm.homescrollpixels! - _edgeOutRangePosition,
+                  expandedHeight: vm.homescrollpixels - _edgeOutRangePosition,
                   // 使用一个小于 toolbarHeight 的 collapsedHeight
                   // collapsedHeight: _statusHeight + 90.w,
                   toolbarHeight: 0,

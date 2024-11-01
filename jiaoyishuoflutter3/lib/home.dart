@@ -37,7 +37,7 @@ class _ChatListViewState extends State<LJNHomePage> {
           "payload": _customScrollController.position.pixels.abs()
         });
       } else {
-        double newValue = myStore.state.homescrollpixels! +
+        double newValue = myStore.state.homescrollpixels +
             _customScrollController.position.pixels;
         if (newValue < 0) {
           myStore.dispatch({"type": "homescrollpixels", "payload": newValue});

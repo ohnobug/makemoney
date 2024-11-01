@@ -18,7 +18,7 @@ class LJNHomeMiniProgram extends StatefulWidget {
 class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram>
     with SingleTickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
-  Size _screenSize = const Size(0, 0);
+  // Size _screenSize = const Size(0, 0);
   bool figerRelease = false;
   double _statusHeight = 0;
 
@@ -75,7 +75,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram>
 
   @override
   Widget build(BuildContext context) {
-    _screenSize = MediaQuery.of(context).size;
+    // _screenSize = MediaQuery.of(context).size;
     if (kIsWeb) {
       _statusHeight = 0;
     } else {
@@ -85,240 +85,253 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram>
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          double boxHeight = vm.homescrollpixels - (90.w + _statusHeight);
+          double boxHeight = vm.homescrollpixels;
 
-          return boxHeight < 0
+          return boxHeight < (90.w)
               ? Container(
-                  color: Colors.grey,
+                  constraints: BoxConstraints(maxHeight: 20.w),
+                  width: 750.w,
+                  height: 20.w,
+                  color: const Color.fromARGB(255, 11, 209, 100),
+                  child: Container(
+                    width: 10.w,
+                    height: 10.w,
+                    color: Colors.red,
+                  ),
                 )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // 标题
-                    Container(
-                        width: 750.w,
-                        height: 90.0.w + _statusHeight,
-                        // color: const Color.fromARGB(255, 186, 31, 163),
-                        padding: EdgeInsets.only(top: _statusHeight),
-                        child: AppBar(
-                          leading: null,
-                          primary: false,
-                          centerTitle: true,
-                          title: const Text('最近'),
-                          toolbarHeight: 90.w,
-                          titleTextStyle: TextStyle(
-                              height: 1.08,
-                              fontSize: fontSizeScale(32.w),
-                              color: Colors.white,
-                              fontFamily: "AlibabaPuHuiTi-Medium"),
-                          elevation: 0,
-                          scrolledUnderElevation: 0,
-                          backgroundColor: Colors.transparent,
-                          foregroundColor: Colors.transparent,
-                          // bottom: PreferredSize(
-                          //   preferredSize: Size.fromHeight(1.w),
-                          //   child: Container(
-                          //     color: const Color.fromARGB(255, 220, 220, 220),
-                          //     height: 1.w,
-                          //   ),
-                          // ),
-                          actions: [
-                            // 三个点
-                            GestureDetector(
-                              onTap: () {
-                                // 点击事件
-                              },
-                              child: Container(
-                                height: 90.w,
-                                color: Colors.transparent,
-                                padding:
-                                    EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                                child: Icon(
-                                  const IconData(
-                                    0xe659,
-                                    fontFamily: 'Iconfont',
+              : ColoredBox(
+                  color: const Color.fromARGB(255, 54, 49, 76),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // 标题
+                      Container(
+                          width: 750.w,
+                          height: 90.0.w + _statusHeight,
+                          // color: const Color.fromARGB(255, 186, 31, 163),
+                          padding: EdgeInsets.only(top: _statusHeight),
+                          child: AppBar(
+                            leading: null,
+                            primary: false,
+                            centerTitle: true,
+                            title: const Text('最近'),
+                            toolbarHeight: 90.w,
+                            titleTextStyle: TextStyle(
+                                height: 1.08,
+                                fontSize: fontSizeScale(32.w),
+                                color: Colors.white,
+                                fontFamily: "AlibabaPuHuiTi-Medium"),
+                            elevation: 0,
+                            scrolledUnderElevation: 0,
+                            backgroundColor: Colors.transparent,
+                            foregroundColor: Colors.transparent,
+                            // bottom: PreferredSize(
+                            //   preferredSize: Size.fromHeight(1.w),
+                            //   child: Container(
+                            //     color: const Color.fromARGB(255, 220, 220, 220),
+                            //     height: 1.w,
+                            //   ),
+                            // ),
+                            actions: [
+                              // 三个点
+                              GestureDetector(
+                                onTap: () {
+                                  // 点击事件
+                                },
+                                child: Container(
+                                  height: 90.w,
+                                  color: Colors.transparent,
+                                  padding:
+                                      EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                                  child: Icon(
+                                    const IconData(
+                                      0xe659,
+                                      fontFamily: 'Iconfont',
+                                    ),
+                                    size: 37.w, // 图标大小
+                                    color: Colors.white,
                                   ),
-                                  size: 37.w, // 图标大小
-                                  color: Colors.white,
                                 ),
                               ),
-                            ),
-                          ],
-                        )),
+                            ],
+                          )),
 
-                    // 列表
-                    Listener(
-                        onPointerDown: (event) {
-                          setState(() {
-                            figerRelease = false;
-                          });
-                        },
-                        onPointerUp: (event) {
-                          setState(() {
-                            figerRelease = true;
-                          });
-                        },
-                        child: ScrollConfiguration(
-                            behavior: ScrollConfiguration.of(context)
-                                .copyWith(scrollbars: false),
-                            child: SizedBox(
-                                // color: Colors.cyan,
-                                height: boxHeight,
-                                child: SingleChildScrollView(
-                                  controller: _scrollController,
-                                  physics: const AlwaysScrollableScrollPhysics(
-                                      parent: BouncingScrollPhysics()),
-                                  child: Column(
-                                    children: [
-                                      // 最近使用的小程序
-                                      FunctionButtonsSection(
-                                        title: '最近使用的小程序',
-                                        rightWidget: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text('我的小程序',
-                                                style: TextStyle(
-                                                  height: 1.08,
-                                                  fontSize: fontSizeScale(28.w),
-                                                  color: const Color.fromARGB(
-                                                      255, 175, 175, 175),
-                                                )),
-                                            Icon(
-                                              const IconData(
-                                                0xe8d4,
-                                                fontFamily: 'Iconfont',
-                                              ),
-                                              size: fontSizeScale(28.w),
-                                              color: const Color.fromARGB(
-                                                  255, 175, 175, 175),
-                                            )
+                      // 列表
+                      Listener(
+                          onPointerDown: (event) {
+                            setState(() {
+                              figerRelease = false;
+                            });
+                          },
+                          onPointerUp: (event) {
+                            setState(() {
+                              figerRelease = true;
+                            });
+                          },
+                          child: ScrollConfiguration(
+                              behavior: ScrollConfiguration.of(context)
+                                  .copyWith(scrollbars: false),
+                              child: SizedBox(
+                                  // color: Colors.cyan,
+                                  height: boxHeight,
+                                  child: SingleChildScrollView(
+                                    controller: _scrollController,
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(
+                                            parent: BouncingScrollPhysics()),
+                                    child: Column(
+                                      children: [
+                                        // 最近使用的小程序
+                                        FunctionButtonsSection(
+                                          title: '最近使用的小程序',
+                                          rightWidget: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text('我的小程序',
+                                                  style: TextStyle(
+                                                    height: 1.08,
+                                                    fontSize:
+                                                        fontSizeScale(28.w),
+                                                    color: const Color.fromARGB(
+                                                        255, 175, 175, 175),
+                                                  )),
+                                              Icon(
+                                                const IconData(
+                                                  0xe8d4,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                size: fontSizeScale(28.w),
+                                                color: const Color.fromARGB(
+                                                    255, 175, 175, 175),
+                                              )
+                                            ],
+                                          ),
+                                          moreUrl: "",
+                                          buttons: [
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/duitang.jpg",
+                                                title: "堆糖",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/tiankongyueduqi.jpg",
+                                                title: "天空阅读器",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/qishuwang.jpg",
+                                                title: "奇书网",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/xueyouyoujiao.jpg",
+                                                title: "学有优教",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/haiziwang.jpg",
+                                                title: "孩子王",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/qianbixiaoshuo.jpg",
+                                                title: "铅笔小说",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/chengquanshipin.jpg",
+                                                title: "成全视频",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/xiaomishangcheng.jpg",
+                                                title: "小米商城",
+                                                onPressed: () {}),
                                           ],
                                         ),
-                                        moreUrl: "",
-                                        buttons: [
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/duitang.jpg",
-                                              title: "堆糖",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/tiankongyueduqi.jpg",
-                                              title: "天空阅读器",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/qishuwang.jpg",
-                                              title: "奇书网",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/xueyouyoujiao.jpg",
-                                              title: "学有优教",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/haiziwang.jpg",
-                                              title: "孩子王",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/qianbixiaoshuo.jpg",
-                                              title: "铅笔小说",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/chengquanshipin.jpg",
-                                              title: "成全视频",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/xiaomishangcheng.jpg",
-                                              title: "小米商城",
-                                              onPressed: () {}),
-                                        ],
-                                      ),
 
-                                      // 我的常用小程序
-                                      FunctionButtonsSection(
-                                        title: '我的常用小程序',
-                                        rightWidget: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text('我的小程序',
-                                                style: TextStyle(
-                                                  height: 1.08,
-                                                  fontSize: fontSizeScale(28.w),
-                                                  color: const Color.fromARGB(
-                                                      255, 175, 175, 175),
-                                                )),
-                                            Icon(
-                                              const IconData(
-                                                0xe8d4,
-                                                fontFamily: 'Iconfont',
-                                              ),
-                                              size: fontSizeScale(28.w),
-                                              color: const Color.fromARGB(
-                                                  255, 175, 175, 175),
-                                            )
+                                        // 我的常用小程序
+                                        FunctionButtonsSection(
+                                          title: '我的常用小程序',
+                                          rightWidget: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text('我的小程序',
+                                                  style: TextStyle(
+                                                    height: 1.08,
+                                                    fontSize:
+                                                        fontSizeScale(28.w),
+                                                    color: const Color.fromARGB(
+                                                        255, 175, 175, 175),
+                                                  )),
+                                              Icon(
+                                                const IconData(
+                                                  0xe8d4,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                size: fontSizeScale(28.w),
+                                                color: const Color.fromARGB(
+                                                    255, 175, 175, 175),
+                                              )
+                                            ],
+                                          ),
+                                          moreUrl: "",
+                                          buttons: [
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/duitang.jpg",
+                                                title: "堆糖",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/tiankongyueduqi.jpg",
+                                                title: "天空阅读器",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/qishuwang.jpg",
+                                                title: "奇书网",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/xueyouyoujiao.jpg",
+                                                title: "学有优教",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/chengquanshipin.jpg",
+                                                title: "成全视频",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/xiaomishangcheng.jpg",
+                                                title: "小米商城",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/meituxiuxiu.jpg",
+                                                title: "美图秀秀",
+                                                onPressed: () {}),
+                                            FunctionButton(
+                                                icon:
+                                                    "images/miniprogram_icon/luobokuaipao.jpg",
+                                                title: "萝卜快跑",
+                                                onPressed: () {}),
                                           ],
                                         ),
-                                        moreUrl: "",
-                                        buttons: [
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/duitang.jpg",
-                                              title: "堆糖",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/tiankongyueduqi.jpg",
-                                              title: "天空阅读器",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/qishuwang.jpg",
-                                              title: "奇书网",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/xueyouyoujiao.jpg",
-                                              title: "学有优教",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/chengquanshipin.jpg",
-                                              title: "成全视频",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/xiaomishangcheng.jpg",
-                                              title: "小米商城",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/meituxiuxiu.jpg",
-                                              title: "美图秀秀",
-                                              onPressed: () {}),
-                                          FunctionButton(
-                                              icon:
-                                                  "images/miniprogram_icon/luobokuaipao.jpg",
-                                              title: "萝卜快跑",
-                                              onPressed: () {}),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ))))
-                  ],
-                );
+                                      ],
+                                    ),
+                                  ))))
+                    ],
+                  ));
         });
   }
 }

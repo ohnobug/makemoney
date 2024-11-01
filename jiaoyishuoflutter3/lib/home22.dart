@@ -21,12 +21,9 @@ class _ChatListViewState extends State<LJNHome22Page>
   final _customScrollController = ScrollController();
   double _statusHeight = 0;
   late final List<ChatListItem> chatItems;
-  late AnimationController _animationController;
+  AnimationController? _animationController;
   // late Animation<double> _heightAnimation;
   ScrollPhysics _physics = const MyBouncingScrollPhysics();
-  double _targetHeight = 0;
-
-  // bool _forwarding = false;
 
   @override
   void initState() {
@@ -34,23 +31,6 @@ class _ChatListViewState extends State<LJNHome22Page>
 
     Future.delayed(const Duration(milliseconds: 300), () {
       myStore.dispatch({"type": "mainpage1isload", "payload": true});
-    });
-
-    _animationController = AnimationController(
-      vsync: this,
-      lowerBound: 0.0,
-      upperBound: 1.0,
-      duration: const Duration(milliseconds: 300), // 动画持续时间
-    );
-
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    // });
-    _animationController.addListener(() {
-      // logger.info("滚动: ${_animationController.value}");
-      myStore.dispatch({
-        "type": "homescrollpixels",
-        "payload": _animationController.value * _targetHeight
-      });
     });
 
     _customScrollController.addListener(scrollListener);
@@ -542,6 +522,30 @@ class _ChatListViewState extends State<LJNHome22Page>
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
+
+    if (_animationController == null) {
+      // 这里描述的是appbar的位置, listview依据这个位置进行调整
+      _animationController = AnimationController(
+        vsync: this,
+        lowerBound: 0,
+        upperBound: screenSize.height - (90.w + _statusHeight),
+        duration: const Duration(milliseconds: 300), // 动画持续时间
+      );
+
+      _animationController!.addListener(() {
+        myStore.dispatch({
+          "type": "homescrollpixels",
+          "payload": _animationController!.value
+        });
+      });
+    }
+
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -558,16 +562,14 @@ class _ChatListViewState extends State<LJNHome22Page>
       _statusHeight = MediaQuery.of(context).padding.top;
     }
 
-    _targetHeight = screenSize.height - (90.w + _statusHeight);
-
     return Stack(
       children: [
         // 列表
         Positioned(
-            top: _animationController.value * _targetHeight +
-                90.w +
-                _statusHeight,
+            top: (90.w + _statusHeight) + _animationController!.value,
             left: 0,
+            width: screenSize.width,
+            height: screenSize.height,
             child: Listener(
                 onPointerUp: (event) {
                   logger.info(
@@ -576,8 +578,10 @@ class _ChatListViewState extends State<LJNHome22Page>
                     // _forwarding = true;
                     logger.info(
                         "this is vm.homescrollpixels!: ${vm.homescrollpixels}");
-                    _animationController.value =
-                        vm.homescrollpixels / _targetHeight;
+
+                    // ???
+                    _animationController!.value = vm.homescrollpixels;
+
                     _customScrollController.jumpTo(0);
                     _physics = const NeverScrollableScrollPhysics();
                     myStore.dispatch(
@@ -585,42 +589,37 @@ class _ChatListViewState extends State<LJNHome22Page>
 
                     _customScrollController.removeListener(scrollListener);
 
-                    _animationController.forward().then((_) {
+                    _animationController!.forward().then((_) {
                       _physics = const MyBouncingScrollPhysics();
                     });
                   }
                 },
-                child: SizedBox(
-                    width: screenSize.width,
-                    height: screenSize.height,
-                    child: ScrollConfiguration(
-                        behavior: CustomScrollBehavior().copyWith(
-                          scrollbars: false,
-                          physics: _physics,
-                        ),
-                        child: ListView.builder(
-                          primary: false,
-                          padding: const EdgeInsets.all(0),
-                          itemCount: chatItems.length,
-                          shrinkWrap: true,
-                          controller: _customScrollController,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            return chatItems[index];
-                          },
-                        ))))),
+                child: ScrollConfiguration(
+                    behavior: CustomScrollBehavior().copyWith(
+                      scrollbars: false,
+                      physics: _physics,
+                    ),
+                    child: ListView.builder(
+                      primary: false,
+                      // padding: EdgeInsets.only(top: 90.w),
+                      padding: EdgeInsets.all(0.w),
+                      itemCount: chatItems.length,
+                      shrinkWrap: true,
+                      controller: _customScrollController,
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        return chatItems[index];
+                      },
+                    )))),
 
         // 小程序
         Positioned(
-            top: 0,
-            left: 0,
-            child: Container(
-              constraints: BoxConstraints(maxHeight: vm.homescrollpixels!),
-              height: vm.homescrollpixels,
-              width: 750.w,
-              color: const Color.fromARGB(255, 54, 49, 76),
-              child: const LJNHomeMiniProgram(),
-            )),
+          top: 0,
+          left: 0,
+          height: vm.homescrollpixels + 90.w + _statusHeight,
+          width: 750.w,
+          child: const LJNHomeMiniProgram(),
+        ),
       ],
     );
   }
@@ -656,6 +655,7 @@ class ChatListItem extends StatefulWidget {
 
 class _ChatListItem extends State<ChatListItem> {
   Color containerColor = Colors.white;
+  // Color containerColor = Colors.transparent;
 
   @override
   Widget build(BuildContext context) {

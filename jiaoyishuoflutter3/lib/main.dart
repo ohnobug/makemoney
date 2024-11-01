@@ -610,7 +610,7 @@ class _CustomTabbarState extends State<CustomTabbar>
 
               // 浮动在顶部的appbar
               Visibility(
-                visible: true,
+                visible: false,
                 // visible: vm.showMiniProgramDrawer == false,
                 child: Positioned(
                     top: vm.homescrollpixels,
