@@ -543,6 +543,8 @@ class _ChatListViewState extends State<LJNHome22Page>
     });
   }
 
+  double initialCoverLayerHeight = 17.w;
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -559,7 +561,8 @@ class _ChatListViewState extends State<LJNHome22Page>
         vsync: this,
         lowerBound: 0,
         // 这里到底部是新appbar的高度 + 原本的_statusHeight, 因为一个控制器, 既给新的用, 也给旧的用
-        upperBound: screenSize.height - (_statusHeight + 90.w + 17.w),
+        upperBound: screenSize.height -
+            (_statusHeight + 90.w + initialCoverLayerHeight),
         duration: const Duration(milliseconds: 300), // 动画持续时间
       );
 
@@ -587,7 +590,7 @@ class _ChatListViewState extends State<LJNHome22Page>
       _statusHeight = MediaQuery.of(context).padding.top;
     }
 
-    double newAppbarHeight = 90.w + 17.w;
+    double newAppbarHeight = 90.w + initialCoverLayerHeight;
 
     // 新appbar透明度
     double targetPosition = screenSize.height * 0.75; // 开始显示新appbar的位置
