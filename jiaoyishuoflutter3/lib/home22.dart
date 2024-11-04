@@ -26,6 +26,9 @@ class _ChatListViewState extends State<LJNHome22Page>
 
   ScrollPhysics _physics = const MyBouncingScrollPhysics();
   late final AnimationController _lottieController;
+  double initialY = 0.0;
+  double deltaY = 0.0;
+  double downHomescrollpixels = 0;
 
   @override
   void initState() {
@@ -699,6 +702,27 @@ class _ChatListViewState extends State<LJNHome22Page>
                 width: 750.w,
                 top: vm.homescrollpixels + _statusHeight,
                 child: Listener(
+                    onPointerDown: (event) {
+                      // 记录手指按下时的 Y 轴位置
+                      initialY = event.position.dy;
+                      downHomescrollpixels = vm.homescrollpixels;
+                    },
+                    onPointerMove: (event) {
+                      logger.info('Y轴移动距离: $deltaY');
+
+                      // 计算手指在 Y 轴上移动的距离
+                      deltaY = event.position.dy - initialY;
+
+                      double newHomescrollpixels =
+                          downHomescrollpixels - deltaY.abs();
+
+                      myStore.dispatch({
+                        "type": "homescrollpixels",
+                        "payload": newHomescrollpixels
+                      });
+
+                      _animationController!.value = newHomescrollpixels;
+                    },
                     onPointerUp: (event) {
                       // _forwarding = true;
                       logger.info(

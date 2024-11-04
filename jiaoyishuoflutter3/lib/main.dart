@@ -480,13 +480,13 @@ class _CustomTabbarState extends State<CustomTabbar>
           // 新appbar透明度
           double targetPosition = screenSize.height * 0.75; // 开始显示新appbar的位置
           // double newAppbarHeight = 90.w + 17.w;
-          double coverOpacity = (vm.homescrollpixels + _statusHeight) /
-              (targetPosition - _statusHeight);
-          if (coverOpacity < 0) {
-            coverOpacity = 0;
-          } else if (coverOpacity > 1) {
-            coverOpacity = 1;
-          }
+          // double coverOpacity = (vm.homescrollpixels + _statusHeight) /
+          //     (targetPosition - _statusHeight);
+          // if (coverOpacity < 0) {
+          //   coverOpacity = 0;
+          // } else if (coverOpacity > 1) {
+          //   coverOpacity = 1;
+          // }
 
           // appbar标题
           Text appBarTitle = const Text("");
@@ -648,69 +648,66 @@ class _CustomTabbarState extends State<CustomTabbar>
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Opacity(
-                                      opacity: 1 - coverOpacity,
-                                      child: AppBar(
-                                        // App标题栏
-                                        primary: false,
-                                        title: appBarTitle,
-                                        centerTitle: true,
-                                        titleTextStyle: TextStyle(
-                                            height: 1.08,
-                                            fontSize: fontSizeScale(32.w),
-                                            color: Colors.black,
-                                            fontFamily:
-                                                "AlibabaPuHuiTi-Medium"),
-                                        toolbarHeight: 90.w,
-                                        elevation: 0,
-                                        scrolledUnderElevation: 0,
-                                        backgroundColor: const Color.fromARGB(
-                                            255, 237, 237, 237),
-                                        foregroundColor: const Color.fromARGB(
-                                            255, 237, 237, 237),
-                                        actions: [
-                                          GestureDetector(
-                                            onTap: () {},
-                                            child: Container(
-                                              color: Colors.transparent,
-                                              height: 90.w,
-                                              padding: EdgeInsets.only(
-                                                  right: 33.w), // 设置右侧内边距
-                                              child: Icon(
-                                                const IconData(
-                                                  0xe612,
-                                                  fontFamily: 'Iconfont',
-                                                ),
-                                                size: 40.w, // 图标大小
-                                              ),
+                                  AppBar(
+                                    // App标题栏
+                                    primary: false,
+                                    title: appBarTitle,
+                                    centerTitle: true,
+                                    titleTextStyle: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(32.w),
+                                        color: Colors.black,
+                                        fontFamily: "AlibabaPuHuiTi-Medium"),
+                                    toolbarHeight: 90.w,
+                                    elevation: 0,
+                                    scrolledUnderElevation: 0,
+                                    backgroundColor: const Color.fromARGB(
+                                        255, 237, 237, 237),
+                                    foregroundColor: const Color.fromARGB(
+                                        255, 237, 237, 237),
+                                    actions: [
+                                      GestureDetector(
+                                        onTap: () {},
+                                        child: Container(
+                                          color: Colors.transparent,
+                                          height: 90.w,
+                                          padding: EdgeInsets.only(
+                                              right: 33.w), // 设置右侧内边距
+                                          child: Icon(
+                                            const IconData(
+                                              0xe612,
+                                              fontFamily: 'Iconfont',
                                             ),
+                                            size: 40.w, // 图标大小
                                           ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              if (vm.homescrollpixels == 0) {
-                                                vm.showpopup = !vm.showpopup!;
-                                                myStore.dispatch({
-                                                  "type": "showpopup",
-                                                  "payload": vm.showpopup
-                                                });
-                                              }
-                                            },
-                                            child: Container(
-                                              color: Colors.transparent,
-                                              height: 90.w,
-                                              padding: EdgeInsets.only(
-                                                  right: 40.w), // 设置右侧内边距
-                                              child: Icon(
-                                                const IconData(
-                                                  0xe726,
-                                                  fontFamily: 'Iconfont',
-                                                ),
-                                                size: 42.w, // 图标大小
-                                              ),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          if (vm.homescrollpixels == 0) {
+                                            vm.showpopup = !vm.showpopup!;
+                                            myStore.dispatch({
+                                              "type": "showpopup",
+                                              "payload": vm.showpopup
+                                            });
+                                          }
+                                        },
+                                        child: Container(
+                                          color: Colors.transparent,
+                                          height: 90.w,
+                                          padding: EdgeInsets.only(
+                                              right: 40.w), // 设置右侧内边距
+                                          child: Icon(
+                                            const IconData(
+                                              0xe726,
+                                              fontFamily: 'Iconfont',
                                             ),
+                                            size: 42.w, // 图标大小
                                           ),
-                                        ],
-                                      )),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ])))),
               ),
 

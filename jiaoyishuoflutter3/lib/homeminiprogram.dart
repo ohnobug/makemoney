@@ -83,7 +83,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
 
           return Container(
             width: 750.w,
-            // height: vm.homescrollpixels,
+            height: vm.homescrollpixels + _statusHeight + 90.w,
             color: const Color.fromARGB(255, 50, 48, 70),
             child: Stack(
               children: [
