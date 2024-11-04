@@ -543,7 +543,7 @@ class _ChatListViewState extends State<LJNHome22Page>
     });
   }
 
-  double initialCoverLayerHeight = 28.w;
+  double initialCoverLayerHeight = 42.w;
 
   @override
   Widget build(BuildContext context) {
@@ -563,7 +563,7 @@ class _ChatListViewState extends State<LJNHome22Page>
         // 这里到底部是新appbar的高度 + 原本的_statusHeight, 因为一个控制器, 既给新的用, 也给旧的用
         upperBound: screenSize.height -
             (_statusHeight + 90.w + initialCoverLayerHeight),
-        duration: const Duration(milliseconds: 300), // 动画持续时间
+        duration: const Duration(milliseconds: 350), // 动画持续时间
       );
 
       _animationController!.addListener(() {
@@ -593,7 +593,7 @@ class _ChatListViewState extends State<LJNHome22Page>
     double newAppbarHeight = 90.w + initialCoverLayerHeight;
 
     // 新appbar透明度
-    double targetPosition = screenSize.height * 0.75; // 开始显示新appbar的位置
+    double targetPosition = screenSize.height * 0.25; // 开始显示新appbar的位置
     double coverOpacity =
         ((vm.homescrollpixels + _statusHeight) - targetPosition) /
             (screenSize.height - newAppbarHeight - targetPosition);
@@ -755,8 +755,8 @@ class _ChatListViewState extends State<LJNHome22Page>
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          // App标题栏
                           AppBar(
-                            // App标题栏
                             primary: false,
                             title: const Text("微信"),
                             centerTitle: true,

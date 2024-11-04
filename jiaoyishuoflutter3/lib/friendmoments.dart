@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:jiaoyishuoflutter3/components/CustomPhysics.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
@@ -18,7 +20,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
     with TickerProviderStateMixin {
   double _statusHeight = 0;
 
-  final ScrollController _scrollController = ScrollController();
+  ScrollController? _scrollController;
   double scrollPosition = 0;
 
   late AnimationController _appBarcontroller; // 动画控制器
@@ -39,29 +41,6 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
   void initState() {
     super.initState();
 
-    double beginPosition = _statusHeight + 450.w;
-
-    // 添加监听器以监控滚动
-    _scrollController.addListener(() {
-      // logger.info("pixels:${_scrollController.position.pixels}");
-      // logger.info("minScrollExtent:${_scrollController.position.minScrollExtent}");
-      // logger.info("maxScrollExtent:${_scrollController.position.maxScrollExtent}");
-
-      setState(() {
-        scrollPosition = _scrollController.position.pixels;
-
-        if (_scrollController.position.pixels - beginPosition <= 0) {
-          _appBarcontroller.value = 0;
-        } else {
-          _appBarcontroller.value =
-              (_scrollController.position.pixels - beginPosition) /
-                  (beginPosition + 40.w - beginPosition);
-        }
-      });
-
-      hideLikeBox();
-    });
-
     // 初始化 AnimationController
     _appBarcontroller = AnimationController(
       duration: const Duration(seconds: 1), // 动画持续时间
@@ -79,7 +58,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
       vsync: this,
     );
 
-    // 创建 Tween 来控制 left 从 360.w 到 0.w 的动画
+    // 创建Tween来控制 left 从 360.w 到 0.w 的动画
     _likeAnimation =
         Tween<double>(begin: 360.w, end: 0.w).animate(CurvedAnimation(
       parent: _likeController,
@@ -225,12 +204,138 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
         "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
         "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
       },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
+      {
+        "time": "一分钟前",
+        "avatarUrl": 'images/avatar_webp/chat_80.webp',
+        "name": "钟镇",
+        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
+        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
+      },
     ];
   }
 
   @override
   void dispose() {
-    _scrollController.dispose(); // 避免内存泄漏
+    _scrollController!.dispose(); // 避免内存泄漏
     _appBarcontroller.dispose(); // 释放资源
     _likeController.dispose();
     super.dispose();
@@ -244,14 +349,51 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
     });
   }
 
-  void hideLikeBox() {
-    setState(() {
-      // _likeController.stop();
-      _likeController.reverse().then((_) {
-        lastedMoreButtonPosition = const Offset(-1000, -1000);
-        likeBoxVisible = false;
+  void hideLikeBox({required bool quick}) {
+    if (quick) {
+      _likeController.value = 0;
+      lastedMoreButtonPosition = const Offset(-1000, -1000);
+      likeBoxVisible = false;
+    } else {
+      setState(() {
+        // _likeController.stop();
+        _likeController.reverse().then((_) {
+          lastedMoreButtonPosition = const Offset(-1000, -1000);
+          likeBoxVisible = false;
+        });
       });
+    }
+  }
+
+  void _scrollListener() {
+    // logger.info("pixels:${_scrollController.position.pixels}");
+    // logger.info("minScrollExtent:${_scrollController.position.minScrollExtent}");
+    // logger.info("maxScrollExtent:${_scrollController.position.maxScrollExtent}");
+    double beginPosition = _statusHeight + 450.w;
+
+    setState(() {
+      scrollPosition = _scrollController!.position.pixels;
+
+      if (_scrollController!.position.pixels - beginPosition <= 0) {
+        _appBarcontroller.value = 0;
+      } else {
+        _appBarcontroller.value =
+            (_scrollController!.position.pixels - beginPosition) /
+                (beginPosition + 40.w - beginPosition);
+      }
     });
+
+    hideLikeBox(quick: true);
+
+    if (_scrollController!.position.isScrollingNotifier.value) {
+      setState(() {
+        _isScrolling = true;
+      });
+    } else {
+      setState(() {
+        _isScrolling = false;
+      });
+    }
   }
 
   @override
@@ -262,6 +404,12 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
       _statusHeight = MediaQuery.of(context).padding.top;
     }
 
+    if (_scrollController == null) {
+      _scrollController = ScrollController();
+      // 添加监听器以监控滚动
+      _scrollController!.addListener(_scrollListener);
+    }
+
     return StoreConnector<StoreType, StoreType>(
       converter: (store) => store.state,
       builder: (context, vm) {
@@ -270,14 +418,8 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
           appBar: null,
           body: Stack(
             children: [
-              Positioned(
-                  top: 0,
-                  left: 0,
-                  child: Container(
-                    width: 750.w,
-                    height: 530.w,
-                    color: const Color.fromARGB(255, 48, 48, 48),
-                  )),
+              // 背景
+              _buildBackground(),
 
               // 使用 ListView
               MediaQuery.removePadding(
@@ -286,28 +428,20 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                   child: Stack(children: [
                     GestureDetector(
                       onTapDown: (TapDownDetails details) {
-                        hideLikeBox();
+                        hideLikeBox(quick: true);
                       },
-                      child: NotificationListener<ScrollNotification>(
-                          onNotification: (ScrollNotification notification) {
-                            if (notification is ScrollUpdateNotification) {
-                              // 用户正在滚动
-                              setState(() {
-                                _isScrolling = true;
-                              });
-                            } else if (notification is ScrollEndNotification) {
-                              // 用户停止滚动
-                              setState(() {
-                                _isScrolling = false;
-                              });
-                            }
-                            return true; // 返回 true 表示已处理该通知
-                          },
+                      child: ScrollConfiguration(
+                          behavior: CustomScrollBehavior().copyWith(
+                            scrollbars: false,
+                            physics: const BouncingScrollPhysics(
+                                parent: AlwaysScrollableScrollPhysics()),
+                            // physics: const ClampingScrollPhysics(),
+                          ),
                           child: ListView.builder(
+                            shrinkWrap: true,
+                            // addAutomaticKeepAlives: false,
                             primary: false,
                             controller: _scrollController,
-                            physics: const AlwaysScrollableScrollPhysics(
-                                parent: BouncingScrollPhysics()),
                             itemCount: tweetList.length + 1, // +1 是因为还包含头像部分
                             itemBuilder: (context, index) {
                               if (index == 0) {
@@ -363,9 +497,16 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                                 ),
                                               ),
                                               // 头像
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.w),
+                                              Container(
+                                                width: 120.w,
+                                                height: 120.w,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.w),
+                                                ),
+                                                clipBehavior: Clip
+                                                    .hardEdge, // 使 borderRadius 生效
                                                 child: Image(
                                                   image: ResizeImage(
                                                     AssetImage(assetPath(
@@ -373,8 +514,6 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                                     width: 240.w.toInt(),
                                                     height: 240.w.toInt(),
                                                   ),
-                                                  width: 120.w,
-                                                  height: 120.w,
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -400,7 +539,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                       if (_isScrolling) return;
 
                                       if (likeBoxVisible) {
-                                        hideLikeBox();
+                                        hideLikeBox(quick: false);
                                       } else {
                                         showLikeBox(position);
                                       }
@@ -412,165 +551,65 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                   ])),
 
               // 点赞弹框
-              Positioned(
-                  top: lastedMoreButtonPosition.dy,
-                  left: lastedMoreButtonPosition.dx,
-                  child: SizedBox(
-                    width: 360.w,
-                    height: 75.w,
-                    // color: const Color.fromARGB(255, 247, 19, 19), // 外层盒子的红色背景
-                    child: Stack(
-                      children: [
-                        // 红色盒子本身
-                        Positioned(
-                          top: 0,
-                          left: _likeAnimation.value,
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 40.w, vertical: 0.w),
-                            width: 360.w,
-                            height: 75.w,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 76, 76, 76),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.w)),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text.rich(
-                                  TextSpan(children: [
-                                    WidgetSpan(
-                                      alignment: PlaceholderAlignment.middle,
-                                      child: Baseline(
-                                        baseline: 22.w,
-                                        baselineType: TextBaseline.alphabetic,
-                                        child: Icon(
-                                          const IconData(
-                                            0xe682,
-                                            fontFamily: 'Iconfont',
-                                          ),
-                                          color: Colors.white,
-                                          size: 31.w,
-                                        ),
-                                      ),
-                                    ),
-                                    WidgetSpan(
-                                      child: SizedBox(width: 8.w),
-                                    ),
-                                    TextSpan(
-                                      text: "赞",
-                                      style: TextStyle(
-                                        height: 1.08,
-                                        fontSize: 28.w,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ]),
-                                ),
-                                Container(
-                                  height: 45.w,
-                                  width: 2.w,
-                                  color:
-                                      const Color.fromARGB(255, 134, 134, 134),
-                                ),
-                                Text.rich(
-                                  TextSpan(children: [
-                                    WidgetSpan(
-                                      alignment: PlaceholderAlignment.middle,
-                                      style: const TextStyle(height: 1.08),
-                                      child: Icon(
-                                        const IconData(0xe605,
-                                            fontFamily: 'Iconfont'),
-                                        color: Colors.white,
-                                        size: 28.w,
-                                      ),
-                                    ),
-                                    WidgetSpan(
-                                      child: SizedBox(width: 8.w),
-                                    ),
-                                    TextSpan(
-                                      text: "评论",
-                                      style: TextStyle(
-                                        height: 1.08,
-                                        fontSize: 28.w,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ]),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
+              _buildLikeBox(),
 
               // 顶部透明 AppBar
-              Positioned(
-                left: 0,
-                top: 0,
-                child: Container(
-                  color: Color.fromARGB(
-                      _appBarOpacity.value.toInt(), 237, 237, 237),
-                  width: 750.w,
-                  height: 90.0.w + _statusHeight,
-                  padding: EdgeInsets.only(top: _statusHeight),
-                  child: AppBar(
-                    primary: false,
-                    title: const Text("朋友圈"),
-                    centerTitle: true,
-                    titleTextStyle: TextStyle(
-                      height: 1.08,
-                      fontSize: fontSizeScale(32.w),
-                      color:
-                          Color.fromARGB(_appBarOpacity.value.toInt(), 0, 0, 0),
-                      fontFamily: "AlibabaPuHuiTi-Medium",
-                    ),
-                    toolbarHeight: 90.w,
-                    elevation: 0,
-                    scrolledUnderElevation: 0,
-                    backgroundColor: Colors.transparent,
-                    foregroundColor: Colors.transparent,
-                    leading: GestureDetector(
-                      onTap: () => Navigator.of(context).pop(),
-                      child: Container(
-                        color: Colors.transparent,
-                        child: Icon(
-                          const IconData(0xed9e, fontFamily: 'Iconfont'),
-                          color: _appBarOpacity.value.toInt() > 180
-                              ? Colors.black
-                              : Colors.white,
-                          size: 36.w,
-                        ),
+              Container(
+                color:
+                    Color.fromARGB(_appBarOpacity.value.toInt(), 237, 237, 237),
+                width: 750.w,
+                height: 90.0.w + _statusHeight,
+                padding: EdgeInsets.only(top: _statusHeight),
+                child: AppBar(
+                  primary: false,
+                  title: const Text("朋友圈"),
+                  centerTitle: true,
+                  titleTextStyle: TextStyle(
+                    height: 1.08,
+                    fontSize: fontSizeScale(32.w),
+                    color:
+                        Color.fromARGB(_appBarOpacity.value.toInt(), 0, 0, 0),
+                    fontFamily: "AlibabaPuHuiTi-Medium",
+                  ),
+                  toolbarHeight: 90.w,
+                  elevation: 0,
+                  scrolledUnderElevation: 0,
+                  backgroundColor: Colors.transparent,
+                  foregroundColor: Colors.transparent,
+                  leading: GestureDetector(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Icon(
+                        const IconData(0xed9e, fontFamily: 'Iconfont'),
+                        color: _appBarOpacity.value.toInt() > 180
+                            ? Colors.black
+                            : Colors.white,
+                        size: 36.w,
                       ),
                     ),
-                    actions: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          color: Colors.transparent,
-                          height: 90.w,
-                          padding: EdgeInsets.only(right: 40.w),
-                          child: _appBarOpacity.value.toInt() > 180
-                              ? Icon(
-                                  const IconData(0xe68a,
-                                      fontFamily: 'Iconfont'),
-                                  size: 40.w,
-                                  color: Colors.black,
-                                )
-                              : Icon(
-                                  const IconData(0xe64d,
-                                      fontFamily: 'Iconfont'),
-                                  size: 40.w,
-                                  color: Colors.white,
-                                ),
-                        ),
-                      )
-                    ],
                   ),
+                  actions: [
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        color: Colors.transparent,
+                        height: 90.w,
+                        padding: EdgeInsets.only(right: 40.w),
+                        child: _appBarOpacity.value.toInt() > 180
+                            ? Icon(
+                                const IconData(0xe68a, fontFamily: 'Iconfont'),
+                                size: 40.w,
+                                color: Colors.black,
+                              )
+                            : Icon(
+                                const IconData(0xe64d, fontFamily: 'Iconfont'),
+                                size: 40.w,
+                                color: Colors.white,
+                              ),
+                      ),
+                    )
+                  ],
                 ),
               )
             ],
@@ -578,6 +617,109 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
         );
       },
     );
+  }
+
+  Widget _buildBackground() {
+    return Container(
+      width: 750.w,
+      height: 530.w,
+      color: const Color.fromARGB(255, 48, 48, 48),
+    );
+  }
+
+  Widget _buildLikeBox() {
+    return Positioned(
+        top: lastedMoreButtonPosition.dy,
+        left: lastedMoreButtonPosition.dx,
+        child: SizedBox(
+          width: 360.w,
+          height: 75.w,
+          // color: const Color.fromARGB(255, 247, 19, 19), // 外层盒子的红色背景
+          child: Stack(
+            children: [
+              // 红色盒子本身
+              Positioned(
+                top: 0,
+                left: _likeAnimation.value,
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 40.w, vertical: 0.w),
+                  width: 360.w,
+                  height: 75.w,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 76, 76, 76),
+                    borderRadius: BorderRadius.all(Radius.circular(10.w)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text.rich(
+                        TextSpan(children: [
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: Baseline(
+                              baseline: 22.w,
+                              baselineType: TextBaseline.alphabetic,
+                              child: Icon(
+                                const IconData(
+                                  0xe682,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                color: Colors.white,
+                                size: 31.w,
+                              ),
+                            ),
+                          ),
+                          WidgetSpan(
+                            child: SizedBox(width: 8.w),
+                          ),
+                          TextSpan(
+                            text: "赞",
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: 28.w,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ]),
+                      ),
+                      Container(
+                        height: 45.w,
+                        width: 2.w,
+                        color: const Color.fromARGB(255, 134, 134, 134),
+                      ),
+                      Text.rich(
+                        TextSpan(children: [
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            style: const TextStyle(height: 1.08),
+                            child: Icon(
+                              const IconData(0xe605, fontFamily: 'Iconfont'),
+                              color: Colors.white,
+                              size: 28.w,
+                            ),
+                          ),
+                          WidgetSpan(
+                            child: SizedBox(width: 8.w),
+                          ),
+                          TextSpan(
+                            text: "评论",
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: 28.w,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ]),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }
 
@@ -690,18 +832,17 @@ class _TweetWidget extends State<TweetWidget> {
             width: 77.w,
             height: 77.w,
             margin: EdgeInsets.only(left: 37.w),
-            child: ClipRRect(
+            decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.w),
-              child: Image(
-                image: ResizeImage(
-                  AssetImage(assetPath(widget.avatarUrl)),
-                  width: 154.w.toInt(),
-                  height: 154.w.toInt(),
-                ),
-                fit: BoxFit.cover,
-                width: 77.w,
-                height: 77.w,
+            ),
+            clipBehavior: Clip.hardEdge, // 使 borderRadius 生效
+            child: Image(
+              image: ResizeImage(
+                AssetImage(assetPath(widget.avatarUrl)),
+                width: 154.w.toInt(),
+                height: 154.w.toInt(),
               ),
+              fit: BoxFit.cover,
             ),
           ),
 
@@ -770,6 +911,7 @@ class _TweetWidget extends State<TweetWidget> {
                               child: GridView.builder(
                                 primary: false,
                                 scrollDirection: Axis.vertical,
+                                padding: EdgeInsets.zero,
                                 physics: const NeverScrollableScrollPhysics(),
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
@@ -848,31 +990,24 @@ class _TweetWidget extends State<TweetWidget> {
                           width: 110.w,
                           padding: EdgeInsets.only(left: 25.w, right: 25.w),
                           color: Colors.transparent,
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 38.w,
-                                  width: 60.w,
-                                  decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                        255, 248, 248, 248),
-                                    borderRadius: BorderRadius.circular(6.w),
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      const IconData(
-                                        0xe667,
-                                        fontFamily: 'Iconfont',
-                                      ),
-                                      size: 37.w,
-                                      color: const Color.fromARGB(
-                                          255, 58, 81, 124),
-                                    ),
-                                  ),
-                                )
-                              ])),
+                          child: Container(
+                            height: 38.w,
+                            width: 60.w,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 248, 248, 248),
+                              borderRadius: BorderRadius.circular(6.w),
+                            ),
+                            child: Center(
+                              child: Icon(
+                                const IconData(
+                                  0xe667,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                size: 37.w,
+                                color: const Color.fromARGB(255, 58, 81, 124),
+                              ),
+                            ),
+                          )),
                     ),
                   ],
                 ),

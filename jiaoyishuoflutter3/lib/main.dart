@@ -609,7 +609,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                 body: TabBarView(
                   physics: vm.showMiniProgramDrawer == true
                       ? const NeverScrollableScrollPhysics()
-                      : const BouncingScrollPhysics(),
+                      : const ClampingScrollPhysics(),
                   controller: _tabController,
                   children: const <Widget>[
                     // LJNTestPage(),

@@ -409,6 +409,7 @@ class TweetWidget extends StatelessWidget {
                       width: 570.w,
                       height: 570.w,
                       child: GridView.builder(
+                        padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

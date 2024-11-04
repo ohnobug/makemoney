@@ -628,6 +628,7 @@ class FunctionButtonsSection extends StatelessWidget {
               padding: const EdgeInsets.all(16.0).w,
               // height: 200, // 根据实际需要调整高度
               child: GridView.builder(
+                padding: EdgeInsets.zero,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4, // 每行显示4个子组件
                   crossAxisSpacing: 16.w, // 列间距
