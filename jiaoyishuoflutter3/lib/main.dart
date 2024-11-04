@@ -477,13 +477,15 @@ class _CustomTabbarState extends State<CustomTabbar>
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          double target = screenSize.height * 0.75;
-          double opacity = 1;
-          if (vm.homescrollpixels > (target - 200.w)) {
-            opacity = 1 -
-                ((vm.homescrollpixels - (target - 200.w)) /
-                    (target - (target - 200.w)));
-            if (opacity < 0) opacity = 0;
+          // 新appbar透明度
+          double targetPosition = screenSize.height * 0.75; // 开始显示新appbar的位置
+          // double newAppbarHeight = 90.w + 17.w;
+          double coverOpacity = (vm.homescrollpixels + _statusHeight) /
+              (targetPosition - _statusHeight);
+          if (coverOpacity < 0) {
+            coverOpacity = 0;
+          } else if (coverOpacity > 1) {
+            coverOpacity = 1;
           }
 
           // appbar标题
@@ -621,7 +623,8 @@ class _CustomTabbarState extends State<CustomTabbar>
 
               // 浮动在顶部的appbar
               Visibility(
-                visible: opacity <= 0 ? false : true,
+                visible: vm.homescrollpixels > targetPosition ? false : true,
+                // visible: false,
                 child: Positioned(
                     top: vm.homescrollpixels,
                     left: _appbarLeft,
@@ -631,6 +634,9 @@ class _CustomTabbarState extends State<CustomTabbar>
                         color: vm.homescrollpixels == 0
                             ? const Color.fromARGB(255, 237, 237, 237)
                             : Colors.transparent,
+                        // color: vm.homescrollpixels == 0
+                        //     ? const Color.fromARGB(255, 237, 237, 237)
+                        //     : Colors.red,
                         child: Listener(
                             onPointerUp: (event) {
                               myStore.dispatch({
@@ -643,7 +649,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Opacity(
-                                      opacity: opacity,
+                                      opacity: 1 - coverOpacity,
                                       child: AppBar(
                                         // App标题栏
                                         primary: false,

@@ -71,7 +71,7 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
 
     return math.pow(1 - overscrollFraction, 2) *
         switch (decelerationRate) {
-          ScrollDecelerationRate.fast => 1.5,
+          ScrollDecelerationRate.fast => 3,
           ScrollDecelerationRate.normal => 0.52,
         };
   }

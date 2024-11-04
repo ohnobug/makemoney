@@ -539,7 +539,8 @@ class _ChatListViewState extends State<LJNHome22Page>
       _animationController = AnimationController(
         vsync: this,
         lowerBound: 0,
-        upperBound: screenSize.height - (90.w + _statusHeight * 2),
+        // 这里到底部是新appbar的高度 + 原本的_statusHeight, 因为一个控制器, 既给新的用, 也给旧的用
+        upperBound: screenSize.height - (_statusHeight + 90.w + 17.w),
         duration: const Duration(milliseconds: 300), // 动画持续时间
       );
 
@@ -567,45 +568,48 @@ class _ChatListViewState extends State<LJNHome22Page>
       _statusHeight = MediaQuery.of(context).padding.top;
     }
 
-    // 遮盖透明
-    double targetPosition = screenSize.height * 0.75;
+    double newAppbarHeight = 90.w + 17.w;
+
+    // 新appbar透明度
+    double targetPosition = screenSize.height * 0.75; // 开始显示新appbar的位置
     double coverOpacity =
-        ((vm.homescrollpixels + 90.w + _statusHeight) - targetPosition) /
-            ((screenSize.height - _statusHeight) - targetPosition);
+        ((vm.homescrollpixels + _statusHeight) - targetPosition) /
+            (screenSize.height - newAppbarHeight - targetPosition);
     if (coverOpacity < 0) {
       coverOpacity = 0;
     } else if (coverOpacity > 1) {
       coverOpacity = 1;
     }
 
-    // 动画控制器
-    _lottieController.value = vm.homescrollpixels / 400.w;
+    // 顶部动画控制器
+    _lottieController.value = (vm.homescrollpixels + _statusHeight) / 600.w;
     if (_lottieController.value < 0) {
       _lottieController.value = 0;
     } else if (_lottieController.value > 1) {
       _lottieController.value = 1;
     }
 
-    // 顶部遮盖
-    double opacity = (vm.homescrollpixels - 200.w) / (400.w - 200.w);
-    if (opacity < 0) {
-      opacity = 0;
-    } else if (opacity > 1) {
-      opacity = 1;
+    // 顶部动画背景
+    double topLottieOpacity = (vm.homescrollpixels + _statusHeight - 400.w) /
+        (screenSize.height - newAppbarHeight - 400.w);
+    if (topLottieOpacity < 0) {
+      topLottieOpacity = 0;
+    } else if (topLottieOpacity > 1) {
+      topLottieOpacity = 1;
     }
 
     logger.info(
-        "opacity: $opacity   vm.homescrollpixels: ${vm.homescrollpixels}");
+        "topLottieOpacity: $topLottieOpacity   vm.homescrollpixels: ${vm.homescrollpixels}");
 
     return Stack(
       children: [
         // 列表
         Positioned(
             // 不能使用vm.homescrollpixels, 需要用_animationController!.value
-            top: (90.w + _statusHeight) + _animationController!.value,
+            top: 90.w + _statusHeight + _animationController!.value,
             left: 0,
             width: screenSize.width,
-            height: screenSize.height - 106.w,
+            height: screenSize.height - (106.w + 90.w + _statusHeight),
             child: Listener(
                 onPointerUp: (event) {
                   logger
@@ -653,41 +657,45 @@ class _ChatListViewState extends State<LJNHome22Page>
         Positioned(
           top: 0,
           left: 0,
-          height: vm.homescrollpixels + 90.w + _statusHeight,
+          height: vm.homescrollpixels + (90.w + _statusHeight),
           width: screenSize.width,
           child: const LJNHomeMiniProgram(),
         ),
 
         // 动画
         Visibility(
-            // visible: true,
-            visible: vm.homescrollpixels < 350.w,
+            // visible: false,
+            visible: topLottieOpacity != 1,
             child: Opacity(
-                opacity: 1 - opacity,
+                opacity: 1 - topLottieOpacity,
                 child: Container(
                     color: const Color.fromARGB(255, 237, 237, 237),
                     width: 750.w,
-                    height: vm.homescrollpixels + _statusHeight,
+                    height: vm.homescrollpixels + _statusHeight + 90.w,
                     // padding: EdgeInsets.only(bottom: 50.w),
-                    child: Center(
-                        child: Lottie.asset(
-                      assetPath('lotties/homeminiprogramdarwing.json'),
-                      // width: 750.w,
-                      height: vm.homescrollpixels,
-                      fit: BoxFit.contain,
-                      controller: _lottieController,
-                      onLoaded: (composition) {
-                        // _lottieController
-                        //   ..duration = const Duration(milliseconds: 600)
-                        //   ..forward();
-                      },
-                    ))))),
+                    child: _lottieController.isCompleted
+                        ? null
+                        : Container(
+                            padding: EdgeInsets.only(top: _statusHeight),
+                            child: Lottie.asset(
+                              assetPath('lotties/homeminiprogramdarwing.json'),
+                              // width: 750.w,
+                              height: vm.homescrollpixels,
+                              fit: BoxFit.contain,
+                              controller: _lottieController,
+                              onLoaded: (composition) {
+                                // _lottieController
+                                //   ..duration = const Duration(milliseconds: 600)
+                                //   ..forward();
+                              },
+                            ))))),
 
-        // 遮盖
+        // 新appbar
         Visibility(
-            visible: vm.homescrollpixels > targetPosition,
+            // visible: (vm.homescrollpixels + _statusHeight) > targetPosition,
+            visible: true,
             child: Positioned(
-                height: 90.w + _statusHeight,
+                height: newAppbarHeight,
                 width: 750.w,
                 top: vm.homescrollpixels + _statusHeight,
                 child: Listener(
@@ -712,11 +720,13 @@ class _ChatListViewState extends State<LJNHome22Page>
                       });
                     },
                     child: Opacity(
+                        // opacity: 0.5,
                         opacity: coverOpacity,
                         child: Container(
                             width: 750.0.w,
-                            height: 90.w,
-                            color: const Color.fromARGB(255, 121, 115, 149),
+                            // height: 90.w,
+                            // color: const Color.fromARGB(255, 121, 115, 149),
+                            color: Colors.blue,
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
