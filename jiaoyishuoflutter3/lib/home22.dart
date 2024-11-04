@@ -527,6 +527,22 @@ class _ChatListViewState extends State<LJNHome22Page>
     }
   }
 
+  // 恢复
+  void reverse() {
+    // 使开始位置变成下拉的位置
+    _customScrollController.jumpTo(0);
+    _animationController!.value = myStore.state.homescrollpixels;
+    _physics = const NeverScrollableScrollPhysics();
+    myStore.dispatch({"type": "showMiniProgramDrawer", "payload": false});
+
+    _customScrollController.removeListener(scrollListener);
+    _animationController!.reverse().then((_) {
+      _customScrollController.jumpTo(0);
+      _physics = const MyBouncingScrollPhysics();
+      _customScrollController.addListener(scrollListener);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -662,7 +678,7 @@ class _ChatListViewState extends State<LJNHome22Page>
           left: 0,
           height: vm.homescrollpixels + (90.w + _statusHeight),
           width: screenSize.width,
-          child: const LJNHomeMiniProgram(),
+          child: LJNHomeMiniProgram(reverse: reverse),
         ),
 
         // 动画
@@ -675,23 +691,21 @@ class _ChatListViewState extends State<LJNHome22Page>
                     color: const Color.fromARGB(255, 237, 237, 237),
                     width: 750.w,
                     height: vm.homescrollpixels + _statusHeight + 90.w,
-                    // padding: EdgeInsets.only(bottom: 50.w),
+                    padding: EdgeInsets.only(top: _statusHeight),
                     child: _lottieController.isCompleted
                         ? null
-                        : Container(
-                            padding: EdgeInsets.only(top: _statusHeight),
-                            child: Lottie.asset(
-                              assetPath('lotties/homeminiprogramdarwing.json'),
-                              // width: 750.w,
-                              height: vm.homescrollpixels,
-                              fit: BoxFit.contain,
-                              controller: _lottieController,
-                              onLoaded: (composition) {
-                                // _lottieController
-                                //   ..duration = const Duration(milliseconds: 600)
-                                //   ..forward();
-                              },
-                            ))))),
+                        : Lottie.asset(
+                            assetPath('lotties/homeminiprogramdarwing.json'),
+                            // width: 750.w,
+                            height: vm.homescrollpixels,
+                            fit: BoxFit.contain,
+                            controller: _lottieController,
+                            onLoaded: (composition) {
+                              // _lottieController
+                              //   ..duration = const Duration(milliseconds: 600)
+                              //   ..forward();
+                            },
+                          )))),
 
         // 新appbar
         Visibility(
@@ -724,24 +738,8 @@ class _ChatListViewState extends State<LJNHome22Page>
                       _animationController!.value = newHomescrollpixels;
                     },
                     onPointerUp: (event) {
-                      // _forwarding = true;
-                      logger.info(
-                          "this is vm.homescrollpixels!: ${vm.homescrollpixels}");
-
-                      // 使开始位置变成下拉的位置
-                      _customScrollController.jumpTo(0);
-                      _animationController!.value = vm.homescrollpixels;
-                      _physics = const NeverScrollableScrollPhysics();
-                      myStore.dispatch(
-                          {"type": "showMiniProgramDrawer", "payload": false});
-
-                      _customScrollController.removeListener(scrollListener);
-
-                      _animationController!.reverse().then((_) {
-                        _customScrollController.jumpTo(0);
-                        _physics = const MyBouncingScrollPhysics();
-                        _customScrollController.addListener(scrollListener);
-                      });
+                      // 恢复
+                      reverse();
                     },
                     child: Opacity(
                         // opacity: 0.5,
@@ -749,8 +747,8 @@ class _ChatListViewState extends State<LJNHome22Page>
                         child: Container(
                             width: 750.0.w,
                             // height: 90.w,
-                            // color: const Color.fromARGB(255, 121, 115, 149),
-                            color: Colors.blue,
+                            color: const Color.fromARGB(255, 121, 115, 149),
+                            // color: Colors.blue,
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,

@@ -9,7 +9,9 @@ import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNHomeMiniProgram extends StatefulWidget {
-  const LJNHomeMiniProgram({super.key});
+  final Function reverse;
+
+  const LJNHomeMiniProgram({super.key, required this.reverse});
 
   @override
   State<LJNHomeMiniProgram> createState() => _LJNHomeMiniProgram();
@@ -159,6 +161,8 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                               setState(() {
                                 figerRelease = true;
                               });
+
+                              widget.reverse();
                             },
                             child: ScrollConfiguration(
                                 behavior: ScrollConfiguration.of(context)
