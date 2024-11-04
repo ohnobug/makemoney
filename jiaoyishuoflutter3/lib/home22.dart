@@ -8,6 +8,7 @@ import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 class LJNHome22Page extends StatefulWidget {
   const LJNHome22Page({super.key});
@@ -17,13 +18,14 @@ class LJNHome22Page extends StatefulWidget {
 }
 
 class _ChatListViewState extends State<LJNHome22Page>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   final _customScrollController = ScrollController();
   double _statusHeight = 0;
   late final List<ChatListItem> chatItems;
   AnimationController? _animationController;
 
   ScrollPhysics _physics = const MyBouncingScrollPhysics();
+  late final AnimationController _lottieController;
 
   @override
   void initState() {
@@ -32,6 +34,8 @@ class _ChatListViewState extends State<LJNHome22Page>
     Future.delayed(const Duration(milliseconds: 300), () {
       myStore.dispatch({"type": "mainpage1isload", "payload": true});
     });
+
+    _lottieController = AnimationController(vsync: this);
 
     _customScrollController.addListener(scrollListener);
 
@@ -563,10 +567,35 @@ class _ChatListViewState extends State<LJNHome22Page>
       _statusHeight = MediaQuery.of(context).padding.top;
     }
 
-    double target = screenSize.height * 0.75;
-    double opacity = ((vm.homescrollpixels + 90.w + _statusHeight) - target) /
-        ((screenSize.height - _statusHeight) - target);
-    if (opacity < 0) opacity = 0;
+    // 遮盖透明
+    double targetPosition = screenSize.height * 0.75;
+    double coverOpacity =
+        ((vm.homescrollpixels + 90.w + _statusHeight) - targetPosition) /
+            ((screenSize.height - _statusHeight) - targetPosition);
+    if (coverOpacity < 0) {
+      coverOpacity = 0;
+    } else if (coverOpacity > 1) {
+      coverOpacity = 1;
+    }
+
+    // 动画控制器
+    _lottieController.value = vm.homescrollpixels / 400.w;
+    if (_lottieController.value < 0) {
+      _lottieController.value = 0;
+    } else if (_lottieController.value > 1) {
+      _lottieController.value = 1;
+    }
+
+    // 顶部遮盖
+    double opacity = (vm.homescrollpixels - 200.w) / (400.w - 200.w);
+    if (opacity < 0) {
+      opacity = 0;
+    } else if (opacity > 1) {
+      opacity = 1;
+    }
+
+    logger.info(
+        "opacity: $opacity   vm.homescrollpixels: ${vm.homescrollpixels}");
 
     return Stack(
       children: [
@@ -629,22 +658,47 @@ class _ChatListViewState extends State<LJNHome22Page>
           child: const LJNHomeMiniProgram(),
         ),
 
-        // 遮盖
-        Positioned(
-            height: 90.w + _statusHeight,
-            width: 750.w,
-            top: vm.homescrollpixels + _statusHeight,
+        // 动画
+        Visibility(
+            // visible: true,
+            visible: vm.homescrollpixels < 350.w,
             child: Opacity(
-                opacity: opacity,
+                opacity: 1 - opacity,
+                child: Container(
+                    color: const Color.fromARGB(255, 237, 237, 237),
+                    width: 750.w,
+                    height: vm.homescrollpixels + _statusHeight,
+                    // padding: EdgeInsets.only(bottom: 50.w),
+                    child: Center(
+                        child: Lottie.asset(
+                      assetPath('lotties/homeminiprogramdarwing.json'),
+                      // width: 750.w,
+                      height: vm.homescrollpixels,
+                      fit: BoxFit.contain,
+                      controller: _lottieController,
+                      onLoaded: (composition) {
+                        // _lottieController
+                        //   ..duration = const Duration(milliseconds: 600)
+                        //   ..forward();
+                      },
+                    ))))),
+
+        // 遮盖
+        Visibility(
+            visible: vm.homescrollpixels > targetPosition,
+            child: Positioned(
+                height: 90.w + _statusHeight,
+                width: 750.w,
+                top: vm.homescrollpixels + _statusHeight,
                 child: Listener(
                     onPointerUp: (event) {
                       // _forwarding = true;
                       logger.info(
                           "this is vm.homescrollpixels!: ${vm.homescrollpixels}");
 
-                      // ???
-                      _animationController!.value = vm.homescrollpixels;
+                      // 使开始位置变成下拉的位置
                       _customScrollController.jumpTo(0);
+                      _animationController!.value = vm.homescrollpixels;
                       _physics = const NeverScrollableScrollPhysics();
                       myStore.dispatch(
                           {"type": "showMiniProgramDrawer", "payload": false});
@@ -657,63 +711,65 @@ class _ChatListViewState extends State<LJNHome22Page>
                         _customScrollController.addListener(scrollListener);
                       });
                     },
-                    child: Container(
-                        width: 750.0.w,
-                        height: 90.w,
-                        color: const Color.fromARGB(255, 121, 115, 149),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              AppBar(
-                                // App标题栏
-                                primary: false,
-                                title: const Text("微信"),
-                                centerTitle: true,
-                                titleTextStyle: TextStyle(
-                                    height: 1.08,
-                                    fontSize: fontSizeScale(32.w),
-                                    color: Colors.white,
-                                    fontFamily: "AlibabaPuHuiTi-Medium"),
-                                toolbarHeight: 90.w,
-                                elevation: 0,
-                                scrolledUnderElevation: 0,
-                                backgroundColor:
-                                    const Color.fromARGB(255, 121, 115, 149),
-                                foregroundColor:
-                                    const Color.fromARGB(255, 121, 115, 149),
-                                actions: [
-                                  Container(
-                                    color: Colors.transparent,
-                                    height: 90.w,
-                                    padding:
-                                        EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                                    child: Icon(
-                                      color: Colors.white,
-                                      const IconData(
-                                        0xe612,
-                                        fontFamily: 'Iconfont',
+                    child: Opacity(
+                        opacity: coverOpacity,
+                        child: Container(
+                            width: 750.0.w,
+                            height: 90.w,
+                            color: const Color.fromARGB(255, 121, 115, 149),
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  AppBar(
+                                    // App标题栏
+                                    primary: false,
+                                    title: const Text("微信"),
+                                    centerTitle: true,
+                                    titleTextStyle: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(32.w),
+                                        color: Colors.white,
+                                        fontFamily: "AlibabaPuHuiTi-Medium"),
+                                    toolbarHeight: 90.w,
+                                    elevation: 0,
+                                    scrolledUnderElevation: 0,
+                                    backgroundColor: const Color.fromARGB(
+                                        255, 121, 115, 149),
+                                    foregroundColor: const Color.fromARGB(
+                                        255, 121, 115, 149),
+                                    actions: [
+                                      Container(
+                                        color: Colors.transparent,
+                                        height: 90.w,
+                                        padding: EdgeInsets.only(
+                                            right: 33.w), // 设置右侧内边距
+                                        child: Icon(
+                                          color: Colors.white,
+                                          const IconData(
+                                            0xe612,
+                                            fontFamily: 'Iconfont',
+                                          ),
+                                          size: 40.w, // 图标大小
+                                        ),
                                       ),
-                                      size: 40.w, // 图标大小
-                                    ),
-                                  ),
-                                  Container(
-                                    color: Colors.transparent,
-                                    height: 90.w,
-                                    padding:
-                                        EdgeInsets.only(right: 40.w), // 设置右侧内边距
-                                    child: Icon(
-                                      color: Colors.white,
-                                      const IconData(
-                                        0xe726,
-                                        fontFamily: 'Iconfont',
+                                      Container(
+                                        color: Colors.transparent,
+                                        height: 90.w,
+                                        padding: EdgeInsets.only(
+                                            right: 40.w), // 设置右侧内边距
+                                        child: Icon(
+                                          color: Colors.white,
+                                          const IconData(
+                                            0xe726,
+                                            fontFamily: 'Iconfont',
+                                          ),
+                                          size: 42.w, // 图标大小
+                                        ),
                                       ),
-                                      size: 42.w, // 图标大小
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ]))))),
+                                    ],
+                                  )
+                                ])))))),
       ],
     );
   }
