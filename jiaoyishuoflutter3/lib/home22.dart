@@ -543,7 +543,7 @@ class _ChatListViewState extends State<LJNHome22Page>
     });
   }
 
-  double initialCoverLayerHeight = 17.w;
+  double initialCoverLayerHeight = 28.w;
 
   @override
   Widget build(BuildContext context) {
@@ -803,6 +803,8 @@ class _ChatListViewState extends State<LJNHome22Page>
                               ),
                             ],
                           ),
+
+                          // AppBar底部遮挡层
                           Opacity(
                               // opacity: 0.5,
                               opacity: coverOpacity,
