@@ -709,10 +709,12 @@ class _ChatListViewState extends State<LJNHome22Page>
 
         // 新appbar
         Visibility(
-            // visible: (vm.homescrollpixels + _statusHeight) > targetPosition,
-            visible: true,
+            visible: (vm.homescrollpixels + _statusHeight) > targetPosition,
+            // visible: true,
             child: Positioned(
-                height: newAppbarHeight,
+                height: 90.w +
+                    (screenSize.height -
+                        (vm.homescrollpixels + _statusHeight + 90.w)),
                 width: 750.w,
                 top: vm.homescrollpixels + _statusHeight,
                 child: Listener(
@@ -724,7 +726,12 @@ class _ChatListViewState extends State<LJNHome22Page>
                     onPointerMove: (event) {
                       logger.info('Y轴移动距离: $deltaY');
 
-                      // 计算手指在 Y 轴上移动的距离
+                      // 不允许下拉, 只允许上拉
+                      if (initialY < event.position.dy) {
+                        return;
+                      }
+
+                      // 计算手指在Y轴上移动的距离
                       deltaY = event.position.dy - initialY;
 
                       double newHomescrollpixels =
@@ -741,67 +748,70 @@ class _ChatListViewState extends State<LJNHome22Page>
                       // 恢复
                       reverse();
                     },
-                    child: Opacity(
-                        // opacity: 0.5,
-                        opacity: coverOpacity,
-                        child: Container(
-                            width: 750.0.w,
-                            // height: 90.w,
-                            color: const Color.fromARGB(255, 121, 115, 149),
-                            // color: Colors.blue,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  AppBar(
-                                    // App标题栏
-                                    primary: false,
-                                    title: const Text("微信"),
-                                    centerTitle: true,
-                                    titleTextStyle: TextStyle(
-                                        height: 1.08,
-                                        fontSize: fontSizeScale(32.w),
-                                        color: Colors.white,
-                                        fontFamily: "AlibabaPuHuiTi-Medium"),
-                                    toolbarHeight: 90.w,
-                                    elevation: 0,
-                                    scrolledUnderElevation: 0,
-                                    backgroundColor: const Color.fromARGB(
-                                        255, 121, 115, 149),
-                                    foregroundColor: const Color.fromARGB(
-                                        255, 121, 115, 149),
-                                    actions: [
-                                      Container(
-                                        color: Colors.transparent,
-                                        height: 90.w,
-                                        padding: EdgeInsets.only(
-                                            right: 33.w), // 设置右侧内边距
-                                        child: Icon(
-                                          color: Colors.white,
-                                          const IconData(
-                                            0xe612,
-                                            fontFamily: 'Iconfont',
-                                          ),
-                                          size: 40.w, // 图标大小
-                                        ),
-                                      ),
-                                      Container(
-                                        color: Colors.transparent,
-                                        height: 90.w,
-                                        padding: EdgeInsets.only(
-                                            right: 40.w), // 设置右侧内边距
-                                        child: Icon(
-                                          color: Colors.white,
-                                          const IconData(
-                                            0xe726,
-                                            fontFamily: 'Iconfont',
-                                          ),
-                                          size: 42.w, // 图标大小
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ])))))),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          AppBar(
+                            // App标题栏
+                            primary: false,
+                            title: const Text("微信"),
+                            centerTitle: true,
+                            titleTextStyle: TextStyle(
+                                height: 1.08,
+                                fontSize: fontSizeScale(32.w),
+                                color: Colors.white,
+                                fontFamily: "AlibabaPuHuiTi-Medium"),
+                            toolbarHeight: 90.w,
+                            elevation: 0,
+                            scrolledUnderElevation: 0,
+                            backgroundColor:
+                                const Color.fromARGB(255, 121, 115, 149),
+                            foregroundColor:
+                                const Color.fromARGB(255, 121, 115, 149),
+                            actions: [
+                              Container(
+                                color: Colors.transparent,
+                                height: 90.w,
+                                padding:
+                                    EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                                child: Icon(
+                                  color: Colors.white,
+                                  const IconData(
+                                    0xe612,
+                                    fontFamily: 'Iconfont',
+                                  ),
+                                  size: 40.w, // 图标大小
+                                ),
+                              ),
+                              Container(
+                                color: Colors.transparent,
+                                height: 90.w,
+                                padding:
+                                    EdgeInsets.only(right: 40.w), // 设置右侧内边距
+                                child: Icon(
+                                  color: Colors.white,
+                                  const IconData(
+                                    0xe726,
+                                    fontFamily: 'Iconfont',
+                                  ),
+                                  size: 42.w, // 图标大小
+                                ),
+                              ),
+                            ],
+                          ),
+                          Opacity(
+                              // opacity: 0.5,
+                              opacity: coverOpacity,
+                              child: Container(
+                                height: screenSize.height -
+                                    (vm.homescrollpixels +
+                                        _statusHeight +
+                                        90.w),
+                                child: null,
+                                color: const Color.fromARGB(255, 121, 115, 149),
+                              ))
+                        ])))),
       ],
     );
   }
