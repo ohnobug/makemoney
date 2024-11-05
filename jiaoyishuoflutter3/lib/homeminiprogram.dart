@@ -19,7 +19,7 @@ class LJNHomeMiniProgram extends StatefulWidget {
 }
 
 class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
   // Size _screenSize = const Size(0, 0);
   bool figerRelease = false;
