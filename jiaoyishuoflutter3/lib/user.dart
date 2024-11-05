@@ -374,7 +374,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                   id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                   title: "小店订单与卡包",
                                   icon: "images/icon/icon5.png",
-                                  link: '',
+                                  link: '/search',
                                   underline: true,
                                 ),
                                 const LJNFunctionItem(

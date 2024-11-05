@@ -902,40 +902,28 @@ class _TweetWidget extends State<TweetWidget> {
                           // 九宫格
                           if (widget.imageList != null) ...[
                             SizedBox(
-                              // color: Colors.amber,
                               width: 570.w,
-                              height: (194.w *
-                                      (widget.imageList!.length / 3).ceil()) -
-                                  6.w,
-                              child: GridView.builder(
-                                primary: false,
-                                scrollDirection: Axis.vertical,
-                                padding: EdgeInsets.zero,
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  mainAxisSpacing: 6.w,
-                                  crossAxisSpacing: 6.w,
-                                  childAspectRatio: 1,
-                                ),
-                                itemCount: widget.imageList?.length,
-                                itemBuilder: (context, index) {
-                                  if (widget.imageList![index] == '') {
+                              child: Wrap(
+                                spacing: 6.w, // 设置列间距
+                                runSpacing: 6.w, // 设置行间距
+                                children: widget.imageList!.map((imagePath) {
+                                  if (imagePath == '') {
                                     return const SizedBox();
                                   } else {
-                                    return Image(
+                                    return SizedBox(
+                                      width: 186.w,
+                                      height: 186.w,
+                                      child: Image(
                                         image: ResizeImage(
-                                          AssetImage(assetPath(
-                                              widget.imageList![index])),
+                                          AssetImage(assetPath(imagePath)),
                                           width: 380.w.toInt(),
                                           height: 380.w.toInt(),
                                         ),
-                                        width: 186.w,
-                                        height: 186.w,
-                                        fit: BoxFit.cover);
+                                        fit: BoxFit.cover,
+                                      ),
+                                    );
                                   }
-                                },
+                                }).toList(),
                               ),
                             ),
                             SizedBox(height: 18.w),

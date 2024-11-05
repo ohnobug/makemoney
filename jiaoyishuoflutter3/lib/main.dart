@@ -14,6 +14,7 @@ import 'package:jiaoyishuoflutter3/mywebview.dart';
 import 'package:jiaoyishuoflutter3/pocketmoney.dart';
 import 'package:jiaoyishuoflutter3/friendprofile.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
+import 'package:jiaoyishuoflutter3/search.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
@@ -427,6 +428,27 @@ class TabBarApp extends StatelessWidget {
                               Animation<double> animation,
                               Animation<double> secondaryAnimation) =>
                           const LJNWebview(),
+                      transitionsBuilder: (
+                        BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation,
+                        Widget child,
+                      ) {
+                        final Tween<Offset> offsetTween = Tween<Offset>(
+                            begin: const Offset(0.0, 0.0),
+                            end: const Offset(-1.0, 0.0));
+                        final Animation<Offset> slideOutLeftAnimation =
+                            offsetTween.animate(secondaryAnimation);
+                        return SlideTransition(
+                            position: slideOutLeftAnimation, child: child);
+                      },
+                    );
+                  } else if (settings.name == '/search') {
+                    return PageRouteBuilder(
+                      pageBuilder: (BuildContext context,
+                              Animation<double> animation,
+                              Animation<double> secondaryAnimation) =>
+                          const LJNSearchPage(),
                       transitionsBuilder: (
                         BuildContext context,
                         Animation<double> animation,
