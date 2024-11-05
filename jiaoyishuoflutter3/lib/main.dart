@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:isolate';
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'package:jiaoyishuoflutter3/friendmoments.dart';
 import 'package:jiaoyishuoflutter3/home22.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/miniprogram.dart';
+import 'package:jiaoyishuoflutter3/mywebview.dart';
 import 'package:jiaoyishuoflutter3/pocketmoney.dart';
 import 'package:jiaoyishuoflutter3/friendprofile.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
@@ -29,6 +32,90 @@ import 'package:flutter_redux/flutter_redux.dart';
 // import 'package:provider/provider.dart';
 // import 'provider.dart' as provider;
 
+// web服务器
+Future<void> startServer(SendPort sendPort) async {
+  var server = await HttpServer.bind(InternetAddress.loopbackIPv4, 9413);
+  sendPort
+      .send('Server running on http://${server.address.host}:${server.port}');
+
+  await for (var request in server) {
+    request.response.headers.contentType =
+        ContentType("text", "html", charset: "utf-8");
+
+    String html = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试</title>
+</head>
+<body>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+    <div style="color: red; font-size: 50px">Hello, world! 您好, 世界!您好, 世界!您好, 世界!您好, 世界!</div>
+</body>
+</html>
+""";
+
+    request.response.write(html);
+    await request.response.close();
+  }
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -39,6 +126,13 @@ void main() async {
     statusBarColor: Colors.transparent, // 设置状态栏透明
     statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
   ));
+
+  // 启动web服务器
+  final receivePort = ReceivePort();
+  await Isolate.spawn(startServer, receivePort.sendPort);
+  receivePort.listen((message) {
+    logger.info(message); // 打印服务器启动消息
+  });
 
   // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
@@ -312,6 +406,27 @@ class TabBarApp extends StatelessWidget {
                               Animation<double> animation,
                               Animation<double> secondaryAnimation) =>
                           const LJNMiniProgramPage(),
+                      transitionsBuilder: (
+                        BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation,
+                        Widget child,
+                      ) {
+                        final Tween<Offset> offsetTween = Tween<Offset>(
+                            begin: const Offset(0.0, 0.0),
+                            end: const Offset(-1.0, 0.0));
+                        final Animation<Offset> slideOutLeftAnimation =
+                            offsetTween.animate(secondaryAnimation);
+                        return SlideTransition(
+                            position: slideOutLeftAnimation, child: child);
+                      },
+                    );
+                  } else if (settings.name == '/mywebview') {
+                    return PageRouteBuilder(
+                      pageBuilder: (BuildContext context,
+                              Animation<double> animation,
+                              Animation<double> secondaryAnimation) =>
+                          const LJNWebview(),
                       transitionsBuilder: (
                         BuildContext context,
                         Animation<double> animation,

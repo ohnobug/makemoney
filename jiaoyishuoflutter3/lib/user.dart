@@ -353,14 +353,14 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                   id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                   title: "收藏",
                                   icon: "images/icon/icon2.png",
-                                  link: '',
+                                  link: '/mywebview',
                                   underline: true,
                                 ),
                                 const LJNFunctionItem(
                                   id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                   title: "朋友圈",
                                   icon: "images/icon/icon3.png",
-                                  link: '',
+                                  link: '/friendmoments',
                                   underline: true,
                                 ),
                                 const LJNFunctionItem(
