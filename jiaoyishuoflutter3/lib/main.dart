@@ -158,7 +158,7 @@ class TabBarApp extends StatelessWidget {
     return StoreProvider(
         store: myStore,
         child: ScreenUtilInit(
-            designSize: const Size(750, 1334),
+            designSize: const Size(750, 1624),
             ensureScreenSize: true,
             minTextAdapt: true,
             splitScreenMode: true,
