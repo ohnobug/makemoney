@@ -102,6 +102,7 @@ class _LJNTestMessage extends State<LJNTestMessage>
                                 assetPath('lotties/Animation1.json'),
                                 width: 300.w,
                                 height: 300.w,
+                                renderCache: RenderCache.drawingCommands,
                                 fit: BoxFit.fill,
                                 controller: _controller,
                                 onLoaded: (composition) {

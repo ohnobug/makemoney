@@ -1,5 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:lottie/lottie.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class LJNWebview extends StatefulWidget {
@@ -9,12 +12,18 @@ class LJNWebview extends StatefulWidget {
   State<LJNWebview> createState() => _LJNWebviewState();
 }
 
-class _LJNWebviewState extends State<LJNWebview> {
+class _LJNWebviewState extends State<LJNWebview>
+    with SingleTickerProviderStateMixin {
   late WebViewController controller;
+  late final AnimationController _lottieController;
+  double _statusHeight = 0;
 
   @override
   void initState() {
     super.initState();
+
+    _lottieController = AnimationController(vsync: this);
+
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
@@ -39,9 +48,34 @@ class _LJNWebviewState extends State<LJNWebview> {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
+
     return Stack(
       children: [
+        SizedBox(
+          width: screenSize.width,
+          child: Lottie.asset(
+            assetPath('lotties/homeminiprogramdarwing.json'),
+            width: screenSize.width,
+            height: screenSize.height,
+            fit: BoxFit.contain,
+            renderCache: RenderCache.drawingCommands,
+            controller: _lottieController,
+            onLoaded: (composition) {
+              // _lottieController
+              //   ..duration = const Duration(milliseconds: 600)
+              //   ..forward();
+            },
+          ),
+        ),
         WebViewWidget(controller: controller),
+
+        // 关闭按钮
         Positioned(
           right: 17.w,
           top: 90.w,
@@ -53,7 +87,7 @@ class _LJNWebviewState extends State<LJNWebview> {
               borderRadius: BorderRadius.circular(35.w), // 圆角
               border: Border.all(
                 color: const Color.fromARGB(255, 217, 225, 231), // 边框颜色
-                width: 2.w, // 边框宽度
+                width: 1.w, // 边框宽度
               ),
             ),
             child: Row(

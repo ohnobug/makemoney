@@ -84,8 +84,8 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
           }
 
           return Container(
-            width: 750.w,
-            height: vm.homescrollpixels + (90.w + _statusHeight),
+            width: screenSize.width,
+            height: vm.homescrollpixels + (90.w + _statusHeight + 200.w),
             color: const Color.fromARGB(255, 50, 48, 70),
             child: Transform.scale(
                 scale: miniprogramboxScale,
@@ -153,12 +153,12 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
 
                           widget.reverse();
                         },
-                        child: ScrollConfiguration(
-                            behavior: ScrollConfiguration.of(context)
-                                .copyWith(scrollbars: false),
-                            child: SizedBox(
-                                // color: Colors.cyan,
-                                height: vm.homescrollpixels,
+                        child: SizedBox(
+                            // color: Colors.cyan,
+                            height: vm.homescrollpixels + 200.w,
+                            child: ScrollConfiguration(
+                                behavior: ScrollConfiguration.of(context)
+                                    .copyWith(scrollbars: false),
                                 child: SingleChildScrollView(
                                   controller: _scrollController,
                                   physics: const AlwaysScrollableScrollPhysics(

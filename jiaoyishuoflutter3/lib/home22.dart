@@ -533,13 +533,13 @@ class _ChatListViewState extends State<LJNHome22Page>
     _customScrollController.jumpTo(0);
     _animationController!.value = myStore.state.homescrollpixels;
     _physics = const NeverScrollableScrollPhysics();
-    myStore.dispatch({"type": "showMiniProgramDrawer", "payload": false});
 
     _customScrollController.removeListener(scrollListener);
     _animationController!.reverse().then((_) {
       _customScrollController.jumpTo(0);
       _physics = const MyBouncingScrollPhysics();
       _customScrollController.addListener(scrollListener);
+      myStore.dispatch({"type": "showMiniProgramDrawer", "payload": false});
     });
   }
 
@@ -593,14 +593,24 @@ class _ChatListViewState extends State<LJNHome22Page>
     double newAppbarHeight = 90.w + initialCoverLayerHeight;
 
     // 新appbar透明度
-    double targetPosition = screenSize.height * 0.25; // 开始显示新appbar的位置
+    double percent25Position = screenSize.height * 0.25;
     double coverOpacity =
-        ((vm.homescrollpixels + _statusHeight) - targetPosition) /
-            (screenSize.height - newAppbarHeight - targetPosition);
+        ((vm.homescrollpixels + _statusHeight) - percent25Position) /
+            (screenSize.height - newAppbarHeight - percent25Position);
     if (coverOpacity < 0) {
       coverOpacity = 0;
     } else if (coverOpacity > 1) {
       coverOpacity = 1;
+    }
+
+    double percent75TargetPosition = screenSize.height * 0.75;
+    double newAppbarOpacity =
+        ((vm.homescrollpixels + _statusHeight) - percent75TargetPosition) /
+            (screenSize.height - newAppbarHeight - percent75TargetPosition);
+    if (newAppbarOpacity < 0) {
+      newAppbarOpacity = 0;
+    } else if (newAppbarOpacity > 1) {
+      newAppbarOpacity = 1;
     }
 
     // 顶部动画控制器
@@ -625,6 +635,16 @@ class _ChatListViewState extends State<LJNHome22Page>
 
     return Stack(
       children: [
+        // 小程序, 需要现在在appbar下面
+        Positioned(
+          top: 0,
+          left: 0,
+          // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
+          height: vm.homescrollpixels + (90.w + _statusHeight + 200.w),
+          width: screenSize.width,
+          child: LJNHomeMiniProgram(reverse: reverse),
+        ),
+
         // 列表
         Positioned(
             // 不能使用vm.homescrollpixels, 需要用_animationController!.value
@@ -675,15 +695,6 @@ class _ChatListViewState extends State<LJNHome22Page>
                       },
                     )))),
 
-        // 小程序
-        Positioned(
-          top: 0,
-          left: 0,
-          height: vm.homescrollpixels + (90.w + _statusHeight),
-          width: screenSize.width,
-          child: LJNHomeMiniProgram(reverse: reverse),
-        ),
-
         // 动画
         Visibility(
             // visible: false,
@@ -692,16 +703,17 @@ class _ChatListViewState extends State<LJNHome22Page>
                 opacity: 1 - topLottieOpacity,
                 child: Container(
                     color: const Color.fromARGB(255, 237, 237, 237),
-                    width: 750.w,
-                    height: vm.homescrollpixels + _statusHeight + 90.w,
-                    padding: EdgeInsets.only(top: _statusHeight),
+                    width: screenSize.width,
+                    height: vm.homescrollpixels + (90.w + _statusHeight),
+                    // padding: EdgeInsets.only(top: _statusHeight),
                     child: _lottieController.isCompleted
                         ? null
                         : Lottie.asset(
                             assetPath('lotties/homeminiprogramdarwing.json'),
-                            // width: 750.w,
-                            height: vm.homescrollpixels,
+                            width: screenSize.width,
+                            height: vm.homescrollpixels + _statusHeight + 90.w,
                             fit: BoxFit.contain,
+                            renderCache: RenderCache.drawingCommands,
                             controller: _lottieController,
                             onLoaded: (composition) {
                               // _lottieController
@@ -712,7 +724,7 @@ class _ChatListViewState extends State<LJNHome22Page>
 
         // 新appbar
         Visibility(
-            visible: (vm.homescrollpixels + _statusHeight) > targetPosition,
+            visible: (vm.homescrollpixels + _statusHeight) > percent25Position,
             // visible: true,
             child: Positioned(
                 height: 90.w +
@@ -756,53 +768,64 @@ class _ChatListViewState extends State<LJNHome22Page>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           // App标题栏
-                          AppBar(
-                            primary: false,
-                            title: const Text("微信"),
-                            centerTitle: true,
-                            titleTextStyle: TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(32.w),
-                                color: Colors.white,
-                                fontFamily: "AlibabaPuHuiTi-Medium"),
-                            toolbarHeight: 90.w,
-                            elevation: 0,
-                            scrolledUnderElevation: 0,
-                            backgroundColor:
-                                const Color.fromARGB(255, 121, 115, 149),
-                            foregroundColor:
-                                const Color.fromARGB(255, 121, 115, 149),
-                            actions: [
-                              Container(
-                                color: Colors.transparent,
-                                height: 90.w,
-                                padding:
-                                    EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                                child: Icon(
-                                  color: Colors.white,
-                                  const IconData(
-                                    0xe612,
-                                    fontFamily: 'Iconfont',
-                                  ),
-                                  size: 40.w, // 图标大小
-                                ),
+                          ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12.w),
+                                topRight: Radius.circular(12.w),
                               ),
-                              Container(
-                                color: Colors.transparent,
-                                height: 90.w,
-                                padding:
-                                    EdgeInsets.only(right: 40.w), // 设置右侧内边距
-                                child: Icon(
-                                  color: Colors.white,
-                                  const IconData(
-                                    0xe726,
-                                    fontFamily: 'Iconfont',
+                              child: AppBar(
+                                primary: false,
+                                title: const Text("微信"),
+                                centerTitle: true,
+                                titleTextStyle: TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(32.w),
+                                    color: Colors.white,
+                                    fontFamily: "AlibabaPuHuiTi-Medium"),
+                                toolbarHeight: 90.w,
+                                elevation: 0,
+                                scrolledUnderElevation: 0,
+                                backgroundColor: Color.fromARGB(
+                                    (newAppbarOpacity * 255).toInt(),
+                                    121,
+                                    115,
+                                    149),
+                                foregroundColor: Color.fromARGB(
+                                    (newAppbarOpacity * 255).toInt(),
+                                    121,
+                                    115,
+                                    149),
+                                actions: [
+                                  Container(
+                                    color: Colors.transparent,
+                                    height: 90.w,
+                                    padding:
+                                        EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                                    child: Icon(
+                                      color: Colors.white,
+                                      const IconData(
+                                        0xe612,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      size: 40.w, // 图标大小
+                                    ),
                                   ),
-                                  size: 42.w, // 图标大小
-                                ),
-                              ),
-                            ],
-                          ),
+                                  Container(
+                                    color: Colors.transparent,
+                                    height: 90.w,
+                                    padding:
+                                        EdgeInsets.only(right: 40.w), // 设置右侧内边距
+                                    child: Icon(
+                                      color: Colors.white,
+                                      const IconData(
+                                        0xe726,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      size: 42.w, // 图标大小
+                                    ),
+                                  ),
+                                ],
+                              )),
 
                           // AppBar底部遮挡层
                           Opacity(

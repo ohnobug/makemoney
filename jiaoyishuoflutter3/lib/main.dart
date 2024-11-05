@@ -593,10 +593,10 @@ class _CustomTabbarState extends State<CustomTabbar>
         converter: (store) => store.state,
         builder: (context, vm) {
           // 新appbar透明度
-          double targetPosition = screenSize.height * 0.75; // 开始显示新appbar的位置
+          double percent75Position = screenSize.height * 0.25; // 开始显示新appbar的位置
           // double newAppbarHeight = 90.w + 17.w;
           // double coverOpacity = (vm.homescrollpixels + _statusHeight) /
-          //     (targetPosition - _statusHeight);
+          //     (percent75Position - _statusHeight);
           // if (coverOpacity < 0) {
           //   coverOpacity = 0;
           // } else if (coverOpacity > 1) {
@@ -738,7 +738,8 @@ class _CustomTabbarState extends State<CustomTabbar>
 
               // 浮动在顶部的appbar
               Visibility(
-                visible: (vm.homescrollpixels + _statusHeight) < targetPosition,
+                visible:
+                    (vm.homescrollpixels + _statusHeight) <= percent75Position,
                 child: Positioned(
                     top: vm.homescrollpixels,
                     left: _appbarLeft,
