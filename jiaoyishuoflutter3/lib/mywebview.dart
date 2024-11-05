@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:lottie/lottie.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -16,23 +16,38 @@ class _LJNWebviewState extends State<LJNWebview>
     with SingleTickerProviderStateMixin {
   late WebViewController controller;
   late final AnimationController _lottieController;
-  double _statusHeight = 0;
+
+  bool pageVisible = false;
 
   @override
   void initState() {
     super.initState();
 
-    _lottieController = AnimationController(vsync: this);
+    _lottieController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1000));
+
+    _lottieController.addListener(() {
+      if (_lottieController.isCompleted) {
+        setState(() {
+          pageVisible = true;
+        });
+      }
+    });
 
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
-            // Update loading bar.
+            _lottieController.value = (progress / 100) * 0.5;
           },
           onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
+          onPageFinished: (String url) {
+            // 页面加载完, 需要有个动画的过程
+            _lottieController
+              ..duration = const Duration(milliseconds: 1000)
+              ..forward();
+          },
           onHttpError: (HttpResponseError error) {},
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
@@ -49,31 +64,38 @@ class _LJNWebviewState extends State<LJNWebview>
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
+    // if (kIsWeb) {
+    //   _statusHeight = 0;
+    // } else {
+    //   _statusHeight = MediaQuery.of(context).padding.top;
+    // }
 
     return Stack(
       children: [
-        SizedBox(
-          width: screenSize.width,
-          child: Lottie.asset(
-            assetPath('lotties/homeminiprogramdarwing.json'),
-            width: screenSize.width,
-            height: screenSize.height,
-            fit: BoxFit.contain,
-            renderCache: RenderCache.drawingCommands,
-            controller: _lottieController,
-            onLoaded: (composition) {
-              // _lottieController
-              //   ..duration = const Duration(milliseconds: 600)
-              //   ..forward();
-            },
-          ),
-        ),
+        // 页面本身
         WebViewWidget(controller: controller),
+
+        // 加载动画
+        Visibility(
+            visible: !pageVisible,
+            child: Container(
+                color: const Color.fromARGB(255, 177, 177, 177),
+                width: screenSize.width,
+                height: screenSize.height,
+                child: Center(
+                    child: Lottie.asset(
+                  assetPath('lotties/miniprogramloading.json'),
+                  width: screenSize.width * 0.4,
+                  // height: screenSize.height,
+                  fit: BoxFit.contain,
+                  renderCache: RenderCache.drawingCommands,
+                  controller: _lottieController,
+                  onLoaded: (composition) {
+                    // _lottieController
+                    //   ..duration = const Duration(milliseconds: 600)
+                    //   ..forward();
+                  },
+                )))),
 
         // 关闭按钮
         Positioned(
