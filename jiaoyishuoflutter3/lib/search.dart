@@ -749,7 +749,8 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                             width: 37.w,
                             child: Stack(
                               children: [
-                                if (e.key < 2)
+                                // 排序
+                                if (e.key < 3) ...[
                                   Icon(
                                     const IconData(
                                       0xe649,
@@ -759,21 +760,29 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                         255, 247, 171, 66), // 图标颜色
                                     size: 37.w, // 图标大小
                                   ),
-
-                                // 排序
-                                Center(
-                                  child: Text(
-                                    e.key.toString(),
-                                    style: TextStyle(
-                                        fontSize: 20.w,
-                                        height: 1.08,
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: FontStyle.italic,
-                                        color: e.key < 2
-                                            ? Colors.white
-                                            : Colors.black),
-                                  ),
-                                )
+                                  Center(
+                                    child: Text(
+                                      e.key.toString(),
+                                      style: TextStyle(
+                                          fontSize: 20.w,
+                                          height: 1.08,
+                                          fontWeight: FontWeight.bold,
+                                          fontStyle: FontStyle.italic,
+                                          color: Colors.white),
+                                    ),
+                                  )
+                                ] else
+                                  Center(
+                                    child: Text(
+                                      e.key.toString(),
+                                      style: TextStyle(
+                                          fontSize: 25.w,
+                                          height: 1.08,
+                                          fontWeight: FontWeight.bold,
+                                          fontStyle: FontStyle.italic,
+                                          color: Colors.black),
+                                    ),
+                                  )
                               ],
                             )),
                         SizedBox(

@@ -644,22 +644,27 @@ class _ChatListViewState extends State<LJNHome22Page>
 
     return Stack(
       children: [
-        // 背景
-        Lottie.asset(
-          assetPath('lotties/miniprogrambg.json'),
-          width: screenSize.width,
-          height: screenSize.height,
-          fit: BoxFit.fill,
-          renderCache: RenderCache.raster,
-          controller: _bglottieController,
-          animate: true,
-          backgroundLoading: true,
-          onLoaded: (composition) {
-            _bglottieController
-              ..duration = const Duration(milliseconds: 10000)
-              ..repeat(); // 使用 repeat() 使动画循环
-          },
-        ),
+        Image.asset(assetPath("lotties/miniprogrambg.awebp"),
+            width: screenSize.width,
+            height: screenSize.height,
+            fit: BoxFit.cover),
+
+        // // 背景
+        // Lottie.asset(
+        //   assetPath('lotties/miniprogrambg.json'),
+        //   width: screenSize.width,
+        //   height: screenSize.height,
+        //   fit: BoxFit.fill,
+        //   renderCache: RenderCache.raster,
+        //   controller: _bglottieController,
+        //   animate: true,
+        //   backgroundLoading: true,
+        //   onLoaded: (composition) {
+        //     _bglottieController
+        //       ..duration = const Duration(milliseconds: 10000)
+        //       ..repeat(); // 使用 repeat() 使动画循环
+        //   },
+        // ),
 
         // 小程序, 需要现在在appbar下面
         Positioned(
@@ -732,7 +737,7 @@ class _ChatListViewState extends State<LJNHome22Page>
                       },
                     )))),
 
-        // 动画
+        // 三个点点动画
         Visibility(
             // visible: false,
             visible: topLottieOpacity != 1,

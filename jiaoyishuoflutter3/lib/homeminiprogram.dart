@@ -90,7 +90,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                     width: screenSize.width,
                     height:
                         vm.homescrollpixels + (90.w + _statusHeight + 200.w),
-                    // color: const Color.fromARGB(255, 50, 48, 70),
+                    color: Color.fromARGB((255 * 0.8).toInt(), 50, 48, 70),
                     child: Transform.scale(
                         scale: miniprogramboxScale,
                         alignment: Alignment.topCenter,
