@@ -95,6 +95,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram>
               color: const Color.fromARGB(255, 50, 48, 70),
               child: Stack(
                 children: [
+                  // 背景
                   Lottie.asset(
                     assetPath('lotties/miniprogrambg.json'),
                     width: screenSize.width,
@@ -107,10 +108,12 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram>
                     backgroundLoading: true,
                     onLoaded: (composition) {
                       _lottieController
-                        ..duration = const Duration(milliseconds: 50)
+                        ..duration = const Duration(milliseconds: 300)
                         ..forward();
                     },
                   ),
+
+                  // 缩放
                   Transform.scale(
                       scale: miniprogramboxScale,
                       alignment: Alignment.topCenter,
