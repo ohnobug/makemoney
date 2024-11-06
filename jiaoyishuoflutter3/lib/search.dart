@@ -534,6 +534,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                       ],
                                     ),
 
+                                    // 标题列表
                                     SizedBox(
                                       width: screenSize.width,
                                       child: Wrap(
@@ -743,20 +744,21 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         // 图标
-                        Container(
+                        SizedBox(
                             height: 37.w,
                             width: 37.w,
                             child: Stack(
                               children: [
-                                Icon(
-                                  const IconData(
-                                    0xe649,
-                                    fontFamily: 'Iconfont',
-                                  ), // 使用的图标
-                                  color: const Color.fromARGB(
-                                      255, 247, 171, 66), // 图标颜色
-                                  size: 37.w, // 图标大小
-                                ),
+                                if (e.key < 2)
+                                  Icon(
+                                    const IconData(
+                                      0xe649,
+                                      fontFamily: 'Iconfont',
+                                    ), // 使用的图标
+                                    color: const Color.fromARGB(
+                                        255, 247, 171, 66), // 图标颜色
+                                    size: 37.w, // 图标大小
+                                  ),
 
                                 // 排序
                                 Center(
@@ -767,7 +769,9 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                         height: 1.08,
                                         fontWeight: FontWeight.bold,
                                         fontStyle: FontStyle.italic,
-                                        color: Colors.white),
+                                        color: e.key < 2
+                                            ? Colors.white
+                                            : Colors.black),
                                   ),
                                 )
                               ],

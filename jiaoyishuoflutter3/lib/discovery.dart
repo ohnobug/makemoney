@@ -181,7 +181,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "搜一搜",
                     icon: "images/icon/discovery_icon7.png",
-                    link: '',
+                    link: '/search',
                     underline: false,
                   ),
                   SizedBox(height: 16.w),

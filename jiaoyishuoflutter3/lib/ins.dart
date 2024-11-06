@@ -602,8 +602,9 @@ class _LJNInsPage extends State<LJNInsPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               GestureDetector(
-                                onTap: () =>
-                                    Navigator.of(context).pop(), // 点击事件
+                                onTap: () {
+                                  Navigator.of(context).pop(); // 点击事件
+                                },
                                 child: Container(
                                   // 加盒子是为了扩大点击区域
                                   color: Colors.transparent,
@@ -624,54 +625,57 @@ class _LJNInsPage extends State<LJNInsPage> {
                                       margin: EdgeInsets.symmetric(
                                           horizontal: 15.w),
                                       height: 65.w,
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                              context,
-                                              '/search',
-                                            );
-                                          },
-                                          child: TextField(
-                                            readOnly: true,
-                                            onTapOutside: (event) {
-                                              FocusScope.of(context).unfocus();
-                                            },
-                                            cursorHeight: 35.w,
-                                            cursorWidth: 3.w,
-                                            decoration: InputDecoration(
-                                              prefixIcon: Icon(
-                                                const IconData(
-                                                  0xe612,
-                                                  fontFamily: 'Iconfont',
-                                                ),
-                                                color: Colors.black,
-                                                size: 40.w,
-                                              ),
-                                              prefixIconConstraints:
-                                                  BoxConstraints(
-                                                minWidth: 70.w, // 控制图标与文字的最小宽度
-                                                // minHeight: 36.w,
-                                              ),
-                                              hintText: "搜索",
-                                              hintStyle: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: 30.w,
-                                                  color: const Color.fromARGB(
-                                                      255, 69, 75, 83)),
-                                              filled: true,
-                                              fillColor: const Color.fromARGB(
-                                                  255, 217, 220, 224),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                                borderSide: BorderSide.none,
-                                              ),
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 8.0.w,
-                                                      horizontal: 20.0.w),
+                                      child: TextField(
+                                        // readOnly: true,
+                                        onTap: () {
+                                          logger.info("能点击吗?");
+                                          Navigator.pushNamed(
+                                            context,
+                                            '/search',
+                                          );
+                                        },
+                                        onTapOutside: (event) {
+                                          Navigator.pushNamed(
+                                            context,
+                                            '/search',
+                                          );
+                                          FocusScope.of(context).unfocus();
+                                        },
+                                        cursorHeight: 35.w,
+                                        cursorWidth: 3.w,
+                                        canRequestFocus: false,
+                                        decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            const IconData(
+                                              0xe612,
+                                              fontFamily: 'Iconfont',
                                             ),
-                                          )))),
+                                            color: Colors.black,
+                                            size: 40.w,
+                                          ),
+                                          prefixIconConstraints: BoxConstraints(
+                                            minWidth: 70.w, // 控制图标与文字的最小宽度
+                                            // minHeight: 36.w,
+                                          ),
+                                          hintText: "搜索",
+                                          hintStyle: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 30.w,
+                                              color: const Color.fromARGB(
+                                                  255, 69, 75, 83)),
+                                          filled: true,
+                                          fillColor: const Color.fromARGB(
+                                              255, 217, 220, 224),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 8.0.w,
+                                              horizontal: 20.0.w),
+                                        ),
+                                      ))),
                             ],
                           ),
                         ),
