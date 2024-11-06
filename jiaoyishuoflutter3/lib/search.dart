@@ -103,14 +103,14 @@ class _LJNSearchPage extends State<LJNSearchPage> {
               style: TextStyle(fontSize: 32.w, height: 1.08),
             ),
             WidgetSpan(
-              style: const TextStyle(height: 1.08),
+              style: const TextStyle(height: 0.9),
               child: Icon(
                 const IconData(
                   0xe71e,
                   fontFamily: 'Iconfont',
                 ), // 使用的图标
                 color: const Color.fromARGB(255, 255, 0, 0), // 图标颜色
-                size: 32.w, // 图标大小
+                size: 30.w, // 图标大小
               ),
             ),
           ],
@@ -774,7 +774,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                 ] else
                                   Center(
                                     child: Text(
-                                      e.key.toString(),
+                                      (e.key + 1).toString(),
                                       style: TextStyle(
                                           fontSize: 25.w,
                                           height: 1.08,
