@@ -26,6 +26,7 @@ class _ChatListViewState extends State<LJNHome22Page>
 
   ScrollPhysics _physics = const MyBouncingScrollPhysics();
   late final AnimationController _lottieController;
+  late final AnimationController _bglottieController;
   double initialY = 0.0;
   double deltaY = 0.0;
   double downHomescrollpixels = 0;
@@ -39,6 +40,7 @@ class _ChatListViewState extends State<LJNHome22Page>
     });
 
     _lottieController = AnimationController(vsync: this);
+    _bglottieController = AnimationController(vsync: this);
 
     _customScrollController.addListener(scrollListener);
 
@@ -503,6 +505,13 @@ class _ChatListViewState extends State<LJNHome22Page>
     ];
   }
 
+  @override
+  void dispose() {
+    _lottieController.dispose();
+    _bglottieController.dispose();
+    super.dispose();
+  }
+
   void scrollListener() {
     logger.info("this is :{${_customScrollController.position.pixels}}");
 
@@ -635,6 +644,23 @@ class _ChatListViewState extends State<LJNHome22Page>
 
     return Stack(
       children: [
+        // 背景
+        Lottie.asset(
+          assetPath('lotties/miniprogrambg.json'),
+          width: screenSize.width,
+          height: screenSize.height,
+          fit: BoxFit.fill,
+          renderCache: RenderCache.raster,
+          controller: _bglottieController,
+          animate: true,
+          backgroundLoading: true,
+          onLoaded: (composition) {
+            _bglottieController
+              ..duration = const Duration(milliseconds: 10000)
+              ..repeat(); // 使用 repeat() 使动画循环
+          },
+        ),
+
         // 小程序, 需要现在在appbar下面
         Positioned(
           top: 0,
@@ -645,13 +671,24 @@ class _ChatListViewState extends State<LJNHome22Page>
           child: LJNHomeMiniProgram(reverse: reverse),
         ),
 
+        // 列表背景
+        Positioned(
+            top: 90.w + _statusHeight + vm.homescrollpixels,
+            left: 0,
+            // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
+            height: screenSize.height - (90.w + _statusHeight),
+            width: screenSize.width,
+            child: Container(
+              color: Colors.white,
+            )),
+
         // 列表
         Positioned(
             // 不能使用vm.homescrollpixels, 需要用_animationController!.value
             top: 90.w + _statusHeight + _animationController!.value,
             left: 0,
             width: screenSize.width,
-            height: screenSize.height - (106.w + 90.w + _statusHeight),
+            height: screenSize.height - (90.w + _statusHeight),
             child: Listener(
                 onPointerUp: (event) {
                   logger
@@ -684,8 +721,8 @@ class _ChatListViewState extends State<LJNHome22Page>
                     ),
                     child: ListView.builder(
                       primary: false,
-                      // padding: EdgeInsets.only(top: 5.w),
-                      padding: EdgeInsets.all(0.w),
+                      padding: EdgeInsets.only(bottom: 106.w),
+                      // padding: EdgeInsets.all(0.w),
                       itemCount: chatItems.length,
                       shrinkWrap: true,
                       controller: _customScrollController,

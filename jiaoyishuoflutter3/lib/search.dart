@@ -16,6 +16,8 @@ class _LJNSearchPage extends State<LJNSearchPage> {
   List<Widget> historyList = [];
   List<Widget> suggestionsForYouList = [];
   List<Widget> hotList = [];
+  int hotListCurrentPage = 0;
+  PageController hotListController = PageController();
 
   @override
   void initState() {
@@ -93,11 +95,29 @@ class _LJNSearchPage extends State<LJNSearchPage> {
 
     // 热榜
     hotList.addAll([
-      Text(
-          style: TextStyle(fontSize: 32.w, height: 1.08),
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-          "上海世茂等被强制执行17.6亿"),
+      Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: "上海世茂等被强制执行17.6亿",
+              style: TextStyle(fontSize: 32.w, height: 1.08),
+            ),
+            WidgetSpan(
+              style: const TextStyle(height: 1.08),
+              child: Icon(
+                const IconData(
+                  0xe71e,
+                  fontFamily: 'Iconfont',
+                ), // 使用的图标
+                color: const Color.fromARGB(255, 255, 0, 0), // 图标颜色
+                size: 32.w, // 图标大小
+              ),
+            ),
+          ],
+        ),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+      ),
       Text(
           style: TextStyle(fontSize: 32.w, height: 1.08),
           overflow: TextOverflow.ellipsis,
@@ -217,7 +237,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
           return Scaffold(
               primary: false,
               appBar: null,
-              body: Container(
+              body: SizedBox(
                   width: screenSize.width,
                   height: screenSize.height,
                   child: ScrollConfiguration(
@@ -332,7 +352,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                         const Text("猜你想搜"),
 
                                         // 右边
-                                        Container(
+                                        SizedBox(
                                           width: 220.w,
                                           height: 70.w,
                                           child: Row(
@@ -396,11 +416,11 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                       ],
                                     ),
 
-                                    Container(
+                                    SizedBox(
                                       width: screenSize.width,
                                       child: Wrap(
                                         children: historyList.map((item) {
-                                          return Container(
+                                          return SizedBox(
                                             width: 345.w, // 每个子组件的宽度
                                             height: 70.w, // 每个子组件的高度
                                             // color: Colors.blueAccent,
@@ -450,7 +470,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                         ),
 
                                         // 右边
-                                        Container(
+                                        SizedBox(
                                           width: 220.w,
                                           height: 70.w,
                                           child: Row(
@@ -514,12 +534,12 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                       ],
                                     ),
 
-                                    Container(
+                                    SizedBox(
                                       width: screenSize.width,
                                       child: Wrap(
                                         children:
                                             suggestionsForYouList.map((item) {
-                                          return Container(
+                                          return SizedBox(
                                             width: 345.w, // 每个子组件的宽度
                                             height: 70.w, // 每个子组件的高度
                                             // color: Colors.blueAccent,
@@ -539,36 +559,250 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                               ),
 
                               // 热榜
-                              ...hotList.map((e) {
-                                return Container(
-                                  height: 72.w,
-                                  padding:
-                                      EdgeInsets.only(left: 30.w, right: 30.w),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        const IconData(
-                                          0xed9e,
-                                          fontFamily: 'Iconfont',
-                                        ), // 使用的图标
-                                        color: Colors.black, // 图标颜色
-                                        size: 36.w, // 图标大小
+                              Column(
+                                children: [
+                                  // 标题
+                                  Container(
+                                    alignment: Alignment.center,
+                                    height: 110.w,
+                                    width: screenSize.width,
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 33.w,
+                                          ),
+                                          Text(
+                                            '抖音热榜',
+                                            style: TextStyle(
+                                                fontSize: 27.w,
+                                                color: hotListCurrentPage == 0
+                                                    ? const Color.fromARGB(
+                                                        255, 21, 21, 21)
+                                                    : const Color.fromARGB(
+                                                        255, 116, 116, 116)),
+                                          ),
+                                          SizedBox(
+                                            width: 40.w,
+                                          ),
+                                          Text(
+                                            '同城榜',
+                                            style: TextStyle(
+                                                fontSize: 27.w,
+                                                color: hotListCurrentPage == 1
+                                                    ? const Color.fromARGB(
+                                                        255, 21, 21, 21)
+                                                    : const Color.fromARGB(
+                                                        255, 116, 116, 116)),
+                                          ),
+                                          SizedBox(
+                                            width: 40.w,
+                                          ),
+                                          Text(
+                                            '直播榜',
+                                            style: TextStyle(
+                                                fontSize: 27.w,
+                                                color: hotListCurrentPage == 2
+                                                    ? const Color.fromARGB(
+                                                        255, 21, 21, 21)
+                                                    : const Color.fromARGB(
+                                                        255, 116, 116, 116)),
+                                          ),
+                                          SizedBox(
+                                            width: 40.w,
+                                          ),
+                                          Text(
+                                            '团购榜',
+                                            style: TextStyle(
+                                                fontSize: 27.w,
+                                                color: hotListCurrentPage == 3
+                                                    ? const Color.fromARGB(
+                                                        255, 21, 21, 21)
+                                                    : const Color.fromARGB(
+                                                        255, 116, 116, 116)),
+                                          ),
+                                          SizedBox(
+                                            width: 40.w,
+                                          ),
+                                          Text(
+                                            '品牌榜',
+                                            style: TextStyle(
+                                                fontSize: 27.w,
+                                                color: hotListCurrentPage == 4
+                                                    ? const Color.fromARGB(
+                                                        255, 21, 21, 21)
+                                                    : const Color.fromARGB(
+                                                        255, 116, 116, 116)),
+                                          ),
+                                          SizedBox(
+                                            width: 40.w,
+                                          ),
+                                          Text(
+                                            '音乐榜',
+                                            style: TextStyle(
+                                                fontSize: 27.w,
+                                                color: hotListCurrentPage == 5
+                                                    ? const Color.fromARGB(
+                                                        255, 21, 21, 21)
+                                                    : const Color.fromARGB(
+                                                        255, 116, 116, 116)),
+                                          ),
+                                          SizedBox(
+                                            width: 40.w,
+                                          ),
+                                          Text(
+                                            '科技榜',
+                                            style: TextStyle(
+                                                fontSize: 27.w,
+                                                color: hotListCurrentPage == 6
+                                                    ? const Color.fromARGB(
+                                                        255, 21, 21, 21)
+                                                    : const Color.fromARGB(
+                                                        255, 116, 116, 116)),
+                                          ),
+                                          SizedBox(
+                                            width: 40.w,
+                                          ),
+                                          Text(
+                                            '汽车榜',
+                                            style: TextStyle(
+                                                fontSize: 27.w,
+                                                color: hotListCurrentPage == 7
+                                                    ? const Color.fromARGB(
+                                                        255, 21, 21, 21)
+                                                    : const Color.fromARGB(
+                                                        255, 116, 116, 116)),
+                                          ),
+                                          SizedBox(
+                                            width: 33.w,
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        width: 32.w,
-                                      ),
-                                      Expanded(
-                                        // 使用 Expanded 限制文本区域
-                                        child: e,
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                );
-                              })
+                                  SizedBox(
+                                    width: screenSize.width,
+                                    height:
+                                        hotList.length * (72.w + 15.w) + 90.w,
+                                    // height: 6000.w,
+                                    child: PageView(
+                                      scrollDirection: Axis.horizontal,
+                                      controller: hotListController, // 可以设置初始页面
+                                      onPageChanged: (index) {
+                                        setState(() {
+                                          hotListCurrentPage = index;
+                                        });
+                                      },
+                                      children: [
+                                        hotListWidget(hotList),
+                                        hotListWidget(hotList),
+                                        hotListWidget(hotList),
+                                        hotListWidget(hotList),
+                                        hotListWidget(hotList),
+                                        hotListWidget(hotList),
+                                        hotListWidget(hotList),
+                                        hotListWidget(hotList),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ],
                           )))));
         });
+  }
+
+  Widget hotListWidget(List<Widget> hotList) {
+    Size screenSize = MediaQuery.of(context).size;
+
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
+
+    return // 第一个榜单
+        Container(
+            // height: 4350.w + 90.w,
+            width: screenSize.width,
+            padding: EdgeInsets.only(left: 30.w, right: 30.w),
+            child: Column(
+              children: [
+                ...hotList.asMap().entries.map((e) {
+                  return Container(
+                    height: 72.w,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 253, 245, 242),
+                      borderRadius: BorderRadius.all(Radius.circular(10.w)),
+                    ),
+                    padding: EdgeInsets.only(left: 24.w, right: 24.w),
+                    margin: EdgeInsets.only(bottom: 15.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // 图标
+                        Container(
+                            height: 37.w,
+                            width: 37.w,
+                            child: Stack(
+                              children: [
+                                Icon(
+                                  const IconData(
+                                    0xe649,
+                                    fontFamily: 'Iconfont',
+                                  ), // 使用的图标
+                                  color: const Color.fromARGB(
+                                      255, 247, 171, 66), // 图标颜色
+                                  size: 37.w, // 图标大小
+                                ),
+
+                                // 排序
+                                Center(
+                                  child: Text(
+                                    e.key.toString(),
+                                    style: TextStyle(
+                                        fontSize: 20.w,
+                                        height: 1.08,
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FontStyle.italic,
+                                        color: Colors.white),
+                                  ),
+                                )
+                              ],
+                            )),
+                        SizedBox(
+                          width: 17.w,
+                        ),
+
+                        // 标题
+                        Expanded(
+                          // 使用 Expanded 限制文本区域
+                          child: e.value,
+                        ),
+
+                        // 阅读人数
+                        Text(
+                          "1201.2万",
+                          style: TextStyle(
+                              fontSize: 20.w,
+                              color: const Color.fromARGB(255, 157, 143, 145)),
+                        )
+                      ],
+                    ),
+                  );
+                }),
+                SizedBox(
+                  width: screenSize.width,
+                  height: 90.w,
+                  child: const Center(
+                      child: Text(
+                    "查看完整榜单",
+                    style: TextStyle(color: Colors.red),
+                  )),
+                )
+              ],
+            ));
   }
 }
