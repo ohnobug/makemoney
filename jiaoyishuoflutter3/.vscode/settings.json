@@ -1,5 +1,6 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
     "java.configuration.updateBuildConfiguration": "automatic",
-    "cmake.sourceDirectory": "C:/t/jiaoyisuo/jiaoyishuoflutter3/linux"
+    "cmake.sourceDirectory": "C:/t/jiaoyisuo/jiaoyishuoflutter3/linux",
+    "dart.flutterSdkPath": "C:\\flutter"
 }
