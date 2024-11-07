@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,8 +17,17 @@ class _LJNSearchPage extends State<LJNSearchPage> {
   List<Widget> historyList = [];
   List<Widget> suggestionsForYouList = [];
   List<Widget> hotList = [];
+
+  // 最后点击的标题
+  int lastedTapHotTitleKey = -1;
+
+  // 热门标题
   int hotListCurrentPage = 0;
   PageController hotListController = PageController();
+  List<String> hotListTitles = [];
+  GlobalKey hotTitleBoxKey = GlobalKey();
+  ScrollController hotTitleBoxController = ScrollController();
+  final Map<int, GlobalKey> hotListTitlesKeys = {};
 
   @override
   void initState() {
@@ -92,6 +102,81 @@ class _LJNSearchPage extends State<LJNSearchPage> {
           maxLines: 1,
           "美国大选选举结果或延迟公布"),
     ]);
+
+    // 抖音热榜标题
+    hotListTitles = [
+      "抖音热榜",
+      "同城榜",
+      "直播榜",
+      "团购榜",
+      "品牌榜",
+      "音乐榜",
+      "科技榜",
+      "汽车榜",
+      "傻逼榜",
+      "富人榜",
+      "恶搞榜",
+      "恐怖榜",
+      "儿童榜",
+      "好人榜",
+      "恶人榜",
+      "摇滚榜",
+      "电影榜",
+      "电视剧榜",
+      "美食榜",
+      "旅游榜",
+      "校园榜",
+      "创业榜",
+      "网红榜",
+      "文学榜",
+      "搞笑榜",
+      "游戏榜",
+      "动漫榜",
+      "体育榜",
+      "明星榜",
+      "健身榜",
+      "健康榜",
+      "美容榜",
+      "宠物榜",
+      "艺术榜",
+      "摄影榜",
+      "冒险榜",
+      "时尚榜",
+      "打工人榜",
+      "好物榜",
+      "新锐榜",
+      "热门榜",
+      "历史榜",
+      "脑洞榜",
+      "心理榜",
+      "恋爱榜",
+      "职场榜",
+      "励志榜",
+      "幽默榜",
+      "家居榜",
+      "手工榜",
+      "手绘榜",
+      "奇葩榜",
+      "达人榜",
+      "考古榜",
+      "鬼畜榜",
+      "自然榜",
+      "冒险榜",
+      "学霸榜",
+      "舞蹈榜",
+      "国潮榜",
+      "出海榜",
+      "情感榜",
+      "科幻榜",
+      "爱情榜",
+      "网络榜",
+      "教育榜",
+      "情景榜",
+    ];
+
+    hotListTitles.asMap().entries.forEach((v) {
+      hotListTitlesKeys[v.key] = GlobalKey();
+    });
 
     // 热榜
     hotList.addAll([
@@ -219,6 +304,71 @@ class _LJNSearchPage extends State<LJNSearchPage> {
           maxLines: 1,
           "#2024美国大选那些事儿#"),
     ]);
+
+    // // 页面滚动监听
+    // hotListController.addListener(() {
+    //   logger.info("hotListController.offset: ${hotListController.offset}");
+    // });
+  }
+
+  // 判断盒子是否在显示, 若不显示则显示都可视区域
+  bool isItemVisibleAndMove(int index) {
+    final GlobalKey? itemKey = hotListTitlesKeys[index];
+    final GlobalKey? firstKey = hotListTitlesKeys[0];
+    if (itemKey != null && firstKey != null) {
+      // 父元素
+      final RenderBox? parentRenderBox =
+          hotTitleBoxKey.currentContext?.findRenderObject() as RenderBox?;
+
+      // 子元素
+      final RenderBox? childRenderBox =
+          itemKey.currentContext?.findRenderObject() as RenderBox?;
+
+      // 第一个元素
+      final RenderBox? firstRenderBox =
+          firstKey.currentContext?.findRenderObject() as RenderBox?;
+
+      if (parentRenderBox != null &&
+          childRenderBox != null &&
+          firstRenderBox != null) {
+        final parentPosition = parentRenderBox.localToGlobal(Offset.zero);
+        final childPosition = childRenderBox.localToGlobal(Offset.zero);
+        final firstPosition = firstRenderBox.localToGlobal(Offset.zero);
+
+        // 子元素相对于父元素的坐标
+        final Offset childParentRelativePosition =
+            childPosition - parentPosition;
+
+        // 子元素相对于第一个元素的坐标
+        final Offset childFirstRelativePosition = childPosition - firstPosition;
+
+        logger.info("parentPosition:$parentPosition");
+        logger.info("childPosition:$childPosition");
+        logger.info("childParentRelativePosition:$childParentRelativePosition");
+
+        if (childParentRelativePosition.dx - (childRenderBox.size.width * 0.5) <
+            0) {
+          // logger.info("子元素在盒子左边, 向右边移动");
+          // 子元素在盒子左边, 向右边移动
+          hotTitleBoxController.animateTo(
+              childFirstRelativePosition.dx - childRenderBox.size.width,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.linear);
+        } else if ((childParentRelativePosition.dx +
+                childRenderBox.size.width * 1.5) >
+            parentRenderBox.size.width) {
+          // logger.info("子元素在盒子右边, 向左边移动");
+          // 子元素在盒子右边, 向左边移动
+          hotTitleBoxController.animateTo(
+              childFirstRelativePosition.dx -
+                  parentRenderBox.size.width +
+                  childRenderBox.size.width * 2,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.linear);
+        }
+      }
+    }
+    return false;
   }
 
   @override
@@ -236,7 +386,78 @@ class _LJNSearchPage extends State<LJNSearchPage> {
         builder: (context, vm) {
           return Scaffold(
               primary: false,
-              appBar: null,
+              appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 0.w),
+                    margin: EdgeInsets.only(top: _statusHeight),
+                    height: 90.w,
+                    // color: const Color.fromARGB(255, 221, 76, 76), // 设置背景颜色
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () => Navigator.of(context).pop(), // 点击事件
+                          child: Container(
+                            // 加盒子是为了扩大点击区域
+                            color: Colors.transparent,
+                            child: Icon(
+                              const IconData(
+                                0xed9e,
+                                fontFamily: 'Iconfont',
+                              ), // 使用的图标
+                              color: Colors.black, // 图标颜色
+                              size: 36.w, // 图标大小
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                            flex: 1,
+                            child: Container(
+                                // color: Colors.blue,
+                                margin: EdgeInsets.symmetric(horizontal: 15.w),
+                                height: 65.w,
+                                child: TextField(
+                                  onTapOutside: (event) {
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                  cursorHeight: 35.w,
+                                  cursorWidth: 3.w,
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(
+                                      const IconData(
+                                        0xe612,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      color: Colors.black,
+                                      size: 40.w,
+                                    ),
+                                    prefixIconConstraints: BoxConstraints(
+                                      minWidth: 70.w, // 控制图标与文字的最小宽度
+                                      // minHeight: 36.w,
+                                    ),
+                                    hintText: "搜索",
+                                    hintStyle: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 30.w,
+                                        color: const Color.fromARGB(
+                                            255, 69, 75, 83)),
+                                    filled: true,
+                                    fillColor: const Color.fromARGB(
+                                        255, 217, 220, 224),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 8.0.w, horizontal: 20.0.w),
+                                  ),
+                                ))),
+                      ],
+                    ),
+                  )),
               body: SizedBox(
                   width: screenSize.width,
                   height: screenSize.height,
@@ -248,85 +469,6 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                               parent: BouncingScrollPhysics()),
                           child: Column(
                             children: [
-                              // 搜索
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 16.w, vertical: 0.w),
-                                margin: EdgeInsets.only(top: _statusHeight),
-                                // color: const Color.fromARGB(255, 221, 76, 76), // 设置背景颜色
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () =>
-                                          Navigator.of(context).pop(), // 点击事件
-                                      child: Container(
-                                        // 加盒子是为了扩大点击区域
-                                        color: Colors.transparent,
-                                        child: Icon(
-                                          const IconData(
-                                            0xed9e,
-                                            fontFamily: 'Iconfont',
-                                          ), // 使用的图标
-                                          color: Colors.black, // 图标颜色
-                                          size: 36.w, // 图标大小
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                        flex: 1,
-                                        child: Container(
-                                            // color: Colors.blue,
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 15.w),
-                                            height: 65.w,
-                                            child: TextField(
-                                              onTapOutside: (event) {
-                                                FocusScope.of(context)
-                                                    .unfocus();
-                                              },
-                                              cursorHeight: 35.w,
-                                              cursorWidth: 3.w,
-                                              decoration: InputDecoration(
-                                                prefixIcon: Icon(
-                                                  const IconData(
-                                                    0xe612,
-                                                    fontFamily: 'Iconfont',
-                                                  ),
-                                                  color: Colors.black,
-                                                  size: 40.w,
-                                                ),
-                                                prefixIconConstraints:
-                                                    BoxConstraints(
-                                                  minWidth:
-                                                      70.w, // 控制图标与文字的最小宽度
-                                                  // minHeight: 36.w,
-                                                ),
-                                                hintText: "搜索",
-                                                hintStyle: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                    fontSize: 30.w,
-                                                    color: const Color.fromARGB(
-                                                        255, 69, 75, 83)),
-                                                filled: true,
-                                                fillColor: const Color.fromARGB(
-                                                    255, 217, 220, 224),
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(30),
-                                                  borderSide: BorderSide.none,
-                                                ),
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        vertical: 8.0.w,
-                                                        horizontal: 20.0.w),
-                                              ),
-                                            ))),
-                                  ],
-                                ),
-                              ),
-
                               // 历史
                               Container(
                                 decoration: BoxDecoration(
@@ -564,120 +706,47 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                 children: [
                                   // 标题
                                   Container(
+                                    key: hotTitleBoxKey,
                                     alignment: Alignment.center,
                                     height: 110.w,
                                     width: screenSize.width,
                                     child: SingleChildScrollView(
+                                      controller: hotTitleBoxController,
+                                      primary: false,
                                       scrollDirection: Axis.horizontal,
                                       child: Row(
                                         children: [
-                                          SizedBox(
-                                            width: 33.w,
-                                          ),
-                                          Text(
-                                            '抖音热榜',
-                                            style: TextStyle(
-                                                fontSize: 27.w,
-                                                color: hotListCurrentPage == 0
-                                                    ? const Color.fromARGB(
-                                                        255, 21, 21, 21)
-                                                    : const Color.fromARGB(
-                                                        255, 116, 116, 116)),
-                                          ),
-                                          SizedBox(
-                                            width: 40.w,
-                                          ),
-                                          Text(
-                                            '同城榜',
-                                            style: TextStyle(
-                                                fontSize: 27.w,
-                                                color: hotListCurrentPage == 1
-                                                    ? const Color.fromARGB(
-                                                        255, 21, 21, 21)
-                                                    : const Color.fromARGB(
-                                                        255, 116, 116, 116)),
-                                          ),
-                                          SizedBox(
-                                            width: 40.w,
-                                          ),
-                                          Text(
-                                            '直播榜',
-                                            style: TextStyle(
-                                                fontSize: 27.w,
-                                                color: hotListCurrentPage == 2
-                                                    ? const Color.fromARGB(
-                                                        255, 21, 21, 21)
-                                                    : const Color.fromARGB(
-                                                        255, 116, 116, 116)),
-                                          ),
-                                          SizedBox(
-                                            width: 40.w,
-                                          ),
-                                          Text(
-                                            '团购榜',
-                                            style: TextStyle(
-                                                fontSize: 27.w,
-                                                color: hotListCurrentPage == 3
-                                                    ? const Color.fromARGB(
-                                                        255, 21, 21, 21)
-                                                    : const Color.fromARGB(
-                                                        255, 116, 116, 116)),
-                                          ),
-                                          SizedBox(
-                                            width: 40.w,
-                                          ),
-                                          Text(
-                                            '品牌榜',
-                                            style: TextStyle(
-                                                fontSize: 27.w,
-                                                color: hotListCurrentPage == 4
-                                                    ? const Color.fromARGB(
-                                                        255, 21, 21, 21)
-                                                    : const Color.fromARGB(
-                                                        255, 116, 116, 116)),
-                                          ),
-                                          SizedBox(
-                                            width: 40.w,
-                                          ),
-                                          Text(
-                                            '音乐榜',
-                                            style: TextStyle(
-                                                fontSize: 27.w,
-                                                color: hotListCurrentPage == 5
-                                                    ? const Color.fromARGB(
-                                                        255, 21, 21, 21)
-                                                    : const Color.fromARGB(
-                                                        255, 116, 116, 116)),
-                                          ),
-                                          SizedBox(
-                                            width: 40.w,
-                                          ),
-                                          Text(
-                                            '科技榜',
-                                            style: TextStyle(
-                                                fontSize: 27.w,
-                                                color: hotListCurrentPage == 6
-                                                    ? const Color.fromARGB(
-                                                        255, 21, 21, 21)
-                                                    : const Color.fromARGB(
-                                                        255, 116, 116, 116)),
-                                          ),
-                                          SizedBox(
-                                            width: 40.w,
-                                          ),
-                                          Text(
-                                            '汽车榜',
-                                            style: TextStyle(
-                                                fontSize: 27.w,
-                                                color: hotListCurrentPage == 7
-                                                    ? const Color.fromARGB(
-                                                        255, 21, 21, 21)
-                                                    : const Color.fromARGB(
-                                                        255, 116, 116, 116)),
-                                          ),
-                                          SizedBox(
-                                            width: 33.w,
-                                          ),
+                                          ...hotListTitles
+                                              .asMap()
+                                              .entries
+                                              .map((e) {
+                                            return GestureDetector(
+                                                onTap: () {
+                                                  logger.info("用户点击了${e.key}");
+
+                                                  lastedTapHotTitleKey = e.key;
+
+                                                  // 页面滚动
+                                                  hotListController
+                                                      .animateToPage(e.key,
+                                                          duration:
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      300),
+                                                          curve: Curves.linear)
+                                                      .then((_) {
+                                                        logger.info("热榜滚动完成");
+                                                    setState(() {
+                                                      lastedTapHotTitleKey = -1;
+                                                    });
+                                                  });
+                                                },
+                                                child: hotListTitleBuild(
+                                                    hotListTitlesKeys[e.key]!,
+                                                    e.value,
+                                                    hotListCurrentPage ==
+                                                        e.key));
+                                          })
                                         ],
                                       ),
                                     ),
@@ -689,21 +758,27 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                     // height: 6000.w,
                                     child: PageView(
                                       scrollDirection: Axis.horizontal,
-                                      controller: hotListController, // 可以设置初始页面
+                                      controller: hotListController,
                                       onPageChanged: (index) {
+                                        if (lastedTapHotTitleKey == index) {
+                                          lastedTapHotTitleKey = -1;
+                                        }
+
                                         setState(() {
                                           hotListCurrentPage = index;
+
+                                          if (lastedTapHotTitleKey == -1) {
+                                            isItemVisibleAndMove(index);
+                                          }
                                         });
                                       },
                                       children: [
-                                        hotListWidget(hotList),
-                                        hotListWidget(hotList),
-                                        hotListWidget(hotList),
-                                        hotListWidget(hotList),
-                                        hotListWidget(hotList),
-                                        hotListWidget(hotList),
-                                        hotListWidget(hotList),
-                                        hotListWidget(hotList),
+                                        ...hotListTitles
+                                            .asMap()
+                                            .entries
+                                            .map((_) {
+                                          return hotListWidget(hotList);
+                                        })
                                       ],
                                     ),
                                   )
@@ -799,7 +874,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                         Text(
                           "1201.2万",
                           style: TextStyle(
-                              fontSize: 20.w,
+                              fontSize: 22.w,
                               color: const Color.fromARGB(255, 157, 143, 145)),
                         )
                       ],
@@ -817,5 +892,23 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                 )
               ],
             ));
+  }
+
+  // 热榜标题
+  Widget hotListTitleBuild(GlobalKey key, String title, bool selected) {
+    return Container(
+      key: key,
+      alignment: Alignment.center,
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Text(
+        title,
+        style: TextStyle(
+          height: 1.08,
+          fontSize: selected ? 32.w : 30.w,
+          fontFamily: "AlibabaPuHuiTi-Medium",
+          color: selected ? const Color(0xFF151515) : const Color(0xFF747474),
+        ),
+      ),
+    );
   }
 }
