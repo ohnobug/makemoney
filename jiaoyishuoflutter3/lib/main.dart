@@ -393,23 +393,21 @@ class TabBarApp extends StatelessWidget {
                     );
                   } else if (settings.name == '/tiktik') {
                     return PageRouteBuilder(
-                      pageBuilder: (BuildContext context,
-                              Animation<double> animation,
-                              Animation<double> secondaryAnimation) =>
+                      pageBuilder: (context, animation, secondaryAnimation) =>
                           const LJNTiktikPage(),
-                      transitionsBuilder: (
-                        BuildContext context,
-                        Animation<double> animation,
-                        Animation<double> secondaryAnimation,
-                        Widget child,
-                      ) {
-                        final Tween<Offset> offsetTween = Tween<Offset>(
-                            begin: const Offset(0.0, 0.0),
-                            end: const Offset(-1.0, 0.0));
-                        final Animation<Offset> slideOutLeftAnimation =
-                            offsetTween.animate(secondaryAnimation);
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.ease;
+
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+
                         return SlideTransition(
-                            position: slideOutLeftAnimation, child: child);
+                          position: animation.drive(tween),
+                          child: child,
+                        );
                       },
                     );
                   } else if (settings.name == '/miniprogram') {
@@ -435,65 +433,59 @@ class TabBarApp extends StatelessWidget {
                     );
                   } else if (settings.name == '/mywebview') {
                     return PageRouteBuilder(
-                      pageBuilder: (BuildContext context,
-                              Animation<double> animation,
-                              Animation<double> secondaryAnimation) =>
+                      pageBuilder: (context, animation, secondaryAnimation) =>
                           const LJNWebview(),
-                      transitionsBuilder: (
-                        BuildContext context,
-                        Animation<double> animation,
-                        Animation<double> secondaryAnimation,
-                        Widget child,
-                      ) {
-                        final Tween<Offset> offsetTween = Tween<Offset>(
-                            begin: const Offset(0.0, 0.0),
-                            end: const Offset(-1.0, 0.0));
-                        final Animation<Offset> slideOutLeftAnimation =
-                            offsetTween.animate(secondaryAnimation);
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.ease;
+
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+
                         return SlideTransition(
-                            position: slideOutLeftAnimation, child: child);
+                          position: animation.drive(tween),
+                          child: child,
+                        );
                       },
                     );
                   } else if (settings.name == '/search') {
                     return PageRouteBuilder(
-                      pageBuilder: (BuildContext context,
-                              Animation<double> animation,
-                              Animation<double> secondaryAnimation) =>
+                      pageBuilder: (context, animation, secondaryAnimation) =>
                           const LJNSearchPage(),
-                      transitionsBuilder: (
-                        BuildContext context,
-                        Animation<double> animation,
-                        Animation<double> secondaryAnimation,
-                        Widget child,
-                      ) {
-                        final Tween<Offset> offsetTween = Tween<Offset>(
-                            begin: const Offset(0.0, 0.0),
-                            end: const Offset(-1.0, 0.0));
-                        final Animation<Offset> slideOutLeftAnimation =
-                            offsetTween.animate(secondaryAnimation);
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.ease;
+
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+
                         return SlideTransition(
-                            position: slideOutLeftAnimation, child: child);
+                          position: animation.drive(tween),
+                          child: child,
+                        );
                       },
                     );
                   } else if (settings.name == '/setting') {
                     return PageRouteBuilder(
-                      pageBuilder: (BuildContext context,
-                              Animation<double> animation,
-                              Animation<double> secondaryAnimation) =>
+                      pageBuilder: (context, animation, secondaryAnimation) =>
                           const LJNSettingPage(),
-                      transitionsBuilder: (
-                        BuildContext context,
-                        Animation<double> animation,
-                        Animation<double> secondaryAnimation,
-                        Widget child,
-                      ) {
-                        final Tween<Offset> offsetTween = Tween<Offset>(
-                            begin: const Offset(0.0, 0.0),
-                            end: const Offset(-1.0, 0.0));
-                        final Animation<Offset> slideOutLeftAnimation =
-                            offsetTween.animate(secondaryAnimation);
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(1.0, 0.0);
+                        const end = Offset.zero;
+                        const curve = Curves.ease;
+
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+
                         return SlideTransition(
-                            position: slideOutLeftAnimation, child: child);
+                          position: animation.drive(tween),
+                          child: child,
+                        );
                       },
                     );
                   }
