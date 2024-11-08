@@ -60,8 +60,8 @@ List<InlineSpan> buildTextSpans(
           fontFamily: "NotoColorEmoji-Regular")
       .merge(iconTextStyle);
 
-  // iconTextStyle =
-  //     iconTextStyle.merge(TextStyle(fontSize: iconTextStyle.fontSize! * 0.95));
+  iconTextStyle =
+      iconTextStyle.merge(TextStyle(fontSize: fontTextStyle.fontSize! * 0.9));
 
   for (final match in matches) {
     // 添加前面的非emoji文本
@@ -71,19 +71,29 @@ List<InlineSpan> buildTextSpans(
         style: fontTextStyle,
       ));
     }
+
+    double fontHeight = (fontTextStyle.height! * fontTextStyle.fontSize!);
+    double iconHeight = (iconTextStyle.height! * iconTextStyle.fontSize!);
+
     // 添加emoji
     spans.add(
         // 为了居中emoji
         WidgetSpan(
             alignment: PlaceholderAlignment.middle,
-            child: SizedBox(
-              width: iconTextStyle.height! * iconTextStyle.fontSize! * 1.2,
-              height: fontTextStyle.height! * iconTextStyle.fontSize!,
+            child: Container(
+              width: iconHeight * 1.2,
+              height: iconHeight,
+              // margin: EdgeInsets.only(
+              //     left: iconHeight * 0.1, right: iconHeight * 0.1),
               // color: Colors.red,
-              child: Center(
-                child: Text(
-                  match.group(0) as String,
-                  style: iconTextStyle,
+              alignment: Alignment.topLeft,
+              child: Text(
+                match.group(0) as String,
+                style: iconTextStyle,
+                strutStyle: StrutStyle(
+                  fontSize: iconTextStyle.fontSize,
+                  forceStrutHeight: true,
+                  height: 1,
                 ),
               ),
             )));

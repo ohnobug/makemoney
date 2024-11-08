@@ -989,7 +989,7 @@ class _ChatListItem extends State<ChatListItem> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            width: 12.w,
+                            height: 8.w,
                           ),
 
                           // 好友名称和消息时间
@@ -1000,6 +1000,10 @@ class _ChatListItem extends State<ChatListItem> {
                               // 好友名称
                               Expanded(
                                   child: RichText(
+                                strutStyle: StrutStyle(
+                                    height: 1,
+                                    forceStrutHeight: true,
+                                    fontSize: 32.w),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 text: TextSpan(
@@ -1014,7 +1018,7 @@ class _ChatListItem extends State<ChatListItem> {
                                           fontFamily: "AlibabaPuHuiTi"),
                                       TextStyle(
                                           height: 1.08,
-                                          fontSize: fontSizeScale(30.w),
+                                          fontSize: fontSizeScale(32.w),
                                           fontFamily:
                                               "NotoColorEmoji-Regular")),
                                 ),
@@ -1042,7 +1046,7 @@ class _ChatListItem extends State<ChatListItem> {
                             ],
                           ),
 
-                          SizedBox(height: 10.w),
+                          SizedBox(height: 5.w),
 
                           // 好友消息
                           Row(

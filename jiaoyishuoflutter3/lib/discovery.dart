@@ -93,8 +93,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           SizedBox(
                             width: 14.w,
                           ),
-                          Flexible(
-                              child: RichText(
+                          RichText(
                             text: TextSpan(
                               children: buildTextSpans(
                                   "李俊南集团💖李俊男  最近💖",
@@ -109,7 +108,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                                       fontSize: fontSizeScale(26.w),
                                       fontFamily: "NotoColorEmoji-Regular")),
                             ),
-                          )),
+                          ),
                         ]),
                   ),
                   LJNFunctionItem(

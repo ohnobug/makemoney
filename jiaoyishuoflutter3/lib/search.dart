@@ -131,56 +131,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
       "恶人榜",
       "摇滚榜",
       "电影榜",
-      "电视剧榜",
-      "美食榜",
-      "旅游榜",
-      "校园榜",
-      "创业榜",
-      "网红榜",
-      "文学榜",
-      "搞笑榜",
-      "游戏榜",
-      "动漫榜",
-      "体育榜",
-      "明星榜",
-      "健身榜",
-      "健康榜",
-      "美容榜",
-      "宠物榜",
-      "艺术榜",
-      "摄影榜",
-      "冒险榜",
-      "时尚榜",
-      "打工人榜",
-      "好物榜",
-      "新锐榜",
-      "热门榜",
-      "历史榜",
-      "脑洞榜",
-      "心理榜",
-      "恋爱榜",
-      "职场榜",
-      "励志榜",
-      "幽默榜",
-      "家居榜",
-      "手工榜",
-      "手绘榜",
-      "奇葩榜",
-      "达人榜",
-      "考古榜",
-      "鬼畜榜",
-      "自然榜",
-      "冒险榜",
-      "学霸榜",
-      "舞蹈榜",
-      "国潮榜",
-      "出海榜",
-      "情感榜",
-      "科幻榜",
-      "爱情榜",
-      "网络榜",
-      "教育榜",
-      "情景榜",
+      "电视剧榜"
     ];
 
     hotListTitles.asMap().entries.forEach((v) {
@@ -197,16 +148,24 @@ class _LJNSearchPage extends State<LJNSearchPage> {
               style: TextStyle(fontSize: 32.w, height: 1.08),
             ),
             WidgetSpan(
-              style: const TextStyle(height: 0.9),
-              child: Icon(
-                const IconData(
-                  0xe71e,
-                  fontFamily: 'Iconfont',
-                ), // 使用的图标
-                color: const Color.fromARGB(255, 255, 0, 0), // 图标颜色
-                size: 30.w, // 图标大小
-              ),
-            ),
+                alignment: PlaceholderAlignment.middle,
+                child: Transform.translate(
+                    offset: Offset(0, ((32.w - 30.w) / 2) * -1),
+                    child: SizedBox(
+                      width: 30.w * 1.2,
+                      height: 30.w * 1.2,
+                      // color: Colors.red,
+                      child: Center(
+                        child: Icon(
+                          const IconData(
+                            0xe71e,
+                            fontFamily: 'Iconfont',
+                          ), // 使用的图标
+                          color: const Color.fromARGB(255, 255, 0, 0), // 图标颜色
+                          size: 30.w, // 图标大小
+                        ),
+                      ),
+                    ))),
           ],
         ),
         overflow: TextOverflow.ellipsis,
@@ -494,6 +453,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                   behavior: ScrollConfiguration.of(context)
                       .copyWith(scrollbars: false),
                   child: SingleChildScrollView(
+                    primary: false,
                     controller: pageController,
                     physics: const AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics()),
@@ -526,7 +486,14 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text("猜你想搜"),
+                                      Text(
+                                        "猜你想搜",
+                                        style: TextStyle(
+                                            height: 1.08,
+                                            fontSize: 28.w,
+                                            color: const Color.fromARGB(
+                                                255, 64, 64, 64)),
+                                      ),
 
                                       // 右边
                                       SizedBox(
@@ -554,14 +521,26 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                                       0xe641,
                                                       fontFamily: 'Iconfont',
                                                     ), // 使用的图标
-                                                    color: Colors.black, // 图标颜色
-                                                    size: 36.w, // 图标大小
+                                                    color: const Color.fromARGB(
+                                                        255,
+                                                        64,
+                                                        64,
+                                                        64), // 图标颜色
+                                                    size: 28.w, // 图标大小
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  width: 10.w,
+                                                  width: 5.w,
                                                 ),
-                                                const Text("换一换"),
+                                                Text(
+                                                  "换一换",
+                                                  style: TextStyle(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 64, 64, 64),
+                                                      fontSize: 28.w,
+                                                      height: 1.08),
+                                                ),
                                               ],
                                             ),
 
@@ -569,7 +548,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                             Container(
                                               color: const Color.fromARGB(
                                                   255, 223, 223, 223),
-                                              height: 32.w,
+                                              height: 24.w,
                                               width: 2.w,
                                             ),
 
@@ -582,8 +561,9 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                                   0xe657,
                                                   fontFamily: 'Iconfont',
                                                 ), // 使用的图标
-                                                color: Colors.black, // 图标颜色
-                                                size: 36.w, // 图标大小
+                                                color: const Color.fromARGB(
+                                                    255, 64, 64, 64), // 图标颜色
+                                                size: 28.w, // 图标大小
                                               ),
                                             )
                                           ],
@@ -642,9 +622,10 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                       Text(
                                         "猜你想搜",
                                         style: TextStyle(
+                                            height: 1.08,
                                             fontSize: 28.w,
                                             color: const Color.fromARGB(
-                                                255, 97, 97, 97)),
+                                                255, 64, 64, 64)),
                                       ),
 
                                       // 右边
@@ -673,14 +654,26 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                                       0xe641,
                                                       fontFamily: 'Iconfont',
                                                     ), // 使用的图标
-                                                    color: Colors.black, // 图标颜色
-                                                    size: 36.w, // 图标大小
+                                                    color: const Color.fromARGB(
+                                                        255,
+                                                        64,
+                                                        64,
+                                                        64), // 图标颜色
+                                                    size: 28.w, // 图标大小
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  width: 10.w,
+                                                  width: 5.w,
                                                 ),
-                                                const Text("换一换"),
+                                                Text(
+                                                  "换一换",
+                                                  style: TextStyle(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 64, 64, 64),
+                                                      fontSize: 28.w,
+                                                      height: 1.08),
+                                                ),
                                               ],
                                             ),
 
@@ -688,7 +681,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                             Container(
                                               color: const Color.fromARGB(
                                                   255, 223, 223, 223),
-                                              height: 32.w,
+                                              height: 24.w,
                                               width: 2.w,
                                             ),
 
@@ -701,8 +694,9 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                                   0xe657,
                                                   fontFamily: 'Iconfont',
                                                 ), // 使用的图标
-                                                color: Colors.black, // 图标颜色
-                                                size: 36.w, // 图标大小
+                                                color: const Color.fromARGB(
+                                                    255, 64, 64, 64), // 图标颜色
+                                                size: 28.w, // 图标大小
                                               ),
                                             )
                                           ],

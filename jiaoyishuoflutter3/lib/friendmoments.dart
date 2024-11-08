@@ -792,15 +792,15 @@ class _TweetWidget extends State<TweetWidget> {
           children: buildTextSpans(
               name,
               TextStyle(
-                  textBaseline: TextBaseline.alphabetic,
-                  height: 1.5,
-                  fontSize: fontSizeScale(29.w),
+                  // textBaseline: TextBaseline.alphabetic,
+                  height: 1.08,
+                  fontSize: fontSizeScale(28.w),
                   color: const Color.fromARGB(255, 58, 81, 124),
                   fontFamily: "AlibabaPuHuiTi-Medium"),
               TextStyle(
-                  textBaseline: TextBaseline.alphabetic,
-                  height: 1.5,
-                  fontSize: fontSizeScale(24.w),
+                  // textBaseline: TextBaseline.alphabetic,
+                  height: 1.08,
+                  fontSize: fontSizeScale(28.w),
                   fontFamily: "NotoColorEmoji-Regular")),
         ),
       );
@@ -880,11 +880,16 @@ class _TweetWidget extends State<TweetWidget> {
                         children: [
                           // 姓名
                           RichText(
+                            strutStyle: StrutStyle(
+                                // height: 1,
+                                // forceStrutHeight: true,
+                                fontSize: 32.w,
+                                leading: 1.w),
                             text: TextSpan(
                               children: buildTextSpans(
                                   widget.name,
                                   TextStyle(
-                                    height: 1.4,
+                                    height: 1.08,
                                     fontSize: fontSizeScale(32.w),
                                     fontFamily: "AlibabaPuHuiTi-Medium",
                                     // fontWeight: FontWeight.w600,
@@ -892,23 +897,31 @@ class _TweetWidget extends State<TweetWidget> {
                                         const Color.fromARGB(255, 58, 81, 124),
                                   ),
                                   TextStyle(
-                                      height: 1.4,
-                                      fontSize: fontSizeScale(28.w))),
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(32.w))),
                             ),
                           ),
                           // SizedBox(height: 0.w),
 
                           // 推文
                           RichText(
+                            strutStyle: StrutStyle(
+                                // height: 1,
+                                // forceStrutHeight: true,
+                                fontSize: 32.w),
                             text: TextSpan(
                               children: buildTextSpans(
                                   widget.tweetContent,
                                   TextStyle(
+                                      // textBaseline: TextBaseline.alphabetic,
                                       height: 1.4,
-                                      fontSize: fontSizeScale(32.w)),
+                                      fontSize: fontSizeScale(32.w),
+                                      fontFamily: "AlibabaPuHuiTi-Medium"),
                                   TextStyle(
-                                      height: 1.4,
-                                      fontSize: fontSizeScale(28.w))),
+                                      // textBaseline: TextBaseline.alphabetic,
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(32.w),
+                                      fontFamily: "NotoColorEmoji-Regular")),
                             ),
                           ),
 
@@ -1032,6 +1045,8 @@ class _TweetWidget extends State<TweetWidget> {
                   child: RichText(
                     maxLines: 1000,
                     overflow: TextOverflow.visible,
+                    strutStyle: StrutStyle(
+                        fontSize: 28.w, forceStrutHeight: true, leading: 1.w),
                     text: TextSpan(children: [
                       WidgetSpan(
                         alignment: PlaceholderAlignment.middle,

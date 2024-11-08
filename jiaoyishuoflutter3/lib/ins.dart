@@ -584,7 +584,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                       primary: false,
                       leading: null,
                       automaticallyImplyLeading: false,
-                      expandedHeight: _statusHeight + 100.0.w,
+                      expandedHeight: _statusHeight + 90.0.w,
                       systemOverlayStyle: SystemUiOverlayStyle(
                           statusBarColor: Colors.transparent, // 设置状态栏透明
                           statusBarIconBrightness: setStatusLight
@@ -593,92 +593,90 @@ class _LJNInsPage extends State<LJNInsPage> {
                       // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                       // foregroundColor: Colors.red,
                       flexibleSpace: FlexibleSpaceBar(
-                        background: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16.w, vertical: 0.w),
-                          margin: EdgeInsets.only(top: _statusHeight),
-                          // color: const Color.fromARGB(255, 221, 76, 76), // 设置背景颜色
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pop(); // 点击事件
-                                },
-                                child: Container(
-                                  // 加盒子是为了扩大点击区域
-                                  color: Colors.transparent,
-                                  child: Icon(
-                                    const IconData(
-                                      0xed9e,
-                                      fontFamily: 'Iconfont',
-                                    ), // 使用的图标
-                                    color: Colors.black, // 图标颜色
-                                    size: 36.w, // 图标大小
+                        background: PreferredSize(
+                            preferredSize:
+                                Size.fromHeight(90.0.w + _statusHeight),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16.w, vertical: 0.w),
+                              margin: EdgeInsets.only(top: _statusHeight),
+                              height: 90.w,
+                              // color: const Color.fromARGB(255, 221, 76, 76), // 设置背景颜色
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () =>
+                                        Navigator.of(context).pop(), // 点击事件
+                                    child: Container(
+                                      // 加盒子是为了扩大点击区域
+                                      color: Colors.transparent,
+                                      child: Icon(
+                                        const IconData(
+                                          0xed9e,
+                                          fontFamily: 'Iconfont',
+                                        ), // 使用的图标
+                                        color: Colors.black, // 图标颜色
+                                        size: 36.w, // 图标大小
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                      // color: Colors.blue,
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: 15.w),
-                                      height: 65.w,
-                                      child: TextField(
-                                        // readOnly: true,
-                                        onTap: () {
-                                          logger.info("能点击吗?");
-                                          Navigator.pushNamed(
-                                            context,
-                                            '/search',
-                                          );
-                                        },
-                                        onTapOutside: (event) {
-                                          Navigator.pushNamed(
-                                            context,
-                                            '/search',
-                                          );
-                                          FocusScope.of(context).unfocus();
-                                        },
-                                        cursorHeight: 35.w,
-                                        cursorWidth: 3.w,
-                                        canRequestFocus: false,
-                                        decoration: InputDecoration(
-                                          prefixIcon: Icon(
-                                            const IconData(
-                                              0xe612,
-                                              fontFamily: 'Iconfont',
+                                  Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                          // color: Colors.blue,
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 15.w),
+                                          height: 65.w,
+                                          child: TextField(
+                                            readOnly: true,
+                                            onTap: () {
+                                              Navigator.pushNamed(
+                                                  context, '/search');
+                                            },
+                                            onTapOutside: (event) {
+                                              FocusScope.of(context).unfocus();
+                                            },
+                                            cursorHeight: 35.w,
+                                            cursorWidth: 3.w,
+                                            decoration: InputDecoration(
+                                              prefixIcon: Icon(
+                                                const IconData(
+                                                  0xe612,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                color: Colors.black,
+                                                size: 40.w,
+                                              ),
+                                              prefixIconConstraints:
+                                                  BoxConstraints(
+                                                minWidth: 70.w, // 控制图标与文字的最小宽度
+                                                // minHeight: 36.w,
+                                              ),
+                                              hintText: "搜索",
+                                              hintStyle: TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontSize: 30.w,
+                                                  color: const Color.fromARGB(
+                                                      255, 69, 75, 83)),
+                                              filled: true,
+                                              fillColor: const Color.fromARGB(
+                                                  255, 217, 220, 224),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                                borderSide: BorderSide.none,
+                                              ),
+                                              contentPadding:
+                                                  EdgeInsets.symmetric(
+                                                      vertical: 8.0.w,
+                                                      horizontal: 20.0.w),
                                             ),
-                                            color: Colors.black,
-                                            size: 40.w,
-                                          ),
-                                          prefixIconConstraints: BoxConstraints(
-                                            minWidth: 70.w, // 控制图标与文字的最小宽度
-                                            // minHeight: 36.w,
-                                          ),
-                                          hintText: "搜索",
-                                          hintStyle: TextStyle(
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: 30.w,
-                                              color: const Color.fromARGB(
-                                                  255, 69, 75, 83)),
-                                          filled: true,
-                                          fillColor: const Color.fromARGB(
-                                              255, 217, 220, 224),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 8.0.w,
-                                              horizontal: 20.0.w),
-                                        ),
-                                      ))),
-                            ],
-                          ),
-                        ),
+                                          ))),
+                                ],
+                              ),
+                            )),
                       ),
                       floating: true,
                       pinned: false,

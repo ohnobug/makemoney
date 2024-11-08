@@ -669,7 +669,7 @@ class _ChatListItem extends State<ChatListItem> {
                                           fontFamily: "AlibabaPuHuiTi"),
                                       TextStyle(
                                           height: 1.08,
-                                          fontSize: fontSizeScale(30.w),
+                                          fontSize: fontSizeScale(32.w),
                                           fontFamily:
                                               "NotoColorEmoji-Regular")),
                                 ),
