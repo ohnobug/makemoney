@@ -181,41 +181,20 @@ class TabBarApp extends StatelessWidget {
                 initialRoute: '/',
                 onGenerateRoute: (settings) {
                   if (settings.name == '/') {
-                    return PageRouteBuilder(
-                      pageBuilder: (BuildContext context,
-                              Animation<double> animation,
-                              Animation<double> secondaryAnimation) =>
-                          const CustomTabbar(),
-                      transitionsBuilder: (
-                        BuildContext context,
-                        Animation<double> animation,
-                        Animation<double> secondaryAnimation,
-                        Widget child,
-                      ) {
-                        final Tween<Offset> offsetTween = Tween<Offset>(
-                            begin: const Offset(0.0, 0.0),
-                            end: const Offset(-1.0, 0.0));
-                        final Animation<Offset> slideOutLeftAnimation =
-                            offsetTween.animate(secondaryAnimation);
-                        return SlideTransition(
-                            position: slideOutLeftAnimation, child: child);
-                      },
-                    );
+                    return pageRouteBuilderNotAnimation(const CustomTabbar());
                   } else if (settings.name == '/services') {
-                    return pageRouteBuilderNotAnimation(
-                        const LJNServicesPage());
+                    return pageRouteBuilderAnimation(const LJNServicesPage());
                   } else if (settings.name == '/chat') {
                     var arguments = settings.arguments as Map<String, String>;
                     String title = arguments['title'] as String;
                     String icon = arguments['icon'] as String;
-
                     return pageRouteBuilderAnimation(
                         LJNChatPage(title: title, icon: icon));
                   } else if (settings.name == '/qrcode_scanner') {
                     return pageRouteBuilderNotAnimation(
                         const LJNQRCodeScanner());
                   } else if (settings.name == '/video_player') {
-                    return pageRouteBuilderNotAnimation(const LJNVideoPage());
+                    return pageRouteBuilderAnimation(const LJNVideoPage());
                   } else if (settings.name == '/wallet') {
                     return pageRouteBuilderAnimation(const LJNWalletPage());
                   } else if (settings.name == '/userinfo') {
@@ -243,7 +222,7 @@ class TabBarApp extends StatelessWidget {
                   } else if (settings.name == '/ins') {
                     return pageRouteBuilderAnimation(const LJNInsPage());
                   } else if (settings.name == '/tiktik') {
-                    return pageRouteBuilderAnimation(const LJNWebview());
+                    return pageRouteBuilderAnimation(const LJNTiktikPage());
                   } else if (settings.name == '/miniprogram') {
                     return pageRouteBuilderAnimation(
                         const LJNMiniProgramPage());
@@ -287,6 +266,7 @@ class TabBarApp extends StatelessWidget {
           child: child,
         );
       },
+      transitionDuration: const Duration(milliseconds: 300),
     );
   }
 
@@ -297,7 +277,6 @@ class TabBarApp extends StatelessWidget {
         return page;
       },
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        // No transition animation
         return child;
       },
     );

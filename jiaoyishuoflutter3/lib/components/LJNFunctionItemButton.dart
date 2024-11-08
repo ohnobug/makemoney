@@ -69,19 +69,30 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
             ))),
         child: Center(
             child: RichText(
-          textAlign: TextAlign.center,
+          strutStyle:
+              StrutStyle(fontSize: 35.w, forceStrutHeight: true, height: 1),
+          // textAlign: TextAlign.center,
           text: TextSpan(children: [
             if (widget.icon != null)
               WidgetSpan(
-                style: TextStyle(fontSize: fontSizeScale(35.w), height: 0.8),
-                child: widget.icon as Icon,
+                // alignment: PlaceholderAlignment.bottom,
+                style: TextStyle(fontSize: fontSizeScale(35.w), height: 1),
+                child: Transform.translate(
+                  offset: Offset(0, -(3.w)),
+                  child: SizedBox(
+                      width: 35.w,
+                      height: 35.w,
+                      // color: Colors.red,
+                      child: widget.icon as Icon),
+                ),
               ),
             WidgetSpan(
-              child: SizedBox(width: 10.w), // 图标和文本之间的间距
+              child: SizedBox(width: 5.w), // 图标和文本之间的间距
             ),
             TextSpan(
               text: widget.title,
               style: TextStyle(
+                  // textBaseline: TextBaseline.ideographic,
                   height: 1.08,
                   fontSize: fontSizeScale(30.w),
                   color: const Color.fromARGB(255, 58, 81, 124)),

@@ -29,6 +29,13 @@ class _LJNTestMessage extends State<LJNTestMessage>
     super.initState();
 
     _controller = AnimationController(vsync: this);
+
+    // 要页面来了后 才开始
+    Future.delayed(const Duration(milliseconds: 300), () {
+      _controller
+        ..duration = const Duration(milliseconds: 600)
+        ..forward();
+    });
   }
 
   @override
@@ -105,12 +112,7 @@ class _LJNTestMessage extends State<LJNTestMessage>
                                 renderCache: RenderCache.drawingCommands,
                                 fit: BoxFit.fill,
                                 controller: _controller,
-                                onLoaded: (composition) {
-                                  _controller
-                                    ..duration =
-                                        const Duration(milliseconds: 600)
-                                    ..forward();
-                                },
+                                onLoaded: (composition) {},
                               ),
                             ),
                           )),
