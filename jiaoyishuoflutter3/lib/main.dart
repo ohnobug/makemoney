@@ -22,6 +22,7 @@ import 'package:jiaoyishuoflutter3/tiktik.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
 import 'package:jiaoyishuoflutter3/wallet.dart';
+import 'components/CustomPhysics.dart';
 import 'contact.dart';
 import 'logger.dart';
 import 'tools/tools.dart';
@@ -315,9 +316,9 @@ class _CustomTabbarState extends State<CustomTabbar>
         });
       }
 
-      // logger.info(_tabController.animation);
+      logger.info("tttttttttt: ${_tabController.animation!.value}");
 
-      if (_tabController.animation!.value == 1) {
+      if ((_tabController.animation!.value - 1).abs() < 0.2) {
         // logger.info("来了");
         myStore.dispatch({"type": "contactazshow", "payload": true});
       } else {
@@ -360,7 +361,7 @@ class _CustomTabbarState extends State<CustomTabbar>
         });
       }
 
-      logger.info(_tabController.animation!.value);
+      // logger.info(_tabController.animation!.value);
     });
 
     // 移除开屏动画
@@ -547,7 +548,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                 body: TabBarView(
                   physics: vm.showMiniProgramDrawer == true
                       ? const NeverScrollableScrollPhysics()
-                      : const ClampingScrollPhysics(),
+                      : const MyTabbarFastStopScrollPhysics(),
                   controller: _tabController,
                   children: const <Widget>[
                     // LJNTestPage(),
