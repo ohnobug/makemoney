@@ -395,7 +395,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                   id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                   title: "设置",
                                   icon: "images/icon/icon7.png",
-                                  link: '',
+                                  link: '/setting',
                                   underline: false,
                                 ),
                               ]))),

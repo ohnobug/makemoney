@@ -16,6 +16,7 @@ import 'package:jiaoyishuoflutter3/friendprofile.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
 import 'package:jiaoyishuoflutter3/search.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
+import 'package:jiaoyishuoflutter3/settting.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
@@ -119,6 +120,16 @@ Future<void> startServer(SendPort sendPort) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 禁止横屏
+  await SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp, // 竖屏 Portrait 模式
+      DeviceOrientation.portraitDown,
+      // DeviceOrientation.landscapeLeft, // 横屏 Landscape 模式
+      // DeviceOrientation.landscapeRight,
+    ],
+  );
 
   setupLogger();
   logger.info('Application is starting...');
@@ -449,6 +460,27 @@ class TabBarApp extends StatelessWidget {
                               Animation<double> animation,
                               Animation<double> secondaryAnimation) =>
                           const LJNSearchPage(),
+                      transitionsBuilder: (
+                        BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation,
+                        Widget child,
+                      ) {
+                        final Tween<Offset> offsetTween = Tween<Offset>(
+                            begin: const Offset(0.0, 0.0),
+                            end: const Offset(-1.0, 0.0));
+                        final Animation<Offset> slideOutLeftAnimation =
+                            offsetTween.animate(secondaryAnimation);
+                        return SlideTransition(
+                            position: slideOutLeftAnimation, child: child);
+                      },
+                    );
+                  } else if (settings.name == '/setting') {
+                    return PageRouteBuilder(
+                      pageBuilder: (BuildContext context,
+                              Animation<double> animation,
+                              Animation<double> secondaryAnimation) =>
+                          const LJNSettingPage(),
                       transitionsBuilder: (
                         BuildContext context,
                         Animation<double> animation,

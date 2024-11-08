@@ -8,14 +8,14 @@ import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import 'components/LJNFunctionItem.dart';
 
-class LJNUserinfoPage extends StatefulWidget {
-  const LJNUserinfoPage({super.key});
+class LJNSettingPage extends StatefulWidget {
+  const LJNSettingPage({super.key});
 
   @override
-  State<LJNUserinfoPage> createState() => _LJNUserinfoPage();
+  State<LJNSettingPage> createState() => _LJNSettingPage();
 }
 
-class _LJNUserinfoPage extends State<LJNUserinfoPage> {
+class _LJNSettingPage extends State<LJNSettingPage> {
   double _statusHeight = 0;
 
   @override
@@ -74,7 +74,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                   ),
                   primary: false,
                   centerTitle: true,
-                  title: const Text('个人信息'),
+                  title: const Text('设置'),
                   toolbarHeight: 90.w,
                   titleTextStyle: TextStyle(
                       height: 1.08,
@@ -119,172 +119,96 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                     physics: const AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics()),
                     child: Column(children: [
-                      // 头像
-                      LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "头像",
-                        height: 150.w,
-                        link: '',
-                        showStyle: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(10).w,
-                                child: Image(
-                                  image: ResizeImage(
-                                      AssetImage(assetPath(vm.userinfoAvatar!)),
-                                      width: 240.w.toInt(),
-                                      height: 240.w.toInt()),
-                                  width: 120.w,
-                                  height: 120.w,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ]),
-                        underline: true,
-                      ),
-                      // 姓名
-                      LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "名字",
-                        // icon: "images/icon/discovery_icon2.png",
-                        link: '',
-                        showStyle: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                vm.userinfoName!,
-                                style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(30.w),
-                                  color:
-                                      const Color.fromARGB(255, 170, 170, 170),
-                                ),
-                              )
-                            ]),
-                        underline: true,
-                      ),
+                      // 账户与安全
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "拍一拍",
-                        link: '',
-                        underline: true,
-                      ),
-
-                      // 微信号
-                      LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "微信号",
-                        link: '',
-                        showStyle: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                vm.userinfoAccount!,
-                                style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(30.w),
-                                  color:
-                                      const Color.fromARGB(255, 170, 170, 170),
-                                ),
-                              )
-                            ]),
-                        underline: true,
-                      ),
-
-                      // 二维码名片
-                      LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "二维码名片",
-                        link: '',
-                        showStyle: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                const IconData(
-                                  0xe74b,
-                                  fontFamily: 'Iconfont',
-                                ),
-                                size: 30.w,
-                                color: const Color.fromARGB(255, 170, 170, 170),
-                              ),
-                            ]),
-                        underline: true,
-                      ),
-
-                      // 更多信息
-                      const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "更多信息",
+                        title: "账户与安全",
                         link: '',
                         underline: false,
                       ),
 
                       SizedBox(height: 16.w),
 
-                      // 来电铃声
-                      LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "来电铃声",
-                        link: '',
-                        showStyle: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'SISTER SISTER - JAVA',
-                                style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(29.w),
-                                  color:
-                                      const Color.fromARGB(255, 170, 170, 170),
-                                ),
-                              )
-                            ]),
-                        underline: false,
-                      ),
-
-                      SizedBox(height: 16.w),
-
-                      // 微信豆
-                      LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "微信豆",
-                        link: '',
-                        showStyle: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                '3个',
-                                style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(29.w),
-                                  color:
-                                      const Color.fromARGB(255, 170, 170, 170),
-                                ),
-                              )
-                            ]),
-                        underline: false,
-                      ),
-                      SizedBox(height: 16.w),
-
-                      // 我的地址
+                      // 青少年模式 与 关怀模式
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "我的地址",
+                        title: "青少年模式",
                         link: '',
                         underline: true,
                       ),
-
-                      // 我的发票抬头
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "我的发票抬头",
+                        title: "青少年模式",
+                        link: '',
+                        underline: false,
+                      ),
+                      SizedBox(height: 16.w),
+
+                      // 新消息通知 与 聊天 和 通用
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "新消息通知",
+                        link: '',
+                        underline: true,
+                      ),
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "聊天",
+                        link: '',
+                        underline: true,
+                      ),
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "通用",
+                        link: '',
+                        underline: false,
+                      ),
+                      SizedBox(height: 16.w),
+
+                      // 朋友权限 与 个人信息与权限 和 个人信息收集清单 和 第三方信息共享清单
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "朋友权限",
+                        link: '',
+                        underline: true,
+                      ),
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "个人信息与权限",
+                        link: '',
+                        underline: true,
+                      ),
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "个人信息收集清单",
+                        link: '',
+                        underline: true,
+                      ),
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "第三方信息共享清单",
+                        link: '',
+                        underline: false,
+                      ),
+                      SizedBox(height: 16.w),
+
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "插件",
+                        link: '',
+                        underline: false,
+                      ),
+                      SizedBox(height: 16.w),
+
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "关于微信",
+                        link: '',
+                        underline: true,
+                      ),
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "帮助与反馈",
                         link: '',
                         underline: false,
                       ),
