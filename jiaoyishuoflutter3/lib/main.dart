@@ -202,145 +202,30 @@ class TabBarApp extends StatelessWidget {
                       },
                     );
                   } else if (settings.name == '/services') {
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const LJNServicesPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.ease;
-
-                        var tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: animation.drive(tween),
-                          child: child,
-                        );
-                      },
-                    );
+                    return pageRouteBuilderNotAnimation(
+                        const LJNServicesPage());
                   } else if (settings.name == '/chat') {
                     var arguments = settings.arguments as Map<String, String>;
                     String title = arguments['title'] as String;
                     String icon = arguments['icon'] as String;
 
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          LJNChatPage(title: title, icon: icon),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.ease;
-
-                        var tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: animation.drive(tween),
-                          child: child,
-                        );
-                      },
-                    );
+                    return pageRouteBuilderAnimation(
+                        LJNChatPage(title: title, icon: icon));
                   } else if (settings.name == '/qrcode_scanner') {
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) {
-                        return const LJNQRCodeScanner();
-                      },
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        // No transition animation
-                        return child;
-                      },
-                    );
+                    return pageRouteBuilderNotAnimation(
+                        const LJNQRCodeScanner());
                   } else if (settings.name == '/video_player') {
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) {
-                        return const LJNVideoPage();
-                      },
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        // No transition animation
-                        return child;
-                      },
-                    );
+                    return pageRouteBuilderNotAnimation(const LJNVideoPage());
                   } else if (settings.name == '/wallet') {
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const LJNWalletPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.ease;
-
-                        var tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: animation.drive(tween),
-                          child: child,
-                        );
-                      },
-                    );
+                    return pageRouteBuilderAnimation(const LJNWalletPage());
                   } else if (settings.name == '/userinfo') {
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const LJNUserinfoPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.ease;
-
-                        var tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: animation.drive(tween),
-                          child: child,
-                        );
-                      },
-                    );
+                    return pageRouteBuilderAnimation(const LJNUserinfoPage());
                   } else if (settings.name == '/friendmoments') {
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const LJNFriendmomentsPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.ease;
-
-                        var tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: animation.drive(tween),
-                          child: child,
-                        );
-                      },
-                    );
+                    return pageRouteBuilderAnimation(
+                        const LJNFriendmomentsPage());
                   } else if (settings.name == '/pocketmoney') {
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const LJNPocketMoneyPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.ease;
-
-                        var tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: animation.drive(tween),
-                          child: child,
-                        );
-                      },
-                    );
+                    return pageRouteBuilderAnimation(
+                        const LJNPocketMoneyPage());
                   } else if (settings.name == '/friendprofile') {
                     var arguments =
                         settings.arguments as Map<String, String>? ?? {};
@@ -350,144 +235,24 @@ class TabBarApp extends StatelessWidget {
                     String nickname = arguments['nickname'] ?? "";
                     String account = arguments['account'] ?? "";
 
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          LJNFriendProfilePage(
-                              name: name,
-                              nickname: nickname,
-                              account: account,
-                              avatar: avatar),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.ease;
-
-                        var tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: animation.drive(tween),
-                          child: child,
-                        );
-                      },
-                    );
+                    return pageRouteBuilderAnimation(LJNFriendProfilePage(
+                        name: name,
+                        nickname: nickname,
+                        account: account,
+                        avatar: avatar));
                   } else if (settings.name == '/ins') {
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const LJNInsPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.ease;
-
-                        var tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: animation.drive(tween),
-                          child: child,
-                        );
-                      },
-                    );
+                    return pageRouteBuilderAnimation(const LJNInsPage());
                   } else if (settings.name == '/tiktik') {
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const LJNTiktikPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.ease;
-
-                        var tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: animation.drive(tween),
-                          child: child,
-                        );
-                      },
-                    );
+                    return pageRouteBuilderAnimation(const LJNWebview());
                   } else if (settings.name == '/miniprogram') {
-                    return PageRouteBuilder(
-                      pageBuilder: (BuildContext context,
-                              Animation<double> animation,
-                              Animation<double> secondaryAnimation) =>
-                          const LJNMiniProgramPage(),
-                      transitionsBuilder: (
-                        BuildContext context,
-                        Animation<double> animation,
-                        Animation<double> secondaryAnimation,
-                        Widget child,
-                      ) {
-                        final Tween<Offset> offsetTween = Tween<Offset>(
-                            begin: const Offset(0.0, 0.0),
-                            end: const Offset(-1.0, 0.0));
-                        final Animation<Offset> slideOutLeftAnimation =
-                            offsetTween.animate(secondaryAnimation);
-                        return SlideTransition(
-                            position: slideOutLeftAnimation, child: child);
-                      },
-                    );
+                    return pageRouteBuilderAnimation(
+                        const LJNMiniProgramPage());
                   } else if (settings.name == '/mywebview') {
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const LJNWebview(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.ease;
-
-                        var tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: animation.drive(tween),
-                          child: child,
-                        );
-                      },
-                    );
+                    return pageRouteBuilderAnimation(const LJNWebview());
                   } else if (settings.name == '/search') {
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const LJNSearchPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.ease;
-
-                        var tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: animation.drive(tween),
-                          child: child,
-                        );
-                      },
-                    );
+                    return pageRouteBuilderAnimation(const LJNSearchPage());
                   } else if (settings.name == '/setting') {
-                    return PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          const LJNSettingPage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.ease;
-
-                        var tween = Tween(begin: begin, end: end)
-                            .chain(CurveTween(curve: curve));
-
-                        return SlideTransition(
-                          position: animation.drive(tween),
-                          child: child,
-                        );
-                      },
-                    );
+                    return pageRouteBuilderAnimation(const LJNSettingPage());
                   }
 
                   return null;
@@ -503,6 +268,39 @@ class TabBarApp extends StatelessWidget {
                 ),
               );
             }));
+  }
+
+  // 带动效进入页面
+  PageRouteBuilder pageRouteBuilderAnimation(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+
+  // 带动效进入页面
+  PageRouteBuilder pageRouteBuilderNotAnimation(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return page;
+      },
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        // No transition animation
+        return child;
+      },
+    );
   }
 }
 
