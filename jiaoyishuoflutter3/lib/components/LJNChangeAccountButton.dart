@@ -48,7 +48,9 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
           });
 
           if (mounted) {
-            if (widget.link != null) {
+            if (widget.link == 'back') {
+              Navigator.of(context).pop();
+            } else if (widget.link != null) {
               Navigator.pushNamed(context, widget.link!);
             }
           }
@@ -67,7 +69,7 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
         child: Text(
           widget.title,
           style: TextStyle(
-              fontSize: 30.w,
+              fontSize: 32.w,
               height: 1.08,
               color: widget.readonly == true
                   ? const Color.fromARGB(255, 184, 184, 184)

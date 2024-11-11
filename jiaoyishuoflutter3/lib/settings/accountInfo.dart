@@ -118,6 +118,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                     physics: const AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics()),
                     child: Container(
+                        width: screenSize.width,
                         padding: EdgeInsets.only(left: 70.w, right: 70.w),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -134,17 +135,17 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                                     0xe883,
                                     fontFamily: 'Iconfont',
                                   ),
-                                  size: 160.w, // 图标大小
+                                  size: 140.w, // 图标大小
                                 )),
                             SizedBox(
-                              height: 80.w,
+                              height: 50.w,
                             ),
                             Text(
                               "微信号：TheMonsterClub",
                               style: TextStyle(
                                   fontSize: 40.w,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: "AlibabaPuHuiTi-Medium"),
+                                  fontFamily: "AlibabaPuHuiTi"),
                             ),
                             SizedBox(
                               height: 45.w,

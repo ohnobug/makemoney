@@ -53,6 +53,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(90.0.w + _statusHeight),
             child: Container(
+                width: screenSize.width,
                 color: const Color.fromARGB(255, 237, 237, 237),
                 padding: EdgeInsets.only(top: _statusHeight),
                 child: AppBar(

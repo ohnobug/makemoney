@@ -18,6 +18,7 @@ import 'package:jiaoyishuoflutter3/search.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/settings/accountAndSecure.dart';
 import 'package:jiaoyishuoflutter3/settings/changeAccount.dart';
+import 'package:jiaoyishuoflutter3/settings/forgotPassword.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
@@ -243,6 +244,8 @@ class TabBarApp extends StatelessWidget {
                     return pageRouteBuilderAnimation(const LJNAccountInfo());
                   } else if (settings.name == '/change_account') {
                     return pageRouteBuilderAnimation(const LJNChangeAccount());
+                  } else if (settings.name == '/forgot_password') {
+                    return pageRouteBuilderAnimation(const LJNForgotPassword());
                   }
 
                   return null;

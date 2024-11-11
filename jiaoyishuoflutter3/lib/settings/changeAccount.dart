@@ -101,6 +101,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                     physics: const AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics()),
                     child: Container(
+                        width: screenSize.width,
                         padding: EdgeInsets.only(left: 70.w, right: 70.w),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -108,16 +109,17 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                           children: [
                             Container(
                                 // color: Colors.red,
-                                height: 164.w,
+                                height: 110.w,
                                 alignment: Alignment.bottomCenter,
                                 child: Text(
                                   '安全验证',
                                   style: TextStyle(
                                       fontSize: 42.w,
-                                      fontFamily: "AlibabaPuHuiTi-Medium"),
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "AlibabaPuHuiTi"),
                                 )),
                             SizedBox(
-                              height: 45.w,
+                              height: 30.w,
                             ),
                             Text(
                               "填写当前微信登录密码，验证本人身份。",
@@ -125,7 +127,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                                   fontSize: 30.w, fontFamily: "AlibabaPuHuiTi"),
                             ),
                             SizedBox(
-                              height: 70.w,
+                              height: 60.w,
                             ),
 
                             // 填写密码字段
@@ -158,7 +160,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                                         TextStyle(fontSize: 30.w, height: 1.08),
                                   ),
                                   SizedBox(
-                                    width: 20.w,
+                                    width: 50.w,
                                   ),
                                   Expanded(
                                       flex: 1,
@@ -167,7 +169,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                                         autofocus: false, // 先尝试关闭自动聚焦
                                         cursorColor: const Color.fromRGBO(
                                             62, 174, 86, 1.0),
-                                        cursorWidth: 3.w,
+                                        cursorWidth: 1.w,
                                         decoration: const InputDecoration(
                                           hintText: '请输入密码',
                                           labelText: '',
@@ -184,25 +186,28 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                             ),
 
                             SizedBox(
-                              height: 38.w,
+                              height: 25.w,
                             ),
 
                             SizedBox(
                                 width: 610.w,
                                 child: GestureDetector(
                                     onTap: () {
+                                      // forgot_password
                                       logger.info("忘记密码被点击");
+                                      Navigator.pushNamed(
+                                          context, '/forgot_password');
                                     },
                                     child: Text(
                                       '忘记密码',
                                       style: TextStyle(
                                           fontSize: 24.w,
                                           color: const Color.fromARGB(
-                                              255, 61, 56, 87)),
+                                              255, 64, 69, 118)),
                                     ))),
 
                             SizedBox(
-                              height: 620.w,
+                              height: 780.w,
                               child: null,
                             ),
 
