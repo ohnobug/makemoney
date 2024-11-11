@@ -187,17 +187,19 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                               height: 38.w,
                             ),
 
-                            GestureDetector(
-                                onTap: () {
-                                  logger.info("忘记密码被点击");
-                                },
-                                child: Text(
-                                  '忘记密码',
-                                  style: TextStyle(
-                                      fontSize: 24.w,
-                                      color: const Color.fromARGB(
-                                          255, 61, 56, 87)),
-                                )),
+                            SizedBox(
+                                width: 610.w,
+                                child: GestureDetector(
+                                    onTap: () {
+                                      logger.info("忘记密码被点击");
+                                    },
+                                    child: Text(
+                                      '忘记密码',
+                                      style: TextStyle(
+                                          fontSize: 24.w,
+                                          color: const Color.fromARGB(
+                                              255, 61, 56, 87)),
+                                    ))),
 
                             SizedBox(
                               height: 620.w,
