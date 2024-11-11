@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:jiaoyishuoflutter3/components/LJNChangeAccountButton.dart';
 import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -126,6 +127,8 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                             SizedBox(
                               height: 70.w,
                             ),
+
+                            // 填写密码字段
                             Container(
                               height: 110.w,
                               width: 610.w,
@@ -178,76 +181,38 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                                       )),
                                 ],
                               ),
-                            )
+                            ),
+
+                            SizedBox(
+                              height: 38.w,
+                            ),
+
+                            GestureDetector(
+                                onTap: () {
+                                  logger.info("忘记密码被点击");
+                                },
+                                child: Text(
+                                  '忘记密码',
+                                  style: TextStyle(
+                                      fontSize: 24.w,
+                                      color: const Color.fromARGB(
+                                          255, 61, 56, 87)),
+                                )),
+
+                            SizedBox(
+                              height: 620.w,
+                              child: null,
+                            ),
+
+                            // 验证按钮
+                            Container(
+                                padding: EdgeInsets.only(bottom: 180.w),
+                                child: const LJNChangeAccountButton(
+                                  title: '验证',
+                                  link: "",
+                                  readonly: true,
+                                ))
                           ],
                         ))))));
-  }
-}
-
-class LJNChangeAccountButton extends StatefulWidget {
-  final String title;
-  final String? link;
-
-  const LJNChangeAccountButton({
-    super.key,
-    required this.title,
-    this.link,
-  });
-
-  @override
-  State<LJNChangeAccountButton> createState() => _LJNChangeAccountButtonState();
-}
-
-class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
-  // bool isClicked = false;
-  Color containerColor = const Color.fromARGB(255, 241, 241, 241);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (tapDownDetails) {
-        setState(() {
-          containerColor = const Color.fromARGB(255, 206, 206, 206);
-        });
-      },
-      onTapCancel: () {
-        setState(() {
-          containerColor = Colors.white;
-        });
-
-        logger.info("取消点击");
-      },
-      onTapUp: (tapDownDetails) {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            containerColor = const Color.fromARGB(255, 241, 241, 241);
-          });
-
-          if (mounted) {
-            if (widget.link != null) {
-              Navigator.pushNamed(context, widget.link!);
-            }
-          }
-        });
-
-        logger.info("弹起");
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: containerColor,
-          borderRadius: BorderRadius.all(Radius.circular(10.w)),
-        ),
-        alignment: Alignment.center,
-        width: 350.w,
-        height: 90.w,
-        child: Text(
-          widget.title,
-          style: TextStyle(
-              fontSize: 30.w,
-              height: 1.08,
-              color: const Color.fromARGB(255, 41, 41, 41)),
-        ),
-      ),
-    );
   }
 }

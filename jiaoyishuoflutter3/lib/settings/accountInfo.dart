@@ -1,12 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:jiaoyishuoflutter3/components/LJNChangeAccountButton.dart';
 import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
-
-import '../logger.dart';
 
 class LJNAccountInfo extends StatefulWidget {
   const LJNAccountInfo({super.key});
@@ -156,83 +155,20 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                               style: TextStyle(
                                   fontSize: 30.w, fontFamily: "AlibabaPuHuiTi"),
                             ),
+
                             SizedBox(
                               height: 620.w,
                               child: null,
                             ),
-                            const LJNChangeAccountButton(
-                              title: '修改微信号',
-                              link: "/change_account",
-                            )
+
+                            // 修改微信号
+                            Container(
+                                padding: EdgeInsets.only(bottom: 180.w),
+                                child: const LJNChangeAccountButton(
+                                  title: '修改微信号',
+                                  link: "/change_account",
+                                ))
                           ],
                         ))))));
-  }
-}
-
-class LJNChangeAccountButton extends StatefulWidget {
-  final String title;
-  final String? link;
-
-  const LJNChangeAccountButton({
-    super.key,
-    required this.title,
-    this.link,
-  });
-
-  @override
-  State<LJNChangeAccountButton> createState() => _LJNChangeAccountButtonState();
-}
-
-class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
-  // bool isClicked = false;
-  Color containerColor = const Color.fromARGB(255, 241, 241, 241);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (tapDownDetails) {
-        setState(() {
-          containerColor = const Color.fromARGB(255, 206, 206, 206);
-        });
-      },
-      onTapCancel: () {
-        setState(() {
-          containerColor = Colors.white;
-        });
-
-        logger.info("取消点击");
-      },
-      onTapUp: (tapDownDetails) {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            containerColor = const Color.fromARGB(255, 241, 241, 241);
-          });
-
-          if (mounted) {
-            if (widget.link != null) {
-              Navigator.pushNamed(context, widget.link!);
-            }
-          }
-        });
-
-        logger.info("弹起");
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: containerColor,
-          borderRadius: BorderRadius.all(Radius.circular(10.w)),
-        ),
-        alignment: Alignment.center,
-        width: 350.w,
-        height: 90.w,
-        child: Text(
-          widget.title,
-          style: TextStyle(
-              fontSize: 30.w,
-              height: 1.08,
-              color: const Color.fromARGB(255, 41, 41, 41)),
-        ),
-      ),
-    );
   }
 }
