@@ -13,10 +13,10 @@ class LJNAccountAndSecure extends StatefulWidget {
   const LJNAccountAndSecure({super.key});
 
   @override
-  State<LJNAccountAndSecure> createState() => LJNAaccountAndSecure();
+  State<LJNAccountAndSecure> createState() => _LJNAaccountAndSecure();
 }
 
-class LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
+class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
   double _statusHeight = 0;
 
   @override
@@ -124,7 +124,7 @@ class LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "微信号",
-                        link: '',
+                        link: '/accountinfo',
                         showStyle: "TheMonsterClub",
                         underline: true,
                       ),

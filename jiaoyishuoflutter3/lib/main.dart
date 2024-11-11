@@ -26,6 +26,7 @@ import 'package:jiaoyishuoflutter3/wallet.dart';
 import 'components/CustomPhysics.dart';
 import 'contact.dart';
 import 'logger.dart';
+import 'settings/accountInfo.dart';
 import 'tools/tools.dart';
 import 'user.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -237,6 +238,8 @@ class TabBarApp extends StatelessWidget {
                   } else if (settings.name == '/account_and_secure') {
                     return pageRouteBuilderAnimation(
                         const LJNAccountAndSecure());
+                  } else if (settings.name == '/accountinfo') {
+                    return pageRouteBuilderAnimation(const LJNAccountInfo());
                   }
 
                   return null;
