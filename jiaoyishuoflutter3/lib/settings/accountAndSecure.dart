@@ -133,7 +133,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "手机号",
-                        link: '',
+                        link: '/phone_number',
                         showStyle: "+8618825130917",
                         underline: false,
                       ),

@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNChangeAccountButton extends StatefulWidget {
   final String title;
+  final Color? color;
+  final Color? backgroundColor;
   final String? link;
   final bool? readonly;
 
   const LJNChangeAccountButton({
     super.key,
     required this.title,
+    this.color,
+    this.backgroundColor,
     this.readonly,
     this.link,
   });
@@ -20,21 +25,39 @@ class LJNChangeAccountButton extends StatefulWidget {
 
 class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
   // bool isClicked = false;
-  Color containerColor = const Color.fromARGB(255, 241, 241, 241);
+  late Color originContainerColor;
+  late Color containerColor;
+  @override
+  void initState() {
+    super.initState();
+
+    // 判断是否有 backgroundColor，若没有，则使用默认颜色
+    originContainerColor =
+        widget.backgroundColor ?? const Color.fromARGB(255, 241, 241, 241);
+
+    setState(() {
+      containerColor = originContainerColor;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    Color fontColor = const Color.fromARGB(255, 41, 41, 41);
+    if (widget.color is Color) {
+      fontColor = widget.color!;
+    }
+
     return GestureDetector(
       onTapDown: (tapDownDetails) {
         if (widget.readonly == true) return;
 
         setState(() {
-          containerColor = const Color.fromARGB(255, 206, 206, 206);
+          containerColor = darkenColor(originContainerColor, 0.11);
         });
       },
       onTapCancel: () {
         setState(() {
-          containerColor = Colors.white;
+          containerColor = originContainerColor;
         });
 
         logger.info("取消点击");
@@ -44,7 +67,7 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
 
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
-            containerColor = const Color.fromARGB(255, 241, 241, 241);
+            containerColor = originContainerColor;
           });
 
           if (mounted) {
@@ -73,7 +96,7 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
               height: 1.08,
               color: widget.readonly == true
                   ? const Color.fromARGB(255, 184, 184, 184)
-                  : const Color.fromARGB(255, 41, 41, 41)),
+                  : fontColor),
         ),
       ),
     );

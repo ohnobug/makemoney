@@ -7,14 +7,14 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
-class LJNForgotPassword extends StatefulWidget {
-  const LJNForgotPassword({super.key});
+class LJNPhoneNumber extends StatefulWidget {
+  const LJNPhoneNumber({super.key});
 
   @override
-  State<LJNForgotPassword> createState() => _LJNForgotPassword();
+  State<LJNPhoneNumber> createState() => _LJNPhoneNumber();
 }
 
-class _LJNForgotPassword extends State<LJNForgotPassword> {
+class _LJNPhoneNumber extends State<LJNPhoneNumber> {
   double _statusHeight = 0;
 
   @override
@@ -73,7 +73,7 @@ class _LJNForgotPassword extends State<LJNForgotPassword> {
                   ),
                   primary: false,
                   centerTitle: true,
-                  title: const Text(''),
+                  title: const Text('手机号'),
                   toolbarHeight: 90.w,
                   titleTextStyle: TextStyle(
                       height: 1.08,
@@ -104,60 +104,77 @@ class _LJNForgotPassword extends State<LJNForgotPassword> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 125.w,
+                              height: 160.w,
                             ),
-                            Container(
-                              height: 100.w,
-                              width: 100.w,
-                              decoration: const BoxDecoration(
-                                color: Color.fromARGB(255, 248, 195, 57),
-                                shape: BoxShape.circle, // 设置为圆形
-                              ),
-                              child: Icon(
-                                const IconData(
-                                  0xe6ce,
-                                  fontFamily: 'Iconfont',
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '已绑定手机号：',
+                                  strutStyle:
+                                      StrutStyle(fontSize: 37.w, height: 1.08),
+                                  style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: 37.w,
+                                    fontFamily: "AlibabaPuHuiTi-Medium",
+                                  ),
                                 ),
-                                color: const Color.fromARGB(255, 255, 255, 255),
-                                size: 46.w,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 75.w,
-                            ),
-
-                            Text(
-                              '忘记密码',
-                              style: TextStyle(
-                                  fontSize: 42.w,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "AlibabaPuHuiTi"),
+                                Text(
+                                  '18825130917',
+                                  strutStyle:
+                                      StrutStyle(fontSize: 37.w, height: 1.08),
+                                  style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: 37.w,
+                                    fontFamily: "AlibabaPuHuiTi-Medium",
+                                  ),
+                                ),
+                                SizedBox(width: 13.w), // 间隔
+                                Text(
+                                  '隐藏',
+                                  strutStyle:
+                                      StrutStyle(fontSize: 37.w, height: 1.08),
+                                  style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: 25.w,
+                                      fontFamily: "AlibabaPuHuiTi",
+                                      color: const Color.fromARGB(
+                                          255, 64, 69, 118)),
+                                ),
+                              ],
                             ),
                             SizedBox(
                               height: 30.w,
                             ),
-
                             Text(
-                              "你需要前往\"设置 > 账号与安全 > 微信密码\"中重新设置微信密码。",
+                              "已绑定手机号，轻触下方按钮可了解手机通信录中哪些朋友注册了账号。",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 30.0.w,
+                                  fontSize: 27.0.w,
                                   fontFamily: "AlibabaPuHuiTi"),
                             ),
-
                             SizedBox(
-                              height: 740.w,
+                              height: 720.w,
                               child: null,
                             ),
-
-                            // 验证按钮
-                            Container(
-                                padding: EdgeInsets.only(bottom: 180.w),
-                                child: const LJNChangeAccountButton(
-                                  title: '我知道了',
-                                  link: "back",
-                                  readonly: false,
-                                ))
+                            const LJNChangeAccountButton(
+                              title: '查看手机通讯录',
+                              color: Colors.white,
+                              backgroundColor: Color.fromARGB(255, 52, 192, 95),
+                              // link: "",
+                              readonly: false,
+                            ),
+                            SizedBox(
+                              height: 33.w,
+                            ),
+                            const LJNChangeAccountButton(
+                              title: '更换手机号',
+                              // color: Colors.white,
+                              // backgroundColor: Color.fromARGB(255, 52, 192, 95),
+                              // link: "",
+                              readonly: false,
+                            ),
                           ],
                         ))))));
   }
