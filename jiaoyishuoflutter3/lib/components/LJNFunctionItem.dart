@@ -11,7 +11,7 @@ class LJNFunctionItem extends StatefulWidget {
   final String title;
   final String? link;
   final bool underline;
-  final Widget? showStyle;
+  final Object? showStyle;
 
   const LJNFunctionItem({
     super.key,
@@ -119,24 +119,41 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                       ),
                     ),
 
-                    Flexible(
-                        flex: 1,
-                        child: Container(
-                          padding: const EdgeInsets.only(right: 10, left: 10).w,
-                          // color: Colors.red,
-                          child: widget.showStyle,
-                        )),
+                    if (widget.showStyle != null)
+                      Flexible(
+                          flex: 1,
+                          child: Container(
+                              padding:
+                                  const EdgeInsets.only(right: 10, left: 10).w,
+                              // color: Colors.red,
+                              child: widget.showStyle is String
+                                  ? Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                          Text(
+                                            widget.showStyle as String,
+                                            style: TextStyle(
+                                              height: 1.08,
+                                              fontSize: fontSizeScale(30.w),
+                                              color: const Color.fromARGB(
+                                                  255, 83, 83, 83),
+                                            ),
+                                          )
+                                        ])
+                                  : widget.showStyle as Widget)),
 
                     Container(
-                        width: 28.w,
+                        width: 30.w,
                         margin: const EdgeInsets.only(right: 32).w,
                         child: Icon(
                           const IconData(
                             0xed9d,
                             fontFamily: 'Iconfont',
                           ),
-                          size: 28.0.w,
-                          color: const Color.fromARGB(255, 175, 175, 175),
+                          size: 30.0.w,
+                          color: const Color.fromARGB(255, 164, 164, 164),
                         ))
                   ],
                 ),

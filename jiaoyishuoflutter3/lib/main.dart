@@ -16,7 +16,8 @@ import 'package:jiaoyishuoflutter3/friendprofile.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
 import 'package:jiaoyishuoflutter3/search.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
-import 'package:jiaoyishuoflutter3/settting.dart';
+import 'package:jiaoyishuoflutter3/settings/accountAndSecure.dart';
+import 'package:jiaoyishuoflutter3/settings/setting.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
@@ -233,6 +234,9 @@ class TabBarApp extends StatelessWidget {
                     return pageRouteBuilderAnimation(const LJNSearchPage());
                   } else if (settings.name == '/setting') {
                     return pageRouteBuilderAnimation(const LJNSettingPage());
+                  } else if (settings.name == '/account_and_secure') {
+                    return pageRouteBuilderAnimation(
+                        const LJNAccountAndSecure());
                   }
 
                   return null;

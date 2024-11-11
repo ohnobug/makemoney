@@ -916,7 +916,7 @@ class _TweetWidget extends State<TweetWidget> {
                                       // textBaseline: TextBaseline.alphabetic,
                                       height: 1.4,
                                       fontSize: fontSizeScale(32.w),
-                                      fontFamily: "AlibabaPuHuiTi-Medium"),
+                                      fontFamily: "AlibabaPuHuiTi"),
                                   TextStyle(
                                       // textBaseline: TextBaseline.alphabetic,
                                       height: 1.08,

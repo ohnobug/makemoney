@@ -74,7 +74,6 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                   padding: EdgeInsets.only(
                                       top: 120.0.w + _statusHeight,
                                       left: 32.w,
-                                      right: 32.w,
                                       bottom: 50.w),
                                   child: Row(
                                     crossAxisAlignment:
@@ -109,218 +108,250 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                // 用户名
+                                                // 用户名与微信号
                                                 GestureDetector(
                                                     onTap: () {
                                                       Navigator.pushNamed(
                                                           context, '/userinfo');
                                                     },
                                                     child: Container(
-                                                      width: double.infinity,
-                                                      color: Colors.transparent,
-                                                      child: Text(
-                                                        vm.userinfoName
-                                                            as String,
-                                                        style: TextStyle(
-                                                          height: 1.08,
-                                                          fontSize:
-                                                              fontSizeScale(
-                                                                  42.w),
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                    )),
-
-                                                SizedBox(height: 20.w),
-
-                                                // 微信号与状态
-                                                GestureDetector(
-                                                    onTap: () {
-                                                      Navigator.pushNamed(
-                                                          context, '/userinfo');
-                                                    },
-                                                    child: Column(
-                                                      children: [
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
+                                                        color:
+                                                            Colors.transparent,
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                right: 40.w),
+                                                        child: Column(
                                                           children: [
-                                                            Text(
-                                                              '微信号：${vm.userinfoAccount}',
-                                                              style: TextStyle(
-                                                                height: 1.08,
-                                                                fontSize:
-                                                                    fontSizeScale(
-                                                                        28.w),
-                                                                color: const Color
-                                                                    .fromARGB(
-                                                                    255,
-                                                                    111,
-                                                                    111,
-                                                                    111),
+                                                            // 用户名
+                                                            Container(
+                                                              width: double
+                                                                  .infinity,
+                                                              color: Colors
+                                                                  .transparent,
+                                                              child: Text(
+                                                                vm.userinfoName
+                                                                    as String,
+                                                                style:
+                                                                    TextStyle(
+                                                                  height: 1.08,
+                                                                  fontSize:
+                                                                      fontSizeScale(
+                                                                          42.w),
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
                                                               ),
                                                             ),
-                                                            // 二维码图标
+
+                                                            SizedBox(
+                                                                height: 20.w),
+
+                                                            // 微信号
                                                             Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
                                                               children: [
-                                                                Icon(
-                                                                  const IconData(
-                                                                    0xe74b,
-                                                                    fontFamily:
-                                                                        'Iconfont',
+                                                                Text(
+                                                                  '微信号：${vm.userinfoAccount}',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    height:
+                                                                        1.08,
+                                                                    fontSize:
+                                                                        fontSizeScale(
+                                                                            28.w),
+                                                                    color: const Color
+                                                                        .fromARGB(
+                                                                        255,
+                                                                        111,
+                                                                        111,
+                                                                        111),
                                                                   ),
-                                                                  size: 23.w,
-                                                                  color: const Color
-                                                                      .fromARGB(
-                                                                      255,
-                                                                      170,
-                                                                      170,
-                                                                      170),
                                                                 ),
-                                                                SizedBox(
-                                                                    width:
-                                                                        43.w),
-                                                                Icon(
-                                                                  const IconData(
-                                                                    0xed9d,
-                                                                    fontFamily:
-                                                                        'Iconfont',
-                                                                  ),
-                                                                  size: 28.w,
-                                                                  color: const Color
-                                                                      .fromARGB(
-                                                                      255,
-                                                                      170,
-                                                                      170,
-                                                                      170),
+                                                                // 二维码图标
+                                                                Row(
+                                                                  children: [
+                                                                    Icon(
+                                                                      const IconData(
+                                                                        0xe74b,
+                                                                        fontFamily:
+                                                                            'Iconfont',
+                                                                      ),
+                                                                      size:
+                                                                          23.w,
+                                                                      color: const Color
+                                                                          .fromARGB(
+                                                                          255,
+                                                                          170,
+                                                                          170,
+                                                                          170),
+                                                                    ),
+                                                                    SizedBox(
+                                                                        width: 43
+                                                                            .w),
+                                                                    Icon(
+                                                                      const IconData(
+                                                                        0xed9d,
+                                                                        fontFamily:
+                                                                            'Iconfont',
+                                                                      ),
+                                                                      size:
+                                                                          28.w,
+                                                                      color: const Color
+                                                                          .fromARGB(
+                                                                          255,
+                                                                          170,
+                                                                          170,
+                                                                          170),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ],
                                                             ),
                                                           ],
-                                                        ),
-                                                        SizedBox(height: 40.w),
-                                                        Row(
+                                                        ))),
+
+                                                SizedBox(height: 40.w),
+
+                                                // 状态
+                                                Row(
+                                                  children: [
+                                                    LJNStatusButton(
+                                                        text: '+ 状态',
+                                                        onPressed: () {
+                                                          logger.info('点击状态');
+                                                        }),
+                                                    SizedBox(width: 14.w),
+                                                    LJNStatusButton(
+                                                        child: Row(
                                                           children: [
-                                                            LJNStatusButton(
-                                                                text: '+ 状态',
-                                                                onPressed: () {
-                                                                  logger.info(
-                                                                      '点击状态');
-                                                                }),
                                                             SizedBox(
-                                                                width: 14.w),
-                                                            LJNStatusButton(
-                                                                child: Row(
-                                                                  children: [
-                                                                    SizedBox(
-                                                                      height:
-                                                                          60.w,
-                                                                      width:
-                                                                          85.w,
+                                                              height: 60.w,
+                                                              width: 85.w,
+                                                              child: Stack(
+                                                                children: <Widget>[
+                                                                  Positioned(
+                                                                    top: 6.w,
+                                                                    left: 0.w,
+                                                                    child:
+                                                                        Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            width: 2.0.w),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(200).w,
+                                                                      ),
                                                                       child:
-                                                                          Stack(
-                                                                        children: <Widget>[
-                                                                          Positioned(
-                                                                            top:
-                                                                                6.w,
-                                                                            left:
-                                                                                0.w,
-                                                                            child:
-                                                                                Container(
-                                                                              decoration: BoxDecoration(
-                                                                                border: Border.all(color: Colors.white, width: 2.0.w),
-                                                                                borderRadius: BorderRadius.circular(200).w,
-                                                                              ),
-                                                                              child: ClipRRect(
-                                                                                borderRadius: BorderRadius.circular(1000).w,
-                                                                                child: Image.asset(
-                                                                                  'assets/images/avatar_webp/chat_4.webp',
-                                                                                  width: 30.w,
-                                                                                  height: 30.w,
-                                                                                  fit: BoxFit.cover,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                          Positioned(
-                                                                            top:
-                                                                                6.w,
-                                                                            left:
-                                                                                25.w,
-                                                                            child:
-                                                                                Container(
-                                                                              decoration: BoxDecoration(
-                                                                                border: Border.all(color: Colors.white, width: 2.0.w),
-                                                                                borderRadius: BorderRadius.circular(200).w,
-                                                                              ),
-                                                                              child: ClipRRect(
-                                                                                borderRadius: BorderRadius.circular(1000).w,
-                                                                                child: Image.asset(
-                                                                                  'assets/images/avatar_webp/chat_5.webp',
-                                                                                  width: 30.w,
-                                                                                  height: 30.w,
-                                                                                  fit: BoxFit.cover,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                          Positioned(
-                                                                            top:
-                                                                                6.w,
-                                                                            left:
-                                                                                50.w,
-                                                                            child:
-                                                                                Container(
-                                                                              decoration: BoxDecoration(
-                                                                                border: Border.all(color: Colors.white, width: 2.0.w),
-                                                                                borderRadius: BorderRadius.circular(200).w,
-                                                                              ),
-                                                                              child: ClipRRect(
-                                                                                borderRadius: BorderRadius.circular(100).w,
-                                                                                child: Image.asset(
-                                                                                  'assets/images/avatar_webp/chat_6.webp',
-                                                                                  width: 30.w,
-                                                                                  height: 30.w,
-                                                                                  fit: BoxFit.cover,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          )
-                                                                        ],
+                                                                          ClipRRect(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(1000).w,
+                                                                        child: Image
+                                                                            .asset(
+                                                                          'assets/images/avatar_webp/chat_4.webp',
+                                                                          width:
+                                                                              30.w,
+                                                                          height:
+                                                                              30.w,
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                        ),
                                                                       ),
                                                                     ),
-                                                                    SizedBox(
-                                                                        width: 10
-                                                                            .w),
-                                                                    Text(
-                                                                      '等8个朋友',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        height:
-                                                                            1.08,
-                                                                        fontSize:
-                                                                            24.w,
-                                                                        color: const Color
-                                                                            .fromARGB(
-                                                                            255,
-                                                                            116,
-                                                                            116,
-                                                                            116),
+                                                                  ),
+                                                                  Positioned(
+                                                                    top: 6.w,
+                                                                    left: 25.w,
+                                                                    child:
+                                                                        Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            width: 2.0.w),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(200).w,
                                                                       ),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                                onPressed: () {
-                                                                  logger.info(
-                                                                      '等四个朋友');
-                                                                }),
+                                                                      child:
+                                                                          ClipRRect(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(1000).w,
+                                                                        child: Image
+                                                                            .asset(
+                                                                          'assets/images/avatar_webp/chat_5.webp',
+                                                                          width:
+                                                                              30.w,
+                                                                          height:
+                                                                              30.w,
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Positioned(
+                                                                    top: 6.w,
+                                                                    left: 50.w,
+                                                                    child:
+                                                                        Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            width: 2.0.w),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(200).w,
+                                                                      ),
+                                                                      child:
+                                                                          ClipRRect(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(100).w,
+                                                                        child: Image
+                                                                            .asset(
+                                                                          'assets/images/avatar_webp/chat_6.webp',
+                                                                          width:
+                                                                              30.w,
+                                                                          height:
+                                                                              30.w,
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                                width: 10.w),
+                                                            Text(
+                                                              '等8个朋友',
+                                                              style: TextStyle(
+                                                                height: 1.08,
+                                                                fontSize: 24.w,
+                                                                color: const Color
+                                                                    .fromARGB(
+                                                                    255,
+                                                                    116,
+                                                                    116,
+                                                                    116),
+                                                              ),
+                                                            )
                                                           ],
-                                                        )
-                                                      ],
-                                                    )),
+                                                        ),
+                                                        onPressed: () {
+                                                          logger.info('等四个朋友');
+                                                        }),
+                                                  ],
+                                                )
                                               ])),
                                     ],
                                   ),
