@@ -17,6 +17,7 @@ import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
 import 'package:jiaoyishuoflutter3/search.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/settings/accountAndSecure.dart';
+import 'package:jiaoyishuoflutter3/settings/changeAccount.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
@@ -240,6 +241,8 @@ class TabBarApp extends StatelessWidget {
                         const LJNAccountAndSecure());
                   } else if (settings.name == '/accountinfo') {
                     return pageRouteBuilderAnimation(const LJNAccountInfo());
+                  } else if (settings.name == '/change_account') {
+                    return pageRouteBuilderAnimation(const LJNChangeAccount());
                   }
 
                   return null;

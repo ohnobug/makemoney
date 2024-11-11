@@ -8,15 +8,17 @@ import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import '../logger.dart';
 
-class LJNAccountInfo extends StatefulWidget {
-  const LJNAccountInfo({super.key});
+class LJNChangeAccount extends StatefulWidget {
+  const LJNChangeAccount({super.key});
 
   @override
-  State<LJNAccountInfo> createState() => _LJNAccountInfo();
+  State<LJNChangeAccount> createState() => _LJNChangeAccount();
 }
 
-class _LJNAccountInfo extends State<LJNAccountInfo> {
+class _LJNChangeAccount extends State<LJNChangeAccount> {
   double _statusHeight = 0;
+
+  final TextEditingController _controller = TextEditingController();
 
   @override
   void initState() {
@@ -85,28 +87,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                   scrolledUnderElevation: 0,
                   backgroundColor: Colors.transparent,
                   foregroundColor: Colors.transparent,
-                  // bottom: PreferredSize(
-                  //   preferredSize: Size.fromHeight(1.w),
-                  //   child: Container(
-                  //     color: const Color.fromARGB(255, 220, 220, 220),
-                  //     height: 1.w,
-                  //   ),
-                  // ),
-                  actions: const [
-                    // // 三个点
-                    // GestureDetector(
-                    //     onTap: () {
-                    //       // 点击事件
-                    //     },
-                    //     child: Container(
-                    //         color: Colors.transparent,
-                    //         padding: EdgeInsets.only(right: 33.w),
-                    //         child: Text("账单",
-                    //             style: TextStyle(height: 1.08,
-                    //                 color: Colors.black,
-                    //                 fontSize: fontSizeScale(30.w),
-                    //                 fontWeight: FontWeight.w500)))),
-                  ],
+                  actions: const [],
                 ))),
         body: ScrollConfiguration(
             behavior:
@@ -126,43 +107,77 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                           children: [
                             Container(
                                 // color: Colors.red,
-                                height: 300.w,
+                                height: 164.w,
                                 alignment: Alignment.bottomCenter,
-                                child: Icon(
-                                  color:
-                                      const Color.fromARGB(255, 212, 212, 212),
-                                  const IconData(
-                                    0xe883,
-                                    fontFamily: 'Iconfont',
-                                  ),
-                                  size: 160.w, // 图标大小
+                                child: Text(
+                                  '安全验证',
+                                  style: TextStyle(
+                                      fontSize: 42.w,
+                                      fontFamily: "AlibabaPuHuiTi-Medium"),
                                 )),
-                            SizedBox(
-                              height: 80.w,
-                            ),
-                            Text(
-                              "微信号：TheMonsterClub",
-                              style: TextStyle(
-                                  fontSize: 40.w,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "AlibabaPuHuiTi-Medium"),
-                            ),
                             SizedBox(
                               height: 45.w,
                             ),
                             Text(
-                              "微信号是账号的唯一凭证，一年只能修改一次。",
-                              textAlign: TextAlign.center,
+                              "填写当前微信登录密码，验证本人身份。",
                               style: TextStyle(
                                   fontSize: 30.w, fontFamily: "AlibabaPuHuiTi"),
                             ),
                             SizedBox(
-                              height: 620.w,
-                              child: null,
+                              height: 70.w,
                             ),
-                            const LJNChangeAccountButton(
-                              title: '修改微信号',
-                              link: "/change_account",
+                            Container(
+                              height: 110.w,
+                              width: 610.w,
+                              decoration: BoxDecoration(
+                                  // color: Colors.red,
+                                  border: Border(
+                                      top: BorderSide(
+                                        color: const Color.fromARGB(
+                                            255, 229, 229, 229),
+                                        width: 1.5.w,
+                                        style: BorderStyle.solid,
+                                      ),
+                                      bottom: BorderSide(
+                                        color: const Color.fromARGB(
+                                            255, 229, 229, 229),
+                                        width: 1.5.w,
+                                        style: BorderStyle.solid,
+                                      ))),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "填写密码",
+                                    style:
+                                        TextStyle(fontSize: 30.w, height: 1.08),
+                                  ),
+                                  SizedBox(
+                                    width: 20.w,
+                                  ),
+                                  Expanded(
+                                      flex: 1,
+                                      child: TextField(
+                                        controller: _controller,
+                                        autofocus: false, // 先尝试关闭自动聚焦
+                                        cursorColor: const Color.fromRGBO(
+                                            62, 174, 86, 1.0),
+                                        cursorWidth: 3.w,
+                                        decoration: const InputDecoration(
+                                          hintText: '请输入密码',
+                                          labelText: '',
+                                          isDense: true,
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide.none, // 无边框
+                                          ),
+                                          contentPadding:
+                                              EdgeInsets.all(0), // 也可调小内边距
+                                        ),
+                                      )),
+                                ],
+                              ),
                             )
                           ],
                         ))))));

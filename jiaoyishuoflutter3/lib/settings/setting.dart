@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import '../components/LJNFunctionItem.dart';
+import 'button.dart';
 
 class LJNSettingPage extends StatefulWidget {
   const LJNSettingPage({super.key});
@@ -163,7 +164,18 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                         link: '',
                         underline: false,
                       ),
-                      SizedBox(height: 16.w),
+                      // SizedBox(height: 16.w),
+
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        height: 80.w,
+                        padding:
+                            const EdgeInsets.only(left: 30.0, right: 0.0).w,
+                        child: Text(
+                          "隐私",
+                          style: TextStyle(fontSize: 25.w, height: 1.08),
+                        ),
+                      ),
 
                       // 朋友权限 与 个人信息与权限 和 个人信息收集清单 和 第三方信息共享清单
                       const LJNFunctionItem(
@@ -196,6 +208,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "插件",
                         link: '',
+                        showStyle: "微信输入法可以【问AI】了",
                         underline: false,
                       ),
                       SizedBox(height: 16.w),
@@ -210,8 +223,25 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "帮助与反馈",
                         link: '',
+                        showStyle: "",
                         underline: false,
                       ),
+                      SizedBox(height: 16.w),
+
+                      const LJNButton(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "切换账号",
+                        link: '',
+                        underline: false,
+                      ),
+                      SizedBox(height: 16.w),
+
+                      const LJNButton(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "退出",
+                        link: '',
+                        underline: false,
+                      )
                     ])))));
   }
 }
