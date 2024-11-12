@@ -617,121 +617,204 @@ class _ContactListItem extends State<ContactListItem> {
                 width: 1.5.w,
                 style: BorderStyle.solid,
               ))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 8.w,
-                  ),
-
-                  // 好友名称和消息时间
-                  Row(
+                  Expanded(
+                      child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // 好友名称
-                      Expanded(
-                          child: RichText(
-                        strutStyle: StrutStyle(
-                            height: 1, forceStrutHeight: true, fontSize: 32.w),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        text: TextSpan(
-                          children: buildTextSpans(
-                              widget.friendName,
-                              TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(32.0.w),
-                                  color: Colors.black,
-                                  fontFamily: "AlibabaPuHuiTi"),
-                              TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(32.w),
-                                  fontFamily: "NotoColorEmoji-Regular")),
-                        ),
-                      )),
                       SizedBox(
-                        width: 10.w,
+                        height: 8.w,
                       ),
-                    ],
-                  ),
 
-                  SizedBox(height: 10.w),
-
-                  // 好友消息
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        // color: Colors.amber,
-                        // width: 400.w,
-                        // margin: EdgeInsets.only(right: 65.w),
-                        child: RichText(
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          text: TextSpan(
-                            children: buildTextSpans(
-                                widget.message,
-                                TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(25.w),
-                                  color:
-                                      const Color.fromARGB(255, 170, 170, 170),
-                                ),
-                                TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(25.w),
-                                  color:
-                                      const Color.fromARGB(255, 170, 170, 170),
-                                )),
+                      // 好友名称和消息时间
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // 好友名称
+                          Expanded(
+                              child: RichText(
+                            strutStyle: StrutStyle(
+                                height: 1,
+                                forceStrutHeight: true,
+                                fontSize: 32.w),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            text: TextSpan(
+                              children: buildTextSpans(
+                                  widget.friendName,
+                                  TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(32.0.w),
+                                      color: Colors.black,
+                                      fontFamily: "AlibabaPuHuiTi"),
+                                  TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(32.w),
+                                      fontFamily: "NotoColorEmoji-Regular")),
+                            ),
+                          )),
+                          SizedBox(
+                            width: 10.w,
                           ),
-                        ),
+                        ],
+                      ),
+
+                      SizedBox(height: 10.w),
+
+                      // 好友消息
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            // color: Colors.amber,
+                            // width: 400.w,
+                            // margin: EdgeInsets.only(right: 65.w),
+                            child: RichText(
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              text: TextSpan(
+                                children: buildTextSpans(
+                                    widget.message,
+                                    TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(25.w),
+                                      color: const Color.fromARGB(
+                                          255, 170, 170, 170),
+                                    ),
+                                    TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(25.w),
+                                      color: const Color.fromARGB(
+                                          255, 170, 170, 170),
+                                    )),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
-                  ),
+                  )),
+
+                  // 右边按钮
+                  if (widget.alreadyFriends)
+                    const LJNAddButton(
+                        title: "添加",
+                        backgroundColor: Color.fromARGB(255, 74, 193, 99))
+                  else
+                    const LJNAddButton(
+                      title: "已添加",
+                      // readonly: true,
+                      backgroundColor: Colors.transparent,
+                      color: Color.fromARGB(255, 93, 93, 93),
+                    )
                 ],
               ),
             ),
           ),
-
-          // 右边按钮
-          if (widget.alreadyFriends)
-            Container(
-              width: 142.w,
-              height: 57.w,
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(right: 25.w),
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 74, 193, 99),
-                borderRadius: BorderRadius.all(Radius.circular(10.w)),
-              ),
-              child: Text(
-                "添加",
-                style: TextStyle(color: Colors.white, fontSize: 25.w),
-              ),
-            )
-          else
-            // 右边按钮
-            Container(
-              width: 142.w,
-              height: 57.w,
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(right: 25.w),
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.all(Radius.circular(10.w)),
-              ),
-              child: Text(
-                "已添加",
-                style: TextStyle(
-                    color: const Color.fromARGB(255, 93, 93, 93),
-                    fontSize: 25.w),
-              ),
-            )
         ],
+      ),
+    );
+  }
+}
+
+class LJNAddButton extends StatefulWidget {
+  final String title;
+  final Color? color;
+  final Color? backgroundColor;
+  final String? link;
+  final bool? readonly;
+
+  const LJNAddButton({
+    super.key,
+    required this.title,
+    this.color,
+    this.backgroundColor,
+    this.readonly,
+    this.link,
+  });
+
+  @override
+  State<LJNAddButton> createState() => _LJNAddButtonState();
+}
+
+class _LJNAddButtonState extends State<LJNAddButton> {
+  // bool isClicked = false;
+  late Color originContainerColor;
+  late Color containerColor;
+  @override
+  void initState() {
+    super.initState();
+
+    // 判断是否有 backgroundColor，若没有，则使用默认颜色
+    originContainerColor =
+        widget.backgroundColor ?? const Color.fromARGB(255, 242, 242, 242);
+
+    setState(() {
+      containerColor = originContainerColor;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Color fontColor = Colors.white;
+    if (widget.color is Color) {
+      fontColor = widget.color!;
+    }
+
+    return GestureDetector(
+      onTapDown: (tapDownDetails) {
+        if (widget.readonly == true) return;
+
+        setState(() {
+          containerColor = darkenColor(originContainerColor, 0.11);
+        });
+      },
+      onTapCancel: () {
+        setState(() {
+          containerColor = originContainerColor;
+        });
+
+        logger.info("取消点击");
+      },
+      onTapUp: (tapDownDetails) {
+        if (widget.readonly == true) return;
+
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            containerColor = originContainerColor;
+          });
+
+          if (mounted) {
+            if (widget.link == 'back') {
+              Navigator.of(context).pop();
+            } else if (widget.link != null) {
+              Navigator.pushNamed(context, widget.link!);
+            }
+          }
+        });
+
+        logger.info("弹起");
+      },
+      child: Container(
+        width: 142.w,
+        height: 57.w,
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(right: 25.w),
+        decoration: BoxDecoration(
+          color: containerColor,
+          borderRadius: BorderRadius.all(Radius.circular(10.w)),
+        ),
+        child: Text(
+          widget.title,
+          style: TextStyle(color: fontColor, fontSize: 25.w),
+        ),
       ),
     );
   }
