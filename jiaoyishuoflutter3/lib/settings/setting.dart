@@ -165,10 +165,11 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                         underline: false,
                       ),
                       // SizedBox(height: 16.w),
+                      SizedBox(height: 16.w),
 
                       Container(
                         alignment: Alignment.centerLeft,
-                        height: 80.w,
+                        height: 64.w,
                         padding:
                             const EdgeInsets.only(left: 30.0, right: 0.0).w,
                         child: Text(
@@ -241,7 +242,8 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                         title: "退出",
                         link: '',
                         underline: false,
-                      )
+                      ),
+                      SizedBox(height: 106.w),
                     ])))));
   }
 }

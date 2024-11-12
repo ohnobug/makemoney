@@ -166,10 +166,13 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                                       flex: 1,
                                       child: TextField(
                                         controller: _controller,
-                                        autofocus: false, // 先尝试关闭自动聚焦
+                                        autofocus: true, // 先尝试关闭自动聚焦
                                         cursorColor: const Color.fromRGBO(
                                             62, 174, 86, 1.0),
                                         cursorWidth: 1.w,
+                                        onTapOutside: (event) {
+                                          FocusScope.of(context).unfocus();
+                                        },
                                         decoration: const InputDecoration(
                                           hintText: '请输入密码',
                                           labelText: '',

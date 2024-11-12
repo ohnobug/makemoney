@@ -513,13 +513,10 @@ class _ChatListViewState extends State<LJNHome22Page>
   }
 
   void scrollListener() {
-    logger.info("this is :{${_customScrollController.position.pixels}}");
+    // logger.info("this is :{${_customScrollController.position.pixels}}");
 
     // 下拉的时候
     if (_customScrollController.position.pixels <= 0) {
-      // _animationController.value =
-      //     _customScrollController.position.pixels.abs();
-
       myStore.dispatch({
         "type": "homescrollpixels",
         "payload": _customScrollController.position.pixels.abs()

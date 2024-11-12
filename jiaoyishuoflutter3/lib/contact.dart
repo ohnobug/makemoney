@@ -18,6 +18,27 @@ class _LJNContactPageState extends State<LJNContactPage> {
   double _statusHeight = 0;
   late List<dynamic> contactList;
 
+  // 字母
+  Widget alphabet(String title) {
+    return Container(
+      height: 60.w,
+      color: const Color.fromARGB(255, 237, 237, 237),
+      padding: EdgeInsets.only(left: 30.w),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              height: 1.08,
+              fontSize: fontSizeScale(20.w),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -90,7 +111,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
         link: '',
         underline: false,
       ),
-      'A',
+      alphabet('A'),
       ContactInformation(
         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "天空飘来五个字那都不是事",
@@ -280,7 +301,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
         link: '',
         underline: false,
       ),
-      'B',
+      alphabet('B'),
       ContactInformation(
         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "段延庆",
@@ -485,7 +506,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "2个朋友",
+                "10个朋友",
                 style: TextStyle(
                     height: 1.08,
                     fontSize: fontSizeScale(30.w),
@@ -540,30 +561,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   parent: BouncingScrollPhysics()),
               itemCount: contactList.length, // contactList 是你的联系人数据列表
               itemBuilder: (context, index) {
-                if (contactList[index] is String) {
-                  // 如果是字母分隔符
-                  return Container(
-                    height: 60.w,
-                    color: const Color.fromARGB(255, 237, 237, 237),
-                    padding: EdgeInsets.only(left: 30.w),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          contactList[index],
-                          style: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(20.w),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                } else if (contactList[index] is ContactInformation) {
-                  return contactList[index];
-                } else {
-                  return contactList[index];
-                }
+                return contactList[index];
               },
             )),
       ),

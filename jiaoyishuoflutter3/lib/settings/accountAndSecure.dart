@@ -122,19 +122,19 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                         parent: BouncingScrollPhysics()),
                     child: Column(children: [
                       // 账户与安全
-                      const LJNFunctionItem(
+                      LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "微信号",
                         link: '/accountinfo',
-                        showStyle: "TheMonsterClub",
+                        showStyle: vm.userinfoAccount,
                         underline: true,
                       ),
                       // 手机号
-                      const LJNFunctionItem(
+                      LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "手机号",
                         link: '/phone_number',
-                        showStyle: "+8618825130917",
+                        showStyle: vm.userinfoPhone,
                         underline: false,
                       ),
 

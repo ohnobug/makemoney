@@ -14,7 +14,7 @@ class CustomScrollPhysics extends ScrollPhysics {
 
   @override
   double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
-    logger.info("ttttttt来了aaaaaaaa");
+    // logger.info("ttttttt来了aaaaaaaa");
 
     // 增加用户拖动的偏移量
     return offset * 1.3; // 乘以一个大于1的系数来增加滚动距离
@@ -30,7 +30,7 @@ class CustomScrollPhysics extends ScrollPhysics {
 class CustomScrollBehavior extends ScrollBehavior {
   @override
   ScrollPhysics getScrollPhysics(BuildContext context) {
-    logger.info("ttttttt来了ttttttttttt");
+    // logger.info("ttttttt来了ttttttttttt");
 
     return const CustomScrollPhysics();
     // return const CustomScrollPhysics().applyTo(const MyBouncingScrollPhysics());
@@ -39,36 +39,24 @@ class CustomScrollBehavior extends ScrollBehavior {
 
 // 弹性
 class MyBouncingScrollPhysics extends ScrollPhysics {
-  /// Creates scroll physics that bounce back from the edge.
   const MyBouncingScrollPhysics({
     this.decelerationRate = ScrollDecelerationRate.fast,
     super.parent,
   });
 
-  /// Used to determine parameters for friction simulations.
   final ScrollDecelerationRate decelerationRate;
 
   @override
   BouncingScrollPhysics applyTo(ScrollPhysics? ancestor) {
-    logger.info("ttttttt来了22");
-
+    // logger.info("ttttttt来了22");
     return BouncingScrollPhysics(
         parent: buildParent(ancestor), decelerationRate: decelerationRate);
   }
 
-  /// The multiple applied to overscroll to make it appear that scrolling past
-  /// the edge of the scrollable contents is harder than scrolling the list.
-  /// This is done by reducing the ratio of the scroll effect output vs the
-  /// scroll gesture input.
-  ///
-  /// This factor starts at 0.52 and progressively becomes harder to overscroll
-  /// as more of the area past the edge is dragged in (represented by an increasing
-  /// `overscrollFraction` which starts at 0 when there is no overscroll).
   /// 拖拽的时候的弹性
   double frictionFactor(double overscrollFraction) {
     // return 0;
-    logger.info("ttttttt来了tttttttttwwwwwwww");
-
+    // logger.info("ttttttt来了tttttttttwwwwwwww");
     return math.pow(1 - overscrollFraction, 2) *
         switch (decelerationRate) {
           ScrollDecelerationRate.fast => 3,
@@ -78,7 +66,7 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
 
   @override
   double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
-    logger.info("ttttttt来了");
+    // logger.info("ttttttt来了");
 
     assert(offset != 0.0);
     assert(position.minScrollExtent <= position.maxScrollExtent);
@@ -113,7 +101,7 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
 
   static double _applyFriction(
       double extentOutside, double absDelta, double gamma) {
-    logger.info("ttttttt来了333");
+    // logger.info("ttttttt来了333");
 
     assert(absDelta > 0);
     double total = 0.0;
@@ -130,14 +118,14 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
 
   @override
   double applyBoundaryConditions(ScrollMetrics position, double value) {
-    logger.info("ttttttt来了444");
+    // logger.info("ttttttt来了444");
     return 0.0;
   }
 
   @override
   Simulation? createBallisticSimulation(
       ScrollMetrics position, double velocity) {
-    logger.info("ttttttt来了55555");
+    // logger.info("ttttttt来了55555");
 
     final Tolerance tolerance = toleranceFor(position);
     if (velocity.abs() >= tolerance.velocity || position.outOfRange) {
@@ -157,40 +145,21 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
     return null;
   }
 
-  // The ballistic simulation here decelerates more slowly than the one for
-  // MyClampingScrollPhysics so we require a more deliberate input gesture
-  // to trigger a fling.
   @override
   double get minFlingVelocity {
-    logger.info("ttttttt来了gaa");
-
+    // logger.info("ttttttt来了gaa");
     return kMinFlingVelocity * 2.0;
   }
 
-  // Methodology:
-  // 1- Use https://github.com/flutter/platform_tests/tree/master/scroll_overlay to test with
-  //    Flutter and platform scroll views superimposed.
-  // 3- If the scrollables stopped overlapping at any moment, adjust the desired
-  //    output value of this function at that input speed.
-  // 4- Feed new input/output set into a power curve fitter. Change function
-  //    and repeat from 2.
-  // 5- Repeat from 2 with medium and slow flings.
-  /// Momentum build-up function that mimics iOS's scroll speed increase with repeated flings.
-  ///
-  /// The velocity of the last fling is not an important factor. Existing speed
-  /// and (related) time since last fling are factors for the velocity transfer
-  /// calculations.
   @override
   double carriedMomentum(double existingVelocity) {
-    logger.info("ttttttt来了pppppppppp");
+    // logger.info("ttttttt来了pppppppppp");
 
     return existingVelocity.sign *
         math.min(0.000816 * math.pow(existingVelocity.abs(), 1.967).toDouble(),
             40000.0);
   }
 
-  // Eyeballed from observation to counter the effect of an unintended scroll
-  // from the natural motion of lifting the finger after a scroll.
   @override
   double get dragStartDistanceMotionThreshold => 3.5;
 
@@ -204,8 +173,7 @@ class MyBouncingScrollPhysics extends ScrollPhysics {
 
   @override
   SpringDescription get spring {
-    logger.info("ttttttt来了77777777");
-
+    // logger.info("ttttttt来了77777777");
     switch (decelerationRate) {
       case ScrollDecelerationRate.fast:
         return SpringDescription.withDampingRatio(
@@ -227,13 +195,13 @@ class MyClampingScrollPhysics extends ScrollPhysics {
 
   @override
   MyClampingScrollPhysics applyTo(ScrollPhysics? ancestor) {
-    logger.info("ccccccccccc来了1111111111");
+    // logger.info("ccccccccccc来了1111111111");
     return MyClampingScrollPhysics(parent: buildParent(ancestor));
   }
 
   @override
   double applyBoundaryConditions(ScrollMetrics position, double value) {
-    logger.info("ccccccccccc来了2222222222222");
+    // logger.info("ccccccccccc来了2222222222222");
 
     // return 500.w;
     assert(() {
@@ -258,33 +226,33 @@ class MyClampingScrollPhysics extends ScrollPhysics {
       return true;
     }());
 
-    logger.info("ccccccccccc来了2222222222222a");
+    // logger.info("ccccccccccc来了2222222222222a");
 
     if (value < position.pixels &&
         position.pixels <= position.minScrollExtent) {
       // Underscroll.
-      logger.info("ccccccccccc来了2222222222222aUnderscroll.");
+      // logger.info("ccccccccccc来了2222222222222aUnderscroll.");
 
       return value - position.pixels;
     }
     if (position.maxScrollExtent <= position.pixels &&
         position.pixels < value) {
       // Overscroll.
-      logger.info("ccccccccccc来了2222222222222aOverscroll.");
+      // logger.info("ccccccccccc来了2222222222222aOverscroll.");
 
       return value - position.pixels;
     }
     if (value < position.minScrollExtent &&
         position.minScrollExtent < position.pixels) {
       // Hit top edge.
-      logger.info("ccccccccccc来了2222222222222aHit top edge.");
+      // logger.info("ccccccccccc来了2222222222222aHit top edge.");
 
       return value - position.minScrollExtent;
     }
     if (position.pixels < position.maxScrollExtent &&
         position.maxScrollExtent < value) {
       // Hit bottom edge.
-      logger.info("ccccccccccc来了2222222222222aHit bottom edge.");
+      // logger.info("ccccccccccc来了2222222222222aHit bottom edge.");
 
       return value - position.maxScrollExtent;
     }
@@ -294,7 +262,7 @@ class MyClampingScrollPhysics extends ScrollPhysics {
   @override
   Simulation? createBallisticSimulation(
       ScrollMetrics position, double velocity) {
-    logger.info("ccccccccccc来了333333333333");
+    // logger.info("ccccccccccc来了333333333333");
 
     final Tolerance tolerance = toleranceFor(position);
     if (position.outOfRange) {
@@ -315,17 +283,17 @@ class MyClampingScrollPhysics extends ScrollPhysics {
       );
     }
     if (velocity.abs() < tolerance.velocity) {
-      logger.info("qqqqqqqqq velocity.abs() < tolerance.velocity");
+      // logger.info("qqqqqqqqq velocity.abs() < tolerance.velocity");
       return null;
     }
     if (velocity > 0.0 && position.pixels >= position.maxScrollExtent) {
-      logger.info(
-          "qqqqqqqqq velocity > 0.0 && position.pixels >= position.maxScrollExtent");
+      // logger.info(
+      //     "qqqqqqqqq velocity > 0.0 && position.pixels >= position.maxScrollExtent");
       return null;
     }
     if (velocity < 0.0 && position.pixels <= position.minScrollExtent) {
-      logger.info(
-          "qqqqqqqqq velocity < 0.0 && position.pixels <= position.minScrollExtent");
+      // logger.info(
+      //     "qqqqqqqqq velocity < 0.0 && position.pixels <= position.minScrollExtent");
       return null;
     }
 

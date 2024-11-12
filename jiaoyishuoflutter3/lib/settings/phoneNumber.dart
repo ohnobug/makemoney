@@ -17,6 +17,8 @@ class LJNPhoneNumber extends StatefulWidget {
 class _LJNPhoneNumber extends State<LJNPhoneNumber> {
   double _statusHeight = 0;
 
+  bool isHide = true;
+
   @override
   void initState() {
     super.initState();
@@ -45,6 +47,13 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
       _statusHeight = MediaQuery.of(context).padding.top;
     }
     Size screenSize = MediaQuery.of(context).size;
+
+    String phone = vm.userinfoPhone is String ? vm.userinfoPhone! : "";
+
+    if (isHide) {
+      phone =
+          '${phone.substring(0, 6)}${'*' * (phone.length - 10)}${phone.substring(phone.length - 4, phone.length)}';
+    }
 
     return Scaffold(
         primary: false,
@@ -98,7 +107,7 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                         parent: BouncingScrollPhysics()),
                     child: Container(
                         width: screenSize.width,
-                        padding: EdgeInsets.only(left: 70.w, right: 70.w),
+                        // padding: EdgeInsets.only(left: 70.w, right: 70.w),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -120,8 +129,10 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                                     fontFamily: "AlibabaPuHuiTi-Medium",
                                   ),
                                 ),
+
+                                // 手机号
                                 Text(
-                                  '18825130917',
+                                  phone,
                                   strutStyle:
                                       StrutStyle(fontSize: 37.w, height: 1.08),
                                   style: TextStyle(
@@ -131,29 +142,39 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                                   ),
                                 ),
                                 SizedBox(width: 13.w), // 间隔
-                                Text(
-                                  '隐藏',
-                                  strutStyle:
-                                      StrutStyle(fontSize: 37.w, height: 1.08),
-                                  style: TextStyle(
-                                      height: 1.08,
-                                      fontSize: 25.w,
-                                      fontFamily: "AlibabaPuHuiTi",
-                                      color: const Color.fromARGB(
-                                          255, 64, 69, 118)),
-                                ),
+
+                                GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isHide = !isHide;
+                                      });
+                                    },
+                                    child: Text(
+                                      isHide ? '隐藏' : "显示",
+                                      strutStyle: StrutStyle(
+                                          fontSize: 37.w, height: 1.08),
+                                      style: TextStyle(
+                                          height: 1.08,
+                                          fontSize: 25.w,
+                                          fontFamily: "AlibabaPuHuiTi",
+                                          color: const Color.fromARGB(
+                                              255, 64, 69, 118)),
+                                    )),
                               ],
                             ),
                             SizedBox(
                               height: 30.w,
                             ),
-                            Text(
-                              "已绑定手机号，轻触下方按钮可了解手机通信录中哪些朋友注册了账号。",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontSize: 27.0.w,
-                                  fontFamily: "AlibabaPuHuiTi"),
-                            ),
+                            Container(
+                                padding:
+                                    EdgeInsets.only(left: 70.w, right: 70.w),
+                                child: Text(
+                                  "已绑定手机号，轻触下方按钮可了解手机通信录中哪些朋友注册了账号。",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 27.0.w,
+                                      fontFamily: "AlibabaPuHuiTi"),
+                                )),
                             SizedBox(
                               height: 720.w,
                               child: null,
@@ -162,7 +183,7 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                               title: '查看手机通讯录',
                               color: Colors.white,
                               backgroundColor: Color.fromARGB(255, 52, 192, 95),
-                              // link: "",
+                              link: "/phone_contact",
                               readonly: false,
                             ),
                             SizedBox(

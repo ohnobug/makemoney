@@ -18,6 +18,7 @@ import 'package:jiaoyishuoflutter3/search.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/settings/accountAndSecure.dart';
 import 'package:jiaoyishuoflutter3/settings/changeAccount.dart';
+import 'package:jiaoyishuoflutter3/settings/contact.dart';
 import 'package:jiaoyishuoflutter3/settings/forgotPassword.dart';
 import 'package:jiaoyishuoflutter3/settings/phoneNumber.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
@@ -157,6 +158,7 @@ void main() async {
 
   myStore.dispatch({"type": "userinfoName", "payload": "李俊杰"});
   myStore.dispatch({"type": "userinfoAccount", "payload": "TheMonsterClub"});
+  myStore.dispatch({"type": "userinfoPhone", "payload": "+8618825130917"});
   myStore.dispatch({"type": "walletBalance", "payload": 5602547.36});
   myStore.dispatch({"type": "walletFoundationBalance", "payload": 0.0});
   myStore
@@ -249,6 +251,8 @@ class TabBarApp extends StatelessWidget {
                     return pageRouteBuilderAnimation(const LJNForgotPassword());
                   } else if (settings.name == '/phone_number') {
                     return pageRouteBuilderAnimation(const LJNPhoneNumber());
+                  } else if (settings.name == '/phone_contact') {
+                    return pageRouteBuilderAnimation(const LJNPhoneContact());
                   }
 
                   return null;

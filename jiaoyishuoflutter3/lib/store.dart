@@ -47,6 +47,8 @@ final ThemeData darkTheme = ThemeData(
 class StoreType {
   String? userinfoName; // 昵称
   String? userinfoAccount; // 账号
+  String? userinfoPhone; // 手机
+
   double? walletBalance; // 余额
   double? walletFoundationBalance; // 基金余额
   String? userinfoAvatar; // 头像
@@ -72,6 +74,7 @@ class StoreType {
   StoreType({
     this.userinfoName,
     this.userinfoAccount,
+    this.userinfoPhone,
     this.walletBalance,
     this.walletFoundationBalance,
     this.userinfoAvatar,
@@ -94,6 +97,7 @@ class StoreType {
   StoreType copyWith({
     String? userinfoName,
     String? userinfoAccount,
+    String? userinfoPhone,
     double? walletBalance,
     double? walletFoundationBalance,
     String? userinfoAvatar,
@@ -115,6 +119,7 @@ class StoreType {
     return StoreType(
       userinfoName: userinfoName ?? this.userinfoName,
       userinfoAccount: userinfoAccount ?? this.userinfoAccount,
+      userinfoPhone: userinfoPhone ?? this.userinfoPhone,
       walletBalance: walletBalance ?? this.walletBalance,
       walletFoundationBalance:
           walletFoundationBalance ?? this.walletFoundationBalance,
@@ -149,6 +154,10 @@ StoreType counterReducer(StoreType state, dynamic action) {
 
   if (action['type'] == "userinfoAccount") {
     return state.copyWith(userinfoAccount: action['payload']);
+  }
+
+  if (action['type'] == "userinfoPhone") {
+    return state.copyWith(userinfoPhone: action['payload']);
   }
 
   if (action['type'] == "walletBalance") {
@@ -222,6 +231,7 @@ final myStore = Store<StoreType>(counterReducer,
     initialState: StoreType(
         userinfoName: "",
         userinfoAccount: "",
+        userinfoPhone: "",
         walletBalance: 0.0,
         walletFoundationBalance: 0.0,
         userinfoAvatar: "",
