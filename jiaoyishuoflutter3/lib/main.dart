@@ -22,6 +22,7 @@ import 'package:jiaoyishuoflutter3/settings/contact.dart';
 import 'package:jiaoyishuoflutter3/settings/forgotPassword.dart';
 import 'package:jiaoyishuoflutter3/settings/phoneNumber.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
+import 'package:jiaoyishuoflutter3/settings/verifyPhone.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
@@ -253,6 +254,8 @@ class TabBarApp extends StatelessWidget {
                     return pageRouteBuilderAnimation(const LJNPhoneNumber());
                   } else if (settings.name == '/phone_contact') {
                     return pageRouteBuilderAnimation(const LJNPhoneContact());
+                  } else if (settings.name == '/verify_phone') {
+                    return pageRouteBuilderAnimation(const LJNVerifyPhone());
                   }
 
                   return null;

@@ -105,7 +105,7 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                 child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics()),
-                    child: Container(
+                    child: SizedBox(
                         width: screenSize.width,
                         // padding: EdgeInsets.only(left: 70.w, right: 70.w),
                         child: Column(
@@ -193,7 +193,7 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                               title: '更换手机号',
                               // color: Colors.white,
                               // backgroundColor: Color.fromARGB(255, 52, 192, 95),
-                              // link: "",
+                              link: "/verify_phone",
                               readonly: false,
                             ),
                           ],
