@@ -477,6 +477,8 @@ class FunctionButtonState extends State<FunctionButton> {
                   assetPath(widget.icon),
                   width: 92.w,
                   height: 92.w,
+                  cacheHeight: 180.w.toInt(),
+                  cacheWidth: 180.w.toInt(),
                   fit: BoxFit.cover, // 让图片完全填满圆形区域
                 ),
               ),

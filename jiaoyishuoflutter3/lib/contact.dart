@@ -694,19 +694,19 @@ class _ContactInformationState extends State<ContactInformation> {
         child: Row(
           children: [
             // 头像
-            Container(
-              width: 75.0.w,
-              height: 75.0.w,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(7).w,
-                image: DecorationImage(
-                  image: ResizeImage(AssetImage(assetPath(widget.icon)),
-                      width: 150.w.toInt(), height: 150.w.toInt()),
-                  fit: BoxFit.cover,
-                ),
+            ClipRRect(
+              borderRadius:
+                  BorderRadius.circular(7.0.w), // Adjust the radius as needed
+              child: Image.asset(
+                assetPath(widget.icon),
+                width: 75.0.w,
+                height: 75.0.w,
+                cacheHeight: 150.w.toInt(),
+                cacheWidth: 150.w.toInt(),
+                fit: BoxFit.cover,
               ),
             ),
+
             SizedBox(width: 25.w),
             Expanded(
               child: Container(
