@@ -616,21 +616,16 @@ class _ChatListItem extends State<ChatListItem> {
               child: Row(
                 children: [
                   // 头像
-                  Container(
-                    width: 95.0.w,
-                    height: 95.0.w,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: ResizeImage(
-                          AssetImage(assetPath(widget.avatar)),
-                          width: 190.w.toInt(),
-                          height: 190.w.toInt(),
-                        ),
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(95).w,
+                      child: Image.asset(
+                        assetPath('images/avatar_webp/chat_4.webp'),
+                        cacheWidth: 190.w.toInt(),
+                        cacheHeight: 190.w.toInt(),
+                        width: 95.w,
+                        height: 95.w,
                         fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
+                      )),
 
                   SizedBox(width: 23.w),
 

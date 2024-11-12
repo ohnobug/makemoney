@@ -1190,6 +1190,12 @@ class _BigImageBox extends State<BigImageBox> {
             color: const Color.fromARGB(255, 247, 247, 247),
             child: show
                 ? Image.asset(
+                    width: (MediaQuery.of(context).size.width - 2.w) / 3,
+                    height: 500.w,
+                    cacheWidth:
+                        (((MediaQuery.of(context).size.width - 2.w) / 3) * 2)
+                            .toInt(),
+                    cacheHeight: (500.w * 2).toInt(),
                     fit: BoxFit.cover,
                     assetPath(widget.image),
                   )
@@ -1302,6 +1308,12 @@ class _SmallImageBox extends State<SmallImageBox> {
               color: const Color.fromARGB(255, 247, 247, 247),
               child: show
                   ? Image.asset(
+                      width: (MediaQuery.of(context).size.width - 2.w) / 3,
+                      height: (500.w - 1.w) / 2,
+                      cacheWidth:
+                          (((MediaQuery.of(context).size.width - 2.w) / 3) * 2)
+                              .toInt(),
+                      cacheHeight: (500.w - 1.w).toInt(),
                       assetPath(widget.image),
                       fit: BoxFit.cover,
                     )

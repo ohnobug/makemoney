@@ -463,20 +463,18 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                         children: [
                                           // 背景图片
                                           Transform.translate(
-                                              offset: Offset(0, -100.w),
-                                              child: Image(
-                                                image: ResizeImage(
-                                                  AssetImage(assetPath(
-                                                      'images/avatar/fj.jpg')),
-                                                  width: 1500.w.toInt(),
-                                                  height:
-                                                      (_statusHeight + 1260.w)
-                                                          .toInt(), // 新的高度
-                                                ),
-                                                width: 750.w,
-                                                height: 730.w,
-                                                fit: BoxFit.cover,
-                                              )),
+                                            offset: Offset(0, -100.w),
+                                            child: Image.asset(
+                                              assetPath('images/avatar/fj.jpg'),
+                                              cacheWidth: 1500.w.toInt(),
+                                              cacheHeight:
+                                                  (_statusHeight + 1260.w)
+                                                      .toInt(),
+                                              width: 750.w,
+                                              height: 730.w,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
 
                                           // 头像及昵称
                                           Positioned(
@@ -507,27 +505,22 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                                       ),
                                                     ),
                                                   ),
-                                                  // 头像
-                                                  Container(
-                                                    width: 120.w,
-                                                    height: 120.w,
-                                                    decoration: BoxDecoration(
+                                                  ClipRRect(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              10.w),
-                                                    ),
-                                                    clipBehavior: Clip
-                                                        .hardEdge, // 使 borderRadius 生效
-                                                    child: Image(
-                                                      image: ResizeImage(
-                                                        AssetImage(assetPath(vm
-                                                            .userinfoAvatar!)),
-                                                        width: 240.w.toInt(),
-                                                        height: 240.w.toInt(),
-                                                      ),
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
+                                                                  10)
+                                                              .w,
+                                                      child: Image.asset(
+                                                        assetPath(
+                                                            vm.userinfoAvatar!),
+                                                        cacheWidth:
+                                                            240.w.toInt(),
+                                                        cacheHeight:
+                                                            240.w.toInt(),
+                                                        width: 120.w,
+                                                        height: 120.w,
+                                                        fit: BoxFit.cover,
+                                                      )),
                                                 ],
                                               ),
                                             ),
@@ -841,24 +834,21 @@ class _TweetWidget extends State<TweetWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          // 头像
-          Container(
-            width: 77.w,
-            height: 77.w,
-            margin: EdgeInsets.only(left: 37.w),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.w),
-            ),
-            clipBehavior: Clip.hardEdge, // 使 borderRadius 生效
-            child: Image(
-              image: ResizeImage(
-                AssetImage(assetPath(widget.avatarUrl)),
-                width: 154.w.toInt(),
-                height: 154.w.toInt(),
-              ),
-              fit: BoxFit.cover,
-            ),
+          SizedBox(
+            width: 37.w,
           ),
+
+          // 头像
+          ClipRRect(
+              borderRadius: BorderRadius.circular(10).w,
+              child: Image.asset(
+                assetPath(widget.avatarUrl),
+                cacheWidth: 154.w.toInt(),
+                cacheHeight: 154.w.toInt(),
+                width: 77.w,
+                height: 77.w,
+                fit: BoxFit.cover,
+              )),
 
           SizedBox(
             width: 20.w,
@@ -938,17 +928,13 @@ class _TweetWidget extends State<TweetWidget> {
                                   if (imagePath == '') {
                                     return const SizedBox();
                                   } else {
-                                    return SizedBox(
+                                    return Image.asset(
+                                      assetPath(imagePath),
+                                      cacheWidth: 380.w.toInt(),
+                                      cacheHeight: 380.w.toInt(),
                                       width: 186.w,
                                       height: 186.w,
-                                      child: Image(
-                                        image: ResizeImage(
-                                          AssetImage(assetPath(imagePath)),
-                                          width: 380.w.toInt(),
-                                          height: 380.w.toInt(),
-                                        ),
-                                        fit: BoxFit.cover,
-                                      ),
+                                      fit: BoxFit.cover,
                                     );
                                   }
                                 }).toList(),

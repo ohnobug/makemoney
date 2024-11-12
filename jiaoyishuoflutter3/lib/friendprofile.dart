@@ -166,26 +166,23 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Container(
-                                          width: 120.w,
-                                          height: 120.w,
-                                          margin: EdgeInsets.only(
-                                              left: 30.w, right: 45.w),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.w),
-                                            child: Image(
-                                              width: 120.w,
-                                              height: 120.w,
-                                              image: ResizeImage(
-                                                AssetImage(
-                                                    assetPath(widget.avatar!)),
-                                                width: 240.w.toInt(),
-                                                height: 240.w.toInt(),
-                                              ),
-                                              fit: BoxFit.cover,
-                                            ),
+                                        SizedBox(
+                                          width: 30.w,
+                                        ),
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10.w),
+                                          child: Image.asset(
+                                            assetPath(widget.avatar!),
+                                            width: 120.w,
+                                            height: 120.w,
+                                            cacheWidth: 240.w.toInt(),
+                                            cacheHeight: 240.w.toInt(),
+                                            fit: BoxFit.cover,
                                           ),
+                                        ),
+                                        SizedBox(
+                                          width: 45.w,
                                         ),
                                         Expanded(
                                           flex: 1,
@@ -296,12 +293,11 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Image(
-                                          image: ResizeImage(
-                                              AssetImage(assetPath(
-                                                  'images/avatar_webp/chat_81.webp')),
-                                              width: 180.w.toInt(),
-                                              height: 180.w.toInt()),
+                                        Image.asset(
+                                          assetPath(
+                                              'images/avatar_webp/chat_81.webp'),
+                                          cacheWidth: 180.w.toInt(),
+                                          cacheHeight: 180.w.toInt(),
                                           width: 90.w,
                                           height: 90.w,
                                           fit: BoxFit.cover,
@@ -309,12 +305,11 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                         SizedBox(
                                           width: 15.w,
                                         ),
-                                        Image(
-                                          image: ResizeImage(
-                                              AssetImage(assetPath(
-                                                  'images/avatar_webp/chat_92.webp')),
-                                              width: 180.w.toInt(),
-                                              height: 180.w.toInt()),
+                                        Image.asset(
+                                          assetPath(
+                                              'images/avatar_webp/chat_92.webp'),
+                                          cacheWidth: 180.w.toInt(),
+                                          cacheHeight: 180.w.toInt(),
                                           width: 90.w,
                                           height: 90.w,
                                           fit: BoxFit.cover,
@@ -322,12 +317,11 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                         SizedBox(
                                           width: 15.w,
                                         ),
-                                        Image(
-                                          image: ResizeImage(
-                                              AssetImage(assetPath(
-                                                  'images/avatar_webp/chat_93.webp')),
-                                              width: 180.w.toInt(),
-                                              height: 180.w.toInt()),
+                                        Image.asset(
+                                          assetPath(
+                                              'images/avatar_webp/chat_93.webp'),
+                                          cacheWidth: 180.w.toInt(),
+                                          cacheHeight: 180.w.toInt(),
                                           width: 90.w,
                                           height: 90.w,
                                           fit: BoxFit.cover,
@@ -335,12 +329,11 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                         SizedBox(
                                           width: 15.w,
                                         ),
-                                        Image(
-                                          image: ResizeImage(
-                                              AssetImage(assetPath(
-                                                  'images/avatar_webp/chat_86.webp')),
-                                              width: 180.w.toInt(),
-                                              height: 180.w.toInt()),
+                                        Image.asset(
+                                          assetPath(
+                                              'images/avatar_webp/chat_86.webp'),
+                                          cacheWidth: 180.w.toInt(),
+                                          cacheHeight: 180.w.toInt(),
                                           width: 90.w,
                                           height: 90.w,
                                           fit: BoxFit.cover,
@@ -391,12 +384,11 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Image(
-                                              image: ResizeImage(
-                                                  AssetImage(assetPath(
-                                                      'images/avatar_webp/chat_94.webp')),
-                                                  width: 180.w.toInt(),
-                                                  height: 180.w.toInt()),
+                                            Image.asset(
+                                              assetPath(
+                                                  'images/avatar_webp/chat_55.webp'),
+                                              cacheWidth: 180.w.toInt(),
+                                              cacheHeight: 180.w.toInt(),
                                               width: 90.w,
                                               height: 90.w,
                                               fit: BoxFit.cover,
@@ -404,12 +396,11 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                             SizedBox(
                                               width: 15.w,
                                             ),
-                                            Image(
-                                              image: ResizeImage(
-                                                  AssetImage(assetPath(
-                                                      'images/avatar_webp/chat_95.webp')),
-                                                  width: 180.w.toInt(),
-                                                  height: 180.w.toInt()),
+                                            Image.asset(
+                                              assetPath(
+                                                  'images/avatar_webp/chat_43.webp'),
+                                              cacheWidth: 180.w.toInt(),
+                                              cacheHeight: 180.w.toInt(),
                                               width: 90.w,
                                               height: 90.w,
                                               fit: BoxFit.cover,
@@ -417,12 +408,11 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                             SizedBox(
                                               width: 15.w,
                                             ),
-                                            Image(
-                                              image: ResizeImage(
-                                                  AssetImage(assetPath(
-                                                      'images/avatar_webp/chat_96.webp')),
-                                                  width: 180.w.toInt(),
-                                                  height: 180.w.toInt()),
+                                            Image.asset(
+                                              assetPath(
+                                                  'images/avatar_webp/chat_96.webp'),
+                                              cacheWidth: 180.w.toInt(),
+                                              cacheHeight: 180.w.toInt(),
                                               width: 90.w,
                                               height: 90.w,
                                               fit: BoxFit.cover,
@@ -430,16 +420,15 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                             SizedBox(
                                               width: 15.w,
                                             ),
-                                            Image(
-                                              image: ResizeImage(
-                                                  AssetImage(assetPath(
-                                                      'images/avatar_webp/chat_97.webp')),
-                                                  width: 180.w.toInt(),
-                                                  height: 180.w.toInt()),
+                                            Image.asset(
+                                              assetPath(
+                                                  'images/avatar_webp/chat_97.webp'),
+                                              cacheWidth: 180.w.toInt(),
+                                              cacheHeight: 180.w.toInt(),
                                               width: 90.w,
                                               height: 90.w,
                                               fit: BoxFit.cover,
-                                            )
+                                            ),
                                           ])
                                     ],
                                   )),

@@ -85,22 +85,20 @@ class _LJNUserPageState extends State<LJNUserPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/userinfo');
-                                },
-                                child: ClipRRect(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/userinfo');
+                              },
+                              child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10).w,
-                                  child: Image(
-                                    image: ResizeImage(
-                                        AssetImage(
-                                            assetPath(vm.userinfoAvatar!)),
-                                        width: 240.w.toInt(),
-                                        height: 240.w.toInt()),
+                                  child: Image.asset(
+                                    assetPath(vm.userinfoAvatar!),
+                                    cacheWidth: 240.w.toInt(),
+                                    cacheHeight: 240.w.toInt(),
                                     width: 120.w,
                                     height: 120.w,
                                     fit: BoxFit.cover,
-                                  ),
-                                )),
+                                  )),
+                            ),
 
                             SizedBox(width: 30.w),
 

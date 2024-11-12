@@ -130,17 +130,15 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               ClipRRect(
-                                borderRadius: BorderRadius.circular(10).w,
-                                child: Image(
-                                  image: ResizeImage(
-                                      AssetImage(assetPath(vm.userinfoAvatar!)),
-                                      width: 240.w.toInt(),
-                                      height: 240.w.toInt()),
-                                  width: 120.w,
-                                  height: 120.w,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
+                                  borderRadius: BorderRadius.circular(10).w,
+                                  child: Image.asset(
+                                    assetPath(vm.userinfoAvatar!),
+                                    cacheWidth: 240.w.toInt(),
+                                    cacheHeight: 240.w.toInt(),
+                                    width: 120.w,
+                                    height: 120.w,
+                                    fit: BoxFit.cover,
+                                  )),
                             ]),
                         underline: true,
                       ),
@@ -164,7 +162,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                       LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "微信号",
-                        link: '',
+                        link: '/accountinfo',
                         showStyle: vm.userinfoAccount!,
                         underline: true,
                       ),

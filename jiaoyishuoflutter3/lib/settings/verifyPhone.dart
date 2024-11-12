@@ -181,6 +181,9 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                               Expanded(
                                   flex: 1,
                                   child: TextField(
+                                    style: TextStyle(
+                                      fontSize: 30.w,
+                                    ),
                                     autofocus: true,
                                     cursorColor:
                                         const Color.fromRGBO(62, 174, 86, 1.0),
@@ -190,6 +193,10 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                     },
                                     decoration: InputDecoration(
                                       hintText: '你本人的手机号',
+                                      hintStyle: TextStyle(
+                                          fontSize: 30.w,
+                                          color: const Color.fromARGB(
+                                              255, 147, 147, 147)),
                                       labelText: '',
                                       isDense: true,
                                       border: UnderlineInputBorder(

@@ -407,22 +407,21 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 1.w, color: Colors.white),
-                                  borderRadius:
-                                      BorderRadius.circular(6.w), // 可以调整圆角的半径大小
-                                  image: DecorationImage(
-                                    image: ResizeImage(
-                                        AssetImage(assetPath(
-                                            'images/avatar/baolong.png')),
-                                        width: 120.w.toInt(),
-                                        height: 120.w.toInt()),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
                                 width: 61.w,
                                 height: 61.w,
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(6.w), // 圆角
+                                  border: Border.all(
+                                    width: 1.w, // 边框宽度
+                                    color: Colors.white, // 边框颜色
+                                  ),
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        assetPath('images/avatar/baolong.png')),
+                                    fit: BoxFit.cover, // 图像填充方式
+                                  ),
+                                ),
                               ),
                               SizedBox(width: 15.w),
                               Expanded(

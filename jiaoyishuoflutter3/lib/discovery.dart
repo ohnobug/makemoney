@@ -80,14 +80,12 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                         children: [
                           ClipRRect(
                               borderRadius: BorderRadius.circular(6).w,
-                              child: Image(
-                                image: ResizeImage(
-                                    AssetImage(assetPath(
-                                        'images/avatar_webp/chat_4.webp')),
-                                    width: 120.w.toInt(),
-                                    height: 120.w.toInt()),
+                              child: Image.asset(
+                                assetPath('images/avatar_webp/chat_4.webp'),
                                 width: 60.w,
                                 height: 60.w,
+                                cacheWidth: 120.w.toInt(),
+                                cacheHeight: 120.w.toInt(),
                                 fit: BoxFit.cover,
                               )),
                           SizedBox(
@@ -137,12 +135,10 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           ),
                           ClipRRect(
                               borderRadius: BorderRadius.circular(60).w,
-                              child: Image(
-                                image: ResizeImage(
-                                    AssetImage(assetPath(
-                                        'images/avatar_webp/chat_4.webp')),
-                                    width: 120.w.toInt(),
-                                    height: 120.w.toInt()),
+                              child: Image.asset(
+                                assetPath('images/avatar_webp/chat_4.webp'),
+                                cacheWidth: 120.w.toInt(),
+                                cacheHeight: 120.w.toInt(),
                                 width: 60.w,
                                 height: 60.w,
                                 fit: BoxFit.cover,

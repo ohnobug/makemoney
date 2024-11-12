@@ -110,18 +110,15 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                           });
                     },
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.w),
-                      child: Image(
-                        image: ResizeImage(
-                          AssetImage(assetPath(vm.userinfoAvatar!)),
-                          width: 156.w.toInt(),
-                          height: 156.w.toInt(),
-                        ),
-                        width: 78.w,
-                        height: 78.w,
-                        fit: BoxFit.cover,
-                      ),
-                    ))
+                        borderRadius: BorderRadius.circular(8).w,
+                        child: Image.asset(
+                          assetPath(vm.userinfoAvatar!),
+                          cacheWidth: 156.w.toInt(),
+                          cacheHeight: 156.w.toInt(),
+                          width: 78.w,
+                          height: 78.w,
+                          fit: BoxFit.cover,
+                        )))
               ],
             ),
           );

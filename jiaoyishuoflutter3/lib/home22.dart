@@ -951,20 +951,6 @@ class _ChatListItem extends State<ChatListItem> {
               child: Row(
                 children: [
                   // 头像
-                  // Container(
-                  //   width: 90.0.w,
-                  //   height: 90.0.w,
-                  //   decoration: BoxDecoration(
-                  //     shape: BoxShape.rectangle,
-                  //     borderRadius: BorderRadius.circular(10).w,
-                  //     image: DecorationImage(
-                  //       image: ResizeImage(AssetImage(assetPath(widget.avatar)),
-                  //           width: 180.w.toInt(), height: 180.w.toInt()),
-                  //       fit: BoxFit.cover,
-                  //     ),
-                  //   ),
-                  // ),
-
                   ClipRRect(
                     borderRadius: BorderRadius.circular(
                         10.0.w), // Adjust the radius as needed

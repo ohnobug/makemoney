@@ -40,18 +40,15 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
               },
               // 头像
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.w),
-                child: Image(
-                  image: ResizeImage(
-                    AssetImage(assetPath(widget.friendAvatar)),
-                    width: 156.w.toInt(),
-                    height: 156.w.toInt(),
-                  ),
-                  width: 78.w,
-                  height: 78.w,
-                  fit: BoxFit.cover,
-                ),
-              )),
+                  borderRadius: BorderRadius.circular(8).w,
+                  child: Image.asset(
+                    assetPath(widget.friendAvatar),
+                    cacheWidth: 156.w.toInt(),
+                    cacheHeight: 156.w.toInt(),
+                    width: 78.w,
+                    height: 78.w,
+                    fit: BoxFit.cover,
+                  ))),
 
           // SizedBox(width: 10.w,),
           // 姓名与消息

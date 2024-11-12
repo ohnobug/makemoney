@@ -587,19 +587,16 @@ class _ContactListItem extends State<ContactListItem> {
       child: Row(
         children: [
           // 头像
-          Container(
-            width: 90.0.w,
-            height: 90.0.w,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(10).w,
-              image: DecorationImage(
-                image: ResizeImage(AssetImage(assetPath(widget.avatar)),
-                    width: 180.w.toInt(), height: 180.w.toInt()),
+          ClipRRect(
+              borderRadius: BorderRadius.circular(8).w,
+              child: Image.asset(
+                assetPath(widget.avatar),
+                cacheWidth: 180.w.toInt(),
+                cacheHeight: 180.w.toInt(),
+                width: 90.w,
+                height: 90.w,
                 fit: BoxFit.cover,
-              ),
-            ),
-          ),
+              )),
 
           SizedBox(width: 23.w),
 
