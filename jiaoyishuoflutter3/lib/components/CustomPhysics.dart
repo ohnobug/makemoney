@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
 import 'dart:math' as math;
 
 class CustomScrollPhysics extends ScrollPhysics {

@@ -6,12 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LJNMyMessage extends StatefulWidget {
   const LJNMyMessage(
-      {super.key,
-      required this.message,
-      required this.showName,
-      required this.name});
+      {super.key, required this.message, required this.showName, this.name});
 
-  final String name;
+  final String? name;
   final bool showName;
   final String message;
 
@@ -48,7 +45,7 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  widget.name,
+                                  widget.name ?? vm.userinfoName!,
                                   style: TextStyle(
                                       height: 1.08,
                                       fontSize: fontSizeScale(20.w),

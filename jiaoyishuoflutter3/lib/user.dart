@@ -6,7 +6,6 @@ import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
-import 'package:redux/redux.dart';
 
 import 'components/LJNFunctionItem.dart';
 
@@ -391,7 +390,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "表情",
                         icon: "images/icon/icon6.png",
-                        link: '',
+                        link: '/test',
                         underline: false,
                       ),
                       Container(

@@ -72,7 +72,7 @@ List<InlineSpan> buildTextSpans(
       ));
     }
 
-    double fontHeight = (fontTextStyle.height! * fontTextStyle.fontSize!);
+    // double fontHeight = (fontTextStyle.height! * fontTextStyle.fontSize!);
     double iconHeight = (iconTextStyle.height! * iconTextStyle.fontSize!);
 
     // 添加emoji
