@@ -49,6 +49,8 @@ class _LJNChatPage extends State<LJNChatPage>
   late Animation<double> _widthAnimation;
   late Animation<Color?> _colorAnimation;
 
+  late AnimationController _animationContentController;
+
   List<StatefulWidget> messageList = [];
 
   double _statusHeight = 0;
@@ -59,6 +61,12 @@ class _LJNChatPage extends State<LJNChatPage>
   @override
   void initState() {
     super.initState();
+
+    // 初始化 _animationContentController
+    _animationContentController = AnimationController(
+      duration: const Duration(milliseconds: 500), // 动画持续时间
+      vsync: this,
+    );
 
     messageList.add(const LJNMyMessage(
       message: '西门庆："今晚，我们开始吧，准备好了吗？"',
@@ -231,7 +239,7 @@ class _LJNChatPage extends State<LJNChatPage>
 
       if (inputFocusNode.hasFocus) {
         setState(() {
-          keyboardIsShow = true;
+          showKeyboard = true;
           showIconsSelector = false;
         });
       } else {
@@ -267,8 +275,7 @@ class _LJNChatPage extends State<LJNChatPage>
   }
 
   double maxBottomInsets = 0;
-  bool keyboardIsShow = false;
-  double contentHeight = 0;
+  bool showKeyboard = false;
   double preBottomInsets = 0;
 
   @override
@@ -280,43 +287,56 @@ class _LJNChatPage extends State<LJNChatPage>
       _statusHeight = MediaQuery.of(context).padding.top;
     }
 
-    // 键盘高度
-    final bottomInsets = MediaQuery.of(context).viewInsets.bottom;
+    // // 键盘高度
+    // final bottomInsets = MediaQuery.of(context).viewInsets.bottom;
 
-    if (bottomInsets == 0) {
-      keyboardIsShow = false;
-    }
+    // if (bottomInsets == 0) {
+    //   showKeyboard = false;
+    // } else {
+    //   showKeyboard = true;
+    // }
 
-    late bool keyboardShrinking;
-    if (preBottomInsets > bottomInsets) {
-      keyboardShrinking = true;
-      // logger.info("aaaaaaaaaaaaa 键盘正在缩小");
-    } else {
-      keyboardShrinking = false;
-      // logger.info("aaaaaaaaaaaaa 键盘正在增大");
-    }
+    // late bool keyboardShrinking;
+    // if (preBottomInsets > bottomInsets) {
+    //   keyboardShrinking = true;
+    //   // logger.info("aaaaaaaaaaaaa 键盘正在缩小");
+    // } else {
+    //   keyboardShrinking = false;
+    //   // logger.info("aaaaaaaaaaaaa 键盘正在增大");
+    // }
 
-    // 记录
-    preBottomInsets = bottomInsets;
+    // // 记录
+    // preBottomInsets = bottomInsets;
 
-    maxBottomInsets = max(bottomInsets, maxBottomInsets);
+    // maxBottomInsets = max(bottomInsets, maxBottomInsets);
 
-    logger.info("aaaaaaaaaaaaa showIconsSelector: $showIconsSelector");
-    logger.info("aaaaaaaaaaaaa contentHeight: $contentHeight");
-    logger.info("aaaaaaaaaaaaa keyboardIsShow: $keyboardIsShow");
-    logger.info("aaaaaaaaaaaaa maxBottomInsets: $maxBottomInsets");
-    logger.info(
-        "aaaaaaaaaaaaa inputFocusNode.hasFocus2: ${inputFocusNode.hasFocus}");
-    if (showIconsSelector) {
-      contentHeight = 600.w;
-    } else {
-      // 键盘出来了
-      if (keyboardShrinking) {
-        contentHeight = bottomInsets;
-      } else {
-        contentHeight = maxBottomInsets;
-      }
-    }
+    // logger.info("aaaaaaaaaaaaa showIconsSelector: $showIconsSelector");
+    // logger.info("aaaaaaaaaaaaa showKeyboard: $showKeyboard");
+    // logger.info("aaaaaaaaaaaaa maxBottomInsets: $maxBottomInsets");
+    // logger.info(
+    //     "aaaaaaaaaaaaa inputFocusNode.hasFocus2: ${inputFocusNode.hasFocus}");
+    // if (showIconsSelector) {
+    //   contentHeight = 600.w;
+    // } else {
+    //   if (showKeyboard) {
+    //     // 键盘出来了
+    //     if (keyboardShrinking) {
+    //       contentHeight = bottomInsets;
+    //     } else {
+    //       contentHeight = maxBottomInsets;
+    //     }
+    //   }
+    // }
+
+    // logger.info("aaaaaaaaaaaaa contentHeight: $contentHeight");
+    // double contentHeight = 0;
+    // if (showIconsSelector == true || showKeyboard == true) {
+    //   if (showIconsSelector == true) {
+    //     contentHeight = 600.w;
+    //   }
+    // } else {
+    //   contentHeight = 0;
+    // }
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -390,297 +410,336 @@ class _LJNChatPage extends State<LJNChatPage>
                       ],
                     ),
                   )),
-              body: Column(
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: Listener(
-                        onPointerDown: (event) {
-                          SystemChannels.textInput
-                              .invokeMethod("TextInput.hide");
-                        },
-                        child: ColoredBox(
-                            color: const Color.fromARGB(255, 237, 237, 237),
-                            child: ScrollConfiguration(
-                              behavior: ScrollConfiguration.of(context)
-                                  .copyWith(scrollbars: false),
-                              child: SingleChildScrollView(
-                                controller: _scrollController,
-                                keyboardDismissBehavior:
-                                    ScrollViewKeyboardDismissBehavior.onDrag,
-                                physics: const AlwaysScrollableScrollPhysics(
-                                    parent: BouncingScrollPhysics()),
-                                child: messageList.isEmpty
-                                    ? Container()
-                                    : Column(
-                                        children: messageList,
-                                      ),
-                              ),
-                            )),
-                      )),
+              body: SizedBox(
+                  width: screenSize.width,
+                  height: screenSize.height,
+                  child: Column(
+                    children: [
+                      Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: () {
+                              // 隐藏键盘
+                              SystemChannels.textInput
+                                  .invokeMethod('TextInput.hide');
 
-                  // 输入部分
-                  Expanded(
-                      flex: 0,
-                      child: Container(
-                          constraints: BoxConstraints(minHeight: 107.w),
-                          width: screenSize.width,
-                          padding: const EdgeInsets.only(top: 16, bottom: 16).w,
-                          // margin: EdgeInsets.only(bottom: inputMarginBottom),
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 247, 247, 247),
-                              border: Border(
-                                  top: BorderSide(
-                                color: const Color.fromARGB(255, 231, 231, 231),
-                                width: 1.5.w,
-                                style: BorderStyle.solid,
-                              ))),
-                          child: Row(
-                            // mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              // 语音按钮
-                              Container(
-                                  // color: Colors.amber,
-                                  width: 57.w,
-                                  height: 57.w,
-                                  margin: EdgeInsets.only(
-                                      left: 20.w, right: 20.w, bottom: 10.w),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      logger.info("语音被点击"); // 点击事件
-                                    },
-                                    child: Icon(
-                                      const IconData(
-                                        0xe66c,
-                                        fontFamily: 'Iconfont',
-                                      ),
-                                      size: 56.w, // 图标大小
-                                    ),
-                                  )),
+                              setState(() {
+                                // 隐藏emoji选择器
+                                showIconsSelector = false;
 
-                              // 消息框
-                              Expanded(
-                                  child:
-                                      // C:\flutter\packages\flutter\lib\src\widgets\editable_text.dart  4239行控制必须得到焦点才显示光标
-                                      TextField(
-                                readOnly: false,
-                                autofocus: false,
-                                showCursor: true,
-                                controller: inputController,
-                                focusNode: inputFocusNode,
-                                onTap: () {
-                                  // 显示键盘
-                                  SystemChannels.textInput
-                                      .invokeMethod('TextInput.show');
-
-                                  setState(() {
-                                    // 隐藏emoji选择器
-                                    showIconsSelector = false;
-                                    // 隐藏键盘
-                                    keyboardIsShow = true;
-                                  });
-                                },
-                                onTapOutside: (event) {
-                                  // 隐藏键盘
-                                  SystemChannels.textInput
-                                      .invokeMethod('TextInput.hide');
-
-                                  setState(() {
-                                    // 隐藏emoji选择器
-                                    showIconsSelector = false;
-                                    // 隐藏键盘
-                                    keyboardIsShow = false;
-                                  });
-                                },
-                                cursorColor:
-                                    const Color.fromRGBO(62, 174, 86, 1.0),
-                                // cursorHeight: 44.w,
-                                cursorWidth: 3.w,
-                                style: TextStyle(
-                                    // height: 1.08,
-                                    fontSize: fontSizeScale(30.w),
-                                    color: Colors.black),
-                                // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
-                                maxLines: 5,
-                                minLines: 1,
-                                onChanged: (newText) {
-                                  inputController.value =
-                                      inputController.value.copyWith(
-                                    text: newText,
-                                    selection: TextSelection.fromPosition(
-                                      TextPosition(offset: newText.length),
-                                    ),
-                                  );
-
-                                  if (inputController.text.isEmpty) {
-                                    _animationController
-                                        .reverse()
-                                        .whenComplete(() {
-                                      setState(() {
-                                        showPlusIcon = true;
-                                      });
-                                    });
-                                  } else {
-                                    setState(() {
-                                      showPlusIcon = false;
-                                    });
-                                    _animationController.forward();
-                                  }
-                                },
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  // focusColor: Colors.red,
-                                  hoverColor: Colors.white,
-                                  isCollapsed: true,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                          vertical: 14, horizontal: 16)
-                                      .w,
-                                  border: const OutlineInputBorder(
-                                      gapPadding: 0,
-                                      borderSide: BorderSide.none),
-                                  // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                  // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                  // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                  // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                  // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                ),
-                              )),
-
-                              // 笑脸按钮
-                              Container(
-                                // color: Colors.amber,
-                                width: 57.w,
-                                height: 57.w,
-                                margin: EdgeInsets.only(
-                                    left: 20.w, right: 25.w, bottom: 10.w),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    if (showIconsSelector == true) {
-                                      SystemChannels.textInput
-                                          .invokeMethod('TextInput.show');
-                                      setState(() {
-                                        showIconsSelector = false;
-                                        keyboardIsShow = true;
-                                      });
-                                    } else {
-                                      // inputFocusNode.unfocus();
-                                      SystemChannels.textInput
-                                          .invokeMethod('TextInput.hide');
-                                      setState(() {
-                                        showIconsSelector = true;
-                                        keyboardIsShow = false;
-                                      });
-                                    }
-
-                                    logger.info("笑脸被点击"); // 点击事件
-                                  },
-                                  child: Icon(
-                                    const IconData(
-                                      0xe702,
-                                      fontFamily: 'Iconfont',
-                                    ),
-                                    size: 49.w, // 图标大小
+                                // 隐藏键盘
+                                showKeyboard = false;
+                              });
+                            },
+                            child: ColoredBox(
+                                color: const Color.fromARGB(255, 237, 237, 237),
+                                child: ScrollConfiguration(
+                                  behavior: ScrollConfiguration.of(context)
+                                      .copyWith(scrollbars: false),
+                                  child: SingleChildScrollView(
+                                    controller: _scrollController,
+                                    keyboardDismissBehavior:
+                                        ScrollViewKeyboardDismissBehavior
+                                            .onDrag,
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(
+                                            parent: BouncingScrollPhysics()),
+                                    child: messageList.isEmpty
+                                        ? Container()
+                                        : Column(
+                                            children: messageList,
+                                          ),
                                   ),
-                                ),
-                              ),
+                                )),
+                          )),
 
-                              // 发送按钮 与 图标变换
-                              AnimatedBuilder(
-                                animation: _animationController,
-                                builder: (context, child) {
-                                  _width = _widthAnimation.value;
-                                  _color = _colorAnimation.value!;
-
-                                  return Visibility(
-                                      visible: !showPlusIcon,
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              var message =
-                                                  inputController.text;
-
-                                              messageList.add(LJNMyMessage(
-                                                message: message.trimRight(),
-                                                name: vm.userinfoName as String,
-                                                showName: false,
-                                              ));
-                                              inputController.text = "";
-
-                                              // SystemChannels.textInput
-                                              //     .invokeMethod("TextInput.show");
-                                              // WidgetsBinding.instance
-                                              // .addPostFrameCallback((_) {
-                                              // inputFocusNode.requestFocus()
-                                              // FocusScope.of(context)
-                                              // .requestFocus(inputFocusNode);
-                                              // });
-                                            });
-                                          },
-                                          child: Container(
-                                            margin: const EdgeInsets.only(
-                                                    bottom: 8, right: 15)
-                                                .w,
-                                            width: _width,
-                                            height: 60.w,
-                                            decoration: BoxDecoration(
-                                              color: _color,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(10.w)),
-                                            ),
-                                            child: _width >= 113.w
-                                                ? Center(
-                                                    child: Text(
-                                                      "发送",
-                                                      style: TextStyle(
-                                                          height: 1.08,
-                                                          fontSize:
-                                                              fontSizeScale(
-                                                                  27.w),
-                                                          color: Colors.white),
-                                                    ),
-                                                  )
-                                                : null,
-                                          )));
-                                },
-                              ),
-
-                              // 加号
-                              Visibility(
-                                  visible: showPlusIcon,
-                                  child: Container(
+                      // 输入部分
+                      Expanded(
+                          flex: 0,
+                          child: Container(
+                              constraints: BoxConstraints(minHeight: 107.w),
+                              width: screenSize.width,
+                              padding:
+                                  const EdgeInsets.only(top: 16, bottom: 16).w,
+                              // margin: EdgeInsets.only(bottom: inputMarginBottom),
+                              decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 247, 247, 247),
+                                  border: Border(
+                                      top: BorderSide(
+                                    color: const Color.fromARGB(
+                                        255, 231, 231, 231),
+                                    width: 1.5.w,
+                                    style: BorderStyle.solid,
+                                  ))),
+                              child: Row(
+                                // mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  // 语音按钮
+                                  Container(
                                       // color: Colors.amber,
                                       width: 57.w,
                                       height: 57.w,
                                       margin: EdgeInsets.only(
-                                          right: 20.w, bottom: 10.w),
+                                          left: 20.w,
+                                          right: 20.w,
+                                          bottom: 10.w),
                                       child: GestureDetector(
                                         onTap: () {
-                                          logger.info("加号被点击"); // 点击事件
+                                          logger.info("语音被点击"); // 点击事件
                                         },
                                         child: Icon(
                                           const IconData(
-                                            0xe726,
+                                            0xe66c,
                                             fontFamily: 'Iconfont',
                                           ),
-                                          size: 57.w, // 图标大小
+                                          size: 56.w, // 图标大小
                                         ),
-                                      )))
-                            ],
-                          ))),
+                                      )),
 
-                  // 图标选择器
-                  Expanded(
-                      flex: 0,
-                      child: Container(
-                          width: screenSize.width,
-                          height: contentHeight,
-                          color: Colors.red,
-                          child:
-                              keyboardIsShow ? null : const LJNIconsSelector()))
-                ],
-              ));
+                                  // 消息框
+                                  Expanded(
+                                      child:
+                                          // C:\flutter\packages\flutter\lib\src\widgets\editable_text.dart  4239行控制必须得到焦点才显示光标
+                                          TextField(
+                                    readOnly: false,
+                                    autofocus: false,
+                                    showCursor: true,
+                                    controller: inputController,
+                                    focusNode: inputFocusNode,
+                                    onTap: () {
+                                      // 显示键盘
+                                      SystemChannels.textInput
+                                          .invokeMethod('TextInput.show');
+
+                                      setState(() {
+                                        // 显示图标选择器
+                                        showIconsSelector = false;
+                                        // 显示键盘
+                                        showKeyboard = true;
+                                      });
+                                    },
+                                    // onTapOutside: (event) {
+                                    //   // 隐藏键盘
+                                    //   SystemChannels.textInput
+                                    //       .invokeMethod('TextInput.hide');
+
+                                    //   setState(() {
+                                    //     // 隐藏emoji选择器
+                                    //     showIconsSelector = false;
+                                    //     // 隐藏键盘
+                                    //     showKeyboard = false;
+                                    //   });
+                                    // },
+                                    cursorColor:
+                                        const Color.fromRGBO(62, 174, 86, 1.0),
+                                    // cursorHeight: 44.w,
+                                    cursorWidth: 3.w,
+                                    style: TextStyle(
+                                        // height: 1.08,
+                                        fontSize: fontSizeScale(30.w),
+                                        color: Colors.black),
+                                    // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
+                                    maxLines: 5,
+                                    minLines: 1,
+                                    onChanged: (newText) {
+                                      inputController.value =
+                                          inputController.value.copyWith(
+                                        text: newText,
+                                        selection: TextSelection.fromPosition(
+                                          TextPosition(offset: newText.length),
+                                        ),
+                                      );
+
+                                      if (inputController.text.isEmpty) {
+                                        _animationController
+                                            .reverse()
+                                            .whenComplete(() {
+                                          setState(() {
+                                            showPlusIcon = true;
+                                          });
+                                        });
+                                      } else {
+                                        setState(() {
+                                          showPlusIcon = false;
+                                        });
+                                        _animationController.forward();
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                      fillColor: Colors.white,
+                                      filled: true,
+                                      // focusColor: Colors.red,
+                                      hoverColor: Colors.white,
+                                      isCollapsed: true,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                                  vertical: 14, horizontal: 16)
+                                              .w,
+                                      border: const OutlineInputBorder(
+                                          gapPadding: 0,
+                                          borderSide: BorderSide.none),
+                                      // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                      // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                      // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                      // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                      // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                    ),
+                                  )),
+
+                                  // 笑脸按钮
+                                  Container(
+                                    // color: Colors.amber,
+                                    width: 57.w,
+                                    height: 57.w,
+                                    margin: EdgeInsets.only(
+                                        left: 20.w, right: 25.w, bottom: 10.w),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if (showIconsSelector == true) {
+                                          // 表情面板打开
+                                          _animationContentController
+                                              .reverse()
+                                              .then((_) {
+                                            setState(() {
+                                              showIconsSelector = false;
+                                              showKeyboard = true;
+                                              // SystemChannels.textInput
+                                              //     .invokeMethod('TextInput.show');
+                                            });
+                                          });
+                                        } else {
+                                          SystemChannels.textInput
+                                              .invokeMethod('TextInput.hide');
+
+                                          // 表情面板打开
+                                          _animationContentController
+                                              .forward()
+                                              .then((_) {
+                                            setState(() {
+                                              showIconsSelector = true;
+                                              showKeyboard = false;
+                                            });
+                                          });
+                                        }
+
+                                        logger.info("笑脸被点击"); // 点击事件
+                                      },
+                                      child: Icon(
+                                        const IconData(
+                                          0xe702,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        size: 49.w, // 图标大小
+                                      ),
+                                    ),
+                                  ),
+
+                                  // 发送按钮 与 图标变换
+                                  AnimatedBuilder(
+                                    animation: _animationController,
+                                    builder: (context, child) {
+                                      _width = _widthAnimation.value;
+                                      _color = _colorAnimation.value!;
+
+                                      return Visibility(
+                                          visible: !showPlusIcon,
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  var message =
+                                                      inputController.text;
+
+                                                  messageList.add(LJNMyMessage(
+                                                    message:
+                                                        message.trimRight(),
+                                                    name: vm.userinfoName
+                                                        as String,
+                                                    showName: false,
+                                                  ));
+                                                  inputController.text = "";
+
+                                                  // SystemChannels.textInput
+                                                  //     .invokeMethod("TextInput.show");
+                                                  // WidgetsBinding.instance
+                                                  // .addPostFrameCallback((_) {
+                                                  // inputFocusNode.requestFocus()
+                                                  // FocusScope.of(context)
+                                                  // .requestFocus(inputFocusNode);
+                                                  // });
+                                                });
+                                              },
+                                              child: Container(
+                                                margin: const EdgeInsets.only(
+                                                        bottom: 8, right: 15)
+                                                    .w,
+                                                width: _width,
+                                                height: 60.w,
+                                                decoration: BoxDecoration(
+                                                  color: _color,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              10.w)),
+                                                ),
+                                                child: _width >= 113.w
+                                                    ? Center(
+                                                        child: Text(
+                                                          "发送",
+                                                          style: TextStyle(
+                                                              height: 1.08,
+                                                              fontSize:
+                                                                  fontSizeScale(
+                                                                      27.w),
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      )
+                                                    : null,
+                                              )));
+                                    },
+                                  ),
+
+                                  // 加号
+                                  Visibility(
+                                      visible: showPlusIcon,
+                                      child: Container(
+                                          // color: Colors.amber,
+                                          width: 57.w,
+                                          height: 57.w,
+                                          margin: EdgeInsets.only(
+                                              right: 20.w, bottom: 10.w),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              logger.info("加号被点击"); // 点击事件
+                                            },
+                                            child: Icon(
+                                              const IconData(
+                                                0xe726,
+                                                fontFamily: 'Iconfont',
+                                              ),
+                                              size: 57.w, // 图标大小
+                                            ),
+                                          )))
+                                ],
+                              ))),
+
+                      // 图标选择器
+                      AnimatedBuilder(
+                        animation: _animationContentController,
+                        builder: (context, child) {
+                          return Expanded(
+                              flex: 0,
+                              child: Container(
+                                  width: screenSize.width,
+                                  height: _animationContentController.value,
+                                  color: Colors.red,
+                                  child: const LJNIconsSelector()));
+                        },
+                      ),
+                    ],
+                  )));
         });
   }
 }
