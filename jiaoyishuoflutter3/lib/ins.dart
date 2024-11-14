@@ -729,16 +729,12 @@ class _LJNInsPage extends State<LJNInsPage> {
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
-                          // 背景容器
-                          Container(
-                            color: const Color.fromARGB(71, 0, 0, 0), // 背景颜色
-                          ),
-                          // 背景毛玻璃效果
                           BackdropFilter(
                             filter: ImageFilter.blur(
                                 sigmaX: 5.0, sigmaY: 5.0), // 模糊强度
                             child: Container(
-                              color: Colors.transparent, // 透明背景以显示毛玻璃效果
+                              color: const Color.fromARGB(
+                                  71, 0, 0, 0), // 带透明度的背景颜色
                             ),
                           ),
                           // 前景内容
@@ -1192,9 +1188,9 @@ class _BigImageBox extends State<BigImageBox> {
                 ? Image.asset(
                     width: (MediaQuery.of(context).size.width - 2.w) / 3,
                     height: 500.w,
-                    cacheWidth:
-                        (((MediaQuery.of(context).size.width - 2.w) / 3) * 2)
-                            .toInt(),
+                    // cacheWidth:
+                    //     (((MediaQuery.of(context).size.width - 2.w) / 3) * 2)
+                    //         .toInt(),
                     cacheHeight: (500.w * 2).toInt(),
                     fit: BoxFit.cover,
                     assetPath(widget.image),
@@ -1310,9 +1306,9 @@ class _SmallImageBox extends State<SmallImageBox> {
                   ? Image.asset(
                       width: (MediaQuery.of(context).size.width - 2.w) / 3,
                       height: (500.w - 1.w) / 2,
-                      cacheWidth:
-                          (((MediaQuery.of(context).size.width - 2.w) / 3) * 2)
-                              .toInt(),
+                      // cacheWidth:
+                      //     (((MediaQuery.of(context).size.width - 2.w) / 3) * 2)
+                      //         .toInt(),
                       cacheHeight: (500.w - 1.w).toInt(),
                       assetPath(widget.image),
                       fit: BoxFit.cover,

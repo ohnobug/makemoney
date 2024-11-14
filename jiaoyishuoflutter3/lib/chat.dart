@@ -864,6 +864,8 @@ class _LJNChatPage extends State<LJNChatPage>
                                                   ));
                                                   inputController.text = "";
 
+                                                  _scrollToEnd();
+
                                                   // SystemChannels.textInput
                                                   //     .invokeMethod("TextInput.show");
                                                   // WidgetsBinding.instance
