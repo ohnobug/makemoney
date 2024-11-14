@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +9,7 @@ import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/emojiSelector.dart';
+// import 'package:keyboard_height_plugin/keyboard_height_plugin.dart';
 
 import 'components/LJNMyMessage.dart';
 import 'tools/tools.dart';
@@ -53,13 +56,14 @@ class _LJNChatPage extends State<LJNChatPage>
 
   double _statusHeight = 0;
 
-  final double _keyboardHeight = 280.3076923076923;
-  double maxKeyboradHeight = 280.3076923076923;
+  // 键盘高度
+  double maxKeyboradHeight = 0;
+
+  // 第一次打开键盘
+  bool isFirstOpenKeyborad = true;
 
   bool showKeyboard = false;
   double preBottomInsets = 0;
-
-  // final KeyboardHeightPlugin _keyboardHeightPlugin = KeyboardHeightPlugin();
 
   @override
   void initState() {
@@ -67,7 +71,8 @@ class _LJNChatPage extends State<LJNChatPage>
 
     // 初始化 _animationContentController
     _animationContentController = AnimationController(
-      duration: const Duration(milliseconds: 300), // 动画持续时间
+      duration: const Duration(milliseconds: 100), // 动画持续时间
+      reverseDuration: const Duration(milliseconds: 50), // 动画持续时间,
       vsync: this,
     );
 
@@ -77,11 +82,6 @@ class _LJNChatPage extends State<LJNChatPage>
         curve: Curves.easeInOut,
       ),
     );
-    // _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
-    //   setState(() {
-    //     _keyboardHeight = height;
-    //   });
-    // });
 
     _animationController = AnimationController(
       vsync: this,
@@ -106,24 +106,9 @@ class _LJNChatPage extends State<LJNChatPage>
     // inputController.text =
     // "生活就像一幅绚丽多彩的画卷，每个人都是这幅画的创作者。在这漫长的人生旅途中，我们用自己的经历、情感和梦想为这幅画增添着独特的色彩。";
     WidgetsBinding.instance.addObserver(this);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      logger.info("aaaaaaaaaaa WidgetsBinding.instance.addPostFrameCallback");
-      _scrollToEnd();
-    });
-
-    // 监听焦点变化
-    // inputFocusNode.addListener(() {
-    //   logger.info(
-    //       "aaaaaaaaaaaaa inputFocusNode.hasFocus: ${inputFocusNode.hasFocus}");
-
-    //   if (inputFocusNode.hasFocus) {
-    //     setState(() {
-    //       showKeyboard = true;
-    //       showEmojiSelector = false;
-    //     });
-    //   } else {
-    //     // logger.info("TextField lost focus");
-    //   }
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   logger.info("aaaaaaaaaaa WidgetsBinding.instance.addPostFrameCallback");
+    //   _scrollToEnd();
     // });
 
     messageList.add(const LJNMyMessage(
@@ -262,6 +247,10 @@ class _LJNChatPage extends State<LJNChatPage>
       message: '准备好了，永远准备好。',
       showName: false,
     ));
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToEnd();
+    });
   }
 
   void _scrollToEnd() {
@@ -274,53 +263,87 @@ class _LJNChatPage extends State<LJNChatPage>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     inputFocusNode.dispose();
+    _animationContentController.dispose();
+    _animationController.dispose();
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+
     super.dispose();
   }
 
   bool isKeyboardActived = false;
+  double currentKeyboradHeight = 0;
+
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
+    detectKeyborad1();
+  }
 
-    // // 检测键盘是否弹出
-    // final bottomInset = View.of(context).viewInsets.bottom;
+  void detectKeyborad1() {
+    final bottom = EdgeInsets.fromViewPadding(
+            View.of(context).viewInsets, View.of(context).devicePixelRatio)
+        .bottom;
 
-    // final bottomInsets = MediaQuery.of(context).viewInsets.bottom;
+    setState(() {
+      if (bottom + 50 < 280) {
+        currentKeyboradHeight = bottom + 50;
+      } else {
+        currentKeyboradHeight = bottom;
+      }
+    });
 
-    // final bottom = EdgeInsets.fromViewPadding(
-    //         View.of(context).viewInsets, View.of(context).devicePixelRatio)
-    //     .bottom;
+    // 获取最高点
+    maxKeyboradHeight = max(bottom, maxKeyboradHeight);
 
-    // maxKeyboradHeight = max(bottom, maxKeyboradHeight);
+    // 如果是第一次打开键盘则记录
+    if (isFirstOpenKeyborad) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        _keyboradAnimation =
+            Tween<double>(begin: 0, end: maxKeyboradHeight).animate(
+          CurvedAnimation(
+            parent: _animationContentController,
+            curve: Curves.easeInOut,
+          ),
+        );
 
-    // _animationContentController.value = bottom / maxKeyboradHeight;
-    // if (bottom == 0) {
-    //   setState(() {
-    //     showKeyboard = false;
-    //   });
-    // }
-    // if (maxKeyboradHeight > 280) {
-    //   setState(() {
-    //     showKeyboard = true;
-    //   });
-    // }
+        // 直接设置高度，在第一次打开完键盘后，会切换为动画，所以动画状态也要设置到maxKeyboradHeight
+        _animationContentController.value = 1;
 
-    // logger.info("aaaaaaaaaaa bottomInset: $bottomInset");
-    // logger.info("aaaaaaaaaaa bottomInsets: $bottomInsets");
-    // logger.info("aaaaaaaaaaa bottom: $bottom");
+        setState(() {
+          showKeyboard = true;
+          isFirstOpenKeyborad = false;
+        });
 
-    // if (bottomInset > 0) {
-    //   // 键盘弹出，滚动到最底部
-    //   _scrollToEnd();
-    // }
+        _scrollToEnd();
+      });
+    }
+  }
+
+  double lastKeyboradHeight = 0;
+  void detectKeyborad2() {
+    final bottom = EdgeInsets.fromViewPadding(
+            View.of(context).viewInsets, View.of(context).devicePixelRatio)
+        .bottom;
+
+    if (showKeyboard == true && lastKeyboradHeight > bottom) {
+      showKeyboard = false;
+
+      logger.info("aaaaaaaa 用户关闭");
+
+      // 检测到键盘用户主动关闭
+      hideKeyboardFunc(bottom / maxKeyboradHeight);
+    }
+
+    lastKeyboradHeight = bottom;
   }
 
   // 显示键盘
-  void showKeyboardFunc() {
+  void showKeyboardFunc([double? value]) {
     // 显示键盘
     SystemChannels.textInput.invokeMethod('TextInput.show');
 
-    _keyboradAnimation = Tween<double>(begin: 0, end: _keyboardHeight).animate(
+    _keyboradAnimation =
+        Tween<double>(begin: 0, end: maxKeyboradHeight).animate(
       CurvedAnimation(
         parent: _animationContentController,
         curve: Curves.easeInOut,
@@ -334,18 +357,23 @@ class _LJNChatPage extends State<LJNChatPage>
       showKeyboard = true;
     });
 
-    _animationContentController.reset();
+    _animationContentController.value = value ?? 0;
 
     // 表情面板打开
-    _animationContentController.forward();
+    _animationContentController.forward().then((_) {
+      _scrollToEnd();
+    });
   }
 
   // 显示键盘
-  void hideKeyboardFunc() {
+  void hideKeyboardFunc([double? value]) {
+    logger.info("aaaaaaaa begin: $value");
+
     // 隐藏键盘
     SystemChannels.textInput.invokeMethod('TextInput.hide');
 
-    _keyboradAnimation = Tween<double>(begin: _keyboardHeight, end: 0).animate(
+    _keyboradAnimation =
+        Tween<double>(begin: 0, end: maxKeyboradHeight).animate(
       CurvedAnimation(
         parent: _animationContentController,
         curve: Curves.easeInOut,
@@ -359,38 +387,82 @@ class _LJNChatPage extends State<LJNChatPage>
       showKeyboard = false;
     });
 
-    _animationContentController.reset();
+    _animationContentController.value = value ?? 1;
 
     // 表情面板打开
-    _animationContentController.forward();
+    _animationContentController.reverse();
   }
 
   // 笑脸切换到键盘
   void switchKeyboradFunc() {
     SystemChannels.textInput.invokeMethod('TextInput.show');
 
-    _keyboradAnimation =
-        Tween<double>(begin: 600.w, end: _keyboardHeight).animate(
-      CurvedAnimation(
-        parent: _animationContentController,
-        curve: Curves.easeInOut,
-      ),
-    );
+    // 如果没有键盘高度则降到大约的位置后矫正
+    if (isFirstOpenKeyborad) {
+      _keyboradAnimation = Tween<double>(begin: 280, end: 600.w).animate(
+        CurvedAnimation(
+          parent: _animationContentController,
+          curve: Curves.easeInOut,
+        ),
+      );
 
-    setState(() {
-      // 显示图标选择器
-      showEmojiSelector = false;
-      // 显示键盘
-      showKeyboard = true;
-    });
+      setState(() {
+        // 显示图标选择器
+        showEmojiSelector = false;
+        // 显示键盘
+        showKeyboard = true;
+      });
 
-    _animationContentController.reset();
+      _animationContentController.value = 1;
 
-    // 表情面板打开
-    _animationContentController.forward();
+      // 表情面板打开
+      _animationContentController.reverse().then((_) {
+        _scrollToEnd();
+      });
+
+      // 得到键盘高度后矫正
+      Future.delayed(const Duration(milliseconds: 500), () {
+        _keyboradAnimation =
+            Tween<double>(begin: maxKeyboradHeight, end: 280.w).animate(
+          CurvedAnimation(
+            parent: _animationContentController,
+            curve: Curves.easeInOut,
+          ),
+        );
+
+        _animationContentController.value = 1;
+
+        // 表情面板打开
+        _animationContentController.reverse().then((_) {
+          _scrollToEnd();
+        });
+      });
+    } else {
+      _keyboradAnimation =
+          Tween<double>(begin: maxKeyboradHeight, end: 600.w).animate(
+        CurvedAnimation(
+          parent: _animationContentController,
+          curve: Curves.easeInOut,
+        ),
+      );
+
+      setState(() {
+        // 显示图标选择器
+        showEmojiSelector = false;
+        // 显示键盘
+        showKeyboard = true;
+      });
+
+      _animationContentController.value = 1;
+
+      // 表情面板打开
+      _animationContentController.reverse().then((_) {
+        _scrollToEnd();
+      });
+    }
   }
 
-  void showEmojiFunc() {
+  void showEmojiFunc([double? value]) {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     _keyboradAnimation = Tween<double>(begin: 0, end: 600.w).animate(
       CurvedAnimation(
@@ -406,25 +478,27 @@ class _LJNChatPage extends State<LJNChatPage>
       showKeyboard = false;
     });
 
-    _animationContentController.reset();
+    _animationContentController.value = value ?? 0;
 
     // 表情面板打开
-    _animationContentController.forward();
+    _animationContentController.forward().then((_) {
+      _scrollToEnd();
+    });
   }
 
-  void hideEmojiFunc() {
+  void hideEmojiFunc([double? value]) {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
 
-    _keyboradAnimation = Tween<double>(begin: 600.w, end: 0.w).animate(
+    _keyboradAnimation = Tween<double>(begin: 0, end: 600.w).animate(
       CurvedAnimation(
         parent: _animationContentController,
         curve: Curves.easeInOut,
       ),
     );
 
-    _animationContentController.reset();
+    _animationContentController.value = value ?? 1;
     // 表情面板打开
-    _animationContentController.forward().then((_) {
+    _animationContentController.reverse().then((_) {
       setState(() {
         // 显示图标选择器
         showEmojiSelector = false;
@@ -439,7 +513,7 @@ class _LJNChatPage extends State<LJNChatPage>
     SystemChannels.textInput.invokeMethod('TextInput.hide');
 
     _keyboradAnimation =
-        Tween<double>(begin: _keyboardHeight, end: 600.w).animate(
+        Tween<double>(begin: maxKeyboradHeight, end: 600.w).animate(
       CurvedAnimation(
         parent: _animationContentController,
         curve: Curves.easeInOut,
@@ -453,20 +527,26 @@ class _LJNChatPage extends State<LJNChatPage>
       showKeyboard = false;
     });
 
-    _animationContentController.reset();
+    _animationContentController.value = 0;
 
     // 表情面板打开
-    _animationContentController.forward();
+    _animationContentController.forward().then((_) {
+      _scrollToEnd();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    logger.info("aaaaaaa 来了 $lastKeyboradHeight $showKeyboard");
+
     Size screenSize = MediaQuery.of(context).size;
     if (kIsWeb) {
       _statusHeight = 0;
     } else {
       _statusHeight = MediaQuery.of(context).padding.top;
     }
+
+    detectKeyborad2();
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -549,10 +629,20 @@ class _LJNChatPage extends State<LJNChatPage>
                           flex: 1,
                           child: GestureDetector(
                             onTap: () {
+                              logger.info(
+                                  "aaaaaaaa showEmojiSelector: $showEmojiSelector _animationContentController.value: ${_animationContentController.value}");
+
                               if (showEmojiSelector == true) {
-                                hideEmojiFunc();
+                                // 如果是上升过程，取消显示，则需要打断，从打断的位置下降
+                                hideEmojiFunc(
+                                    _animationContentController.isAnimating
+                                        ? _animationContentController.value
+                                        : 0);
                               } else if (showKeyboard == true) {
-                                hideKeyboardFunc();
+                                hideKeyboardFunc(
+                                    _animationContentController.isAnimating
+                                        ? _animationContentController.value
+                                        : 0);
                               }
                             },
                             child: ColoredBox(
@@ -622,7 +712,7 @@ class _LJNChatPage extends State<LJNChatPage>
                                         ),
                                       )),
 
-                                  // 消息框
+                                  // 消息输入框
                                   Expanded(
                                       child:
                                           // C:\flutter\packages\flutter\lib\src\widgets\editable_text.dart  4239行控制必须得到焦点才显示光标
@@ -633,9 +723,20 @@ class _LJNChatPage extends State<LJNChatPage>
                                     controller: inputController,
                                     focusNode: inputFocusNode,
                                     onTap: () {
+                                      if (isFirstOpenKeyborad) {
+                                        SystemChannels.textInput
+                                            .invokeMethod('TextInput.show');
+                                        return;
+                                      }
+
                                       if (showEmojiSelector == false &&
                                           showKeyboard == false) {
-                                        showKeyboardFunc();
+                                        showKeyboardFunc(
+                                            _animationContentController
+                                                    .isAnimating
+                                                ? _animationContentController
+                                                    .value
+                                                : 0);
                                       } else if (showEmojiSelector == true &&
                                           showKeyboard == false) {
                                         switchKeyboradFunc();
@@ -708,7 +809,12 @@ class _LJNChatPage extends State<LJNChatPage>
                                       onTap: () {
                                         if (showEmojiSelector == false &&
                                             showKeyboard == false) {
-                                          showEmojiFunc();
+                                          showEmojiFunc(
+                                              _animationContentController
+                                                      .isAnimating
+                                                  ? _animationContentController
+                                                      .value
+                                                  : 0);
                                         } else if (showEmojiSelector == false &&
                                             showKeyboard == true) {
                                           switchEmojiFunc();
@@ -818,12 +924,23 @@ class _LJNChatPage extends State<LJNChatPage>
                       AnimatedBuilder(
                         animation: _animationContentController,
                         builder: (context, child) {
+                          late double height;
+                          if (isFirstOpenKeyborad) {
+                            if (showEmojiSelector) {
+                              height = _keyboradAnimation.value;
+                            } else {
+                              height = currentKeyboradHeight;
+                            }
+                          } else {
+                            height = _keyboradAnimation.value;
+                          }
+
                           return Expanded(
                               flex: 0,
                               child: Container(
                                   width: screenSize.width,
-                                  height: _keyboradAnimation.value,
-                                  color: Colors.red,
+                                  height: height,
+                                  // color: Colors.red,
                                   child: showEmojiSelector
                                       ? const LJNEmojiSelector()
                                       : null));
@@ -834,3 +951,24 @@ class _LJNChatPage extends State<LJNChatPage>
         });
   }
 }
+
+// 面板状态：打开、隐藏
+
+
+// 点击笑脸按钮：
+//     1、笑脸选择器尚未被打开，则0~600动画打开笑脸选择器。
+//     2、当前显示键盘，则切换笑脸选择器。键盘高度~600动画打开笑脸选择器。
+//     3、当前显示笑脸选择器，则切换到键盘，面板高度600~键盘高度。
+
+// 点击聊天记录：
+//     1、笑脸选择器、键盘尚未打开，则无任何效果
+//     2、笑脸选择器打开状态，则600~0动画关闭笑脸选择器。
+//     3、键盘打开状态，则键盘高度~0动画关闭键盘。
+
+// 点击聊天框：
+//     1、如果笑脸选择器和键盘都没打开，则动画打开键盘。（！！！需要考虑第一次打开，没有高度的情况）
+//     2、如果笑脸选择器打开，但键盘没有打开，则动画切换到键盘。（！！！需要考虑第一次打开，没有高度的情况）
+
+
+// 键盘高度获取：
+//     第一次点击笑脸图标和聊天框的时候，记录最大值
