@@ -279,6 +279,7 @@ class _LJNChatPage extends State<LJNChatPage>
     detectKeyborad1();
   }
 
+  // 检测第一次打开
   void detectKeyborad1() {
     final bottom = EdgeInsets.fromViewPadding(
             View.of(context).viewInsets, View.of(context).devicePixelRatio)
@@ -319,8 +320,9 @@ class _LJNChatPage extends State<LJNChatPage>
     }
   }
 
+  // 键盘关闭检测
   double lastKeyboradHeight = 0;
-  void detectKeyborad2() {
+  void keyboradCloseDetect() {
     final bottom = EdgeInsets.fromViewPadding(
             View.of(context).viewInsets, View.of(context).devicePixelRatio)
         .bottom;
@@ -546,7 +548,7 @@ class _LJNChatPage extends State<LJNChatPage>
       _statusHeight = MediaQuery.of(context).padding.top;
     }
 
-    detectKeyborad2();
+    keyboradCloseDetect();
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -739,7 +741,11 @@ class _LJNChatPage extends State<LJNChatPage>
                                                 : 0);
                                       } else if (showEmojiSelector == true &&
                                           showKeyboard == false) {
-                                        switchKeyboradFunc();
+                                        if (isFirstOpenKeyborad) {
+                                          switchKeyboradFunc();
+                                        } else {
+                                          switchKeyboradFunc();
+                                        }
                                       }
                                     },
                                     cursorColor:
