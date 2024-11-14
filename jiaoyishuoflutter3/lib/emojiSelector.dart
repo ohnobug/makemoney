@@ -1937,12 +1937,14 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
                   controller: _scrollController,
                   physics: const AlwaysScrollableScrollPhysics(
                       parent: BouncingScrollPhysics()),
-                  child: SizedBox(
+                  child: Container(
                       width: screenSize.width,
+                      padding: EdgeInsets.only(
+                          left: 20.w, right: 20.w, top: 20.w, bottom: 20.w),
                       child: Wrap(
                         children: List.generate(colors.length, (index) {
                           return Container(
-                            width: screenSize.width / 8,
+                            width: (screenSize.width - 40.w) / 8,
                             height: 90.0.w,
                             alignment: Alignment.center,
                             child: Text(
