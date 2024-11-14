@@ -1,15 +1,13 @@
-import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jiaoyishuoflutter3/components/LJNReceiveMessage.dart';
-import 'package:jiaoyishuoflutter3/components/LJNTestMessage.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/test.dart';
+import 'package:jiaoyishuoflutter3/emojiSelector.dart';
+import 'package:keyboard_height_plugin/keyboard_height_plugin.dart';
 
 import 'components/LJNMyMessage.dart';
 import 'tools/tools.dart';
@@ -35,7 +33,7 @@ class _LJNChatPage extends State<LJNChatPage>
   bool showPlusIcon = true;
 
   // 显示图标选择器
-  bool showIconsSelector = false;
+  bool showEmojiSelector = false;
 
   // 输入框控制器，一般用于获取文本、修改文本等
   TextEditingController inputController = TextEditingController();
@@ -50,13 +48,17 @@ class _LJNChatPage extends State<LJNChatPage>
   late Animation<Color?> _colorAnimation;
 
   late AnimationController _animationContentController;
+  late Animation<double> _keyboradAnimation;
 
   List<StatefulWidget> messageList = [];
 
   double _statusHeight = 0;
 
-  double _width = 0;
-  Color _color = const Color.fromARGB(255, 76, 190, 102);
+  double _keyboardHeight = 500.w;
+  bool showKeyboard = false;
+  double preBottomInsets = 0;
+
+  final KeyboardHeightPlugin _keyboardHeightPlugin = KeyboardHeightPlugin();
 
   @override
   void initState() {
@@ -68,142 +70,13 @@ class _LJNChatPage extends State<LJNChatPage>
       vsync: this,
     );
 
-    messageList.add(const LJNMyMessage(
-      message: '西门庆："今晚，我们开始吧，准备好了吗？"',
-      showName: false,
-    ));
+    _keyboardHeightPlugin.onKeyboardHeightChanged((double height) {
+      setState(() {
+        _keyboardHeight = height;
+      });
+    });
 
-    messageList.add(LJNReceiveMessage(
-      message: '波多野："嗯，准备好了。虽然有点紧张，但我知道我们已经决定了。"',
-      showName: false,
-      friendAvatar: widget.icon,
-      name: widget.title,
-    ));
-    messageList.add(const LJNMyMessage(
-      message: '西门庆："我也是。虽然我们之前谈了很多次，但真的要开始时，心里还是有些忐忑。"',
-      showName: false,
-    ));
-
-    messageList.add(LJNReceiveMessage(
-      message: '波多野："我也是。突然想到，万一不能顺利怀上怎么办？"',
-      showName: false,
-      friendAvatar: widget.icon,
-      name: widget.title,
-    ));
-    messageList.add(const LJNMyMessage(
-      message: '西门庆："别担心，慢慢来。就算不顺利，我们也会一起面对，不急的。最重要的是我们愿意一起尝试，给自己一个机会。"',
-      showName: false,
-    ));
-
-    messageList.add(LJNReceiveMessage(
-      message: '波多野："你说得对，我只是怕自己压力太大，万一做不到怎么办。"',
-      showName: false,
-      friendAvatar: widget.icon,
-      name: widget.title,
-    ));
-    messageList.add(const LJNMyMessage(
-      message: '西门庆："我们做不到的事很少，我相信我们能行。而且，压力大了，放轻松点，别太给自己太多负担。"',
-      showName: false,
-    ));
-
-    messageList.add(LJNReceiveMessage(
-      message: '波多野："嗯，我知道。你也知道，我的身体不是那么好，可能会有点麻烦。"',
-      showName: false,
-      friendAvatar: widget.icon,
-      name: widget.title,
-    ));
-    messageList.add(const LJNMyMessage(
-      message: '西门庆："我知道，但我们一起走这条路，不管怎么样，我们都有彼此支持。我会陪着你，咱们不会有任何困难是过不去的。"',
-      showName: false,
-    ));
-
-    messageList.add(LJNReceiveMessage(
-      message: '波多野："有你在我身边，我就不怕了。你觉得，如果不顺利，我们也不应该急对吧？"',
-      showName: false,
-      friendAvatar: widget.icon,
-      name: widget.title,
-    ));
-    messageList.add(const LJNMyMessage(
-      message: '西门庆："对，别急，顺其自然。如果真有问题，我们可以一起去看医生，解决的办法总有的。"',
-      showName: false,
-    ));
-
-    messageList.add(LJNReceiveMessage(
-      message: '波多野："嗯，既然你这么说，我也放心了。"',
-      showName: false,
-      friendAvatar: widget.icon,
-      name: widget.title,
-    ));
-    messageList.add(LJNReceiveMessage(
-      message: '波多野："其实，我一直很期待有个孩子，能有一个属于我们的家庭。"',
-      showName: false,
-      friendAvatar: widget.icon,
-      name: widget.title,
-    ));
-    messageList.add(const LJNMyMessage(
-      message: '西门庆："我也是。我们将来可以一起看他成长，一起陪着他做作业、玩游戏，甚至一起教他做事。"',
-      showName: false,
-    ));
-
-    messageList.add(LJNReceiveMessage(
-      message: '波多野："你觉得我们的孩子会是什么样的？像你，还是像我？"',
-      showName: false,
-      friendAvatar: widget.icon,
-      name: widget.title,
-    ));
-    messageList.add(const LJNMyMessage(
-      message: '西门庆："不管像谁，都一定是最棒的。"',
-      showName: false,
-    ));
-
-    messageList.add(const LJNMyMessage(
-      message: '西门庆："但我想，他应该会有你的聪明和我的耐心，能很好地适应生活中的挑战。"',
-      showName: false,
-    ));
-
-    messageList.add(LJNReceiveMessage(
-      message: '波多野："那也太完美了吧。希望他能继承我们的优点，少一些缺点。"',
-      showName: false,
-      friendAvatar: widget.icon,
-      name: widget.title,
-    ));
-    messageList.add(const LJNMyMessage(
-      message: '西门庆："无论如何，我们都得给他一个充满爱的家庭，这才是最重要的。"',
-      showName: false,
-    ));
-
-    messageList.add(const LJNMyMessage(
-      message: '西门庆："今晚，就是我们的开始了。"',
-      showName: false,
-    ));
-
-    messageList.add(LJNReceiveMessage(
-      message: '波多野："是的，今晚开始。未来的路我们一起走。"',
-      showName: false,
-      friendAvatar: widget.icon,
-      name: widget.title,
-    ));
-    messageList.add(const LJNMyMessage(
-      message: '西门庆："今晚，我们做的每一步，都是为了未来的孩子，都是为了我们共同的未来。"',
-      showName: false,
-    ));
-
-    messageList.add(LJNReceiveMessage(
-      message: '波多野："嗯，今晚我们就开始，未来的一切，交给时间。"',
-      showName: false,
-      friendAvatar: widget.icon,
-      name: widget.title,
-    ));
-    messageList.add(LJNReceiveMessage(
-      message: '波多野："你准备好了吗？"',
-      showName: false,
-      friendAvatar: widget.icon,
-      name: widget.title,
-    ));
-    messageList.add(const LJNMyMessage(
-      message: '西门庆："准备好了，永远准备好。"',
-      showName: false,
-    ));
+    addList();
 
     _animationController = AnimationController(
       vsync: this,
@@ -233,19 +106,19 @@ class _LJNChatPage extends State<LJNChatPage>
     });
 
     // 监听焦点变化
-    inputFocusNode.addListener(() {
-      logger.info(
-          "aaaaaaaaaaaaa inputFocusNode.hasFocus: ${inputFocusNode.hasFocus}");
+    // inputFocusNode.addListener(() {
+    //   logger.info(
+    //       "aaaaaaaaaaaaa inputFocusNode.hasFocus: ${inputFocusNode.hasFocus}");
 
-      if (inputFocusNode.hasFocus) {
-        setState(() {
-          showKeyboard = true;
-          showIconsSelector = false;
-        });
-      } else {
-        // logger.info("TextField lost focus");
-      }
-    });
+    //   if (inputFocusNode.hasFocus) {
+    //     setState(() {
+    //       showKeyboard = true;
+    //       showEmojiSelector = false;
+    //     });
+    //   } else {
+    //     // logger.info("TextField lost focus");
+    //   }
+    // });
   }
 
   void _scrollToEnd() {
@@ -274,9 +147,135 @@ class _LJNChatPage extends State<LJNChatPage>
     super.didChangeMetrics();
   }
 
-  double maxBottomInsets = 0;
-  bool showKeyboard = false;
-  double preBottomInsets = 0;
+  // 显示键盘
+  void showKeyboardFunc(double keyboardHeight) {
+    // 显示键盘
+    SystemChannels.textInput.invokeMethod('TextInput.show');
+
+    _keyboradAnimation = Tween<double>(begin: 0, end: keyboardHeight).animate(
+      CurvedAnimation(
+        parent: _animationContentController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    setState(() {
+      // 显示图标选择器
+      showEmojiSelector = false;
+      // 隐藏键盘
+      showKeyboard = true;
+    });
+
+    // 表情面板打开
+    _animationContentController.forward();
+  }
+
+  // 显示键盘
+  void hideKeyboardFunc(double keyboardHeight) {
+    // 隐藏键盘
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+    _keyboradAnimation = Tween<double>(begin: keyboardHeight, end: 0).animate(
+      CurvedAnimation(
+        parent: _animationContentController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    setState(() {
+      // 显示图标选择器
+      showEmojiSelector = false;
+      // 隐藏键盘
+      showKeyboard = false;
+    });
+
+    // 表情面板打开
+    _animationContentController.forward();
+  }
+
+  // 笑脸切换到键盘
+  void switchKeyboradFunc(double keyboardHeight) {
+    SystemChannels.textInput.invokeMethod('TextInput.show');
+
+    _keyboradAnimation =
+        Tween<double>(begin: 600.w, end: keyboardHeight).animate(
+      CurvedAnimation(
+        parent: _animationContentController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    setState(() {
+      // 显示图标选择器
+      showEmojiSelector = false;
+      // 显示键盘
+      showKeyboard = true;
+    });
+
+    // 表情面板打开
+    _animationContentController.forward();
+  }
+
+  void showEmojiFunc() {
+    _keyboradAnimation = Tween<double>(begin: 0, end: 600.w).animate(
+      CurvedAnimation(
+        parent: _animationContentController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    setState(() {
+      // 显示图标选择器
+      showEmojiSelector = true;
+      // 隐藏键盘
+      showKeyboard = false;
+    });
+
+    // 表情面板打开
+    _animationContentController.forward();
+  }
+
+  void hideEmojiFunc() {
+    _keyboradAnimation = Tween<double>(begin: 600.w, end: 0.w).animate(
+      CurvedAnimation(
+        parent: _animationContentController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    setState(() {
+      // 显示图标选择器
+      showEmojiSelector = false;
+      // 隐藏键盘
+      showKeyboard = false;
+    });
+
+    // 表情面板打开
+    _animationContentController.forward();
+  }
+
+  // 键盘转换笑脸面板
+  void switchEmojiFunc() {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+    _keyboradAnimation =
+        Tween<double>(begin: _keyboardHeight, end: 600.w).animate(
+      CurvedAnimation(
+        parent: _animationContentController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    setState(() {
+      // 显示图标选择器
+      showEmojiSelector = true;
+      // 隐藏键盘
+      showKeyboard = false;
+    });
+
+    // 表情面板打开
+    _animationContentController.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -286,57 +285,6 @@ class _LJNChatPage extends State<LJNChatPage>
     } else {
       _statusHeight = MediaQuery.of(context).padding.top;
     }
-
-    // // 键盘高度
-    // final bottomInsets = MediaQuery.of(context).viewInsets.bottom;
-
-    // if (bottomInsets == 0) {
-    //   showKeyboard = false;
-    // } else {
-    //   showKeyboard = true;
-    // }
-
-    // late bool keyboardShrinking;
-    // if (preBottomInsets > bottomInsets) {
-    //   keyboardShrinking = true;
-    //   // logger.info("aaaaaaaaaaaaa 键盘正在缩小");
-    // } else {
-    //   keyboardShrinking = false;
-    //   // logger.info("aaaaaaaaaaaaa 键盘正在增大");
-    // }
-
-    // // 记录
-    // preBottomInsets = bottomInsets;
-
-    // maxBottomInsets = max(bottomInsets, maxBottomInsets);
-
-    // logger.info("aaaaaaaaaaaaa showIconsSelector: $showIconsSelector");
-    // logger.info("aaaaaaaaaaaaa showKeyboard: $showKeyboard");
-    // logger.info("aaaaaaaaaaaaa maxBottomInsets: $maxBottomInsets");
-    // logger.info(
-    //     "aaaaaaaaaaaaa inputFocusNode.hasFocus2: ${inputFocusNode.hasFocus}");
-    // if (showIconsSelector) {
-    //   contentHeight = 600.w;
-    // } else {
-    //   if (showKeyboard) {
-    //     // 键盘出来了
-    //     if (keyboardShrinking) {
-    //       contentHeight = bottomInsets;
-    //     } else {
-    //       contentHeight = maxBottomInsets;
-    //     }
-    //   }
-    // }
-
-    // logger.info("aaaaaaaaaaaaa contentHeight: $contentHeight");
-    // double contentHeight = 0;
-    // if (showIconsSelector == true || showKeyboard == true) {
-    //   if (showIconsSelector == true) {
-    //     contentHeight = 600.w;
-    //   }
-    // } else {
-    //   contentHeight = 0;
-    // }
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -419,37 +367,30 @@ class _LJNChatPage extends State<LJNChatPage>
                           flex: 1,
                           child: GestureDetector(
                             onTap: () {
-                              // 隐藏键盘
-                              SystemChannels.textInput
-                                  .invokeMethod('TextInput.hide');
-
-                              setState(() {
-                                // 隐藏emoji选择器
-                                showIconsSelector = false;
-
-                                // 隐藏键盘
-                                showKeyboard = false;
-                              });
+                              if (showKeyboard == true) {
+                                hideKeyboardFunc();
+                              } else if (showEmojiSelector == true) {
+                                hideEmojiFunc();
+                              }
                             },
                             child: ColoredBox(
                                 color: const Color.fromARGB(255, 237, 237, 237),
                                 child: ScrollConfiguration(
                                   behavior: ScrollConfiguration.of(context)
                                       .copyWith(scrollbars: false),
-                                  child: SingleChildScrollView(
-                                    controller: _scrollController,
-                                    keyboardDismissBehavior:
-                                        ScrollViewKeyboardDismissBehavior
-                                            .onDrag,
-                                    physics:
-                                        const AlwaysScrollableScrollPhysics(
-                                            parent: BouncingScrollPhysics()),
-                                    child: messageList.isEmpty
-                                        ? Container()
-                                        : Column(
-                                            children: messageList,
-                                          ),
-                                  ),
+                                  child: messageList.isEmpty
+                                      ? Container()
+                                      : ListView.builder(
+                                          controller: _scrollController,
+                                          physics:
+                                              const AlwaysScrollableScrollPhysics(
+                                                  parent:
+                                                      BouncingScrollPhysics()),
+                                          itemCount: messageList.length,
+                                          itemBuilder: (context, index) {
+                                            return messageList[index]; // 返回消息项
+                                          },
+                                        ),
                                 )),
                           )),
 
@@ -509,29 +450,14 @@ class _LJNChatPage extends State<LJNChatPage>
                                     controller: inputController,
                                     focusNode: inputFocusNode,
                                     onTap: () {
-                                      // 显示键盘
-                                      SystemChannels.textInput
-                                          .invokeMethod('TextInput.show');
-
-                                      setState(() {
-                                        // 显示图标选择器
-                                        showIconsSelector = false;
-                                        // 显示键盘
-                                        showKeyboard = true;
-                                      });
+                                      if (showEmojiSelector == false &&
+                                          showKeyboard == false) {
+                                        showKeyboardFunc(_keyboardHeight);
+                                      } else if (showEmojiSelector == true &&
+                                          showKeyboard == false) {
+                                        switchKeyboradFunc(_keyboardHeight);
+                                      }
                                     },
-                                    // onTapOutside: (event) {
-                                    //   // 隐藏键盘
-                                    //   SystemChannels.textInput
-                                    //       .invokeMethod('TextInput.hide');
-
-                                    //   setState(() {
-                                    //     // 隐藏emoji选择器
-                                    //     showIconsSelector = false;
-                                    //     // 隐藏键盘
-                                    //     showKeyboard = false;
-                                    //   });
-                                    // },
                                     cursorColor:
                                         const Color.fromRGBO(62, 174, 86, 1.0),
                                     // cursorHeight: 44.w,
@@ -597,34 +523,16 @@ class _LJNChatPage extends State<LJNChatPage>
                                         left: 20.w, right: 25.w, bottom: 10.w),
                                     child: GestureDetector(
                                       onTap: () {
-                                        if (showIconsSelector == true) {
-                                          // 表情面板打开
-                                          _animationContentController
-                                              .reverse()
-                                              .then((_) {
-                                            setState(() {
-                                              showIconsSelector = false;
-                                              showKeyboard = true;
-                                              // SystemChannels.textInput
-                                              //     .invokeMethod('TextInput.show');
-                                            });
-                                          });
-                                        } else {
-                                          SystemChannels.textInput
-                                              .invokeMethod('TextInput.hide');
-
-                                          // 表情面板打开
-                                          _animationContentController
-                                              .forward()
-                                              .then((_) {
-                                            setState(() {
-                                              showIconsSelector = true;
-                                              showKeyboard = false;
-                                            });
-                                          });
+                                        if (showEmojiSelector == false &&
+                                            showKeyboard == false) {
+                                          showEmojiFunc();
+                                        } else if (showEmojiSelector == true &&
+                                            showKeyboard == false) {
+                                          switchKeyboradFunc(_keyboardHeight);
+                                        } else if (showEmojiSelector == false &&
+                                            showKeyboard == true) {
+                                          switchEmojiFunc();
                                         }
-
-                                        logger.info("笑脸被点击"); // 点击事件
                                       },
                                       child: Icon(
                                         const IconData(
@@ -640,9 +548,6 @@ class _LJNChatPage extends State<LJNChatPage>
                                   AnimatedBuilder(
                                     animation: _animationController,
                                     builder: (context, child) {
-                                      _width = _widthAnimation.value;
-                                      _color = _colorAnimation.value!;
-
                                       return Visibility(
                                           visible: !showPlusIcon,
                                           child: GestureDetector(
@@ -674,16 +579,17 @@ class _LJNChatPage extends State<LJNChatPage>
                                                 margin: const EdgeInsets.only(
                                                         bottom: 8, right: 15)
                                                     .w,
-                                                width: _width,
+                                                width: _widthAnimation.value,
                                                 height: 60.w,
                                                 decoration: BoxDecoration(
-                                                  color: _color,
+                                                  color: _colorAnimation.value!,
                                                   borderRadius:
                                                       BorderRadius.all(
                                                           Radius.circular(
                                                               10.w)),
                                                 ),
-                                                child: _width >= 113.w
+                                                child: _widthAnimation.value >=
+                                                        113.w
                                                     ? Center(
                                                         child: Text(
                                                           "发送",
@@ -733,13 +639,154 @@ class _LJNChatPage extends State<LJNChatPage>
                               flex: 0,
                               child: Container(
                                   width: screenSize.width,
-                                  height: _animationContentController.value,
+                                  height: _keyboradAnimation.value,
                                   color: Colors.red,
-                                  child: const LJNIconsSelector()));
+                                  child: showEmojiSelector
+                                      ? const LJNEmojiSelector()
+                                      : null));
                         },
                       ),
                     ],
                   )));
         });
+  }
+
+  void addList() {
+    messageList.add(const LJNMyMessage(
+      message: '今晚，我们开始吧，准备好了吗？',
+      showName: false,
+    ));
+
+    messageList.add(LJNReceiveMessage(
+      message: '嗯，准备好了。虽然有点紧张，但我知道我们已经决定了。',
+      showName: false,
+      friendAvatar: widget.icon,
+      name: widget.title,
+    ));
+    messageList.add(const LJNMyMessage(
+      message: '我也是。虽然我们之前谈了很多次，但真的要开始时，心里还是有些忐忑。',
+      showName: false,
+    ));
+
+    messageList.add(LJNReceiveMessage(
+      message: '我也是。突然想到，万一不能顺利怀上怎么办？',
+      showName: false,
+      friendAvatar: widget.icon,
+      name: widget.title,
+    ));
+    messageList.add(const LJNMyMessage(
+      message: '别担心，慢慢来。就算不顺利，我们也会一起面对，不急的。最重要的是我们愿意一起尝试，给自己一个机会。',
+      showName: false,
+    ));
+
+    messageList.add(LJNReceiveMessage(
+      message: '你说得对，我只是怕自己压力太大，万一做不到怎么办。',
+      showName: false,
+      friendAvatar: widget.icon,
+      name: widget.title,
+    ));
+    messageList.add(const LJNMyMessage(
+      message: '我们做不到的事很少，我相信我们能行。而且，压力大了，放轻松点，别太给自己太多负担。',
+      showName: false,
+    ));
+
+    messageList.add(LJNReceiveMessage(
+      message: '嗯，我知道。你也知道，我的身体不是那么好，可能会有点麻烦。',
+      showName: false,
+      friendAvatar: widget.icon,
+      name: widget.title,
+    ));
+    messageList.add(const LJNMyMessage(
+      message: '我知道，但我们一起走这条路，不管怎么样，我们都有彼此支持。我会陪着你，咱们不会有任何困难是过不去的。',
+      showName: false,
+    ));
+
+    messageList.add(LJNReceiveMessage(
+      message: '有你在我身边，我就不怕了。你觉得，如果不顺利，我们也不应该急对吧？',
+      showName: false,
+      friendAvatar: widget.icon,
+      name: widget.title,
+    ));
+    messageList.add(const LJNMyMessage(
+      message: '对，别急，顺其自然。如果真有问题，我们可以一起去看医生，解决的办法总有的。',
+      showName: false,
+    ));
+
+    messageList.add(LJNReceiveMessage(
+      message: '嗯，既然你这么说，我也放心了。',
+      showName: false,
+      friendAvatar: widget.icon,
+      name: widget.title,
+    ));
+    messageList.add(LJNReceiveMessage(
+      message: '其实，我一直很期待有个孩子，能有一个属于我们的家庭。',
+      showName: false,
+      friendAvatar: widget.icon,
+      name: widget.title,
+    ));
+    messageList.add(const LJNMyMessage(
+      message: '我也是。我们将来可以一起看他成长，一起陪着他做作业、玩游戏，甚至一起教他做事。',
+      showName: false,
+    ));
+
+    messageList.add(LJNReceiveMessage(
+      message: '你觉得我们的孩子会是什么样的？像你，还是像我？',
+      showName: false,
+      friendAvatar: widget.icon,
+      name: widget.title,
+    ));
+    messageList.add(const LJNMyMessage(
+      message: '不管像谁，都一定是最棒的。',
+      showName: false,
+    ));
+
+    messageList.add(const LJNMyMessage(
+      message: '但我想，他应该会有你的聪明和我的耐心，能很好地适应生活中的挑战。',
+      showName: false,
+    ));
+
+    messageList.add(LJNReceiveMessage(
+      message: '那也太完美了吧。希望他能继承我们的优点，少一些缺点。',
+      showName: false,
+      friendAvatar: widget.icon,
+      name: widget.title,
+    ));
+    messageList.add(const LJNMyMessage(
+      message: '无论如何，我们都得给他一个充满爱的家庭，这才是最重要的。',
+      showName: false,
+    ));
+
+    messageList.add(const LJNMyMessage(
+      message: '今晚，就是我们的开始了。',
+      showName: false,
+    ));
+
+    messageList.add(LJNReceiveMessage(
+      message: '是的，今晚开始。未来的路我们一起走。',
+      showName: false,
+      friendAvatar: widget.icon,
+      name: widget.title,
+    ));
+    messageList.add(const LJNMyMessage(
+      message: '今晚，我们做的每一步，都是为了未来的孩子，都是为了我们共同的未来。',
+      showName: false,
+    ));
+
+    messageList.add(LJNReceiveMessage(
+      message: '嗯，今晚我们就开始，未来的一切，交给时间。',
+      showName: false,
+      friendAvatar: widget.icon,
+      name: widget.title,
+    ));
+    messageList.add(LJNReceiveMessage(
+      message: '你准备好了吗？',
+      showName: false,
+      friendAvatar: widget.icon,
+      name: widget.title,
+    ));
+    messageList.add(const LJNMyMessage(
+      message: '准备好了，永远准备好。',
+      showName: false,
+    ));
   }
 }

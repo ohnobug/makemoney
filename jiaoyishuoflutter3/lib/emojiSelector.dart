@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LJNIconsSelector extends StatefulWidget {
-  const LJNIconsSelector({super.key});
+class LJNEmojiSelector extends StatefulWidget {
+  const LJNEmojiSelector({super.key});
 
   @override
-  State<LJNIconsSelector> createState() => _LJNIconsSelector();
+  State<LJNEmojiSelector> createState() => _LJNEmojiSelector();
 }
 
-class _LJNIconsSelector extends State<LJNIconsSelector> {
+class _LJNEmojiSelector extends State<LJNEmojiSelector> {
   late List<String> colors;
 
   final ScrollController _scrollController = ScrollController();

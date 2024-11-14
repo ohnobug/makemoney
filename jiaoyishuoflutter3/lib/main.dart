@@ -24,7 +24,7 @@ import 'package:jiaoyishuoflutter3/settings/phoneNumber.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
 import 'package:jiaoyishuoflutter3/settings/verifyPhone.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
-import 'package:jiaoyishuoflutter3/test.dart';
+import 'package:jiaoyishuoflutter3/emojiSelector.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
@@ -258,7 +258,7 @@ class TabBarApp extends StatelessWidget {
                   } else if (settings.name == '/verify_phone') {
                     return pageRouteBuilderAnimation(const LJNVerifyPhone());
                   } else if (settings.name == '/test') {
-                    return pageRouteBuilderAnimation(const LJNIconsSelector());
+                    return pageRouteBuilderAnimation(const LJNEmojiSelector());
                   }
 
                   return null;
