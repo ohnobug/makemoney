@@ -71,12 +71,13 @@ class _LJNChatPage extends State<LJNChatPage>
 
     // 初始化 _animationContentController
     _animationContentController = AnimationController(
-      duration: const Duration(milliseconds: 100), // 动画持续时间
-      reverseDuration: const Duration(milliseconds: 50), // 动画持续时间,
+      duration: const Duration(milliseconds: 200),
+      reverseDuration: const Duration(milliseconds: 50),
       vsync: this,
     );
 
-    _keyboradAnimation = Tween<double>(begin: 0, end: 600.w).animate(
+    // 设置第一次打开的情况
+    _keyboradAnimation = Tween<double>(begin: 0, end: 0).animate(
       CurvedAnimation(
         parent: _animationContentController,
         curve: Curves.easeInOut,
@@ -285,31 +286,26 @@ class _LJNChatPage extends State<LJNChatPage>
             View.of(context).viewInsets, View.of(context).devicePixelRatio)
         .bottom;
 
-    setState(() {
-      if (bottom + 50 < 280) {
-        currentKeyboradHeight = bottom + 50;
-      } else {
-        currentKeyboradHeight = bottom;
-      }
-    });
-
     // 获取最高点
     maxKeyboradHeight = max(bottom, maxKeyboradHeight);
 
     // 如果是第一次打开键盘则记录
     if (isFirstOpenKeyborad) {
+      // 第一次打开时候的动态键盘高度
+      currentKeyboradHeight = bottom;
+
+      _keyboradAnimation = Tween<double>(
+              begin: currentKeyboradHeight, end: currentKeyboradHeight)
+          .animate(
+        CurvedAnimation(
+          parent: _animationContentController,
+          curve: Curves.easeInOut,
+        ),
+      );
+
+      _animationContentController.value = 1;
+
       Future.delayed(const Duration(milliseconds: 500), () {
-        _keyboradAnimation =
-            Tween<double>(begin: 0, end: maxKeyboradHeight).animate(
-          CurvedAnimation(
-            parent: _animationContentController,
-            curve: Curves.easeInOut,
-          ),
-        );
-
-        // 直接设置高度，在第一次打开完键盘后，会切换为动画，所以动画状态也要设置到maxKeyboradHeight
-        _animationContentController.value = 1;
-
         setState(() {
           showKeyboard = true;
           isFirstOpenKeyborad = false;
@@ -359,10 +355,8 @@ class _LJNChatPage extends State<LJNChatPage>
       showKeyboard = true;
     });
 
-    _animationContentController.value = value ?? 0;
-
     // 表情面板打开
-    _animationContentController.forward().then((_) {
+    _animationContentController.forward(from: value ?? 0).then((_) {
       _scrollToEnd();
     });
   }
@@ -389,10 +383,8 @@ class _LJNChatPage extends State<LJNChatPage>
       showKeyboard = false;
     });
 
-    _animationContentController.value = value ?? 1;
-
     // 表情面板打开
-    _animationContentController.reverse();
+    _animationContentController.reverse(from: value ?? 1);
   }
 
   // 笑脸切换到键盘
@@ -401,41 +393,44 @@ class _LJNChatPage extends State<LJNChatPage>
 
     // 如果没有键盘高度则降到大约的位置后矫正
     if (isFirstOpenKeyborad) {
-      _keyboradAnimation = Tween<double>(begin: 280, end: 600.w).animate(
-        CurvedAnimation(
-          parent: _animationContentController,
-          curve: Curves.easeInOut,
-        ),
-      );
+      // logger.info("aaaaaa 笑脸切换到键盘，是第一次打开键盘");
 
       setState(() {
         // 显示图标选择器
         showEmojiSelector = false;
         // 显示键盘
         showKeyboard = true;
+
+        isFirstOpenKeyborad = false;
       });
 
-      _animationContentController.value = 1;
+      _keyboradAnimation = Tween<double>(begin: 280.3, end: 600.w).animate(
+        CurvedAnimation(
+          parent: _animationContentController,
+          curve: Curves.easeInOut,
+        ),
+      );
 
       // 表情面板打开
-      _animationContentController.reverse().then((_) {
+      _animationContentController.reverse(from: 1).then((_) {
         _scrollToEnd();
+        // _animationContentController.reverseDuration = oldDuration;
       });
 
       // 得到键盘高度后矫正
-      Future.delayed(const Duration(milliseconds: 500), () {
+      Future.delayed(const Duration(milliseconds: 400), () {
         _keyboradAnimation =
-            Tween<double>(begin: maxKeyboradHeight, end: 280.w).animate(
+            Tween<double>(begin: 280.3, end: maxKeyboradHeight).animate(
           CurvedAnimation(
             parent: _animationContentController,
             curve: Curves.easeInOut,
           ),
         );
 
-        _animationContentController.value = 1;
-
         // 表情面板打开
-        _animationContentController.reverse().then((_) {
+        _animationContentController
+            .animateTo(1, duration: const Duration(milliseconds: 20))
+            .then((_) {
           _scrollToEnd();
         });
       });
@@ -455,10 +450,8 @@ class _LJNChatPage extends State<LJNChatPage>
         showKeyboard = true;
       });
 
-      _animationContentController.value = 1;
-
       // 表情面板打开
-      _animationContentController.reverse().then((_) {
+      _animationContentController.reverse(from: 1).then((_) {
         _scrollToEnd();
       });
     }
@@ -653,6 +646,8 @@ class _LJNChatPage extends State<LJNChatPage>
                                   behavior: ScrollConfiguration.of(context)
                                       .copyWith(scrollbars: false),
                                   child: SingleChildScrollView(
+                                    padding: EdgeInsets.only(
+                                        top: 30.w, bottom: 30.w),
                                     controller: _scrollController,
                                     // keyboardDismissBehavior:
                                     //     ScrollViewKeyboardDismissBehavior
@@ -675,8 +670,6 @@ class _LJNChatPage extends State<LJNChatPage>
                           child: Container(
                               constraints: BoxConstraints(minHeight: 107.w),
                               width: screenSize.width,
-                              padding:
-                                  const EdgeInsets.only(top: 16, bottom: 16).w,
                               // margin: EdgeInsets.only(bottom: inputMarginBottom),
                               decoration: BoxDecoration(
                                   color:
@@ -695,12 +688,10 @@ class _LJNChatPage extends State<LJNChatPage>
                                   // 语音按钮
                                   Container(
                                       // color: Colors.amber,
-                                      width: 57.w,
-                                      height: 57.w,
-                                      margin: EdgeInsets.only(
-                                          left: 20.w,
-                                          right: 20.w,
-                                          bottom: 10.w),
+                                      width: 97.w,
+                                      height: 107.w,
+                                      padding: EdgeInsets.only(
+                                          left: 20.w, right: 20.w),
                                       child: GestureDetector(
                                         onTap: () {
                                           logger.info("语音被点击"); // 点击事件
@@ -716,101 +707,113 @@ class _LJNChatPage extends State<LJNChatPage>
 
                                   // 消息输入框
                                   Expanded(
-                                      child:
-                                          // C:\flutter\packages\flutter\lib\src\widgets\editable_text.dart  4239行控制必须得到焦点才显示光标
-                                          TextField(
-                                    readOnly: false,
-                                    autofocus: false,
-                                    showCursor: true,
-                                    controller: inputController,
-                                    focusNode: inputFocusNode,
-                                    onTap: () {
-                                      if (isFirstOpenKeyborad) {
-                                        SystemChannels.textInput
-                                            .invokeMethod('TextInput.show');
-                                        return;
-                                      }
-
-                                      if (showEmojiSelector == false &&
-                                          showKeyboard == false) {
-                                        showKeyboardFunc(
-                                            _animationContentController
-                                                    .isAnimating
-                                                ? _animationContentController
-                                                    .value
-                                                : 0);
-                                      } else if (showEmojiSelector == true &&
-                                          showKeyboard == false) {
-                                        if (isFirstOpenKeyborad) {
-                                          switchKeyboradFunc();
-                                        } else {
-                                          switchKeyboradFunc();
-                                        }
-                                      }
-                                    },
-                                    cursorColor:
-                                        const Color.fromRGBO(62, 174, 86, 1.0),
-                                    // cursorHeight: 44.w,
-                                    cursorWidth: 3.w,
-                                    style: TextStyle(
-                                        // height: 1.08,
-                                        fontSize: fontSizeScale(30.w),
-                                        color: Colors.black),
-                                    // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
-                                    maxLines: 5,
-                                    minLines: 1,
-                                    onChanged: (newText) {
-                                      inputController.value =
-                                          inputController.value.copyWith(
-                                        text: newText,
-                                        selection: TextSelection.fromPosition(
-                                          TextPosition(offset: newText.length),
-                                        ),
-                                      );
-
-                                      if (inputController.text.isEmpty) {
-                                        _animationController
-                                            .reverse()
-                                            .whenComplete(() {
-                                          setState(() {
-                                            showPlusIcon = true;
-                                          });
-                                        });
-                                      } else {
-                                        setState(() {
-                                          showPlusIcon = false;
-                                        });
-                                        _animationController.forward();
-                                      }
-                                    },
-                                    decoration: InputDecoration(
-                                      fillColor: Colors.white,
-                                      filled: true,
-                                      // focusColor: Colors.red,
-                                      hoverColor: Colors.white,
-                                      isCollapsed: true,
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                                  vertical: 14, horizontal: 16)
+                                      flex: 1,
+                                      child: Container(
+                                          padding: const EdgeInsets.only(
+                                                  top: 16, bottom: 16)
                                               .w,
-                                      border: const OutlineInputBorder(
-                                          gapPadding: 0,
-                                          borderSide: BorderSide.none),
-                                      // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                      // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                      // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                      // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                      // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                    ),
-                                  )),
+                                          child: TextField(
+                                            readOnly: false,
+                                            autofocus: false,
+                                            showCursor: true,
+                                            controller: inputController,
+                                            focusNode: inputFocusNode,
+                                            onTap: () {
+                                              if (isFirstOpenKeyborad) {
+                                                SystemChannels.textInput
+                                                    .invokeMethod(
+                                                        'TextInput.show');
+                                                return;
+                                              }
+
+                                              if (showEmojiSelector == false &&
+                                                  showKeyboard == false) {
+                                                showKeyboardFunc(
+                                                    _animationContentController
+                                                            .isAnimating
+                                                        ? _animationContentController
+                                                            .value
+                                                        : 0);
+                                              } else if (showEmojiSelector ==
+                                                      true &&
+                                                  showKeyboard == false) {
+                                                if (isFirstOpenKeyborad) {
+                                                  switchKeyboradFunc();
+                                                } else {
+                                                  switchKeyboradFunc();
+                                                }
+                                              }
+                                            },
+                                            cursorColor: const Color.fromRGBO(
+                                                62, 174, 86, 1.0),
+                                            // cursorHeight: 44.w,
+                                            cursorWidth: 3.w,
+                                            style: TextStyle(
+                                                // height: 1.08,
+                                                fontSize: fontSizeScale(30.w),
+                                                color: Colors.black),
+                                            // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
+                                            maxLines: 5,
+                                            minLines: 1,
+                                            onChanged: (newText) {
+                                              inputController.value =
+                                                  inputController.value
+                                                      .copyWith(
+                                                text: newText,
+                                                selection:
+                                                    TextSelection.fromPosition(
+                                                  TextPosition(
+                                                      offset: newText.length),
+                                                ),
+                                              );
+
+                                              if (inputController
+                                                  .text.isEmpty) {
+                                                _animationController
+                                                    .reverse()
+                                                    .whenComplete(() {
+                                                  setState(() {
+                                                    showPlusIcon = true;
+                                                  });
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  showPlusIcon = false;
+                                                });
+                                                _animationController.forward();
+                                              }
+                                            },
+                                            decoration: InputDecoration(
+                                              fillColor: Colors.white,
+                                              filled: true,
+                                              // focusColor: Colors.red,
+                                              hoverColor: Colors.white,
+                                              isCollapsed: true,
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                          vertical: 14,
+                                                          horizontal: 16)
+                                                      .w,
+                                              border: const OutlineInputBorder(
+                                                  gapPadding: 0,
+                                                  borderSide: BorderSide.none),
+                                              // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                              // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                              // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                              // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                              // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                            ),
+                                          ))
+                                      // C:\flutter\packages\flutter\lib\src\widgets\editable_text.dart  4239行控制必须得到焦点才显示光标
+                                      ),
 
                                   // 笑脸按钮
                                   Container(
                                     // color: Colors.amber,
-                                    width: 57.w,
-                                    height: 57.w,
-                                    margin: EdgeInsets.only(
-                                        left: 20.w, right: 25.w, bottom: 10.w),
+                                    width: 102.w,
+                                    height: 107.w,
+                                    padding: EdgeInsets.only(
+                                        left: 20.w, right: 25.w),
                                     child: GestureDetector(
                                       onTap: () {
                                         if (showEmojiSelector == false &&
@@ -826,6 +829,7 @@ class _LJNChatPage extends State<LJNChatPage>
                                           switchEmojiFunc();
                                         } else if (showEmojiSelector == true &&
                                             showKeyboard == false) {
+                                          logger.info("aaaaaa 切换到键盘");
                                           switchKeyboradFunc();
                                         }
                                       },
@@ -871,9 +875,10 @@ class _LJNChatPage extends State<LJNChatPage>
                                                 });
                                               },
                                               child: Container(
-                                                margin: const EdgeInsets.only(
-                                                        bottom: 8, right: 15)
-                                                    .w,
+                                                margin: EdgeInsets.only(
+                                                    // top: 16.w,
+                                                    bottom: 24.w,
+                                                    right: 15.w),
                                                 width: _widthAnimation.value,
                                                 height: 60.w,
                                                 decoration: BoxDecoration(
@@ -907,10 +912,10 @@ class _LJNChatPage extends State<LJNChatPage>
                                       visible: showPlusIcon,
                                       child: Container(
                                           // color: Colors.amber,
-                                          width: 57.w,
-                                          height: 57.w,
-                                          margin: EdgeInsets.only(
-                                              right: 20.w, bottom: 10.w),
+                                          width: 87.w,
+                                          height: 107.w,
+                                          padding: EdgeInsets.only(right: 20.w),
+                                          alignment: Alignment.center,
                                           child: GestureDetector(
                                             onTap: () {
                                               logger.info("加号被点击"); // 点击事件
@@ -930,22 +935,22 @@ class _LJNChatPage extends State<LJNChatPage>
                       AnimatedBuilder(
                         animation: _animationContentController,
                         builder: (context, child) {
-                          late double height;
-                          if (isFirstOpenKeyborad) {
-                            if (showEmojiSelector) {
-                              height = _keyboradAnimation.value;
-                            } else {
-                              height = currentKeyboradHeight;
-                            }
-                          } else {
-                            height = _keyboradAnimation.value;
-                          }
+                          // late double height;
+                          // if (isFirstOpenKeyborad) {
+                          //   if (showEmojiSelector) {
+                          //     height = _keyboradAnimation.value;
+                          //   } else {
+                          //     height = currentKeyboradHeight;
+                          //   }
+                          // } else {
+                          // height = _keyboradAnimation.value;
+                          // }
 
                           return Expanded(
                               flex: 0,
-                              child: Container(
+                              child: SizedBox(
                                   width: screenSize.width,
-                                  height: height,
+                                  height: _keyboradAnimation.value,
                                   // color: Colors.red,
                                   child: showEmojiSelector
                                       ? const LJNEmojiSelector()
