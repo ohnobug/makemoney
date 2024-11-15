@@ -62,6 +62,9 @@ flutter:
     - family: AlibabaPuHuiTi-Medium
       fonts:
         - asset: ./assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf
+    - family: SourceHanSans
+      fonts:
+        - asset: ./assets/fonts/SourceHanSans_VF.ttc
 
     - family: NotoColorEmoji-Regular
       fonts:

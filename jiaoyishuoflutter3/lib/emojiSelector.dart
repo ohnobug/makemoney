@@ -1933,29 +1933,191 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: ColoredBox(
                 color: const Color.fromARGB(255, 237, 237, 237),
-                child: SingleChildScrollView(
-                  controller: _scrollController,
-                  physics: const AlwaysScrollableScrollPhysics(
-                      parent: BouncingScrollPhysics()),
-                  child: Container(
+                child: Column(
+                  children: [
+                    // 搜索按钮
+                    Container(
+                      color: const Color.fromARGB(255, 246, 246, 246),
+                      height: 115.w,
                       width: screenSize.width,
-                      padding: EdgeInsets.only(
-                          left: 20.w, right: 20.w, top: 20.w, bottom: 20.w),
-                      child: Wrap(
-                        children: List.generate(colors.length, (index) {
-                          return Container(
-                            width: (screenSize.width - 40.w) / 8,
-                            height: 90.0.w,
-                            alignment: Alignment.center,
-                            child: Text(
-                              colors[index],
-                              style: TextStyle(
-                                  fontSize: 55.w,
-                                  fontFamily: "NotoColorEmoji-Regular"),
+                      child: Row(
+                        children: [
+                          Container(
+                              width: 80.w,
+                              height: 80.w,
+                              margin: EdgeInsets.only(bottom: 15.w),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(13.w)),
+                              ),
+                              child: Icon(
+                                const IconData(
+                                  0xe612,
+                                  fontFamily: 'Iconfont',
+                                ), // 使用的图标
+                                color: Colors.black, // 图标颜色
+                                size: 45.w, // 图标大小
+                              )),
+                          // 笑脸
+                          Container(
+                              width: 80.w,
+                              height: 80.w,
+                              margin: EdgeInsets.only(bottom: 15.w),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(13.w)),
+                              ),
+                              child: Icon(
+                                const IconData(
+                                  0xe702,
+                                  fontFamily: 'Iconfont',
+                                ), // 使用的图标
+                                color: Colors.black, // 图标颜色
+                                size: 45.w, // 图标大小
+                              )),
+                          Container(
+                              width: 80.w,
+                              height: 80.w,
+                              margin: EdgeInsets.only(bottom: 15.w),
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(13.w)),
+                              ),
+                              child: Icon(
+                                const IconData(
+                                  0xe682,
+                                  fontFamily: 'Iconfont',
+                                ), // 使用的图标
+                                color: Colors.black, // 图标颜色
+                                size: 45.w, // 图标大小
+                              )),
+                          // 加号
+                          Container(
+                              width: 80.w,
+                              height: 80.w,
+                              margin: EdgeInsets.only(bottom: 15.w),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(13.w)),
+                              ),
+                              child: Icon(
+                                const IconData(
+                                  0xe621,
+                                  fontFamily: 'Iconfont',
+                                ), // 使用的图标
+                                color: Colors.black, // 图标颜色
+                                size: 45.w, // 图标大小
+                              ))
+                        ],
+                      ),
+                    ),
+
+                    // 拉框
+                    Container(
+                        height: 62.w,
+                        width: screenSize.width,
+                        alignment: Alignment.center,
+                        child: Container(
+                          width: 83.w,
+                          height: 8.w,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 215, 215, 215),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(4.w)),
+                          ),
+                          child: null,
+                        )),
+
+                    SizedBox(
+                      width: screenSize.width,
+                      height: 493.w,
+                      child: SingleChildScrollView(
+                        controller: _scrollController,
+                        physics: const AlwaysScrollableScrollPhysics(
+                            parent: BouncingScrollPhysics()),
+                        child: Column(
+                          children: [
+                            Container(
+                              // height: 40.w,
+                              alignment: Alignment.topLeft,
+                              padding: EdgeInsets.only(left: 36.25.w),
+                              child: Text(
+                                "最近使用",
+                                style: TextStyle(
+                                    fontSize: 27.w,
+                                    color: Colors.black,
+                                    height: 1.08),
+                              ),
                             ),
-                          );
-                        }),
-                      )),
+                            Container(
+                                padding: EdgeInsets.only(
+                                    left: 20.w,
+                                    right: 20.w,
+                                    top: 20.w,
+                                    bottom: 20.w),
+                                child: Wrap(
+                                  children:
+                                      List.generate(colors.length, (index) {
+                                    return Container(
+                                      width: (screenSize.width - 40.w) / 8,
+                                      height: 90.0.w,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        colors[index],
+                                        style: TextStyle(
+                                            fontSize: 55.w,
+                                            fontFamily:
+                                                "NotoColorEmoji-Regular"),
+                                      ),
+                                    );
+                                  }),
+                                )),
+                            Container(
+                              // height: 40.w,
+                              alignment: Alignment.topLeft,
+                              padding: EdgeInsets.only(left: 36.25.w),
+                              child: Text(
+                                "所有表情",
+                                style: TextStyle(
+                                    fontSize: 27.w,
+                                    color: Colors.black,
+                                    height: 1.08),
+                              ),
+                            ),
+                            Container(
+                                padding: EdgeInsets.only(
+                                    left: 20.w,
+                                    right: 20.w,
+                                    top: 20.w,
+                                    bottom: 20.w),
+                                child: Wrap(
+                                  children:
+                                      List.generate(colors.length, (index) {
+                                    return Container(
+                                      // color: Colors.red,
+                                      width: (screenSize.width - 40.w) / 8,
+                                      height: 90.0.w,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        colors[index],
+                                        style: TextStyle(
+                                            fontSize: 57.w,
+                                            fontFamily:
+                                                "NotoColorEmoji-Regular"),
+                                      ),
+                                    );
+                                  }),
+                                ))
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
                 ))));
   }
 }

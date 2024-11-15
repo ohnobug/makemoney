@@ -997,9 +997,9 @@ class _ChatListItem extends State<ChatListItem> {
                               Expanded(
                                   child: RichText(
                                 strutStyle: StrutStyle(
-                                    height: 1,
+                                    height: 1.08,
                                     forceStrutHeight: true,
-                                    fontSize: 32.w),
+                                    fontSize: 31.w),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 text: TextSpan(
@@ -1007,14 +1007,14 @@ class _ChatListItem extends State<ChatListItem> {
                                       widget.friendName,
                                       TextStyle(
                                           height: 1.08,
-                                          fontSize: fontSizeScale(32.0.w),
+                                          fontSize: fontSizeScale(31.0.w),
                                           color: widget.notice
                                               ? Colors.red
                                               : Colors.black,
                                           fontFamily: "AlibabaPuHuiTi"),
                                       TextStyle(
                                           height: 1.08,
-                                          fontSize: fontSizeScale(32.w),
+                                          fontSize: fontSizeScale(31.w),
                                           fontFamily:
                                               "NotoColorEmoji-Regular")),
                                 ),

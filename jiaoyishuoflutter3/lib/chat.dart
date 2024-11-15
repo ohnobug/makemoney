@@ -404,7 +404,7 @@ class _LJNChatPage extends State<LJNChatPage>
         isFirstOpenKeyborad = false;
       });
 
-      _keyboradAnimation = Tween<double>(begin: 280.3, end: 600.w).animate(
+      _keyboradAnimation = Tween<double>(begin: 280.3, end: 670.h).animate(
         CurvedAnimation(
           parent: _animationContentController,
           curve: Curves.easeInOut,
@@ -436,7 +436,7 @@ class _LJNChatPage extends State<LJNChatPage>
       });
     } else {
       _keyboradAnimation =
-          Tween<double>(begin: maxKeyboradHeight, end: 600.w).animate(
+          Tween<double>(begin: maxKeyboradHeight, end: 670.h).animate(
         CurvedAnimation(
           parent: _animationContentController,
           curve: Curves.easeInOut,
@@ -459,7 +459,7 @@ class _LJNChatPage extends State<LJNChatPage>
 
   void showEmojiFunc([double? value]) {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-    _keyboradAnimation = Tween<double>(begin: 0, end: 600.w).animate(
+    _keyboradAnimation = Tween<double>(begin: 0, end: 670.h).animate(
       CurvedAnimation(
         parent: _animationContentController,
         curve: Curves.easeInOut,
@@ -484,7 +484,7 @@ class _LJNChatPage extends State<LJNChatPage>
   void hideEmojiFunc([double? value]) {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
 
-    _keyboradAnimation = Tween<double>(begin: 0, end: 600.w).animate(
+    _keyboradAnimation = Tween<double>(begin: 0, end: 670.h).animate(
       CurvedAnimation(
         parent: _animationContentController,
         curve: Curves.easeInOut,
@@ -508,7 +508,7 @@ class _LJNChatPage extends State<LJNChatPage>
     SystemChannels.textInput.invokeMethod('TextInput.hide');
 
     _keyboradAnimation =
-        Tween<double>(begin: maxKeyboradHeight, end: 600.w).animate(
+        Tween<double>(begin: maxKeyboradHeight, end: 670.h).animate(
       CurvedAnimation(
         parent: _animationContentController,
         curve: Curves.easeInOut,

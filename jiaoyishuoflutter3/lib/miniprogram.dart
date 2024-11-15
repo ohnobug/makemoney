@@ -619,7 +619,7 @@ class _ChatListItem extends State<ChatListItem> {
                   ClipRRect(
                       borderRadius: BorderRadius.circular(95).w,
                       child: Image.asset(
-                        assetPath('images/avatar_webp/chat_4.webp'),
+                        assetPath(widget.avatar),
                         cacheWidth: 190.w.toInt(),
                         cacheHeight: 190.w.toInt(),
                         width: 95.w,
