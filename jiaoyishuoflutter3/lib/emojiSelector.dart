@@ -1969,7 +1969,7 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
         item.isIntersection = _checkIntersection(box1!, box2);
 
         logger.info(
-            "item.isIntersection: ${item.isIntersection}  _checkIntersection(box1, box2): ${_checkIntersection(box1, box2)}");
+            "item.isIntersection: ${item.isIntersection}  _checkIntersection(box1, box2): ${_checkIntersection(box1!, box2)}");
       }
 
       for (var item in emojiList) {
@@ -1984,7 +1984,7 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
         item.isIntersection = _checkIntersection(box1!, box2);
 
         logger.info(
-            "item.isIntersection: ${item.isIntersection}  _checkIntersection(box1, box2): ${_checkIntersection(box1, box2)}");
+            "item.isIntersection: ${item.isIntersection}  _checkIntersection(box1, box2): ${_checkIntersection(box1!, box2)}");
       }
 
       // 刷新界面
