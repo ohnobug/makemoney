@@ -26,6 +26,8 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
   List<EmojiStatus> emojiList = [];
   List<EmojiStatus> allEmojiList = [];
 
+  RenderBox? box1;
+
   @override
   void initState() {
     super.initState();
@@ -1933,6 +1935,10 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
       // "🇾🇹"
     ];
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      box1 = deleteButtonKey.currentContext!.findRenderObject() as RenderBox;
+    });
+
     //  表情key
     emojiList =
         List.generate(colors.length, (index) => EmojiStatus(colors[index]));
@@ -1942,37 +1948,59 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
         List.generate(colors.length, (index) => EmojiStatus(colors[index]));
 
     _scrollController.addListener(() {
-      logger.info("滚动中");
-      final RenderBox box1 =
-          deleteButtonKey.currentContext!.findRenderObject() as RenderBox;
+      if (deleteButtonKey.currentContext == null) {
+        logger.warning("deleteButtonKey context is null");
+        return;
+      }
 
-      allEmojiList.map((item) {
+      logger.info("滚动中");
+
+      logger.info("allEmojiList length: ${allEmojiList.length}");
+
+      for (var item in allEmojiList) {
+        if (item.globalKey.currentContext == null) {
+          logger.warning("GlobalKey context is null for item: $item");
+          continue;
+        }
+
         final RenderBox box2 =
             item.globalKey.currentContext!.findRenderObject() as RenderBox;
 
-        item.isIntersection = _checkIntersection(box1, box2);
+        item.isIntersection = _checkIntersection(box1!, box2);
 
-        logger.info("item.isIntersection: ${item.isIntersection}");
-      });
+        logger.info(
+            "item.isIntersection: ${item.isIntersection}  _checkIntersection(box1, box2): ${_checkIntersection(box1, box2)}");
+      }
+
+      for (var item in emojiList) {
+        if (item.globalKey.currentContext == null) {
+          logger.warning("GlobalKey context is null for item: $item");
+          continue;
+        }
+
+        final RenderBox box2 =
+            item.globalKey.currentContext!.findRenderObject() as RenderBox;
+
+        item.isIntersection = _checkIntersection(box1!, box2);
+
+        logger.info(
+            "item.isIntersection: ${item.isIntersection}  _checkIntersection(box1, box2): ${_checkIntersection(box1, box2)}");
+      }
 
       // 刷新界面
       setState(() {});
     });
   }
 
-  // 判断是否交集
   bool _checkIntersection(RenderBox box1, RenderBox box2) {
-    // if (key1.currentContext == null || key2.currentContext == null) {
-    //   return false;
-    // }
-
-    // logger.info("*******************");
-
     final Offset pos1 = box1.localToGlobal(Offset.zero);
     final Offset pos2 = box2.localToGlobal(Offset.zero);
 
     final Rect rect1 = pos1 & box1.size;
     final Rect rect2 = pos2 & box2.size;
+
+    // logger.info("rect1: $rect1");
+    // logger.info("rect2: $rect2");
 
     return rect1.overlaps(rect2);
   }
@@ -2162,6 +2190,10 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
                                           (index) {
                                         return Container(
                                           key: allEmojiList[index].globalKey,
+                                          color:
+                                              allEmojiList[index].isIntersection
+                                                  ? Colors.red
+                                                  : Colors.blue,
                                           width: (screenSize.width - 40.w) / 8,
                                           height: 90.0.w,
                                           alignment: Alignment.center,
