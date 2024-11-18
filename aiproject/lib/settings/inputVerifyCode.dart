@@ -52,6 +52,7 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
 
     return Scaffold(
         primary: false,
+        resizeToAvoidBottomInset: false,
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(90.0.w + _statusHeight),
             child: Container(

@@ -49,9 +49,27 @@ flutter:
     - family: Outfit-Regular
       fonts:
         - asset: ./assets/fonts/Quicksand-Regular.ttf
+
+    - family: Quicksand-Bold
+      fonts:
+        - asset: ./assets/fonts/Quicksand-Bold.ttf
+
+    - family: Quicksand-Light
+      fonts:
+        - asset: ./assets/fonts/Quicksand-Light.ttf
+
     - family: Quicksand-Medium
       fonts:
         - asset: ./assets/fonts/Quicksand-Medium.ttf
+
+    - family: Quicksand-Regular
+      fonts:
+        - asset: ./assets/fonts/Quicksand-Regular.ttf
+
+    - family: Quicksand-SemiBold
+      fonts:
+        - asset: ./assets/fonts/Quicksand-SemiBold.ttf
+
     - family: Rubik-Light
       fonts:
         - asset: ./assets/fonts/Rubik-Light.ttf

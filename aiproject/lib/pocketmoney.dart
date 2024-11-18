@@ -141,7 +141,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                                     fontFamily: 'Iconfont',
                                   ),
                                   color: const Color.fromARGB(255, 16, 16, 16),
-                                  size: 60.w,
+                                  size: 55.w,
                                 ),
                               ),
                             ),
@@ -151,7 +151,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                                 height: 1.08,
                                 fontSize: fontSizeScale(85.w),
                                 fontWeight: FontWeight.bold,
-                                fontFamily: "Quicksand",
+                                fontFamily: "Quicksand-Medium",
                                 color: const Color.fromARGB(255, 16, 16, 16),
                               ),
                             ),
@@ -201,14 +201,22 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                               fontSize: fontSizeScale(25.w),
                               fontFamily: "AlibabaPuHuiTi-Medium"),
                         ),
+                        WidgetSpan(
+                            child: SizedBox(
+                          width: 10.w,
+                        )),
                         TextSpan(
                           text: " | ",
                           style: TextStyle(
                               height: 1.08,
-                              color: const Color.fromARGB(255, 169, 169, 169),
+                              color: const Color.fromARGB(255, 236, 236, 236),
                               fontSize: fontSizeScale(25.w),
                               fontFamily: "AlibabaPuHuiTi-Medium"),
                         ),
+                        WidgetSpan(
+                            child: SizedBox(
+                          width: 10.w,
+                        )),
                         TextSpan(
                           text: "账户升级服务",
                           style: TextStyle(
@@ -226,7 +234,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                         style: TextStyle(
                             height: 1.08,
                             color: const Color.fromARGB(255, 169, 169, 169),
-                            fontSize: fontSizeScale(21.w),
+                            fontSize: fontSizeScale(23.w),
                             fontFamily: "AlibabaPuHuiTi-Medium"),
                       ),
                       SizedBox(

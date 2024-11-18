@@ -56,6 +56,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
 
     return Scaffold(
         primary: false,
+        resizeToAvoidBottomInset: false,
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(90.0.w + _statusHeight),
             child: Container(
@@ -112,8 +113,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 32.w,
-                                      fontWeight: FontWeight.w100
-                                      ),
+                                      fontWeight: FontWeight.w100),
                                 ))
                           ],
                         ),

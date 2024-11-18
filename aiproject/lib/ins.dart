@@ -569,6 +569,7 @@ class _LJNInsPage extends State<LJNInsPage> {
         builder: (context, vm) {
           return Scaffold(
             primary: false,
+            resizeToAvoidBottomInset: false,
             body: Stack(
               children: [
                 // 滚动条

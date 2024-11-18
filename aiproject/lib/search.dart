@@ -375,6 +375,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
 
           return Scaffold(
             primary: false,
+            resizeToAvoidBottomInset: false,
             appBar: PreferredSize(
                 preferredSize: Size.fromHeight(90.0.w + _statusHeight),
                 child: Container(
