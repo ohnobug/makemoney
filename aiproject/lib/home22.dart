@@ -953,7 +953,7 @@ class _ChatListItem extends State<ChatListItem> {
                   // 头像
                   ClipRRect(
                     borderRadius: BorderRadius.circular(
-                        10.0.w), // Adjust the radius as needed
+                        8.0.w), // Adjust the radius as needed
                     child: Image.asset(
                       assetPath(widget.avatar),
                       width: 90.0.w,

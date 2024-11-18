@@ -59,7 +59,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(90.0.w + _statusHeight),
             child: Container(
-                color: Colors.transparent,
+                color: const Color.fromARGB(255, 237, 237, 237),
                 padding: EdgeInsets.only(top: _statusHeight),
                 child: AppBar(
                   leading: GestureDetector(
@@ -103,13 +103,17 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                           children: [
                             GestureDetector(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/bind_new_phone_number');
+                                  Navigator.pushNamed(
+                                      context, '/bind_new_phone_number');
                                 },
                                 child: Text(
                                   "下一步",
                                   // textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      color: Colors.black, fontSize: 32.w),
+                                      color: Colors.black,
+                                      fontSize: 32.w,
+                                      fontWeight: FontWeight.w100
+                                      ),
                                 ))
                           ],
                         ),
@@ -123,8 +127,9 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
             child: Container(
                 constraints: BoxConstraints(
                     minHeight: screenSize.height - 90.w - _statusHeight),
-                color: Colors.white,
+                color: const Color.fromARGB(255, 237, 237, 237),
                 child: SingleChildScrollView(
+                    primary: false,
                     physics: const AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics()),
                     child: Column(
@@ -134,15 +139,14 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                 top: 70.w, left: 40.w, right: 40.w),
                             child: Text(
                               "一个手机号只能绑定一个账号，更换后可使用新手机号登录此账号。对于已绑定其他账号的手机号，本次操作后将与原账号解绑。",
-                              textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 24.0.w,
+                                  fontSize: 26.0.w,
                                   fontFamily: "AlibabaPuHuiTi",
                                   color:
                                       const Color.fromARGB(255, 155, 155, 155)),
                             )),
                         SizedBox(
-                          height: 95.w,
+                          height: 45.w,
                         ),
                         Container(
                           padding: EdgeInsets.only(left: 50.w, right: 50.w),

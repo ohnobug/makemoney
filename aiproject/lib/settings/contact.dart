@@ -710,7 +710,10 @@ class _ContactListItem extends State<ContactListItem> {
                       // readonly: true,
                       backgroundColor: Colors.transparent,
                       color: Color.fromARGB(255, 93, 93, 93),
-                    )
+                    ),
+                  SizedBox(
+                    width: 25.w,
+                  )
                 ],
               ),
             ),
@@ -727,15 +730,16 @@ class LJNAddButton extends StatefulWidget {
   final Color? backgroundColor;
   final String? link;
   final bool? readonly;
+  final Function? onTap;
 
-  const LJNAddButton({
-    super.key,
-    required this.title,
-    this.color,
-    this.backgroundColor,
-    this.readonly,
-    this.link,
-  });
+  const LJNAddButton(
+      {super.key,
+      required this.title,
+      this.color,
+      this.backgroundColor,
+      this.readonly,
+      this.link,
+      this.onTap});
 
   @override
   State<LJNAddButton> createState() => _LJNAddButtonState();
@@ -798,12 +802,15 @@ class _LJNAddButtonState extends State<LJNAddButton> {
         });
 
         logger.info("弹起");
+        if (widget.onTap is Function) {
+          widget.onTap!();
+        }
       },
       child: Container(
         width: 142.w,
         height: 57.w,
         alignment: Alignment.center,
-        margin: EdgeInsets.only(right: 25.w),
+        // margin: EdgeInsets.only(right: 25.w),
         decoration: BoxDecoration(
           color: containerColor,
           borderRadius: BorderRadius.all(Radius.circular(10.w)),

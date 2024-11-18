@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+// import 'package:jiaoyishuoflutter3/components/LJNInputButton.dart';
 import 'package:jiaoyishuoflutter3/components/pageloading.dart';
+import 'package:jiaoyishuoflutter3/settings/contact.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,12 +32,14 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          return vm.mainpage3isload! ? _buildPage(vm) : const LJNPageLoading();
+          return vm.mainpage3isload!
+              ? _buildPage(context, vm)
+              : const LJNPageLoading();
         });
   }
 
   // 另起一个函数方便管理
-  Widget _buildPage(StoreType vm) {
+  Widget _buildPage(BuildContext context, StoreType vm) {
     if (kIsWeb) {
       _statusHeight = 0;
     } else {
@@ -55,7 +59,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(90.0.w + _statusHeight),
             child: Container(
-                color: Colors.transparent,
+                color: const Color.fromARGB(255, 237, 237, 237),
                 padding: EdgeInsets.only(top: _statusHeight),
                 child: AppBar(
                   leading: GestureDetector(
@@ -76,7 +80,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                   ),
                   primary: false,
                   centerTitle: true,
-                  title: const Text('验证手机号'),
+                  title: const Text('填写验证码'),
                   toolbarHeight: 90.w,
                   titleTextStyle: TextStyle(
                       height: 1.08,
@@ -87,32 +91,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                   scrolledUnderElevation: 0,
                   backgroundColor: Colors.transparent,
                   foregroundColor: Colors.transparent,
-                  actions: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        // color: Colors.black,
-                        height: 90.w,
-                        padding: EdgeInsets.only(right: 40.w),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/bind_new_phone_number');
-                                },
-                                child: Text(
-                                  "下一步",
-                                  // textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 32.w),
-                                ))
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+                  actions: const [],
                 ))),
         body: ScrollConfiguration(
             behavior:
@@ -120,42 +99,18 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
             child: Container(
                 constraints: BoxConstraints(
                     minHeight: screenSize.height - 90.w - _statusHeight),
-                color: Colors.white,
+                color: const Color.fromARGB(255, 237, 237, 237),
                 child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics()),
                     child: Container(
-                      padding: EdgeInsets.only(left: 50.w, right: 50.w),
-                      height: 95.w,
+                      padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                      height: 100.w,
                       width: screenSize.width,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Container(
-                            height: 95.w,
-                            width: 120.w,
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                              color: const Color.fromARGB(255, 219, 219, 219),
-                              width: 1.5.w,
-                              style: BorderStyle.solid,
-                            ))),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "+86",
-                                  style: TextStyle(
-                                      fontSize: 24.w, color: Colors.black),
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20.w,
-                          ),
                           Expanded(
                               flex: 1,
                               child: TextField(
@@ -170,7 +125,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                                   FocusScope.of(context).unfocus();
                                 },
                                 decoration: InputDecoration(
-                                  hintText: '你本人的手机号',
+                                  hintText: '请输入验证码',
                                   hintStyle: TextStyle(
                                       fontSize: 30.w,
                                       color: const Color.fromARGB(
@@ -199,7 +154,33 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                                   contentPadding:
                                       EdgeInsets.only(bottom: 20.w), // 也可调小内边距
                                 ),
-                              ))
+                              )),
+                          SizedBox(
+                            width: 20.w,
+                          ),
+                          LJNAddButton(
+                              title: "下一步",
+                              backgroundColor:
+                                  const Color.fromARGB(255, 74, 193, 99),
+                              onTap: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text('提示'),
+                                      content: const Text('请正确输入验证码'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('确定'),
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
+                              })
                         ],
                       ),
                     )))));
