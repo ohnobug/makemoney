@@ -88,32 +88,7 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
                   scrolledUnderElevation: 0,
                   backgroundColor: Colors.transparent,
                   foregroundColor: Colors.transparent,
-                  actions: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        // color: Colors.black,
-                        height: 90.w,
-                        padding: EdgeInsets.only(right: 40.w),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/bind_new_phone_number');
-                                },
-                                child: Text(
-                                  "下一步",
-                                  // textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 32.w),
-                                ))
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+                  // actions: [],
                 ))),
         body: ScrollConfiguration(
             behavior:

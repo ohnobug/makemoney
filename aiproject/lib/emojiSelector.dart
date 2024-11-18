@@ -2023,11 +2023,16 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
         final Offset pos2 = box2.localToGlobal(Offset.zero);
 
         // logger.info("pos1: $pos1  pos2: $pos2");
-        if ((pos2.dy + box2.size.height) > pos1.dy) {
-          allEmojiList[index].opacity = 0;
+        if ((pos2.dy + box2.size.height) < pos1.dy) {
+          allEmojiList[index].opacity = 1;
         } else {
-          double v = (pos1.dy - pos2.dy) / 120;
-          if (v > 1) v = 1;
+          double v =
+              (pos1.dy - (pos2.dy + box2.size.height)) / (box2.size.height / 3);
+          if (v < 0) {
+            v = 0;
+          } else if (v > 1) {
+            v = 1;
+          }
 
           allEmojiList[index].opacity = Curves.easeInOut.transform(v);
         }
@@ -2147,7 +2152,7 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
 
                   // 调整大小的拉杆
                   Container(
-                      height: 62.w,
+                      height: 50.w,
                       width: screenSize.width,
                       alignment: Alignment.center,
                       child: Container(
@@ -2187,10 +2192,11 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
                               ),
                               Container(
                                   padding: EdgeInsets.only(
-                                      left: 20.w,
-                                      right: 20.w,
-                                      top: 20.w,
-                                      bottom: 20.w),
+                                    left: 20.w,
+                                    right: 20.w,
+                                    // top: 20.w,
+                                    // bottom: 20.w
+                                  ),
                                   child: Wrap(
                                     children: List.generate(emojiList.length,
                                         (index) {
@@ -2200,7 +2206,7 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
                                           //         ? Colors.red
                                           //         : Colors.blue,
                                           width: (screenSize.width - 40.w) / 8,
-                                          height: 90.0.w,
+                                          height: 85.0.w,
                                           alignment: Alignment.center,
                                           child: Opacity(
                                             opacity: emojiList[index].opacity,
@@ -2229,10 +2235,11 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
                               ),
                               Container(
                                   padding: EdgeInsets.only(
-                                      left: 20.w,
-                                      right: 20.w,
-                                      top: 20.w,
-                                      bottom: 20.w),
+                                    left: 20.w,
+                                    right: 20.w,
+                                    // top: 20.w,
+                                    // bottom: 20.w
+                                  ),
                                   child: Wrap(
                                     children: List.generate(allEmojiList.length,
                                         (index) {
@@ -2242,7 +2249,7 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
                                           //         ? Colors.red
                                           //         : Colors.blue,
                                           width: (screenSize.width - 40.w) / 8,
-                                          height: 90.0.w,
+                                          height: 85.0.w,
                                           alignment: Alignment.center,
                                           child: Opacity(
                                             opacity:
