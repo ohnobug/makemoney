@@ -687,7 +687,7 @@ class _LJNChatPage extends State<LJNChatPage>
                                 children: [
                                   // 语音按钮
                                   Container(
-                                      // color: Colors.amber,
+                                      color: Colors.transparent,
                                       width: 97.w,
                                       height: 107.w,
                                       padding: EdgeInsets.only(
@@ -809,7 +809,7 @@ class _LJNChatPage extends State<LJNChatPage>
 
                                   // 笑脸按钮
                                   Container(
-                                    // color: Colors.amber,
+                                    color: Colors.transparent,
                                     width: 102.w,
                                     height: 107.w,
                                     padding: EdgeInsets.only(
@@ -913,7 +913,7 @@ class _LJNChatPage extends State<LJNChatPage>
                                   Visibility(
                                       visible: showPlusIcon,
                                       child: Container(
-                                          // color: Colors.amber,
+                                          color: Colors.transparent,
                                           width: 87.w,
                                           height: 107.w,
                                           padding: EdgeInsets.only(right: 20.w),

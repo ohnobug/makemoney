@@ -17,9 +17,11 @@ import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
 import 'package:jiaoyishuoflutter3/search.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/settings/accountAndSecure.dart';
+import 'package:jiaoyishuoflutter3/settings/bindNewPhoneNumber.dart';
 import 'package:jiaoyishuoflutter3/settings/changeAccount.dart';
 import 'package:jiaoyishuoflutter3/settings/contact.dart';
 import 'package:jiaoyishuoflutter3/settings/forgotPassword.dart';
+import 'package:jiaoyishuoflutter3/settings/inputVerifyCode.dart';
 import 'package:jiaoyishuoflutter3/settings/phoneNumber.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
 import 'package:jiaoyishuoflutter3/settings/verifyPhone.dart';
@@ -257,6 +259,12 @@ class TabBarApp extends StatelessWidget {
                     return pageRouteBuilderAnimation(const LJNPhoneContact());
                   } else if (settings.name == '/verify_phone') {
                     return pageRouteBuilderAnimation(const LJNVerifyPhone());
+                  } else if (settings.name == '/bind_new_phone_number') {
+                    return pageRouteBuilderAnimation(
+                        const LJNBindNewPhoneNumber());
+                  } else if (settings.name == '/input_verify_code') {
+                    return pageRouteBuilderAnimation(
+                        const LJNInputVerifyCode());
                   } else if (settings.name == '/test') {
                     return pageRouteBuilderAnimation(const LJNEmojiSelector());
                   }

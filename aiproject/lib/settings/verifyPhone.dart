@@ -101,12 +101,16 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              "下一步",
-                              // textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 32.w),
-                            )
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(context, '/bind_new_phone_number');
+                                },
+                                child: Text(
+                                  "下一步",
+                                  // textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 32.w),
+                                ))
                           ],
                         ),
                       ),
