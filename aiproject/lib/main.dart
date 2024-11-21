@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jiaoyishuoflutter3/chat.dart';
+import 'package:jiaoyishuoflutter3/collectionAndPayment.dart';
 import 'package:jiaoyishuoflutter3/discovery.dart';
 import 'package:jiaoyishuoflutter3/friendmoments.dart';
 import 'package:jiaoyishuoflutter3/home22.dart';
@@ -264,6 +265,9 @@ class TabBarApp extends StatelessWidget {
                   } else if (settings.name == '/input_verify_code') {
                     return pageRouteBuilderAnimation(
                         const LJNInputVerifyCode());
+                  } else if (settings.name == '/collection_and_payment') {
+                    return pageRouteBuilderAnimation(
+                        const LJNCollectionAndPayment());
                   }
 
                   return null;

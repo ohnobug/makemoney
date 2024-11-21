@@ -390,7 +390,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "表情",
                         icon: "images/icon/icon6.png",
-                        link: '/test',
+                        link: '/collection_and_payment',
                         underline: false,
                       ),
                       Container(
