@@ -841,7 +841,9 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                   return Container(
                     height: 72.w,
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 253, 245, 242),
+                      color: e.key < 3
+                          ? const Color.fromARGB(255, 253, 245, 242)
+                          : Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(10.w)),
                     ),
                     padding: EdgeInsets.only(left: 24.w, right: 24.w),

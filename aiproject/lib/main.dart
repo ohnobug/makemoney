@@ -12,6 +12,7 @@ import 'package:jiaoyishuoflutter3/home22.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/miniprogram.dart';
 import 'package:jiaoyishuoflutter3/mywebview.dart';
+import 'package:jiaoyishuoflutter3/newMessageNotification.dart';
 import 'package:jiaoyishuoflutter3/pocketmoney.dart';
 import 'package:jiaoyishuoflutter3/friendprofile.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
@@ -270,6 +271,9 @@ class TabBarApp extends StatelessWidget {
                     return pageRouteBuilderAnimation(const LJNTeenageMode());
                   } else if (settings.name == '/care_mode') {
                     return pageRouteBuilderAnimation(const LJNCareMode());
+                  } else if (settings.name == '/new_message_notification') {
+                    return pageRouteBuilderAnimation(
+                        const LJNNewMessageNotification());
                   }
 
                   return null;
