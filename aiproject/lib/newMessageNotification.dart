@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:jiaoyishuoflutter3/components/LJNSwitch.dart';
 import 'package:jiaoyishuoflutter3/components/pageloading.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -110,26 +112,45 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                         ),
                       ),
 
-                      const LJNFunctionItem(
+                      LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "接收新消息通知",
-                        link: '',
+                        // link: '',
                         underline: true,
+                        showStyle: Container(
+                            margin: const EdgeInsets.only(right: 20).w,
+                            child: LJNSwitch(
+                              onChanged: (value) {
+                                logger.info(value);
+                              },
+                            )),
                       ),
-                      const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "接收语音和视频通话邀请提醒",
-                        link: '',
-                        underline: false,
-                      ),
+                      LJNFunctionItem(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "接收语音和视频通话邀请提醒",
+                          // link: '',
+                          underline: false,
+                          showStyle: Container(
+                              margin: const EdgeInsets.only(right: 20).w,
+                              child: LJNSwitch(
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ))),
                       SizedBox(height: 16.w),
 
-                      const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "通知显示消息详情",
-                        link: '',
-                        underline: false,
-                      ),
+                      LJNFunctionItem(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "通知显示消息详情",
+                          // link: '',
+                          underline: false,
+                          showStyle: Container(
+                              margin: const EdgeInsets.only(right: 20).w,
+                              child: LJNSwitch(
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ))),
 
                       Container(
                         alignment: Alignment.centerLeft,
@@ -185,12 +206,18 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                         underline: true,
                         showStyle: "SISTER SISTER",
                       ),
-                      const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "呼叫我时朋友也可以听见我的来电铃声",
-                        link: '',
-                        underline: false,
-                      ),
+                      LJNFunctionItem(
+                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          title: "呼叫我时朋友也可以听见我的来电铃声",
+                          // link: '',
+                          underline: false,
+                          showStyle: Container(
+                              margin: const EdgeInsets.only(right: 20).w,
+                              child: LJNSwitch(
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ))),
                       SizedBox(height: 16.w),
                     ])))));
   }

@@ -144,17 +144,18 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                                         ])
                                   : widget.showStyle as Widget)),
 
-                    Container(
-                        width: 30.w,
-                        margin: const EdgeInsets.only(right: 32).w,
-                        child: Icon(
-                          const IconData(
-                            0xed9d,
-                            fontFamily: 'Iconfont',
-                          ),
-                          size: 30.0.w,
-                          color: const Color.fromARGB(255, 164, 164, 164),
-                        ))
+                    if (widget.link != null)
+                      Container(
+                          width: 30.w,
+                          margin: const EdgeInsets.only(right: 32).w,
+                          child: Icon(
+                            const IconData(
+                              0xed9d,
+                              fontFamily: 'Iconfont',
+                            ),
+                            size: 30.0.w,
+                            color: const Color.fromARGB(255, 164, 164, 164),
+                          ))
                   ],
                 ),
               ),
