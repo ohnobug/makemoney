@@ -98,7 +98,7 @@ class _LJNTeenageMode extends State<LJNTeenageMode> {
                         child: Column(
                           children: [
                             Container(
-                              height: 270.w,
+                              height: 290.w,
                               alignment: Alignment.center,
                               child: Icon(
                                 const IconData(
@@ -119,7 +119,7 @@ class _LJNTeenageMode extends State<LJNTeenageMode> {
                                   fontFamily: "AlibabaPuHuiTi"),
                             ),
                             SizedBox(
-                              height: 45.w,
+                              height: 25.w,
                             ),
                             Container(
                                 padding:
