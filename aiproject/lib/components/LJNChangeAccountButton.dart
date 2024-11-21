@@ -41,6 +41,19 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
   }
 
   @override
+  void didUpdateWidget(LJNChangeAccountButton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.backgroundColor != widget.backgroundColor) {
+      originContainerColor = widget.backgroundColor!;
+
+      setState(() {
+        containerColor = originContainerColor;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     Color fontColor = const Color.fromARGB(255, 41, 41, 41);
     if (widget.color is Color) {

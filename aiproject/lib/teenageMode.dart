@@ -107,7 +107,7 @@ class _LJNTeenageMode extends State<LJNTeenageMode> {
                                 ), // 使用的图标
                                 color: const Color.fromARGB(
                                     255, 63, 198, 94), // 图标颜色
-                                size: 120.w, // 图标大小
+                                size: 110.w, // 图标大小
                               ),
                             ),
                             Text(
@@ -130,7 +130,7 @@ class _LJNTeenageMode extends State<LJNTeenageMode> {
                                   style: TextStyle(fontSize: 32.w),
                                 )),
                             SizedBox(
-                              height: 635.w,
+                              height: 625.w,
                             ),
                             Container(
                               alignment: Alignment.center,
@@ -167,13 +167,18 @@ class _LJNTeenageMode extends State<LJNTeenageMode> {
                                                     0xe65b,
                                                     fontFamily: 'Iconfont',
                                                   ), // 使用的图标
-                                                  color: Colors.black,
+                                                  color: const Color.fromARGB(
+                                                      255, 100, 100, 100),
                                                   size: 36.w,
                                                 ),
                                         ),
                                       ),
                                     ),
-                                    const TextSpan(text: "我已阅读并同意"),
+                                    const TextSpan(
+                                        text: "我已阅读并同意",
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 100, 100, 100))),
                                     TextSpan(
                                       text: "《微信青少年模式功能使用条款》",
                                       style: const TextStyle(
@@ -193,12 +198,23 @@ class _LJNTeenageMode extends State<LJNTeenageMode> {
                             SizedBox(
                               height: 43.w,
                             ),
-                            const LJNChangeAccountButton(
-                              title: '开启',
-                              link: "back",
-                              readonly: true,
-                              backgroundColor: Color.fromARGB(255, 5, 190, 94),
-                            ),
+                            selectedValue
+                                ? const LJNChangeAccountButton(
+                                    title: '开启',
+                                    link: "back",
+                                    readonly: false,
+                                    color: Colors.white,
+                                    backgroundColor:
+                                        Color.fromARGB(255, 5, 190, 94),
+                                  )
+                                : const LJNChangeAccountButton(
+                                    title: '开启',
+                                    link: "back",
+                                    readonly: false,
+                                    color: Color.fromARGB(255, 176, 176, 176),
+                                    backgroundColor:
+                                        Color.fromARGB(255, 241, 241, 241),
+                                  ),
                           ],
                         ),
                       ))));
