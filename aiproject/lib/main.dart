@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:jiaoyishuoflutter3/careMode.dart';
 import 'package:jiaoyishuoflutter3/chat.dart';
 import 'package:jiaoyishuoflutter3/collectionAndPayment.dart';
 import 'package:jiaoyishuoflutter3/discovery.dart';
@@ -12,6 +13,7 @@ import 'package:jiaoyishuoflutter3/home22.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/miniprogram.dart';
 import 'package:jiaoyishuoflutter3/mywebview.dart';
+import 'package:jiaoyishuoflutter3/newMessageNotification.dart';
 import 'package:jiaoyishuoflutter3/pocketmoney.dart';
 import 'package:jiaoyishuoflutter3/friendprofile.dart';
 import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
@@ -27,6 +29,7 @@ import 'package:jiaoyishuoflutter3/settings/phoneNumber.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
 import 'package:jiaoyishuoflutter3/settings/verifyPhone.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
+import 'package:jiaoyishuoflutter3/teenageMode.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
@@ -265,9 +268,13 @@ class TabBarApp extends StatelessWidget {
                   } else if (settings.name == '/input_verify_code') {
                     return pageRouteBuilderAnimation(
                         const LJNInputVerifyCode());
-                  } else if (settings.name == '/collection_and_payment') {
+                  } else if (settings.name == '/teenage_mode') {
+                    return pageRouteBuilderAnimation(const LJNTeenageMode());
+                  } else if (settings.name == '/care_mode') {
+                    return pageRouteBuilderAnimation(const LJNCareMode());
+                  } else if (settings.name == '/new_message_notification') {
                     return pageRouteBuilderAnimation(
-                        const LJNCollectionAndPayment());
+                        const LJNNewMessageNotification());
                   }
 
                   return null;

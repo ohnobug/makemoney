@@ -134,13 +134,13 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "青少年模式",
-                        link: '',
+                        link: '/teenage_mode',
                         underline: true,
                       ),
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "关怀模式",
-                        link: '',
+                        link: '/care_mode',
                         underline: false,
                       ),
                       SizedBox(height: 16.w),
@@ -149,7 +149,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "新消息通知",
-                        link: '',
+                        link: '/new_message_notification',
                         underline: true,
                       ),
                       const LJNFunctionItem(

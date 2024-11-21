@@ -12,17 +12,18 @@ class LJNFunctionItem extends StatefulWidget {
   final String? link;
   final bool underline;
   final Object? showStyle;
+  final bool? tapEffect;
 
-  const LJNFunctionItem({
-    super.key,
-    required this.id,
-    this.icon,
-    this.height,
-    required this.title,
-    this.link,
-    required this.underline,
-    this.showStyle,
-  });
+  const LJNFunctionItem(
+      {super.key,
+      required this.id,
+      this.icon,
+      this.height,
+      required this.title,
+      this.link,
+      required this.underline,
+      this.showStyle,
+      this.tapEffect});
 
   @override
   State<LJNFunctionItem> createState() => _LJNFunctionItemState();
@@ -31,16 +32,28 @@ class LJNFunctionItem extends StatefulWidget {
 class _LJNFunctionItemState extends State<LJNFunctionItem> {
   // bool isClicked = false;
   Color containerColor = Colors.white;
+  late bool tapEffect;
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      tapEffect = widget.tapEffect ?? true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (tapDownDetails) {
+        if (tapEffect == false) return;
         setState(() {
           containerColor = const Color.fromARGB(255, 229, 229, 229);
         });
       },
       onTapCancel: () {
+        if (tapEffect == false) return;
         setState(() {
           containerColor = Colors.white;
         });
@@ -48,6 +61,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
         logger.info("取消点击");
       },
       onTapUp: (tapDownDetails) {
+        if (tapEffect == false) return;
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
             containerColor = Colors.white;
@@ -144,17 +158,18 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                                         ])
                                   : widget.showStyle as Widget)),
 
-                    Container(
-                        width: 30.w,
-                        margin: const EdgeInsets.only(right: 32).w,
-                        child: Icon(
-                          const IconData(
-                            0xed9d,
-                            fontFamily: 'Iconfont',
-                          ),
-                          size: 30.0.w,
-                          color: const Color.fromARGB(255, 164, 164, 164),
-                        ))
+                    if (widget.link != null)
+                      Container(
+                          width: 30.w,
+                          margin: const EdgeInsets.only(right: 32).w,
+                          child: Icon(
+                            const IconData(
+                              0xed9d,
+                              fontFamily: 'Iconfont',
+                            ),
+                            size: 30.0.w,
+                            color: const Color.fromARGB(255, 164, 164, 164),
+                          ))
                   ],
                 ),
               ),
