@@ -117,6 +117,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                         title: "接收新消息通知",
                         // link: '',
                         underline: true,
+                        tapEffect: false,
                         showStyle: Container(
                             margin: const EdgeInsets.only(right: 20).w,
                             child: LJNSwitch(
@@ -130,6 +131,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           title: "接收语音和视频通话邀请提醒",
                           // link: '',
                           underline: false,
+                          tapEffect: false,
                           showStyle: Container(
                               margin: const EdgeInsets.only(right: 20).w,
                               child: LJNSwitch(
@@ -144,6 +146,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           title: "通知显示消息详情",
                           // link: '',
                           underline: false,
+                          tapEffect: false,
                           showStyle: Container(
                               margin: const EdgeInsets.only(right: 20).w,
                               child: LJNSwitch(
@@ -211,6 +214,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           title: "呼叫我时朋友也可以听见我的来电铃声",
                           // link: '',
                           underline: false,
+                          tapEffect: false,
                           showStyle: Container(
                               margin: const EdgeInsets.only(right: 20).w,
                               child: LJNSwitch(
