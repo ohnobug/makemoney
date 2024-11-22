@@ -81,237 +81,259 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
         body: StoreConnector<StoreType, StoreType>(
             converter: (store) => store.state,
             builder: (context, vm) {
-              return SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(
-                      parent: BouncingScrollPhysics()),
-                  child: Container(
-                      color: const Color.fromARGB(255, 77, 174, 107),
-                      child: Column(
-                        children: [
-                          Container(
-                              margin: EdgeInsets.only(
-                                  top: 15.w, left: 15.w, right: 15.w),
-                              padding: EdgeInsets.all(15.w),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.w)),
-                              ),
-                              child: Column(
-                                children: [
-                                  Container(
-                                      height: 110.w,
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              bottom: BorderSide(
-                                                  width: 0.5.w,
+              return ColoredBox(
+                  color: const Color.fromARGB(255, 77, 174, 107),
+                  child: ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(
+                            parent: BouncingScrollPhysics()),
+                        child: Column(
+                          children: [
+                            Container(
+                                margin: EdgeInsets.only(
+                                    top: 15.w, left: 15.w, right: 15.w),
+                                padding: EdgeInsets.all(15.w),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.w)),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                        height: 110.w,
+                                        decoration: BoxDecoration(
+                                            border: Border(
+                                                bottom: BorderSide(
+                                                    width: 0.5.w,
+                                                    color: const Color.fromARGB(
+                                                        255, 207, 211, 212)))),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  const IconData(
+                                                    0xed9e,
+                                                    fontFamily: 'Iconfont',
+                                                  ), // 使用的图标
                                                   color: const Color.fromARGB(
-                                                      255, 207, 211, 212)))),
+                                                      255, 59, 143, 65), // 图标颜色
+                                                  size: 30.w, // 图标大小
+                                                ),
+                                                SizedBox(
+                                                  width: 10.w,
+                                                ),
+                                                Text(
+                                                  "付款码",
+                                                  style: TextStyle(
+                                                      fontSize: 30.w,
+                                                      height: 1.08,
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              59,
+                                                              143,
+                                                              65)),
+                                                )
+                                              ],
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                // 点击事件
+                                              },
+                                              child: Container(
+                                                height: 90.w,
+                                                color: Colors.transparent,
+                                                padding: EdgeInsets.only(
+                                                    right: 33.w), // 设置右侧内边距
+                                                child: Icon(
+                                                  const IconData(
+                                                    0xe659,
+                                                    fontFamily: 'Iconfont',
+                                                  ),
+                                                  size: 37.w, // 图标大小
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        )),
+                                    SizedBox(
+                                      height: 40.w,
+                                    ),
+                                    Container(
+                                      child: Text(
+                                        "优先使用零钱付款",
+                                        style: TextStyle(
+                                            fontSize: 25.w,
+                                            color: const Color.fromARGB(
+                                                255, 157, 161, 162)),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10.w,
+                                    ),
+                                    Image.asset(
+                                      assetPath("images/avatar/linecode.png"),
+                                      width: 650.0.w,
+                                      height: 200.0.w,
+                                      fit: BoxFit.fill,
+                                    ),
+                                    SizedBox(
+                                      height: 55.w,
+                                    ),
+                                    Container(
+                                        padding: EdgeInsets.only(bottom: 50.w),
+                                        height: 300.w,
+                                        width: screenSize.width,
+                                        decoration: BoxDecoration(
+                                            border: Border(
+                                                bottom: BorderSide(
+                                                    width: 0.5.w,
+                                                    color: const Color.fromARGB(
+                                                        255, 207, 211, 212)))),
+                                        child: Image.asset(
+                                          assetPath("images/avatar/qrcode.png"),
+                                          width: 300.0.w,
+                                          height: 300.0.w,
+                                          fit: BoxFit.contain,
+                                        )),
+                                    SizedBox(
+                                      width: screenSize.width,
+                                      height: 80.w,
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Row(
+                                          Text(
+                                            "优先付款方式",
+                                            style: TextStyle(fontSize: 28.w),
+                                          ),
+                                          Flex(
+                                            direction: Axis.horizontal,
                                             children: [
+                                              Text(
+                                                "更改",
+                                                style:
+                                                    TextStyle(fontSize: 28.w),
+                                              ),
                                               Icon(
                                                 const IconData(
-                                                  0xed9e,
+                                                  0xe891,
                                                   fontFamily: 'Iconfont',
                                                 ), // 使用的图标
-                                                color: const Color.fromARGB(
-                                                    255, 59, 143, 65), // 图标颜色
-                                                size: 30.w, // 图标大小
-                                              ),
-                                              SizedBox(
-                                                width: 10.w,
-                                              ),
-                                              Text(
-                                                "付款码",
-                                                style: TextStyle(
-                                                    fontSize: 30.w,
-                                                    height: 1.08,
-                                                    color: const Color.fromARGB(
-                                                        255, 59, 143, 65)),
+                                                color: Colors.black, // 图标颜色
+                                                size: 28.w, // 图标大小
                                               )
                                             ],
                                           ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              // 点击事件
-                                            },
-                                            child: Container(
-                                              height: 90.w,
-                                              color: Colors.transparent,
-                                              padding: EdgeInsets.only(
-                                                  right: 33.w), // 设置右侧内边距
-                                              child: Icon(
-                                                const IconData(
-                                                  0xe659,
-                                                  fontFamily: 'Iconfont',
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 100.w,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 20.w),
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 255, 234, 48),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.w)),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          // 零钱
+                                          Flex(
+                                              direction: Axis.horizontal,
+                                              children: [
+                                                Icon(
+                                                  const IconData(
+                                                    0xe6cc,
+                                                    fontFamily: 'Iconfont',
+                                                  ), // 使用的图标
+                                                  color: Colors.black, // 图标颜色
+                                                  size: 28.w, // 图标大小
                                                 ),
-                                                size: 37.w, // 图标大小
-                                              ),
-                                            ),
+                                                SizedBox(
+                                                  width: 10.w,
+                                                ),
+                                                Text(
+                                                  "零钱",
+                                                  style:
+                                                      TextStyle(fontSize: 25.w),
+                                                ),
+                                              ]),
+
+                                          // 打勾
+                                          Icon(
+                                            const IconData(
+                                              0xe60d,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color: const Color.fromARGB(
+                                                255, 59, 143, 65), // 图标颜色
+                                            size: 28.w, // 图标大小
                                           )
                                         ],
-                                      )),
-                                  SizedBox(
-                                    height: 40.w,
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      "优先使用零钱付款",
-                                      style: TextStyle(
-                                          fontSize: 25.w,
-                                          color: const Color.fromARGB(
-                                              255, 157, 161, 162)),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10.w,
-                                  ),
-                                  Image.asset(
-                                    assetPath("images/avatar/linecode.png"),
-                                    width: 650.0.w,
-                                    height: 200.0.w,
-                                    fit: BoxFit.fill,
-                                  ),
-                                  SizedBox(
-                                    height: 55.w,
-                                  ),
-                                  Container(
-                                      height: 500.w,
-                                      width: screenSize.width,
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              bottom: BorderSide(
-                                                  width: 0.5.w,
-                                                  color: const Color.fromARGB(
-                                                      255, 207, 211, 212)))),
-                                      child: Image.asset(
-                                        assetPath("images/avatar/qrcode.png"),
-                                        width: 280.0.w,
-                                        height: 280.0.w,
-                                        fit: BoxFit.contain,
-                                      )),
-                                  Container(
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "优先付款方式",
-                                          style: TextStyle(fontSize: 30.w),
-                                        ),
-                                        Flex(
-                                          direction: Axis.horizontal,
-                                          children: [
-                                            Text(
-                                              "更改",
-                                              style: TextStyle(fontSize: 30.w),
-                                            ),
-                                            Icon(
-                                              const IconData(
-                                                0xe891,
-                                                fontFamily: 'Iconfont',
-                                              ), // 使用的图标
-                                              color: Colors.black, // 图标颜色
-                                              size: 30.w, // 图标大小
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 100.w,
-                                    padding: EdgeInsets.all(15.w),
-                                    decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 250, 253, 61),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10.w)),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Flex(
-                                            direction: Axis.horizontal,
-                                            children: [
-                                              Icon(
-                                                const IconData(
-                                                  0xe6cc,
-                                                  fontFamily: 'Iconfont',
-                                                ), // 使用的图标
-                                                color: Colors.black, // 图标颜色
-                                                size: 30.w, // 图标大小
-                                              ),
-                                              Text(
-                                                "零钱",
-                                                style:
-                                                    TextStyle(fontSize: 30.w),
-                                              ),
-                                              Icon(
-                                                const IconData(
-                                                  0xe60d,
-                                                  fontFamily: 'Iconfont',
-                                                ), // 使用的图标
-                                                color: Colors.black, // 图标颜色
-                                                size: 30.w, // 图标大小
-                                              )
-                                            ]),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              )),
+                                      ),
+                                    )
+                                  ],
+                                )),
 
-                          // 列表
-                          Container(
-                              margin: EdgeInsets.only(
-                                  top: 15.w, left: 15.w, right: 15.w),
-                              padding: EdgeInsets.all(15.w),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.w)),
-                              ),
-                              child: const Column(children: [
-                                LJNFunctionItem(
-                                  id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                  title: "二维码收款",
-                                  link: '',
-                                  underline: false,
+                            // 列表
+                            Container(
+                                margin: EdgeInsets.only(
+                                    top: 15.w, left: 15.w, right: 15.w),
+                                padding: EdgeInsets.all(15.w),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.w)),
                                 ),
-                                LJNFunctionItem(
-                                  id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                  title: "赞赏码",
-                                  link: '',
-                                  underline: false,
-                                ),
-                                LJNFunctionItem(
-                                  id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                  title: "群收款",
-                                  link: '',
-                                  underline: false,
-                                ),
-                                LJNFunctionItem(
-                                  id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                  title: "面对面红包",
-                                  link: '',
-                                  underline: false,
-                                ),
-                                LJNFunctionItem(
-                                  id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                                  title: "向银行卡或手机号转账",
-                                  link: '',
-                                  underline: false,
-                                ),
-                              ]))
-                        ],
+                                child: const Column(children: [
+                                  LJNFunctionItem(
+                                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                                    title: "二维码收款",
+                                    link: '',
+                                    underline: false,
+                                  ),
+                                  LJNFunctionItem(
+                                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                                    title: "赞赏码",
+                                    link: '',
+                                    underline: false,
+                                  ),
+                                  LJNFunctionItem(
+                                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                                    title: "群收款",
+                                    link: '',
+                                    underline: false,
+                                  ),
+                                  LJNFunctionItem(
+                                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                                    title: "面对面红包",
+                                    link: '',
+                                    underline: false,
+                                  ),
+                                  LJNFunctionItem(
+                                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                                    title: "向银行卡或手机号转账",
+                                    link: '',
+                                    underline: false,
+                                  ),
+                                ]))
+                          ],
+                        ),
                       )));
             }));
   }
