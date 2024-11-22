@@ -141,8 +141,8 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                         title: '收付款',
                                         subTitle: " ",
                                         onPressed: () {
-                                          Navigator.pushNamed(
-                                              context, '/video_player');
+                                          Navigator.pushNamed(context,
+                                              '/collection_and_payment');
                                           logger.info('点击了收付款还款按钮~~');
                                         },
                                       ),

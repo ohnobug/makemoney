@@ -73,7 +73,7 @@ class _LJNSwitchState extends State<LJNSwitch>
               children: [
                 Positioned(
                   top: 4.w,
-                  left: 2.w + _controller.value * 40.w, // 根据动画进度调整位置
+                  left: 4.w + _controller.value * 40.w, // 根据动画进度调整位置
                   child: Container(
                     width: 52.0.w,
                     height: 52.0.w,

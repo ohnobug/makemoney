@@ -275,6 +275,9 @@ class TabBarApp extends StatelessWidget {
                   } else if (settings.name == '/new_message_notification') {
                     return pageRouteBuilderAnimation(
                         const LJNNewMessageNotification());
+                  } else if (settings.name == "/collection_and_payment") {
+                    return pageRouteBuilderAnimation(
+                        const LJNCollectionAndPayment());
                   }
 
                   return null;
