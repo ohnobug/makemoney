@@ -347,7 +347,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                   LJNCAPFunctionItem(
                                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                     title: "二维码收款",
-                                    icon: 0xed9e,
+                                    icon: 0xe623,
                                     link: '',
                                     backgroundColor:
                                         Color.fromARGB(255, 56, 179, 114),
@@ -356,7 +356,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                   LJNCAPFunctionItem(
                                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                     title: "赞赏码",
-                                    icon: 0xed9e,
+                                    icon: 0xe73f,
                                     link: '',
                                     backgroundColor:
                                         Color.fromARGB(255, 56, 179, 114),
@@ -365,7 +365,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                   LJNCAPFunctionItem(
                                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                     title: "群收款",
-                                    icon: 0xed9e,
+                                    icon: 0xe624,
                                     link: '',
                                     backgroundColor:
                                         Color.fromARGB(255, 56, 179, 114),
@@ -374,7 +374,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                   LJNCAPFunctionItem(
                                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                     title: "面对面红包",
-                                    icon: 0xed9e,
+                                    icon: 0xe625,
                                     link: '',
                                     backgroundColor:
                                         Color.fromARGB(255, 56, 179, 114),
@@ -383,7 +383,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                   LJNCAPFunctionItem(
                                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                     title: "向银行卡或手机号转账",
-                                    icon: 0xed9e,
+                                    icon: 0xe6b2,
                                     link: '',
                                     backgroundColor:
                                         Color.fromARGB(255, 56, 179, 114),
