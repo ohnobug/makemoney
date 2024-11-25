@@ -185,7 +185,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                         title: "微信安全中心",
                         height: 178.w,
                         link: '',
-                        showStyle: Text(
+                        subTitle: Text(
                           "如果你遇到账号被盗，无法登录等问题，可以前往安全中心",
                           maxLines: 3,
                           style: TextStyle(
