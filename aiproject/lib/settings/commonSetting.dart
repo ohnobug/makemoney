@@ -112,7 +112,7 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "深色模式",
-                        // link: '',
+                        link: '',
                         underline: true,
                         tapEffect: true,
                         showStyle: "跟随系统",
@@ -173,8 +173,9 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                       Container(
                         alignment: Alignment.centerLeft,
                         height: 64.w,
-                        padding:
-                            const EdgeInsets.only(left: 30.0, right: 0.0).w,
+                        padding: const EdgeInsets.only(
+                                left: 30.0, right: 0.0, top: 16)
+                            .w,
                         child: Text(
                           "其他",
                           style: TextStyle(fontSize: 25.w, height: 1.08),
