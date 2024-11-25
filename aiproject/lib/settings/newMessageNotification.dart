@@ -7,7 +7,7 @@ import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
-import '../components/LJNFunctionItem.dart';
+import '../../components/LJNFunctionItem.dart';
 
 class LJNNewMessageNotification extends StatefulWidget {
   const LJNNewMessageNotification({super.key});

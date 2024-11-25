@@ -155,7 +155,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "聊天",
-                        link: '',
+                        link: '/chat_setting',
                         underline: true,
                       ),
                       const LJNFunctionItem(
