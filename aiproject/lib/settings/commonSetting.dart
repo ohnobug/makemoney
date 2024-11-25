@@ -1,22 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:jiaoyishuoflutter3/components/LJNSwitch.dart';
 import 'package:jiaoyishuoflutter3/components/pageloading.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import '../../components/LJNFunctionItem.dart';
 
-import '../components/LJNFunctionItem.dart';
-import 'button.dart';
-
-class LJNSettingPage extends StatefulWidget {
-  const LJNSettingPage({super.key});
+class LJNCommonSetting extends StatefulWidget {
+  const LJNCommonSetting({super.key});
 
   @override
-  State<LJNSettingPage> createState() => _LJNSettingPage();
+  State<LJNCommonSetting> createState() => _LJNCommonSetting();
 }
 
-class _LJNSettingPage extends State<LJNSettingPage> {
+class _LJNCommonSetting extends State<LJNCommonSetting> {
   double _statusHeight = 0;
 
   @override
@@ -75,7 +75,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                   ),
                   primary: false,
                   centerTitle: true,
-                  title: const Text('设置'),
+                  title: const Text('通用设置'),
                   toolbarHeight: 90.w,
                   titleTextStyle: TextStyle(
                       height: 1.08,
@@ -86,28 +86,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                   scrolledUnderElevation: 0,
                   backgroundColor: const Color.fromARGB(255, 237, 237, 237),
                   foregroundColor: const Color.fromARGB(255, 237, 237, 237),
-                  // bottom: PreferredSize(
-                  //   preferredSize: Size.fromHeight(1.w),
-                  //   child: Container(
-                  //     color: const Color.fromARGB(255, 220, 220, 220),
-                  //     height: 1.w,
-                  //   ),
-                  // ),
-                  actions: const [
-                    // // 三个点
-                    // GestureDetector(
-                    //     onTap: () {
-                    //       // 点击事件
-                    //     },
-                    //     child: Container(
-                    //         color: Colors.transparent,
-                    //         padding: EdgeInsets.only(right: 33.w),
-                    //         child: Text("账单",
-                    //             style: TextStyle(height: 1.08,
-                    //                 color: Colors.black,
-                    //                 fontSize: fontSizeScale(30.w),
-                    //                 fontWeight: FontWeight.w500)))),
-                  ],
+                  actions: const [],
                 ))),
         body: ScrollConfiguration(
             behavior:
@@ -120,129 +99,124 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     physics: const AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics()),
                     child: Column(children: [
-                      // 账户与安全
-                      const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "账户与安全",
-                        link: '/account_and_secure',
-                        underline: false,
-                      ),
-
-                      SizedBox(height: 16.w),
-
-                      // 青少年模式 与 关怀模式
-                      const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "青少年模式",
-                        link: '/teenage_mode',
-                        underline: true,
-                      ),
-                      const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "关怀模式",
-                        link: '/care_mode',
-                        underline: false,
-                      ),
-                      SizedBox(height: 16.w),
-
-                      // 新消息通知 与 聊天 和 通用
-                      const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "新消息通知",
-                        link: '/new_message_notification',
-                        underline: true,
-                      ),
-                      const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "聊天",
-                        link: '/chat_setting',
-                        underline: true,
-                      ),
-                      const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "通用",
-                        link: '/common_setting',
-                        underline: false,
-                      ),
-                      // SizedBox(height: 16.w),
-                      SizedBox(height: 16.w),
-
                       Container(
                         alignment: Alignment.centerLeft,
                         height: 64.w,
                         padding:
                             const EdgeInsets.only(left: 30.0, right: 0.0).w,
                         child: Text(
-                          "隐私",
+                          "界面与显示",
                           style: TextStyle(fontSize: 25.w, height: 1.08),
                         ),
                       ),
-
-                      // 朋友权限 与 个人信息与权限 和 个人信息收集清单 和 第三方信息共享清单
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "朋友权限",
+                        title: "深色模式",
+                        // link: '',
+                        underline: true,
+                        tapEffect: true,
+                        showStyle: "跟随系统",
+                      ),
+                      LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "开启横屏模式",
+                        // link: '',
+                        underline: true,
+                        tapEffect: false,
+                        showStyle: Container(
+                            margin: const EdgeInsets.only(right: 20).w,
+                            child: LJNSwitch(
+                              initialValue: false,
+                              onChanged: (value) {
+                                logger.info(value);
+                              },
+                            )),
+                      ),
+                      LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "开启NFC功能",
+                        // link: '',
+                        underline: true,
+                        tapEffect: false,
+                        showStyle: Container(
+                            margin: const EdgeInsets.only(right: 20).w,
+                            child: LJNSwitch(
+                              initialValue: true,
+                              onChanged: (value) {
+                                logger.info(value);
+                              },
+                            )),
+                      ),
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "自动下载微信安装包",
+                        link: '',
+                        underline: true,
+                        tapEffect: true,
+                        showStyle: "仅Wi-Fi网络",
+                      ),
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "多语言",
+                        link: '',
+                        underline: true,
+                        tapEffect: true,
+                        showStyle: "跟随系统",
+                      ),
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "翻译",
+                        link: '',
+                        underline: false,
+                        tapEffect: true,
+                      ),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        height: 64.w,
+                        padding:
+                            const EdgeInsets.only(left: 30.0, right: 0.0).w,
+                        child: Text(
+                          "其他",
+                          style: TextStyle(fontSize: 25.w, height: 1.08),
+                        ),
+                      ),
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "存储空间",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "个人信息与权限",
+                        title: "字体大小",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "个人信息收集清单",
+                        title: "照片、视频、文件和通话",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "第三方信息共享清单",
-                        link: '',
-                        underline: false,
-                      ),
-                      SizedBox(height: 16.w),
-
-                      const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "插件",
-                        link: '',
-                        showStyle: "微信输入法可以【问AI】了",
-                        underline: false,
-                      ),
-                      SizedBox(height: 16.w),
-
-                      const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "关于微信",
+                        title: "音乐和音频",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "帮助与反馈",
+                        title: "发现页管理",
+                        link: '',
+                        underline: true,
+                      ),
+                      const LJNFunctionItem(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "辅助功能",
                         link: '',
                         underline: false,
                       ),
                       SizedBox(height: 16.w),
-
-                      const LJNButton(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "切换账号",
-                        link: '',
-                        underline: false,
-                      ),
-                      SizedBox(height: 16.w),
-
-                      const LJNButton(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "退出",
-                        link: '',
-                        underline: false,
-                      ),
-                      SizedBox(height: 106.w),
                     ])))));
   }
 }

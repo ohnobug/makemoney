@@ -12,18 +12,19 @@ class LJNSpecialFunctionItem extends StatefulWidget {
   final bool underline;
   final Widget? showStyle;
   final Widget? subTitle;
+  final bool? tapEffect;
 
-  const LJNSpecialFunctionItem({
-    super.key,
-    required this.id,
-    this.icon,
-    this.height,
-    required this.title,
-    this.link,
-    required this.underline,
-    this.showStyle,
-    this.subTitle,
-  });
+  const LJNSpecialFunctionItem(
+      {super.key,
+      required this.id,
+      this.icon,
+      this.height,
+      required this.title,
+      this.link,
+      required this.underline,
+      this.showStyle,
+      this.subTitle,
+      this.tapEffect});
 
   @override
   State<LJNSpecialFunctionItem> createState() => _LJNSpecialFunctionItemState();
@@ -32,16 +33,30 @@ class LJNSpecialFunctionItem extends StatefulWidget {
 class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
   // bool isClicked = false;
   Color containerColor = Colors.white;
+  late bool tapEffect;
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      tapEffect = widget.tapEffect ?? true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (tapDownDetails) {
+        if (tapEffect == false) return;
+
         setState(() {
           containerColor = const Color.fromARGB(255, 229, 229, 229);
         });
       },
       onTapCancel: () {
+        if (tapEffect == false) return;
+
         setState(() {
           containerColor = Colors.white;
         });
@@ -49,6 +64,8 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
         logger.info("取消点击");
       },
       onTapUp: (tapDownDetails) {
+        if (tapEffect == false) return;
+
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
             containerColor = Colors.white;

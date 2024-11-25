@@ -14,6 +14,7 @@ import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/miniprogram.dart';
 import 'package:jiaoyishuoflutter3/mywebview.dart';
 import 'package:jiaoyishuoflutter3/settings/chatSetting.dart';
+import 'package:jiaoyishuoflutter3/settings/commonSetting.dart';
 import 'package:jiaoyishuoflutter3/settings/newMessageNotification.dart';
 import 'package:jiaoyishuoflutter3/pocketmoney.dart';
 import 'package:jiaoyishuoflutter3/friendprofile.dart';
@@ -282,6 +283,8 @@ class TabBarApp extends StatelessWidget {
                         const LJNCollectionAndPayment());
                   } else if (settings.name == "/chat_setting") {
                     return pageRouteBuilderAnimation(const LJNChatSetting());
+                  } else if (settings.name == "/common_setting") {
+                    return pageRouteBuilderAnimation(const LJNCommonSetting());
                   }
 
                   return null;
