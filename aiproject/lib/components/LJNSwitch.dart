@@ -63,7 +63,7 @@ class _LJNSwitchState extends State<LJNSwitch>
           return Container(
             width: 100.0.w,
             height: 60.0.w,
-            padding: EdgeInsets.symmetric(horizontal: 4.0.w),
+            // padding: EdgeInsets.symmetric(horizontal: 4.0.w),
             decoration: BoxDecoration(
               color:
                   isOn ? const Color.fromARGB(255, 74, 193, 99) : Colors.grey,

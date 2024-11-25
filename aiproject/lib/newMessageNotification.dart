@@ -121,6 +121,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                         showStyle: Container(
                             margin: const EdgeInsets.only(right: 20).w,
                             child: LJNSwitch(
+                              initialValue: true,
                               onChanged: (value) {
                                 logger.info(value);
                               },
@@ -135,6 +136,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           showStyle: Container(
                               margin: const EdgeInsets.only(right: 20).w,
                               child: LJNSwitch(
+                                initialValue: true,
                                 onChanged: (value) {
                                   logger.info(value);
                                 },
@@ -150,6 +152,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           showStyle: Container(
                               margin: const EdgeInsets.only(right: 20).w,
                               child: LJNSwitch(
+                                initialValue: true,
                                 onChanged: (value) {
                                   logger.info(value);
                                 },
@@ -218,6 +221,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           showStyle: Container(
                               margin: const EdgeInsets.only(right: 20).w,
                               child: LJNSwitch(
+                                initialValue: true,
                                 onChanged: (value) {
                                   logger.info(value);
                                 },
