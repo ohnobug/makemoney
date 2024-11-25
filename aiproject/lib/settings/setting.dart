@@ -224,7 +224,6 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "帮助与反馈",
                         link: '',
-                        showStyle: "",
                         underline: false,
                       ),
                       SizedBox(height: 16.w),
