@@ -368,7 +368,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
 
           double mytop = 0;
           if (pageControllerOffset > historyHeight) {
-            mytop = 0;
+            mytop = -1.w;
           } else {
             mytop = historyHeight - pageControllerOffset;
           }
@@ -383,11 +383,12 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                       EdgeInsets.symmetric(horizontal: 16.w, vertical: 0.w),
                   margin: EdgeInsets.only(top: _statusHeight),
                   height: 90.w,
-                  // color: const Color.fromARGB(255, 221, 76, 76), // 设置背景颜色
+                  color: Colors.white, // 设置背景颜色
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      // 返回按钮
                       GestureDetector(
                         onTap: () => Navigator.of(context).pop(), // 点击事件
                         child: Container(
@@ -398,11 +399,13 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                               0xed9e,
                               fontFamily: 'Iconfont',
                             ), // 使用的图标
-                            color: Colors.black, // 图标颜色
+                            color: const Color.fromARGB(255, 99, 99, 99), // 图标颜色
                             size: 36.w, // 图标大小
                           ),
                         ),
                       ),
+
+                      // 搜索框
                       Expanded(
                           flex: 1,
                           child: Container(
@@ -436,7 +439,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                           255, 69, 75, 83)),
                                   filled: true,
                                   fillColor:
-                                      const Color.fromARGB(255, 217, 220, 224),
+                                      const Color.fromARGB(255, 233, 234, 236),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(30),
                                     borderSide: BorderSide.none,
@@ -460,6 +463,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                         parent: BouncingScrollPhysics()),
                     child: Column(
                       children: [
+                        // 历史 与 猜你想搜
                         Column(
                           key: historyKey,
                           children: [
@@ -740,7 +744,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                         // 热榜
                         SizedBox(
                           width: screenSize.width,
-                          height: hotList.length * (72.w + 15.w) + 90.w,
+                          height: (hotList.length * (72.w + 15.w) + 90.w),
                           child: PageView(
                             scrollDirection: Axis.horizontal,
                             controller: hotListController,
@@ -841,10 +845,20 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                   return Container(
                     height: 72.w,
                     decoration: BoxDecoration(
-                      color: e.key < 3
-                          ? const Color.fromARGB(255, 253, 245, 242)
-                          : Colors.white,
+                      // color: e.key < 3
+                      //     ? const Color.fromARGB(255, 253, 245, 242)
+                      //     : const Color.fromARGB(255, 231, 231, 231),
                       borderRadius: BorderRadius.all(Radius.circular(10.w)),
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft, // 渐变开始点
+                        end: Alignment.centerRight, // 渐变结束点
+                        colors: [
+                          e.key < 3
+                              ? const Color.fromARGB(255, 253, 245, 242)
+                              : const Color.fromARGB(255, 245, 245, 245), // 起始颜色
+                          Colors.white, // 结束颜色
+                        ],
+                      ),
                     ),
                     padding: EdgeInsets.only(left: 24.w, right: 24.w),
                     margin: EdgeInsets.only(bottom: 15.w),

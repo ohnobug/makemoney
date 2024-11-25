@@ -36,7 +36,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(90.0.w + _statusHeight),
             child: Container(
-              color: const Color.fromARGB(255, 77, 174, 107),
+              color: const Color.fromARGB(255, 42, 172, 102),
               padding: EdgeInsets.only(top: _statusHeight),
               child: AppBar(
                 leading: GestureDetector(
@@ -59,19 +59,19 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                 elevation: 0,
                 scrolledUnderElevation: 0,
                 toolbarHeight: 90.w,
-                title: Text("收付款"),
+                title: const Text("收付款"),
                 titleTextStyle: TextStyle(
                   height: 1.08,
                   fontSize: fontSizeScale(32.w),
                   color: Colors.white,
                   fontFamily: "AlibabaPuHuiTi-Medium",
                 ),
-                backgroundColor: const Color.fromARGB(255, 77, 174, 107),
-                foregroundColor: const Color.fromARGB(255, 77, 174, 107),
+                backgroundColor: const Color.fromARGB(255, 42, 172, 102),
+                foregroundColor: const Color.fromARGB(255, 42, 172, 102),
                 bottom: PreferredSize(
                   preferredSize: Size.fromHeight(1.w),
                   child: Container(
-                    color: const Color.fromARGB(255, 77, 174, 107),
+                    color: const Color.fromARGB(255, 42, 172, 102),
                     height: 0.5.w,
                   ),
                 ),
@@ -155,7 +155,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                                     right: 33.w), // 设置右侧内边距
                                                 child: Icon(
                                                   color: const Color.fromARGB(
-                                                      255, 242, 205, 12),
+                                                      255, 64, 64, 64),
                                                   const IconData(
                                                     0xe659,
                                                     fontFamily: 'Iconfont',
@@ -192,18 +192,18 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                     ),
                                     Container(
                                         padding: EdgeInsets.only(bottom: 60.w),
-                                        height: 253.w,
+                                        height: 315.w,
                                         width: screenSize.width,
                                         decoration: BoxDecoration(
                                             border: Border(
                                                 bottom: BorderSide(
                                                     width: 0.5.w,
                                                     color: const Color.fromARGB(
-                                                        255, 247, 247, 247)))),
+                                                        255, 243, 243, 243)))),
                                         child: Image.asset(
                                           assetPath("images/avatar/qrcode.png"),
-                                          width: 253.0.w,
-                                          height: 253.0.w,
+                                          width: 315.0.w,
+                                          height: 315.0.w,
                                           fit: BoxFit.contain,
                                         )),
                                     SizedBox(
@@ -356,7 +356,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                   LJNCAPFunctionItem(
                                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                     title: "赞赏码",
-                                    icon: 0xe73f,
+                                    icon: 0xe67b,
                                     link: '',
                                     backgroundColor:
                                         Color.fromARGB(255, 56, 179, 114),
@@ -383,7 +383,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                   LJNCAPFunctionItem(
                                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                     title: "向银行卡或手机号转账",
-                                    icon: 0xe6b2,
+                                    icon: 0xe661,
                                     link: '',
                                     backgroundColor:
                                         Color.fromARGB(255, 56, 179, 114),
@@ -392,7 +392,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                 ])),
 
                             SizedBox(
-                              height: 100.w,
+                              height: 20.w,
                             )
                           ],
                         ),
@@ -500,7 +500,7 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                     fontFamily: 'Iconfont',
                   ), // 使用的图标
                   color: Colors.white, // 图标颜色
-                  size: 36.w, // 图标大小
+                  size: 35.w, // 图标大小
                 ),
               ),
               SizedBox(width: 10.w)
@@ -515,7 +515,7 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                         bottom: BorderSide(
                   color: widget.underline
                       ? lightenColor(
-                          const Color.fromARGB(255, 56, 179, 114), 0.3)
+                          const Color.fromARGB(255, 56, 179, 114), 0.2)
                       : Colors.transparent,
                   width: 1.w,
                   style: BorderStyle.solid,
