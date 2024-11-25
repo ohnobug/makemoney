@@ -68,13 +68,6 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                 ),
                 backgroundColor: const Color.fromARGB(255, 42, 172, 102),
                 foregroundColor: const Color.fromARGB(255, 42, 172, 102),
-                bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(1.w),
-                  child: Container(
-                    color: const Color.fromARGB(255, 42, 172, 102),
-                    height: 0.5.w,
-                  ),
-                ),
                 actions: [],
               ),
             )),
@@ -124,8 +117,8 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                                     fontFamily: 'Iconfont',
                                                   ), // 使用的图标
                                                   color: const Color.fromARGB(
-                                                      255, 59, 143, 65), // 图标颜色
-                                                  size: 32.w, // 图标大小
+                                                      255, 0, 213, 106), // 图标颜色
+                                                  size: 35.w, // 图标大小
                                                 ),
                                                 SizedBox(
                                                   width: 10.w,
@@ -138,9 +131,9 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                                       color:
                                                           const Color.fromARGB(
                                                               255,
-                                                              59,
-                                                              143,
-                                                              65)),
+                                                              0,
+                                                              213,
+                                                              106)),
                                                 )
                                               ],
                                             ),
@@ -151,8 +144,6 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                               child: Container(
                                                 height: 90.w,
                                                 color: Colors.transparent,
-                                                padding: EdgeInsets.only(
-                                                    right: 33.w), // 设置右侧内边距
                                                 child: Icon(
                                                   color: const Color.fromARGB(
                                                       255, 181, 181, 181),
@@ -160,7 +151,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                                     0xe659,
                                                     fontFamily: 'Iconfont',
                                                   ),
-                                                  size: 45.w, // 图标大小
+                                                  size: 43.w, // 图标大小
                                                 ),
                                               ),
                                             )
