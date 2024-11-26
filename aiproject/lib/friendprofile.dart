@@ -279,60 +279,62 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                               title: "朋友圈",
                               link: '/friendmoments',
                               height: 151.w,
-                              showStyle: Container(
-                                  margin: EdgeInsets.only(left: 68.w),
-                                  child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          assetPath(
-                                              'images/avatar_webp/chat_81.webp'),
-                                          cacheWidth: 180.w.toInt(),
-                                          cacheHeight: 180.w.toInt(),
-                                          width: 90.w,
-                                          height: 90.w,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        SizedBox(
-                                          width: 15.w,
-                                        ),
-                                        Image.asset(
-                                          assetPath(
-                                              'images/avatar_webp/chat_92.webp'),
-                                          cacheWidth: 180.w.toInt(),
-                                          cacheHeight: 180.w.toInt(),
-                                          width: 90.w,
-                                          height: 90.w,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        SizedBox(
-                                          width: 15.w,
-                                        ),
-                                        Image.asset(
-                                          assetPath(
-                                              'images/avatar_webp/chat_93.webp'),
-                                          cacheWidth: 180.w.toInt(),
-                                          cacheHeight: 180.w.toInt(),
-                                          width: 90.w,
-                                          height: 90.w,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        SizedBox(
-                                          width: 15.w,
-                                        ),
-                                        Image.asset(
-                                          assetPath(
-                                              'images/avatar_webp/chat_86.webp'),
-                                          cacheWidth: 180.w.toInt(),
-                                          cacheHeight: 180.w.toInt(),
-                                          width: 90.w,
-                                          height: 90.w,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ])),
+                              showStyle: Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                      margin: EdgeInsets.only(left: 68.w),
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              assetPath(
+                                                  'images/avatar_webp/chat_81.webp'),
+                                              cacheWidth: 180.w.toInt(),
+                                              cacheHeight: 180.w.toInt(),
+                                              width: 90.w,
+                                              height: 90.w,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            SizedBox(
+                                              width: 15.w,
+                                            ),
+                                            Image.asset(
+                                              assetPath(
+                                                  'images/avatar_webp/chat_92.webp'),
+                                              cacheWidth: 180.w.toInt(),
+                                              cacheHeight: 180.w.toInt(),
+                                              width: 90.w,
+                                              height: 90.w,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            SizedBox(
+                                              width: 15.w,
+                                            ),
+                                            Image.asset(
+                                              assetPath(
+                                                  'images/avatar_webp/chat_93.webp'),
+                                              cacheWidth: 180.w.toInt(),
+                                              cacheHeight: 180.w.toInt(),
+                                              width: 90.w,
+                                              height: 90.w,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            SizedBox(
+                                              width: 15.w,
+                                            ),
+                                            Image.asset(
+                                              assetPath(
+                                                  'images/avatar_webp/chat_86.webp'),
+                                              cacheWidth: 180.w.toInt(),
+                                              cacheHeight: 180.w.toInt(),
+                                              width: 90.w,
+                                              height: 90.w,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ]))),
                               underline: true,
                             ),
 
