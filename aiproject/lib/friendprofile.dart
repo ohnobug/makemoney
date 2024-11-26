@@ -34,8 +34,6 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
   @override
   void initState() {
     super.initState();
-
-    myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
   }
 
   @override
@@ -43,7 +41,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          return vm.mainpage3isload! ? _buildPage() : const LJNPageLoading();
+          return _buildPage();
         });
   }
 
