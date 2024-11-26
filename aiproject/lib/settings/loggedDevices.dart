@@ -161,6 +161,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                               flex: 1,
                               child: Text(
                                 "当前设备",
+                                textAlign: TextAlign.end,
                                 style: TextStyle(
                                     fontSize: 25.w,
                                     height: 1.08,

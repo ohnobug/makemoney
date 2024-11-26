@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/LJNFunctionItemButton.dart';
-import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -280,9 +279,9 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                               link: '/friendmoments',
                               height: 151.w,
                               showStyle: Expanded(
-                                  flex: 2,
                                   child: Container(
                                       margin: EdgeInsets.only(left: 68.w),
+                                      // color: Colors.red,
                                       child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
@@ -344,90 +343,95 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                               title: "视频号",
                               link: '/ins',
                               height: 216.w,
-                              showStyle: Container(
-                                  height: 215.w,
-                                  margin: EdgeInsets.only(left: 68.w),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      // 标题
-                                      Expanded(
-                                        flex: 0,
-                                        // width: 100.w,
-                                        child: Container(
-                                            // color: Colors.red,
-                                            padding: EdgeInsets.only(top: 38.w),
-                                            child: Text(
-                                              widget.name!,
-                                              style: TextStyle(
-                                                height: 1.08,
-                                                fontSize: fontSizeScale(30.0.w),
-                                                // fontFamily: "AlibabaPuHuiTi",
-                                              ),
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                            )),
-                                      ),
-                                      SizedBox(
-                                        height: 28.w,
-                                      ),
-                                      // 视频
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                              assetPath(
-                                                  'images/avatar_webp/chat_55.webp'),
-                                              cacheWidth: 180.w.toInt(),
-                                              cacheHeight: 180.w.toInt(),
-                                              width: 90.w,
-                                              height: 90.w,
-                                              fit: BoxFit.cover,
-                                            ),
-                                            SizedBox(
-                                              width: 15.w,
-                                            ),
-                                            Image.asset(
-                                              assetPath(
-                                                  'images/avatar_webp/chat_43.webp'),
-                                              cacheWidth: 180.w.toInt(),
-                                              cacheHeight: 180.w.toInt(),
-                                              width: 90.w,
-                                              height: 90.w,
-                                              fit: BoxFit.cover,
-                                            ),
-                                            SizedBox(
-                                              width: 15.w,
-                                            ),
-                                            Image.asset(
-                                              assetPath(
-                                                  'images/avatar_webp/chat_96.webp'),
-                                              cacheWidth: 180.w.toInt(),
-                                              cacheHeight: 180.w.toInt(),
-                                              width: 90.w,
-                                              height: 90.w,
-                                              fit: BoxFit.cover,
-                                            ),
-                                            SizedBox(
-                                              width: 15.w,
-                                            ),
-                                            Image.asset(
-                                              assetPath(
-                                                  'images/avatar_webp/chat_97.webp'),
-                                              cacheWidth: 180.w.toInt(),
-                                              cacheHeight: 180.w.toInt(),
-                                              width: 90.w,
-                                              height: 90.w,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ])
-                                    ],
-                                  )),
+                              showStyle: Expanded(
+                                  child: Container(
+                                      height: 215.w,
+                                      margin: EdgeInsets.only(left: 68.w),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          // 标题
+                                          Expanded(
+                                            flex: 0,
+                                            // width: 100.w,
+                                            child: Container(
+                                                // color: Colors.red,
+                                                padding:
+                                                    EdgeInsets.only(top: 38.w),
+                                                child: Text(
+                                                  widget.name!,
+                                                  style: TextStyle(
+                                                    height: 1.08,
+                                                    fontSize:
+                                                        fontSizeScale(30.0.w),
+                                                    // fontFamily: "AlibabaPuHuiTi",
+                                                  ),
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                )),
+                                          ),
+                                          SizedBox(
+                                            height: 28.w,
+                                          ),
+                                          // 视频
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  assetPath(
+                                                      'images/avatar_webp/chat_55.webp'),
+                                                  cacheWidth: 180.w.toInt(),
+                                                  cacheHeight: 180.w.toInt(),
+                                                  width: 90.w,
+                                                  height: 90.w,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                SizedBox(
+                                                  width: 15.w,
+                                                ),
+                                                Image.asset(
+                                                  assetPath(
+                                                      'images/avatar_webp/chat_43.webp'),
+                                                  cacheWidth: 180.w.toInt(),
+                                                  cacheHeight: 180.w.toInt(),
+                                                  width: 90.w,
+                                                  height: 90.w,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                SizedBox(
+                                                  width: 15.w,
+                                                ),
+                                                Image.asset(
+                                                  assetPath(
+                                                      'images/avatar_webp/chat_96.webp'),
+                                                  cacheWidth: 180.w.toInt(),
+                                                  cacheHeight: 180.w.toInt(),
+                                                  width: 90.w,
+                                                  height: 90.w,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                SizedBox(
+                                                  width: 15.w,
+                                                ),
+                                                Image.asset(
+                                                  assetPath(
+                                                      'images/avatar_webp/chat_97.webp'),
+                                                  cacheWidth: 180.w.toInt(),
+                                                  cacheHeight: 180.w.toInt(),
+                                                  width: 90.w,
+                                                  height: 90.w,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ])
+                                        ],
+                                      ))),
                               underline: true,
                             ),
 

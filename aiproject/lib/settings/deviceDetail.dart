@@ -106,10 +106,11 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                           link: '',
                           tapEffect: true,
                           underline: true,
-                          showStyle: Container(
-                              margin: EdgeInsets.only(right: 30.w),
+                          showStyle: Expanded(
+                              flex: 1,
                               child: Text(
                                 "当前设备",
+                                textAlign: TextAlign.end,
                                 style: TextStyle(
                                     fontSize: 32.w,
                                     height: 1.08,

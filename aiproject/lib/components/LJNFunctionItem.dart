@@ -119,7 +119,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                   children: [
                     // 标题
                     Expanded(
-                      flex: 1,
+                      flex: 0,
                       // width: 100.w,
                       child: Text(
                         widget.title,
@@ -129,30 +129,33 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                           fontFamily: "AlibabaPuHuiTi",
                         ),
                         maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                        overflow: TextOverflow.visible,
                       ),
                     ),
 
                     if (widget.showStyle != null)
                       widget.showStyle is String
-                          ? Container(
-                              padding:
-                                  const EdgeInsets.only(right: 10, left: 10).w,
-                              // color: Colors.red,
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      widget.showStyle as String,
-                                      style: TextStyle(
-                                        height: 1.08,
-                                        fontSize: fontSizeScale(30.w),
-                                        color: const Color.fromARGB(
-                                            255, 83, 83, 83),
-                                      ),
-                                    )
-                                  ]))
+                          ? Expanded(
+                              child: Container(
+                                  padding:
+                                      const EdgeInsets.only(right: 10, left: 10)
+                                          .w,
+                                  // color: Colors.red,
+                                  child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          widget.showStyle as String,
+                                          style: TextStyle(
+                                            height: 1.08,
+                                            fontSize: fontSizeScale(30.w),
+                                            color: const Color.fromARGB(
+                                                255, 83, 83, 83),
+                                          ),
+                                        )
+                                      ])))
                           : widget.showStyle as Widget,
 
                     if (widget.link != null)
