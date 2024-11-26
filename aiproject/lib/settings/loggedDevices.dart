@@ -91,18 +91,31 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                   // ),
                   actions: [
                     GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, '/bind_new_phone_number');
-                        },
-                        child: Text(
-                          "编辑",
-                          // textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 32.w,
-                              fontWeight: FontWeight.w100),
-                        ))
+                      onTap: () {},
+                      child: Container(
+                        // color: Colors.black,
+                        height: 90.w,
+                        padding: EdgeInsets.only(right: 40.w),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, '/bind_new_phone_number');
+                                },
+                                child: Text(
+                                  "编辑",
+                                  // textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 32.w,
+                                      fontWeight: FontWeight.w100),
+                                ))
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 ))),
         body: ScrollConfiguration(
@@ -143,7 +156,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                           height: 150.w,
                           id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                           title: "HONOR-RNA-AN100",
-                          link: '',
+                          link: '/device_detail',
                           underline: true,
                           showStyle: Expanded(
                               flex: 1,
@@ -159,7 +172,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         height: 150.w,
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "iphone20",
-                        link: '',
+                        link: '/device_detail',
                         underline: false,
                         // showStyle: "当前设备"
                       ),
@@ -181,10 +194,10 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         height: 150.w,
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "HONOR-RNA-AN100",
-                        link: '',
+                        link: '/device_detail',
                         underline: true,
                         subTitle: Text(
-                          "11月10日 下午15.23",
+                          "11月10日 下午15:23",
                           maxLines: 3,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
@@ -198,10 +211,10 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         height: 150.w,
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "HONOR-RNA-AN100",
-                        link: '',
+                        link: '/device_detail',
                         underline: true,
                         subTitle: Text(
-                          "11月10日 下午15.23",
+                          "11月10日 下午15:23",
                           maxLines: 3,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
@@ -215,10 +228,10 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         height: 150.w,
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "HONOR-RNA-AN100",
-                        link: '',
+                        link: '/device_detail',
                         underline: true,
                         subTitle: Text(
-                          "11月10日 下午15.23",
+                          "11月10日 下午15:23",
                           maxLines: 3,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
@@ -232,10 +245,10 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         height: 150.w,
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "HONOR-RNA-AN100",
-                        link: '',
+                        link: '/device_detail',
                         underline: true,
                         subTitle: Text(
-                          "11月10日 下午15.23",
+                          "11月10日 下午15:23",
                           maxLines: 3,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
@@ -249,10 +262,10 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         height: 150.w,
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "HONOR-RNA-AN100",
-                        link: '',
+                        link: '/device_detail',
                         underline: true,
                         subTitle: Text(
-                          "11月10日 下午15.23",
+                          "11月10日 下午15:23",
                           maxLines: 3,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
@@ -266,10 +279,10 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         height: 150.w,
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "HONOR-RNA-AN100",
-                        link: '',
+                        link: '/device_detail',
                         underline: true,
                         subTitle: Text(
-                          "11月10日 下午15.23",
+                          "11月10日 下午15:23",
                           maxLines: 3,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
@@ -283,10 +296,10 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         height: 150.w,
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "HONOR-RNA-AN100",
-                        link: '',
+                        link: '/device_detail',
                         underline: true,
                         subTitle: Text(
-                          "11月10日 下午15.23",
+                          "11月10日 下午15:23",
                           maxLines: 3,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
