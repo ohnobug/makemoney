@@ -153,7 +153,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         ),
                       ),
                       LJNFunctionItem(
-                          height: 150.w,
+                          // height: 150.w,
                           id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                           title: "HONOR-RNA-AN100",
                           link: '/device_detail',
@@ -168,8 +168,8 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                                     color: const Color.fromARGB(
                                         255, 180, 180, 180)),
                               ))),
-                      LJNFunctionItem(
-                        height: 150.w,
+                      const LJNFunctionItem(
+                        // height: 150.w,
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "iphone20",
                         link: '/device_detail',

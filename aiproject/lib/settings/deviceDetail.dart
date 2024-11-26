@@ -101,7 +101,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                         parent: BouncingScrollPhysics()),
                     child: Column(children: [
                       LJNFunctionItem(
-                          height: 150.w,
+                          // height: 150.w,
                           id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                           title: "设备名称",
                           link: '',
@@ -118,7 +118,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                                         255, 180, 180, 180)),
                               ))),
                       LJNFunctionItem(
-                          height: 150.w,
+                          // height: 150.w,
                           id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                           title: "设备类型",
                           // link: '',
@@ -138,7 +138,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                         height: 16.w,
                       ),
                       LJNFunctionItem(
-                          height: 150.w,
+                          // height: 150.w,
                           id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                           title: "最近活跃时间",
                           // link: '',
