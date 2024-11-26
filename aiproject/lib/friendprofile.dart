@@ -279,6 +279,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                               link: '/friendmoments',
                               height: 151.w,
                               showStyle: Expanded(
+                                  flex: 1,
                                   child: Container(
                                       margin: EdgeInsets.only(left: 68.w),
                                       // color: Colors.red,
@@ -344,6 +345,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                               link: '/ins',
                               height: 216.w,
                               showStyle: Expanded(
+                                  flex: 1,
                                   child: Container(
                                       height: 215.w,
                                       margin: EdgeInsets.only(left: 68.w),
