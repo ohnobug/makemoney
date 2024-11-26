@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/LJNSpecialFunctionItem.dart';
-import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,12 +21,6 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
   @override
   void initState() {
     super.initState();
-
-    myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
-
-    Future.delayed(const Duration(milliseconds: 300), () {
-      myStore.dispatch({"type": "mainpage3isload", "payload": true});
-    });
   }
 
   @override
@@ -35,7 +28,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          return vm.mainpage3isload! ? _buildPage(vm) : const LJNPageLoading();
+          return _buildPage(vm);
         });
   }
 
@@ -167,7 +160,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "登录过的设备",
-                        link: '',
+                        link: '/logged_devices',
                         underline: true,
                       ),
                       // 更多安全设置

@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:jiaoyishuoflutter3/components/LJNInputButton.dart';
-import 'package:jiaoyishuoflutter3/components/pageloading.dart';
-import 'package:jiaoyishuoflutter3/settings/contact.dart';
+import 'package:jiaoyishuoflutter3/components/LJNAddButton.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,8 +21,6 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
   @override
   void initState() {
     super.initState();
-
-    myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
   }
 
   @override
@@ -32,9 +28,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          return vm.mainpage3isload!
-              ? _buildPage(context, vm)
-              : const LJNPageLoading();
+          return _buildPage(context, vm);
         });
   }
 

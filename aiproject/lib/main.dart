@@ -15,6 +15,7 @@ import 'package:jiaoyishuoflutter3/miniprogram.dart';
 import 'package:jiaoyishuoflutter3/mywebview.dart';
 import 'package:jiaoyishuoflutter3/settings/chatSetting.dart';
 import 'package:jiaoyishuoflutter3/settings/commonSetting.dart';
+import 'package:jiaoyishuoflutter3/settings/loggedDevices.dart';
 import 'package:jiaoyishuoflutter3/settings/newMessageNotification.dart';
 import 'package:jiaoyishuoflutter3/pocketmoney.dart';
 import 'package:jiaoyishuoflutter3/friendprofile.dart';
@@ -24,9 +25,9 @@ import 'package:jiaoyishuoflutter3/services.dart';
 import 'package:jiaoyishuoflutter3/settings/accountAndSecure.dart';
 import 'package:jiaoyishuoflutter3/settings/bindNewPhoneNumber.dart';
 import 'package:jiaoyishuoflutter3/settings/changeAccount.dart';
-import 'package:jiaoyishuoflutter3/settings/contact.dart';
 import 'package:jiaoyishuoflutter3/settings/forgotPassword.dart';
 import 'package:jiaoyishuoflutter3/settings/inputVerifyCode.dart';
+import 'package:jiaoyishuoflutter3/settings/phoneContact.dart';
 import 'package:jiaoyishuoflutter3/settings/phoneNumber.dart';
 import 'package:jiaoyishuoflutter3/settings/setPassword.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
@@ -288,6 +289,8 @@ class TabBarApp extends StatelessWidget {
                     return pageRouteBuilderAnimation(const LJNCommonSetting());
                   } else if (settings.name == "/set_password") {
                     return pageRouteBuilderAnimation(const LJNSetPassword());
+                  } else if (settings.name == "/logged_devices") {
+                    return pageRouteBuilderAnimation(const LJNLoggedDevices());
                   }
 
                   return null;

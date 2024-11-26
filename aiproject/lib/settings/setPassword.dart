@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,12 +14,11 @@ class LJNSetPassword extends StatefulWidget {
 
 class _LJNSetPassword extends State<LJNSetPassword> {
   double _statusHeight = 0;
+  TextEditingController originPassworldController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-
-    myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
   }
 
   @override
@@ -28,7 +26,7 @@ class _LJNSetPassword extends State<LJNSetPassword> {
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          return vm.mainpage3isload! ? _buildPage(vm) : const LJNPageLoading();
+          return _buildPage(vm);
         });
   }
 
@@ -85,14 +83,23 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                           Navigator.pushNamed(
                               context, '/bind_new_phone_number');
                         },
-                        child: Text(
-                          "完成",
-                          // textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 32.w,
-                              fontWeight: FontWeight.w100),
-                        ))
+                        child: Container(
+                            height: 60.w,
+                            constraints: BoxConstraints(minWidth: 98.w),
+                            margin: EdgeInsets.only(right: 30.w),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 74, 193, 99),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8.w))),
+                            child: Text(
+                              "完成",
+                              // textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25.w,
+                                  fontWeight: FontWeight.w100),
+                            )))
                   ],
                 ))),
         body: ScrollConfiguration(
@@ -113,15 +120,19 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                             children: [
                               Text(
                                 "请设置微信密码。你可以用微信绑定的账号+微信密码登录，比如使用手机号+微信密码登录微信，更快捷。",
-                                style: TextStyle(height: 1.08, fontSize: 25.w),
+                                style: TextStyle(
+                                    fontSize: 27.w,
+                                    color: const Color.fromARGB(
+                                        255, 149, 149, 149)),
                               ),
+
                               SizedBox(
                                 height: 30.w,
                               ),
 
                               // 微信号
                               Container(
-                                height: 65.w,
+                                height: 100.w,
                                 decoration: BoxDecoration(
                                     // color: Colors.red,
                                     border: Border(
@@ -131,16 +142,18 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                                                 255, 223, 223, 223)))),
                                 child: Row(
                                   children: [
-                                    Text(
-                                      "微信号",
-                                      style: TextStyle(
-                                          height: 1.08,
-                                          fontSize: 32.w,
-                                          color: const Color.fromARGB(
-                                              255, 150, 150, 150)),
-                                    ),
                                     SizedBox(
-                                      width: 60.w,
+                                        width: 120.w,
+                                        child: Text(
+                                          "微信号",
+                                          style: TextStyle(
+                                              height: 1.08,
+                                              fontSize: 32.w,
+                                              color: const Color.fromARGB(
+                                                  255, 150, 150, 150)),
+                                        )),
+                                    SizedBox(
+                                      width: 63.w,
                                     ),
                                     Text(
                                       vm.userinfoAccount!,
@@ -153,11 +166,15 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                                   ],
                                 ),
                               ),
+                              SizedBox(
+                                height: 20.w,
+                              ),
+
                               // 原密码
                               SizedBox(
                                   // color: Colors.red,
                                   // alignment: Alignment.centerLeft,
-                                  height: 65.w,
+                                  height: 75.w,
                                   child: Row(
                                     // crossAxisAlignment: CrossAxisAlignment.center,
                                     // mainAxisAlignment: MainAxisAlignment.center,
@@ -177,6 +194,8 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                                       Expanded(
                                           flex: 1,
                                           child: TextField(
+                                            controller:
+                                                originPassworldController,
                                             autofocus: false,
                                             style: TextStyle(
                                               fontSize: 30.w,
@@ -193,7 +212,7 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                                                   fontSize: 30.w,
                                                   color: const Color.fromARGB(
                                                       255, 147, 147, 147)),
-                                              labelText: '',
+                                              // labelText: '',
                                               isDense: true,
                                               border: UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -231,7 +250,7 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                               SizedBox(
                                   // color: Colors.red,
                                   // alignment: Alignment.centerLeft,
-                                  height: 65.w,
+                                  height: 75.w,
                                   child: Row(
                                     // crossAxisAlignment: CrossAxisAlignment.center,
                                     // mainAxisAlignment: MainAxisAlignment.center,
@@ -267,7 +286,7 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                                                   fontSize: 30.w,
                                                   color: const Color.fromARGB(
                                                       255, 147, 147, 147)),
-                                              labelText: '',
+                                              // labelText: '',
                                               isDense: true,
                                               border: UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -301,15 +320,11 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                                 height: 20.w,
                               ),
 
-                              SizedBox(
-                                height: 30.w,
-                              ),
-
                               // 确认密码
                               SizedBox(
                                   // color: Colors.red,
                                   // alignment: Alignment.centerLeft,
-                                  height: 65.w,
+                                  height: 75.w,
                                   child: Row(
                                     // crossAxisAlignment: CrossAxisAlignment.center,
                                     // mainAxisAlignment: MainAxisAlignment.center,
@@ -345,7 +360,7 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                                                   fontSize: 30.w,
                                                   color: const Color.fromARGB(
                                                       255, 147, 147, 147)),
-                                              labelText: '',
+                                              // labelText: '',
                                               isDense: true,
                                               border: UnderlineInputBorder(
                                                 borderSide: BorderSide(
@@ -374,9 +389,17 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                                           ))
                                     ],
                                   )),
+
+                              SizedBox(
+                                height: 30.w,
+                              ),
+
                               Text(
                                 "密码必须是8-16位的英文字母、数字、字符组合(不能是纯数字)",
-                                style: TextStyle(fontSize: 26.w, height: 1.08),
+                                style: TextStyle(
+                                    fontSize: 26.w,
+                                    height: 1.08,
+                                    color: Colors.black),
                               ),
 
                               SizedBox(

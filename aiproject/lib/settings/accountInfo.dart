@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/LJNChangeAccountButton.dart';
-import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,12 +19,6 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
   @override
   void initState() {
     super.initState();
-
-    myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
-
-    Future.delayed(const Duration(milliseconds: 300), () {
-      myStore.dispatch({"type": "mainpage3isload", "payload": true});
-    });
   }
 
   @override
@@ -33,7 +26,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          return vm.mainpage3isload! ? _buildPage(vm) : const LJNPageLoading();
+          return _buildPage(vm);
         });
   }
 
