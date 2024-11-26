@@ -130,7 +130,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         parent: BouncingScrollPhysics()),
                     child: Column(children: [
                       Container(
-                          margin: EdgeInsets.symmetric(horizontal: 43.w),
+                          margin: EdgeInsets.symmetric(horizontal: 30.w),
                           child: Text(
                             "你的账号在以下设备中登录过，你可以删除设备，删除后在该设备登录时需进行安全验证。",
                             style: TextStyle(
@@ -138,12 +138,11 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                                 color:
                                     const Color.fromARGB(255, 149, 149, 149)),
                           )),
-                      SizedBox(height: 55.w),
                       Container(
                         alignment: Alignment.centerLeft,
                         height: 64.w,
-                        padding:
-                            const EdgeInsets.only(left: 30.0, right: 0.0).w,
+                        padding: EdgeInsets.only(
+                            left: 30.0.w, right: 0.0.w, top: 16.w),
                         child: Text(
                           "已登录的设备",
                           style: TextStyle(
