@@ -28,6 +28,7 @@ import 'package:jiaoyishuoflutter3/settings/contact.dart';
 import 'package:jiaoyishuoflutter3/settings/forgotPassword.dart';
 import 'package:jiaoyishuoflutter3/settings/inputVerifyCode.dart';
 import 'package:jiaoyishuoflutter3/settings/phoneNumber.dart';
+import 'package:jiaoyishuoflutter3/settings/setPassword.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
 import 'package:jiaoyishuoflutter3/settings/verifyPhone.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
@@ -285,6 +286,8 @@ class TabBarApp extends StatelessWidget {
                     return pageRouteBuilderAnimation(const LJNChatSetting());
                   } else if (settings.name == "/common_setting") {
                     return pageRouteBuilderAnimation(const LJNCommonSetting());
+                  } else if (settings.name == "/set_password") {
+                    return pageRouteBuilderAnimation(const LJNSetPassword());
                   }
 
                   return null;

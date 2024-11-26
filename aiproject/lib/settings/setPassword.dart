@@ -1,0 +1,396 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:jiaoyishuoflutter3/components/pageloading.dart';
+import 'package:jiaoyishuoflutter3/store.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
+
+class LJNSetPassword extends StatefulWidget {
+  const LJNSetPassword({super.key});
+
+  @override
+  State<LJNSetPassword> createState() => _LJNSetPassword();
+}
+
+class _LJNSetPassword extends State<LJNSetPassword> {
+  double _statusHeight = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreConnector<StoreType, StoreType>(
+        converter: (store) => store.state,
+        builder: (context, vm) {
+          return vm.mainpage3isload! ? _buildPage(vm) : const LJNPageLoading();
+        });
+  }
+
+  // 另起一个函数方便管理
+  Widget _buildPage(StoreType vm) {
+    if (kIsWeb) {
+      _statusHeight = 0;
+    } else {
+      _statusHeight = MediaQuery.of(context).padding.top;
+    }
+    Size screenSize = MediaQuery.of(context).size;
+
+    return Scaffold(
+        primary: false,
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+            child: Container(
+                color: const Color.fromARGB(255, 237, 237, 237),
+                padding: EdgeInsets.only(top: _statusHeight),
+                child: AppBar(
+                  leading: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      // wallet
+                    }, // 点击事件
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Icon(
+                        const IconData(
+                          0xed9e,
+                          fontFamily: 'Iconfont',
+                        ), // 使用的图标
+                        color: Colors.black, // 图标颜色
+                        size: 36.w, // 图标大小
+                      ),
+                    ),
+                  ),
+                  primary: false,
+                  centerTitle: true,
+                  title: const Text('设置密码'),
+                  toolbarHeight: 90.w,
+                  titleTextStyle: TextStyle(
+                      height: 1.08,
+                      fontSize: fontSizeScale(32.w),
+                      color: Colors.black,
+                      fontFamily: "AlibabaPuHuiTi-Medium"),
+                  elevation: 0,
+                  scrolledUnderElevation: 0,
+                  backgroundColor: const Color.fromARGB(255, 237, 237, 237),
+                  foregroundColor: const Color.fromARGB(255, 237, 237, 237),
+                  actions: [
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, '/bind_new_phone_number');
+                        },
+                        child: Text(
+                          "完成",
+                          // textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 32.w,
+                              fontWeight: FontWeight.w100),
+                        ))
+                  ],
+                ))),
+        body: ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: Container(
+                constraints: BoxConstraints(
+                    minHeight: screenSize.height - 90.w - _statusHeight),
+                color: const Color.fromARGB(255, 237, 237, 237),
+                child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(
+                        parent: BouncingScrollPhysics()),
+                    child: Container(
+                        padding: EdgeInsets.all(30.w),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "请设置微信密码。你可以用微信绑定的账号+微信密码登录，比如使用手机号+微信密码登录微信，更快捷。",
+                                style: TextStyle(height: 1.08, fontSize: 25.w),
+                              ),
+                              SizedBox(
+                                height: 30.w,
+                              ),
+
+                              // 微信号
+                              Container(
+                                height: 65.w,
+                                decoration: BoxDecoration(
+                                    // color: Colors.red,
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            width: 1.w,
+                                            color: const Color.fromARGB(
+                                                255, 223, 223, 223)))),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "微信号",
+                                      style: TextStyle(
+                                          height: 1.08,
+                                          fontSize: 32.w,
+                                          color: const Color.fromARGB(
+                                              255, 150, 150, 150)),
+                                    ),
+                                    SizedBox(
+                                      width: 60.w,
+                                    ),
+                                    Text(
+                                      vm.userinfoAccount!,
+                                      style: TextStyle(
+                                          height: 1.08,
+                                          fontSize: 32.w,
+                                          color: const Color.fromARGB(
+                                              255, 150, 150, 150)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              // 原密码
+                              SizedBox(
+                                  // color: Colors.red,
+                                  // alignment: Alignment.centerLeft,
+                                  height: 65.w,
+                                  child: Row(
+                                    // crossAxisAlignment: CrossAxisAlignment.center,
+                                    // mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                          width: 120.w,
+                                          child: Text(
+                                            "原密码",
+                                            style: TextStyle(
+                                                height: 1.08,
+                                                fontSize: 30.w,
+                                                color: Colors.black),
+                                          )),
+                                      SizedBox(
+                                        width: 63.w,
+                                      ),
+                                      Expanded(
+                                          flex: 1,
+                                          child: TextField(
+                                            autofocus: false,
+                                            style: TextStyle(
+                                              fontSize: 30.w,
+                                            ),
+                                            cursorColor: const Color.fromRGBO(
+                                                62, 174, 86, 1.0),
+                                            cursorWidth: 1.w,
+                                            onTapOutside: (event) {
+                                              FocusScope.of(context).unfocus();
+                                            },
+                                            decoration: InputDecoration(
+                                              hintText: '填写原密码',
+                                              hintStyle: TextStyle(
+                                                  fontSize: 30.w,
+                                                  color: const Color.fromARGB(
+                                                      255, 147, 147, 147)),
+                                              labelText: '',
+                                              isDense: true,
+                                              border: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1.5.w,
+                                                    color: const Color.fromARGB(
+                                                        255, 226, 226, 226)),
+                                              ),
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1.5.w,
+                                                    color: const Color.fromARGB(
+                                                        255, 226, 226, 226)),
+                                              ),
+                                              // 获取焦点时的底线样式
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1.5.w,
+                                                    color: const Color.fromARGB(
+                                                        255, 104, 199, 145)),
+                                              ),
+                                              contentPadding: EdgeInsets.only(
+                                                  bottom: 20.w), // 也可调小内边距
+                                            ),
+                                          ))
+                                    ],
+                                  )),
+
+                              SizedBox(
+                                height: 20.w,
+                              ),
+
+                              // 新密码
+                              SizedBox(
+                                  // color: Colors.red,
+                                  // alignment: Alignment.centerLeft,
+                                  height: 65.w,
+                                  child: Row(
+                                    // crossAxisAlignment: CrossAxisAlignment.center,
+                                    // mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                          width: 120.w,
+                                          child: Text(
+                                            "新密码",
+                                            style: TextStyle(
+                                                height: 1.08,
+                                                fontSize: 30.w,
+                                                color: Colors.black),
+                                          )),
+                                      SizedBox(
+                                        width: 63.w,
+                                      ),
+                                      Expanded(
+                                          flex: 1,
+                                          child: TextField(
+                                            autofocus: false,
+                                            style: TextStyle(
+                                              fontSize: 30.w,
+                                            ),
+                                            cursorColor: const Color.fromRGBO(
+                                                62, 174, 86, 1.0),
+                                            cursorWidth: 1.w,
+                                            onTapOutside: (event) {
+                                              FocusScope.of(context).unfocus();
+                                            },
+                                            decoration: InputDecoration(
+                                              hintText: '填写新密码',
+                                              hintStyle: TextStyle(
+                                                  fontSize: 30.w,
+                                                  color: const Color.fromARGB(
+                                                      255, 147, 147, 147)),
+                                              labelText: '',
+                                              isDense: true,
+                                              border: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1.5.w,
+                                                    color: const Color.fromARGB(
+                                                        255, 226, 226, 226)),
+                                              ),
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1.5.w,
+                                                    color: const Color.fromARGB(
+                                                        255, 226, 226, 226)),
+                                              ),
+                                              // 获取焦点时的底线样式
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1.5.w,
+                                                    color: const Color.fromARGB(
+                                                        255, 104, 199, 145)),
+                                              ),
+                                              contentPadding: EdgeInsets.only(
+                                                  bottom: 20.w), // 也可调小内边距
+                                            ),
+                                          ))
+                                    ],
+                                  )),
+
+                              SizedBox(
+                                height: 20.w,
+                              ),
+
+                              SizedBox(
+                                height: 30.w,
+                              ),
+
+                              // 确认密码
+                              SizedBox(
+                                  // color: Colors.red,
+                                  // alignment: Alignment.centerLeft,
+                                  height: 65.w,
+                                  child: Row(
+                                    // crossAxisAlignment: CrossAxisAlignment.center,
+                                    // mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                          width: 120.w,
+                                          child: Text(
+                                            "确认密码",
+                                            style: TextStyle(
+                                                height: 1.08,
+                                                fontSize: 30.w,
+                                                color: Colors.black),
+                                          )),
+                                      SizedBox(
+                                        width: 63.w,
+                                      ),
+                                      Expanded(
+                                          flex: 1,
+                                          child: TextField(
+                                            autofocus: false,
+                                            style: TextStyle(
+                                              fontSize: 30.w,
+                                            ),
+                                            cursorColor: const Color.fromRGBO(
+                                                62, 174, 86, 1.0),
+                                            cursorWidth: 1.w,
+                                            onTapOutside: (event) {
+                                              FocusScope.of(context).unfocus();
+                                            },
+                                            decoration: InputDecoration(
+                                              hintText: '再次填写确认',
+                                              hintStyle: TextStyle(
+                                                  fontSize: 30.w,
+                                                  color: const Color.fromARGB(
+                                                      255, 147, 147, 147)),
+                                              labelText: '',
+                                              isDense: true,
+                                              border: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1.5.w,
+                                                    color: const Color.fromARGB(
+                                                        255, 226, 226, 226)),
+                                              ),
+                                              enabledBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1.5.w,
+                                                    color: const Color.fromARGB(
+                                                        255, 226, 226, 226)),
+                                              ),
+                                              // 获取焦点时的底线样式
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1.5.w,
+                                                    color: const Color.fromARGB(
+                                                        255, 104, 199, 145)),
+                                              ),
+                                              contentPadding: EdgeInsets.only(
+                                                  bottom: 20.w), // 也可调小内边距
+                                            ),
+                                          ))
+                                    ],
+                                  )),
+                              Text(
+                                "密码必须是8-16位的英文字母、数字、字符组合(不能是纯数字)",
+                                style: TextStyle(fontSize: 26.w, height: 1.08),
+                              ),
+
+                              SizedBox(
+                                height: 10.w,
+                              ),
+
+                              Text(
+                                "忘记原密码 ?",
+                                style: TextStyle(
+                                    fontSize: 26.w,
+                                    height: 1.08,
+                                    color:
+                                        const Color.fromARGB(255, 82, 83, 108)),
+                              )
+                            ]))))));
+  }
+}

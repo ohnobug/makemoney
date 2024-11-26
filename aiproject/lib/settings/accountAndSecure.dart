@@ -144,7 +144,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "微信密码",
-                        link: '',
+                        link: '/set_password',
                         underline: true,
                       ),
                       // 声音锁
