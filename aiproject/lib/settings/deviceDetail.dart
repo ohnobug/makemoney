@@ -155,8 +155,8 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                                         255, 180, 180, 180)),
                               ))),
                       Container(
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 50.w, vertical: 40.w),
+                          margin: EdgeInsets.only(
+                              left: 30.w, right: 30.w, top: 22.w, bottom: 22.w),
                           child: Text(
                             "登录微信后，当设备处于安全状态时，微信会自动延长登录时间以保持朋友消息的及时收发，此时会更新最近活跃时间。",
                             style: TextStyle(
