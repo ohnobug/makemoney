@@ -16,6 +16,7 @@ import 'package:jiaoyishuoflutter3/mywebview.dart';
 import 'package:jiaoyishuoflutter3/settings/chatSetting.dart';
 import 'package:jiaoyishuoflutter3/settings/commonSetting.dart';
 import 'package:jiaoyishuoflutter3/settings/deviceDetail.dart';
+import 'package:jiaoyishuoflutter3/settings/emergencyContact.dart';
 import 'package:jiaoyishuoflutter3/settings/loggedDevices.dart';
 import 'package:jiaoyishuoflutter3/settings/newMessageNotification.dart';
 import 'package:jiaoyishuoflutter3/pocketmoney.dart';
@@ -294,6 +295,9 @@ class TabBarApp extends StatelessWidget {
                     return pageRouteBuilderAnimation(const LJNLoggedDevices());
                   } else if (settings.name == "/device_detail") {
                     return pageRouteBuilderAnimation(const LJNDeviceDetail());
+                  } else if (settings.name == "/emergency_contact") {
+                    return pageRouteBuilderAnimation(
+                        const LJNEmergencyContact());
                   }
 
                   return null;

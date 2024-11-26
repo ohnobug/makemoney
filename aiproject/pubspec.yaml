@@ -27,6 +27,7 @@ dependencies:
   webview_flutter: ^4.10.0
   # flutter_native_splash: ^2.4.1
   keyboard_height_plugin: ^0.1.5
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:

@@ -153,7 +153,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                       const LJNFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "应急联系人",
-                        link: '',
+                        link: '/emergency_contact',
                         underline: true,
                       ),
                       // 登录过的设备
