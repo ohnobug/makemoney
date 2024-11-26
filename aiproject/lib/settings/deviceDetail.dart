@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/LJNChangeAccountButton.dart';
+import 'package:jiaoyishuoflutter3/components/maxWidthButton.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -106,14 +107,16 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                           link: '',
                           tapEffect: true,
                           underline: true,
-                          showStyle: Text(
-                            "当前设备",
-                            style: TextStyle(
-                                fontSize: 25.w,
-                                height: 1.08,
-                                color:
-                                    const Color.fromARGB(255, 180, 180, 180)),
-                          )),
+                          showStyle: Container(
+                              margin: EdgeInsets.only(right: 30.w),
+                              child: Text(
+                                "当前设备",
+                                style: TextStyle(
+                                    fontSize: 32.w,
+                                    height: 1.08,
+                                    color: const Color.fromARGB(
+                                        255, 180, 180, 180)),
+                              ))),
                       LJNFunctionItem(
                           height: 150.w,
                           id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
@@ -121,14 +124,16 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                           // link: '',
                           tapEffect: false,
                           underline: false,
-                          showStyle: Text(
-                            "Windows11 x64",
-                            style: TextStyle(
-                                fontSize: 25.w,
-                                height: 1.08,
-                                color:
-                                    const Color.fromARGB(255, 180, 180, 180)),
-                          )),
+                          showStyle: Container(
+                              margin: EdgeInsets.only(right: 30.w),
+                              child: Text(
+                                "Windows 11 x64",
+                                style: TextStyle(
+                                    fontSize: 32.w,
+                                    height: 1.08,
+                                    color: const Color.fromARGB(
+                                        255, 180, 180, 180)),
+                              ))),
                       SizedBox(
                         height: 16.w,
                       ),
@@ -139,14 +144,16 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                           // link: '',
                           tapEffect: false,
                           underline: false,
-                          showStyle: Text(
-                            "11月10日 下午15:23",
-                            style: TextStyle(
-                                fontSize: 25.w,
-                                height: 1.08,
-                                color:
-                                    const Color.fromARGB(255, 180, 180, 180)),
-                          )),
+                          showStyle: Container(
+                              margin: EdgeInsets.only(right: 30.w),
+                              child: Text(
+                                "11月10日 下午15:23",
+                                style: TextStyle(
+                                    fontSize: 32.w,
+                                    height: 1.08,
+                                    color: const Color.fromARGB(
+                                        255, 180, 180, 180)),
+                              ))),
                       Container(
                           margin: EdgeInsets.symmetric(
                               horizontal: 50.w, vertical: 40.w),
@@ -157,13 +164,13 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                                 color:
                                     const Color.fromARGB(255, 149, 149, 149)),
                           )),
-                      const LJNChangeAccountButton(
-                        title: '删除该设备',
-                        color: Colors.white,
-                        backgroundColor: Color.fromARGB(255, 52, 192, 95),
-                        link: "",
-                        readonly: false,
+                      const LJNMaxWidthButton(
+                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        title: "删除该设备",
+                        link: '',
+                        underline: false,
                       ),
+                      SizedBox(height: 106.w),
                     ])))));
   }
 }

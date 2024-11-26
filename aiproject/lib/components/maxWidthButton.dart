@@ -4,31 +4,33 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
-class LJNButton extends StatefulWidget {
+class LJNMaxWidthButton extends StatefulWidget {
   final String id;
   final String? icon;
   final double? height;
   final String title;
+  final Color? color;
   final String? link;
   final bool underline;
   final Object? showStyle;
 
-  const LJNButton({
+  const LJNMaxWidthButton({
     super.key,
     required this.id,
     this.icon,
     this.height,
     required this.title,
+    this.color,
     this.link,
     required this.underline,
     this.showStyle,
   });
 
   @override
-  State<LJNButton> createState() => _LJNButtonState();
+  State<LJNMaxWidthButton> createState() => _LJNMaxWidthButtonState();
 }
 
-class _LJNButtonState extends State<LJNButton> {
+class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
   // bool isClicked = false;
   Color containerColor = Colors.white;
 
@@ -70,6 +72,7 @@ class _LJNButtonState extends State<LJNButton> {
         child: Text(
           widget.title,
           style: TextStyle(
+            color: widget.color ?? Colors.black,
             height: 1.08,
             fontSize: fontSizeScale(32.0.w),
             fontFamily: "AlibabaPuHuiTi",

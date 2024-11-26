@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import '../components/LJNFunctionItem.dart';
-import 'button.dart';
+import '../components/maxWidthButton.dart';
 
 class LJNSettingPage extends StatefulWidget {
   const LJNSettingPage({super.key});
@@ -221,7 +221,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       ),
                       SizedBox(height: 16.w),
 
-                      const LJNButton(
+                      const LJNMaxWidthButton(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "切换账号",
                         link: '',
@@ -229,7 +229,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       ),
                       SizedBox(height: 16.w),
 
-                      const LJNButton(
+                      const LJNMaxWidthButton(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "退出",
                         link: '',
