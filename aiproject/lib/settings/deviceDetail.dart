@@ -101,7 +101,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                     child: Column(children: [
                       LJNFunctionItem(
                           // height: 150.w,
-                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          
                           title: "设备名称",
                           link: '',
                           tapEffect: true,
@@ -119,41 +119,45 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                               ))),
                       LJNFunctionItem(
                           // height: 150.w,
-                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          
                           title: "设备类型",
                           // link: '',
                           tapEffect: false,
                           underline: false,
-                          showStyle: Container(
-                              margin: EdgeInsets.only(right: 30.w),
-                              child: Text(
-                                "Windows 11 x64",
-                                style: TextStyle(
-                                    fontSize: 32.w,
-                                    height: 1.08,
-                                    color: const Color.fromARGB(
-                                        255, 180, 180, 180)),
-                              ))),
+                          showStyle: Expanded(
+                              flex: 1,
+                              child: Container(
+                                  margin: EdgeInsets.only(right: 30.w),
+                                  child: Text(
+                                    "Windows 11 x64",
+                                    style: TextStyle(
+                                        fontSize: 32.w,
+                                        height: 1.08,
+                                        color: const Color.fromARGB(
+                                            255, 180, 180, 180)),
+                                  )))),
                       SizedBox(
                         height: 16.w,
                       ),
                       LJNFunctionItem(
                           // height: 150.w,
-                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                          
                           title: "最近活跃时间",
                           // link: '',
                           tapEffect: false,
                           underline: false,
-                          showStyle: Container(
-                              margin: EdgeInsets.only(right: 30.w),
-                              child: Text(
-                                "11月10日 下午15:23",
-                                style: TextStyle(
-                                    fontSize: 32.w,
-                                    height: 1.08,
-                                    color: const Color.fromARGB(
-                                        255, 180, 180, 180)),
-                              ))),
+                          showStyle: Expanded(
+                              flex: 1,
+                              child: Container(
+                                  margin: EdgeInsets.only(right: 30.w),
+                                  child: Text(
+                                    "11月10日 下午15:23",
+                                    style: TextStyle(
+                                        fontSize: 32.w,
+                                        height: 1.08,
+                                        color: const Color.fromARGB(
+                                            255, 180, 180, 180)),
+                                  )))),
                       Container(
                           margin: EdgeInsets.only(
                               left: 30.w, right: 30.w, top: 22.w, bottom: 22.w),
@@ -165,7 +169,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                                     const Color.fromARGB(255, 149, 149, 149)),
                           )),
                       const LJNMaxWidthButton(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
+                        
                         title: "删除该设备",
                         color: Colors.red,
                         link: '',

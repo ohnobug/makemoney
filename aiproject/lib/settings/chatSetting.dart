@@ -94,7 +94,6 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                         parent: BouncingScrollPhysics()),
                     child: Column(children: [
                       LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "使用听筒播放语音消息",
                         // link: '',
                         underline: true,
@@ -111,7 +110,6 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                                 ))),
                       ),
                       LJNSpecialFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "使用独立的发送按钮",
                         height: 137.w,
                         // link: '',
@@ -138,13 +136,11 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "聊天背景",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "表情管理",
                         link: '',
                         underline: false,
@@ -161,13 +157,11 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                         ),
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "聊天记录迁移与备份",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "清空聊天记录",
                         link: '',
                         underline: false,

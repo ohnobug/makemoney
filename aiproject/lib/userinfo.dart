@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -115,7 +114,6 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                     child: Column(children: [
                       // 头像
                       LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "头像",
                         height: 150.w,
                         link: '',
@@ -140,7 +138,6 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                       ),
                       // 姓名
                       LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "名字",
                         // icon: "images/icon/discovery_icon2.png",
                         link: '',
@@ -148,7 +145,6 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "拍一拍",
                         link: '',
                         underline: true,
@@ -156,7 +152,6 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
                       // 微信号
                       LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "微信号",
                         link: '/accountinfo',
                         showStyle: vm.userinfoAccount!,
@@ -165,7 +160,6 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
                       // 二维码名片
                       LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "二维码名片",
                         link: '',
                         showStyle: Expanded(
@@ -189,7 +183,6 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
                       // 更多信息
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "更多信息",
                         link: '',
                         underline: false,
@@ -199,7 +192,6 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
                       // 来电铃声
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "来电铃声",
                         link: '',
                         showStyle: 'SISTER SISTER - JAVA',
@@ -210,7 +202,6 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
                       // 微信豆
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "微信豆",
                         link: '',
                         showStyle: '3个',
@@ -220,7 +211,6 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
                       // 我的地址
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "我的地址",
                         link: '',
                         underline: true,
@@ -228,7 +218,6 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
                       // 我的发票抬头
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "我的发票抬头",
                         link: '',
                         underline: false,

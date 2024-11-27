@@ -5,25 +5,25 @@ import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNFunctionItem extends StatefulWidget {
-  final String id;
   final String? icon;
   final double? height;
-  final String title;
+  final Object? title;
   final String? link;
   final bool underline;
   final Object? showStyle;
   final bool? tapEffect;
+  final Color? backgroundColor;
 
   const LJNFunctionItem(
       {super.key,
-      required this.id,
       this.icon,
       this.height,
       required this.title,
       this.link,
       required this.underline,
       this.showStyle,
-      this.tapEffect});
+      this.tapEffect,
+      this.backgroundColor});
 
   @override
   State<LJNFunctionItem> createState() => _LJNFunctionItemState();
@@ -31,14 +31,18 @@ class LJNFunctionItem extends StatefulWidget {
 
 class _LJNFunctionItemState extends State<LJNFunctionItem> {
   // bool isClicked = false;
-  Color containerColor = Colors.white;
+  late Color originContainerColor;
+  late Color containerColor;
   late bool tapEffect;
 
   @override
   void initState() {
     super.initState();
 
+    originContainerColor = widget.backgroundColor ?? Colors.white;
+
     setState(() {
+      containerColor = originContainerColor;
       tapEffect = widget.tapEffect ?? true;
     });
   }
@@ -49,13 +53,13 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
       onTapDown: (tapDownDetails) {
         if (tapEffect == false) return;
         setState(() {
-          containerColor = const Color.fromARGB(255, 229, 229, 229);
+          containerColor = darkenColor(originContainerColor, 0.1);
         });
       },
       onTapCancel: () {
         if (tapEffect == false) return;
         setState(() {
-          containerColor = Colors.white;
+          containerColor = originContainerColor;
         });
 
         logger.info("取消点击");
@@ -64,7 +68,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
         if (tapEffect == false) return;
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
-            containerColor = Colors.white;
+            containerColor = originContainerColor;
           });
 
           if (mounted) {
@@ -117,18 +121,20 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // 标题
-                    Text(
-                      widget.title,
-                      style: TextStyle(
-                        height: 1.08,
-                        fontSize: fontSizeScale(32.0.w),
-                        fontFamily: "AlibabaPuHuiTi",
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.visible,
-                    ),
-
+                    widget.title is String
+                        ?
+                        // 标题
+                        Text(
+                            widget.title as String,
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(32.0.w),
+                              fontFamily: "AlibabaPuHuiTi",
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.visible,
+                          )
+                        : widget.title as Widget,
                     if (widget.showStyle != null)
                       widget.showStyle is String
                           ? Expanded(
@@ -153,7 +159,6 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                                         )
                                       ])))
                           : widget.showStyle as Widget,
-
                     if (widget.link != null)
                       Container(
                           width: 30.w,

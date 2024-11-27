@@ -115,7 +115,6 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     child: Column(children: [
                       // 账户与安全
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "账户与安全",
                         link: '/account_and_secure',
                         underline: false,
@@ -125,13 +124,11 @@ class _LJNSettingPage extends State<LJNSettingPage> {
 
                       // 青少年模式 与 关怀模式
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "青少年模式",
                         link: '/teenage_mode',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "关怀模式",
                         link: '/care_mode',
                         underline: false,
@@ -140,19 +137,16 @@ class _LJNSettingPage extends State<LJNSettingPage> {
 
                       // 新消息通知 与 聊天 和 通用
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "新消息通知",
                         link: '/new_message_notification',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "聊天",
                         link: '/chat_setting',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "通用",
                         link: '/common_setting',
                         underline: false,
@@ -173,34 +167,50 @@ class _LJNSettingPage extends State<LJNSettingPage> {
 
                       // 朋友权限 与 个人信息与权限 和 个人信息收集清单 和 第三方信息共享清单
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "朋友权限",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "个人信息与权限",
-                        link: '',
+                        link: '/personinfo_and_permission',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "个人信息收集清单",
-                        link: '',
+                        link: '/personalinfo_collection_checklist',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "第三方信息共享清单",
-                        link: '',
+                        link: '/',
                         underline: false,
                       ),
                       SizedBox(height: 16.w),
 
-                      const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
-                        title: "插件",
+                      LJNFunctionItem(
+                        title: Row(
+                          children: [
+                            Text(
+                              "插件",
+                              style: TextStyle(
+                                height: 1.08,
+                                fontSize: fontSizeScale(32.0.w),
+                                fontFamily: "AlibabaPuHuiTi",
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.visible,
+                            ),
+                            Icon(
+                              const IconData(
+                                0xed9e,
+                                fontFamily: 'Iconfont',
+                              ), // 使用的图标
+                              color: Colors.black, // 图标颜色
+                              size: 36.w, // 图标大小
+                            )
+                          ],
+                        ),
                         link: '',
                         showStyle: "微信输入法可以【问AI】了",
                         underline: false,
@@ -208,13 +218,11 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       SizedBox(height: 16.w),
 
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "关于微信",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "帮助与反馈",
                         link: '',
                         underline: false,
@@ -222,7 +230,6 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       SizedBox(height: 16.w),
 
                       const LJNMaxWidthButton(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "切换账号",
                         link: '',
                         underline: false,
@@ -230,7 +237,6 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       SizedBox(height: 16.w),
 
                       const LJNMaxWidthButton(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "退出",
                         link: '',
                         underline: false,

@@ -116,15 +116,14 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                     child: Column(children: [
                       // 账户与安全
                       LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "微信号",
                         link: '/accountinfo',
                         showStyle: vm.userinfoAccount,
                         underline: true,
                       ),
+
                       // 手机号
                       LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "手机号",
                         link: '/phone_number',
                         showStyle: vm.userinfoPhone,
@@ -135,46 +134,42 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
 
                       // 微信密码
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "微信密码",
                         link: '/set_password',
                         underline: true,
                       ),
                       // 声音锁
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "声音锁",
-                        link: '',
+                        link: '/sound_lock',
                         underline: false,
                       ),
+
                       SizedBox(height: 16.w),
 
                       // 应急联系人
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "应急联系人",
                         link: '/emergency_contact',
                         underline: true,
                       ),
                       // 登录过的设备
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "登录过的设备",
                         link: '/logged_devices',
                         underline: true,
                       ),
                       // 更多安全设置
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "更多安全设置",
-                        link: '',
+                        link: '/more_secure_setting',
                         underline: false,
                       ),
 
                       SizedBox(height: 16.w),
+
                       // 微信安全中心
                       LJNSpecialFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "微信安全中心",
                         height: 178.w,
                         link: '',

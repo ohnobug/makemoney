@@ -5,7 +5,6 @@ import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNVideoFunctionItem extends StatefulWidget {
-  final String id;
   final String? icon;
   final double? height;
   final String title;
@@ -15,7 +14,6 @@ class LJNVideoFunctionItem extends StatefulWidget {
 
   const LJNVideoFunctionItem({
     super.key,
-    required this.id,
     this.icon,
     this.height,
     required this.title,

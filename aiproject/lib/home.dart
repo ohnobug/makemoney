@@ -49,7 +49,6 @@ class _ChatListViewState extends State<LJNHomePage> {
 
     chatItems = [
       ChatListItem(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         friendName: "花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数",
         notice: true,
         underline: true,
@@ -66,7 +65,6 @@ class _ChatListViewState extends State<LJNHomePage> {
         },
       ),
       ChatListItem(
-          id: "4462b35d-e742-5011-9ed6-f10666ef8e9f",
           friendName: '文件传输助手',
           notice: false,
           underline: true,
@@ -82,7 +80,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('文件传输助手~');
           }),
       ChatListItem(
-          id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
           friendName: "华南理工大学 软件开发群",
           notice: false,
           underline: true,
@@ -98,7 +95,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('华南理工大学 软件开发群被点击~');
           }),
       ChatListItem(
-          id: "6390e7d0-c8bd-5929-b537-76f6577c591c",
           friendName: "邓子乔",
           notice: false,
           underline: true,
@@ -114,7 +110,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('绿逾初夏被点击~');
           }),
       ChatListItem(
-          id: "d87d7c11-04f1-569c-8fd3-de333397966c",
           friendName: "邻小虎",
           notice: false,
           underline: true,
@@ -130,7 +125,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('余笙南吟被点击~');
           }),
       ChatListItem(
-          id: "7c3f2f89-6eae-5658-bce9-b3d8e20e309c",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -146,7 +140,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('陈情匿旧酒被点击~');
           }),
       ChatListItem(
-          id: "6b4ac788-576a-5a7c-be38-854571564bd1",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -161,7 +154,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('白桃乌龙被点击~');
           }),
       ChatListItem(
-          id: "139bf645-623d-5791-ad6b-4907e5fc8309",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -176,7 +168,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('清浅ˋ旧时光被点击~');
           }),
       ChatListItem(
-          id: "35fe74be-e7cb-520e-9d79-1b19b1018249",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -191,7 +182,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('荒碎梦残被点击~');
           }),
       ChatListItem(
-          id: "18127772-a653-5ca6-ba2c-5b1b855aa236",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -206,7 +196,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('无梦相赠被点击~');
           }),
       ChatListItem(
-          id: "a41401db-2dde-519d-bc9f-df6e51089c9e",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -221,7 +210,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('离人泪被点击~');
           }),
       ChatListItem(
-          id: "335ebb66-9440-5a2e-9795-d1b10eaf626e",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -236,7 +224,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('伊人在水一方被点击~');
           }),
       ChatListItem(
-          id: "abc8c77e-924c-5ba8-94bc-36978fda42c5",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -251,7 +238,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('与我共梦被点击~');
           }),
       ChatListItem(
-          id: "86f1db28-5c98-580d-b365-70a752fde80c",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -266,7 +252,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('挽弦暮笙被点击~');
           }),
       ChatListItem(
-          id: "81fd1656-bfa0-5e12-bab4-9cbc208e3f4a",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -281,7 +266,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('开始厌倦被点击~');
           }),
       ChatListItem(
-          id: "bbe17759-086d-51f6-871a-4fc5d7014fd3",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -296,7 +280,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('仙女收纳盒被点击~');
           }),
       ChatListItem(
-          id: "6e48d092-0d0e-5769-9837-96ee651c7a4b",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -311,7 +294,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('華燈初上被点击~');
           }),
       ChatListItem(
-          id: "dbc2eaca-56ce-5940-b9fc-9a42583ce674",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -326,7 +308,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('袖手今生被点击~');
           }),
       ChatListItem(
-          id: "be028228-1689-5058-903b-07b6d9380d78",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -341,7 +322,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('ら道不清的忧伤被点击~');
           }),
       ChatListItem(
-          id: "419adb76-6b8c-5602-a415-2d619b4fc17f",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -356,7 +336,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('凉生被点击~');
           }),
       ChatListItem(
-          id: "b1b6b991-5f30-5039-896e-a8f694f94c4e",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -371,7 +350,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('墨香九歌被点击~');
           }),
       ChatListItem(
-          id: "d70f0966-df79-530c-b18d-bcf61e402bb8",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -386,7 +364,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('暖栀被点击~');
           }),
       ChatListItem(
-          id: "0d0618d4-4520-5d8c-8c3f-e9fdf7048a3c",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -401,7 +378,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('等待许了苍老被点击~');
           }),
       ChatListItem(
-          id: "6cdd7427-24d6-5014-a9c8-019dfbba891f",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -416,7 +392,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('笙歌白云被点击~');
           }),
       ChatListItem(
-          id: "97937063-66d6-56db-8265-3b671f199a50",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -431,7 +406,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('万幸得以相识被点击~');
           }),
       ChatListItem(
-          id: "5e2a94a2-89d4-5b3f-9af2-b01d4d6aeec6",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -446,7 +420,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('凤鸣寂寥被点击~');
           }),
       ChatListItem(
-          id: "a94752c7-3a67-5f61-bde4-6dc3a907c1d4",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -461,7 +434,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('余生不过一盏茶被点击~');
           }),
       ChatListItem(
-          id: "1c400b91-d94e-520f-badb-85f5299e3e41",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -476,7 +448,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('丢了梦想的猎手被点击~');
           }),
       ChatListItem(
-          id: "c9e9f259-833b-5cb7-853e-511b00d38051",
           friendName: mockName(),
           notice: false,
           underline: true,
@@ -491,7 +462,6 @@ class _ChatListViewState extends State<LJNHomePage> {
             logger.info('今朝有酒今朝醉被点击~');
           }),
       ChatListItem(
-        id: "0b4265b0-0b9a-5684-b7d2-baf26f1f6887",
         friendName: "旧事酒浓",
         notice: false,
         underline: false,
@@ -544,7 +514,6 @@ class _ChatListViewState extends State<LJNHomePage> {
 }
 
 class ChatListItem extends StatefulWidget {
-  final String id;
   final String avatar;
   final String friendName;
   final String message;
@@ -556,7 +525,6 @@ class ChatListItem extends StatefulWidget {
 
   const ChatListItem({
     super.key,
-    required this.id,
     required this.avatar,
     required this.friendName,
     required this.message,

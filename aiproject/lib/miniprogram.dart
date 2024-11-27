@@ -24,26 +24,22 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
 
     chatItems = [
       ChatListItem(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         friendName: "粤童年",
         message: "今天天气真好，阳光明媚，让人心情愉悦。",
         avatar: "images/miniprogram_icon/yuetongnianruanjian.jpg",
         onPressed: () {},
       ),
       ChatListItem(
-          id: "4462b35d-e742-5011-9ed6-f10666ef8e9f",
           friendName: '起点中文',
           message: "[图片]",
           avatar: "images/miniprogram_icon/qidianzhongwen.jpg",
           onPressed: () {}),
       ChatListItem(
-          id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
           friendName: "野花香电视剧",
           message: "这个怎么样调试?",
           avatar: "images/miniprogram_icon/yehuaxiangdianshiju.jpg",
           onPressed: () {}),
       ChatListItem(
-          id: "6390e7d0-c8bd-5929-b537-76f6577c591c",
           friendName: "韵镖侠",
           message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
           avatar: "images/miniprogram_icon/yunbiaoxia.jpg",
@@ -52,26 +48,22 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
 
     chatItems2 = [
       ChatListItem(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         friendName: "蘑菇云游",
         message: "今天天气真好，阳光明媚，让人心情愉悦。",
         avatar: "images/miniprogram_icon/moguyunyou.jpg",
         onPressed: () {},
       ),
       ChatListItem(
-          id: "4462b35d-e742-5011-9ed6-f10666ef8e9f",
           friendName: '美图秀秀',
           message: "[图片]",
           avatar: "images/miniprogram_icon/meituxiuxiu.jpg",
           onPressed: () {}),
       ChatListItem(
-          id: "c7e7c26e-aa86-5e7b-9bbd-018f46b27e7a",
           friendName: "百度翻译",
           message: "这个怎么样调试?",
           avatar: "images/miniprogram_icon/baidufanyi.jpg",
           onPressed: () {}),
       ChatListItem(
-          id: "6390e7d0-c8bd-5929-b537-76f6577c591c",
           friendName: "淘无忧",
           message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
           avatar: "images/miniprogram_icon/taowuyou.jpg",
@@ -535,22 +527,19 @@ class _FunctionListSection extends State<FunctionListSection> {
             ),
 
             // 使用 SizedBox 控制 GridView 的大小
-            Container(
-              // padding: const EdgeInsets.all(16.0).w,
-              child: ListView.builder(
-                primary: false,
-                // padding: EdgeInsets.only(top: _statusHeight + 90.w),
-                itemCount: widget.chatItems.length,
-                shrinkWrap: true,
-                // controller: _customScrollController,
-                // physics: const CustomScrollPhysics()
-                //     .applyTo(const MyBouncingScrollPhysics()),
-                // physics: const MyBouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return widget.chatItems[index];
-                },
-              ),
+            ListView.builder(
+              primary: false,
+              // padding: EdgeInsets.only(top: _statusHeight + 90.w),
+              itemCount: widget.chatItems.length,
+              shrinkWrap: true,
+              // controller: _customScrollController,
+              // physics: const CustomScrollPhysics()
+              //     .applyTo(const MyBouncingScrollPhysics()),
+              // physics: const MyBouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) {
+                return widget.chatItems[index];
+              },
             ),
           ],
         ));
@@ -559,7 +548,6 @@ class _FunctionListSection extends State<FunctionListSection> {
 
 // 小程序列表项
 class ChatListItem extends StatefulWidget {
-  final String id;
   final String avatar;
   final String friendName;
   final String message;
@@ -567,7 +555,6 @@ class ChatListItem extends StatefulWidget {
 
   const ChatListItem({
     super.key,
-    required this.id,
     required this.avatar,
     required this.friendName,
     required this.message,

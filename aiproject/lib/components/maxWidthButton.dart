@@ -5,7 +5,6 @@ import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNMaxWidthButton extends StatefulWidget {
-  final String id;
   final String? icon;
   final double? height;
   final String title;
@@ -16,7 +15,6 @@ class LJNMaxWidthButton extends StatefulWidget {
 
   const LJNMaxWidthButton({
     super.key,
-    required this.id,
     this.icon,
     this.height,
     required this.title,

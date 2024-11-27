@@ -344,7 +344,6 @@ class _LJNUserPageState extends State<LJNUserPage> {
                       ),
 
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "服务",
                         icon: "images/icon/icon1.png",
                         link: '/services',
@@ -359,35 +358,30 @@ class _LJNUserPageState extends State<LJNUserPage> {
                       ),
 
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "收藏",
                         icon: "images/icon/icon2.png",
                         link: '/mywebview',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "朋友圈",
                         icon: "images/icon/icon3.png",
                         link: '/friendmoments',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "视频号",
                         icon: "images/icon/icon4.png",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "小店订单与卡包",
                         icon: "images/icon/icon5.png",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "表情",
                         icon: "images/icon/icon6.png",
                         link: '/collection_and_payment',
@@ -400,7 +394,6 @@ class _LJNUserPageState extends State<LJNUserPage> {
                       ),
 
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "设置",
                         icon: "images/icon/icon7.png",
                         link: '/setting',

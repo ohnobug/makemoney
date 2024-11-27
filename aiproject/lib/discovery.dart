@@ -59,7 +59,6 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
 
                   // 朋友圈
                   const LJNFunctionItem(
-                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "朋友圈",
                     icon: "images/icon/discovery_icon1.png",
                     link: '/friendmoments',
@@ -69,7 +68,6 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
 
                   // 视频号、直播
                   LJNFunctionItem(
-                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "视频号",
                     icon: "images/icon/discovery_icon2.png",
                     link: '/ins',
@@ -113,7 +111,6 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                             ])),
                   ),
                   LJNFunctionItem(
-                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "直播",
                     icon: "images/icon/discovery_icon3.png",
                     link: '/tiktik',
@@ -155,14 +152,12 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
 
                   // 扫一扫、听一听
                   const LJNFunctionItem(
-                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "扫一扫",
                     icon: "images/icon/discovery_icon4.png",
                     link: '/qrcode_scanner',
                     underline: true,
                   ),
                   const LJNFunctionItem(
-                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "听一听",
                     icon: "images/icon/discovery_icon5.png",
                     link: '',
@@ -172,14 +167,12 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
 
                   // 看一看、搜一搜
                   const LJNFunctionItem(
-                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "看一看",
                     icon: "images/icon/discovery_icon6.png",
                     link: '',
                     underline: true,
                   ),
                   const LJNFunctionItem(
-                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "搜一搜",
                     icon: "images/icon/discovery_icon7.png",
                     link: '/search',
@@ -189,7 +182,6 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
 
                   // 附近
                   const LJNFunctionItem(
-                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "附近",
                     icon: "images/icon/discovery_icon8.png",
                     link: '',
@@ -199,14 +191,12 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
 
                   // 购物、游戏
                   const LJNFunctionItem(
-                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "购物",
                     icon: "images/icon/discovery_icon9.png",
                     link: '',
                     underline: true,
                   ),
                   const LJNFunctionItem(
-                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "游戏",
                     icon: "images/icon/discovery_icon10.png",
                     link: '',
@@ -216,7 +206,6 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
 
                   // 小程序
                   const LJNFunctionItem(
-                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                     title: "小程序",
                     icon: "images/icon/discovery_icon11.png",
                     link: '/miniprogram',

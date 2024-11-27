@@ -124,7 +124,6 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                           child: Column(children: [
                             // 朋友圈
                             LJNFunctionItem(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "零钱",
                               icon: "images/icon/discovery_icon1.png",
                               link: '/pocketmoney',
@@ -170,7 +169,6 @@ class _LJNWalletPage extends State<LJNWalletPage> {
 
                             // 视频号、直播
                             LJNFunctionItem(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "零钱通",
                               icon: "images/icon/discovery_icon2.png",
                               link: '',
@@ -231,7 +229,6 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                               underline: true,
                             ),
                             const LJNFunctionItem(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "银行卡",
                               icon: "images/icon/discovery_icon3.png",
                               link: '',
@@ -240,7 +237,6 @@ class _LJNWalletPage extends State<LJNWalletPage> {
 
                             // 扫一扫、听一听
                             const LJNFunctionItem(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "亲属卡",
                               icon: "images/icon/discovery_icon4.png",
                               link: '',
@@ -250,7 +246,6 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                             SizedBox(height: 16.w),
 
                             const LJNFunctionItem(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "支付分",
                               icon: "images/icon/discovery_icon5.png",
                               link: '',
@@ -260,7 +255,6 @@ class _LJNWalletPage extends State<LJNWalletPage> {
 
                             // 消费者保护
                             const LJNFunctionItem(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "消费者保护",
                               icon: "images/icon/discovery_icon6.png",
                               link: '',

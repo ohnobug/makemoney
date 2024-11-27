@@ -18,6 +18,7 @@ import 'package:jiaoyishuoflutter3/settings/commonSetting.dart';
 import 'package:jiaoyishuoflutter3/settings/deviceDetail.dart';
 import 'package:jiaoyishuoflutter3/settings/emergencyContact.dart';
 import 'package:jiaoyishuoflutter3/settings/loggedDevices.dart';
+import 'package:jiaoyishuoflutter3/settings/moreSecureSetting.dart';
 import 'package:jiaoyishuoflutter3/settings/newMessageNotification.dart';
 import 'package:jiaoyishuoflutter3/pocketmoney.dart';
 import 'package:jiaoyishuoflutter3/friendprofile.dart';
@@ -29,11 +30,14 @@ import 'package:jiaoyishuoflutter3/settings/bindNewPhoneNumber.dart';
 import 'package:jiaoyishuoflutter3/settings/changeAccount.dart';
 import 'package:jiaoyishuoflutter3/settings/forgotPassword.dart';
 import 'package:jiaoyishuoflutter3/settings/inputVerifyCode.dart';
+import 'package:jiaoyishuoflutter3/settings/personalInfoAndPermission.dart';
+import 'package:jiaoyishuoflutter3/settings/personalInfoCollectionChecklist.dart';
 import 'package:jiaoyishuoflutter3/settings/phoneContact.dart';
 import 'package:jiaoyishuoflutter3/settings/phoneNumber.dart';
 import 'package:jiaoyishuoflutter3/settings/setPassword.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
 import 'package:jiaoyishuoflutter3/settings/verifyPhone.dart';
+import 'package:jiaoyishuoflutter3/soundLock.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/teenageMode.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
@@ -298,6 +302,18 @@ class TabBarApp extends StatelessWidget {
                   } else if (settings.name == "/emergency_contact") {
                     return pageRouteBuilderAnimation(
                         const LJNEmergencyContact());
+                  } else if (settings.name == "/more_secure_setting") {
+                    return pageRouteBuilderAnimation(
+                        const LJNMoreSecureSetting());
+                  } else if (settings.name == "/sound_lock") {
+                    return pageRouteBuilderAnimation(const LJNSoundLock());
+                  } else if (settings.name == "/personinfo_and_permission") {
+                    return pageRouteBuilderAnimation(
+                        const LJNPersonalinfoAndPermission());
+                  } else if (settings.name ==
+                      "/personalinfo_collection_checklist") {
+                    return pageRouteBuilderAnimation(
+                        const LJNPersonalInfoCollectionChecklist());
                   }
 
                   return null;

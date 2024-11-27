@@ -333,7 +333,6 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                 ),
                                 child: const Column(children: [
                                   LJNCAPFunctionItem(
-                                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                     title: "数字人民币付款",
                                     icon: 0xe6f5,
                                     iconColor: Colors.red,
@@ -359,7 +358,6 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                 ),
                                 child: const Column(children: [
                                   LJNCAPFunctionItem(
-                                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                     title: "二维码收款",
                                     icon: 0xe623,
                                     link: '',
@@ -368,7 +366,6 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                     underline: true,
                                   ),
                                   LJNCAPFunctionItem(
-                                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                     title: "赞赏码",
                                     icon: 0xe67b,
                                     link: '',
@@ -377,7 +374,6 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                     underline: true,
                                   ),
                                   LJNCAPFunctionItem(
-                                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                     title: "群收款",
                                     icon: 0xe624,
                                     link: '',
@@ -386,7 +382,6 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                     underline: true,
                                   ),
                                   LJNCAPFunctionItem(
-                                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                     title: "面对面红包",
                                     icon: 0xe625,
                                     link: '',
@@ -395,7 +390,6 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                     underline: true,
                                   ),
                                   LJNCAPFunctionItem(
-                                    id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                                     title: "向银行卡或手机号转账",
                                     icon: 0xe661,
                                     link: '',
@@ -416,7 +410,6 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
 }
 
 class LJNCAPFunctionItem extends StatefulWidget {
-  final String id;
   final int? icon;
   final Color? iconColor;
   final double? height;
@@ -430,7 +423,6 @@ class LJNCAPFunctionItem extends StatefulWidget {
 
   const LJNCAPFunctionItem({
     super.key,
-    required this.id,
     this.icon,
     this.iconColor,
     this.height,

@@ -106,50 +106,53 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                       ),
 
                       LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "接收新消息通知",
                         // link: '',
                         underline: true,
                         tapEffect: false,
-                        showStyle: Container(
-                            margin: const EdgeInsets.only(right: 32).w,
-                            child: LJNSwitch(
-                              initialValue: true,
-                              onChanged: (value) {
-                                logger.info(value);
-                              },
-                            )),
+                        showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                                margin: const EdgeInsets.only(right: 32).w,
+                                child: LJNSwitch(
+                                  initialValue: true,
+                                  onChanged: (value) {
+                                    logger.info(value);
+                                  },
+                                ))),
                       ),
                       LJNFunctionItem(
-                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                           title: "接收语音和视频通话邀请提醒",
                           // link: '',
                           underline: false,
                           tapEffect: false,
-                          showStyle: Container(
-                              margin: const EdgeInsets.only(right: 32).w,
-                              child: LJNSwitch(
-                                initialValue: true,
-                                onChanged: (value) {
-                                  logger.info(value);
-                                },
-                              ))),
+                          showStyle: Expanded(
+                              flex: 0,
+                              child: Container(
+                                  margin: const EdgeInsets.only(right: 32).w,
+                                  child: LJNSwitch(
+                                    initialValue: true,
+                                    onChanged: (value) {
+                                      logger.info(value);
+                                    },
+                                  )))),
                       SizedBox(height: 16.w),
 
                       LJNFunctionItem(
-                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                           title: "通知显示消息详情",
                           // link: '',
                           underline: false,
                           tapEffect: false,
-                          showStyle: Container(
-                              margin: const EdgeInsets.only(right: 32).w,
-                              child: LJNSwitch(
-                                initialValue: true,
-                                onChanged: (value) {
-                                  logger.info(value);
-                                },
-                              ))),
+                          showStyle: Expanded(
+                              flex: 0,
+                              child: Container(
+                                  margin: const EdgeInsets.only(right: 32).w,
+                                  child: LJNSwitch(
+                                    initialValue: true,
+                                    onChanged: (value) {
+                                      logger.info(value);
+                                    },
+                                  )))),
 
                       Container(
                         alignment: Alignment.centerLeft,
@@ -165,14 +168,12 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
 
                       // 声音与震动
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "新消息系统通知",
                         link: '',
                         underline: true,
                         showStyle: '前往系统设置',
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "语音与视频通话提醒",
                         link: '',
                         underline: false,
@@ -192,33 +193,32 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                       ),
 
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "消息提示音",
                         link: '',
                         underline: true,
                         showStyle: "跟随系统",
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "来电铃声",
                         link: '',
                         underline: true,
                         showStyle: "SISTER SISTER",
                       ),
                       LJNFunctionItem(
-                          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                           title: "呼叫我时朋友也可以听见我的来电铃声",
                           // link: '',
                           underline: false,
                           tapEffect: false,
-                          showStyle: Container(
-                              margin: const EdgeInsets.only(right: 32).w,
-                              child: LJNSwitch(
-                                initialValue: true,
-                                onChanged: (value) {
-                                  logger.info(value);
-                                },
-                              ))),
+                          showStyle: Expanded(
+                              flex: 0,
+                              child: Container(
+                                  margin: const EdgeInsets.only(right: 32).w,
+                                  child: LJNSwitch(
+                                    initialValue: true,
+                                    onChanged: (value) {
+                                      logger.info(value);
+                                    },
+                                  )))),
                       SizedBox(height: 16.w),
                     ])))));
   }

@@ -103,7 +103,6 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                         ),
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "深色模式",
                         link: '',
                         underline: true,
@@ -111,37 +110,38 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                         showStyle: "跟随系统",
                       ),
                       LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "开启横屏模式",
                         // link: '',
                         underline: true,
                         tapEffect: false,
-                        showStyle: Container(
-                            margin: const EdgeInsets.only(right: 32).w,
-                            child: LJNSwitch(
-                              initialValue: false,
-                              onChanged: (value) {
-                                logger.info(value);
-                              },
-                            )),
+                        showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                                margin: const EdgeInsets.only(right: 32).w,
+                                child: LJNSwitch(
+                                  initialValue: false,
+                                  onChanged: (value) {
+                                    logger.info(value);
+                                  },
+                                ))),
                       ),
                       LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "开启NFC功能",
                         // link: '',
                         underline: true,
                         tapEffect: false,
-                        showStyle: Container(
-                            margin: const EdgeInsets.only(right: 32).w,
-                            child: LJNSwitch(
-                              initialValue: true,
-                              onChanged: (value) {
-                                logger.info(value);
-                              },
-                            )),
+                        showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                                margin: const EdgeInsets.only(right: 32).w,
+                                child: LJNSwitch(
+                                  initialValue: true,
+                                  onChanged: (value) {
+                                    logger.info(value);
+                                  },
+                                ))),
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "自动下载微信安装包",
                         link: '',
                         underline: true,
@@ -149,7 +149,6 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                         showStyle: "仅Wi-Fi网络",
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "多语言",
                         link: '',
                         underline: true,
@@ -157,7 +156,6 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                         showStyle: "跟随系统",
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "翻译",
                         link: '',
                         underline: false,
@@ -175,37 +173,31 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                         ),
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "存储空间",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "字体大小",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "照片、视频、文件和通话",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "音乐和音频",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "发现页管理",
                         link: '',
                         underline: true,
                       ),
                       const LJNFunctionItem(
-                        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "辅助功能",
                         link: '',
                         underline: false,

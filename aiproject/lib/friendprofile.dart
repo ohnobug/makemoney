@@ -254,7 +254,6 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
 
                             // 设置备注与标签
                             const LJNFunctionItem(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "设置备注与标签",
                               link: '',
                               underline: true,
@@ -262,7 +261,6 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
 
                             // 朋友权限
                             const LJNFunctionItem(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "朋友权限",
                               link: '',
                               underline: true,
@@ -274,7 +272,6 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
 
                             // 朋友圈
                             LJNFunctionItem(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "朋友圈",
                               link: '/friendmoments',
                               height: 151.w,
@@ -341,7 +338,6 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
 
                             // 视频号
                             LJNVideoFunctionItem(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "视频号",
                               link: '/ins',
                               height: 216.w,
@@ -439,7 +435,6 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
 
                             // 更多信息
                             const LJNFunctionItem(
-                              id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                               title: "更多信息",
                               link: '',
                               underline: false,

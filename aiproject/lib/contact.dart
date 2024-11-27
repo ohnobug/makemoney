@@ -54,7 +54,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
 
     contactList = [
       ContactInformation(
-          id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
           title: "新的朋友",
           icon: "images/avatar/01.png",
           link: '',
@@ -66,7 +65,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
             });
           }),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "仅聊天的朋友",
         icon: "images/avatar/02.png",
         link: '',
@@ -79,7 +77,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "群聊",
         icon: "images/avatar/03.png",
         link: '',
@@ -92,7 +89,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "标签",
         icon: "images/avatar/04.png",
         link: '',
@@ -105,7 +101,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       const ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "公众号",
         icon: "images/avatar/05.png",
         link: '',
@@ -113,7 +108,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
       ),
       alphabet('A'),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "天空飘来五个字那都不是事",
         icon: "images/avatar_webp/chat_1.webp",
         link: '',
@@ -126,7 +120,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "本因",
         icon: "images/avatar_webp/chat_10.webp",
         link: '',
@@ -139,7 +132,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "赵洵",
         icon: "images/avatar_webp/chat_11.webp",
         link: '',
@@ -152,7 +144,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "定静师太",
         icon: "images/avatar_webp/chat_12.webp",
         link: '',
@@ -165,7 +156,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "李秋水",
         icon: "images/avatar_webp/chat_13.webp",
         link: '',
@@ -178,7 +168,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "谭婆",
         icon: "images/avatar_webp/chat_14.webp",
         link: '',
@@ -191,7 +180,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "李傀儡",
         icon: "images/avatar_webp/chat_15.webp",
         link: '',
@@ -204,7 +192,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "貂禅",
         icon: "images/avatar_webp/chat_16.webp",
         link: '',
@@ -217,7 +204,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "何三七",
         icon: "images/avatar_webp/chat_17.webp",
         link: '',
@@ -230,7 +216,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "孔融",
         icon: "images/avatar_webp/chat_18.webp",
         link: '',
@@ -243,7 +228,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "齐堂主",
         icon: "images/avatar_webp/chat_19.webp",
         link: '',
@@ -256,7 +240,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "博尔术",
         icon: "images/avatar_webp/chat_20.webp",
         link: '',
@@ -269,7 +252,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "王语嫣",
         icon: "images/avatar_webp/chat_21.webp",
         link: '',
@@ -282,7 +264,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "秦红棉",
         icon: "images/avatar_webp/chat_22.webp",
         link: '',
@@ -295,7 +276,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       const ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "天竺僧人",
         icon: "images/avatar_webp/chat_23.webp",
         link: '',
@@ -303,7 +283,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
       ),
       alphabet('B'),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "段延庆",
         icon: "images/avatar_webp/chat_33.webp",
         link: '',
@@ -316,7 +295,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "令狐冲",
         icon: "images/avatar_webp/chat_34.webp",
         link: '',
@@ -329,7 +307,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "英白罗",
         icon: "images/avatar_webp/chat_35.webp",
         link: '',
@@ -342,7 +319,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "黄药师",
         icon: "images/avatar_webp/chat_36.webp",
         link: '',
@@ -355,7 +331,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "李煜",
         icon: "images/avatar_webp/chat_37.webp",
         link: '',
@@ -368,7 +343,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "云中鹤",
         icon: "images/avatar_webp/chat_38.webp",
         link: '',
@@ -381,7 +355,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "劳德诺",
         icon: "images/avatar_webp/chat_39.webp",
         link: '',
@@ -394,7 +367,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "包惜弱",
         icon: "images/avatar_webp/chat_40.webp",
         link: '',
@@ -407,7 +379,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "游驹",
         icon: "images/avatar_webp/chat_41.webp",
         link: '',
@@ -420,7 +391,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "钟万仇",
         icon: "images/avatar_webp/chat_42.webp",
         link: '',
@@ -433,7 +403,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "渔人",
         icon: "images/avatar_webp/chat_43.webp",
         link: '',
@@ -446,7 +415,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "单叔山",
         icon: "images/avatar_webp/chat_44.webp",
         link: '',
@@ -459,7 +427,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "段誉",
         icon: "images/avatar_webp/chat_45.webp",
         link: '',
@@ -472,7 +439,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "林震南",
         icon: "images/avatar_webp/chat_46.webp",
         link: '',
@@ -485,7 +451,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
         },
       ),
       ContactInformation(
-        id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
         title: "商鞅",
         icon: "images/avatar_webp/chat_47.webp",
         link: '',
@@ -635,7 +600,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
 
 // 功能列表
 class ContactInformation extends StatefulWidget {
-  final String id;
   final String icon;
   final String title;
   final String link;
@@ -645,7 +609,6 @@ class ContactInformation extends StatefulWidget {
 
   const ContactInformation({
     super.key,
-    required this.id,
     required this.icon,
     required this.title,
     required this.link,
