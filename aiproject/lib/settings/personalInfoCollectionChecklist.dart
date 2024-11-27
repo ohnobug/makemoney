@@ -126,6 +126,14 @@ class _LJPpersonalInfoCollectionChecklist
                                   height: 105.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                    color: const Color.fromARGB(
+                                        255, 242, 242, 242),
+                                    width: 1.5.w,
+                                    style: BorderStyle.solid,
+                                  ))),
                                   child: Text(
                                     "基本信息",
                                     style: TextStyle(
@@ -180,7 +188,7 @@ class _LJPpersonalInfoCollectionChecklist
                             ),
                           ),
                           SizedBox(
-                            height: 155.w,
+                            height: 95.w,
                           ),
                           // 设备信息
                           SizedBox(
@@ -191,6 +199,14 @@ class _LJPpersonalInfoCollectionChecklist
                                   height: 105.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                    color: const Color.fromARGB(
+                                        255, 242, 242, 242),
+                                    width: 1.5.w,
+                                    style: BorderStyle.solid,
+                                  ))),
                                   child: Text(
                                     "设备信息",
                                     style: TextStyle(
@@ -209,7 +225,7 @@ class _LJPpersonalInfoCollectionChecklist
                             ),
                           ),
                           SizedBox(
-                            height: 155.w,
+                            height: 95.w,
                           ),
                           // 用户使用过程信息
                           SizedBox(
@@ -220,6 +236,14 @@ class _LJPpersonalInfoCollectionChecklist
                                   height: 105.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                    color: const Color.fromARGB(
+                                        255, 242, 242, 242),
+                                    width: 1.5.w,
+                                    style: BorderStyle.solid,
+                                  ))),
                                   child: Text(
                                     "用户使用过程信息",
                                     style: TextStyle(
@@ -244,7 +268,7 @@ class _LJPpersonalInfoCollectionChecklist
                             ),
                           ),
                           SizedBox(
-                            height: 155.w,
+                            height: 95.w,
                           ),
                           // 社交与内容信息
                           SizedBox(
@@ -255,6 +279,14 @@ class _LJPpersonalInfoCollectionChecklist
                                   height: 105.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                    color: const Color.fromARGB(
+                                        255, 242, 242, 242),
+                                    width: 1.5.w,
+                                    style: BorderStyle.solid,
+                                  ))),
                                   child: Text(
                                     "社交与内容信息",
                                     style: TextStyle(
@@ -331,7 +363,7 @@ class _LJPpersonalInfoCollectionChecklist
                             ),
                           ),
                           SizedBox(
-                            height: 155.w,
+                            height: 95.w,
                           ),
                           // 联系人信息
                           SizedBox(
@@ -342,6 +374,14 @@ class _LJPpersonalInfoCollectionChecklist
                                   height: 105.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                    color: const Color.fromARGB(
+                                        255, 242, 242, 242),
+                                    width: 1.5.w,
+                                    style: BorderStyle.solid,
+                                  ))),
                                   child: Text(
                                     "联系人信息",
                                     style: TextStyle(
@@ -358,6 +398,9 @@ class _LJPpersonalInfoCollectionChecklist
                                 ),
                               ],
                             ),
+                          ),
+                          SizedBox(
+                            height: 100.w,
                           )
                         ])))));
   }
