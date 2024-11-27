@@ -13,6 +13,7 @@ import 'package:jiaoyishuoflutter3/home22.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/miniprogram.dart';
 import 'package:jiaoyishuoflutter3/mywebview.dart';
+import 'package:jiaoyishuoflutter3/settings/about.dart';
 import 'package:jiaoyishuoflutter3/settings/chatSetting.dart';
 import 'package:jiaoyishuoflutter3/settings/commonSetting.dart';
 import 'package:jiaoyishuoflutter3/settings/deviceDetail.dart';
@@ -37,7 +38,7 @@ import 'package:jiaoyishuoflutter3/settings/phoneNumber.dart';
 import 'package:jiaoyishuoflutter3/settings/setPassword.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
 import 'package:jiaoyishuoflutter3/settings/verifyPhone.dart';
-import 'package:jiaoyishuoflutter3/soundLock.dart';
+import 'package:jiaoyishuoflutter3/settings/soundLock.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/teenageMode.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
@@ -314,6 +315,8 @@ class TabBarApp extends StatelessWidget {
                       "/personalinfo_collection_checklist") {
                     return pageRouteBuilderAnimation(
                         const LJNPersonalInfoCollectionChecklist());
+                  } else if (settings.name == "/about") {
+                    return pageRouteBuilderAnimation(const LJNAbout());
                   }
 
                   return null;

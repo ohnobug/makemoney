@@ -123,7 +123,7 @@ class _LJPpersonalInfoCollectionChecklist
                             child: Column(
                               children: [
                                 Container(
-                                  height: 60.w,
+                                  height: 105.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
                                   decoration: BoxDecoration(
@@ -188,7 +188,7 @@ class _LJPpersonalInfoCollectionChecklist
                             ),
                           ),
                           SizedBox(
-                            height: 95.w,
+                            height: 30.w,
                           ),
                           // 设备信息
                           SizedBox(
@@ -196,7 +196,7 @@ class _LJPpersonalInfoCollectionChecklist
                             child: Column(
                               children: [
                                 Container(
-                                  height: 60.w,
+                                  height: 105.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
                                   decoration: BoxDecoration(
@@ -225,7 +225,7 @@ class _LJPpersonalInfoCollectionChecklist
                             ),
                           ),
                           SizedBox(
-                            height: 95.w,
+                            height: 30.w,
                           ),
                           // 用户使用过程信息
                           SizedBox(
@@ -233,7 +233,7 @@ class _LJPpersonalInfoCollectionChecklist
                             child: Column(
                               children: [
                                 Container(
-                                  height: 60.w,
+                                  height: 105.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
                                   decoration: BoxDecoration(
@@ -268,7 +268,7 @@ class _LJPpersonalInfoCollectionChecklist
                             ),
                           ),
                           SizedBox(
-                            height: 95.w,
+                            height: 30.w,
                           ),
                           // 社交与内容信息
                           SizedBox(
@@ -276,7 +276,7 @@ class _LJPpersonalInfoCollectionChecklist
                             child: Column(
                               children: [
                                 Container(
-                                  height: 60.w,
+                                  height: 105.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
                                   decoration: BoxDecoration(
@@ -363,7 +363,7 @@ class _LJPpersonalInfoCollectionChecklist
                             ),
                           ),
                           SizedBox(
-                            height: 95.w,
+                            height: 30.w,
                           ),
                           // 联系人信息
                           SizedBox(
@@ -371,7 +371,7 @@ class _LJPpersonalInfoCollectionChecklist
                             child: Column(
                               children: [
                                 Container(
-                                  height: 60.w,
+                                  height: 105.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
                                   decoration: BoxDecoration(

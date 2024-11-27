@@ -203,7 +203,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                             ),
                             Icon(
                               const IconData(
-                                0xed9e,
+                                0xe610,
                                 fontFamily: 'Iconfont',
                               ), // 使用的图标
                               color: Colors.black, // 图标颜色
@@ -219,7 +219,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
 
                       const LJNFunctionItem(
                         title: "关于微信",
-                        link: '',
+                        link: '/about',
                         underline: true,
                       ),
                       const LJNFunctionItem(
