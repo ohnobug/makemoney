@@ -278,7 +278,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                               title: "朋友圈",
                               link: '/friendmoments',
                               height: 151.w,
-                              showStyle: Flexible(
+                              showStyle: Expanded(
                                   flex: 1,
                                   child: Container(
                                       // width: 490.w,
@@ -345,7 +345,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                               title: "视频号",
                               link: '/ins',
                               height: 216.w,
-                              showStyle: Flexible(
+                              showStyle: Expanded(
                                   flex: 1,
                                   child: Container(
                                       height: 215.w,

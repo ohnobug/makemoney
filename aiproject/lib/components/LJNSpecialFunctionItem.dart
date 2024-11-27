@@ -106,7 +106,7 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
                   SizedBox(
                     // flex: 1,
                     // color: Colors.red,
-                    width: 600.w,
+                    width: 500.w,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,

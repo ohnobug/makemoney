@@ -99,14 +99,16 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                         // link: '',
                         underline: true,
                         tapEffect: false,
-                        showStyle: Container(
-                            margin: const EdgeInsets.only(right: 32).w,
-                            child: LJNSwitch(
-                              initialValue: false,
-                              onChanged: (value) {
-                                logger.info(value);
-                              },
-                            )),
+                        showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                                margin: const EdgeInsets.only(right: 32).w,
+                                child: LJNSwitch(
+                                  initialValue: false,
+                                  onChanged: (value) {
+                                    logger.info(value);
+                                  },
+                                ))),
                       ),
                       LJNSpecialFunctionItem(
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
@@ -123,14 +125,16 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                             fontFamily: "AlibabaPuHuiTi",
                           ),
                         ),
-                        showStyle: Container(
-                            margin: const EdgeInsets.only(right: 32).w,
-                            child: LJNSwitch(
-                              initialValue: false,
-                              onChanged: (value) {
-                                logger.info(value);
-                              },
-                            )),
+                        showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                                margin: const EdgeInsets.only(right: 32).w,
+                                child: LJNSwitch(
+                                  initialValue: false,
+                                  onChanged: (value) {
+                                    logger.info(value);
+                                  },
+                                ))),
                         underline: true,
                       ),
                       const LJNFunctionItem(

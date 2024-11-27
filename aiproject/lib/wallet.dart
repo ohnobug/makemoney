@@ -128,10 +128,12 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                               title: "零钱",
                               icon: "images/icon/discovery_icon1.png",
                               link: '/pocketmoney',
-                              showStyle: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
+                              showStyle: Expanded(
+                                  child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
                                     Text.rich(
                                       TextSpan(
                                         children: [
@@ -162,7 +164,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                       ),
                                       textAlign: TextAlign.center,
                                     )
-                                  ]),
+                                  ])),
                               underline: true,
                             ),
 
@@ -172,11 +174,13 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                               title: "零钱通",
                               icon: "images/icon/discovery_icon2.png",
                               link: '',
-                              showStyle: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
+                              showStyle: Expanded(
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
                                     Text.rich(
                                       TextSpan(
                                         children: [
@@ -223,7 +227,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                       ),
                                       textAlign: TextAlign.center,
                                     )
-                                  ]),
+                                  ])),
                               underline: true,
                             ),
                             const LJNFunctionItem(

@@ -74,40 +74,43 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                     icon: "images/icon/discovery_icon2.png",
                     link: '/ins',
                     underline: true,
-                    showStyle: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(6).w,
-                              child: Image.asset(
-                                assetPath('images/avatar_webp/chat_4.webp'),
-                                width: 60.w,
-                                height: 60.w,
-                                cacheWidth: 120.w.toInt(),
-                                cacheHeight: 120.w.toInt(),
-                                fit: BoxFit.cover,
-                              )),
-                          SizedBox(
-                            width: 14.w,
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              children: buildTextSpans(
-                                  "李俊南集团💖李俊男  最近💖",
-                                  TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(26.w),
-                                      color:
-                                          const Color.fromARGB(255, 80, 80, 80),
-                                      fontFamily: "AlibabaPuHuiTi"),
-                                  TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(26.w),
-                                      fontFamily: "NotoColorEmoji-Regular")),
-                            ),
-                          ),
-                        ]),
+                    showStyle: Expanded(
+                        flex: 1,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(6).w,
+                                  child: Image.asset(
+                                    assetPath('images/avatar_webp/chat_4.webp'),
+                                    width: 60.w,
+                                    height: 60.w,
+                                    cacheWidth: 120.w.toInt(),
+                                    cacheHeight: 120.w.toInt(),
+                                    fit: BoxFit.cover,
+                                  )),
+                              SizedBox(
+                                width: 14.w,
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  children: buildTextSpans(
+                                      "李俊南集团💖李俊男  最近💖",
+                                      TextStyle(
+                                          height: 1.08,
+                                          fontSize: fontSizeScale(26.w),
+                                          color: const Color.fromARGB(
+                                              255, 80, 80, 80),
+                                          fontFamily: "AlibabaPuHuiTi"),
+                                      TextStyle(
+                                          height: 1.08,
+                                          fontSize: fontSizeScale(26.w),
+                                          fontFamily:
+                                              "NotoColorEmoji-Regular")),
+                                ),
+                              ),
+                            ])),
                   ),
                   LJNFunctionItem(
                     id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
@@ -115,35 +118,38 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                     icon: "images/icon/discovery_icon3.png",
                     link: '/tiktik',
                     underline: false,
-                    showStyle: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            child: Text(
-                              "小歪今天穿什么直播中",
-                              style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(26.w),
-                                  color: const Color.fromARGB(255, 80, 80, 80)),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 14.w,
-                          ),
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(60).w,
-                              child: Image.asset(
-                                assetPath('images/avatar_webp/chat_4.webp'),
-                                cacheWidth: 120.w.toInt(),
-                                cacheHeight: 120.w.toInt(),
-                                width: 60.w,
-                                height: 60.w,
-                                fit: BoxFit.cover,
-                              )),
-                        ]),
+                    showStyle: Expanded(
+                        flex: 1,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  "小歪今天穿什么直播中",
+                                  style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(26.w),
+                                      color: const Color.fromARGB(
+                                          255, 80, 80, 80)),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 14.w,
+                              ),
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(60).w,
+                                  child: Image.asset(
+                                    assetPath('images/avatar_webp/chat_4.webp'),
+                                    cacheWidth: 120.w.toInt(),
+                                    cacheHeight: 120.w.toInt(),
+                                    width: 60.w,
+                                    height: 60.w,
+                                    fit: BoxFit.cover,
+                                  )),
+                            ])),
                   ),
                   SizedBox(height: 16.w),
 

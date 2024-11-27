@@ -21,8 +21,6 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
   @override
   void initState() {
     super.initState();
-
-    myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
   }
 
   @override
@@ -30,7 +28,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          return vm.mainpage3isload! ? _buildPage(vm) : const LJNPageLoading();
+          return _buildPage(vm);
         });
   }
 
@@ -121,21 +119,23 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                         title: "头像",
                         height: 150.w,
                         link: '',
-                        showStyle: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ClipRRect(
-                                  borderRadius: BorderRadius.circular(10).w,
-                                  child: Image.asset(
-                                    assetPath(vm.userinfoAvatar!),
-                                    cacheWidth: 240.w.toInt(),
-                                    cacheHeight: 240.w.toInt(),
-                                    width: 120.w,
-                                    height: 120.w,
-                                    fit: BoxFit.cover,
-                                  )),
-                            ]),
+                        showStyle: Expanded(
+                            flex: 1,
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  ClipRRect(
+                                      borderRadius: BorderRadius.circular(10).w,
+                                      child: Image.asset(
+                                        assetPath(vm.userinfoAvatar!),
+                                        cacheWidth: 240.w.toInt(),
+                                        cacheHeight: 240.w.toInt(),
+                                        width: 120.w,
+                                        height: 120.w,
+                                        fit: BoxFit.cover,
+                                      )),
+                                ])),
                         underline: true,
                       ),
                       // 姓名
@@ -168,19 +168,22 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                         id: "5c620baa-7a31-5080-8e04-413f6c9d3c7a",
                         title: "二维码名片",
                         link: '',
-                        showStyle: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                const IconData(
-                                  0xe74b,
-                                  fontFamily: 'Iconfont',
-                                ),
-                                size: 30.w,
-                                color: const Color.fromARGB(255, 170, 170, 170),
-                              ),
-                            ]),
+                        showStyle: Expanded(
+                            flex: 1,
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    const IconData(
+                                      0xe74b,
+                                      fontFamily: 'Iconfont',
+                                    ),
+                                    size: 30.w,
+                                    color: const Color.fromARGB(
+                                        255, 170, 170, 170),
+                                  ),
+                                ])),
                         underline: true,
                       ),
 
