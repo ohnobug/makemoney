@@ -95,11 +95,13 @@ class _LJPpersonalInfoCollectionChecklist
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: 138.w,
+                            height: 130.w,
                           ),
                           Text(
                             "个人信息收集清单",
-                            style: TextStyle(fontSize: 41.w),
+                            style: TextStyle(
+                                fontSize: 41.w,
+                                fontFamily: "AlibabaPuHuiTi-Medium"),
                           ),
                           SizedBox(
                             height: 45.w,
@@ -107,7 +109,8 @@ class _LJPpersonalInfoCollectionChecklist
                           Container(
                               margin: EdgeInsets.only(left: 68.w, right: 68.w),
                               child: Text(
-                                "你可以查阅微信对你的个人信息的收集情况。以下只统计i0S 8.0.17、Android 8.0.18及之后版本微信所收集的信息。你使用旧版本微信期间的信息收集情况，微信无法完整统计到。",
+                                textAlign: TextAlign.center,
+                                "    你可以查阅微信对你的个人信息的收集情况。以下只统计i0S 8.0.17、Android 8.0.18及之后版本微信所收集的信息。你使用旧版本微信期间的信息收集情况，微信无法完整统计到。",
                                 style: TextStyle(fontSize: 32.w),
                               )),
                           SizedBox(
