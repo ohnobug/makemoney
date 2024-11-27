@@ -88,31 +88,21 @@ class _LJNVideoFunctionItemState extends State<LJNVideoFunctionItem> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // 标题
-                    Expanded(
-                      flex: 0,
-                      // width: 100.w,
-                      child: Container(
-                          // color: Colors.red,
-                          padding: EdgeInsets.only(top: 38.w),
-                          child: Text(
-                            widget.title,
-                            style: TextStyle(
-                              height: 1.08,
-                              fontSize: fontSizeScale(30.0.w),
-                              // fontFamily: "AlibabaPuHuiTi",
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          )),
-                    ),
-
-                    Flexible(
-                        flex: 1,
-                        child: Container(
-                          padding: const EdgeInsets.only(right: 10, left: 10).w,
-                          // color: Colors.red,
-                          child: widget.showStyle,
+                    Container(
+                        // color: Colors.red,
+                        padding: EdgeInsets.only(top: 38.w),
+                        child: Text(
+                          widget.title,
+                          style: TextStyle(
+                            height: 1.08,
+                            fontSize: fontSizeScale(30.0.w),
+                            // fontFamily: "AlibabaPuHuiTi",
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         )),
+
+                    widget.showStyle!,
 
                     Container(
                         width: 27.w,

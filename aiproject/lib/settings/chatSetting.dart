@@ -100,7 +100,7 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                         underline: true,
                         tapEffect: false,
                         showStyle: Container(
-                            margin: const EdgeInsets.only(right: 20).w,
+                            margin: const EdgeInsets.only(right: 32).w,
                             child: LJNSwitch(
                               initialValue: false,
                               onChanged: (value) {
@@ -124,7 +124,7 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                           ),
                         ),
                         showStyle: Container(
-                            margin: const EdgeInsets.only(right: 20).w,
+                            margin: const EdgeInsets.only(right: 32).w,
                             child: LJNSwitch(
                               initialValue: false,
                               onChanged: (value) {

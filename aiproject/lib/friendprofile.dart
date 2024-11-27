@@ -151,7 +151,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: 55.w,
+                                      height: 40.w,
                                     ),
                                     Row(
                                       crossAxisAlignment:
@@ -278,9 +278,10 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                               title: "朋友圈",
                               link: '/friendmoments',
                               height: 151.w,
-                              showStyle: Expanded(
+                              showStyle: Flexible(
                                   flex: 1,
                                   child: Container(
+                                      // width: 490.w,
                                       margin: EdgeInsets.only(left: 68.w),
                                       // color: Colors.red,
                                       child: Row(
@@ -344,11 +345,15 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                               title: "视频号",
                               link: '/ins',
                               height: 216.w,
-                              showStyle: Expanded(
+                              showStyle: Flexible(
                                   flex: 1,
                                   child: Container(
                                       height: 215.w,
+                                      padding: const EdgeInsets.only(
+                                              right: 10, left: 10)
+                                          .w,
                                       margin: EdgeInsets.only(left: 68.w),
+                                      // color: Colors.red,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -356,26 +361,21 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                             MainAxisAlignment.start,
                                         children: [
                                           // 标题
-                                          Expanded(
-                                            flex: 0,
-                                            // width: 100.w,
-                                            child: Container(
-                                                // color: Colors.red,
-                                                padding:
-                                                    EdgeInsets.only(top: 38.w),
-                                                child: Text(
-                                                  widget.name!,
-                                                  style: TextStyle(
-                                                    height: 1.08,
-                                                    fontSize:
-                                                        fontSizeScale(30.0.w),
-                                                    // fontFamily: "AlibabaPuHuiTi",
-                                                  ),
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                )),
-                                          ),
+                                          Container(
+                                              // color: Colors.red,
+                                              padding:
+                                                  EdgeInsets.only(top: 38.w),
+                                              child: Text(
+                                                widget.name!,
+                                                style: TextStyle(
+                                                  height: 1.08,
+                                                  fontSize:
+                                                      fontSizeScale(30.0.w),
+                                                  // fontFamily: "AlibabaPuHuiTi",
+                                                ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              )),
                                           SizedBox(
                                             height: 28.w,
                                           ),

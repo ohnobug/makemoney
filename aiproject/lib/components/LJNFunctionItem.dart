@@ -118,19 +118,15 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // 标题
-                    Expanded(
-                      flex: 0,
-                      // width: 100.w,
-                      child: Text(
-                        widget.title,
-                        style: TextStyle(
-                          height: 1.08,
-                          fontSize: fontSizeScale(32.0.w),
-                          fontFamily: "AlibabaPuHuiTi",
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.visible,
+                    Text(
+                      widget.title,
+                      style: TextStyle(
+                        height: 1.08,
+                        fontSize: fontSizeScale(32.0.w),
+                        fontFamily: "AlibabaPuHuiTi",
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.visible,
                     ),
 
                     if (widget.showStyle != null)

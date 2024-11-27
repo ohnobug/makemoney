@@ -112,7 +112,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                         underline: true,
                         tapEffect: false,
                         showStyle: Container(
-                            margin: const EdgeInsets.only(right: 20).w,
+                            margin: const EdgeInsets.only(right: 32).w,
                             child: LJNSwitch(
                               initialValue: true,
                               onChanged: (value) {
@@ -127,7 +127,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           underline: false,
                           tapEffect: false,
                           showStyle: Container(
-                              margin: const EdgeInsets.only(right: 20).w,
+                              margin: const EdgeInsets.only(right: 32).w,
                               child: LJNSwitch(
                                 initialValue: true,
                                 onChanged: (value) {
@@ -143,7 +143,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           underline: false,
                           tapEffect: false,
                           showStyle: Container(
-                              margin: const EdgeInsets.only(right: 20).w,
+                              margin: const EdgeInsets.only(right: 32).w,
                               child: LJNSwitch(
                                 initialValue: true,
                                 onChanged: (value) {
@@ -212,7 +212,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           underline: false,
                           tapEffect: false,
                           showStyle: Container(
-                              margin: const EdgeInsets.only(right: 20).w,
+                              margin: const EdgeInsets.only(right: 32).w,
                               child: LJNSwitch(
                                 initialValue: true,
                                 onChanged: (value) {
