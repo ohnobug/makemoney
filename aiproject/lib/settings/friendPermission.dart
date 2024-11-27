@@ -103,7 +103,7 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                             child: Container(
                                 margin: const EdgeInsets.only(right: 32).w,
                                 child: LJNSwitch(
-                                  initialValue: false,
+                                  initialValue: true,
                                   onChanged: (value) {
                                     logger.info(value);
                                   },
@@ -119,6 +119,8 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                       ),
                       LJNSpecialFunctionItem(
                         title: "向我推荐通讯录朋友",
+                        tapEffect: false,
+                        underline: false,
                         height: 137.w,
                         // link: '',
                         subTitle: Text(
@@ -141,7 +143,6 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                                     logger.info(value);
                                   },
                                 ))),
-                        underline: false,
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
