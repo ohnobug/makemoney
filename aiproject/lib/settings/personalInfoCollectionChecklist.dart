@@ -123,7 +123,7 @@ class _LJPpersonalInfoCollectionChecklist
                             child: Column(
                               children: [
                                 Container(
-                                  height: 105.w,
+                                  height: 60.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
                                   decoration: BoxDecoration(
@@ -196,7 +196,7 @@ class _LJPpersonalInfoCollectionChecklist
                             child: Column(
                               children: [
                                 Container(
-                                  height: 105.w,
+                                  height: 60.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
                                   decoration: BoxDecoration(
@@ -233,7 +233,7 @@ class _LJPpersonalInfoCollectionChecklist
                             child: Column(
                               children: [
                                 Container(
-                                  height: 105.w,
+                                  height: 60.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
                                   decoration: BoxDecoration(
@@ -276,7 +276,7 @@ class _LJPpersonalInfoCollectionChecklist
                             child: Column(
                               children: [
                                 Container(
-                                  height: 105.w,
+                                  height: 60.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
                                   decoration: BoxDecoration(
@@ -371,7 +371,7 @@ class _LJPpersonalInfoCollectionChecklist
                             child: Column(
                               children: [
                                 Container(
-                                  height: 105.w,
+                                  height: 60.w,
                                   margin: EdgeInsets.only(left: 30.w),
                                   alignment: Alignment.centerLeft,
                                   decoration: BoxDecoration(
