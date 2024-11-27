@@ -168,7 +168,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       // 朋友权限 与 个人信息与权限 和 个人信息收集清单 和 第三方信息共享清单
                       const LJNFunctionItem(
                         title: "朋友权限",
-                        link: '',
+                        link: '/friend_permission',
                         underline: true,
                       ),
                       const LJNFunctionItem(

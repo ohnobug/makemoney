@@ -18,6 +18,7 @@ import 'package:jiaoyishuoflutter3/settings/chatSetting.dart';
 import 'package:jiaoyishuoflutter3/settings/commonSetting.dart';
 import 'package:jiaoyishuoflutter3/settings/deviceDetail.dart';
 import 'package:jiaoyishuoflutter3/settings/emergencyContact.dart';
+import 'package:jiaoyishuoflutter3/settings/friendPermission.dart';
 import 'package:jiaoyishuoflutter3/settings/loggedDevices.dart';
 import 'package:jiaoyishuoflutter3/settings/moreSecureSetting.dart';
 import 'package:jiaoyishuoflutter3/settings/newMessageNotification.dart';
@@ -317,6 +318,9 @@ class TabBarApp extends StatelessWidget {
                         const LJNPersonalInfoCollectionChecklist());
                   } else if (settings.name == "/about") {
                     return pageRouteBuilderAnimation(const LJNAbout());
+                  } else if (settings.name == "/friend_permission") {
+                    return pageRouteBuilderAnimation(
+                        const LJNFriendPermission());
                   }
 
                   return null;
