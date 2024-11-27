@@ -7,6 +7,7 @@ import 'package:jiaoyishuoflutter3/tools/tools.dart';
 class LJNFunctionItem extends StatefulWidget {
   final String? icon;
   final double? height;
+  final EdgeInsetsGeometry? padding;
   final Object? title;
   final String? link;
   final bool underline;
@@ -18,6 +19,7 @@ class LJNFunctionItem extends StatefulWidget {
       {super.key,
       this.icon,
       this.height,
+      this.padding,
       required this.title,
       this.link,
       required this.underline,
@@ -82,7 +84,8 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
       },
       child: Container(
         height: widget.height ?? 105.0.w,
-        padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
+        padding:
+            widget.padding ?? const EdgeInsets.only(left: 30.0, right: 0.0).w,
         color: containerColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
