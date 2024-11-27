@@ -127,8 +127,8 @@ class _LJNAbout extends State<LJNAbout> {
                                     style: TextStyle(
                                         height: 1.08,
                                         fontSize: 43.w,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "AlibabaPuHuiTi"),
+                                        // fontWeight: FontWeight.bold,
+                                        fontFamily: "AlibabaPuHuiTi-Medium"),
                                   ),
                                   SizedBox(
                                     height: 18.w,

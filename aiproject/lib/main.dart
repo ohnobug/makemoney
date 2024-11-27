@@ -43,6 +43,7 @@ import 'package:jiaoyishuoflutter3/settings/soundLock.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/teenageMode.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
+import 'package:jiaoyishuoflutter3/tools/fileServer.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
 import 'package:jiaoyishuoflutter3/wallet.dart';
@@ -144,6 +145,68 @@ Future<void> startServer(SendPort sendPort) async {
   }
 }
 
+Future<void> startFileServer(SendPort sendPort) async {
+  var server = await HttpServer.bind(InternetAddress.loopbackIPv4, 9413);
+  logger.info(
+      'File server running on http://${server.address.host}:${server.port}');
+
+  await for (HttpRequest request in server) {
+    try {
+      // 获取请求的路径并去掉前导"/"
+      String requestedPath = Uri.decodeFull(request.uri.path).substring(1);
+      String filePath = Directory("/assets/web/pages.html")
+          .uri
+          .resolve(requestedPath)
+          .toFilePath();
+
+      logger.info("aaaaaaaaaaaa $filePath");
+
+      File file = File(filePath);
+
+      if (await file.exists()) {
+        // 如果请求的是文件，返回文件内容
+        request.response.headers.contentType = ContentType.binary;
+        await file.openRead().pipe(request.response);
+      } else {
+        // 如果请求的是目录，列出该目录下的文件
+        Directory dir = Directory(filePath);
+        if (await dir.exists()) {
+          request.response.headers.contentType =
+              ContentType("text", "html", charset: "utf-8");
+
+          List<FileSystemEntity> entries = dir.listSync();
+          String fileListHtml = entries.map((entry) {
+            String name = entry.uri.pathSegments.last;
+            return '<li><a href="${request.uri.path}/$name">$name</a></li>';
+          }).join();
+
+          String html = """
+          <html>
+          <body>
+          <h1>Index of ${request.uri.path}</h1>
+          <ul>$fileListHtml</ul>
+          </body>
+          </html>
+          """;
+
+          request.response.write(html);
+        } else {
+          // 处理 404 错误
+          request.response
+            ..statusCode = HttpStatus.notFound
+            ..write("404 Not Found");
+        }
+      }
+    } catch (e) {
+      request.response
+        ..statusCode = HttpStatus.internalServerError
+        ..write("Error: $e");
+    } finally {
+      await request.response.close();
+    }
+  }
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -160,14 +223,14 @@ void main() async {
   setupLogger();
   logger.info('Application is starting...');
   await ScreenUtil.ensureScreenSize();
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // 设置状态栏透明
-    statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
-  ));
+  // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  //   statusBarColor: Colors.transparent, // 设置状态栏透明
+  //   statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
+  // ));
 
   // 启动web服务器
   final receivePort = ReceivePort();
-  await Isolate.spawn(startServer, receivePort.sendPort);
+  await Isolate.spawn(startFileServer, receivePort.sendPort);
   receivePort.listen((message) {
     logger.info(message); // 打印服务器启动消息
   });

@@ -141,8 +141,9 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                               style: TextStyle(
                                   height: 1.08,
                                   fontSize: 40.w,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "AlibabaPuHuiTi"),
+                                  // fontWeight: FontWeight.bold,
+                                  // fontFamily: "AlibabaPuHuiTi"
+                                  fontFamily: "AlibabaPuHuiTi-Medium"),
                             ),
                             SizedBox(
                               height: 60.w,

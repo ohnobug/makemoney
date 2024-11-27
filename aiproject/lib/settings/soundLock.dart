@@ -109,7 +109,7 @@ class _LJNSoundLock extends State<LJNSoundLock> {
                                 ), // 使用的图标
                                 color: const Color.fromARGB(
                                     255, 75, 190, 97), // 图标颜色
-                                size: 110.w, // 图标大小
+                                size: 200.w, // 图标大小
                               ),
                             ),
                             Text(
@@ -117,8 +117,9 @@ class _LJNSoundLock extends State<LJNSoundLock> {
                               style: TextStyle(
                                   height: 1.08,
                                   fontSize: 40.w,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "AlibabaPuHuiTi"),
+                                  // fontWeight: FontWeight.bold,
+                                  fontFamily: "AlibabaPuHuiTi-Medium"
+                                  ),
                             ),
                             SizedBox(
                               height: 60.w,

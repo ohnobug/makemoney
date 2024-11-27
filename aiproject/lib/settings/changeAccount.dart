@@ -109,8 +109,8 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                                   '安全验证',
                                   style: TextStyle(
                                       fontSize: 42.w,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: "AlibabaPuHuiTi"),
+                                      // fontWeight: FontWeight.bold,
+                                      fontFamily: "AlibabaPuHuiTi-Medium"),
                                 )),
                             SizedBox(
                               height: 30.w,

@@ -58,7 +58,7 @@ class _LJNWebviewState extends State<LJNWebview>
           },
         ),
       )
-      ..loadRequest(Uri.parse('http://127.0.0.1:9413'));
+      ..loadRequest(Uri.parse('http://127.0.0.1:9413/pages.html'));
   }
 
   @override
