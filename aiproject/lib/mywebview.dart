@@ -50,7 +50,9 @@ class _LJNWebviewState extends State<LJNWebview>
             logger.info("qqqqqqqqqqqqq onPageStarted");
           },
           onPageFinished: (String url) {
-            logger.info("qqqqqqqqqqqqq onPageFinished");
+            logger.info("qqqqqqqqqqqqq onPageFinished: $url");
+
+            // _lottieController.value = 1;
 
             // 页面加载完, 需要有个动画的过程
             _lottieController
@@ -66,28 +68,6 @@ class _LJNWebviewState extends State<LJNWebview>
           onWebResourceError: (WebResourceError error) async {
             // 清空错误的信息
             // webViewController.loadHtmlString("");
-
-            String? requestUrl = await webViewController.currentUrl();
-            if (requestUrl!.startsWith('http://inner')) {
-              Uri uri = Uri.parse(requestUrl);
-              // logger
-              //     .info("aaaaaaaaaaaaaa host: ${uri.host}  port: ${uri.port}");
-
-              // 请求页面
-              final response = await http.get(
-                  Uri.parse('http://127.0.0.1:9413'),
-                  headers: {'Host': uri.host, 'Content-Type': 'text/html'});
-
-              if (response.statusCode == 200) {
-                webViewController.loadHtmlString(response.body,
-                    baseUrl: requestUrl);
-              } else {
-                webViewController.loadHtmlString(
-                    "<h1 style='margin-top: 100px'>页面挂了</h1><a href='/qq'>qqq</a>",
-                    baseUrl: requestUrl);
-              }
-            }
-            _lottieController.value = 1;
             // _lottieController.reset();
           },
           // 跳转劫持
@@ -111,15 +91,37 @@ class _LJNWebviewState extends State<LJNWebview>
           .loadHtmlString("<h1 style='margin-top: 100px'>404 Not Found</h1>");
     } else {
       logger.info("当前打开的link: ${widget.link}");
+      loadPage(widget.link);
+    }
+  }
 
-      // 打开页面
-      webViewController.loadRequest(Uri.parse(widget.link));
+  void loadPage(String requestUrl) async {
+    if (requestUrl.startsWith('http://inner')) {
+      Uri uri = Uri.parse(requestUrl);
+
+      // 请求页面
+      final response = await http.get(Uri.parse('http://127.0.0.1:9413'),
+          headers: {'Host': uri.host, 'Content-Type': 'text/html'});
+
+      if (response.statusCode == 200) {
+        webViewController.loadHtmlString(response.body, baseUrl: requestUrl);
+      } else {
+        webViewController.loadHtmlString(
+            "<h1 style='margin-top: 100px'>页面挂了</h1><a href='/qq'>qqq</a>",
+            baseUrl: requestUrl);
+      }
+    } else {
+      webViewController.loadRequest(Uri.parse(requestUrl));
+
+      // webViewController.loadHtmlString(
+      //     "<h1 style='margin-top: 100px'>不符合规则的链接：${widget.link}</h1>",
+      //     baseUrl: requestUrl);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
+    // Size screenSize = MediaQuery.of(context).size;
     // if (kIsWeb) {
     //   _statusHeight = 0;
     // } else {
@@ -131,27 +133,27 @@ class _LJNWebviewState extends State<LJNWebview>
         // 页面本身
         WebViewWidget(controller: webViewController),
 
-        // 加载动画
-        Visibility(
-            visible: !pageVisible,
-            child: Container(
-                color: const Color.fromARGB(255, 177, 177, 177),
-                width: screenSize.width,
-                height: screenSize.height,
-                child: Center(
-                    child: Lottie.asset(
-                  assetPath('lotties/miniprogramloading.json'),
-                  width: screenSize.width * 0.4,
-                  // height: screenSize.height,
-                  fit: BoxFit.contain,
-                  renderCache: RenderCache.drawingCommands,
-                  controller: _lottieController,
-                  onLoaded: (composition) {
-                    // _lottieController
-                    //   ..duration = const Duration(milliseconds: 600)
-                    //   ..forward();
-                  },
-                )))),
+        // // 加载动画
+        // Visibility(
+        //     visible: !pageVisible,
+        //     child: Container(
+        //         color: const Color.fromARGB(255, 177, 177, 177),
+        //         width: screenSize.width,
+        //         height: screenSize.height,
+        //         child: Center(
+        //             child: Lottie.asset(
+        //           assetPath('lotties/miniprogramloading.json'),
+        //           width: screenSize.width * 0.4,
+        //           // height: screenSize.height,
+        //           fit: BoxFit.contain,
+        //           renderCache: RenderCache.drawingCommands,
+        //           controller: _lottieController,
+        //           onLoaded: (composition) {
+        //             // _lottieController
+        //             //   ..duration = const Duration(milliseconds: 600)
+        //             //   ..forward();
+        //           },
+        //         )))),
 
         // 关闭按钮
         Positioned(
