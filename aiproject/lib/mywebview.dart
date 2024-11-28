@@ -51,6 +51,9 @@ class _LJNWebviewState extends State<LJNWebview>
               ..duration = const Duration(milliseconds: 1000)
               ..forward();
           },
+          onUrlChange: (UrlChange change) {
+            logger.info("qqqqqqqqqqqqq onUrlChange");
+          },
           onHttpError: (HttpResponseError error) {
             logger.info("qqqqqqqqqqqqq onHttpError");
           },
@@ -99,6 +102,8 @@ class _LJNWebviewState extends State<LJNWebview>
       webViewController
           .loadHtmlString("<h1 style='margin-top: 100px'>404 Not Found</h1>");
     } else {
+      logger.info("当前打开的link: ${widget.link}");
+
       // 打开页面
       webViewController.loadRequest(Uri.parse(widget.link));
     }
