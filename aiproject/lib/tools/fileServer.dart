@@ -2,12 +2,14 @@ import 'dart:io';
 import 'dart:isolate';
 // import 'dart:typed_data';
 // import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
 import 'package:jiaoyishuoflutter3/main.dart';
+import 'package:path_provider/path_provider.dart';
 // import 'package:jiaoyishuoflutter3/tools/tools.dart';
 // import 'package:path/path.dart';
 
 Future<void> startFileServer(FileServerParams params) async {
-  // String sandboxWebPath = join(params.directoryPath, 'web');
+  BackgroundIsolateBinaryMessenger.ensureInitialized(params.rootIsolateToken);
 
   SendPort sendPort = params.sendPort;
 
@@ -15,15 +17,25 @@ Future<void> startFileServer(FileServerParams params) async {
   sendPort.send(
       'File server running on http://${server.address.host}:${server.port}');
 
+  // 获取应用沙盒存储的路径
+  final directory = await getApplicationDocumentsDirectory();
+  // String sandboxWebPath = join(params.directoryPath, 'web');
+
   await for (HttpRequest request in server) {
     try {
       // 设置响应头
       request.response.headers.contentType =
           ContentType("text", "html", charset: "utf-8");
 
+      final filePath = '${directory.path}/shapages.html';
+
+      File file = File(filePath);
+
       request.response
-        ..statusCode = HttpStatus.notFound
-        ..write(params.defaultPages);
+        ..statusCode = HttpStatus.ok
+        ..write(await file.readAsString());
+
+      // sendPort.send("qqqqqqqqqqqqq: ${request.headers.value('host')}");
 
 //       ByteData data = await rootBundle.load('assets/web/pages.html');
 //       List<int> bytes =

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
 // import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:lottie/lottie.dart';
@@ -52,7 +53,10 @@ class _LJNWebviewState extends State<LJNWebview>
           onHttpError: (HttpResponseError error) {},
           onWebResourceError: (WebResourceError error) {},
           onNavigationRequest: (NavigationRequest request) {
-            if (request.url.startsWith('http://127.0.0.1:9413')) {
+            if (request.url.startsWith('http://helloworld.com')) {
+              webViewController.loadHtmlString(
+                  "<h1 style='margin-top: 100px'>你来到了被劫持的页面，哈哈哈</h1>");
+
               return NavigationDecision.prevent;
             }
             return NavigationDecision.navigate;
@@ -63,14 +67,17 @@ class _LJNWebviewState extends State<LJNWebview>
   }
 
   void requestPage() async {
-    final response = await http.post(Uri.parse('http://127.0.0.1:9413'),
-        headers: {'Content-Type': 'text/html'});
+    final response = await http.get(Uri.parse('http://127.0.0.1:9413'),
+        headers: {'Host': "abc.com", 'Content-Type': 'text/html'});
+
+    logger.info("qqqqqqqqqqqq ${response.statusCode}");
 
     if (response.statusCode == 200) {
       webViewController.loadHtmlString(response.body,
           baseUrl: "http://helloworld.com");
     } else {
-      webViewController.loadHtmlString("<h1>页面挂了</h1>",
+      webViewController.loadHtmlString(
+          "<h1 style='margin-top: 100px'>页面挂了</h1><a href='/qq'>qqq</a>",
           baseUrl: "http://helloworld.com");
     }
 

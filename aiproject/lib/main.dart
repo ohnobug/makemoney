@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
@@ -57,6 +56,7 @@ import 'tools/tools.dart';
 import 'user.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 // import 'package:jiaoyishuoflutter3/provider.dart';
@@ -66,20 +66,20 @@ import 'package:flutter_redux/flutter_redux.dart';
 // 定义一个类来封装传递给 Isolate 的多个参数
 class FileServerParams {
   final SendPort sendPort;
-  final String directoryPath;
-  final String defaultPages;
+  // final String directoryPath;
+  final RootIsolateToken rootIsolateToken;
   final int port;
 
   FileServerParams({
     required this.sendPort,
-    required this.directoryPath,
-    required this.defaultPages,
+    required this.rootIsolateToken,
     required this.port,
   });
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await ScreenUtil.ensureScreenSize();
 
   // 禁止横屏
   await SystemChrome.setPreferredOrientations(
@@ -93,7 +93,6 @@ void main() async {
 
   setupLogger();
   logger.info('Application is starting...');
-  await ScreenUtil.ensureScreenSize();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // 设置状态栏透明
     statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
@@ -109,30 +108,30 @@ void main() async {
   myStore
       .dispatch({"type": "userinfoAvatar", "payload": "images/avatar/my.jpg"});
 
+  startWebServer();
+
   runApp(
     const TabBarApp(),
   );
-
-  startWebServer();
 }
 
 void startWebServer() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  // 获取应用沙盒存储的路径
-  Directory directory = await getApplicationDocumentsDirectory();
+  RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
+
+  ByteData data = await rootBundle.load("assets/web/pages.html");
+
+  final directory = await getApplicationDocumentsDirectory();
+  final filePath = '${directory.path}/shapages.html';
+  final file = File(filePath);
+  await file.writeAsString(data.toString());
 
   // 启动web服务器
   final receivePort = ReceivePort();
 
-  ByteData data = await rootBundle.load('assets/web/pages.html');
-  List<int> bytes =
-      data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-  String decodedString = utf8.decode(bytes);
   // 创建参数对象
   var params = FileServerParams(
     sendPort: receivePort.sendPort,
-    directoryPath: directory.path,
-    defaultPages: decodedString,
+    rootIsolateToken: rootIsolateToken,
     port: 9413,
   );
 
