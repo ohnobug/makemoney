@@ -181,10 +181,10 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                         link: '/personalinfo_collection_checklist',
                         underline: true,
                       ),
-                      const LJNFunctionItem(
+                      LJNFunctionItem(
                         title: "第三方信息共享清单",
                         link:
-                            '/mywebview?link=list_of_third_party_information_sharing',
+                            "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing')}",
                         underline: false,
                       ),
                       SizedBox(height: 16.w),

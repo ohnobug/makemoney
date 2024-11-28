@@ -175,10 +175,17 @@ class _TabBarApp extends State<TabBarApp> {
                 onGenerateRoute: (settings) {
                   if (settings.name == '/') {
                     return pageRouteBuilderNotAnimation(const CustomTabbar());
-                  } else if (settings.name!.startsWith('/mywebview')) {
+                  } else if (settings.name == '/mywebview' ||
+                      settings.name!.startsWith('/mywebview')) {
                     logger.info("settings.name: ${settings.name}");
 
-                    return pageRouteBuilderAnimation(const LJNWebview());
+                    Uri uri = Uri.parse(settings.name!);
+
+                    late String linkValue;
+                    linkValue = uri.queryParameters['link'] ?? "";
+
+                    return pageRouteBuilderAnimation(
+                        LJNWebview(link: linkValue));
                   } else if (settings.name == '/services') {
                     return pageRouteBuilderAnimation(const LJNServicesPage());
                   } else if (settings.name == '/chat') {

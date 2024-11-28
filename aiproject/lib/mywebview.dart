@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
-// import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:lottie/lottie.dart';
+// import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class LJNWebview extends StatefulWidget {
-  const LJNWebview({super.key});
+  final String link;
+  const LJNWebview({super.key, required this.link});
 
   @override
   State<LJNWebview> createState() => _LJNWebviewState();
@@ -50,38 +51,57 @@ class _LJNWebviewState extends State<LJNWebview>
               ..duration = const Duration(milliseconds: 1000)
               ..forward();
           },
-          onHttpError: (HttpResponseError error) {},
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
+          onHttpError: (HttpResponseError error) {
+            logger.info("qqqqqqqqqqqqq onHttpError");
+          },
+          onWebResourceError: (WebResourceError error) async {
+            // 清空错误的信息
+            // webViewController.loadHtmlString("");
+
+            String? requestUrl = await webViewController.currentUrl();
+            if (requestUrl!.startsWith('http://inner')) {
+              Uri uri = Uri.parse(requestUrl);
+              // logger
+              //     .info("aaaaaaaaaaaaaa host: ${uri.host}  port: ${uri.port}");
+
+              // 请求页面
+              final response = await http.get(
+                  Uri.parse('http://127.0.0.1:9413'),
+                  headers: {'Host': uri.host, 'Content-Type': 'text/html'});
+
+              if (response.statusCode == 200) {
+                webViewController.loadHtmlString(response.body,
+                    baseUrl: "http://${uri.host}:${uri.port}");
+              } else {
+                webViewController.loadHtmlString(
+                    "<h1 style='margin-top: 100px'>页面挂了</h1><a href='/qq'>qqq</a>",
+                    baseUrl: "http://${uri.host}:${uri.port}");
+              }
+            }
+          },
+          // 跳转劫持
+          onNavigationRequest: (NavigationRequest request) async {
+            logger.info("qqqqqqqqqqqqq onNavigationRequest");
+
             if (request.url.startsWith('http://helloworld.com')) {
               webViewController.loadHtmlString(
                   "<h1 style='margin-top: 100px'>你来到了被劫持的页面，哈哈哈</h1>");
 
               return NavigationDecision.prevent;
             }
+
             return NavigationDecision.navigate;
           },
         ),
       );
-    requestPage();
-  }
 
-  void requestPage() async {
-    final response = await http.get(Uri.parse('http://127.0.0.1:9413'),
-        headers: {'Host': "abc.com", 'Content-Type': 'text/html'});
-
-    logger.info("qqqqqqqqqqqq ${response.statusCode}");
-
-    if (response.statusCode == 200) {
-      webViewController.loadHtmlString(response.body,
-          baseUrl: "http://helloworld.com");
+    if (widget.link == "") {
+      webViewController
+          .loadHtmlString("<h1 style='margin-top: 100px'>404 Not Found</h1>");
     } else {
-      webViewController.loadHtmlString(
-          "<h1 style='margin-top: 100px'>页面挂了</h1><a href='/qq'>qqq</a>",
-          baseUrl: "http://helloworld.com");
+      // 打开页面
+      webViewController.loadRequest(Uri.parse(widget.link));
     }
-
-    // ..loadRequest(Uri.parse('http://127.0.0.1:9413/pages.html'));
   }
 
   @override

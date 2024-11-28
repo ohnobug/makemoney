@@ -19,7 +19,6 @@ Future<void> startFileServer(FileServerParams params) async {
 
   // 获取应用沙盒存储的路径
   final directory = await getApplicationDocumentsDirectory();
-  // String sandboxWebPath = join(params.directoryPath, 'web');
 
   await for (HttpRequest request in server) {
     try {
