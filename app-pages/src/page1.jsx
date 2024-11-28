@@ -1,12 +1,30 @@
 import happyFace from "./assets/happy-face.png"
 import './app.scss'
 import { route } from 'preact-router';
+import "./assets/iconfonts/iconfont"
 
 export default function Page1() {
     return <div class="content">
         <div class="title">
             第三方信息共享清单
         </div>
+
+        <svg class="icon" aria-hidden="true">
+            <use xlinkHref="#icon-xiaoxi"></use>
+        </svg>
+        <svg class="icon" aria-hidden="true">
+            <use xlinkHref="#icon-tubiaozhizuomoban"></use>
+        </svg>
+        <svg class="icon" aria-hidden="true">
+            <use xlinkHref="#icon-xiaoxi1"></use>
+        </svg>
+        <svg class="icon" aria-hidden="true">
+            <use xlinkHref="#icon-message-on"></use>
+        </svg>
+        <svg class="icon" aria-hidden="true">
+            <use xlinkHref="#icon-xiaoxi11"></use>
+        </svg>
+
 
         <button onClick={() => {
             route('/page2');

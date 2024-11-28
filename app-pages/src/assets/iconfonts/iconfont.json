@@ -1,0 +1,44 @@
+{
+  "id": "4643019",
+  "name": "ttt",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "388228",
+      "name": "消息",
+      "font_class": "xiaoxi",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "2481005",
+      "name": "消息",
+      "font_class": "tubiaozhizuomoban",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "3124228",
+      "name": "消息",
+      "font_class": "xiaoxi1",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "4720147",
+      "name": "消息",
+      "font_class": "message-on",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "7345392",
+      "name": "消息",
+      "font_class": "xiaoxi11",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    }
+  ]
+}
