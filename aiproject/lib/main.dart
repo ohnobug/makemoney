@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
@@ -46,6 +48,7 @@ import 'package:jiaoyishuoflutter3/tools/fileServer.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
 import 'package:jiaoyishuoflutter3/wallet.dart';
+import 'package:path_provider/path_provider.dart';
 import 'components/CustomPhysics.dart';
 import 'contact.dart';
 import 'logger.dart';
@@ -60,14 +63,22 @@ import 'package:flutter_redux/flutter_redux.dart';
 // import 'package:provider/provider.dart';
 // import 'provider.dart' as provider;
 
-void main() async {
-  // 启动web服务器
-  final receivePort = ReceivePort();
-  await Isolate.spawn(startFileServer, receivePort.sendPort);
-  receivePort.listen((message) {
-    logger.info(message); // 打印服务器启动消息
-  });
+// 定义一个类来封装传递给 Isolate 的多个参数
+class FileServerParams {
+  final SendPort sendPort;
+  final String directoryPath;
+  final String defaultPages;
+  final int port;
 
+  FileServerParams({
+    required this.sendPort,
+    required this.directoryPath,
+    required this.defaultPages,
+    required this.port,
+  });
+}
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // 禁止横屏
@@ -83,12 +94,10 @@ void main() async {
   setupLogger();
   logger.info('Application is starting...');
   await ScreenUtil.ensureScreenSize();
-  // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-  //   statusBarColor: Colors.transparent, // 设置状态栏透明
-  //   statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
-  // ));
-
-  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent, // 设置状态栏透明
+    statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
+  ));
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   myStore.dispatch({"type": "userinfoName", "payload": "李俊杰"});
@@ -103,10 +112,48 @@ void main() async {
   runApp(
     const TabBarApp(),
   );
+
+  startWebServer();
 }
 
-class TabBarApp extends StatelessWidget {
+void startWebServer() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // 获取应用沙盒存储的路径
+  Directory directory = await getApplicationDocumentsDirectory();
+
+  // 启动web服务器
+  final receivePort = ReceivePort();
+
+  ByteData data = await rootBundle.load('assets/web/pages.html');
+  List<int> bytes =
+      data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  String decodedString = utf8.decode(bytes);
+  // 创建参数对象
+  var params = FileServerParams(
+    sendPort: receivePort.sendPort,
+    directoryPath: directory.path,
+    defaultPages: decodedString,
+    port: 9413,
+  );
+
+  await Isolate.spawn(startFileServer, params);
+  receivePort.listen((message) {
+    logger.info(message); // 打印服务器启动消息
+  });
+}
+
+class TabBarApp extends StatefulWidget {
   const TabBarApp({super.key});
+
+  @override
+  State<TabBarApp> createState() => _TabBarApp();
+}
+
+class _TabBarApp extends State<TabBarApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
