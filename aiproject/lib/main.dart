@@ -175,6 +175,10 @@ class _TabBarApp extends State<TabBarApp> {
                 onGenerateRoute: (settings) {
                   if (settings.name == '/') {
                     return pageRouteBuilderNotAnimation(const CustomTabbar());
+                  } else if (settings.name!.startsWith('/mywebview')) {
+                    logger.info("settings.name: ${settings.name}");
+
+                    return pageRouteBuilderAnimation(const LJNWebview());
                   } else if (settings.name == '/services') {
                     return pageRouteBuilderAnimation(const LJNServicesPage());
                   } else if (settings.name == '/chat') {
@@ -219,8 +223,6 @@ class _TabBarApp extends State<TabBarApp> {
                   } else if (settings.name == '/miniprogram') {
                     return pageRouteBuilderAnimation(
                         const LJNMiniProgramPage());
-                  } else if (settings.name == '/mywebview') {
-                    return pageRouteBuilderAnimation(const LJNWebview());
                   } else if (settings.name == '/search') {
                     return pageRouteBuilderAnimation(const LJNSearchPage());
                   } else if (settings.name == '/setting') {

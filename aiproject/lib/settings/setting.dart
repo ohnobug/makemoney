@@ -183,7 +183,8 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       ),
                       const LJNFunctionItem(
                         title: "第三方信息共享清单",
-                        link: '/mywebview',
+                        link:
+                            '/mywebview?link=list_of_third_party_information_sharing',
                         underline: false,
                       ),
                       SizedBox(height: 16.w),
