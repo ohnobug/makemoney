@@ -87,6 +87,8 @@ class _LJNWebviewState extends State<LJNWebview>
                     baseUrl: requestUrl);
               }
             }
+            _lottieController.value = 1;
+            // _lottieController.reset();
           },
           // 跳转劫持
           onNavigationRequest: (NavigationRequest request) async {
