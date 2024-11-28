@@ -42,17 +42,23 @@ class _LJNWebviewState extends State<LJNWebview>
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
+            logger.info("qqqqqqqqqqqqq onProgress");
+
             _lottieController.value = (progress / 100) * 0.5;
           },
-          onPageStarted: (String url) {},
+          onPageStarted: (String url) {
+            logger.info("qqqqqqqqqqqqq onPageStarted");
+          },
           onPageFinished: (String url) {
+            logger.info("qqqqqqqqqqqqq onPageFinished");
+
             // 页面加载完, 需要有个动画的过程
             _lottieController
               ..duration = const Duration(milliseconds: 1000)
               ..forward();
           },
           onUrlChange: (UrlChange change) {
-            logger.info("qqqqqqqqqqqqq onUrlChange");
+            logger.info("qqqqqqqqqqqqq onUrlChange ${change.url}");
           },
           onHttpError: (HttpResponseError error) {
             logger.info("qqqqqqqqqqqqq onHttpError");
@@ -74,11 +80,11 @@ class _LJNWebviewState extends State<LJNWebview>
 
               if (response.statusCode == 200) {
                 webViewController.loadHtmlString(response.body,
-                    baseUrl: "http://${uri.host}:${uri.port}");
+                    baseUrl: requestUrl);
               } else {
                 webViewController.loadHtmlString(
                     "<h1 style='margin-top: 100px'>页面挂了</h1><a href='/qq'>qqq</a>",
-                    baseUrl: "http://${uri.host}:${uri.port}");
+                    baseUrl: requestUrl);
               }
             }
           },

@@ -361,7 +361,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                         title: "收藏",
                         icon: "images/icon/icon2.png",
                         link:
-                            "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing#/page2')}",
+                            "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page2')}",
                         underline: true,
                       ),
                       const LJNFunctionItem(
