@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:lottie/lottie.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:http/http.dart' as http;
 
 class LJNWebview extends StatefulWidget {
   const LJNWebview({super.key});
@@ -14,7 +15,7 @@ class LJNWebview extends StatefulWidget {
 
 class _LJNWebviewState extends State<LJNWebview>
     with SingleTickerProviderStateMixin {
-  late WebViewController controller;
+  late WebViewController webViewController;
   late final AnimationController _lottieController;
 
   bool pageVisible = false;
@@ -34,7 +35,7 @@ class _LJNWebviewState extends State<LJNWebview>
       }
     });
 
-    controller = WebViewController()
+    webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
         NavigationDelegate(
@@ -57,8 +58,23 @@ class _LJNWebviewState extends State<LJNWebview>
             return NavigationDecision.navigate;
           },
         ),
-      )
-      ..loadRequest(Uri.parse('http://127.0.0.1:9413/pages.html'));
+      );
+    requestPage();
+  }
+
+  void requestPage() async {
+    final response = await http.post(Uri.parse('http://127.0.0.1:9413'),
+        headers: {'Content-Type': 'text/html'});
+
+    if (response.statusCode == 200) {
+      webViewController.loadHtmlString(response.body,
+          baseUrl: "http://helloworld.com");
+    } else {
+      webViewController.loadHtmlString("<h1>页面挂了</h1>",
+          baseUrl: "http://helloworld.com");
+    }
+
+    // ..loadRequest(Uri.parse('http://127.0.0.1:9413/pages.html'));
   }
 
   @override
@@ -73,7 +89,7 @@ class _LJNWebviewState extends State<LJNWebview>
     return Stack(
       children: [
         // 页面本身
-        WebViewWidget(controller: controller),
+        WebViewWidget(controller: webViewController),
 
         // 加载动画
         Visibility(

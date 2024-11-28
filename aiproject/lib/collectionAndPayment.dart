@@ -68,7 +68,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                 ),
                 backgroundColor: const Color.fromARGB(255, 42, 172, 102),
                 foregroundColor: const Color.fromARGB(255, 42, 172, 102),
-                actions: [],
+                actions: const [],
               ),
             )),
         body: StoreConnector<StoreType, StoreType>(

@@ -80,7 +80,7 @@ class _LJNCareMode extends State<LJNCareMode> {
                         //     height: 1.w,
                         //   ),
                         // ),
-                        actions: [],
+                        actions: const [],
                       ))),
               body: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)

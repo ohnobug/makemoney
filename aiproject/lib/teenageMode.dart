@@ -82,7 +82,7 @@ class _LJNTeenageMode extends State<LJNTeenageMode> {
                         //     height: 1.w,
                         //   ),
                         // ),
-                        actions: [],
+                        actions: const [],
                       ))),
               body: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)

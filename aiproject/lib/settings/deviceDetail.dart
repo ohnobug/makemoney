@@ -86,7 +86,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                   //     height: 1.w,
                   //   ),
                   // ),
-                  actions: [],
+                  actions: const [],
                 ))),
         body: ScrollConfiguration(
             behavior:

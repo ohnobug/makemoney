@@ -82,7 +82,7 @@ class _LJNSoundLock extends State<LJNSoundLock> {
                         //     height: 1.w,
                         //   ),
                         // ),
-                        actions: [],
+                        actions: const [],
                       ))),
               body: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)

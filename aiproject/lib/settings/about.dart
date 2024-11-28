@@ -80,7 +80,7 @@ class _LJNAbout extends State<LJNAbout> {
                         //     height: 1.w,
                         //   ),
                         // ),
-                        actions: [],
+                        actions: const [],
                       ))),
               body: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)
