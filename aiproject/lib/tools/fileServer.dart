@@ -30,10 +30,11 @@ Future<void> startFileServer(FileServerParams params) async {
       final filePath = '${directory.path}/shapages.html';
 
       File file = File(filePath);
+      String fileContent = await file.readAsString();
 
       request.response
         ..statusCode = HttpStatus.ok
-        ..write(await file.readAsString());
+        ..write(fileContent);
 
       // sendPort.send("qqqqqqqqqqqqq: ${request.headers.value('host')}");
 

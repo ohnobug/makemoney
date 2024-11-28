@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
@@ -118,12 +119,14 @@ void main() async {
 void startWebServer() async {
   RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
 
-  ByteData data = await rootBundle.load("assets/web/pages.html");
+  ByteData byteData = await rootBundle.load("assets/web/pages.html");
+  List<int> bytes = byteData.buffer.asUint8List();
+  String fileContent = utf8.decode(bytes);
 
   final directory = await getApplicationDocumentsDirectory();
   final filePath = '${directory.path}/shapages.html';
   final file = File(filePath);
-  await file.writeAsString(data.toString());
+  await file.writeAsString(fileContent);
 
   // 启动web服务器
   final receivePort = ReceivePort();
