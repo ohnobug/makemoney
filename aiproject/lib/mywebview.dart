@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
@@ -121,39 +122,34 @@ class _LJNWebviewState extends State<LJNWebview>
 
   @override
   Widget build(BuildContext context) {
-    // Size screenSize = MediaQuery.of(context).size;
-    // if (kIsWeb) {
-    //   _statusHeight = 0;
-    // } else {
-    //   _statusHeight = MediaQuery.of(context).padding.top;
-    // }
+    Size screenSize = MediaQuery.of(context).size;
 
     return Stack(
       children: [
         // 页面本身
         WebViewWidget(controller: webViewController),
 
-        // // 加载动画
-        // Visibility(
-        //     visible: !pageVisible,
-        //     child: Container(
-        //         color: const Color.fromARGB(255, 177, 177, 177),
-        //         width: screenSize.width,
-        //         height: screenSize.height,
-        //         child: Center(
-        //             child: Lottie.asset(
-        //           assetPath('lotties/miniprogramloading.json'),
-        //           width: screenSize.width * 0.4,
-        //           // height: screenSize.height,
-        //           fit: BoxFit.contain,
-        //           renderCache: RenderCache.drawingCommands,
-        //           controller: _lottieController,
-        //           onLoaded: (composition) {
-        //             // _lottieController
-        //             //   ..duration = const Duration(milliseconds: 600)
-        //             //   ..forward();
-        //           },
-        //         )))),
+        // 加载动画
+        Visibility(
+            visible: !pageVisible,
+            child: Container(
+                color: const Color.fromARGB(255, 177, 177, 177),
+                width: screenSize.width,
+                height: screenSize.height,
+                child: Center(
+                    child: Lottie.asset(
+                  assetPath('lotties/miniprogramloading.json'),
+                  width: screenSize.width * 0.4,
+                  // height: screenSize.height,
+                  fit: BoxFit.contain,
+                  renderCache: RenderCache.drawingCommands,
+                  controller: _lottieController,
+                  onLoaded: (composition) {
+                    // _lottieController
+                    //   ..duration = const Duration(milliseconds: 600)
+                    //   ..forward();
+                  },
+                )))),
 
         // 关闭按钮
         Positioned(

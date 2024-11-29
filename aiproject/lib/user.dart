@@ -373,7 +373,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                       const LJNFunctionItem(
                         title: "视频号",
                         icon: "images/icon/icon4.png",
-                        link: '',
+                        link: '/video_player',
                         underline: true,
                       ),
                       const LJNFunctionItem(
