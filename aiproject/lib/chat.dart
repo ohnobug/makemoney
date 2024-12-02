@@ -1132,8 +1132,7 @@ class _LJNFullScreen extends State<LJNFullScreen>
                     children: [
                       Positioned(
                           left: 0,
-                          top: ((screenSize.height - videoHeight) / 2) +
-                              distance,
+                          top: distance,
                           child: _controller.value.isInitialized
                               ? GestureDetector(
                                   onTap: () {
@@ -1143,21 +1142,25 @@ class _LJNFullScreen extends State<LJNFullScreen>
                                   },
                                   onHorizontalDragStart:
                                       (DragStartDetails details) {
-                                    initialY = details.globalPosition.dy;
+                                    setState(() {
+                                      initialY = details.localPosition.dy;
+                                    });
                                   },
                                   onVerticalDragUpdate:
                                       (DragUpdateDetails details) {
                                     // 计算从点击开始的拖动距离
-                                    distance =
-                                        details.globalPosition.dy - initialY;
+                                    setState(() {
+                                      distance =
+                                          details.localPosition.dy - initialY;
+                                    });
 
-                                    // if (distance > 0) {
-                                    logger.info(
-                                        "Dragging down with distance: $distance");
-                                    // }
+                                    // // if (distance > 0) {
+                                    // logger.info(
+                                    //     "Dragging down with distance: $distance");
+                                    // // }
 
-                                    _animationController.value = min(
-                                        (1 - (distance.abs() / 100)).abs(), 1);
+                                    // _animationController.value = min(
+                                    //     (1 - (distance.abs() / 100)).abs(), 1);
 
                                     // logger.info(
                                     //     "Dragging down with distance: ${details.delta.dy}");
