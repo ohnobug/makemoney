@@ -28,8 +28,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.networkUrl(
-        Uri.parse("https://hahaha.love/test.mp4"))
+    _controller = VideoPlayerController.asset(assetPath('images/ins/test.mp4'))
       ..initialize().then((_) {
         setState(() {});
       });
@@ -79,45 +78,56 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                         children: [
                           // 消息
                           GestureDetector(
-                              onTap: () => {widget.onTap!()},
-                              child: Flexible(
+                              onTap: widget.onTap!,
+                              child: Container(
+                                  clipBehavior: Clip.hardEdge,
+                                  constraints:
+                                      const BoxConstraints(maxWidth: 510).w,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 158, 236, 114),
+                                      borderRadius: BorderRadius.circular(8).w),
+                                  // padding: EdgeInsets.symmetric(
+                                  //     horizontal: 25.w, vertical: 18.w),
                                   child: Container(
-                                constraints:
-                                    const BoxConstraints(maxWidth: 510).w,
-                                decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                        255, 158, 236, 114),
-                                    borderRadius: BorderRadius.circular(8).w),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 25.w, vertical: 18.w),
-                                child: _controller.value.isInitialized
-                                    ? AspectRatio(
-                                        aspectRatio:
-                                            _controller.value.aspectRatio,
-                                        child: VideoPlayer(_controller),
-                                      )
-                                    : Container(
-                                        width: 510.w,
-                                        height: 286.w,
-                                        color: Colors.grey,
-                                        // child: Image.asset(
-                                        //   assetPath("images/avatar/linecode.png"),
-                                        //   width: 510.0.w,
-                                        //   height: 286.0.w,
-                                        //   fit: BoxFit.fill,
-                                        // ),
-                                      ),
-                              ))),
+                                    width: 510.w,
+                                    height: 286.w,
+                                    color: Colors.grey,
+                                    child: AspectRatio(
+                                      aspectRatio:
+                                          _controller.value.aspectRatio,
+                                      child: VideoPlayer(_controller),
+                                    ),
+                                  )
+                                  // _controller.value.isInitialized
+                                  //     ? Container(
+                                  //         width: 510.w,
+                                  //         height: 286.w,
+                                  //         color: Colors.grey,
+                                  //         child: AspectRatio(
+                                  //           aspectRatio:
+                                  //               _controller.value.aspectRatio,
+                                  //           child: VideoPlayer(_controller),
+                                  //         ))
+                                  //     : Container(
+                                  //         width: 510.w,
+                                  //         height: 286.w,
+                                  //         color: Colors.grey,
+                                  //         // child: Image.asset(
+                                  //         //   assetPath("images/avatar/linecode.png"),
+                                  //         //   width: 510.0.w,
+                                  //         //   height: 286.0.w,
+                                  //         //   fit: BoxFit.fill,
+                                  //         // ),
+                                  //       ),
+                                  )),
 
                           // 箭头
                           Container(
+                            width: 10.w,
                             padding:
                                 const EdgeInsets.only(top: 32, right: 10).w,
-                            child: Image.asset(
-                              assetPath("images/icon/right.png"),
-                              width: 10.w,
-                              fit: BoxFit.fitWidth,
-                            ),
+                            child: null,
                           ),
                         ],
                       ),

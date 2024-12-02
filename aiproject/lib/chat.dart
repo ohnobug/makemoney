@@ -78,7 +78,7 @@ class _LJNChatPage extends State<LJNChatPage>
       statusBarColor: Colors.transparent, // 设置状态栏透明
       statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
     ));
-    
+
     // 初始化 _animationContentController
     _animationContentController = AnimationController(
       duration: const Duration(milliseconds: 200),
@@ -566,455 +566,496 @@ class _LJNChatPage extends State<LJNChatPage>
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          return Stack(
-            children: [
-              // 聊天框
-              Scaffold(
-                  // 是否在键盘弹出时调整布局（避免被键盘遮挡）。
-                  resizeToAvoidBottomInset: false,
-                  primary: false,
-                  extendBody: false,
-                  appBar: PreferredSize(
-                      preferredSize: Size.fromHeight(90.0.w + _statusHeight),
-                      child: Container(
-                        color: const Color.fromARGB(255, 237, 237, 237),
-                        padding: EdgeInsets.only(top: _statusHeight),
-                        child: AppBar(
-                          leading: GestureDetector(
-                            onTap: () => Navigator.of(context).pop(), // 点击事件
-                            child: Container(
-                              // 加盒子是为了扩大点击区域
-                              color: Colors.transparent,
-                              child: Icon(
-                                const IconData(
-                                  0xed9e,
-                                  fontFamily: 'Iconfont',
-                                ), // 使用的图标
-                                color: Colors.black, // 图标颜色
-                                size: 36.w, // 图标大小
-                              ),
-                            ),
-                          ),
-                          primary: false,
-                          centerTitle: true,
-                          elevation: 0,
-                          scrolledUnderElevation: 0,
-                          toolbarHeight: 90.w,
-                          title: Text(widget.title),
-                          titleTextStyle: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(32.w),
-                            color: Colors.black,
-                            fontFamily: "AlibabaPuHuiTi-Medium",
-                          ),
-                          backgroundColor:
-                              const Color.fromARGB(255, 237, 237, 237),
-                          foregroundColor:
-                              const Color.fromARGB(255, 237, 237, 237),
-                          bottom: PreferredSize(
-                            preferredSize: Size.fromHeight(1.w),
-                            child: Container(
-                              color: const Color.fromARGB(255, 220, 220, 220),
-                              height: 0.5.w,
-                            ),
-                          ),
-                          actions: [
-                            // 三个点
-                            GestureDetector(
-                              onTap: () {
-                                // 点击事件
-                              },
-                              child: Container(
-                                height: 90.w,
-                                color: Colors.transparent,
-                                padding:
-                                    EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                                child: Icon(
-                                  const IconData(
-                                    0xe659,
-                                    fontFamily: 'Iconfont',
+          return PopScope(
+              canPop: false, // 不允许默认弹出，使用自定义逻辑控制返回
+              onPopInvokedWithResult: (didPop, result) async {
+                if (didPop) {
+                  return;
+                }
+
+                if (showFullScreenVideo) {
+                  // 如果正在显示全屏视频，只退出全屏模式
+                  setState(() {
+                    showFullScreenVideo = false;
+                  });
+                } else {
+                  // 否则允许正常返回
+                  Navigator.of(context).pop(result);
+                }
+              },
+              child: Stack(
+                children: [
+                  // 聊天框
+                  Scaffold(
+                      // 是否在键盘弹出时调整布局（避免被键盘遮挡）。
+                      resizeToAvoidBottomInset: false,
+                      primary: false,
+                      extendBody: false,
+                      appBar: PreferredSize(
+                          preferredSize:
+                              Size.fromHeight(90.0.w + _statusHeight),
+                          child: Container(
+                            color: const Color.fromARGB(255, 237, 237, 237),
+                            padding: EdgeInsets.only(top: _statusHeight),
+                            child: AppBar(
+                              leading: GestureDetector(
+                                onTap: () =>
+                                    Navigator.of(context).pop(), // 点击事件
+                                child: Container(
+                                  // 加盒子是为了扩大点击区域
+                                  color: Colors.transparent,
+                                  child: Icon(
+                                    const IconData(
+                                      0xed9e,
+                                      fontFamily: 'Iconfont',
+                                    ), // 使用的图标
+                                    color: Colors.black, // 图标颜色
+                                    size: 36.w, // 图标大小
                                   ),
-                                  size: 37.w, // 图标大小
                                 ),
                               ),
+                              primary: false,
+                              centerTitle: true,
+                              elevation: 0,
+                              scrolledUnderElevation: 0,
+                              toolbarHeight: 90.w,
+                              title: Text(widget.title),
+                              titleTextStyle: TextStyle(
+                                height: 1.08,
+                                fontSize: fontSizeScale(32.w),
+                                color: Colors.black,
+                                fontFamily: "AlibabaPuHuiTi-Medium",
+                              ),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 237, 237, 237),
+                              foregroundColor:
+                                  const Color.fromARGB(255, 237, 237, 237),
+                              bottom: PreferredSize(
+                                preferredSize: Size.fromHeight(1.w),
+                                child: Container(
+                                  color:
+                                      const Color.fromARGB(255, 220, 220, 220),
+                                  height: 0.5.w,
+                                ),
+                              ),
+                              actions: [
+                                // 三个点
+                                GestureDetector(
+                                  onTap: () {
+                                    // 点击事件
+                                  },
+                                  child: Container(
+                                    height: 90.w,
+                                    color: Colors.transparent,
+                                    padding:
+                                        EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                                    child: Icon(
+                                      const IconData(
+                                        0xe659,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      size: 37.w, // 图标大小
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      )),
-                  body: SizedBox(
-                      width: screenSize.width,
-                      height: screenSize.height,
-                      child: Column(
-                        children: [
-                          Expanded(
-                              flex: 1,
-                              child: GestureDetector(
-                                onTap: () {
-                                  logger.info(
-                                      "aaaaaaaa showEmojiSelector: $showEmojiSelector _animationContentController.value: ${_animationContentController.value}");
+                          )),
+                      body: SizedBox(
+                          width: screenSize.width,
+                          height: screenSize.height,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      logger.info(
+                                          "aaaaaaaa showEmojiSelector: $showEmojiSelector _animationContentController.value: ${_animationContentController.value}");
 
-                                  if (showEmojiSelector == true) {
-                                    // 如果是上升过程，取消显示，则需要打断，从打断的位置下降
-                                    hideEmojiFunc(
-                                        _animationContentController.isAnimating
-                                            ? _animationContentController.value
-                                            : 0);
-                                  } else if (showKeyboard == true) {
-                                    hideKeyboardFunc(
-                                        _animationContentController.isAnimating
-                                            ? _animationContentController.value
-                                            : 0);
-                                  }
-                                },
-                                child: ColoredBox(
-                                    color: const Color.fromARGB(
-                                        255, 237, 237, 237),
-                                    child: ScrollConfiguration(
-                                      behavior: ScrollConfiguration.of(context)
-                                          .copyWith(scrollbars: false),
-                                      child: SingleChildScrollView(
-                                        padding: EdgeInsets.only(
-                                            top: 30.w, bottom: 30.w),
-                                        controller: _scrollController,
-                                        // keyboardDismissBehavior:
-                                        //     ScrollViewKeyboardDismissBehavior
-                                        //         .onDrag,
-                                        physics:
-                                            const AlwaysScrollableScrollPhysics(
-                                                parent:
-                                                    BouncingScrollPhysics()),
-                                        child: messageList.isEmpty
-                                            ? Container()
-                                            : Column(
-                                                children: messageList,
-                                              ),
-                                      ),
-                                    )),
-                              )),
-
-                          // 输入部分
-                          Expanded(
-                              flex: 0,
-                              child: Container(
-                                  constraints: BoxConstraints(minHeight: 107.w),
-                                  width: screenSize.width,
-                                  // margin: EdgeInsets.only(bottom: inputMarginBottom),
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 247, 247, 247),
-                                      border: Border(
-                                          top: BorderSide(
+                                      if (showEmojiSelector == true) {
+                                        // 如果是上升过程，取消显示，则需要打断，从打断的位置下降
+                                        hideEmojiFunc(
+                                            _animationContentController
+                                                    .isAnimating
+                                                ? _animationContentController
+                                                    .value
+                                                : 0);
+                                      } else if (showKeyboard == true) {
+                                        hideKeyboardFunc(
+                                            _animationContentController
+                                                    .isAnimating
+                                                ? _animationContentController
+                                                    .value
+                                                : 0);
+                                      }
+                                    },
+                                    child: ColoredBox(
                                         color: const Color.fromARGB(
-                                            255, 231, 231, 231),
-                                        width: 1.5.w,
-                                        style: BorderStyle.solid,
-                                      ))),
-                                  child: Row(
-                                    // mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      // 语音按钮
-                                      Container(
-                                          color: Colors.transparent,
-                                          width: 97.w,
-                                          height: 107.w,
-                                          padding: EdgeInsets.only(
-                                              left: 20.w, right: 20.w),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              logger.info("语音被点击"); // 点击事件
-                                            },
-                                            child: Icon(
-                                              const IconData(
-                                                0xe66c,
-                                                fontFamily: 'Iconfont',
-                                              ),
-                                              size: 56.w, // 图标大小
-                                            ),
-                                          )),
-
-                                      // 消息输入框
-                                      Expanded(
-                                          flex: 1,
-                                          child: Container(
-                                              padding: const EdgeInsets.only(
-                                                      top: 16, bottom: 16)
-                                                  .w,
-                                              child: TextField(
-                                                readOnly: false,
-                                                autofocus: false,
-                                                showCursor: true,
-                                                controller: inputController,
-                                                focusNode: inputFocusNode,
-                                                onTap: () {
-                                                  if (isFirstOpenKeyborad) {
-                                                    SystemChannels.textInput
-                                                        .invokeMethod(
-                                                            'TextInput.show');
-                                                    return;
-                                                  }
-
-                                                  if (showEmojiSelector ==
-                                                          false &&
-                                                      showKeyboard == false) {
-                                                    showKeyboardFunc(
-                                                        _animationContentController
-                                                                .isAnimating
-                                                            ? _animationContentController
-                                                                .value
-                                                            : 0);
-                                                  } else if (showEmojiSelector ==
-                                                          true &&
-                                                      showKeyboard == false) {
-                                                    if (isFirstOpenKeyborad) {
-                                                      switchKeyboradFunc();
-                                                    } else {
-                                                      switchKeyboradFunc();
-                                                    }
-                                                  }
-                                                },
-                                                cursorColor:
-                                                    const Color.fromRGBO(
-                                                        62, 174, 86, 1.0),
-                                                // cursorHeight: 44.w,
-                                                cursorWidth: 3.w,
-                                                style: TextStyle(
-                                                    // height: 1.08,
-                                                    fontSize:
-                                                        fontSizeScale(30.w),
-                                                    color: Colors.black),
-                                                // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
-                                                maxLines: 5,
-                                                minLines: 1,
-                                                onChanged: (newText) {
-                                                  inputController.value =
-                                                      inputController.value
-                                                          .copyWith(
-                                                    text: newText,
-                                                    selection: TextSelection
-                                                        .fromPosition(
-                                                      TextPosition(
-                                                          offset:
-                                                              newText.length),
-                                                    ),
-                                                  );
-
-                                                  if (inputController
-                                                      .text.isEmpty) {
-                                                    _animationController
-                                                        .reverse()
-                                                        .whenComplete(() {
-                                                      setState(() {
-                                                        showPlusIcon = true;
-                                                      });
-                                                    });
-                                                  } else {
-                                                    setState(() {
-                                                      showPlusIcon = false;
-                                                    });
-                                                    _animationController
-                                                        .forward();
-                                                  }
-                                                },
-                                                decoration: InputDecoration(
-                                                  fillColor: Colors.white,
-                                                  filled: true,
-                                                  // focusColor: Colors.red,
-                                                  hoverColor: Colors.white,
-                                                  isCollapsed: true,
-                                                  contentPadding:
-                                                      const EdgeInsets
-                                                              .symmetric(
-                                                              vertical: 14,
-                                                              horizontal: 16)
-                                                          .w,
-                                                  border:
-                                                      const OutlineInputBorder(
-                                                          gapPadding: 0,
-                                                          borderSide:
-                                                              BorderSide.none),
-                                                  // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                  // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                  // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                  // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                  // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                ),
-                                              ))
-                                          // C:\flutter\packages\flutter\lib\src\widgets\editable_text.dart  4239行控制必须得到焦点才显示光标
+                                            255, 237, 237, 237),
+                                        child: ScrollConfiguration(
+                                          behavior:
+                                              ScrollConfiguration.of(context)
+                                                  .copyWith(scrollbars: false),
+                                          child: SingleChildScrollView(
+                                            padding: EdgeInsets.only(
+                                                top: 30.w, bottom: 30.w),
+                                            controller: _scrollController,
+                                            // keyboardDismissBehavior:
+                                            //     ScrollViewKeyboardDismissBehavior
+                                            //         .onDrag,
+                                            physics:
+                                                const AlwaysScrollableScrollPhysics(
+                                                    parent:
+                                                        BouncingScrollPhysics()),
+                                            child: messageList.isEmpty
+                                                ? Container()
+                                                : Column(
+                                                    children: messageList,
+                                                  ),
                                           ),
+                                        )),
+                                  )),
 
-                                      // 笑脸按钮
-                                      Container(
-                                        color: Colors.transparent,
-                                        width: 102.w,
-                                        height: 107.w,
-                                        padding: EdgeInsets.only(
-                                            left: 20.w, right: 25.w),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            if (showEmojiSelector == false &&
-                                                showKeyboard == false) {
-                                              showEmojiFunc(
-                                                  _animationContentController
-                                                          .isAnimating
-                                                      ? _animationContentController
-                                                          .value
-                                                      : 0);
-                                            } else if (showEmojiSelector ==
-                                                    false &&
-                                                showKeyboard == true) {
-                                              switchEmojiFunc();
-                                            } else if (showEmojiSelector ==
-                                                    true &&
-                                                showKeyboard == false) {
-                                              logger.info("aaaaaa 切换到键盘");
-                                              switchKeyboradFunc();
-                                            }
-                                          },
-                                          child: Icon(
-                                            const IconData(
-                                              0xe702,
-                                              fontFamily: 'Iconfont',
-                                            ),
-                                            size: 49.w, // 图标大小
-                                          ),
-                                        ),
-                                      ),
-
-                                      // 发送按钮 与 图标变换
-                                      AnimatedBuilder(
-                                        animation: _animationController,
-                                        builder: (context, child) {
-                                          return Visibility(
-                                              visible: !showPlusIcon,
-                                              child: GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      var message =
-                                                          inputController.text;
-
-                                                      messageList
-                                                          .add(LJNMyMessage(
-                                                        message:
-                                                            message.trimRight(),
-                                                        name: vm.userinfoName
-                                                            as String,
-                                                        showName: false,
-                                                      ));
-                                                      inputController.text = "";
-
-                                                      _scrollToEnd();
-
-                                                      // SystemChannels.textInput
-                                                      //     .invokeMethod("TextInput.show");
-                                                      // WidgetsBinding.instance
-                                                      // .addPostFrameCallback((_) {
-                                                      // inputFocusNode.requestFocus()
-                                                      // FocusScope.of(context)
-                                                      // .requestFocus(inputFocusNode);
-                                                      // });
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    margin: EdgeInsets.only(
-                                                        // top: 16.w,
-                                                        bottom: 24.w,
-                                                        right: 15.w),
-                                                    width:
-                                                        _widthAnimation.value,
-                                                    height: 60.w,
-                                                    decoration: BoxDecoration(
-                                                      color: _colorAnimation
-                                                          .value!,
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  10.w)),
-                                                    ),
-                                                    child: _widthAnimation
-                                                                .value >=
-                                                            113.w
-                                                        ? Center(
-                                                            child: Text(
-                                                              "发送",
-                                                              style: TextStyle(
-                                                                  height: 1.08,
-                                                                  fontSize:
-                                                                      fontSizeScale(
-                                                                          27.w),
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                          )
-                                                        : null,
-                                                  )));
-                                        },
-                                      ),
-
-                                      // 加号
-                                      Visibility(
-                                          visible: showPlusIcon,
-                                          child: Container(
+                              // 输入部分
+                              Expanded(
+                                  flex: 0,
+                                  child: Container(
+                                      constraints:
+                                          BoxConstraints(minHeight: 107.w),
+                                      width: screenSize.width,
+                                      // margin: EdgeInsets.only(bottom: inputMarginBottom),
+                                      decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              255, 247, 247, 247),
+                                          border: Border(
+                                              top: BorderSide(
+                                            color: const Color.fromARGB(
+                                                255, 231, 231, 231),
+                                            width: 1.5.w,
+                                            style: BorderStyle.solid,
+                                          ))),
+                                      child: Row(
+                                        // mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          // 语音按钮
+                                          Container(
                                               color: Colors.transparent,
-                                              width: 87.w,
+                                              width: 97.w,
                                               height: 107.w,
-                                              padding:
-                                                  EdgeInsets.only(right: 20.w),
-                                              alignment: Alignment.center,
+                                              padding: EdgeInsets.only(
+                                                  left: 20.w, right: 20.w),
                                               child: GestureDetector(
                                                 onTap: () {
-                                                  logger.info("加号被点击"); // 点击事件
+                                                  logger.info("语音被点击"); // 点击事件
                                                 },
                                                 child: Icon(
                                                   const IconData(
-                                                    0xe726,
+                                                    0xe66c,
                                                     fontFamily: 'Iconfont',
                                                   ),
-                                                  size: 57.w, // 图标大小
+                                                  size: 56.w, // 图标大小
                                                 ),
-                                              )))
-                                    ],
-                                  ))),
+                                              )),
 
-                          // 图标选择器
-                          AnimatedBuilder(
-                            animation: _animationContentController,
-                            builder: (context, child) {
-                              // late double height;
-                              // if (isFirstOpenKeyborad) {
-                              //   if (showEmojiSelector) {
-                              //     height = _keyboradAnimation.value;
-                              //   } else {
-                              //     height = currentKeyboradHeight;
-                              //   }
-                              // } else {
-                              // height = _keyboradAnimation.value;
-                              // }
+                                          // 消息输入框
+                                          Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                              top: 16,
+                                                              bottom: 16)
+                                                          .w,
+                                                  child: TextField(
+                                                    readOnly: false,
+                                                    autofocus: false,
+                                                    showCursor: true,
+                                                    controller: inputController,
+                                                    focusNode: inputFocusNode,
+                                                    onTap: () {
+                                                      if (isFirstOpenKeyborad) {
+                                                        SystemChannels.textInput
+                                                            .invokeMethod(
+                                                                'TextInput.show');
+                                                        return;
+                                                      }
 
-                              return Expanded(
-                                  flex: 0,
-                                  child: SizedBox(
-                                      width: screenSize.width,
-                                      height: _keyboradAnimation.value,
-                                      // color: Colors.red,
-                                      child: showEmojiSelector
-                                          ? const LJNEmojiSelector()
-                                          : null));
-                            },
-                          ),
-                        ],
-                      ))),
+                                                      if (showEmojiSelector ==
+                                                              false &&
+                                                          showKeyboard ==
+                                                              false) {
+                                                        showKeyboardFunc(
+                                                            _animationContentController
+                                                                    .isAnimating
+                                                                ? _animationContentController
+                                                                    .value
+                                                                : 0);
+                                                      } else if (showEmojiSelector ==
+                                                              true &&
+                                                          showKeyboard ==
+                                                              false) {
+                                                        if (isFirstOpenKeyborad) {
+                                                          switchKeyboradFunc();
+                                                        } else {
+                                                          switchKeyboradFunc();
+                                                        }
+                                                      }
+                                                    },
+                                                    cursorColor:
+                                                        const Color.fromRGBO(
+                                                            62, 174, 86, 1.0),
+                                                    // cursorHeight: 44.w,
+                                                    cursorWidth: 3.w,
+                                                    style: TextStyle(
+                                                        // height: 1.08,
+                                                        fontSize:
+                                                            fontSizeScale(30.w),
+                                                        color: Colors.black),
+                                                    // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
+                                                    maxLines: 5,
+                                                    minLines: 1,
+                                                    onChanged: (newText) {
+                                                      inputController.value =
+                                                          inputController.value
+                                                              .copyWith(
+                                                        text: newText,
+                                                        selection: TextSelection
+                                                            .fromPosition(
+                                                          TextPosition(
+                                                              offset: newText
+                                                                  .length),
+                                                        ),
+                                                      );
 
-              // 全屏视频
-              showFullScreenVideo
-                  ? LJNFullScreen(onClose: () {
-                      setState(() {
-                        showFullScreenVideo = false;
-                      });
-                    })
-                  : Container()
-            ],
-          );
+                                                      if (inputController
+                                                          .text.isEmpty) {
+                                                        _animationController
+                                                            .reverse()
+                                                            .whenComplete(() {
+                                                          setState(() {
+                                                            showPlusIcon = true;
+                                                          });
+                                                        });
+                                                      } else {
+                                                        setState(() {
+                                                          showPlusIcon = false;
+                                                        });
+                                                        _animationController
+                                                            .forward();
+                                                      }
+                                                    },
+                                                    decoration: InputDecoration(
+                                                      fillColor: Colors.white,
+                                                      filled: true,
+                                                      // focusColor: Colors.red,
+                                                      hoverColor: Colors.white,
+                                                      isCollapsed: true,
+                                                      contentPadding:
+                                                          const EdgeInsets
+                                                                  .symmetric(
+                                                                  vertical: 14,
+                                                                  horizontal:
+                                                                      16)
+                                                              .w,
+                                                      border:
+                                                          const OutlineInputBorder(
+                                                              gapPadding: 0,
+                                                              borderSide:
+                                                                  BorderSide
+                                                                      .none),
+                                                      // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                      // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                      // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                      // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                      // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                    ),
+                                                  ))
+                                              // C:\flutter\packages\flutter\lib\src\widgets\editable_text.dart  4239行控制必须得到焦点才显示光标
+                                              ),
+
+                                          // 笑脸按钮
+                                          Container(
+                                            color: Colors.transparent,
+                                            width: 102.w,
+                                            height: 107.w,
+                                            padding: EdgeInsets.only(
+                                                left: 20.w, right: 25.w),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                if (showEmojiSelector ==
+                                                        false &&
+                                                    showKeyboard == false) {
+                                                  showEmojiFunc(
+                                                      _animationContentController
+                                                              .isAnimating
+                                                          ? _animationContentController
+                                                              .value
+                                                          : 0);
+                                                } else if (showEmojiSelector ==
+                                                        false &&
+                                                    showKeyboard == true) {
+                                                  switchEmojiFunc();
+                                                } else if (showEmojiSelector ==
+                                                        true &&
+                                                    showKeyboard == false) {
+                                                  logger.info("aaaaaa 切换到键盘");
+                                                  switchKeyboradFunc();
+                                                }
+                                              },
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe702,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                size: 49.w, // 图标大小
+                                              ),
+                                            ),
+                                          ),
+
+                                          // 发送按钮 与 图标变换
+                                          AnimatedBuilder(
+                                            animation: _animationController,
+                                            builder: (context, child) {
+                                              return Visibility(
+                                                  visible: !showPlusIcon,
+                                                  child: GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          var message =
+                                                              inputController
+                                                                  .text;
+
+                                                          messageList
+                                                              .add(LJNMyMessage(
+                                                            message: message
+                                                                .trimRight(),
+                                                            name:
+                                                                vm.userinfoName
+                                                                    as String,
+                                                            showName: false,
+                                                          ));
+                                                          inputController.text =
+                                                              "";
+
+                                                          _scrollToEnd();
+
+                                                          // SystemChannels.textInput
+                                                          //     .invokeMethod("TextInput.show");
+                                                          // WidgetsBinding.instance
+                                                          // .addPostFrameCallback((_) {
+                                                          // inputFocusNode.requestFocus()
+                                                          // FocusScope.of(context)
+                                                          // .requestFocus(inputFocusNode);
+                                                          // });
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        margin: EdgeInsets.only(
+                                                            // top: 16.w,
+                                                            bottom: 24.w,
+                                                            right: 15.w),
+                                                        width: _widthAnimation
+                                                            .value,
+                                                        height: 60.w,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: _colorAnimation
+                                                              .value!,
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          10.w)),
+                                                        ),
+                                                        child: _widthAnimation
+                                                                    .value >=
+                                                                113.w
+                                                            ? Center(
+                                                                child: Text(
+                                                                  "发送",
+                                                                  style: TextStyle(
+                                                                      height:
+                                                                          1.08,
+                                                                      fontSize:
+                                                                          fontSizeScale(27
+                                                                              .w),
+                                                                      color: Colors
+                                                                          .white),
+                                                                ),
+                                                              )
+                                                            : null,
+                                                      )));
+                                            },
+                                          ),
+
+                                          // 加号
+                                          Visibility(
+                                              visible: showPlusIcon,
+                                              child: Container(
+                                                  color: Colors.transparent,
+                                                  width: 87.w,
+                                                  height: 107.w,
+                                                  padding: EdgeInsets.only(
+                                                      right: 20.w),
+                                                  alignment: Alignment.center,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      logger.info(
+                                                          "加号被点击"); // 点击事件
+                                                    },
+                                                    child: Icon(
+                                                      const IconData(
+                                                        0xe726,
+                                                        fontFamily: 'Iconfont',
+                                                      ),
+                                                      size: 57.w, // 图标大小
+                                                    ),
+                                                  )))
+                                        ],
+                                      ))),
+
+                              // 图标选择器
+                              AnimatedBuilder(
+                                animation: _animationContentController,
+                                builder: (context, child) {
+                                  // late double height;
+                                  // if (isFirstOpenKeyborad) {
+                                  //   if (showEmojiSelector) {
+                                  //     height = _keyboradAnimation.value;
+                                  //   } else {
+                                  //     height = currentKeyboradHeight;
+                                  //   }
+                                  // } else {
+                                  // height = _keyboradAnimation.value;
+                                  // }
+
+                                  return Expanded(
+                                      flex: 0,
+                                      child: SizedBox(
+                                          width: screenSize.width,
+                                          height: _keyboradAnimation.value,
+                                          // color: Colors.red,
+                                          child: showEmojiSelector
+                                              ? const LJNEmojiSelector()
+                                              : null));
+                                },
+                              ),
+                            ],
+                          ))),
+
+                  // 全屏视频
+                  showFullScreenVideo
+                      ? LJNFullScreen(onClose: () {
+                          setState(() {
+                            showFullScreenVideo = false;
+                          });
+                        })
+                      : Container()
+                ],
+              ));
         });
   }
 }
@@ -1028,19 +1069,32 @@ class LJNFullScreen extends StatefulWidget {
   State<LJNFullScreen> createState() => _LJNFullScreen();
 }
 
-class _LJNFullScreen extends State<LJNFullScreen> {
+class _LJNFullScreen extends State<LJNFullScreen>
+    with TickerProviderStateMixin {
   late VideoPlayerController _controller;
+  late AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.networkUrl(
-        Uri.parse("https://hahaha.love/test.mp4"))
+    _controller = VideoPlayerController.asset(assetPath('images/ins/test.mp4'))
       ..initialize().then((_) {
         setState(() {
           _controller.play();
         });
       });
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 60),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -1049,24 +1103,40 @@ class _LJNFullScreen extends State<LJNFullScreen> {
 
     return Stack(
       children: [
-        Container(
-            width: screenSize.width,
-            height: screenSize.height,
-            alignment: Alignment.center,
-            color: const Color.fromARGB(255, 0, 0, 0),
-            child: _controller.value.isInitialized
-                ? GestureDetector(
-                    onTap: () {
-                      _controller.value.isPlaying
-                          ? _controller.pause()
-                          : _controller.play();
-                    },
-                    child: AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(_controller),
-                    ))
-                : Container()),
+        AnimatedBuilder(
+            animation: _animationController,
+            builder: (context, child) {
+              return Container(
+                  width: screenSize.width,
+                  height: screenSize.height,
+                  alignment: Alignment.center,
+                  color: const Color.fromARGB(255, 0, 0, 0),
+                  child: _controller.value.isInitialized
+                      ? GestureDetector(
+                          onTap: () {
+                            _controller.value.isPlaying
+                                ? _controller.pause()
+                                : _controller.play();
+                          },
+                          onVerticalDragUpdate: (DragUpdateDetails details) {
+                            // 检测向下拖动
+                            if (details.delta.dy > 0) {
+                              _animationController.value =
+                                  max(details.delta.dy / 100, 1);
 
+                              logger.info(
+                                  "Dragging down with distance: ${details.delta.dy}");
+                            }
+                          },
+                          child: Container(
+                              width:
+                                  screenSize.width * _animationController.value,
+                              child: AspectRatio(
+                                aspectRatio: _controller.value.aspectRatio,
+                                child: VideoPlayer(_controller),
+                              )))
+                      : Container());
+            }),
         // 关闭按钮
         Positioned(
             top: 90.w,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
 // import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:video_player/video_player.dart';
 
@@ -16,8 +17,7 @@ class _LJNVideoState extends State<LJNVideoPage> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.networkUrl(
-        Uri.parse("https://hahaha.love/test.mp4"))
+    _controller = VideoPlayerController.asset(assetPath('images/ins/test.mp4'))
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
