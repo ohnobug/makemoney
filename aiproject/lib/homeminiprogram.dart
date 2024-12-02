@@ -120,26 +120,48 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   backgroundColor: Colors.transparent,
                                   foregroundColor: Colors.transparent,
                                   actions: [
-                                    // 三个点
-                                    GestureDetector(
-                                      onTap: () {
-                                        // 点击事件
-                                      },
-                                      child: Container(
-                                        height: 90.w,
-                                        color: Colors.transparent,
-                                        padding: EdgeInsets.only(
-                                            right: 33.w), // 设置右侧内边距
-                                        child: Icon(
-                                          const IconData(
-                                            0xe659,
-                                            fontFamily: 'Iconfont',
-                                          ),
-                                          size: 37.w, // 图标大小
-                                          color: Colors.white,
-                                        ),
+                                    Container(
+                                      // width: 80.w,
+                                      height: 40.w,
+                                      margin: EdgeInsets.only(right: 30.w),
+                                      padding: EdgeInsets.only(
+                                          left: 10.w, right: 10.w),
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(136, 116, 116, 116),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(35.w)),
+                                        // border: Border(
+                                        //     top: BorderSide(
+                                        //   color: const Color.fromARGB(
+                                        //       255, 231, 231, 231),
+                                        //   width: 1.5.w,
+                                        //   style: BorderStyle.solid,
+                                        // ))
                                       ),
-                                    ),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            const IconData(
+                                              0xe612,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color: Colors.white, // 图标颜色
+                                            size: 26.w, // 图标大小
+                                          ),
+                                          SizedBox(
+                                            width: 8.w,
+                                          ),
+                                          Text(
+                                            "搜索",
+                                            style: TextStyle(
+                                                fontSize: 22.w,
+                                                color: Colors.white),
+                                          )
+                                        ],
+                                      ),
+                                    )
                                   ],
                                 )),
 
@@ -172,40 +194,27 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                                       BouncingScrollPhysics()),
                                           child: Column(
                                             children: [
+                                              // 听一听
+                                              FunctionButtonsSection(
+                                                title: '听一听',
+                                                moreUrl: "",
+                                                buttons: [
+                                                  FunctionButton(
+                                                      icon:
+                                                          "images/miniprogram_icon/duitang.jpg",
+                                                      title: "堆糖",
+                                                      onPressed: () {}),
+                                                  FunctionButton(
+                                                      icon:
+                                                          "images/miniprogram_icon/tiankongyueduqi.jpg",
+                                                      title: "天空阅读器",
+                                                      onPressed: () {}),
+                                                ],
+                                              ),
+
                                               // 最近使用的小程序
                                               FunctionButtonsSection(
                                                 title: '最近使用的小程序',
-                                                rightWidget: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text('我的小程序',
-                                                        style: TextStyle(
-                                                          height: 1.08,
-                                                          fontSize:
-                                                              fontSizeScale(
-                                                                  26.w),
-                                                          color: const Color
-                                                              .fromARGB(255,
-                                                              175, 175, 175),
-                                                        )),
-                                                    Icon(
-                                                      const IconData(
-                                                        0xe8d4,
-                                                        fontFamily: 'Iconfont',
-                                                      ),
-                                                      size: fontSizeScale(28.w),
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              175,
-                                                              175,
-                                                              175),
-                                                    )
-                                                  ],
-                                                ),
                                                 moreUrl: "",
                                                 buttons: [
                                                   FunctionButton(
@@ -254,37 +263,6 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                               // 我的常用小程序
                                               FunctionButtonsSection(
                                                 title: '我的常用小程序',
-                                                rightWidget: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text('我的小程序',
-                                                        style: TextStyle(
-                                                          height: 1.08,
-                                                          fontSize:
-                                                              fontSizeScale(
-                                                                  28.w),
-                                                          color: const Color
-                                                              .fromARGB(255,
-                                                              175, 175, 175),
-                                                        )),
-                                                    Icon(
-                                                      const IconData(
-                                                        0xe8d4,
-                                                        fontFamily: 'Iconfont',
-                                                      ),
-                                                      size: fontSizeScale(28.w),
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              175,
-                                                              175,
-                                                              175),
-                                                    )
-                                                  ],
-                                                ),
                                                 moreUrl: "",
                                                 buttons: [
                                                   FunctionButton(
@@ -356,13 +334,12 @@ class FunctionButtonsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin:
-            EdgeInsets.only(top: 0.w, bottom: 18.w, left: 18.w, right: 18.w),
+        margin: EdgeInsets.only(top: 0.w, bottom: 0.w, left: 18.w, right: 18.w),
         // decoration: BoxDecoration(
         //   color: Colors.white,
         //   borderRadius: BorderRadius.circular(16.0).w,
         // ),
-        padding: const EdgeInsets.only(bottom: 16).w,
+        padding: const EdgeInsets.only(bottom: 0).w,
         // color: Colors.red,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -387,7 +364,7 @@ class FunctionButtonsSection extends StatelessWidget {
             ),
 
             SizedBox(
-              height: 20.w,
+              height: 15.w,
             ),
 
             // 使用 SizedBox 控制 GridView 的大小

@@ -87,7 +87,9 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                   foregroundColor: Colors.transparent,
                   actions: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, '/bind_new_phone_number');
+                      },
                       child: Container(
                         // color: Colors.black,
                         height: 90.w,
@@ -95,19 +97,14 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/bind_new_phone_number');
-                                },
-                                child: Text(
-                                  "下一步",
-                                  // textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 32.w,
-                                      fontWeight: FontWeight.w100),
-                                ))
+                            Text(
+                              "下一步",
+                              // textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 32.w,
+                                  fontWeight: FontWeight.w100),
+                            )
                           ],
                         ),
                       ),

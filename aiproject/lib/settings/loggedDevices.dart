@@ -91,7 +91,9 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                   // ),
                   actions: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, '/bind_new_phone_number');
+                      },
                       child: Container(
                         // color: Colors.black,
                         height: 90.w,
@@ -99,19 +101,14 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/bind_new_phone_number');
-                                },
-                                child: Text(
-                                  "编辑",
-                                  // textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 32.w,
-                                      fontWeight: FontWeight.w100),
-                                ))
+                            Text(
+                              "编辑",
+                              // textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 32.w,
+                                  fontWeight: FontWeight.w100),
+                            )
                           ],
                         ),
                       ),

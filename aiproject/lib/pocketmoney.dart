@@ -151,7 +151,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                                 height: 1.08,
                                 fontSize: fontSizeScale(85.w),
                                 fontWeight: FontWeight.bold,
-                                fontFamily: "Quicksand-Regular",
+                                fontFamily: "Quicksand-Medium",
                                 color: const Color.fromARGB(255, 16, 16, 16),
                               ),
                             ),
