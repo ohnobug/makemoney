@@ -1077,14 +1077,20 @@ class _LJNFullScreen extends State<LJNFullScreen>
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(assetPath('images/ins/test.mp4'))
-      ..initialize().then((_) {
+    _controller = VideoPlayerController.asset(
+      assetPath('images/ins/test.mp4'),
+      videoPlayerOptions: VideoPlayerOptions(
+        mixWithOthers: false,
+        allowBackgroundPlayback: false,
+      ),
+    )..initialize().then((_) {
         setState(() {
           _controller.play();
         });
       });
 
     _animationController = AnimationController(
+      value: 1,
       vsync: this,
       duration: const Duration(milliseconds: 60),
     );
@@ -1093,9 +1099,12 @@ class _LJNFullScreen extends State<LJNFullScreen>
   @override
   void dispose() {
     _animationController.dispose();
-
+    _controller.dispose();
     super.dispose();
   }
+
+  double initialY = 0;
+  double distance = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -1106,36 +1115,68 @@ class _LJNFullScreen extends State<LJNFullScreen>
         AnimatedBuilder(
             animation: _animationController,
             builder: (context, child) {
+              double videoWidth =
+                  (screenSize.width * _animationController.value) *
+                      _controller.value.aspectRatio;
+              double videoHeight = videoWidth / _controller.value.aspectRatio;
+
+              logger.info(
+                  "_controller.value.aspectRatio: ${_controller.value.aspectRatio}");
+
               return Container(
                   width: screenSize.width,
                   height: screenSize.height,
-                  alignment: Alignment.center,
+                  // alignment: Alignment.center,
                   color: const Color.fromARGB(255, 0, 0, 0),
-                  child: _controller.value.isInitialized
-                      ? GestureDetector(
-                          onTap: () {
-                            _controller.value.isPlaying
-                                ? _controller.pause()
-                                : _controller.play();
-                          },
-                          onVerticalDragUpdate: (DragUpdateDetails details) {
-                            // 检测向下拖动
-                            if (details.delta.dy > 0) {
-                              _animationController.value =
-                                  max(details.delta.dy / 100, 1);
+                  child: Stack(
+                    children: [
+                      Positioned(
+                          left: 0,
+                          top: ((screenSize.height - videoHeight) / 2) +
+                              distance,
+                          child: _controller.value.isInitialized
+                              ? GestureDetector(
+                                  onTap: () {
+                                    _controller.value.isPlaying
+                                        ? _controller.pause()
+                                        : _controller.play();
+                                  },
+                                  onHorizontalDragStart:
+                                      (DragStartDetails details) {
+                                    initialY = details.globalPosition.dy;
+                                  },
+                                  onVerticalDragUpdate:
+                                      (DragUpdateDetails details) {
+                                    // 计算从点击开始的拖动距离
+                                    distance =
+                                        details.globalPosition.dy - initialY;
 
-                              logger.info(
-                                  "Dragging down with distance: ${details.delta.dy}");
-                            }
-                          },
-                          child: Container(
-                              width:
-                                  screenSize.width * _animationController.value,
-                              child: AspectRatio(
-                                aspectRatio: _controller.value.aspectRatio,
-                                child: VideoPlayer(_controller),
-                              )))
-                      : Container());
+                                    // if (distance > 0) {
+                                    logger.info(
+                                        "Dragging down with distance: $distance");
+                                    // }
+
+                                    _animationController.value = min(
+                                        (1 - (distance.abs() / 100)).abs(), 1);
+
+                                    // logger.info(
+                                    //     "Dragging down with distance: ${details.delta.dy}");
+                                    // }
+                                  },
+                                  child: Container(
+                                      width: videoWidth,
+                                      height: videoHeight,
+                                      color: Colors.red,
+                                      child: null
+                                      // AspectRatio(
+                                      //   aspectRatio:
+                                      //       _controller.value.aspectRatio,
+                                      //   child: VideoPlayer(_controller),
+                                      // )
+                                      ))
+                              : Container())
+                    ],
+                  ));
             }),
         // 关闭按钮
         Positioned(
