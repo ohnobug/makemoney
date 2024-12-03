@@ -282,6 +282,9 @@ class _LJNChatPage extends State<LJNChatPage>
       message: '准备好了，永远准备好。',
       showName: false,
       onTap: (Offset position, Size size) {
+        // 关闭键盘
+        SystemChannels.textInput.invokeMethod('TextInput.hide');
+
         setState(() {
           openPosition = position;
           logger.info("openPosition: $openPosition");
@@ -1111,16 +1114,16 @@ class _DraggableBoxState extends State<DraggableBox>
     // 控制透明
     _bgTransparentController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 3000),
     );
 
     _bganimation =
-        Tween<double>(begin: 255, end: 100).animate(_bgTransparentController);
+        Tween<double>(begin: 0, end: 255).animate(_bgTransparentController);
 
     // 初始化动画控制器
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300), // 回弹动画时长
+      duration: const Duration(milliseconds: 3000), // 回弹动画时长
     );
 
     _positionAnimation = Tween<Offset>(begin: Offset.zero, end: Offset.zero)
@@ -1170,6 +1173,7 @@ class _DraggableBoxState extends State<DraggableBox>
           end: Size(videoWidth, videoHeight),
         ).animate(_animationController);
 
+        _bgTransparentController.forward(from: 0.0);
         _animationController.forward(from: 0).then((_) {
           setState(() {
             _videoController?.play();
@@ -1201,15 +1205,18 @@ class _DraggableBoxState extends State<DraggableBox>
                     onPanUpdate: (details) {
                       // 更新偏移量
                       setState(() {
+                        // 偏移
                         _boxOffset += details.delta;
 
+                        // 背景
                         double euclideanDistance = sqrt(
                             _boxOffset.dx * _boxOffset.dx +
                                 _boxOffset.dy * _boxOffset.dy);
-
-                        double v = euclideanDistance / 500;
+                        double v = euclideanDistance / (screenSize.height / 2);
                         if (v > 1) v = 1;
-                        _bgTransparentController.value = v;
+                        _bgTransparentController.value = 1 - v;
+
+                        // 大小
                       });
                     },
                     onPanEnd: (details) {
@@ -1221,14 +1228,19 @@ class _DraggableBoxState extends State<DraggableBox>
                         end: Offset(0, (screenSize.height - videoHeight) / 2),
                       ).animate(CurvedAnimation(
                         parent: _animationController,
-                        curve: Curves.easeOut, // 使用缓动曲线
+                        curve: Curves.linear, // 使用缓动曲线
                       ));
 
                       _boxOffset = Offset.zero;
 
                       _animationController.reset();
                       _animationController.forward(from: 0.0); // 开始动画
-                      _bgTransparentController.reverse();
+
+                      _bganimation = Tween<double>(
+                              begin: _bgTransparentController.value, end: 255)
+                          .animate(_bgTransparentController);
+                      // _bgTransparentController.reset();
+                      _bgTransparentController.forward();
                     },
                     child: SizedBox(
                       // color: const Color.fromARGB(255, 194, 194, 194),
@@ -1255,6 +1267,21 @@ class _DraggableBoxState extends State<DraggableBox>
           child: GestureDetector(
             onTap: () {
               _videoController?.pause();
+
+              Offset beginPosition = Offset(
+                  _positionAnimation.value.dx + _boxOffset.dx,
+                  _positionAnimation.value.dy + _boxOffset.dy);
+
+              // 使用 Tween 动画将偏移量平滑过渡到 (0, 0)
+              _positionAnimation = Tween<Offset>(
+                begin: widget.openPosition,
+                end: beginPosition,
+              ).animate(CurvedAnimation(
+                parent: _animationController,
+                curve: Curves.linear, // 使用缓动曲线
+              ));
+
+              // _animationController.reset();
               _animationController.reverse().then((_) {
                 if (widget.onClose != null) widget.onClose!();
               });

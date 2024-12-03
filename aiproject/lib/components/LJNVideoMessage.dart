@@ -138,11 +138,10 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                   )),
 
                           // 箭头
-                          Container(
-                            width: 10.w,
-                            padding:
-                                const EdgeInsets.only(top: 32, right: 10).w,
-                            child: null,
+                          SizedBox(
+                            width: 20.w,
+                            // padding: const EdgeInsets.only(top: 32).w,
+                            // child: null,
                           ),
                         ],
                       ),
