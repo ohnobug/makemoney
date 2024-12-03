@@ -1107,6 +1107,9 @@ class _DraggableBoxState extends State<DraggableBox>
   VideoPlayerController? _videoController;
   Offset _boxOffset = Offset.zero; // 小盒子的偏移量
 
+  late AnimationController _innerSizedController;
+  late Animation<double> _innerSizedAnimation;
+
   @override
   void initState() {
     super.initState();
@@ -1114,7 +1117,7 @@ class _DraggableBoxState extends State<DraggableBox>
     // 控制透明
     _bgTransparentController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 3000),
+      duration: const Duration(milliseconds: 300),
     );
 
     _bganimation =
@@ -1123,7 +1126,7 @@ class _DraggableBoxState extends State<DraggableBox>
     // 初始化动画控制器
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 3000), // 回弹动画时长
+      duration: const Duration(milliseconds: 300), // 回弹动画时长
     );
 
     _positionAnimation = Tween<Offset>(begin: Offset.zero, end: Offset.zero)
@@ -1131,12 +1134,22 @@ class _DraggableBoxState extends State<DraggableBox>
     _sizedAnimation =
         Tween<Size>(begin: const Size(0, 0), end: const Size(0, 0))
             .animate(_animationController);
+
+    // 控制内部大小
+    _innerSizedController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+
+    _innerSizedAnimation =
+        Tween<double>(begin: 1, end: 0).animate(_innerSizedController);
   }
 
   @override
   void dispose() {
     _animationController.dispose();
     _bgTransparentController.dispose();
+    _innerSizedController.dispose();
     _videoController?.dispose();
     super.dispose();
   }
@@ -1203,6 +1216,11 @@ class _DraggableBoxState extends State<DraggableBox>
                 left: _positionAnimation.value.dx + _boxOffset.dx,
                 top: _positionAnimation.value.dy + _boxOffset.dy,
                 child: GestureDetector(
+                    onPanDown: (details) {
+                      _animationController.stop();
+                      _bgTransparentController.stop();
+                      _innerSizedController.stop();
+                    },
                     onPanUpdate: (details) {
                       // 更新偏移量
                       setState(() {
@@ -1216,7 +1234,7 @@ class _DraggableBoxState extends State<DraggableBox>
                         _bgTransparentController.value = 1 - v;
 
                         // 大小
-                        scale = _bgTransparentController.value;
+                        _innerSizedController.value = v;
                       });
                     },
                     onPanEnd: (details) {
@@ -1240,16 +1258,19 @@ class _DraggableBoxState extends State<DraggableBox>
                               begin: _bgTransparentController.value, end: 255)
                           .animate(_bgTransparentController);
                       _bgTransparentController.forward();
+                      _innerSizedController.reverse();
                     },
                     child: Container(
                         width: _sizedAnimation.value.width,
                         height: _sizedAnimation.value.height,
-                        alignment: Alignment.center,
-                        color: Colors.red,
+                        alignment: Alignment.topCenter,
+                        color: Colors.transparent,
                         child: SizedBox(
                           // color: const Color.fromARGB(255, 194, 194, 194),
-                          width: _sizedAnimation.value.width * scale,
-                          height: _sizedAnimation.value.height * scale,
+                          width: _sizedAnimation.value.width *
+                              _innerSizedAnimation.value,
+                          height: _sizedAnimation.value.height *
+                              _innerSizedAnimation.value,
                           child: AspectRatio(
                             aspectRatio: _videoController!.value.aspectRatio,
                             child: VideoPlayer(_videoController!),
