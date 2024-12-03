@@ -1130,7 +1130,7 @@ class _DraggableBoxState extends State<DraggableBox>
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     // 动态计算视频宽高
-    double videoWidth = screenSize.width;
+    double videoWidth = screenSize.width * (1 - _bgTransparentController.value);
     double videoHeight = videoWidth / _videoController.value.aspectRatio;
 
     // 中心点坐标
@@ -1160,7 +1160,11 @@ class _DraggableBoxState extends State<DraggableBox>
                 setState(() {
                   _boxOffset += details.delta;
 
-                  double v = _boxOffset.dy.abs() / 500;
+                  double euclideanDistance = sqrt(
+                      _boxOffset.dx * _boxOffset.dx +
+                          _boxOffset.dy * _boxOffset.dy);
+
+                  double v = euclideanDistance / 500;
                   if (v > 1) v = 1;
                   _bgTransparentController.value = v;
                 });
@@ -1169,8 +1173,8 @@ class _DraggableBoxState extends State<DraggableBox>
                 // 手指释放后，回到中心
                 _startReturnAnimation();
               },
-              child: Container(
-                color: const Color.fromARGB(255, 194, 194, 194),
+              child: SizedBox(
+                // color: const Color.fromARGB(255, 194, 194, 194),
                 width: videoWidth,
                 height: videoHeight,
                 child: AspectRatio(
