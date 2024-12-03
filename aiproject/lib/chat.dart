@@ -1143,6 +1143,7 @@ class _DraggableBoxState extends State<DraggableBox>
 
   double videoWidth = 0;
   double videoHeight = 0;
+  double scale = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -1209,14 +1210,13 @@ class _DraggableBoxState extends State<DraggableBox>
                         _boxOffset += details.delta;
 
                         // 背景
-                        double euclideanDistance = sqrt(
-                            _boxOffset.dx * _boxOffset.dx +
-                                _boxOffset.dy * _boxOffset.dy);
+                        double euclideanDistance = _boxOffset.dy.abs();
                         double v = euclideanDistance / (screenSize.height / 2);
                         if (v > 1) v = 1;
                         _bgTransparentController.value = 1 - v;
 
                         // 大小
+                        scale = _bgTransparentController.value;
                       });
                     },
                     onPanEnd: (details) {
@@ -1239,18 +1239,23 @@ class _DraggableBoxState extends State<DraggableBox>
                       _bganimation = Tween<double>(
                               begin: _bgTransparentController.value, end: 255)
                           .animate(_bgTransparentController);
-                      // _bgTransparentController.reset();
                       _bgTransparentController.forward();
                     },
-                    child: SizedBox(
-                      // color: const Color.fromARGB(255, 194, 194, 194),
-                      width: _sizedAnimation.value.width,
-                      height: _sizedAnimation.value.height,
-                      child: AspectRatio(
-                        aspectRatio: _videoController!.value.aspectRatio,
-                        child: VideoPlayer(_videoController!),
-                      ),
-                    )
+                    child: Container(
+                        width: _sizedAnimation.value.width,
+                        height: _sizedAnimation.value.height,
+                        alignment: Alignment.center,
+                        color: Colors.red,
+                        child: SizedBox(
+                          // color: const Color.fromARGB(255, 194, 194, 194),
+                          width: _sizedAnimation.value.width * scale,
+                          height: _sizedAnimation.value.height * scale,
+                          child: AspectRatio(
+                            aspectRatio: _videoController!.value.aspectRatio,
+                            child: VideoPlayer(_videoController!),
+                          ),
+                        ))
+
                     // Container(
                     //   width: 100,
                     //   height: 100,
