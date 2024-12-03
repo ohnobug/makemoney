@@ -277,18 +277,18 @@ class _LJNSearchPage extends State<LJNSearchPage> {
     });
 
     // 确保在布局完成后获取高度
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final historyKeyContext = historyKey.currentContext;
-      if (historyKeyContext != null) {
-        final renderBox = historyKeyContext.findRenderObject() as RenderBox?;
-        if (renderBox != null) {
-          setState(() {
-            historyHeight = renderBox.size.height;
-            logger.info("historyHeight: $historyHeight");
-          });
-        }
-      }
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   final historyKeyContext = historyKey.currentContext;
+    //   if (historyKeyContext != null) {
+    //     final renderBox = historyKeyContext.findRenderObject() as RenderBox?;
+    //     if (renderBox != null) {
+    //       setState(() {
+    //         historyHeight = renderBox.size.height;
+    //         logger.info("historyHeight: $historyHeight");
+    //       });
+    //     }
+    //   }
+    // });
   }
 
   // 判断盒子是否在显示, 若不显示则显示都可视区域
@@ -399,7 +399,8 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                               0xed9e,
                               fontFamily: 'Iconfont',
                             ), // 使用的图标
-                            color: const Color.fromARGB(255, 99, 99, 99), // 图标颜色
+                            color:
+                                const Color.fromARGB(255, 99, 99, 99), // 图标颜色
                             size: 36.w, // 图标大小
                           ),
                         ),
@@ -855,7 +856,8 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                         colors: [
                           e.key < 3
                               ? const Color.fromARGB(255, 253, 245, 242)
-                              : const Color.fromARGB(255, 245, 245, 245), // 起始颜色
+                              : const Color.fromARGB(
+                                  255, 245, 245, 245), // 起始颜色
                           Colors.white, // 结束颜色
                         ],
                       ),

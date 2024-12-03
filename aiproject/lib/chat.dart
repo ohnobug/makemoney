@@ -1046,13 +1046,14 @@ class _LJNChatPage extends State<LJNChatPage>
                             ],
                           ))),
 
-                  // 全屏视频
                   showFullScreenVideo
-                      ? LJNFullScreen(onClose: () {
-                          setState(() {
-                            showFullScreenVideo = false;
-                          });
-                        })
+                      ? DraggableBox(
+                          onClose: () {
+                            setState(() {
+                              showFullScreenVideo = false;
+                            });
+                          },
+                        )
                       : Container()
                 ],
               ));
@@ -1060,24 +1061,29 @@ class _LJNChatPage extends State<LJNChatPage>
   }
 }
 
-class LJNFullScreen extends StatefulWidget {
+class DraggableBox extends StatefulWidget {
   final VoidCallback? onClose;
 
-  const LJNFullScreen({super.key, this.onClose});
+  const DraggableBox({super.key, this.onClose});
 
   @override
-  State<LJNFullScreen> createState() => _LJNFullScreen();
+  State<DraggableBox> createState() => _DraggableBoxState();
 }
 
-class _LJNFullScreen extends State<LJNFullScreen>
+class _DraggableBoxState extends State<DraggableBox>
     with TickerProviderStateMixin {
-  late VideoPlayerController _controller;
   late AnimationController _animationController;
+  late Animation<Offset> _animation;
+  late AnimationController _bgTransparentController;
+  late Animation<double> _bganimation;
+  late VideoPlayerController _videoController;
+  Offset _boxOffset = Offset.zero; // 小盒子的偏移量
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(
+
+    _videoController = VideoPlayerController.asset(
       assetPath('images/ins/test.mp4'),
       videoPlayerOptions: VideoPlayerOptions(
         mixWithOthers: false,
@@ -1085,139 +1091,141 @@ class _LJNFullScreen extends State<LJNFullScreen>
       ),
     )..initialize().then((_) {
         setState(() {
-          _controller.play();
+          _videoController.play();
         });
       });
 
-    _animationController = AnimationController(
-      value: 1,
+    // 控制透明
+    _bgTransparentController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 60),
+      duration: const Duration(milliseconds: 100),
     );
+
+    _bganimation =
+        Tween<double>(begin: 255, end: 100).animate(_bgTransparentController);
+
+    // 初始化动画控制器
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300), // 回弹动画时长
+    );
+
+    // 动画监听，更新偏移量
+    _animationController.addListener(() {
+      setState(() {
+        _boxOffset = _animation.value;
+      });
+    });
   }
 
   @override
   void dispose() {
     _animationController.dispose();
-    _controller.dispose();
+    _bgTransparentController.dispose();
+    _videoController.dispose();
     super.dispose();
   }
-
-  double initialY = 0;
-  double distance = 0;
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
+    // 动态计算视频宽高
+    double videoWidth = screenSize.width;
+    double videoHeight = videoWidth / _videoController.value.aspectRatio;
+
+    // 中心点坐标
+    Offset center = Offset((screenSize.width - videoWidth) / 2,
+        (screenSize.height - videoHeight) / 2);
 
     return Stack(
       children: [
+        // 大盒子（全屏）
         AnimatedBuilder(
-            animation: _animationController,
+            animation: _bgTransparentController,
             builder: (context, child) {
-              double videoWidth =
-                  (screenSize.width * _animationController.value) *
-                      _controller.value.aspectRatio;
-              double videoHeight = videoWidth / _controller.value.aspectRatio;
-
-              logger.info(
-                  "_controller.value.aspectRatio: ${_controller.value.aspectRatio}");
-
               return Container(
-                  width: screenSize.width,
-                  height: screenSize.height,
-                  // alignment: Alignment.center,
-                  color: const Color.fromARGB(255, 0, 0, 0),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                          left: 0,
-                          top: distance,
-                          child: _controller.value.isInitialized
-                              ? GestureDetector(
-                                  onTap: () {
-                                    _controller.value.isPlaying
-                                        ? _controller.pause()
-                                        : _controller.play();
-                                  },
-                                  onHorizontalDragStart:
-                                      (DragStartDetails details) {
-                                    setState(() {
-                                      initialY = details.localPosition.dy;
-                                    });
-                                  },
-                                  onVerticalDragUpdate:
-                                      (DragUpdateDetails details) {
-                                    // 计算从点击开始的拖动距离
-                                    setState(() {
-                                      distance =
-                                          details.localPosition.dy - initialY;
-                                    });
-
-                                    // // if (distance > 0) {
-                                    // logger.info(
-                                    //     "Dragging down with distance: $distance");
-                                    // // }
-
-                                    // _animationController.value = min(
-                                    //     (1 - (distance.abs() / 100)).abs(), 1);
-
-                                    // logger.info(
-                                    //     "Dragging down with distance: ${details.delta.dy}");
-                                    // }
-                                  },
-                                  child: Container(
-                                      width: videoWidth,
-                                      height: videoHeight,
-                                      color: Colors.red,
-                                      child: null
-                                      // AspectRatio(
-                                      //   aspectRatio:
-                                      //       _controller.value.aspectRatio,
-                                      //   child: VideoPlayer(_controller),
-                                      // )
-                                      ))
-                              : Container())
-                    ],
-                  ));
+                width: screenSize.width,
+                height: screenSize.height,
+                color: Color.fromARGB(_bganimation.value.toInt(), 0, 0, 0),
+              );
             }),
+
+        // 小盒子
+        Positioned(
+          left: center.dx + _boxOffset.dx,
+          top: center.dy + _boxOffset.dy,
+          child: GestureDetector(
+              onPanUpdate: (details) {
+                // 更新偏移量
+                setState(() {
+                  _boxOffset += details.delta;
+
+                  double v = _boxOffset.dy.abs() / 500;
+                  if (v > 1) v = 1;
+                  _bgTransparentController.value = v;
+                });
+              },
+              onPanEnd: (details) {
+                // 手指释放后，回到中心
+                _startReturnAnimation();
+              },
+              child: Container(
+                color: const Color.fromARGB(255, 194, 194, 194),
+                width: videoWidth,
+                height: videoHeight,
+                child: AspectRatio(
+                  aspectRatio: _videoController.value.aspectRatio,
+                  child: VideoPlayer(_videoController),
+                ),
+              )
+              // Container(
+              //   width: 100,
+              //   height: 100,
+              //   color: Colors.red,
+              // ),
+              ),
+        ),
+
         // 关闭按钮
         Positioned(
-            top: 90.w,
-            right: 30.w,
-            child: GestureDetector(
-                onTap: widget.onClose,
-                child: Container(
-                  color: Colors.transparent,
-                  margin: EdgeInsets.only(left: 39.w),
-                  width: 50.w,
-                  height: 50.w,
-                  child: Icon(
-                    const IconData(
-                      0xe601,
-                      fontFamily: 'Iconfont',
-                    ),
-                    size: 50.w, // 图标的大小
-                    color: const Color.fromARGB(255, 255, 255, 255), // 图标颜色
-                  ),
-                ))),
-
-        // Container(
-        //     width: 510.w,
-        //     height: 286.w,
-        //     color: Colors.grey,
-        //     // child: Image.asset(
-        //     //   assetPath("images/avatar/linecode.png"),
-        //     //   width: 510.0.w,
-        //     //   height: 286.0.w,
-        //     //   fit: BoxFit.fill,
-        //     // ),
-        //   ),
+          top: 90.w,
+          right: 30.w,
+          child: GestureDetector(
+            onTap: widget.onClose,
+            child: Container(
+              color: Colors.transparent,
+              margin: EdgeInsets.only(left: 39.w),
+              width: 50.w,
+              height: 50.w,
+              child: Icon(
+                const IconData(
+                  0xe601,
+                  fontFamily: 'Iconfont',
+                ),
+                size: 50.w, // 图标的大小
+                color: const Color.fromARGB(255, 255, 255, 255), // 图标颜色
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
-}
 
+  void _startReturnAnimation() {
+    // 使用 Tween 动画将偏移量平滑过渡到 (0, 0)
+    _animation = Tween<Offset>(
+      begin: _boxOffset,
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeOut, // 使用缓动曲线
+    ));
+
+    _animationController.forward(from: 0.0); // 开始动画
+    _bgTransparentController.reverse();
+  }
+}
 
 
 // 面板状态：打开、隐藏
