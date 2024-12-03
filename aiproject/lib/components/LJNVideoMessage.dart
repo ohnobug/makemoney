@@ -13,7 +13,7 @@ class LJNVideoMessage extends StatefulWidget {
       this.name,
       this.onTap});
 
-  final VoidCallback? onTap;
+  final Function(Offset, Size)? onTap;
   final String? name;
   final bool showName;
   final String message;
@@ -24,6 +24,7 @@ class LJNVideoMessage extends StatefulWidget {
 
 class _LJNVideoMessage extends State<LJNVideoMessage> {
   late VideoPlayerController _controller;
+  GlobalKey videoContainerKey = GlobalKey();
 
   @override
   void initState() {
@@ -36,6 +37,9 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
 
   @override
   Widget build(BuildContext context) {
+    double videoWidth = 510.w;
+    double videoHeight = videoWidth / _controller.value.aspectRatio;
+
     // 对方发的消息
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -78,7 +82,17 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                         children: [
                           // 消息
                           GestureDetector(
-                              onTap: widget.onTap!,
+                              onTap: () {
+                                final RenderBox renderBox = videoContainerKey
+                                    .currentContext
+                                    ?.findRenderObject() as RenderBox;
+
+                                Offset position =
+                                    renderBox.localToGlobal(Offset.zero);
+                                Size size = renderBox.size;
+
+                                widget.onTap!(position, size);
+                              },
                               child: Container(
                                   clipBehavior: Clip.hardEdge,
                                   constraints:
@@ -90,8 +104,9 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                   // padding: EdgeInsets.symmetric(
                                   //     horizontal: 25.w, vertical: 18.w),
                                   child: Container(
-                                    width: 510.w,
-                                    height: 286.w,
+                                    key: videoContainerKey,
+                                    width: videoWidth,
+                                    height: videoHeight,
                                     color: Colors.grey,
                                     child: AspectRatio(
                                       aspectRatio:
