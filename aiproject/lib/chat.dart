@@ -1099,64 +1099,68 @@ class DraggableBox extends StatefulWidget {
 
 class _DraggableBoxState extends State<DraggableBox>
     with TickerProviderStateMixin {
-  late AnimationController _animationController;
+  // 位置控制器
+  late AnimationController _positionAnimationController;
   late Animation<Offset> _positionAnimation;
-  late Animation<Size> _sizedAnimation;
+
+  // 背景透明度控制器
   late AnimationController _bgTransparentController;
   late Animation<double> _bganimation;
+
+  // 盒子大小控制器
+  late AnimationController _sizedController;
+  late Animation<Size> _sizedAnimation;
+
+  // 视频控制器
   VideoPlayerController? _videoController;
   Offset _boxOffset = Offset.zero; // 小盒子的偏移量
-
-  late AnimationController _innerSizedController;
-  late Animation<double> _innerSizedAnimation;
 
   @override
   void initState() {
     super.initState();
 
-    // 控制透明
+    // 位置控制器
+    _positionAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 3000), // 回弹动画时长
+    );
+    _positionAnimation = Tween<Offset>(begin: Offset.zero, end: Offset.zero)
+        .animate(_positionAnimationController);
+
+    // 背景透明度控制器
     _bgTransparentController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 3000),
     );
-
     _bganimation =
         Tween<double>(begin: 0, end: 255).animate(_bgTransparentController);
 
-    // 初始化动画控制器
-    _animationController = AnimationController(
+    // 盒子大小控制器
+    _sizedController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300), // 回弹动画时长
+      duration: const Duration(milliseconds: 3000),
     );
 
-    _positionAnimation = Tween<Offset>(begin: Offset.zero, end: Offset.zero)
-        .animate(_animationController);
-    _sizedAnimation =
-        Tween<Size>(begin: const Size(0, 0), end: const Size(0, 0))
-            .animate(_animationController);
-
-    // 控制内部大小
-    _innerSizedController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-
-    _innerSizedAnimation =
-        Tween<double>(begin: 1, end: 0).animate(_innerSizedController);
+    // 大小
+    _sizedAnimation = Tween<Size>(
+      begin: widget.openBoxSize,
+      end: Size(videoWidth, videoHeight),
+    ).animate(_sizedController);
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _positionAnimationController.dispose();
     _bgTransparentController.dispose();
-    _innerSizedController.dispose();
+    _sizedController.dispose();
     _videoController?.dispose();
     super.dispose();
   }
 
   double videoWidth = 0;
   double videoHeight = 0;
-  double scale = 1;
+  bool canBeCloseFlag = false;
+  Size oldSize = const Size(0, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -1177,22 +1181,26 @@ class _DraggableBoxState extends State<DraggableBox>
         Offset center = Offset((screenSize.width - videoWidth) / 2,
             (screenSize.height - videoHeight) / 2);
 
+        // 位置
         _positionAnimation = Tween<Offset>(
           begin: widget.openPosition,
           end: Offset(0, center.dy),
-        ).animate(_animationController);
+        ).animate(_positionAnimationController);
 
-        _sizedAnimation = Tween<Size>(
-          begin: widget.openBoxSize,
-          end: Size(videoWidth, videoHeight),
-        ).animate(_animationController);
-
+        // 背景
         _bgTransparentController.forward(from: 0.0);
-        _animationController.forward(from: 0).then((_) {
+        _positionAnimationController.forward(from: 0).then((_) {
           setState(() {
             _videoController?.play();
           });
         });
+
+        // 大小
+        _sizedAnimation = Tween<Size>(
+          begin: widget.openBoxSize,
+          end: Size(videoWidth, videoHeight),
+        ).animate(_sizedController);
+        _sizedController.forward();
       });
 
     return Stack(
@@ -1210,16 +1218,24 @@ class _DraggableBoxState extends State<DraggableBox>
 
         // 小盒子
         AnimatedBuilder(
-            animation: _animationController,
+            animation: _positionAnimationController,
             builder: (context, child) {
               return Positioned(
-                left: _positionAnimation.value.dx + _boxOffset.dx,
-                top: _positionAnimation.value.dy + _boxOffset.dy,
+                left: _positionAnimation.value.dx +
+                    _boxOffset.dx +
+                    max((oldSize.width - _sizedAnimation.value.width) / 2, 0),
+                top: _positionAnimation.value.dy +
+                    _boxOffset.dy +
+                    max((oldSize.height - _sizedAnimation.value.height) / 2, 0),
                 child: GestureDetector(
                     onPanDown: (details) {
-                      _animationController.stop();
+                      _positionAnimationController.stop();
                       _bgTransparentController.stop();
-                      _innerSizedController.stop();
+                      _sizedController.stop();
+
+                      setState(() {
+                        oldSize = _sizedAnimation.value;
+                      });
                     },
                     onPanUpdate: (details) {
                       // 更新偏移量
@@ -1234,10 +1250,21 @@ class _DraggableBoxState extends State<DraggableBox>
                         _bgTransparentController.value = 1 - v;
 
                         // 大小
-                        _innerSizedController.value = v;
+                        _sizedController.value = 1 - v;
+
+                        if (euclideanDistance > 100) {
+                          canBeCloseFlag = true;
+                        } else {
+                          canBeCloseFlag = false;
+                        }
                       });
                     },
-                    onPanEnd: (details) {
+                    onPanEnd: (DragEndDetails details) {
+                      if (canBeCloseFlag) {
+                        closeFullScreen();
+                        return;
+                      }
+
                       // 使用 Tween 动画将偏移量平滑过渡到 (0, 0)
                       _positionAnimation = Tween<Offset>(
                         begin: Offset(
@@ -1245,36 +1272,29 @@ class _DraggableBoxState extends State<DraggableBox>
                             _positionAnimation.value.dy + _boxOffset.dy),
                         end: Offset(0, (screenSize.height - videoHeight) / 2),
                       ).animate(CurvedAnimation(
-                        parent: _animationController,
+                        parent: _positionAnimationController,
                         curve: Curves.linear, // 使用缓动曲线
                       ));
 
                       _boxOffset = Offset.zero;
 
-                      _animationController.reset();
-                      _animationController.forward(from: 0.0); // 开始动画
+                      _positionAnimationController.reset();
+                      _positionAnimationController.forward(from: 0.0); // 开始动画
 
                       _bganimation = Tween<double>(
                               begin: _bgTransparentController.value, end: 255)
                           .animate(_bgTransparentController);
                       _bgTransparentController.forward();
-                      _innerSizedController.reverse();
+
+                      _sizedController.forward();
                     },
                     child: Container(
                         width: _sizedAnimation.value.width,
                         height: _sizedAnimation.value.height,
-                        alignment: Alignment.topCenter,
                         color: Colors.transparent,
-                        child: SizedBox(
-                          // color: const Color.fromARGB(255, 194, 194, 194),
-                          width: _sizedAnimation.value.width *
-                              _innerSizedAnimation.value,
-                          height: _sizedAnimation.value.height *
-                              _innerSizedAnimation.value,
-                          child: AspectRatio(
-                            aspectRatio: _videoController!.value.aspectRatio,
-                            child: VideoPlayer(_videoController!),
-                          ),
+                        child: AspectRatio(
+                          aspectRatio: _videoController!.value.aspectRatio,
+                          child: VideoPlayer(_videoController!),
                         ))
 
                     // Container(
@@ -1292,25 +1312,7 @@ class _DraggableBoxState extends State<DraggableBox>
           right: 30.w,
           child: GestureDetector(
             onTap: () {
-              _videoController?.pause();
-
-              Offset beginPosition = Offset(
-                  _positionAnimation.value.dx + _boxOffset.dx,
-                  _positionAnimation.value.dy + _boxOffset.dy);
-
-              // 使用 Tween 动画将偏移量平滑过渡到 (0, 0)
-              _positionAnimation = Tween<Offset>(
-                begin: widget.openPosition,
-                end: beginPosition,
-              ).animate(CurvedAnimation(
-                parent: _animationController,
-                curve: Curves.linear, // 使用缓动曲线
-              ));
-
-              // _animationController.reset();
-              _animationController.reverse().then((_) {
-                if (widget.onClose != null) widget.onClose!();
-              });
+              closeFullScreen();
             },
             child: Container(
               color: Colors.transparent,
@@ -1331,11 +1333,52 @@ class _DraggableBoxState extends State<DraggableBox>
       ],
     );
   }
+
+  // 关闭全屏
+  void closeFullScreen() {
+    _videoController?.pause();
+    _positionAnimationController.stop();
+    _bgTransparentController.stop();
+    _sizedController.stop();
+    canBeCloseFlag = false;
+
+    Offset currentPosition = Offset(
+        _positionAnimation.value.dx +
+            _boxOffset.dx +
+            max((oldSize.width - _sizedAnimation.value.width) / 2, 0),
+        _positionAnimation.value.dy +
+            _boxOffset.dy +
+            max((oldSize.height - _sizedAnimation.value.height) / 2, 0));
+
+    // 使用 Tween 动画将偏移量平滑过渡到 (0, 0)
+    _positionAnimation = Tween<Offset>(
+      begin: widget.openPosition,
+      end: currentPosition,
+    ).animate(CurvedAnimation(
+      parent: _positionAnimationController,
+      curve: Curves.linear,
+    ));
+
+    setState(() {
+      _boxOffset = Offset.zero;
+      oldSize = Size.zero;
+    });
+
+    _positionAnimationController.value = 1;
+    _positionAnimationController.reverse().then((_) {});
+
+    _bgTransparentController.reverse();
+
+    _sizedController.reverse().then((_) {
+      Future.delayed(const Duration(milliseconds: 5000), () {
+        if (widget.onClose != null) widget.onClose!();
+      });
+    });
+  }
 }
 
 
 // 面板状态：打开、隐藏
-
 
 // 点击笑脸按钮：
 //     1、笑脸选择器尚未被打开，则0~600动画打开笑脸选择器。
@@ -1351,6 +1394,6 @@ class _DraggableBoxState extends State<DraggableBox>
 //     1、如果笑脸选择器和键盘都没打开，则动画打开键盘。（！！！需要考虑第一次打开，没有高度的情况）
 //     2、如果笑脸选择器打开，但键盘没有打开，则动画切换到键盘。（！！！需要考虑第一次打开，没有高度的情况）
 
-
 // 键盘高度获取：
 //     第一次点击笑脸图标和聊天框的时候，记录最大值
+
