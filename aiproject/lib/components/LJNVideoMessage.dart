@@ -1,11 +1,16 @@
-import 'package:ffmpeg_kit_flutter/ffmpeg_kit_config.dart';
-import 'package:ffmpeg_kit_flutter/ffprobe_kit.dart';
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 
 class LJNVideoMessage extends StatefulWidget {
@@ -56,23 +61,78 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
         setState(() {});
       });
 
-    FFprobeKit.getMediaInformation(assetPath(widget.video))
-        .then((session) async {
-      final information = session.getMediaInformation();
+    getVideoInfo();
+  }
 
-      if (information == null) {
-        // CHECK THE FOLLOWING ATTRIBUTES ON ERROR
-        final state =
-            FFmpegKitConfig.sessionStateToString(await session.getState());
-        // final returnCode = await session.getReturnCode();
-        // final failStackTrace = await session.getFailStackTrace();
-        // final duration = await session.getDuration();
-        final output = await session.getOutput();
+  Future<void> getVideoInfo() async {
+    // RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
 
-        logger.info("state: ${state}");
-        logger.info("output: ${output}");
+    // 从assets读文件出来到directory
+    // =========================================================================
+    // 从 assets 加载视频文件
+    // 从 assets 加载视频文件
+    ByteData byteData = await rootBundle.load('assets/images/ins/test.mp4');
+    logger.info('ByteData length: ${byteData.lengthInBytes}');
+
+    if (byteData.lengthInBytes == 0) {
+      throw Exception('Failed to load video file.');
+    }
+    // 获取字节数组
+    List<int> bytes = byteData.buffer
+        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+
+    // 获取应用的文档目录
+    final directory = await getApplicationDocumentsDirectory();
+
+    // 拼接本地存储的文件路径
+    final videoPath = '${directory.path}/test.mp4';
+    final file = File(videoPath);
+
+    // 将字节数据写入文件
+    await file.writeAsBytes(bytes);
+
+    logger.info('文件已保存: $videoPath');
+    // =========================================================================
+
+    final Directory tempDir = await getTemporaryDirectory();
+
+    // 提取首帧并保存为图片
+    final String outputImagePath = '${tempDir.path}/first_frame.png';
+    final String ffmpegCommand =
+        '-i $videoPath -vf "select=eq(n\\,0)" -vsync vfr $outputImagePath';
+
+    await FFmpegKit.execute(ffmpegCommand).then((session) async {
+      final returnCode = await session.getReturnCode();
+      if (ReturnCode.isSuccess(returnCode)) {
+        logger.info('首帧已保存: $outputImagePath');
+      } else {
+        logger.info('提取首帧失败');
       }
     });
+
+    // FFprobeKit.getMediaInformation(videoPath).then((session) async {
+    //   final information = session.getMediaInformation();
+
+    //   // 提取首帧并保存为图片
+    //   final String outputImagePath = '${tempDir.path}/first_frame.png';
+    //   final String ffmpegCommand =
+    //       '-i $videoPath -vf "select=eq(n\\,0)" -vsync vfr $outputImagePath';
+
+    //   logger.info("aaaaaaaaaaa: $ffmpegCommand");
+
+    //   if (information == null) {
+    //     // CHECK THE FOLLOWING ATTRIBUTES ON ERROR
+    //     final state =
+    //         FFmpegKitConfig.sessionStateToString(await session.getState());
+    //     // final returnCode = await session.getReturnCode();
+    //     // final failStackTrace = await session.getFailStackTrace();
+    //     // final duration = await session.getDuration();
+    //     final output = await session.getOutput();
+
+    //     logger.info("aaaaaaaaaaa state: $state");
+    //     logger.info("aaaaaaaaaaa output: $output");
+    //   }
+    // });
   }
 
   @override
