@@ -8,7 +8,7 @@ import 'package:video_player/video_player.dart';
 class LJNVideoMessage extends StatefulWidget {
   const LJNVideoMessage(
       {super.key,
-      required this.message,
+      required this.video,
       required this.showName,
       this.name,
       this.onTap});
@@ -16,29 +16,32 @@ class LJNVideoMessage extends StatefulWidget {
   final Function(Offset, Size)? onTap;
   final String? name;
   final bool showName;
-  final String message;
+  final String video;
 
   @override
   State<LJNVideoMessage> createState() => _LJNVideoMessage();
 }
 
 class _LJNVideoMessage extends State<LJNVideoMessage> {
-  late VideoPlayerController _controller;
+  VideoPlayerController? _controller;
   GlobalKey videoContainerKey = GlobalKey();
+  double videoWidth = 0;
+  double videoHeight = 0;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(assetPath('images/ins/test.mp4'))
-      ..initialize().then((_) {
-        setState(() {});
-      });
   }
 
   @override
   Widget build(BuildContext context) {
-    double videoWidth = 510.w;
-    double videoHeight = videoWidth / _controller.value.aspectRatio;
+    _controller ??= VideoPlayerController.asset(assetPath(widget.video))
+      ..initialize().then((_) {
+        setState(() {
+          videoWidth = 510.w;
+          videoHeight = videoWidth / _controller!.value.aspectRatio;
+        });
+      });
 
     // 对方发的消息
     return StoreConnector<StoreType, StoreType>(
@@ -75,6 +78,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                 )
                               ]),
                         ),
+
                       // 消息
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,8 +99,9 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                               },
                               child: Container(
                                   clipBehavior: Clip.hardEdge,
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 510).w,
+                                  constraints: const BoxConstraints(
+                                          maxWidth: 510, maxHeight: 906)
+                                      .w,
                                   decoration: BoxDecoration(
                                       color: const Color.fromARGB(
                                           255, 158, 236, 114),
@@ -110,32 +115,10 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                     color: Colors.grey,
                                     child: AspectRatio(
                                       aspectRatio:
-                                          _controller.value.aspectRatio,
-                                      child: VideoPlayer(_controller),
+                                          _controller!.value.aspectRatio,
+                                      child: VideoPlayer(_controller!),
                                     ),
-                                  )
-                                  // _controller.value.isInitialized
-                                  //     ? Container(
-                                  //         width: 510.w,
-                                  //         height: 286.w,
-                                  //         color: Colors.grey,
-                                  //         child: AspectRatio(
-                                  //           aspectRatio:
-                                  //               _controller.value.aspectRatio,
-                                  //           child: VideoPlayer(_controller),
-                                  //         ))
-                                  //     : Container(
-                                  //         width: 510.w,
-                                  //         height: 286.w,
-                                  //         color: Colors.grey,
-                                  //         // child: Image.asset(
-                                  //         //   assetPath("images/avatar/linecode.png"),
-                                  //         //   width: 510.0.w,
-                                  //         //   height: 286.0.w,
-                                  //         //   fit: BoxFit.fill,
-                                  //         // ),
-                                  //       ),
-                                  )),
+                                  ))),
 
                           // 箭头
                           SizedBox(

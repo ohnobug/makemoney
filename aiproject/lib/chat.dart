@@ -75,6 +75,7 @@ class _LJNChatPage extends State<LJNChatPage>
 
   Offset openPosition = const Offset(0, 0);
   Size openBoxSize = const Size(0, 0);
+  String videoPath = "";
 
   @override
   void initState() {
@@ -280,7 +281,7 @@ class _LJNChatPage extends State<LJNChatPage>
     ));
 
     messageList.add(LJNVideoMessage(
-      message: '准备好了，永远准备好。',
+      video: 'images/ins/test.mp4',
       showName: false,
       onTap: (Offset position, Size size) {
         // 关闭键盘
@@ -289,8 +290,27 @@ class _LJNChatPage extends State<LJNChatPage>
         setState(() {
           openPosition = position;
           logger.info("openPosition: $openPosition");
-
           openBoxSize = size;
+          videoPath = 'images/ins/test.mp4';
+
+          showFullScreenVideo = true;
+        });
+      },
+    ));
+
+    messageList.add(LJNVideoMessage(
+      video: 'images/ins/video2.mp4',
+      showName: false,
+      onTap: (Offset position, Size size) {
+        // 关闭键盘
+        SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+        setState(() {
+          openPosition = position;
+          logger.info("openPosition: $openPosition");
+          openBoxSize = size;
+          videoPath = 'images/ins/video2.mp4';
+
           showFullScreenVideo = true;
         });
       },
@@ -1030,6 +1050,7 @@ class _LJNChatPage extends State<LJNChatPage>
                   ? DraggableBox(
                       openBoxSize: openBoxSize,
                       openPosition: openPosition,
+                      videoPath: videoPath,
                       onClose: () {
                         setState(() {
                           showFullScreenVideo = false;
@@ -1048,12 +1069,14 @@ class DraggableBox extends StatefulWidget {
 
   final Size openBoxSize;
   final Offset openPosition;
+  final String videoPath;
 
   const DraggableBox(
       {super.key,
       this.onClose,
       required this.openBoxSize,
-      required this.openPosition});
+      required this.openPosition,
+      required this.videoPath});
 
   @override
   State<DraggableBox> createState() => _DraggableBoxState();
@@ -1129,7 +1152,7 @@ class _DraggableBoxState extends State<DraggableBox>
     Size screenSize = MediaQuery.of(context).size;
 
     _videoController ??= VideoPlayerController.asset(
-      assetPath('images/ins/test.mp4'),
+      assetPath(widget.videoPath),
       videoPlayerOptions: VideoPlayerOptions(
         mixWithOthers: false,
         allowBackgroundPlayback: false,
