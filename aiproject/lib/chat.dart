@@ -282,6 +282,8 @@ class _LJNChatPage extends State<LJNChatPage>
 
     messageList.add(LJNVideoMessage(
       video: 'images/ins/test.mp4',
+      width: 768,
+      height: 576,
       showName: false,
       onTap: (Offset position, Size size) {
         // 关闭键盘
@@ -300,6 +302,8 @@ class _LJNChatPage extends State<LJNChatPage>
 
     messageList.add(LJNVideoMessage(
       video: 'images/ins/video2.mp4',
+      width: 576,
+      height: 1024,
       showName: false,
       onTap: (Offset position, Size size) {
         // 关闭键盘
@@ -1107,15 +1111,16 @@ class _DraggableBoxState extends State<DraggableBox>
     // 位置控制器
     _positionAnimationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 200), // 回弹动画时长
+      duration: const Duration(milliseconds: 100), // 回弹动画时长
     );
     _positionAnimation = Tween<Offset>(begin: Offset.zero, end: Offset.zero)
-        .animate(_positionAnimationController);
+        .animate(CurvedAnimation(
+            parent: _positionAnimationController, curve: Curves.easeInCirc));
 
     // 背景透明度控制器
     _bgTransparentController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 100),
     );
     _bganimation = Tween<double>(begin: 0, end: 255).animate(CurvedAnimation(
         parent: _bgTransparentController, curve: Curves.easeInCirc));
@@ -1123,14 +1128,15 @@ class _DraggableBoxState extends State<DraggableBox>
     // 盒子大小控制器
     _sizedController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 100),
     );
 
     // 大小
     _sizedAnimation = Tween<Size>(
       begin: widget.openBoxSize,
       end: Size(videoWidth, videoHeight),
-    ).animate(_sizedController);
+    ).animate(
+        CurvedAnimation(parent: _sizedController, curve: Curves.easeInCirc));
   }
 
   @override
@@ -1253,7 +1259,7 @@ class _DraggableBoxState extends State<DraggableBox>
                 end: Offset(0, (screenSize.height - videoHeight) / 2),
               ).animate(CurvedAnimation(
                 parent: _positionAnimationController,
-                curve: Curves.linear, // 使用缓动曲线
+                curve: Curves.easeInCirc, // 使用缓动曲线
               ));
 
               setState(() {
@@ -1373,7 +1379,7 @@ class _DraggableBoxState extends State<DraggableBox>
       end: currentPosition,
     ).animate(CurvedAnimation(
       parent: _positionAnimationController,
-      curve: Curves.linear,
+      curve: Curves.easeInCirc,
     ));
 
     _positionAnimationController.value = 1;

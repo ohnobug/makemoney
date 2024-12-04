@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
@@ -11,12 +13,16 @@ class LJNVideoMessage extends StatefulWidget {
       required this.video,
       required this.showName,
       this.name,
-      this.onTap});
+      this.onTap,
+      required this.width,
+      required this.height});
 
   final Function(Offset, Size)? onTap;
   final String? name;
   final bool showName;
   final String video;
+  final double width;
+  final double height;
 
   @override
   State<LJNVideoMessage> createState() => _LJNVideoMessage();
@@ -25,24 +31,39 @@ class LJNVideoMessage extends StatefulWidget {
 class _LJNVideoMessage extends State<LJNVideoMessage> {
   VideoPlayerController? _controller;
   GlobalKey videoContainerKey = GlobalKey();
-  double videoWidth = 0;
-  double videoHeight = 0;
+  late double videoWidth;
+  late double videoHeight;
 
   @override
   void initState() {
     super.initState();
+
+    double aspectRatio = widget.width / widget.height;
+    if (aspectRatio > 1) {
+      videoWidth = 400.w;
+      videoHeight = videoWidth / aspectRatio;
+    } else {
+      videoHeight = 400.w / aspectRatio;
+      if (videoHeight > 906.w) {
+        videoHeight = 906.w;
+      }
+      videoWidth = videoHeight * aspectRatio;
+    }
+
+    _controller ??= VideoPlayerController.asset(assetPath(widget.video))
+      ..initialize().then((_) {
+        setState(() {});
+      });
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    _controller ??= VideoPlayerController.asset(assetPath(widget.video))
-      ..initialize().then((_) {
-        setState(() {
-          videoWidth = 510.w;
-          videoHeight = videoWidth / _controller!.value.aspectRatio;
-        });
-      });
-
     // 对方发的消息
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -98,27 +119,20 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                 widget.onTap!(position, size);
                               },
                               child: Container(
-                                  clipBehavior: Clip.hardEdge,
-                                  constraints: const BoxConstraints(
-                                          maxWidth: 510, maxHeight: 906)
-                                      .w,
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 158, 236, 114),
-                                      borderRadius: BorderRadius.circular(8).w),
-                                  // padding: EdgeInsets.symmetric(
-                                  //     horizontal: 25.w, vertical: 18.w),
-                                  child: Container(
-                                    key: videoContainerKey,
-                                    width: videoWidth,
-                                    height: videoHeight,
-                                    color: Colors.grey,
-                                    child: AspectRatio(
-                                      aspectRatio:
-                                          _controller!.value.aspectRatio,
-                                      child: VideoPlayer(_controller!),
-                                    ),
-                                  ))),
+                                clipBehavior: Clip.hardEdge,
+                                key: videoContainerKey,
+                                width: videoWidth,
+                                height: videoHeight,
+                                // color: Colors.grey,
+                                decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                        255, 158, 236, 114),
+                                    borderRadius: BorderRadius.circular(8).w),
+                                child: AspectRatio(
+                                  aspectRatio: _controller!.value.aspectRatio,
+                                  child: VideoPlayer(_controller!),
+                                ),
+                              )),
 
                           // 箭头
                           SizedBox(
