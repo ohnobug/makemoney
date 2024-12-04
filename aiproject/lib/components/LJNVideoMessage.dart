@@ -1,6 +1,7 @@
-import 'dart:math';
-
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit_config.dart';
+import 'package:ffmpeg_kit_flutter/ffprobe_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -54,6 +55,24 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
       ..initialize().then((_) {
         setState(() {});
       });
+
+    FFprobeKit.getMediaInformation(assetPath(widget.video))
+        .then((session) async {
+      final information = session.getMediaInformation();
+
+      if (information == null) {
+        // CHECK THE FOLLOWING ATTRIBUTES ON ERROR
+        final state =
+            FFmpegKitConfig.sessionStateToString(await session.getState());
+        // final returnCode = await session.getReturnCode();
+        // final failStackTrace = await session.getFailStackTrace();
+        // final duration = await session.getDuration();
+        final output = await session.getOutput();
+
+        logger.info("state: ${state}");
+        logger.info("output: ${output}");
+      }
+    });
   }
 
   @override
