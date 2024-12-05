@@ -609,12 +609,9 @@ class _ChatListViewState extends State<LJNHome22Page>
     logger.info(
         "topLottieOpacity: $topLottieOpacity   vm.homescrollpixels: ${vm.homescrollpixels}");
 
-    bool batterThen25 =
-        ((vm.homescrollpixels + _statusHeight) > percent25Position);
-
     return Stack(
       children: [
-        if (batterThen25)
+        if (vm.homescrollpixels > 0)
           Image.asset(assetPath("lotties/miniprogrambg.awebp"),
               width: screenSize.width,
               height: screenSize.height,
@@ -638,7 +635,7 @@ class _ChatListViewState extends State<LJNHome22Page>
         // ),
 
         // 小程序, 需要现在在appbar下面
-        if (batterThen25)
+        if (vm.homescrollpixels > 0)
           Positioned(
             top: 0,
             left: 0,
@@ -649,7 +646,7 @@ class _ChatListViewState extends State<LJNHome22Page>
           ),
 
         // 列表背景
-        if (batterThen25)
+        if (vm.homescrollpixels > 0)
           Positioned(
               top: 90.w + _statusHeight + vm.homescrollpixels,
               left: 0,
@@ -711,144 +708,150 @@ class _ChatListViewState extends State<LJNHome22Page>
                     )))),
 
         // 三个点点动画
-        if (topLottieOpacity != 1)
-          Opacity(
-              opacity: 1 - topLottieOpacity,
-              child: Container(
-                  color: const Color.fromARGB(255, 237, 237, 237),
-                  width: screenSize.width,
-                  height: vm.homescrollpixels + (90.w + _statusHeight),
-                  // padding: EdgeInsets.only(top: _statusHeight),
-                  child: _lottieController.isCompleted
-                      ? null
-                      : Lottie.asset(
-                          assetPath('lotties/homeminiprogramdarwing.json'),
-                          width: screenSize.width,
-                          height: vm.homescrollpixels + _statusHeight + 90.w,
-                          fit: BoxFit.contain,
-                          renderCache: RenderCache.drawingCommands,
-                          controller: _lottieController,
-                          onLoaded: (composition) {
-                            // _lottieController
-                            //   ..duration = const Duration(milliseconds: 600)
-                            //   ..forward();
-                          },
-                        ))),
+        Visibility(
+            // visible: false,
+            visible: topLottieOpacity != 1,
+            child: Opacity(
+                opacity: 1 - topLottieOpacity,
+                child: Container(
+                    color: const Color.fromARGB(255, 237, 237, 237),
+                    width: screenSize.width,
+                    height: vm.homescrollpixels + (90.w + _statusHeight),
+                    // padding: EdgeInsets.only(top: _statusHeight),
+                    child: _lottieController.isCompleted
+                        ? null
+                        : Lottie.asset(
+                            assetPath('lotties/homeminiprogramdarwing.json'),
+                            width: screenSize.width,
+                            height: vm.homescrollpixels + _statusHeight + 90.w,
+                            fit: BoxFit.contain,
+                            renderCache: RenderCache.drawingCommands,
+                            controller: _lottieController,
+                            onLoaded: (composition) {
+                              // _lottieController
+                              //   ..duration = const Duration(milliseconds: 600)
+                              //   ..forward();
+                            },
+                          )))),
 
         // 新appbar
-        if (batterThen25)
-          Positioned(
-              height: 90.w +
-                  (screenSize.height -
-                      (vm.homescrollpixels + _statusHeight + 90.w)),
-              width: 750.w,
-              top: vm.homescrollpixels + _statusHeight,
-              child: Listener(
-                  onPointerDown: (event) {
-                    // 记录手指按下时的 Y 轴位置
-                    initialY = event.position.dy;
-                    downHomescrollpixels = vm.homescrollpixels;
-                  },
-                  onPointerMove: (event) {
-                    logger.info('Y轴移动距离: $deltaY');
+        Visibility(
+            visible: (vm.homescrollpixels + _statusHeight) > percent25Position,
+            // visible: true,
+            child: Positioned(
+                height: 90.w +
+                    (screenSize.height -
+                        (vm.homescrollpixels + _statusHeight + 90.w)),
+                width: 750.w,
+                top: vm.homescrollpixels + _statusHeight,
+                child: Listener(
+                    onPointerDown: (event) {
+                      // 记录手指按下时的 Y 轴位置
+                      initialY = event.position.dy;
+                      downHomescrollpixels = vm.homescrollpixels;
+                    },
+                    onPointerMove: (event) {
+                      logger.info('Y轴移动距离: $deltaY');
 
-                    // 不允许下拉, 只允许上拉
-                    if (initialY < event.position.dy) {
-                      return;
-                    }
+                      // 不允许下拉, 只允许上拉
+                      if (initialY < event.position.dy) {
+                        return;
+                      }
 
-                    // 计算手指在Y轴上移动的距离
-                    deltaY = event.position.dy - initialY;
+                      // 计算手指在Y轴上移动的距离
+                      deltaY = event.position.dy - initialY;
 
-                    double newHomescrollpixels =
-                        downHomescrollpixels - deltaY.abs();
+                      double newHomescrollpixels =
+                          downHomescrollpixels - deltaY.abs();
 
-                    myStore.dispatch({
-                      "type": "homescrollpixels",
-                      "payload": newHomescrollpixels
-                    });
+                      myStore.dispatch({
+                        "type": "homescrollpixels",
+                        "payload": newHomescrollpixels
+                      });
 
-                    _animationController!.value = newHomescrollpixels;
-                  },
-                  onPointerUp: (event) {
-                    // 恢复
-                    reverse();
-                  },
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // App标题栏
-                        ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12.w),
-                              topRight: Radius.circular(12.w),
-                            ),
-                            child: AppBar(
-                              primary: false,
-                              title: const Text("微信"),
-                              centerTitle: true,
-                              titleTextStyle: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(32.w),
-                                  color: Colors.white,
-                                  fontFamily: "AlibabaPuHuiTi-Medium"),
-                              toolbarHeight: 90.w,
-                              elevation: 0,
-                              scrolledUnderElevation: 0,
-                              backgroundColor: Color.fromARGB(
-                                  (newAppbarOpacity * 255).toInt(),
-                                  121,
-                                  115,
-                                  149),
-                              foregroundColor: Color.fromARGB(
-                                  (newAppbarOpacity * 255).toInt(),
-                                  121,
-                                  115,
-                                  149),
-                              actions: [
-                                Container(
-                                  color: Colors.transparent,
-                                  height: 90.w,
-                                  padding:
-                                      EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                                  child: Icon(
+                      _animationController!.value = newHomescrollpixels;
+                    },
+                    onPointerUp: (event) {
+                      // 恢复
+                      reverse();
+                    },
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // App标题栏
+                          ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12.w),
+                                topRight: Radius.circular(12.w),
+                              ),
+                              child: AppBar(
+                                primary: false,
+                                title: const Text("微信"),
+                                centerTitle: true,
+                                titleTextStyle: TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(32.w),
                                     color: Colors.white,
-                                    const IconData(
-                                      0xe612,
-                                      fontFamily: 'Iconfont',
+                                    fontFamily: "AlibabaPuHuiTi-Medium"),
+                                toolbarHeight: 90.w,
+                                elevation: 0,
+                                scrolledUnderElevation: 0,
+                                backgroundColor: Color.fromARGB(
+                                    (newAppbarOpacity * 255).toInt(),
+                                    121,
+                                    115,
+                                    149),
+                                foregroundColor: Color.fromARGB(
+                                    (newAppbarOpacity * 255).toInt(),
+                                    121,
+                                    115,
+                                    149),
+                                actions: [
+                                  Container(
+                                    color: Colors.transparent,
+                                    height: 90.w,
+                                    padding:
+                                        EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                                    child: Icon(
+                                      color: Colors.white,
+                                      const IconData(
+                                        0xe612,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      size: 40.w, // 图标大小
                                     ),
-                                    size: 40.w, // 图标大小
                                   ),
-                                ),
-                                Container(
-                                  color: Colors.transparent,
-                                  height: 90.w,
-                                  padding:
-                                      EdgeInsets.only(right: 40.w), // 设置右侧内边距
-                                  child: Icon(
-                                    color: Colors.white,
-                                    const IconData(
-                                      0xe726,
-                                      fontFamily: 'Iconfont',
+                                  Container(
+                                    color: Colors.transparent,
+                                    height: 90.w,
+                                    padding:
+                                        EdgeInsets.only(right: 40.w), // 设置右侧内边距
+                                    child: Icon(
+                                      color: Colors.white,
+                                      const IconData(
+                                        0xe726,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      size: 42.w, // 图标大小
                                     ),
-                                    size: 42.w, // 图标大小
                                   ),
-                                ),
-                              ],
-                            )),
+                                ],
+                              )),
 
-                        // AppBar底部遮挡层
-                        Opacity(
-                            // opacity: 0.5,
-                            opacity: coverOpacity,
-                            child: Container(
-                              height: screenSize.height -
-                                  (vm.homescrollpixels + _statusHeight + 90.w),
-                              child: null,
-                              color: const Color.fromARGB(255, 121, 115, 149),
-                            ))
-                      ]))),
+                          // AppBar底部遮挡层
+                          Opacity(
+                              // opacity: 0.5,
+                              opacity: coverOpacity,
+                              child: Container(
+                                height: screenSize.height -
+                                    (vm.homescrollpixels +
+                                        _statusHeight +
+                                        90.w),
+                                child: null,
+                                color: const Color.fromARGB(255, 121, 115, 149),
+                              ))
+                        ])))),
       ],
     );
   }
