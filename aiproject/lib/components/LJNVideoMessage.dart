@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
-import 'dart:ui';
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +10,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
+import 'package:path/path.dart' as path;
 
 class LJNVideoMessage extends StatefulWidget {
   const LJNVideoMessage(
@@ -39,6 +38,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
   GlobalKey videoContainerKey = GlobalKey();
   late double videoWidth;
   late double videoHeight;
+  String? picPath;
 
   @override
   void initState() {
@@ -56,83 +56,70 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
       videoWidth = videoHeight * aspectRatio;
     }
 
-    _controller ??= VideoPlayerController.asset(assetPath(widget.video))
-      ..initialize().then((_) {
-        setState(() {});
-      });
+    // _controller ??= VideoPlayerController.asset(assetPath(widget.video))
+    //   ..initialize().then((_) {
+    //     setState(() {});
+    //   });
 
-    getVideoInfo();
+    getFirstFrame(assetPath(widget.video));
   }
 
-  Future<void> getVideoInfo() async {
-    // RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
+  Future<void> getFirstFrame(String filepath) async {
+    String filehash = await generateStringChunkHash(filepath);
+    String tempFile = filehash.substring(0, 16);
 
-    // 从assets读文件出来到directory
-    // =========================================================================
-    // 从 assets 加载视频文件
-    // 从 assets 加载视频文件
-    ByteData byteData = await rootBundle.load('assets/images/ins/test.mp4');
-    logger.info('ByteData length: ${byteData.lengthInBytes}');
-
-    if (byteData.lengthInBytes == 0) {
-      throw Exception('Failed to load video file.');
-    }
-    // 获取字节数组
-    List<int> bytes = byteData.buffer
-        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
-
-    // 获取应用的文档目录
-    final directory = await getApplicationDocumentsDirectory();
-
-    // 拼接本地存储的文件路径
-    final videoPath = '${directory.path}/test.mp4';
-    final file = File(videoPath);
-
-    // 将字节数据写入文件
-    await file.writeAsBytes(bytes);
-
-    logger.info('文件已保存: $videoPath');
-    // =========================================================================
-
-    final Directory tempDir = await getTemporaryDirectory();
+    final List<Directory>? tempDir = await getExternalCacheDirectories();
 
     // 提取首帧并保存为图片
-    final String outputImagePath = '${tempDir.path}/first_frame.png';
-    final String ffmpegCommand =
-        '-i $videoPath -vf "select=eq(n\\,0)" -vsync vfr $outputImagePath';
+    final String outputImagePath = '${tempDir?[0].path}/$tempFile.png';
 
-    await FFmpegKit.execute(ffmpegCommand).then((session) async {
-      final returnCode = await session.getReturnCode();
-      if (ReturnCode.isSuccess(returnCode)) {
-        logger.info('首帧已保存: $outputImagePath');
-      } else {
-        logger.info('提取首帧失败');
+    if (File(outputImagePath).existsSync()) {
+      setState(() {
+        picPath = outputImagePath;
+      });
+      return;
+    } else {
+      // 获取应用的文档目录
+      final directory = await getApplicationDocumentsDirectory();
+      String filename = path.basename(filepath);
+
+      // 拼接本地存储的文件路径
+      final videoPath = '${directory.path}/$filename';
+      // =========================================================================
+      // 从 assets 加载视频文件
+      ByteData byteData = await rootBundle.load(filepath);
+      // logger.info('ByteData length: ${byteData.lengthInBytes}');
+      if (byteData.lengthInBytes == 0) {
+        throw Exception('Failed to load video file.');
       }
-    });
+      List<int> bytes = byteData.buffer
+          .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+      final file = File(videoPath);
+      await file.writeAsBytes(bytes);
+      // =========================================================================
 
-    // FFprobeKit.getMediaInformation(videoPath).then((session) async {
-    //   final information = session.getMediaInformation();
+      final String ffmpegCommand =
+          '-i $videoPath -vframes 1 -f image2 $outputImagePath';
 
-    //   // 提取首帧并保存为图片
-    //   final String outputImagePath = '${tempDir.path}/first_frame.png';
-    //   final String ffmpegCommand =
-    //       '-i $videoPath -vf "select=eq(n\\,0)" -vsync vfr $outputImagePath';
+      await FFmpegKit.execute(ffmpegCommand).then((session) async {
+        final returnCode = await session.getReturnCode();
+        logger.info("returnCode: $returnCode");
 
-    //   logger.info("aaaaaaaaaaa: $ffmpegCommand");
+        if (ReturnCode.isSuccess(returnCode)) {
+          logger.info('首帧已保存: $outputImagePath');
+          setState(() {
+            picPath = outputImagePath;
+          });
+        } else {
+          logger.info('提取首帧失败');
 
-    //   if (information == null) {
-    //     // CHECK THE FOLLOWING ATTRIBUTES ON ERROR
-    //     final state =
-    //         FFmpegKitConfig.sessionStateToString(await session.getState());
-    //     // final returnCode = await session.getReturnCode();
-    //     // final failStackTrace = await session.getFailStackTrace();
-    //     // final duration = await session.getDuration();
-    //     final output = await session.getOutput();
-
-    //     logger.info("aaaaaaaaaaa state: $state");
-    //     logger.info("aaaaaaaaaaa output: $output");
-    //   }
-    // });
+          // 得设置默认图片
+          setState(() {
+            picPath = outputImagePath;
+          });
+        }
+      });
+    }
   }
 
   @override
@@ -198,21 +185,37 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                 widget.onTap!(position, size);
                               },
                               child: Container(
-                                clipBehavior: Clip.hardEdge,
-                                key: videoContainerKey,
-                                width: videoWidth,
-                                height: videoHeight,
-                                // color: Colors.grey,
-                                decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                        255, 158, 236, 114),
-                                    borderRadius: BorderRadius.circular(8).w),
-                                child: AspectRatio(
-                                  aspectRatio: _controller!.value.aspectRatio,
-                                  child: VideoPlayer(_controller!),
-                                ),
-                              )),
-
+                                  clipBehavior: Clip.hardEdge,
+                                  key: videoContainerKey,
+                                  width: videoWidth,
+                                  height: videoHeight,
+                                  // color: Colors.grey,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 158, 236, 114),
+                                      borderRadius: BorderRadius.circular(8).w),
+                                  child: picPath != null
+                                      ? Stack(
+                                          children: [
+                                            Image.file(
+                                              File(picPath!),
+                                              width: videoWidth,
+                                              height: videoHeight,
+                                              fit: BoxFit.contain,
+                                            ),
+                                            const Text(
+                                              "缓存",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ],
+                                        )
+                                      : Container()
+                                  // AspectRatio(
+                                  //   aspectRatio: _controller!.value.aspectRatio,
+                                  //   child: VideoPlayer(_controller!),
+                                  // ),
+                                  )),
                           // 箭头
                           SizedBox(
                             width: 20.w,

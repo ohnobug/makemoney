@@ -1,6 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
-
+import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -216,6 +217,22 @@ String mockName() {
 
   Random random = Random();
   return names[random.nextInt(names.length)];
+}
+
+Future<String> generateBytesChunkHash(List<int> bytes) async {
+  // 使用 SHA-256 哈希算法
+  final hash = sha256.convert(bytes);
+
+  // 返回文件内容的哈希值（十六进制表示）
+  return hash.toString();
+}
+
+Future<String> generateStringChunkHash(String str) async {
+  // 使用 SHA-256 哈希算法
+  final hash = sha256.convert(utf8.encode(str));
+
+  // 返回文件内容的哈希值（十六进制表示）
+  return hash.toString();
 }
 
 // 提亮颜色
