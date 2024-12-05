@@ -1152,6 +1152,7 @@ class _DraggableBoxState extends State<DraggableBox>
   double videoHeight = 0;
   bool canBeCloseFlag = false;
   Size oldSize = const Size(0, 0);
+  Offset? originPoint;
 
   @override
   Widget build(BuildContext context) {
@@ -1169,13 +1170,13 @@ class _DraggableBoxState extends State<DraggableBox>
         videoHeight = videoWidth / _videoController!.value.aspectRatio;
 
         // 中心点坐标
-        Offset center = Offset((screenSize.width - videoWidth) / 2,
+        originPoint = Offset((screenSize.width - videoWidth) / 2,
             (screenSize.height - videoHeight) / 2);
 
         // 位置
         _positionAnimation = Tween<Offset>(
           begin: widget.openPosition,
-          end: Offset(0, center.dy),
+          end: Offset(0, originPoint!.dy),
         ).animate(_positionAnimationController);
 
         // 背景
@@ -1194,122 +1195,105 @@ class _DraggableBoxState extends State<DraggableBox>
         _sizedController.forward();
       });
 
-    return PopScope(
-        canPop: false, // 不允许默认弹出，使用自定义逻辑控制返回
-        onPopInvokedWithResult: (didPop, result) async {
-          if (didPop) {
-            return;
-          }
+    return AnimatedBuilder(
+        animation: _positionAnimationController,
+        builder: (context, child) {
+          Offset currentPosition = Offset(
+              _positionAnimation.value.dx +
+                  _boxOffset.dx +
+                  max((oldSize.width - _sizedAnimation.value.width) / 2, 0),
+              _positionAnimation.value.dy +
+                  _boxOffset.dy +
+                  max((oldSize.height - _sizedAnimation.value.height) / 2, 0));
 
-          closeFullScreen();
-        },
-        child: GestureDetector(
-            onPanDown: (details) {
-              _positionAnimationController.stop();
-              _bgTransparentController.stop();
-              _sizedController.stop();
-
-              // 缩小或者放大过程再次被点击，取消关闭
-              cancelableDelay?.cancel();
-
-              setState(() {
-                oldSize = _sizedAnimation.value;
-              });
-            },
-            onPanUpdate: (details) {
-              // 更新偏移量
-              setState(() {
-                // 偏移
-                _boxOffset += details.delta;
-
-                // 背景
-                double euclideanDistance = _boxOffset.dy.abs();
-                double v = euclideanDistance / (screenSize.height / 2);
-                if (v > 1) v = 1;
-                _bgTransparentController.value = 1 - v;
-
-                // 大小
-                _sizedController.value = 1 - v;
-
-                if (euclideanDistance > 100) {
-                  canBeCloseFlag = true;
-                } else {
-                  canBeCloseFlag = false;
+          return PopScope(
+              canPop: false, // 不允许默认弹出，使用自定义逻辑控制返回
+              onPopInvokedWithResult: (didPop, result) async {
+                if (didPop) {
+                  return;
                 }
-              });
-            },
-            onPanEnd: (DragEndDetails details) {
-              if (canBeCloseFlag) {
-                closeFullScreen();
-                return;
-              }
+                closeFullScreen(currentPosition);
+              },
+              child: GestureDetector(
+                  onPanDown: (details) {
+                    _positionAnimationController.stop();
+                    _bgTransparentController.stop();
+                    _sizedController.stop();
 
-              Offset currentPosition = Offset(
-                  _positionAnimation.value.dx +
-                      _boxOffset.dx +
-                      max((oldSize.width - _sizedAnimation.value.width) / 2, 0),
-                  _positionAnimation.value.dy +
-                      _boxOffset.dy +
-                      max((oldSize.height - _sizedAnimation.value.height) / 2,
-                          0));
+                    // 缩小或者放大过程再次被点击，取消关闭
+                    cancelableDelay?.cancel();
 
-              // 使用 Tween 动画将偏移量平滑过渡到 (0, 0)
-              _positionAnimation = Tween<Offset>(
-                begin: currentPosition,
-                end: Offset(0, (screenSize.height - videoHeight) / 2),
-              ).animate(CurvedAnimation(
-                parent: _positionAnimationController,
-                curve: Curves.easeInCirc, // 使用缓动曲线
-              ));
+                    setState(() {
+                      oldSize = _sizedAnimation.value;
+                    });
+                  },
+                  onPanUpdate: (details) {
+                    // 更新偏移量
+                    setState(() {
+                      // 偏移
+                      _boxOffset += details.delta;
 
-              setState(() {
-                _boxOffset = Offset.zero;
-                oldSize = Size.zero;
-              });
+                      // 背景
+                      double distance = _boxOffset.dy.abs();
+                      double v = distance / (screenSize.height / 2);
 
-              _positionAnimationController.reset();
-              _positionAnimationController.forward(from: 0.0); // 开始动画
+                      if (v > 1) v = 1;
+                      _bgTransparentController.value = 1 - v;
 
-              _bganimation =
-                  Tween<double>(begin: _bgTransparentController.value, end: 255)
-                      .animate(_bgTransparentController);
-              _bgTransparentController.forward();
+                      // 大小
+                      _sizedController.value = 1 - v;
 
-              _sizedController.forward();
-            },
-            child: Stack(
-              children: [
-                // 大盒子（全屏）
-                AnimatedBuilder(
-                    animation: _bgTransparentController,
-                    builder: (context, child) {
-                      return Container(
+                      if (distance > 100) {
+                        canBeCloseFlag = true;
+                      } else {
+                        canBeCloseFlag = false;
+                      }
+                    });
+                  },
+                  onPanEnd: (DragEndDetails details) {
+                    if (canBeCloseFlag) {
+                      closeFullScreen();
+                      return;
+                    }
+
+                    // 使用 Tween 动画将偏移量平滑过渡到 (0, 0)
+                    _positionAnimation = Tween<Offset>(
+                      begin: currentPosition,
+                      end: Offset(0, (screenSize.height - videoHeight) / 2),
+                    ).animate(CurvedAnimation(
+                      parent: _positionAnimationController,
+                      curve: Curves.easeInCirc, // 使用缓动曲线
+                    ));
+
+                    setState(() {
+                      _boxOffset = Offset.zero;
+                      oldSize = Size.zero;
+                    });
+
+                    _positionAnimationController.reset();
+                    _positionAnimationController.forward(from: 0.0); // 开始动画
+
+                    _bganimation = Tween<double>(
+                            begin: _bgTransparentController.value, end: 255)
+                        .animate(_bgTransparentController);
+                    _bgTransparentController.forward();
+
+                    _sizedController.forward();
+                  },
+                  child: Stack(
+                    children: [
+                      // 背景
+                      Container(
                         width: screenSize.width,
                         height: screenSize.height,
                         color:
                             Color.fromARGB(_bganimation.value.toInt(), 0, 0, 0),
-                      );
-                    }),
+                      ),
 
-                // 小盒子
-                AnimatedBuilder(
-                    animation: _positionAnimationController,
-                    builder: (context, child) {
-                      return Positioned(
-                          left: _positionAnimation.value.dx +
-                              _boxOffset.dx +
-                              max(
-                                  (oldSize.width -
-                                          _sizedAnimation.value.width) /
-                                      2,
-                                  0),
-                          top: _positionAnimation.value.dy +
-                              _boxOffset.dy +
-                              max(
-                                  (oldSize.height -
-                                          _sizedAnimation.value.height) /
-                                      2,
-                                  0),
+                      // 视频窗口
+                      Positioned(
+                          left: currentPosition.dx,
+                          top: currentPosition.dy,
                           child: Container(
                               width: _sizedAnimation.value.width,
                               height: _sizedAnimation.value.height,
@@ -1318,55 +1302,53 @@ class _DraggableBoxState extends State<DraggableBox>
                                 aspectRatio:
                                     _videoController!.value.aspectRatio,
                                 child: VideoPlayer(_videoController!),
-                              )));
-                    }),
+                              ))),
 
-                // 关闭按钮
-                Positioned(
-                  top: 90.w,
-                  right: 30.w,
-                  child: GestureDetector(
-                    onTap: () {
-                      closeFullScreen();
-                    },
-                    child: Container(
-                      color: Colors.transparent,
-                      margin: EdgeInsets.only(left: 39.w),
-                      width: 50.w,
-                      height: 50.w,
-                      child: Icon(
-                        const IconData(
-                          0xe601,
-                          fontFamily: 'Iconfont',
+                      // 关闭按钮
+                      if (currentPosition == originPoint)
+                        Positioned(
+                          top: 90.w,
+                          right: 30.w,
+                          child: GestureDetector(
+                            onTap: () {
+                              closeFullScreen();
+                            },
+                            child: Container(
+                              width: 60.w,
+                              height: 60.w,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50.w)),
+                              ),
+                              alignment: Alignment.center,
+                              child: Icon(
+                                const IconData(
+                                  0xe60f,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                size: 30.w, // 图标的大小
+                                color:
+                                    const Color.fromARGB(255, 0, 0, 0), // 图标颜色
+                              ),
+                            ),
+                          ),
                         ),
-                        size: 50.w, // 图标的大小
-                        color: const Color.fromARGB(255, 255, 255, 255), // 图标颜色
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            )));
+                    ],
+                  )));
+        });
   }
 
   CancelableDelay? cancelableDelay;
 
   // 关闭全屏
-  void closeFullScreen() {
+  void closeFullScreen(Offset currentPosition) {
     _videoController?.pause();
     _positionAnimationController.stop();
     _bgTransparentController.stop();
     _sizedController.stop();
     canBeCloseFlag = false;
     cancelableDelay = CancelableDelay();
-
-    Offset currentPosition = Offset(
-        _positionAnimation.value.dx +
-            _boxOffset.dx +
-            max((oldSize.width - _sizedAnimation.value.width) / 2, 0),
-        _positionAnimation.value.dy +
-            _boxOffset.dy +
-            max((oldSize.height - _sizedAnimation.value.height) / 2, 0));
 
     setState(() {
       _boxOffset = Offset.zero;

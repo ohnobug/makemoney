@@ -119,6 +119,8 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
           });
         }
       });
+
+      await FFmpegKit.cancel();
     }
   }
 
