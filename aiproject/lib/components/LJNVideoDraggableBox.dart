@@ -152,6 +152,9 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
                 closeFullScreen(currentPosition);
               },
               child: GestureDetector(
+                  onTap: () {
+                    closeFullScreen(currentPosition);
+                  },
                   onPanDown: (details) {
                     _positionAnimationController.stop();
                     _bgTransparentController.stop();
