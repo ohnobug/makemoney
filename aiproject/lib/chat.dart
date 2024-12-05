@@ -1252,7 +1252,7 @@ class _DraggableBoxState extends State<DraggableBox>
                   },
                   onPanEnd: (DragEndDetails details) {
                     if (canBeCloseFlag) {
-                      closeFullScreen();
+                      closeFullScreen(currentPosition);
                       return;
                     }
 
@@ -1311,7 +1311,7 @@ class _DraggableBoxState extends State<DraggableBox>
                           right: 30.w,
                           child: GestureDetector(
                             onTap: () {
-                              closeFullScreen();
+                              closeFullScreen(currentPosition);
                             },
                             child: Container(
                               width: 60.w,
