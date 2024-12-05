@@ -61,8 +61,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
       duration: const Duration(milliseconds: 100),
     );
     _bganimation = Tween<double>(begin: 0, end: 255).animate(CurvedAnimation(
-        parent: _bgTransparentController,
-        curve: Curves.easeInOutCubicEmphasized));
+        parent: _bgTransparentController, curve: Curves.easeInOut));
 
     // 盒子大小控制器
     _sizedController = AnimationController(
@@ -74,8 +73,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
     _sizedAnimation = Tween<Size>(
       begin: widget.openBoxSize,
       end: Size(videoWidth, videoHeight),
-    ).animate(CurvedAnimation(
-        parent: _sizedController, curve: Curves.easeInOutCubicEmphasized));
+    ).animate(CurvedAnimation(parent: _sizedController, curve: Curves.linear));
   }
 
   @override
@@ -300,7 +298,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
       end: currentPosition,
     ).animate(CurvedAnimation(
       parent: _positionAnimationController,
-      curve: Curves.easeInOutCubicEmphasized,
+      curve: Curves.linear,
     ));
 
     _positionAnimationController.value = 1;
