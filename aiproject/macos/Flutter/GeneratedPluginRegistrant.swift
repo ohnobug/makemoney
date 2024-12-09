@@ -7,7 +7,7 @@ import Foundation
 
 import audioplayers_darwin
 import device_info_plus
-import ffmpeg_kit_flutter_min
+import ffmpeg_kit_flutter
 import mobile_scanner
 import path_provider_foundation
 import video_player_avfoundation

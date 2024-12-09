@@ -4,7 +4,6 @@ import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNSpecialFunctionItem extends StatefulWidget {
-  final String? icon;
   final double? height;
   final String title;
   final String? link;
@@ -15,7 +14,6 @@ class LJNSpecialFunctionItem extends StatefulWidget {
 
   const LJNSpecialFunctionItem(
       {super.key,
-      this.icon,
       this.height,
       required this.title,
       this.link,

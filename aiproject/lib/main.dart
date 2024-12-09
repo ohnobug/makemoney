@@ -15,6 +15,8 @@ import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/miniprogram.dart';
 import 'package:jiaoyishuoflutter3/mywebview.dart';
 import 'package:jiaoyishuoflutter3/settings/about.dart';
+import 'package:jiaoyishuoflutter3/settings/billDetails.dart';
+import 'package:jiaoyishuoflutter3/settings/changeDetails.dart';
 import 'package:jiaoyishuoflutter3/settings/chatSetting.dart';
 import 'package:jiaoyishuoflutter3/settings/commonSetting.dart';
 import 'package:jiaoyishuoflutter3/settings/deviceDetail.dart';
@@ -83,14 +85,16 @@ void main() async {
   await ScreenUtil.ensureScreenSize();
 
   // 禁止横屏
-  await SystemChrome.setPreferredOrientations(
-    [
-      DeviceOrientation.portraitUp, // 竖屏 Portrait 模式
-      DeviceOrientation.portraitDown,
-      // DeviceOrientation.landscapeLeft, // 横屏 Landscape 模式
-      // DeviceOrientation.landscapeRight,
-    ],
-  );
+  if (!kIsWeb) {
+    await SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp, // 竖屏 Portrait 模式
+        DeviceOrientation.portraitDown,
+        // DeviceOrientation.landscapeLeft, // 横屏 Landscape 模式
+        // DeviceOrientation.landscapeRight,
+      ],
+    );
+  }
 
   setupLogger();
   logger.info('Application is starting...');
@@ -103,7 +107,7 @@ void main() async {
   myStore.dispatch({"type": "userinfoName", "payload": "李俊杰"});
   myStore.dispatch({"type": "userinfoAccount", "payload": "TheMonsterClub"});
   myStore.dispatch({"type": "userinfoPhone", "payload": "+8618825130917"});
-  myStore.dispatch({"type": "walletBalance", "payload": 69885038.98});
+  myStore.dispatch({"type": "walletBalance", "payload": 123.98});
   // myStore.dispatch({"type": "walletBalance", "payload": 149.36});
   myStore.dispatch({"type": "walletFoundationBalance", "payload": 0.0});
   myStore
@@ -295,6 +299,10 @@ class _TabBarApp extends State<TabBarApp> {
                   } else if (settings.name == "/friend_permission") {
                     return pageRouteBuilderAnimation(
                         const LJNFriendPermission());
+                  } else if (settings.name == "/change_details") {
+                    return pageRouteBuilderAnimation(const LJNChangeDetails());
+                  } else if (settings.name == "/bill_details") {
+                    return pageRouteBuilderAnimation(const LJNBillDetails());
                   }
 
                   return null;

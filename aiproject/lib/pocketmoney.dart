@@ -67,7 +67,9 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                       ),
                       actions: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, '/change_details');
+                          },
                           child: Container(
                             // color: Colors.black,
                             height: 90.w,

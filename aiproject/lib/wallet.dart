@@ -94,7 +94,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                           // 三个点
                           GestureDetector(
                               onTap: () {
-                                // 点击事件
+                                Navigator.pushNamed(context, '/bill_details');
                               },
                               child: Container(
                                   color: Colors.transparent,

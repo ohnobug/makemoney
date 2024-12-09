@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:ffmpeg_kit_flutter_min/ffmpeg_kit.dart';
-import 'package:ffmpeg_kit_flutter_min/return_code.dart';
+import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
+import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
@@ -39,6 +39,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
   late double videoWidth;
   late double videoHeight;
   String? picPath;
+  Uint8List? imageBytes;
 
   @override
   void initState() {
@@ -65,6 +66,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
   }
 
   Future<void> getFirstFrame(String filepath) async {
+    WidgetsFlutterBinding.ensureInitialized();
     String filehash = await generateStringChunkHash(filepath);
     String tempFile = filehash.substring(0, 16);
 
@@ -73,12 +75,15 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
     // 提取首帧并保存为图片
     final String outputImagePath = '${tempDir?[0].path}/$tempFile.png';
 
-    if (File(outputImagePath).existsSync()) {
+    var imageFile = File(outputImagePath);
+    if (imageFile.existsSync() && await isValidImage(imageFile)) {
       setState(() {
         picPath = outputImagePath;
       });
       return;
     } else {
+      imageFile.deleteSync();
+
       // 获取应用的文档目录
       final directory = await getApplicationDocumentsDirectory();
       String filename = path.basename(filepath);
@@ -101,6 +106,8 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
       final String ffmpegCommand =
           '-i $videoPath -vframes 1 -f image2 $outputImagePath';
 
+      logger.info(ffmpegCommand);
+
       await FFmpegKit.execute(ffmpegCommand).then((session) async {
         final returnCode = await session.getReturnCode();
         logger.info("returnCode: $returnCode");
@@ -112,15 +119,33 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
           });
         } else {
           logger.info('提取首帧失败');
-
-          // 得设置默认图片
-          setState(() {
-            picPath = outputImagePath;
-          });
         }
       });
 
       await FFmpegKit.cancel();
+    }
+  }
+
+  Future<bool> isValidImage(File file) async {
+    if (file.lengthSync() <= 4) {
+      return false;
+    }
+
+    logger.info("file length: ${file.lengthSync()}");
+
+    final bytes = await file.openRead(0, 4).first;
+    if (bytes[0] == 0x89 &&
+        bytes[1] == 0x50 &&
+        bytes[2] == 0x4E &&
+        bytes[3] == 0x47) {
+      logger.info("This is a valid PNG file.");
+      return true;
+    } else if (bytes[0] == 0xFF && bytes[1] == 0xD8 && bytes[2] == 0xFF) {
+      logger.info("This is a valid JPG file.");
+      return true;
+    } else {
+      logger.info("Unknown file format.");
+      return false;
     }
   }
 
