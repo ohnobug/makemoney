@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/LJNChangeDetailItem.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -589,10 +590,9 @@ class _LJNBillDetails extends State<LJNBillDetails>
                             ),
                             LJNFilterButton(
                               title: "信用卡还款",
-                              selected:
-                                  transactionType == "credit_card_payment "
-                                      ? true
-                                      : false,
+                              selected: transactionType == "credit_card_payment"
+                                  ? true
+                                  : false,
                               onTap: () {
                                 setState(() {
                                   transactionType = "credit_card_payment";
@@ -641,7 +641,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                     child: Text(
                                       "取消",
                                       style: TextStyle(
-                                          color: Colors.white,
+                                          color: Colors.black,
                                           fontSize: 30.w,
                                           height: 1.08),
                                     ))),
@@ -678,44 +678,52 @@ class _LJNBillDetails extends State<LJNBillDetails>
 class LJNFilterButton extends StatelessWidget {
   final String title;
   final bool selected;
-  final Function? onTap;
+  final VoidCallback? onTap;
 
-  const LJNFilterButton(
-      {super.key, required this.title, required this.selected, this.onTap});
+  const LJNFilterButton({
+    super.key,
+    required this.title,
+    required this.selected,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          onTap ?? onTap!();
-        },
-        child: Container(
-          width: 205.w,
-          height: 85.w,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
+      onTap: () {
+        logger.info("qqqqqqqqq");
+        if (onTap != null) {
+          onTap!();
+        }
+      },
+      child: Container(
+        width: 205.w,
+        height: 85.w,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: selected
+              ? const Color.fromARGB(255, 232, 249, 241)
+              : const Color.fromARGB(255, 247, 247, 247),
+          border: Border.all(
             color: selected
-                ? const Color.fromARGB(255, 232, 249, 241)
+                ? const Color.fromARGB(255, 83, 175, 105)
                 : const Color.fromARGB(255, 247, 247, 247),
-            border: Border.all(
-              color: selected
-                  ? const Color.fromARGB(255, 83, 175, 105)
-                  : const Color.fromARGB(255, 247, 247, 247),
-              width: 2.w,
-              style: BorderStyle.solid,
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(10.w)),
+            width: 2.w,
+            style: BorderStyle.solid,
           ),
-          child: Text(
-            title,
-            style: TextStyle(
-              height: 1.08,
-              fontSize: 26.w,
-              color: selected
-                  ? const Color.fromARGB(255, 49, 176, 78)
-                  : Colors.black,
-            ),
+          borderRadius: BorderRadius.all(Radius.circular(10.w)),
+        ),
+        child: Text(
+          title,
+          style: TextStyle(
+            height: 1.08,
+            fontSize: 26.w,
+            color: selected
+                ? const Color.fromARGB(255, 49, 176, 78)
+                : Colors.black,
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
