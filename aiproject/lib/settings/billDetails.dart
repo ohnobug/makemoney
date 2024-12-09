@@ -13,13 +13,28 @@ class LJNBillDetails extends StatefulWidget {
   State<LJNBillDetails> createState() => _LJNBillDetails();
 }
 
-class _LJNBillDetails extends State<LJNBillDetails> {
+class _LJNBillDetails extends State<LJNBillDetails>
+    with SingleTickerProviderStateMixin {
   double _statusHeight = 0;
-  bool showFilter = false;
+  bool showFilterBg = false;
+  late AnimationController _animationController;
+  late Animation<double> _widthAnimation;
 
   @override
   void initState() {
     super.initState();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 60),
+    );
+
+    _widthAnimation = Tween<double>(begin: -1030.w, end: 0.w).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
   }
 
   @override
@@ -29,6 +44,13 @@ class _LJNBillDetails extends State<LJNBillDetails> {
         builder: (context, vm) {
           return _buildPage(vm);
         });
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+
+    super.dispose();
   }
 
   // 另起一个函数方便管理
@@ -150,8 +172,9 @@ class _LJNBillDetails extends State<LJNBillDetails> {
                                     GestureDetector(
                                         onTap: () {
                                           setState(() {
-                                            showFilter = true;
+                                            showFilterBg = true;
                                           });
+                                          _animationController.forward();
                                         },
                                         child: Container(
                                           height: 70.w,
@@ -356,11 +379,13 @@ class _LJNBillDetails extends State<LJNBillDetails> {
                               ),
                             ]))),
 
-                showFilter
+                showFilterBg
                     ? GestureDetector(
                         onTap: () {
-                          setState(() {
-                            showFilter = false;
+                          _animationController.reverse().then((_) {
+                            setState(() {
+                              showFilterBg = false;
+                            });
                           });
                         },
                         child: Container(
@@ -370,176 +395,179 @@ class _LJNBillDetails extends State<LJNBillDetails> {
                         ))
                     : Container(),
 
-                // 弹窗
-                AnimatedPositioned(
-                  duration: const Duration(
-                      seconds: 1), // Duration of the slide-in animation
-                  curve: Curves.easeOut, // Smooth easing curve
-                  bottom: showFilter ? 0 : -1030.w, // Slide up from the bottom
-                  width: 750.w,
-                  height: 1030.w,
-                  child: Container(
-                    height: 1030.w,
-                    width: screenSize.width,
-                    padding: EdgeInsets.only(left: 45.w, right: 45.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(18.w),
-                        topRight: Radius.circular(18.w),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        // 选择筛选项
-                        Container(
-                          height: 135.w,
+                AnimatedBuilder(
+                    animation: _animationController,
+                    builder: (context, child) {
+                      return Positioned(
+                          bottom:
+                              _widthAnimation.value, // Slide up from the bottom
                           width: 750.w,
-                          padding: EdgeInsets.only(top: 47.w),
-                          child: Text(
-                            "选择筛选项",
-                            style: TextStyle(
-                                color: Colors.black,
-                                height: 1.08,
-                                fontSize: 27.w,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        // 收支类型
-                        Container(
-                          height: 62.w,
-                          width: 750.w,
-                          padding: EdgeInsets.only(bottom: 39.w),
-                          child: Text(
-                            "收支类型",
-                            style: TextStyle(
-                                height: 1.08,
-                                fontSize: 24.w,
-                                color: const Color.fromARGB(255, 79, 79, 79)),
-                          ),
-                        ),
-                        Wrap(
-                          spacing: 22.w, // 子组件之间的水平间距
-                          runSpacing: 20.w, // 子组件之间的垂直间距（如果换行）
-                          children: const [
-                            LJNFilterButton(
-                              title: "全部",
-                              selected: true,
+                          height: 1030.w,
+                          child: Container(
+                            height: 1030.w,
+                            width: screenSize.width,
+                            padding: EdgeInsets.only(left: 45.w, right: 45.w),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(18.w),
+                                topRight: Radius.circular(18.w),
+                              ),
                             ),
-                            LJNFilterButton(
-                              title: "支出",
-                              selected: false,
-                            ),
-                            LJNFilterButton(
-                              title: "收入",
-                              selected: false,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 52.w,
-                        ),
-                        // 交易类型
-                        Container(
-                          height: 62.w,
-                          width: 750.w,
-                          padding: EdgeInsets.only(bottom: 39.w),
-                          child: Text(
-                            "交易类型",
-                            style: TextStyle(
-                                height: 1.08,
-                                fontSize: 24.w,
-                                color: const Color.fromARGB(255, 79, 79, 79)),
-                          ),
-                        ),
-                        Wrap(
-                          spacing: 22.w, // 子组件之间的水平间距
-                          runSpacing: 20.w, // 子组件之间的垂直间距（如果换行）
-                          children: const [
-                            LJNFilterButton(
-                              title: "全部",
-                              selected: true,
-                            ),
-                            LJNFilterButton(
-                              title: "红包",
-                              selected: false,
-                            ),
-                            LJNFilterButton(
-                              title: "转账",
-                              selected: false,
-                            ),
-                            LJNFilterButton(
-                              title: "群收款",
-                              selected: false,
-                            ),
-                            LJNFilterButton(
-                              title: "二维码收付款",
-                              selected: false,
-                            ),
-                            LJNFilterButton(
-                              title: "商户消费",
-                              selected: false,
-                            ),
-                            LJNFilterButton(
-                              title: "充值提现",
-                              selected: false,
-                            ),
-                            LJNFilterButton(
-                              title: "信用卡还款",
-                              selected: false,
-                            ),
-                            LJNFilterButton(
-                              title: "有退款",
-                              selected: false,
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 140.w,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                width: 225.w,
-                                height: 90.w,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 242, 242, 242),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12.w)),
+                            child: Column(
+                              children: [
+                                // 选择筛选项
+                                Container(
+                                  height: 135.w,
+                                  width: 750.w,
+                                  padding: EdgeInsets.only(top: 47.w),
+                                  child: Text(
+                                    "选择筛选项",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        height: 1.08,
+                                        fontSize: 27.w,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                                child: Text(
-                                  "取消",
-                                  style:
-                                      TextStyle(fontSize: 30.w, height: 1.08),
-                                )),
-                            SizedBox(
-                              width: 30.w,
-                            ),
-                            Container(
-                                width: 225.w,
-                                height: 90.w,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: const Color.fromARGB(255, 74, 193, 99),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12.w)),
+                                // 收支类型
+                                Container(
+                                  height: 62.w,
+                                  width: 750.w,
+                                  padding: EdgeInsets.only(bottom: 39.w),
+                                  child: Text(
+                                    "收支类型",
+                                    style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: 24.w,
+                                        color: const Color.fromARGB(
+                                            255, 79, 79, 79)),
+                                  ),
                                 ),
-                                child: Text(
-                                  "确定",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 30.w,
-                                      height: 1.08),
-                                ))
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                )
+                                Wrap(
+                                  spacing: 22.w, // 子组件之间的水平间距
+                                  runSpacing: 20.w, // 子组件之间的垂直间距（如果换行）
+                                  children: const [
+                                    LJNFilterButton(
+                                      title: "全部",
+                                      selected: true,
+                                    ),
+                                    LJNFilterButton(
+                                      title: "支出",
+                                      selected: false,
+                                    ),
+                                    LJNFilterButton(
+                                      title: "收入",
+                                      selected: false,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 52.w,
+                                ),
+                                // 交易类型
+                                Container(
+                                  height: 62.w,
+                                  width: 750.w,
+                                  padding: EdgeInsets.only(bottom: 39.w),
+                                  child: Text(
+                                    "交易类型",
+                                    style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: 24.w,
+                                        color: const Color.fromARGB(
+                                            255, 79, 79, 79)),
+                                  ),
+                                ),
+                                Wrap(
+                                  spacing: 22.w, // 子组件之间的水平间距
+                                  runSpacing: 20.w, // 子组件之间的垂直间距（如果换行）
+                                  children: const [
+                                    LJNFilterButton(
+                                      title: "全部",
+                                      selected: true,
+                                    ),
+                                    LJNFilterButton(
+                                      title: "红包",
+                                      selected: false,
+                                    ),
+                                    LJNFilterButton(
+                                      title: "转账",
+                                      selected: false,
+                                    ),
+                                    LJNFilterButton(
+                                      title: "群收款",
+                                      selected: false,
+                                    ),
+                                    LJNFilterButton(
+                                      title: "二维码收付款",
+                                      selected: false,
+                                    ),
+                                    LJNFilterButton(
+                                      title: "商户消费",
+                                      selected: false,
+                                    ),
+                                    LJNFilterButton(
+                                      title: "充值提现",
+                                      selected: false,
+                                    ),
+                                    LJNFilterButton(
+                                      title: "信用卡还款",
+                                      selected: false,
+                                    ),
+                                    LJNFilterButton(
+                                      title: "有退款",
+                                      selected: false,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 140.w,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                        width: 225.w,
+                                        height: 90.w,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              255, 242, 242, 242),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(12.w)),
+                                        ),
+                                        child: Text(
+                                          "取消",
+                                          style: TextStyle(
+                                              fontSize: 30.w, height: 1.08),
+                                        )),
+                                    SizedBox(
+                                      width: 30.w,
+                                    ),
+                                    Container(
+                                        width: 225.w,
+                                        height: 90.w,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              255, 74, 193, 99),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(12.w)),
+                                        ),
+                                        child: Text(
+                                          "确定",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 30.w,
+                                              height: 1.08),
+                                        ))
+                                  ],
+                                )
+                              ],
+                            ),
+                          ));
+                    })
               ],
             )));
   }
