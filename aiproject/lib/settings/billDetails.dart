@@ -117,20 +117,21 @@ class _LJNBillDetails extends State<LJNBillDetails>
                       //     height: 1.w,
                       //   ),
                       // ),
-                      actions: const [
-                        // // 三个点
-                        // GestureDetector(
-                        //     onTap: () {
-                        //       // 点击事件
-                        //     },
-                        //     child: Container(
-                        //         color: Colors.transparent,
-                        //         padding: EdgeInsets.only(right: 33.w),
-                        //         child: Text("账单",
-                        //             style: TextStyle(height: 1.08,
-                        //                 color: Colors.black,
-                        //                 fontSize: fontSizeScale(30.w),
-                        //                 fontWeight: FontWeight.w500)))),
+                      actions: [
+                        // 三个点
+                        GestureDetector(
+                            onTap: () {
+                              // 点击事件
+                            },
+                            child: Container(
+                                color: Colors.transparent,
+                                padding: EdgeInsets.only(right: 33.w),
+                                child: Text("常见问题",
+                                    style: TextStyle(
+                                        height: 1.08,
+                                        color: Colors.black,
+                                        fontSize: fontSizeScale(32.w),
+                                        fontWeight: FontWeight.w500)))),
                       ],
                     ))),
             body: ScrollConfiguration(
@@ -235,7 +236,8 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                             style: TextStyle(
                                               height: 1.08,
                                               fontSize: fontSizeScale(30.w),
-                                              color: Colors.black,
+                                              color: const Color.fromARGB(
+                                                  255, 157, 157, 157),
                                               // fontWeight: FontWeight.bold,
                                               fontFamily: "AlibabaPuHuiTi",
                                             ),
@@ -248,7 +250,8 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                                 0xed9d,
                                                 fontFamily: 'Iconfont',
                                               ), // 使用的图标
-                                              color: Colors.black, // 图标颜色
+                                              color: const Color.fromARGB(
+                                                  255, 157, 157, 157), // 图标颜色
                                               size: 30.w, // 图标大小
                                             ),
                                           ),

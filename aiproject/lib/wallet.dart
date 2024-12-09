@@ -103,7 +103,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                       style: TextStyle(
                                           height: 1.08,
                                           color: Colors.black,
-                                          fontSize: fontSizeScale(30.w),
+                                          fontSize: fontSizeScale(32.w),
                                           fontWeight: FontWeight.w500)))),
                         ],
                       ))),
