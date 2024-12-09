@@ -19,6 +19,10 @@ class _LJNBillDetails extends State<LJNBillDetails>
   bool showFilterBg = false;
   late AnimationController _animationController;
   late Animation<double> _widthAnimation;
+  // 收支类型
+  String incomeAndExpenditureType = "all";
+  // 交易类型
+  String transactionType = "all";
 
   @override
   void initState() {
@@ -213,7 +217,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                                       fontFamily: 'Iconfont',
                                                     ), // 使用的图标
                                                     color: Colors.black, // 图标颜色
-                                                    size: 30.w, // 图标大小
+                                                    size: 25.w, // 图标大小
                                                   ),
                                                 ),
                                               ],
@@ -448,18 +452,40 @@ class _LJNBillDetails extends State<LJNBillDetails>
                         Wrap(
                           spacing: 22.w, // 子组件之间的水平间距
                           runSpacing: 20.w, // 子组件之间的垂直间距（如果换行）
-                          children: const [
+                          children: [
                             LJNFilterButton(
                               title: "全部",
-                              selected: true,
+                              selected: incomeAndExpenditureType == "all"
+                                  ? true
+                                  : false,
+                              onTap: () {
+                                setState(() {
+                                  incomeAndExpenditureType = "all";
+                                });
+                              },
                             ),
                             LJNFilterButton(
                               title: "支出",
-                              selected: false,
+                              selected:
+                                  incomeAndExpenditureType == "expenditure"
+                                      ? true
+                                      : false,
+                              onTap: () {
+                                setState(() {
+                                  incomeAndExpenditureType = "expenditure";
+                                });
+                              },
                             ),
                             LJNFilterButton(
                               title: "收入",
-                              selected: false,
+                              selected: incomeAndExpenditureType == "income"
+                                  ? true
+                                  : false,
+                              onTap: () {
+                                setState(() {
+                                  incomeAndExpenditureType = "income";
+                                });
+                              },
                             ),
                           ],
                         ),
@@ -482,42 +508,109 @@ class _LJNBillDetails extends State<LJNBillDetails>
                         Wrap(
                           spacing: 22.w, // 子组件之间的水平间距
                           runSpacing: 20.w, // 子组件之间的垂直间距（如果换行）
-                          children: const [
+                          children: [
                             LJNFilterButton(
                               title: "全部",
-                              selected: true,
+                              selected: transactionType == "all" ? true : false,
+                              onTap: () {
+                                setState(() {
+                                  transactionType = "all";
+                                });
+                              },
                             ),
                             LJNFilterButton(
                               title: "红包",
-                              selected: false,
+                              selected:
+                                  transactionType == "redpack" ? true : false,
+                              onTap: () {
+                                setState(() {
+                                  transactionType = "redpack";
+                                });
+                              },
                             ),
                             LJNFilterButton(
                               title: "转账",
-                              selected: false,
+                              selected: transactionType == "transaction"
+                                  ? true
+                                  : false,
+                              onTap: () {
+                                setState(() {
+                                  transactionType = "transaction";
+                                });
+                              },
                             ),
                             LJNFilterButton(
                               title: "群收款",
-                              selected: false,
+                              selected: transactionType == "group_collection"
+                                  ? true
+                                  : false,
+                              onTap: () {
+                                setState(() {
+                                  transactionType = "group_collection";
+                                });
+                              },
                             ),
                             LJNFilterButton(
                               title: "二维码收付款",
-                              selected: false,
+                              selected: transactionType ==
+                                      "qr_code_payment_and_receipt"
+                                  ? true
+                                  : false,
+                              onTap: () {
+                                setState(() {
+                                  transactionType =
+                                      "qr_code_payment_and_receipt";
+                                });
+                              },
                             ),
                             LJNFilterButton(
                               title: "商户消费",
-                              selected: false,
+                              selected:
+                                  transactionType == "merchant_consumption"
+                                      ? true
+                                      : false,
+                              onTap: () {
+                                setState(() {
+                                  transactionType = "merchant_consumption";
+                                });
+                              },
                             ),
                             LJNFilterButton(
                               title: "充值提现",
-                              selected: false,
+                              selected:
+                                  transactionType == "recharge_and_withdrawal"
+                                      ? true
+                                      : false,
+                              onTap: () {
+                                setState(() {
+                                  transactionType = "recharge_and_withdrawal";
+                                });
+                              },
                             ),
                             LJNFilterButton(
                               title: "信用卡还款",
-                              selected: false,
+                              selected:
+                                  transactionType == "credit_card_payment "
+                                      ? true
+                                      : false,
+                              onTap: () {
+                                setState(() {
+                                  transactionType = "credit_card_payment";
+                                });
+                              },
                             ),
                             LJNFilterButton(
                               title: "有退款",
-                              selected: false,
+                              selected: transactionType ==
+                                      "there_is_a_refund_available"
+                                  ? true
+                                  : false,
+                              onTap: () {
+                                setState(() {
+                                  transactionType =
+                                      "there_is_a_refund_available";
+                                });
+                              },
                             ),
                           ],
                         ),
@@ -527,21 +620,31 @@ class _LJNBillDetails extends State<LJNBillDetails>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                                width: 225.w,
-                                height: 90.w,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 242, 242, 242),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12.w)),
-                                ),
-                                child: Text(
-                                  "取消",
-                                  style:
-                                      TextStyle(fontSize: 30.w, height: 1.08),
-                                )),
+                            GestureDetector(
+                                onTap: () {
+                                  _animationController.reverse().then((_) {
+                                    setState(() {
+                                      showFilterBg = false;
+                                    });
+                                  });
+                                },
+                                child: Container(
+                                    width: 225.w,
+                                    height: 90.w,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 242, 242, 242),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12.w)),
+                                    ),
+                                    child: Text(
+                                      "取消",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 30.w,
+                                          height: 1.08),
+                                    ))),
                             SizedBox(
                               width: 30.w,
                             ),
@@ -575,41 +678,44 @@ class _LJNBillDetails extends State<LJNBillDetails>
 class LJNFilterButton extends StatelessWidget {
   final String title;
   final bool selected;
+  final Function? onTap;
 
-  const LJNFilterButton({
-    super.key,
-    required this.title,
-    required this.selected,
-  });
+  const LJNFilterButton(
+      {super.key, required this.title, required this.selected, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 205.w,
-      height: 85.w,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: selected
-            ? const Color.fromARGB(255, 232, 249, 241)
-            : const Color.fromARGB(255, 247, 247, 247),
-        border: Border.all(
-          color: selected
-              ? const Color.fromARGB(255, 83, 175, 105)
-              : const Color.fromARGB(255, 247, 247, 247),
-          width: 2.w,
-          style: BorderStyle.solid,
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(10.w)),
-      ),
-      child: Text(
-        title,
-        style: TextStyle(
-          height: 1.08,
-          fontSize: 26.w,
-          color:
-              selected ? const Color.fromARGB(255, 49, 176, 78) : Colors.black,
-        ),
-      ),
-    );
+    return GestureDetector(
+        onTap: () {
+          onTap ?? onTap!();
+        },
+        child: Container(
+          width: 205.w,
+          height: 85.w,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: selected
+                ? const Color.fromARGB(255, 232, 249, 241)
+                : const Color.fromARGB(255, 247, 247, 247),
+            border: Border.all(
+              color: selected
+                  ? const Color.fromARGB(255, 83, 175, 105)
+                  : const Color.fromARGB(255, 247, 247, 247),
+              width: 2.w,
+              style: BorderStyle.solid,
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(10.w)),
+          ),
+          child: Text(
+            title,
+            style: TextStyle(
+              height: 1.08,
+              fontSize: 26.w,
+              color: selected
+                  ? const Color.fromARGB(255, 49, 176, 78)
+                  : Colors.black,
+            ),
+          ),
+        ));
   }
 }
