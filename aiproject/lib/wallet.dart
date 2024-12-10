@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,69 +38,25 @@ class _LJNWalletPage extends State<LJNWalletPage> {
         builder: (context, vm) {
           return Scaffold(
               primary: false,
-              appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
-                  child: Container(
-                      color: const Color.fromARGB(255, 237, 237, 237),
-                      padding: EdgeInsets.only(top: vm.statusHeight!),
-                      child: AppBar(
-                        leading: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                            // wallet
-                          }, // 点击事件
-                          child: Container(
-                            color: Colors.transparent,
-                            child: Icon(
-                              const IconData(
-                                0xed9e,
-                                fontFamily: 'Iconfont',
-                              ), // 使用的图标
-                              color: Colors.black, // 图标颜色
-                              size: 36.w, // 图标大小
-                            ),
-                          ),
-                        ),
-                        primary: false,
-                        centerTitle: true,
-                        title: const Text('钱包'),
-                        toolbarHeight: 90.w,
-                        titleTextStyle: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(32.w),
-                            color: Colors.black,
-                            fontFamily: "AlibabaPuHuiTi-Medium"),
-                        elevation: 0,
-                        scrolledUnderElevation: 0,
-                        backgroundColor:
-                            const Color.fromARGB(255, 237, 237, 237),
-                        foregroundColor:
-                            const Color.fromARGB(255, 237, 237, 237),
-                        // bottom: PreferredSize(
-                        //   preferredSize: Size.fromHeight(1.w),
-                        //   child: Container(
-                        //     color: const Color.fromARGB(255, 220, 220, 220),
-                        //     height: 1.w,
-                        //   ),
-                        // ),
-                        actions: [
-                          // 三个点
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(context, '/bill_details');
-                              },
-                              child: Container(
-                                  color: Colors.transparent,
-                                  padding: EdgeInsets.only(right: 40.w),
-                                  alignment: Alignment.center,
-                                  child: Text("账单",
-                                      style: TextStyle(
-                                          height: 1.08,
-                                          color: Colors.black,
-                                          fontSize: fontSizeScale(32.w),
-                                          fontWeight: FontWeight.w500)))),
-                        ],
-                      ))),
+              appBar: LJNAppBar(
+                title: "钱包",
+                actions: [
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/bill_details');
+                      },
+                      child: Container(
+                          color: Colors.transparent,
+                          padding: EdgeInsets.only(right: 40.w),
+                          alignment: Alignment.center,
+                          child: Text("账单",
+                              style: TextStyle(
+                                  height: 1.08,
+                                  color: Colors.black,
+                                  fontSize: fontSizeScale(32.w),
+                                  fontWeight: FontWeight.w500))))
+                ],
+              ),
               body: Container(
                   constraints: BoxConstraints(
                     minHeight: screenSize.height - (90.0.w + vm.statusHeight!),

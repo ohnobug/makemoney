@@ -527,6 +527,5 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
                 ],
               ));
         });
-    ;
   }
 }

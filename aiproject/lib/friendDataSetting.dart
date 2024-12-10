@@ -6,8 +6,6 @@ import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
-
 import 'components/LJNFunctionItem.dart';
 
 class LJNFriendDataSetting extends StatefulWidget {
@@ -52,7 +50,9 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
         builder: (context, vm) {
           return Scaffold(
               primary: false,
-              appBar: const LJNAppBar(),
+              appBar: const LJNAppBar(
+                title: "资料设置",
+              ),
               body: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)
                       .copyWith(scrollbars: false),
@@ -75,102 +75,37 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                           physics: const AlwaysScrollableScrollPhysics(
                               parent: BouncingScrollPhysics()),
                           child: Column(children: [
-                            Container(
-                              height: 202.w,
-                              width: 750.w,
-                              padding: EdgeInsets.only(left: 25.w, right: 25.w),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 105.w,
-                                    height: 140.w,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8).w,
-                                            child: Image.asset(
-                                              assetPath(vm.userinfoAvatar!),
-                                              cacheWidth: 210.w.toInt(),
-                                              cacheHeight: 210.w.toInt(),
-                                              width: 105.w,
-                                              height: 105.w,
-                                              fit: BoxFit.cover,
-                                            )),
-                                        SizedBox(
-                                          height: 13.w,
-                                        ),
-                                        Text(
-                                          '邓子乔',
-                                          style: TextStyle(
-                                              height: 1.08,
-                                              fontSize: 20.w,
-                                              color: const Color.fromARGB(
-                                                  255, 169, 169, 169)),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 52.w,
-                                  ),
-                                  const IconBox()
-                                ],
-                              ),
-                            ),
-                            Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
                             const LJNFunctionItem(
-                              title: "查找聊天记录",
+                              title: "设置备注和标签",
                               link: '',
-                              underline: false,
-                            ),
-                            Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
-                            LJNFunctionItem(
-                              title: "消息免打扰",
-                              // link: '',
+                              showStyle: "邓子乔",
                               underline: true,
-                              tapEffect: false,
-                              showStyle: Expanded(
-                                  flex: 0,
-                                  child: Container(
-                                      margin:
-                                          const EdgeInsets.only(right: 32).w,
-                                      child: LJNSwitch(
-                                        initialValue: false,
-                                        onChanged: (value) {
-                                          logger.info(value);
-                                        },
-                                      ))),
                             ),
-                            LJNFunctionItem(
-                              title: "置顶聊天",
-                              // link: '',
+                            const LJNFunctionItem(
+                              title: "朋友权限",
+                              link: '',
+                              underline: false,
+                            ),
+                            Container(
+                                color: const Color.fromARGB(255, 237, 237, 237),
+                                height: 16.w),
+                            const LJNFunctionItem(
+                              title: "把她推荐给朋友",
+                              link: '',
                               underline: true,
-                              tapEffect: false,
-                              showStyle: Expanded(
-                                  flex: 0,
-                                  child: Container(
-                                      margin:
-                                          const EdgeInsets.only(right: 32).w,
-                                      child: LJNSwitch(
-                                        initialValue: false,
-                                        onChanged: (value) {
-                                          logger.info(value);
-                                        },
-                                      ))),
                             ),
+                            const LJNFunctionItem(
+                              title: "添加到桌面",
+                              link: '',
+                              underline: false,
+                            ),
+                            Container(
+                                color: const Color.fromARGB(255, 237, 237, 237),
+                                height: 16.w),
                             LJNFunctionItem(
-                              title: "提醒",
-                              // link: '',
+                              title: "设为星标朋友",
+                              link: '',
                               underline: false,
-                              tapEffect: false,
                               showStyle: Expanded(
                                   flex: 0,
                                   child: Container(
@@ -186,27 +121,41 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                             Container(
                                 color: const Color.fromARGB(255, 237, 237, 237),
                                 height: 16.w),
-                            const LJNFunctionItem(
-                              title: "设置当前聊天背景",
+                            LJNFunctionItem(
+                              title: "加入黑名单",
                               link: '',
-                              underline: false,
+                              underline: true,
+                              showStyle: Expanded(
+                                  flex: 0,
+                                  child: Container(
+                                      margin:
+                                          const EdgeInsets.only(right: 32).w,
+                                      child: LJNSwitch(
+                                        initialValue: false,
+                                        onChanged: (value) {
+                                          logger.info(value);
+                                        },
+                                      ))),
                             ),
-                            Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
-                            const LJNFunctionItem(
-                              title: "清空聊天记录",
-                              link: '',
-                              underline: false,
-                            ),
-                            Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
                             const LJNFunctionItem(
                               title: "投诉",
                               link: '',
                               underline: false,
                             ),
+                            Container(
+                                color: const Color.fromARGB(255, 237, 237, 237),
+                                height: 16.w),
+                            Container(
+                              width: 750.w,
+                              height: 105.w,
+                              color: Colors.white,
+                              alignment: Alignment.center,
+                              child: Text(
+                                "删除",
+                                style: TextStyle(
+                                    color: Colors.red, fontSize: 31.w),
+                              ),
+                            )
                           ])))));
         });
   }

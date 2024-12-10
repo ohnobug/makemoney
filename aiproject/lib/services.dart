@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,73 +28,29 @@ class _LJNServicesPage extends State<LJNServicesPage> {
         builder: (context, vm) {
           return Scaffold(
               primary: false,
-              appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
-                  child: Container(
-                      color: const Color.fromARGB(255, 237, 237, 237),
-                      padding: EdgeInsets.only(top: vm.statusHeight!),
-                      child: AppBar(
-                        leading: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          }, // 点击事件
-                          child: Container(
-                            // 加盒子是为了扩大点击区域
-                            color: Colors.transparent,
-                            child: Icon(
-                              const IconData(
-                                0xed9e,
-                                fontFamily: 'Iconfont',
-                              ), // 使用的图标
-                              color: Colors.black, // 图标颜色
-                              size: 36.w, // 图标大小
-                            ),
-                          ),
+              appBar: LJNAppBar(
+                title: "服务",
+                actions: [
+                  GestureDetector(
+                    onTap: () {
+                      // 点击事件
+                    },
+                    child: Container(
+                      height: 90.w,
+                      color: Colors.transparent,
+                      padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                      alignment: Alignment.center,
+                      child: Icon(
+                        const IconData(
+                          0xe659,
+                          fontFamily: 'Iconfont',
                         ),
-                        primary: false,
-                        centerTitle: true,
-                        title: const Text('服务'),
-                        toolbarHeight: 90.w,
-                        titleTextStyle: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(32.w),
-                            color: Colors.black,
-                            fontFamily: "AlibabaPuHuiTi-Medium"),
-                        elevation: 0,
-                        scrolledUnderElevation: 0,
-                        backgroundColor:
-                            const Color.fromARGB(255, 237, 237, 237),
-                        foregroundColor:
-                            const Color.fromARGB(255, 237, 237, 237),
-                        // bottom: PreferredSize(
-                        //   preferredSize: Size.fromHeight(1.w),
-                        //   child: Container(
-                        //     color: const Color.fromARGB(255, 220, 220, 220),
-                        //     height: 1.w,
-                        //   ),
-                        // ),
-                        actions: [
-                          // 三个点
-                          GestureDetector(
-                            onTap: () {
-                              // 点击事件
-                            },
-                            child: Container(
-                              height: 90.w,
-                              color: Colors.transparent,
-                              padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                              alignment: Alignment.center,
-                              child: Icon(
-                                const IconData(
-                                  0xe659,
-                                  fontFamily: 'Iconfont',
-                                ),
-                                size: 37.w, // 图标大小
-                              ),
-                            ),
-                          ),
-                        ],
-                      ))),
+                        size: 37.w, // 图标大小
+                      ),
+                    ),
+                  )
+                ],
+              ),
               body: ColoredBox(
                   color: const Color.fromARGB(255, 237, 237, 237),
                   child: ScrollConfiguration(

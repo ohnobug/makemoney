@@ -7,8 +7,9 @@ import 'package:jiaoyishuoflutter3/tools/tools.dart';
 class LJNAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String? title;
   final List<Widget>? actions;
+  final Color? bgColor;
 
-  const LJNAppBar({super.key, this.title, this.actions});
+  const LJNAppBar({super.key, this.title, this.actions, this.bgColor});
 
   @override
   State<LJNAppBar> createState() => _LJNAppBar();
@@ -19,6 +20,14 @@ class LJNAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _LJNAppBar extends State<LJNAppBar> {
+  late Color bgColor;
+  @override
+  void initState() {
+    super.initState();
+
+    bgColor = widget.bgColor ?? const Color.fromARGB(255, 237, 237, 237);
+  }
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<StoreType, StoreType>(
@@ -27,7 +36,7 @@ class _LJNAppBar extends State<LJNAppBar> {
           return PreferredSize(
               preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
               child: Container(
-                  color: Colors.white,
+                  color: bgColor,
                   padding: EdgeInsets.only(top: vm.statusHeight!),
                   child: AppBar(
                     leading: GestureDetector(
@@ -37,6 +46,8 @@ class _LJNAppBar extends State<LJNAppBar> {
                       }, // 点击事件
                       child: Container(
                         color: Colors.transparent,
+                        height: 90.w,
+                        alignment: Alignment.center,
                         child: Icon(
                           const IconData(
                             0xed9e,
@@ -58,8 +69,8 @@ class _LJNAppBar extends State<LJNAppBar> {
                         fontFamily: "AlibabaPuHuiTi-Medium"),
                     elevation: 0,
                     scrolledUnderElevation: 0,
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.white,
+                    backgroundColor: bgColor,
+                    foregroundColor: bgColor,
                     actions: widget.actions,
                   )));
         });

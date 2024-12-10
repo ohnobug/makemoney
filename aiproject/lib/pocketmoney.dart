@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,58 +26,27 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
         builder: (context, vm) {
           return Scaffold(
               primary: false,
-              appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
-                  child: Container(
-                    // color: const Color.fromARGB(255, 237, 237, 237),
-                    padding: EdgeInsets.only(top: vm.statusHeight!),
-                    child: AppBar(
-                      primary: false,
-                      title: const Text("朋友圈"),
-                      centerTitle: true,
-                      titleTextStyle: TextStyle(
-                        height: 1.08,
-                        fontSize: fontSizeScale(32.w),
-                        color: Colors.transparent,
-                        fontFamily: "AlibabaPuHuiTi-Medium",
+              appBar: LJNAppBar(
+                title: "朋友圈",
+                actions: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/change_details');
+                    },
+                    child: Container(
+                      color: Colors.transparent,
+                      height: 90.w,
+                      padding: EdgeInsets.only(right: 40.w),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "零钱明细",
+                        // textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.black, fontSize: 32.w),
                       ),
-                      toolbarHeight: 90.w,
-                      elevation: 0,
-                      scrolledUnderElevation: 0,
-                      backgroundColor: Colors.transparent,
-                      foregroundColor: Colors.transparent,
-                      leading: GestureDetector(
-                        onTap: () => Navigator.of(context).pop(),
-                        child: Container(
-                          color: Colors.transparent,
-                          child: Icon(
-                            const IconData(0xed9e, fontFamily: 'Iconfont'),
-                            color: Colors.black,
-                            size: 36.w,
-                          ),
-                        ),
-                      ),
-                      actions: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/change_details');
-                          },
-                          child: Container(
-                            color: Colors.transparent,
-                            height: 90.w,
-                            padding: EdgeInsets.only(right: 40.w),
-                            alignment: Alignment.center,
-                            child: Text(
-                              "零钱明细",
-                              // textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 32.w),
-                            ),
-                          ),
-                        )
-                      ],
                     ),
-                  )),
+                  )
+                ],
+              ),
               body: SizedBox(
                   width: 750.w,
                   child: Column(

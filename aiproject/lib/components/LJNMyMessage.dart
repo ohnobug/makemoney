@@ -74,6 +74,7 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                               overflow: TextOverflow.ellipsis,
                               widget.message,
                               style: TextStyle(
+                                  height: 1.25,
                                   fontSize: fontSizeScale(33.w),
                                   color: Colors.black),
                             ),

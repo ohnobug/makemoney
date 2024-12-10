@@ -1,7 +1,7 @@
 import 'dart:math';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
 import 'package:jiaoyishuoflutter3/components/LJNReceiveMessage.dart';
 import 'package:jiaoyishuoflutter3/components/LJNVideoDraggableBox.dart';
 import 'package:jiaoyishuoflutter3/components/LJNVideoMessage.dart';
@@ -606,78 +606,33 @@ class _LJNChatPage extends State<LJNChatPage>
                   resizeToAvoidBottomInset: false,
                   primary: false,
                   extendBody: false,
-                  appBar: PreferredSize(
-                      preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
-                      child: Container(
-                        color: const Color.fromARGB(255, 237, 237, 237),
-                        padding: EdgeInsets.only(top: vm.statusHeight!),
-                        child: AppBar(
-                          leading: GestureDetector(
-                            onTap: () => Navigator.of(context).pop(), // 点击事件
-                            child: Container(
-                              // 加盒子是为了扩大点击区域
-                              color: Colors.transparent,
-                              child: Icon(
-                                const IconData(
-                                  0xed9e,
-                                  fontFamily: 'Iconfont',
-                                ), // 使用的图标
-                                color: Colors.black, // 图标颜色
-                                size: 36.w, // 图标大小
-                              ),
+                  appBar: LJNAppBar(
+                    title: widget.title,
+                    actions: [
+                      GestureDetector(
+                        onTap: () {
+                          // 点击事件
+                          Navigator.pushNamed(
+                            context,
+                            '/friend_message_record',
+                          );
+                        },
+                        child: Container(
+                          height: 90.w,
+                          color: Colors.transparent,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                          child: Icon(
+                            const IconData(
+                              0xe659,
+                              fontFamily: 'Iconfont',
                             ),
+                            size: 37.w, // 图标大小
                           ),
-                          primary: false,
-                          centerTitle: true,
-                          elevation: 0,
-                          scrolledUnderElevation: 0,
-                          toolbarHeight: 90.w,
-                          title: Text(widget.title),
-                          titleTextStyle: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(32.w),
-                            color: Colors.black,
-                            fontFamily: "AlibabaPuHuiTi-Medium",
-                          ),
-                          backgroundColor:
-                              const Color.fromARGB(255, 237, 237, 237),
-                          foregroundColor:
-                              const Color.fromARGB(255, 237, 237, 237),
-                          bottom: PreferredSize(
-                            preferredSize: Size.fromHeight(1.w),
-                            child: Container(
-                              color: const Color.fromARGB(255, 220, 220, 220),
-                              height: 0.5.w,
-                            ),
-                          ),
-                          actions: [
-                            // 三个点
-                            GestureDetector(
-                              onTap: () {
-                                // 点击事件
-                                Navigator.pushNamed(
-                                  context,
-                                  '/friend_message_record',
-                                );
-                              },
-                              child: Container(
-                                height: 90.w,
-                                color: Colors.transparent,
-                                alignment: Alignment.center,
-                                padding:
-                                    EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                                child: Icon(
-                                  const IconData(
-                                    0xe659,
-                                    fontFamily: 'Iconfont',
-                                  ),
-                                  size: 37.w, // 图标大小
-                                ),
-                              ),
-                            ),
-                          ],
                         ),
-                      )),
+                      )
+                    ],
+                  ),
                   body: SizedBox(
                       width: screenSize.width,
                       height: screenSize.height,

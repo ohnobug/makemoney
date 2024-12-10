@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNVerifyPhone extends StatefulWidget {
   const LJNVerifyPhone({super.key});
@@ -42,63 +42,30 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
     return Scaffold(
         primary: false,
         resizeToAvoidBottomInset: false,
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
-            child: Container(
-                color: const Color.fromARGB(255, 237, 237, 237),
-                padding: EdgeInsets.only(top: vm.statusHeight!),
-                child: AppBar(
-                  leading: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    }, // 点击事件
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Icon(
-                        const IconData(
-                          0xed9e,
-                          fontFamily: 'Iconfont',
-                        ), // 使用的图标
-                        color: Colors.black, // 图标颜色
-                        size: 36.w, // 图标大小
-                      ),
-                    ),
+        appBar: LJNAppBar(
+          title: "验证手机号",
+          actions: [
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/bind_new_phone_number');
+              },
+              child: Container(
+                color: Colors.transparent,
+                height: 90.w,
+                padding: EdgeInsets.only(right: 40.w),
+                alignment: Alignment.center,
+                child: Text(
+                  "下一步",
+                  // textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 32.w,
                   ),
-                  primary: false,
-                  centerTitle: true,
-                  title: const Text('验证手机号'),
-                  toolbarHeight: 90.w,
-                  titleTextStyle: TextStyle(
-                      height: 1.08,
-                      fontSize: fontSizeScale(32.w),
-                      color: Colors.black,
-                      fontFamily: "AlibabaPuHuiTi-Medium"),
-                  elevation: 0,
-                  scrolledUnderElevation: 0,
-                  backgroundColor: Colors.transparent,
-                  foregroundColor: Colors.transparent,
-                  actions: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/bind_new_phone_number');
-                      },
-                      child: Container(
-                        color: Colors.transparent,
-                        height: 90.w,
-                        padding: EdgeInsets.only(right: 40.w),
-                        alignment: Alignment.center,
-                        child: Text(
-                          "下一步",
-                          // textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 32.w,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ))),
+                ),
+              ),
+            )
+          ],
+        ),
         body: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),

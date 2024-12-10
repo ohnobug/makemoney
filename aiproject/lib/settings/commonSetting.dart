@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
 import 'package:jiaoyishuoflutter3/components/LJNSwitch.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import '../../components/LJNFunctionItem.dart';
 
 class LJNCommonSetting extends StatefulWidget {
@@ -35,44 +35,9 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
 
     return Scaffold(
         primary: false,
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
-            child: Container(
-                color: const Color.fromARGB(255, 237, 237, 237),
-                padding: EdgeInsets.only(top: vm.statusHeight!),
-                child: AppBar(
-                  leading: GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      // wallet
-                    }, // 点击事件
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Icon(
-                        const IconData(
-                          0xed9e,
-                          fontFamily: 'Iconfont',
-                        ), // 使用的图标
-                        color: Colors.black, // 图标颜色
-                        size: 36.w, // 图标大小
-                      ),
-                    ),
-                  ),
-                  primary: false,
-                  centerTitle: true,
-                  title: const Text('通用设置'),
-                  toolbarHeight: 90.w,
-                  titleTextStyle: TextStyle(
-                      height: 1.08,
-                      fontSize: fontSizeScale(32.w),
-                      color: Colors.black,
-                      fontFamily: "AlibabaPuHuiTi-Medium"),
-                  elevation: 0,
-                  scrolledUnderElevation: 0,
-                  backgroundColor: const Color.fromARGB(255, 237, 237, 237),
-                  foregroundColor: const Color.fromARGB(255, 237, 237, 237),
-                  actions: const [],
-                ))),
+        appBar: const LJNAppBar(
+          title: "通用设置",
+        ),
         body: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),

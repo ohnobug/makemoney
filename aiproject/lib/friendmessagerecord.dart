@@ -52,7 +52,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
         builder: (context, vm) {
           return Scaffold(
               primary: false,
-              appBar: const LJNAppBar(),
+              appBar: const LJNAppBar(title: "聊天消息"),
               body: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)
                       .copyWith(scrollbars: false),
