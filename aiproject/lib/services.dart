@@ -91,6 +91,7 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                               height: 90.w,
                               color: Colors.transparent,
                               padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                              alignment: Alignment.center,
                               child: Icon(
                                 const IconData(
                                   0xe659,

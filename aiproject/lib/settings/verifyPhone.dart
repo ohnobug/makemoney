@@ -91,21 +91,17 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                         Navigator.pushNamed(context, '/bind_new_phone_number');
                       },
                       child: Container(
-                        // color: Colors.black,
+                        color: Colors.transparent,
                         height: 90.w,
                         padding: EdgeInsets.only(right: 40.w),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "下一步",
-                              // textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 32.w,
-                                  fontWeight: FontWeight.w100),
-                            )
-                          ],
+                        alignment: Alignment.center,
+                        child: Text(
+                          "下一步",
+                          // textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 32.w,
+                          ),
                         ),
                       ),
                     )

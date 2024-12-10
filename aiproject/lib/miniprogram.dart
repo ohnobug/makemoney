@@ -138,6 +138,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                               color: Colors.transparent,
                               height: 90.w,
                               padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                              alignment: Alignment.center,
                               child: Icon(
                                 const IconData(
                                   0xe612,
@@ -153,6 +154,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                               color: Colors.transparent,
                               height: 90.w,
                               padding: EdgeInsets.only(right: 40.w), // 设置右侧内边距
+                              alignment: Alignment.center,
                               child: Icon(
                                 const IconData(
                                   0xe726,

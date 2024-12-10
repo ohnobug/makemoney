@@ -662,10 +662,15 @@ class _LJNChatPage extends State<LJNChatPage>
                             GestureDetector(
                               onTap: () {
                                 // 点击事件
+                                Navigator.pushNamed(
+                                  context,
+                                  '/friend_message_record',
+                                );
                               },
                               child: Container(
                                 height: 90.w,
                                 color: Colors.transparent,
+                                alignment: Alignment.center,
                                 padding:
                                     EdgeInsets.only(right: 33.w), // 设置右侧内边距
                                 child: Icon(

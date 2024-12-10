@@ -602,6 +602,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                         color: Colors.transparent,
                         height: 90.w,
                         padding: EdgeInsets.only(right: 40.w),
+                        alignment: Alignment.center,
                         child: _appBarOpacity.value.toInt() > 180
                             ? Icon(
                                 const IconData(0xe68a, fontFamily: 'Iconfont'),

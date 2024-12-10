@@ -71,19 +71,15 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                             Navigator.pushNamed(context, '/change_details');
                           },
                           child: Container(
-                            // color: Colors.black,
+                            color: Colors.transparent,
                             height: 90.w,
                             padding: EdgeInsets.only(right: 40.w),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "零钱明细",
-                                  // textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 32.w),
-                                )
-                              ],
+                            alignment: Alignment.center,
+                            child: Text(
+                              "零钱明细",
+                              // textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.black, fontSize: 32.w),
                             ),
                           ),
                         )
@@ -153,7 +149,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                                 height: 1.08,
                                 fontSize: fontSizeScale(85.w),
                                 fontWeight: FontWeight.bold,
-                                fontFamily: "Quicksand-Medium",
+                                fontFamily: "Quicksand-Regular",
                                 color: const Color.fromARGB(255, 16, 16, 16),
                               ),
                             ),

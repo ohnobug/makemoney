@@ -813,6 +813,8 @@ class _ChatListViewState extends State<LJNHome22Page>
                                     height: 90.w,
                                     padding:
                                         EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                                    alignment: Alignment.center,
+
                                     child: Icon(
                                       color: Colors.white,
                                       const IconData(

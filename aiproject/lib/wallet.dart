@@ -98,7 +98,8 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                               },
                               child: Container(
                                   color: Colors.transparent,
-                                  padding: EdgeInsets.only(right: 33.w),
+                                  padding: EdgeInsets.only(right: 40.w),
+                                  alignment: Alignment.center,
                                   child: Text("账单",
                                       style: TextStyle(
                                           height: 1.08,

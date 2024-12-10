@@ -9,6 +9,7 @@ import 'package:jiaoyishuoflutter3/careMode.dart';
 import 'package:jiaoyishuoflutter3/chat.dart';
 import 'package:jiaoyishuoflutter3/collectionAndPayment.dart';
 import 'package:jiaoyishuoflutter3/discovery.dart';
+import 'package:jiaoyishuoflutter3/friendmessagerecord.dart';
 import 'package:jiaoyishuoflutter3/friendmoments.dart';
 import 'package:jiaoyishuoflutter3/home22.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
@@ -303,6 +304,9 @@ class _TabBarApp extends State<TabBarApp> {
                     return pageRouteBuilderAnimation(const LJNChangeDetails());
                   } else if (settings.name == "/bill_details") {
                     return pageRouteBuilderAnimation(const LJNBillDetails());
+                  } else if (settings.name == "/friend_message_record") {
+                    return pageRouteBuilderAnimation(
+                        const LJNFriendMessageRecord());
                   }
 
                   return null;
@@ -706,6 +710,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                                           height: 90.w,
                                           padding: EdgeInsets.only(
                                               right: 40.w), // 设置右侧内边距
+                                          alignment: Alignment.center,
                                           child: Icon(
                                             const IconData(
                                               0xe726,

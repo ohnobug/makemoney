@@ -98,18 +98,14 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         // color: Colors.black,
                         height: 90.w,
                         padding: EdgeInsets.only(right: 40.w),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "编辑",
-                              // textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 32.w,
-                                  fontWeight: FontWeight.w100),
-                            )
-                          ],
+                        alignment: Alignment.center,
+                        child: Text(
+                          "编辑",
+                          // textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 32.w,
+                              fontWeight: FontWeight.w100),
                         ),
                       ),
                     )

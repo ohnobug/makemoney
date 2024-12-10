@@ -72,322 +72,327 @@ class _LJNBillDetails extends State<LJNBillDetails>
       appBar: null,
       body: Stack(children: [
         Scaffold(
-            primary: false,
-            appBar: PreferredSize(
-                preferredSize: Size.fromHeight(90.0.w + _statusHeight),
-                child: Container(
-                    width: screenSize.width,
-                    color: const Color.fromARGB(255, 237, 237, 237),
-                    padding: EdgeInsets.only(top: _statusHeight),
-                    child: AppBar(
-                      leading: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          // wallet
-                        }, // 点击事件
-                        child: Container(
-                          color: Colors.transparent,
-                          child: Icon(
-                            const IconData(
-                              0xed9e,
-                              fontFamily: 'Iconfont',
-                            ), // 使用的图标
-                            color: Colors.black, // 图标颜色
-                            size: 36.w, // 图标大小
-                          ),
+          primary: false,
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+              child: Container(
+                  width: screenSize.width,
+                  color: const Color.fromARGB(255, 237, 237, 237),
+                  padding: EdgeInsets.only(top: _statusHeight),
+                  child: AppBar(
+                    leading: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        // wallet
+                      }, // 点击事件
+                      child: Container(
+                        color: Colors.transparent,
+                        child: Icon(
+                          const IconData(
+                            0xed9e,
+                            fontFamily: 'Iconfont',
+                          ), // 使用的图标
+                          color: Colors.black, // 图标颜色
+                          size: 36.w, // 图标大小
                         ),
                       ),
-                      primary: false,
-                      centerTitle: true,
-                      title: const Text('账单'),
-                      toolbarHeight: 90.w,
-                      titleTextStyle: TextStyle(
-                          height: 1.08,
-                          fontSize: fontSizeScale(32.w),
-                          color: Colors.black,
-                          fontFamily: "AlibabaPuHuiTi-Medium"),
-                      elevation: 0,
-                      scrolledUnderElevation: 0,
-                      backgroundColor: const Color.fromARGB(255, 237, 237, 237),
-                      foregroundColor: const Color.fromARGB(255, 237, 237, 237),
-                      // bottom: PreferredSize(
-                      //   preferredSize: Size.fromHeight(1.w),
-                      //   child: Container(
-                      //     color: const Color.fromARGB(255, 220, 220, 220),
-                      //     height: 1.w,
-                      //   ),
-                      // ),
-                      actions: [
-                        // 三个点
-                        GestureDetector(
-                            onTap: () {
-                              // 点击事件
-                            },
-                            child: Container(
-                                color: Colors.transparent,
-                                padding: EdgeInsets.only(right: 33.w),
-                                child: Text("常见问题",
+                    ),
+                    primary: false,
+                    centerTitle: true,
+                    title: const Text('账单'),
+                    toolbarHeight: 90.w,
+                    titleTextStyle: TextStyle(
+                        height: 1.08,
+                        fontSize: fontSizeScale(32.w),
+                        color: Colors.black,
+                        fontFamily: "AlibabaPuHuiTi-Medium"),
+                    elevation: 0,
+                    scrolledUnderElevation: 0,
+                    backgroundColor: const Color.fromARGB(255, 237, 237, 237),
+                    foregroundColor: const Color.fromARGB(255, 237, 237, 237),
+                    // bottom: PreferredSize(
+                    //   preferredSize: Size.fromHeight(1.w),
+                    //   child: Container(
+                    //     color: const Color.fromARGB(255, 220, 220, 220),
+                    //     height: 1.w,
+                    //   ),
+                    // ),
+                    actions: [
+                      // 三个点
+                      GestureDetector(
+                          onTap: () {
+                            // 点击事件
+                          },
+                          child: Container(
+                              // color: Colors.transparent,
+                              height: 90.w,
+                              color: Colors.transparent,
+                              // color: Colors.amber,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.only(right: 33.w),
+                              child: Text("常见问题",
+                                  style: TextStyle(
+                                      height: 1.08,
+                                      color: Colors.black,
+                                      fontSize: fontSizeScale(32.w),
+                                      fontWeight: FontWeight.w500)))),
+                    ],
+                  ))),
+          body: Container(
+              constraints: BoxConstraints(
+                  minHeight: screenSize.height - 90.w - _statusHeight),
+              color: const Color.fromARGB(255, 237, 237, 237),
+              child: Column(children: [
+                // 全部账单 标题选项
+                Container(
+                  height: 130.w,
+                  width: screenSize.width,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 239, 239, 239),
+                      border: Border(
+                          top: BorderSide(
+                            color: const Color.fromARGB(255, 232, 232, 232),
+                            width: 2.w,
+                            style: BorderStyle.solid,
+                          ),
+                          bottom: BorderSide(
+                            color: const Color.fromARGB(255, 232, 232, 232),
+                            width: 2.w,
+                            style: BorderStyle.solid,
+                          ))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // 全部账单
+                      GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              showFilterBg = true;
+                            });
+                            _animationController.forward();
+                          },
+                          child: Container(
+                            height: 70.w,
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.only(left: 25.w, right: 25.w),
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 227, 227, 227),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(70.w)),
+                            ),
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "全部账单",
                                     style: TextStyle(
-                                        height: 1.08,
-                                        color: Colors.black,
-                                        fontSize: fontSizeScale(32.w),
-                                        fontWeight: FontWeight.w500)))),
-                      ],
-                    ))),
-            body: ScrollConfiguration(
-                behavior:
-                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                child: Container(
-                    constraints: BoxConstraints(
-                        minHeight: screenSize.height - 90.w - _statusHeight),
-                    color: const Color.fromARGB(255, 237, 237, 237),
-                    child: SingleChildScrollView(
-                        physics: const AlwaysScrollableScrollPhysics(
-                            parent: BouncingScrollPhysics()),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 130.w,
-                                width: screenSize.width,
-                                alignment: Alignment.center,
-                                padding:
-                                    EdgeInsets.only(left: 30.w, right: 30.w),
-                                decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                        255, 239, 239, 239),
-                                    border: Border(
-                                        top: BorderSide(
-                                          color: const Color.fromARGB(
-                                              255, 232, 232, 232),
-                                          width: 2.w,
-                                          style: BorderStyle.solid,
-                                        ),
-                                        bottom: BorderSide(
-                                          color: const Color.fromARGB(
-                                              255, 232, 232, 232),
-                                          width: 2.w,
-                                          style: BorderStyle.solid,
-                                        ))),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    // 全部账单
-                                    GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            showFilterBg = true;
-                                          });
-                                          _animationController.forward();
-                                        },
-                                        child: Container(
-                                          height: 70.w,
-                                          alignment: Alignment.center,
-                                          padding: EdgeInsets.only(
-                                              left: 25.w, right: 25.w),
-                                          decoration: BoxDecoration(
-                                            color: const Color.fromARGB(
-                                                255, 227, 227, 227),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(70.w)),
-                                          ),
-                                          child: Text.rich(
-                                            TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: "全部账单",
-                                                  style: TextStyle(
-                                                    height: 1.08,
-                                                    fontSize:
-                                                        fontSizeScale(30.w),
-                                                    color: Colors.black,
-                                                    // fontWeight: FontWeight.bold,
-                                                    fontFamily:
-                                                        "AlibabaPuHuiTi",
-                                                  ),
-                                                ),
-                                                WidgetSpan(
-                                                  alignment:
-                                                      PlaceholderAlignment
-                                                          .middle, // 图标垂直对齐方式
-                                                  child: Icon(
-                                                    const IconData(
-                                                      0xe60a,
-                                                      fontFamily: 'Iconfont',
-                                                    ), // 使用的图标
-                                                    color: Colors.black, // 图标颜色
-                                                    size: 25.w, // 图标大小
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )),
-
-                                    // 统计
-                                    Text.rich(
-                                      TextSpan(
-                                        children: [
-                                          TextSpan(
-                                            text: "统计",
-                                            style: TextStyle(
-                                              height: 1.08,
-                                              fontSize: fontSizeScale(30.w),
-                                              color: const Color.fromARGB(
-                                                  255, 157, 157, 157),
-                                              // fontWeight: FontWeight.bold,
-                                              fontFamily: "AlibabaPuHuiTi",
-                                            ),
-                                          ),
-                                          WidgetSpan(
-                                            alignment: PlaceholderAlignment
-                                                .middle, // 图标垂直对齐方式
-                                            child: Icon(
-                                              const IconData(
-                                                0xed9d,
-                                                fontFamily: 'Iconfont',
-                                              ), // 使用的图标
-                                              color: const Color.fromARGB(
-                                                  255, 157, 157, 157), // 图标颜色
-                                              size: 30.w, // 图标大小
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                  height: 107.w,
-                                  padding: EdgeInsets.only(left: 42.w),
-                                  alignment: Alignment.centerLeft,
-                                  color:
-                                      const Color.fromARGB(255, 247, 247, 247),
-                                  child: Text.rich(
-                                    TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text: "2024年12月",
-                                          style: TextStyle(
-                                            height: 1.08,
-                                            fontSize: fontSizeScale(30.w),
-                                            color: Colors.black,
-                                            // fontWeight: FontWeight.bold,
-                                            fontFamily: "AlibabaPuHuiTi",
-                                          ),
-                                        ),
-                                        WidgetSpan(
-                                          alignment: PlaceholderAlignment
-                                              .middle, // 图标垂直对齐方式
-                                          child: Icon(
-                                            const IconData(
-                                              0xe891,
-                                              fontFamily: 'Iconfont',
-                                            ), // 使用的图标
-                                            color: Colors.black, // 图标颜色
-                                            size: 30.w, // 图标大小
-                                          ),
-                                        ),
-                                      ],
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(30.w),
+                                      color: Colors.black,
+                                      // fontWeight: FontWeight.bold,
+                                      fontFamily: "AlibabaPuHuiTi",
                                     ),
-                                  )),
-                              const LJNChangeDetailItem(
-                                title: "原乡智选",
-                                change: -32,
-                                icon: "images/avatar/01.png",
-                                link: '',
-                                underline: true,
+                                  ),
+                                  WidgetSpan(
+                                    alignment:
+                                        PlaceholderAlignment.middle, // 图标垂直对齐方式
+                                    child: Icon(
+                                      const IconData(
+                                        0xe60a,
+                                        fontFamily: 'Iconfont',
+                                      ), // 使用的图标
+                                      color: Colors.black, // 图标颜色
+                                      size: 25.w, // 图标大小
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const LJNChangeDetailItem(
-                                title: "原乡智选",
-                                change: -56,
-                                icon: "images/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              const LJNChangeDetailItem(
-                                title: "原乡智选",
-                                change: -14,
-                                icon: "images/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              const LJNChangeDetailItem(
-                                title: "原乡智选",
-                                change: 200,
-                                icon: "images/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              const LJNChangeDetailItem(
-                                title: "原乡智选",
-                                change: -49,
-                                icon: "images/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              const LJNChangeDetailItem(
-                                title: "原乡智选",
-                                change: -18,
-                                icon: "images/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              const LJNChangeDetailItem(
-                                title: "原乡智选",
-                                change: -21,
-                                icon: "images/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              const LJNChangeDetailItem(
-                                title: "原乡智选",
-                                change: -29,
-                                icon: "images/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              const LJNChangeDetailItem(
-                                title: "原乡智选",
-                                change: -91,
-                                icon: "images/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              const LJNChangeDetailItem(
-                                title: "原乡智选",
-                                change: -5,
-                                icon: "images/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              const LJNChangeDetailItem(
-                                title: "原乡智选",
-                                change: -73,
-                                icon: "images/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              const LJNChangeDetailItem(
-                                title: "原乡智选",
-                                change: -47,
-                                icon: "images/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              const LJNChangeDetailItem(
-                                title: "原乡智选",
-                                change: -15,
-                                icon: "images/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                            ]))))),
+                            ),
+                          )),
 
+                      // 统计
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "统计",
+                              style: TextStyle(
+                                height: 1.08,
+                                fontSize: fontSizeScale(30.w),
+                                color: const Color.fromARGB(255, 157, 157, 157),
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: "AlibabaPuHuiTi",
+                              ),
+                            ),
+                            WidgetSpan(
+                              alignment:
+                                  PlaceholderAlignment.middle, // 图标垂直对齐方式
+                              child: Icon(
+                                const IconData(
+                                  0xed9d,
+                                  fontFamily: 'Iconfont',
+                                ), // 使用的图标
+                                color: const Color.fromARGB(
+                                    255, 157, 157, 157), // 图标颜色
+                                size: 30.w, // 图标大小
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+
+                // 日期选择
+                Container(
+                    height: 107.w,
+                    padding: EdgeInsets.only(left: 42.w),
+                    alignment: Alignment.centerLeft,
+                    color: const Color.fromARGB(255, 247, 247, 247),
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "2024年12月",
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(30.w),
+                              color: Colors.black,
+                              // fontWeight: FontWeight.bold,
+                              fontFamily: "AlibabaPuHuiTi",
+                            ),
+                          ),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle, // 图标垂直对齐方式
+                            child: Icon(
+                              const IconData(
+                                0xe891,
+                                fontFamily: 'Iconfont',
+                              ), // 使用的图标
+                              color: Colors.black, // 图标颜色
+                              size: 30.w, // 图标大小
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+
+                // 列表
+                SizedBox(
+                    height: screenSize.height -
+                        90.w -
+                        _statusHeight -
+                        107.w -
+                        130.w,
+                    width: 750.w,
+                    child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context)
+                            .copyWith(scrollbars: false),
+                        child: const SingleChildScrollView(
+                            physics: AlwaysScrollableScrollPhysics(
+                                parent: BouncingScrollPhysics()),
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  LJNChangeDetailItem(
+                                    title: "原乡智选",
+                                    change: -32,
+                                    icon: "images/avatar/01.png",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                  LJNChangeDetailItem(
+                                    title: "原乡智选",
+                                    change: -56,
+                                    icon: "images/avatar/01.png",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                  LJNChangeDetailItem(
+                                    title: "原乡智选",
+                                    change: -14,
+                                    icon: "images/avatar/01.png",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                  LJNChangeDetailItem(
+                                    title: "原乡智选",
+                                    change: 200,
+                                    icon: "images/avatar/01.png",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                  LJNChangeDetailItem(
+                                    title: "原乡智选",
+                                    change: -49,
+                                    icon: "images/avatar/01.png",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                  LJNChangeDetailItem(
+                                    title: "原乡智选",
+                                    change: -18,
+                                    icon: "images/avatar/01.png",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                  LJNChangeDetailItem(
+                                    title: "原乡智选",
+                                    change: -21,
+                                    icon: "images/avatar/01.png",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                  LJNChangeDetailItem(
+                                    title: "原乡智选",
+                                    change: -29,
+                                    icon: "images/avatar/01.png",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                  LJNChangeDetailItem(
+                                    title: "原乡智选",
+                                    change: -91,
+                                    icon: "images/avatar/01.png",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                  LJNChangeDetailItem(
+                                    title: "原乡智选",
+                                    change: -5,
+                                    icon: "images/avatar/01.png",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                  LJNChangeDetailItem(
+                                    title: "原乡智选",
+                                    change: -73,
+                                    icon: "images/avatar/01.png",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                  LJNChangeDetailItem(
+                                    title: "原乡智选",
+                                    change: -47,
+                                    icon: "images/avatar/01.png",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                  LJNChangeDetailItem(
+                                    title: "原乡智选",
+                                    change: -15,
+                                    icon: "images/avatar/01.png",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                ]))))
+              ])),
+        ),
         // 背景
         showFilterBg
             ? GestureDetector(
@@ -651,22 +656,31 @@ class _LJNBillDetails extends State<LJNBillDetails>
                             SizedBox(
                               width: 30.w,
                             ),
-                            Container(
-                                width: 225.w,
-                                height: 90.w,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: const Color.fromARGB(255, 74, 193, 99),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(12.w)),
-                                ),
-                                child: Text(
-                                  "确定",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 30.w,
-                                      height: 1.08),
-                                ))
+                            GestureDetector(
+                                onTap: () {
+                                  _animationController.reverse().then((_) {
+                                    setState(() {
+                                      showFilterBg = false;
+                                    });
+                                  });
+                                },
+                                child: Container(
+                                    width: 225.w,
+                                    height: 90.w,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 74, 193, 99),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12.w)),
+                                    ),
+                                    child: Text(
+                                      "确定",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 30.w,
+                                          height: 1.08),
+                                    )))
                           ],
                         )
                       ],
