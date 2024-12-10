@@ -21,7 +21,6 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
   final ScrollController _scrollController = ScrollController();
   // Size _screenSize = const Size(0, 0);
   bool figerRelease = false;
-  double _statusHeight = 0;
 
   @override
   void initState() {
@@ -62,12 +61,6 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -75,7 +68,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
 
           double miniprogramboxScale = 0.8 +
               (0.2 *
-                  ((vm.homescrollpixels + _statusHeight - 400.w) /
+                  ((vm.homescrollpixels + vm.statusHeight! - 400.w) /
                       (screenSize.height - newAppbarHeight - 400.w)));
           if (miniprogramboxScale < 0) {
             miniprogramboxScale = 0;
@@ -89,7 +82,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                 return Container(
                     width: screenSize.width,
                     height:
-                        vm.homescrollpixels + (90.w + _statusHeight + 200.w),
+                        vm.homescrollpixels + (90.w + vm.statusHeight! + 200.w),
                     color: Color.fromARGB((255 * 0.8).toInt(), 50, 48, 70),
                     child: Transform.scale(
                         scale: miniprogramboxScale,
@@ -101,9 +94,9 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                             // appbar标题
                             Container(
                                 width: 750.w,
-                                height: 90.0.w + _statusHeight,
+                                height: 90.0.w + vm.statusHeight!,
                                 // color: const Color.fromARGB(255, 50, 48, 70),
-                                padding: EdgeInsets.only(top: _statusHeight),
+                                padding: EdgeInsets.only(top: vm.statusHeight!),
                                 child: AppBar(
                                   leading: null,
                                   primary: false,
@@ -127,7 +120,8 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                       padding: EdgeInsets.only(
                                           left: 10.w, right: 10.w),
                                       decoration: BoxDecoration(
-                                        color: const Color.fromARGB(136, 116, 116, 116),
+                                        color: const Color.fromARGB(
+                                            136, 116, 116, 116),
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(35.w)),
                                         // border: Border(

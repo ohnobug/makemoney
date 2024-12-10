@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
@@ -15,8 +14,6 @@ class LJNCollectionAndPayment extends StatefulWidget {
 }
 
 class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
-  double _statusHeight = 0;
-
   @override
   void initState() {
     super.initState();
@@ -25,56 +22,51 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
 
-    return Scaffold(
-        primary: false,
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(90.0.w + _statusHeight),
-            child: Container(
-              color: const Color.fromARGB(255, 42, 172, 102),
-              padding: EdgeInsets.only(top: _statusHeight),
-              child: AppBar(
-                leading: GestureDetector(
-                  onTap: () => Navigator.of(context).pop(), // 点击事件
+    return StoreConnector<StoreType, StoreType>(
+        converter: (store) => store.state,
+        builder: (context, vm) {
+          return Scaffold(
+              primary: false,
+              appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
                   child: Container(
-                    // 加盒子是为了扩大点击区域
-                    color: Colors.transparent,
-                    child: Icon(
-                      const IconData(
-                        0xed9e,
-                        fontFamily: 'Iconfont',
-                      ), // 使用的图标
-                      color: Colors.white, // 图标颜色
-                      size: 36.w, // 图标大小
+                    color: const Color.fromARGB(255, 42, 172, 102),
+                    padding: EdgeInsets.only(top: vm.statusHeight!),
+                    child: AppBar(
+                      leading: GestureDetector(
+                        onTap: () => Navigator.of(context).pop(), // 点击事件
+                        child: Container(
+                          // 加盒子是为了扩大点击区域
+                          color: Colors.transparent,
+                          child: Icon(
+                            const IconData(
+                              0xed9e,
+                              fontFamily: 'Iconfont',
+                            ), // 使用的图标
+                            color: Colors.white, // 图标颜色
+                            size: 36.w, // 图标大小
+                          ),
+                        ),
+                      ),
+                      primary: false,
+                      centerTitle: true,
+                      elevation: 0,
+                      scrolledUnderElevation: 0,
+                      toolbarHeight: 90.w,
+                      title: const Text("收付款"),
+                      titleTextStyle: TextStyle(
+                        height: 1.08,
+                        fontSize: fontSizeScale(32.w),
+                        color: Colors.white,
+                        fontFamily: "AlibabaPuHuiTi-Medium",
+                      ),
+                      backgroundColor: const Color.fromARGB(255, 42, 172, 102),
+                      foregroundColor: const Color.fromARGB(255, 42, 172, 102),
+                      actions: const [],
                     ),
-                  ),
-                ),
-                primary: false,
-                centerTitle: true,
-                elevation: 0,
-                scrolledUnderElevation: 0,
-                toolbarHeight: 90.w,
-                title: const Text("收付款"),
-                titleTextStyle: TextStyle(
-                  height: 1.08,
-                  fontSize: fontSizeScale(32.w),
-                  color: Colors.white,
-                  fontFamily: "AlibabaPuHuiTi-Medium",
-                ),
-                backgroundColor: const Color.fromARGB(255, 42, 172, 102),
-                foregroundColor: const Color.fromARGB(255, 42, 172, 102),
-                actions: const [],
-              ),
-            )),
-        body: StoreConnector<StoreType, StoreType>(
-            converter: (store) => store.state,
-            builder: (context, vm) {
-              return ColoredBox(
+                  )),
+              body: ColoredBox(
                   color: const Color.fromARGB(255, 42, 172, 102),
                   child: ScrollConfiguration(
                       behavior: ScrollConfiguration.of(context)
@@ -404,8 +396,8 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                             )
                           ],
                         ),
-                      )));
-            }));
+                      ))));
+        });
   }
 }
 

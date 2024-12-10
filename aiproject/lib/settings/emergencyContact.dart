@@ -1,5 +1,4 @@
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
@@ -14,7 +13,6 @@ class LJNEmergencyContact extends StatefulWidget {
 }
 
 class _LJEemergencyContact extends State<LJNEmergencyContact> {
-  double _statusHeight = 0;
   bool selectedValue = false;
 
   @override
@@ -26,22 +24,16 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
           return Scaffold(
               primary: false,
               appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+                  preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
                   child: Container(
                       color: const Color.fromARGB(255, 237, 237, 237),
-                      padding: EdgeInsets.only(top: _statusHeight),
+                      padding: EdgeInsets.only(top: vm.statusHeight!),
                       child: AppBar(
                         leading: GestureDetector(
                           onTap: () {
@@ -119,7 +111,7 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                         // padding: EdgeInsets.only(left: 90.w, right: 90.w),
                         constraints: BoxConstraints(
                             minHeight:
-                                screenSize.height - (_statusHeight + 90.w)),
+                                screenSize.height - (vm.statusHeight! + 90.w)),
                         // color: const Color.fromARGB(255, 231, 15, 15),
                         child: Column(
                           children: [

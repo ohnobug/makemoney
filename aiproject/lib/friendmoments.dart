@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:jiaoyishuoflutter3/components/CustomPhysics.dart';
@@ -19,8 +18,6 @@ class LJNFriendmomentsPage extends StatefulWidget {
 
 class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
     with TickerProviderStateMixin {
-  double _statusHeight = 0;
-
   ScrollController? _scrollController;
   double scrollPosition = 0;
 
@@ -372,7 +369,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
     // logger.info("pixels:${_scrollController.position.pixels}");
     // logger.info("minScrollExtent:${_scrollController.position.minScrollExtent}");
     // logger.info("maxScrollExtent:${_scrollController.position.maxScrollExtent}");
-    double beginPosition = _statusHeight + 450.w;
+    double beginPosition = myStore.state.statusHeight! + 450.w;
 
     setState(() {
       scrollPosition = _scrollController!.position.pixels;
@@ -391,12 +388,6 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
 
   @override
   Widget build(BuildContext context) {
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     if (_scrollController == null) {
       _scrollController = ScrollController();
       // 添加监听器以监控滚动
@@ -456,7 +447,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                   if (index == 0) {
                                     // 头像及背景信息部分
                                     return Container(
-                                      height: (_statusHeight + 630.w),
+                                      height: (vm.statusHeight! + 630.w),
                                       color: Colors.white,
                                       width: 750.w,
                                       child: Stack(
@@ -468,7 +459,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                               assetPath('images/avatar/fj.jpg'),
                                               cacheWidth: 1500.w.toInt(),
                                               cacheHeight:
-                                                  (_statusHeight + 1260.w)
+                                                  (vm.statusHeight! + 1260.w)
                                                       .toInt(),
                                               width: 750.w,
                                               height: 730.w,
@@ -478,7 +469,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
 
                                           // 头像及昵称
                                           Positioned(
-                                            top: _statusHeight + 460.w,
+                                            top: vm.statusHeight! + 460.w,
                                             child: Container(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 35.w),
@@ -564,8 +555,8 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                 color:
                     Color.fromARGB(_appBarOpacity.value.toInt(), 237, 237, 237),
                 width: 750.w,
-                height: 90.0.w + _statusHeight,
-                padding: EdgeInsets.only(top: _statusHeight),
+                height: 90.0.w + vm.statusHeight!,
+                padding: EdgeInsets.only(top: vm.statusHeight!),
                 child: AppBar(
                   primary: false,
                   title: const Text("朋友圈"),

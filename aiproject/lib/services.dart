@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
@@ -14,8 +13,6 @@ class LJNServicesPage extends StatefulWidget {
 }
 
 class _LJNServicesPage extends State<LJNServicesPage> {
-  double _statusHeight = 0;
-
   @override
   void initState() {
     super.initState();
@@ -25,22 +22,16 @@ class _LJNServicesPage extends State<LJNServicesPage> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
           return Scaffold(
               primary: false,
               appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+                  preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
                   child: Container(
                       color: const Color.fromARGB(255, 237, 237, 237),
-                      padding: EdgeInsets.only(top: _statusHeight),
+                      padding: EdgeInsets.only(top: vm.statusHeight!),
                       child: AppBar(
                         leading: GestureDetector(
                           onTap: () {

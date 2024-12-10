@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/LJNFunctionItemButton.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
@@ -28,8 +27,6 @@ class LJNFriendProfilePage extends StatefulWidget {
 }
 
 class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
-  double _statusHeight = 0;
-
   @override
   void initState() {
     super.initState();
@@ -47,11 +44,6 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
   // 另起一个函数方便管理
   Widget _buildPage() {
     Size screenSize = MediaQuery.of(context).size;
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -59,10 +51,10 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
           return Scaffold(
               primary: false,
               appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+                  preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
                   child: Container(
                       color: Colors.white,
-                      padding: EdgeInsets.only(top: _statusHeight),
+                      padding: EdgeInsets.only(top: vm.statusHeight!),
                       child: AppBar(
                         leading: GestureDetector(
                           onTap: () {
@@ -121,7 +113,8 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                       .copyWith(scrollbars: false),
                   child: Container(
                       constraints: BoxConstraints(
-                          minHeight: screenSize.height - 90.w - _statusHeight),
+                          minHeight:
+                              screenSize.height - 90.w - vm.statusHeight!),
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           colors: [

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
@@ -17,8 +16,6 @@ class LJNUserPage extends StatefulWidget {
 }
 
 class _LJNUserPageState extends State<LJNUserPage> {
-  double _statusHeight = 0;
-
   @override
   void initState() {
     super.initState();
@@ -33,12 +30,6 @@ class _LJNUserPageState extends State<LJNUserPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -77,7 +68,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                       Container(
                         color: Colors.white,
                         padding: EdgeInsets.only(
-                            top: 120.0.w + _statusHeight,
+                            top: 120.0.w + vm.statusHeight!,
                             left: 32.w,
                             bottom: 50.w),
                         child: Row(

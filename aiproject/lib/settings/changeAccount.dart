@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/LJNChangeAccountButton.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
@@ -16,8 +15,6 @@ class LJNChangeAccount extends StatefulWidget {
 }
 
 class _LJNChangeAccount extends State<LJNChangeAccount> {
-  double _statusHeight = 0;
-
   final TextEditingController _controller = TextEditingController();
 
   @override
@@ -36,21 +33,16 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
 
   // 另起一个函数方便管理
   Widget _buildPage(StoreType vm) {
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
     Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
         primary: false,
         resizeToAvoidBottomInset: false,
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+            preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
             child: Container(
                 color: Colors.transparent,
-                padding: EdgeInsets.only(top: _statusHeight),
+                padding: EdgeInsets.only(top: vm.statusHeight!),
                 child: AppBar(
                   leading: GestureDetector(
                     onTap: () {
@@ -89,7 +81,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: Container(
                 constraints: BoxConstraints(
-                    minHeight: screenSize.height - 90.w - _statusHeight),
+                    minHeight: screenSize.height - 90.w - vm.statusHeight!),
                 color: Colors.white,
                 child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(

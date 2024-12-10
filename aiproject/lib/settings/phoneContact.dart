@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/CustomPhysics.dart';
 import 'package:jiaoyishuoflutter3/components/LJNAddButton.dart';
@@ -16,7 +15,6 @@ class LJNPhoneContact extends StatefulWidget {
 }
 
 class _LJNPhoneContact extends State<LJNPhoneContact> {
-  double _statusHeight = 0;
   late final List<Widget> chatItems;
   // ScrollPhysics _physics = const MyBouncingScrollPhysics();
   // final _customScrollController = ScrollController();
@@ -410,20 +408,13 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
 
   // 另起一个函数方便管理
   Widget _buildPage(StoreType vm) {
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-    // Size screenSize = MediaQuery.of(context).size;
-
     return Scaffold(
         primary: false,
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+            preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
             child: Container(
                 color: const Color.fromARGB(255, 237, 237, 237),
-                padding: EdgeInsets.only(top: _statusHeight),
+                padding: EdgeInsets.only(top: vm.statusHeight!),
                 child: AppBar(
                   leading: GestureDetector(
                     onTap: () {

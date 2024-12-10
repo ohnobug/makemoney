@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/CustomPhysics.dart';
 import 'package:jiaoyishuoflutter3/components/pageloading.dart';
@@ -17,7 +16,7 @@ class LJNHomePage extends StatefulWidget {
 
 class _ChatListViewState extends State<LJNHomePage> {
   final _customScrollController = ScrollController();
-  double _statusHeight = 0;
+
   late final List<ChatListItem> chatItems;
 
   @override
@@ -488,17 +487,11 @@ class _ChatListViewState extends State<LJNHomePage> {
   }
 
   Widget _buildPage(StoreType vm) {
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     return ScrollConfiguration(
         behavior: CustomScrollBehavior().copyWith(scrollbars: false),
         child: ListView.builder(
           primary: false,
-          padding: EdgeInsets.only(top: _statusHeight + 90.w),
+          padding: EdgeInsets.only(top: vm.statusHeight! + 90.w),
           itemCount: chatItems.length,
           shrinkWrap: true,
           controller: _customScrollController,

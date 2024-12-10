@@ -70,29 +70,30 @@ class StoreType {
   double homescrollpixels = 0; // 首页滚动情况
 
   Size? screenSize;
+  double? statusHeight;
 
-  StoreType({
-    this.userinfoName,
-    this.userinfoAccount,
-    this.userinfoPhone,
-    this.walletBalance,
-    this.walletFoundationBalance,
-    this.userinfoAvatar,
-    this.showMiniProgramDrawer,
-    this.contactazshow,
-    this.mainpage1isload,
-    this.mainpage2isload,
-    this.mainpage3isload,
-    this.mainpage4isload,
-    this.showpopup,
-    this.themeData,
-    required this.homescrollpixels,
-    this.screenSize,
-    this.button1Bg,
-    this.button2Bg,
-    this.button3Bg,
-    this.button4Bg,
-  });
+  StoreType(
+      {this.userinfoName,
+      this.userinfoAccount,
+      this.userinfoPhone,
+      this.walletBalance,
+      this.walletFoundationBalance,
+      this.userinfoAvatar,
+      this.showMiniProgramDrawer,
+      this.contactazshow,
+      this.mainpage1isload,
+      this.mainpage2isload,
+      this.mainpage3isload,
+      this.mainpage4isload,
+      this.showpopup,
+      this.themeData,
+      required this.homescrollpixels,
+      this.screenSize,
+      this.button1Bg,
+      this.button2Bg,
+      this.button3Bg,
+      this.button4Bg,
+      this.statusHeight});
 
   StoreType copyWith({
     String? userinfoName,
@@ -115,6 +116,7 @@ class StoreType {
     Color? button2Bg,
     Color? button3Bg,
     Color? button4Bg,
+    double? statusHeight,
   }) {
     return StoreType(
       userinfoName: userinfoName ?? this.userinfoName,
@@ -139,6 +141,7 @@ class StoreType {
       button2Bg: button2Bg ?? this.button2Bg,
       button3Bg: button3Bg ?? this.button3Bg,
       button4Bg: button4Bg ?? this.button4Bg,
+      statusHeight: statusHeight ?? this.statusHeight,
     );
   }
 }
@@ -224,6 +227,9 @@ StoreType counterReducer(StoreType state, dynamic action) {
     return state.copyWith(button4Bg: action['payload']);
   }
 
+  if (action['type'] == "statusHeight") {
+    return state.copyWith(statusHeight: action['payload']);
+  }
   return state;
 }
 
@@ -248,4 +254,5 @@ final myStore = Store<StoreType>(counterReducer,
         button1Bg: const Color.fromARGB(255, 76, 76, 76),
         button2Bg: const Color.fromARGB(255, 76, 76, 76),
         button3Bg: const Color.fromARGB(255, 76, 76, 76),
-        button4Bg: const Color.fromARGB(255, 76, 76, 76)));
+        button4Bg: const Color.fromARGB(255, 76, 76, 76),
+        statusHeight: 0.0));

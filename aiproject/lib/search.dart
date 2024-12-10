@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
@@ -13,7 +12,6 @@ class LJNSearchPage extends StatefulWidget {
 }
 
 class _LJNSearchPage extends State<LJNSearchPage> {
-  double _statusHeight = 0;
   List<Widget> historyList = [];
   List<Widget> suggestionsForYouList = [];
   List<Widget> hotList = [];
@@ -355,12 +353,6 @@ class _LJNSearchPage extends State<LJNSearchPage> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -377,11 +369,11 @@ class _LJNSearchPage extends State<LJNSearchPage> {
             primary: false,
             resizeToAvoidBottomInset: false,
             appBar: PreferredSize(
-                preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+                preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
                 child: Container(
                   padding:
                       EdgeInsets.symmetric(horizontal: 16.w, vertical: 0.w),
-                  margin: EdgeInsets.only(top: _statusHeight),
+                  margin: EdgeInsets.only(top: vm.statusHeight!),
                   height: 90.w,
                   color: Colors.white, // 设置背景颜色
                   child: Row(
@@ -399,7 +391,8 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                               0xed9e,
                               fontFamily: 'Iconfont',
                             ), // 使用的图标
-                            color: const Color.fromARGB(255, 99, 99, 99), // 图标颜色
+                            color:
+                                const Color.fromARGB(255, 99, 99, 99), // 图标颜色
                             size: 36.w, // 图标大小
                           ),
                         ),
@@ -828,12 +821,6 @@ class _LJNSearchPage extends State<LJNSearchPage> {
   Widget hotListWidget(List<Widget> hotList) {
     Size screenSize = MediaQuery.of(context).size;
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     return // 第一个榜单
         Container(
             // height: 4350.w + 90.w,
@@ -855,7 +842,8 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                         colors: [
                           e.key < 3
                               ? const Color.fromARGB(255, 253, 245, 242)
-                              : const Color.fromARGB(255, 245, 245, 245), // 起始颜色
+                              : const Color.fromARGB(
+                                  255, 245, 245, 245), // 起始颜色
                           Colors.white, // 结束颜色
                         ],
                       ),

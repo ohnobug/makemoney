@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/maxWidthButton.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
@@ -15,8 +14,6 @@ class LJNDeviceDetail extends StatefulWidget {
 }
 
 class _LJNDeviceDetail extends State<LJNDeviceDetail> {
-  double _statusHeight = 0;
-
   @override
   void initState() {
     super.initState();
@@ -33,21 +30,16 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
 
   // 另起一个函数方便管理
   Widget _buildPage(StoreType vm) {
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
     Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
         primary: false,
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+            preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
             child: Container(
                 width: screenSize.width,
                 color: const Color.fromARGB(255, 237, 237, 237),
-                padding: EdgeInsets.only(top: _statusHeight),
+                padding: EdgeInsets.only(top: vm.statusHeight!),
                 child: AppBar(
                   leading: GestureDetector(
                     onTap: () {
@@ -93,7 +85,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: Container(
                 constraints: BoxConstraints(
-                    minHeight: screenSize.height - 90.w - _statusHeight),
+                    minHeight: screenSize.height - 90.w - vm.statusHeight!),
                 color: const Color.fromARGB(255, 237, 237, 237),
                 child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(
@@ -101,7 +93,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                     child: Column(children: [
                       LJNFunctionItem(
                           // height: 150.w,
-                          
+
                           title: "设备名称",
                           link: '',
                           tapEffect: true,
@@ -119,7 +111,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                               ))),
                       LJNFunctionItem(
                           // height: 150.w,
-                          
+
                           title: "设备类型",
                           // link: '',
                           tapEffect: false,
@@ -141,7 +133,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                       ),
                       LJNFunctionItem(
                           // height: 150.w,
-                          
+
                           title: "最近活跃时间",
                           // link: '',
                           tapEffect: false,
@@ -169,7 +161,6 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                                     const Color.fromARGB(255, 149, 149, 149)),
                           )),
                       const LJNMaxWidthButton(
-                        
                         title: "删除该设备",
                         color: Colors.red,
                         link: '',

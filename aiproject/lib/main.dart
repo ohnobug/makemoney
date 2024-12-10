@@ -9,7 +9,8 @@ import 'package:jiaoyishuoflutter3/careMode.dart';
 import 'package:jiaoyishuoflutter3/chat.dart';
 import 'package:jiaoyishuoflutter3/collectionAndPayment.dart';
 import 'package:jiaoyishuoflutter3/discovery.dart';
-import 'package:jiaoyishuoflutter3/friendmessagerecord.dart';
+import 'package:jiaoyishuoflutter3/friendDataSetting.dart';
+import 'package:jiaoyishuoflutter3/friendMessageRecord.dart';
 import 'package:jiaoyishuoflutter3/friendmoments.dart';
 import 'package:jiaoyishuoflutter3/home22.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
@@ -307,6 +308,9 @@ class _TabBarApp extends State<TabBarApp> {
                   } else if (settings.name == "/friend_message_record") {
                     return pageRouteBuilderAnimation(
                         const LJNFriendMessageRecord());
+                  } else if (settings.name == "/friend_data_setting") {
+                    return pageRouteBuilderAnimation(
+                        const LJNFriendDataSetting());
                   }
 
                   return null;
@@ -374,7 +378,7 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   double _appbarLeft = 0;
 
-  double _statusHeight = 0;
+  bool setStatusHeight = false;
 
   @override
   void initState() {
@@ -452,10 +456,19 @@ class _CustomTabbarState extends State<CustomTabbar>
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
+    if (setStatusHeight == false) {
+      if (kIsWeb) {
+        // vm.statusHeight = 0;
+        myStore.dispatch({"type": "statusHeight", "payload": 0});
+      } else {
+        // vm.statusHeight = MediaQuery.of(context).padding.top;
+        myStore.dispatch({
+          "type": "statusHeight",
+          "payload": MediaQuery.of(context).padding.top
+        });
+      }
+
+      setStatusHeight = true;
     }
 
     Icon icon1 = Icon(
@@ -493,8 +506,8 @@ class _CustomTabbarState extends State<CustomTabbar>
           // 新appbar透明度
           double percent75Position = screenSize.height * 0.25; // 开始显示新appbar的位置
           // double newAppbarHeight = 90.w + 17.w;
-          // double coverOpacity = (vm.homescrollpixels + _statusHeight) /
-          //     (percent75Position - _statusHeight);
+          // double coverOpacity = (vm.homescrollpixels + vm.statusHeight) /
+          //     (percent75Position - vm.statusHeight);
           // if (coverOpacity < 0) {
           //   coverOpacity = 0;
           // } else if (coverOpacity > 1) {
@@ -636,14 +649,14 @@ class _CustomTabbarState extends State<CustomTabbar>
 
               // 浮动在顶部的appbar
               Visibility(
-                visible:
-                    (vm.homescrollpixels + _statusHeight) <= percent75Position,
+                visible: (vm.homescrollpixels + vm.statusHeight!) <=
+                    percent75Position,
                 child: Positioned(
                     top: vm.homescrollpixels,
                     left: _appbarLeft,
                     child: Container(
                         width: 750.0.w,
-                        height: _statusHeight + 90.w,
+                        height: vm.statusHeight! + 90.w,
                         color: vm.homescrollpixels == 0
                             ? const Color.fromARGB(255, 237, 237, 237)
                             : Colors.transparent,
@@ -741,8 +754,6 @@ class PopupMenu extends StatefulWidget {
 }
 
 class _PopupMenuState extends State<PopupMenu> {
-  double _statusHeight = 0;
-
   @override
   void initState() {
     super.initState();
@@ -750,12 +761,6 @@ class _PopupMenuState extends State<PopupMenu> {
 
   @override
   Widget build(BuildContext context) {
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -775,7 +780,7 @@ class _PopupMenuState extends State<PopupMenu> {
                           color: Colors.transparent)),
                   Positioned(
                       right: 15.w,
-                      top: _statusHeight + 80.w,
+                      top: vm.statusHeight! + 80.w,
                       child: SizedBox(
                         width: 320.w,
                         child: Column(

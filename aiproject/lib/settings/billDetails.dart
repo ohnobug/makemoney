@@ -16,7 +16,6 @@ class LJNBillDetails extends StatefulWidget {
 
 class _LJNBillDetails extends State<LJNBillDetails>
     with SingleTickerProviderStateMixin {
-  double _statusHeight = 0;
   bool showFilterBg = false;
   late AnimationController _animationController;
   late Animation<double> _widthAnimation;
@@ -60,11 +59,6 @@ class _LJNBillDetails extends State<LJNBillDetails>
 
   // 另起一个函数方便管理
   Widget _buildPage(StoreType vm) {
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
     Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -74,11 +68,11 @@ class _LJNBillDetails extends State<LJNBillDetails>
         Scaffold(
           primary: false,
           appBar: PreferredSize(
-              preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+              preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
               child: Container(
                   width: screenSize.width,
                   color: const Color.fromARGB(255, 237, 237, 237),
-                  padding: EdgeInsets.only(top: _statusHeight),
+                  padding: EdgeInsets.only(top: vm.statusHeight!),
                   child: AppBar(
                     leading: GestureDetector(
                       onTap: () {
@@ -140,7 +134,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                   ))),
           body: Container(
               constraints: BoxConstraints(
-                  minHeight: screenSize.height - 90.w - _statusHeight),
+                  minHeight: screenSize.height - 90.w - vm.statusHeight!),
               color: const Color.fromARGB(255, 237, 237, 237),
               child: Column(children: [
                 // 全部账单 标题选项
@@ -285,7 +279,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                 SizedBox(
                     height: screenSize.height -
                         90.w -
-                        _statusHeight -
+                        vm.statusHeight! -
                         107.w -
                         130.w,
                     width: 750.w,

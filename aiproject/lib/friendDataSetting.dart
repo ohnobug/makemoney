@@ -10,8 +10,8 @@ import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import 'components/LJNFunctionItem.dart';
 
-class LJNFriendMessageRecord extends StatefulWidget {
-  const LJNFriendMessageRecord({
+class LJNFriendDataSetting extends StatefulWidget {
+  const LJNFriendDataSetting({
     super.key,
     this.name,
     this.avatar,
@@ -25,10 +25,10 @@ class LJNFriendMessageRecord extends StatefulWidget {
   final String? account;
 
   @override
-  State<LJNFriendMessageRecord> createState() => _LJNFriendMessageRecord();
+  State<LJNFriendDataSetting> createState() => _LJNFriendDataSetting();
 }
 
-class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
+class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
   @override
   void initState() {
     super.initState();

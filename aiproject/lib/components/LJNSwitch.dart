@@ -65,8 +65,9 @@ class _LJNSwitchState extends State<LJNSwitch>
             height: 60.0.w,
             // padding: EdgeInsets.symmetric(horizontal: 4.0.w),
             decoration: BoxDecoration(
-              color:
-                  isOn ? const Color.fromARGB(255, 74, 193, 99) : Colors.grey,
+              color: isOn
+                  ? const Color.fromARGB(255, 74, 193, 99)
+                  : const Color.fromARGB(255, 229, 229, 229),
               borderRadius: BorderRadius.circular(30.0.w),
             ),
             child: Stack(

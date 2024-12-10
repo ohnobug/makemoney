@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -13,7 +12,6 @@ class LJNSetPassword extends StatefulWidget {
 }
 
 class _LJNSetPassword extends State<LJNSetPassword> {
-  double _statusHeight = 0;
   TextEditingController originPassworldController = TextEditingController();
 
   @override
@@ -32,20 +30,15 @@ class _LJNSetPassword extends State<LJNSetPassword> {
 
   // 另起一个函数方便管理
   Widget _buildPage(StoreType vm) {
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
     Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
         primary: false,
         appBar: PreferredSize(
-            preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+            preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
             child: Container(
                 color: const Color.fromARGB(255, 237, 237, 237),
-                padding: EdgeInsets.only(top: _statusHeight),
+                padding: EdgeInsets.only(top: vm.statusHeight!),
                 child: AppBar(
                   leading: GestureDetector(
                     onTap: () {
@@ -107,7 +100,7 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: Container(
                 constraints: BoxConstraints(
-                    minHeight: screenSize.height - 90.w - _statusHeight),
+                    minHeight: screenSize.height - 90.w - vm.statusHeight!),
                 color: const Color.fromARGB(255, 237, 237, 237),
                 child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(

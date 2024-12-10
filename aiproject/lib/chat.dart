@@ -53,8 +53,6 @@ class _LJNChatPage extends State<LJNChatPage>
 
   List<StatefulWidget> messageList = [];
 
-  double _statusHeight = 0;
-
   // 键盘高度
   double maxKeyboradHeight = 0;
 
@@ -594,11 +592,6 @@ class _LJNChatPage extends State<LJNChatPage>
     logger.info("aaaaaaa 来了 $lastKeyboradHeight $showKeyboard");
 
     Size screenSize = MediaQuery.of(context).size;
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
 
     keyboradCloseDetect();
 
@@ -614,10 +607,10 @@ class _LJNChatPage extends State<LJNChatPage>
                   primary: false,
                   extendBody: false,
                   appBar: PreferredSize(
-                      preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+                      preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
                       child: Container(
                         color: const Color.fromARGB(255, 237, 237, 237),
-                        padding: EdgeInsets.only(top: _statusHeight),
+                        padding: EdgeInsets.only(top: vm.statusHeight!),
                         child: AppBar(
                           leading: GestureDetector(
                             onTap: () => Navigator.of(context).pop(), // 点击事件

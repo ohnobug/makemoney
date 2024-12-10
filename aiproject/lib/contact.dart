@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/pageloading.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
@@ -15,7 +14,6 @@ class LJNContactPage extends StatefulWidget {
 }
 
 class _LJNContactPageState extends State<LJNContactPage> {
-  double _statusHeight = 0;
   late List<dynamic> contactList;
 
   // 字母
@@ -495,106 +493,110 @@ class _LJNContactPageState extends State<LJNContactPage> {
   Widget _buildPage() {
     Size screenSize = MediaQuery.of(context).size;
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
-    return Stack(children: [
-      // 联系人
-      ScrollConfiguration(
-        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-        child: Container(
-            constraints: BoxConstraints(
-                minHeight: screenSize.height - 90.w - _statusHeight),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 237, 237, 237),
-                  Colors.white,
-                ],
-                stops: [0.3, 0.5],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-            child: ListView.builder(
-              primary: false,
-              padding: EdgeInsets.only(top: _statusHeight + 90.w),
-              physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics()),
-              itemCount: contactList.length, // contactList 是你的联系人数据列表
-              itemBuilder: (context, index) {
-                return contactList[index];
-              },
-            )),
-      ),
-
-      // 右边的字母表
-      StoreConnector<StoreType, StoreType>(
+    return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
-        builder: (context, state) {
-          return Visibility(
-              visible: state.contactazshow!,
-              child: Positioned(
-                  right: 0,
-                  top:
-                      ((MediaQuery.of(context).size.height - 986.w) / 2) + 40.w,
-                  child: SizedBox(
-                    width: 40.w,
-                    // height: MediaQuery.of(context).size.height - 115.w - 75.w,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 34.w,
-                          child: Icon(
-                              const IconData(
-                                0xe677,
-                                fontFamily: 'Iconfont',
-                              ),
-                              size: 22.w,
-                              color: const Color.fromARGB(255, 20, 20, 20)),
-                        ),
-                        SizedBox(
-                          height: 34.w,
-                          child: Icon(
-                              const IconData(
-                                0xe6c8,
-                                fontFamily: 'Iconfont',
-                              ),
-                              size: 22.w,
-                              color: const Color.fromARGB(255, 20, 20, 20)),
-                        ),
-                        for (int i = 0; i < 26; i++)
-                          SizedBox(
-                            height: 34.w,
-                            child: Text(
-                              String.fromCharCode(65 + i),
-                              style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(22.w),
-                                  color: const Color.fromARGB(255, 20, 20, 20)),
-                            ),
-                          ),
-                        SizedBox(
-                          height: 34.w,
-                          child: Text(
-                            "#",
-                            style: TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(22.w),
-                                color: const Color.fromARGB(255, 20, 20, 20)),
-                          ),
-                        ),
+        builder: (context, vm) {
+          return Stack(children: [
+            // 联系人
+            ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: Container(
+                  constraints: BoxConstraints(
+                      minHeight: screenSize.height - 90.w - vm.statusHeight!),
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 237, 237, 237),
+                        Colors.white,
                       ],
+                      stops: [0.3, 0.5],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
                     ),
-                  )));
-        },
-      ),
-    ]);
+                  ),
+                  child: ListView.builder(
+                    primary: false,
+                    padding: EdgeInsets.only(top: vm.statusHeight! + 90.w),
+                    physics: const AlwaysScrollableScrollPhysics(
+                        parent: BouncingScrollPhysics()),
+                    itemCount: contactList.length, // contactList 是你的联系人数据列表
+                    itemBuilder: (context, index) {
+                      return contactList[index];
+                    },
+                  )),
+            ),
+
+            // 右边的字母表
+            StoreConnector<StoreType, StoreType>(
+              converter: (store) => store.state,
+              builder: (context, state) {
+                return Visibility(
+                    visible: state.contactazshow!,
+                    child: Positioned(
+                        right: 0,
+                        top:
+                            ((MediaQuery.of(context).size.height - 986.w) / 2) +
+                                40.w,
+                        child: SizedBox(
+                          width: 40.w,
+                          // height: MediaQuery.of(context).size.height - 115.w - 75.w,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 34.w,
+                                child: Icon(
+                                    const IconData(
+                                      0xe677,
+                                      fontFamily: 'Iconfont',
+                                    ),
+                                    size: 22.w,
+                                    color:
+                                        const Color.fromARGB(255, 20, 20, 20)),
+                              ),
+                              SizedBox(
+                                height: 34.w,
+                                child: Icon(
+                                    const IconData(
+                                      0xe6c8,
+                                      fontFamily: 'Iconfont',
+                                    ),
+                                    size: 22.w,
+                                    color:
+                                        const Color.fromARGB(255, 20, 20, 20)),
+                              ),
+                              for (int i = 0; i < 26; i++)
+                                SizedBox(
+                                  height: 34.w,
+                                  child: Text(
+                                    String.fromCharCode(65 + i),
+                                    style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(22.w),
+                                        color: const Color.fromARGB(
+                                            255, 20, 20, 20)),
+                                  ),
+                                ),
+                              SizedBox(
+                                height: 34.w,
+                                child: Text(
+                                  "#",
+                                  style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(22.w),
+                                      color: const Color.fromARGB(
+                                          255, 20, 20, 20)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )));
+              },
+            ),
+          ]);
+        });
   }
 }
 

@@ -57,8 +57,6 @@ List<List<ImageInfo>> generateRandomImageList(int rows, int cols) {
 }
 
 class _LJNInsPage extends State<LJNInsPage> {
-  double _statusHeight = 0;
-
   late List<List<ImageInfo>> mylist;
 
   final ScrollController _scrollController = ScrollController();
@@ -107,7 +105,7 @@ class _LJNInsPage extends State<LJNInsPage> {
       scrollPixels = _scrollController.position.pixels;
     });
 
-    if (_scrollController.position.pixels >= _statusHeight) {
+    if (_scrollController.position.pixels >= myStore.state.statusHeight!) {
       setState(() {
         setStatusLight = true;
       });
@@ -527,12 +525,6 @@ class _LJNInsPage extends State<LJNInsPage> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     Offset xSpeedSelectorPosition = const Offset(0, 0);
     if (xSpeedBtnKey.currentContext != null) {
       final RenderBox renderBox =
@@ -585,7 +577,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                       primary: false,
                       leading: null,
                       automaticallyImplyLeading: false,
-                      expandedHeight: _statusHeight + 90.0.w,
+                      expandedHeight: vm.statusHeight! + 90.0.w,
                       systemOverlayStyle: SystemUiOverlayStyle(
                           statusBarColor: Colors.transparent, // 设置状态栏透明
                           statusBarIconBrightness: setStatusLight
@@ -596,11 +588,11 @@ class _LJNInsPage extends State<LJNInsPage> {
                       flexibleSpace: FlexibleSpaceBar(
                         background: PreferredSize(
                             preferredSize:
-                                Size.fromHeight(90.0.w + _statusHeight),
+                                Size.fromHeight(90.0.w + vm.statusHeight!),
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 16.w, vertical: 0.w),
-                              margin: EdgeInsets.only(top: _statusHeight),
+                              margin: EdgeInsets.only(top: vm.statusHeight!),
                               height: 90.w,
                               // color: const Color.fromARGB(255, 221, 76, 76), // 设置背景颜色
                               child: Row(

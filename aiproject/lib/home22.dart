@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/CustomPhysics.dart';
 import 'package:jiaoyishuoflutter3/components/pageloading.dart';
@@ -20,7 +19,7 @@ class LJNHome22Page extends StatefulWidget {
 class _ChatListViewState extends State<LJNHome22Page>
     with TickerProviderStateMixin {
   final _customScrollController = ScrollController();
-  double _statusHeight = 0;
+
   late final List<ChatListItem> chatItems;
   AnimationController? _animationController;
 
@@ -524,11 +523,6 @@ class _ChatListViewState extends State<LJNHome22Page>
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
 
     // 释放动画
     if (_animationController == null) {
@@ -536,9 +530,9 @@ class _ChatListViewState extends State<LJNHome22Page>
       _animationController = AnimationController(
         vsync: this,
         lowerBound: 0,
-        // 这里到底部是新appbar的高度 + 原本的_statusHeight, 因为一个控制器, 既给新的用, 也给旧的用
+        // 这里到底部是新appbar的高度 + 原本的myStore.state.statusHeight, 因为一个控制器, 既给新的用, 也给旧的用
         upperBound: screenSize.height -
-            (_statusHeight + 90.w + initialCoverLayerHeight),
+            (myStore.state.statusHeight! + 90.w + initialCoverLayerHeight),
         duration: const Duration(milliseconds: 350), // 动画持续时间
       );
 
@@ -560,18 +554,12 @@ class _ChatListViewState extends State<LJNHome22Page>
   Widget _buildPage(StoreType vm) {
     Size screenSize = MediaQuery.of(context).size;
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     double newAppbarHeight = 90.w + initialCoverLayerHeight;
 
     // 新appbar透明度
     double percent25Position = screenSize.height * 0.25;
     double coverOpacity =
-        ((vm.homescrollpixels + _statusHeight) - percent25Position) /
+        ((vm.homescrollpixels + vm.statusHeight!) - percent25Position) /
             (screenSize.height - newAppbarHeight - percent25Position);
     if (coverOpacity < 0) {
       coverOpacity = 0;
@@ -581,7 +569,8 @@ class _ChatListViewState extends State<LJNHome22Page>
 
     double percent75TargetPosition = screenSize.height * 0.75;
     double newAppbarOpacity =
-        ((vm.homescrollpixels + _statusHeight) - percent75TargetPosition) /
+        ((vm.homescrollpixels + myStore.state.statusHeight!) -
+                percent75TargetPosition) /
             (screenSize.height - newAppbarHeight - percent75TargetPosition);
     if (newAppbarOpacity < 0) {
       newAppbarOpacity = 0;
@@ -590,7 +579,8 @@ class _ChatListViewState extends State<LJNHome22Page>
     }
 
     // 顶部动画控制器
-    _lottieController.value = (vm.homescrollpixels + _statusHeight) / 600.w;
+    _lottieController.value =
+        (vm.homescrollpixels + myStore.state.statusHeight!) / 600.w;
     if (_lottieController.value < 0) {
       _lottieController.value = 0;
     } else if (_lottieController.value > 1) {
@@ -598,8 +588,9 @@ class _ChatListViewState extends State<LJNHome22Page>
     }
 
     // 顶部动画背景
-    double topLottieOpacity = (vm.homescrollpixels + _statusHeight - 400.w) /
-        (screenSize.height - newAppbarHeight - 400.w);
+    double topLottieOpacity =
+        (vm.homescrollpixels + myStore.state.statusHeight! - 400.w) /
+            (screenSize.height - newAppbarHeight - 400.w);
     if (topLottieOpacity < 0) {
       topLottieOpacity = 0;
     } else if (topLottieOpacity > 1) {
@@ -640,7 +631,7 @@ class _ChatListViewState extends State<LJNHome22Page>
             top: 0,
             left: 0,
             // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
-            height: vm.homescrollpixels + (90.w + _statusHeight + 200.w),
+            height: vm.homescrollpixels + (90.w + vm.statusHeight! + 200.w),
             width: screenSize.width,
             child: LJNHomeMiniProgram(reverse: reverse),
           ),
@@ -648,10 +639,10 @@ class _ChatListViewState extends State<LJNHome22Page>
         // 列表背景
         if (vm.homescrollpixels > 0)
           Positioned(
-              top: 90.w + _statusHeight + vm.homescrollpixels,
+              top: 90.w + vm.statusHeight! + vm.homescrollpixels,
               left: 0,
               // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
-              height: screenSize.height - (90.w + _statusHeight),
+              height: screenSize.height - (90.w + vm.statusHeight!),
               width: screenSize.width,
               child: Container(
                 color: Colors.white,
@@ -660,10 +651,10 @@ class _ChatListViewState extends State<LJNHome22Page>
         // 列表
         Positioned(
             // 不能使用vm.homescrollpixels, 需要用_animationController!.value
-            top: 90.w + _statusHeight + _animationController!.value,
+            top: 90.w + vm.statusHeight! + _animationController!.value,
             left: 0,
             width: screenSize.width,
-            height: screenSize.height - (90.w + _statusHeight),
+            height: screenSize.height - (90.w + vm.statusHeight!),
             child: Listener(
                 onPointerUp: (event) {
                   logger
@@ -716,14 +707,15 @@ class _ChatListViewState extends State<LJNHome22Page>
                 child: Container(
                     color: const Color.fromARGB(255, 237, 237, 237),
                     width: screenSize.width,
-                    height: vm.homescrollpixels + (90.w + _statusHeight),
-                    // padding: EdgeInsets.only(top: _statusHeight),
+                    height: vm.homescrollpixels + (90.w + vm.statusHeight!),
+                    // padding: EdgeInsets.only(top: vm.statusHeight!),
                     child: _lottieController.isCompleted
                         ? null
                         : Lottie.asset(
                             assetPath('lotties/homeminiprogramdarwing.json'),
                             width: screenSize.width,
-                            height: vm.homescrollpixels + _statusHeight + 90.w,
+                            height:
+                                vm.homescrollpixels + vm.statusHeight! + 90.w,
                             fit: BoxFit.contain,
                             renderCache: RenderCache.drawingCommands,
                             controller: _lottieController,
@@ -736,14 +728,15 @@ class _ChatListViewState extends State<LJNHome22Page>
 
         // 新appbar
         Visibility(
-            visible: (vm.homescrollpixels + _statusHeight) > percent25Position,
+            visible:
+                (vm.homescrollpixels + vm.statusHeight!) > percent25Position,
             // visible: true,
             child: Positioned(
                 height: 90.w +
                     (screenSize.height -
-                        (vm.homescrollpixels + _statusHeight + 90.w)),
+                        (vm.homescrollpixels + vm.statusHeight! + 90.w)),
                 width: 750.w,
-                top: vm.homescrollpixels + _statusHeight,
+                top: vm.homescrollpixels + vm.statusHeight!,
                 child: Listener(
                     onPointerDown: (event) {
                       // 记录手指按下时的 Y 轴位置
@@ -848,7 +841,7 @@ class _ChatListViewState extends State<LJNHome22Page>
                               child: Container(
                                 height: screenSize.height -
                                     (vm.homescrollpixels +
-                                        _statusHeight +
+                                        vm.statusHeight! +
                                         90.w),
                                 child: null,
                                 color: const Color.fromARGB(255, 121, 115, 149),

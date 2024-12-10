@@ -14,7 +14,6 @@ class LJNMiniProgramPage extends StatefulWidget {
 }
 
 class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
-  double _statusHeight = 0;
   late final List<ChatListItem> chatItems;
   late final List<ChatListItem> chatItems2;
 
@@ -75,22 +74,16 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
           return Scaffold(
               primary: false,
               appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+                  preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
                   child: Container(
                       color: const Color.fromARGB(255, 237, 237, 237),
-                      padding: EdgeInsets.only(top: _statusHeight),
+                      padding: EdgeInsets.only(top: vm.statusHeight!),
                       child: AppBar(
                         leading: GestureDetector(
                           onTap: () {
@@ -531,7 +524,6 @@ class _FunctionListSection extends State<FunctionListSection> {
             // 使用 SizedBox 控制 GridView 的大小
             ListView.builder(
               primary: false,
-              // padding: EdgeInsets.only(top: _statusHeight + 90.w),
               itemCount: widget.chatItems.length,
               shrinkWrap: true,
               // controller: _customScrollController,

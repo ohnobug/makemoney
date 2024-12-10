@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
@@ -14,8 +13,6 @@ class LJNPocketMoneyPage extends StatefulWidget {
 }
 
 class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
-  double _statusHeight = 0;
-
   @override
   void initState() {
     super.initState();
@@ -23,22 +20,16 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (kIsWeb) {
-      _statusHeight = 0;
-    } else {
-      _statusHeight = MediaQuery.of(context).padding.top;
-    }
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
           return Scaffold(
               primary: false,
               appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(90.0.w + _statusHeight),
+                  preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
                   child: Container(
                     // color: const Color.fromARGB(255, 237, 237, 237),
-                    padding: EdgeInsets.only(top: _statusHeight),
+                    padding: EdgeInsets.only(top: vm.statusHeight!),
                     child: AppBar(
                       primary: false,
                       title: const Text("朋友圈"),
