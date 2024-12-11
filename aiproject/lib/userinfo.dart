@@ -121,7 +121,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                       // 更多信息
                       const LJNFunctionItem(
                         title: "更多信息",
-                        link: '',
+                        link: '/friend_more_info',
                         underline: false,
                       ),
 

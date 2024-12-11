@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
 import 'package:jiaoyishuoflutter3/components/LJNFunctionItemButton.dart';
+import 'package:jiaoyishuoflutter3/components/maxWidthButton.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -240,64 +241,62 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                               title: "朋友圈",
                               link: '/friendmoments',
                               height: 151.w,
-                              showStyle: Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                      // width: 490.w,
-                                      margin: EdgeInsets.only(left: 68.w),
-                                      // color: Colors.red,
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                              assetPath(
-                                                  'images/avatar_webp/chat_81.webp'),
-                                              cacheWidth: 180.w.toInt(),
-                                              cacheHeight: 180.w.toInt(),
-                                              width: 90.w,
-                                              height: 90.w,
-                                              fit: BoxFit.cover,
-                                            ),
-                                            SizedBox(
-                                              width: 15.w,
-                                            ),
-                                            Image.asset(
-                                              assetPath(
-                                                  'images/avatar_webp/chat_92.webp'),
-                                              cacheWidth: 180.w.toInt(),
-                                              cacheHeight: 180.w.toInt(),
-                                              width: 90.w,
-                                              height: 90.w,
-                                              fit: BoxFit.cover,
-                                            ),
-                                            SizedBox(
-                                              width: 15.w,
-                                            ),
-                                            Image.asset(
-                                              assetPath(
-                                                  'images/avatar_webp/chat_93.webp'),
-                                              cacheWidth: 180.w.toInt(),
-                                              cacheHeight: 180.w.toInt(),
-                                              width: 90.w,
-                                              height: 90.w,
-                                              fit: BoxFit.cover,
-                                            ),
-                                            SizedBox(
-                                              width: 15.w,
-                                            ),
-                                            Image.asset(
-                                              assetPath(
-                                                  'images/avatar_webp/chat_86.webp'),
-                                              cacheWidth: 180.w.toInt(),
-                                              cacheHeight: 180.w.toInt(),
-                                              width: 90.w,
-                                              height: 90.w,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ]))),
+                              showStyle: Container(
+                                  width: 490.w,
+                                  margin: EdgeInsets.only(left: 68.w),
+                                  // color: Colors.red,
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          assetPath(
+                                              'images/avatar_webp/chat_81.webp'),
+                                          cacheWidth: 180.w.toInt(),
+                                          cacheHeight: 180.w.toInt(),
+                                          width: 90.w,
+                                          height: 90.w,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        SizedBox(
+                                          width: 15.w,
+                                        ),
+                                        Image.asset(
+                                          assetPath(
+                                              'images/avatar_webp/chat_92.webp'),
+                                          cacheWidth: 180.w.toInt(),
+                                          cacheHeight: 180.w.toInt(),
+                                          width: 90.w,
+                                          height: 90.w,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        SizedBox(
+                                          width: 15.w,
+                                        ),
+                                        Image.asset(
+                                          assetPath(
+                                              'images/avatar_webp/chat_93.webp'),
+                                          cacheWidth: 180.w.toInt(),
+                                          cacheHeight: 180.w.toInt(),
+                                          width: 90.w,
+                                          height: 90.w,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        SizedBox(
+                                          width: 15.w,
+                                        ),
+                                        Image.asset(
+                                          assetPath(
+                                              'images/avatar_webp/chat_86.webp'),
+                                          cacheWidth: 180.w.toInt(),
+                                          cacheHeight: 180.w.toInt(),
+                                          width: 90.w,
+                                          height: 90.w,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ])),
                               underline: true,
                             ),
 
@@ -401,7 +400,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                             // 更多信息
                             const LJNFunctionItem(
                               title: "更多信息",
-                              link: '',
+                              link: '/friend_more_info',
                               underline: false,
                             ),
 
@@ -409,33 +408,83 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                 color: const Color.fromARGB(255, 237, 237, 237),
                                 height: 16.w),
 
-                            LJNFunctionItemButton(
-                              title: '发信息',
+                            LJNMaxWidthButton(
+                              title: Text.rich(
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                TextSpan(children: [
+                                  WidgetSpan(
+                                    alignment: PlaceholderAlignment.middle,
+                                    child: Baseline(
+                                      baseline: 29.5.w,
+                                      baselineType: TextBaseline.alphabetic,
+                                      child: Icon(
+                                        const IconData(
+                                          0xe7b3,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        color: const Color.fromARGB(
+                                            255, 58, 81, 124),
+                                        size: 35.w,
+                                      ),
+                                    ),
+                                  ),
+                                  WidgetSpan(
+                                    child: SizedBox(width: 8.w),
+                                  ),
+                                  TextSpan(
+                                    text: "发信息",
+                                    style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: 30.w,
+                                      color: const Color.fromARGB(
+                                          255, 58, 81, 124),
+                                    ),
+                                  ),
+                                ]),
+                              ),
                               underline: true,
                               link: '/chat',
-                              icon: Icon(
-                                const IconData(
-                                  0xe7b3,
-                                  fontFamily: 'Iconfont',
-                                ),
-                                color: const Color.fromARGB(
-                                    255, 58, 81, 124), // 图标颜色
-                                size: fontSizeScale(35.w), // 图标大小
-                              ),
                             ),
-                            LJNFunctionItemButton(
-                              title: '音视频通话',
-                              underline: false,
-                              icon: Icon(
-                                const IconData(
-                                  0xe88d,
-                                  fontFamily: 'Iconfont',
-                                ),
-                                color: const Color.fromARGB(
-                                    255, 58, 81, 124), // 图标颜色
-                                size: fontSizeScale(35.w), // 图标大小
+
+                            LJNMaxWidthButton(
+                              title: Text.rich(
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                TextSpan(children: [
+                                  WidgetSpan(
+                                    alignment: PlaceholderAlignment.middle,
+                                    child: Baseline(
+                                      baseline: 31.w,
+                                      baselineType: TextBaseline.alphabetic,
+                                      child: Icon(
+                                        const IconData(
+                                          0xe88d,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        color: const Color.fromARGB(
+                                            255, 58, 81, 124),
+                                        size: 37.w,
+                                      ),
+                                    ),
+                                  ),
+                                  WidgetSpan(
+                                    child: SizedBox(width: 8.w),
+                                  ),
+                                  TextSpan(
+                                    text: "音视频通话",
+                                    style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: 30.w,
+                                      color: const Color.fromARGB(
+                                          255, 58, 81, 124),
+                                    ),
+                                  ),
+                                ]),
                               ),
-                            )
+                              underline: true,
+                              link: '/chat',
+                            ),
                           ])))));
         });
   }

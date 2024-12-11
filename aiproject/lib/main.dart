@@ -11,6 +11,7 @@ import 'package:jiaoyishuoflutter3/collectionAndPayment.dart';
 import 'package:jiaoyishuoflutter3/discovery.dart';
 import 'package:jiaoyishuoflutter3/friendDataSetting.dart';
 import 'package:jiaoyishuoflutter3/friendMessageRecord.dart';
+import 'package:jiaoyishuoflutter3/friendMoreInfo.dart';
 import 'package:jiaoyishuoflutter3/friendmoments.dart';
 import 'package:jiaoyishuoflutter3/home22.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
@@ -311,6 +312,8 @@ class _TabBarApp extends State<TabBarApp> {
                   } else if (settings.name == "/friend_data_setting") {
                     return pageRouteBuilderAnimation(
                         const LJNFriendDataSetting());
+                  } else if (settings.name == "/friend_more_info") {
+                    return pageRouteBuilderAnimation(const LJNFriendMoreInfo());
                   }
 
                   return null;

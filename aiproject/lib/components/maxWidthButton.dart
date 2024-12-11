@@ -7,7 +7,7 @@ import 'package:jiaoyishuoflutter3/tools/tools.dart';
 class LJNMaxWidthButton extends StatefulWidget {
   final String? icon;
   final double? height;
-  final String title;
+  final Object? title;
   final Color? color;
   final String? link;
   final bool underline;
@@ -67,17 +67,19 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
         width: 750.w,
         color: containerColor,
         alignment: Alignment.center,
-        child: Text(
-          widget.title,
-          style: TextStyle(
-            color: widget.color ?? Colors.black,
-            height: 1.08,
-            fontSize: fontSizeScale(32.0.w),
-            fontFamily: "AlibabaPuHuiTi",
-          ),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
+        child: widget.title is String
+            ? Text(
+                widget.title as String,
+                style: TextStyle(
+                  color: widget.color ?? Colors.black,
+                  height: 1.08,
+                  fontSize: fontSizeScale(32.0.w),
+                  fontFamily: "AlibabaPuHuiTi",
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              )
+            : widget.title as Widget,
       ),
     );
   }

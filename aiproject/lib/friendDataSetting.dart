@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
 import 'package:jiaoyishuoflutter3/components/LJNSwitch.dart';
+import 'package:jiaoyishuoflutter3/components/maxWidthButton.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -11,16 +12,7 @@ import 'components/LJNFunctionItem.dart';
 class LJNFriendDataSetting extends StatefulWidget {
   const LJNFriendDataSetting({
     super.key,
-    this.name,
-    this.avatar,
-    this.nickname,
-    this.account,
   });
-
-  final String? name;
-  final String? avatar;
-  final String? nickname;
-  final String? account;
 
   @override
   State<LJNFriendDataSetting> createState() => _LJNFriendDataSetting();
@@ -60,17 +52,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                       constraints: BoxConstraints(
                           minHeight:
                               screenSize.height - 90.w - vm.statusHeight!),
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.white,
-                            Color.fromARGB(255, 237, 237, 237)
-                          ],
-                          stops: [0.3, 0.5],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                      ),
+                      color: const Color.fromARGB(255, 237, 237, 237),
                       child: SingleChildScrollView(
                           physics: const AlwaysScrollableScrollPhysics(
                               parent: BouncingScrollPhysics()),
@@ -104,8 +86,9 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                                 height: 16.w),
                             LJNFunctionItem(
                               title: "设为星标朋友",
-                              link: '',
+                              // link: '',
                               underline: false,
+                              tapEffect: false,
                               showStyle: Expanded(
                                   flex: 0,
                                   child: Container(
@@ -123,7 +106,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                                 height: 16.w),
                             LJNFunctionItem(
                               title: "加入黑名单",
-                              link: '',
+                              tapEffect: false,
                               underline: true,
                               showStyle: Expanded(
                                   flex: 0,
@@ -145,17 +128,11 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                             Container(
                                 color: const Color.fromARGB(255, 237, 237, 237),
                                 height: 16.w),
-                            Container(
-                              width: 750.w,
-                              height: 105.w,
-                              color: Colors.white,
-                              alignment: Alignment.center,
-                              child: Text(
-                                "删除",
-                                style: TextStyle(
-                                    color: Colors.red, fontSize: 31.w),
-                              ),
-                            )
+                            const LJNMaxWidthButton(
+                              title: '删除',
+                              color: Colors.red,
+                              underline: false,
+                            ),
                           ])))));
         });
   }

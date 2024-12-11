@@ -5,7 +5,6 @@ import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNVideoFunctionItem extends StatefulWidget {
-  final String? icon;
   final double? height;
   final String title;
   final String? link;
@@ -14,7 +13,6 @@ class LJNVideoFunctionItem extends StatefulWidget {
 
   const LJNVideoFunctionItem({
     super.key,
-    this.icon,
     this.height,
     required this.title,
     this.link,
@@ -64,60 +62,42 @@ class _LJNVideoFunctionItemState extends State<LJNVideoFunctionItem> {
         height: widget.height ?? 105.0.w,
         padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
         color: containerColor,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Container(
-                height: double.infinity,
-                decoration: BoxDecoration(
+        alignment: Alignment.center,
+        child: Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+                // color: Colors.red,
+                border: Border(
+                    bottom: BorderSide(
+              color: widget.underline
+                  ? const Color.fromARGB(255, 242, 242, 242)
+                  : Colors.transparent,
+              width: 1.5.w,
+              style: BorderStyle.solid,
+            ))),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // 标题
+                Container(
                     // color: Colors.red,
-                    border: Border(
-                        bottom: BorderSide(
-                  color: widget.underline
-                      ? const Color.fromARGB(255, 242, 242, 242)
-                      : Colors.transparent,
-                  width: 1.5.w,
-                  style: BorderStyle.solid,
-                ))),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // 标题
-                    Container(
-                        // color: Colors.red,
-                        padding: EdgeInsets.only(top: 38.w),
-                        child: Text(
-                          widget.title,
-                          style: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(30.0.w),
-                            // fontFamily: "AlibabaPuHuiTi",
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        )),
+                    padding: EdgeInsets.only(top: 38.w),
+                    child: Text(
+                      widget.title,
+                      style: TextStyle(
+                        height: 1.08,
+                        fontSize: fontSizeScale(30.0.w),
+                        // fontFamily: "AlibabaPuHuiTi",
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    )),
 
-                    widget.showStyle!,
-
-                    Container(
-                        width: 27.w,
-                        margin: const EdgeInsets.only(right: 32, top: 133).w,
-                        child: Icon(
-                          const IconData(
-                            0xed9d,
-                            fontFamily: 'Iconfont',
-                          ),
-                          size: 27.0.w,
-                          color: const Color.fromARGB(255, 175, 175, 175),
-                        ))
-                  ],
-                ),
-              ),
+                widget.showStyle!,
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

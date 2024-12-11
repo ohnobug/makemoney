@@ -127,7 +127,8 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                     widget.title is String
                         ?
                         // 标题
-                        Text(
+                        Expanded(
+                            child: Text(
                             widget.title as String,
                             style: TextStyle(
                               height: 1.08,
@@ -135,8 +136,8 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                               fontFamily: "AlibabaPuHuiTi",
                             ),
                             maxLines: 1,
-                            overflow: TextOverflow.visible,
-                          )
+                            overflow: TextOverflow.ellipsis,
+                          ))
                         : widget.title as Widget,
                     if (widget.showStyle != null)
                       widget.showStyle is String
@@ -146,21 +147,18 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                                       const EdgeInsets.only(right: 10, left: 10)
                                           .w,
                                   // color: Colors.red,
-                                  child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          widget.showStyle as String,
-                                          style: TextStyle(
-                                            height: 1.08,
-                                            fontSize: fontSizeScale(30.w),
-                                            color: const Color.fromARGB(
-                                                255, 83, 83, 83),
-                                          ),
-                                        )
-                                      ])))
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    widget.showStyle as String,
+                                    style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(30.w),
+                                      color:
+                                          const Color.fromARGB(255, 83, 83, 83),
+                                    ),
+                                  )))
                           : widget.showStyle as Widget,
                     if (widget.link != null)
                       Container(
