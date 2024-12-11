@@ -130,17 +130,15 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                         ?
                         // 标题
                         Expanded(
-                            child: Container(
                             child: Text(
-                              widget.title as String,
-                              style: TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(32.0.w),
-                                fontFamily: "AlibabaPuHuiTi",
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            widget.title as String,
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(32.0.w),
+                              fontFamily: "AlibabaPuHuiTi",
                             ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ))
                         : widget.title as Widget,
                     if (widget.showStyle != null)
@@ -167,15 +165,22 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                     if ([null, true].contains(widget.showLinkIcon) &&
                         widget.link != null)
                       Container(
+                          // color: Colors.red,
                           width: 30.w,
+                          height: widget.height ?? 105.0.w,
                           margin: const EdgeInsets.only(right: 32).w,
-                          child: Icon(
-                            const IconData(
-                              0xed9d,
-                              fontFamily: 'Iconfont',
+                          alignment: Alignment.center,
+                          child: Baseline(
+                            baseline: 33.w,
+                            baselineType: TextBaseline.alphabetic,
+                            child: Icon(
+                              const IconData(
+                                0xed9d,
+                                fontFamily: 'Iconfont',
+                              ),
+                              size: 30.0.w,
+                              color: const Color.fromARGB(255, 164, 164, 164),
                             ),
-                            size: 30.0.w,
-                            color: const Color.fromARGB(255, 164, 164, 164),
                           ))
                   ],
                 ),

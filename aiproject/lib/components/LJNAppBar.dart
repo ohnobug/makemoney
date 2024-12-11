@@ -7,9 +7,11 @@ import 'package:jiaoyishuoflutter3/tools/tools.dart';
 class LJNAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String? title;
   final List<Widget>? actions;
+  final Color? color;
   final Color? bgColor;
 
-  const LJNAppBar({super.key, this.title, this.actions, this.bgColor});
+  const LJNAppBar(
+      {super.key, this.title, this.actions, this.bgColor, this.color});
 
   @override
   State<LJNAppBar> createState() => _LJNAppBar();
@@ -53,7 +55,7 @@ class _LJNAppBar extends State<LJNAppBar> {
                             0xed9e,
                             fontFamily: 'Iconfont',
                           ), // 使用的图标
-                          color: Colors.black, // 图标颜色
+                          color: widget.color ?? Colors.black, // 图标颜色
                           size: 36.w, // 图标大小
                         ),
                       ),
@@ -65,7 +67,7 @@ class _LJNAppBar extends State<LJNAppBar> {
                     titleTextStyle: TextStyle(
                         height: 1.08,
                         fontSize: fontSizeScale(32.w),
-                        color: Colors.black,
+                        color: widget.color ?? Colors.black,
                         fontFamily: "AlibabaPuHuiTi-Medium"),
                     elevation: 0,
                     scrolledUnderElevation: 0,

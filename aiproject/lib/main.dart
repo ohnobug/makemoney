@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:jiaoyishuoflutter3/addFriends.dart';
 import 'package:jiaoyishuoflutter3/careMode.dart';
 import 'package:jiaoyishuoflutter3/chat.dart';
 import 'package:jiaoyishuoflutter3/collectionAndPayment.dart';
@@ -314,6 +315,8 @@ class _TabBarApp extends State<TabBarApp> {
                         const LJNFriendDataSetting());
                   } else if (settings.name == "/friend_more_info") {
                     return pageRouteBuilderAnimation(const LJNFriendMoreInfo());
+                  } else if (settings.name == "/add_friends") {
+                    return pageRouteBuilderAnimation(const LJNAddFriends());
                   }
 
                   return null;
@@ -819,386 +822,35 @@ class _PopupMenuState extends State<PopupMenu> {
                               child: Column(
                                 children: [
                                   // 发起群聊
-                                  GestureDetector(
-                                    onTapDown: (_) {
-                                      myStore.dispatch({
-                                        "type": "button1Bg",
-                                        "payload": const Color.fromARGB(
-                                            255, 68, 68, 68)
-                                      });
-
-                                      logger.info("按下");
-                                    },
-                                    onTapCancel: () {
-                                      myStore.dispatch({
-                                        "type": "button1Bg",
-                                        "payload": const Color.fromARGB(
-                                            255, 76, 76, 76)
-                                      });
-
-                                      logger.info("取消按下");
-                                    },
-                                    onTapUp: (tapDownDetails) {
-                                      Future.delayed(
-                                          const Duration(milliseconds: 50), () {
-                                        myStore.dispatch({
-                                          "type": "button1Bg",
-                                          "payload": const Color.fromARGB(
-                                              255, 76, 76, 76)
-                                        });
-
-                                        myStore.dispatch({
-                                          "type": "showpopup",
-                                          "payload": false
-                                        });
-                                        // Navigator.pushNamed(
-                                        // context, '/qrcode_scanner');
-                                      });
-
-                                      logger.info("弹起");
-                                    },
-                                    child: Container(
-                                      height: 105.w,
-                                      color: vm.button1Bg,
-                                      child: Row(children: [
-                                        SizedBox(
-                                          height: 105.w,
-                                          width: 105.w,
-                                          child: Center(
-                                            child: Icon(
-                                              color: Colors.white,
-                                              const IconData(
-                                                0xe676,
-                                                fontFamily: 'Iconfont',
-                                              ),
-                                              size: 41.w,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 0.w,
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                              height: double.infinity,
-                                              decoration: BoxDecoration(
-                                                  border: Border(
-                                                      bottom: BorderSide(
-                                                color: const Color.fromARGB(
-                                                    255, 85, 85, 85),
-                                                width: 1.5.w,
-                                                style: BorderStyle.solid,
-                                              ))),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '发起群聊',
-                                                    style: TextStyle(
-                                                        height: 1.08,
-                                                        fontSize:
-                                                            fontSizeScale(30.w),
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                        color: Colors.white),
-                                                  )
-                                                ],
-                                              )),
-                                        )
-                                      ]),
-                                    ),
+                                  LJNPopupMenuItem(
+                                    title: "发起群聊",
+                                    icon: 0xe676,
+                                    onTap: () {},
                                   ),
-                                  // 添加朋友
-                                  GestureDetector(
-                                    onTapDown: (_) {
-                                      myStore.dispatch({
-                                        "type": "button2Bg",
-                                        "payload": const Color.fromARGB(
-                                            255, 68, 68, 68)
-                                      });
 
-                                      logger.info("按下");
-                                    },
-                                    onTapCancel: () {
-                                      myStore.dispatch({
-                                        "type": "button2Bg",
-                                        "payload": const Color.fromARGB(
-                                            255, 76, 76, 76)
-                                      });
-
-                                      logger.info("取消按下");
-                                    },
-                                    onTapUp: (tapDownDetails) {
-                                      Future.delayed(
-                                          const Duration(milliseconds: 50), () {
-                                        myStore.dispatch({
-                                          "type": "button2Bg",
-                                          "payload": const Color.fromARGB(
-                                              255, 76, 76, 76)
-                                        });
-
-                                        myStore.dispatch({
-                                          "type": "showpopup",
-                                          "payload": false
-                                        });
-                                        // Navigator.pushNamed(
-                                        // context, '/qrcode_scanner');
-                                      });
-
-                                      logger.info("弹起");
-                                    },
-                                    child: Container(
-                                      height: 105.w,
-                                      color: vm.button2Bg,
-                                      child: Row(children: [
-                                        SizedBox(
-                                          height: 105.w,
-                                          width: 105.w,
-                                          child: Center(
-                                            child: Icon(
-                                              color: Colors.white,
-                                              const IconData(
-                                                0xe61f,
-                                                fontFamily: 'Iconfont',
-                                              ),
-                                              size: 41.w,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 0.w,
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                              height: double.infinity,
-                                              decoration: BoxDecoration(
-                                                  border: Border(
-                                                      bottom: BorderSide(
-                                                color: const Color.fromARGB(
-                                                    255, 85, 85, 85),
-                                                width: 1.5.w,
-                                                style: BorderStyle.solid,
-                                              ))),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '添加朋友',
-                                                    style: TextStyle(
-                                                        height: 1.08,
-                                                        fontSize:
-                                                            fontSizeScale(30.w),
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                        color: Colors.white),
-                                                  )
-                                                ],
-                                              )),
-                                        )
-                                      ]),
-                                    ),
+                                  LJNPopupMenuItem(
+                                    title: "添加朋友",
+                                    icon: 0xe61f,
+                                    onTap: () {},
                                   ),
-                                  // 扫一扫
-                                  GestureDetector(
-                                    onTapDown: (_) {
-                                      myStore.dispatch({
-                                        "type": "button3Bg",
-                                        "payload": const Color.fromARGB(
-                                            255, 68, 68, 68)
-                                      });
 
-                                      logger.info("按下");
+                                  LJNPopupMenuItem(
+                                    title: "扫一扫",
+                                    icon: 0xe69a,
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, '/qrcode_scanner');
                                     },
-                                    onTapCancel: () {
-                                      myStore.dispatch({
-                                        "type": "button3Bg",
-                                        "payload": const Color.fromARGB(
-                                            255, 76, 76, 76)
-                                      });
-
-                                      logger.info("取消按下");
-                                    },
-                                    onTapUp: (tapDownDetails) {
-                                      Future.delayed(
-                                          const Duration(milliseconds: 50), () {
-                                        myStore.dispatch({
-                                          "type": "button3Bg",
-                                          "payload": const Color.fromARGB(
-                                              255, 76, 76, 76)
-                                        });
-
-                                        myStore.dispatch({
-                                          "type": "showpopup",
-                                          "payload": false
-                                        });
-                                        Navigator.pushNamed(
-                                            context, '/qrcode_scanner');
-                                      });
-
-                                      logger.info("弹起");
-                                    },
-                                    child: Container(
-                                      height: 105.w,
-                                      color: vm.button3Bg,
-                                      child: Row(children: [
-                                        SizedBox(
-                                          height: 105.w,
-                                          width: 105.w,
-                                          child: Center(
-                                            child: Icon(
-                                              color: Colors.white,
-                                              const IconData(
-                                                0xe69a,
-                                                fontFamily: 'Iconfont',
-                                              ),
-                                              size: 41.w,
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 0.w,
-                                        ),
-                                        Expanded(
-                                          child: Container(
-                                              height: double.infinity,
-                                              decoration: BoxDecoration(
-                                                  border: Border(
-                                                      bottom: BorderSide(
-                                                color: const Color.fromARGB(
-                                                    255, 85, 85, 85),
-                                                width: 1.5.w,
-                                                style: BorderStyle.solid,
-                                              ))),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    '扫一扫',
-                                                    style: TextStyle(
-                                                        height: 1.08,
-                                                        fontSize:
-                                                            fontSizeScale(30.w),
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                        color: Colors.white),
-                                                  )
-                                                ],
-                                              )),
-                                        )
-                                      ]),
-                                    ),
                                   ),
-                                  // 收付款
-                                  GestureDetector(
-                                      onTapDown: (_) {
-                                        myStore.dispatch({
-                                          "type": "button4Bg",
-                                          "payload": const Color.fromARGB(
-                                              255, 68, 68, 68)
-                                        });
 
-                                        logger.info("按下");
-                                      },
-                                      onTapCancel: () {
-                                        myStore.dispatch({
-                                          "type": "button4Bg",
-                                          "payload": const Color.fromARGB(
-                                              255, 76, 76, 76)
-                                        });
-
-                                        logger.info("取消按下");
-                                      },
-                                      onTapUp: (tapDownDetails) {
-                                        Future.delayed(
-                                            const Duration(milliseconds: 50),
-                                            () {
-                                          myStore.dispatch({
-                                            "type": "button4Bg",
-                                            "payload": const Color.fromARGB(
-                                                255, 76, 76, 76)
-                                          });
-
-                                          myStore.dispatch({
-                                            "type": "showpopup",
-                                            "payload": false
-                                          });
-                                          // Navigator.pushNamed(
-                                          // context, '/qrcode_scanner');
-                                        });
-
-                                        logger.info("弹起");
-                                      },
-                                      child: Container(
-                                        color: vm.button4Bg,
-                                        height: 105.w,
-                                        child: Row(children: [
-                                          SizedBox(
-                                            height: 105.w,
-                                            width: 105.w,
-                                            child: Center(
-                                              child: Icon(
-                                                color: Colors.white,
-                                                const IconData(
-                                                  0xe611,
-                                                  fontFamily: 'Iconfont',
-                                                ),
-                                                size: 41.w,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 0.w,
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                                height: double.infinity,
-                                                decoration: BoxDecoration(
-                                                    border: Border(
-                                                        bottom: BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 1.5.w,
-                                                  style: BorderStyle.solid,
-                                                ))),
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      '收付款',
-                                                      style: TextStyle(
-                                                          height: 1.08,
-                                                          fontSize:
-                                                              fontSizeScale(
-                                                                  30.w),
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .none,
-                                                          color: Colors.white),
-                                                    )
-                                                  ],
-                                                )),
-                                          )
-                                        ]),
-                                      ))
+                                  LJNPopupMenuItem(
+                                    title: "收付款",
+                                    icon: 0xe611,
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, '/collection_and_payment');
+                                    },
+                                  ),
                                 ],
                               ),
                             )
@@ -1207,6 +859,102 @@ class _PopupMenuState extends State<PopupMenu> {
                       ))
                 ],
               ));
+        });
+  }
+}
+
+class LJNPopupMenuItem extends StatefulWidget {
+  final String title;
+  final int icon;
+  final Function()? onTap;
+
+  const LJNPopupMenuItem(
+      {super.key, required this.title, this.onTap, required this.icon});
+
+  @override
+  State<LJNPopupMenuItem> createState() => _LJNPopupMenuItem();
+}
+
+class _LJNPopupMenuItem extends State<LJNPopupMenuItem> {
+  Color bgColor = const Color.fromARGB(255, 68, 68, 68);
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreConnector<StoreType, StoreType>(
+        converter: (store) => store.state,
+        builder: (context, vm) {
+          return GestureDetector(
+            onTapDown: (_) {
+              setState(() {
+                bgColor = const Color.fromARGB(255, 68, 68, 68);
+              });
+            },
+            onTapCancel: () {
+              setState(() {
+                bgColor = const Color.fromARGB(255, 76, 76, 76);
+              });
+            },
+            onTapUp: (tapDownDetails) {
+              Future.delayed(const Duration(milliseconds: 50), () {
+                setState(() {
+                  bgColor = const Color.fromARGB(255, 76, 76, 76);
+                });
+
+                myStore.dispatch({"type": "showpopup", "payload": false});
+
+                if (widget.onTap != null) widget.onTap!();
+              });
+            },
+            child: Container(
+              height: 105.w,
+              color: bgColor,
+              child: Row(children: [
+                SizedBox(
+                  height: 105.w,
+                  width: 105.w,
+                  child: Center(
+                    child: Icon(
+                      color: Colors.white,
+                      IconData(
+                        widget.icon,
+                        fontFamily: 'Iconfont',
+                      ),
+                      size: 41.w,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 0.w,
+                ),
+                Expanded(
+                  child: Container(
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                        color: const Color.fromARGB(255, 85, 85, 85),
+                        width: 1.5.w,
+                        style: BorderStyle.solid,
+                      ))),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        widget.title,
+                        style: TextStyle(
+                            height: 1.08,
+                            fontSize: fontSizeScale(30.w),
+                            fontWeight: FontWeight.normal,
+                            decoration: TextDecoration.none,
+                            color: Colors.white),
+                      )),
+                )
+              ]),
+            ),
+          );
         });
   }
 }

@@ -7,16 +7,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'components/LJNFunctionItem.dart';
 
-class LJNFriendMoreInfo extends StatefulWidget {
-  const LJNFriendMoreInfo({
+class LJNAddFriends extends StatefulWidget {
+  const LJNAddFriends({
     super.key,
   });
 
   @override
-  State<LJNFriendMoreInfo> createState() => _LJNFriendMoreInfo();
+  State<LJNAddFriends> createState() => _LJNAddFriends();
 }
 
-class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
+class _LJNAddFriends extends State<LJNAddFriends> {
   @override
   void initState() {
     super.initState();
@@ -41,7 +41,7 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
           return Scaffold(
               primary: false,
               appBar: const LJNAppBar(
-                title: "更多信息",
+                title: "添加朋友",
               ),
               body: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)
@@ -55,6 +55,76 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                           physics: const AlwaysScrollableScrollPhysics(
                               parent: BouncingScrollPhysics()),
                           child: Column(children: [
+                            // 搜索框
+                            Container(
+                                // color: Colors.blue,
+                                margin: EdgeInsets.symmetric(horizontal: 15.w),
+                                height: 65.w,
+                                child: TextField(
+                                  onTapOutside: (event) {
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                  cursorHeight: 35.w,
+                                  cursorWidth: 3.w,
+                                  decoration: InputDecoration(
+                                    prefixIcon: Icon(
+                                      const IconData(
+                                        0xe612,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      color: Colors.black,
+                                      size: 40.w,
+                                    ),
+                                    prefixIconConstraints: BoxConstraints(
+                                      minWidth: 70.w, // 控制图标与文字的最小宽度
+                                      // minHeight: 36.w,
+                                    ),
+                                    hintText: "搜索",
+                                    hintStyle: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 30.w,
+                                        color: const Color.fromARGB(
+                                            255, 69, 75, 83)),
+                                    filled: true,
+                                    fillColor: const Color.fromARGB(
+                                        255, 233, 234, 236),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide: BorderSide.none,
+                                    ),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: 8.0.w, horizontal: 20.0.w),
+                                  ),
+                                )),
+
+                            Text.rich(
+                              TextSpan(children: [
+                                TextSpan(
+                                  text: "我的微信号",
+                                  style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: 25.w,
+                                    color: const Color.fromARGB(
+                                        255, 105, 105, 105),
+                                  ),
+                                ),
+                                WidgetSpan(
+                                  child: SizedBox(width: 8.w),
+                                ),
+                                WidgetSpan(
+                                  alignment: PlaceholderAlignment.middle,
+                                  style: const TextStyle(height: 1.08),
+                                  child: Icon(
+                                    const IconData(0xe74b,
+                                        fontFamily: 'Iconfont'),
+                                    color: const Color.fromARGB(
+                                        255, 105, 105, 105),
+                                    size: 37.w,
+                                  ),
+                                ),
+                              ]),
+                            ),
+
                             const LJNFunctionItem(
                               title: "我和她的共同群聊",
                               link: '',

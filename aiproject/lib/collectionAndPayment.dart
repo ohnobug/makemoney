@@ -29,7 +29,11 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
         builder: (context, vm) {
           return Scaffold(
               primary: false,
-              appBar: const LJNAppBar(title: "收付款", bgColor: const Color.fromARGB(255, 42, 172, 102)),
+              appBar: const LJNAppBar(
+                title: "收付款",
+                bgColor: Color.fromARGB(255, 42, 172, 102),
+                color: Colors.white,
+              ),
               body: ColoredBox(
                   color: const Color.fromARGB(255, 42, 172, 102),
                   child: ScrollConfiguration(

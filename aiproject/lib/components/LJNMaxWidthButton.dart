@@ -61,8 +61,17 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
       child: Container(
         height: widget.height ?? 105.0.w,
         width: 750.w,
-        color: containerColor,
         alignment: Alignment.center,
+        decoration: BoxDecoration(
+            color: containerColor,
+            border: Border(
+                bottom: BorderSide(
+              color: widget.underline
+                  ? const Color.fromARGB(255, 242, 242, 242)
+                  : Colors.transparent,
+              width: 1.5.w,
+              style: BorderStyle.solid,
+            ))),
         child: widget.title is String
             ? Text(
                 widget.title as String,

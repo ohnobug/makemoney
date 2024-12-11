@@ -494,7 +494,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                   ),
                                 ]),
                               ),
-                              underline: true,
+                              underline: false,
                               link: '/chat',
                             ),
                           ])))));
