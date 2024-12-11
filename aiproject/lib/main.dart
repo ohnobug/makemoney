@@ -386,6 +386,8 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   bool setStatusHeight = false;
 
+  bool showpopup = false;
+
   @override
   void initState() {
     super.initState();
@@ -511,14 +513,6 @@ class _CustomTabbarState extends State<CustomTabbar>
         builder: (context, vm) {
           // 新appbar透明度
           double percent75Position = screenSize.height * 0.25; // 开始显示新appbar的位置
-          // double newAppbarHeight = 90.w + 17.w;
-          // double coverOpacity = (vm.homescrollpixels + vm.statusHeight) /
-          //     (percent75Position - vm.statusHeight);
-          // if (coverOpacity < 0) {
-          //   coverOpacity = 0;
-          // } else if (coverOpacity > 1) {
-          //   coverOpacity = 1;
-          // }
 
           // appbar标题
           Text appBarTitle = const Text("");
@@ -717,10 +711,8 @@ class _CustomTabbarState extends State<CustomTabbar>
                                       GestureDetector(
                                         onTap: () {
                                           if (vm.homescrollpixels == 0) {
-                                            vm.showpopup = !vm.showpopup!;
-                                            myStore.dispatch({
-                                              "type": "showpopup",
-                                              "payload": vm.showpopup
+                                            setState(() {
+                                              showpopup = !showpopup;
                                             });
                                           }
                                         },
@@ -745,123 +737,115 @@ class _CustomTabbarState extends State<CustomTabbar>
               ),
 
               // 弹出的扫码界面
-              const PopupMenu()
+              if (showpopup)
+                Stack(
+                  children: [
+                    // 背景
+                    GestureDetector(
+                        onTapDown: (_) {
+                          setState(() {
+                            showpopup = !showpopup;
+                          });
+                        },
+                        child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height,
+                            color: Colors.transparent)),
+
+                    // 按钮
+                    Positioned(
+                        right: 15.w,
+                        top: vm.statusHeight! + 80.w,
+                        child: SizedBox(
+                          width: 320.w,
+                          child: Column(
+                            children: [
+                              Container(
+                                width: 320.w,
+                                padding: EdgeInsets.only(right: 32.w),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    SizedBox(
+                                        width: 36.w,
+                                        height: 20.w,
+                                        child: Icon(
+                                          color: const Color.fromARGB(
+                                              255, 76, 76, 76),
+                                          const IconData(
+                                            0xe62c,
+                                            fontFamily: 'Iconfont',
+                                          ),
+                                          size: 42.w,
+                                        ))
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0).w,
+                                  color: const Color.fromARGB(255, 76, 76, 76),
+                                ),
+                                width: 320.w,
+                                height: 425.w,
+                                child: Column(
+                                  children: [
+                                    // 发起群聊
+                                    LJNPopupMenuItem(
+                                      title: "发起群聊",
+                                      icon: 0xe676,
+                                      onTap: () {
+                                        setState(() {
+                                          showpopup = false;
+                                        });
+                                      },
+                                    ),
+
+                                    LJNPopupMenuItem(
+                                      title: "添加朋友",
+                                      icon: 0xe61f,
+                                      onTap: () {
+                                        setState(() {
+                                          showpopup = false;
+                                        });
+                                        Navigator.pushNamed(
+                                            context, '/add_friends');
+                                      },
+                                    ),
+
+                                    LJNPopupMenuItem(
+                                      title: "扫一扫",
+                                      icon: 0xe69a,
+                                      onTap: () {
+                                        setState(() {
+                                          showpopup = false;
+                                        });
+                                        Navigator.pushNamed(
+                                            context, '/qrcode_scanner');
+                                      },
+                                    ),
+
+                                    LJNPopupMenuItem(
+                                      title: "收付款",
+                                      icon: 0xe611,
+                                      onTap: () {
+                                        setState(() {
+                                          showpopup = false;
+                                        });
+                                        Navigator.pushNamed(
+                                            context, '/collection_and_payment');
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ))
+                  ],
+                )
             ],
           );
-        });
-  }
-}
-
-class PopupMenu extends StatefulWidget {
-  const PopupMenu({super.key});
-
-  @override
-  State<PopupMenu> createState() => _PopupMenuState();
-}
-
-class _PopupMenuState extends State<PopupMenu> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return Visibility(
-              visible: vm.showpopup as bool,
-              child: Stack(
-                children: [
-                  GestureDetector(
-                      onTapDown: (_) {
-                        vm.showpopup = !vm.showpopup!;
-                        myStore.dispatch(
-                            {"type": "showpopup", "payload": vm.showpopup});
-                      },
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          color: Colors.transparent)),
-                  Positioned(
-                      right: 15.w,
-                      top: vm.statusHeight! + 80.w,
-                      child: SizedBox(
-                        width: 320.w,
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 320.w,
-                              padding: EdgeInsets.only(right: 32.w),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  SizedBox(
-                                      width: 36.w,
-                                      height: 20.w,
-                                      child: Icon(
-                                        color: const Color.fromARGB(
-                                            255, 76, 76, 76),
-                                        const IconData(
-                                          0xe62c,
-                                          fontFamily: 'Iconfont',
-                                        ),
-                                        size: 42.w,
-                                      ))
-                                ],
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0).w,
-                                color: const Color.fromARGB(255, 76, 76, 76),
-                              ),
-                              width: 320.w,
-                              height: 425.w,
-                              child: Column(
-                                children: [
-                                  // 发起群聊
-                                  LJNPopupMenuItem(
-                                    title: "发起群聊",
-                                    icon: 0xe676,
-                                    onTap: () {},
-                                  ),
-
-                                  LJNPopupMenuItem(
-                                    title: "添加朋友",
-                                    icon: 0xe61f,
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, '/add_friends');
-                                    },
-                                  ),
-
-                                  LJNPopupMenuItem(
-                                    title: "扫一扫",
-                                    icon: 0xe69a,
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, '/qrcode_scanner');
-                                    },
-                                  ),
-
-                                  LJNPopupMenuItem(
-                                    title: "收付款",
-                                    icon: 0xe611,
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, '/collection_and_payment');
-                                    },
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ))
-                ],
-              ));
         });
   }
 }
@@ -888,76 +872,70 @@ class _LJNPopupMenuItem extends State<LJNPopupMenuItem> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return GestureDetector(
-            onTapDown: (_) {
-              setState(() {
-                bgColor = const Color.fromARGB(255, 68, 68, 68);
-              });
-            },
-            onTapCancel: () {
-              setState(() {
-                bgColor = const Color.fromARGB(255, 76, 76, 76);
-              });
-            },
-            onTapUp: (tapDownDetails) {
-              Future.delayed(const Duration(milliseconds: 50), () {
-                setState(() {
-                  bgColor = const Color.fromARGB(255, 76, 76, 76);
-                });
-
-                myStore.dispatch({"type": "showpopup", "payload": false});
-
-                if (widget.onTap != null) widget.onTap!();
-              });
-            },
-            child: Container(
-              height: 105.w,
-              color: bgColor,
-              child: Row(children: [
-                SizedBox(
-                  height: 105.w,
-                  width: 105.w,
-                  child: Center(
-                    child: Icon(
-                      color: Colors.white,
-                      IconData(
-                        widget.icon,
-                        fontFamily: 'Iconfont',
-                      ),
-                      size: 41.w,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 0.w,
-                ),
-                Expanded(
-                  child: Container(
-                      height: double.infinity,
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                        color: const Color.fromARGB(255, 85, 85, 85),
-                        width: 1.5.w,
-                        style: BorderStyle.solid,
-                      ))),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        widget.title,
-                        style: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(30.w),
-                            fontWeight: FontWeight.normal,
-                            decoration: TextDecoration.none,
-                            color: Colors.white),
-                      )),
-                )
-              ]),
-            ),
-          );
+    return GestureDetector(
+      onTapDown: (_) {
+        setState(() {
+          bgColor = const Color.fromARGB(255, 68, 68, 68);
         });
+      },
+      onTapCancel: () {
+        setState(() {
+          bgColor = const Color.fromARGB(255, 76, 76, 76);
+        });
+      },
+      onTapUp: (tapDownDetails) {
+        setState(() {
+          bgColor = const Color.fromARGB(255, 76, 76, 76);
+        });
+
+        Future.delayed(const Duration(milliseconds: 50), () {
+          if (widget.onTap != null) widget.onTap!();
+        });
+      },
+      child: Container(
+        height: 105.w,
+        color: bgColor,
+        child: Row(children: [
+          SizedBox(
+            height: 105.w,
+            width: 105.w,
+            child: Center(
+              child: Icon(
+                color: Colors.white,
+                IconData(
+                  widget.icon,
+                  fontFamily: 'Iconfont',
+                ),
+                size: 41.w,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 0.w,
+          ),
+          Expanded(
+            child: Container(
+                height: double.infinity,
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                  color: const Color.fromARGB(255, 85, 85, 85),
+                  width: 1.5.w,
+                  style: BorderStyle.solid,
+                ))),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  widget.title,
+                  style: TextStyle(
+                      height: 1.08,
+                      fontSize: fontSizeScale(30.w),
+                      fontWeight: FontWeight.normal,
+                      decoration: TextDecoration.none,
+                      color: Colors.white),
+                )),
+          )
+        ]),
+      ),
+    );
   }
 }

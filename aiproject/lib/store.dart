@@ -59,12 +59,6 @@ class StoreType {
   bool? mainpage2isload; // 页面 2 是否显示
   bool? mainpage3isload; // 页面 3 是否显示
   bool? mainpage4isload; // 页面 4 是否显示
-  bool? showpopup; // 扫一扫 是否显示
-
-  Color? button1Bg;
-  Color? button2Bg;
-  Color? button3Bg;
-  Color? button4Bg;
 
   ThemeData? themeData;
   double homescrollpixels = 0; // 首页滚动情况
@@ -85,14 +79,9 @@ class StoreType {
       this.mainpage2isload,
       this.mainpage3isload,
       this.mainpage4isload,
-      this.showpopup,
       this.themeData,
       required this.homescrollpixels,
       this.screenSize,
-      this.button1Bg,
-      this.button2Bg,
-      this.button3Bg,
-      this.button4Bg,
       this.statusHeight});
 
   StoreType copyWith({
@@ -108,14 +97,9 @@ class StoreType {
     bool? mainpage2isload,
     bool? mainpage3isload,
     bool? mainpage4isload,
-    bool? showpopup,
     ThemeData? themeData,
     double? homescrollpixels,
     Size? screenSize,
-    Color? button1Bg,
-    Color? button2Bg,
-    Color? button3Bg,
-    Color? button4Bg,
     double? statusHeight,
   }) {
     return StoreType(
@@ -133,14 +117,9 @@ class StoreType {
       mainpage2isload: mainpage2isload ?? this.mainpage2isload,
       mainpage3isload: mainpage3isload ?? this.mainpage3isload,
       mainpage4isload: mainpage4isload ?? this.mainpage4isload,
-      showpopup: showpopup ?? this.showpopup,
       themeData: themeData ?? this.themeData,
       homescrollpixels: homescrollpixels ?? this.homescrollpixels,
       screenSize: screenSize ?? this.screenSize,
-      button1Bg: button1Bg ?? this.button1Bg,
-      button2Bg: button2Bg ?? this.button2Bg,
-      button3Bg: button3Bg ?? this.button3Bg,
-      button4Bg: button4Bg ?? this.button4Bg,
       statusHeight: statusHeight ?? this.statusHeight,
     );
   }
@@ -199,32 +178,12 @@ StoreType counterReducer(StoreType state, dynamic action) {
     return state.copyWith(mainpage4isload: action['payload']);
   }
 
-  if (action['type'] == "showpopup") {
-    return state.copyWith(showpopup: action['payload']);
-  }
-
   if (action['type'] == "homescrollpixels") {
     return state.copyWith(homescrollpixels: action['payload']);
   }
 
   if (action['type'] == "screenSize") {
     return state.copyWith(screenSize: action['payload']);
-  }
-
-  if (action['type'] == "button1Bg") {
-    return state.copyWith(button1Bg: action['payload']);
-  }
-
-  if (action['type'] == "button2Bg") {
-    return state.copyWith(button2Bg: action['payload']);
-  }
-
-  if (action['type'] == "button3Bg") {
-    return state.copyWith(button3Bg: action['payload']);
-  }
-
-  if (action['type'] == "button4Bg") {
-    return state.copyWith(button4Bg: action['payload']);
   }
 
   if (action['type'] == "statusHeight") {
@@ -247,12 +206,7 @@ final myStore = Store<StoreType>(counterReducer,
         mainpage2isload: false,
         mainpage3isload: false,
         mainpage4isload: false,
-        showpopup: false,
         themeData: lightTheme,
         homescrollpixels: 0.0,
         screenSize: const Size(0, 0),
-        button1Bg: const Color.fromARGB(255, 76, 76, 76),
-        button2Bg: const Color.fromARGB(255, 76, 76, 76),
-        button3Bg: const Color.fromARGB(255, 76, 76, 76),
-        button4Bg: const Color.fromARGB(255, 76, 76, 76),
         statusHeight: 0.0));
