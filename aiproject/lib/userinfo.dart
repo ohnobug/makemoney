@@ -131,7 +131,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                       const LJNFunctionItem(
                         title: "来电铃声",
                         link: '',
-                        showStyle: 'SISTER SISTER - JAVA',
+                        showStyle: 'SISTER  - JAVA',
                         underline: false,
                       ),
 

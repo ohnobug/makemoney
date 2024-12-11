@@ -115,7 +115,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 52.w,
+                                    width: 37.w,
                                   ),
                                   const IconBox()
                                 ],

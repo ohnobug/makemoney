@@ -144,9 +144,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                       widget.showStyle is String
                           ? Expanded(
                               child: Container(
-                                  padding:
-                                      const EdgeInsets.only(right: 10, left: 10)
-                                          .w,
+                                  padding: const EdgeInsets.only(left: 10).w,
                                   // color: Colors.red,
                                   alignment: Alignment.centerRight,
                                   child: Text(
@@ -154,7 +152,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                                     overflow: TextOverflow.ellipsis,
                                     widget.showStyle as String,
                                     style: TextStyle(
-                                      height: 1.08,
+                                      // height: 1.08,
                                       fontSize: fontSizeScale(30.w),
                                       color:
                                           const Color.fromARGB(255, 83, 83, 83),
@@ -167,19 +165,14 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                           // color: Colors.red,
                           width: 30.w,
                           height: widget.height ?? 105.0.w,
-                          margin: const EdgeInsets.only(right: 32).w,
-                          alignment: Alignment.center,
-                          child: Baseline(
-                            baseline: 33.w,
-                            baselineType: TextBaseline.alphabetic,
-                            child: Icon(
-                              const IconData(
-                                0xed9d,
-                                fontFamily: 'Iconfont',
-                              ),
-                              size: 30.0.w,
-                              color: const Color.fromARGB(255, 164, 164, 164),
+                          margin: const EdgeInsets.only(left: 10, right: 32).w,
+                          child: Icon(
+                            const IconData(
+                              0xed9d,
+                              fontFamily: 'Iconfont',
                             ),
+                            size: 30.0.w,
+                            color: const Color.fromARGB(255, 164, 164, 164),
                           ))
                   ],
                 ),

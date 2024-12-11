@@ -14,6 +14,8 @@ import 'package:jiaoyishuoflutter3/friendDataSetting.dart';
 import 'package:jiaoyishuoflutter3/friendMessageRecord.dart';
 import 'package:jiaoyishuoflutter3/friendMoreInfo.dart';
 import 'package:jiaoyishuoflutter3/friendmoments.dart';
+import 'package:jiaoyishuoflutter3/groupMessageRecord.dart';
+import 'package:jiaoyishuoflutter3/group_chat.dart';
 import 'package:jiaoyishuoflutter3/home22.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/miniprogram.dart';
@@ -202,6 +204,12 @@ class _TabBarApp extends State<TabBarApp> {
                     String icon = arguments['icon'] as String;
                     return pageRouteBuilderAnimation(
                         LJNChatPage(title: title, icon: icon));
+                  } else if (settings.name == '/group_chat') {
+                    var arguments = settings.arguments as Map<String, String>;
+                    String title = arguments['title'] as String;
+                    String icon = arguments['icon'] as String;
+                    return pageRouteBuilderAnimation(
+                        LJNGroupChatPage(title: title, icon: icon));
                   } else if (settings.name == '/qrcode_scanner') {
                     return pageRouteBuilderNotAnimation(
                         const LJNQRCodeScanner());
@@ -317,6 +325,9 @@ class _TabBarApp extends State<TabBarApp> {
                     return pageRouteBuilderAnimation(const LJNFriendMoreInfo());
                   } else if (settings.name == "/add_friends") {
                     return pageRouteBuilderAnimation(const LJNAddFriends());
+                  } else if (settings.name == "/group_message_record") {
+                    return pageRouteBuilderAnimation(
+                        const LJNGroupMessageRecord());
                   }
 
                   return null;

@@ -84,10 +84,11 @@ class _ChatListViewState extends State<LJNHome22Page>
           lastedTime: "16:40",
           badge: 9,
           onPressed: () {
-            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
-              'title': "华南理工大学 软件开发群",
-              'icon': "images/avatar/webwxgetheadimg.jpg",
-            });
+            Navigator.pushNamed(context, '/group_chat',
+                arguments: <String, String>{
+                  'title': "华南理工大学 软件开发群",
+                  'icon': "images/avatar/webwxgetheadimg.jpg",
+                });
             logger.info('华南理工大学 软件开发群被点击~');
           }),
       ChatListItem(
