@@ -10,6 +10,7 @@ class LJNFunctionItem extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final Object? title;
   final String? link;
+  final bool? showLinkIcon;
   final bool underline;
   final Object? showStyle;
   final bool? tapEffect;
@@ -22,6 +23,7 @@ class LJNFunctionItem extends StatefulWidget {
       this.padding,
       required this.title,
       this.link,
+      this.showLinkIcon,
       required this.underline,
       this.showStyle,
       this.tapEffect,
@@ -128,15 +130,17 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                         ?
                         // 标题
                         Expanded(
+                            child: Container(
                             child: Text(
-                            widget.title as String,
-                            style: TextStyle(
-                              height: 1.08,
-                              fontSize: fontSizeScale(32.0.w),
-                              fontFamily: "AlibabaPuHuiTi",
+                              widget.title as String,
+                              style: TextStyle(
+                                height: 1.08,
+                                fontSize: fontSizeScale(32.0.w),
+                                fontFamily: "AlibabaPuHuiTi",
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ))
                         : widget.title as Widget,
                     if (widget.showStyle != null)
@@ -160,7 +164,8 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                                     ),
                                   )))
                           : widget.showStyle as Widget,
-                    if (widget.link != null)
+                    if ([null, true].contains(widget.showLinkIcon) &&
+                        widget.link != null)
                       Container(
                           width: 30.w,
                           margin: const EdgeInsets.only(right: 32).w,

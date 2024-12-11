@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
-import 'package:jiaoyishuoflutter3/components/LJNFunctionItemButton.dart';
 import 'package:jiaoyishuoflutter3/components/LJNMaxWidthButton.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
-
 import 'components/LJNFunctionItem.dart';
-import 'components/LJNVideoFunctionItem.dart';
 
 class LJNFriendProfilePage extends StatefulWidget {
   const LJNFriendProfilePage({
@@ -301,20 +298,20 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                             ),
 
                             // 视频号
-                            LJNVideoFunctionItem(
+                            LJNFunctionItem(
                               title: "视频号",
                               link: '/ins',
+                              showLinkIcon: false,
                               height: 216.w,
-                              showStyle: Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                      height: 215.w,
-                                      padding: const EdgeInsets.only(
-                                              right: 10, left: 10)
-                                          .w,
-                                      margin: EdgeInsets.only(left: 68.w),
-                                      // color: Colors.red,
-                                      child: Column(
+                              showStyle: Container(
+                                  width: 490.w + 62.w,
+                                  height: 215.w,
+                                  margin: EdgeInsets.only(left: 68.w),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         mainAxisAlignment:
@@ -393,7 +390,22 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                                 ),
                                               ])
                                         ],
-                                      ))),
+                                      ),
+                                      Container(
+                                          width: 30.w,
+                                          margin: EdgeInsets.only(
+                                              right: 32.w, top: 75.w),
+                                          child: Icon(
+                                            const IconData(
+                                              0xed9d,
+                                              fontFamily: 'Iconfont',
+                                            ),
+                                            size: 30.0.w,
+                                            color: const Color.fromARGB(
+                                                255, 164, 164, 164),
+                                          ))
+                                    ],
+                                  )),
                               underline: true,
                             ),
 
