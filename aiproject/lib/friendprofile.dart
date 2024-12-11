@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
 import 'package:jiaoyishuoflutter3/components/LJNFunctionItemButton.dart';
-import 'package:jiaoyishuoflutter3/components/maxWidthButton.dart';
+import 'package:jiaoyishuoflutter3/components/LJNMaxWidthButton.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

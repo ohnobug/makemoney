@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import '../components/LJNFunctionItem.dart';
-import '../components/maxWidthButton.dart';
+import '../components/LJNMaxWidthButton.dart';
 
 class LJNSettingPage extends StatefulWidget {
   const LJNSettingPage({super.key});
