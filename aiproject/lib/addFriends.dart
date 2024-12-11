@@ -60,6 +60,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                                 margin: EdgeInsets.symmetric(horizontal: 15.w),
                                 height: 65.w,
                                 child: TextField(
+                                  textAlign: TextAlign.center,
                                   onTapOutside: (event) {
                                     FocusScope.of(context).unfocus();
                                   },
@@ -78,12 +79,12 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                                       minWidth: 70.w, // 控制图标与文字的最小宽度
                                       // minHeight: 36.w,
                                     ),
-                                    hintText: "搜索",
+                                    hintText: "账号/手机号",
                                     hintStyle: TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize: 30.w,
                                         color: const Color.fromARGB(
-                                            255, 69, 75, 83)),
+                                            255, 176, 176, 176)),
                                     filled: true,
                                     fillColor: const Color.fromARGB(
                                         255, 255, 255, 255),
@@ -103,7 +104,9 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                             // 我的微信号
                             Container(
                               height: 37.w,
+                              width: 750.w,
                               alignment: Alignment.center,
+                              color: const Color.fromARGB(255, 235, 235, 235),
                               child: Text.rich(
                                 TextSpan(children: [
                                   TextSpan(
@@ -134,7 +137,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                             ),
 
                             SizedBox(
-                              height: 135.w,
+                              height: 80.w,
                             ),
 
                             const LJNIconFunctionItem(

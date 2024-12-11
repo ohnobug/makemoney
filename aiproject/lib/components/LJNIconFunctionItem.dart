@@ -75,10 +75,10 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                         8.0.w), // Adjust the radius as needed
                     child: Image.asset(
                       assetPath(widget.avatar),
-                      width: 90.0.w,
-                      height: 90.0.w,
-                      cacheHeight: 180.w.toInt(),
-                      cacheWidth: 180.w.toInt(),
+                      width: 75.0.w,
+                      height: 75.0.w,
+                      cacheHeight: 150.w.toInt(),
+                      cacheWidth: 150.w.toInt(),
                       fit: BoxFit.cover,
                     ),
                   ),
