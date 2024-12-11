@@ -67,8 +67,8 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           icon: "images/icon/discovery_icon2.png",
                           link: '/ins',
                           underline: true,
-                          showStyle: Expanded(
-                              flex: 1,
+                          showStyle: SizedBox(
+                              width: 400.w,
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,10 +88,13 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                                     SizedBox(
                                       width: 14.w,
                                     ),
-                                    RichText(
+                                    Expanded(
+                                        child: RichText(
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                       text: TextSpan(
                                         children: buildTextSpans(
-                                            "李俊南集团💖李俊男  最近💖",
+                                            "李俊南集团💖李俊男李俊男李俊男李俊男李俊男李俊男李俊男李俊男  最近💖",
                                             TextStyle(
                                                 height: 1.08,
                                                 fontSize: fontSizeScale(26.w),
@@ -104,7 +107,7 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                                                 fontFamily:
                                                     "NotoColorEmoji-Regular")),
                                       ),
-                                    ),
+                                    )),
                                   ])),
                         ),
                         LJNFunctionItem(
@@ -112,8 +115,8 @@ class _LJNDiscoveryPage extends State<LJNDiscoveryPage> {
                           icon: "images/icon/discovery_icon3.png",
                           link: '/tiktik',
                           underline: false,
-                          showStyle: Expanded(
-                              flex: 1,
+                          showStyle: SizedBox(
+                              width: 400.w,
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.center,

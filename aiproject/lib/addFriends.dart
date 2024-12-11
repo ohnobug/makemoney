@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
+import 'package:jiaoyishuoflutter3/components/LJNIconFunctionItem.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -87,7 +88,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                                             255, 69, 75, 83)),
                                     filled: true,
                                     fillColor: const Color.fromARGB(
-                                        255, 233, 234, 236),
+                                        255, 255, 255, 255),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
                                       borderSide: BorderSide.none,
@@ -97,103 +98,93 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                                   ),
                                 )),
 
-                            Text.rich(
-                              TextSpan(children: [
-                                TextSpan(
-                                  text: "我的微信号",
-                                  style: TextStyle(
-                                    height: 1.08,
-                                    fontSize: 25.w,
-                                    color: const Color.fromARGB(
-                                        255, 105, 105, 105),
-                                  ),
-                                ),
-                                WidgetSpan(
-                                  child: SizedBox(width: 8.w),
-                                ),
-                                WidgetSpan(
-                                  alignment: PlaceholderAlignment.middle,
-                                  style: const TextStyle(height: 1.08),
-                                  child: Icon(
-                                    const IconData(0xe74b,
-                                        fontFamily: 'Iconfont'),
-                                    color: const Color.fromARGB(
-                                        255, 105, 105, 105),
-                                    size: 37.w,
-                                  ),
-                                ),
-                              ]),
+                            SizedBox(
+                              height: 44.w,
                             ),
 
-                            const LJNFunctionItem(
-                              title: "我和她的共同群聊",
-                              link: '',
-                              showStyle: "4个",
-                              underline: false,
-                            ),
+                            // 我的微信号
                             Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
-                            LJNFunctionItem(
-                              height: 135.w,
-                              title: '个人签名',
-                              // link: '',
-                              showStyle: Container(
-                                  // color: Colors.red,
-                                  margin: EdgeInsets.only(right: 40.w),
-                                  width: 345.w,
-                                  child: Text(
-                                    "理想不伟大，只愿年过半百，归来仍是少年",
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
+                              height: 37.w,
+                              alignment: Alignment.center,
+                              child: Text.rich(
+                                TextSpan(children: [
+                                  TextSpan(
+                                    text: "我的微信号: ${vm.userinfoAccount}",
                                     style: TextStyle(
-                                        // height: 1.25,
-                                        fontSize: 32.w,
-                                        color: const Color.fromARGB(
-                                            255, 92, 92, 92)),
-                                  )),
-                              underline: true,
-                            ),
-                            LJNFunctionItem(
-                              height: 135.w,
-                              title: '来源',
-                              // link: '',
-                              showStyle: Container(
-                                  // color: Colors.red,
-                                  margin: EdgeInsets.only(right: 40.w),
-                                  width: 345.w,
-                                  child: Text(
-                                    '通过群聊"深圳腾讯公司董事会"添加',
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        // height: 1.25,
-                                        fontSize: 32.w,
-                                        color: const Color.fromARGB(
-                                            255, 92, 92, 92)),
-                                  )),
-                              underline: true,
-                            ),
-                            LJNFunctionItem(
-                              title: "添加时间",
-                              // link: '',
-                              showStyle: Expanded(
-                                  child: Container(
-                                margin: EdgeInsets.only(right: 40.w),
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  "2013年11月",
-                                  style: TextStyle(
                                       height: 1.08,
-                                      fontSize: fontSizeScale(32.0.w),
-                                      fontFamily: "AlibabaPuHuiTi",
+                                      fontSize: 25.w,
                                       color: const Color.fromARGB(
-                                          255, 83, 83, 83)),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              )),
+                                          255, 105, 105, 105),
+                                    ),
+                                  ),
+                                  WidgetSpan(
+                                    child: SizedBox(width: 8.w),
+                                  ),
+                                  WidgetSpan(
+                                    alignment: PlaceholderAlignment.middle,
+                                    style: const TextStyle(height: 1.08),
+                                    child: Icon(
+                                      const IconData(0xe74b,
+                                          fontFamily: 'Iconfont'),
+                                      color: const Color.fromARGB(
+                                          255, 105, 105, 105),
+                                      size: 37.w,
+                                    ),
+                                  ),
+                                ]),
+                              ),
+                            ),
+
+                            SizedBox(
+                              height: 135.w,
+                            ),
+
+                            const LJNIconFunctionItem(
+                              title: "雷达加朋友",
+                              link: '',
+                              underline: true,
+                              avatar: "images/icon/add_friend_icon1.png",
+                              message: '添加身边的朋友',
+                            ),
+
+                            const LJNIconFunctionItem(
+                              title: "面对面建群",
+                              link: '',
+                              underline: true,
+                              avatar: "images/icon/add_friend_icon2.png",
+                              message: '与身边的朋友进入同一个群聊',
+                            ),
+
+                            const LJNIconFunctionItem(
+                              title: "扫一扫",
+                              link: '/qrcode_scanner',
+                              underline: true,
+                              avatar: "images/icon/add_friend_icon3.png",
+                              message: '扫描二维码名片',
+                            ),
+
+                            const LJNIconFunctionItem(
+                              title: "手机联系人",
+                              link: '/phone_contact',
+                              underline: true,
+                              avatar: "images/icon/add_friend_icon4.png",
+                              message: '添加或邀请通讯录中的朋友',
+                            ),
+
+                            const LJNIconFunctionItem(
+                              title: "公众号",
+                              link: '',
+                              underline: true,
+                              avatar: "images/icon/add_friend_icon5.png",
+                              message: '获取更多资讯和服务',
+                            ),
+
+                            const LJNIconFunctionItem(
+                              title: "企业微信联系人",
+                              link: '',
                               underline: false,
+                              avatar: "images/icon/add_friend_icon6.png",
+                              message: '通过手机号搜索企业微信用户',
                             ),
                           ])))));
         });

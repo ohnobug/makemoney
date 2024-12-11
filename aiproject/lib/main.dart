@@ -831,7 +831,10 @@ class _PopupMenuState extends State<PopupMenu> {
                                   LJNPopupMenuItem(
                                     title: "添加朋友",
                                     icon: 0xe61f,
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, '/add_friends');
+                                    },
                                   ),
 
                                   LJNPopupMenuItem(
