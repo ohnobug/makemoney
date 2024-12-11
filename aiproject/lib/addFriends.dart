@@ -5,6 +5,7 @@ import 'package:jiaoyishuoflutter3/components/LJNIconFunctionItem.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNAddFriends extends StatefulWidget {
   const LJNAddFriends({
@@ -56,46 +57,53 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                           child: Column(children: [
                             // 搜索框
                             Container(
-                                // color: Colors.blue,
-                                margin: EdgeInsets.symmetric(horizontal: 15.w),
-                                height: 65.w,
-                                child: TextField(
-                                  textAlign: TextAlign.center,
-                                  onTapOutside: (event) {
-                                    FocusScope.of(context).unfocus();
-                                  },
-                                  cursorHeight: 35.w,
-                                  cursorWidth: 3.w,
-                                  decoration: InputDecoration(
-                                    prefixIcon: Icon(
-                                      const IconData(
-                                        0xe612,
-                                        fontFamily: 'Iconfont',
-                                      ),
-                                      color: Colors.black,
-                                      size: 40.w,
+                              width: 720.w,
+                              margin: EdgeInsets.symmetric(horizontal: 15.w),
+                              height: 65.w,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.w)),
+                              ),
+                              alignment: Alignment.center,
+                              child: Text.rich(
+                                TextSpan(
+                                  children: [
+                                    WidgetSpan(
+                                      child: SizedBox(
+                                          width: 22.w,
+                                          child: Icon(
+                                            const IconData(
+                                              0xe612,
+                                              fontFamily: 'Iconfont',
+                                            ),
+                                            color: const Color.fromARGB(
+                                                255, 176, 176, 176),
+                                            size: 40.w,
+                                          )),
+                                      alignment: PlaceholderAlignment
+                                          .middle, // 使图标与文本垂直居中对齐
                                     ),
-                                    prefixIconConstraints: BoxConstraints(
-                                      minWidth: 70.w, // 控制图标与文字的最小宽度
-                                      // minHeight: 36.w,
-                                    ),
-                                    hintText: "账号/手机号",
-                                    hintStyle: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 30.w,
+                                    WidgetSpan(
+                                        child: SizedBox(
+                                      width: 18.w,
+                                    )),
+                                    TextSpan(
+                                      text: "账号/手机号",
+                                      style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(29.w),
                                         color: const Color.fromARGB(
-                                            255, 176, 176, 176)),
-                                    filled: true,
-                                    fillColor: const Color.fromARGB(
-                                        255, 255, 255, 255),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide.none,
+                                            255, 176, 176, 176),
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "Quicksand",
+                                      ),
                                     ),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 8.0.w, horizontal: 20.0.w),
-                                  ),
-                                )),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
 
                             SizedBox(
                               height: 44.w,

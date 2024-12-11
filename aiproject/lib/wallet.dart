@@ -119,60 +119,62 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                               title: "零钱通",
                               icon: "images/icon/discovery_icon2.png",
                               link: '',
-                              showStyle: Expanded(
+                              showStyle: SizedBox(
+                                  width: 480.w,
+                                  // color: Colors.red,
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                    Text.rich(
-                                      TextSpan(
-                                        children: [
+                                        Text.rich(
                                           TextSpan(
-                                            text: '收益率1.64%',
-                                            style: TextStyle(
-                                              height: 1.08,
-                                              fontSize: fontSizeScale(23.w),
-                                              color: const Color.fromARGB(
-                                                  255, 249, 136, 39),
-                                            ),
+                                            children: [
+                                              TextSpan(
+                                                text: '收益率1.64%',
+                                                style: TextStyle(
+                                                  height: 1.08,
+                                                  fontSize: fontSizeScale(23.w),
+                                                  color: const Color.fromARGB(
+                                                      255, 249, 136, 39),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                    Text.rich(
-                                      TextSpan(
-                                        children: [
-                                          WidgetSpan(
-                                            child: SizedBox(
-                                                width: 22.w,
-                                                child: Icon(
-                                                  const IconData(
-                                                    0xe90d,
-                                                    fontFamily: 'Iconfont',
-                                                  ),
-                                                  size: 25.w, // 图标大小
-                                                )),
-                                            alignment: PlaceholderAlignment
-                                                .middle, // 使图标与文本垂直居中对齐
-                                          ),
+                                        ),
+                                        Text.rich(
                                           TextSpan(
-                                            text: vm.walletFoundationBalance
-                                                .toString(),
-                                            style: TextStyle(
-                                              height: 1.08,
-                                              fontSize: fontSizeScale(29.w),
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w500,
-                                              fontFamily: "Quicksand",
-                                            ),
+                                            children: [
+                                              WidgetSpan(
+                                                child: SizedBox(
+                                                    width: 22.w,
+                                                    child: Icon(
+                                                      const IconData(
+                                                        0xe90d,
+                                                        fontFamily: 'Iconfont',
+                                                      ),
+                                                      size: 25.w, // 图标大小
+                                                    )),
+                                                alignment: PlaceholderAlignment
+                                                    .middle, // 使图标与文本垂直居中对齐
+                                              ),
+                                              TextSpan(
+                                                text: vm.walletFoundationBalance
+                                                    .toString(),
+                                                style: TextStyle(
+                                                  height: 1.08,
+                                                  fontSize: fontSizeScale(29.w),
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily: "Quicksand",
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    )
-                                  ])),
+                                          textAlign: TextAlign.center,
+                                        )
+                                      ])),
                               underline: true,
                             ),
                             const LJNFunctionItem(

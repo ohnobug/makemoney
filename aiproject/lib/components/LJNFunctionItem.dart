@@ -126,10 +126,9 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    // 标题
                     widget.title is String
-                        ?
-                        // 标题
-                        Expanded(
+                        ? Expanded(
                             child: Text(
                             widget.title as String,
                             style: TextStyle(
