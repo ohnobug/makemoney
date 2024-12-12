@@ -235,13 +235,28 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
 
                             // 朋友圈
                             LJNFunctionItem(
-                              title: "朋友圈",
+                              title: Container(
+                                width: 190.w,
+                                padding: EdgeInsets.only(left: 30.w),
+                                height: double.infinity,
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "朋友圈",
+                                  style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(32.0.w),
+                                    fontFamily: "AlibabaPuHuiTi",
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
                               link: '/friendmoments',
                               height: 151.w,
                               showStyle: Container(
-                                  width: 490.w,
-                                  margin: EdgeInsets.only(left: 68.w),
-                                  // color: Colors.red,
+                                  width: 470.w,
+                                  height: double.infinity,
+                                  // margin: EdgeInsets.only(left: 68.w),
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -299,14 +314,29 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
 
                             // 视频号
                             LJNFunctionItem(
-                              title: "视频号",
+                              title: Container(
+                                width: 190.w,
+                                padding: EdgeInsets.only(left: 30.w),
+                                height: double.infinity,
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "视频号",
+                                  style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(32.0.w),
+                                    fontFamily: "AlibabaPuHuiTi",
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
                               link: '/ins',
                               showLinkIcon: false,
                               height: 216.w,
-                              showStyle: Container(
+                              showStyle: SizedBox(
                                   width: 490.w + 62.w,
                                   height: 215.w,
-                                  margin: EdgeInsets.only(left: 68.w),
+                                  // margin: EdgeInsets.only(left: 68.w),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,

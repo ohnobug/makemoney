@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get_thumbnail_video/index.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
@@ -10,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:path/path.dart' as path;
-import 'package:get_thumbnail_video/video_thumbnail.dart';
 
 class LJNVideoMessage extends StatefulWidget {
   const LJNVideoMessage(
@@ -103,16 +101,26 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
       await file.writeAsBytes(bytes);
       // =========================================================================
 
-      final fileName = await VideoThumbnail.thumbnailFile(
-        video: videoPath,
-        thumbnailPath: outputImagePath,
-        imageFormat: ImageFormat.PNG,
-        quality: 100,
-      );
+      final String ffmpegCommand =
+          '-i $videoPath -vframes 1 -f image2 $outputImagePath';
 
-      setState(() {
-        picPath = fileName.path;
+      logger.info(ffmpegCommand);
+
+      await FFmpegKit.execute(ffmpegCommand).then((session) async {
+        final returnCode = await session.getReturnCode();
+        logger.info("returnCode: $returnCode");
+
+        if (ReturnCode.isSuccess(returnCode)) {
+          logger.info('首帧已保存: $outputImagePath');
+          setState(() {
+            picPath = outputImagePath;
+          });
+        } else {
+          logger.info('提取首帧失败');
+        }
       });
+
+      await FFmpegKit.cancel();
     }
   }
 

@@ -9,9 +9,15 @@ class LJNAppBar extends StatefulWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final Color? color;
   final Color? bgColor;
+  final Widget? leading;
 
   const LJNAppBar(
-      {super.key, this.title, this.actions, this.bgColor, this.color});
+      {super.key,
+      this.title,
+      this.actions,
+      this.bgColor,
+      this.color,
+      this.leading});
 
   @override
   State<LJNAppBar> createState() => _LJNAppBar();
@@ -41,25 +47,26 @@ class _LJNAppBar extends State<LJNAppBar> {
                   color: bgColor,
                   padding: EdgeInsets.only(top: vm.statusHeight!),
                   child: AppBar(
-                    leading: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        // wallet
-                      }, // 点击事件
-                      child: Container(
-                        color: Colors.transparent,
-                        height: 90.w,
-                        alignment: Alignment.center,
-                        child: Icon(
-                          const IconData(
-                            0xed9e,
-                            fontFamily: 'Iconfont',
-                          ), // 使用的图标
-                          color: widget.color ?? Colors.black, // 图标颜色
-                          size: 36.w, // 图标大小
+                    leading: widget.leading ??
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                            // wallet
+                          }, // 点击事件
+                          child: Container(
+                            color: Colors.transparent,
+                            height: 90.w,
+                            alignment: Alignment.center,
+                            child: Icon(
+                              const IconData(
+                                0xed9e,
+                                fontFamily: 'Iconfont',
+                              ), // 使用的图标
+                              color: widget.color ?? Colors.black, // 图标颜色
+                              size: 36.w, // 图标大小
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
                     primary: false,
                     centerTitle: true,
                     title: Text(widget.title ?? ""),

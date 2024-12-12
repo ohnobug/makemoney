@@ -86,8 +86,6 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
       },
       child: Container(
         height: widget.height ?? 105.0.w,
-        padding:
-            widget.padding ?? const EdgeInsets.only(left: 30.0, right: 0.0).w,
         color: containerColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -124,21 +122,26 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                   style: BorderStyle.solid,
                 ))),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // 标题
                     widget.title is String
                         ? Expanded(
-                            child: Text(
-                            widget.title as String,
-                            style: TextStyle(
-                              height: 1.08,
-                              fontSize: fontSizeScale(32.0.w),
-                              fontFamily: "AlibabaPuHuiTi",
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ))
+                            child: Container(
+                                padding: widget.padding ??
+                                    const EdgeInsets.only(
+                                            left: 30.0, right: 0.0)
+                                        .w,
+                                child: Text(
+                                  widget.title as String,
+                                  style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(32.0.w),
+                                    fontFamily: "AlibabaPuHuiTi",
+                                  ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                )))
                         : widget.title as Widget,
                     if (widget.showStyle != null)
                       widget.showStyle is String

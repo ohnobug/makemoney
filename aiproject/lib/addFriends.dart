@@ -79,7 +79,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                                             ),
                                             color: const Color.fromARGB(
                                                 255, 176, 176, 176),
-                                            size: 40.w,
+                                            size: 29.w,
                                           )),
                                       alignment: PlaceholderAlignment
                                           .middle, // 使图标与文本垂直居中对齐
@@ -114,7 +114,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                               height: 37.w,
                               width: 750.w,
                               alignment: Alignment.center,
-                              color: const Color.fromARGB(255, 235, 235, 235),
+                              // color: const Color.fromARGB(255, 235, 235, 235),
                               child: Text.rich(
                                 TextSpan(children: [
                                   TextSpan(
@@ -127,7 +127,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                                     ),
                                   ),
                                   WidgetSpan(
-                                    child: SizedBox(width: 8.w),
+                                    child: SizedBox(width: 14.w),
                                   ),
                                   WidgetSpan(
                                     alignment: PlaceholderAlignment.middle,
@@ -137,7 +137,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                                           fontFamily: 'Iconfont'),
                                       color: const Color.fromARGB(
                                           255, 105, 105, 105),
-                                      size: 37.w,
+                                      size: 32.w,
                                     ),
                                   ),
                                 ]),
@@ -145,7 +145,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                             ),
 
                             SizedBox(
-                              height: 80.w,
+                              height: 70.w,
                             ),
 
                             const LJNIconFunctionItem(

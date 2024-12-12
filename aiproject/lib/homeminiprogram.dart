@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
@@ -92,72 +92,52 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // appbar标题
-                            Container(
-                                width: 750.w,
-                                height: 90.0.w + vm.statusHeight!,
-                                // color: const Color.fromARGB(255, 50, 48, 70),
-                                padding: EdgeInsets.only(top: vm.statusHeight!),
-                                child: AppBar(
-                                  leading: null,
-                                  primary: false,
-                                  centerTitle: true,
-                                  title: const Text('最近'),
-                                  toolbarHeight: 90.w,
-                                  titleTextStyle: TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(32.w),
-                                      color: Colors.white,
-                                      fontFamily: "AlibabaPuHuiTi-Medium"),
-                                  elevation: 0,
-                                  scrolledUnderElevation: 0,
-                                  backgroundColor: Colors.transparent,
-                                  foregroundColor: Colors.transparent,
-                                  actions: [
-                                    Container(
-                                      // width: 80.w,
-                                      height: 40.w,
-                                      margin: EdgeInsets.only(right: 30.w),
-                                      padding: EdgeInsets.only(
-                                          left: 10.w, right: 10.w),
-                                      decoration: BoxDecoration(
+                            LJNAppBar(
+                              title: "最近",
+                              leading: Container(),
+                              bgColor: Colors.transparent,
+                              color: Colors.white,
+                              actions: [
+                                Container(
+                                  // width: 80.w,
+                                  height: 44.w,
+                                  margin: EdgeInsets.only(right: 30.w),
+                                  padding:
+                                      EdgeInsets.only(left: 20.w, right: 20.w),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromARGB(38, 134, 134, 134),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(35.w)),
+                                  ),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        const IconData(
+                                          0xe612,
+                                          fontFamily: 'Iconfont',
+                                        ),
                                         color: const Color.fromARGB(
-                                            136, 116, 116, 116),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(35.w)),
-                                        // border: Border(
-                                        //     top: BorderSide(
-                                        //   color: const Color.fromARGB(
-                                        //       255, 231, 231, 231),
-                                        //   width: 1.5.w,
-                                        //   style: BorderStyle.solid,
-                                        // ))
+                                            255, 178, 176, 200),
+                                        size: 22.w,
                                       ),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            const IconData(
-                                              0xe612,
-                                              fontFamily: 'Iconfont',
-                                            ), // 使用的图标
-                                            color: Colors.white, // 图标颜色
-                                            size: 26.w, // 图标大小
-                                          ),
-                                          SizedBox(
-                                            width: 8.w,
-                                          ),
-                                          Text(
-                                            "搜索",
-                                            style: TextStyle(
-                                                fontSize: 22.w,
-                                                color: Colors.white),
-                                          )
-                                        ],
+                                      SizedBox(
+                                        width: 8.w,
                                       ),
-                                    )
-                                  ],
-                                )),
+                                      Text(
+                                        "搜索",
+                                        style: TextStyle(
+                                            fontSize: 22.w,
+                                            color: const Color.fromARGB(
+                                                255, 178, 176, 200)),
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
 
                             // 列表
                             Listener(
@@ -191,7 +171,6 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                               // 听一听
                                               FunctionButtonsSection(
                                                 title: '听一听',
-                                                moreUrl: "",
                                                 buttons: [
                                                   FunctionButton(
                                                       icon:
@@ -209,7 +188,50 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                               // 最近使用的小程序
                                               FunctionButtonsSection(
                                                 title: '最近使用的小程序',
-                                                moreUrl: "",
+                                                rightWidget: Text.rich(
+                                                  TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text: "更多",
+                                                        style: TextStyle(
+                                                          height: 1.08,
+                                                          fontSize:
+                                                              fontSizeScale(
+                                                                  26.w),
+                                                          color: const Color
+                                                              .fromARGB(255,
+                                                              175, 175, 175),
+                                                        ),
+                                                      ),
+                                                      WidgetSpan(
+                                                          child: SizedBox(
+                                                        width: 5.w,
+                                                      )),
+                                                      WidgetSpan(
+                                                        child: SizedBox(
+                                                            width: 26.w,
+                                                            child: Icon(
+                                                              const IconData(
+                                                                0xed9d,
+                                                                fontFamily:
+                                                                    'Iconfont',
+                                                              ),
+                                                              color: const Color
+                                                                  .fromARGB(
+                                                                  255,
+                                                                  176,
+                                                                  176,
+                                                                  176),
+                                                              size: 26.w,
+                                                            )),
+                                                        alignment:
+                                                            PlaceholderAlignment
+                                                                .middle, // 使图标与文本垂直居中对齐
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
                                                 buttons: [
                                                   FunctionButton(
                                                       icon:
@@ -256,8 +278,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
 
                                               // 我的常用小程序
                                               FunctionButtonsSection(
-                                                title: '我的常用小程序',
-                                                moreUrl: "",
+                                                title: '我的小程序',
                                                 buttons: [
                                                   FunctionButton(
                                                       icon:
@@ -315,14 +336,12 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
 class FunctionButtonsSection extends StatelessWidget {
   final String title;
   final List<FunctionButton> buttons;
-  final String moreUrl;
   final Widget? rightWidget;
 
   const FunctionButtonsSection(
       {super.key,
       required this.title,
       required this.buttons,
-      required this.moreUrl,
       this.rightWidget});
 
   @override

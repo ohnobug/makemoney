@@ -60,45 +60,48 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
 
           logger.info("弹起");
         },
-        child: Stack(
-          children: [
-            // 头像以及名称日期等信息
-            Container(
-              color: containerColor,
-              height: 135.0.w,
-              padding: const EdgeInsets.only(left: 30.0).w,
-              child: Row(
-                children: [
-                  // 头像
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                        8.0.w), // Adjust the radius as needed
-                    child: Image.asset(
-                      assetPath(widget.avatar),
-                      width: 75.0.w,
-                      height: 75.0.w,
-                      cacheHeight: 150.w.toInt(),
-                      cacheWidth: 150.w.toInt(),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+        child: Container(
+          width: 750.w,
+          color: containerColor,
+          height: 135.0.w,
+          padding: const EdgeInsets.only(left: 30.0).w,
+          child: Row(
+            children: [
+              // 头像
+              ClipRRect(
+                borderRadius:
+                    BorderRadius.circular(8.0.w), // Adjust the radius as needed
+                child: Image.asset(
+                  assetPath(widget.avatar),
+                  width: 75.0.w,
+                  height: 75.0.w,
+                  cacheHeight: 150.w.toInt(),
+                  cacheWidth: 150.w.toInt(),
+                  fit: BoxFit.cover,
+                ),
+              ),
 
-                  SizedBox(width: 23.w),
+              SizedBox(width: 23.w),
 
-                  // 右边区域
-                  Expanded(
-                    child: Container(
-                      // alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          // color: Colors.red,
-                          border: Border(
-                              bottom: BorderSide(
-                        color: widget.underline
-                            ? const Color.fromARGB(255, 242, 242, 242)
-                            : Colors.transparent,
-                        width: 1.5.w,
-                        style: BorderStyle.solid,
-                      ))),
+              // 右边区域
+              Container(
+                width: 622.w,
+                // alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    // color: Colors.red,
+                    border: Border(
+                        bottom: BorderSide(
+                  color: widget.underline
+                      ? const Color.fromARGB(255, 242, 242, 242)
+                      : Colors.transparent,
+                  width: 1.5.w,
+                  style: BorderStyle.solid,
+                ))),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 560.w,
+                      // color: Colors.red,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -108,100 +111,78 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                           ),
 
                           // 标题
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              // 标题
-                              Expanded(
-                                  child: RichText(
-                                strutStyle: StrutStyle(
-                                    height: 1.08,
-                                    forceStrutHeight: true,
-                                    fontSize: 31.w),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                text: TextSpan(
-                                  children: buildTextSpans(
-                                      widget.title,
-                                      TextStyle(
-                                          height: 1.08,
-                                          fontSize: fontSizeScale(31.0.w),
-                                          color: Colors.black,
-                                          fontFamily: "AlibabaPuHuiTi"),
-                                      TextStyle(
-                                          height: 1.08,
-                                          fontSize: fontSizeScale(31.w),
-                                          fontFamily:
-                                              "NotoColorEmoji-Regular")),
-                                ),
-                              )),
-                            ],
+                          RichText(
+                            strutStyle: StrutStyle(
+                                height: 1.08,
+                                forceStrutHeight: true,
+                                fontSize: 31.w),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            text: TextSpan(
+                              children: buildTextSpans(
+                                  widget.title,
+                                  TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(31.0.w),
+                                      color: Colors.black,
+                                      fontFamily: "AlibabaPuHuiTi"),
+                                  TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(31.w),
+                                      fontFamily: "NotoColorEmoji-Regular")),
+                            ),
                           ),
 
                           SizedBox(height: 10.w),
 
                           // 好友消息
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                // color: Colors.amber,
-                                // width: 400.w,
-                                // margin: EdgeInsets.only(right: 65.w),
-                                child: RichText(
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  text: TextSpan(
-                                    children: buildTextSpans(
-                                        widget.message,
-                                        TextStyle(
-                                          height: 1.08,
-                                          fontSize: fontSizeScale(25.w),
-                                          color: const Color.fromARGB(
-                                              255, 170, 170, 170),
-                                        ),
-                                        TextStyle(
-                                          height: 1.08,
-                                          fontSize: fontSizeScale(25.w),
-                                          color: const Color.fromARGB(
-                                              255, 170, 170, 170),
-                                        )),
+                          RichText(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            text: TextSpan(
+                              children: buildTextSpans(
+                                  widget.message,
+                                  TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(25.w),
+                                    color: const Color.fromARGB(
+                                        255, 170, 170, 170),
                                   ),
-                                ),
-                              ),
-                            ],
+                                  TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(25.w),
+                                    color: const Color.fromARGB(
+                                        255, 170, 170, 170),
+                                  )),
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-
-                  if (widget.link != null)
-                    Container(
-                        // color: Colors.red,
-                        width: 30.w,
-                        height: 135.0.w,
-                        margin: const EdgeInsets.only(right: 32).w,
-                        alignment: Alignment.center,
-                        child: Baseline(
-                          baseline: 33.w,
-                          baselineType: TextBaseline.alphabetic,
-                          child: Icon(
-                            const IconData(
-                              0xed9d,
-                              fontFamily: 'Iconfont',
+                    if (widget.link != null)
+                      Container(
+                          // color: Colors.red,
+                          width: 30.w,
+                          height: 135.0.w,
+                          margin: const EdgeInsets.only(right: 32).w,
+                          alignment: Alignment.center,
+                          child: Baseline(
+                            baseline: 33.w,
+                            baselineType: TextBaseline.alphabetic,
+                            child: Icon(
+                              const IconData(
+                                0xed9d,
+                                fontFamily: 'Iconfont',
+                              ),
+                              size: 30.0.w,
+                              color: const Color.fromARGB(255, 164, 164, 164),
                             ),
-                            size: 30.0.w,
-                            color: const Color.fromARGB(255, 164, 164, 164),
-                          ),
-                        ))
-                ],
+                          ))
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ));
   }
 }
