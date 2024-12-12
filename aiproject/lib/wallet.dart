@@ -51,7 +51,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                           alignment: Alignment.center,
                           child: Text("账单",
                               style: TextStyle(
-                                  height: 1.08,
+                                  // height: 1.08,
                                   color: Colors.black,
                                   fontSize: fontSizeScale(32.w),
                                   fontWeight: FontWeight.w500))))

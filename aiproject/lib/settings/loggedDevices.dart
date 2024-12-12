@@ -96,16 +96,20 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                           link: '/device_detail',
                           underline: true,
                           showStyle: Expanded(
-                              flex: 1,
-                              child: Text(
-                                "当前设备",
-                                textAlign: TextAlign.end,
-                                style: TextStyle(
-                                    fontSize: 25.w,
-                                    height: 1.08,
-                                    color: const Color.fromARGB(
-                                        255, 180, 180, 180)),
-                              ))),
+                              flex: 0,
+                              child: Container(
+                                  constraints: BoxConstraints(maxWidth: 375.w),
+                                  child: Text(
+                                    "当前设备",
+                                    textAlign: TextAlign.end,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 25.w,
+                                        height: 1.08,
+                                        color: const Color.fromARGB(
+                                            255, 180, 180, 180)),
+                                  )))),
                       const LJNFunctionItem(
                         // height: 150.w,
                         title: "iphone20",
@@ -134,7 +138,8 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         underline: true,
                         subTitle: Text(
                           "11月10日 下午15:23",
-                          maxLines: 3,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
                             fontSize: 24.w,
@@ -150,7 +155,8 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         underline: true,
                         subTitle: Text(
                           "11月10日 下午15:23",
-                          maxLines: 3,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
                             fontSize: 24.w,
@@ -166,7 +172,8 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         underline: true,
                         subTitle: Text(
                           "11月10日 下午15:23",
-                          maxLines: 3,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
                             fontSize: 24.w,
@@ -182,7 +189,8 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         underline: true,
                         subTitle: Text(
                           "11月10日 下午15:23",
-                          maxLines: 3,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
                             fontSize: 24.w,
@@ -198,7 +206,8 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         underline: true,
                         subTitle: Text(
                           "11月10日 下午15:23",
-                          maxLines: 3,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
                             fontSize: 24.w,
@@ -214,7 +223,8 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         underline: true,
                         subTitle: Text(
                           "11月10日 下午15:23",
-                          maxLines: 3,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
                             fontSize: 24.w,
@@ -230,7 +240,8 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         underline: true,
                         subTitle: Text(
                           "11月10日 下午15:23",
-                          maxLines: 3,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: const Color.fromARGB(255, 193, 193, 193),
                             fontSize: 24.w,

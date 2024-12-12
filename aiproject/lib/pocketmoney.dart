@@ -27,7 +27,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
           return Scaffold(
               primary: false,
               appBar: LJNAppBar(
-                title: "朋友圈",
+                title: "",
                 actions: [
                   GestureDetector(
                     onTap: () {

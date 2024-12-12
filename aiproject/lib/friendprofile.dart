@@ -253,7 +253,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                               ),
                               link: '/friendmoments',
                               height: 151.w,
-                              showStyle: Container(
+                              showStyle: SizedBox(
                                   width: 470.w,
                                   height: double.infinity,
                                   // margin: EdgeInsets.only(left: 68.w),
@@ -316,9 +316,9 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                             LJNFunctionItem(
                               title: Container(
                                 width: 190.w,
-                                padding: EdgeInsets.only(left: 30.w),
+                                padding: EdgeInsets.only(left: 30.w, top: 38.w),
                                 height: double.infinity,
-                                alignment: Alignment.centerLeft,
+                                alignment: Alignment.topLeft,
                                 child: Text(
                                   "视频号",
                                   style: TextStyle(
@@ -347,22 +347,19 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
-                                          // 标题
-                                          Container(
-                                              // color: Colors.red,
-                                              padding:
-                                                  EdgeInsets.only(top: 38.w),
-                                              child: Text(
-                                                widget.name!,
-                                                style: TextStyle(
-                                                  height: 1.08,
-                                                  fontSize:
-                                                      fontSizeScale(30.0.w),
-                                                  // fontFamily: "AlibabaPuHuiTi",
-                                                ),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                              )),
+                                          SizedBox(
+                                            height: 38.w,
+                                          ),
+                                          Text(
+                                            widget.name as String,
+                                            style: TextStyle(
+                                              height: 1.08,
+                                              fontSize: fontSizeScale(32.0.w),
+                                              fontFamily: "AlibabaPuHuiTi",
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                           SizedBox(
                                             height: 28.w,
                                           ),

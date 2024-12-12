@@ -82,7 +82,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                     padding: EdgeInsets.only(right: 33.w),
                     child: Text("常见问题",
                         style: TextStyle(
-                            height: 1.08,
+                            // height: 1.08,
                             color: Colors.black,
                             fontSize: fontSizeScale(32.w),
                             fontWeight: FontWeight.w500)))),

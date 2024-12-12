@@ -96,6 +96,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
               Container(
                 width: 40.0.w,
                 height: 40.0.w,
+                margin: const EdgeInsets.only(left: 30.0, right: 0.0).w,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   // borderRadius: BorderRadius.circular(10),
@@ -128,10 +129,12 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                     widget.title is String
                         ? Expanded(
                             child: Container(
-                                padding: widget.padding ??
-                                    const EdgeInsets.only(
-                                            left: 30.0, right: 0.0)
-                                        .w,
+                                padding: widget.icon == null
+                                    ? widget.padding ??
+                                        const EdgeInsets.only(
+                                                left: 30.0, right: 0.0)
+                                            .w
+                                    : const EdgeInsets.all(0),
                                 child: Text(
                                   widget.title as String,
                                   style: TextStyle(

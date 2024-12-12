@@ -129,6 +129,9 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       LJNFunctionItem(
                         title: Row(
                           children: [
+                            SizedBox(
+                              width: 30.w,
+                            ),
                             Text(
                               "插件",
                               style: TextStyle(
