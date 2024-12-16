@@ -464,7 +464,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                         ),
                                         color: const Color.fromARGB(
                                             255, 58, 81, 124),
-                                        size: 35.w,
+                                        size: 38.w,
                                       ),
                                     ),
                                   ),
@@ -503,7 +503,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                         ),
                                         color: const Color.fromARGB(
                                             255, 58, 81, 124),
-                                        size: 37.w,
+                                        size: 42.w,
                                       ),
                                     ),
                                   ),
@@ -522,7 +522,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage> {
                                 ]),
                               ),
                               underline: false,
-                              link: '/chat',
+                              link: '/dial',
                             ),
                           ])))));
         });
