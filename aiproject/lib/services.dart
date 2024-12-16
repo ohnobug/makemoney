@@ -135,7 +135,7 @@ class _LJNServicesPage extends State<LJNServicesPage> {
                                                   color: const Color.fromARGB(
                                                       255, 156, 215, 179),
                                                   // fontWeight: FontWeight.w500,
-                                                  fontFamily: "Quicksand",
+                                                  fontFamily: "LJNFont",
                                                 ),
                                               ),
                                             ],
@@ -440,7 +440,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                       color: const Color.fromARGB(160, 255, 255, 255),
                       fontSize: fontSizeScale(29.0.w),
                       overflow: TextOverflow.ellipsis,
-                      fontFamily: "Quicksand"),
+                      fontFamily: "LJNFont"),
                 ),
               if (widget.subTitle is Widget) widget.subTitle as Widget
             ],

@@ -53,53 +53,18 @@ flutter:
     - assets/lotties/
     - assets/web/
   fonts:
-    - family: Outfit-Regular
+    - family: LJNFont
       fonts:
-        - asset: ./assets/fonts/Quicksand-Regular.ttf
-
-    - family: Quicksand-Bold
-      fonts:
-        - asset: ./assets/fonts/Quicksand-Bold.ttf
-
-    - family: Quicksand-Light
-      fonts:
-        - asset: ./assets/fonts/Quicksand-Light.ttf
-
-    - family: Quicksand-Medium
-      fonts:
-        - asset: ./assets/fonts/Quicksand-Medium.ttf
-
-    - family: Quicksand-Regular
-      fonts:
-        - asset: ./assets/fonts/Quicksand-Regular.ttf
-
-    - family: Quicksand-SemiBold
-      fonts:
-        - asset: ./assets/fonts/Quicksand-SemiBold.ttf
-
-    - family: Rubik-Light
-      fonts:
-        - asset: ./assets/fonts/Rubik-Light.ttf
-
+        - asset: ./assets/fonts/LJNFont.ttf
     - family: AlibabaPuHuiTi
       fonts:
         - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.ttf
     - family: AlibabaPuHuiTi-Medium
       fonts:
         - asset: ./assets/fonts/AlibabaPuHuiTi-3-65-Medium.ttf
-    # - family: SourceHanSans
-    #   fonts:
-    #     - asset: ./assets/fonts/SourceHanSans_VF.ttc
-
     - family: NotoColorEmoji-Regular
       fonts:
         - asset: ./assets/fonts/NotoColorEmoji-Regular.ttf
-    # - family: Roboto
-    #   fonts:
-    #     - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.ttf
-    # - family: Noto Sans SC
-    #   fonts:
-    #     - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.ttf
     - family: Roboto-Regular
       fonts:
         - asset: ./assets/fonts/google_fonts/Roboto-Regular.ttf

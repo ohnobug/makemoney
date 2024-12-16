@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 // 主题数据
 final ThemeData lightTheme = ThemeData(
-  // fontFamily: 'notosanssc',
   useMaterial3: false,
   tabBarTheme: const TabBarTheme(),
   colorScheme: const ColorScheme.light(
@@ -14,7 +13,6 @@ final ThemeData lightTheme = ThemeData(
 );
 
 final ThemeData darkTheme = ThemeData(
-  // fontFamily: 'notosanssc',
   useMaterial3: false,
   colorScheme: const ColorScheme.dark(
     primaryContainer: Colors.black,

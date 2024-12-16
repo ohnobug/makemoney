@@ -96,7 +96,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                                         color: const Color.fromARGB(
                                             255, 176, 176, 176),
                                         fontWeight: FontWeight.w500,
-                                        fontFamily: "Quicksand",
+                                        fontFamily: "LJNFont",
                                       ),
                                     ),
                                   ],

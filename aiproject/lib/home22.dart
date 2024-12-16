@@ -1093,7 +1093,7 @@ class _ChatListItem extends State<ChatListItem> {
                             fontSize: fontSizeScale(20.w), // 数字大小
                             color: Colors.white, // 数字颜色
                             fontWeight: FontWeight.w600,
-                            fontFamily: "Rubik-Light"),
+                            fontFamily: "LJNFont"),
                       ),
                     ))
               else if (widget.badge! == -1)

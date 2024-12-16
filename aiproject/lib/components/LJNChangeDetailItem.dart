@@ -123,7 +123,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                                   color:
                                       const Color.fromARGB(255, 242, 191, 46),
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: "Quicksand-Regular"),
+                                  fontFamily: "LJNFont"),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             )
@@ -134,7 +134,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                                   fontSize: fontSizeScale(30.0.w),
                                   color: const Color.fromARGB(255, 0, 0, 0),
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: "Quicksand-Regular"),
+                                  fontFamily: "LJNFont"),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             )

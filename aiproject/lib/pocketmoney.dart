@@ -28,6 +28,9 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
               primary: false,
               appBar: LJNAppBar(
                 title: "",
+                leading: Container(),
+                // color: Colors.transparent,
+                // bgColor: Colors.transparent,
                 actions: [
                   GestureDetector(
                     onTap: () {
@@ -110,7 +113,7 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                                 height: 1.08,
                                 fontSize: fontSizeScale(85.w),
                                 fontWeight: FontWeight.bold,
-                                fontFamily: "Quicksand-Regular",
+                                fontFamily: "LJNFont",
                                 color: const Color.fromARGB(255, 16, 16, 16),
                               ),
                             ),
