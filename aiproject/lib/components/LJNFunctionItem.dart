@@ -15,6 +15,7 @@ class LJNFunctionItem extends StatefulWidget {
   final Object? showStyle;
   final bool? tapEffect;
   final Color? backgroundColor;
+  final EdgeInsetsGeometry? margin;
 
   const LJNFunctionItem(
       {super.key,
@@ -27,7 +28,8 @@ class LJNFunctionItem extends StatefulWidget {
       required this.underline,
       this.showStyle,
       this.tapEffect,
-      this.backgroundColor});
+      this.backgroundColor,
+      this.margin});
 
   @override
   State<LJNFunctionItem> createState() => _LJNFunctionItemState();
@@ -96,7 +98,8 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
               Container(
                 width: 40.0.w,
                 height: 40.0.w,
-                margin: const EdgeInsets.only(left: 30.0, right: 0.0).w,
+                margin: widget.margin ??
+                    const EdgeInsets.only(left: 30.0, right: 0.0).w,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   // borderRadius: BorderRadius.circular(10),

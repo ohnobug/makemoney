@@ -21,6 +21,7 @@ import 'package:jiaoyishuoflutter3/home22.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/miniprogram.dart';
 import 'package:jiaoyishuoflutter3/mywebview.dart';
+import 'package:jiaoyishuoflutter3/servicesManager.dart';
 import 'package:jiaoyishuoflutter3/settings/about.dart';
 import 'package:jiaoyishuoflutter3/settings/billDetails.dart';
 import 'package:jiaoyishuoflutter3/settings/changeDetails.dart';
@@ -331,6 +332,9 @@ class _TabBarApp extends State<TabBarApp> {
                         const LJNGroupMessageRecord());
                   } else if (settings.name == "/dial") {
                     return pageRouteBuilderAnimation(const LJNDial());
+                  } else if (settings.name == "/services_manager") {
+                    return pageRouteBuilderAnimation(
+                        const LJNServicesManager());
                   }
 
                   return null;

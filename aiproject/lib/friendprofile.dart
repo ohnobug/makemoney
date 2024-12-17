@@ -585,7 +585,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                       });
                     },
                     child: Container(
-                      color: const Color.fromARGB(167, 0, 0, 0),
+                      color: const Color.fromARGB(127, 0, 0, 0),
                       width: 750.w,
                       height: screenSize.height,
                     )),
@@ -599,10 +599,14 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                         width: 750.w,
                         height: 330.w,
                         child: Scaffold(
+                            backgroundColor: Colors.transparent,
+                            primary: false,
                             body: Container(
                                 width: 750.w,
                                 height: 330.w,
+                                clipBehavior: Clip.hardEdge,
                                 decoration: BoxDecoration(
+                                  // color: Colors.red,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(20.w),
                                     topRight: Radius.circular(20.w),
@@ -631,7 +635,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                                                   fontFamily: 'Iconfont',
                                                 ),
                                                 color: Colors.black,
-                                                size: 42.w,
+                                                size: 40.w,
                                               ),
                                             ),
                                           ),
@@ -650,7 +654,18 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                                         ]),
                                       ),
                                       underline: true,
-                                      link: '/dial',
+                                      // link: '/dial',
+                                      onPressed: () {
+                                        setState(() {
+                                          showDialSelector = false;
+                                          _animationController.reset();
+                                        });
+
+                                        Navigator.pushNamed(
+                                          context,
+                                          '/dial',
+                                        );
+                                      },
                                     ),
                                     LJNMaxWidthButton(
                                       title: Text.rich(
@@ -673,7 +688,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                                                   fontFamily: 'Iconfont',
                                                 ),
                                                 color: Colors.black,
-                                                size: 42.w,
+                                                size: 40.w,
                                               ),
                                             ),
                                           ),
@@ -692,15 +707,36 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                                         ]),
                                       ),
                                       underline: true,
-                                      link: '/dial',
+                                      onPressed: () {
+                                        setState(() {
+                                          showDialSelector = false;
+                                          _animationController.reset();
+                                        });
+
+                                        Navigator.pushNamed(
+                                          context,
+                                          '/dial',
+                                        );
+                                      },
                                     ),
                                     Container(
                                       height: 15.w,
                                       color: const Color.fromARGB(
                                           255, 247, 247, 247),
                                     ),
-                                    const LJNMaxWidthButton(
-                                        title: "取消", underline: false),
+                                    LJNMaxWidthButton(
+                                      title: "取消",
+                                      underline: false,
+                                      onPressed: () {
+                                        _animationController
+                                            .reverse()
+                                            .then((_) {
+                                          setState(() {
+                                            showDialSelector = false;
+                                          });
+                                        });
+                                      },
+                                    ),
                                   ],
                                 ))));
                   })
