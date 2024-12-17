@@ -599,95 +599,110 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                         width: 750.w,
                         height: 330.w,
                         child: Scaffold(
-                            body: Column(
-                          children: [
-                            LJNMaxWidthButton(
-                              title: Text.rich(
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                TextSpan(children: [
-                                  WidgetSpan(
-                                    alignment: PlaceholderAlignment.middle,
-                                    style: const TextStyle(
-                                      decoration: TextDecoration.none,
-                                    ),
-                                    child: Baseline(
-                                      baseline: 31.w,
-                                      baselineType: TextBaseline.alphabetic,
-                                      child: Icon(
-                                        const IconData(
-                                          0xe64f,
-                                          fontFamily: 'Iconfont',
-                                        ),
-                                        color: Colors.black,
-                                        size: 42.w,
+                            body: Container(
+                                width: 750.w,
+                                height: 330.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20.w),
+                                    topRight: Radius.circular(20.w),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    LJNMaxWidthButton(
+                                      title: Text.rich(
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        TextSpan(children: [
+                                          WidgetSpan(
+                                            alignment:
+                                                PlaceholderAlignment.middle,
+                                            style: const TextStyle(
+                                              decoration: TextDecoration.none,
+                                            ),
+                                            child: Baseline(
+                                              baseline: 31.w,
+                                              baselineType:
+                                                  TextBaseline.alphabetic,
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe64f,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                color: Colors.black,
+                                                size: 42.w,
+                                              ),
+                                            ),
+                                          ),
+                                          WidgetSpan(
+                                            child: SizedBox(width: 50.w),
+                                          ),
+                                          TextSpan(
+                                            text: "视频通话",
+                                            style: TextStyle(
+                                              height: 1.08,
+                                              fontSize: 30.w,
+                                              decoration: TextDecoration.none,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ]),
                                       ),
+                                      underline: true,
+                                      link: '/dial',
                                     ),
-                                  ),
-                                  WidgetSpan(
-                                    child: SizedBox(width: 50.w),
-                                  ),
-                                  TextSpan(
-                                    text: "视频通话",
-                                    style: TextStyle(
-                                      height: 1.08,
-                                      fontSize: 30.w,
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ]),
-                              ),
-                              underline: false,
-                              link: '/dial',
-                            ),
-                            LJNMaxWidthButton(
-                              title: Text.rich(
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                TextSpan(children: [
-                                  WidgetSpan(
-                                    alignment: PlaceholderAlignment.middle,
-                                    style: const TextStyle(
-                                      decoration: TextDecoration.none,
-                                    ),
-                                    child: Baseline(
-                                      baseline: 31.w,
-                                      baselineType: TextBaseline.alphabetic,
-                                      child: Icon(
-                                        const IconData(
-                                          0xe64c,
-                                          fontFamily: 'Iconfont',
-                                        ),
-                                        color: Colors.black,
-                                        size: 42.w,
+                                    LJNMaxWidthButton(
+                                      title: Text.rich(
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        TextSpan(children: [
+                                          WidgetSpan(
+                                            alignment:
+                                                PlaceholderAlignment.middle,
+                                            style: const TextStyle(
+                                              decoration: TextDecoration.none,
+                                            ),
+                                            child: Baseline(
+                                              baseline: 31.w,
+                                              baselineType:
+                                                  TextBaseline.alphabetic,
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe64c,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                color: Colors.black,
+                                                size: 42.w,
+                                              ),
+                                            ),
+                                          ),
+                                          WidgetSpan(
+                                            child: SizedBox(width: 50.w),
+                                          ),
+                                          TextSpan(
+                                            text: "语音通话",
+                                            style: TextStyle(
+                                              height: 1.08,
+                                              fontSize: 30.w,
+                                              decoration: TextDecoration.none,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ]),
                                       ),
+                                      underline: true,
+                                      link: '/dial',
                                     ),
-                                  ),
-                                  WidgetSpan(
-                                    child: SizedBox(width: 50.w),
-                                  ),
-                                  TextSpan(
-                                    text: "语音通话",
-                                    style: TextStyle(
-                                      height: 1.08,
-                                      fontSize: 30.w,
-                                      decoration: TextDecoration.none,
-                                      color: Colors.black,
+                                    Container(
+                                      height: 15.w,
+                                      color: const Color.fromARGB(
+                                          255, 247, 247, 247),
                                     ),
-                                  ),
-                                ]),
-                              ),
-                              underline: false,
-                              link: '/dial',
-                            ),
-                            SizedBox(
-                              height: 15.w,
-                            ),
-                            const LJNMaxWidthButton(
-                                title: "取消", underline: true),
-                          ],
-                        )));
+                                    const LJNMaxWidthButton(
+                                        title: "取消", underline: false),
+                                  ],
+                                ))));
                   })
             ],
           );
