@@ -82,7 +82,9 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
       });
       return;
     } else {
-      imageFile.deleteSync();
+      if (imageFile.existsSync()) {
+        imageFile.deleteSync();
+      }
 
       // 获取应用的文档目录
       final directory = await getApplicationDocumentsDirectory();

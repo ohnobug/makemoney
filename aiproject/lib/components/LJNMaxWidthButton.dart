@@ -10,15 +10,16 @@ class LJNMaxWidthButton extends StatefulWidget {
   final Color? color;
   final String? link;
   final bool underline;
+  final Function? onPressed;
 
-  const LJNMaxWidthButton({
-    super.key,
-    this.height,
-    required this.title,
-    this.color,
-    this.link,
-    required this.underline,
-  });
+  const LJNMaxWidthButton(
+      {super.key,
+      this.height,
+      required this.title,
+      this.color,
+      this.link,
+      required this.underline,
+      this.onPressed});
 
   @override
   State<LJNMaxWidthButton> createState() => _LJNMaxWidthButtonState();
@@ -53,6 +54,10 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
             if (widget.link != null) {
               Navigator.pushNamed(context, widget.link!);
             }
+
+            if (widget.onPressed != null) {
+              widget.onPressed!();
+            }
           }
         });
 
@@ -79,6 +84,7 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
                   color: widget.color ?? Colors.black,
                   height: 1.08,
                   fontSize: fontSizeScale(32.0.w),
+                  decoration: TextDecoration.none,
                   fontFamily: "AlibabaPuHuiTi",
                 ),
                 maxLines: 1,
