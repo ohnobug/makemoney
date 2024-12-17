@@ -69,50 +69,62 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           SizedBox(
                             height: 15.w,
                           ),
-                          TextField(
-                            readOnly: false,
-                            autofocus: false,
-                            showCursor: true,
-                            controller: inputController,
-                            focusNode: inputFocusNode,
-                            onTap: () {},
-                            cursorColor: const Color.fromRGBO(62, 174, 86, 1.0),
-                            // cursorHeight: 44.w,
-                            cursorWidth: 3.w,
-                            style: TextStyle(
-                                // height: 1.08,
-                                fontSize: fontSizeScale(30.w),
-                                color: Colors.black),
-                            // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
-                            maxLines: 5,
-                            minLines: 1,
-                            onChanged: (newText) {
-                              inputController.value =
-                                  inputController.value.copyWith(
-                                text: newText,
-                                selection: TextSelection.fromPosition(
-                                  TextPosition(offset: newText.length),
+                          Container(
+                              height: 106.w,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 247, 247, 247),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12.w)),
+                              ),
+                              child: TextField(
+                                readOnly: false,
+                                autofocus: false,
+                                showCursor: true,
+                                controller: inputController,
+                                focusNode: inputFocusNode,
+                                onTap: () {},
+                                cursorColor:
+                                    const Color.fromRGBO(62, 174, 86, 1.0),
+                                // cursorHeight: 44.w,
+                                cursorWidth: 3.w,
+                                style: TextStyle(
+                                    // height: 1.08,
+                                    fontSize: fontSizeScale(30.w),
+                                    color: Colors.black),
+                                // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
+                                maxLines: 5,
+                                minLines: 1,
+                                onChanged: (newText) {
+                                  inputController.value =
+                                      inputController.value.copyWith(
+                                    text: newText,
+                                    selection: TextSelection.fromPosition(
+                                      TextPosition(offset: newText.length),
+                                    ),
+                                  );
+                                },
+                                decoration: InputDecoration(
+                                  // fillColor:
+                                  //     const Color.fromARGB(255, 247, 247, 247),
+                                  // filled: true,
+                                  // focusColor: Colors.red,
+                                  // hoverColor:
+                                  //     const Color.fromARGB(255, 247, 247, 247),
+                                  isCollapsed: true,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                          vertical: 14, horizontal: 16)
+                                      .w,
+                                  border: const OutlineInputBorder(
+                                      gapPadding: 0,
+                                      borderSide: BorderSide.none),
+                                  // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                  // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                  // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                  // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                  // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
                                 ),
-                              );
-                            },
-                            decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              // focusColor: Colors.red,
-                              hoverColor: Colors.white,
-                              isCollapsed: true,
-                              contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 14, horizontal: 16)
-                                  .w,
-                              border: const OutlineInputBorder(
-                                  gapPadding: 0, borderSide: BorderSide.none),
-                              // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                              // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                              // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                              // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                              // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                            ),
-                          )
+                              ))
                         ],
                       ),
                     )))));
