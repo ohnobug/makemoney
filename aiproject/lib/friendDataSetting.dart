@@ -59,7 +59,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                           child: Column(children: [
                             const LJNFunctionItem(
                               title: "设置备注和标签",
-                              link: '',
+                              link: '/set_notes_and_labels',
                               showStyle: "邓子乔",
                               underline: true,
                             ),

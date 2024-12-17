@@ -44,7 +44,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 130.w,
+                            height: 100.w,
                           ),
                           Text(
                             "服务管理",
@@ -54,9 +54,10 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                                 color: Colors.black),
                           ),
                           SizedBox(
-                            height: 43.w,
+                            height: 35.w,
                           ),
                           Text(
+                            textAlign: TextAlign.center,
                             "你可以指定出现在“服务”内的服务。若选择关闭部分服务，相应服务入口将隐藏，但不会清空任何历史数据。",
                             style:
                                 TextStyle(fontSize: 31.w, color: Colors.black),

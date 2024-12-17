@@ -22,6 +22,7 @@ import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/miniprogram.dart';
 import 'package:jiaoyishuoflutter3/mywebview.dart';
 import 'package:jiaoyishuoflutter3/servicesManager.dart';
+import 'package:jiaoyishuoflutter3/setNotesAndLabels.dart';
 import 'package:jiaoyishuoflutter3/settings/about.dart';
 import 'package:jiaoyishuoflutter3/settings/billDetails.dart';
 import 'package:jiaoyishuoflutter3/settings/changeDetails.dart';
@@ -115,7 +116,8 @@ void main() async {
   myStore.dispatch({"type": "userinfoName", "payload": "李俊杰"});
   myStore.dispatch({"type": "userinfoAccount", "payload": "TheMonsterClub"});
   myStore.dispatch({"type": "userinfoPhone", "payload": "+8618825130917"});
-  myStore.dispatch({"type": "walletBalance", "payload": 5630087.98});
+  // myStore.dispatch({"type": "walletBalance", "payload": 5630087.98});
+  myStore.dispatch({"type": "walletBalance", "payload": 3592.98});
   // myStore.dispatch({"type": "walletBalance", "payload": 149.36});
   myStore.dispatch({"type": "walletFoundationBalance", "payload": 0.0});
   myStore
@@ -335,6 +337,12 @@ class _TabBarApp extends State<TabBarApp> {
                   } else if (settings.name == "/services_manager") {
                     return pageRouteBuilderAnimation(
                         const LJNServicesManager());
+                  } else if (settings.name == "/friend_data_setting") {
+                    return pageRouteBuilderAnimation(
+                        const LJNFriendDataSetting());
+                  } else if (settings.name == "/set_notes_and_labels") {
+                    return pageRouteBuilderAnimation(
+                        const LJNSetNotesAndLabels());
                   }
 
                   return null;
