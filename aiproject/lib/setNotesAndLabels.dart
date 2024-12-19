@@ -43,34 +43,39 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                       color: Colors.white,
                       padding: EdgeInsets.only(left: 45.w, right: 45.w),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            height: 100.w,
-                          ),
-                          Text(
-                            "设置标注和标签",
-                            style: TextStyle(
-                                fontSize: 40.w,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          ),
-                          SizedBox(
-                            height: 95.w,
-                          ),
+                          Container(
+                              margin: EdgeInsets.only(top: 100.w, bottom: 95.w),
+                              alignment: Alignment.center,
+                              child: Text(
+                                "设置标注和标签",
+                                style: TextStyle(
+                                    fontSize: 40.w,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              )),
+
                           Container(
                             padding: EdgeInsets.only(left: 30.w),
+                            margin: EdgeInsets.only(
+                              bottom: 15.w,
+                            ),
                             alignment: Alignment.centerLeft,
                             child: Text(
                               '备注',
                               style: TextStyle(
-                                  fontSize: 25.w, color: Colors.black),
+                                  fontSize: 25.w,
+                                  color: Colors.black,
+                                  height: 1.08),
                             ),
                           ),
-                          SizedBox(
-                            height: 15.w,
-                          ),
+
+                          // 输入框
                           Container(
                               height: 106.w,
+                              margin: EdgeInsets.only(bottom: 15.w),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 247, 247, 247),
@@ -106,15 +111,14 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                 },
                                 decoration: InputDecoration(
                                   // fillColor:
-                                  //     const Color.fromARGB(255, 247, 247, 247),
+                                  //     const Color.fromARGB(255, 252, 0, 0),
                                   // filled: true,
                                   // focusColor: Colors.red,
                                   // hoverColor:
                                   //     const Color.fromARGB(255, 247, 247, 247),
                                   isCollapsed: true,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                          vertical: 14, horizontal: 16)
-                                      .w,
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 32.w, vertical: 30.w),
                                   border: const OutlineInputBorder(
                                       gapPadding: 0,
                                       borderSide: BorderSide.none),
@@ -124,7 +128,373 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                   // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
                                   // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
                                 ),
-                              ))
+                              )),
+
+                          Container(
+                            padding: EdgeInsets.only(left: 30.w),
+                            margin: EdgeInsets.only(bottom: 75.w),
+                            alignment: Alignment.centerLeft,
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '对方在手机通讯录中的名字为“邓桥香”',
+                                    style: TextStyle(
+                                        fontSize: 25.w,
+                                        color: Colors.black,
+                                        height: 1.08),
+                                  ),
+                                  WidgetSpan(
+                                      child: SizedBox(
+                                    width: 18.w,
+                                  )),
+                                  TextSpan(
+                                    text: '填入',
+                                    style: TextStyle(
+                                        fontSize: 25.w,
+                                        color: const Color.fromARGB(
+                                            255, 81, 94, 132),
+                                        height: 1.08),
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+
+                          Container(
+                            padding: EdgeInsets.only(left: 30.w),
+                            margin: EdgeInsets.only(bottom: 15.w),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              '标签',
+                              style: TextStyle(
+                                  fontSize: 25.w,
+                                  color: Colors.black,
+                                  height: 1.08),
+                            ),
+                          ),
+                          Container(
+                              height: 106.w,
+                              margin: EdgeInsets.only(bottom: 50.w),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 247, 247, 247),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12.w)),
+                              ),
+                              child: TextField(
+                                readOnly: false,
+                                autofocus: false,
+                                showCursor: true,
+                                controller: inputController,
+                                focusNode: inputFocusNode,
+                                onTap: () {},
+                                cursorColor:
+                                    const Color.fromRGBO(62, 174, 86, 1.0),
+                                // cursorHeight: 44.w,
+                                cursorWidth: 3.w,
+                                style: TextStyle(
+                                    // height: 1.08,
+                                    fontSize: fontSizeScale(30.w),
+                                    color: Colors.black),
+                                // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
+                                maxLines: 5,
+                                minLines: 1,
+                                onChanged: (newText) {
+                                  inputController.value =
+                                      inputController.value.copyWith(
+                                    text: newText,
+                                    selection: TextSelection.fromPosition(
+                                      TextPosition(offset: newText.length),
+                                    ),
+                                  );
+                                },
+                                decoration: InputDecoration(
+                                  // fillColor:
+                                  //     const Color.fromARGB(255, 252, 0, 0),
+                                  // filled: true,
+                                  // focusColor: Colors.red,
+                                  // hoverColor:
+                                  //     const Color.fromARGB(255, 247, 247, 247),
+                                  isCollapsed: true,
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 32.w, vertical: 30.w),
+                                  border: const OutlineInputBorder(
+                                      gapPadding: 0,
+                                      borderSide: BorderSide.none),
+                                  // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                  // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                  // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                  // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                  // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                ),
+                              )),
+
+                          Container(
+                            padding: EdgeInsets.only(left: 30.w),
+                            margin: EdgeInsets.only(
+                              bottom: 15.w,
+                            ),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              '电话',
+                              style: TextStyle(
+                                  fontSize: 25.w,
+                                  color: Colors.black,
+                                  height: 1.08),
+                            ),
+                          ),
+
+                          Container(
+                            margin: EdgeInsets.only(bottom: 55.w),
+                            padding: EdgeInsets.symmetric(horizontal: 25.w),
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 247, 247, 247),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12.w)),
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 106.w,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              width: 1.w,
+                                              color: const Color.fromARGB(
+                                                  255, 232, 232, 232)))),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        const IconData(
+                                          0xe656,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        color: Colors.red,
+                                        size: 40.w,
+                                      ),
+                                      SizedBox(
+                                        width: 25.w,
+                                      ),
+                                      Text(
+                                        "+8618718988850",
+                                        style: TextStyle(
+                                            fontSize: 27.w,
+                                            height: 1.08,
+                                            color: Colors.black),
+                                      ),
+                                      const Spacer(), // 这个 Spacer 会把第二个图标推到最右边
+                                      Icon(
+                                        const IconData(
+                                          0xe655,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        color: const Color.fromARGB(
+                                            255, 176, 176, 176),
+                                        size: 31.w,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  height: 106.w,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              width: 1.w,
+                                              color: const Color.fromARGB(
+                                                  255, 232, 232, 232)))),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        const IconData(
+                                          0xe656,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        color: Colors.red,
+                                        size: 40.w,
+                                      ),
+                                      SizedBox(
+                                        width: 25.w,
+                                      ),
+                                      Text(
+                                        "+8618825130917",
+                                        style: TextStyle(
+                                            fontSize: 27.w,
+                                            height: 1.08,
+                                            color: Colors.black),
+                                      ),
+                                      const Spacer(), // 这个 Spacer 会把第二个图标推到最右边
+                                      Icon(
+                                        const IconData(
+                                          0xe655,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        color: const Color.fromARGB(
+                                            255, 176, 176, 176),
+                                        size: 31.w,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  height: 106.w,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              width: 1.w,
+                                              color: const Color.fromARGB(
+                                                  255, 232, 232, 232)))),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        const IconData(
+                                          0xe673,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        color: const Color.fromARGB(
+                                            255, 53, 76, 111),
+                                        size: 40.w,
+                                      ),
+                                      SizedBox(
+                                        width: 25.w,
+                                      ),
+                                      Text(
+                                        "添加电话",
+                                        style: TextStyle(
+                                            fontSize: 30.w,
+                                            height: 1.08,
+                                            color: const Color.fromARGB(
+                                                255, 53, 74, 113)),
+                                      ),
+                                      const Spacer(), // 这个 Spacer 会把第二个图标推到最右边
+                                      Icon(
+                                        const IconData(
+                                          0xe655,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        color: const Color.fromARGB(
+                                            255, 176, 176, 176),
+                                        size: 31.w,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+
+                          Container(
+                            padding: EdgeInsets.only(left: 30.w),
+                            margin: EdgeInsets.only(
+                              bottom: 15.w,
+                            ),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              '描述',
+                              style: TextStyle(
+                                  fontSize: 25.w,
+                                  color: Colors.black,
+                                  height: 1.08),
+                            ),
+                          ),
+                          // 输入框输入框
+                          Container(
+                              height: 106.w,
+                              margin: EdgeInsets.only(
+                                bottom: 15.w,
+                              ),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 247, 247, 247),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(12.w)),
+                              ),
+                              child: TextField(
+                                readOnly: false,
+                                autofocus: false,
+                                showCursor: true,
+                                controller: inputController,
+                                focusNode: inputFocusNode,
+                                onTap: () {},
+                                cursorColor:
+                                    const Color.fromRGBO(62, 174, 86, 1.0),
+                                // cursorHeight: 44.w,
+                                cursorWidth: 3.w,
+                                style: TextStyle(
+                                    // height: 1.08,
+                                    fontSize: fontSizeScale(30.w),
+                                    color: Colors.black),
+                                // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
+                                maxLines: 5,
+                                minLines: 1,
+                                onChanged: (newText) {
+                                  inputController.value =
+                                      inputController.value.copyWith(
+                                    text: newText,
+                                    selection: TextSelection.fromPosition(
+                                      TextPosition(offset: newText.length),
+                                    ),
+                                  );
+                                },
+                                decoration: InputDecoration(
+                                  // fillColor:
+                                  //     const Color.fromARGB(255, 252, 0, 0),
+                                  // filled: true,
+                                  // focusColor: Colors.red,
+                                  // hoverColor:
+                                  //     const Color.fromARGB(255, 247, 247, 247),
+                                  isCollapsed: true,
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 32.w, vertical: 30.w),
+                                  border: const OutlineInputBorder(
+                                      gapPadding: 0,
+                                      borderSide: BorderSide.none),
+                                  // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                  // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                  // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                  // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                  // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                ),
+                              )),
+
+                          Container(
+                            width: 210.w,
+                            height: 210.w,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 247, 247, 247),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12.w)),
+                            ),
+                            child: SizedBox(
+                                width: 105.w,
+                                height: 95.w,
+                                child: Column(
+                                  children: [
+                                    Icon(
+                                      const IconData(
+                                        0xe660,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      color: const Color.fromARGB(
+                                          255, 176, 176, 176),
+                                      size: 29.w,
+                                    ),
+                                    SizedBox(
+                                      height: 25.w,
+                                    ),
+                                    Text(
+                                      '添加图片',
+                                      style: TextStyle(
+                                          fontSize: 25.w,
+                                          color: const Color.fromARGB(
+                                              255, 65, 73, 117)),
+                                    )
+                                  ],
+                                )),
+                          )
                         ],
                       ),
                     )))));
