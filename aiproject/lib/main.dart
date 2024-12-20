@@ -14,6 +14,7 @@ import 'package:jiaoyishuoflutter3/discovery.dart';
 import 'package:jiaoyishuoflutter3/friendDataSetting.dart';
 import 'package:jiaoyishuoflutter3/friendMessageRecord.dart';
 import 'package:jiaoyishuoflutter3/friendMoreInfo.dart';
+import 'package:jiaoyishuoflutter3/friendPermissions.dart';
 import 'package:jiaoyishuoflutter3/friendmoments.dart';
 import 'package:jiaoyishuoflutter3/groupMessageRecord.dart';
 import 'package:jiaoyishuoflutter3/groupChat.dart';
@@ -343,6 +344,9 @@ class _TabBarApp extends State<TabBarApp> {
                   } else if (settings.name == "/set_notes_and_labels") {
                     return pageRouteBuilderAnimation(
                         const LJNSetNotesAndLabels());
+                  } else if (settings.name == "/friend_permissions") {
+                    return pageRouteBuilderAnimation(
+                        const LJNFriendPermissions());
                   }
 
                   return null;

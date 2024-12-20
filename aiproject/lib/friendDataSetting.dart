@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
+import 'package:jiaoyishuoflutter3/components/LJNPopup.dart';
 import 'package:jiaoyishuoflutter3/components/LJNSwitch.dart';
 import 'package:jiaoyishuoflutter3/components/LJNMaxWidthButton.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
@@ -19,6 +20,8 @@ class LJNFriendDataSetting extends StatefulWidget {
 }
 
 class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
+  bool showPopup = false;
+
   @override
   void initState() {
     super.initState();
@@ -40,100 +43,126 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
-          return Scaffold(
-              primary: false,
-              appBar: const LJNAppBar(
-                title: "资料设置",
+          return Stack(
+            children: [
+              Positioned(
+                child: Scaffold(
+                    primary: false,
+                    appBar: const LJNAppBar(
+                      title: "资料设置",
+                    ),
+                    body: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context)
+                            .copyWith(scrollbars: false),
+                        child: Container(
+                            constraints: BoxConstraints(
+                                minHeight: screenSize.height -
+                                    90.w -
+                                    vm.statusHeight!),
+                            color: const Color.fromARGB(255, 237, 237, 237),
+                            child: SingleChildScrollView(
+                                physics: const AlwaysScrollableScrollPhysics(
+                                    parent: BouncingScrollPhysics()),
+                                child: Column(children: [
+                                  const LJNFunctionItem(
+                                    title: "设置备注和标签",
+                                    link: '/set_notes_and_labels',
+                                    showStyle: "邓子乔",
+                                    underline: true,
+                                  ),
+                                  const LJNFunctionItem(
+                                    title: "朋友权限",
+                                    link: '/friend_permissions',
+                                    underline: false,
+                                  ),
+                                  Container(
+                                      color: const Color.fromARGB(
+                                          255, 237, 237, 237),
+                                      height: 16.w),
+                                  const LJNFunctionItem(
+                                    title: "把她推荐给朋友",
+                                    link: '',
+                                    underline: true,
+                                  ),
+                                  LJNFunctionItem(
+                                    title: "添加到桌面",
+                                    // link: '',
+                                    underline: false,
+                                    onPress: () {
+                                      setState(() {
+                                        showPopup = true;
+                                      });
+                                    },
+                                  ),
+                                  Container(
+                                      color: const Color.fromARGB(
+                                          255, 237, 237, 237),
+                                      height: 16.w),
+                                  LJNFunctionItem(
+                                    title: "设为星标朋友",
+                                    // link: '',
+                                    underline: false,
+                                    tapEffect: false,
+                                    showStyle: Expanded(
+                                        flex: 0,
+                                        child: Container(
+                                            margin:
+                                                const EdgeInsets.only(right: 32)
+                                                    .w,
+                                            child: LJNSwitch(
+                                              initialValue: false,
+                                              onChanged: (value) {
+                                                logger.info(value);
+                                              },
+                                            ))),
+                                  ),
+                                  Container(
+                                      color: const Color.fromARGB(
+                                          255, 237, 237, 237),
+                                      height: 16.w),
+                                  LJNFunctionItem(
+                                    title: "加入黑名单",
+                                    tapEffect: false,
+                                    underline: true,
+                                    showStyle: Expanded(
+                                        flex: 0,
+                                        child: Container(
+                                            margin:
+                                                const EdgeInsets.only(right: 32)
+                                                    .w,
+                                            child: LJNSwitch(
+                                              initialValue: false,
+                                              onChanged: (value) {
+                                                logger.info(value);
+                                              },
+                                            ))),
+                                  ),
+                                  const LJNFunctionItem(
+                                    title: "投诉",
+                                    link: '',
+                                    underline: false,
+                                  ),
+                                  Container(
+                                      color: const Color.fromARGB(
+                                          255, 237, 237, 237),
+                                      height: 16.w),
+                                  const LJNMaxWidthButton(
+                                    title: '删除',
+                                    color: Colors.red,
+                                    underline: false,
+                                  ),
+                                ]))))),
               ),
-              body: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context)
-                      .copyWith(scrollbars: false),
-                  child: Container(
-                      constraints: BoxConstraints(
-                          minHeight:
-                              screenSize.height - 90.w - vm.statusHeight!),
-                      color: const Color.fromARGB(255, 237, 237, 237),
-                      child: SingleChildScrollView(
-                          physics: const AlwaysScrollableScrollPhysics(
-                              parent: BouncingScrollPhysics()),
-                          child: Column(children: [
-                            const LJNFunctionItem(
-                              title: "设置备注和标签",
-                              link: '/set_notes_and_labels',
-                              showStyle: "邓子乔",
-                              underline: true,
-                            ),
-                            const LJNFunctionItem(
-                              title: "朋友权限",
-                              link: '',
-                              underline: false,
-                            ),
-                            Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
-                            const LJNFunctionItem(
-                              title: "把她推荐给朋友",
-                              link: '',
-                              underline: true,
-                            ),
-                            const LJNFunctionItem(
-                              title: "添加到桌面",
-                              link: '',
-                              underline: false,
-                            ),
-                            Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
-                            LJNFunctionItem(
-                              title: "设为星标朋友",
-                              // link: '',
-                              underline: false,
-                              tapEffect: false,
-                              showStyle: Expanded(
-                                  flex: 0,
-                                  child: Container(
-                                      margin:
-                                          const EdgeInsets.only(right: 32).w,
-                                      child: LJNSwitch(
-                                        initialValue: false,
-                                        onChanged: (value) {
-                                          logger.info(value);
-                                        },
-                                      ))),
-                            ),
-                            Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
-                            LJNFunctionItem(
-                              title: "加入黑名单",
-                              tapEffect: false,
-                              underline: true,
-                              showStyle: Expanded(
-                                  flex: 0,
-                                  child: Container(
-                                      margin:
-                                          const EdgeInsets.only(right: 32).w,
-                                      child: LJNSwitch(
-                                        initialValue: false,
-                                        onChanged: (value) {
-                                          logger.info(value);
-                                        },
-                                      ))),
-                            ),
-                            const LJNFunctionItem(
-                              title: "投诉",
-                              link: '',
-                              underline: false,
-                            ),
-                            Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
-                            const LJNMaxWidthButton(
-                              title: '删除',
-                              color: Colors.red,
-                              underline: false,
-                            ),
-                          ])))));
+              if (showPopup)
+                LJNPopup(
+                  onReturn: () {
+                    setState(() {
+                      showPopup = false;
+                    });
+                  },
+                )
+            ],
+          );
         });
   }
 }

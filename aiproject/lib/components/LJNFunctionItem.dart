@@ -16,6 +16,7 @@ class LJNFunctionItem extends StatefulWidget {
   final bool? tapEffect;
   final Color? backgroundColor;
   final EdgeInsetsGeometry? margin;
+  final Function? onPress;
 
   const LJNFunctionItem(
       {super.key,
@@ -29,7 +30,8 @@ class LJNFunctionItem extends StatefulWidget {
       this.showStyle,
       this.tapEffect,
       this.backgroundColor,
-      this.margin});
+      this.margin,
+      this.onPress});
 
   @override
   State<LJNFunctionItem> createState() => _LJNFunctionItemState();
@@ -80,6 +82,10 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
           if (mounted) {
             if (widget.link != null) {
               Navigator.pushNamed(context, widget.link!);
+            }
+
+            if (widget.onPress != null) {
+              widget.onPress!();
             }
           }
         });

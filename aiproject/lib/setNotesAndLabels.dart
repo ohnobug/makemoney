@@ -47,7 +47,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                              margin: EdgeInsets.only(top: 100.w, bottom: 95.w),
+                              margin: EdgeInsets.only(top: 70.w, bottom: 95.w),
                               alignment: Alignment.center,
                               child: Text(
                                 "设置标注和标签",
@@ -67,14 +67,15 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                               '备注',
                               style: TextStyle(
                                   fontSize: 25.w,
-                                  color: Colors.black,
+                                  color:
+                                      const Color.fromARGB(255, 100, 100, 100),
                                   height: 1.08),
                             ),
                           ),
 
                           // 输入框
                           Container(
-                              height: 106.w,
+                              height: 105.w,
                               margin: EdgeInsets.only(bottom: 15.w),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
@@ -141,12 +142,13 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                     text: '对方在手机通讯录中的名字为“邓桥香”',
                                     style: TextStyle(
                                         fontSize: 25.w,
-                                        color: Colors.black,
+                                        color: const Color.fromARGB(
+                                            255, 100, 100, 100),
                                         height: 1.08),
                                   ),
                                   WidgetSpan(
                                       child: SizedBox(
-                                    width: 18.w,
+                                    width: 10.w,
                                   )),
                                   TextSpan(
                                     text: '填入',
@@ -170,65 +172,41 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                               '标签',
                               style: TextStyle(
                                   fontSize: 25.w,
-                                  color: Colors.black,
+                                  color:
+                                      const Color.fromARGB(255, 100, 100, 100),
                                   height: 1.08),
                             ),
                           ),
                           Container(
-                              height: 106.w,
+                              height: 105.w,
                               margin: EdgeInsets.only(bottom: 50.w),
-                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(horizontal: 30.w),
                               decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 247, 247, 247),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12.w)),
                               ),
-                              child: TextField(
-                                readOnly: false,
-                                autofocus: false,
-                                showCursor: true,
-                                controller: inputController,
-                                focusNode: inputFocusNode,
-                                onTap: () {},
-                                cursorColor:
-                                    const Color.fromRGBO(62, 174, 86, 1.0),
-                                // cursorHeight: 44.w,
-                                cursorWidth: 3.w,
-                                style: TextStyle(
-                                    // height: 1.08,
-                                    fontSize: fontSizeScale(30.w),
-                                    color: Colors.black),
-                                // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
-                                maxLines: 5,
-                                minLines: 1,
-                                onChanged: (newText) {
-                                  inputController.value =
-                                      inputController.value.copyWith(
-                                    text: newText,
-                                    selection: TextSelection.fromPosition(
-                                      TextPosition(offset: newText.length),
-                                    ),
-                                  );
-                                },
-                                decoration: InputDecoration(
-                                  // fillColor:
-                                  //     const Color.fromARGB(255, 252, 0, 0),
-                                  // filled: true,
-                                  // focusColor: Colors.red,
-                                  // hoverColor:
-                                  //     const Color.fromARGB(255, 247, 247, 247),
-                                  isCollapsed: true,
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 32.w, vertical: 30.w),
-                                  border: const OutlineInputBorder(
-                                      gapPadding: 0,
-                                      borderSide: BorderSide.none),
-                                  // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                  // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                  // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                  // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                  // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "同学，ajj",
+                                    style: TextStyle(
+                                        fontSize: 32.w, color: Colors.black),
+                                  ),
+                                  SizedBox(
+                                      width: 30.w,
+                                      child: Icon(
+                                        const IconData(
+                                          0xed9d,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        size: 30.0.w,
+                                        color: const Color.fromARGB(
+                                            255, 172, 172, 172),
+                                      ))
+                                ],
                               )),
 
                           Container(
@@ -241,7 +219,8 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                               '电话',
                               style: TextStyle(
                                   fontSize: 25.w,
-                                  color: Colors.black,
+                                  color:
+                                      const Color.fromARGB(255, 100, 100, 100),
                                   height: 1.08),
                             ),
                           ),
@@ -257,7 +236,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                             child: Column(
                               children: [
                                 Container(
-                                  height: 106.w,
+                                  height: 105.w,
                                   decoration: BoxDecoration(
                                       border: Border(
                                           bottom: BorderSide(
@@ -287,18 +266,18 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                       const Spacer(), // 这个 Spacer 会把第二个图标推到最右边
                                       Icon(
                                         const IconData(
-                                          0xe655,
+                                          0xe627,
                                           fontFamily: 'Iconfont',
                                         ),
                                         color: const Color.fromARGB(
                                             255, 176, 176, 176),
-                                        size: 31.w,
+                                        size: 33.w,
                                       ),
                                     ],
                                   ),
                                 ),
                                 Container(
-                                  height: 106.w,
+                                  height: 105.w,
                                   decoration: BoxDecoration(
                                       border: Border(
                                           bottom: BorderSide(
@@ -328,24 +307,18 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                       const Spacer(), // 这个 Spacer 会把第二个图标推到最右边
                                       Icon(
                                         const IconData(
-                                          0xe655,
+                                          0xe627,
                                           fontFamily: 'Iconfont',
                                         ),
                                         color: const Color.fromARGB(
                                             255, 176, 176, 176),
-                                        size: 31.w,
+                                        size: 33.w,
                                       ),
                                     ],
                                   ),
                                 ),
                                 Container(
-                                  height: 106.w,
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              width: 1.w,
-                                              color: const Color.fromARGB(
-                                                  255, 232, 232, 232)))),
+                                  height: 105.w,
                                   child: Row(
                                     children: [
                                       Icon(
@@ -376,7 +349,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                         ),
                                         color: const Color.fromARGB(
                                             255, 176, 176, 176),
-                                        size: 31.w,
+                                        size: 33.w,
                                       ),
                                     ],
                                   ),
@@ -395,13 +368,14 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                               '描述',
                               style: TextStyle(
                                   fontSize: 25.w,
-                                  color: Colors.black,
+                                  color:
+                                      const Color.fromARGB(255, 100, 100, 100),
                                   height: 1.08),
                             ),
                           ),
                           // 输入框输入框
                           Container(
-                              height: 106.w,
+                              height: 105.w,
                               margin: EdgeInsets.only(
                                 bottom: 15.w,
                               ),
@@ -462,39 +436,38 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           Container(
                             width: 210.w,
                             height: 210.w,
-                            alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: const Color.fromARGB(255, 247, 247, 247),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(12.w)),
                             ),
-                            child: SizedBox(
-                                width: 105.w,
-                                height: 95.w,
-                                child: Column(
-                                  children: [
-                                    Icon(
-                                      const IconData(
-                                        0xe660,
-                                        fontFamily: 'Iconfont',
-                                      ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  const IconData(
+                                    0xe673,
+                                    fontFamily: 'Iconfont',
+                                  ),
+                                  color: const Color.fromARGB(255, 65, 73, 117),
+                                  size: 42.w,
+                                ),
+                                SizedBox(
+                                  height: 25.w,
+                                ),
+                                Text(
+                                  '添加图片',
+                                  style: TextStyle(
+                                      fontSize: 25.w,
                                       color: const Color.fromARGB(
-                                          255, 176, 176, 176),
-                                      size: 29.w,
-                                    ),
-                                    SizedBox(
-                                      height: 25.w,
-                                    ),
-                                    Text(
-                                      '添加图片',
-                                      style: TextStyle(
-                                          fontSize: 25.w,
-                                          color: const Color.fromARGB(
-                                              255, 65, 73, 117)),
-                                    )
-                                  ],
-                                )),
-                          )
+                                          255, 65, 73, 117)),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 100.w,
+                          ),
                         ],
                       ),
                     )))));
