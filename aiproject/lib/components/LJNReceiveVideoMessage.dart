@@ -12,28 +12,30 @@ import 'package:video_player/video_player.dart';
 import 'package:path/path.dart' as path;
 import 'package:get_thumbnail_video/video_thumbnail.dart';
 
-class LJNVideoMessage extends StatefulWidget {
-  const LJNVideoMessage(
+class LJNReceiveVideoMessage extends StatefulWidget {
+  const LJNReceiveVideoMessage(
       {super.key,
       required this.video,
       required this.showName,
-      this.name,
+      required this.name,
       this.onTap,
       required this.width,
-      required this.height});
+      required this.height,
+      required this.friendAvatar});
 
   final Function(Offset, Size)? onTap;
-  final String? name;
+  final String name;
   final bool showName;
   final String video;
   final double width;
   final double height;
+  final String friendAvatar;
 
   @override
-  State<LJNVideoMessage> createState() => _LJNVideoMessage();
+  State<LJNReceiveVideoMessage> createState() => _LJNReceiveVideoMessage();
 }
 
-class _LJNVideoMessage extends State<LJNVideoMessage> {
+class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
   VideoPlayerController? _controller;
   GlobalKey videoContainerKey = GlobalKey();
   late double videoWidth;
@@ -47,9 +49,11 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
 
     double aspectRatio = widget.width / widget.height;
     if (aspectRatio > 1) {
+      // 以宽度为准
       videoWidth = 400.w;
       videoHeight = videoWidth / aspectRatio;
     } else {
+      // 以高度为准
       videoHeight = 400.w / aspectRatio;
       if (videoHeight > 906.w) {
         videoHeight = 906.w;
@@ -161,24 +165,46 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // 头像
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/friendprofile',
+                          arguments: <String, String>{
+                            'name': widget.name,
+                            'avatar': widget.friendAvatar,
+                            'nickname': widget.name,
+                            'account': vm.userinfoAccount!,
+                          });
+                    },
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8).w,
+                        child: Image.asset(
+                          assetPath(vm.userinfoAvatar!),
+                          cacheWidth: 156.w.toInt(),
+                          cacheHeight: 156.w.toInt(),
+                          width: 78.w,
+                          height: 78.w,
+                          fit: BoxFit.cover,
+                        ))),
+
                 // 姓名与消息
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       // 姓名
                       if (widget.showName)
                         Container(
-                          padding: const EdgeInsets.only(
-                                  right: 23, top: 0, bottom: 3)
-                              .w,
+                          padding:
+                              const EdgeInsets.only(left: 23, top: 0, bottom: 3)
+                                  .w,
                           // height: 33.w,
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  widget.name ?? vm.userinfoName!,
+                                  widget.name,
                                   style: TextStyle(
                                       height: 1.08,
                                       fontSize: fontSizeScale(20.w),
@@ -191,8 +217,15 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                       // 消息
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          // 箭头
+                          SizedBox(
+                            width: 20.w,
+                            // padding: const EdgeInsets.only(top: 32).w,
+                            // child: null,
+                          ),
+
                           // 消息
                           GestureDetector(
                               onTap: () {
@@ -214,7 +247,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                   // color: Colors.grey,
                                   decoration: BoxDecoration(
                                       color: const Color.fromARGB(
-                                          255, 158, 236, 114),
+                                          255, 255, 255, 255),
                                       borderRadius: BorderRadius.circular(8).w),
                                   child: picPath != null
                                       ? Stack(
@@ -229,7 +262,8 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                               width: videoWidth,
                                               height: videoHeight,
                                               alignment: Alignment.center,
-                                              color: const Color.fromARGB(105, 0, 0, 0),
+                                              color: const Color.fromARGB(
+                                                  105, 0, 0, 0),
                                               child: Icon(
                                                 const IconData(
                                                   0xe6c5,
@@ -252,39 +286,11 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                   //   child: VideoPlayer(_controller!),
                                   // ),
                                   )),
-                          // 箭头
-                          SizedBox(
-                            width: 20.w,
-                            // padding: const EdgeInsets.only(top: 32).w,
-                            // child: null,
-                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
-
-                // 头像
-                GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/friendprofile',
-                          arguments: <String, String>{
-                            'name': vm.userinfoName!,
-                            'avatar': vm.userinfoAvatar!,
-                            'nickname': vm.userinfoName!,
-                            'account': vm.userinfoAccount!,
-                          });
-                    },
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8).w,
-                        child: Image.asset(
-                          assetPath(vm.userinfoAvatar!),
-                          cacheWidth: 156.w.toInt(),
-                          cacheHeight: 156.w.toInt(),
-                          width: 78.w,
-                          height: 78.w,
-                          fit: BoxFit.cover,
-                        )))
               ],
             ),
           );

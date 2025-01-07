@@ -3,5 +3,6 @@
     "java.configuration.updateBuildConfiguration": "automatic",
     "cmake.sourceDirectory": "C:/t/jiaoyisuo/aiproject/linux",
     "dart.flutterSdkPath": "C:\\flutter",
-    "solidity.compileUsingRemoteVersion": "v0.8.28+commit.7893614a"
+    "solidity.compileUsingRemoteVersion": "v0.8.28+commit.7893614a",
+    "cmake.ignoreCMakeListsMissing": true
 }

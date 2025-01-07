@@ -592,90 +592,197 @@ class _CustomTabbarState extends State<CustomTabbar>
             children: [
               // 主界面
               Scaffold(
-                primary: false,
-                bottomNavigationBar: Visibility(
-                    visible: vm.showMiniProgramDrawer == false,
-                    child: Container(
-                        height: 106.w,
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 237, 237, 237),
-                            border: Border(
-                                top: BorderSide(
-                              color: const Color.fromARGB(255, 220, 220, 220),
-                              width: 1.5.w,
-                              style: BorderStyle.solid,
-                            ))),
-                        child: TabBar(
-                          dividerColor:
-                              const Color.fromARGB(255, 218, 218, 218),
-                          labelColor: const Color.fromARGB(255, 7, 192, 103),
-                          labelStyle: TextStyle(
-                              height: 1.08, fontSize: fontSizeScale(22.w)),
-                          unselectedLabelColor:
-                              const Color.fromARGB(222, 0, 0, 0),
-                          indicator: const BoxDecoration(),
-                          indicatorColor: Colors.transparent,
-                          controller: _tabController,
-                          overlayColor:
-                              WidgetStateProperty.all(const Color(0x00000000)),
-                          tabs: <Widget>[
-                            Tab(
-                              height: 105.w,
-                              iconMargin: EdgeInsets.only(bottom: 8.w),
-                              icon: SizedBox(
-                                  height: 50.w,
-                                  width: 50.w,
-                                  // color: Colors.red,
-                                  child: Center(child: icon1)),
-                              text: "微信",
+                  primary: false,
+                  bottomNavigationBar: Visibility(
+                      visible: vm.showMiniProgramDrawer == false,
+                      child: Container(
+                          height: 106.w,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 237, 237, 237),
+                              border: Border(
+                                  top: BorderSide(
+                                color: const Color.fromARGB(255, 220, 220, 220),
+                                width: 1.5.w,
+                                style: BorderStyle.solid,
+                              ))),
+                          child: TabBar(
+                            dividerColor:
+                                const Color.fromARGB(255, 218, 218, 218),
+                            labelColor: const Color.fromARGB(255, 7, 192, 103),
+                            labelStyle: TextStyle(
+                                height: 1.08, fontSize: fontSizeScale(22.w)),
+                            unselectedLabelColor:
+                                const Color.fromARGB(222, 0, 0, 0),
+                            indicator: const BoxDecoration(),
+                            indicatorColor: Colors.transparent,
+                            controller: _tabController,
+                            overlayColor: WidgetStateProperty.all(
+                                const Color(0x00000000)),
+                            tabs: <Widget>[
+                              Tab(
+                                height: 105.w,
+                                iconMargin: EdgeInsets.only(bottom: 8.w),
+                                icon: SizedBox(
+                                    height: 50.w,
+                                    width: 50.w,
+                                    // color: Colors.red,
+                                    child: Center(child: icon1)),
+                                text: "微信",
+                              ),
+                              Tab(
+                                height: 105.w,
+                                iconMargin: EdgeInsets.only(bottom: 8.w),
+                                icon: SizedBox(
+                                    height: 50.w,
+                                    width: 50.w,
+                                    // color: Colors.red,
+                                    child: Center(child: icon2)),
+                                text: "通信录",
+                              ),
+                              Tab(
+                                height: 105.w,
+                                iconMargin: EdgeInsets.only(bottom: 8.w),
+                                icon: SizedBox(
+                                    height: 50.w,
+                                    width: 50.w,
+                                    // color: Colors.red,
+                                    child: Center(child: icon3)),
+                                text: "发现",
+                              ),
+                              Tab(
+                                height: 105.w,
+                                iconMargin: EdgeInsets.only(bottom: 8.w),
+                                icon: SizedBox(
+                                    height: 50.w,
+                                    width: 50.w,
+                                    // color: Colors.red,
+                                    child: Center(child: icon4)),
+                                text: "我",
+                              ),
+                            ],
+                          ))),
+                  appBar: null,
+                  body: Stack(children: [
+                    TabBarView(
+                      physics: vm.showMiniProgramDrawer == true
+                          ? const NeverScrollableScrollPhysics()
+                          : const CustomTabBarViewScrollPhysics(),
+                      controller: _tabController,
+                      children: const <Widget>[
+                        // LJNTestPage(),
+                        LJNHome22Page(),
+                        LJNContactPage(),
+                        LJNDiscoveryPage(),
+                        LJNUserPage(),
+                      ],
+                    ),
+
+                    // 背景
+                    if (showpopup) ...[
+                      GestureDetector(
+                          onTapDown: (_) {
+                            setState(() {
+                              showpopup = !showpopup;
+                            });
+                          },
+                          child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height,
+                              color: Colors.transparent)),
+
+                      // 弹出扫码菜单
+                      Positioned(
+                          right: 15.w,
+                          top: vm.statusHeight! + 80.w,
+                          child: SizedBox(
+                            width: 320.w,
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 320.w,
+                                  padding: EdgeInsets.only(right: 32.w),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      SizedBox(
+                                          width: 36.w,
+                                          height: 20.w,
+                                          child: Icon(
+                                            color: const Color.fromARGB(
+                                                255, 76, 76, 76),
+                                            const IconData(
+                                              0xe62c,
+                                              fontFamily: 'Iconfont',
+                                            ),
+                                            size: 42.w,
+                                          ))
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0).w,
+                                    color:
+                                        const Color.fromARGB(255, 76, 76, 76),
+                                  ),
+                                  width: 320.w,
+                                  height: 425.w,
+                                  child: Column(
+                                    children: [
+                                      // 发起群聊
+                                      LJNPopupMenuItem(
+                                        title: "发起群聊",
+                                        icon: 0xe676,
+                                        onTap: () {
+                                          setState(() {
+                                            showpopup = false;
+                                          });
+                                        },
+                                      ),
+
+                                      LJNPopupMenuItem(
+                                        title: "添加朋友",
+                                        icon: 0xe61f,
+                                        onTap: () {
+                                          setState(() {
+                                            showpopup = false;
+                                          });
+                                          Navigator.pushNamed(
+                                              context, '/add_friends');
+                                        },
+                                      ),
+
+                                      LJNPopupMenuItem(
+                                        title: "扫一扫",
+                                        icon: 0xe69a,
+                                        onTap: () {
+                                          setState(() {
+                                            showpopup = false;
+                                          });
+                                          Navigator.pushNamed(
+                                              context, '/qrcode_scanner');
+                                        },
+                                      ),
+
+                                      LJNPopupMenuItem(
+                                        title: "收付款",
+                                        icon: 0xe611,
+                                        onTap: () {
+                                          setState(() {
+                                            showpopup = false;
+                                          });
+                                          Navigator.pushNamed(context,
+                                              '/collection_and_payment');
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
-                            Tab(
-                              height: 105.w,
-                              iconMargin: EdgeInsets.only(bottom: 8.w),
-                              icon: SizedBox(
-                                  height: 50.w,
-                                  width: 50.w,
-                                  // color: Colors.red,
-                                  child: Center(child: icon2)),
-                              text: "通信录",
-                            ),
-                            Tab(
-                              height: 105.w,
-                              iconMargin: EdgeInsets.only(bottom: 8.w),
-                              icon: SizedBox(
-                                  height: 50.w,
-                                  width: 50.w,
-                                  // color: Colors.red,
-                                  child: Center(child: icon3)),
-                              text: "发现",
-                            ),
-                            Tab(
-                              height: 105.w,
-                              iconMargin: EdgeInsets.only(bottom: 8.w),
-                              icon: SizedBox(
-                                  height: 50.w,
-                                  width: 50.w,
-                                  // color: Colors.red,
-                                  child: Center(child: icon4)),
-                              text: "我",
-                            ),
-                          ],
-                        ))),
-                appBar: null,
-                body: TabBarView(
-                  physics: vm.showMiniProgramDrawer == true
-                      ? const NeverScrollableScrollPhysics()
-                      : const MyTabbarFastStopScrollPhysics(),
-                  controller: _tabController,
-                  children: const <Widget>[
-                    // LJNTestPage(),
-                    LJNHome22Page(),
-                    LJNContactPage(),
-                    LJNDiscoveryPage(),
-                    LJNUserPage(),
-                  ],
-                ),
-              ),
+                          ))
+                    ]
+                  ])),
 
               // 浮动在顶部的appbar
               Visibility(
@@ -765,115 +872,6 @@ class _CustomTabbarState extends State<CustomTabbar>
                                   ),
                                 ])))),
               ),
-
-              // 弹出的扫码界面
-              if (showpopup)
-                Stack(
-                  children: [
-                    // 背景
-                    GestureDetector(
-                        onTapDown: (_) {
-                          setState(() {
-                            showpopup = !showpopup;
-                          });
-                        },
-                        child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height,
-                            color: Colors.transparent)),
-
-                    // 按钮
-                    Positioned(
-                        right: 15.w,
-                        top: vm.statusHeight! + 80.w,
-                        child: SizedBox(
-                          width: 320.w,
-                          child: Column(
-                            children: [
-                              Container(
-                                width: 320.w,
-                                padding: EdgeInsets.only(right: 32.w),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    SizedBox(
-                                        width: 36.w,
-                                        height: 20.w,
-                                        child: Icon(
-                                          color: const Color.fromARGB(
-                                              255, 76, 76, 76),
-                                          const IconData(
-                                            0xe62c,
-                                            fontFamily: 'Iconfont',
-                                          ),
-                                          size: 42.w,
-                                        ))
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0).w,
-                                  color: const Color.fromARGB(255, 76, 76, 76),
-                                ),
-                                width: 320.w,
-                                height: 425.w,
-                                child: Column(
-                                  children: [
-                                    // 发起群聊
-                                    LJNPopupMenuItem(
-                                      title: "发起群聊",
-                                      icon: 0xe676,
-                                      onTap: () {
-                                        setState(() {
-                                          showpopup = false;
-                                        });
-                                      },
-                                    ),
-
-                                    LJNPopupMenuItem(
-                                      title: "添加朋友",
-                                      icon: 0xe61f,
-                                      onTap: () {
-                                        setState(() {
-                                          showpopup = false;
-                                        });
-                                        Navigator.pushNamed(
-                                            context, '/add_friends');
-                                      },
-                                    ),
-
-                                    LJNPopupMenuItem(
-                                      title: "扫一扫",
-                                      icon: 0xe69a,
-                                      onTap: () {
-                                        setState(() {
-                                          showpopup = false;
-                                        });
-                                        Navigator.pushNamed(
-                                            context, '/qrcode_scanner');
-                                      },
-                                    ),
-
-                                    LJNPopupMenuItem(
-                                      title: "收付款",
-                                      icon: 0xe611,
-                                      onTap: () {
-                                        setState(() {
-                                          showpopup = false;
-                                        });
-                                        Navigator.pushNamed(
-                                            context, '/collection_and_payment');
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ))
-                  ],
-                )
             ],
           );
         });

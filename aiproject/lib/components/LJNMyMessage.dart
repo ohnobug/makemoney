@@ -66,8 +66,11 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                             decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 158, 236, 114),
                                 borderRadius: BorderRadius.circular(8).w),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 25.w, vertical: 18.w),
+                            padding: EdgeInsets.only(
+                                top: 22.w,
+                                bottom: 24.w,
+                                left: 25.w,
+                                right: 22.w),
                             child: Text(
                               softWrap: true,
                               maxLines: 1000,
@@ -76,7 +79,8 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                               style: TextStyle(
                                   height: 1.25,
                                   fontSize: fontSizeScale(33.w),
-                                  color: Colors.black),
+                                  color: Colors.black,
+                                  fontFamily: "AlibabaPuHuiTi"),
                             ),
                           )),
 

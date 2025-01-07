@@ -317,7 +317,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                     ],
                                   ),
                                 ),
-                                Container(
+                                SizedBox(
                                   height: 105.w,
                                   child: Row(
                                     children: [

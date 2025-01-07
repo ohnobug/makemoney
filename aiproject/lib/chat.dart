@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
 import 'package:jiaoyishuoflutter3/components/LJNReceiveMessage.dart';
+import 'package:jiaoyishuoflutter3/components/LJNReceiveVideoMessage.dart';
 import 'package:jiaoyishuoflutter3/components/LJNVideoDraggableBox.dart';
 import 'package:jiaoyishuoflutter3/components/LJNVideoMessage.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
@@ -299,6 +300,28 @@ class _LJNChatPage extends State<LJNChatPage>
       width: 576,
       height: 1024,
       showName: false,
+      onTap: (Offset position, Size size) {
+        // 关闭键盘
+        SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+        setState(() {
+          openPosition = position;
+          logger.info("openPosition: $openPosition");
+          openBoxSize = size;
+          videoPath = 'images/ins/video2.mp4';
+
+          showFullScreenVideo = true;
+        });
+      },
+    ));
+
+    messageList.add(LJNReceiveVideoMessage(
+      video: 'images/ins/video2.mp4',
+      width: 576,
+      height: 1024,
+      friendAvatar: widget.icon,
+      showName: false,
+      name: '小白',
       onTap: (Offset position, Size size) {
         // 关闭键盘
         SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -1035,4 +1058,3 @@ class _LJNChatPage extends State<LJNChatPage>
 
 // 键盘高度获取：
 //     第一次点击笑脸图标和聊天框的时候，记录最大值
-

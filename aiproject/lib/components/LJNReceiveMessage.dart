@@ -28,6 +28,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // 头像
           GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, '/friendprofile',
@@ -38,7 +39,6 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                       'account': "tathagata_buddha_loveyou",
                     });
               },
-              // 头像
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(8).w,
                   child: Image.asset(
