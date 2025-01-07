@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/emojiSelector.dart';
 import 'components/LJNMyMessage.dart';
 import 'tools/tools.dart';
+import 'package:lottie/lottie.dart';
 
 class LJNChatPage extends StatefulWidget {
   const LJNChatPage({super.key, required this.title, required this.icon});
@@ -52,6 +53,9 @@ class _LJNChatPage extends State<LJNChatPage>
   late AnimationController _animationContentController;
   late Animation<double> _keyboradAnimation;
 
+  bool showVoiceLottie = false;
+  late final AnimationController _voiceLottieController;
+
   List<StatefulWidget> messageList = [];
 
   // 键盘高度
@@ -72,6 +76,9 @@ class _LJNChatPage extends State<LJNChatPage>
   Size openBoxSize = const Size(0, 0);
   String videoPath = "";
 
+  // 显示语音按钮
+  bool showVoiceButton = false;
+
   @override
   void initState() {
     super.initState();
@@ -80,6 +87,9 @@ class _LJNChatPage extends State<LJNChatPage>
       statusBarColor: Colors.transparent, // 设置状态栏透明
       statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
     ));
+
+    _voiceLottieController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 5));
 
     // 初始化 _animationContentController
     _animationContentController = AnimationController(
@@ -345,6 +355,8 @@ class _LJNChatPage extends State<LJNChatPage>
     _animationContentController.dispose();
     _animationController.dispose();
     SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+    _voiceLottieController.dispose();
 
     super.dispose();
   }
@@ -727,7 +739,8 @@ class _LJNChatPage extends State<LJNChatPage>
                                       ))),
                                   child: Row(
                                     // mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       // 语音按钮
                                       Container(
@@ -738,7 +751,11 @@ class _LJNChatPage extends State<LJNChatPage>
                                               left: 20.w, right: 20.w),
                                           child: GestureDetector(
                                             onTap: () {
-                                              logger.info("语音被点击"); // 点击事件
+                                              // logger.info("语音被点击"); // 点击事件
+                                              setState(() {
+                                                showVoiceButton =
+                                                    !showVoiceButton;
+                                              });
                                             },
                                             child: Icon(
                                               const IconData(
@@ -749,115 +766,200 @@ class _LJNChatPage extends State<LJNChatPage>
                                             ),
                                           )),
 
-                                      // 消息输入框
-                                      Expanded(
-                                          flex: 1,
-                                          child: Container(
-                                              padding: const EdgeInsets.only(
-                                                      top: 16, bottom: 16)
-                                                  .w,
-                                              child: TextField(
-                                                readOnly: false,
-                                                autofocus: false,
-                                                showCursor: true,
-                                                controller: inputController,
-                                                focusNode: inputFocusNode,
-                                                onTap: () {
-                                                  if (isFirstOpenKeyborad) {
-                                                    SystemChannels.textInput
-                                                        .invokeMethod(
-                                                            'TextInput.show');
-                                                    return;
-                                                  }
-
-                                                  if (showEmojiSelector ==
-                                                          false &&
-                                                      showKeyboard == false) {
-                                                    showKeyboardFunc(
-                                                        _animationContentController
-                                                                .isAnimating
-                                                            ? _animationContentController
-                                                                .value
-                                                            : 0);
-                                                  } else if (showEmojiSelector ==
-                                                          true &&
-                                                      showKeyboard == false) {
-                                                    if (isFirstOpenKeyborad) {
-                                                      switchKeyboradFunc();
-                                                    } else {
-                                                      switchKeyboradFunc();
-                                                    }
-                                                  }
+                                      showVoiceButton
+                                          ? Expanded(
+                                              flex: 1,
+                                              child: Listener(
+                                                onPointerDown:
+                                                    (PointerDownEvent event) {
+                                                  // 手指按下时
+                                                  setState(() {
+                                                    showVoiceLottie = true;
+                                                  });
+                                                  _voiceLottieController
+                                                      .forward();
                                                 },
-                                                cursorColor:
-                                                    const Color.fromRGBO(
-                                                        62, 174, 86, 1.0),
-                                                // cursorHeight: 44.w,
-                                                cursorWidth: 3.w,
-                                                style: TextStyle(
-                                                    // height: 1.08,
-                                                    fontSize:
-                                                        fontSizeScale(30.w),
-                                                    color: Colors.black),
-                                                // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
-                                                maxLines: 5,
-                                                minLines: 1,
-                                                onChanged: (newText) {
-                                                  inputController.value =
-                                                      inputController.value
-                                                          .copyWith(
-                                                    text: newText,
-                                                    selection: TextSelection
-                                                        .fromPosition(
-                                                      TextPosition(
-                                                          offset:
-                                                              newText.length),
+                                                onPointerMove:
+                                                    (PointerMoveEvent event) {
+                                                  // 判断手指是否在按钮区域内
+                                                  // final RenderBox box =
+                                                  //     context.findRenderObject()
+                                                  //         as RenderBox;
+                                                  // final Offset localOffset =
+                                                  //     box.globalToLocal(
+                                                  //         event.position);
+                                                  // if (box.size
+                                                  //     .contains(localOffset)) {
+                                                  //   setState(() {
+                                                  //     showVoiceLottie = true;
+                                                  //   });
+                                                  //   _voiceLottieController
+                                                  //       .forward();
+                                                  // }
+                                                  //  else {
+                                                  //   setState(() {
+                                                  //     showVoiceLottie = false;
+                                                  //   });
+                                                  //   _voiceLottieController
+                                                  //       .reset();
+                                                  // }
+                                                },
+                                                onPointerUp:
+                                                    (PointerUpEvent event) {
+                                                  // 手指释放时
+                                                  setState(() {
+                                                    showVoiceLottie = false;
+                                                  });
+                                                  _voiceLottieController
+                                                      .reset();
+                                                },
+                                                onPointerCancel:
+                                                    (PointerCancelEvent event) {
+                                                  // 手指取消时
+                                                  setState(() {
+                                                    showVoiceLottie = false;
+                                                  });
+                                                  _voiceLottieController
+                                                      .reset();
+                                                },
+                                                child: Container(
+                                                  height: 77.w,
+                                                  padding: EdgeInsets.zero,
+                                                  decoration: BoxDecoration(
+                                                    color: showVoiceLottie
+                                                        ? Colors.blue
+                                                        : Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.w),
+                                                  ),
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    "按住 说话",
+                                                    style: TextStyle(
+                                                      fontSize: 31.w,
+                                                      height: 1.08,
                                                     ),
-                                                  );
-
-                                                  if (inputController
-                                                      .text.isEmpty) {
-                                                    _animationController
-                                                        .reverse()
-                                                        .whenComplete(() {
-                                                      setState(() {
-                                                        showPlusIcon = true;
-                                                      });
-                                                    });
-                                                  } else {
-                                                    setState(() {
-                                                      showPlusIcon = false;
-                                                    });
-                                                    _animationController
-                                                        .forward();
-                                                  }
-                                                },
-                                                decoration: InputDecoration(
-                                                  fillColor: Colors.white,
-                                                  filled: true,
-                                                  // focusColor: Colors.red,
-                                                  hoverColor: Colors.white,
-                                                  isCollapsed: true,
-                                                  contentPadding:
-                                                      const EdgeInsets
-                                                              .symmetric(
-                                                              vertical: 14,
-                                                              horizontal: 16)
-                                                          .w,
-                                                  border:
-                                                      const OutlineInputBorder(
-                                                          gapPadding: 0,
-                                                          borderSide:
-                                                              BorderSide.none),
-                                                  // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                  // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                  // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                  // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                  // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                  ),
                                                 ),
-                                              ))
-                                          // C:\flutter\packages\flutter\lib\src\widgets\editable_text.dart  4239行控制必须得到焦点才显示光标
-                                          ),
+                                              ),
+                                            )
+                                          :
+                                          // 消息输入框
+                                          Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                              top: 16,
+                                                              bottom: 16)
+                                                          .w,
+                                                  child: TextField(
+                                                    readOnly: false,
+                                                    autofocus: false,
+                                                    showCursor: true,
+                                                    controller: inputController,
+                                                    focusNode: inputFocusNode,
+                                                    onTap: () {
+                                                      if (isFirstOpenKeyborad) {
+                                                        SystemChannels.textInput
+                                                            .invokeMethod(
+                                                                'TextInput.show');
+                                                        return;
+                                                      }
+
+                                                      if (showEmojiSelector ==
+                                                              false &&
+                                                          showKeyboard ==
+                                                              false) {
+                                                        showKeyboardFunc(
+                                                            _animationContentController
+                                                                    .isAnimating
+                                                                ? _animationContentController
+                                                                    .value
+                                                                : 0);
+                                                      } else if (showEmojiSelector ==
+                                                              true &&
+                                                          showKeyboard ==
+                                                              false) {
+                                                        if (isFirstOpenKeyborad) {
+                                                          switchKeyboradFunc();
+                                                        } else {
+                                                          switchKeyboradFunc();
+                                                        }
+                                                      }
+                                                    },
+                                                    cursorColor:
+                                                        const Color.fromRGBO(
+                                                            62, 174, 86, 1.0),
+                                                    // cursorHeight: 44.w,
+                                                    cursorWidth: 3.w,
+                                                    style: TextStyle(
+                                                        // height: 1.08,
+                                                        fontSize:
+                                                            fontSizeScale(30.w),
+                                                        color: Colors.black),
+                                                    // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
+                                                    maxLines: 5,
+                                                    minLines: 1,
+                                                    onChanged: (newText) {
+                                                      inputController.value =
+                                                          inputController.value
+                                                              .copyWith(
+                                                        text: newText,
+                                                        selection: TextSelection
+                                                            .fromPosition(
+                                                          TextPosition(
+                                                              offset: newText
+                                                                  .length),
+                                                        ),
+                                                      );
+
+                                                      if (inputController
+                                                          .text.isEmpty) {
+                                                        _animationController
+                                                            .reverse()
+                                                            .whenComplete(() {
+                                                          setState(() {
+                                                            showPlusIcon = true;
+                                                          });
+                                                        });
+                                                      } else {
+                                                        setState(() {
+                                                          showPlusIcon = false;
+                                                        });
+                                                        _animationController
+                                                            .forward();
+                                                      }
+                                                    },
+                                                    decoration: InputDecoration(
+                                                      fillColor: Colors.white,
+                                                      filled: true,
+                                                      // focusColor: Colors.red,
+                                                      hoverColor: Colors.white,
+                                                      isCollapsed: true,
+                                                      contentPadding:
+                                                          const EdgeInsets
+                                                                  .symmetric(
+                                                                  vertical: 14,
+                                                                  horizontal:
+                                                                      16)
+                                                              .w,
+                                                      border:
+                                                          const OutlineInputBorder(
+                                                              gapPadding: 0,
+                                                              borderSide:
+                                                                  BorderSide
+                                                                      .none),
+                                                      // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                      // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                      // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                      // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                      // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                    ),
+                                                  ))
+                                              // C:\flutter\packages\flutter\lib\src\widgets\editable_text.dart  4239行控制必须得到焦点才显示光标
+                                              ),
 
                                       // 笑脸按钮
                                       Container(
@@ -1033,7 +1135,31 @@ class _LJNChatPage extends State<LJNChatPage>
                         });
                       },
                     )
-                  : Container()
+                  : Container(),
+
+              showVoiceLottie
+                  ? Container(
+                      color: const Color.fromARGB(120, 0, 0, 0),
+                      width: screenSize.width,
+                      height: screenSize.height,
+                      // padding: EdgeInsets.only(top: vm.statusHeight!),
+                      child: _voiceLottieController.isCompleted
+                          ? null
+                          : Lottie.asset(
+                              assetPath('lotties/voicepop.json'),
+                              width: screenSize.width,
+                              height: screenSize.height,
+                              fit: BoxFit.contain,
+                              alignment: Alignment.bottomCenter,
+                              renderCache: RenderCache.drawingCommands,
+                              controller: _voiceLottieController,
+                              onLoaded: (composition) {
+                                // _lottieController
+                                //   ..duration = const Duration(milliseconds: 600)
+                                //   ..forward();
+                              },
+                            ))
+                  : SizedBox()
             ],
           );
         });

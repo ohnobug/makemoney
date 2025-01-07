@@ -67,18 +67,19 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                                 color: const Color.fromARGB(255, 158, 236, 114),
                                 borderRadius: BorderRadius.circular(8).w),
                             padding: EdgeInsets.only(
-                                top: 22.w,
-                                bottom: 24.w,
-                                left: 25.w,
+                                top: 20.w,
+                                bottom: 18.w,
+                                left: 23.w,
                                 right: 22.w),
                             child: Text(
                               softWrap: true,
                               maxLines: 1000,
                               overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.justify,
                               widget.message,
                               style: TextStyle(
                                   height: 1.25,
-                                  fontSize: fontSizeScale(33.w),
+                                  fontSize: fontSizeScale(31.w),
                                   color: Colors.black,
                                   fontFamily: "AlibabaPuHuiTi"),
                             ),
