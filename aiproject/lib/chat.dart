@@ -104,7 +104,7 @@ class _LJNChatPage extends State<LJNChatPage>
     ));
 
     _scaleController = AnimationController(
-      duration: const Duration(milliseconds: 20),
+      duration: const Duration(milliseconds: 100),
       vsync: this,
     );
 
