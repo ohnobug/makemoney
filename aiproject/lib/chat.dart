@@ -1,17 +1,17 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
-import 'package:jiaoyishuoflutter3/components/LJNReceiveMessage.dart';
-import 'package:jiaoyishuoflutter3/components/LJNReceiveVideoMessage.dart';
-import 'package:jiaoyishuoflutter3/components/LJNVideoDraggableBox.dart';
-import 'package:jiaoyishuoflutter3/components/LJNVideoMessage.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_receive_message.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_receive_video_message.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_video_draggable_box.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_video_message.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/emojiSelector.dart';
-import 'components/LJNMyMessage.dart';
+import 'package:jiaoyishuoflutter3/emoji_selector.dart';
+import 'components/ljn_my_message.dart';
 import 'tools/tools.dart';
 import 'package:lottie/lottie.dart';
 
@@ -58,6 +58,11 @@ class _LJNChatPage extends State<LJNChatPage>
 
   List<StatefulWidget> messageList = [];
 
+  // 取消按钮变大效果
+  late AnimationController _scaleController;
+  late Animation<double> _scaleAnimation;
+  double buttonScale = 1.0;
+
   // 键盘高度
   double maxKeyboradHeight = 0;
 
@@ -79,6 +84,9 @@ class _LJNChatPage extends State<LJNChatPage>
   // 显示语音按钮
   bool showVoiceButton = false;
 
+  // 退出语音录制
+  bool cancelVoiceRecord = false;
+
   // late AnimationController _voiceIconController;
   // late Animation<double> _voiceIconAnimation;
 
@@ -89,6 +97,21 @@ class _LJNChatPage extends State<LJNChatPage>
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // 设置状态栏透明
       statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
+    ));
+
+    _scaleController = AnimationController(
+      duration: const Duration(milliseconds: 100),
+      vsync: this,
+    )..addListener(() {
+        setState(() {
+          buttonScale = _scaleAnimation.value;
+        });
+      });
+
+    _scaleAnimation =
+        Tween<double>(begin: 1.0, end: 1.2222).animate(CurvedAnimation(
+      parent: _scaleController,
+      curve: Curves.linear,
     ));
 
     _voiceLottieController = AnimationController(
@@ -119,6 +142,7 @@ class _LJNChatPage extends State<LJNChatPage>
         curve: Curves.easeInOut,
       ),
     );
+
     _colorAnimation = ColorTween(
       begin: const Color.fromARGB(179, 76, 190, 103),
       end: const Color.fromARGB(255, 76, 190, 102),
@@ -129,31 +153,9 @@ class _LJNChatPage extends State<LJNChatPage>
       ),
     );
 
-    // // 初始化动画控制器
-    // _voiceIconController = AnimationController(
-    //   vsync: this,
-    //   duration: Duration(milliseconds: 300), // 动画时长
-    // )..repeat(reverse: true); // 循环播放
-
-    // // 初始化动画
-    // _voiceIconAnimation = Tween<double>(
-    //   begin: 106.w, // 起始位置（底部）
-    //   end: 200.w, // 结束位置（顶部）
-    // ).animate(CurvedAnimation(
-    //   parent: _voiceIconController,
-    //   curve: Curves.easeInOut, // 动画曲线
-    // ));
-
     mock();
 
-    // inputController.text =
-    // "生活就像一幅绚丽多彩的画卷，每个人都是这幅画的创作者。在这漫长的人生旅途中，我们用自己的经历、情感和梦想为这幅画增添着独特的色彩。";
     WidgetsBinding.instance.addObserver(this);
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   logger.info("aaaaaaaaaaa WidgetsBinding.instance.addPostFrameCallback");
-    //   _scrollToEnd();
-    // });
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToEnd();
     });
@@ -644,8 +646,6 @@ class _LJNChatPage extends State<LJNChatPage>
   Widget build(BuildContext context) {
     logger.info("aaaaaaa 来了 $lastKeyboradHeight $showKeyboard");
 
-    Size screenSize = MediaQuery.of(context).size;
-
     keyboradCloseDetect();
 
     return StoreConnector<StoreType, StoreType>(
@@ -686,8 +686,8 @@ class _LJNChatPage extends State<LJNChatPage>
                     ],
                   ),
                   body: SizedBox(
-                      width: screenSize.width,
-                      height: screenSize.height,
+                      width: vm.screenSize!.width,
+                      height: vm.screenSize!.height,
                       child: Column(
                         children: [
                           // 聊天信息
@@ -742,7 +742,7 @@ class _LJNChatPage extends State<LJNChatPage>
                               flex: 0,
                               child: Container(
                                   constraints: BoxConstraints(minHeight: 107.w),
-                                  width: screenSize.width,
+                                  width: vm.screenSize!.width,
                                   // margin: EdgeInsets.only(bottom: inputMarginBottom),
                                   decoration: BoxDecoration(
                                       color: const Color.fromARGB(
@@ -801,28 +801,24 @@ class _LJNChatPage extends State<LJNChatPage>
                                                 },
                                                 onPointerMove:
                                                     (PointerMoveEvent event) {
-                                                  // 判断手指是否在按钮区域内
-                                                  // final RenderBox box =
-                                                  //     context.findRenderObject()
-                                                  //         as RenderBox;
-                                                  // final Offset localOffset =
-                                                  //     box.globalToLocal(
-                                                  //         event.position);
-                                                  // if (box.size
-                                                  //     .contains(localOffset)) {
-                                                  //   setState(() {
-                                                  //     showVoiceLottie = true;
-                                                  //   });
-                                                  //   _voiceLottieController
-                                                  //       .forward();
-                                                  // }
-                                                  //  else {
-                                                  //   setState(() {
-                                                  //     showVoiceLottie = false;
-                                                  //   });
-                                                  //   _voiceLottieController
-                                                  //       .reset();
-                                                  // }
+                                                  double svgTop =
+                                                      vm.screenSize!.height -
+                                                          260.0.w;
+
+                                                  // 判断手指是否接触到SVG区域
+                                                  if (event.position.dy >=
+                                                      svgTop) {
+                                                    logger.info('手指接触到SVG!');
+                                                    setState(() {
+                                                      cancelVoiceRecord = false;
+                                                    });
+                                                    _scaleController.reverse();
+                                                  } else {
+                                                    setState(() {
+                                                      cancelVoiceRecord = true;
+                                                    });
+                                                    _scaleController.forward();
+                                                  }
                                                 },
                                                 onPointerUp:
                                                     (PointerUpEvent event) {
@@ -1130,7 +1126,7 @@ class _LJNChatPage extends State<LJNChatPage>
                               return Expanded(
                                   flex: 0,
                                   child: SizedBox(
-                                      width: screenSize.width,
+                                      width: vm.screenSize!.width,
                                       height: _keyboradAnimation.value,
                                       // color: Colors.red,
                                       child: showEmojiSelector
@@ -1159,8 +1155,8 @@ class _LJNChatPage extends State<LJNChatPage>
               showVoiceLottie
                   ? Container(
                       color: const Color.fromARGB(120, 0, 0, 0),
-                      width: screenSize.width,
-                      height: screenSize.height,
+                      width: vm.screenSize!.width,
+                      height: vm.screenSize!.height,
                       // padding: EdgeInsets.only(top: vm.statusHeight!),
                       child: // 图标选择器
                           AnimatedBuilder(
@@ -1170,8 +1166,8 @@ class _LJNChatPage extends State<LJNChatPage>
                                   children: [
                                     Lottie.asset(
                                       assetPath('lotties/voicepop.json'),
-                                      width: screenSize.width,
-                                      height: screenSize.height,
+                                      width: vm.screenSize!.width,
+                                      height: vm.screenSize!.height,
                                       fit: BoxFit.contain,
                                       alignment: Alignment.bottomCenter,
                                       renderCache: RenderCache.drawingCommands,
@@ -1186,8 +1182,7 @@ class _LJNChatPage extends State<LJNChatPage>
                                     // 说话中图标
                                     Positioned(
                                         right: 350.w,
-                                        bottom: 90.w +
-                                            _voiceLottieController.value * 26.w,
+                                        bottom: 116.w,
                                         child: Icon(
                                           const IconData(
                                             0xe81d,
@@ -1198,10 +1193,32 @@ class _LJNChatPage extends State<LJNChatPage>
                                           size: 50.w,
                                         )),
 
+                                    // 关闭按钮上面的文字
+                                    cancelVoiceRecord
+                                        ? Positioned(
+                                            left: 0,
+                                            bottom: 480.w,
+                                            child: Container(
+                                              width: 290.w,
+                                              height: 30.w,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                "松开 取消",
+                                                style: TextStyle(
+                                                    height: 1.08,
+                                                    fontSize: 29.w,
+                                                    color: Color.fromARGB(
+                                                        255, 161, 161, 161)),
+                                              ),
+                                            ))
+                                        : SizedBox(),
+
                                     // 左边关闭按钮
                                     Positioned(
-                                        left: 75.w,
-                                        bottom: 275.w +
+                                        left: 75.w -
+                                            ((135.w * (buttonScale - 1)) / 2),
+                                        bottom: 275.w -
+                                            ((135.w * (buttonScale - 1)) / 2) +
                                             (_voiceLottieController.value < 0.5
                                                     ? 0.5
                                                     : _voiceLottieController
@@ -1215,12 +1232,14 @@ class _LJNChatPage extends State<LJNChatPage>
                                                   _voiceLottieController.value *
                                                       0.5,
                                               child: Container(
-                                                width: 135.w,
-                                                height: 135.w,
+                                                width: 135.w * buttonScale,
+                                                height: 135.w * buttonScale,
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
-                                                  color: Color(
-                                                      0xFF3a3a3a), // 颜色 #3a3a3a
+                                                  color: cancelVoiceRecord
+                                                      ? Colors.white
+                                                      : Color(
+                                                          0xFF3a3a3a), // 颜色 #3a3a3a
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           135.w), // 圆角半径
@@ -1230,9 +1249,11 @@ class _LJNChatPage extends State<LJNChatPage>
                                                     0xe628,
                                                     fontFamily: 'Iconfont',
                                                   ),
-                                                  color: const Color.fromARGB(
-                                                      255, 143, 143, 143),
-                                                  size: 40.w,
+                                                  color: cancelVoiceRecord
+                                                      ? Colors.black
+                                                      : const Color.fromARGB(
+                                                          255, 143, 143, 143),
+                                                  size: 43.w,
                                                 ),
                                               )),
                                         )),
@@ -1242,7 +1263,7 @@ class _LJNChatPage extends State<LJNChatPage>
                                       bottom: 270.w +
                                           _voiceLottieController.value * 30.w,
                                       child: Container(
-                                          width: screenSize.width,
+                                          width: vm.screenSize!.width,
                                           alignment: Alignment.center,
                                           child: Text(
                                             '松开发送',

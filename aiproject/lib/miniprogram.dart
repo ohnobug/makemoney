@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
@@ -72,8 +72,6 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -126,7 +124,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                               parent: BouncingScrollPhysics()),
                           child: Container(
                             constraints: BoxConstraints(
-                                minHeight: screenSize.height - 205.w),
+                                minHeight: vm.screenSize!.height - 205.w),
                             color: const Color.fromARGB(255, 237, 237, 237),
                             child: Column(
                               children: [

@@ -208,5 +208,5 @@ final myStore = Store<StoreType>(counterReducer,
         mainpage4isload: false,
         themeData: lightTheme,
         homescrollpixels: 0.0,
-        screenSize: const Size(0, 0),
+        screenSize: null,
         statusHeight: 0.0));

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
-import 'package:jiaoyishuoflutter3/components/LJNMaxWidthButton.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_max_width_button.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,8 +41,6 @@ class _LJNServicesPage extends State<LJNServicesPage>
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -87,7 +85,7 @@ class _LJNServicesPage extends State<LJNServicesPage>
                                 parent: BouncingScrollPhysics()),
                             child: Container(
                               constraints: BoxConstraints(
-                                  minHeight: screenSize.height - 205.w),
+                                  minHeight: vm.screenSize!.height - 205.w),
                               color: const Color.fromARGB(255, 237, 237, 237),
                               child: Column(
                                 children: [
@@ -384,7 +382,7 @@ class _LJNServicesPage extends State<LJNServicesPage>
                   child: Container(
                     color: const Color.fromARGB(127, 0, 0, 0),
                     width: 750.w,
-                    height: screenSize.height,
+                    height: vm.screenSize!.height,
                   )),
 
             AnimatedBuilder(

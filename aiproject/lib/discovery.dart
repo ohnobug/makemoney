@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:jiaoyishuoflutter3/components/pageloading.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'components/LJNFunctionItem.dart';
+import 'components/ljn_function_item.dart';
 
 class LJNDiscoveryPage extends StatefulWidget {
   const LJNDiscoveryPage({super.key});

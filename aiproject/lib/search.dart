@@ -351,8 +351,6 @@ class _LJNSearchPage extends State<LJNSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -469,7 +467,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                 width: 1.0.w,
                                 style: BorderStyle.solid,
                               ))),
-                              width: screenSize.width,
+                              width: vm.screenSize!.width,
                               padding: EdgeInsets.only(
                                   left: 30.w,
                                   right: 30.w,
@@ -571,7 +569,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                   ),
 
                                   SizedBox(
-                                    width: screenSize.width,
+                                    width: vm.screenSize!.width,
                                     child: Wrap(
                                       children: historyList.map((item) {
                                         return SizedBox(
@@ -602,7 +600,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                                 width: 1.0.w,
                                 style: BorderStyle.solid,
                               ))),
-                              width: screenSize.width,
+                              width: vm.screenSize!.width,
                               padding: EdgeInsets.only(
                                   left: 30.w,
                                   right: 30.w,
@@ -705,7 +703,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
 
                                   // 标题列表
                                   SizedBox(
-                                    width: screenSize.width,
+                                    width: vm.screenSize!.width,
                                     child: Wrap(
                                       children:
                                           suggestionsForYouList.map((item) {
@@ -736,7 +734,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
 
                         // 热榜
                         SizedBox(
-                          width: screenSize.width,
+                          width: vm.screenSize!.width,
                           height: (hotList.length * (72.w + 15.w) + 90.w),
                           child: PageView(
                             scrollDirection: Axis.horizontal,
@@ -771,7 +769,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                       key: hotTitleBoxKey,
                       alignment: Alignment.center,
                       height: 110.w,
-                      width: screenSize.width,
+                      width: vm.screenSize!.width,
                       child: SingleChildScrollView(
                         controller: hotTitleBoxController,
                         primary: false,
@@ -819,116 +817,120 @@ class _LJNSearchPage extends State<LJNSearchPage> {
   }
 
   Widget hotListWidget(List<Widget> hotList) {
-    Size screenSize = MediaQuery.of(context).size;
-
     return // 第一个榜单
-        Container(
-            // height: 4350.w + 90.w,
-            width: screenSize.width,
-            padding: EdgeInsets.only(left: 20.w, right: 20.w),
-            child: Column(
-              children: [
-                ...hotList.asMap().entries.map((e) {
-                  return Container(
-                    height: 72.w,
-                    decoration: BoxDecoration(
-                      // color: e.key < 3
-                      //     ? const Color.fromARGB(255, 253, 245, 242)
-                      //     : const Color.fromARGB(255, 231, 231, 231),
-                      borderRadius: BorderRadius.all(Radius.circular(10.w)),
-                      gradient: LinearGradient(
-                        begin: Alignment.centerLeft, // 渐变开始点
-                        end: Alignment.centerRight, // 渐变结束点
-                        colors: [
-                          e.key < 3
-                              ? const Color.fromARGB(255, 253, 245, 242)
-                              : const Color.fromARGB(
-                                  255, 245, 245, 245), // 起始颜色
-                          Colors.white, // 结束颜色
-                        ],
-                      ),
-                    ),
-                    padding: EdgeInsets.only(left: 24.w, right: 24.w),
-                    margin: EdgeInsets.only(bottom: 15.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // 图标
-                        SizedBox(
-                            height: 37.w,
-                            width: 37.w,
-                            child: Stack(
-                              children: [
-                                // 排序
-                                if (e.key < 3) ...[
-                                  Icon(
-                                    const IconData(
-                                      0xe649,
-                                      fontFamily: 'Iconfont',
-                                    ), // 使用的图标
-                                    color: const Color.fromARGB(
-                                        255, 247, 171, 66), // 图标颜色
-                                    size: 37.w, // 图标大小
-                                  ),
-                                  Center(
-                                    child: Text(
-                                      (e.key + 1).toString(),
-                                      style: TextStyle(
-                                          fontSize: 24.w,
-                                          height: 1.08,
-                                          fontWeight: FontWeight.bold,
-                                          fontStyle: FontStyle.italic,
-                                          color: Colors.white),
-                                    ),
-                                  )
-                                ] else
-                                  Center(
-                                    child: Text(
-                                      (e.key + 1).toString(),
-                                      style: TextStyle(
-                                          fontSize: 28.w,
-                                          height: 1.08,
-                                          fontWeight: FontWeight.bold,
-                                          // fontStyle: FontStyle.italic,
-                                          color: const Color.fromARGB(
-                                              255, 143, 143, 143)),
-                                    ),
-                                  )
+        StoreConnector<StoreType, StoreType>(
+            converter: (store) => store.state,
+            builder: (context, vm) {
+              return Container(
+                  // height: 4350.w + 90.w,
+                  width: vm.screenSize!.width,
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                  child: Column(
+                    children: [
+                      ...hotList.asMap().entries.map((e) {
+                        return Container(
+                          height: 72.w,
+                          decoration: BoxDecoration(
+                            // color: e.key < 3
+                            //     ? const Color.fromARGB(255, 253, 245, 242)
+                            //     : const Color.fromARGB(255, 231, 231, 231),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.w)),
+                            gradient: LinearGradient(
+                              begin: Alignment.centerLeft, // 渐变开始点
+                              end: Alignment.centerRight, // 渐变结束点
+                              colors: [
+                                e.key < 3
+                                    ? const Color.fromARGB(255, 253, 245, 242)
+                                    : const Color.fromARGB(
+                                        255, 245, 245, 245), // 起始颜色
+                                Colors.white, // 结束颜色
                               ],
-                            )),
-                        SizedBox(
-                          width: 12.w,
-                        ),
+                            ),
+                          ),
+                          padding: EdgeInsets.only(left: 24.w, right: 24.w),
+                          margin: EdgeInsets.only(bottom: 15.w),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              // 图标
+                              SizedBox(
+                                  height: 37.w,
+                                  width: 37.w,
+                                  child: Stack(
+                                    children: [
+                                      // 排序
+                                      if (e.key < 3) ...[
+                                        Icon(
+                                          const IconData(
+                                            0xe649,
+                                            fontFamily: 'Iconfont',
+                                          ), // 使用的图标
+                                          color: const Color.fromARGB(
+                                              255, 247, 171, 66), // 图标颜色
+                                          size: 37.w, // 图标大小
+                                        ),
+                                        Center(
+                                          child: Text(
+                                            (e.key + 1).toString(),
+                                            style: TextStyle(
+                                                fontSize: 24.w,
+                                                height: 1.08,
+                                                fontWeight: FontWeight.bold,
+                                                fontStyle: FontStyle.italic,
+                                                color: Colors.white),
+                                          ),
+                                        )
+                                      ] else
+                                        Center(
+                                          child: Text(
+                                            (e.key + 1).toString(),
+                                            style: TextStyle(
+                                                fontSize: 28.w,
+                                                height: 1.08,
+                                                fontWeight: FontWeight.bold,
+                                                // fontStyle: FontStyle.italic,
+                                                color: const Color.fromARGB(
+                                                    255, 143, 143, 143)),
+                                          ),
+                                        )
+                                    ],
+                                  )),
+                              SizedBox(
+                                width: 12.w,
+                              ),
 
-                        // 标题
-                        Expanded(
-                          // 使用 Expanded 限制文本区域
-                          child: e.value,
-                        ),
+                              // 标题
+                              Expanded(
+                                // 使用 Expanded 限制文本区域
+                                child: e.value,
+                              ),
 
-                        // 阅读人数
-                        Text(
-                          "1201.2万",
-                          style: TextStyle(
-                              fontSize: 25.w,
-                              color: const Color.fromARGB(255, 157, 143, 145)),
-                        )
-                      ],
-                    ),
-                  );
-                }),
-                SizedBox(
-                  width: screenSize.width,
-                  height: 90.w,
-                  child: const Center(
-                      child: Text(
-                    "查看完整榜单",
-                    style: TextStyle(color: Colors.red),
-                  )),
-                )
-              ],
-            ));
+                              // 阅读人数
+                              Text(
+                                "1201.2万",
+                                style: TextStyle(
+                                    fontSize: 25.w,
+                                    color: const Color.fromARGB(
+                                        255, 157, 143, 145)),
+                              )
+                            ],
+                          ),
+                        );
+                      }),
+                      SizedBox(
+                        width: vm.screenSize!.width,
+                        height: 90.w,
+                        child: const Center(
+                            child: Text(
+                          "查看完整榜单",
+                          style: TextStyle(color: Colors.red),
+                        )),
+                      )
+                    ],
+                  ));
+            });
   }
 
   // 热榜标题

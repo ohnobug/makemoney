@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
-import 'package:jiaoyishuoflutter3/components/LJNFunctionItem.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_function_item.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,8 +23,6 @@ class _LJNAbout extends State<LJNAbout> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -40,17 +38,17 @@ class _LJNAbout extends State<LJNAbout> {
                       physics: const AlwaysScrollableScrollPhysics(
                           parent: BouncingScrollPhysics()),
                       child: Container(
-                        width: screenSize.width,
+                        width: vm.screenSize!.width,
                         // padding: EdgeInsets.only(left: 90.w, right: 90.w),
                         constraints: BoxConstraints(
-                            minHeight:
-                                screenSize.height - (vm.statusHeight! + 90.w)),
+                            minHeight: vm.screenSize!.height -
+                                (vm.statusHeight! + 90.w)),
                         // color: const Color.fromARGB(255, 231, 15, 15),
                         child: Column(
                           children: [
                             SizedBox(
                               height: 470.w,
-                              width: screenSize.width,
+                              width: vm.screenSize!.width,
                               // color: Colors.red,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,

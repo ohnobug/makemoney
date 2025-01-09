@@ -5,66 +5,66 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:jiaoyishuoflutter3/addFriends.dart';
-import 'package:jiaoyishuoflutter3/careMode.dart';
+import 'package:jiaoyishuoflutter3/add_friends.dart';
+import 'package:jiaoyishuoflutter3/care_mode.dart';
 import 'package:jiaoyishuoflutter3/chat.dart';
-import 'package:jiaoyishuoflutter3/collectionAndPayment.dart';
+import 'package:jiaoyishuoflutter3/collection_and_payment.dart';
 import 'package:jiaoyishuoflutter3/dial.dart';
 import 'package:jiaoyishuoflutter3/discovery.dart';
-import 'package:jiaoyishuoflutter3/friendDataSetting.dart';
-import 'package:jiaoyishuoflutter3/friendMessageRecord.dart';
-import 'package:jiaoyishuoflutter3/friendMoreInfo.dart';
-import 'package:jiaoyishuoflutter3/friendPermissions.dart';
-import 'package:jiaoyishuoflutter3/friendmoments.dart';
-import 'package:jiaoyishuoflutter3/groupMessageRecord.dart';
-import 'package:jiaoyishuoflutter3/groupChat.dart';
+import 'package:jiaoyishuoflutter3/friend_data_setting.dart';
+import 'package:jiaoyishuoflutter3/friend_message_record.dart';
+import 'package:jiaoyishuoflutter3/friend_more_info.dart';
+import 'package:jiaoyishuoflutter3/friend_permissions.dart';
+import 'package:jiaoyishuoflutter3/friend_moments.dart';
+import 'package:jiaoyishuoflutter3/group_message_record.dart';
+import 'package:jiaoyishuoflutter3/group_chat.dart';
 import 'package:jiaoyishuoflutter3/home22.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/miniprogram.dart';
 import 'package:jiaoyishuoflutter3/mywebview.dart';
-import 'package:jiaoyishuoflutter3/servicesManager.dart';
-import 'package:jiaoyishuoflutter3/setNotesAndLabels.dart';
+import 'package:jiaoyishuoflutter3/services_manager.dart';
+import 'package:jiaoyishuoflutter3/set_notes_and_labels.dart';
 import 'package:jiaoyishuoflutter3/settings/about.dart';
-import 'package:jiaoyishuoflutter3/settings/billDetails.dart';
-import 'package:jiaoyishuoflutter3/settings/changeDetails.dart';
-import 'package:jiaoyishuoflutter3/settings/chatSetting.dart';
-import 'package:jiaoyishuoflutter3/settings/commonSetting.dart';
-import 'package:jiaoyishuoflutter3/settings/deviceDetail.dart';
-import 'package:jiaoyishuoflutter3/settings/emergencyContact.dart';
-import 'package:jiaoyishuoflutter3/settings/friendPermission.dart';
-import 'package:jiaoyishuoflutter3/settings/loggedDevices.dart';
-import 'package:jiaoyishuoflutter3/settings/moreSecureSetting.dart';
-import 'package:jiaoyishuoflutter3/settings/newMessageNotification.dart';
+import 'package:jiaoyishuoflutter3/settings/bill_details.dart';
+import 'package:jiaoyishuoflutter3/settings/change_details.dart';
+import 'package:jiaoyishuoflutter3/settings/chat_setting.dart';
+import 'package:jiaoyishuoflutter3/settings/common_setting.dart';
+import 'package:jiaoyishuoflutter3/settings/device_detail.dart';
+import 'package:jiaoyishuoflutter3/settings/emergency_contact.dart';
+import 'package:jiaoyishuoflutter3/settings/friend_permission.dart';
+import 'package:jiaoyishuoflutter3/settings/logged_devices.dart';
+import 'package:jiaoyishuoflutter3/settings/more_secure_setting.dart';
+import 'package:jiaoyishuoflutter3/settings/new_message_notification.dart';
 import 'package:jiaoyishuoflutter3/pocketmoney.dart';
-import 'package:jiaoyishuoflutter3/friendprofile.dart';
-import 'package:jiaoyishuoflutter3/qrcodescanner.dart';
+import 'package:jiaoyishuoflutter3/friend_profile.dart';
+import 'package:jiaoyishuoflutter3/qrcode_scanner.dart';
 import 'package:jiaoyishuoflutter3/search.dart';
 import 'package:jiaoyishuoflutter3/services.dart';
-import 'package:jiaoyishuoflutter3/settings/accountAndSecure.dart';
-import 'package:jiaoyishuoflutter3/settings/bindNewPhoneNumber.dart';
-import 'package:jiaoyishuoflutter3/settings/changeAccount.dart';
-import 'package:jiaoyishuoflutter3/settings/forgotPassword.dart';
-import 'package:jiaoyishuoflutter3/settings/inputVerifyCode.dart';
-import 'package:jiaoyishuoflutter3/settings/personalInfoAndPermission.dart';
-import 'package:jiaoyishuoflutter3/settings/personalInfoCollectionChecklist.dart';
-import 'package:jiaoyishuoflutter3/settings/phoneContact.dart';
-import 'package:jiaoyishuoflutter3/settings/phoneNumber.dart';
-import 'package:jiaoyishuoflutter3/settings/setPassword.dart';
+import 'package:jiaoyishuoflutter3/settings/account_and_secure.dart';
+import 'package:jiaoyishuoflutter3/settings/bind_new_phone_number.dart';
+import 'package:jiaoyishuoflutter3/settings/change_account.dart';
+import 'package:jiaoyishuoflutter3/settings/forgot_password.dart';
+import 'package:jiaoyishuoflutter3/settings/input_verify_code.dart';
+import 'package:jiaoyishuoflutter3/settings/personal_info_and_permission.dart';
+import 'package:jiaoyishuoflutter3/settings/personal_info_collection_checklist.dart';
+import 'package:jiaoyishuoflutter3/settings/phone_contact.dart';
+import 'package:jiaoyishuoflutter3/settings/phone_number.dart';
+import 'package:jiaoyishuoflutter3/settings/set_password.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
-import 'package:jiaoyishuoflutter3/settings/verifyPhone.dart';
-import 'package:jiaoyishuoflutter3/settings/soundLock.dart';
+import 'package:jiaoyishuoflutter3/settings/verify_phone.dart';
+import 'package:jiaoyishuoflutter3/settings/sound_lock.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
-import 'package:jiaoyishuoflutter3/teenageMode.dart';
+import 'package:jiaoyishuoflutter3/teenage_mode.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
-import 'package:jiaoyishuoflutter3/tools/fileServer.dart';
+import 'package:jiaoyishuoflutter3/tools/file_server.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
 import 'package:jiaoyishuoflutter3/wallet.dart';
 import 'package:path_provider/path_provider.dart';
-import 'components/CustomPhysics.dart';
+import 'components/ljn_custom_physics.dart';
 import 'contact.dart';
 import 'logger.dart';
-import 'settings/accountInfo.dart';
+import 'settings/account_info.dart';
 import 'tools/tools.dart';
 import 'user.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -492,7 +492,10 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
+    if (myStore.state.screenSize == null) {
+      Size screenSize = MediaQuery.of(context).size;
+      myStore.state.screenSize = screenSize;
+    }
 
     if (setStatusHeight == false) {
       if (kIsWeb) {
@@ -542,7 +545,8 @@ class _CustomTabbarState extends State<CustomTabbar>
         converter: (store) => store.state,
         builder: (context, vm) {
           // 新appbar透明度
-          double percent75Position = screenSize.height * 0.25; // 开始显示新appbar的位置
+          double percent75Position =
+              vm.screenSize!.height * 0.25; // 开始显示新appbar的位置
 
           // appbar标题
           Text appBarTitle = const Text("");

@@ -6,7 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:jiaoyishuoflutter3/components/pageloading.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -392,7 +392,7 @@ class _LJNInsPage extends State<LJNInsPage> {
   ImageInfo? bigImgInfo;
 
   // 显示大图窗口
-  void showBigImg(ImageInfo? info, bool? show) {
+  void showBigImg(BuildContext context, ImageInfo? info, bool? show) {
     // 显示盒子
     if (show != null && show == true) {
       // 播放视频
@@ -407,123 +407,120 @@ class _LJNInsPage extends State<LJNInsPage> {
       });
     } else {
       // 关闭盒子
-      Future.delayed(const Duration(milliseconds: 0), () {
-        // 用户触发了点赞
-        if (isInsideLikeBtn) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('提示'),
-                content: const Text('用户点赞了'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('确定'),
-                  )
-                ],
-              );
-            },
-          );
-        }
 
-        // 用户触发了去首页
-        if (isInsideHomeBtn) {
-          Navigator.pushNamed(context, '/friendmoments');
-        }
+      // 用户触发了点赞
+      if (isInsideLikeBtn) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('提示'),
+              content: const Text('用户点赞了'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('确定'),
+                )
+              ],
+            );
+          },
+        );
+      }
 
-        // 用户触发了分享
-        if (isInsideShareBtn) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('提示'),
-                content: const Text('用户点分享了'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('确定'),
-                  )
-                ],
-              );
-            },
-          );
-        }
+      // 用户触发了去首页
+      if (context.mounted && isInsideHomeBtn) {
+        Navigator.pushNamed(context, '/friendmoments');
+      }
 
-        // 下载按钮
-        if (isInsideDownloadBtn) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('提示'),
-                content: const Text('用户点下载了'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('确定'),
-                  )
-                ],
-              );
-            },
-          );
-        }
+      // 用户触发了分享
+      if (isInsideShareBtn) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('提示'),
+              content: const Text('用户点分享了'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('确定'),
+                )
+              ],
+            );
+          },
+        );
+      }
 
-        // 收藏按钮
-        if (isInsideCollectBtn) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('提示'),
-                content: const Text('用户点收藏了'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('确定'),
-                  )
-                ],
-              );
-            },
-          );
-        }
+      // 下载按钮
+      if (isInsideDownloadBtn) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('提示'),
+              content: const Text('用户点下载了'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('确定'),
+                )
+              ],
+            );
+          },
+        );
+      }
 
-        // 停止视频
-        if (!info!.isPics && _bigimgcontroller.value.isInitialized) {
-          _bigimgcontroller.pause();
-        }
+      // 收藏按钮
+      if (isInsideCollectBtn) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('提示'),
+              content: const Text('用户点收藏了'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('确定'),
+                )
+              ],
+            );
+          },
+        );
+      }
 
-        setState(() {
-          bigImgVisible = false; // 更新状态
-          bigImgInfo = info; // 更新信息
+      // 停止视频
+      if (!info!.isPics && _bigimgcontroller.value.isInitialized) {
+        _bigimgcontroller.pause();
+      }
 
-          isInsideCollectBtn = false;
-          isInsideLikeBtn = false;
-          isInsideXSpeedBtn = false;
-          isInsideX1Btn = false;
-          isInsideX2Btn = false;
-          isInsideX3Btn = false;
-          isInsideDownloadBtn = false;
-          isInsideShareBtn = false;
-          isInsideHomeBtn = false;
-        });
+      setState(() {
+        bigImgVisible = false; // 更新状态
+        bigImgInfo = info; // 更新信息
+
+        isInsideCollectBtn = false;
+        isInsideLikeBtn = false;
+        isInsideXSpeedBtn = false;
+        isInsideX1Btn = false;
+        isInsideX2Btn = false;
+        isInsideX3Btn = false;
+        isInsideDownloadBtn = false;
+        isInsideShareBtn = false;
+        isInsideHomeBtn = false;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-
     Offset xSpeedSelectorPosition = const Offset(0, 0);
     if (xSpeedBtnKey.currentContext != null) {
       final RenderBox renderBox =
@@ -716,8 +713,8 @@ class _LJNInsPage extends State<LJNInsPage> {
                 Visibility(
                     visible: bigImgVisible,
                     child: SizedBox(
-                      height: screenSize.height,
-                      width: screenSize.width,
+                      height: vm.screenSize!.height,
+                      width: vm.screenSize!.width,
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
@@ -738,9 +735,10 @@ class _LJNInsPage extends State<LJNInsPage> {
                                   borderRadius: BorderRadius.all(
                                       Radius.circular(20.w)), // 圆角前景
                                   child: Container(
-                                    width: screenSize.width - 60.w,
+                                    width: vm.screenSize!.width - 60.w,
                                     constraints: BoxConstraints(
-                                      maxHeight: screenSize.height - 100.w * 2,
+                                      maxHeight:
+                                          vm.screenSize!.height - 100.w * 2,
                                     ),
                                     decoration: const BoxDecoration(
                                         color: Color.fromARGB(
@@ -1562,10 +1560,10 @@ class _LJNInsStyle extends State<LJNInsStyle> {
         ? BigImageBox(
             image: widget.imageList[0].source,
             onLongPress: () {
-              widget.showBigImg(widget.imageList[0], true);
+              widget.showBigImg(context, widget.imageList[0], true);
             },
             onLongPressUp: () {
-              widget.showBigImg(widget.imageList[0], false);
+              widget.showBigImg(context, widget.imageList[0], false);
             },
             onLongPressMoveUpdate: (details) {
               // 更新手指位置并检查是否在盒子内
@@ -1577,10 +1575,10 @@ class _LJNInsStyle extends State<LJNInsStyle> {
             videoPath: 'images/ins/video.mp4',
             canPlay: canPlay,
             onLongPress: () {
-              widget.showBigImg(widget.imageList[0], true);
+              widget.showBigImg(context, widget.imageList[0], true);
             },
             onLongPressUp: () {
-              widget.showBigImg(widget.imageList[0], false);
+              widget.showBigImg(context, widget.imageList[0], false);
             },
             onLongPressMoveUpdate: (details) {
               // 更新手指位置并检查是否在盒子内
@@ -1595,10 +1593,10 @@ class _LJNInsStyle extends State<LJNInsStyle> {
         SmallImageBox(
           image: widget.imageList[1].source,
           onLongPress: () {
-            widget.showBigImg(widget.imageList[1], true);
+            widget.showBigImg(context, widget.imageList[1], true);
           },
           onLongPressUp: () {
-            widget.showBigImg(widget.imageList[1], false);
+            widget.showBigImg(context, widget.imageList[1], false);
           },
           onLongPressMoveUpdate: (details) {
             // 更新手指位置并检查是否在盒子内
@@ -1612,10 +1610,10 @@ class _LJNInsStyle extends State<LJNInsStyle> {
         SmallImageBox(
           image: widget.imageList[2].source,
           onLongPress: () {
-            widget.showBigImg(widget.imageList[2], true);
+            widget.showBigImg(context, widget.imageList[2], true);
           },
           onLongPressUp: () {
-            widget.showBigImg(widget.imageList[2], false);
+            widget.showBigImg(context, widget.imageList[2], false);
           },
           onLongPressMoveUpdate: (details) {
             // 更新手指位置并检查是否在盒子内
@@ -1632,10 +1630,10 @@ class _LJNInsStyle extends State<LJNInsStyle> {
         SmallImageBox(
           image: widget.imageList[3].source,
           onLongPress: () {
-            widget.showBigImg(widget.imageList[3], true);
+            widget.showBigImg(context, widget.imageList[3], true);
           },
           onLongPressUp: () {
-            widget.showBigImg(widget.imageList[3], false);
+            widget.showBigImg(context, widget.imageList[3], false);
           },
           onLongPressMoveUpdate: (details) {
             // 更新手指位置并检查是否在盒子内
@@ -1649,10 +1647,10 @@ class _LJNInsStyle extends State<LJNInsStyle> {
         SmallImageBox(
           image: widget.imageList[4].source,
           onLongPress: () {
-            widget.showBigImg(widget.imageList[4], true);
+            widget.showBigImg(context, widget.imageList[4], true);
           },
           onLongPressUp: () {
-            widget.showBigImg(widget.imageList[4], false);
+            widget.showBigImg(context, widget.imageList[4], false);
           },
           onLongPressMoveUpdate: (details) {
             // 更新手指位置并检查是否在盒子内

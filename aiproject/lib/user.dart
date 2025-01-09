@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:jiaoyishuoflutter3/components/pageloading.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
-import 'components/LJNFunctionItem.dart';
+import 'components/ljn_function_item.dart';
 
 class LJNUserPage extends StatefulWidget {
   const LJNUserPage({super.key});
@@ -38,11 +38,9 @@ class _LJNUserPageState extends State<LJNUserPage> {
   }
 
   Widget _buildPage(StoreType vm) {
-    Size screenSize = MediaQuery.of(context).size;
-
     return Stack(children: [
       Container(
-        constraints: BoxConstraints(minHeight: screenSize.height - 106.w),
+        constraints: BoxConstraints(minHeight: vm.screenSize!.height - 106.w),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.white, Color.fromARGB(255, 237, 237, 237)],
@@ -53,8 +51,8 @@ class _LJNUserPageState extends State<LJNUserPage> {
         ),
       ),
       SizedBox(
-          width: screenSize.width,
-          height: screenSize.height,
+          width: vm.screenSize!.width,
+          height: vm.screenSize!.height,
           child: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),

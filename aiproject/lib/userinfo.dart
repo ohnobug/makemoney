@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
-import 'components/LJNFunctionItem.dart';
+import 'components/ljn_function_item.dart';
 
 class LJNUserinfoPage extends StatefulWidget {
   const LJNUserinfoPage({super.key});
@@ -31,8 +31,6 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
   // 另起一个函数方便管理
   Widget _buildPage(StoreType vm) {
-    Size screenSize = MediaQuery.of(context).size;
-
     return Scaffold(
         primary: false,
         appBar: const LJNAppBar(
@@ -43,7 +41,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: Container(
                 constraints: BoxConstraints(
-                    minHeight: screenSize.height - 90.w - vm.statusHeight!),
+                    minHeight: vm.screenSize!.height - 90.w - vm.statusHeight!),
                 color: const Color.fromARGB(255, 237, 237, 237),
                 child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(

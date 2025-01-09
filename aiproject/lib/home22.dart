@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jiaoyishuoflutter3/components/CustomPhysics.dart';
-import 'package:jiaoyishuoflutter3/components/pageloading.dart';
-import 'package:jiaoyishuoflutter3/homeminiprogram.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_custom_physics.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
+import 'package:jiaoyishuoflutter3/home_miniprogram.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
@@ -523,56 +523,54 @@ class _ChatListViewState extends State<LJNHome22Page>
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-
-    // 释放动画
-    if (_animationController == null) {
-      // 这里描述的是appbar的位置, listview依据这个位置进行调整
-      _animationController = AnimationController(
-        vsync: this,
-        lowerBound: 0,
-        // 这里到底部是新appbar的高度 + 原本的myStore.state.statusHeight, 因为一个控制器, 既给新的用, 也给旧的用
-        upperBound: screenSize.height -
-            (myStore.state.statusHeight! + 90.w + initialCoverLayerHeight),
-        duration: const Duration(milliseconds: 350), // 动画持续时间
-      );
-
-      _animationController!.addListener(() {
-        myStore.dispatch({
-          "type": "homescrollpixels",
-          "payload": _animationController!.value
-        });
-      });
-    }
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
+          // 释放动画
+          if (_animationController == null) {
+            // 这里描述的是appbar的位置, listview依据这个位置进行调整
+            _animationController = AnimationController(
+              vsync: this,
+              lowerBound: 0,
+              // 这里到底部是新appbar的高度 + 原本的myStore.state.statusHeight, 因为一个控制器, 既给新的用, 也给旧的用
+              upperBound: vm.screenSize!.height -
+                  (myStore.state.statusHeight! +
+                      90.w +
+                      initialCoverLayerHeight),
+              duration: const Duration(milliseconds: 350), // 动画持续时间
+            );
+
+            _animationController!.addListener(() {
+              myStore.dispatch({
+                "type": "homescrollpixels",
+                "payload": _animationController!.value
+              });
+            });
+          }
+
           return vm.mainpage1isload! ? _buildPage(vm) : const LJNPageLoading();
         });
   }
 
   Widget _buildPage(StoreType vm) {
-    Size screenSize = MediaQuery.of(context).size;
-
     double newAppbarHeight = 90.w + initialCoverLayerHeight;
 
     // 新appbar透明度
-    double percent25Position = screenSize.height * 0.25;
+    double percent25Position = vm.screenSize!.height * 0.25;
     double coverOpacity =
         ((vm.homescrollpixels + vm.statusHeight!) - percent25Position) /
-            (screenSize.height - newAppbarHeight - percent25Position);
+            (vm.screenSize!.height - newAppbarHeight - percent25Position);
     if (coverOpacity < 0) {
       coverOpacity = 0;
     } else if (coverOpacity > 1) {
       coverOpacity = 1;
     }
 
-    double percent75TargetPosition = screenSize.height * 0.75;
+    double percent75TargetPosition = vm.screenSize!.height * 0.75;
     double newAppbarOpacity =
         ((vm.homescrollpixels + myStore.state.statusHeight!) -
                 percent75TargetPosition) /
-            (screenSize.height - newAppbarHeight - percent75TargetPosition);
+            (vm.screenSize!.height - newAppbarHeight - percent75TargetPosition);
     if (newAppbarOpacity < 0) {
       newAppbarOpacity = 0;
     } else if (newAppbarOpacity > 1) {
@@ -591,7 +589,7 @@ class _ChatListViewState extends State<LJNHome22Page>
     // 顶部动画背景
     double topLottieOpacity =
         (vm.homescrollpixels + myStore.state.statusHeight! - 400.w) /
-            (screenSize.height - newAppbarHeight - 400.w);
+            (vm.screenSize!.height - newAppbarHeight - 400.w);
     if (topLottieOpacity < 0) {
       topLottieOpacity = 0;
     } else if (topLottieOpacity > 1) {
@@ -605,15 +603,15 @@ class _ChatListViewState extends State<LJNHome22Page>
       children: [
         if (vm.homescrollpixels > 0)
           Image.asset(assetPath("lotties/miniprogrambg.awebp"),
-              width: screenSize.width,
-              height: screenSize.height,
+              width: vm.screenSize!.width,
+              height: vm.screenSize!.height,
               fit: BoxFit.cover),
 
         // // 背景
         // Lottie.asset(
         //   assetPath('lotties/miniprogrambg.json'),
-        //   width: screenSize.width,
-        //   height: screenSize.height,
+        //   width: vm.screenSize!.width,
+        //   height: vm.screenSize!.height,
         //   fit: BoxFit.fill,
         //   renderCache: RenderCache.raster,
         //   controller: _bglottieController,
@@ -633,7 +631,7 @@ class _ChatListViewState extends State<LJNHome22Page>
             left: 0,
             // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
             height: vm.homescrollpixels + (90.w + vm.statusHeight! + 200.w),
-            width: screenSize.width,
+            width: vm.screenSize!.width,
             child: LJNHomeMiniProgram(reverse: reverse),
           ),
 
@@ -643,8 +641,8 @@ class _ChatListViewState extends State<LJNHome22Page>
               top: 90.w + vm.statusHeight! + vm.homescrollpixels,
               left: 0,
               // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
-              height: screenSize.height - (90.w + vm.statusHeight!),
-              width: screenSize.width,
+              height: vm.screenSize!.height - (90.w + vm.statusHeight!),
+              width: vm.screenSize!.width,
               child: Container(
                 color: Colors.white,
               )),
@@ -654,8 +652,8 @@ class _ChatListViewState extends State<LJNHome22Page>
             // 不能使用vm.homescrollpixels, 需要用_animationController!.value
             top: 90.w + vm.statusHeight! + _animationController!.value,
             left: 0,
-            width: screenSize.width,
-            height: screenSize.height - (90.w + vm.statusHeight!),
+            width: vm.screenSize!.width,
+            height: vm.screenSize!.height - (90.w + vm.statusHeight!),
             child: Listener(
                 onPointerUp: (event) {
                   logger
@@ -705,14 +703,14 @@ class _ChatListViewState extends State<LJNHome22Page>
               opacity: 1 - topLottieOpacity,
               child: Container(
                   color: const Color.fromARGB(255, 237, 237, 237),
-                  width: screenSize.width,
+                  width: vm.screenSize!.width,
                   height: vm.homescrollpixels + (90.w + vm.statusHeight!),
                   // padding: EdgeInsets.only(top: vm.statusHeight!),
                   child: _lottieController.isCompleted
                       ? null
                       : Lottie.asset(
                           assetPath('lotties/homeminiprogramdarwing.json'),
-                          width: screenSize.width,
+                          width: vm.screenSize!.width,
                           height: vm.homescrollpixels + vm.statusHeight! + 90.w,
                           fit: BoxFit.contain,
                           renderCache: RenderCache.drawingCommands,
@@ -728,7 +726,7 @@ class _ChatListViewState extends State<LJNHome22Page>
         if ((vm.homescrollpixels + vm.statusHeight!) > percent25Position)
           Positioned(
               height: 90.w +
-                  (screenSize.height -
+                  (vm.screenSize!.height -
                       (vm.homescrollpixels + vm.statusHeight! + 90.w)),
               width: 750.w,
               top: vm.homescrollpixels + vm.statusHeight!,
@@ -834,7 +832,7 @@ class _ChatListViewState extends State<LJNHome22Page>
                             // opacity: 0.5,
                             opacity: coverOpacity,
                             child: Container(
-                              height: screenSize.height -
+                              height: vm.screenSize!.height -
                                   (vm.homescrollpixels +
                                       vm.statusHeight! +
                                       90.w),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jiaoyishuoflutter3/components/pageloading.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
@@ -491,8 +491,6 @@ class _LJNContactPageState extends State<LJNContactPage> {
 
   // 另起一个函数方便管理
   Widget _buildPage() {
-    Size screenSize = MediaQuery.of(context).size;
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -503,7 +501,8 @@ class _LJNContactPageState extends State<LJNContactPage> {
                   ScrollConfiguration.of(context).copyWith(scrollbars: false),
               child: Container(
                   constraints: BoxConstraints(
-                      minHeight: screenSize.height - 90.w - vm.statusHeight!),
+                      minHeight:
+                          vm.screenSize!.height - 90.w - vm.statusHeight!),
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: [

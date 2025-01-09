@@ -42,8 +42,6 @@ class _LJNTiktikPage extends State<LJNTiktikPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
-
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
@@ -60,7 +58,7 @@ class _LJNTiktikPage extends State<LJNTiktikPage> {
 
                 SizedBox(
                     width: 750.w,
-                    height: screenSize.height - 115.w - vm.statusHeight!,
+                    height: vm.screenSize!.height - 115.w - vm.statusHeight!,
                     child: PageView.builder(
                       controller: _pageController,
                       scrollDirection: Axis.vertical,
@@ -303,7 +301,7 @@ class _LJNTiktikPage extends State<LJNTiktikPage> {
 
                 // 底部
                 Container(
-                  width: screenSize.width,
+                  width: vm.screenSize!.width,
                   height: 115.w,
                   color: const Color.fromARGB(255, 80, 80, 80),
                   child: Row(
@@ -455,26 +453,29 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-
-    return SizedBox(
-      width: 750.w,
-      height: screenSize.height - 115.w,
-      child: _videoController != null && _videoController!.value.isInitialized
-          ? FittedBox(
-              fit: BoxFit.cover, // 居中裁剪
-              child: SizedBox(
-                  width: _videoController!.value.size.width,
-                  height: _videoController!.value.size.height,
-                  child: AspectRatio(
-                    aspectRatio: _videoController!.value.aspectRatio,
-                    child: VideoPlayer(_videoController!),
-                  )))
-          : Container(
-              width: 750.w,
-              height: screenSize.height - 115.w,
-              color: Colors.black,
-            ),
-    );
+    return StoreConnector<StoreType, StoreType>(
+        converter: (store) => store.state,
+        builder: (context, vm) {
+          return SizedBox(
+            width: 750.w,
+            height: vm.screenSize!.height - 115.w,
+            child: _videoController != null &&
+                    _videoController!.value.isInitialized
+                ? FittedBox(
+                    fit: BoxFit.cover, // 居中裁剪
+                    child: SizedBox(
+                        width: _videoController!.value.size.width,
+                        height: _videoController!.value.size.height,
+                        child: AspectRatio(
+                          aspectRatio: _videoController!.value.aspectRatio,
+                          child: VideoPlayer(_videoController!),
+                        )))
+                : Container(
+                    width: 750.w,
+                    height: vm.screenSize!.height - 115.w,
+                    color: Colors.black,
+                  ),
+          );
+        });
   }
 }

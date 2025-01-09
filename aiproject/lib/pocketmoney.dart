@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:jiaoyishuoflutter3/components/LJNAppBar.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -275,7 +275,7 @@ class _LJNChargeButtonState extends State<LJNChargeButton> {
             containerColor = originContainerColor;
           });
 
-          if (mounted) {
+          if (context.mounted) {
             if (widget.link == 'back') {
               Navigator.of(context).pop();
             } else if (widget.link != null) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jiaoyishuoflutter3/components/CustomPhysics.dart';
-import 'package:jiaoyishuoflutter3/components/pageloading.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_custom_physics.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
