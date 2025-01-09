@@ -702,8 +702,7 @@ class _LJNChatPage extends State<LJNChatPage>
                               );
                             },
                             child: Container(
-                              height: vm.screenSize!.height -
-                                  (vm.statusHeight! + 90.w),
+                              height: 90.w,
                               color: Colors.transparent,
                               alignment: Alignment.center,
                               padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
@@ -720,7 +719,8 @@ class _LJNChatPage extends State<LJNChatPage>
                       ),
                       SizedBox(
                           width: vm.screenSize!.width,
-                          height: vm.screenSize!.height - 90.w,
+                          height:
+                              vm.screenSize!.height - (vm.statusHeight! + 90.w),
                           child: Column(
                             children: [
                               // 聊天信息
