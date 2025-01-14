@@ -488,6 +488,26 @@ class _LJNChatPage extends State<LJNChatPage>
     super.dispose();
   }
 
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   super.didChangeAppLifecycleState(state);
+  //   if (state == AppLifecycleState.paused) {
+  //     // 应用切换到后台
+  //     // hideEmojiFunc();
+  //     // hideKeyboardFunc();
+  //   } else if (state == AppLifecycleState.resumed) {
+  //     // 应用切换到前台
+  //     logger.info('App is in the foreground');
+  //     logger.info(
+  //         "showEmojiSelector: $showEmojiSelector showKeyboard: $showKeyboard");
+  //     if (showEmojiSelector) {
+  //       showEmojiFunc();
+  //     } else if (showKeyboard) {
+  //       showKeyboardFunc();
+  //     }
+  //   }
+  // }
+
   bool isKeyboardActived = false;
   double currentKeyboradHeight = 0;
 
@@ -499,6 +519,8 @@ class _LJNChatPage extends State<LJNChatPage>
 
   // 检测第一次打开
   void detectKeyborad1() {
+    if (isFirstOpenKeyborad == false) return;
+
     final bottom = EdgeInsets.fromViewPadding(
             View.of(context).viewInsets, View.of(context).devicePixelRatio)
         .bottom;
@@ -528,7 +550,9 @@ class _LJNChatPage extends State<LJNChatPage>
           isFirstOpenKeyborad = false;
         });
 
-        _scrollToEnd();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _scrollToEnd();
+        });
       });
     }
   }
@@ -574,7 +598,9 @@ class _LJNChatPage extends State<LJNChatPage>
 
     // 表情面板打开
     _emojiPanelAnimationContentController.forward(from: value ?? 0).then((_) {
-      _scrollToEnd();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollToEnd();
+      });
     });
   }
 
@@ -630,7 +656,9 @@ class _LJNChatPage extends State<LJNChatPage>
 
       // 表情面板打开
       _emojiPanelAnimationContentController.reverse(from: 1).then((_) {
-        _scrollToEnd();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _scrollToEnd();
+        });
         // _emojiPanelAnimationContentController.reverseDuration = oldDuration;
       });
 
@@ -648,7 +676,9 @@ class _LJNChatPage extends State<LJNChatPage>
         _emojiPanelAnimationContentController
             .animateTo(1, duration: const Duration(milliseconds: 20))
             .then((_) {
-          _scrollToEnd();
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _scrollToEnd();
+          });
         });
       });
     } else {
@@ -669,7 +699,9 @@ class _LJNChatPage extends State<LJNChatPage>
 
       // 表情面板打开
       _emojiPanelAnimationContentController.reverse(from: 1).then((_) {
-        _scrollToEnd();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _scrollToEnd();
+        });
       });
     }
   }
@@ -697,7 +729,9 @@ class _LJNChatPage extends State<LJNChatPage>
 
     // 表情面板打开
     _emojiPanelAnimationContentController.forward().then((_) {
-      _scrollToEnd();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollToEnd();
+      });
     });
   }
 
@@ -722,7 +756,9 @@ class _LJNChatPage extends State<LJNChatPage>
 
     // 表情面板打开
     _emojiPanelAnimationContentController.forward().then((_) {
-      _scrollToEnd();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollToEnd();
+      });
     });
   }
 
@@ -803,8 +839,6 @@ class _LJNChatPage extends State<LJNChatPage>
   @override
   Widget build(BuildContext context) {
     logger.info("aaaaaaa 来了 $lastKeyboradHeight $showKeyboard");
-
-    keyboradCloseDetect();
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -1182,13 +1216,15 @@ class _LJNChatPage extends State<LJNChatPage>
                                                         focusNode:
                                                             inputFocusNode,
                                                         onTap: () {
-                                                          if (isFirstOpenKeyborad) {
-                                                            SystemChannels
-                                                                .textInput
-                                                                .invokeMethod(
-                                                                    'TextInput.show');
-                                                            return;
-                                                          }
+                                                          logger.info(
+                                                              "******************************qqqqqqqqqqqqqqq");
+                                                          // if (isFirstOpenKeyborad) {
+                                                          //   SystemChannels
+                                                          //       .textInput
+                                                          //       .invokeMethod(
+                                                          //           'TextInput.show');
+                                                          //   return;
+                                                          // }
 
                                                           if (showEmojiSelector ==
                                                                   false &&
@@ -1204,11 +1240,7 @@ class _LJNChatPage extends State<LJNChatPage>
                                                                   true &&
                                                               showKeyboard ==
                                                                   false) {
-                                                            if (isFirstOpenKeyborad) {
-                                                              switchKeyboradFunc();
-                                                            } else {
-                                                              switchKeyboradFunc();
-                                                            }
+                                                            switchKeyboradFunc();
                                                           }
                                                         },
                                                         cursorColor: const Color
