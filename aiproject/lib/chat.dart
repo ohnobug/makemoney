@@ -488,25 +488,25 @@ class _LJNChatPage extends State<LJNChatPage>
     super.dispose();
   }
 
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) {
-  //   super.didChangeAppLifecycleState(state);
-  //   if (state == AppLifecycleState.paused) {
-  //     // 应用切换到后台
-  //     // hideEmojiFunc();
-  //     // hideKeyboardFunc();
-  //   } else if (state == AppLifecycleState.resumed) {
-  //     // 应用切换到前台
-  //     logger.info('App is in the foreground');
-  //     logger.info(
-  //         "showEmojiSelector: $showEmojiSelector showKeyboard: $showKeyboard");
-  //     if (showEmojiSelector) {
-  //       showEmojiFunc();
-  //     } else if (showKeyboard) {
-  //       showKeyboardFunc();
-  //     }
-  //   }
-  // }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      // 应用切换到后台
+      // hideEmojiFunc();
+      // hideKeyboardFunc();
+    } else if (state == AppLifecycleState.resumed) {
+      // 应用切换到前台
+      logger.info('App is in the foreground');
+      logger.info(
+          "showEmojiSelector: $showEmojiSelector showKeyboard: $showKeyboard");
+      if (showEmojiSelector) {
+        showEmojiFunc();
+      } else if (showKeyboard) {
+        showKeyboardFunc();
+      }
+    }
+  }
 
   bool isKeyboardActived = false;
   double currentKeyboradHeight = 0;
@@ -519,8 +519,6 @@ class _LJNChatPage extends State<LJNChatPage>
 
   // 检测第一次打开
   void detectKeyborad1() {
-    if (isFirstOpenKeyborad == false) return;
-
     final bottom = EdgeInsets.fromViewPadding(
             View.of(context).viewInsets, View.of(context).devicePixelRatio)
         .bottom;
@@ -839,6 +837,8 @@ class _LJNChatPage extends State<LJNChatPage>
   @override
   Widget build(BuildContext context) {
     logger.info("aaaaaaa 来了 $lastKeyboradHeight $showKeyboard");
+
+    // keyboradCloseDetect();
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
@@ -1216,15 +1216,13 @@ class _LJNChatPage extends State<LJNChatPage>
                                                         focusNode:
                                                             inputFocusNode,
                                                         onTap: () {
-                                                          logger.info(
-                                                              "******************************qqqqqqqqqqqqqqq");
-                                                          // if (isFirstOpenKeyborad) {
-                                                          //   SystemChannels
-                                                          //       .textInput
-                                                          //       .invokeMethod(
-                                                          //           'TextInput.show');
-                                                          //   return;
-                                                          // }
+                                                          if (isFirstOpenKeyborad) {
+                                                            SystemChannels
+                                                                .textInput
+                                                                .invokeMethod(
+                                                                    'TextInput.show');
+                                                            return;
+                                                          }
 
                                                           if (showEmojiSelector ==
                                                                   false &&
