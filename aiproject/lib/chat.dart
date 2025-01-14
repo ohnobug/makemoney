@@ -263,11 +263,11 @@ class _LJNChatPage extends State<LJNChatPage>
     int seconds = duration.inSeconds % 60;
 
     if (hours > 0) {
-      return '${hours}h${minutes}m${seconds}s';
+      return '$hours:$minutes:$seconds';
     } else if (minutes > 0) {
-      return '${minutes}m${seconds}s';
+      return '$minutes:$seconds';
     } else {
-      return '${seconds}s';
+      return '$seconds';
     }
   }
 

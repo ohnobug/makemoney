@@ -35,7 +35,9 @@ class _LJNMyMessage extends State<LJNMyVoiceMessage>
   @override
   void initState() {
     super.initState();
-    _lottieController = AnimationController(vsync: this);
+    _lottieController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    _lottieController.value = 1;
   }
 
   @override
@@ -96,15 +98,11 @@ class _LJNMyMessage extends State<LJNMyVoiceMessage>
                                   // 添加事件
                                   _controller!.addListener(() {
                                     if (_controller!.value.isPlaying) {
-                                      setState(() {
-                                        _lottieController.repeat();
-                                        _lottieController.forward();
-                                      });
+                                      _lottieController.repeat();
+                                      _lottieController.forward();
                                     } else if (_controller!.value.isCompleted) {
-                                      setState(() {
-                                        _lottieController.value = 0;
-                                        _lottieController.stop();
-                                      });
+                                      _lottieController.value = 1;
+                                      _lottieController.stop();
                                     }
                                   });
                                 }
@@ -134,6 +132,9 @@ class _LJNMyMessage extends State<LJNMyVoiceMessage>
                                   // maxLines: 1,
                                   // overflow: TextOverflow.ellipsis,
                                   TextSpan(children: [
+                                    WidgetSpan(
+                                      child: SizedBox(width: 30.w),
+                                    ),
                                     TextSpan(
                                       text: widget.message,
                                       style: TextStyle(
@@ -147,13 +148,13 @@ class _LJNMyMessage extends State<LJNMyVoiceMessage>
                                     ),
                                     WidgetSpan(
                                       alignment: PlaceholderAlignment.middle,
-                                      style: const TextStyle(height: 1.08),
+                                      style: const TextStyle(height: 1.0),
                                       child: Lottie.asset(
-                                        assetPath('lotties/voicepop.json'),
-                                        width: vm.screenSize!.width,
-                                        height: vm.screenSize!.height,
+                                        assetPath('lotties/voiceplayicon.json'),
+                                        width: 32.w,
+                                        height: 32.w,
                                         fit: BoxFit.contain,
-                                        alignment: Alignment.bottomCenter,
+                                        alignment: Alignment.center,
                                         renderCache:
                                             RenderCache.drawingCommands,
                                         controller: _lottieController,
