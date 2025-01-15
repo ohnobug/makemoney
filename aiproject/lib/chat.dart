@@ -178,7 +178,7 @@ class _LJNChatPage extends State<LJNChatPage>
 
     _voiceLottieController = AnimationController(
         vsync: this,
-        duration: const Duration(milliseconds: _changeTypeMilliseconds));
+        duration: Duration(milliseconds: _changeTypeMilliseconds));
 
     // 初始化 _emojiPanelAnimationContentController
     _emojiPanelAnimationContentController = AnimationController(
