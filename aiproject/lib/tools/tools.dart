@@ -263,3 +263,17 @@ Color darkenColor(Color color, double percentage) {
 
   return Color.fromARGB(color.a as int, r, g, b);
 }
+
+String formatDuration(Duration duration) {
+  int hours = duration.inHours;
+  int minutes = duration.inMinutes % 60;
+  int seconds = duration.inSeconds % 60;
+
+  if (hours > 0) {
+    return '$hours:$minutes:$seconds';
+  } else if (minutes > 0) {
+    return '$minutes:$seconds';
+  } else {
+    return '$seconds';
+  }
+}

@@ -169,6 +169,8 @@ class TabBarApp extends StatefulWidget {
 class _TabBarApp extends State<TabBarApp> {
   @override
   void initState() {
+    SystemChannels.textInput.invokeMethod('TextInput.hide');
+
     super.initState();
   }
 

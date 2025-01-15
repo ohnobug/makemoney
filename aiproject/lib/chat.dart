@@ -35,9 +35,6 @@ class _LJNChatPage extends State<LJNChatPage>
     with WidgetsBindingObserver, TickerProviderStateMixin {
   String message = "";
 
-  // 显示发送按钮
-  bool showSendButton = false;
-
   // 显示加号
   bool showPlusIcon = true;
 
@@ -84,13 +81,7 @@ class _LJNChatPage extends State<LJNChatPage>
   late final Animation<Color?> _voiceRightButtonColorAnimation;
 
   // 键盘高度
-  double maxKeyboradHeight = 0;
-
-  // 第一次打开键盘
-  bool isFirstOpenKeyborad = true;
-
   bool showKeyboard = false;
-  double preBottomInsets = 0;
 
   // 显示满屏视频
   bool showFullScreenVideo = false;
@@ -107,12 +98,12 @@ class _LJNChatPage extends State<LJNChatPage>
   // 退出语音录制
   bool showCancelVoiceButtons = false;
 
-  // late AnimationController _voiceIconController;
-  // late Animation<double> _voiceIconAnimation;
-
   AudioRecorder? record;
   String? wmaPath;
   late DateTime beginRecordTime;
+
+  // 键盘输入类型
+  TextInputType keyboardType = TextInputType.none;
 
   @override
   void initState() {
@@ -186,7 +177,8 @@ class _LJNChatPage extends State<LJNChatPage>
     ).animate(_voiceRightButtonColorController);
 
     _voiceLottieController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 100));
+        vsync: this,
+        duration: const Duration(milliseconds: _changeTypeMilliseconds));
 
     // 初始化 _emojiPanelAnimationContentController
     _emojiPanelAnimationContentController = AnimationController(
@@ -227,9 +219,6 @@ class _LJNChatPage extends State<LJNChatPage>
     mock();
 
     WidgetsBinding.instance.addObserver(this);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollToEnd();
-    });
   }
 
   // 获取临时文件名
@@ -255,20 +244,6 @@ class _LJNChatPage extends State<LJNChatPage>
     _scrollController.jumpTo(
       _scrollController.position.maxScrollExtent,
     );
-  }
-
-  String formatDuration(Duration duration) {
-    int hours = duration.inHours;
-    int minutes = duration.inMinutes % 60;
-    int seconds = duration.inSeconds % 60;
-
-    if (hours > 0) {
-      return '$hours:$minutes:$seconds';
-    } else if (minutes > 0) {
-      return '$minutes:$seconds';
-    } else {
-      return '$seconds';
-    }
   }
 
   void mock() {
@@ -492,66 +467,17 @@ class _LJNChatPage extends State<LJNChatPage>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.paused) {
-      // 应用切换到后台
-      // hideEmojiFunc();
-      // hideKeyboardFunc();
+      logger.info(
+          "切换到后台 showEmojiSelector: $showEmojiSelector showKeyboard: $showKeyboard");
     } else if (state == AppLifecycleState.resumed) {
       // 应用切换到前台
-      logger.info('App is in the foreground');
       logger.info(
-          "showEmojiSelector: $showEmojiSelector showKeyboard: $showKeyboard");
+          "恢复到前台 showEmojiSelector: $showEmojiSelector showKeyboard: $showKeyboard");
       if (showEmojiSelector) {
         showEmojiFunc();
       } else if (showKeyboard) {
         showKeyboardFunc();
       }
-    }
-  }
-
-  bool isKeyboardActived = false;
-  double currentKeyboradHeight = 0;
-
-  @override
-  void didChangeMetrics() {
-    super.didChangeMetrics();
-    detectKeyborad1();
-  }
-
-  // 检测第一次打开
-  void detectKeyborad1() {
-    final bottom = EdgeInsets.fromViewPadding(
-            View.of(context).viewInsets, View.of(context).devicePixelRatio)
-        .bottom;
-
-    // 获取最高点
-    maxKeyboradHeight = max(bottom, maxKeyboradHeight);
-
-    // 如果是第一次打开键盘则记录
-    if (isFirstOpenKeyborad) {
-      // 第一次打开时候的动态键盘高度
-      currentKeyboradHeight = bottom;
-
-      _keyboradAnimation = Tween<double>(
-              begin: currentKeyboradHeight, end: currentKeyboradHeight)
-          .animate(
-        CurvedAnimation(
-          parent: _emojiPanelAnimationContentController,
-          curve: Curves.easeInOut,
-        ),
-      );
-
-      _emojiPanelAnimationContentController.value = 1;
-
-      Future.delayed(const Duration(milliseconds: 500), () {
-        setState(() {
-          showKeyboard = true;
-          isFirstOpenKeyborad = false;
-        });
-
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _scrollToEnd();
-        });
-      });
     }
   }
 
@@ -568,218 +494,250 @@ class _LJNChatPage extends State<LJNChatPage>
       logger.info("aaaaaaaa 用户关闭");
 
       // 检测到键盘用户主动关闭
-      hideKeyboardFunc(bottom / maxKeyboradHeight);
+      hideKeyboardFunc();
     }
 
     lastKeyboradHeight = bottom;
   }
 
-  // 显示键盘
-  void showKeyboardFunc([double? value]) {
-    // 显示键盘
-    SystemChannels.textInput.invokeMethod('TextInput.show');
+  void pannelLog(String event) {
+    logger.info(
+        "zzzzzzzz event: $event showEmojiSelector:$showEmojiSelector showKeyboard:$showKeyboard keyboardType:$keyboardType");
+  }
 
-    _keyboradAnimation =
-        Tween<double>(begin: 0, end: maxKeyboradHeight).animate(
+  void _gotoPositionEmojiPanel({
+    required double begin,
+    required double end,
+    double? value,
+    Duration? duration,
+    VoidCallback? eachFrameScrollToEnd,
+  }) {
+    if (value == null) {
+      _emojiPanelAnimationContentController.reset();
+    } else {
+      _emojiPanelAnimationContentController.value = value;
+    }
+
+    _keyboradAnimation = Tween<double>(begin: begin, end: end).animate(
       CurvedAnimation(
         parent: _emojiPanelAnimationContentController,
         curve: Curves.easeInOut,
       ),
     );
 
-    setState(() {
-      // 显示图标选择器
-      showEmojiSelector = false;
-      // 显示键盘
-      showKeyboard = true;
+    if (eachFrameScrollToEnd != null) {
+      _emojiPanelAnimationContentController.addListener(eachFrameScrollToEnd);
+    }
+
+    // 设置动画状态监听器，确保动画完成时移除监听器
+    _emojiPanelAnimationContentController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        if (eachFrameScrollToEnd != null) {
+          _emojiPanelAnimationContentController
+              .removeListener(eachFrameScrollToEnd);
+        }
+      }
     });
 
     // 表情面板打开
-    _emojiPanelAnimationContentController.forward(from: value ?? 0).then((_) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _scrollToEnd();
-      });
+    _emojiPanelAnimationContentController.animateTo(1,
+        duration: duration ??
+            Duration(milliseconds: _toggleEmojiPannelDurationMilliseconds));
+  }
+
+  final int _switchDurationMilliseconds = 50;
+  final int _toggleEmojiPannelDurationMilliseconds = 400;
+  final double _emojiPanelHeight = 670.h;
+
+  // 切换模式等待时间
+  final int _changeTypeMilliseconds = 50;
+
+  // 显示键盘
+  void showKeyboardFunc() {
+    logger.info("显示键盘");
+
+    inputFocusNode.unfocus();
+
+    setState(() {
+      resizeToAvoidBottomInset = true;
+      showKeyboard = true;
+      showVoiceButton = false;
+      keyboardType = TextInputType.text;
+    });
+
+    Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
+      inputFocusNode.requestFocus();
+      SystemChannels.textInput.invokeMethod('TextInput.show');
+
+      pannelLog('showKeyboardFunc');
     });
   }
 
-  // 显示键盘
-  void hideKeyboardFunc([double? value]) {
-    logger.info("aaaaaaaa begin: $value");
-
-    // 隐藏键盘
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
-
-    _keyboradAnimation =
-        Tween<double>(begin: 0, end: maxKeyboradHeight).animate(
-      CurvedAnimation(
-        parent: _emojiPanelAnimationContentController,
-        curve: Curves.easeInOut,
-      ),
-    );
+  // 隐藏键盘
+  void hideKeyboardFunc() {
+    logger.info("隐藏键盘");
 
     setState(() {
-      // 显示图标选择器
-      showEmojiSelector = false;
-      // 隐藏键盘
+      keyboardType = TextInputType.none;
+      resizeToAvoidBottomInset = true;
       showKeyboard = false;
     });
 
-    // 表情面板打开
-    _emojiPanelAnimationContentController.reverse(from: value ?? 1);
+    Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
+      inputFocusNode.requestFocus();
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+      pannelLog('hideKeyboardFunc');
+    });
   }
 
   // 笑脸切换到键盘
   void switchKeyboradFunc() {
-    SystemChannels.textInput.invokeMethod('TextInput.show');
+    logger.info("转换到键盘");
 
-    // 如果没有键盘高度则降到大约的位置后矫正
-    if (isFirstOpenKeyborad) {
-      // logger.info("aaaaaa 笑脸切换到键盘，是第一次打开键盘");
+    if (keyboardType != TextInputType.text) {
+      inputFocusNode.unfocus();
+    }
 
-      setState(() {
-        // 显示图标选择器
-        showEmojiSelector = false;
-        // 显示键盘
-        showKeyboard = true;
+    setState(() {
+      keyboardType = TextInputType.text;
+      resizeToAvoidBottomInset = false;
+      showKeyboard = true;
+    });
+    _gotoPositionEmojiPanel(
+      begin: _emojiPanelHeight,
+      end: _maxInsets.bottom,
+      value: 0,
+      duration: Duration(
+          milliseconds:
+              _maxInsets.bottom == 0 ? 3000 : _switchDurationMilliseconds),
+      eachFrameScrollToEnd: () {
+        _scrollToEnd();
+      },
+    );
 
-        isFirstOpenKeyborad = false;
-      });
+    logger.info("begin: $_emojiPanelHeight     end: ${_maxInsets.bottom}");
 
-      _keyboradAnimation = Tween<double>(begin: 280.3, end: 670.h).animate(
-        CurvedAnimation(
-          parent: _emojiPanelAnimationContentController,
-          curve: Curves.easeInOut,
-        ),
-      );
+    Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
+      inputFocusNode.requestFocus();
+      SystemChannels.textInput.invokeMethod('TextInput.show');
 
-      // 表情面板打开
-      _emojiPanelAnimationContentController.reverse(from: 1).then((_) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _scrollToEnd();
-        });
-        // _emojiPanelAnimationContentController.reverseDuration = oldDuration;
-      });
-
-      // 得到键盘高度后矫正
-      Future.delayed(const Duration(milliseconds: 400), () {
-        _keyboradAnimation =
-            Tween<double>(begin: 280.3, end: maxKeyboradHeight).animate(
-          CurvedAnimation(
-            parent: _emojiPanelAnimationContentController,
-            curve: Curves.easeInOut,
-          ),
+      //  等待键盘完成显示，将面板关掉
+      Future.delayed(
+          Duration(milliseconds: _toggleEmojiPannelDurationMilliseconds), () {
+        _gotoPositionEmojiPanel(
+          begin: 0,
+          end: 0,
+          value: 0,
+          duration: Duration(milliseconds: 0),
+          eachFrameScrollToEnd: () {
+            _scrollToEnd();
+          },
         );
 
-        // 表情面板打开
-        _emojiPanelAnimationContentController
-            .animateTo(1, duration: const Duration(milliseconds: 20))
-            .then((_) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            _scrollToEnd();
-          });
+        setState(() {
+          keyboardType = TextInputType.text;
+          resizeToAvoidBottomInset = true;
+          showKeyboard = true;
+          showEmojiSelector = false;
         });
-      });
-    } else {
-      _keyboradAnimation =
-          Tween<double>(begin: maxKeyboradHeight, end: 670.h).animate(
-        CurvedAnimation(
-          parent: _emojiPanelAnimationContentController,
-          curve: Curves.easeInOut,
-        ),
-      );
 
-      setState(() {
-        // 显示图标选择器
-        showEmojiSelector = false;
-        // 显示键盘
-        showKeyboard = true;
+        pannelLog('switchKeyboradFunc');
       });
-
-      // 表情面板打开
-      _emojiPanelAnimationContentController.reverse(from: 1).then((_) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _scrollToEnd();
-        });
-      });
-    }
+    });
   }
 
   // 键盘转换笑脸面板
   void switchEmojiFunc() {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    logger.info("转换到笑脸");
 
-    _keyboradAnimation =
-        Tween<double>(begin: maxKeyboradHeight, end: 670.h).animate(
-      CurvedAnimation(
-        parent: _emojiPanelAnimationContentController,
-        curve: Curves.easeInOut,
-      ),
-    );
+    if (keyboardType != TextInputType.none) {
+      inputFocusNode.unfocus();
+    }
 
     setState(() {
-      // 显示图标选择器
-      showEmojiSelector = true;
-      // 隐藏键盘
+      keyboardType = TextInputType.none;
+      resizeToAvoidBottomInset = false;
       showKeyboard = false;
+      showEmojiSelector = true;
     });
 
-    _emojiPanelAnimationContentController.value = 0;
-
-    // 表情面板打开
-    _emojiPanelAnimationContentController.forward().then((_) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+    _gotoPositionEmojiPanel(
+      begin: viewInsets.bottom,
+      end: _emojiPanelHeight,
+      value: 0,
+      duration: Duration(milliseconds: _switchDurationMilliseconds),
+      eachFrameScrollToEnd: () {
         _scrollToEnd();
-      });
+      },
+    );
+
+    Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
+      inputFocusNode.requestFocus();
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+      pannelLog('switchEmojiFunc');
     });
   }
 
   // 打开Emoji
   void showEmojiFunc([double? value]) {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
-    _keyboradAnimation = Tween<double>(begin: 0, end: 670.h).animate(
-      CurvedAnimation(
-        parent: _emojiPanelAnimationContentController,
-        curve: Curves.easeInOut,
-      ),
-    );
+    logger.info("显示表情选择器");
+
+    if (keyboardType == TextInputType.text) {
+      inputFocusNode.unfocus();
+    }
 
     setState(() {
       // 显示图标选择器
       showEmojiSelector = true;
       // 隐藏键盘
       showKeyboard = false;
+      // 语音按钮要隐藏
+      showVoiceButton = false;
+      keyboardType = TextInputType.none;
     });
 
-    _emojiPanelAnimationContentController.value = value ?? 0;
+    _gotoPositionEmojiPanel(
+        begin: 0,
+        end: _emojiPanelHeight,
+        duration:
+            Duration(milliseconds: _toggleEmojiPannelDurationMilliseconds),
+        eachFrameScrollToEnd: () {
+          _scrollToEnd();
+        });
 
-    // 表情面板打开
-    _emojiPanelAnimationContentController.forward().then((_) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _scrollToEnd();
-      });
+    Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
+      inputFocusNode.requestFocus();
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+      pannelLog('showEmojiFunc');
     });
   }
 
-  // 关闭Emoji
+  // 点击聊天界面 关闭Emoji
   void hideEmojiFunc([double? value]) {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    logger.info("隐藏表情选择器");
 
-    _keyboradAnimation = Tween<double>(begin: 0, end: 670.h).animate(
-      CurvedAnimation(
-        parent: _emojiPanelAnimationContentController,
-        curve: Curves.easeInOut,
-      ),
+    _gotoPositionEmojiPanel(
+      begin: _emojiPanelHeight,
+      end: 0,
+      duration: Duration(milliseconds: _toggleEmojiPannelDurationMilliseconds),
+      eachFrameScrollToEnd: () {
+        _scrollToEnd();
+      },
     );
 
-    _emojiPanelAnimationContentController.value = value ?? 1;
-    // 表情面板打开
-    _emojiPanelAnimationContentController.reverse().then((_) {
-      setState(() {
-        // 显示图标选择器
-        showEmojiSelector = false;
-        // 隐藏键盘
-        showKeyboard = false;
-      });
+    setState(() {
+      showEmojiSelector = false;
+      showKeyboard = false;
+      keyboardType = TextInputType.text;
+    });
+    Future.delayed(
+        Duration(milliseconds: _toggleEmojiPannelDurationMilliseconds), () {
+      inputFocusNode.requestFocus();
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
+      pannelLog('hideEmojiFunc');
     });
   }
 
@@ -834,18 +792,37 @@ class _LJNChatPage extends State<LJNChatPage>
     _voiceTextBoxController.reset();
   }
 
+  bool resizeToAvoidBottomInset = true;
+
+  EdgeInsets viewInsets = EdgeInsets.all(0);
+
+  EdgeInsets _maxInsets = EdgeInsets.all(0);
+
+  // 更新键盘最大值
+  void updateMaxInsets(EdgeInsets newInsets) {
+    _maxInsets = EdgeInsets.only(
+      top: max(_maxInsets.top, newInsets.top),
+      left: max(_maxInsets.left, newInsets.left),
+      right: max(_maxInsets.right, newInsets.right),
+      bottom: max(_maxInsets.bottom, newInsets.bottom),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    logger.info("aaaaaaa 来了 $lastKeyboradHeight $showKeyboard");
+    viewInsets = MediaQuery.of(context).viewInsets;
 
-    // keyboradCloseDetect();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      updateMaxInsets(viewInsets);
+      _scrollToEnd();
+    });
 
     return StoreConnector<StoreType, StoreType>(
         converter: (store) => store.state,
         builder: (context, vm) {
           return Scaffold(
               // 是否在键盘弹出时调整布局（避免被键盘遮挡）。
-              resizeToAvoidBottomInset: false,
+              resizeToAvoidBottomInset: resizeToAvoidBottomInset,
               primary: false,
               extendBody: false,
               appBar: null,
@@ -880,625 +857,553 @@ class _LJNChatPage extends State<LJNChatPage>
                           )
                         ],
                       ),
-                      SizedBox(
-                          width: vm.screenSize!.width,
-                          height:
-                              vm.screenSize!.height - (vm.statusHeight! + 90.w),
+                      Expanded(
                           child: Column(
-                            children: [
-                              // 聊天信息
-                              Expanded(
-                                  flex: 1,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      logger.info(
-                                          "aaaaaaaa showEmojiSelector: $showEmojiSelector _emojiPanelAnimationContentController.value: ${_emojiPanelAnimationContentController.value}");
+                        children: [
+                          // 聊天信息
+                          Expanded(
+                              flex: 1,
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (showEmojiSelector) {
+                                    hideEmojiFunc();
+                                  } else if (showKeyboard) {
+                                    hideKeyboardFunc();
+                                  }
+                                },
+                                child: ColoredBox(
+                                    color: const Color.fromARGB(
+                                        255, 237, 237, 237),
+                                    child: ScrollConfiguration(
+                                      behavior: ScrollConfiguration.of(context)
+                                          .copyWith(scrollbars: false),
+                                      child: SingleChildScrollView(
+                                        padding: EdgeInsets.only(
+                                            top: 30.w, bottom: 30.w),
+                                        controller: _scrollController,
+                                        // keyboardDismissBehavior:
+                                        //     ScrollViewKeyboardDismissBehavior
+                                        //         .onDrag,
+                                        physics:
+                                            const AlwaysScrollableScrollPhysics(
+                                                parent:
+                                                    BouncingScrollPhysics()),
+                                        child: messageList.isEmpty
+                                            ? Container()
+                                            : Column(
+                                                children: messageList,
+                                              ),
+                                      ),
+                                    )),
+                              )),
 
-                                      if (showEmojiSelector == true) {
-                                        // 如果是上升过程，取消显示，则需要打断，从打断的位置下降
-                                        hideEmojiFunc(
-                                            _emojiPanelAnimationContentController
-                                                    .isAnimating
-                                                ? _emojiPanelAnimationContentController
-                                                    .value
-                                                : 0);
-                                      } else if (showKeyboard == true) {
-                                        hideKeyboardFunc(
-                                            _emojiPanelAnimationContentController
-                                                    .isAnimating
-                                                ? _emojiPanelAnimationContentController
-                                                    .value
-                                                : 0);
-                                      }
-                                    },
-                                    child: ColoredBox(
+                          // 输入部分
+                          Expanded(
+                              flex: 0,
+                              child: Container(
+                                  constraints: BoxConstraints(minHeight: 107.w),
+                                  width: vm.screenSize!.width,
+                                  // margin: EdgeInsets.only(bottom: inputMarginBottom),
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 247, 247, 247),
+                                      border: Border(
+                                          top: BorderSide(
                                         color: const Color.fromARGB(
-                                            255, 237, 237, 237),
-                                        child: ScrollConfiguration(
-                                          behavior:
-                                              ScrollConfiguration.of(context)
-                                                  .copyWith(scrollbars: false),
-                                          child: SingleChildScrollView(
+                                            255, 231, 231, 231),
+                                        width: 1.5.w,
+                                        style: BorderStyle.solid,
+                                      ))),
+                                  child: Row(
+                                    // mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: showVoiceButton
+                                        ? CrossAxisAlignment.center
+                                        : CrossAxisAlignment.end,
+                                    children: [
+                                      // 语音按钮
+                                      GestureDetector(
+                                          onTap: () {
+                                            // logger.info("语音被点击"); // 点击事件
+                                            // 如果键盘被打开的情况下按语音按钮，则隐藏按钮
+                                            if (showEmojiSelector ||
+                                                showKeyboard) {
+                                              hideKeyboardFunc();
+                                              hideEmojiFunc();
+                                            }
+
+                                            setState(() {
+                                              showVoiceButton =
+                                                  !showVoiceButton;
+                                            });
+                                          },
+                                          child: Container(
+                                            color: Colors.transparent,
+                                            width: 97.w,
+                                            height: 107.w,
                                             padding: EdgeInsets.only(
-                                                top: 30.w, bottom: 30.w),
-                                            controller: _scrollController,
-                                            // keyboardDismissBehavior:
-                                            //     ScrollViewKeyboardDismissBehavior
-                                            //         .onDrag,
-                                            physics:
-                                                const AlwaysScrollableScrollPhysics(
-                                                    parent:
-                                                        BouncingScrollPhysics()),
-                                            child: messageList.isEmpty
-                                                ? Container()
-                                                : Column(
-                                                    children: messageList,
-                                                  ),
-                                          ),
-                                        )),
-                                  )),
+                                                left: 20.w, right: 20.w),
+                                            child: Icon(
+                                              const IconData(
+                                                0xe66c,
+                                                fontFamily: 'Iconfont',
+                                              ),
+                                              size: 56.w, // 图标大小
+                                            ),
+                                          )),
 
-                              // 输入部分
-                              Expanded(
-                                  flex: 0,
-                                  child: Container(
-                                      constraints:
-                                          BoxConstraints(minHeight: 107.w),
-                                      width: vm.screenSize!.width,
-                                      // margin: EdgeInsets.only(bottom: inputMarginBottom),
-                                      decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 247, 247, 247),
-                                          border: Border(
-                                              top: BorderSide(
-                                            color: const Color.fromARGB(
-                                                255, 231, 231, 231),
-                                            width: 1.5.w,
-                                            style: BorderStyle.solid,
-                                          ))),
-                                      child: Row(
-                                        // mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: showVoiceButton
-                                            ? CrossAxisAlignment.center
-                                            : CrossAxisAlignment.end,
-                                        children: [
-                                          // 语音按钮
-                                          GestureDetector(
-                                              onTap: () {
-                                                // logger.info("语音被点击"); // 点击事件
-                                                // 如果键盘被打开的情况下按语音按钮，则隐藏按钮
-                                                if (showEmojiSelector ||
-                                                    showKeyboard) {
-                                                  hideKeyboardFunc();
-                                                  hideEmojiFunc();
-                                                }
+                                      showVoiceButton
+                                          ?
+                                          // 长按录音
+                                          Expanded(
+                                              flex: 1,
+                                              child: Listener(
+                                                onPointerDown: (PointerDownEvent
+                                                    event) async {
+                                                  // 手指按下时
+                                                  setState(() {
+                                                    showVoiceLottie = true;
+                                                  });
 
-                                                setState(() {
-                                                  showVoiceButton =
-                                                      !showVoiceButton;
-                                                });
-                                              },
-                                              child: Container(
-                                                color: Colors.transparent,
-                                                width: 97.w,
-                                                height: 107.w,
-                                                padding: EdgeInsets.only(
-                                                    left: 20.w, right: 20.w),
-                                                child: Icon(
-                                                  const IconData(
-                                                    0xe66c,
-                                                    fontFamily: 'Iconfont',
-                                                  ),
-                                                  size: 56.w, // 图标大小
-                                                ),
-                                              )),
+                                                  // 震动
+                                                  triggerVibration();
 
-                                          showVoiceButton
-                                              ?
-                                              // 长按录音
-                                              Expanded(
-                                                  flex: 1,
-                                                  child: Listener(
-                                                    onPointerDown:
-                                                        (PointerDownEvent
-                                                            event) async {
-                                                      // 手指按下时
-                                                      setState(() {
-                                                        showVoiceLottie = true;
-                                                      });
+                                                  if (!_voiceLottieController
+                                                      .isAnimating) {
+                                                    _voiceLottieController
+                                                        .forward();
+                                                  }
 
-                                                      // 震动
-                                                      triggerVibration();
+                                                  record = AudioRecorder();
 
-                                                      if (!_voiceLottieController
-                                                          .isAnimating) {
-                                                        _voiceLottieController
-                                                            .forward();
-                                                      }
+                                                  // 拼接本地存储的文件路径
+                                                  wmaPath =
+                                                      await getWMAFilePath();
 
-                                                      record = AudioRecorder();
+                                                  logger.info("开始录音 $wmaPath");
 
-                                                      // 拼接本地存储的文件路径
-                                                      wmaPath =
-                                                          await getWMAFilePath();
+                                                  if (await record!
+                                                      .hasPermission()) {
+                                                    record!.stop();
+                                                    record!.cancel();
 
-                                                      logger.info(
-                                                          "开始录音 $wmaPath");
+                                                    beginRecordTime =
+                                                        DateTime.now();
 
-                                                      if (await record!
-                                                          .hasPermission()) {
-                                                        record!.stop();
-                                                        record!.cancel();
+                                                    // Start recording to file
+                                                    await record!.start(
+                                                        const RecordConfig(),
+                                                        path: wmaPath!);
 
-                                                        beginRecordTime =
-                                                            DateTime.now();
-
-                                                        // Start recording to file
-                                                        await record!.start(
-                                                            const RecordConfig(),
-                                                            path: wmaPath!);
-
-                                                        // await record!.startStream(
-                                                        //     const RecordConfig(
-                                                        //         encoder:
-                                                        //             AudioEncoder
-                                                        //                 .pcm16bits));
-                                                      }
-                                                    },
-                                                    onPointerMove:
-                                                        (PointerMoveEvent
-                                                            event) {
-                                                      double svgTop = vm
-                                                              .screenSize!
-                                                              .height -
+                                                    // await record!.startStream(
+                                                    //     const RecordConfig(
+                                                    //         encoder:
+                                                    //             AudioEncoder
+                                                    //                 .pcm16bits));
+                                                  }
+                                                },
+                                                onPointerMove:
+                                                    (PointerMoveEvent event) {
+                                                  double svgTop =
+                                                      vm.screenSize!.height -
                                                           260.0.w;
 
-                                                      // 语音录制动画上的区域
-                                                      if (event.position.dy <
-                                                          svgTop) {
-                                                        double right = vm
-                                                                .screenSize!
-                                                                .width -
+                                                  // 语音录制动画上的区域
+                                                  if (event.position.dy <
+                                                      svgTop) {
+                                                    double right =
+                                                        vm.screenSize!.width -
                                                             260.0.w;
 
-                                                        logger.info(
-                                                            "dddddddddddd${event.position.dx}");
+                                                    logger.info(
+                                                        "dddddddddddd${event.position.dx}");
 
-                                                        logger.info(
-                                                            "fffffffffffff$right");
+                                                    logger.info(
+                                                        "fffffffffffff$right");
 
-                                                        setState(() {
-                                                          leftRight = event
-                                                                      .position
-                                                                      .dx >
+                                                    setState(() {
+                                                      leftRight =
+                                                          event.position.dx >
                                                                   right
                                                               ? 2
                                                               : 1;
-                                                        });
+                                                    });
 
-                                                        setState(() {
-                                                          showCancelVoiceButtons =
-                                                              true;
-                                                        });
+                                                    setState(() {
+                                                      showCancelVoiceButtons =
+                                                          true;
+                                                    });
 
-                                                        // 手指滑动右边
-                                                        if (leftRight == 2) {
-                                                          if (_voiceLeftButtonColorController
-                                                                  .value ==
-                                                              1) {
-                                                            _voiceLeftButtonColorController
-                                                                .reset();
-                                                          }
-
-                                                          if (_voiceLeftButtonScaleController
-                                                                  .value ==
-                                                              1) {
-                                                            _voiceLeftButtonScaleController
-                                                                .reset();
-                                                          }
-
-                                                          if (!_voiceRightButtonColorController
-                                                              .isAnimating) {
-                                                            _voiceRightButtonColorController
-                                                                .forward();
-                                                          }
-
-                                                          if (!_voiceRightButtonScaleController
-                                                              .isAnimating) {
-                                                            _voiceRightButtonScaleController
-                                                                .forward();
-                                                          }
-
-                                                          if (!_voiceTextBoxController
-                                                              .isAnimating) {
-                                                            _voiceTextBoxController
-                                                                .forward();
-                                                          }
-                                                        } else {
-                                                          if (_voiceRightButtonColorController
-                                                                  .value ==
-                                                              1) {
-                                                            _voiceRightButtonColorController
-                                                                .reset();
-                                                          }
-                                                          if (_voiceRightButtonScaleController
-                                                                  .value ==
-                                                              1) {
-                                                            _voiceRightButtonScaleController
-                                                                .reset();
-                                                          }
-
-                                                          if (!_voiceLeftButtonColorController
-                                                              .isAnimating) {
-                                                            _voiceLeftButtonColorController
-                                                                .forward();
-                                                          }
-
-                                                          if (!_voiceLeftButtonScaleController
-                                                              .isAnimating) {
-                                                            _voiceLeftButtonScaleController
-                                                                .forward();
-                                                          }
-
-                                                          if (!_voiceTextBoxController
-                                                              .isAnimating) {
-                                                            _voiceTextBoxController
-                                                                .reverse();
-                                                          }
-                                                        }
-                                                      } else {
+                                                    // 手指滑动右边
+                                                    if (leftRight == 2) {
+                                                      if (_voiceLeftButtonColorController
+                                                              .value ==
+                                                          1) {
                                                         _voiceLeftButtonColorController
-                                                            .value = 0;
+                                                            .reset();
+                                                      }
+
+                                                      if (_voiceLeftButtonScaleController
+                                                              .value ==
+                                                          1) {
                                                         _voiceLeftButtonScaleController
-                                                            .value = 0;
+                                                            .reset();
+                                                      }
+
+                                                      if (!_voiceRightButtonColorController
+                                                          .isAnimating) {
                                                         _voiceRightButtonColorController
-                                                            .value = 0;
+                                                            .forward();
+                                                      }
+
+                                                      if (!_voiceRightButtonScaleController
+                                                          .isAnimating) {
                                                         _voiceRightButtonScaleController
-                                                            .value = 0;
+                                                            .forward();
+                                                      }
 
+                                                      if (!_voiceTextBoxController
+                                                          .isAnimating) {
                                                         _voiceTextBoxController
-                                                            .value = 0;
+                                                            .forward();
+                                                      }
+                                                    } else {
+                                                      if (_voiceRightButtonColorController
+                                                              .value ==
+                                                          1) {
+                                                        _voiceRightButtonColorController
+                                                            .reset();
+                                                      }
+                                                      if (_voiceRightButtonScaleController
+                                                              .value ==
+                                                          1) {
+                                                        _voiceRightButtonScaleController
+                                                            .reset();
+                                                      }
 
-                                                        setState(() {
-                                                          showCancelVoiceButtons =
-                                                              false;
+                                                      if (!_voiceLeftButtonColorController
+                                                          .isAnimating) {
+                                                        _voiceLeftButtonColorController
+                                                            .forward();
+                                                      }
 
-                                                          leftRight = 0;
-                                                        });
+                                                      if (!_voiceLeftButtonScaleController
+                                                          .isAnimating) {
+                                                        _voiceLeftButtonScaleController
+                                                            .forward();
+                                                      }
+
+                                                      if (!_voiceTextBoxController
+                                                          .isAnimating) {
+                                                        _voiceTextBoxController
+                                                            .reverse();
+                                                      }
+                                                    }
+                                                  } else {
+                                                    _voiceLeftButtonColorController
+                                                        .value = 0;
+                                                    _voiceLeftButtonScaleController
+                                                        .value = 0;
+                                                    _voiceRightButtonColorController
+                                                        .value = 0;
+                                                    _voiceRightButtonScaleController
+                                                        .value = 0;
+
+                                                    _voiceTextBoxController
+                                                        .value = 0;
+
+                                                    setState(() {
+                                                      showCancelVoiceButtons =
+                                                          false;
+
+                                                      leftRight = 0;
+                                                    });
+                                                  }
+                                                },
+                                                onPointerUp:
+                                                    (PointerUpEvent event) {
+                                                  _voiceButtonUp();
+                                                },
+                                                onPointerCancel:
+                                                    (PointerCancelEvent event) {
+                                                  _voiceButtonUp();
+                                                },
+                                                child: Container(
+                                                  height: 77.w,
+                                                  padding: EdgeInsets.zero,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.w),
+                                                  ),
+                                                  alignment: Alignment.center,
+                                                  child: Text(
+                                                    "按住 说话",
+                                                    style: TextStyle(
+                                                      fontSize: 31.w,
+                                                      height: 1.08,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          :
+                                          // 消息输入框
+                                          Expanded(
+                                              flex: 1,
+                                              child: Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                              top: 16,
+                                                              bottom: 16)
+                                                          .w,
+                                                  child: TextField(
+                                                    readOnly: false,
+                                                    autofocus: false,
+                                                    showCursor: true,
+                                                    keyboardType: keyboardType,
+                                                    controller: inputController,
+                                                    focusNode: inputFocusNode,
+                                                    onTap: () {
+                                                      logger.info(
+                                                          "showEmojiSelector: $showEmojiSelector");
+                                                      logger.info(
+                                                          "showKeyboard: $showKeyboard");
+
+                                                      if (showEmojiSelector ==
+                                                              false &&
+                                                          showKeyboard ==
+                                                              false) {
+                                                        showKeyboardFunc();
+                                                      } else if (showEmojiSelector ==
+                                                              true &&
+                                                          showKeyboard ==
+                                                              false) {
+                                                        switchKeyboradFunc();
                                                       }
                                                     },
-                                                    onPointerUp:
-                                                        (PointerUpEvent event) {
-                                                      _voiceButtonUp();
-                                                    },
-                                                    onPointerCancel:
-                                                        (PointerCancelEvent
-                                                            event) {
-                                                      _voiceButtonUp();
-                                                    },
-                                                    child: Container(
-                                                      height: 77.w,
-                                                      padding: EdgeInsets.zero,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.w),
-                                                      ),
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Text(
-                                                        "按住 说话",
-                                                        style: TextStyle(
-                                                          fontSize: 31.w,
-                                                          height: 1.08,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )
-                                              :
-                                              // 消息输入框
-                                              Expanded(
-                                                  flex: 1,
-                                                  child: Container(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                                  top: 16,
-                                                                  bottom: 16)
-                                                              .w,
-                                                      child: TextField(
-                                                        readOnly: false,
-                                                        autofocus: false,
-                                                        showCursor: true,
-                                                        controller:
-                                                            inputController,
-                                                        focusNode:
-                                                            inputFocusNode,
-                                                        onTap: () {
-                                                          if (isFirstOpenKeyborad) {
-                                                            SystemChannels
-                                                                .textInput
-                                                                .invokeMethod(
-                                                                    'TextInput.show');
-                                                            return;
-                                                          }
-
-                                                          if (showEmojiSelector ==
-                                                                  false &&
-                                                              showKeyboard ==
-                                                                  false) {
-                                                            showKeyboardFunc(
-                                                                _emojiPanelAnimationContentController
-                                                                        .isAnimating
-                                                                    ? _emojiPanelAnimationContentController
-                                                                        .value
-                                                                    : 0);
-                                                          } else if (showEmojiSelector ==
-                                                                  true &&
-                                                              showKeyboard ==
-                                                                  false) {
-                                                            switchKeyboradFunc();
-                                                          }
-                                                        },
-                                                        cursorColor: const Color
-                                                            .fromRGBO(
+                                                    cursorColor:
+                                                        const Color.fromRGBO(
                                                             62, 174, 86, 1.0),
-                                                        // cursorHeight: 44.w,
-                                                        cursorWidth: 3.w,
-                                                        style: TextStyle(
-                                                            // height: 1.08,
-                                                            fontSize:
-                                                                fontSizeScale(
-                                                                    30.w),
-                                                            color:
-                                                                Colors.black),
-                                                        // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
-                                                        maxLines: 5,
-                                                        minLines: 1,
-                                                        onChanged: (newText) {
-                                                          inputController
-                                                                  .value =
-                                                              inputController
-                                                                  .value
-                                                                  .copyWith(
-                                                            text: newText,
-                                                            selection:
-                                                                TextSelection
-                                                                    .fromPosition(
-                                                              TextPosition(
-                                                                  offset: newText
-                                                                      .length),
-                                                            ),
-                                                          );
-
-                                                          if (inputController
-                                                              .text.isEmpty) {
-                                                            _animationController
-                                                                .reverse()
-                                                                .whenComplete(
-                                                                    () {
-                                                              setState(() {
-                                                                showPlusIcon =
-                                                                    true;
-                                                              });
-                                                            });
-                                                          } else {
-                                                            setState(() {
-                                                              showPlusIcon =
-                                                                  false;
-                                                            });
-                                                            _animationController
-                                                                .forward();
-                                                          }
-                                                        },
-                                                        decoration:
-                                                            InputDecoration(
-                                                          fillColor:
-                                                              Colors.white,
-                                                          filled: true,
-                                                          // focusColor: Colors.red,
-                                                          hoverColor:
-                                                              Colors.white,
-                                                          isCollapsed: true,
-                                                          contentPadding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                      vertical:
-                                                                          14,
-                                                                      horizontal:
-                                                                          16)
-                                                                  .w,
-                                                          border:
-                                                              const OutlineInputBorder(
-                                                                  gapPadding: 0,
-                                                                  borderSide:
-                                                                      BorderSide
-                                                                          .none),
-                                                          // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                          // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                          // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                          // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                          // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                    // cursorHeight: 44.w,
+                                                    cursorWidth: 3.w,
+                                                    style: TextStyle(
+                                                        // height: 1.08,
+                                                        fontSize:
+                                                            fontSizeScale(30.w),
+                                                        color: Colors.black),
+                                                    // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
+                                                    maxLines: 5,
+                                                    minLines: 1,
+                                                    onChanged: (newText) {
+                                                      inputController.value =
+                                                          inputController.value
+                                                              .copyWith(
+                                                        text: newText,
+                                                        selection: TextSelection
+                                                            .fromPosition(
+                                                          TextPosition(
+                                                              offset: newText
+                                                                  .length),
                                                         ),
-                                                      ))
-                                                  // 经调查 C:\flutter\packages\flutter\lib\src\widgets\editable_text.dart  4239行控制必须得到焦点才显示光标
-                                                  ),
+                                                      );
 
-                                          // 笑脸按钮
-                                          GestureDetector(
-                                            onTap: () {
-                                              if (showEmojiSelector == false &&
-                                                  showKeyboard == false) {
-                                                showEmojiFunc(
-                                                    _emojiPanelAnimationContentController
-                                                            .isAnimating
-                                                        ? _emojiPanelAnimationContentController
-                                                            .value
-                                                        : 0);
-                                              } else if (showEmojiSelector ==
-                                                      false &&
-                                                  showKeyboard == true) {
-                                                switchEmojiFunc();
-                                              } else if (showEmojiSelector ==
-                                                      true &&
-                                                  showKeyboard == false) {
-                                                logger.info("aaaaaa 切换到键盘");
-                                                switchKeyboradFunc();
-                                              }
-                                            },
-                                            child: Container(
-                                              color: Colors.transparent,
-                                              width: 102.w,
-                                              height: 107.w,
-                                              padding: EdgeInsets.only(
-                                                  left: 20.w, right: 25.w),
-                                              child: Icon(
-                                                const IconData(
-                                                  0xe702,
-                                                  fontFamily: 'Iconfont',
-                                                ),
-                                                size: 49.w, // 图标大小
-                                              ),
-                                            ),
-                                          ),
-
-                                          // 发送按钮 与 图标变换
-                                          AnimatedBuilder(
-                                            animation: _animationController,
-                                            builder: (context, child) {
-                                              return Visibility(
-                                                  visible: !showPlusIcon,
-                                                  child: GestureDetector(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          var message =
-                                                              inputController
-                                                                  .text;
-
-                                                          messageList
-                                                              .add(LJNMyMessage(
-                                                            message: message
-                                                                .trimRight(),
-                                                            name:
-                                                                vm.userinfoName
-                                                                    as String,
-                                                            showName: false,
-                                                          ));
-                                                          inputController.text =
-                                                              "";
-
-                                                          WidgetsBinding
-                                                              .instance
-                                                              .addPostFrameCallback(
-                                                                  (_) {
-                                                            _scrollToEnd();
+                                                      if (inputController
+                                                          .text.isEmpty) {
+                                                        _animationController
+                                                            .reverse()
+                                                            .whenComplete(() {
+                                                          setState(() {
+                                                            showPlusIcon = true;
                                                           });
-
-                                                          // SystemChannels.textInput
-                                                          //     .invokeMethod("TextInput.show");
-                                                          // WidgetsBinding.instance
-                                                          // .addPostFrameCallback((_) {
-                                                          // inputFocusNode.requestFocus()
-                                                          // FocusScope.of(context)
-                                                          // .requestFocus(inputFocusNode);
-                                                          // });
                                                         });
-                                                      },
-                                                      child: Container(
-                                                        margin: EdgeInsets.only(
-                                                            // top: 16.w,
-                                                            bottom: 24.w,
-                                                            right: 15.w),
-                                                        width: _widthAnimation
-                                                            .value,
-                                                        height: 60.w,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: _colorAnimation
-                                                              .value!,
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          10.w)),
-                                                        ),
-                                                        child: _widthAnimation
-                                                                    .value >=
-                                                                113.w
-                                                            ? Center(
-                                                                child: Text(
-                                                                  "发送",
-                                                                  style: TextStyle(
-                                                                      height:
-                                                                          1.08,
-                                                                      fontSize:
-                                                                          fontSizeScale(27
-                                                                              .w),
-                                                                      color: Colors
-                                                                          .white),
-                                                                ),
-                                                              )
-                                                            : null,
-                                                      )));
-                                            },
-                                          ),
+                                                      } else {
+                                                        setState(() {
+                                                          showPlusIcon = false;
+                                                        });
+                                                        _animationController
+                                                            .forward();
+                                                      }
+                                                    },
+                                                    decoration: InputDecoration(
+                                                      fillColor: Colors.white,
+                                                      filled: true,
+                                                      // focusColor: Colors.red,
+                                                      hoverColor: Colors.white,
+                                                      isCollapsed: true,
+                                                      contentPadding:
+                                                          const EdgeInsets
+                                                                  .symmetric(
+                                                                  vertical: 14,
+                                                                  horizontal:
+                                                                      16)
+                                                              .w,
+                                                      border:
+                                                          const OutlineInputBorder(
+                                                              gapPadding: 0,
+                                                              borderSide:
+                                                                  BorderSide
+                                                                      .none),
+                                                      // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                      // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                      // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                      // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                      // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                    ),
+                                                  ))
+                                              // 经调查 C:\flutter\packages\flutter\lib\src\widgets\editable_text.dart  4239行控制必须得到焦点才显示光标
+                                              ),
 
-                                          // 加号
-                                          Visibility(
-                                              visible: showPlusIcon,
+                                      // 笑脸按钮
+                                      GestureDetector(
+                                        onTap: () {
+                                          logger.info(
+                                              "showEmojiSelector: $showEmojiSelector  showKeyboard: $showKeyboard");
+
+                                          if (showEmojiSelector == false &&
+                                              showKeyboard == false) {
+                                            showEmojiFunc(
+                                                _emojiPanelAnimationContentController
+                                                        .isAnimating
+                                                    ? _emojiPanelAnimationContentController
+                                                        .value
+                                                    : 0);
+                                          } else if (showEmojiSelector ==
+                                                  false &&
+                                              showKeyboard == true) {
+                                            switchEmojiFunc();
+                                          } else if (showEmojiSelector ==
+                                                  true &&
+                                              showKeyboard == false) {
+                                            logger.info("aaaaaa 切换到键盘");
+                                            switchKeyboradFunc();
+                                          }
+                                        },
+                                        child: Container(
+                                          color: Colors.transparent,
+                                          width: 102.w,
+                                          height: 107.w,
+                                          padding: EdgeInsets.only(
+                                              left: 20.w, right: 25.w),
+                                          child: Icon(
+                                            const IconData(
+                                              0xe702,
+                                              fontFamily: 'Iconfont',
+                                            ),
+                                            size: 49.w, // 图标大小
+                                          ),
+                                        ),
+                                      ),
+
+                                      // 发送按钮 与 图标变换
+                                      AnimatedBuilder(
+                                        animation: _animationController,
+                                        builder: (context, child) {
+                                          return Visibility(
+                                              visible: !showPlusIcon,
                                               child: GestureDetector(
                                                   onTap: () {
-                                                    logger
-                                                        .info("加号被点击"); // 点击事件
+                                                    setState(() {
+                                                      var message =
+                                                          inputController.text;
+
+                                                      // 发送消息
+                                                      messageList
+                                                          .add(LJNMyMessage(
+                                                        message:
+                                                            message.trimRight(),
+                                                        name: vm.userinfoName
+                                                            as String,
+                                                        showName: false,
+                                                      ));
+                                                      inputController.text = "";
+
+                                                      // 发送消息后滚动到底部
+                                                      WidgetsBinding.instance
+                                                          .addPostFrameCallback(
+                                                              (_) {
+                                                        _scrollToEnd();
+                                                      });
+                                                    });
                                                   },
                                                   child: Container(
-                                                    color: Colors.transparent,
-                                                    width: 87.w,
-                                                    height: 107.w,
-                                                    padding: EdgeInsets.only(
-                                                        right: 20.w),
-                                                    alignment: Alignment.center,
-                                                    child: Icon(
-                                                      const IconData(
-                                                        0xe726,
-                                                        fontFamily: 'Iconfont',
-                                                      ),
-                                                      size: 57.w, // 图标大小
+                                                    margin: EdgeInsets.only(
+                                                        // top: 16.w,
+                                                        bottom: 24.w,
+                                                        right: 15.w),
+                                                    width:
+                                                        _widthAnimation.value,
+                                                    height: 60.w,
+                                                    decoration: BoxDecoration(
+                                                      color: _colorAnimation
+                                                          .value!,
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10.w)),
                                                     ),
-                                                  )))
-                                        ],
-                                      ))),
+                                                    child: _widthAnimation
+                                                                .value >=
+                                                            113.w
+                                                        ? Center(
+                                                            child: Text(
+                                                              "发送",
+                                                              style: TextStyle(
+                                                                  height: 1.08,
+                                                                  fontSize:
+                                                                      fontSizeScale(
+                                                                          27.w),
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                          )
+                                                        : null,
+                                                  )));
+                                        },
+                                      ),
 
-                              // 图标选择器
-                              AnimatedBuilder(
-                                animation:
-                                    _emojiPanelAnimationContentController,
-                                builder: (context, child) {
-                                  // late double height;
-                                  // if (isFirstOpenKeyborad) {
-                                  //   if (showEmojiSelector) {
-                                  //     height = _keyboradAnimation.value;
-                                  //   } else {
-                                  //     height = currentKeyboradHeight;
-                                  //   }
-                                  // } else {
-                                  // height = _keyboradAnimation.value;
-                                  // }
+                                      // 加号
+                                      Visibility(
+                                          visible: showPlusIcon,
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                logger.info("加号被点击"); // 点击事件
+                                              },
+                                              child: Container(
+                                                color: Colors.transparent,
+                                                width: 87.w,
+                                                height: 107.w,
+                                                padding: EdgeInsets.only(
+                                                    right: 20.w),
+                                                alignment: Alignment.center,
+                                                child: Icon(
+                                                  const IconData(
+                                                    0xe726,
+                                                    fontFamily: 'Iconfont',
+                                                  ),
+                                                  size: 57.w, // 图标大小
+                                                ),
+                                              )))
+                                    ],
+                                  ))),
 
-                                  return Expanded(
-                                      flex: 0,
-                                      child: SizedBox(
-                                          width: vm.screenSize!.width,
-                                          height: _keyboradAnimation.value,
-                                          // color: Colors.red,
-                                          child: showEmojiSelector
-                                              ? const LJNEmojiSelector()
-                                              : null));
-                                },
-                              ),
-                            ],
-                          ))
+                          // 图标选择器
+                          AnimatedBuilder(
+                            animation: _emojiPanelAnimationContentController,
+                            builder: (context, child) {
+                              return Expanded(
+                                  flex: 0,
+                                  child: SizedBox(
+                                      width: vm.screenSize!.width,
+                                      height: _keyboradAnimation.value,
+                                      // color: Colors.red,
+                                      child: showEmojiSelector
+                                          ? const LJNEmojiSelector()
+                                          : null));
+                            },
+                          ),
+                        ],
+                      ))
                     ],
                   ),
 
