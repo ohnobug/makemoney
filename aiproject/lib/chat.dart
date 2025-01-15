@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -105,9 +106,23 @@ class _LJNChatPage extends State<LJNChatPage>
   // 键盘输入类型
   TextInputType keyboardType = TextInputType.none;
 
+  // DateTime? _lastExecuted; // 用来记录上次执行的时间
+
   @override
   void initState() {
     super.initState();
+
+    // 监听滚动
+    _scrollController.addListener(() {
+      // 如果上次执行时间为空或距离上次执行时间超过 300 毫秒，就执行操作
+      if (showEmojiSelector) {
+        showEmojiSelector = false;
+        hideEmojiFunc();
+      } else if (showKeyboard) {
+        showEmojiSelector = false;
+        hideKeyboardFunc();
+      }
+    });
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // 设置状态栏透明
@@ -177,8 +192,7 @@ class _LJNChatPage extends State<LJNChatPage>
     ).animate(_voiceRightButtonColorController);
 
     _voiceLottieController = AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: _changeTypeMilliseconds));
+        vsync: this, duration: Duration(milliseconds: _changeTypeMilliseconds));
 
     // 初始化 _emojiPanelAnimationContentController
     _emojiPanelAnimationContentController = AnimationController(
@@ -923,18 +937,19 @@ class _LJNChatPage extends State<LJNChatPage>
                                       // 语音按钮
                                       GestureDetector(
                                           onTap: () {
-                                            // logger.info("语音被点击"); // 点击事件
-                                            // 如果键盘被打开的情况下按语音按钮，则隐藏按钮
-                                            if (showEmojiSelector ||
-                                                showKeyboard) {
-                                              hideKeyboardFunc();
+                                            if (showEmojiSelector) {
                                               hideEmojiFunc();
+                                            } else if (showKeyboard) {
+                                              hideKeyboardFunc();
                                             }
 
                                             setState(() {
                                               showVoiceButton =
                                                   !showVoiceButton;
                                             });
+                                            if (!showVoiceButton) {
+                                              showKeyboardFunc();
+                                            }
                                           },
                                           child: Container(
                                             color: Colors.transparent,
