@@ -112,18 +112,6 @@ class _LJNChatPage extends State<LJNChatPage>
   void initState() {
     super.initState();
 
-    // 监听滚动
-    _scrollController.addListener(() {
-      // 如果上次执行时间为空或距离上次执行时间超过 300 毫秒，就执行操作
-      if (showEmojiSelector) {
-        showEmojiSelector = false;
-        hideEmojiFunc();
-      } else if (showKeyboard) {
-        showEmojiSelector = false;
-        hideKeyboardFunc();
-      }
-    });
-
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // 设置状态栏透明
       statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
@@ -877,39 +865,35 @@ class _LJNChatPage extends State<LJNChatPage>
                           // 聊天信息
                           Expanded(
                               flex: 1,
-                              child: GestureDetector(
-                                onTap: () {
-                                  if (showEmojiSelector) {
-                                    hideEmojiFunc();
-                                  } else if (showKeyboard) {
-                                    hideKeyboardFunc();
-                                  }
-                                },
-                                child: ColoredBox(
-                                    color: const Color.fromARGB(
-                                        255, 237, 237, 237),
-                                    child: ScrollConfiguration(
-                                      behavior: ScrollConfiguration.of(context)
-                                          .copyWith(scrollbars: false),
-                                      child: SingleChildScrollView(
-                                        padding: EdgeInsets.only(
-                                            top: 30.w, bottom: 30.w),
-                                        controller: _scrollController,
-                                        // keyboardDismissBehavior:
-                                        //     ScrollViewKeyboardDismissBehavior
-                                        //         .onDrag,
-                                        physics:
-                                            const AlwaysScrollableScrollPhysics(
-                                                parent:
-                                                    BouncingScrollPhysics()),
-                                        child: messageList.isEmpty
-                                            ? Container()
-                                            : Column(
-                                                children: messageList,
-                                              ),
-                                      ),
-                                    )),
-                              )),
+                              child: ColoredBox(
+                                  color:
+                                      const Color.fromARGB(255, 237, 237, 237),
+                                  child: ScrollConfiguration(
+                                    behavior: ScrollConfiguration.of(context)
+                                        .copyWith(scrollbars: false),
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          if (showEmojiSelector) {
+                                            hideEmojiFunc();
+                                          } else if (showKeyboard) {
+                                            hideKeyboardFunc();
+                                          }
+                                        },
+                                        child: SingleChildScrollView(
+                                          padding: EdgeInsets.only(
+                                              top: 30.w, bottom: 30.w),
+                                          controller: _scrollController,
+                                          physics:
+                                              const AlwaysScrollableScrollPhysics(
+                                                  parent:
+                                                      BouncingScrollPhysics()),
+                                          child: messageList.isEmpty
+                                              ? Container()
+                                              : Column(
+                                                  children: messageList,
+                                                ),
+                                        )),
+                                  ))),
 
                           // 输入部分
                           Expanded(
