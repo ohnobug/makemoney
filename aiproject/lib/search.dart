@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 
 class LJNSearchPage extends StatefulWidget {
   const LJNSearchPage({super.key});
@@ -351,586 +353,560 @@ class _LJNSearchPage extends State<LJNSearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          logger.info("pageControllerOffset $pageControllerOffset");
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      logger.info("pageControllerOffset $pageControllerOffset");
 
-          double mytop = 0;
-          if (pageControllerOffset > historyHeight) {
-            mytop = -1.w;
-          } else {
-            mytop = historyHeight - pageControllerOffset;
-          }
+      double mytop = 0;
+      if (pageControllerOffset > historyHeight) {
+        mytop = -1.w;
+      } else {
+        mytop = historyHeight - pageControllerOffset;
+      }
 
-          return Scaffold(
-            primary: false,
-            resizeToAvoidBottomInset: false,
-            appBar: PreferredSize(
-                preferredSize: Size.fromHeight(90.0.w + vm.statusHeight!),
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 0.w),
-                  margin: EdgeInsets.only(top: vm.statusHeight!),
-                  height: 90.w,
-                  color: Colors.white, // 设置背景颜色
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // 返回按钮
-                      GestureDetector(
-                        onTap: () => Navigator.of(context).pop(), // 点击事件
-                        child: Container(
-                          // 加盒子是为了扩大点击区域
-                          color: Colors.transparent,
-                          child: Icon(
-                            const IconData(
-                              0xed9e,
-                              fontFamily: 'Iconfont',
-                            ), // 使用的图标
-                            color:
-                                const Color.fromARGB(255, 99, 99, 99), // 图标颜色
-                            size: 36.w, // 图标大小
+      return Scaffold(
+        primary: false,
+        resizeToAvoidBottomInset: false,
+        appBar: PreferredSize(
+            preferredSize: Size.fromHeight(90.0.w + systemState.statusHeight),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 0.w),
+              margin: EdgeInsets.only(top: systemState.statusHeight),
+              height: 90.w,
+              color: Colors.white, // 设置背景颜色
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // 返回按钮
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).pop(), // 点击事件
+                    child: Container(
+                      // 加盒子是为了扩大点击区域
+                      color: Colors.transparent,
+                      child: Icon(
+                        const IconData(
+                          0xed9e,
+                          fontFamily: 'Iconfont',
+                        ), // 使用的图标
+                        color: const Color.fromARGB(255, 99, 99, 99), // 图标颜色
+                        size: 36.w, // 图标大小
+                      ),
+                    ),
+                  ),
+
+                  // 搜索框
+                  Expanded(
+                      flex: 1,
+                      child: Container(
+                          // color: Colors.blue,
+                          margin: EdgeInsets.symmetric(horizontal: 15.w),
+                          height: 65.w,
+                          child: TextField(
+                            onTapOutside: (event) {
+                              FocusScope.of(context).unfocus();
+                            },
+                            cursorHeight: 35.w,
+                            cursorWidth: 3.w,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                const IconData(
+                                  0xe612,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                color: Colors.black,
+                                size: 40.w,
+                              ),
+                              prefixIconConstraints: BoxConstraints(
+                                minWidth: 70.w, // 控制图标与文字的最小宽度
+                                // minHeight: 36.w,
+                              ),
+                              hintText: "搜索",
+                              hintStyle: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 30.w,
+                                  color: const Color.fromARGB(255, 69, 75, 83)),
+                              filled: true,
+                              fillColor:
+                                  const Color.fromARGB(255, 233, 234, 236),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide.none,
+                              ),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 8.0.w, horizontal: 20.0.w),
+                            ),
+                          ))),
+                ],
+              ),
+            )),
+        body: Stack(
+          children: [
+            ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: SingleChildScrollView(
+                primary: false,
+                controller: pageController,
+                physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics()),
+                child: Column(
+                  children: [
+                    // 历史 与 猜你想搜
+                    Column(
+                      key: historyKey,
+                      children: [
+                        // 历史
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                            color: const Color.fromARGB(255, 240, 240, 240),
+                            width: 1.0.w,
+                            style: BorderStyle.solid,
+                          ))),
+                          width: systemState.screenSize.width,
+                          padding: EdgeInsets.only(
+                              left: 30.w, right: 30.w, bottom: 10.w, top: 10.w),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // 标题
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "猜你想搜",
+                                    style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: 28.w,
+                                        color: const Color.fromARGB(
+                                            255, 64, 64, 64)),
+                                  ),
+
+                                  // 右边
+                                  SizedBox(
+                                    width: 220.w,
+                                    height: 70.w,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        // 换一换按钮
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              // 加盒子是为了扩大点击区域
+                                              color: Colors.transparent,
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe641,
+                                                  fontFamily: 'Iconfont',
+                                                ), // 使用的图标
+                                                color: const Color.fromARGB(
+                                                    255, 64, 64, 64), // 图标颜色
+                                                size: 28.w, // 图标大小
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 5.w,
+                                            ),
+                                            Text(
+                                              "换一换",
+                                              style: TextStyle(
+                                                  color: const Color.fromARGB(
+                                                      255, 64, 64, 64),
+                                                  fontSize: 28.w,
+                                                  height: 1.08),
+                                            ),
+                                          ],
+                                        ),
+
+                                        // 中线
+                                        Container(
+                                          color: const Color.fromARGB(
+                                              255, 223, 223, 223),
+                                          height: 24.w,
+                                          width: 2.w,
+                                        ),
+
+                                        // 三个点
+                                        Container(
+                                          // 加盒子是为了扩大点击区域
+                                          color: Colors.transparent,
+                                          child: Icon(
+                                            const IconData(
+                                              0xe657,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color: const Color.fromARGB(
+                                                255, 64, 64, 64), // 图标颜色
+                                            size: 28.w, // 图标大小
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+
+                              SizedBox(
+                                width: systemState.screenSize.width,
+                                child: Wrap(
+                                  children: historyList.map((item) {
+                                    return SizedBox(
+                                      width: 345.w, // 每个子组件的宽度
+                                      height: 70.w, // 每个子组件的高度
+                                      // color: Colors.blueAccent,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [Expanded(child: item)],
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
 
-                      // 搜索框
-                      Expanded(
-                          flex: 1,
-                          child: Container(
-                              // color: Colors.blue,
-                              margin: EdgeInsets.symmetric(horizontal: 15.w),
-                              height: 65.w,
-                              child: TextField(
-                                onTapOutside: (event) {
-                                  FocusScope.of(context).unfocus();
-                                },
-                                cursorHeight: 35.w,
-                                cursorWidth: 3.w,
-                                decoration: InputDecoration(
-                                  prefixIcon: Icon(
-                                    const IconData(
-                                      0xe612,
-                                      fontFamily: 'Iconfont',
-                                    ),
-                                    color: Colors.black,
-                                    size: 40.w,
-                                  ),
-                                  prefixIconConstraints: BoxConstraints(
-                                    minWidth: 70.w, // 控制图标与文字的最小宽度
-                                    // minHeight: 36.w,
-                                  ),
-                                  hintText: "搜索",
-                                  hintStyle: TextStyle(
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 30.w,
-                                      color: const Color.fromARGB(
-                                          255, 69, 75, 83)),
-                                  filled: true,
-                                  fillColor:
-                                      const Color.fromARGB(255, 233, 234, 236),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide.none,
-                                  ),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 8.0.w, horizontal: 20.0.w),
-                                ),
-                              ))),
-                    ],
-                  ),
-                )),
-            body: Stack(
-              children: [
-                ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context)
-                      .copyWith(scrollbars: false),
-                  child: SingleChildScrollView(
-                    primary: false,
-                    controller: pageController,
-                    physics: const AlwaysScrollableScrollPhysics(
-                        parent: BouncingScrollPhysics()),
-                    child: Column(
-                      children: [
-                        // 历史 与 猜你想搜
-                        Column(
-                          key: historyKey,
-                          children: [
-                            // 历史
-                            Container(
-                              decoration: BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                color: const Color.fromARGB(255, 240, 240, 240),
-                                width: 1.0.w,
-                                style: BorderStyle.solid,
-                              ))),
-                              width: vm.screenSize!.width,
-                              padding: EdgeInsets.only(
-                                  left: 30.w,
-                                  right: 30.w,
-                                  bottom: 10.w,
-                                  top: 10.w),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // 标题
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "猜你想搜",
-                                        style: TextStyle(
-                                            height: 1.08,
-                                            fontSize: 28.w,
-                                            color: const Color.fromARGB(
-                                                255, 64, 64, 64)),
-                                      ),
-
-                                      // 右边
-                                      SizedBox(
-                                        width: 220.w,
-                                        height: 70.w,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            // 换一换按钮
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  // 加盒子是为了扩大点击区域
-                                                  color: Colors.transparent,
-                                                  child: Icon(
-                                                    const IconData(
-                                                      0xe641,
-                                                      fontFamily: 'Iconfont',
-                                                    ), // 使用的图标
-                                                    color: const Color.fromARGB(
-                                                        255,
-                                                        64,
-                                                        64,
-                                                        64), // 图标颜色
-                                                    size: 28.w, // 图标大小
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 5.w,
-                                                ),
-                                                Text(
-                                                  "换一换",
-                                                  style: TextStyle(
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255, 64, 64, 64),
-                                                      fontSize: 28.w,
-                                                      height: 1.08),
-                                                ),
-                                              ],
-                                            ),
-
-                                            // 中线
-                                            Container(
-                                              color: const Color.fromARGB(
-                                                  255, 223, 223, 223),
-                                              height: 24.w,
-                                              width: 2.w,
-                                            ),
-
-                                            // 三个点
-                                            Container(
-                                              // 加盒子是为了扩大点击区域
-                                              color: Colors.transparent,
-                                              child: Icon(
-                                                const IconData(
-                                                  0xe657,
-                                                  fontFamily: 'Iconfont',
-                                                ), // 使用的图标
-                                                color: const Color.fromARGB(
-                                                    255, 64, 64, 64), // 图标颜色
-                                                size: 28.w, // 图标大小
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-
-                                  SizedBox(
-                                    width: vm.screenSize!.width,
-                                    child: Wrap(
-                                      children: historyList.map((item) {
-                                        return SizedBox(
-                                          width: 345.w, // 每个子组件的宽度
-                                          height: 70.w, // 每个子组件的高度
-                                          // color: Colors.blueAccent,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [Expanded(child: item)],
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            // 猜你想搜
-                            Container(
-                              decoration: BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                color: const Color.fromARGB(255, 240, 240, 240),
-                                width: 1.0.w,
-                                style: BorderStyle.solid,
-                              ))),
-                              width: vm.screenSize!.width,
-                              padding: EdgeInsets.only(
-                                  left: 30.w,
-                                  right: 30.w,
-                                  bottom: 10.w,
-                                  top: 10.w),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // 标题
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "猜你想搜",
-                                        style: TextStyle(
-                                            height: 1.08,
-                                            fontSize: 28.w,
-                                            color: const Color.fromARGB(
-                                                255, 64, 64, 64)),
-                                      ),
-
-                                      // 右边
-                                      SizedBox(
-                                        width: 220.w,
-                                        height: 70.w,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            // 换一换按钮
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  // 加盒子是为了扩大点击区域
-                                                  color: Colors.transparent,
-                                                  child: Icon(
-                                                    const IconData(
-                                                      0xe641,
-                                                      fontFamily: 'Iconfont',
-                                                    ), // 使用的图标
-                                                    color: const Color.fromARGB(
-                                                        255,
-                                                        64,
-                                                        64,
-                                                        64), // 图标颜色
-                                                    size: 28.w, // 图标大小
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 5.w,
-                                                ),
-                                                Text(
-                                                  "换一换",
-                                                  style: TextStyle(
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255, 64, 64, 64),
-                                                      fontSize: 28.w,
-                                                      height: 1.08),
-                                                ),
-                                              ],
-                                            ),
-
-                                            // 中线
-                                            Container(
-                                              color: const Color.fromARGB(
-                                                  255, 223, 223, 223),
-                                              height: 24.w,
-                                              width: 2.w,
-                                            ),
-
-                                            // 三个点
-                                            Container(
-                                              // 加盒子是为了扩大点击区域
-                                              color: Colors.transparent,
-                                              child: Icon(
-                                                const IconData(
-                                                  0xe657,
-                                                  fontFamily: 'Iconfont',
-                                                ), // 使用的图标
-                                                color: const Color.fromARGB(
-                                                    255, 64, 64, 64), // 图标颜色
-                                                size: 28.w, // 图标大小
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-
-                                  // 标题列表
-                                  SizedBox(
-                                    width: vm.screenSize!.width,
-                                    child: Wrap(
-                                      children:
-                                          suggestionsForYouList.map((item) {
-                                        return SizedBox(
-                                          width: 345.w, // 每个子组件的宽度
-                                          height: 70.w, // 每个子组件的高度
-                                          // color: Colors.blueAccent,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [Expanded(child: item)],
-                                          ),
-                                        );
-                                      }).toList(),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        SizedBox(
-                          height: 110.w,
-                        ),
-
-                        // 热榜
-                        SizedBox(
-                          width: vm.screenSize!.width,
-                          height: (hotList.length * (72.w + 15.w) + 90.w),
-                          child: PageView(
-                            scrollDirection: Axis.horizontal,
-                            controller: hotListController,
-                            onPageChanged: (index) {
-                              setState(() {
-                                hotListCurrentPage = index;
-
-                                if (lastedTapHotTitleKey == -1) {
-                                  isItemVisibleAndMove(index);
-                                }
-                              });
-                            },
+                        // 猜你想搜
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                            color: const Color.fromARGB(255, 240, 240, 240),
+                            width: 1.0.w,
+                            style: BorderStyle.solid,
+                          ))),
+                          width: systemState.screenSize.width,
+                          padding: EdgeInsets.only(
+                              left: 30.w, right: 30.w, bottom: 10.w, top: 10.w),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              ...hotListTitles.asMap().entries.map((_) {
-                                return hotListWidget(hotList);
-                              })
+                              // 标题
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "猜你想搜",
+                                    style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: 28.w,
+                                        color: const Color.fromARGB(
+                                            255, 64, 64, 64)),
+                                  ),
+
+                                  // 右边
+                                  SizedBox(
+                                    width: 220.w,
+                                    height: 70.w,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        // 换一换按钮
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              // 加盒子是为了扩大点击区域
+                                              color: Colors.transparent,
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe641,
+                                                  fontFamily: 'Iconfont',
+                                                ), // 使用的图标
+                                                color: const Color.fromARGB(
+                                                    255, 64, 64, 64), // 图标颜色
+                                                size: 28.w, // 图标大小
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 5.w,
+                                            ),
+                                            Text(
+                                              "换一换",
+                                              style: TextStyle(
+                                                  color: const Color.fromARGB(
+                                                      255, 64, 64, 64),
+                                                  fontSize: 28.w,
+                                                  height: 1.08),
+                                            ),
+                                          ],
+                                        ),
+
+                                        // 中线
+                                        Container(
+                                          color: const Color.fromARGB(
+                                              255, 223, 223, 223),
+                                          height: 24.w,
+                                          width: 2.w,
+                                        ),
+
+                                        // 三个点
+                                        Container(
+                                          // 加盒子是为了扩大点击区域
+                                          color: Colors.transparent,
+                                          child: Icon(
+                                            const IconData(
+                                              0xe657,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color: const Color.fromARGB(
+                                                255, 64, 64, 64), // 图标颜色
+                                            size: 28.w, // 图标大小
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+
+                              // 标题列表
+                              SizedBox(
+                                width: systemState.screenSize.width,
+                                child: Wrap(
+                                  children: suggestionsForYouList.map((item) {
+                                    return SizedBox(
+                                      width: 345.w, // 每个子组件的宽度
+                                      height: 70.w, // 每个子组件的高度
+                                      // color: Colors.blueAccent,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [Expanded(child: item)],
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
+                              ),
                             ],
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ),
 
-                // 占位
-                Positioned(
-                    left: 0,
-                    top: mytop,
-                    child: Container(
-                      color: Colors.white,
-                      key: hotTitleBoxKey,
-                      alignment: Alignment.center,
+                    SizedBox(
                       height: 110.w,
-                      width: vm.screenSize!.width,
-                      child: SingleChildScrollView(
-                        controller: hotTitleBoxController,
-                        primary: false,
+                    ),
+
+                    // 热榜
+                    SizedBox(
+                      width: systemState.screenSize.width,
+                      height: (hotList.length * (72.w + 15.w) + 90.w),
+                      child: PageView(
                         scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            ...hotListTitles.asMap().entries.map((e) {
-                              return GestureDetector(
-                                  onTap: () {
-                                    logger.info("用户点击了${e.key}");
+                        controller: hotListController,
+                        onPageChanged: (index) {
+                          setState(() {
+                            hotListCurrentPage = index;
 
-                                    lastedTapHotTitleKey = e.key;
-
-                                    // 页面滚动
-                                    hotListController
-                                        .animateToPage(e.key,
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            curve: Curves.linear)
-                                        .then((_) {
-                                      logger.info("热榜滚动完成");
-                                      setState(() {
-                                        lastedTapHotTitleKey = -1;
-
-                                        // 意外中断时, 使标题移动到正确的位置
-                                        int pageIndex =
-                                            hotListController.page!.toInt();
-                                        isItemVisibleAndMove(pageIndex);
-                                      });
-                                    });
-                                  },
-                                  child: hotListTitleBuild(
-                                      hotListTitlesKeys[e.key]!,
-                                      e.value,
-                                      hotListCurrentPage == e.key));
-                            })
-                          ],
-                        ),
+                            if (lastedTapHotTitleKey == -1) {
+                              isItemVisibleAndMove(index);
+                            }
+                          });
+                        },
+                        children: [
+                          ...hotListTitles.asMap().entries.map((_) {
+                            return hotListWidget(hotList);
+                          })
+                        ],
                       ),
-                    )),
-              ],
+                    ),
+                  ],
+                ),
+              ),
             ),
-          );
-        });
+
+            // 占位
+            Positioned(
+                left: 0,
+                top: mytop,
+                child: Container(
+                  color: Colors.white,
+                  key: hotTitleBoxKey,
+                  alignment: Alignment.center,
+                  height: 110.w,
+                  width: systemState.screenSize.width,
+                  child: SingleChildScrollView(
+                    controller: hotTitleBoxController,
+                    primary: false,
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        ...hotListTitles.asMap().entries.map((e) {
+                          return GestureDetector(
+                              onTap: () {
+                                logger.info("用户点击了${e.key}");
+
+                                lastedTapHotTitleKey = e.key;
+
+                                // 页面滚动
+                                hotListController
+                                    .animateToPage(e.key,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        curve: Curves.linear)
+                                    .then((_) {
+                                  logger.info("热榜滚动完成");
+                                  setState(() {
+                                    lastedTapHotTitleKey = -1;
+
+                                    // 意外中断时, 使标题移动到正确的位置
+                                    int pageIndex =
+                                        hotListController.page!.toInt();
+                                    isItemVisibleAndMove(pageIndex);
+                                  });
+                                });
+                              },
+                              child: hotListTitleBuild(
+                                  hotListTitlesKeys[e.key]!,
+                                  e.value,
+                                  hotListCurrentPage == e.key));
+                        })
+                      ],
+                    ),
+                  ),
+                )),
+          ],
+        ),
+      );
+    });
   }
 
   Widget hotListWidget(List<Widget> hotList) {
-    return // 第一个榜单
-        StoreConnector<StoreType, StoreType>(
-            converter: (store) => store.state,
-            builder: (context, vm) {
-              return Container(
-                  // height: 4350.w + 90.w,
-                  width: vm.screenSize!.width,
-                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                  child: Column(
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return Container(
+          // height: 4350.w + 90.w,
+          width: systemState.screenSize.width,
+          padding: EdgeInsets.only(left: 20.w, right: 20.w),
+          child: Column(
+            children: [
+              ...hotList.asMap().entries.map((e) {
+                return Container(
+                  height: 72.w,
+                  decoration: BoxDecoration(
+                    // color: e.key < 3
+                    //     ? const Color.fromARGB(255, 253, 245, 242)
+                    //     : const Color.fromARGB(255, 231, 231, 231),
+                    borderRadius: BorderRadius.all(Radius.circular(10.w)),
+                    gradient: LinearGradient(
+                      begin: Alignment.centerLeft, // 渐变开始点
+                      end: Alignment.centerRight, // 渐变结束点
+                      colors: [
+                        e.key < 3
+                            ? const Color.fromARGB(255, 253, 245, 242)
+                            : const Color.fromARGB(255, 245, 245, 245), // 起始颜色
+                        Colors.white, // 结束颜色
+                      ],
+                    ),
+                  ),
+                  padding: EdgeInsets.only(left: 24.w, right: 24.w),
+                  margin: EdgeInsets.only(bottom: 15.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ...hotList.asMap().entries.map((e) {
-                        return Container(
-                          height: 72.w,
-                          decoration: BoxDecoration(
-                            // color: e.key < 3
-                            //     ? const Color.fromARGB(255, 253, 245, 242)
-                            //     : const Color.fromARGB(255, 231, 231, 231),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.w)),
-                            gradient: LinearGradient(
-                              begin: Alignment.centerLeft, // 渐变开始点
-                              end: Alignment.centerRight, // 渐变结束点
-                              colors: [
-                                e.key < 3
-                                    ? const Color.fromARGB(255, 253, 245, 242)
-                                    : const Color.fromARGB(
-                                        255, 245, 245, 245), // 起始颜色
-                                Colors.white, // 结束颜色
-                              ],
-                            ),
-                          ),
-                          padding: EdgeInsets.only(left: 24.w, right: 24.w),
-                          margin: EdgeInsets.only(bottom: 15.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              // 图标
-                              SizedBox(
-                                  height: 37.w,
-                                  width: 37.w,
-                                  child: Stack(
-                                    children: [
-                                      // 排序
-                                      if (e.key < 3) ...[
-                                        Icon(
-                                          const IconData(
-                                            0xe649,
-                                            fontFamily: 'Iconfont',
-                                          ), // 使用的图标
-                                          color: const Color.fromARGB(
-                                              255, 247, 171, 66), // 图标颜色
-                                          size: 37.w, // 图标大小
-                                        ),
-                                        Center(
-                                          child: Text(
-                                            (e.key + 1).toString(),
-                                            style: TextStyle(
-                                                fontSize: 24.w,
-                                                height: 1.08,
-                                                fontWeight: FontWeight.bold,
-                                                fontStyle: FontStyle.italic,
-                                                color: Colors.white),
-                                          ),
-                                        )
-                                      ] else
-                                        Center(
-                                          child: Text(
-                                            (e.key + 1).toString(),
-                                            style: TextStyle(
-                                                fontSize: 28.w,
-                                                height: 1.08,
-                                                fontWeight: FontWeight.bold,
-                                                // fontStyle: FontStyle.italic,
-                                                color: const Color.fromARGB(
-                                                    255, 143, 143, 143)),
-                                          ),
-                                        )
-                                    ],
-                                  )),
-                              SizedBox(
-                                width: 12.w,
-                              ),
-
-                              // 标题
-                              Expanded(
-                                // 使用 Expanded 限制文本区域
-                                child: e.value,
-                              ),
-
-                              // 阅读人数
-                              Text(
-                                "1201.2万",
-                                style: TextStyle(
-                                    fontSize: 25.w,
-                                    color: const Color.fromARGB(
-                                        255, 157, 143, 145)),
-                              )
-                            ],
-                          ),
-                        );
-                      }),
+                      // 图标
                       SizedBox(
-                        width: vm.screenSize!.width,
-                        height: 90.w,
-                        child: const Center(
-                            child: Text(
-                          "查看完整榜单",
-                          style: TextStyle(color: Colors.red),
-                        )),
+                          height: 37.w,
+                          width: 37.w,
+                          child: Stack(
+                            children: [
+                              // 排序
+                              if (e.key < 3) ...[
+                                Icon(
+                                  const IconData(
+                                    0xe649,
+                                    fontFamily: 'Iconfont',
+                                  ), // 使用的图标
+                                  color: const Color.fromARGB(
+                                      255, 247, 171, 66), // 图标颜色
+                                  size: 37.w, // 图标大小
+                                ),
+                                Center(
+                                  child: Text(
+                                    (e.key + 1).toString(),
+                                    style: TextStyle(
+                                        fontSize: 24.w,
+                                        height: 1.08,
+                                        fontWeight: FontWeight.bold,
+                                        fontStyle: FontStyle.italic,
+                                        color: Colors.white),
+                                  ),
+                                )
+                              ] else
+                                Center(
+                                  child: Text(
+                                    (e.key + 1).toString(),
+                                    style: TextStyle(
+                                        fontSize: 28.w,
+                                        height: 1.08,
+                                        fontWeight: FontWeight.bold,
+                                        // fontStyle: FontStyle.italic,
+                                        color: const Color.fromARGB(
+                                            255, 143, 143, 143)),
+                                  ),
+                                )
+                            ],
+                          )),
+                      SizedBox(
+                        width: 12.w,
+                      ),
+
+                      // 标题
+                      Expanded(
+                        // 使用 Expanded 限制文本区域
+                        child: e.value,
+                      ),
+
+                      // 阅读人数
+                      Text(
+                        "1201.2万",
+                        style: TextStyle(
+                            fontSize: 25.w,
+                            color: const Color.fromARGB(255, 157, 143, 145)),
                       )
                     ],
-                  ));
-            });
+                  ),
+                );
+              }),
+              SizedBox(
+                width: systemState.screenSize.width,
+                height: 90.w,
+                child: const Center(
+                    child: Text(
+                  "查看完整榜单",
+                  style: TextStyle(color: Colors.red),
+                )),
+              )
+            ],
+          ));
+    });
   }
 
   // 热榜标题

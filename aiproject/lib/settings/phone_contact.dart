@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_custom_physics.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_add_button.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNPhoneContact extends StatefulWidget {
@@ -400,39 +400,33 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return _buildPage(vm);
-        });
-  }
-
-  // 另起一个函数方便管理
-  Widget _buildPage(StoreType vm) {
-    return Scaffold(
-        primary: false,
-        appBar: const LJNAppBar(
-          title: "查看手机通讯录",
-        ),
-        body: ScrollConfiguration(
-            behavior: CustomScrollBehavior().copyWith(
-              scrollbars: false,
-              physics: const BouncingScrollPhysics(),
-            ),
-            child: ColoredBox(
-                color: const Color.fromARGB(255, 236, 236, 236),
-                child: ListView.builder(
-                  primary: false,
-                  padding: EdgeInsets.only(bottom: 106.w),
-                  // padding: EdgeInsets.all(0.w),
-                  itemCount: chatItems.length,
-                  shrinkWrap: true,
-                  // controller: _customScrollController,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) {
-                    return chatItems[index];
-                  },
-                ))));
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return Scaffold(
+          primary: false,
+          appBar: const LJNAppBar(
+            title: "查看手机通讯录",
+          ),
+          body: ScrollConfiguration(
+              behavior: CustomScrollBehavior().copyWith(
+                scrollbars: false,
+                physics: const BouncingScrollPhysics(),
+              ),
+              child: ColoredBox(
+                  color: const Color.fromARGB(255, 236, 236, 236),
+                  child: ListView.builder(
+                    primary: false,
+                    padding: EdgeInsets.only(bottom: 106.w),
+                    // padding: EdgeInsets.all(0.w),
+                    itemCount: chatItems.length,
+                    shrinkWrap: true,
+                    // controller: _customScrollController,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) {
+                      return chatItems[index];
+                    },
+                  ))));
+    });
   }
 
   // 字母

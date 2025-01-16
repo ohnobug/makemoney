@@ -1,10 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:jiaoyishuoflutter3/components/ljn_custom_physics.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
+import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import 'logger.dart';
@@ -369,7 +372,8 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
     // logger.info("pixels:${_scrollController.position.pixels}");
     // logger.info("minScrollExtent:${_scrollController.position.minScrollExtent}");
     // logger.info("maxScrollExtent:${_scrollController.position.maxScrollExtent}");
-    double beginPosition = myStore.state.statusHeight! + 450.w;
+    double beginPosition =
+        context.read<SystemCubit>().state.statusHeight + 450.w;
 
     setState(() {
       scrollPosition = _scrollController!.position.pixels;
@@ -394,9 +398,8 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
       _scrollController!.addListener(_scrollListener);
     }
 
-    return StoreConnector<StoreType, StoreType>(
-      converter: (store) => store.state,
-      builder: (context, vm) {
+    return BlocBuilder<SystemCubit, SystemState>(
+      builder: (context, systemState) {
         return Scaffold(
           primary: false,
           appBar: null,
@@ -447,7 +450,8 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                   if (index == 0) {
                                     // 头像及背景信息部分
                                     return Container(
-                                      height: (vm.statusHeight! + 630.w),
+                                      height:
+                                          (systemState.statusHeight + 630.w),
                                       color: Colors.white,
                                       width: 750.w,
                                       child: Stack(
@@ -459,7 +463,8 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                               assetPath('images/avatar/fj.jpg'),
                                               cacheWidth: 1500.w.toInt(),
                                               cacheHeight:
-                                                  (vm.statusHeight! + 1260.w)
+                                                  (systemState.statusHeight +
+                                                          1260.w)
                                                       .toInt(),
                                               width: 750.w,
                                               height: 730.w,
@@ -469,7 +474,8 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
 
                                           // 头像及昵称
                                           Positioned(
-                                            top: vm.statusHeight! + 460.w,
+                                            top: systemState.statusHeight +
+                                                460.w,
                                             child: Container(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 35.w),
@@ -485,7 +491,10 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                                     margin: EdgeInsets.only(
                                                         right: 15.w, top: 5.w),
                                                     child: Text(
-                                                      vm.userinfoName!,
+                                                      context
+                                                          .read<UserCubit>()
+                                                          .state
+                                                          .userinfoName!,
                                                       style: TextStyle(
                                                         height: 1.08,
                                                         fontSize:
@@ -502,8 +511,10 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                                                                   10)
                                                               .w,
                                                       child: Image.asset(
-                                                        assetPath(
-                                                            vm.userinfoAvatar!),
+                                                        assetPath(context
+                                                            .read<UserCubit>()
+                                                            .state
+                                                            .userinfoAvatar!),
                                                         cacheWidth:
                                                             240.w.toInt(),
                                                         cacheHeight:
@@ -555,8 +566,8 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                 color:
                     Color.fromARGB(_appBarOpacity.value.toInt(), 237, 237, 237),
                 width: 750.w,
-                height: 90.0.w + vm.statusHeight!,
-                padding: EdgeInsets.only(top: vm.statusHeight!),
+                height: 90.0.w + systemState.statusHeight,
+                padding: EdgeInsets.only(top: systemState.statusHeight),
                 child: AppBar(
                   primary: false,
                   title: const Text("朋友圈"),

@@ -1,11 +1,14 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_switch.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
+import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import 'components/ljn_function_item.dart';
@@ -36,177 +39,168 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return _buildPage();
-        });
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return _buildPage(systemState);
+    });
   }
 
   // 另起一个函数方便管理
-  Widget _buildPage() {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return Scaffold(
-              primary: false,
-              appBar: const LJNAppBar(title: "聊天消息"),
-              body: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context)
-                      .copyWith(scrollbars: false),
-                  child: Container(
-                      constraints: BoxConstraints(
-                          minHeight:
-                              vm.screenSize!.height - 90.w - vm.statusHeight!),
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.white,
-                            Color.fromARGB(255, 237, 237, 237)
-                          ],
-                          stops: [0.3, 0.5],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                      ),
-                      child: SingleChildScrollView(
-                          physics: const AlwaysScrollableScrollPhysics(
-                              parent: BouncingScrollPhysics()),
-                          child: Column(children: [
-                            Container(
-                              height: 202.w,
-                              width: 750.w,
-                              padding: EdgeInsets.only(left: 25.w, right: 25.w),
-                              child: Row(
+  Widget _buildPage(SystemState systemState) {
+    return Scaffold(
+        primary: false,
+        appBar: const LJNAppBar(title: "聊天消息"),
+        body: ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: Container(
+                constraints: BoxConstraints(
+                    minHeight: systemState.screenSize.height -
+                        90.w -
+                        systemState.statusHeight),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.white, Color.fromARGB(255, 237, 237, 237)],
+                    stops: [0.3, 0.5],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+                child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(
+                        parent: BouncingScrollPhysics()),
+                    child: Column(children: [
+                      Container(
+                        height: 202.w,
+                        width: 750.w,
+                        padding: EdgeInsets.only(left: 25.w, right: 25.w),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 105.w,
+                              height: 140.w,
+                              child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
+                                  ClipRRect(
+                                      borderRadius: BorderRadius.circular(8).w,
+                                      child: Image.asset(
+                                        assetPath(context
+                                            .read<UserCubit>()
+                                            .state
+                                            .userinfoAvatar!),
+                                        cacheWidth: 210.w.toInt(),
+                                        cacheHeight: 210.w.toInt(),
+                                        width: 105.w,
+                                        height: 105.w,
+                                        fit: BoxFit.cover,
+                                      )),
                                   SizedBox(
-                                    width: 105.w,
-                                    height: 140.w,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8).w,
-                                            child: Image.asset(
-                                              assetPath(vm.userinfoAvatar!),
-                                              cacheWidth: 210.w.toInt(),
-                                              cacheHeight: 210.w.toInt(),
-                                              width: 105.w,
-                                              height: 105.w,
-                                              fit: BoxFit.cover,
-                                            )),
-                                        SizedBox(
-                                          height: 13.w,
-                                        ),
-                                        Text(
-                                          '邓子乔',
-                                          style: TextStyle(
-                                              height: 1.08,
-                                              fontSize: 20.w,
-                                              color: const Color.fromARGB(
-                                                  255, 169, 169, 169)),
-                                        )
-                                      ],
-                                    ),
+                                    height: 13.w,
                                   ),
-                                  SizedBox(
-                                    width: 37.w,
-                                  ),
-                                  const IconBox()
+                                  Text(
+                                    '邓子乔',
+                                    style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: 20.w,
+                                        color: const Color.fromARGB(
+                                            255, 169, 169, 169)),
+                                  )
                                 ],
                               ),
                             ),
-                            Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
-                            const LJNFunctionItem(
-                              title: "查找聊天记录",
-                              link: '',
-                              underline: false,
+                            SizedBox(
+                              width: 37.w,
                             ),
-                            Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
-                            LJNFunctionItem(
-                              title: "消息免打扰",
-                              // link: '',
-                              underline: true,
-                              tapEffect: false,
-                              showStyle: Expanded(
-                                  flex: 0,
-                                  child: Container(
-                                      margin:
-                                          const EdgeInsets.only(right: 32).w,
-                                      child: LJNSwitch(
-                                        initialValue: false,
-                                        onChanged: (value) {
-                                          logger.info(value);
-                                        },
-                                      ))),
-                            ),
-                            LJNFunctionItem(
-                              title: "置顶聊天",
-                              // link: '',
-                              underline: true,
-                              tapEffect: false,
-                              showStyle: Expanded(
-                                  flex: 0,
-                                  child: Container(
-                                      margin:
-                                          const EdgeInsets.only(right: 32).w,
-                                      child: LJNSwitch(
-                                        initialValue: false,
-                                        onChanged: (value) {
-                                          logger.info(value);
-                                        },
-                                      ))),
-                            ),
-                            LJNFunctionItem(
-                              title: "提醒",
-                              // link: '',
-                              underline: false,
-                              tapEffect: false,
-                              showStyle: Expanded(
-                                  flex: 0,
-                                  child: Container(
-                                      margin:
-                                          const EdgeInsets.only(right: 32).w,
-                                      child: LJNSwitch(
-                                        initialValue: false,
-                                        onChanged: (value) {
-                                          logger.info(value);
-                                        },
-                                      ))),
-                            ),
-                            Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
-                            const LJNFunctionItem(
-                              title: "设置当前聊天背景",
-                              link: '',
-                              underline: false,
-                            ),
-                            Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
-                            const LJNFunctionItem(
-                              title: "清空聊天记录",
-                              link: '',
-                              underline: false,
-                            ),
-                            Container(
-                                color: const Color.fromARGB(255, 237, 237, 237),
-                                height: 16.w),
-                            const LJNFunctionItem(
-                              title: "投诉",
-                              link: '',
-                              underline: false,
-                            ),
-                          ])))));
-        });
+                            const IconBox()
+                          ],
+                        ),
+                      ),
+                      Container(
+                          color: const Color.fromARGB(255, 237, 237, 237),
+                          height: 16.w),
+                      const LJNFunctionItem(
+                        title: "查找聊天记录",
+                        link: '',
+                        underline: false,
+                      ),
+                      Container(
+                          color: const Color.fromARGB(255, 237, 237, 237),
+                          height: 16.w),
+                      LJNFunctionItem(
+                        title: "消息免打扰",
+                        // link: '',
+                        underline: true,
+                        tapEffect: false,
+                        showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                                margin: const EdgeInsets.only(right: 32).w,
+                                child: LJNSwitch(
+                                  initialValue: false,
+                                  onChanged: (value) {
+                                    logger.info(value);
+                                  },
+                                ))),
+                      ),
+                      LJNFunctionItem(
+                        title: "置顶聊天",
+                        // link: '',
+                        underline: true,
+                        tapEffect: false,
+                        showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                                margin: const EdgeInsets.only(right: 32).w,
+                                child: LJNSwitch(
+                                  initialValue: false,
+                                  onChanged: (value) {
+                                    logger.info(value);
+                                  },
+                                ))),
+                      ),
+                      LJNFunctionItem(
+                        title: "提醒",
+                        // link: '',
+                        underline: false,
+                        tapEffect: false,
+                        showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                                margin: const EdgeInsets.only(right: 32).w,
+                                child: LJNSwitch(
+                                  initialValue: false,
+                                  onChanged: (value) {
+                                    logger.info(value);
+                                  },
+                                ))),
+                      ),
+                      Container(
+                          color: const Color.fromARGB(255, 237, 237, 237),
+                          height: 16.w),
+                      const LJNFunctionItem(
+                        title: "设置当前聊天背景",
+                        link: '',
+                        underline: false,
+                      ),
+                      Container(
+                          color: const Color.fromARGB(255, 237, 237, 237),
+                          height: 16.w),
+                      const LJNFunctionItem(
+                        title: "清空聊天记录",
+                        link: '',
+                        underline: false,
+                      ),
+                      Container(
+                          color: const Color.fromARGB(255, 237, 237, 237),
+                          height: 16.w),
+                      const LJNFunctionItem(
+                        title: "投诉",
+                        link: '',
+                        underline: false,
+                      ),
+                    ])))));
   }
 }
 

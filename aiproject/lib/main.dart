@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/add_friends.dart';
 import 'package:jiaoyishuoflutter3/care_mode.dart';
 import 'package:jiaoyishuoflutter3/chat.dart';
@@ -53,8 +54,11 @@ import 'package:jiaoyishuoflutter3/settings/set_password.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
 import 'package:jiaoyishuoflutter3/settings/verify_phone.dart';
 import 'package:jiaoyishuoflutter3/settings/sound_lock.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
+
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
+import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:jiaoyishuoflutter3/teenage_mode.dart';
+import 'package:jiaoyishuoflutter3/test.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
 import 'package:jiaoyishuoflutter3/tools/file_server.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
@@ -65,16 +69,10 @@ import 'components/ljn_custom_physics.dart';
 import 'contact.dart';
 import 'logger.dart';
 import 'settings/account_info.dart';
+import 'store/counter/cubit/counter_cubit.dart';
 import 'tools/tools.dart';
 import 'user.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:flutter_native_splash/flutter_native_splash.dart';
-
-// import 'package:jiaoyishuoflutter3/provider.dart';
-// import 'package:provider/provider.dart';
-// import 'provider.dart' as provider;
 
 // 定义一个类来封装传递给 Isolate 的多个参数
 class FileServerParams {
@@ -113,16 +111,6 @@ void main() async {
     statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
   ));
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
-  myStore.dispatch({"type": "userinfoName", "payload": "李俊杰"});
-  myStore.dispatch({"type": "userinfoAccount", "payload": "TheMonsterClub"});
-  myStore.dispatch({"type": "userinfoPhone", "payload": "+8618825130917"});
-  // myStore.dispatch({"type": "walletBalance", "payload": 5630087.98});
-  myStore.dispatch({"type": "walletBalance", "payload": 3592.98});
-  // myStore.dispatch({"type": "walletBalance", "payload": 149.36});
-  myStore.dispatch({"type": "walletFoundationBalance", "payload": 0.0});
-  myStore
-      .dispatch({"type": "userinfoAvatar", "payload": "images/avatar/my.jpg"});
 
   startWebServer();
 
@@ -176,8 +164,12 @@ class _TabBarApp extends State<TabBarApp> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreProvider(
-        store: myStore,
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => CounterCubit()),
+          BlocProvider(create: (_) => SystemCubit()),
+          BlocProvider(create: (_) => UserCubit()),
+        ],
         child: ScreenUtilInit(
             designSize: const Size(750, 1624),
             ensureScreenSize: true,
@@ -349,11 +341,13 @@ class _TabBarApp extends State<TabBarApp> {
                   } else if (settings.name == "/friend_permissions") {
                     return pageRouteBuilderAnimation(
                         const LJNFriendPermissions());
+                  } else if (settings.name == "/test") {
+                    return pageRouteBuilderAnimation(const LJNTest());
                   }
 
                   return null;
                 },
-                theme: myStore.state.themeData,
+                theme: context.read<SystemCubit>().state.themeData,
                 scrollBehavior: const MaterialScrollBehavior().copyWith(
                   dragDevices: {
                     PointerDeviceKind.mouse,
@@ -434,14 +428,10 @@ class _CustomTabbarState extends State<CustomTabbar>
         });
       }
 
-      logger.info("tttttttttt: ${_tabController.animation!.value}");
-
       if ((_tabController.animation!.value - 1).abs() < 0.2) {
-        // logger.info("来了");
-        myStore.dispatch({"type": "contactazshow", "payload": true});
+        context.read<SystemCubit>().updateContactazshow(true);
       } else {
-        // logger.info("走了");
-        myStore.dispatch({"type": "contactazshow", "payload": false});
+        context.read<SystemCubit>().updateContactazshow(false);
       }
 
       if (_tabController.animation!.value >= 2 &&
@@ -484,6 +474,26 @@ class _CustomTabbarState extends State<CustomTabbar>
 
     // 移除开屏动画
     // FlutterNativeSplash.remove();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final size = MediaQuery.of(context).size;
+      context.read<SystemCubit>().updateScreenSize(size);
+
+      if (kIsWeb) {
+        context.read<SystemCubit>().updateStatusHeight(0);
+      } else {
+        context
+            .read<SystemCubit>()
+            .updateStatusHeight(MediaQuery.of(context).padding.top);
+      }
+
+      context.read<UserCubit>().updateName('李俊杰');
+      context.read<UserCubit>().updateAccount('TheMonsterClub');
+      context.read<UserCubit>().updatePhone('+8618825130917');
+      context.read<UserCubit>().updateWalletBalance(3592.98);
+      context.read<UserCubit>().updateWalletFoundationBalance(1005.85);
+      context.read<UserCubit>().updateAvatar("images/avatar/my.jpg");
+    });
   }
 
   @override
@@ -494,393 +504,382 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   @override
   Widget build(BuildContext context) {
-    if (myStore.state.screenSize == null) {
-      Size screenSize = MediaQuery.of(context).size;
-      myStore.state.screenSize = screenSize;
-    }
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      if (setStatusHeight == false) {
+        if (kIsWeb) {
+          context.read<SystemCubit>().updateStatusHeight(0);
+        } else {
+          context
+              .read<SystemCubit>()
+              .updateStatusHeight(MediaQuery.of(context).padding.top);
+        }
 
-    if (setStatusHeight == false) {
-      if (kIsWeb) {
-        // vm.statusHeight = 0;
-        myStore.dispatch({"type": "statusHeight", "payload": 0});
-      } else {
-        // vm.statusHeight = MediaQuery.of(context).padding.top;
-        myStore.dispatch({
-          "type": "statusHeight",
-          "payload": MediaQuery.of(context).padding.top
-        });
+        setStatusHeight = true;
       }
 
-      setStatusHeight = true;
-    }
+      Icon icon1 = Icon(
+        const IconData(
+          0xe7b3,
+          fontFamily: 'Iconfont',
+        ),
+        size: 45.w,
+      );
+      Icon icon2 = Icon(
+        const IconData(
+          0xe608,
+          fontFamily: 'Iconfont',
+        ),
+        size: 48.w,
+      );
+      Icon icon3 = Icon(
+        const IconData(
+          0xe61c,
+          fontFamily: 'Iconfont',
+        ),
+        size: 43.w,
+      );
+      Icon icon4 = Icon(
+        const IconData(
+          0xe63f,
+          fontFamily: 'Iconfont',
+        ),
+        size: 45.w,
+      );
 
-    Icon icon1 = Icon(
-      const IconData(
-        0xe7b3,
-        fontFamily: 'Iconfont',
-      ),
-      size: 45.w,
-    );
-    Icon icon2 = Icon(
-      const IconData(
-        0xe608,
-        fontFamily: 'Iconfont',
-      ),
-      size: 48.w,
-    );
-    Icon icon3 = Icon(
-      const IconData(
-        0xe61c,
-        fontFamily: 'Iconfont',
-      ),
-      size: 43.w,
-    );
-    Icon icon4 = Icon(
-      const IconData(
-        0xe63f,
-        fontFamily: 'Iconfont',
-      ),
-      size: 45.w,
-    );
+      // 新appbar透明度
+      double percent75Position =
+          systemState.screenSize.height * 0.25; // 开始显示新appbar的位置
 
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          // 新appbar透明度
-          double percent75Position =
-              vm.screenSize!.height * 0.25; // 开始显示新appbar的位置
+      // appbar标题
+      Text appBarTitle = const Text("");
+      if (changeIcon == 0) {
+        icon1 = Icon(
+          const IconData(
+            0xe676,
+            fontFamily: 'Iconfont',
+          ),
+          size: 45.w,
+        );
 
-          // appbar标题
-          Text appBarTitle = const Text("");
-          if (changeIcon == 0) {
-            icon1 = Icon(
-              const IconData(
-                0xe676,
-                fontFamily: 'Iconfont',
-              ),
-              size: 45.w,
-            );
+        appBarTitle = const Text("微信");
+      } else if (changeIcon == 1) {
+        icon2 = Icon(
+          const IconData(
+            0xe609,
+            fontFamily: 'Iconfont',
+          ),
+          size: 48.w,
+        );
 
-            appBarTitle = const Text("微信");
-          } else if (changeIcon == 1) {
-            icon2 = Icon(
-              const IconData(
-                0xe609,
-                fontFamily: 'Iconfont',
-              ),
-              size: 48.w,
-            );
+        appBarTitle = const Text("通信录");
+      } else if (changeIcon == 2) {
+        icon3 = Icon(
+          const IconData(
+            0xe638,
+            fontFamily: 'Iconfont',
+          ),
+          size: 43.w,
+        );
 
-            appBarTitle = const Text("通信录");
-          } else if (changeIcon == 2) {
-            icon3 = Icon(
-              const IconData(
-                0xe638,
-                fontFamily: 'Iconfont',
-              ),
-              size: 43.w,
-            );
+        appBarTitle = const Text("发现");
+      } else if (changeIcon == 3) {
+        icon4 = Icon(
+          const IconData(
+            0xe62b,
+            fontFamily: 'Iconfont',
+          ),
+          size: 48.w,
+        );
 
-            appBarTitle = const Text("发现");
-          } else if (changeIcon == 3) {
-            icon4 = Icon(
-              const IconData(
-                0xe62b,
-                fontFamily: 'Iconfont',
-              ),
-              size: 48.w,
-            );
+        appBarTitle = const Text("我的");
+      }
 
-            appBarTitle = const Text("我的");
-          }
-
-          return Stack(
-            children: [
-              // 主界面
-              Scaffold(
-                  primary: false,
-                  bottomNavigationBar: Visibility(
-                      visible: vm.showMiniProgramDrawer == false,
-                      child: Container(
-                          height: 106.w,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 237, 237, 237),
-                              border: Border(
-                                  top: BorderSide(
-                                color: const Color.fromARGB(255, 220, 220, 220),
-                                width: 1.5.w,
-                                style: BorderStyle.solid,
-                              ))),
-                          child: TabBar(
-                            dividerColor:
-                                const Color.fromARGB(255, 218, 218, 218),
-                            labelColor: const Color.fromARGB(255, 7, 192, 103),
-                            labelStyle: TextStyle(
-                                height: 1.08, fontSize: fontSizeScale(22.w)),
-                            unselectedLabelColor:
-                                const Color.fromARGB(222, 0, 0, 0),
-                            indicator: const BoxDecoration(),
-                            indicatorColor: Colors.transparent,
-                            controller: _tabController,
-                            overlayColor: WidgetStateProperty.all(
-                                const Color(0x00000000)),
-                            tabs: <Widget>[
-                              Tab(
-                                height: 105.w,
-                                iconMargin: EdgeInsets.only(bottom: 8.w),
-                                icon: SizedBox(
-                                    height: 50.w,
-                                    width: 50.w,
-                                    // color: Colors.red,
-                                    child: Center(child: icon1)),
-                                text: "微信",
-                              ),
-                              Tab(
-                                height: 105.w,
-                                iconMargin: EdgeInsets.only(bottom: 8.w),
-                                icon: SizedBox(
-                                    height: 50.w,
-                                    width: 50.w,
-                                    // color: Colors.red,
-                                    child: Center(child: icon2)),
-                                text: "通信录",
-                              ),
-                              Tab(
-                                height: 105.w,
-                                iconMargin: EdgeInsets.only(bottom: 8.w),
-                                icon: SizedBox(
-                                    height: 50.w,
-                                    width: 50.w,
-                                    // color: Colors.red,
-                                    child: Center(child: icon3)),
-                                text: "发现",
-                              ),
-                              Tab(
-                                height: 105.w,
-                                iconMargin: EdgeInsets.only(bottom: 8.w),
-                                icon: SizedBox(
-                                    height: 50.w,
-                                    width: 50.w,
-                                    // color: Colors.red,
-                                    child: Center(child: icon4)),
-                                text: "我",
-                              ),
-                            ],
+      return Stack(
+        children: [
+          // 主界面
+          Scaffold(
+              primary: false,
+              bottomNavigationBar: Visibility(
+                  visible: systemState.showMiniProgramDrawer == false,
+                  child: Container(
+                      height: 106.w,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 237, 237, 237),
+                          border: Border(
+                              top: BorderSide(
+                            color: const Color.fromARGB(255, 220, 220, 220),
+                            width: 1.5.w,
+                            style: BorderStyle.solid,
                           ))),
-                  appBar: null,
-                  body: Stack(children: [
-                    TabBarView(
-                      physics: vm.showMiniProgramDrawer == true
-                          ? const NeverScrollableScrollPhysics()
-                          : const CustomTabBarViewScrollPhysics(),
-                      controller: _tabController,
-                      children: const <Widget>[
-                        // LJNTestPage(),
-                        LJNHome22Page(),
-                        LJNContactPage(),
-                        LJNDiscoveryPage(),
-                        LJNUserPage(),
-                      ],
-                    ),
+                      child: TabBar(
+                        dividerColor: const Color.fromARGB(255, 218, 218, 218),
+                        labelColor: const Color.fromARGB(255, 7, 192, 103),
+                        labelStyle: TextStyle(
+                            height: 1.08, fontSize: fontSizeScale(22.w)),
+                        unselectedLabelColor:
+                            const Color.fromARGB(222, 0, 0, 0),
+                        indicator: const BoxDecoration(),
+                        indicatorColor: Colors.transparent,
+                        controller: _tabController,
+                        overlayColor:
+                            WidgetStateProperty.all(const Color(0x00000000)),
+                        tabs: <Widget>[
+                          Tab(
+                            height: 105.w,
+                            iconMargin: EdgeInsets.only(bottom: 8.w),
+                            icon: SizedBox(
+                                height: 50.w,
+                                width: 50.w,
+                                // color: Colors.red,
+                                child: Center(child: icon1)),
+                            text: "微信",
+                          ),
+                          Tab(
+                            height: 105.w,
+                            iconMargin: EdgeInsets.only(bottom: 8.w),
+                            icon: SizedBox(
+                                height: 50.w,
+                                width: 50.w,
+                                // color: Colors.red,
+                                child: Center(child: icon2)),
+                            text: "通信录",
+                          ),
+                          Tab(
+                            height: 105.w,
+                            iconMargin: EdgeInsets.only(bottom: 8.w),
+                            icon: SizedBox(
+                                height: 50.w,
+                                width: 50.w,
+                                // color: Colors.red,
+                                child: Center(child: icon3)),
+                            text: "发现",
+                          ),
+                          Tab(
+                            height: 105.w,
+                            iconMargin: EdgeInsets.only(bottom: 8.w),
+                            icon: SizedBox(
+                                height: 50.w,
+                                width: 50.w,
+                                // color: Colors.red,
+                                child: Center(child: icon4)),
+                            text: "我",
+                          ),
+                        ],
+                      ))),
+              appBar: null,
+              body: Stack(children: [
+                TabBarView(
+                  physics: systemState.showMiniProgramDrawer == true
+                      ? const NeverScrollableScrollPhysics()
+                      : const CustomTabBarViewScrollPhysics(),
+                  controller: _tabController,
+                  children: const <Widget>[
+                    // LJNTestPage(),
+                    LJNHome22Page(),
+                    LJNContactPage(),
+                    LJNDiscoveryPage(),
+                    LJNUserPage(),
+                  ],
+                ),
 
-                    // 背景
-                    if (showpopup) ...[
-                      GestureDetector(
-                          onTapDown: (_) {
-                            setState(() {
-                              showpopup = !showpopup;
-                            });
-                          },
-                          child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height,
-                              color: Colors.transparent)),
+                // 背景
+                if (showpopup) ...[
+                  GestureDetector(
+                      onTapDown: (_) {
+                        setState(() {
+                          showpopup = !showpopup;
+                        });
+                      },
+                      child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          color: Colors.transparent)),
 
-                      // 弹出扫码菜单
-                      Positioned(
-                          right: 15.w,
-                          top: vm.statusHeight! + 80.w,
-                          child: SizedBox(
-                            width: 320.w,
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: 320.w,
-                                  padding: EdgeInsets.only(right: 32.w),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      SizedBox(
-                                          width: 36.w,
-                                          height: 20.w,
-                                          child: Icon(
-                                            color: const Color.fromARGB(
-                                                255, 76, 76, 76),
-                                            const IconData(
-                                              0xe62c,
-                                              fontFamily: 'Iconfont',
-                                            ),
-                                            size: 42.w,
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.0).w,
-                                    color:
-                                        const Color.fromARGB(255, 76, 76, 76),
-                                  ),
-                                  width: 320.w,
-                                  height: 425.w,
-                                  child: Column(
-                                    children: [
-                                      // 发起群聊
-                                      LJNPopupMenuItem(
-                                        title: "发起群聊",
-                                        icon: 0xe676,
-                                        onTap: () {
-                                          setState(() {
-                                            showpopup = false;
-                                          });
-                                        },
-                                      ),
-
-                                      LJNPopupMenuItem(
-                                        title: "添加朋友",
-                                        icon: 0xe61f,
-                                        onTap: () {
-                                          setState(() {
-                                            showpopup = false;
-                                          });
-                                          Navigator.pushNamed(
-                                              context, '/add_friends');
-                                        },
-                                      ),
-
-                                      LJNPopupMenuItem(
-                                        title: "扫一扫",
-                                        icon: 0xe69a,
-                                        onTap: () {
-                                          setState(() {
-                                            showpopup = false;
-                                          });
-                                          Navigator.pushNamed(
-                                              context, '/qrcode_scanner');
-                                        },
-                                      ),
-
-                                      LJNPopupMenuItem(
-                                        title: "收付款",
-                                        icon: 0xe611,
-                                        onTap: () {
-                                          setState(() {
-                                            showpopup = false;
-                                          });
-                                          Navigator.pushNamed(context,
-                                              '/collection_and_payment');
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ))
-                    ]
-                  ])),
-
-              // 浮动在顶部的appbar
-              Visibility(
-                visible: (vm.homescrollpixels + vm.statusHeight!) <=
-                    percent75Position,
-                child: Positioned(
-                    top: vm.homescrollpixels,
-                    left: _appbarLeft,
-                    child: Container(
-                        width: 750.0.w,
-                        height: vm.statusHeight! + 90.w,
-                        color: vm.homescrollpixels == 0
-                            ? const Color.fromARGB(255, 237, 237, 237)
-                            : Colors.transparent,
-                        // color: vm.homescrollpixels == 0
-                        //     ? const Color.fromARGB(255, 237, 237, 237)
-                        //     : Colors.red,
-                        child: Listener(
-                            onPointerUp: (event) {
-                              myStore.dispatch({
-                                "type": "showMiniProgramDrawer",
-                                "payload": false
-                              });
-                            },
-                            child: Column(
+                  // 弹出扫码菜单
+                  Positioned(
+                      right: 15.w,
+                      top: systemState.statusHeight + 80.w,
+                      child: SizedBox(
+                        width: 320.w,
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 320.w,
+                              padding: EdgeInsets.only(right: 32.w),
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  AppBar(
-                                    // App标题栏
-                                    primary: false,
-                                    title: appBarTitle,
-                                    centerTitle: true,
-                                    titleTextStyle: TextStyle(
-                                        height: 1.08,
-                                        fontSize: fontSizeScale(32.w),
-                                        color: Colors.black,
-                                        fontFamily: "AlibabaPuHuiTi-Medium"),
-                                    toolbarHeight: 90.w,
-                                    elevation: 0,
-                                    scrolledUnderElevation: 0,
-                                    backgroundColor: const Color.fromARGB(
-                                        255, 237, 237, 237),
-                                    foregroundColor: const Color.fromARGB(
-                                        255, 237, 237, 237),
-                                    actions: [
-                                      GestureDetector(
-                                        onTap: () {},
-                                        child: Container(
-                                          color: Colors.transparent,
-                                          height: 90.w,
-                                          padding: EdgeInsets.only(
-                                              right: 33.w), // 设置右侧内边距
-                                          child: Icon(
-                                            const IconData(
-                                              0xe612,
-                                              fontFamily: 'Iconfont',
-                                            ),
-                                            size: 40.w, // 图标大小
-                                          ),
+                                  SizedBox(
+                                      width: 36.w,
+                                      height: 20.w,
+                                      child: Icon(
+                                        color: const Color.fromARGB(
+                                            255, 76, 76, 76),
+                                        const IconData(
+                                          0xe62c,
+                                          fontFamily: 'Iconfont',
                                         ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          if (vm.homescrollpixels == 0) {
-                                            setState(() {
-                                              showpopup = !showpopup;
-                                            });
-                                          }
-                                        },
-                                        child: Container(
-                                          color: Colors.transparent,
-                                          height: 90.w,
-                                          padding: EdgeInsets.only(
-                                              right: 40.w), // 设置右侧内边距
-                                          alignment: Alignment.center,
-                                          child: Icon(
-                                            const IconData(
-                                              0xe726,
-                                              fontFamily: 'Iconfont',
-                                            ),
-                                            size: 42.w, // 图标大小
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                        size: 42.w,
+                                      ))
+                                ],
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0).w,
+                                color: const Color.fromARGB(255, 76, 76, 76),
+                              ),
+                              width: 320.w,
+                              height: 425.w,
+                              child: Column(
+                                children: [
+                                  // 发起群聊
+                                  LJNPopupMenuItem(
+                                    title: "发起群聊",
+                                    icon: 0xe676,
+                                    onTap: () {
+                                      setState(() {
+                                        showpopup = false;
+                                      });
+                                    },
                                   ),
-                                ])))),
-              ),
-            ],
-          );
-        });
+
+                                  LJNPopupMenuItem(
+                                    title: "添加朋友",
+                                    icon: 0xe61f,
+                                    onTap: () {
+                                      setState(() {
+                                        showpopup = false;
+                                      });
+                                      Navigator.pushNamed(
+                                          context, '/add_friends');
+                                    },
+                                  ),
+
+                                  LJNPopupMenuItem(
+                                    title: "扫一扫",
+                                    icon: 0xe69a,
+                                    onTap: () {
+                                      setState(() {
+                                        showpopup = false;
+                                      });
+                                      Navigator.pushNamed(
+                                          context, '/qrcode_scanner');
+                                    },
+                                  ),
+
+                                  LJNPopupMenuItem(
+                                    title: "收付款",
+                                    icon: 0xe611,
+                                    onTap: () {
+                                      setState(() {
+                                        showpopup = false;
+                                      });
+                                      Navigator.pushNamed(
+                                          context, '/collection_and_payment');
+                                    },
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ))
+                ]
+              ])),
+
+          // 浮动在顶部的appbar
+          Visibility(
+            visible:
+                (systemState.homescrollpixels + systemState.statusHeight) <=
+                    percent75Position,
+            child: Positioned(
+                top: systemState.homescrollpixels,
+                left: _appbarLeft,
+                child: Container(
+                    width: 750.0.w,
+                    height: systemState.statusHeight + 90.w,
+                    color: systemState.homescrollpixels == 0
+                        ? const Color.fromARGB(255, 237, 237, 237)
+                        : Colors.transparent,
+                    // color: systemState.homescrollpixels == 0
+                    //     ? const Color.fromARGB(255, 237, 237, 237)
+                    //     : Colors.red,
+                    child: Listener(
+                        onPointerUp: (event) {
+                          context
+                              .read<SystemCubit>()
+                              .updateShowMiniProgramDrawer(false);
+                        },
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              AppBar(
+                                // App标题栏
+                                primary: false,
+                                title: appBarTitle,
+                                centerTitle: true,
+                                titleTextStyle: TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(32.w),
+                                    color: Colors.black,
+                                    fontFamily: "AlibabaPuHuiTi-Medium"),
+                                toolbarHeight: 90.w,
+                                elevation: 0,
+                                scrolledUnderElevation: 0,
+                                backgroundColor:
+                                    const Color.fromARGB(255, 237, 237, 237),
+                                foregroundColor:
+                                    const Color.fromARGB(255, 237, 237, 237),
+                                actions: [
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      height: 90.w,
+                                      padding: EdgeInsets.only(
+                                          right: 33.w), // 设置右侧内边距
+                                      child: Icon(
+                                        const IconData(
+                                          0xe612,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        size: 40.w, // 图标大小
+                                      ),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (systemState.homescrollpixels == 0) {
+                                        setState(() {
+                                          showpopup = !showpopup;
+                                        });
+                                      }
+                                    },
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      height: 90.w,
+                                      padding: EdgeInsets.only(
+                                          right: 40.w), // 设置右侧内边距
+                                      alignment: Alignment.center,
+                                      child: Icon(
+                                        const IconData(
+                                          0xe726,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        size: 42.w, // 图标大小
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ])))),
+          ),
+        ],
+      );
+    });
   }
 }
 

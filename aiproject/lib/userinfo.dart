@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
+import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
-
 import 'components/ljn_function_item.dart';
 
 class LJNUserinfoPage extends StatefulWidget {
@@ -22,15 +22,14 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return _buildPage(vm);
-        });
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return _buildPage(systemState);
+    });
   }
 
   // 另起一个函数方便管理
-  Widget _buildPage(StoreType vm) {
+  Widget _buildPage(SystemState systemState) {
     return Scaffold(
         primary: false,
         appBar: const LJNAppBar(
@@ -41,7 +40,9 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: Container(
                 constraints: BoxConstraints(
-                    minHeight: vm.screenSize!.height - 90.w - vm.statusHeight!),
+                    minHeight: systemState.screenSize.height -
+                        90.w -
+                        systemState.statusHeight),
                 color: const Color.fromARGB(255, 237, 237, 237),
                 child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(
@@ -61,7 +62,10 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                                   ClipRRect(
                                       borderRadius: BorderRadius.circular(10).w,
                                       child: Image.asset(
-                                        assetPath(vm.userinfoAvatar!),
+                                        assetPath(context
+                                            .read<UserCubit>()
+                                            .state
+                                            .userinfoAvatar!),
                                         cacheWidth: 240.w.toInt(),
                                         cacheHeight: 240.w.toInt(),
                                         width: 120.w,
@@ -76,7 +80,8 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                         title: "名字",
                         // icon: "images/icon/discovery_icon2.png",
                         link: '',
-                        showStyle: vm.userinfoName!,
+                        showStyle:
+                            context.read<UserCubit>().state.userinfoName!,
                         underline: true,
                       ),
                       const LJNFunctionItem(
@@ -89,7 +94,8 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                       LJNFunctionItem(
                         title: "微信号",
                         link: '/accountinfo',
-                        showStyle: vm.userinfoAccount!,
+                        showStyle:
+                            context.read<UserCubit>().state.userinfoAccount,
                         underline: true,
                       ),
 

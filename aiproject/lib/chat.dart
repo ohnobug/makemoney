@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_my_voice_message.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_receive_message.dart';
@@ -9,14 +10,14 @@ import 'package:jiaoyishuoflutter3/components/ljn_receive_video_message.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_video_draggable_box.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_video_message.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/emoji_selector.dart';
+import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vibration/vibration.dart';
 import 'components/ljn_my_message.dart';
+import 'store/system/cubit/system_cubit.dart';
 import 'tools/tools.dart';
 import 'package:lottie/lottie.dart';
 import 'package:record/record.dart';
@@ -819,696 +820,759 @@ class _LJNChatPage extends State<LJNChatPage>
       _scrollToEnd();
     });
 
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return Scaffold(
-              // 是否在键盘弹出时调整布局（避免被键盘遮挡）。
-              resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-              primary: false,
-              extendBody: false,
-              appBar: null,
-              body: Stack(
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return Scaffold(
+          // 是否在键盘弹出时调整布局（避免被键盘遮挡）。
+          resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+          primary: false,
+          extendBody: false,
+          appBar: null,
+          body: Stack(
+            children: [
+              Column(
                 children: [
-                  Column(
-                    children: [
-                      // 标题栏
-                      LJNAppBar(
-                        title: widget.title,
-                        actions: [
-                          GestureDetector(
-                            onTap: () {
-                              // 点击事件
-                              Navigator.pushNamed(
-                                context,
-                                '/friend_message_record',
-                              );
-                            },
-                            child: Container(
-                              height: 90.w,
-                              color: Colors.transparent,
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                              child: Icon(
-                                const IconData(
-                                  0xe659,
-                                  fontFamily: 'Iconfont',
-                                ),
-                                size: 37.w, // 图标大小
-                              ),
+                  // 标题栏
+                  LJNAppBar(
+                    title: widget.title,
+                    actions: [
+                      GestureDetector(
+                        onTap: () {
+                          // 点击事件
+                          Navigator.pushNamed(
+                            context,
+                            '/friend_message_record',
+                          );
+                        },
+                        child: Container(
+                          height: 90.w,
+                          color: Colors.transparent,
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                          child: Icon(
+                            const IconData(
+                              0xe659,
+                              fontFamily: 'Iconfont',
                             ),
-                          )
-                        ],
-                      ),
-
-                      // 主体
-                      Expanded(
-                          child: Column(
-                        children: [
-                          // 聊天信息
-                          Expanded(
-                              flex: 1,
-                              child: ColoredBox(
-                                  color:
-                                      const Color.fromARGB(255, 237, 237, 237),
-                                  child: ScrollConfiguration(
-                                    behavior: ScrollConfiguration.of(context)
-                                        .copyWith(scrollbars: false),
-                                    child: Listener(
-                                        onPointerDown: (e) {
-                                          if (showEmojiSelector) {
-                                            hideEmojiFunc();
-                                          } else if (showKeyboard) {
-                                            hideKeyboardFunc();
-                                          }
-                                        },
-                                        child: SingleChildScrollView(
-                                          padding: EdgeInsets.only(
-                                              top: 30.w, bottom: 30.w),
-                                          controller: _scrollController,
-                                          physics:
-                                              const AlwaysScrollableScrollPhysics(
-                                                  parent:
-                                                      BouncingScrollPhysics()),
-                                          child: messageList.isEmpty
-                                              ? Container()
-                                              : Column(
-                                                  children: messageList,
-                                                ),
-                                        )),
-                                  ))),
-
-                          // 输入部分
-                          Expanded(
-                              flex: 0,
-                              child: Container(
-                                  constraints: BoxConstraints(minHeight: 107.w),
-                                  width: vm.screenSize!.width,
-                                  // margin: EdgeInsets.only(bottom: inputMarginBottom),
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 247, 247, 247),
-                                      border: Border(
-                                          top: BorderSide(
-                                        color: const Color.fromARGB(
-                                            255, 231, 231, 231),
-                                        width: 1.5.w,
-                                        style: BorderStyle.solid,
-                                      ))),
-                                  child: Row(
-                                    // mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: showVoiceButton
-                                        ? CrossAxisAlignment.center
-                                        : CrossAxisAlignment.end,
-                                    children: [
-                                      // 语音按钮
-                                      GestureDetector(
-                                          onTap: () {
-                                            if (showEmojiSelector) {
-                                              hideEmojiFunc();
-                                            } else if (showKeyboard) {
-                                              hideKeyboardFunc();
-                                            }
-
-                                            setState(() {
-                                              showVoiceButton =
-                                                  !showVoiceButton;
-                                            });
-                                            if (!showVoiceButton) {
-                                              showKeyboardFunc();
-                                            }
-                                          },
-                                          child: Container(
-                                            color: Colors.transparent,
-                                            width: 97.w,
-                                            height: 107.w,
-                                            padding: EdgeInsets.only(
-                                                left: 20.w, right: 20.w),
-                                            child: Icon(
-                                              const IconData(
-                                                0xe66c,
-                                                fontFamily: 'Iconfont',
-                                              ),
-                                              size: 56.w, // 图标大小
-                                            ),
-                                          )),
-
-                                      showVoiceButton
-                                          ?
-                                          // 长按录音
-                                          Expanded(
-                                              flex: 1,
-                                              child: Listener(
-                                                onPointerDown: (PointerDownEvent
-                                                    event) async {
-                                                  // 手指按下时
-                                                  setState(() {
-                                                    showVoiceLottie = true;
-                                                  });
-
-                                                  // 震动
-                                                  triggerVibration();
-
-                                                  if (!_voiceLottieController
-                                                      .isAnimating) {
-                                                    _voiceLottieController
-                                                        .forward();
-                                                  }
-
-                                                  record = AudioRecorder();
-
-                                                  // 拼接本地存储的文件路径
-                                                  wmaPath =
-                                                      await getWMAFilePath();
-
-                                                  logger.info("开始录音 $wmaPath");
-
-                                                  if (await record!
-                                                      .hasPermission()) {
-                                                    record!.stop();
-                                                    record!.cancel();
-
-                                                    beginRecordTime =
-                                                        DateTime.now();
-
-                                                    // Start recording to file
-                                                    await record!.start(
-                                                        const RecordConfig(),
-                                                        path: wmaPath!);
-
-                                                    // await record!.startStream(
-                                                    //     const RecordConfig(
-                                                    //         encoder:
-                                                    //             AudioEncoder
-                                                    //                 .pcm16bits));
-                                                  }
-                                                },
-                                                onPointerMove:
-                                                    (PointerMoveEvent event) {
-                                                  double svgTop =
-                                                      vm.screenSize!.height -
-                                                          260.0.w;
-
-                                                  // 语音录制动画上的区域
-                                                  if (event.position.dy <
-                                                      svgTop) {
-                                                    double right =
-                                                        vm.screenSize!.width -
-                                                            260.0.w;
-
-                                                    logger.info(
-                                                        "dddddddddddd${event.position.dx}");
-
-                                                    logger.info(
-                                                        "fffffffffffff$right");
-
-                                                    setState(() {
-                                                      leftRight =
-                                                          event.position.dx >
-                                                                  right
-                                                              ? 2
-                                                              : 1;
-                                                    });
-
-                                                    setState(() {
-                                                      showCancelVoiceButtons =
-                                                          true;
-                                                    });
-
-                                                    // 手指滑动右边
-                                                    if (leftRight == 2) {
-                                                      if (_voiceLeftButtonColorController
-                                                              .value ==
-                                                          1) {
-                                                        _voiceLeftButtonColorController
-                                                            .reset();
-                                                      }
-
-                                                      if (_voiceLeftButtonScaleController
-                                                              .value ==
-                                                          1) {
-                                                        _voiceLeftButtonScaleController
-                                                            .reset();
-                                                      }
-
-                                                      if (!_voiceRightButtonColorController
-                                                          .isAnimating) {
-                                                        _voiceRightButtonColorController
-                                                            .forward();
-                                                      }
-
-                                                      if (!_voiceRightButtonScaleController
-                                                          .isAnimating) {
-                                                        _voiceRightButtonScaleController
-                                                            .forward();
-                                                      }
-
-                                                      if (!_voiceTextBoxController
-                                                          .isAnimating) {
-                                                        _voiceTextBoxController
-                                                            .forward();
-                                                      }
-                                                    } else {
-                                                      if (_voiceRightButtonColorController
-                                                              .value ==
-                                                          1) {
-                                                        _voiceRightButtonColorController
-                                                            .reset();
-                                                      }
-                                                      if (_voiceRightButtonScaleController
-                                                              .value ==
-                                                          1) {
-                                                        _voiceRightButtonScaleController
-                                                            .reset();
-                                                      }
-
-                                                      if (!_voiceLeftButtonColorController
-                                                          .isAnimating) {
-                                                        _voiceLeftButtonColorController
-                                                            .forward();
-                                                      }
-
-                                                      if (!_voiceLeftButtonScaleController
-                                                          .isAnimating) {
-                                                        _voiceLeftButtonScaleController
-                                                            .forward();
-                                                      }
-
-                                                      if (!_voiceTextBoxController
-                                                          .isAnimating) {
-                                                        _voiceTextBoxController
-                                                            .reverse();
-                                                      }
-                                                    }
-                                                  } else {
-                                                    _voiceLeftButtonColorController
-                                                        .value = 0;
-                                                    _voiceLeftButtonScaleController
-                                                        .value = 0;
-                                                    _voiceRightButtonColorController
-                                                        .value = 0;
-                                                    _voiceRightButtonScaleController
-                                                        .value = 0;
-
-                                                    _voiceTextBoxController
-                                                        .value = 0;
-
-                                                    setState(() {
-                                                      showCancelVoiceButtons =
-                                                          false;
-
-                                                      leftRight = 0;
-                                                    });
-                                                  }
-                                                },
-                                                onPointerUp:
-                                                    (PointerUpEvent event) {
-                                                  _voiceButtonUp();
-                                                },
-                                                onPointerCancel:
-                                                    (PointerCancelEvent event) {
-                                                  _voiceButtonUp();
-                                                },
-                                                child: Container(
-                                                  height: 77.w,
-                                                  padding: EdgeInsets.zero,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.w),
-                                                  ),
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    "按住 说话",
-                                                    style: TextStyle(
-                                                      fontSize: 31.w,
-                                                      height: 1.08,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          :
-                                          // 消息输入框
-                                          Expanded(
-                                              flex: 1,
-                                              child: Container(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                              top: 16,
-                                                              bottom: 16)
-                                                          .w,
-                                                  child: TextField(
-                                                    readOnly: false,
-                                                    autofocus: false,
-                                                    showCursor: true,
-                                                    keyboardType: keyboardType,
-                                                    controller: inputController,
-                                                    focusNode: inputFocusNode,
-                                                    onTap: () {
-                                                      logger.info(
-                                                          "showEmojiSelector: $showEmojiSelector");
-                                                      logger.info(
-                                                          "showKeyboard: $showKeyboard");
-
-                                                      if (showEmojiSelector ==
-                                                              false &&
-                                                          showKeyboard ==
-                                                              false) {
-                                                        showKeyboardFunc();
-                                                      } else if (showEmojiSelector ==
-                                                              true &&
-                                                          showKeyboard ==
-                                                              false) {
-                                                        switchKeyboradFunc();
-                                                      }
-                                                    },
-                                                    cursorColor:
-                                                        const Color.fromRGBO(
-                                                            62, 174, 86, 1.0),
-                                                    // cursorHeight: 44.w,
-                                                    cursorWidth: 3.w,
-                                                    style: TextStyle(
-                                                        // height: 1.08,
-                                                        fontSize:
-                                                            fontSizeScale(30.w),
-                                                        color: Colors.black),
-                                                    // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
-                                                    maxLines: 5,
-                                                    minLines: 1,
-                                                    onChanged: (newText) {
-                                                      inputController.value =
-                                                          inputController.value
-                                                              .copyWith(
-                                                        text: newText,
-                                                        selection: TextSelection
-                                                            .fromPosition(
-                                                          TextPosition(
-                                                              offset: newText
-                                                                  .length),
-                                                        ),
-                                                      );
-
-                                                      if (inputController
-                                                          .text.isEmpty) {
-                                                        _animationController
-                                                            .reverse()
-                                                            .whenComplete(() {
-                                                          setState(() {
-                                                            showPlusIcon = true;
-                                                          });
-                                                        });
-                                                      } else {
-                                                        setState(() {
-                                                          showPlusIcon = false;
-                                                        });
-                                                        _animationController
-                                                            .forward();
-                                                      }
-                                                    },
-                                                    decoration: InputDecoration(
-                                                      fillColor: Colors.white,
-                                                      filled: true,
-                                                      // focusColor: Colors.red,
-                                                      hoverColor: Colors.white,
-                                                      isCollapsed: true,
-                                                      contentPadding:
-                                                          const EdgeInsets
-                                                                  .symmetric(
-                                                                  vertical: 14,
-                                                                  horizontal:
-                                                                      16)
-                                                              .w,
-                                                      border:
-                                                          const OutlineInputBorder(
-                                                              gapPadding: 0,
-                                                              borderSide:
-                                                                  BorderSide
-                                                                      .none),
-                                                      // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                      // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                      // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                      // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                      // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
-                                                    ),
-                                                  ))
-                                              // 经调查 C:\flutter\packages\flutter\lib\src\widgets\editable_text.dart  4239行控制必须得到焦点才显示光标
-                                              ),
-
-                                      // 笑脸按钮
-                                      GestureDetector(
-                                        onTap: () {
-                                          logger.info(
-                                              "showEmojiSelector: $showEmojiSelector  showKeyboard: $showKeyboard");
-
-                                          if (showEmojiSelector == false &&
-                                              showKeyboard == false) {
-                                            showEmojiFunc(
-                                                _emojiPanelAnimationContentController
-                                                        .isAnimating
-                                                    ? _emojiPanelAnimationContentController
-                                                        .value
-                                                    : 0);
-                                          } else if (showEmojiSelector ==
-                                                  false &&
-                                              showKeyboard == true) {
-                                            switchEmojiFunc();
-                                          } else if (showEmojiSelector ==
-                                                  true &&
-                                              showKeyboard == false) {
-                                            logger.info("aaaaaa 切换到键盘");
-                                            switchKeyboradFunc();
-                                          }
-                                        },
-                                        child: Container(
-                                          color: Colors.transparent,
-                                          width: 102.w,
-                                          height: 107.w,
-                                          padding: EdgeInsets.only(
-                                              left: 20.w, right: 25.w),
-                                          child: Icon(
-                                            const IconData(
-                                              0xe702,
-                                              fontFamily: 'Iconfont',
-                                            ),
-                                            size: 49.w, // 图标大小
-                                          ),
-                                        ),
-                                      ),
-
-                                      // 发送按钮 与 图标变换
-                                      AnimatedBuilder(
-                                        animation: _animationController,
-                                        builder: (context, child) {
-                                          return Visibility(
-                                              visible: !showPlusIcon,
-                                              child: GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      var message =
-                                                          inputController.text;
-
-                                                      // 发送消息
-                                                      messageList
-                                                          .add(LJNMyMessage(
-                                                        message:
-                                                            message.trimRight(),
-                                                        name: vm.userinfoName
-                                                            as String,
-                                                        showName: false,
-                                                      ));
-                                                      inputController.text = "";
-
-                                                      // 发送消息后滚动到底部
-                                                      WidgetsBinding.instance
-                                                          .addPostFrameCallback(
-                                                              (_) {
-                                                        _scrollToEnd();
-                                                      });
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    margin: EdgeInsets.only(
-                                                        // top: 16.w,
-                                                        bottom: 24.w,
-                                                        right: 15.w),
-                                                    width:
-                                                        _widthAnimation.value,
-                                                    height: 60.w,
-                                                    decoration: BoxDecoration(
-                                                      color: _colorAnimation
-                                                          .value!,
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  10.w)),
-                                                    ),
-                                                    child: _widthAnimation
-                                                                .value >=
-                                                            113.w
-                                                        ? Center(
-                                                            child: Text(
-                                                              "发送",
-                                                              style: TextStyle(
-                                                                  height: 1.08,
-                                                                  fontSize:
-                                                                      fontSizeScale(
-                                                                          27.w),
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                          )
-                                                        : null,
-                                                  )));
-                                        },
-                                      ),
-
-                                      // 加号
-                                      Visibility(
-                                          visible: showPlusIcon,
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                logger.info("加号被点击"); // 点击事件
-                                              },
-                                              child: Container(
-                                                color: Colors.transparent,
-                                                width: 87.w,
-                                                height: 107.w,
-                                                padding: EdgeInsets.only(
-                                                    right: 20.w),
-                                                alignment: Alignment.center,
-                                                child: Icon(
-                                                  const IconData(
-                                                    0xe726,
-                                                    fontFamily: 'Iconfont',
-                                                  ),
-                                                  size: 57.w, // 图标大小
-                                                ),
-                                              )))
-                                    ],
-                                  ))),
-
-                          // 图标选择器
-                          AnimatedBuilder(
-                            animation: _emojiPanelAnimationContentController,
-                            builder: (context, child) {
-                              return Expanded(
-                                  flex: 0,
-                                  child: SizedBox(
-                                      width: vm.screenSize!.width,
-                                      height: _keyboradAnimation.value,
-                                      // color: Colors.red,
-                                      child: showEmojiSelector
-                                          ? const LJNEmojiSelector()
-                                          : null));
-                            },
+                            size: 37.w, // 图标大小
                           ),
-                        ],
-                      ))
+                        ),
+                      )
                     ],
                   ),
 
-                  // 视频放大
-                  showFullScreenVideo
-                      ? LJNVideoDraggableBox(
-                          openBoxSize: openBoxSize,
-                          openPosition: openPosition,
-                          videoPath: videoPath,
-                          onClose: () {
-                            setState(() {
-                              showFullScreenVideo = false;
-                            });
-                          },
-                        )
-                      : Container(),
+                  // 主体
+                  Expanded(
+                      child: Column(
+                    children: [
+                      // 聊天信息
+                      Expanded(
+                          flex: 1,
+                          child: ColoredBox(
+                              color: const Color.fromARGB(255, 237, 237, 237),
+                              child: ScrollConfiguration(
+                                behavior: ScrollConfiguration.of(context)
+                                    .copyWith(scrollbars: false),
+                                child: Listener(
+                                    onPointerDown: (e) {
+                                      if (showEmojiSelector) {
+                                        hideEmojiFunc();
+                                      } else if (showKeyboard) {
+                                        hideKeyboardFunc();
+                                      }
+                                    },
+                                    child: SingleChildScrollView(
+                                      padding: EdgeInsets.only(
+                                          top: 30.w, bottom: 30.w),
+                                      controller: _scrollController,
+                                      physics:
+                                          const AlwaysScrollableScrollPhysics(
+                                              parent: BouncingScrollPhysics()),
+                                      child: messageList.isEmpty
+                                          ? Container()
+                                          : Column(
+                                              children: messageList,
+                                            ),
+                                    )),
+                              ))),
 
-                  // 语音消息
-                  showVoiceLottie
-                      ? SizedBox(
-                          width: vm.screenSize!.width,
-                          height: vm.screenSize!.height,
-                          // padding: EdgeInsets.only(top: vm.statusHeight!),
-                          child: // 图标选择器
-                              AnimatedBuilder(
-                                  animation: Listenable.merge([
-                                    _voiceLottieController,
-                                    _voiceLeftButtonScaleController,
-                                    _voiceLeftButtonColorController,
-                                    _voiceRightButtonScaleController,
-                                    _voiceRightButtonColorController,
-                                    _voiceTextBoxController,
-                                  ]),
-                                  builder: (context, child) {
-                                    return Stack(
-                                      children: [
-                                        // 背景
-                                        Container(
-                                          color: const Color.fromARGB(
-                                              185, 0, 0, 0),
-                                          width: vm.screenSize!.width,
-                                          height: vm.screenSize!.height,
+                      // 输入部分
+                      Expanded(
+                          flex: 0,
+                          child: Container(
+                              constraints: BoxConstraints(minHeight: 107.w),
+                              width: systemState.screenSize.width,
+                              // margin: EdgeInsets.only(bottom: inputMarginBottom),
+                              decoration: BoxDecoration(
+                                  color:
+                                      const Color.fromARGB(255, 247, 247, 247),
+                                  border: Border(
+                                      top: BorderSide(
+                                    color: const Color.fromARGB(
+                                        255, 231, 231, 231),
+                                    width: 1.5.w,
+                                    style: BorderStyle.solid,
+                                  ))),
+                              child: Row(
+                                // mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: showVoiceButton
+                                    ? CrossAxisAlignment.center
+                                    : CrossAxisAlignment.end,
+                                children: [
+                                  // 语音按钮
+                                  GestureDetector(
+                                      onTap: () {
+                                        if (showEmojiSelector) {
+                                          hideEmojiFunc();
+                                        } else if (showKeyboard) {
+                                          hideKeyboardFunc();
+                                        }
+
+                                        setState(() {
+                                          showVoiceButton = !showVoiceButton;
+                                        });
+                                        if (!showVoiceButton) {
+                                          showKeyboardFunc();
+                                        }
+                                      },
+                                      child: Container(
+                                        color: Colors.transparent,
+                                        width: 97.w,
+                                        height: 107.w,
+                                        padding: EdgeInsets.only(
+                                            left: 20.w, right: 20.w),
+                                        child: Icon(
+                                          const IconData(
+                                            0xe66c,
+                                            fontFamily: 'Iconfont',
+                                          ),
+                                          size: 56.w, // 图标大小
                                         ),
+                                      )),
 
-                                        // 动画
-                                        Lottie.asset(
-                                          assetPath('lotties/voicepop.json'),
-                                          width: vm.screenSize!.width,
-                                          height: vm.screenSize!.height,
-                                          fit: BoxFit.contain,
-                                          alignment: Alignment.bottomCenter,
-                                          renderCache:
-                                              RenderCache.drawingCommands,
-                                          controller: _voiceLottieController,
-                                          onLoaded: (composition) {
-                                            // _lottieController
-                                            //   ..duration = const Duration(milliseconds: 600)
-                                            //   ..forward();
+                                  showVoiceButton
+                                      ?
+                                      // 长按录音
+                                      Expanded(
+                                          flex: 1,
+                                          child: Listener(
+                                            onPointerDown:
+                                                (PointerDownEvent event) async {
+                                              // 手指按下时
+                                              setState(() {
+                                                showVoiceLottie = true;
+                                              });
+
+                                              // 震动
+                                              triggerVibration();
+
+                                              if (!_voiceLottieController
+                                                  .isAnimating) {
+                                                _voiceLottieController
+                                                    .forward();
+                                              }
+
+                                              record = AudioRecorder();
+
+                                              // 拼接本地存储的文件路径
+                                              wmaPath = await getWMAFilePath();
+
+                                              logger.info("开始录音 $wmaPath");
+
+                                              if (await record!
+                                                  .hasPermission()) {
+                                                record!.stop();
+                                                record!.cancel();
+
+                                                beginRecordTime =
+                                                    DateTime.now();
+
+                                                // Start recording to file
+                                                await record!.start(
+                                                    const RecordConfig(),
+                                                    path: wmaPath!);
+
+                                                // await record!.startStream(
+                                                //     const RecordConfig(
+                                                //         encoder:
+                                                //             AudioEncoder
+                                                //                 .pcm16bits));
+                                              }
+                                            },
+                                            onPointerMove:
+                                                (PointerMoveEvent event) {
+                                              double svgTop = systemState
+                                                      .screenSize.height -
+                                                  260.0.w;
+
+                                              // 语音录制动画上的区域
+                                              if (event.position.dy < svgTop) {
+                                                double right = systemState
+                                                        .screenSize.width -
+                                                    260.0.w;
+
+                                                logger.info(
+                                                    "dddddddddddd${event.position.dx}");
+
+                                                logger.info(
+                                                    "fffffffffffff$right");
+
+                                                setState(() {
+                                                  leftRight =
+                                                      event.position.dx > right
+                                                          ? 2
+                                                          : 1;
+                                                });
+
+                                                setState(() {
+                                                  showCancelVoiceButtons = true;
+                                                });
+
+                                                // 手指滑动右边
+                                                if (leftRight == 2) {
+                                                  if (_voiceLeftButtonColorController
+                                                          .value ==
+                                                      1) {
+                                                    _voiceLeftButtonColorController
+                                                        .reset();
+                                                  }
+
+                                                  if (_voiceLeftButtonScaleController
+                                                          .value ==
+                                                      1) {
+                                                    _voiceLeftButtonScaleController
+                                                        .reset();
+                                                  }
+
+                                                  if (!_voiceRightButtonColorController
+                                                      .isAnimating) {
+                                                    _voiceRightButtonColorController
+                                                        .forward();
+                                                  }
+
+                                                  if (!_voiceRightButtonScaleController
+                                                      .isAnimating) {
+                                                    _voiceRightButtonScaleController
+                                                        .forward();
+                                                  }
+
+                                                  if (!_voiceTextBoxController
+                                                      .isAnimating) {
+                                                    _voiceTextBoxController
+                                                        .forward();
+                                                  }
+                                                } else {
+                                                  if (_voiceRightButtonColorController
+                                                          .value ==
+                                                      1) {
+                                                    _voiceRightButtonColorController
+                                                        .reset();
+                                                  }
+                                                  if (_voiceRightButtonScaleController
+                                                          .value ==
+                                                      1) {
+                                                    _voiceRightButtonScaleController
+                                                        .reset();
+                                                  }
+
+                                                  if (!_voiceLeftButtonColorController
+                                                      .isAnimating) {
+                                                    _voiceLeftButtonColorController
+                                                        .forward();
+                                                  }
+
+                                                  if (!_voiceLeftButtonScaleController
+                                                      .isAnimating) {
+                                                    _voiceLeftButtonScaleController
+                                                        .forward();
+                                                  }
+
+                                                  if (!_voiceTextBoxController
+                                                      .isAnimating) {
+                                                    _voiceTextBoxController
+                                                        .reverse();
+                                                  }
+                                                }
+                                              } else {
+                                                _voiceLeftButtonColorController
+                                                    .value = 0;
+                                                _voiceLeftButtonScaleController
+                                                    .value = 0;
+                                                _voiceRightButtonColorController
+                                                    .value = 0;
+                                                _voiceRightButtonScaleController
+                                                    .value = 0;
+
+                                                _voiceTextBoxController.value =
+                                                    0;
+
+                                                setState(() {
+                                                  showCancelVoiceButtons =
+                                                      false;
+
+                                                  leftRight = 0;
+                                                });
+                                              }
+                                            },
+                                            onPointerUp:
+                                                (PointerUpEvent event) {
+                                              _voiceButtonUp();
+                                            },
+                                            onPointerCancel:
+                                                (PointerCancelEvent event) {
+                                              _voiceButtonUp();
+                                            },
+                                            child: Container(
+                                              height: 77.w,
+                                              padding: EdgeInsets.zero,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(8.w),
+                                              ),
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                "按住 说话",
+                                                style: TextStyle(
+                                                  fontSize: 31.w,
+                                                  height: 1.08,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      :
+                                      // 消息输入框
+                                      Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                              padding: const EdgeInsets.only(
+                                                      top: 16, bottom: 16)
+                                                  .w,
+                                              child: TextField(
+                                                readOnly: false,
+                                                autofocus: false,
+                                                showCursor: true,
+                                                keyboardType: keyboardType,
+                                                controller: inputController,
+                                                focusNode: inputFocusNode,
+                                                onTap: () {
+                                                  logger.info(
+                                                      "showEmojiSelector: $showEmojiSelector");
+                                                  logger.info(
+                                                      "showKeyboard: $showKeyboard");
+
+                                                  if (showEmojiSelector ==
+                                                          false &&
+                                                      showKeyboard == false) {
+                                                    showKeyboardFunc();
+                                                  } else if (showEmojiSelector ==
+                                                          true &&
+                                                      showKeyboard == false) {
+                                                    switchKeyboradFunc();
+                                                  }
+                                                },
+                                                cursorColor:
+                                                    const Color.fromRGBO(
+                                                        62, 174, 86, 1.0),
+                                                // cursorHeight: 44.w,
+                                                cursorWidth: 3.w,
+                                                style: TextStyle(
+                                                    // height: 1.08,
+                                                    fontSize:
+                                                        fontSizeScale(30.w),
+                                                    color: Colors.black),
+                                                // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
+                                                maxLines: 5,
+                                                minLines: 1,
+                                                onChanged: (newText) {
+                                                  inputController.value =
+                                                      inputController.value
+                                                          .copyWith(
+                                                    text: newText,
+                                                    selection: TextSelection
+                                                        .fromPosition(
+                                                      TextPosition(
+                                                          offset:
+                                                              newText.length),
+                                                    ),
+                                                  );
+
+                                                  if (inputController
+                                                      .text.isEmpty) {
+                                                    _animationController
+                                                        .reverse()
+                                                        .whenComplete(() {
+                                                      setState(() {
+                                                        showPlusIcon = true;
+                                                      });
+                                                    });
+                                                  } else {
+                                                    setState(() {
+                                                      showPlusIcon = false;
+                                                    });
+                                                    _animationController
+                                                        .forward();
+                                                  }
+                                                },
+                                                decoration: InputDecoration(
+                                                  fillColor: Colors.white,
+                                                  filled: true,
+                                                  // focusColor: Colors.red,
+                                                  hoverColor: Colors.white,
+                                                  isCollapsed: true,
+                                                  contentPadding:
+                                                      const EdgeInsets
+                                                              .symmetric(
+                                                              vertical: 14,
+                                                              horizontal: 16)
+                                                          .w,
+                                                  border:
+                                                      const OutlineInputBorder(
+                                                          gapPadding: 0,
+                                                          borderSide:
+                                                              BorderSide.none),
+                                                  // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                  // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                  // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                  // focusedErrorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                  // errorBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
+                                                ),
+                                              ))
+                                          // 经调查 C:\flutter\packages\flutter\lib\src\widgets\editable_text.dart  4239行控制必须得到焦点才显示光标
+                                          ),
+
+                                  // 笑脸按钮
+                                  GestureDetector(
+                                    onTap: () {
+                                      logger.info(
+                                          "showEmojiSelector: $showEmojiSelector  showKeyboard: $showKeyboard");
+
+                                      if (showEmojiSelector == false &&
+                                          showKeyboard == false) {
+                                        showEmojiFunc(
+                                            _emojiPanelAnimationContentController
+                                                    .isAnimating
+                                                ? _emojiPanelAnimationContentController
+                                                    .value
+                                                : 0);
+                                      } else if (showEmojiSelector == false &&
+                                          showKeyboard == true) {
+                                        switchEmojiFunc();
+                                      } else if (showEmojiSelector == true &&
+                                          showKeyboard == false) {
+                                        logger.info("aaaaaa 切换到键盘");
+                                        switchKeyboradFunc();
+                                      }
+                                    },
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      width: 102.w,
+                                      height: 107.w,
+                                      padding: EdgeInsets.only(
+                                          left: 20.w, right: 25.w),
+                                      child: Icon(
+                                        const IconData(
+                                          0xe702,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        size: 49.w, // 图标大小
+                                      ),
+                                    ),
+                                  ),
+
+                                  // 发送按钮 与 图标变换
+                                  AnimatedBuilder(
+                                    animation: _animationController,
+                                    builder: (context, child) {
+                                      return Visibility(
+                                          visible: !showPlusIcon,
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  var message =
+                                                      inputController.text;
+
+                                                  // 发送消息
+                                                  messageList.add(LJNMyMessage(
+                                                    message:
+                                                        message.trimRight(),
+                                                    name: context
+                                                        .read<UserCubit>()
+                                                        .state
+                                                        .userinfoName as String,
+                                                    showName: false,
+                                                  ));
+                                                  inputController.text = "";
+
+                                                  // 发送消息后滚动到底部
+                                                  WidgetsBinding.instance
+                                                      .addPostFrameCallback(
+                                                          (_) {
+                                                    _scrollToEnd();
+                                                  });
+                                                });
+                                              },
+                                              child: Container(
+                                                margin: EdgeInsets.only(
+                                                    // top: 16.w,
+                                                    bottom: 24.w,
+                                                    right: 15.w),
+                                                width: _widthAnimation.value,
+                                                height: 60.w,
+                                                decoration: BoxDecoration(
+                                                  color: _colorAnimation.value!,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(
+                                                              10.w)),
+                                                ),
+                                                child: _widthAnimation.value >=
+                                                        113.w
+                                                    ? Center(
+                                                        child: Text(
+                                                          "发送",
+                                                          style: TextStyle(
+                                                              height: 1.08,
+                                                              fontSize:
+                                                                  fontSizeScale(
+                                                                      27.w),
+                                                              color:
+                                                                  Colors.white),
+                                                        ),
+                                                      )
+                                                    : null,
+                                              )));
+                                    },
+                                  ),
+
+                                  // 加号
+                                  Visibility(
+                                      visible: showPlusIcon,
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            logger.info("加号被点击"); // 点击事件
                                           },
-                                        ),
-
-                                        // 说话中图标
-                                        Positioned(
-                                            right: 350.w,
-                                            bottom: 116.w,
+                                          child: Container(
+                                            color: Colors.transparent,
+                                            width: 87.w,
+                                            height: 107.w,
+                                            padding:
+                                                EdgeInsets.only(right: 20.w),
+                                            alignment: Alignment.center,
                                             child: Icon(
                                               const IconData(
-                                                0xe81d,
+                                                0xe726,
                                                 fontFamily: 'Iconfont',
                                               ),
-                                              color: const Color.fromARGB(
-                                                  255, 111, 111, 111),
-                                              size: 50.w,
-                                            )),
+                                              size: 57.w, // 图标大小
+                                            ),
+                                          )))
+                                ],
+                              ))),
 
-                                        // 转文字和关闭按钮上面的文字上面的图案
-                                        leftRight != 0
-                                            ? Positioned(
-                                                left: 55.w,
-                                                bottom: 618.w,
-                                                child: SizedBox(
-                                                  width:
-                                                      _voiceTextBoxWidthAnimation
-                                                          .value,
-                                                  height:
-                                                      _voiceTextBoxHeightAnimation
-                                                              .value +
-                                                          10.w,
-                                                  child: Stack(
-                                                    children: [
-                                                      // 转换后的文字
-                                                      Container(
-                                                        width:
-                                                            _voiceTextBoxWidthAnimation
-                                                                .value,
-                                                        height:
-                                                            _voiceTextBoxHeightAnimation
-                                                                .value,
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius.all(
-                                                                    Radius.circular(
-                                                                        24.w)),
+                      // 图标选择器
+                      AnimatedBuilder(
+                        animation: _emojiPanelAnimationContentController,
+                        builder: (context, child) {
+                          return Expanded(
+                              flex: 0,
+                              child: SizedBox(
+                                  width: systemState.screenSize.width,
+                                  height: _keyboradAnimation.value,
+                                  // color: Colors.red,
+                                  child: showEmojiSelector
+                                      ? const LJNEmojiSelector()
+                                      : null));
+                        },
+                      ),
+                    ],
+                  ))
+                ],
+              ),
+
+              // 视频放大
+              showFullScreenVideo
+                  ? LJNVideoDraggableBox(
+                      openBoxSize: openBoxSize,
+                      openPosition: openPosition,
+                      videoPath: videoPath,
+                      onClose: () {
+                        setState(() {
+                          showFullScreenVideo = false;
+                        });
+                      },
+                    )
+                  : Container(),
+
+              // 语音消息
+              showVoiceLottie
+                  ? SizedBox(
+                      width: systemState.screenSize.width,
+                      height: systemState.screenSize.height,
+                      // padding: EdgeInsets.only(top: systemState.statusHeight),
+                      child: // 图标选择器
+                          AnimatedBuilder(
+                              animation: Listenable.merge([
+                                _voiceLottieController,
+                                _voiceLeftButtonScaleController,
+                                _voiceLeftButtonColorController,
+                                _voiceRightButtonScaleController,
+                                _voiceRightButtonColorController,
+                                _voiceTextBoxController,
+                              ]),
+                              builder: (context, child) {
+                                return Stack(
+                                  children: [
+                                    // 背景
+                                    Container(
+                                      color: const Color.fromARGB(185, 0, 0, 0),
+                                      width: systemState.screenSize.width,
+                                      height: systemState.screenSize.height,
+                                    ),
+
+                                    // 动画
+                                    Lottie.asset(
+                                      assetPath('lotties/voicepop.json'),
+                                      width: systemState.screenSize.width,
+                                      height: systemState.screenSize.height,
+                                      fit: BoxFit.contain,
+                                      alignment: Alignment.bottomCenter,
+                                      renderCache: RenderCache.drawingCommands,
+                                      controller: _voiceLottieController,
+                                      onLoaded: (composition) {
+                                        // _lottieController
+                                        //   ..duration = const Duration(milliseconds: 600)
+                                        //   ..forward();
+                                      },
+                                    ),
+
+                                    // 说话中图标
+                                    Positioned(
+                                        right: 350.w,
+                                        bottom: 116.w,
+                                        child: Icon(
+                                          const IconData(
+                                            0xe81d,
+                                            fontFamily: 'Iconfont',
+                                          ),
+                                          color: const Color.fromARGB(
+                                              255, 111, 111, 111),
+                                          size: 50.w,
+                                        )),
+
+                                    // 转文字和关闭按钮上面的文字上面的图案
+                                    leftRight != 0
+                                        ? Positioned(
+                                            left: 55.w,
+                                            bottom: 618.w,
+                                            child: SizedBox(
+                                              width: _voiceTextBoxWidthAnimation
+                                                  .value,
+                                              height:
+                                                  _voiceTextBoxHeightAnimation
+                                                          .value +
+                                                      10.w,
+                                              child: Stack(
+                                                children: [
+                                                  // 转换后的文字
+                                                  Container(
+                                                    width:
+                                                        _voiceTextBoxWidthAnimation
+                                                            .value,
+                                                    height:
+                                                        _voiceTextBoxHeightAnimation
+                                                            .value,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    24.w)),
+                                                        color: leftRight == 2
+                                                            ? Color.fromARGB(
+                                                                255,
+                                                                160,
+                                                                236,
+                                                                112)
+                                                            : Colors.red),
+                                                    alignment: leftRight == 1
+                                                        ? Alignment.center
+                                                        : Alignment.topLeft,
+                                                    child: leftRight == 2
+                                                        ? Stack(
+                                                            children: [
+                                                              // 转文字的内容
+                                                              Container(
+                                                                width:
+                                                                    _voiceTextBoxWidthAnimation
+                                                                        .value,
+                                                                height:
+                                                                    _voiceTextBoxHeightAnimation
+                                                                        .value,
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(30
+                                                                            .w),
+                                                                // color: Colors
+                                                                //     .red,
+                                                                child: Text(
+                                                                  "你好吗？......",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          30.w,
+                                                                      fontFamily:
+                                                                          "AlibabaPuHuiTi"),
+                                                                ),
+                                                              ),
+
+                                                              // 语音图标
+                                                              Positioned(
+                                                                  right: 38.w,
+                                                                  bottom: 38.w,
+                                                                  child: Icon(
+                                                                    const IconData(
+                                                                      0xe85e,
+                                                                      fontFamily:
+                                                                          'Iconfont',
+                                                                    ),
+                                                                    color: const Color
+                                                                        .fromARGB(
+                                                                        255,
+                                                                        60,
+                                                                        60,
+                                                                        60),
+                                                                    size: 45.w,
+                                                                  ))
+                                                            ],
+                                                          )
+                                                        : Icon(
+                                                            const IconData(
+                                                              0xe85e,
+                                                              fontFamily:
+                                                                  'Iconfont',
+                                                            ),
+                                                            color: const Color
+                                                                .fromARGB(255,
+                                                                60, 60, 60),
+                                                            size: 45.w,
+                                                          ),
+                                                  ),
+
+                                                  // 底下的图标
+                                                  Positioned(
+                                                      right:
+                                                          _voiceTextBoxBottomIconRightAnimation
+                                                              .value,
+                                                      bottom: 0.w,
+                                                      child: SizedBox(
+                                                          width: 38.w,
+                                                          height: 23.w,
+                                                          child: Icon(
+                                                            const IconData(
+                                                              0xe60a,
+                                                              fontFamily:
+                                                                  'Iconfont',
+                                                            ), // 使用的图标
                                                             color: leftRight ==
                                                                     2
                                                                 ? Color
@@ -1517,317 +1581,202 @@ class _LJNChatPage extends State<LJNChatPage>
                                                                         160,
                                                                         236,
                                                                         112)
-                                                                : Colors.red),
-                                                        alignment: leftRight ==
-                                                                1
-                                                            ? Alignment.center
-                                                            : Alignment.topLeft,
-                                                        child: leftRight == 2
-                                                            ? Stack(
-                                                                children: [
-                                                                  // 转文字的内容
-                                                                  Container(
-                                                                    width: _voiceTextBoxWidthAnimation
-                                                                        .value,
-                                                                    height:
-                                                                        _voiceTextBoxHeightAnimation
-                                                                            .value,
-                                                                    padding: EdgeInsets
-                                                                        .all(30
-                                                                            .w),
-                                                                    // color: Colors
-                                                                    //     .red,
-                                                                    child: Text(
-                                                                      "你好吗？......",
-                                                                      style: TextStyle(
-                                                                          fontSize: 30
-                                                                              .w,
-                                                                          fontFamily:
-                                                                              "AlibabaPuHuiTi"),
-                                                                    ),
-                                                                  ),
+                                                                : Colors
+                                                                    .red, // 图标颜色
+                                                            size:
+                                                                40.0.w, // 图标大小
+                                                          )))
+                                                ],
+                                              ),
+                                            ))
+                                        : SizedBox(),
 
-                                                                  // 语音图标
-                                                                  Positioned(
-                                                                      right:
-                                                                          38.w,
-                                                                      bottom:
-                                                                          38.w,
-                                                                      child:
-                                                                          Icon(
-                                                                        const IconData(
-                                                                          0xe85e,
-                                                                          fontFamily:
-                                                                              'Iconfont',
-                                                                        ),
-                                                                        color: const Color
-                                                                            .fromARGB(
-                                                                            255,
-                                                                            60,
-                                                                            60,
-                                                                            60),
-                                                                        size: 45
-                                                                            .w,
-                                                                      ))
-                                                                ],
-                                                              )
-                                                            : Icon(
-                                                                const IconData(
-                                                                  0xe85e,
-                                                                  fontFamily:
-                                                                      'Iconfont',
-                                                                ),
-                                                                color: const Color
-                                                                    .fromARGB(
-                                                                    255,
-                                                                    60,
-                                                                    60,
-                                                                    60),
-                                                                size: 45.w,
-                                                              ),
-                                                      ),
-
-                                                      // 底下的图标
-                                                      Positioned(
-                                                          right:
-                                                              _voiceTextBoxBottomIconRightAnimation
-                                                                  .value,
-                                                          bottom: 0.w,
-                                                          child: SizedBox(
-                                                              width: 38.w,
-                                                              height: 23.w,
-                                                              child: Icon(
-                                                                const IconData(
-                                                                  0xe60a,
-                                                                  fontFamily:
-                                                                      'Iconfont',
-                                                                ), // 使用的图标
-                                                                color: leftRight ==
-                                                                        2
-                                                                    ? Color
-                                                                        .fromARGB(
-                                                                            255,
-                                                                            160,
-                                                                            236,
-                                                                            112)
-                                                                    : Colors
-                                                                        .red, // 图标颜色
-                                                                size: 40.0
-                                                                    .w, // 图标大小
-                                                              )))
-                                                    ],
-                                                  ),
-                                                ))
-                                            : SizedBox(),
-
-                                        // 关闭按钮上面的文字
-                                        showCancelVoiceButtons
-                                            ? Positioned(
-                                                left: 0,
-                                                bottom: 480.w,
-                                                child: Container(
-                                                  width: 290.w,
-                                                  height: 30.w,
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    "松开 取消",
-                                                    style: TextStyle(
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                        fontFamily:
-                                                            "AlibabaPuHuiTi",
-                                                        height: 1.08,
-                                                        fontSize: 29.w,
-                                                        color: Color.fromARGB(
-                                                            255,
-                                                            161,
-                                                            161,
-                                                            161)),
-                                                  ),
-                                                ))
-                                            : SizedBox(),
-
-                                        // 左边关闭按钮
-                                        Positioned(
-                                            left: 75.w -
-                                                ((135.w *
-                                                        (_voiceLeftButtonScaleAnimation
-                                                                .value -
-                                                            1)) /
-                                                    2),
-                                            bottom: 275.w -
-                                                ((135.w *
-                                                        (_voiceLeftButtonScaleAnimation
-                                                                .value -
-                                                            1)) /
-                                                    2) +
-                                                (_voiceLottieController.value <
-                                                            0.5
-                                                        ? 0.5
-                                                        : _voiceLottieController
-                                                            .value) *
-                                                    30.w,
-                                            child: Transform.rotate(
-                                              angle: -8 * (pi / 180),
-                                              origin: Offset.zero,
-                                              child: Opacity(
-                                                  opacity: 0.5 +
-                                                      _voiceLottieController
-                                                              .value *
-                                                          0.5,
-                                                  child: Container(
-                                                    width: 135.w *
-                                                        _voiceLeftButtonScaleAnimation
-                                                            .value,
-                                                    height: 135.w *
-                                                        _voiceLeftButtonScaleAnimation
-                                                            .value,
-                                                    alignment: Alignment.center,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          _voiceLeftButtonColorAnimation
-                                                              .value,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              135.w), // 圆角半径
-                                                    ),
-                                                    child: Icon(
-                                                      const IconData(
-                                                        0xe628,
-                                                        fontFamily: 'Iconfont',
-                                                      ),
-                                                      color:
-                                                          showCancelVoiceButtons
-                                                              ? Colors.black
-                                                              : const Color
-                                                                  .fromARGB(
-                                                                  255,
-                                                                  143,
-                                                                  143,
-                                                                  143),
-                                                      size: 43.w,
-                                                    ),
-                                                  )),
-                                            )),
-
-                                        // 松开发送
-                                        Positioned(
-                                          bottom: 270.w +
-                                              _voiceLottieController.value *
-                                                  30.w,
-                                          child: Container(
-                                              width: vm.screenSize!.width,
+                                    // 关闭按钮上面的文字
+                                    showCancelVoiceButtons
+                                        ? Positioned(
+                                            left: 0,
+                                            bottom: 480.w,
+                                            child: Container(
+                                              width: 290.w,
+                                              height: 30.w,
                                               alignment: Alignment.center,
                                               child: Text(
-                                                '松开发送',
+                                                "松开 取消",
                                                 style: TextStyle(
-                                                    height: 1.08,
-                                                    color: Color.fromARGB(
-                                                        255, 173, 173, 173),
-                                                    fontSize: 30.w,
+                                                    decoration:
+                                                        TextDecoration.none,
                                                     fontFamily:
                                                         "AlibabaPuHuiTi",
-                                                    decoration:
-                                                        TextDecoration.none),
-                                              )),
-                                        ),
+                                                    height: 1.08,
+                                                    fontSize: 29.w,
+                                                    color: Color.fromARGB(
+                                                        255, 161, 161, 161)),
+                                              ),
+                                            ))
+                                        : SizedBox(),
 
-                                        // 转文字按钮上面的文字
-                                        showCancelVoiceButtons
-                                            ? Positioned(
-                                                right: 0,
-                                                bottom: 480.w,
-                                                child: Container(
-                                                  width: 290.w,
-                                                  height: 30.w,
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    "转文字",
-                                                    style: TextStyle(
-                                                        decoration:
-                                                            TextDecoration.none,
-                                                        fontFamily:
-                                                            "AlibabaPuHuiTi",
-                                                        height: 1.08,
-                                                        fontSize: 29.w,
-                                                        color: Color.fromARGB(
-                                                            255,
-                                                            161,
-                                                            161,
-                                                            161)),
+                                    // 左边关闭按钮
+                                    Positioned(
+                                        left: 75.w -
+                                            ((135.w *
+                                                    (_voiceLeftButtonScaleAnimation
+                                                            .value -
+                                                        1)) /
+                                                2),
+                                        bottom: 275.w -
+                                            ((135.w *
+                                                    (_voiceLeftButtonScaleAnimation
+                                                            .value -
+                                                        1)) /
+                                                2) +
+                                            (_voiceLottieController.value < 0.5
+                                                    ? 0.5
+                                                    : _voiceLottieController
+                                                        .value) *
+                                                30.w,
+                                        child: Transform.rotate(
+                                          angle: -8 * (pi / 180),
+                                          origin: Offset.zero,
+                                          child: Opacity(
+                                              opacity: 0.5 +
+                                                  _voiceLottieController.value *
+                                                      0.5,
+                                              child: Container(
+                                                width: 135.w *
+                                                    _voiceLeftButtonScaleAnimation
+                                                        .value,
+                                                height: 135.w *
+                                                    _voiceLeftButtonScaleAnimation
+                                                        .value,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      _voiceLeftButtonColorAnimation
+                                                          .value,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          135.w), // 圆角半径
+                                                ),
+                                                child: Icon(
+                                                  const IconData(
+                                                    0xe628,
+                                                    fontFamily: 'Iconfont',
                                                   ),
-                                                ))
-                                            : SizedBox(),
+                                                  color: showCancelVoiceButtons
+                                                      ? Colors.black
+                                                      : const Color.fromARGB(
+                                                          255, 143, 143, 143),
+                                                  size: 43.w,
+                                                ),
+                                              )),
+                                        )),
 
-                                        // 右边转文字按钮
-                                        Positioned(
-                                            right: 75.w -
-                                                ((135.w *
-                                                        (_voiceRightButtonScaleAnimation
-                                                                .value -
-                                                            1)) /
-                                                    2),
-                                            bottom: 275.w -
-                                                ((135.w *
-                                                        (_voiceRightButtonScaleAnimation
-                                                                .value -
-                                                            1)) /
-                                                    2) +
-                                                (_voiceLottieController.value <
-                                                            0.5
-                                                        ? 0.5
-                                                        : _voiceLottieController
-                                                            .value) *
-                                                    30.w,
-                                            child: Transform.rotate(
-                                              angle: 8 * (pi / 180),
-                                              origin: Offset.zero,
-                                              child: Opacity(
-                                                  opacity: 0.5 +
-                                                      _voiceLottieController
-                                                              .value *
-                                                          0.5,
-                                                  child: Container(
-                                                    width: 135.w *
-                                                        _voiceRightButtonScaleAnimation
-                                                            .value,
-                                                    height: 135.w *
-                                                        _voiceRightButtonScaleAnimation
-                                                            .value,
-                                                    alignment: Alignment.center,
-                                                    decoration: BoxDecoration(
-                                                      color:
-                                                          _voiceRightButtonColorAnimation
-                                                              .value,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              135.w), // 圆角半径
-                                                    ),
-                                                    child: Icon(
-                                                      const IconData(
-                                                        0xe629,
-                                                        fontFamily: 'Iconfont',
-                                                      ),
-                                                      color:
-                                                          showCancelVoiceButtons
-                                                              ? Colors.black
-                                                              : const Color
-                                                                  .fromARGB(
-                                                                  255,
-                                                                  143,
-                                                                  143,
-                                                                  143),
-                                                      size: 43.w,
-                                                    ),
-                                                  )),
-                                            )),
-                                      ],
-                                    );
-                                  }))
-                      : SizedBox()
-                ],
-              ));
-        });
+                                    // 松开发送
+                                    Positioned(
+                                      bottom: 270.w +
+                                          _voiceLottieController.value * 30.w,
+                                      child: Container(
+                                          width: systemState.screenSize.width,
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            '松开发送',
+                                            style: TextStyle(
+                                                height: 1.08,
+                                                color: Color.fromARGB(
+                                                    255, 173, 173, 173),
+                                                fontSize: 30.w,
+                                                fontFamily: "AlibabaPuHuiTi",
+                                                decoration:
+                                                    TextDecoration.none),
+                                          )),
+                                    ),
+
+                                    // 转文字按钮上面的文字
+                                    showCancelVoiceButtons
+                                        ? Positioned(
+                                            right: 0,
+                                            bottom: 480.w,
+                                            child: Container(
+                                              width: 290.w,
+                                              height: 30.w,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                "转文字",
+                                                style: TextStyle(
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                    fontFamily:
+                                                        "AlibabaPuHuiTi",
+                                                    height: 1.08,
+                                                    fontSize: 29.w,
+                                                    color: Color.fromARGB(
+                                                        255, 161, 161, 161)),
+                                              ),
+                                            ))
+                                        : SizedBox(),
+
+                                    // 右边转文字按钮
+                                    Positioned(
+                                        right: 75.w -
+                                            ((135.w *
+                                                    (_voiceRightButtonScaleAnimation
+                                                            .value -
+                                                        1)) /
+                                                2),
+                                        bottom: 275.w -
+                                            ((135.w *
+                                                    (_voiceRightButtonScaleAnimation
+                                                            .value -
+                                                        1)) /
+                                                2) +
+                                            (_voiceLottieController.value < 0.5
+                                                    ? 0.5
+                                                    : _voiceLottieController
+                                                        .value) *
+                                                30.w,
+                                        child: Transform.rotate(
+                                          angle: 8 * (pi / 180),
+                                          origin: Offset.zero,
+                                          child: Opacity(
+                                              opacity: 0.5 +
+                                                  _voiceLottieController.value *
+                                                      0.5,
+                                              child: Container(
+                                                width: 135.w *
+                                                    _voiceRightButtonScaleAnimation
+                                                        .value,
+                                                height: 135.w *
+                                                    _voiceRightButtonScaleAnimation
+                                                        .value,
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      _voiceRightButtonColorAnimation
+                                                          .value,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          135.w), // 圆角半径
+                                                ),
+                                                child: Icon(
+                                                  const IconData(
+                                                    0xe629,
+                                                    fontFamily: 'Iconfont',
+                                                  ),
+                                                  color: showCancelVoiceButtons
+                                                      ? Colors.black
+                                                      : const Color.fromARGB(
+                                                          255, 143, 143, 143),
+                                                  size: 43.w,
+                                                ),
+                                              )),
+                                        )),
+                                  ],
+                                );
+                              }))
+                  : SizedBox()
+            ],
+          ));
+    });
   }
 }
 

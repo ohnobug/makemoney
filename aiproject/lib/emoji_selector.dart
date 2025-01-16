@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
+
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 
 class EmojiStatus {
   late String emoji;
@@ -2058,264 +2060,258 @@ class _LJNEmojiSelector extends State<LJNEmojiSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return SingleChildScrollView(
-              controller: _scrollController,
-              physics: const NeverScrollableScrollPhysics(),
-              child: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context)
-                      .copyWith(scrollbars: false),
-                  child: ColoredBox(
-                      color: const Color.fromARGB(255, 237, 237, 237),
-                      child: Stack(
-                        children: [
-                          Column(children: [
-                            // 搜索按钮
-                            Container(
-                              color: const Color.fromARGB(255, 246, 246, 246),
-                              height: 110.w,
-                              width: vm.screenSize!.width,
-                              child: Row(
-                                children: [
-                                  Container(
-                                      width: 80.w,
-                                      height: 80.w,
-                                      margin: EdgeInsets.only(bottom: 0.w),
-                                      decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(13.w)),
-                                      ),
-                                      child: Icon(
-                                        const IconData(
-                                          0xe612,
-                                          fontFamily: 'Iconfont',
-                                        ), // 使用的图标
-                                        color: Colors.black, // 图标颜色
-                                        size: 45.w, // 图标大小
-                                      )),
-                                  // 笑脸
-                                  Container(
-                                      width: 80.w,
-                                      height: 80.w,
-                                      margin: EdgeInsets.only(bottom: 0.w),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(13.w)),
-                                      ),
-                                      child: Icon(
-                                        const IconData(
-                                          0xe702,
-                                          fontFamily: 'Iconfont',
-                                        ), // 使用的图标
-                                        color: Colors.black, // 图标颜色
-                                        size: 45.w, // 图标大小
-                                      )),
-                                  Container(
-                                      width: 80.w,
-                                      height: 80.w,
-                                      margin: EdgeInsets.only(bottom: 0.w),
-                                      decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(13.w)),
-                                      ),
-                                      child: Icon(
-                                        const IconData(
-                                          0xe682,
-                                          fontFamily: 'Iconfont',
-                                        ), // 使用的图标
-                                        color: Colors.black, // 图标颜色
-                                        size: 45.w, // 图标大小
-                                      )),
-                                  // 加号
-                                  Container(
-                                      width: 80.w,
-                                      height: 80.w,
-                                      margin: EdgeInsets.only(bottom: 0.w),
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: Colors.transparent,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(13.w)),
-                                      ),
-                                      child: Icon(
-                                        const IconData(
-                                          0xe621,
-                                          fontFamily: 'Iconfont',
-                                        ), // 使用的图标
-                                        color: Colors.black, // 图标颜色
-                                        size: 45.w, // 图标大小
-                                      ))
-                                ],
-                              ),
-                            ),
-
-                            // 调整大小的拉杆
-                            Container(
-                                height: 75.w,
-                                width: vm.screenSize!.width,
-                                alignment: Alignment.center,
-                                child: Container(
-                                  width: 85.w,
-                                  height: 7.5.w,
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return SingleChildScrollView(
+          controller: _scrollController,
+          physics: const NeverScrollableScrollPhysics(),
+          child: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: ColoredBox(
+                  color: const Color.fromARGB(255, 237, 237, 237),
+                  child: Stack(
+                    children: [
+                      Column(children: [
+                        // 搜索按钮
+                        Container(
+                          color: const Color.fromARGB(255, 246, 246, 246),
+                          height: 110.w,
+                          width: systemState.screenSize.width,
+                          child: Row(
+                            children: [
+                              Container(
+                                  width: 80.w,
+                                  height: 80.w,
+                                  margin: EdgeInsets.only(bottom: 0.w),
                                   decoration: BoxDecoration(
-                                    color: const Color.fromARGB(
-                                        255, 215, 215, 215),
+                                    color: Colors.transparent,
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(4.w)),
+                                        BorderRadius.all(Radius.circular(13.w)),
                                   ),
-                                  child: null,
-                                )),
-
-                            // 表情包
-                            SizedBox(
-                              width: vm.screenSize!.width,
-                              height: 490.w,
-                              child: SingleChildScrollView(
-                                  controller: _scrollController,
-                                  physics: const AlwaysScrollableScrollPhysics(
-                                      parent: BouncingScrollPhysics()),
-                                  child: ScrollConfiguration(
-                                    behavior: ScrollConfiguration.of(context)
-                                        .copyWith(scrollbars: false),
-                                    child: Column(
-                                      children: [
-                                        // 最近使用
-                                        Container(
-                                          height: 40.w,
-                                          alignment: Alignment.topLeft,
-                                          padding:
-                                              EdgeInsets.only(left: 36.25.w),
-                                          child: Text(
-                                            "最近使用",
-                                            style: TextStyle(
-                                                fontSize: 27.w,
-                                                color: Colors.black,
-                                                height: 1.08),
-                                          ),
-                                        ),
-                                        Container(
-                                            padding: EdgeInsets.only(
-                                              left: 20.w,
-                                              right: 20.w,
-                                              // top: 20.w,
-                                              // bottom: 20.w
-                                            ),
-                                            child: Wrap(
-                                              children: List.generate(
-                                                  emojiList.length, (index) {
-                                                return Container(
-                                                    // color:
-                                                    //     emojiList[index].isIntersection
-                                                    //         ? Colors.red
-                                                    //         : Colors.blue,
-                                                    width:
-                                                        (vm.screenSize!.width -
-                                                                40.w) /
-                                                            8,
-                                                    height: 90.0.w,
-                                                    alignment: Alignment.center,
-                                                    child: Opacity(
-                                                      opacity: emojiList[index]
-                                                          .opacity,
-                                                      child: Text(
-                                                        key: emojiList[index]
-                                                            .globalKey,
-                                                        emojiList[index].emoji,
-                                                        style: TextStyle(
-                                                            fontSize: 53.w,
-                                                            fontFamily:
-                                                                "NotoColorEmoji-Regular"),
-                                                      ),
-                                                    ));
-                                              }),
-                                            )),
-
-                                        // 所有表情
-                                        Container(
-                                          height: 40.w,
-                                          alignment: Alignment.topLeft,
-                                          padding:
-                                              EdgeInsets.only(left: 36.25.w),
-                                          child: Text(
-                                            "所有表情",
-                                            style: TextStyle(
-                                                fontSize: 27.w,
-                                                color: Colors.black,
-                                                height: 1.08),
-                                          ),
-                                        ),
-                                        Container(
-                                            padding: EdgeInsets.only(
-                                                left: 20.w,
-                                                right: 20.w,
-                                                // top: 20.w,
-                                                bottom: 120.w),
-                                            child: Wrap(
-                                              children: List.generate(
-                                                  allEmojiList.length, (index) {
-                                                return Container(
-                                                    // color:
-                                                    //     allEmojiList[index].isIntersection
-                                                    //         ? Colors.red
-                                                    //         : Colors.blue,
-                                                    width:
-                                                        (vm.screenSize!.width -
-                                                                40.w) /
-                                                            8,
-                                                    height: 90.0.w,
-                                                    alignment: Alignment.center,
-                                                    child: Opacity(
-                                                      opacity:
-                                                          allEmojiList[index]
-                                                              .opacity,
-                                                      child: Text(
-                                                        key: allEmojiList[index]
-                                                            .globalKey,
-                                                        allEmojiList[index]
-                                                            .emoji,
-                                                        style: TextStyle(
-                                                            fontSize: 53.w,
-                                                            fontFamily:
-                                                                "NotoColorEmoji-Regular"),
-                                                      ),
-                                                    ));
-                                              }),
-                                            ))
-                                      ],
-                                    ),
+                                  child: Icon(
+                                    const IconData(
+                                      0xe612,
+                                      fontFamily: 'Iconfont',
+                                    ), // 使用的图标
+                                    color: Colors.black, // 图标颜色
+                                    size: 45.w, // 图标大小
                                   )),
-                            )
-                          ]),
-
-                          // 删除按钮
-                          Positioned(
-                              right: 22.w,
-                              bottom: 37.w,
-                              child: Container(
-                                  key: deleteButtonKey,
+                              // 笑脸
+                              Container(
+                                  width: 80.w,
+                                  height: 80.w,
+                                  margin: EdgeInsets.only(bottom: 0.w),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(10.w)),
+                                        BorderRadius.all(Radius.circular(13.w)),
                                   ),
-                                  width: 106.w,
-                                  height: 84.w,
                                   child: Icon(
                                     const IconData(
-                                      0xe654,
+                                      0xe702,
                                       fontFamily: 'Iconfont',
                                     ), // 使用的图标
-                                    color: const Color.fromARGB(
-                                        255, 202, 202, 202), // 图标颜色
-                                    size: 52.w, // 图标大小
-                                  )))
-                        ],
-                      ))));
-        });
+                                    color: Colors.black, // 图标颜色
+                                    size: 45.w, // 图标大小
+                                  )),
+                              Container(
+                                  width: 80.w,
+                                  height: 80.w,
+                                  margin: EdgeInsets.only(bottom: 0.w),
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(13.w)),
+                                  ),
+                                  child: Icon(
+                                    const IconData(
+                                      0xe682,
+                                      fontFamily: 'Iconfont',
+                                    ), // 使用的图标
+                                    color: Colors.black, // 图标颜色
+                                    size: 45.w, // 图标大小
+                                  )),
+                              // 加号
+                              Container(
+                                  width: 80.w,
+                                  height: 80.w,
+                                  margin: EdgeInsets.only(bottom: 0.w),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(13.w)),
+                                  ),
+                                  child: Icon(
+                                    const IconData(
+                                      0xe621,
+                                      fontFamily: 'Iconfont',
+                                    ), // 使用的图标
+                                    color: Colors.black, // 图标颜色
+                                    size: 45.w, // 图标大小
+                                  ))
+                            ],
+                          ),
+                        ),
+
+                        // 调整大小的拉杆
+                        Container(
+                            height: 75.w,
+                            width: systemState.screenSize.width,
+                            alignment: Alignment.center,
+                            child: Container(
+                              width: 85.w,
+                              height: 7.5.w,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 215, 215, 215),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4.w)),
+                              ),
+                              child: null,
+                            )),
+
+                        // 表情包
+                        SizedBox(
+                          width: systemState.screenSize.width,
+                          height: 490.w,
+                          child: SingleChildScrollView(
+                              controller: _scrollController,
+                              physics: const AlwaysScrollableScrollPhysics(
+                                  parent: BouncingScrollPhysics()),
+                              child: ScrollConfiguration(
+                                behavior: ScrollConfiguration.of(context)
+                                    .copyWith(scrollbars: false),
+                                child: Column(
+                                  children: [
+                                    // 最近使用
+                                    Container(
+                                      height: 40.w,
+                                      alignment: Alignment.topLeft,
+                                      padding: EdgeInsets.only(left: 36.25.w),
+                                      child: Text(
+                                        "最近使用",
+                                        style: TextStyle(
+                                            fontSize: 27.w,
+                                            color: Colors.black,
+                                            height: 1.08),
+                                      ),
+                                    ),
+                                    Container(
+                                        padding: EdgeInsets.only(
+                                          left: 20.w,
+                                          right: 20.w,
+                                          // top: 20.w,
+                                          // bottom: 20.w
+                                        ),
+                                        child: Wrap(
+                                          children: List.generate(
+                                              emojiList.length, (index) {
+                                            return Container(
+                                                // color:
+                                                //     emojiList[index].isIntersection
+                                                //         ? Colors.red
+                                                //         : Colors.blue,
+                                                width: (systemState
+                                                            .screenSize.width -
+                                                        40.w) /
+                                                    8,
+                                                height: 90.0.w,
+                                                alignment: Alignment.center,
+                                                child: Opacity(
+                                                  opacity:
+                                                      emojiList[index].opacity,
+                                                  child: Text(
+                                                    key: emojiList[index]
+                                                        .globalKey,
+                                                    emojiList[index].emoji,
+                                                    style: TextStyle(
+                                                        fontSize: 53.w,
+                                                        fontFamily:
+                                                            "NotoColorEmoji-Regular"),
+                                                  ),
+                                                ));
+                                          }),
+                                        )),
+
+                                    // 所有表情
+                                    Container(
+                                      height: 40.w,
+                                      alignment: Alignment.topLeft,
+                                      padding: EdgeInsets.only(left: 36.25.w),
+                                      child: Text(
+                                        "所有表情",
+                                        style: TextStyle(
+                                            fontSize: 27.w,
+                                            color: Colors.black,
+                                            height: 1.08),
+                                      ),
+                                    ),
+                                    Container(
+                                        padding: EdgeInsets.only(
+                                            left: 20.w,
+                                            right: 20.w,
+                                            // top: 20.w,
+                                            bottom: 120.w),
+                                        child: Wrap(
+                                          children: List.generate(
+                                              allEmojiList.length, (index) {
+                                            return Container(
+                                                // color:
+                                                //     allEmojiList[index].isIntersection
+                                                //         ? Colors.red
+                                                //         : Colors.blue,
+                                                width: (systemState
+                                                            .screenSize.width -
+                                                        40.w) /
+                                                    8,
+                                                height: 90.0.w,
+                                                alignment: Alignment.center,
+                                                child: Opacity(
+                                                  opacity: allEmojiList[index]
+                                                      .opacity,
+                                                  child: Text(
+                                                    key: allEmojiList[index]
+                                                        .globalKey,
+                                                    allEmojiList[index].emoji,
+                                                    style: TextStyle(
+                                                        fontSize: 53.w,
+                                                        fontFamily:
+                                                            "NotoColorEmoji-Regular"),
+                                                  ),
+                                                ));
+                                          }),
+                                        ))
+                                  ],
+                                ),
+                              )),
+                        )
+                      ]),
+
+                      // 删除按钮
+                      Positioned(
+                          right: 22.w,
+                          bottom: 37.w,
+                          child: Container(
+                              key: deleteButtonKey,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.w)),
+                              ),
+                              width: 106.w,
+                              height: 84.w,
+                              child: Icon(
+                                const IconData(
+                                  0xe654,
+                                  fontFamily: 'Iconfont',
+                                ), // 使用的图标
+                                color: const Color.fromARGB(
+                                    255, 202, 202, 202), // 图标颜色
+                                size: 52.w, // 图标大小
+                              )))
+                    ],
+                  ))));
+    });
   }
 }

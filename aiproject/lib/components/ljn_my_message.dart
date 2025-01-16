@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
+import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LJNMyMessage extends StatefulWidget {
@@ -20,111 +23,110 @@ class _LJNMyMessage extends State<LJNMyMessage> {
   @override
   Widget build(BuildContext context) {
     // 对方发的消息
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return Container(
-            padding: EdgeInsets.only(left: 22.w, right: 22.w, top: 22.w),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // 姓名与消息
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      // 姓名
-                      if (widget.showName)
-                        Container(
-                          padding: const EdgeInsets.only(
-                                  right: 23, top: 0, bottom: 3)
-                              .w,
-                          // height: 33.w,
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  widget.name ?? vm.userinfoName!,
-                                  style: TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(20.w),
-                                      color: const Color.fromARGB(
-                                          255, 130, 130, 130)),
-                                )
-                              ]),
-                        ),
-                      // 消息
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          // 消息
-                          Flexible(
-                              child: Container(
-                            constraints: const BoxConstraints(maxWidth: 510).w,
-                            decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 158, 236, 114),
-                                borderRadius: BorderRadius.circular(8).w),
-                            padding: EdgeInsets.only(
-                                top: 20.w,
-                                bottom: 18.w,
-                                left: 23.w,
-                                right: 22.w),
-                            child: Text(
-                              softWrap: true,
-                              maxLines: 1000,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.justify,
-                              widget.message,
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return Container(
+        padding: EdgeInsets.only(left: 22.w, right: 22.w, top: 22.w),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 姓名与消息
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  // 姓名
+                  if (widget.showName)
+                    Container(
+                      padding:
+                          const EdgeInsets.only(right: 23, top: 0, bottom: 3).w,
+                      // height: 33.w,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              widget.name ??
+                                  context.read<UserState>().userinfoName!,
                               style: TextStyle(
-                                  height: 1.25,
-                                  fontSize: fontSizeScale(31.w),
-                                  color: Colors.black,
-                                  fontFamily: "AlibabaPuHuiTi"),
-                            ),
-                          )),
+                                  height: 1.08,
+                                  fontSize: fontSizeScale(20.w),
+                                  color:
+                                      const Color.fromARGB(255, 130, 130, 130)),
+                            )
+                          ]),
+                    ),
+                  // 消息
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      // 消息
+                      Flexible(
+                          child: Container(
+                        constraints: const BoxConstraints(maxWidth: 510).w,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 158, 236, 114),
+                            borderRadius: BorderRadius.circular(8).w),
+                        padding: EdgeInsets.only(
+                            top: 20.w, bottom: 18.w, left: 23.w, right: 22.w),
+                        child: Text(
+                          softWrap: true,
+                          maxLines: 1000,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.justify,
+                          widget.message,
+                          style: TextStyle(
+                              height: 1.25,
+                              fontSize: fontSizeScale(31.w),
+                              color: Colors.black,
+                              fontFamily: "AlibabaPuHuiTi"),
+                        ),
+                      )),
 
-                          // 箭头
-                          Container(
-                            padding:
-                                const EdgeInsets.only(top: 32, right: 10).w,
-                            child: Image.asset(
-                              assetPath("images/icon/right.png"),
-                              width: 10.w,
-                              fit: BoxFit.fitWidth,
-                            ),
-                          ),
-                        ],
+                      // 箭头
+                      Container(
+                        padding: const EdgeInsets.only(top: 32, right: 10).w,
+                        child: Image.asset(
+                          assetPath("images/icon/right.png"),
+                          width: 10.w,
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ],
                   ),
-                ),
-
-                // 头像
-                GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/friendprofile',
-                          arguments: <String, String>{
-                            'name': vm.userinfoName!,
-                            'avatar': vm.userinfoAvatar!,
-                            'nickname': vm.userinfoName!,
-                            'account': vm.userinfoAccount!,
-                          });
-                    },
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8).w,
-                        child: Image.asset(
-                          assetPath(vm.userinfoAvatar!),
-                          cacheWidth: 156.w.toInt(),
-                          cacheHeight: 156.w.toInt(),
-                          width: 78.w,
-                          height: 78.w,
-                          fit: BoxFit.cover,
-                        )))
-              ],
+                ],
+              ),
             ),
-          );
-        });
+
+            // 头像
+            GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/friendprofile',
+                      arguments: <String, String>{
+                        'name': context.read<UserCubit>().state.userinfoName!,
+                        'avatar':
+                            context.read<UserCubit>().state.userinfoAvatar!,
+                        'nickname':
+                            context.read<UserCubit>().state.userinfoName!,
+                        'account':
+                            context.read<UserCubit>().state.userinfoAccount!,
+                      });
+                },
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8).w,
+                    child: Image.asset(
+                      assetPath(
+                          context.read<UserCubit>().state.userinfoAvatar!),
+                      cacheWidth: 156.w.toInt(),
+                      cacheHeight: 156.w.toInt(),
+                      width: 78.w,
+                      height: 78.w,
+                      fit: BoxFit.cover,
+                    )))
+          ],
+        ),
+      );
+    });
   }
 }

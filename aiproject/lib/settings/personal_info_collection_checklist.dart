@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNPersonalInfoCollectionChecklist extends StatefulWidget {
@@ -23,342 +23,339 @@ class _LJPpersonalInfoCollectionChecklist
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return _buildPage(vm);
-        });
-  }
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return Scaffold(
+          primary: false,
+          appBar: const LJNAppBar(
+            bgColor: Colors.white,
+          ),
+          body: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: Container(
+                  constraints: BoxConstraints(
+                      minHeight: systemState.screenSize.height -
+                          90.w -
+                          systemState.statusHeight),
+                  color: Colors.white,
+                  child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(
+                          parent: BouncingScrollPhysics()),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 130.w,
+                            ),
+                            Text(
+                              "个人信息收集清单",
+                              style: TextStyle(
+                                  fontSize: 41.w,
+                                  fontFamily: "AlibabaPuHuiTi-Medium"),
+                            ),
+                            SizedBox(
+                              height: 45.w,
+                            ),
+                            Container(
+                                margin:
+                                    EdgeInsets.only(left: 68.w, right: 68.w),
+                                child: Text(
+                                  textAlign: TextAlign.center,
+                                  "    你可以查阅微信对你的个人信息的收集情况。以下只统计i0S 8.0.17、Android 8.0.18及之后版本微信所收集的信息。你使用旧版本微信期间的信息收集情况，微信无法完整统计到。",
+                                  style: TextStyle(fontSize: 32.w),
+                                )),
+                            SizedBox(
+                              height: 100.0.w,
+                            ),
 
-  // 另起一个函数方便管理
-  Widget _buildPage(StoreType vm) {
-    return Scaffold(
-        primary: false,
-        appBar: const LJNAppBar(
-          bgColor: Colors.white,
-        ),
-        body: ScrollConfiguration(
-            behavior:
-                ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: Container(
-                constraints: BoxConstraints(
-                    minHeight: vm.screenSize!.height - 90.w - vm.statusHeight!),
-                color: Colors.white,
-                child: SingleChildScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(
-                        parent: BouncingScrollPhysics()),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 130.w,
-                          ),
-                          Text(
-                            "个人信息收集清单",
-                            style: TextStyle(
-                                fontSize: 41.w,
-                                fontFamily: "AlibabaPuHuiTi-Medium"),
-                          ),
-                          SizedBox(
-                            height: 45.w,
-                          ),
-                          Container(
-                              margin: EdgeInsets.only(left: 68.w, right: 68.w),
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "    你可以查阅微信对你的个人信息的收集情况。以下只统计i0S 8.0.17、Android 8.0.18及之后版本微信所收集的信息。你使用旧版本微信期间的信息收集情况，微信无法完整统计到。",
-                                style: TextStyle(fontSize: 32.w),
-                              )),
-                          SizedBox(
-                            height: 100.0.w,
-                          ),
-
-                          // 基本信息
-                          SizedBox(
-                            width: 690.w,
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 105.w,
-                                  margin: EdgeInsets.only(left: 30.w),
-                                  alignment: Alignment.centerLeft,
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                    color: const Color.fromARGB(
-                                        255, 242, 242, 242),
-                                    width: 1.5.w,
-                                    style: BorderStyle.solid,
-                                  ))),
-                                  child: Text(
-                                    "基本信息",
-                                    style: TextStyle(
-                                        fontSize: 25.w,
-                                        color: const Color.fromARGB(
-                                            255, 74, 74, 74)),
-                                  ),
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "头像",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "姓名",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "手机号",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "性别",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "地区",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "个性签名",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "地址",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30.w,
-                          ),
-                          // 设备信息
-                          SizedBox(
-                            width: 690.w,
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 105.w,
-                                  margin: EdgeInsets.only(left: 30.w),
-                                  alignment: Alignment.centerLeft,
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                    color: const Color.fromARGB(
-                                        255, 242, 242, 242),
-                                    width: 1.5.w,
-                                    style: BorderStyle.solid,
-                                  ))),
-                                  child: Text(
-                                    "设备信息",
-                                    style: TextStyle(
-                                        fontSize: 25.w,
-                                        color: const Color.fromARGB(
-                                            255, 74, 74, 74)),
-                                  ),
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "登录过的设备",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30.w,
-                          ),
-                          // 用户使用过程信息
-                          SizedBox(
-                            width: 690.w,
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 105.w,
-                                  margin: EdgeInsets.only(left: 30.w),
-                                  alignment: Alignment.centerLeft,
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                    color: const Color.fromARGB(
-                                        255, 242, 242, 242),
-                                    width: 1.5.w,
-                                    style: BorderStyle.solid,
-                                  ))),
-                                  child: Text(
-                                    "用户使用过程信息",
-                                    style: TextStyle(
-                                        fontSize: 25.w,
-                                        color: const Color.fromARGB(
-                                            255, 74, 74, 74)),
-                                  ),
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "位置",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "图片与视频",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30.w,
-                          ),
-                          // 社交与内容信息
-                          SizedBox(
-                            width: 690.w,
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 105.w,
-                                  margin: EdgeInsets.only(left: 30.w),
-                                  alignment: Alignment.centerLeft,
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                    color: const Color.fromARGB(
-                                        255, 242, 242, 242),
-                                    width: 1.5.w,
-                                    style: BorderStyle.solid,
-                                  ))),
-                                  child: Text(
-                                    "社交与内容信息",
-                                    style: TextStyle(
-                                        fontSize: 25.w,
-                                        color: const Color.fromARGB(
-                                            255, 74, 74, 74)),
-                                  ),
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "朋友圈",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "状态",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "微信豆",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "微信运动",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                LJNPCCFunctionItem(
-                                  title: Text(
-                                    "看一看",
-                                    style: TextStyle(
-                                      height: 1.08,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: fontSizeScale(32.0.w),
-                                      fontFamily: "AlibabaPuHuiTi",
+                            // 基本信息
+                            SizedBox(
+                              width: 690.w,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 105.w,
+                                    margin: EdgeInsets.only(left: 30.w),
+                                    alignment: Alignment.centerLeft,
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                      color: const Color.fromARGB(
+                                          255, 242, 242, 242),
+                                      width: 1.5.w,
+                                      style: BorderStyle.solid,
+                                    ))),
+                                    child: Text(
+                                      "基本信息",
+                                      style: TextStyle(
+                                          fontSize: 25.w,
+                                          color: const Color.fromARGB(
+                                              255, 74, 74, 74)),
                                     ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.visible,
                                   ),
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "公众号",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "小程序",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "视频号",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "微信游戏",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30.w,
-                          ),
-                          // 联系人信息
-                          SizedBox(
-                            width: 690.w,
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 105.w,
-                                  margin: EdgeInsets.only(left: 30.w),
-                                  alignment: Alignment.centerLeft,
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                    color: const Color.fromARGB(
-                                        255, 242, 242, 242),
-                                    width: 1.5.w,
-                                    style: BorderStyle.solid,
-                                  ))),
-                                  child: Text(
-                                    "联系人信息",
-                                    style: TextStyle(
-                                        fontSize: 25.w,
-                                        color: const Color.fromARGB(
-                                            255, 74, 74, 74)),
+                                  const LJNPCCFunctionItem(
+                                    title: "头像",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
                                   ),
-                                ),
-                                const LJNPCCFunctionItem(
-                                  title: "手机联系人",
-                                  link: '',
-                                  underline: true,
-                                  tapEffect: true,
-                                ),
-                              ],
+                                  const LJNPCCFunctionItem(
+                                    title: "姓名",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "手机号",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "性别",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "地区",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "个性签名",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "地址",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 100.w,
-                          )
-                        ])))));
+                            SizedBox(
+                              height: 30.w,
+                            ),
+                            // 设备信息
+                            SizedBox(
+                              width: 690.w,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 105.w,
+                                    margin: EdgeInsets.only(left: 30.w),
+                                    alignment: Alignment.centerLeft,
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                      color: const Color.fromARGB(
+                                          255, 242, 242, 242),
+                                      width: 1.5.w,
+                                      style: BorderStyle.solid,
+                                    ))),
+                                    child: Text(
+                                      "设备信息",
+                                      style: TextStyle(
+                                          fontSize: 25.w,
+                                          color: const Color.fromARGB(
+                                              255, 74, 74, 74)),
+                                    ),
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "登录过的设备",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30.w,
+                            ),
+                            // 用户使用过程信息
+                            SizedBox(
+                              width: 690.w,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 105.w,
+                                    margin: EdgeInsets.only(left: 30.w),
+                                    alignment: Alignment.centerLeft,
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                      color: const Color.fromARGB(
+                                          255, 242, 242, 242),
+                                      width: 1.5.w,
+                                      style: BorderStyle.solid,
+                                    ))),
+                                    child: Text(
+                                      "用户使用过程信息",
+                                      style: TextStyle(
+                                          fontSize: 25.w,
+                                          color: const Color.fromARGB(
+                                              255, 74, 74, 74)),
+                                    ),
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "位置",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "图片与视频",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30.w,
+                            ),
+                            // 社交与内容信息
+                            SizedBox(
+                              width: 690.w,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 105.w,
+                                    margin: EdgeInsets.only(left: 30.w),
+                                    alignment: Alignment.centerLeft,
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                      color: const Color.fromARGB(
+                                          255, 242, 242, 242),
+                                      width: 1.5.w,
+                                      style: BorderStyle.solid,
+                                    ))),
+                                    child: Text(
+                                      "社交与内容信息",
+                                      style: TextStyle(
+                                          fontSize: 25.w,
+                                          color: const Color.fromARGB(
+                                              255, 74, 74, 74)),
+                                    ),
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "朋友圈",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "状态",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "微信豆",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "微信运动",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  LJNPCCFunctionItem(
+                                    title: Text(
+                                      "看一看",
+                                      style: TextStyle(
+                                        height: 1.08,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: fontSizeScale(32.0.w),
+                                        fontFamily: "AlibabaPuHuiTi",
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.visible,
+                                    ),
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "公众号",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "小程序",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "视频号",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "微信游戏",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30.w,
+                            ),
+                            // 联系人信息
+                            SizedBox(
+                              width: 690.w,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: 105.w,
+                                    margin: EdgeInsets.only(left: 30.w),
+                                    alignment: Alignment.centerLeft,
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                      color: const Color.fromARGB(
+                                          255, 242, 242, 242),
+                                      width: 1.5.w,
+                                      style: BorderStyle.solid,
+                                    ))),
+                                    child: Text(
+                                      "联系人信息",
+                                      style: TextStyle(
+                                          fontSize: 25.w,
+                                          color: const Color.fromARGB(
+                                              255, 74, 74, 74)),
+                                    ),
+                                  ),
+                                  const LJNPCCFunctionItem(
+                                    title: "手机联系人",
+                                    link: '',
+                                    underline: true,
+                                    tapEffect: true,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 100.w,
+                            )
+                          ])))));
+    });
   }
 }
 

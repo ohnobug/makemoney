@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
+import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 
 class LJNSetPassword extends StatefulWidget {
   const LJNSetPassword({super.key});
@@ -21,15 +23,14 @@ class _LJNSetPassword extends State<LJNSetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return _buildPage(vm);
-        });
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return _buildPage(systemState);
+    });
   }
 
   // 另起一个函数方便管理
-  Widget _buildPage(StoreType vm) {
+  Widget _buildPage(SystemState systemState) {
     return Scaffold(
         primary: false,
         appBar: LJNAppBar(
@@ -62,7 +63,9 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: Container(
                 constraints: BoxConstraints(
-                    minHeight: vm.screenSize!.height - 90.w - vm.statusHeight!),
+                    minHeight: systemState.screenSize.height -
+                        90.w -
+                        systemState.statusHeight),
                 color: const Color.fromARGB(255, 237, 237, 237),
                 child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(
@@ -111,7 +114,10 @@ class _LJNSetPassword extends State<LJNSetPassword> {
                                       width: 63.w,
                                     ),
                                     Text(
-                                      vm.userinfoAccount!,
+                                      context
+                                          .read<UserCubit>()
+                                          .state
+                                          .userinfoAccount!,
                                       style: TextStyle(
                                           height: 1.08,
                                           fontSize: 32.w,

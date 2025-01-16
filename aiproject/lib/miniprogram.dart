@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
+
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -72,170 +74,168 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return Scaffold(
-              primary: false,
-              appBar: LJNAppBar(
-                title: "小程序",
-                actions: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      color: Colors.transparent,
-                      height: 90.w,
-                      padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                      alignment: Alignment.center,
-                      child: Icon(
-                        const IconData(
-                          0xe612,
-                          fontFamily: 'Iconfont',
-                        ),
-                        size: 40.w, // 图标大小
-                      ),
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return Scaffold(
+          primary: false,
+          appBar: LJNAppBar(
+            title: "小程序",
+            actions: [
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  color: Colors.transparent,
+                  height: 90.w,
+                  padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                  alignment: Alignment.center,
+                  child: Icon(
+                    const IconData(
+                      0xe612,
+                      fontFamily: 'Iconfont',
                     ),
+                    size: 40.w, // 图标大小
                   ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      color: Colors.transparent,
-                      height: 90.w,
-                      padding: EdgeInsets.only(right: 40.w), // 设置右侧内边距
-                      alignment: Alignment.center,
-                      child: Icon(
-                        const IconData(
-                          0xe726,
-                          fontFamily: 'Iconfont',
-                        ),
-                        size: 42.w, // 图标大小
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-              body: ColoredBox(
-                  color: const Color.fromARGB(255, 237, 237, 237),
-                  child: ScrollConfiguration(
-                      behavior: ScrollConfiguration.of(context)
-                          .copyWith(scrollbars: false),
-                      child: SingleChildScrollView(
-                          physics: const AlwaysScrollableScrollPhysics(
-                              parent: BouncingScrollPhysics()),
-                          child: Container(
-                            constraints: BoxConstraints(
-                                minHeight: vm.screenSize!.height - 205.w),
-                            color: const Color.fromARGB(255, 237, 237, 237),
-                            child: Column(
-                              children: [
-                                // 最近使用
-                                FunctionButtonsSection(
-                                  title: '最近使用',
-                                  moreUrl: "/",
-                                  buttons: [
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/zhihuixiangji.jpg",
-                                        title: "智慧相机",
-                                        onPressed: () {}),
-                                    // FunctionButton(
-                                    //     icon:
-                                    //         "images/miniprogram_icon/wangwangshangliao.jpg",
-                                    //     title: "旺旺商聊",
-                                    //     onPressed: () {}),
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/haimianbaobao.jpg",
-                                        title: "海绵宝宝",
-                                        onPressed: () {}),
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/taowuyou.jpg",
-                                        title: "淘无忧",
-                                        onPressed: () {}),
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/wangzheyingdi.jpg",
-                                        title: "王者营地",
-                                        onPressed: () {}),
-                                  ],
-                                ),
-
-                                // 我的常用
-                                FunctionButtonsSection(
-                                  title: '我的常用',
-                                  moreUrl: "",
-                                  buttons: [
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/duitang.jpg",
-                                        title: "堆糖",
-                                        onPressed: () {}),
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/tiankongyueduqi.jpg",
-                                        title: "天空阅读器",
-                                        onPressed: () {}),
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/qishuwang.jpg",
-                                        title: "奇书网",
-                                        onPressed: () {}),
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/xueyouyoujiao.jpg",
-                                        title: "学有优教",
-                                        onPressed: () {}),
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/haiziwang.jpg",
-                                        title: "孩子王",
-                                        onPressed: () {}),
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/qianbixiaoshuo.jpg",
-                                        title: "铅笔小说",
-                                        onPressed: () {}),
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/chengquanshipin.jpg",
-                                        title: "成全视频",
-                                        onPressed: () {}),
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/xiaomishangcheng.jpg",
-                                        title: "小米商城",
-                                        onPressed: () {}),
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/meituxiuxiu.jpg",
-                                        title: "美图秀秀",
-                                        onPressed: () {}),
-                                    FunctionButton(
-                                        icon:
-                                            "images/miniprogram_icon/luobokuaipao.jpg",
-                                        title: "萝卜快跑",
-                                        onPressed: () {}),
-                                  ],
-                                ),
-
-                                // 交通出行
-                                FunctionListSection(
-                                  title: "交通出行",
-                                  moreUrl: '/',
-                                  chatItems: chatItems,
-                                ),
-
-                                // 附近小程序
-                                FunctionListSection(
-                                  title: "附近小程序",
-                                  moreUrl: '/',
-                                  chatItems: chatItems2,
-                                )
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  color: Colors.transparent,
+                  height: 90.w,
+                  padding: EdgeInsets.only(right: 40.w), // 设置右侧内边距
+                  alignment: Alignment.center,
+                  child: Icon(
+                    const IconData(
+                      0xe726,
+                      fontFamily: 'Iconfont',
+                    ),
+                    size: 42.w, // 图标大小
+                  ),
+                ),
+              ),
+            ],
+          ),
+          body: ColoredBox(
+              color: const Color.fromARGB(255, 237, 237, 237),
+              child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context)
+                      .copyWith(scrollbars: false),
+                  child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(
+                          parent: BouncingScrollPhysics()),
+                      child: Container(
+                        constraints: BoxConstraints(
+                            minHeight: systemState.screenSize.height - 205.w),
+                        color: const Color.fromARGB(255, 237, 237, 237),
+                        child: Column(
+                          children: [
+                            // 最近使用
+                            FunctionButtonsSection(
+                              title: '最近使用',
+                              moreUrl: "/",
+                              buttons: [
+                                FunctionButton(
+                                    icon:
+                                        "images/miniprogram_icon/zhihuixiangji.jpg",
+                                    title: "智慧相机",
+                                    onPressed: () {}),
+                                // FunctionButton(
+                                //     icon:
+                                //         "images/miniprogram_icon/wangwangshangliao.jpg",
+                                //     title: "旺旺商聊",
+                                //     onPressed: () {}),
+                                FunctionButton(
+                                    icon:
+                                        "images/miniprogram_icon/haimianbaobao.jpg",
+                                    title: "海绵宝宝",
+                                    onPressed: () {}),
+                                FunctionButton(
+                                    icon:
+                                        "images/miniprogram_icon/taowuyou.jpg",
+                                    title: "淘无忧",
+                                    onPressed: () {}),
+                                FunctionButton(
+                                    icon:
+                                        "images/miniprogram_icon/wangzheyingdi.jpg",
+                                    title: "王者营地",
+                                    onPressed: () {}),
                               ],
                             ),
-                          )))));
-        });
+
+                            // 我的常用
+                            FunctionButtonsSection(
+                              title: '我的常用',
+                              moreUrl: "",
+                              buttons: [
+                                FunctionButton(
+                                    icon: "images/miniprogram_icon/duitang.jpg",
+                                    title: "堆糖",
+                                    onPressed: () {}),
+                                FunctionButton(
+                                    icon:
+                                        "images/miniprogram_icon/tiankongyueduqi.jpg",
+                                    title: "天空阅读器",
+                                    onPressed: () {}),
+                                FunctionButton(
+                                    icon:
+                                        "images/miniprogram_icon/qishuwang.jpg",
+                                    title: "奇书网",
+                                    onPressed: () {}),
+                                FunctionButton(
+                                    icon:
+                                        "images/miniprogram_icon/xueyouyoujiao.jpg",
+                                    title: "学有优教",
+                                    onPressed: () {}),
+                                FunctionButton(
+                                    icon:
+                                        "images/miniprogram_icon/haiziwang.jpg",
+                                    title: "孩子王",
+                                    onPressed: () {}),
+                                FunctionButton(
+                                    icon:
+                                        "images/miniprogram_icon/qianbixiaoshuo.jpg",
+                                    title: "铅笔小说",
+                                    onPressed: () {}),
+                                FunctionButton(
+                                    icon:
+                                        "images/miniprogram_icon/chengquanshipin.jpg",
+                                    title: "成全视频",
+                                    onPressed: () {}),
+                                FunctionButton(
+                                    icon:
+                                        "images/miniprogram_icon/xiaomishangcheng.jpg",
+                                    title: "小米商城",
+                                    onPressed: () {}),
+                                FunctionButton(
+                                    icon:
+                                        "images/miniprogram_icon/meituxiuxiu.jpg",
+                                    title: "美图秀秀",
+                                    onPressed: () {}),
+                                FunctionButton(
+                                    icon:
+                                        "images/miniprogram_icon/luobokuaipao.jpg",
+                                    title: "萝卜快跑",
+                                    onPressed: () {}),
+                              ],
+                            ),
+
+                            // 交通出行
+                            FunctionListSection(
+                              title: "交通出行",
+                              moreUrl: '/',
+                              chatItems: chatItems,
+                            ),
+
+                            // 附近小程序
+                            FunctionListSection(
+                              title: "附近小程序",
+                              moreUrl: '/',
+                              chatItems: chatItems2,
+                            )
+                          ],
+                        ),
+                      )))));
+    });
   }
 }
 

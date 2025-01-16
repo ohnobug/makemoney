@@ -237,31 +237,20 @@ Future<String> generateStringChunkHash(String str) async {
 
 // 提亮颜色
 Color lightenColor(Color color, double percentage) {
-  int r = (color.r + ((255 - color.r) * percentage).toInt()) as int;
-  int g = (color.g + ((255 - color.g) * percentage).toInt()) as int;
-  int b = (color.b + ((255 - color.b) * percentage).toInt()) as int;
+  double r = color.r + ((255 - color.r) * percentage);
+  double g = color.g + ((255 - color.g) * percentage);
+  double b = color.b + ((255 - color.b) * percentage);
 
-  // 确保 RGB 值不超过 255
-  r = r > 255 ? 255 : r;
-  g = g > 255 ? 255 : g;
-  b = b > 255 ? 255 : b;
-
-  return Color.fromARGB(color.a as int, r, g, b);
+  return Color.from(alpha: color.a, red: r, green: g, blue: b);
 }
 
-// 减暗颜色
 Color darkenColor(Color color, double percentage) {
   // 将每个通道的值减少，避免低于0
-  int r = (color.r - ((color.r) * percentage).toInt()) as int;
-  int g = (color.g - ((color.g) * percentage).toInt()) as int;
-  int b = (color.b - ((color.b) * percentage).toInt()) as int;
+  double r = color.r - color.r * percentage;
+  double g = color.g - color.g * percentage;
+  double b = color.b - color.b * percentage;
 
-  // 确保 RGB 值不低于 0
-  r = r < 0 ? 0 : r;
-  g = g < 0 ? 0 : g;
-  b = b < 0 ? 0 : b;
-
-  return Color.fromARGB(color.a as int, r, g, b);
+  return Color.from(alpha: color.a, red: r, green: g, blue: b);
 }
 
 String formatDuration(Duration duration) {

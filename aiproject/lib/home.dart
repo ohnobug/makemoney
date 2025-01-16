@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_custom_physics.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
+
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LJNHomePage extends StatefulWidget {
@@ -23,25 +25,27 @@ class _ChatListViewState extends State<LJNHomePage> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(milliseconds: 300), () {
-      myStore.dispatch({"type": "mainpage1isload", "payload": true});
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SystemCubit>().updateHomescrollpixels(0);
+      context.read<SystemCubit>().updateShowMiniProgramDrawer(false);
+      context.read<SystemCubit>().updateMainpage1isload(true);
     });
 
     _customScrollController.addListener(() {
       // logger.info("this is :{${_customScrollController.position.pixels}}");
 
       if (_customScrollController.position.pixels <= 0) {
-        myStore.dispatch({
-          "type": "homescrollpixels",
-          "payload": _customScrollController.position.pixels.abs()
-        });
+        context.read<SystemCubit>().updateHomescrollpixels(
+            _customScrollController.position.pixels.abs());
       } else {
-        double newValue = myStore.state.homescrollpixels +
+        double newValue = context.read<SystemCubit>().state.homescrollpixels +
             _customScrollController.position.pixels;
         if (newValue < 0) {
-          myStore.dispatch({"type": "homescrollpixels", "payload": newValue});
+          context.read<SystemCubit>().updateHomescrollpixels(newValue);
         } else {
-          myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            context.read<SystemCubit>().updateHomescrollpixels(0);
+          });
         }
       }
     });
@@ -479,19 +483,20 @@ class _ChatListViewState extends State<LJNHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return vm.mainpage1isload! ? _buildPage(vm) : const LJNPageLoading();
-        });
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return systemState.mainpage1isload!
+          ? _buildPage(systemState)
+          : const LJNPageLoading();
+    });
   }
 
-  Widget _buildPage(StoreType vm) {
+  Widget _buildPage(SystemState systemState) {
     return ScrollConfiguration(
         behavior: CustomScrollBehavior().copyWith(scrollbars: false),
         child: ListView.builder(
           primary: false,
-          padding: EdgeInsets.only(top: vm.statusHeight! + 90.w),
+          padding: EdgeInsets.only(top: systemState.statusHeight + 90.w),
           itemCount: chatItems.length,
           shrinkWrap: true,
           controller: _customScrollController,

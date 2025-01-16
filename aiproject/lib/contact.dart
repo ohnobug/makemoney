@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LJNContactPage extends StatefulWidget {
@@ -43,11 +43,10 @@ class _LJNContactPageState extends State<LJNContactPage> {
 
     logger.info('contact...............');
 
-    myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
-    myStore.dispatch({"type": "showMiniProgramDrawer", "payload": false});
-
-    Future.delayed(const Duration(milliseconds: 300), () {
-      myStore.dispatch({"type": "mainpage2isload", "payload": true});
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SystemCubit>().updateHomescrollpixels(0);
+      context.read<SystemCubit>().updateShowMiniProgramDrawer(false);
+      context.read<SystemCubit>().updateMainpage2isload(true);
     });
 
     contactList = [
@@ -482,120 +481,106 @@ class _LJNContactPageState extends State<LJNContactPage> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return vm.mainpage2isload! ? _buildPage() : const LJNPageLoading();
-        });
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return systemState.mainpage2isload!
+          ? _buildPage(systemState)
+          : const LJNPageLoading();
+    });
   }
 
   // 另起一个函数方便管理
-  Widget _buildPage() {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return Stack(children: [
-            // 联系人
-            ScrollConfiguration(
-              behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: Container(
-                  constraints: BoxConstraints(
-                      minHeight:
-                          vm.screenSize!.height - 90.w - vm.statusHeight!),
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Color.fromARGB(255, 237, 237, 237),
-                        Colors.white,
-                      ],
-                      stops: [0.3, 0.5],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
-                  ),
-                  child: ListView.builder(
-                    primary: false,
-                    padding: EdgeInsets.only(top: vm.statusHeight! + 90.w),
-                    physics: const AlwaysScrollableScrollPhysics(
-                        parent: BouncingScrollPhysics()),
-                    itemCount: contactList.length, // contactList 是你的联系人数据列表
-                    itemBuilder: (context, index) {
-                      return contactList[index];
-                    },
-                  )),
+  Widget _buildPage(SystemState systemState) {
+    return Stack(children: [
+      // 联系人
+      ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: Container(
+            constraints: BoxConstraints(
+                minHeight: systemState.screenSize.height -
+                    90.w -
+                    systemState.statusHeight),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 237, 237, 237),
+                  Colors.white,
+                ],
+                stops: [0.3, 0.5],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
             ),
-
-            // 右边的字母表
-            StoreConnector<StoreType, StoreType>(
-              converter: (store) => store.state,
-              builder: (context, state) {
-                return Visibility(
-                    visible: state.contactazshow!,
-                    child: Positioned(
-                        right: 0,
-                        top:
-                            ((MediaQuery.of(context).size.height - 986.w) / 2) +
-                                40.w,
-                        child: SizedBox(
-                          width: 40.w,
-                          // height: MediaQuery.of(context).size.height - 115.w - 75.w,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 34.w,
-                                child: Icon(
-                                    const IconData(
-                                      0xe677,
-                                      fontFamily: 'Iconfont',
-                                    ),
-                                    size: 22.w,
-                                    color:
-                                        const Color.fromARGB(255, 20, 20, 20)),
-                              ),
-                              SizedBox(
-                                height: 34.w,
-                                child: Icon(
-                                    const IconData(
-                                      0xe6c8,
-                                      fontFamily: 'Iconfont',
-                                    ),
-                                    size: 22.w,
-                                    color:
-                                        const Color.fromARGB(255, 20, 20, 20)),
-                              ),
-                              for (int i = 0; i < 26; i++)
-                                SizedBox(
-                                  height: 34.w,
-                                  child: Text(
-                                    String.fromCharCode(65 + i),
-                                    style: TextStyle(
-                                        height: 1.08,
-                                        fontSize: fontSizeScale(22.w),
-                                        color: const Color.fromARGB(
-                                            255, 20, 20, 20)),
-                                  ),
-                                ),
-                              SizedBox(
-                                height: 34.w,
-                                child: Text(
-                                  "#",
-                                  style: TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(22.w),
-                                      color: const Color.fromARGB(
-                                          255, 20, 20, 20)),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )));
+            child: ListView.builder(
+              primary: false,
+              padding: EdgeInsets.only(top: systemState.statusHeight + 90.w),
+              physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
+              itemCount: contactList.length, // contactList 是你的联系人数据列表
+              itemBuilder: (context, index) {
+                return contactList[index];
               },
-            ),
-          ]);
-        });
+            )),
+      ),
+
+      // 右边的字母表
+      Visibility(
+          visible: systemState.contactazshow,
+          child: Positioned(
+              right: 0,
+              top: ((MediaQuery.of(context).size.height - 986.w) / 2) + 40.w,
+              child: SizedBox(
+                width: 40.w,
+                // height: MediaQuery.of(context).size.height - 115.w - 75.w,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 34.w,
+                      child: Icon(
+                          const IconData(
+                            0xe677,
+                            fontFamily: 'Iconfont',
+                          ),
+                          size: 22.w,
+                          color: const Color.fromARGB(255, 20, 20, 20)),
+                    ),
+                    SizedBox(
+                      height: 34.w,
+                      child: Icon(
+                          const IconData(
+                            0xe6c8,
+                            fontFamily: 'Iconfont',
+                          ),
+                          size: 22.w,
+                          color: const Color.fromARGB(255, 20, 20, 20)),
+                    ),
+                    for (int i = 0; i < 26; i++)
+                      SizedBox(
+                        height: 34.w,
+                        child: Text(
+                          String.fromCharCode(65 + i),
+                          style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(22.w),
+                              color: const Color.fromARGB(255, 20, 20, 20)),
+                        ),
+                      ),
+                    SizedBox(
+                      height: 34.w,
+                      child: Text(
+                        "#",
+                        style: TextStyle(
+                            height: 1.08,
+                            fontSize: fontSizeScale(22.w),
+                            color: const Color.fromARGB(255, 20, 20, 20)),
+                      ),
+                    ),
+                  ],
+                ),
+              )))
+    ]);
   }
 }
 

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
+import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 import 'components/ljn_function_item.dart';
@@ -20,27 +22,28 @@ class _LJNUserPageState extends State<LJNUserPage> {
   void initState() {
     super.initState();
 
-    myStore.dispatch({"type": "homescrollpixels", "payload": 0.0});
-    myStore.dispatch({"type": "showMiniProgramDrawer", "payload": false});
-
-    Future.delayed(const Duration(milliseconds: 300), () {
-      myStore.dispatch({"type": "mainpage4isload", "payload": true});
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SystemCubit>().updateHomescrollpixels(0);
+      context.read<SystemCubit>().updateShowMiniProgramDrawer(false);
+      context.read<SystemCubit>().updateMainpage4isload(true);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return vm.mainpage4isload! ? _buildPage(vm) : const LJNPageLoading();
-        });
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return systemState.mainpage4isload!
+          ? _buildPage(systemState)
+          : const LJNPageLoading();
+    });
   }
 
-  Widget _buildPage(StoreType vm) {
+  Widget _buildPage(SystemState systemState) {
     return Stack(children: [
       Container(
-        constraints: BoxConstraints(minHeight: vm.screenSize!.height - 106.w),
+        constraints:
+            BoxConstraints(minHeight: systemState.screenSize.height - 106.w),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.white, Color.fromARGB(255, 237, 237, 237)],
@@ -51,8 +54,8 @@ class _LJNUserPageState extends State<LJNUserPage> {
         ),
       ),
       SizedBox(
-          width: vm.screenSize!.width,
-          height: vm.screenSize!.height,
+          width: systemState.screenSize.width,
+          height: systemState.screenSize.height,
           child: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -66,7 +69,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                       Container(
                         color: Colors.white,
                         padding: EdgeInsets.only(
-                            top: 120.0.w + vm.statusHeight!,
+                            top: 120.0.w + systemState.statusHeight,
                             left: 32.w,
                             bottom: 50.w),
                         child: Row(
@@ -78,13 +81,17 @@ class _LJNUserPageState extends State<LJNUserPage> {
                               },
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10).w,
-                                  child: Image.asset(
-                                    assetPath(vm.userinfoAvatar!),
-                                    cacheWidth: 240.w.toInt(),
-                                    cacheHeight: 240.w.toInt(),
-                                    width: 120.w,
-                                    height: 120.w,
-                                    fit: BoxFit.cover,
+                                  child: BlocBuilder<UserCubit, UserState>(
+                                    builder: (context, state) {
+                                      return Image.asset(
+                                        assetPath(state.userinfoAvatar!),
+                                        cacheWidth: 240.w.toInt(),
+                                        cacheHeight: 240.w.toInt(),
+                                        width: 120.w,
+                                        height: 120.w,
+                                        fit: BoxFit.cover,
+                                      );
+                                    },
                                   )),
                             ),
 
@@ -113,16 +120,23 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                   Container(
                                                     width: double.infinity,
                                                     color: Colors.transparent,
-                                                    child: Text(
-                                                      vm.userinfoName as String,
-                                                      style: TextStyle(
-                                                        height: 1.5,
-                                                        fontSize:
-                                                            fontSizeScale(42.w),
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: Colors.black,
-                                                      ),
+                                                    child: BlocBuilder<
+                                                        UserCubit, UserState>(
+                                                      builder:
+                                                          (context, state) {
+                                                        return Text(
+                                                          state.userinfoName!,
+                                                          style: TextStyle(
+                                                            height: 1.5,
+                                                            fontSize:
+                                                                fontSizeScale(
+                                                                    42.w),
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: Colors.black,
+                                                          ),
+                                                        );
+                                                      },
                                                     ),
                                                   ),
 
@@ -134,17 +148,26 @@ class _LJNUserPageState extends State<LJNUserPage> {
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      Text(
-                                                        '微信号：${vm.userinfoAccount}',
-                                                        style: TextStyle(
-                                                          height: 1.08,
-                                                          fontSize:
-                                                              fontSizeScale(
-                                                                  28.w),
-                                                          color: const Color
-                                                              .fromARGB(255,
-                                                              111, 111, 111),
-                                                        ),
+                                                      BlocBuilder<UserCubit,
+                                                          UserState>(
+                                                        builder:
+                                                            (context, state) {
+                                                          return Text(
+                                                            '微信号：${state.userinfoAccount}',
+                                                            style: TextStyle(
+                                                              height: 1.08,
+                                                              fontSize:
+                                                                  fontSizeScale(
+                                                                      28.w),
+                                                              color: const Color
+                                                                  .fromARGB(
+                                                                  255,
+                                                                  111,
+                                                                  111,
+                                                                  111),
+                                                            ),
+                                                          );
+                                                        },
                                                       ),
                                                       // 二维码图标
                                                       Row(
@@ -368,7 +391,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
                       const LJNFunctionItem(
                         title: "小店订单与卡包",
                         icon: "images/icon/icon5.png",
-                        link: '',
+                        link: '/test',
                         underline: true,
                       ),
                       const LJNFunctionItem(

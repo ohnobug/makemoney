@@ -5,11 +5,13 @@ import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:video_player/video_player.dart';
 
@@ -104,7 +106,8 @@ class _LJNInsPage extends State<LJNInsPage> {
       scrollPixels = _scrollController.position.pixels;
     });
 
-    if (_scrollController.position.pixels >= myStore.state.statusHeight!) {
+    if (_scrollController.position.pixels >=
+        context.read<SystemCubit>().state.statusHeight) {
       setState(() {
         setStatusLight = true;
       });
@@ -552,538 +555,525 @@ class _LJNInsPage extends State<LJNInsPage> {
           Text("查看首页", style: TextStyle(fontSize: 26.w, color: Colors.white));
     }
 
-    return StoreConnector<StoreType, StoreType>(
-        converter: (store) => store.state,
-        builder: (context, vm) {
-          return Scaffold(
-            primary: false,
-            resizeToAvoidBottomInset: false,
-            body: Stack(
-              children: [
-                // 滚动条
-                CustomScrollView(
+    return BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return Scaffold(
+        primary: false,
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          children: [
+            // 滚动条
+            CustomScrollView(
+              primary: false,
+              controller: _scrollController,
+              physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
+              scrollDirection: Axis.vertical,
+              slivers: <Widget>[
+                // SliverAppBar
+                SliverAppBar(
                   primary: false,
-                  controller: _scrollController,
-                  physics: const AlwaysScrollableScrollPhysics(
-                      parent: BouncingScrollPhysics()),
-                  scrollDirection: Axis.vertical,
-                  slivers: <Widget>[
-                    // SliverAppBar
-                    SliverAppBar(
-                      primary: false,
-                      leading: null,
-                      automaticallyImplyLeading: false,
-                      expandedHeight: vm.statusHeight! + 90.0.w,
-                      systemOverlayStyle: SystemUiOverlayStyle(
-                          statusBarColor: Colors.transparent, // 设置状态栏透明
-                          statusBarIconBrightness: setStatusLight
-                              ? Brightness.light
-                              : Brightness.dark),
-                      // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                      // foregroundColor: Colors.red,
-                      flexibleSpace: FlexibleSpaceBar(
-                        background: PreferredSize(
-                            preferredSize:
-                                Size.fromHeight(90.0.w + vm.statusHeight!),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 16.w, vertical: 0.w),
-                              margin: EdgeInsets.only(top: vm.statusHeight!),
-                              height: 90.w,
-                              // color: const Color.fromARGB(255, 221, 76, 76), // 设置背景颜色
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () =>
-                                        Navigator.of(context).pop(), // 点击事件
-                                    child: Container(
-                                      // 加盒子是为了扩大点击区域
-                                      color: Colors.transparent,
-                                      child: Icon(
-                                        const IconData(
-                                          0xed9e,
-                                          fontFamily: 'Iconfont',
-                                        ), // 使用的图标
-                                        color: Colors.black, // 图标颜色
-                                        size: 36.w, // 图标大小
-                                      ),
-                                    ),
+                  leading: null,
+                  automaticallyImplyLeading: false,
+                  expandedHeight: systemState.statusHeight + 90.0.w,
+                  systemOverlayStyle: SystemUiOverlayStyle(
+                      statusBarColor: Colors.transparent, // 设置状态栏透明
+                      statusBarIconBrightness:
+                          setStatusLight ? Brightness.light : Brightness.dark),
+                  // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                  // foregroundColor: Colors.red,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: PreferredSize(
+                        preferredSize:
+                            Size.fromHeight(90.0.w + systemState.statusHeight),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.w, vertical: 0.w),
+                          margin:
+                              EdgeInsets.only(top: systemState.statusHeight),
+                          height: 90.w,
+                          // color: const Color.fromARGB(255, 221, 76, 76), // 设置背景颜色
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () =>
+                                    Navigator.of(context).pop(), // 点击事件
+                                child: Container(
+                                  // 加盒子是为了扩大点击区域
+                                  color: Colors.transparent,
+                                  child: Icon(
+                                    const IconData(
+                                      0xed9e,
+                                      fontFamily: 'Iconfont',
+                                    ), // 使用的图标
+                                    color: Colors.black, // 图标颜色
+                                    size: 36.w, // 图标大小
                                   ),
-                                  Expanded(
-                                      flex: 1,
-                                      child: Container(
-                                          // color: Colors.blue,
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: 15.w),
-                                          height: 65.w,
-                                          child: TextField(
-                                            readOnly: true,
-                                            onTap: () {
-                                              Navigator.pushNamed(
-                                                  context, '/search');
-                                            },
-                                            onTapOutside: (event) {
-                                              FocusScope.of(context).unfocus();
-                                            },
-                                            cursorHeight: 35.w,
-                                            cursorWidth: 3.w,
-                                            decoration: InputDecoration(
-                                              prefixIcon: Icon(
-                                                const IconData(
-                                                  0xe612,
-                                                  fontFamily: 'Iconfont',
-                                                ),
-                                                color: Colors.black,
-                                                size: 40.w,
-                                              ),
-                                              prefixIconConstraints:
-                                                  BoxConstraints(
-                                                minWidth: 70.w, // 控制图标与文字的最小宽度
-                                                // minHeight: 36.w,
-                                              ),
-                                              hintText: "搜索",
-                                              hintStyle: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: 30.w,
-                                                  color: const Color.fromARGB(
-                                                      255, 69, 75, 83)),
-                                              filled: true,
-                                              fillColor: const Color.fromARGB(
-                                                  255, 217, 220, 224),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                                borderSide: BorderSide.none,
-                                              ),
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 8.0.w,
-                                                      horizontal: 20.0.w),
-                                            ),
-                                          ))),
-                                ],
+                                ),
                               ),
-                            )),
-                      ),
-                      floating: true,
-                      pinned: false,
-                    ),
-
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          if ((index + 1) % 3 == 1) {
-                            // 样式1
-                            return LJNInsStyle(
-                              checkIfInsideBox: checkIfInsideBox,
-                              showBigImg: showBigImg,
-                              scrollPixels: scrollPixels,
-                              imageList: mylist[index],
-                              bigImgPosition: 1,
-                            );
-                          } else if ((index + 1) % 3 == 2) {
-                            // 样式2
-                            return LJNInsStyle(
-                              checkIfInsideBox: checkIfInsideBox,
-                              showBigImg: showBigImg,
-                              scrollPixels: scrollPixels,
-                              imageList: mylist[index],
-                              bigImgPosition: 2,
-                            );
-                          } else {
-                            // 样式3
-                            return LJNInsStyle(
-                              checkIfInsideBox: checkIfInsideBox,
-                              showBigImg: showBigImg,
-                              scrollPixels: scrollPixels,
-                              imageList: mylist[index],
-                              bigImgPosition: 3,
-                            );
-                          }
-                        },
-                        childCount: mylist.length, // 这里替换为你的列表长度
-                      ),
-                    ),
-                  ],
+                              Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                      // color: Colors.blue,
+                                      margin: EdgeInsets.symmetric(
+                                          horizontal: 15.w),
+                                      height: 65.w,
+                                      child: TextField(
+                                        readOnly: true,
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, '/search');
+                                        },
+                                        onTapOutside: (event) {
+                                          FocusScope.of(context).unfocus();
+                                        },
+                                        cursorHeight: 35.w,
+                                        cursorWidth: 3.w,
+                                        decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            const IconData(
+                                              0xe612,
+                                              fontFamily: 'Iconfont',
+                                            ),
+                                            color: Colors.black,
+                                            size: 40.w,
+                                          ),
+                                          prefixIconConstraints: BoxConstraints(
+                                            minWidth: 70.w, // 控制图标与文字的最小宽度
+                                            // minHeight: 36.w,
+                                          ),
+                                          hintText: "搜索",
+                                          hintStyle: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 30.w,
+                                              color: const Color.fromARGB(
+                                                  255, 69, 75, 83)),
+                                          filled: true,
+                                          fillColor: const Color.fromARGB(
+                                              255, 217, 220, 224),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            borderSide: BorderSide.none,
+                                          ),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 8.0.w,
+                                              horizontal: 20.0.w),
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                        )),
+                  ),
+                  floating: true,
+                  pinned: false,
                 ),
 
-                // 大图
-                Visibility(
-                    visible: bigImgVisible,
-                    child: SizedBox(
-                      height: vm.screenSize!.height,
-                      width: vm.screenSize!.width,
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          BackdropFilter(
-                            filter: ImageFilter.blur(
-                                sigmaX: 5.0, sigmaY: 5.0), // 模糊强度
-                            child: Container(
-                              color: const Color.fromARGB(
-                                  71, 0, 0, 0), // 带透明度的背景颜色
-                            ),
-                          ),
-                          // 前景内容
-                          Center(
-                            child: Stack(
-                              children: [
-                                // 图片裁剪
-                                ClipRRect(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(20.w)), // 圆角前景
-                                  child: Container(
-                                    width: vm.screenSize!.width - 60.w,
-                                    constraints: BoxConstraints(
-                                      maxHeight:
-                                          vm.screenSize!.height - 100.w * 2,
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      if ((index + 1) % 3 == 1) {
+                        // 样式1
+                        return LJNInsStyle(
+                          checkIfInsideBox: checkIfInsideBox,
+                          showBigImg: showBigImg,
+                          scrollPixels: scrollPixels,
+                          imageList: mylist[index],
+                          bigImgPosition: 1,
+                        );
+                      } else if ((index + 1) % 3 == 2) {
+                        // 样式2
+                        return LJNInsStyle(
+                          checkIfInsideBox: checkIfInsideBox,
+                          showBigImg: showBigImg,
+                          scrollPixels: scrollPixels,
+                          imageList: mylist[index],
+                          bigImgPosition: 2,
+                        );
+                      } else {
+                        // 样式3
+                        return LJNInsStyle(
+                          checkIfInsideBox: checkIfInsideBox,
+                          showBigImg: showBigImg,
+                          scrollPixels: scrollPixels,
+                          imageList: mylist[index],
+                          bigImgPosition: 3,
+                        );
+                      }
+                    },
+                    childCount: mylist.length, // 这里替换为你的列表长度
+                  ),
+                ),
+              ],
+            ),
+
+            // 大图
+            Visibility(
+                visible: bigImgVisible,
+                child: SizedBox(
+                  height: systemState.screenSize.height,
+                  width: systemState.screenSize.width,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      BackdropFilter(
+                        filter:
+                            ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0), // 模糊强度
+                        child: Container(
+                          color: const Color.fromARGB(71, 0, 0, 0), // 带透明度的背景颜色
+                        ),
+                      ),
+                      // 前景内容
+                      Center(
+                        child: Stack(
+                          children: [
+                            // 图片裁剪
+                            ClipRRect(
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(20.w)), // 圆角前景
+                              child: Container(
+                                width: systemState.screenSize.width - 60.w,
+                                constraints: BoxConstraints(
+                                  maxHeight: systemState.screenSize.height -
+                                      100.w * 2,
+                                ),
+                                decoration: const BoxDecoration(
+                                    color: Color.fromARGB(
+                                        255, 255, 255, 255) // 前景颜色及透明度
                                     ),
-                                    decoration: const BoxDecoration(
-                                        color: Color.fromARGB(
-                                            255, 255, 255, 255) // 前景颜色及透明度
-                                        ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        // 图片或者视频
-                                        Flexible(
-                                            fit: FlexFit.loose,
-                                            child: SizedBox(
-                                                width: double.infinity,
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.w), // 圆角图片
-                                                  child: bigImgInfo?.isPics ==
-                                                          true
-                                                      ? Image.asset(
-                                                          assetPath(bigImgInfo!
-                                                              .source),
-                                                          fit: BoxFit.cover,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    // 图片或者视频
+                                    Flexible(
+                                        fit: FlexFit.loose,
+                                        child: SizedBox(
+                                            width: double.infinity,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      20.w), // 圆角图片
+                                              child: bigImgInfo?.isPics == true
+                                                  ? Image.asset(
+                                                      assetPath(
+                                                          bigImgInfo!.source),
+                                                      fit: BoxFit.cover,
+                                                    )
+                                                  : (_bigimgcontroller
+                                                          .value.isInitialized
+                                                      ? AspectRatio(
+                                                          aspectRatio:
+                                                              _bigimgcontroller
+                                                                  .value
+                                                                  .aspectRatio,
+                                                          child: VideoPlayer(
+                                                              _bigimgcontroller),
                                                         )
-                                                      : (_bigimgcontroller.value
-                                                              .isInitialized
-                                                          ? AspectRatio(
-                                                              aspectRatio:
-                                                                  _bigimgcontroller
-                                                                      .value
-                                                                      .aspectRatio,
-                                                              child: VideoPlayer(
-                                                                  _bigimgcontroller),
-                                                            )
-                                                          : Container()),
-                                                ))),
+                                                      : Container()),
+                                            ))),
 
-                                        SizedBox(
-                                          height: 5.w,
+                                    SizedBox(
+                                      height: 5.w,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        // 点赞按钮
+                                        Container(
+                                          key: likeBtnKey,
+                                          decoration: BoxDecoration(
+                                            color: isInsideLikeBtn
+                                                ? const Color.fromARGB(
+                                                    255, 240, 240, 240)
+                                                : const Color.fromARGB(
+                                                    255, 210, 210, 210),
+                                            borderRadius:
+                                                BorderRadius.circular(30.w),
+                                          ),
+                                          // 扩大点击区域
+                                          width: 110.w,
+                                          height: 110.w,
+                                          child: Icon(
+                                            const IconData(
+                                              0xe722,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color: isInsideLikeBtn
+                                                ? Colors.red
+                                                : const Color.fromARGB(
+                                                    255, 110, 110, 110), // 图标颜色
+                                            size: 80.w, // 图标大小
+                                          ),
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            // 点赞按钮
-                                            Container(
-                                              key: likeBtnKey,
-                                              decoration: BoxDecoration(
-                                                color: isInsideLikeBtn
-                                                    ? const Color.fromARGB(
-                                                        255, 240, 240, 240)
-                                                    : const Color.fromARGB(
-                                                        255, 210, 210, 210),
-                                                borderRadius:
-                                                    BorderRadius.circular(30.w),
-                                              ),
-                                              // 扩大点击区域
-                                              width: 110.w,
-                                              height: 110.w,
-                                              child: Icon(
-                                                const IconData(
-                                                  0xe722,
-                                                  fontFamily: 'Iconfont',
-                                                ), // 使用的图标
-                                                color: isInsideLikeBtn
-                                                    ? Colors.red
-                                                    : const Color.fromARGB(255,
-                                                        110, 110, 110), // 图标颜色
-                                                size: 80.w, // 图标大小
-                                              ),
-                                            ),
 
-                                            // 倍速
-                                            if (bigImgInfo != null &&
-                                                bigImgInfo!.isPics == false)
-                                              ClipRRect(
+                                        // 倍速
+                                        if (bigImgInfo != null &&
+                                            bigImgInfo!.isPics == false)
+                                          ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(30.w),
+                                              child: Container(
+                                                key: xSpeedBtnKey,
+                                                decoration: BoxDecoration(
+                                                  color: isInsideXSpeedBtn
+                                                      ? const Color.fromARGB(
+                                                          255, 240, 240, 240)
+                                                      : const Color.fromARGB(
+                                                          255, 210, 210, 210),
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           30.w),
-                                                  child: Container(
-                                                    key: xSpeedBtnKey,
-                                                    decoration: BoxDecoration(
-                                                      color: isInsideXSpeedBtn
-                                                          ? const Color
-                                                              .fromARGB(255,
-                                                              240, 240, 240)
-                                                          : const Color
-                                                              .fromARGB(255,
-                                                              210, 210, 210),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30.w),
-                                                    ),
-                                                    // 扩大点击区域
-                                                    width: 110.w,
-                                                    height: 110.w,
-                                                    child: Icon(
-                                                      const IconData(
-                                                        0xea7c,
-                                                        fontFamily: 'Iconfont',
-                                                      ), // 使用的图标
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              110,
-                                                              110,
-                                                              110), // 图标颜色
-                                                      size: 80.w, // 图标大小
-                                                    ),
-                                                  )),
+                                                ),
+                                                // 扩大点击区域
+                                                width: 110.w,
+                                                height: 110.w,
+                                                child: Icon(
+                                                  const IconData(
+                                                    0xea7c,
+                                                    fontFamily: 'Iconfont',
+                                                  ), // 使用的图标
+                                                  color: const Color.fromARGB(
+                                                      255,
+                                                      110,
+                                                      110,
+                                                      110), // 图标颜色
+                                                  size: 80.w, // 图标大小
+                                                ),
+                                              )),
 
-                                            // 收藏按钮
-                                            Container(
-                                              key: collectBtnKey,
-                                              decoration: BoxDecoration(
-                                                color: isInsideCollectBtn
-                                                    ? const Color.fromARGB(
-                                                        255, 240, 240, 240)
-                                                    : const Color.fromARGB(
-                                                        255, 210, 210, 210),
-                                                borderRadius:
-                                                    BorderRadius.circular(30.w),
-                                              ),
-                                              // 扩大点击区域
-                                              width: 110.w,
-                                              height: 110.w,
-                                              child: Icon(
-                                                const IconData(
-                                                  0xe602,
-                                                  fontFamily: 'Iconfont',
-                                                ), // 使用的图标
-                                                color: isInsideCollectBtn
-                                                    ? Colors.red
-                                                    : const Color.fromARGB(255,
-                                                        110, 110, 110), // 图标颜色
-                                                size: 80.w, // 图标大小
-                                              ),
-                                            ),
-
-                                            // 下载按钮
-                                            Container(
-                                              key: downloadBtnKey,
-                                              decoration: BoxDecoration(
-                                                color: isInsideDownloadBtn
-                                                    ? const Color.fromARGB(
-                                                        255, 240, 240, 240)
-                                                    : const Color.fromARGB(
-                                                        255, 210, 210, 210),
-                                                borderRadius:
-                                                    BorderRadius.circular(30.w),
-                                              ),
-                                              // 扩大点击区域
-                                              width: 110.w,
-                                              height: 110.w,
-                                              child: Icon(
-                                                const IconData(
-                                                  0xe683,
-                                                  fontFamily: 'Iconfont',
-                                                ), // 使用的图标
-                                                color: isInsideDownloadBtn
-                                                    ? Colors.red
-                                                    : const Color.fromARGB(255,
-                                                        110, 110, 110), // 图标颜色
-                                                size: 80.w, // 图标大小
-                                              ),
-                                            ),
-
-                                            // 分享按钮
-                                            Container(
-                                              key: shareBtnKey,
-                                              decoration: BoxDecoration(
-                                                color: isInsideShareBtn
-                                                    ? const Color.fromARGB(
-                                                        255, 240, 240, 240)
-                                                    : const Color.fromARGB(
-                                                        255, 210, 210, 210),
-                                                borderRadius:
-                                                    BorderRadius.circular(30.w),
-                                              ),
-                                              // 扩大点击区域
-                                              width: 110.w,
-                                              height: 110.w,
-                                              child: Icon(
-                                                const IconData(
-                                                  0xe6c7,
-                                                  fontFamily: 'Iconfont',
-                                                ), // 使用的图标
-                                                color: isInsideShareBtn
-                                                    ? Colors.red
-                                                    : const Color.fromARGB(255,
-                                                        110, 110, 110), // 图标颜色
-                                                size: 80.w, // 图标大小
-                                              ),
-                                            ),
-
-                                            // 去主页按钮
-                                            Container(
-                                              key: gotoHomeBtnKey,
-                                              decoration: BoxDecoration(
-                                                color: isInsideHomeBtn
-                                                    ? const Color.fromARGB(
-                                                        255, 240, 240, 240)
-                                                    : const Color.fromARGB(
-                                                        255, 210, 210, 210),
-                                                borderRadius:
-                                                    BorderRadius.circular(30.w),
-                                              ),
-                                              // 扩大点击区域
-                                              width: 110.w,
-                                              height: 110.w,
-                                              child: Icon(
-                                                const IconData(
-                                                  0xe62b,
-                                                  fontFamily: 'Iconfont',
-                                                ), // 使用的图标
-                                                color: isInsideHomeBtn
-                                                    ? Colors.red
-                                                    : const Color.fromARGB(255,
-                                                        110, 110, 110), // 图标颜色
-                                                size: 80.w, // 图标大小
-                                              ),
-                                            )
-                                          ],
+                                        // 收藏按钮
+                                        Container(
+                                          key: collectBtnKey,
+                                          decoration: BoxDecoration(
+                                            color: isInsideCollectBtn
+                                                ? const Color.fromARGB(
+                                                    255, 240, 240, 240)
+                                                : const Color.fromARGB(
+                                                    255, 210, 210, 210),
+                                            borderRadius:
+                                                BorderRadius.circular(30.w),
+                                          ),
+                                          // 扩大点击区域
+                                          width: 110.w,
+                                          height: 110.w,
+                                          child: Icon(
+                                            const IconData(
+                                              0xe602,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color: isInsideCollectBtn
+                                                ? Colors.red
+                                                : const Color.fromARGB(
+                                                    255, 110, 110, 110), // 图标颜色
+                                            size: 80.w, // 图标大小
+                                          ),
                                         ),
-                                        SizedBox(
-                                          height: 5.w,
+
+                                        // 下载按钮
+                                        Container(
+                                          key: downloadBtnKey,
+                                          decoration: BoxDecoration(
+                                            color: isInsideDownloadBtn
+                                                ? const Color.fromARGB(
+                                                    255, 240, 240, 240)
+                                                : const Color.fromARGB(
+                                                    255, 210, 210, 210),
+                                            borderRadius:
+                                                BorderRadius.circular(30.w),
+                                          ),
+                                          // 扩大点击区域
+                                          width: 110.w,
+                                          height: 110.w,
+                                          child: Icon(
+                                            const IconData(
+                                              0xe683,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color: isInsideDownloadBtn
+                                                ? Colors.red
+                                                : const Color.fromARGB(
+                                                    255, 110, 110, 110), // 图标颜色
+                                            size: 80.w, // 图标大小
+                                          ),
                                         ),
+
+                                        // 分享按钮
+                                        Container(
+                                          key: shareBtnKey,
+                                          decoration: BoxDecoration(
+                                            color: isInsideShareBtn
+                                                ? const Color.fromARGB(
+                                                    255, 240, 240, 240)
+                                                : const Color.fromARGB(
+                                                    255, 210, 210, 210),
+                                            borderRadius:
+                                                BorderRadius.circular(30.w),
+                                          ),
+                                          // 扩大点击区域
+                                          width: 110.w,
+                                          height: 110.w,
+                                          child: Icon(
+                                            const IconData(
+                                              0xe6c7,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color: isInsideShareBtn
+                                                ? Colors.red
+                                                : const Color.fromARGB(
+                                                    255, 110, 110, 110), // 图标颜色
+                                            size: 80.w, // 图标大小
+                                          ),
+                                        ),
+
+                                        // 去主页按钮
+                                        Container(
+                                          key: gotoHomeBtnKey,
+                                          decoration: BoxDecoration(
+                                            color: isInsideHomeBtn
+                                                ? const Color.fromARGB(
+                                                    255, 240, 240, 240)
+                                                : const Color.fromARGB(
+                                                    255, 210, 210, 210),
+                                            borderRadius:
+                                                BorderRadius.circular(30.w),
+                                          ),
+                                          // 扩大点击区域
+                                          width: 110.w,
+                                          height: 110.w,
+                                          child: Icon(
+                                            const IconData(
+                                              0xe62b,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color: isInsideHomeBtn
+                                                ? Colors.red
+                                                : const Color.fromARGB(
+                                                    255, 110, 110, 110), // 图标颜色
+                                            size: 80.w, // 图标大小
+                                          ),
+                                        )
                                       ],
                                     ),
-                                  ),
+                                    SizedBox(
+                                      height: 5.w,
+                                    ),
+                                  ],
                                 ),
-
-                                // 关闭按钮
-                                Positioned(
-                                    top: 20.w,
-                                    right: 20.w,
-                                    child: Container(
-                                      // color: const Color.fromARGB(
-                                      //     183, 192, 66, 66),
-                                      margin: EdgeInsets.only(left: 39.w),
-                                      width: 200.w,
-                                      height: 55.w,
-                                      child: Center(child: statusWidget),
-                                    ))
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    )),
-
-                // 加速按钮
-                if (isInsideXSpeedBtn)
-                  Positioned(
-                      left: xSpeedSelectorPosition.dx,
-                      top: xSpeedSelectorPosition.dy - (220.w / 2),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(30.w),
-                          child: Container(
-                              decoration: BoxDecoration(
-                                color: isInsideXSpeedBtn
-                                    ? const Color.fromARGB(255, 240, 240, 240)
-                                    : const Color.fromARGB(255, 210, 210, 210),
-                                borderRadius: BorderRadius.circular(30.w),
                               ),
-                              // 扩大点击区域
-                              width: 110.w,
-                              height: 220.w,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                        width: double.infinity,
-                                        key: x3BtnKey,
-                                        color: isInsideX3Btn
-                                            ? Colors.red
-                                            : const Color.fromARGB(
-                                                255, 210, 210, 210),
-                                        child: Center(
-                                            child: Text(
-                                          "x3",
-                                          style: TextStyle(
-                                              color: isInsideX3Btn
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              height: 1,
-                                              fontFamily:
-                                                  "AlibabaPuHuiTi-Medium",
-                                              fontSize: 30.w),
-                                        ))),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                        width: double.infinity,
-                                        key: x2BtnKey,
-                                        color: isInsideX2Btn
-                                            ? Colors.red
-                                            : const Color.fromARGB(
-                                                255, 210, 210, 210),
-                                        child: Center(
-                                            child: Text(
-                                          "x2",
-                                          style: TextStyle(
-                                              color: isInsideX2Btn
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              height: 1,
-                                              fontFamily:
-                                                  "AlibabaPuHuiTi-Medium",
-                                              fontSize: 30.w),
-                                        ))),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Container(
-                                        width: double.infinity,
-                                        key: x1BtnKey,
-                                        color: isInsideX1Btn
-                                            ? Colors.red
-                                            : const Color.fromARGB(
-                                                255, 210, 210, 210),
-                                        child: Center(
-                                            child: Text(
-                                          "x1",
-                                          style: TextStyle(
-                                              color: isInsideX1Btn
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                              height: 1,
-                                              fontFamily:
-                                                  "AlibabaPuHuiTi-Medium",
-                                              fontSize: 30.w),
-                                        ))),
-                                  ),
-                                ],
-                              ))))
-              ],
-            ),
-          );
-        });
+                            ),
+
+                            // 关闭按钮
+                            Positioned(
+                                top: 20.w,
+                                right: 20.w,
+                                child: Container(
+                                  // color: const Color.fromARGB(
+                                  //     183, 192, 66, 66),
+                                  margin: EdgeInsets.only(left: 39.w),
+                                  width: 200.w,
+                                  height: 55.w,
+                                  child: Center(child: statusWidget),
+                                ))
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
+
+            // 加速按钮
+            if (isInsideXSpeedBtn)
+              Positioned(
+                  left: xSpeedSelectorPosition.dx,
+                  top: xSpeedSelectorPosition.dy - (220.w / 2),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30.w),
+                      child: Container(
+                          decoration: BoxDecoration(
+                            color: isInsideXSpeedBtn
+                                ? const Color.fromARGB(255, 240, 240, 240)
+                                : const Color.fromARGB(255, 210, 210, 210),
+                            borderRadius: BorderRadius.circular(30.w),
+                          ),
+                          // 扩大点击区域
+                          width: 110.w,
+                          height: 220.w,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                    width: double.infinity,
+                                    key: x3BtnKey,
+                                    color: isInsideX3Btn
+                                        ? Colors.red
+                                        : const Color.fromARGB(
+                                            255, 210, 210, 210),
+                                    child: Center(
+                                        child: Text(
+                                      "x3",
+                                      style: TextStyle(
+                                          color: isInsideX3Btn
+                                              ? Colors.white
+                                              : Colors.black,
+                                          height: 1,
+                                          fontFamily: "AlibabaPuHuiTi-Medium",
+                                          fontSize: 30.w),
+                                    ))),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                    width: double.infinity,
+                                    key: x2BtnKey,
+                                    color: isInsideX2Btn
+                                        ? Colors.red
+                                        : const Color.fromARGB(
+                                            255, 210, 210, 210),
+                                    child: Center(
+                                        child: Text(
+                                      "x2",
+                                      style: TextStyle(
+                                          color: isInsideX2Btn
+                                              ? Colors.white
+                                              : Colors.black,
+                                          height: 1,
+                                          fontFamily: "AlibabaPuHuiTi-Medium",
+                                          fontSize: 30.w),
+                                    ))),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                    width: double.infinity,
+                                    key: x1BtnKey,
+                                    color: isInsideX1Btn
+                                        ? Colors.red
+                                        : const Color.fromARGB(
+                                            255, 210, 210, 210),
+                                    child: Center(
+                                        child: Text(
+                                      "x1",
+                                      style: TextStyle(
+                                          color: isInsideX1Btn
+                                              ? Colors.white
+                                              : Colors.black,
+                                          height: 1,
+                                          fontFamily: "AlibabaPuHuiTi-Medium",
+                                          fontSize: 30.w),
+                                    ))),
+                              ),
+                            ],
+                          ))))
+          ],
+        ),
+      );
+    });
   }
 }
 
