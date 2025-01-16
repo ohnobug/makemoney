@@ -764,12 +764,12 @@ class _LJNChatPage extends State<LJNChatPage>
   }
 
   // 停止录音
-  Future<void> _voiceButtonUp() async {
+  void _voiceButtonUp() {
     // 停止录音
-    final path = await record!.stop();
-    logger.info("停止录音 $path");
-    await record!.dispose();
+    final path = record!.stop();
+    record!.dispose();
     Duration difference = DateTime.now().difference(beginRecordTime);
+    logger.info("停止录音 $path");
 
     setState(() {
       messageList.add(LJNMyVoiceMessage(
@@ -780,18 +780,18 @@ class _LJNChatPage extends State<LJNChatPage>
 
       showVoiceLottie = false;
       leftRight = 0;
+
+      _voiceLottieController.reset();
+      _voiceLeftButtonScaleController.reset();
+      _voiceLeftButtonColorController.reset();
+      _voiceRightButtonScaleController.reset();
+      _voiceRightButtonColorController.reset();
+      _voiceTextBoxController.reset();
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToEnd();
     });
-
-    _voiceLottieController.reset();
-    _voiceLeftButtonScaleController.reset();
-    _voiceLeftButtonColorController.reset();
-    _voiceRightButtonScaleController.reset();
-    _voiceRightButtonColorController.reset();
-    _voiceTextBoxController.reset();
   }
 
   bool resizeToAvoidBottomInset = true;
@@ -832,6 +832,7 @@ class _LJNChatPage extends State<LJNChatPage>
                 children: [
                   Column(
                     children: [
+                      // 标题栏
                       LJNAppBar(
                         title: widget.title,
                         actions: [
@@ -859,6 +860,8 @@ class _LJNChatPage extends State<LJNChatPage>
                           )
                         ],
                       ),
+
+                      // 主体
                       Expanded(
                           child: Column(
                         children: [
@@ -871,8 +874,8 @@ class _LJNChatPage extends State<LJNChatPage>
                                   child: ScrollConfiguration(
                                     behavior: ScrollConfiguration.of(context)
                                         .copyWith(scrollbars: false),
-                                    child: GestureDetector(
-                                        onTap: () {
+                                    child: Listener(
+                                        onPointerDown: (e) {
                                           if (showEmojiSelector) {
                                             hideEmojiFunc();
                                           } else if (showKeyboard) {
