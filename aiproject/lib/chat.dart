@@ -766,19 +766,7 @@ class _LJNChatPage extends State<LJNChatPage>
 
   // 停止录音
   void _voiceButtonUp() {
-    // 停止录音
-    final path = record!.stop();
-    record!.dispose();
-    Duration difference = DateTime.now().difference(beginRecordTime);
-    logger.info("停止录音 $path");
-
     setState(() {
-      messageList.add(LJNMyVoiceMessage(
-        message: '${formatDuration(difference)}"',
-        voicePath: wmaPath!,
-        showName: false,
-      ));
-
       showVoiceLottie = false;
       leftRight = 0;
 
@@ -790,7 +778,21 @@ class _LJNChatPage extends State<LJNChatPage>
       _voiceTextBoxController.reset();
     });
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // 停止录音
+      final path = await record!.stop();
+      await record!.dispose();
+      Duration difference = DateTime.now().difference(beginRecordTime);
+      logger.info("停止录音 $path");
+
+      setState(() {
+        messageList.add(LJNMyVoiceMessage(
+          message: '${formatDuration(difference)}"',
+          voicePath: wmaPath!,
+          showName: false,
+        ));
+      });
+
       _scrollToEnd();
     });
   }

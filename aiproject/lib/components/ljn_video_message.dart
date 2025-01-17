@@ -48,18 +48,18 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
 
     double aspectRatio = widget.width / widget.height;
     if (aspectRatio > 1) {
-      videoWidth = 400.w;
+      videoWidth = 300.w;
       videoHeight = videoWidth / aspectRatio;
     } else {
-      videoHeight = 400.w / aspectRatio;
+      videoHeight = 700.w * aspectRatio;
       if (videoHeight > 906.w) {
         videoHeight = 906.w;
       }
       videoWidth = videoHeight * aspectRatio;
     }
 
-    videoWidth /= 2;
-    videoHeight /= 2;
+    // videoWidth /= 2.5;
+    // videoHeight /= 2.5;
 
     // _controller ??= VideoPlayerController.asset(assetPath(widget.video))
     //   ..initialize().then((_) {

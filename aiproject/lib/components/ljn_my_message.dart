@@ -45,15 +45,17 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              widget.name ??
-                                  context.read<UserState>().userinfoName!,
-                              style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(20.w),
-                                  color:
-                                      const Color.fromARGB(255, 130, 130, 130)),
-                            )
+                            BlocBuilder<UserCubit, UserState>(
+                                builder: (context, userState) {
+                              return Text(
+                                widget.name ?? userState.userinfoName!,
+                                style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(20.w),
+                                    color: const Color.fromARGB(
+                                        255, 130, 130, 130)),
+                              );
+                            })
                           ]),
                     ),
                   // 消息

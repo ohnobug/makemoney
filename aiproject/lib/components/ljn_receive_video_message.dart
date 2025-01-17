@@ -52,20 +52,15 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
 
     double aspectRatio = widget.width / widget.height;
     if (aspectRatio > 1) {
-      // 以宽度为准
-      videoWidth = 400.w;
+      videoWidth = 300.w;
       videoHeight = videoWidth / aspectRatio;
     } else {
-      // 以高度为准
-      videoHeight = 400.w / aspectRatio;
+      videoHeight = 700.w * aspectRatio;
       if (videoHeight > 906.w) {
         videoHeight = 906.w;
       }
       videoWidth = videoHeight * aspectRatio;
     }
-
-    videoWidth /= 2;
-    videoHeight /= 2;
 
     getFirstFrame(assetPath(widget.video));
   }

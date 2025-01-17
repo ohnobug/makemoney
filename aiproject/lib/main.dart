@@ -110,51 +110,22 @@ void main() async {
     statusBarColor: Colors.transparent, // 设置状态栏透明
     statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
   ));
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   startWebServer();
 
   runApp(
-    const TabBarApp(),
+    const App(),
   );
 }
 
-void startWebServer() async {
-  RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
-
-  ByteData byteData = await rootBundle.load("assets/web/pages.html");
-  List<int> bytes = byteData.buffer.asUint8List();
-  String fileContent = utf8.decode(bytes);
-
-  final directory = await getApplicationDocumentsDirectory();
-  final filePath = '${directory.path}/shapages.html';
-  final file = File(filePath);
-  await file.writeAsString(fileContent);
-
-  // 启动web服务器
-  final receivePort = ReceivePort();
-
-  // 创建参数对象
-  var params = FileServerParams(
-    sendPort: receivePort.sendPort,
-    rootIsolateToken: rootIsolateToken,
-    port: 9413,
-  );
-
-  await Isolate.spawn(startFileServer, params);
-  receivePort.listen((message) {
-    logger.info(message); // 打印服务器启动消息
-  });
-}
-
-class TabBarApp extends StatefulWidget {
-  const TabBarApp({super.key});
+class App extends StatefulWidget {
+  const App({super.key});
 
   @override
-  State<TabBarApp> createState() => _TabBarApp();
+  State<App> createState() => _App();
 }
 
-class _TabBarApp extends State<TabBarApp> {
+class _App extends State<App> {
   @override
   void initState() {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -474,26 +445,6 @@ class _CustomTabbarState extends State<CustomTabbar>
 
     // 移除开屏动画
     // FlutterNativeSplash.remove();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final size = MediaQuery.of(context).size;
-      context.read<SystemCubit>().updateScreenSize(size);
-
-      if (kIsWeb) {
-        context.read<SystemCubit>().updateStatusHeight(0);
-      } else {
-        context
-            .read<SystemCubit>()
-            .updateStatusHeight(MediaQuery.of(context).padding.top);
-      }
-
-      context.read<UserCubit>().updateName('李俊杰');
-      context.read<UserCubit>().updateAccount('TheMonsterClub');
-      context.read<UserCubit>().updatePhone('+8618825130917');
-      context.read<UserCubit>().updateWalletBalance(3592.98);
-      context.read<UserCubit>().updateWalletFoundationBalance(1005.85);
-      context.read<UserCubit>().updateAvatar("images/avatar/my.jpg");
-    });
   }
 
   @override
@@ -971,4 +922,32 @@ class _LJNPopupMenuItem extends State<LJNPopupMenuItem> {
       ),
     );
   }
+}
+
+void startWebServer() async {
+  RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
+
+  ByteData byteData = await rootBundle.load("assets/web/pages.html");
+  List<int> bytes = byteData.buffer.asUint8List();
+  String fileContent = utf8.decode(bytes);
+
+  final directory = await getApplicationDocumentsDirectory();
+  final filePath = '${directory.path}/shapages.html';
+  final file = File(filePath);
+  await file.writeAsString(fileContent);
+
+  // 启动web服务器
+  final receivePort = ReceivePort();
+
+  // 创建参数对象
+  var params = FileServerParams(
+    sendPort: receivePort.sendPort,
+    rootIsolateToken: rootIsolateToken,
+    port: 9413,
+  );
+
+  await Isolate.spawn(startFileServer, params);
+  receivePort.listen((message) {
+    logger.info(message); // 打印服务器启动消息
+  });
 }
