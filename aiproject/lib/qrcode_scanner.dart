@@ -63,8 +63,10 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
         _barcode = barcodes.barcodes.firstOrNull;
       });
 
-      await controller.stop();
-      await player.resume();
+      if (_barcode != null) {
+        await controller.stop();
+        await player.resume();
+      }
     }
   }
 
@@ -87,7 +89,8 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
               // 扫码的盖住
               BarcodeOverlay(controller: controller),
 
-              ScanBarWidget(
+              // 按钮与扫码条动画
+              ButtonAndScanBarWidget(
                 controller: controller,
                 barcode: _barcode,
               )
@@ -97,18 +100,19 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
   }
 }
 
-class ScanBarWidget extends StatefulWidget {
+class ButtonAndScanBarWidget extends StatefulWidget {
   final Barcode? barcode;
   final MobileScannerController controller;
-  const ScanBarWidget({super.key, required this.controller, this.barcode});
+  const ButtonAndScanBarWidget(
+      {super.key, required this.controller, this.barcode});
 
   @override
-  State<ScanBarWidget> createState() {
-    return _ScanBarWidgetState();
+  State<ButtonAndScanBarWidget> createState() {
+    return _ButtonAndScanBarWidgetState();
   }
 }
 
-class _ScanBarWidgetState extends State<ScanBarWidget>
+class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
@@ -268,32 +272,35 @@ class _ScanBarWidgetState extends State<ScanBarWidget>
             // 中间扫码框
             Expanded(
               flex: 4,
-              child: Center(
-                  child: SizedBox(
-                // color: const Color.fromARGB(193, 247, 0, 0),
-                height: 690.w,
-                width: 640.w,
-                child: Stack(
-                  children: [
-                    AnimatedBuilder(
-                      animation: _animation,
-                      builder: (context, child) {
-                        return Positioned(
-                            left: 0,
-                            top: _animation.value,
-                            child: FadeTransition(
-                                opacity: _opacityAnimation, // 透明度动画
-                                child: Image.asset(
-                                  assetPath('images/avatar/scaner_line.png'),
-                                  width: 640.w,
-                                  // height: 20.w,
-                                  fit: BoxFit.fitWidth,
-                                )));
-                      },
-                    )
-                  ],
-                ),
-              )),
+              child: widget.barcode == null
+                  ? Center(
+                      child: SizedBox(
+                      // color: const Color.fromARGB(193, 247, 0, 0),
+                      height: 690.w,
+                      width: 640.w,
+                      child: Stack(
+                        children: [
+                          AnimatedBuilder(
+                            animation: _animation,
+                            builder: (context, child) {
+                              return Positioned(
+                                  left: 0,
+                                  top: _animation.value,
+                                  child: FadeTransition(
+                                      opacity: _opacityAnimation, // 透明度动画
+                                      child: Image.asset(
+                                        assetPath(
+                                            'images/avatar/scaner_line.png'),
+                                        width: 640.w,
+                                        // height: 20.w,
+                                        fit: BoxFit.fitWidth,
+                                      )));
+                            },
+                          )
+                        ],
+                      ),
+                    ))
+                  : SizedBox(),
             ),
 
             // 轻触照亮按钮
@@ -355,7 +362,7 @@ class _ScanBarWidgetState extends State<ScanBarWidget>
               ),
             ),
 
-            // 两按钮
+            // 两按钮 与 中间商品
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -548,9 +555,11 @@ class BarcodeOverlay extends StatelessWidget {
 
             if (barcodeCapture == null ||
                 barcodeCapture.size.isEmpty ||
-                barcodeCapture.barcodes.isEmpty) {
+                barcodeCapture.barcodes.isEmpty ||
+                barcodeCapture.image == null) {
               return const SizedBox();
             }
+            final barcodeImage = barcodeCapture.image;
 
             final overlays = <Widget>[
               for (final Barcode barcode in barcodeCapture.barcodes)
@@ -569,35 +578,22 @@ class BarcodeOverlay extends StatelessWidget {
 
             return Stack(fit: StackFit.expand, children: [
               // 扫码后暂停结果
-              Positioned.fill(
-                  child: StreamBuilder<BarcodeCapture>(
-                stream: controller.barcodes,
-                builder: (context, snapshot) {
-                  final barcode = snapshot.data;
+              Image.memory(
+                barcodeImage!,
+                fit: BoxFit.cover,
+                frameBuilder: (
+                  BuildContext context,
+                  Widget child,
+                  int? frame,
+                  bool? wasSynchronouslyLoaded,
+                ) {
+                  if (wasSynchronouslyLoaded == true || frame != null) {
+                    return child;
+                  }
 
-                  if (barcode == null) return Container();
-                  final barcodeImage = barcode.image;
-                  if (barcodeImage == null) return Container();
-
-                  return Image.memory(
-                    barcodeImage,
-                    fit: BoxFit.cover,
-                    frameBuilder: (
-                      BuildContext context,
-                      Widget child,
-                      int? frame,
-                      bool? wasSynchronouslyLoaded,
-                    ) {
-                      if (wasSynchronouslyLoaded == true || frame != null) {
-                        // 播放音乐
-                        return child;
-                      }
-
-                      return const CircularProgressIndicator();
-                    },
-                  );
+                  return const CircularProgressIndicator();
                 },
-              )),
+              ),
               ...overlays,
             ]);
           },
