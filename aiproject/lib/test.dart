@@ -18,8 +18,6 @@ class LJNTestState extends State<LJNTest> {
   double _baseScale = 1.0;
   int _pointers = 0;
 
-  @overri
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: _cameraPreviewWidget());
