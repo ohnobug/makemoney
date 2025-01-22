@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,25 +19,30 @@ class LJNQRCodeScanner extends StatefulWidget {
   State<LJNQRCodeScanner> createState() => _LJNQRCodeScannerState();
 }
 
-class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
+class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
+    with WidgetsBindingObserver {
   // 音频播放器
   // late AudioPlayer player;
+  Barcode? _barcode;
 
   // 扫码控制器
-  final MobileScannerController controller = MobileScannerController(
-      torchEnabled: false,
-      returnImage: false,
-      autoStart: true,
-      // detectionTimeoutMs: 30,
-      detectionSpeed: DetectionSpeed.noDuplicates);
+  final MobileScannerController _controller = MobileScannerController(
+    torchEnabled: false,
+    // returnImage: true,
+    // detectionTimeoutMs: 30,
+    // detectionSpeed: DetectionSpeed.noDuplicates
+  );
 
-  BarcodeCapture? _barcodeCapture;
+  StreamSubscription<Object?>? _subscription;
 
-  List<CameraDescription> _cameras = <CameraDescription>[];
+  List<CameraDescription>? cameraDesc;
 
-  void getCameras() async {
-    _cameras = await availableCameras();
-    setState(() {});
+  // 异步获取摄像头列表并更新状态
+  void getCameraList() async {
+    final cameras = await availableCameras();
+    setState(() {
+      cameraDesc = cameras;
+    });
   }
 
   @override
@@ -46,151 +53,147 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
       statusBarColor: Colors.transparent, // 设置状态栏透明
       statusBarIconBrightness: Brightness.light, // 设置状态栏图标颜色
     ));
+
+    getCameraList();
+
     // player = AudioPlayer();
     // player.setReleaseMode(ReleaseMode.stop);
     // player.setSource(AssetSource("sounds/scan_success.mp3"));
-
-    getCameras();
-
-    controller.barcodes.listen((BarcodeCapture barcodeCapture) async {
-      final List<Barcode> barcodes = barcodeCapture.barcodes;
-
-      setState(() {
-        _barcodeCapture = barcodeCapture;
-      });
-
-      for (var barcode in barcodes) {
-        DateTime now = DateTime.now();
-
-        logger.info('aaaaaaaaaa Scanned Barcode: ${barcode.rawValue}  $now');
-      }
-
-      await controller.stop();
-    }, onError: (error) {
-      logger.info('aaaaaaaaaa Error: $error');
-    });
   }
 
   @override
-  void dispose() {
+  void dispose() async {
     // 退出全屏
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // 设置状态栏透明
       statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
     ));
 
-    // player.dispose();
-    controller.dispose();
+    // Stop listening to lifecycle changes.
+    WidgetsBinding.instance.removeObserver(this);
+    // Stop listening to the barcode events.
+    unawaited(_subscription?.cancel());
+    _subscription = null;
+    // Dispose the widget itself.
     super.dispose();
+    // Finally, dispose of the controller.
+    await _controller.dispose();
   }
 
-  // void _handleBarcode(BarcodeCapture barcodes) async {
-  //   if (mounted) {
-  //     if (barcodes.barcodes.isNotEmpty) {
-  //       setState(() {
-  //         _barcodeCapture = barcodes;
-  //       });
+  Future<void> _analyzeImageFromFile() async {
+    try {
+      final BarcodeCapture? barcodes = await _controller.analyzeImage(path);
 
-  //       // 打印 barcode.corners 和 barcode.size
-  //       for (final Barcode barcode in _barcodeCapture!.barcodes) {
-  //         if (!barcode.size.isEmpty && barcode.corners.isNotEmpty) {
-  //           logger.info('Barcode corners: ${barcode.corners}');
-  //           logger.info('Barcode size: ${barcode.size}');
-  //         }
-  //       }
+      if (mounted) {
+        setState(() {
+          _barcode = barcodes!.barcodes.firstOrNull;
+        });
 
-  //       await controller.stop();
-  //       // await player.resume();
-  //     }
-  //   }
-  // }
+        if (_barcode != null) {
+          await _controller.stop();
+          // await player.resume();
+        }
+      }
+    } catch (_) {}
+  }
 
   @override
   Widget build(BuildContext context) {
-    // 二维码的位置
-    final overlays = <Widget>[
-      if (_barcodeCapture != null && _barcodeCapture!.barcodes.isNotEmpty)
-        for (final Barcode barcode in _barcodeCapture!.barcodes)
-          if (!barcode.size.isEmpty && barcode.corners.isNotEmpty)
-            CustomPaint(
-              painter: BarcodePainter(
-                barcodeCorners: barcode.corners,
-                barcodeSize: barcode.size,
-                boxFit: BoxFit.contain,
-                cameraPreviewSize: _barcodeCapture!.size,
-                color: const Color.fromARGB(183, 0, 255, 34),
-                style: PaintingStyle.fill,
-              ),
-            ),
-    ];
-
     return BlocBuilder<SystemCubit, SystemState>(
         builder: (context, systemState) {
-      return Scaffold(
-          primary: false,
-          appBar: null,
-          body: Stack(
-            fit: StackFit.expand,
-            children: [
-              Positioned(
-                  left: 0,
-                  top: 0,
-                  height: systemState.screenSize.height / 2,
-                  child: MobileScanner(
-                    fit: BoxFit.cover,
-                    controller: controller,
-                    // onDetect: _handleBarcode,
-                  )),
+      if (cameraDesc == null) {
+        return Container(
+          width: systemState.screenSize.width,
+          height: systemState.screenSize.height,
+          color: Colors.black,
+        );
+      } else {
+        return Stack(
+          fit: StackFit.expand,
+          children: [
+            LJNCameraView(cameras: cameraDesc!),
 
-              Positioned(
-                  left: 0,
-                  top: 0,
-                  height: systemState.screenSize.height / 2,
-                  child: _cameras.isEmpty
-                      ? const Text('None')
-                      : LJNCameraView(cameras: _cameras)),
+            // 扫码的盖住
+            // BarcodeOverlay(controller: controller),
 
-              if (_barcodeCapture != null)
-                Stack(fit: StackFit.expand, children: [
-                  // 扫码后暂停结果
-                  // Image.memory(
-                  //   _barcodeCapture!.image!,
-                  //   fit: BoxFit.cover,
-                  //   frameBuilder: (
-                  //     BuildContext context,
-                  //     Widget child,
-                  //     int? frame,
-                  //     bool? wasSynchronouslyLoaded,
-                  //   ) {
-                  //     if (wasSynchronouslyLoaded == true || frame != null) {
-                  //       return child;
-                  //     }
+            // StreamBuilder<BarcodeCapture>(
+            //   stream: controller.barcodes,
+            //   builder: (context, snapshot) {
+            //     final BarcodeCapture? barcodeCapture = snapshot.data;
 
-                  //     return SizedBox();
-                  //   },
-                  // ),
-                  ...overlays,
-                ]),
+            //     if (barcodeCapture == null ||
+            //         barcodeCapture.size.isEmpty ||
+            //         barcodeCapture.barcodes.isEmpty ||
+            //         barcodeCapture.image == null) {
+            //       return const SizedBox();
+            //     }
+            //     WidgetsBinding.instance.addPostFrameCallback((_) {
+            //       setState(() {
+            //         _barcode = barcodeCapture.barcodes.firstOrNull;
+            //       });
+            //       if (_barcode != null) {
+            //         controller.stop();
+            //         player.resume();
+            //       }
+            //     });
 
-              // 盖住目标
-              // BarcodeOverlay(controller: controller),
+            //     // 二维码的位置
+            //     final overlays = <Widget>[
+            //       for (final Barcode barcode in barcodeCapture.barcodes)
+            //         if (!barcode.size.isEmpty && barcode.corners.isNotEmpty)
+            //           CustomPaint(
+            //             painter: BarcodePainter(
+            //               barcodeCorners: barcode.corners,
+            //               barcodeSize: barcode.size,
+            //               boxFit: BoxFit.contain,
+            //               cameraPreviewSize: barcodeCapture.size,
+            //               color: const Color(0x4DF44336),
+            //               style: PaintingStyle.fill,
+            //             ),
+            //           ),
+            //     ];
 
-              // 按钮与扫码条动画
-              ButtonAndScanBarWidget(
-                controller: controller,
-                barcodeCapture: _barcodeCapture,
-              )
-            ],
-          ));
+            //     final barcodeImage = barcodeCapture.image;
+            //     return Stack(fit: StackFit.expand, children: [
+            //       // 扫码后暂停结果
+            //       Image.memory(
+            //         barcodeImage!,
+            //         fit: BoxFit.cover,
+            //         frameBuilder: (
+            //           BuildContext context,
+            //           Widget child,
+            //           int? frame,
+            //           bool? wasSynchronouslyLoaded,
+            //         ) {
+            //           if (wasSynchronouslyLoaded == true || frame != null) {
+            //             return child;
+            //           }
+
+            //           return SizedBox();
+            //         },
+            //       ),
+            //       ...overlays,
+            //     ]);
+            //   },
+            // ),
+
+            // 按钮与扫码条动画
+            ButtonAndScanBarWidget(
+              controller: controller,
+              barcode: _barcode,
+            )
+          ],
+        );
+      }
     });
   }
 }
 
 class ButtonAndScanBarWidget extends StatefulWidget {
-  final BarcodeCapture? barcodeCapture;
+  final Barcode? barcode;
   final MobileScannerController controller;
   const ButtonAndScanBarWidget(
-      {super.key, required this.controller, this.barcodeCapture});
+      {super.key, required this.controller, this.barcode});
 
   @override
   State<ButtonAndScanBarWidget> createState() {
@@ -203,8 +206,6 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
   late AnimationController _controller;
   late Animation<double> _animation;
   late Animation<double> _opacityAnimation;
-
-  late DateTime now;
 
   @override
   void initState() {
@@ -266,7 +267,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
 
   // 底部
   Widget _buildBarcode() {
-    if (widget.barcodeCapture == null) {
+    if (widget.barcode == null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -287,12 +288,8 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
         ],
       );
     } else {
-      final v = widget.barcodeCapture?.barcodes.firstOrNull?.rawValue ??
-          "No barcode detected";
-      now = DateTime.now();
-
       return Text(
-        "$v : $now",
+        widget.barcode!.displayValue ?? 'No display value.',
         overflow: TextOverflow.fade,
         style: TextStyle(
             height: 1.08,
@@ -357,40 +354,43 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
               ],
             ),
 
-            if (widget.barcodeCapture == null)
+            if (widget.barcode == null)
               // 中间扫码框
               Expanded(
-                  flex: 4,
-                  child: Center(
-                      child: SizedBox(
-                    // color: const Color.fromARGB(193, 247, 0, 0),
-                    height: 690.w,
-                    width: 640.w,
-                    child: Stack(
-                      children: [
-                        AnimatedBuilder(
-                          animation: _animation,
-                          builder: (context, child) {
-                            return Positioned(
-                                left: 0,
-                                top: _animation.value,
-                                child: FadeTransition(
-                                    opacity: _opacityAnimation, // 透明度动画
-                                    child: Image.asset(
-                                      assetPath(
-                                          'images/avatar/scaner_line.png'),
-                                      width: 640.w,
-                                      // height: 20.w,
-                                      fit: BoxFit.fitWidth,
-                                    )));
-                          },
-                        )
-                      ],
-                    ),
-                  ))),
+                flex: 4,
+                child: widget.barcode == null
+                    ? Center(
+                        child: SizedBox(
+                        // color: const Color.fromARGB(193, 247, 0, 0),
+                        height: 690.w,
+                        width: 640.w,
+                        child: Stack(
+                          children: [
+                            AnimatedBuilder(
+                              animation: _animation,
+                              builder: (context, child) {
+                                return Positioned(
+                                    left: 0,
+                                    top: _animation.value,
+                                    child: FadeTransition(
+                                        opacity: _opacityAnimation, // 透明度动画
+                                        child: Image.asset(
+                                          assetPath(
+                                              'images/avatar/scaner_line.png'),
+                                          width: 640.w,
+                                          // height: 20.w,
+                                          fit: BoxFit.fitWidth,
+                                        )));
+                              },
+                            )
+                          ],
+                        ),
+                      ))
+                    : SizedBox(),
+              ),
 
             // 轻触照亮按钮
-            if (widget.barcodeCapture == null)
+            if (widget.barcode == null)
               Expanded(
                 flex: 0,
                 child: Column(
@@ -451,7 +451,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
               ),
 
             // 两按钮 与 中间商品
-            if (widget.barcodeCapture == null)
+            if (widget.barcode == null)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -593,12 +593,12 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                 ],
               ),
 
-            if (widget.barcodeCapture == null)
+            if (widget.barcode == null)
               SizedBox(
                 height: 35.w,
               ),
 
-            if (widget.barcodeCapture != null)
+            if (widget.barcode != null)
               Expanded(
                 flex: 4,
                 child: SizedBox(),
@@ -630,63 +630,78 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
   }
 }
 
-class BarcodePainter2 extends CustomPainter {
-  final List<Offset> barcodeCorners;
-  final Size barcodeSize;
-  final BoxFit boxFit;
-  final Size cameraPreviewSize;
+class BarcodeOverlay extends StatelessWidget {
+  const BarcodeOverlay({
+    super.key,
+    required this.controller,
+    this.color = const Color(0x4DF44336),
+    this.style = PaintingStyle.fill,
+  });
+
+  final MobileScannerController controller;
   final Color color;
   final PaintingStyle style;
 
-  BarcodePainter2({
-    required this.barcodeCorners,
-    required this.barcodeSize,
-    required this.boxFit,
-    required this.cameraPreviewSize,
-    required this.color,
-    required this.style,
-  });
-
   @override
-  void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()
-      ..color = color
-      ..style = style;
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: controller,
+      builder: (context, value, child) {
+        if (!value.isInitialized || !value.isRunning || value.error != null) {
+          return const SizedBox();
+        }
 
-    // 绘制二维码的角点
-    Path path = Path();
-    path.moveTo(barcodeCorners[0].dx, barcodeCorners[0].dy);
-    for (int i = 1; i < barcodeCorners.length; i++) {
-      path.lineTo(barcodeCorners[i].dx, barcodeCorners[i].dy);
-    }
-    path.close();
-    canvas.drawPath(path, paint);
+        return StreamBuilder<BarcodeCapture>(
+          stream: controller.barcodes,
+          builder: (context, snapshot) {
+            final BarcodeCapture? barcodeCapture = snapshot.data;
 
-    // 计算二维码的中心点
-    final center = _calculateCenter(barcodeCorners);
+            if (barcodeCapture == null ||
+                barcodeCapture.size.isEmpty ||
+                barcodeCapture.barcodes.isEmpty ||
+                barcodeCapture.image == null) {
+              return const SizedBox();
+            }
+            final barcodeImage = barcodeCapture.image;
 
-    // 绘制二维码的中心点
-    final centerPaint = Paint()
-      ..color = Colors.blue // 中心点颜色
-      ..style = PaintingStyle.fill;
-    canvas.drawCircle(center, 5.0, centerPaint); // 画一个半径为5的圆点
-  }
+            final overlays = <Widget>[
+              for (final Barcode barcode in barcodeCapture.barcodes)
+                if (!barcode.size.isEmpty && barcode.corners.isNotEmpty)
+                  CustomPaint(
+                    painter: BarcodePainter(
+                      barcodeCorners: barcode.corners,
+                      barcodeSize: barcode.size,
+                      boxFit: BoxFit.contain,
+                      cameraPreviewSize: barcodeCapture.size,
+                      color: color,
+                      style: style,
+                    ),
+                  ),
+            ];
 
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
-  }
+            return Stack(fit: StackFit.expand, children: [
+              // 扫码后暂停结果
+              Image.memory(
+                barcodeImage!,
+                fit: BoxFit.cover,
+                frameBuilder: (
+                  BuildContext context,
+                  Widget child,
+                  int? frame,
+                  bool? wasSynchronouslyLoaded,
+                ) {
+                  if (wasSynchronouslyLoaded == true || frame != null) {
+                    return child;
+                  }
 
-  // 计算二维码的中心点
-  Offset _calculateCenter(List<Offset> corners) {
-    double centerX = 0.0;
-    double centerY = 0.0;
-
-    for (final corner in corners) {
-      centerX += corner.dx;
-      centerY += corner.dy;
-    }
-
-    return Offset(centerX / corners.length, centerY / corners.length);
+                  return const CircularProgressIndicator();
+                },
+              ),
+              ...overlays,
+            ]);
+          },
+        );
+      },
+    );
   }
 }
