@@ -136,6 +136,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
                   left: 0,
                   top: 0,
                   height: systemState.screenSize.height / 2,
+                  width: systemState.screenSize.width,
                   child: MobileScanner(
                     fit: BoxFit.cover,
                     controller: controller,
@@ -146,6 +147,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
                   left: 0,
                   top: 0,
                   height: systemState.screenSize.height / 2,
+                  width: systemState.screenSize.width,
                   child: _cameras.isEmpty
                       ? const Text('None')
                       : LJNCameraView(cameras: _cameras)),
