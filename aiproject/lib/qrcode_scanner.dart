@@ -703,11 +703,11 @@ class _BarcodePoint extends State<BarcodePoint> {
             height: 67.0.w, // 外圆直径 = 内圆直径 + 边框宽度
             decoration: BoxDecoration(
               color:
-                  Color.fromRGBO(65, 177, 91, 1.0), // 内圆颜色 (RGB: 65, 177, 91)
+                  Color.fromRGBO(65, 177, 91, 0.7), // 内圆颜色 (RGB: 65, 177, 91)
               shape: BoxShape.circle, // 圆形
               border: Border.all(
                 color: Color.fromRGBO(
-                    243, 255, 248, 1.0), // 边框颜色 (RGB: 243, 255, 248)
+                    243, 255, 248, 0.7), // 边框颜色 (RGB: 243, 255, 248)
                 width: 10.0.w, // 边框宽度
               ),
             ),
