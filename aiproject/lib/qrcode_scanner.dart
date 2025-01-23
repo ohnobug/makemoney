@@ -1,3 +1,4 @@
+import "dart:math" as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,9 +7,8 @@ import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-// import 'package:audioplayers/audioplayers.dart';
 import 'package:collection/collection.dart';
-import "dart:math" as math;
+import 'package:video_player/video_player.dart';
 
 class LJNQRCodeScanner extends StatefulWidget {
   const LJNQRCodeScanner({super.key});
@@ -19,15 +19,16 @@ class LJNQRCodeScanner extends StatefulWidget {
 
 class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
   // 音频播放器
-  // late AudioPlayer player;
+  late VideoPlayerController _mediaController;
 
   // 扫码控制器
-  final MobileScannerController controller = MobileScannerController(
-      torchEnabled: false,
-      returnImage: true,
-      autoStart: true,
-      // detectionTimeoutMs: 30,
-      detectionSpeed: DetectionSpeed.noDuplicates);
+  final MobileScannerController _mobileScannerController =
+      MobileScannerController(
+          torchEnabled: false,
+          returnImage: true,
+          autoStart: true,
+          // detectionTimeoutMs: 30,
+          detectionSpeed: DetectionSpeed.noDuplicates);
 
   BarcodeCapture? _barcodeCapture;
 
@@ -50,8 +51,25 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
     // player.setReleaseMode(ReleaseMode.stop);
     // player.setSource(AssetSource("sounds/scan_success.mp3"));
 
+    // 创建视频控制器并初始化
+    _mediaController = VideoPlayerController.asset(
+      assetPath("sounds/scan_success.mp3"),
+      videoPlayerOptions: VideoPlayerOptions(
+        mixWithOthers: true,
+        allowBackgroundPlayback: false,
+      ),
+    );
+
+    // 初始化视频控制器
+    _mediaController.initialize().then((_) {
+      setState(() {
+        _mediaController.setLooping(false);
+        _mediaController.setVolume(1.0);
+      });
+    });
+
     // getCameras();
-    controller.barcodes.listen((BarcodeCapture barcodeCapture) {
+    _mobileScannerController.barcodes.listen((BarcodeCapture barcodeCapture) {
       logger.info('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
       final List<Barcode> barcodes = barcodeCapture.barcodes;
 
@@ -61,7 +79,8 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
 
       logger.info("barcode.size:${_barcodeCapture!.size}");
 
-      controller.pause();
+      _mobileScannerController.pause();
+      _mediaController.play();
       for (var barcode in barcodes) {
         logger.info("barcode.corners: ${barcode.corners}");
         logger.info("barcode.size: ${barcode.size}");
@@ -82,8 +101,8 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
       statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
     ));
 
-    // player.dispose();
-    controller.dispose();
+    _mediaController.dispose();
+    _mobileScannerController.dispose();
     super.dispose();
   }
 
@@ -116,7 +135,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
             children: [
               MobileScanner(
                 fit: BoxFit.cover,
-                controller: controller,
+                controller: _mobileScannerController,
                 // onDetect: _handleBarcode,
               ),
 
@@ -126,7 +145,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
                   Image.memory(
                     _barcodeCapture!.image!,
                     fit: BoxFit.cover,
-                    filterQuality: FilterQuality.low,
+                    filterQuality: FilterQuality.high,
                     frameBuilder: (
                       BuildContext context,
                       Widget child,
@@ -145,7 +164,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
 
               // 按钮与扫码条动画
               ButtonAndScanBarWidget(
-                controller: controller,
+                controller: _mobileScannerController,
                 barcodeCapture: _barcodeCapture,
               )
             ],

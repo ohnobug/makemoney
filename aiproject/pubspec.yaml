@@ -30,6 +30,7 @@ dependencies:
   image_picker: ^1.0.4
   camera: ^0.11.0+2
   collection: ^1.19.0
+  flutter_in_app_pip: ^1.7.4
 
 dev_dependencies:
   bloc_test: ^10.0.0

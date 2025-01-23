@@ -54,7 +54,6 @@ import 'package:jiaoyishuoflutter3/settings/set_password.dart';
 import 'package:jiaoyishuoflutter3/settings/setting.dart';
 import 'package:jiaoyishuoflutter3/settings/verify_phone.dart';
 import 'package:jiaoyishuoflutter3/settings/sound_lock.dart';
-
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:jiaoyishuoflutter3/teenage_mode.dart';
@@ -73,6 +72,7 @@ import 'store/counter/cubit/counter_cubit.dart';
 import 'tools/tools.dart';
 import 'user.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 
 // 定义一个类来封装传递给 Isolate 的多个参数
 class FileServerParams {
@@ -149,7 +149,7 @@ class _App extends State<App> {
             enableScaleWH: () => true,
             enableScaleText: () => true,
             builder: (context, child) {
-              return MaterialApp(
+              return PiPMaterialApp(
                 debugShowCheckedModeBanner: false,
                 initialRoute: '/',
                 onGenerateRoute: (settings) {
