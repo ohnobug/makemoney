@@ -183,7 +183,7 @@ packages:
     source: hosted
     version: "1.1.1"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       sha256: a1ace0a119f20aabc852d165077c036cd864315bd99b7eaa10a60100341941bf
@@ -593,10 +593,10 @@ packages:
     dependency: "direct main"
     description:
       name: mobile_scanner
-      sha256: "1779bf862cfcf7a142117e707e2230624d42f153ddf51f4cc9f5ba455a2dd01e"
+      sha256: "57d6269d10912d5d583606b46d963d7c5d0299d2c37add8b7192dd769d40a319"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0-beta.4"
+    version: "6.0.3"
   mocktail:
     dependency: transitive
     description:

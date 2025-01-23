@@ -1,14 +1,14 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jiaoyishuoflutter3/camera_view.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 // import 'package:audioplayers/audioplayers.dart';
+import 'package:collection/collection.dart';
+import "dart:math" as math;
 
 class LJNQRCodeScanner extends StatefulWidget {
   const LJNQRCodeScanner({super.key});
@@ -24,19 +24,19 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
   // 扫码控制器
   final MobileScannerController controller = MobileScannerController(
       torchEnabled: false,
-      returnImage: false,
+      returnImage: true,
       autoStart: true,
       // detectionTimeoutMs: 30,
       detectionSpeed: DetectionSpeed.noDuplicates);
 
   BarcodeCapture? _barcodeCapture;
 
-  List<CameraDescription> _cameras = <CameraDescription>[];
+  // List<CameraDescription> _cameras = <CameraDescription>[];
 
-  void getCameras() async {
-    _cameras = await availableCameras();
-    setState(() {});
-  }
+  // void getCameras() async {
+  //   _cameras = await availableCameras();
+  //   setState(() {});
+  // }
 
   @override
   void initState() {
@@ -50,22 +50,25 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
     // player.setReleaseMode(ReleaseMode.stop);
     // player.setSource(AssetSource("sounds/scan_success.mp3"));
 
-    getCameras();
-
-    controller.barcodes.listen((BarcodeCapture barcodeCapture) async {
+    // getCameras();
+    controller.barcodes.listen((BarcodeCapture barcodeCapture) {
+      logger.info('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
       final List<Barcode> barcodes = barcodeCapture.barcodes;
 
       setState(() {
         _barcodeCapture = barcodeCapture;
       });
 
-      for (var barcode in barcodes) {
-        DateTime now = DateTime.now();
+      logger.info("barcode.size:${_barcodeCapture!.size}");
 
+      controller.pause();
+      for (var barcode in barcodes) {
+        logger.info("barcode.corners: ${barcode.corners}");
+        logger.info("barcode.size: ${barcode.size}");
+
+        DateTime now = DateTime.now();
         logger.info('aaaaaaaaaa Scanned Barcode: ${barcode.rawValue}  $now');
       }
-
-      await controller.stop();
     }, onError: (error) {
       logger.info('aaaaaaaaaa Error: $error');
     });
@@ -84,27 +87,6 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
     super.dispose();
   }
 
-  // void _handleBarcode(BarcodeCapture barcodes) async {
-  //   if (mounted) {
-  //     if (barcodes.barcodes.isNotEmpty) {
-  //       setState(() {
-  //         _barcodeCapture = barcodes;
-  //       });
-
-  //       // 打印 barcode.corners 和 barcode.size
-  //       for (final Barcode barcode in _barcodeCapture!.barcodes) {
-  //         if (!barcode.size.isEmpty && barcode.corners.isNotEmpty) {
-  //           logger.info('Barcode corners: ${barcode.corners}');
-  //           logger.info('Barcode size: ${barcode.size}');
-  //         }
-  //       }
-
-  //       await controller.stop();
-  //       // await player.resume();
-  //     }
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     // 二维码的位置
@@ -113,10 +95,10 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
         for (final Barcode barcode in _barcodeCapture!.barcodes)
           if (!barcode.size.isEmpty && barcode.corners.isNotEmpty)
             CustomPaint(
-              painter: BarcodePainter(
+              painter: BarcodePainter2(
                 barcodeCorners: barcode.corners,
                 barcodeSize: barcode.size,
-                boxFit: BoxFit.contain,
+                boxFit: BoxFit.cover,
                 cameraPreviewSize: _barcodeCapture!.size,
                 color: const Color.fromARGB(183, 0, 255, 34),
                 style: PaintingStyle.fill,
@@ -132,50 +114,34 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
           body: Stack(
             fit: StackFit.expand,
             children: [
-              Positioned(
-                  left: 0,
-                  top: 0,
-                  height: systemState.screenSize.height / 2,
-                  width: systemState.screenSize.width,
-                  child: MobileScanner(
-                    fit: BoxFit.cover,
-                    controller: controller,
-                    // onDetect: _handleBarcode,
-                  )),
+              MobileScanner(
+                fit: BoxFit.cover,
+                controller: controller,
+                // onDetect: _handleBarcode,
+              ),
 
-              Positioned(
-                  left: 0,
-                  top: 0,
-                  height: systemState.screenSize.height / 2,
-                  width: systemState.screenSize.width,
-                  child: _cameras.isEmpty
-                      ? const Text('None')
-                      : LJNCameraView(cameras: _cameras)),
-
-              if (_barcodeCapture != null)
+              if (_barcodeCapture != null && _barcodeCapture!.image != null)
                 Stack(fit: StackFit.expand, children: [
                   // 扫码后暂停结果
-                  // Image.memory(
-                  //   _barcodeCapture!.image!,
-                  //   fit: BoxFit.cover,
-                  //   frameBuilder: (
-                  //     BuildContext context,
-                  //     Widget child,
-                  //     int? frame,
-                  //     bool? wasSynchronouslyLoaded,
-                  //   ) {
-                  //     if (wasSynchronouslyLoaded == true || frame != null) {
-                  //       return child;
-                  //     }
+                  Image.memory(
+                    _barcodeCapture!.image!,
+                    fit: BoxFit.cover,
+                    filterQuality: FilterQuality.low,
+                    frameBuilder: (
+                      BuildContext context,
+                      Widget child,
+                      int? frame,
+                      bool? wasSynchronouslyLoaded,
+                    ) {
+                      if (wasSynchronouslyLoaded == true || frame != null) {
+                        return child;
+                      }
 
-                  //     return SizedBox();
-                  //   },
-                  // ),
+                      return SizedBox();
+                    },
+                  ),
                   ...overlays,
                 ]),
-
-              // 盖住目标
-              // BarcodeOverlay(controller: controller),
 
               // 按钮与扫码条动画
               ButtonAndScanBarWidget(
@@ -359,9 +325,10 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
               ],
             ),
 
-            if (widget.barcodeCapture == null)
-              // 中间扫码框
-              Expanded(
+            // 中间扫码框
+            Visibility(
+              visible: widget.barcodeCapture == null,
+              child: Expanded(
                   flex: 4,
                   child: Center(
                       child: SizedBox(
@@ -390,10 +357,12 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                       ],
                     ),
                   ))),
+            ),
 
             // 轻触照亮按钮
-            if (widget.barcodeCapture == null)
-              Expanded(
+            Visibility(
+              visible: widget.barcodeCapture == null,
+              child: Expanded(
                 flex: 0,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -451,10 +420,12 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                   ],
                 ),
               ),
+            ),
 
             // 两按钮 与 中间商品
-            if (widget.barcodeCapture == null)
-              Row(
+            Visibility(
+              visible: widget.barcodeCapture == null,
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -594,17 +565,21 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                   ),
                 ],
               ),
+            ),
 
-            if (widget.barcodeCapture == null)
-              SizedBox(
-                height: 35.w,
-              ),
+            Visibility(
+                visible: widget.barcodeCapture == null,
+                child: SizedBox(
+                  height: 35.w,
+                )),
 
-            if (widget.barcodeCapture != null)
-              Expanded(
+            Visibility(
+              visible: widget.barcodeCapture != null,
+              child: Expanded(
                 flex: 4,
                 child: SizedBox(),
               ),
+            ),
 
             // 扫码结果
             Container(
@@ -633,14 +608,8 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
 }
 
 class BarcodePainter2 extends CustomPainter {
-  final List<Offset> barcodeCorners;
-  final Size barcodeSize;
-  final BoxFit boxFit;
-  final Size cameraPreviewSize;
-  final Color color;
-  final PaintingStyle style;
-
-  BarcodePainter2({
+  /// Construct a new [BarcodePainter] instance.
+  const BarcodePainter2({
     required this.barcodeCorners,
     required this.barcodeSize,
     required this.boxFit,
@@ -649,46 +618,140 @@ class BarcodePainter2 extends CustomPainter {
     required this.style,
   });
 
+  /// The corners of the barcode.
+  final List<Offset> barcodeCorners;
+
+  /// The size of the barcode.
+  final Size barcodeSize;
+
+  /// The [BoxFit] to use when painting the barcode box.
+  final BoxFit boxFit;
+
+  /// The size of the camera preview,
+  /// relative to which the [barcodeSize] and [barcodeCorners] are positioned.
+  final Size cameraPreviewSize;
+
+  /// The color to use when painting the barcode box.
+  final Color color;
+
+  /// The style to use when painting the barcode box.
+  final PaintingStyle style;
+
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()
+    if (barcodeCorners.isEmpty ||
+        barcodeSize.isEmpty ||
+        cameraPreviewSize.isEmpty) {
+      return;
+    }
+
+    ScalingRatios ratio = calculateBoxFitRatio(boxFit, cameraPreviewSize, size);
+    // final adjustedSize = applyBoxFit(boxFit, cameraPreviewSize, size);
+
+    double horizontalPadding =
+        ((cameraPreviewSize.width * ratio.widthRatio - size.width) / 2);
+    double verticalPadding =
+        ((cameraPreviewSize.height * ratio.heightRatio - size.height) / 2);
+
+    final List<Offset> adjustedOffset = [
+      Offset(
+        (barcodeCorners[0].dx * ratio.widthRatio - horizontalPadding),
+        (barcodeCorners[0].dy * ratio.heightRatio - verticalPadding),
+      ),
+      Offset(
+        (barcodeCorners[1].dx * ratio.widthRatio - horizontalPadding),
+        (barcodeCorners[1].dy * ratio.heightRatio - verticalPadding),
+      ),
+      Offset(
+        (barcodeCorners[2].dx * ratio.widthRatio - horizontalPadding),
+        (barcodeCorners[2].dy * ratio.heightRatio - verticalPadding),
+      ),
+      Offset(
+        (barcodeCorners[3].dx * ratio.widthRatio - horizontalPadding),
+        (barcodeCorners[3].dy * ratio.heightRatio - verticalPadding),
+      ),
+    ];
+
+    final cutoutPath = Path()..addPolygon(adjustedOffset, true);
+
+    final backgroundPaint = Paint()
       ..color = color
       ..style = style;
 
-    // 绘制二维码的角点
-    Path path = Path();
-    path.moveTo(barcodeCorners[0].dx, barcodeCorners[0].dy);
-    for (int i = 1; i < barcodeCorners.length; i++) {
-      path.lineTo(barcodeCorners[i].dx, barcodeCorners[i].dy);
-    }
-    path.close();
-    canvas.drawPath(path, paint);
-
-    // 计算二维码的中心点
-    final center = _calculateCenter(barcodeCorners);
-
-    // 绘制二维码的中心点
-    final centerPaint = Paint()
-      ..color = Colors.blue // 中心点颜色
-      ..style = PaintingStyle.fill;
-    canvas.drawCircle(center, 5.0, centerPaint); // 画一个半径为5的圆点
+    canvas.drawPath(cutoutPath, backgroundPaint);
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+  bool shouldRepaint(BarcodePainter2 oldDelegate) {
+    const ListEquality<Offset> listEquality = ListEquality<Offset>();
+
+    return listEquality.equals(oldDelegate.barcodeCorners, barcodeCorners) ||
+        oldDelegate.barcodeSize != barcodeSize ||
+        oldDelegate.boxFit != boxFit ||
+        oldDelegate.cameraPreviewSize != cameraPreviewSize ||
+        oldDelegate.color != color ||
+        oldDelegate.style != style;
+  }
+}
+
+class ScalingRatios {
+  final double widthRatio;
+  final double heightRatio;
+
+  ScalingRatios(this.widthRatio, this.heightRatio);
+
+  @override
+  String toString() =>
+      'ScalingRatios(widthRatio: $widthRatio, heightRatio: $heightRatio)';
+}
+
+/// Calculate the scaling ratios for width and height to fit the small box (cameraPreviewSize)
+/// into the large box (size) based on the specified BoxFit mode.
+/// Returns a ScalingRatios object containing the width and height scaling ratios.
+ScalingRatios calculateBoxFitRatio(
+    BoxFit boxFit, Size cameraPreviewSize, Size size) {
+  // If the width or height of cameraPreviewSize or size is 0, return (1.0, 1.0) (no scaling)
+  if (cameraPreviewSize.width <= 0 ||
+      cameraPreviewSize.height <= 0 ||
+      size.width <= 0 ||
+      size.height <= 0) {
+    return ScalingRatios(1.0, 1.0);
   }
 
-  // 计算二维码的中心点
-  Offset _calculateCenter(List<Offset> corners) {
-    double centerX = 0.0;
-    double centerY = 0.0;
+  // Calculate the scaling ratios for width and height
+  final widthRatio = size.width / cameraPreviewSize.width;
+  final heightRatio = size.height / cameraPreviewSize.height;
 
-    for (final corner in corners) {
-      centerX += corner.dx;
-      centerY += corner.dy;
-    }
+  switch (boxFit) {
+    case BoxFit.fill:
+      // Stretch to fill the large box without maintaining aspect ratio
+      return ScalingRatios(widthRatio, heightRatio);
 
-    return Offset(centerX / corners.length, centerY / corners.length);
+    case BoxFit.contain:
+      // Maintain aspect ratio, ensure the content fits entirely within the large box
+      final ratio = math.min(widthRatio, heightRatio);
+      return ScalingRatios(ratio, ratio);
+
+    case BoxFit.cover:
+      // Maintain aspect ratio, ensure the content fully covers the large box
+      final ratio = math.max(widthRatio, heightRatio);
+      return ScalingRatios(ratio, ratio);
+
+    case BoxFit.fitWidth:
+      // Maintain aspect ratio, ensure the width matches the large box
+      return ScalingRatios(widthRatio, widthRatio);
+
+    case BoxFit.fitHeight:
+      // Maintain aspect ratio, ensure the height matches the large box
+      return ScalingRatios(heightRatio, heightRatio);
+
+    case BoxFit.none:
+      // No scaling
+      return ScalingRatios(1.0, 1.0);
+
+    case BoxFit.scaleDown:
+      // If the content is larger than the large box, scale down to fit; otherwise, no scaling
+      final ratio = math.min(1.0, math.min(widthRatio, heightRatio));
+      return ScalingRatios(ratio, ratio);
   }
 }

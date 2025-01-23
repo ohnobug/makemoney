@@ -912,7 +912,7 @@ class _LJNPopupMenuItem extends State<LJNPopupMenuItem> {
                   widget.title,
                   style: TextStyle(
                       height: 1.08,
-                      fontSize: fontSizeScale(30.w),
+                      fontSize: fontSizeScale(33.w),
                       fontWeight: FontWeight.normal,
                       decoration: TextDecoration.none,
                       color: Colors.white),
