@@ -72,6 +72,9 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
 
     // getCameras();
     _mobileScannerController.barcodes.listen((BarcodeCapture barcodeCapture) {
+      _mobileScannerController.pause();
+      _mediaController.play();
+
       if (mounted) {
         final List<Barcode> barcodes = barcodeCapture.barcodes;
         final screenSize = context.read<SystemCubit>().state.screenSize;
@@ -86,9 +89,6 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
           _pointCenter = pointCenter;
           _barcodeCapture = barcodeCapture;
         });
-
-        _mobileScannerController.pause();
-        _mediaController.play();
       }
     }, onError: (error) {
       logger.info('Error: $error');
@@ -114,14 +114,13 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
     final overlays = <Widget>[
       if (_barcodeCapture != null && _barcodeCapture!.barcodes.isNotEmpty)
         for (int i = 0; i < _barcodeCapture!.barcodes.length; i++)
-          if (_pointCenter.length > i) // 确保 _pointCenter 有足够的元素
-            Positioned(
-              left: _pointCenter[i].dx,
-              top: _pointCenter[i].dy,
-              child: BarcodePoint(
-                rawValue: _barcodeCapture!.barcodes[i].rawValue!,
-              ),
+          Positioned(
+            left: _pointCenter[i].dx,
+            top: _pointCenter[i].dy,
+            child: BarcodePoint(
+              rawValue: _barcodeCapture!.barcodes[i].rawValue!,
             ),
+          ),
     ];
 
     return BlocBuilder<SystemCubit, SystemState>(
@@ -693,6 +692,8 @@ class _BarcodePoint extends State<BarcodePoint> {
       children: [
         GestureDetector(
           onTap: () {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
             // 点击圆形时显示SnackBar
             ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Circle Clicked!  ${widget.rawValue}')));
