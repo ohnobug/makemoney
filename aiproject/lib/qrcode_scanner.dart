@@ -39,6 +39,8 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
   //   setState(() {});
   // }
 
+  late List<Offset> _pointCenter;
+
   @override
   void initState() {
     super.initState();
@@ -70,26 +72,26 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
 
     // getCameras();
     _mobileScannerController.barcodes.listen((BarcodeCapture barcodeCapture) {
-      logger.info('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq');
-      final List<Barcode> barcodes = barcodeCapture.barcodes;
+      if (mounted) {
+        final List<Barcode> barcodes = barcodeCapture.barcodes;
+        final screenSize = context.read<SystemCubit>().state.screenSize;
 
-      setState(() {
-        _barcodeCapture = barcodeCapture;
-      });
+        List<Offset> pointCenter = [];
+        for (var barcode in barcodes) {
+          pointCenter.add(_getPointPosition(
+              barcode.corners, BoxFit.cover, barcodeCapture.size, screenSize));
+        }
 
-      logger.info("barcode.size:${_barcodeCapture!.size}");
+        setState(() {
+          _pointCenter = pointCenter;
+          _barcodeCapture = barcodeCapture;
+        });
 
-      _mobileScannerController.pause();
-      _mediaController.play();
-      for (var barcode in barcodes) {
-        logger.info("barcode.corners: ${barcode.corners}");
-        logger.info("barcode.size: ${barcode.size}");
-
-        DateTime now = DateTime.now();
-        logger.info('aaaaaaaaaa Scanned Barcode: ${barcode.rawValue}  $now');
+        _mobileScannerController.pause();
+        _mediaController.play();
       }
     }, onError: (error) {
-      logger.info('aaaaaaaaaa Error: $error');
+      logger.info('Error: $error');
     });
   }
 
@@ -108,19 +110,16 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
 
   @override
   Widget build(BuildContext context) {
-    // 二维码的位置
+// 二维码的位置
     final overlays = <Widget>[
       if (_barcodeCapture != null && _barcodeCapture!.barcodes.isNotEmpty)
-        for (final Barcode barcode in _barcodeCapture!.barcodes)
-          if (!barcode.size.isEmpty && barcode.corners.isNotEmpty)
-            CustomPaint(
-              painter: BarcodePainter2(
-                barcodeCorners: barcode.corners,
-                barcodeSize: barcode.size,
-                boxFit: BoxFit.cover,
-                cameraPreviewSize: _barcodeCapture!.size,
-                color: const Color.fromARGB(183, 0, 255, 34),
-                style: PaintingStyle.fill,
+        for (int i = 0; i < _barcodeCapture!.barcodes.length; i++)
+          if (_pointCenter.length > i) // 确保 _pointCenter 有足够的元素
+            Positioned(
+              left: _pointCenter[i].dx,
+              top: _pointCenter[i].dy,
+              child: BarcodePoint(
+                rawValue: _barcodeCapture!.barcodes[i].rawValue!,
               ),
             ),
     ];
@@ -159,7 +158,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
                       return SizedBox();
                     },
                   ),
-                  ...overlays,
+                  ...overlays
                 ]),
 
               // 按钮与扫码条动画
@@ -170,6 +169,48 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
             ],
           ));
     });
+  }
+
+  // 获取二维码中心点
+  Offset _getPointPosition(List<Offset> barcodeCorners, BoxFit boxFit,
+      Size cameraPreviewSize, Size size) {
+    ScalingRatios ratio = calculateBoxFitRatio(boxFit, cameraPreviewSize, size);
+
+    double horizontalPadding =
+        ((cameraPreviewSize.width * ratio.widthRatio - size.width) / 2);
+    double verticalPadding =
+        ((cameraPreviewSize.height * ratio.heightRatio - size.height) / 2);
+
+    final List<Offset> adjustedOffset = [
+      Offset(
+        (barcodeCorners[0].dx * ratio.widthRatio - horizontalPadding),
+        (barcodeCorners[0].dy * ratio.heightRatio - verticalPadding),
+      ),
+      Offset(
+        (barcodeCorners[1].dx * ratio.widthRatio - horizontalPadding),
+        (barcodeCorners[1].dy * ratio.heightRatio - verticalPadding),
+      ),
+      Offset(
+        (barcodeCorners[2].dx * ratio.widthRatio - horizontalPadding),
+        (barcodeCorners[2].dy * ratio.heightRatio - verticalPadding),
+      ),
+      Offset(
+        (barcodeCorners[3].dx * ratio.widthRatio - horizontalPadding),
+        (barcodeCorners[3].dy * ratio.heightRatio - verticalPadding),
+      ),
+    ];
+
+    double sumX = 0.0;
+    double sumY = 0.0;
+
+    // 累加四个角的坐标
+    for (var corner in adjustedOffset) {
+      sumX += corner.dx;
+      sumY += corner.dy;
+    }
+
+    // 计算平均值，即为中心点
+    return Offset(sumX / adjustedOffset.length, sumY / adjustedOffset.length);
   }
 }
 
@@ -623,6 +664,56 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
         ),
       );
     });
+  }
+}
+
+class BarcodePoint extends StatefulWidget {
+  final String rawValue;
+
+  const BarcodePoint({
+    super.key,
+    required this.rawValue,
+  });
+
+  @override
+  State<StatefulWidget> createState() {
+    return _BarcodePoint();
+  }
+}
+
+class _BarcodePoint extends State<BarcodePoint> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () {
+            // 点击圆形时显示SnackBar
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Circle Clicked!  ${widget.rawValue}')));
+          },
+          child: Container(
+            width: 67.0.w, // 外圆直径 = 内圆直径 + 边框宽度
+            height: 67.0.w, // 外圆直径 = 内圆直径 + 边框宽度
+            decoration: BoxDecoration(
+              color:
+                  Color.fromRGBO(65, 177, 91, 1.0), // 内圆颜色 (RGB: 65, 177, 91)
+              shape: BoxShape.circle, // 圆形
+              border: Border.all(
+                color: Color.fromRGBO(
+                    243, 255, 248, 1.0), // 边框颜色 (RGB: 243, 255, 248)
+                width: 10.0.w, // 边框宽度
+              ),
+            ),
+          ),
+        )
+      ],
+    );
   }
 }
 
