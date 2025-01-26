@@ -95,10 +95,8 @@ class _WhipPublishSampleState extends State<WhipPublishSample> {
       'audio': true,
       'video': {
         'mandatory': {
-          // 'minWidth': '1280',
-          // 'minHeight': '720',
-          'minWidth': '320',
-          'minHeight': '320',
+          'minWidth': '1280',
+          'minHeight': '720',
           'minFrameRate': '24',
         },
         'facingMode': 'user',
@@ -145,12 +143,17 @@ class _WhipPublishSampleState extends State<WhipPublishSample> {
     }
   }
 
+  bool needMirror = true;
   void _toggleCamera() async {
     if (_localStream == null) throw Exception('Stream is not initialized');
     final videoTrack = _localStream!
         .getVideoTracks()
         .firstWhere((track) => track.kind == 'video');
     await Helper.switchCamera(videoTrack);
+
+    setState(() {
+      needMirror = !needMirror;
+    });
   }
 
   @override
@@ -196,19 +199,18 @@ class _WhipPublishSampleState extends State<WhipPublishSample> {
                   ),
                 )
             ]),
-            if (_connecting)
-              Center(
-                child: Container(
-                  margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height - 210,
-                  decoration: BoxDecoration(color: Colors.black54),
-                  child: RTCVideoView(_localRenderer,
-                      mirror: true,
-                      objectFit:
-                          RTCVideoViewObjectFit.RTCVideoViewObjectFitCover),
-                ),
-              )
+            Center(
+              child: Container(
+                margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height - 210,
+                decoration: BoxDecoration(color: Colors.black54),
+                child: RTCVideoView(_localRenderer,
+                    mirror: needMirror,
+                    objectFit:
+                        RTCVideoViewObjectFit.RTCVideoViewObjectFitCover),
+              ),
+            )
           ]);
         },
       ),

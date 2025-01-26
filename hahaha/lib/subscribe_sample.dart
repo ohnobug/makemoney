@@ -161,19 +161,18 @@ class _WhipSubscribeSampleState extends State<WhipSubscribeSample> {
                   ),
                 )
             ]),
-            if (_connecting)
-              Center(
-                child: Container(
-                  margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height - 110,
-                  decoration: BoxDecoration(color: Colors.black54),
-                  child: RTCVideoView(_remoteRenderer,
-                      mirror: false,
-                      objectFit:
-                          RTCVideoViewObjectFit.RTCVideoViewObjectFitCover),
-                ),
-              )
+            Center(
+              child: Container(
+                margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height - 110,
+                decoration: BoxDecoration(color: Colors.black54),
+                child: RTCVideoView(_remoteRenderer,
+                    mirror: false,
+                    objectFit:
+                        RTCVideoViewObjectFit.RTCVideoViewObjectFitCover),
+              ),
+            )
           ]);
         },
       ),
