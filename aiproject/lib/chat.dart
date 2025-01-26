@@ -431,9 +431,9 @@ class _LJNChatPage extends State<LJNChatPage>
       video: 'images/ins/video2.mp4',
       width: 576,
       height: 1024,
-      friendAvatar: widget.icon,
       showName: false,
-      name: '小白',
+      friendAvatar: widget.icon,
+      name: widget.title,
       onTap: (Offset position, Size size) {
         // 关闭键盘
         SystemChannels.textInput.invokeMethod('TextInput.hide');

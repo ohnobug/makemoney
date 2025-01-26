@@ -61,6 +61,7 @@ import 'package:jiaoyishuoflutter3/test.dart';
 import 'package:jiaoyishuoflutter3/tiktik.dart';
 import 'package:jiaoyishuoflutter3/tools/file_server.dart';
 import 'package:jiaoyishuoflutter3/userinfo.dart';
+import 'package:jiaoyishuoflutter3/video_call.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
 import 'package:jiaoyishuoflutter3/wallet.dart';
 import 'package:path_provider/path_provider.dart';
@@ -314,6 +315,8 @@ class _App extends State<App> {
                         const LJNFriendPermissions());
                   } else if (settings.name == "/test") {
                     return pageRouteBuilderAnimation(const LJNTest());
+                  } else if (settings.name == "/video_call") {
+                    return pageRouteBuilderAnimation(const LJNVideoCall());
                   }
 
                   return null;

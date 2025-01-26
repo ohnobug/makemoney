@@ -172,8 +172,7 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(8).w,
                     child: Image.asset(
-                      assetPath(
-                          context.read<UserCubit>().state.userinfoAvatar!),
+                      assetPath(widget.friendAvatar),
                       cacheWidth: 156.w.toInt(),
                       cacheHeight: 156.w.toInt(),
                       width: 78.w,
@@ -266,19 +265,9 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
                                             size: 78.w,
                                           ),
                                         ),
-                                        // const Text(
-                                        //   "缓存",
-                                        //   style: TextStyle(
-                                        //       color: Colors.white),
-                                        // ),
                                       ],
                                     )
-                                  : Container()
-                              // AspectRatio(
-                              //   aspectRatio: _controller!.value.aspectRatio,
-                              //   child: VideoPlayer(_controller!),
-                              // ),
-                              )),
+                                  : Container())),
                     ],
                   ),
                 ],

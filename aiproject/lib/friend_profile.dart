@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_max_width_button.dart';
 
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
@@ -497,7 +496,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                               ]),
                             ),
                             underline: true,
-                            link: '/chat',
+                            // link: '/chat',
                             onPressed: () {
                               Navigator.pushNamed(context, '/chat',
                                   arguments: <String, String>{
@@ -640,7 +639,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
 
                                   Navigator.pushNamed(
                                     context,
-                                    '/dial',
+                                    '/video_call',
                                   );
                                 },
                               ),
