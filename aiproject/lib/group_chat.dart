@@ -10,7 +10,7 @@ import 'package:jiaoyishuoflutter3/components/ljn_video_draggable_box.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_video_message.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/emoji_selector.dart';
+import 'package:jiaoyishuoflutter3/chat_emoji_selector.dart';
 import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
@@ -1361,7 +1361,7 @@ class _LJNGroupChatPage extends State<LJNGroupChatPage>
                                   height: _keyboradAnimation.value,
                                   // color: Colors.red,
                                   child: showEmojiSelector
-                                      ? const LJNEmojiSelector()
+                                      ? const LJNChatEmojiSelector()
                                       : null));
                         },
                       ),

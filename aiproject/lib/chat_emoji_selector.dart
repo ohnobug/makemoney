@@ -17,14 +17,14 @@ class EmojiStatus {
   }
 }
 
-class LJNEmojiSelector extends StatefulWidget {
-  const LJNEmojiSelector({super.key});
+class LJNChatEmojiSelector extends StatefulWidget {
+  const LJNChatEmojiSelector({super.key});
 
   @override
-  State<LJNEmojiSelector> createState() => _LJNEmojiSelector();
+  State<LJNChatEmojiSelector> createState() => _LJNChatEmojiSelector();
 }
 
-class _LJNEmojiSelector extends State<LJNEmojiSelector> {
+class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
   final ScrollController _scrollController = ScrollController();
   GlobalKey deleteButtonKey = GlobalKey();
 

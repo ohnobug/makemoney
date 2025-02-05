@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jiaoyishuoflutter3/chat_function_selector.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_my_voice_message.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_receive_message.dart';
@@ -11,7 +12,7 @@ import 'package:jiaoyishuoflutter3/components/ljn_video_draggable_box.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_video_message.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/emoji_selector.dart';
+import 'package:jiaoyishuoflutter3/chat_emoji_selector.dart';
 import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
@@ -23,7 +24,7 @@ import 'package:lottie/lottie.dart';
 import 'package:record/record.dart';
 import 'package:path/path.dart' as path;
 
-enum PannelType { none, emojiSelector, keyboard, functionButtons, voiceButton }
+enum PannelType { none, emojiSelector, keyboard, functionSelector, voiceButton }
 
 class LJNChatPage extends StatefulWidget {
   const LJNChatPage({super.key, required this.title, required this.icon});
@@ -625,7 +626,7 @@ class _LJNChatPage extends State<LJNChatPage>
   }
 
   // 键盘转换笑脸面板
-  void switchEmojiFunc() {
+  void switchEmojiFunc({resizeToAvoidBottomInset1 = false}) {
     logger.info("转换到笑脸");
 
     if (keyboardType != TextInputType.none) {
@@ -634,7 +635,7 @@ class _LJNChatPage extends State<LJNChatPage>
 
     setState(() {
       keyboardType = TextInputType.none;
-      resizeToAvoidBottomInset = false;
+      resizeToAvoidBottomInset = resizeToAvoidBottomInset1;
       pannelType = PannelType.emojiSelector;
     });
 
@@ -653,6 +654,38 @@ class _LJNChatPage extends State<LJNChatPage>
       SystemChannels.textInput.invokeMethod('TextInput.hide');
 
       pannelLog('switchEmojiFunc');
+    });
+  }
+
+  // 切换到功能选择面板
+  void switchFunctionSelector({resizeToAvoidBottomInset1 = true}) {
+    logger.info("转换到功能选择面板");
+
+    if (keyboardType != TextInputType.none) {
+      inputFocusNode.unfocus();
+    }
+
+    setState(() {
+      keyboardType = TextInputType.none;
+      resizeToAvoidBottomInset = resizeToAvoidBottomInset1;
+      pannelType = PannelType.functionSelector;
+    });
+
+    _gotoPositionEmojiPanel(
+      begin: viewInsets.bottom,
+      end: _emojiPanelHeight,
+      value: 0,
+      duration: Duration(milliseconds: _switchDurationMilliseconds),
+      eachFrameScrollToEnd: () {
+        _scrollToEnd();
+      },
+    );
+
+    Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
+      inputFocusNode.requestFocus();
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+      pannelLog('switchFunctionSelector');
     });
   }
 
@@ -709,6 +742,62 @@ class _LJNChatPage extends State<LJNChatPage>
       inputFocusNode.requestFocus();
       SystemChannels.textInput.invokeMethod('TextInput.hide');
       pannelLog('hideEmojiFunc');
+    });
+  }
+
+  // 打开功能面板
+  void showFunctionSelector([double? value]) {
+    logger.info("显示功能选择器");
+
+    if (keyboardType == TextInputType.text) {
+      inputFocusNode.unfocus();
+    }
+
+    setState(() {
+      // 显示图标选择器
+      pannelType = PannelType.functionSelector;
+      keyboardType = TextInputType.none;
+    });
+
+    _gotoPositionEmojiPanel(
+        begin: 0,
+        end: _emojiPanelHeight,
+        duration:
+            Duration(milliseconds: _toggleEmojiPannelDurationMilliseconds),
+        eachFrameScrollToEnd: () {
+          _scrollToEnd();
+        });
+
+    Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
+      inputFocusNode.requestFocus();
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
+
+      pannelLog('showFunctionSelector');
+    });
+  }
+
+  // 关闭功能面板
+  void hideFunctionSelector([double? value]) {
+    logger.info("隐藏功能选择器");
+
+    _gotoPositionEmojiPanel(
+      begin: _emojiPanelHeight,
+      end: 0,
+      duration: Duration(milliseconds: _toggleEmojiPannelDurationMilliseconds),
+      eachFrameScrollToEnd: () {
+        _scrollToEnd();
+      },
+    );
+
+    setState(() {
+      pannelType = PannelType.none;
+      keyboardType = TextInputType.text;
+    });
+    Future.delayed(
+        Duration(milliseconds: _toggleEmojiPannelDurationMilliseconds), () {
+      inputFocusNode.requestFocus();
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
+      pannelLog('hideFunctionSelector');
     });
   }
 
@@ -1235,8 +1324,11 @@ class _LJNChatPage extends State<LJNChatPage>
                                                     .value
                                                 : 0);
                                       } else if (pannelType ==
-                                          PannelType.keyboard) {
-                                        switchEmojiFunc();
+                                              PannelType.keyboard ||
+                                          pannelType ==
+                                              PannelType.functionSelector) {
+                                        switchEmojiFunc(
+                                            resizeToAvoidBottomInset1: true);
                                       } else if (pannelType ==
                                           PannelType.emojiSelector) {
                                         switchKeyboradFunc();
@@ -1328,7 +1420,32 @@ class _LJNChatPage extends State<LJNChatPage>
                                       visible: showPlusIcon,
                                       child: GestureDetector(
                                           onTap: () {
-                                            logger.info("加号被点击"); // 点击事件
+                                            if (pannelType == PannelType.none) {
+                                              showFunctionSelector(
+                                                  _emojiPanelAnimationContentController
+                                                          .isAnimating
+                                                      ? _emojiPanelAnimationContentController
+                                                          .value
+                                                      : 0);
+                                            } else if (pannelType ==
+                                                PannelType.voiceButton) {
+                                              showFunctionSelector(
+                                                  _emojiPanelAnimationContentController
+                                                          .isAnimating
+                                                      ? _emojiPanelAnimationContentController
+                                                          .value
+                                                      : 0);
+                                            } else if (pannelType ==
+                                                    PannelType.keyboard ||
+                                                pannelType ==
+                                                    PannelType.emojiSelector) {
+                                              switchFunctionSelector(
+                                                  resizeToAvoidBottomInset1:
+                                                      true);
+                                            } else if (pannelType ==
+                                                PannelType.functionSelector) {
+                                              switchKeyboradFunc();
+                                            }
                                           },
                                           child: Container(
                                             color: Colors.transparent,
@@ -1359,8 +1476,11 @@ class _LJNChatPage extends State<LJNChatPage>
                                   height: _keyboradAnimation.value,
                                   // color: Colors.red,
                                   child: pannelType == PannelType.emojiSelector
-                                      ? const LJNEmojiSelector()
-                                      : null));
+                                      ? const LJNChatEmojiSelector()
+                                      : pannelType ==
+                                              PannelType.functionSelector
+                                          ? const LJNChatFunctionSelector()
+                                          : null));
                         },
                       ),
                     ],
