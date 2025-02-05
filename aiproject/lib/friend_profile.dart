@@ -637,6 +637,11 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                                     _animationController.reset();
                                   });
 
+                                  // Navigator.pushNamed(
+                                  //   context,
+                                  //   '/video_call',
+                                  // );
+
                                   Navigator.pushNamed(
                                     context,
                                     '/video_call',
