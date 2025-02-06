@@ -7,8 +7,6 @@ import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LJNVideoCall extends StatefulWidget {
-  static String tag = 'whip_publish_sample';
-
   const LJNVideoCall({super.key});
 
   @override
@@ -145,6 +143,13 @@ class _LJNVideoCallState extends State<LJNVideoCall> {
         .getVideoTracks()
         .firstWhere((track) => track.kind == 'video');
     await Helper.switchCamera(videoTrack);
+  }
+
+  @override
+  void dispose() {
+    _disconnect();
+
+    super.dispose();
   }
 
   @override

@@ -28,15 +28,15 @@ class LJNFriendProfilePage extends StatefulWidget {
 
 class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
     with SingleTickerProviderStateMixin {
-  bool showDialSelector = false;
-  late AnimationController _animationController;
+  bool _showDialSelector = false;
+  late AnimationController _popupAnimationController;
   late Animation<double> _upAnimation;
 
   @override
   void initState() {
     super.initState();
     // 初始化 _animationContentController
-    _animationController = AnimationController(
+    _popupAnimationController = AnimationController(
       duration: const Duration(milliseconds: 200),
       reverseDuration: const Duration(milliseconds: 50),
       vsync: this,
@@ -44,7 +44,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
 
     _upAnimation = Tween<double>(begin: -330.w, end: 0).animate(
       CurvedAnimation(
-        parent: _animationController,
+        parent: _popupAnimationController,
         curve: Curves.easeInOut,
       ),
     );
@@ -545,20 +545,20 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                             // link: '/dial',
                             onPressed: () {
                               setState(() {
-                                showDialSelector = true;
+                                _showDialSelector = true;
                               });
-                              _animationController.forward();
+                              _popupAnimationController.forward();
                             },
                           ),
                         ]))))),
 
         // 背景色
-        if (showDialSelector)
+        if (_showDialSelector)
           GestureDetector(
               onTap: () {
-                _animationController.reverse().then((_) {
+                _popupAnimationController.reverse().then((_) {
                   setState(() {
-                    showDialSelector = false;
+                    _showDialSelector = false;
                   });
                 });
               },
@@ -569,7 +569,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
               )),
 
         AnimatedBuilder(
-            animation: _animationController,
+            animation: _popupAnimationController,
             builder: (context, child) {
               return Positioned(
                   left: 0,
@@ -633,8 +633,8 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                                 // link: '/dial',
                                 onPressed: () {
                                   setState(() {
-                                    showDialSelector = false;
-                                    _animationController.reset();
+                                    _showDialSelector = false;
+                                    _popupAnimationController.reset();
                                   });
 
                                   // Navigator.pushNamed(
@@ -688,8 +688,8 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                                 underline: true,
                                 onPressed: () {
                                   setState(() {
-                                    showDialSelector = false;
-                                    _animationController.reset();
+                                    _showDialSelector = false;
+                                    _popupAnimationController.reset();
                                   });
 
                                   Navigator.pushNamed(
@@ -706,9 +706,9 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                                 title: "取消",
                                 underline: false,
                                 onPressed: () {
-                                  _animationController.reverse().then((_) {
+                                  _popupAnimationController.reverse().then((_) {
                                     setState(() {
-                                      showDialSelector = false;
+                                      _showDialSelector = false;
                                     });
                                   });
                                 },

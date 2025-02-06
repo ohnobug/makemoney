@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/chat_function_selector.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_max_width_button.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_my_voice_message.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_receive_message.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_receive_video_message.dart';
@@ -106,6 +107,11 @@ class _LJNChatPage extends State<LJNChatPage>
 
   // DateTime? _lastExecuted; // 用来记录上次执行的时间
 
+  // 功能面板动画
+  bool _showDialSelector = false;
+  late AnimationController _popupAnimationController;
+  late Animation<double> _upAnimation;
+
   @override
   void initState() {
     super.initState();
@@ -114,6 +120,20 @@ class _LJNChatPage extends State<LJNChatPage>
       statusBarColor: Colors.transparent, // 设置状态栏透明
       statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
     ));
+
+    // 初始化 _animationContentController
+    _popupAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      reverseDuration: const Duration(milliseconds: 50),
+      vsync: this,
+    );
+
+    _upAnimation = Tween<double>(begin: -330.w, end: 0).animate(
+      CurvedAnimation(
+        parent: _popupAnimationController,
+        curve: Curves.easeInOut,
+      ),
+    );
 
     // 放大缩小语音
     _voiceTextBoxController = AnimationController(
@@ -460,6 +480,8 @@ class _LJNChatPage extends State<LJNChatPage>
     // 录音长按后底部动画
     _voiceLottieController.dispose();
 
+    _popupAnimationController.dispose();
+
     super.dispose();
   }
 
@@ -528,8 +550,8 @@ class _LJNChatPage extends State<LJNChatPage>
 
   final int _switchDurationMilliseconds = 200;
   final int _toggleEmojiPannelDurationMilliseconds = 400;
-  final double _emojiSelectorHeight = 670.h;
-  final double _functionSelectorHeight = 700.h;
+  final double _emojiSelectorHeight = 675.h;
+  final double _functionSelectorHeight = 630.h;
 
   // 切换模式等待时间
   final int _changeTypeMilliseconds = 50;
@@ -873,6 +895,142 @@ class _LJNChatPage extends State<LJNChatPage>
       right: max(_maxInsets.right, newInsets.right),
       bottom: max(_maxInsets.bottom, newInsets.bottom),
     );
+  }
+
+  // 功能选择器组件
+  Widget _buildChatFunctionSelector(SystemState systemState) {
+    return Container(
+        width: systemState.screenSize.width,
+        padding: EdgeInsets.only(top: 98.w),
+        decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 247, 247, 247),
+            border: Border(
+                top: BorderSide(
+              color: const Color.fromARGB(255, 231, 231, 231),
+              width: 1.5.w,
+              style: BorderStyle.solid,
+            ))),
+        child: Wrap(
+          // spacing: 63.w,
+          children: [
+            FunctionButton(
+                systemState: systemState,
+                title: "相册",
+                icon: Icon(
+                  const IconData(
+                    0xe6ba,
+                    fontFamily: 'Iconfont',
+                  ),
+                  color: const Color.fromARGB(255, 25, 25, 25),
+                  size: 52.w,
+                ),
+                onTap: () {
+                  logger.info("相册");
+                }),
+            FunctionButton(
+                systemState: systemState,
+                title: "拍摄",
+                icon: Icon(
+                  const IconData(
+                    0xe6bb,
+                    fontFamily: 'Iconfont',
+                  ),
+                  color: const Color.fromARGB(255, 25, 25, 25),
+                  size: 52.w,
+                ),
+                onTap: () {
+                  logger.info("拍摄");
+                }),
+            FunctionButton(
+                systemState: systemState,
+                title: "视频通话",
+                icon: Icon(
+                  const IconData(
+                    0xe64f,
+                    fontFamily: 'Iconfont',
+                  ),
+                  color: const Color.fromARGB(255, 25, 25, 25),
+                  size: 52.w,
+                ),
+                onTap: () {
+                  logger.info("视频通话");
+                  setState(() {
+                    _showDialSelector = true;
+                  });
+                  _popupAnimationController.forward();
+                }),
+            FunctionButton(
+                systemState: systemState,
+                title: "位置",
+                icon: Icon(
+                  const IconData(
+                    0xe630,
+                    fontFamily: 'Iconfont',
+                  ),
+                  color: const Color.fromARGB(255, 25, 25, 25),
+                  size: 52.w,
+                ),
+                onTap: () {
+                  logger.info("位置");
+                }),
+            FunctionButton(
+                systemState: systemState,
+                title: "红包",
+                icon: Icon(
+                  const IconData(
+                    0xe6c6,
+                    fontFamily: 'Iconfont',
+                  ),
+                  color: const Color.fromARGB(255, 25, 25, 25),
+                  size: 52.w,
+                ),
+                onTap: () {
+                  logger.info("红包");
+                }),
+            FunctionButton(
+                systemState: systemState,
+                title: "礼物",
+                icon: Icon(
+                  const IconData(
+                    0xe62e,
+                    fontFamily: 'Iconfont',
+                  ),
+                  color: const Color.fromARGB(255, 25, 25, 25),
+                  size: 52.w,
+                ),
+                onTap: () {
+                  logger.info("礼物");
+                }),
+            FunctionButton(
+                systemState: systemState,
+                title: "转账",
+                icon: Icon(
+                  const IconData(
+                    0xe631,
+                    fontFamily: 'Iconfont',
+                  ),
+                  color: const Color.fromARGB(255, 25, 25, 25),
+                  size: 52.w,
+                ),
+                onTap: () {
+                  logger.info("转账");
+                }),
+            FunctionButton(
+                systemState: systemState,
+                title: "语音输入",
+                icon: Icon(
+                  const IconData(
+                    0xe632,
+                    fontFamily: 'Iconfont',
+                  ),
+                  color: const Color.fromARGB(255, 25, 25, 25),
+                  size: 52.w,
+                ),
+                onTap: () {
+                  logger.info("语音输入");
+                })
+          ],
+        ));
   }
 
   @override
@@ -1512,7 +1670,8 @@ class _LJNChatPage extends State<LJNChatPage>
                                       ? const LJNChatEmojiSelector()
                                       : pannelType ==
                                               PannelType.functionSelector
-                                          ? const LJNChatFunctionSelector()
+                                          ? _buildChatFunctionSelector(
+                                              systemState)
                                           : null));
                         },
                       ),
@@ -1903,7 +2062,179 @@ class _LJNChatPage extends State<LJNChatPage>
                                   ],
                                 );
                               }))
-                  : SizedBox()
+                  : SizedBox(),
+
+              // 背景色
+              if (_showDialSelector)
+                GestureDetector(
+                    onTap: () {
+                      _popupAnimationController.reverse().then((_) {
+                        setState(() {
+                          _showDialSelector = false;
+                        });
+                      });
+                    },
+                    child: Container(
+                      color: const Color.fromARGB(127, 0, 0, 0),
+                      width: 750.w,
+                      height: systemState.screenSize.height,
+                    )),
+
+              AnimatedBuilder(
+                  animation: _popupAnimationController,
+                  builder: (context, child) {
+                    return Positioned(
+                        left: 0,
+                        bottom: _upAnimation.value,
+                        width: 750.w,
+                        height: 330.w,
+                        child: Scaffold(
+                            backgroundColor: Colors.transparent,
+                            primary: false,
+                            body: Container(
+                                width: 750.w,
+                                height: 330.w,
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                  // color: Colors.red,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20.w),
+                                    topRight: Radius.circular(20.w),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    LJNMaxWidthButton(
+                                      title: Text.rich(
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        TextSpan(children: [
+                                          WidgetSpan(
+                                            alignment:
+                                                PlaceholderAlignment.middle,
+                                            style: const TextStyle(
+                                              decoration: TextDecoration.none,
+                                            ),
+                                            child: Baseline(
+                                              baseline: 31.w,
+                                              baselineType:
+                                                  TextBaseline.alphabetic,
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe64f,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                color: Colors.black,
+                                                size: 40.w,
+                                              ),
+                                            ),
+                                          ),
+                                          WidgetSpan(
+                                            child: SizedBox(width: 50.w),
+                                          ),
+                                          TextSpan(
+                                            text: "视频通话",
+                                            style: TextStyle(
+                                              height: 1.08,
+                                              fontSize: 30.w,
+                                              decoration: TextDecoration.none,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ]),
+                                      ),
+                                      underline: true,
+                                      // link: '/dial',
+                                      onPressed: () {
+                                        setState(() {
+                                          _showDialSelector = false;
+                                          _popupAnimationController.reset();
+                                        });
+
+                                        // Navigator.pushNamed(
+                                        //   context,
+                                        //   '/video_call',
+                                        // );
+
+                                        Navigator.pushNamed(
+                                          context,
+                                          '/video_call',
+                                        );
+                                      },
+                                    ),
+                                    LJNMaxWidthButton(
+                                      title: Text.rich(
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        TextSpan(children: [
+                                          WidgetSpan(
+                                            alignment:
+                                                PlaceholderAlignment.middle,
+                                            style: const TextStyle(
+                                              decoration: TextDecoration.none,
+                                            ),
+                                            child: Baseline(
+                                              baseline: 31.w,
+                                              baselineType:
+                                                  TextBaseline.alphabetic,
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe64c,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                color: Colors.black,
+                                                size: 40.w,
+                                              ),
+                                            ),
+                                          ),
+                                          WidgetSpan(
+                                            child: SizedBox(width: 50.w),
+                                          ),
+                                          TextSpan(
+                                            text: "语音通话",
+                                            style: TextStyle(
+                                              height: 1.08,
+                                              fontSize: 30.w,
+                                              decoration: TextDecoration.none,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ]),
+                                      ),
+                                      underline: true,
+                                      onPressed: () {
+                                        setState(() {
+                                          _showDialSelector = false;
+                                          _popupAnimationController.reset();
+                                        });
+
+                                        Navigator.pushNamed(
+                                          context,
+                                          '/dial',
+                                        );
+                                      },
+                                    ),
+                                    Container(
+                                      height: 15.w,
+                                      color: const Color.fromARGB(
+                                          255, 247, 247, 247),
+                                    ),
+                                    LJNMaxWidthButton(
+                                      title: "取消",
+                                      underline: false,
+                                      onPressed: () {
+                                        _popupAnimationController
+                                            .reverse()
+                                            .then((_) {
+                                          setState(() {
+                                            _showDialSelector = false;
+                                          });
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ))));
+                  })
             ],
           ));
     });
