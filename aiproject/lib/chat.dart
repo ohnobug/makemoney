@@ -58,7 +58,7 @@ class _LJNChatPage extends State<LJNChatPage>
   late Animation<double> _widthAnimation;
   late Animation<Color?> _colorAnimation;
 
-  late AnimationController _emojiPanelAnimationContentController;
+  late AnimationController _emojiSelectorAnimationContentController;
   late Animation<double> _keyboradAnimation;
 
   bool showVoiceLottie = false;
@@ -180,8 +180,8 @@ class _LJNChatPage extends State<LJNChatPage>
     _voiceLottieController = AnimationController(
         vsync: this, duration: Duration(milliseconds: _changeTypeMilliseconds));
 
-    // 初始化 _emojiPanelAnimationContentController
-    _emojiPanelAnimationContentController = AnimationController(
+    // 初始化 _emojiSelectorAnimationContentController
+    _emojiSelectorAnimationContentController = AnimationController(
       duration: const Duration(milliseconds: 200),
       reverseDuration: const Duration(milliseconds: 50),
       vsync: this,
@@ -190,7 +190,7 @@ class _LJNChatPage extends State<LJNChatPage>
     // 设置第一次打开的情况
     _keyboradAnimation = Tween<double>(begin: 0, end: 0).animate(
       CurvedAnimation(
-        parent: _emojiPanelAnimationContentController,
+        parent: _emojiSelectorAnimationContentController,
         curve: Curves.easeInOut,
       ),
     );
@@ -451,7 +451,7 @@ class _LJNChatPage extends State<LJNChatPage>
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     inputFocusNode.dispose();
-    _emojiPanelAnimationContentController.dispose();
+    _emojiSelectorAnimationContentController.dispose();
     _animationController.dispose();
 
     // 隐藏键盘
@@ -493,41 +493,43 @@ class _LJNChatPage extends State<LJNChatPage>
     VoidCallback? eachFrameScrollToEnd,
   }) {
     if (value == null) {
-      _emojiPanelAnimationContentController.reset();
+      _emojiSelectorAnimationContentController.reset();
     } else {
-      _emojiPanelAnimationContentController.value = value;
+      _emojiSelectorAnimationContentController.value = value;
     }
 
     _keyboradAnimation = Tween<double>(begin: begin, end: end).animate(
       CurvedAnimation(
-        parent: _emojiPanelAnimationContentController,
+        parent: _emojiSelectorAnimationContentController,
         curve: Curves.easeInOut,
       ),
     );
 
     if (eachFrameScrollToEnd != null) {
-      _emojiPanelAnimationContentController.addListener(eachFrameScrollToEnd);
+      _emojiSelectorAnimationContentController
+          .addListener(eachFrameScrollToEnd);
     }
 
     // 设置动画状态监听器，确保动画完成时移除监听器
-    _emojiPanelAnimationContentController.addStatusListener((status) {
+    _emojiSelectorAnimationContentController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         if (eachFrameScrollToEnd != null) {
-          _emojiPanelAnimationContentController
+          _emojiSelectorAnimationContentController
               .removeListener(eachFrameScrollToEnd);
         }
       }
     });
 
     // 表情面板打开
-    _emojiPanelAnimationContentController.animateTo(1,
+    _emojiSelectorAnimationContentController.animateTo(1,
         duration: duration ??
             Duration(milliseconds: _toggleEmojiPannelDurationMilliseconds));
   }
 
-  final int _switchDurationMilliseconds = 50;
+  final int _switchDurationMilliseconds = 200;
   final int _toggleEmojiPannelDurationMilliseconds = 400;
-  final double _emojiPanelHeight = 670.h;
+  final double _emojiSelectorHeight = 670.h;
+  final double _functionSelectorHeight = 700.h;
 
   // 切换模式等待时间
   final int _changeTypeMilliseconds = 50;
@@ -571,7 +573,7 @@ class _LJNChatPage extends State<LJNChatPage>
   }
 
   // 笑脸切换到键盘
-  void switchKeyboradFunc() {
+  void switchKeyboradFunc({double begin = 0, double end = 0}) {
     logger.info("转换到键盘");
 
     if (keyboardType != TextInputType.text) {
@@ -584,8 +586,8 @@ class _LJNChatPage extends State<LJNChatPage>
       pannelType = PannelType.keyboard;
     });
     _gotoPositionEmojiPanel(
-      begin: _emojiPanelHeight,
-      end: _maxInsets.bottom,
+      begin: begin,
+      end: end,
       value: 0,
       duration: Duration(
           milliseconds:
@@ -595,7 +597,7 @@ class _LJNChatPage extends State<LJNChatPage>
       },
     );
 
-    logger.info("begin: $_emojiPanelHeight     end: ${_maxInsets.bottom}");
+    logger.info("begin: $_emojiSelectorHeight     end: ${_maxInsets.bottom}");
 
     Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
       inputFocusNode.requestFocus();
@@ -626,7 +628,7 @@ class _LJNChatPage extends State<LJNChatPage>
   }
 
   // 键盘转换笑脸面板
-  void switchEmojiFunc({resizeToAvoidBottomInset1 = false}) {
+  void switchEmojiFunc({double begin = 0, double end = 0}) {
     logger.info("转换到笑脸");
 
     if (keyboardType != TextInputType.none) {
@@ -635,13 +637,16 @@ class _LJNChatPage extends State<LJNChatPage>
 
     setState(() {
       keyboardType = TextInputType.none;
-      resizeToAvoidBottomInset = resizeToAvoidBottomInset1;
+      resizeToAvoidBottomInset = false;
       pannelType = PannelType.emojiSelector;
     });
 
+    // viewInsets.bottom
+    // _emojiSelectorHeight
+
     _gotoPositionEmojiPanel(
-      begin: viewInsets.bottom,
-      end: _emojiPanelHeight,
+      begin: begin,
+      end: end,
       value: 0,
       duration: Duration(milliseconds: _switchDurationMilliseconds),
       eachFrameScrollToEnd: () {
@@ -658,7 +663,7 @@ class _LJNChatPage extends State<LJNChatPage>
   }
 
   // 切换到功能选择面板
-  void switchFunctionSelector({resizeToAvoidBottomInset1 = true}) {
+  void switchFunctionSelector({double begin = 0, double end = 0}) {
     logger.info("转换到功能选择面板");
 
     if (keyboardType != TextInputType.none) {
@@ -667,13 +672,13 @@ class _LJNChatPage extends State<LJNChatPage>
 
     setState(() {
       keyboardType = TextInputType.none;
-      resizeToAvoidBottomInset = resizeToAvoidBottomInset1;
+      resizeToAvoidBottomInset = false;
       pannelType = PannelType.functionSelector;
     });
 
     _gotoPositionEmojiPanel(
-      begin: viewInsets.bottom,
-      end: _emojiPanelHeight,
+      begin: begin,
+      end: end,
       value: 0,
       duration: Duration(milliseconds: _switchDurationMilliseconds),
       eachFrameScrollToEnd: () {
@@ -705,7 +710,7 @@ class _LJNChatPage extends State<LJNChatPage>
 
     _gotoPositionEmojiPanel(
         begin: 0,
-        end: _emojiPanelHeight,
+        end: _emojiSelectorHeight,
         duration:
             Duration(milliseconds: _toggleEmojiPannelDurationMilliseconds),
         eachFrameScrollToEnd: () {
@@ -725,7 +730,7 @@ class _LJNChatPage extends State<LJNChatPage>
     logger.info("隐藏表情选择器");
 
     _gotoPositionEmojiPanel(
-      begin: _emojiPanelHeight,
+      begin: _emojiSelectorHeight,
       end: 0,
       duration: Duration(milliseconds: _toggleEmojiPannelDurationMilliseconds),
       eachFrameScrollToEnd: () {
@@ -761,7 +766,7 @@ class _LJNChatPage extends State<LJNChatPage>
 
     _gotoPositionEmojiPanel(
         begin: 0,
-        end: _emojiPanelHeight,
+        end: _emojiSelectorHeight,
         duration:
             Duration(milliseconds: _toggleEmojiPannelDurationMilliseconds),
         eachFrameScrollToEnd: () {
@@ -781,7 +786,7 @@ class _LJNChatPage extends State<LJNChatPage>
     logger.info("隐藏功能选择器");
 
     _gotoPositionEmojiPanel(
-      begin: _emojiPanelHeight,
+      begin: _emojiSelectorHeight,
       end: 0,
       duration: Duration(milliseconds: _toggleEmojiPannelDurationMilliseconds),
       eachFrameScrollToEnd: () {
@@ -938,6 +943,9 @@ class _LJNChatPage extends State<LJNChatPage>
                                           PannelType.emojiSelector) {
                                         hideEmojiFunc();
                                       } else if (pannelType ==
+                                          PannelType.functionSelector) {
+                                        hideFunctionSelector();
+                                      } else if (pannelType ==
                                           PannelType.keyboard) {
                                         hideKeyboardFunc();
                                       }
@@ -990,6 +998,9 @@ class _LJNChatPage extends State<LJNChatPage>
                                         } else if (pannelType ==
                                             PannelType.keyboard) {
                                           hideKeyboardFunc();
+                                        } else if (pannelType ==
+                                            PannelType.functionSelector) {
+                                          hideFunctionSelector();
                                         }
 
                                         setState(() {
@@ -1232,7 +1243,17 @@ class _LJNChatPage extends State<LJNChatPage>
                                                   } else if (pannelType ==
                                                       PannelType
                                                           .emojiSelector) {
-                                                    switchKeyboradFunc();
+                                                    switchKeyboradFunc(
+                                                        begin:
+                                                            _emojiSelectorHeight,
+                                                        end: _maxInsets.bottom);
+                                                  } else if (pannelType ==
+                                                      PannelType
+                                                          .functionSelector) {
+                                                    switchKeyboradFunc(
+                                                        begin:
+                                                            _functionSelectorHeight,
+                                                        end: _maxInsets.bottom);
                                                   }
                                                 },
                                                 cursorColor:
@@ -1310,28 +1331,34 @@ class _LJNChatPage extends State<LJNChatPage>
                                     onTap: () {
                                       if (pannelType == PannelType.none) {
                                         showEmojiFunc(
-                                            _emojiPanelAnimationContentController
+                                            _emojiSelectorAnimationContentController
                                                     .isAnimating
-                                                ? _emojiPanelAnimationContentController
+                                                ? _emojiSelectorAnimationContentController
                                                     .value
                                                 : 0);
                                       } else if (pannelType ==
                                           PannelType.voiceButton) {
                                         showEmojiFunc(
-                                            _emojiPanelAnimationContentController
+                                            _emojiSelectorAnimationContentController
                                                     .isAnimating
-                                                ? _emojiPanelAnimationContentController
+                                                ? _emojiSelectorAnimationContentController
                                                     .value
                                                 : 0);
                                       } else if (pannelType ==
-                                              PannelType.keyboard ||
-                                          pannelType ==
-                                              PannelType.functionSelector) {
+                                          PannelType.keyboard) {
                                         switchEmojiFunc(
-                                            resizeToAvoidBottomInset1: true);
+                                            begin: _maxInsets.bottom,
+                                            end: _emojiSelectorHeight);
+                                      } else if (pannelType ==
+                                          PannelType.functionSelector) {
+                                        switchEmojiFunc(
+                                            begin: _functionSelectorHeight,
+                                            end: _emojiSelectorHeight);
                                       } else if (pannelType ==
                                           PannelType.emojiSelector) {
-                                        switchKeyboradFunc();
+                                        switchKeyboradFunc(
+                                            begin: _emojiSelectorHeight,
+                                            end: _maxInsets.bottom);
                                       }
                                     },
                                     child: Container(
@@ -1422,29 +1449,35 @@ class _LJNChatPage extends State<LJNChatPage>
                                           onTap: () {
                                             if (pannelType == PannelType.none) {
                                               showFunctionSelector(
-                                                  _emojiPanelAnimationContentController
+                                                  _emojiSelectorAnimationContentController
                                                           .isAnimating
-                                                      ? _emojiPanelAnimationContentController
+                                                      ? _emojiSelectorAnimationContentController
                                                           .value
                                                       : 0);
                                             } else if (pannelType ==
                                                 PannelType.voiceButton) {
                                               showFunctionSelector(
-                                                  _emojiPanelAnimationContentController
+                                                  _emojiSelectorAnimationContentController
                                                           .isAnimating
-                                                      ? _emojiPanelAnimationContentController
+                                                      ? _emojiSelectorAnimationContentController
                                                           .value
                                                       : 0);
                                             } else if (pannelType ==
-                                                    PannelType.keyboard ||
-                                                pannelType ==
-                                                    PannelType.emojiSelector) {
+                                                PannelType.keyboard) {
                                               switchFunctionSelector(
-                                                  resizeToAvoidBottomInset1:
-                                                      true);
+                                                  begin: _maxInsets.bottom,
+                                                  end: _functionSelectorHeight);
+                                            } else if (pannelType ==
+                                                PannelType.emojiSelector) {
+                                              switchFunctionSelector(
+                                                  begin: _emojiSelectorHeight,
+                                                  end: _functionSelectorHeight);
                                             } else if (pannelType ==
                                                 PannelType.functionSelector) {
-                                              switchKeyboradFunc();
+                                              switchKeyboradFunc(
+                                                  begin:
+                                                      _functionSelectorHeight,
+                                                  end: _maxInsets.bottom);
                                             }
                                           },
                                           child: Container(
@@ -1467,7 +1500,7 @@ class _LJNChatPage extends State<LJNChatPage>
 
                       // 图标选择器
                       AnimatedBuilder(
-                        animation: _emojiPanelAnimationContentController,
+                        animation: _emojiSelectorAnimationContentController,
                         builder: (context, child) {
                           return Expanded(
                               flex: 0,
