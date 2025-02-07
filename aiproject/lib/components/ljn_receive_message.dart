@@ -8,12 +8,14 @@ class LJNReceiveMessage extends StatefulWidget {
       required this.message,
       required this.showName,
       required this.friendAvatar,
-      required this.name});
+      required this.name,
+      this.onFriendAvatarTap});
 
   final String name;
   final bool showName;
   final String message;
   final String friendAvatar;
+  final Function? onFriendAvatarTap;
 
   @override
   State<LJNReceiveMessage> createState() => _LJNReceiveMessage();
@@ -31,6 +33,10 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
           // 头像
           GestureDetector(
               onTap: () {
+                if (widget.onFriendAvatarTap != null) {
+                  widget.onFriendAvatarTap!();
+                }
+
                 Navigator.pushNamed(context, '/friendprofile',
                     arguments: <String, String>{
                       'name': widget.name,
