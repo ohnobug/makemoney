@@ -4,6 +4,7 @@ import 'package:floating/floating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
@@ -67,6 +68,22 @@ class _LJNDial extends State<LJNDial> {
       statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
       statusBarIconBrightness: Brightness.light, // 确保图标颜色为黑色
     ));
+
+    PictureInPicture.updatePiPParams(
+      pipParams: PiPParams(
+        pipWindowHeight: 300.w,
+        pipWindowWidth: 300.w,
+        bottomSpace: 8,
+        leftSpace: 8,
+        rightSpace: 8,
+        topSpace: 8,
+        maxSize: Size(300, 300),
+        minSize: Size(200, 200),
+        movable: true,
+        resizable: false,
+        initialCorner: PIPViewCorner.bottomRight,
+      ),
+    );
   }
 
   @override
@@ -103,8 +120,18 @@ class _LJNDial extends State<LJNDial> {
                         bgColor: Colors.transparent,
                         leading: GestureDetector(
                           onTap: () {
-                            // 进入画中画
-                            _enablePip(context);
+                            Navigator.of(context).pop();
+                            Future.delayed(Duration(milliseconds: 100), () {
+                              // 应用级画中画
+                              PictureInPicture.startPiP(
+                                  pipWidget: PiPWidget(
+                                      onPiPClose: () {},
+                                      child: LJNDialFloatingWidget(
+                                          systemState: systemState)));
+                            });
+
+                            // 进入系统级画中画
+                            // _enablePip(context);
                           },
                           child: Container(
                             color: Colors.transparent,
@@ -277,5 +304,30 @@ class _LJNDial extends State<LJNDial> {
                     ],
                   ))));
     });
+  }
+}
+
+// 打电话浮窗
+class LJNDialFloatingWidget extends StatelessWidget {
+  const LJNDialFloatingWidget({super.key, required this.systemState});
+
+  final SystemState systemState;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.blueAccent,
+      child: Stack(children: [
+        Text("hello"),
+        ElevatedButton(
+          onPressed: () {
+            systemState.navigatorKey.currentState?.pushNamed('/dial');
+
+            // PictureInPicture.stopPiP();
+          },
+          child: Text("close"),
+        )
+      ]),
+    );
   }
 }

@@ -59,6 +59,7 @@ class SystemState {
   final double statusHeight;
   final bool showMiniProgramDrawer;
   final ThemeData themeData;
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   // 构造函数
   SystemState({

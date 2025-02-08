@@ -151,6 +151,8 @@ class _App extends State<App> {
             enableScaleText: () => true,
             builder: (context, child) {
               return PiPMaterialApp(
+                navigatorKey:
+                    BlocProvider.of<SystemCubit>(context).state.navigatorKey,
                 debugShowCheckedModeBanner: false,
                 initialRoute: '/',
                 onGenerateRoute: (settings) {
@@ -300,7 +302,7 @@ class _App extends State<App> {
                     return pageRouteBuilderAnimation(
                         const LJNGroupMessageRecord());
                   } else if (settings.name == "/dial") {
-                    return pageRouteBuilderAnimation(const LJNDial());
+                    return pageRouteBuilderNotAnimation(const LJNDial());
                   } else if (settings.name == "/services_manager") {
                     return pageRouteBuilderAnimation(
                         const LJNServicesManager());
