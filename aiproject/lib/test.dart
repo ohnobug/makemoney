@@ -9,17 +9,15 @@ class LJNTest extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Text('This page will float!'),
             MaterialButton(
-              color: Theme.of(context).primaryColor,
               child: Text('Start floating!'),
               onPressed: () {
                 PictureInPicture.startPiP(pipWidget: BackgroundScreen());
-                // PIPView.of(context)!.presentBelow(BackgroundScreen());
               },
             ),
           ],

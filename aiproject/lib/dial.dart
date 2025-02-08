@@ -1,4 +1,8 @@
+import 'dart:math';
+
+import 'package:floating/floating.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
@@ -15,33 +19,93 @@ class LJNDial extends StatefulWidget {
 }
 
 class _LJNDial extends State<LJNDial> {
+  // 画中画
+  final floating = Floating();
+
+  // 用于保存原来的状态栏样式
+  SystemUiOverlayStyle? originalStatusBarStyle;
+
+  // 启动pip
+  Future<void> _enablePip(
+    BuildContext context, {
+    bool autoEnable = false,
+  }) async {
+    final rational = Rational.landscape();
+    final screenSize =
+        MediaQuery.of(context).size * MediaQuery.of(context).devicePixelRatio;
+    final height = screenSize.width ~/ rational.aspectRatio;
+
+    final arguments = autoEnable
+        ? OnLeavePiP(
+            aspectRatio: rational,
+            sourceRectHint: Rectangle<int>(
+              0,
+              (screenSize.height ~/ 2) - (height ~/ 2),
+              screenSize.width.toInt(),
+              height,
+            ),
+          )
+        : ImmediatePiP(
+            aspectRatio: rational,
+            sourceRectHint: Rectangle<int>(
+              0,
+              (screenSize.height ~/ 2) - (height ~/ 2),
+              screenSize.width.toInt(),
+              height,
+            ),
+          );
+
+    final status = await floating.enable(arguments);
+    debugPrint('PiP enabled? $status');
+  }
+
   @override
   void initState() {
     super.initState();
+
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
+      statusBarIconBrightness: Brightness.light, // 确保图标颜色为黑色
+    ));
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
+      statusBarIconBrightness: Brightness.dark, // 确保图标颜色为黑色
+    ));
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SystemCubit, SystemState>(
         builder: (context, systemState) {
-      return Scaffold(
-          primary: false,
-          appBar: null,
-          body: Container(
-              width: 750.w,
-              color: const Color.fromARGB(255, 10, 11, 13),
-              // color: const Color.fromARGB(255, 76, 115, 194),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
+      return PiPSwitcher(
+          childWhenEnabled: Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: Colors.blue,
+            child: Text("hello world"),
+          ),
+          childWhenDisabled: Scaffold(
+              primary: false,
+              appBar: null,
+              body: Container(
+                  width: 750.w,
+                  color: const Color.fromARGB(255, 22, 22, 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       LJNAppBar(
                         title: "",
                         bgColor: Colors.transparent,
                         leading: GestureDetector(
-                          onTap: () => Navigator.of(context).pop(),
+                          onTap: () {
+                            // 进入画中画
+                            _enablePip(context);
+                          },
                           child: Container(
                             color: Colors.transparent,
                             child: Icon(
@@ -55,29 +119,31 @@ class _LJNDial extends State<LJNDial> {
                       SizedBox(
                         height: 297.w,
                       ),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                            16.0.w), // Adjust the radius as needed
-                        child: Image.asset(
-                          assetPath("images/avatar_webp/chat_55.webp"),
-                          width: 183.0.w,
-                          height: 183.0.w,
-                          cacheWidth: 360.w.toInt(),
-                          cacheHeight: 360.w.toInt(),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30.w,
-                      ),
-                      Text(
-                        "罗绮娴",
-                        style: TextStyle(color: Colors.white, fontSize: 40.w),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
+                      Expanded(
+                          child: Column(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(
+                                16.0.w), // Adjust the radius as needed
+                            child: Image.asset(
+                              assetPath("images/avatar_webp/chat_55.webp"),
+                              width: 183.0.w,
+                              height: 183.0.w,
+                              cacheWidth: 360.w.toInt(),
+                              cacheHeight: 360.w.toInt(),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30.w,
+                          ),
+                          Text(
+                            "罗绮娴",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 40.w),
+                          ),
+                        ],
+                      )),
                       Text(
                         "等待对方接受邀请",
                         style: TextStyle(
@@ -116,7 +182,7 @@ class _LJNDial extends State<LJNDial> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 25.w,
+                                  height: 20.w,
                                 ),
                                 Text(
                                   "麦克风已开",
@@ -156,7 +222,7 @@ class _LJNDial extends State<LJNDial> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 25.w,
+                                  height: 20.w,
                                 ),
                                 Text(
                                   "取消",
@@ -196,7 +262,7 @@ class _LJNDial extends State<LJNDial> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 25.w,
+                                  height: 20.w,
                                 ),
                                 Text(
                                   "扬声器已关",
@@ -209,9 +275,7 @@ class _LJNDial extends State<LJNDial> {
                         ],
                       )
                     ],
-                  )
-                ],
-              )));
+                  ))));
     });
   }
 }

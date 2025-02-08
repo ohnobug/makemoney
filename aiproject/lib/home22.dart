@@ -8,7 +8,6 @@ import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
@@ -36,8 +35,6 @@ class _ChatListViewState extends State<LJNHome22Page>
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {});
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<SystemCubit>().updateMainpage1isload(true);
