@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
@@ -73,10 +74,10 @@ class _LJNDial extends State<LJNDial> {
       pipParams: PiPParams(
         pipWindowHeight: 300.w,
         pipWindowWidth: 300.w,
-        bottomSpace: 8,
-        leftSpace: 8,
-        rightSpace: 8,
-        topSpace: 8,
+        bottomSpace: 5,
+        leftSpace: 5,
+        rightSpace: 5,
+        topSpace: 5,
         maxSize: Size(300, 300),
         minSize: Size(200, 200),
         movable: true,
@@ -125,6 +126,8 @@ class _LJNDial extends State<LJNDial> {
                               // 应用级画中画
                               PictureInPicture.startPiP(
                                   pipWidget: PiPWidget(
+                                      pipBorderRadius: 100,
+                                      elevation: 20,
                                       onPiPClose: () {},
                                       child: LJNDialFloatingWidget(
                                           systemState: systemState)));
@@ -229,25 +232,29 @@ class _LJNDial extends State<LJNDial> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Container(
-                                  width: 140.w,
-                                  height: 140.w,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 217, 79, 77),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(140.w)),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Icon(
-                                    const IconData(
-                                      0xe781,
-                                      fontFamily: 'Iconfont',
-                                    ),
-                                    color: Colors.white,
-                                    size: 64.w,
-                                  ),
-                                ),
+                                GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Container(
+                                      width: 140.w,
+                                      height: 140.w,
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 217, 79, 77),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(140.w)),
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Icon(
+                                        const IconData(
+                                          0xe781,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        color: Colors.white,
+                                        size: 64.w,
+                                      ),
+                                    )),
                                 SizedBox(
                                   height: 20.w,
                                 ),
@@ -321,9 +328,8 @@ class LJNDialFloatingWidget extends StatelessWidget {
         Text("hello"),
         ElevatedButton(
           onPressed: () {
-            systemState.navigatorKey.currentState?.pushNamed('/dial');
-
-            // PictureInPicture.stopPiP();
+            PictureInPicture.stopPiP();
+            systemState.navigatorKey.currentState!.pushNamed('/dial');
           },
           child: Text("close"),
         )

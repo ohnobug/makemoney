@@ -151,8 +151,7 @@ class _App extends State<App> {
             enableScaleText: () => true,
             builder: (context, child) {
               return PiPMaterialApp(
-                navigatorKey:
-                    BlocProvider.of<SystemCubit>(context).state.navigatorKey,
+                navigatorKey: context.read<SystemCubit>().state.navigatorKey,
                 debugShowCheckedModeBanner: false,
                 initialRoute: '/',
                 onGenerateRoute: (settings) {

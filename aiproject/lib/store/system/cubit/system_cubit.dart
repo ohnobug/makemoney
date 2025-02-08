@@ -1,9 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
 
 // 系统的 Cubit
 class SystemCubit extends Cubit<SystemState> {
-  SystemCubit() : super(SystemState());
+  SystemCubit()
+      : super(SystemState(
+          navigatorKey: GlobalKey<NavigatorState>(),
+        ));
 
   // 更新各种状态的方法
   void updateHomescrollpixels(double homescrollpixels) {
@@ -45,6 +49,12 @@ class SystemCubit extends Cubit<SystemState> {
   void updatethemeData(ThemeData themeData) {
     emit(state.copyWith(themeData: themeData));
   }
+
+  // 更新 navigatorKey
+  void updateNavigatorKey(GlobalKey<NavigatorState> key) {
+    logger.info("来啦啦啦啦啦啦啦啦啦啦啦");
+    emit(SystemState(navigatorKey: key));
+  }
 }
 
 // 系统状态
@@ -55,11 +65,11 @@ class SystemState {
   final bool? mainpage2isload; // 页面 2 是否显示
   final bool? mainpage3isload; // 页面 3 是否显示
   final bool? mainpage4isload; // 页面 4 是否显示
+  final GlobalKey<NavigatorState> navigatorKey;
   final Size screenSize;
   final double statusHeight;
   final bool showMiniProgramDrawer;
   final ThemeData themeData;
-  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   // 构造函数
   SystemState({
@@ -73,21 +83,22 @@ class SystemState {
     this.statusHeight = 0,
     this.showMiniProgramDrawer = false,
     ThemeData? themeData,
-  }) : themeData = themeData ?? lightTheme; // 如果没有传递 themeData，使用 lightTheme
+    required this.navigatorKey,
+  }) : themeData = themeData ?? lightTheme;
 
   // 拷贝构造函数
-  SystemState copyWith({
-    double? homescrollpixels,
-    bool? contactazshow,
-    bool? mainpage1isload,
-    bool? mainpage2isload,
-    bool? mainpage3isload,
-    bool? mainpage4isload,
-    Size? screenSize,
-    double? statusHeight,
-    bool? showMiniProgramDrawer,
-    ThemeData? themeData,
-  }) {
+  SystemState copyWith(
+      {double? homescrollpixels,
+      bool? contactazshow,
+      bool? mainpage1isload,
+      bool? mainpage2isload,
+      bool? mainpage3isload,
+      bool? mainpage4isload,
+      Size? screenSize,
+      double? statusHeight,
+      bool? showMiniProgramDrawer,
+      ThemeData? themeData,
+      GlobalKey<NavigatorState>? navigatorKey}) {
     return SystemState(
       homescrollpixels: homescrollpixels ?? this.homescrollpixels,
       contactazshow: contactazshow ?? this.contactazshow,
@@ -100,6 +111,7 @@ class SystemState {
       showMiniProgramDrawer:
           showMiniProgramDrawer ?? this.showMiniProgramDrawer,
       themeData: themeData ?? this.themeData,
+      navigatorKey: navigatorKey ?? this.navigatorKey,
     );
   }
 }
