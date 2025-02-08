@@ -416,7 +416,7 @@ class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
             );
 
             _videoController.setLooping(true);
-            _videoController.setVolume(0.0);
+            // _videoController.setVolume(0.0);
             _videoController.play();
           });
   }
@@ -456,7 +456,7 @@ class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
                 }
               },
               child: _videoController.value.isPlaying
-                  ? Text("Close")
+                  ? Text("Pause")
                   : Text("Play"),
             )),
 
