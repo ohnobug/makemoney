@@ -1,13 +1,11 @@
-import 'dart:math';
-
 import 'package:floating/floating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:video_player/video_player.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
@@ -21,49 +19,59 @@ class LJNDial extends StatefulWidget {
 }
 
 class _LJNDial extends State<LJNDial> {
+  // 音频播放器
+  late VideoPlayerController _voiceController;
+
   // 画中画
   final floating = Floating();
 
   // 用于保存原来的状态栏样式
   SystemUiOverlayStyle? originalStatusBarStyle;
 
-  // 启动pip
-  Future<void> _enablePip(
-    BuildContext context, {
-    bool autoEnable = false,
-  }) async {
-    final rational = Rational.landscape();
-    final screenSize =
-        MediaQuery.of(context).size * MediaQuery.of(context).devicePixelRatio;
-    final height = screenSize.width ~/ rational.aspectRatio;
+  // // 启动pip
+  // Future<void> _enablePip(
+  //   BuildContext context, {
+  //   bool autoEnable = false,
+  // }) async {
+  //   final rational = Rational.landscape();
+  //   final screenSize =
+  //       MediaQuery.of(context).size * MediaQuery.of(context).devicePixelRatio;
+  //   final height = screenSize.width ~/ rational.aspectRatio;
 
-    final arguments = autoEnable
-        ? OnLeavePiP(
-            aspectRatio: rational,
-            sourceRectHint: Rectangle<int>(
-              0,
-              (screenSize.height ~/ 2) - (height ~/ 2),
-              screenSize.width.toInt(),
-              height,
-            ),
-          )
-        : ImmediatePiP(
-            aspectRatio: rational,
-            sourceRectHint: Rectangle<int>(
-              0,
-              (screenSize.height ~/ 2) - (height ~/ 2),
-              screenSize.width.toInt(),
-              height,
-            ),
-          );
+  //   final arguments = autoEnable
+  //       ? OnLeavePiP(
+  //           aspectRatio: rational,
+  //           sourceRectHint: Rectangle<int>(
+  //             0,
+  //             (screenSize.height ~/ 2) - (height ~/ 2),
+  //             screenSize.width.toInt(),
+  //             height,
+  //           ),
+  //         )
+  //       : ImmediatePiP(
+  //           aspectRatio: rational,
+  //           sourceRectHint: Rectangle<int>(
+  //             0,
+  //             (screenSize.height ~/ 2) - (height ~/ 2),
+  //             screenSize.width.toInt(),
+  //             height,
+  //           ),
+  //         );
 
-    final status = await floating.enable(arguments);
-    debugPrint('PiP enabled? $status');
-  }
+  //   final status = await floating.enable(arguments);
+  //   debugPrint('PiP enabled? $status');
+  // }
 
   @override
   void initState() {
     super.initState();
+
+    // 实例化播放器
+    _voiceController =
+        VideoPlayerController.asset(assetPath("sounds/scan_success.mp3"))
+          ..initialize().then((_) {
+            setState(() {});
+          });
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
@@ -88,11 +96,14 @@ class _LJNDial extends State<LJNDial> {
   }
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
       statusBarIconBrightness: Brightness.dark, // 确保图标颜色为黑色
     ));
+
+    await _voiceController.dispose();
+
     super.dispose();
   }
 
@@ -175,7 +186,7 @@ class _LJNDial extends State<LJNDial> {
                         ],
                       )),
                       Text(
-                        "等待对方接受邀请",
+                        "等待对方接受邀请...",
                         style: TextStyle(
                             fontSize: 30.w,
                             color: const Color.fromARGB(255, 141, 143, 142)),
@@ -233,8 +244,17 @@ class _LJNDial extends State<LJNDial> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 GestureDetector(
-                                    onTap: () {
-                                      Navigator.pop(context);
+                                    onTap: () async {
+                                      // 播放音乐
+                                      await _voiceController.play();
+
+                                      // 等待一会再跳转
+                                      await Future.delayed(
+                                          Duration(milliseconds: 600), () {
+                                        if (context.mounted) {
+                                          Navigator.of(context).pop();
+                                        }
+                                      });
                                     },
                                     child: Container(
                                       width: 140.w,
