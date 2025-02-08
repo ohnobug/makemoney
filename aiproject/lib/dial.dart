@@ -82,14 +82,14 @@ class _LJNDial extends State<LJNDial> {
 
     PictureInPicture.updatePiPParams(
       pipParams: PiPParams(
-        pipWindowHeight: 400.w / (16 / 9),
-        pipWindowWidth: 400.w * (16 / 9),
+        pipWindowHeight: 400.w,
+        pipWindowWidth: 400.w,
         bottomSpace: 5,
         leftSpace: 5,
         rightSpace: 5,
         topSpace: 5,
         maxSize: Size(400, 400),
-        minSize: Size(300, 300),
+        minSize: Size(200, 200),
         movable: true,
         resizable: false,
         initialCorner: PIPViewCorner.bottomRight,
@@ -98,13 +98,13 @@ class _LJNDial extends State<LJNDial> {
   }
 
   @override
-  Future<void> dispose() async {
+  void dispose() {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
       statusBarIconBrightness: Brightness.dark, // 确保图标颜色为黑色
     ));
 
-    await _voiceController.dispose();
+    _voiceController.dispose();
 
     super.dispose();
   }
@@ -139,11 +139,13 @@ class _LJNDial extends State<LJNDial> {
                               // 应用级画中画
                               PictureInPicture.startPiP(
                                   pipWidget: PiPWidget(
-                                      pipBorderRadius: 100,
-                                      elevation: 20,
-                                      onPiPClose: () {},
-                                      child: LJNDialFloatingWidget(
-                                          systemState: systemState)));
+                                pipBorderRadius: 5,
+                                elevation: 10,
+                                onPiPClose: () {},
+                                child: LJNDialFloatingWidget(
+                                  systemState: systemState,
+                                ),
+                              ));
                             });
 
                             // 进入系统级画中画
@@ -385,6 +387,9 @@ class LJNDialFloatingWidget extends StatefulWidget {
 class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
   late VideoPlayerController _videoController;
 
+  double _height = 0;
+  double _width = 0;
+
   @override
   void initState() {
     super.initState();
@@ -392,20 +397,40 @@ class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
     _videoController =
         VideoPlayerController.asset(assetPath('images/ins/test.mp4'))
           ..initialize().then((_) {
-            setState(() {});
+            setState(() {
+              if (_videoController.value.aspectRatio > 1) {
+                // 宽大于高
+                _width = 350.w;
+                _height = _width / _videoController.value.aspectRatio;
+              } else {
+                _height = 622.w;
+                _width = _height * _videoController.value.aspectRatio;
+              }
+            });
+
+            PictureInPicture.updatePiPParams(
+              pipParams: PiPParams(
+                pipWindowHeight: _height,
+                pipWindowWidth: _width,
+              ),
+            );
+
+            _videoController.setLooping(true);
+            _videoController.setVolume(0.0);
+            _videoController.play();
           });
   }
 
   @override
-  Future<void> dispose() async {
-    await _videoController.dispose();
+  void dispose() async {
+    _videoController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blueAccent,
+    return SizedBox(
+      // color: Colors.blueAccent,
       child: Stack(children: [
         _videoController.value.isInitialized
             ? AspectRatio(
@@ -413,9 +438,32 @@ class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
                 child: VideoPlayer(_videoController),
               )
             : SizedBox(),
+
+        // 播放
         Positioned(
-            top: 10.w,
-            right: 10.w,
+            bottom: 5.w,
+            left: 5.w,
+            child: ElevatedButton(
+              onPressed: () {
+                if (_videoController.value.isPlaying) {
+                  setState(() {
+                    _videoController.pause();
+                  });
+                } else {
+                  setState(() {
+                    _videoController.play();
+                  });
+                }
+              },
+              child: _videoController.value.isPlaying
+                  ? Text("Close")
+                  : Text("Play"),
+            )),
+
+        // 退出
+        Positioned(
+            bottom: 5.w,
+            right: 5.w,
             child: ElevatedButton(
               onPressed: () {
                 PictureInPicture.stopPiP();
@@ -423,7 +471,7 @@ class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
                     .pushNamed('/dial');
               },
               child: Text("close"),
-            ))
+            )),
       ]),
     );
   }
