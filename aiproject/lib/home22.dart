@@ -53,8 +53,8 @@ class _ChatListViewState extends State<LJNHome22Page>
       context.read<UserCubit>().updateName('李俊杰');
       context.read<UserCubit>().updateAccount('TheMonsterClub');
       context.read<UserCubit>().updatePhone('+8618825130917');
-      context.read<UserCubit>().updateWalletBalance(3592.98);
-      context.read<UserCubit>().updateWalletFoundationBalance(1005.85);
+      context.read<UserCubit>().updateWalletBalance(62498845.98);
+      context.read<UserCubit>().updateWalletFoundationBalance(5881005.85);
       context.read<UserCubit>().updateAvatar("images/avatar/my.jpg");
     });
 

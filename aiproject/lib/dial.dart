@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:floating/floating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -80,14 +82,14 @@ class _LJNDial extends State<LJNDial> {
 
     PictureInPicture.updatePiPParams(
       pipParams: PiPParams(
-        pipWindowHeight: 300.w,
-        pipWindowWidth: 300.w,
+        pipWindowHeight: 400.w / (16 / 9),
+        pipWindowWidth: 400.w * (16 / 9),
         bottomSpace: 5,
         leftSpace: 5,
         rightSpace: 5,
         topSpace: 5,
-        maxSize: Size(300, 300),
-        minSize: Size(200, 200),
+        maxSize: Size(400, 400),
+        minSize: Size(300, 300),
         movable: true,
         resizable: false,
         initialCorner: PIPViewCorner.bottomRight,
@@ -185,12 +187,8 @@ class _LJNDial extends State<LJNDial> {
                           ),
                         ],
                       )),
-                      Text(
-                        "等待对方接受邀请...",
-                        style: TextStyle(
-                            fontSize: 30.w,
-                            color: const Color.fromARGB(255, 141, 143, 142)),
-                      ),
+                      // 含Loading的文字
+                      LJNDotLoadingText(),
                       SizedBox(
                         height: 115.w,
                       ),
@@ -334,25 +332,98 @@ class _LJNDial extends State<LJNDial> {
   }
 }
 
-// 打电话浮窗
-class LJNDialFloatingWidget extends StatelessWidget {
+class LJNDotLoadingText extends StatefulWidget {
+  const LJNDotLoadingText({super.key});
+
+  @override
+  State<LJNDotLoadingText> createState() => _LJNDotLoadingTextState();
+}
+
+class _LJNDotLoadingTextState extends State<LJNDotLoadingText> {
+  int dotCount = 0; // 当前显示的点数
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // 启动定时器，每隔 500 毫秒更新一次点数
+    _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
+      setState(() {
+        dotCount = (dotCount + 1) % 4; // 循环显示 0 到 3 个点
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // 销毁定时器
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      "等待对方接受邀请${'.' * dotCount}", // 根据点数动态生成文本
+      style: TextStyle(
+        fontSize: 30.w,
+        color: const Color.fromARGB(255, 141, 143, 142),
+      ),
+    );
+  }
+}
+
+class LJNDialFloatingWidget extends StatefulWidget {
+  final SystemState systemState;
   const LJNDialFloatingWidget({super.key, required this.systemState});
 
-  final SystemState systemState;
+  @override
+  State<LJNDialFloatingWidget> createState() => _LJNDialFloatingWidget();
+}
+
+// 打电话浮窗
+class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
+  late VideoPlayerController _videoController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _videoController =
+        VideoPlayerController.asset(assetPath('images/ins/test.mp4'))
+          ..initialize().then((_) {
+            setState(() {});
+          });
+  }
+
+  @override
+  Future<void> dispose() async {
+    await _videoController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.blueAccent,
       child: Stack(children: [
-        Text("hello"),
-        ElevatedButton(
-          onPressed: () {
-            PictureInPicture.stopPiP();
-            systemState.navigatorKey.currentState!.pushNamed('/dial');
-          },
-          child: Text("close"),
-        )
+        _videoController.value.isInitialized
+            ? AspectRatio(
+                aspectRatio: _videoController.value.aspectRatio,
+                child: VideoPlayer(_videoController),
+              )
+            : SizedBox(),
+        Positioned(
+            top: 10.w,
+            right: 10.w,
+            child: ElevatedButton(
+              onPressed: () {
+                PictureInPicture.stopPiP();
+                widget.systemState.navigatorKey.currentState!
+                    .pushNamed('/dial');
+              },
+              child: Text("close"),
+            ))
       ]),
     );
   }
