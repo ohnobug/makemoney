@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_alphabet.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_chatlist_item.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
@@ -32,10 +32,32 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ),
 
       LJNAlphabet(title: '两天前'),
-      ContactInformation(
-        title: "天空飘来五个字那都不是事",
-        icon: "images/avatar_webp/chat_1.webp",
-        link: '',
+      ChatListItem(
+        friendName: "天空飘来五个字那都不是事",
+        avatar: "images/avatar_webp/chat_1.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: Row(
+          children: [
+            Icon(
+              const IconData(
+                0xe7cc,
+                fontFamily: 'Iconfont',
+              ),
+              color: const Color.fromARGB(255, 170, 170, 170),
+              size: 23.w,
+            ),
+            SizedBox(width: 8.0.w),
+            Text(
+              '已添加',
+              style: TextStyle(
+                height: 1.08,
+                fontSize: fontSizeScale(23.0.w),
+                color: const Color.fromARGB(255, 170, 170, 170),
+              ),
+            ),
+          ],
+        ),
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -44,10 +66,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "本因",
-        icon: "images/avatar_webp/chat_10.webp",
-        link: '',
+      ChatListItem(
+        friendName: "本因",
+        avatar: "images/avatar_webp/chat_10.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -56,10 +80,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "赵洵",
-        icon: "images/avatar_webp/chat_11.webp",
-        link: '',
+      ChatListItem(
+        friendName: "赵洵",
+        avatar: "images/avatar_webp/chat_11.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -68,10 +94,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "定静师太",
-        icon: "images/avatar_webp/chat_12.webp",
-        link: '',
+      ChatListItem(
+        friendName: "定静师太",
+        avatar: "images/avatar_webp/chat_12.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -80,10 +108,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "李秋水",
-        icon: "images/avatar_webp/chat_13.webp",
-        link: '',
+      ChatListItem(
+        friendName: "李秋水",
+        avatar: "images/avatar_webp/chat_13.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -92,10 +122,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "谭婆",
-        icon: "images/avatar_webp/chat_14.webp",
-        link: '',
+      ChatListItem(
+        friendName: "谭婆",
+        avatar: "images/avatar_webp/chat_14.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -104,10 +136,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "李傀儡",
-        icon: "images/avatar_webp/chat_15.webp",
-        link: '',
+      ChatListItem(
+        friendName: "李傀儡",
+        avatar: "images/avatar_webp/chat_15.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -116,10 +150,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "貂禅",
-        icon: "images/avatar_webp/chat_16.webp",
-        link: '',
+      ChatListItem(
+        friendName: "貂禅",
+        avatar: "images/avatar_webp/chat_16.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -128,10 +164,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "何三七",
-        icon: "images/avatar_webp/chat_17.webp",
-        link: '',
+      ChatListItem(
+        friendName: "何三七",
+        avatar: "images/avatar_webp/chat_17.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -140,10 +178,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "孔融",
-        icon: "images/avatar_webp/chat_18.webp",
-        link: '',
+      ChatListItem(
+        friendName: "孔融",
+        avatar: "images/avatar_webp/chat_18.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -152,10 +192,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "齐堂主",
-        icon: "images/avatar_webp/chat_19.webp",
-        link: '',
+      ChatListItem(
+        friendName: "齐堂主",
+        avatar: "images/avatar_webp/chat_19.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -164,10 +206,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "博尔术",
-        icon: "images/avatar_webp/chat_20.webp",
-        link: '',
+      ChatListItem(
+        friendName: "博尔术",
+        avatar: "images/avatar_webp/chat_20.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -176,10 +220,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "王语嫣",
-        icon: "images/avatar_webp/chat_21.webp",
-        link: '',
+      ChatListItem(
+        friendName: "王语嫣",
+        avatar: "images/avatar_webp/chat_21.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -188,10 +234,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "秦红棉",
-        icon: "images/avatar_webp/chat_22.webp",
-        link: '',
+      ChatListItem(
+        friendName: "秦红棉",
+        avatar: "images/avatar_webp/chat_22.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -200,17 +248,21 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      const ContactInformation(
-        title: "天竺僧人",
-        icon: "images/avatar_webp/chat_23.webp",
-        link: '',
+      ChatListItem(
+        friendName: "天竺僧人",
+        avatar: "images/avatar_webp/chat_23.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: false,
       ),
       LJNAlphabet(title: '五天前'),
-      ContactInformation(
-        title: "段延庆",
-        icon: "images/avatar_webp/chat_33.webp",
-        link: '',
+      ChatListItem(
+        friendName: "段延庆",
+        avatar: "images/avatar_webp/chat_33.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -219,10 +271,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "令狐冲",
-        icon: "images/avatar_webp/chat_34.webp",
-        link: '',
+      ChatListItem(
+        friendName: "令狐冲",
+        avatar: "images/avatar_webp/chat_34.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -231,10 +285,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "英白罗",
-        icon: "images/avatar_webp/chat_35.webp",
-        link: '',
+      ChatListItem(
+        friendName: "英白罗",
+        avatar: "images/avatar_webp/chat_35.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -243,10 +299,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "黄药师",
-        icon: "images/avatar_webp/chat_36.webp",
-        link: '',
+      ChatListItem(
+        friendName: "黄药师",
+        avatar: "images/avatar_webp/chat_36.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -255,10 +313,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "李煜",
-        icon: "images/avatar_webp/chat_37.webp",
-        link: '',
+      ChatListItem(
+        friendName: "李煜",
+        avatar: "images/avatar_webp/chat_37.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -267,10 +327,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "云中鹤",
-        icon: "images/avatar_webp/chat_38.webp",
-        link: '',
+      ChatListItem(
+        friendName: "云中鹤",
+        avatar: "images/avatar_webp/chat_38.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -279,10 +341,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "劳德诺",
-        icon: "images/avatar_webp/chat_39.webp",
-        link: '',
+      ChatListItem(
+        friendName: "劳德诺",
+        avatar: "images/avatar_webp/chat_39.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -291,10 +355,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "包惜弱",
-        icon: "images/avatar_webp/chat_40.webp",
-        link: '',
+      ChatListItem(
+        friendName: "包惜弱",
+        avatar: "images/avatar_webp/chat_40.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -303,10 +369,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "游驹",
-        icon: "images/avatar_webp/chat_41.webp",
-        link: '',
+      ChatListItem(
+        friendName: "游驹",
+        avatar: "images/avatar_webp/chat_41.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -315,10 +383,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "钟万仇",
-        icon: "images/avatar_webp/chat_42.webp",
-        link: '',
+      ChatListItem(
+        friendName: "钟万仇",
+        avatar: "images/avatar_webp/chat_42.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -327,10 +397,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "渔人",
-        icon: "images/avatar_webp/chat_43.webp",
-        link: '',
+      ChatListItem(
+        friendName: "渔人",
+        avatar: "images/avatar_webp/chat_43.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -339,10 +411,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "单叔山",
-        icon: "images/avatar_webp/chat_44.webp",
-        link: '',
+      ChatListItem(
+        friendName: "单叔山",
+        avatar: "images/avatar_webp/chat_44.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -351,10 +425,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "段誉",
-        icon: "images/avatar_webp/chat_45.webp",
-        link: '',
+      ChatListItem(
+        friendName: "段誉",
+        avatar: "images/avatar_webp/chat_45.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -363,10 +439,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "林震南",
-        icon: "images/avatar_webp/chat_46.webp",
-        link: '',
+      ChatListItem(
+        friendName: "林震南",
+        avatar: "images/avatar_webp/chat_46.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -375,10 +453,12 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
           });
         },
       ),
-      ContactInformation(
-        title: "商鞅",
-        icon: "images/avatar_webp/chat_47.webp",
-        link: '',
+      ChatListItem(
+        friendName: "商鞅",
+        avatar: "images/avatar_webp/chat_47.webp",
+        message: '我是Xtransfer彭英研',
+        notice: false,
+        lastedTime: "已过期",
         underline: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
@@ -581,128 +661,6 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
                 ),
               )),
         ],
-      ),
-    );
-  }
-}
-
-// 功能列表
-class ContactInformation extends StatefulWidget {
-  final String icon;
-  final String title;
-  final String link;
-  final bool underline;
-  final int? showStyle;
-  final Function()? onPressed;
-
-  const ContactInformation({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.link,
-    required this.underline,
-    this.showStyle,
-    this.onPressed,
-  });
-
-  @override
-  State<ContactInformation> createState() => _ContactInformationState();
-}
-
-class _ContactInformationState extends State<ContactInformation> {
-  // bool isClicked = false;
-  Color containerColor = Colors.white;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (tapDownDetails) {
-        setState(() {
-          containerColor = const Color.fromARGB(255, 229, 229, 229);
-        });
-      },
-      onTapCancel: () {
-        setState(() {
-          containerColor = Colors.white;
-        });
-
-        logger.info("取消点击");
-      },
-      onTapUp: (tapDownDetails) {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            containerColor = Colors.white;
-          });
-          widget.onPressed!();
-        });
-
-        logger.info("弹起");
-      },
-      child: Container(
-        height: 105.0.w,
-        padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
-        color: containerColor,
-        child: Row(
-          children: [
-            // 头像
-            ClipRRect(
-              borderRadius:
-                  BorderRadius.circular(7.0.w), // Adjust the radius as needed
-              child: Image.asset(
-                assetPath(widget.icon),
-                width: 75.0.w,
-                height: 75.0.w,
-                cacheHeight: 150.w.toInt(),
-                cacheWidth: 150.w.toInt(),
-                fit: BoxFit.cover,
-              ),
-            ),
-
-            SizedBox(width: 25.w),
-            Expanded(
-              child: Container(
-                height: 100.w,
-                width: 400.w,
-                decoration: widget.underline
-                    ? BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                        color: const Color.fromARGB(255, 242, 242, 242),
-                        width: 1.5.w,
-                        style: BorderStyle.solid,
-                      )))
-                    : BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.5.w,
-                            style: BorderStyle.solid,
-                          ),
-                        ),
-                      ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // 标题
-                    Expanded(
-                      flex: 1,
-                      // width: 100.w,
-                      child: Text(
-                        widget.title,
-                        style: TextStyle(
-                          height: 1.08,
-                          fontSize: fontSizeScale(33.0.w),
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
