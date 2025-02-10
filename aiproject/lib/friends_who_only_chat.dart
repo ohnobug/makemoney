@@ -442,7 +442,7 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
     return Scaffold(
       primary: false,
       appBar: const LJNAppBar(
-        title: "添加朋友",
+        title: "仅聊天的朋友",
       ),
       body: Stack(
         children: [

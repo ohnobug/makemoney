@@ -442,7 +442,7 @@ class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
     return Scaffold(
       primary: false,
       appBar: const LJNAppBar(
-        title: "添加朋友",
+        title: "通讯录标签",
       ),
       body: Stack(
         children: [
@@ -542,11 +542,11 @@ class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "添加",
+                        "新建",
                         style: TextStyle(fontSize: 30.w, color: Colors.black),
                       ),
                       Text(
-                        "移出",
+                        "管理",
                         style: TextStyle(fontSize: 30.w, color: Colors.black),
                       ),
                     ],
