@@ -79,16 +79,6 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
         final List<Barcode> barcodes = barcodeCapture.barcodes;
         logger.info("qrcode 的数量: ${barcodes.length}");
 
-        if (barcodes.length == 1) {
-          // 300ms后再次打开页面
-          Future.delayed(Duration(milliseconds: 300), () {
-            if (mounted) {
-              Navigator.of(context).pushReplacementNamed(
-                  "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page2')}");
-            }
-          });
-        }
-
         final screenSize = context.read<SystemCubit>().state.screenSize;
 
         List<Offset> pointCenter = [];
@@ -102,6 +92,18 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
           _pointCenter = pointCenter;
           _barcodeCapture = barcodeCapture;
         });
+
+        if (barcodes.length == 1) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            // 300ms后再次打开页面
+            Future.delayed(Duration(milliseconds: 300), () {
+              if (mounted) {
+                Navigator.of(context).pushReplacementNamed(
+                    "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page2')}");
+              }
+            });
+          });
+        }
       }
     }, onError: (error) {
       logger.info('Error: $error');
