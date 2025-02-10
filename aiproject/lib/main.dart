@@ -17,6 +17,7 @@ import 'package:jiaoyishuoflutter3/friend_message_record.dart';
 import 'package:jiaoyishuoflutter3/friend_more_info.dart';
 import 'package:jiaoyishuoflutter3/friend_permissions.dart';
 import 'package:jiaoyishuoflutter3/friend_moments.dart';
+import 'package:jiaoyishuoflutter3/friends_who_only_chat.dart';
 import 'package:jiaoyishuoflutter3/group_message_record.dart';
 import 'package:jiaoyishuoflutter3/group_chat.dart';
 import 'package:jiaoyishuoflutter3/home22.dart';
@@ -318,6 +319,9 @@ class _App extends State<App> {
                     return pageRouteBuilderAnimation(const LJNTest());
                   } else if (settings.name == "/video_call") {
                     return pageRouteBuilderAnimation(const LJNVideoCall());
+                  } else if (settings.name == "/friends_who_only_chat") {
+                    return pageRouteBuilderAnimation(
+                        const LJNFriendsWhoOnlyChat());
                   }
 
                   return null;

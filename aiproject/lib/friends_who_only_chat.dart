@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LJNContactPage extends StatefulWidget {
-  const LJNContactPage({super.key});
+class LJNFriendsWhoOnlyChat extends StatefulWidget {
+  const LJNFriendsWhoOnlyChat({super.key});
 
   @override
-  State<LJNContactPage> createState() => _LJNContactPageState();
+  State<LJNFriendsWhoOnlyChat> createState() => _LJNFriendsWhoOnlyChatState();
 }
 
-class _LJNContactPageState extends State<LJNContactPage> {
+class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
   late List<dynamic> contactList;
 
   // 字母
@@ -41,65 +41,18 @@ class _LJNContactPageState extends State<LJNContactPage> {
   void initState() {
     super.initState();
 
-    logger.info('contact...............');
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<SystemCubit>().updateHomescrollpixels(0);
-      context.read<SystemCubit>().updateShowMiniProgramDrawer(false);
-      context.read<SystemCubit>().updateMainpage2isload(true);
-    });
-
     contactList = [
-      ContactInformation(
-          title: "新的朋友",
-          icon: "images/avatar/01.png",
-          link: '',
-          underline: true,
-          onPressed: () {
-            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
-              'title': "新的朋友",
-              'icon': "images/avatar/01.png",
-            });
-          }),
-      ContactInformation(
-        title: "仅聊天的朋友",
-        icon: "images/avatar/02.png",
-        link: '',
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(context, '/friends_who_only_chat');
-        },
-      ),
-      ContactInformation(
-        title: "群聊",
-        icon: "images/avatar/03.png",
-        link: '',
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(context, '/chat', arguments: <String, String>{
-            'title': "群聊",
-            'icon': "images/avatar/03.png",
-          });
-        },
-      ),
-      ContactInformation(
-        title: "标签",
-        icon: "images/avatar/04.png",
-        link: '',
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(context, '/chat', arguments: <String, String>{
-            'title': "标签",
-            'icon': "images/avatar/04.png",
-          });
-        },
-      ),
-      const ContactInformation(
-        title: "公众号",
-        icon: "images/avatar/05.png",
-        link: '',
-        underline: false,
-      ),
+      // 提示
+      Container(
+          height: 80.w,
+          padding: EdgeInsets.only(left: 24.w, right: 24.w),
+          alignment: Alignment.center,
+          child: Text(
+            "你们将互相看不到对方的朋友圈、状态、微信运动、看一看以及第三方登录授权分享的内容。",
+            style: TextStyle(
+                fontSize: 22.w, color: Color.fromARGB(255, 81, 81, 81)),
+          )),
+
       alphabet('A'),
       ContactInformation(
         title: "天空飘来五个字那都不是事",
@@ -480,50 +433,126 @@ class _LJNContactPageState extends State<LJNContactPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<SystemCubit, SystemState>(
         builder: (context, systemState) {
-      return systemState.mainpage2isload!
-          ? _buildPage(systemState)
-          : const LJNPageLoading();
+      return _buildPage(systemState);
     });
   }
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
-    return Stack(children: [
-      // 联系人
-      ScrollConfiguration(
-        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-        child: Container(
-            constraints: BoxConstraints(
-                minHeight: systemState.screenSize.height -
-                    90.w -
-                    systemState.statusHeight),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 237, 237, 237),
-                  Colors.white,
-                ],
-                stops: [0.3, 0.5],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
-            child: ListView.builder(
-              primary: false,
-              padding: EdgeInsets.only(top: systemState.statusHeight + 90.w),
-              physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics()),
-              itemCount: contactList.length, // contactList 是你的联系人数据列表
-              itemBuilder: (context, index) {
-                return contactList[index];
-              },
-            )),
+    return Scaffold(
+      primary: false,
+      appBar: const LJNAppBar(
+        title: "添加朋友",
       ),
+      body: Stack(
+        children: [
+          Container(
+              width: systemState.screenSize.width,
+              height: systemState.screenSize.height,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 237, 237, 237),
+                    Colors.white,
+                  ],
+                  stops: [0.3, 0.5],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: Column(children: [
+                // 搜索框
+                Container(
+                    margin: EdgeInsets.symmetric(horizontal: 15.w),
+                    height: 90.w,
+                    alignment: Alignment.center,
+                    child: TextField(
+                      readOnly: true,
+                      onTap: () {
+                        Navigator.pushNamed(context, '/search');
+                      },
+                      onTapOutside: (event) {
+                        FocusScope.of(context).unfocus();
+                      },
+                      cursorHeight: 35.w,
+                      cursorWidth: 3.w,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          const IconData(
+                            0xe612,
+                            fontFamily: 'Iconfont',
+                          ),
+                          color: Colors.black,
+                          size: 40.w,
+                        ),
+                        prefixIconConstraints: BoxConstraints(
+                          minWidth: 70.w, // 控制图标与文字的最小宽度
+                          // minHeight: 36.w,
+                        ),
+                        hintText: "搜索",
+                        hintStyle: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 30.w,
+                            color: const Color.fromARGB(255, 69, 75, 83)),
+                        filled: true,
+                        fillColor: const Color.fromARGB(255, 217, 220, 224),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 8.0.w, horizontal: 20.0.w),
+                      ),
+                    )),
 
-      // 右边的字母表
-      Visibility(
-          visible: systemState.contactazshow,
-          child: Positioned(
+                // 列表
+                Expanded(
+                    child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context)
+                            .copyWith(scrollbars: false),
+                        child: ListView.builder(
+                          primary: false,
+                          padding: EdgeInsets.zero,
+                          physics: const AlwaysScrollableScrollPhysics(
+                              parent: BouncingScrollPhysics()),
+                          itemCount:
+                              contactList.length, // contactList 是你的联系人数据列表
+                          itemBuilder: (context, index) {
+                            return contactList[index];
+                          },
+                        ))),
+
+                // 底部按钮
+                Container(
+                  height: 90.w,
+                  padding: EdgeInsets.symmetric(horizontal: 50.w),
+                  decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 247, 247, 247),
+                      border: Border(
+                          top: BorderSide(
+                        color: const Color.fromARGB(255, 227, 227, 227),
+                        width: 1.5.w,
+                        style: BorderStyle.solid,
+                      ))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "添加",
+                        style: TextStyle(fontSize: 30.w, color: Colors.black),
+                      ),
+                      Text(
+                        "移出",
+                        style: TextStyle(fontSize: 30.w, color: Colors.black),
+                      ),
+                    ],
+                  ),
+                )
+              ])),
+
+          // 右边的字母表
+          Positioned(
               right: 0,
               top: ((MediaQuery.of(context).size.height - 986.w) / 2) + 40.w,
               child: SizedBox(
@@ -576,8 +605,10 @@ class _LJNContactPageState extends State<LJNContactPage> {
                     ),
                   ],
                 ),
-              )))
-    ]);
+              )),
+        ],
+      ),
+    );
   }
 }
 
