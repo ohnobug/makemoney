@@ -6,14 +6,14 @@ import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LJNFriendsWhoOnlyChat extends StatefulWidget {
-  const LJNFriendsWhoOnlyChat({super.key});
+class LJNAddressBookLabel extends StatefulWidget {
+  const LJNAddressBookLabel({super.key});
 
   @override
-  State<LJNFriendsWhoOnlyChat> createState() => _LJNFriendsWhoOnlyChatState();
+  State<LJNAddressBookLabel> createState() => LJNAaddressBookLabelState();
 }
 
-class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
+class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
   late List<dynamic> contactList;
 
   // 字母
@@ -498,6 +498,7 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
                             color: const Color.fromARGB(255, 69, 75, 83)),
                         filled: true,
                         fillColor: Colors.white,
+                        // fillColor: const Color.fromARGB(255, 217, 220, 224),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide.none,

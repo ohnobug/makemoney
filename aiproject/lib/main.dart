@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/add_friends.dart';
+import 'package:jiaoyishuoflutter3/address_book_label.dart';
 import 'package:jiaoyishuoflutter3/care_mode.dart';
 import 'package:jiaoyishuoflutter3/chat.dart';
 import 'package:jiaoyishuoflutter3/collection_and_payment.dart';
@@ -322,6 +323,9 @@ class _App extends State<App> {
                   } else if (settings.name == "/friends_who_only_chat") {
                     return pageRouteBuilderAnimation(
                         const LJNFriendsWhoOnlyChat());
+                  } else if (settings.name == "/address_book_label") {
+                    return pageRouteBuilderAnimation(
+                        const LJNAddressBookLabel());
                   }
 
                   return null;

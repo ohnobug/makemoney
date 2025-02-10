@@ -88,10 +88,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
         link: '',
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat', arguments: <String, String>{
-            'title': "标签",
-            'icon': "images/avatar/04.png",
-          });
+          Navigator.pushNamed(context, '/address_book_label');
         },
       ),
       const ContactInformation(
