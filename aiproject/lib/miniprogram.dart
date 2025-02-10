@@ -30,7 +30,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
         avatar: "images/miniprogram_icon/yuetongnianruanjian.jpg",
         onPressed: () {
           Navigator.of(context).pushReplacementNamed(
-              "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+              "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
         },
       ),
       ChatListItem(
@@ -39,7 +39,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
           avatar: "images/miniprogram_icon/qidianzhongwen.jpg",
           onPressed: () {
             Navigator.of(context).pushReplacementNamed(
-                "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
           }),
       ChatListItem(
           friendName: "野花香电视剧",
@@ -47,7 +47,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
           avatar: "images/miniprogram_icon/yehuaxiangdianshiju.jpg",
           onPressed: () {
             Navigator.of(context).pushReplacementNamed(
-                "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
           }),
       ChatListItem(
           friendName: "韵镖侠",
@@ -55,7 +55,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
           avatar: "images/miniprogram_icon/yunbiaoxia.jpg",
           onPressed: () {
             Navigator.of(context).pushReplacementNamed(
-                "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
           }),
     ];
 
@@ -66,7 +66,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
         avatar: "images/miniprogram_icon/moguyunyou.jpg",
         onPressed: () {
           Navigator.of(context).pushReplacementNamed(
-              "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+              "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
         },
       ),
       ChatListItem(
@@ -75,7 +75,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
           avatar: "images/miniprogram_icon/meituxiuxiu.jpg",
           onPressed: () {
             Navigator.of(context).pushReplacementNamed(
-                "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
           }),
       ChatListItem(
           friendName: "百度翻译",
@@ -83,7 +83,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
           avatar: "images/miniprogram_icon/baidufanyi.jpg",
           onPressed: () {
             Navigator.of(context).pushReplacementNamed(
-                "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
           }),
       ChatListItem(
           friendName: "淘无忧",
@@ -91,7 +91,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
           avatar: "images/miniprogram_icon/taowuyou.jpg",
           onPressed: () {
             Navigator.of(context).pushReplacementNamed(
-                "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
           }),
     ];
   }
@@ -164,7 +164,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     title: "智慧相机",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 // FunctionButton(
                                 //     icon:
@@ -172,14 +172,14 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                 //     title: "旺旺商聊",
                                 //     onPressed: () {
                                 //
-                                // Navigator.of(context).pushReplacementNamed("/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");}),
+                                // Navigator.of(context).pushReplacementNamed("/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");}),
                                 FunctionButton(
                                     icon:
                                         "images/miniprogram_icon/haimianbaobao.jpg",
                                     title: "海绵宝宝",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
                                     icon:
@@ -187,7 +187,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     title: "淘无忧",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
                                     icon:
@@ -195,7 +195,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     title: "王者营地",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                               ],
                             ),
@@ -210,7 +210,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     title: "堆糖",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
                                     icon:
@@ -218,7 +218,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     title: "天空阅读器",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
                                     icon:
@@ -226,7 +226,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     title: "奇书网",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
                                     icon:
@@ -234,7 +234,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     title: "学有优教",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
                                     icon:
@@ -242,7 +242,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     title: "孩子王",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
                                     icon:
@@ -250,7 +250,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     title: "铅笔小说",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
                                     icon:
@@ -258,7 +258,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     title: "成全视频",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
                                     icon:
@@ -266,7 +266,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     title: "小米商城",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
                                     icon:
@@ -274,7 +274,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     title: "美图秀秀",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
                                     icon:
@@ -282,7 +282,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     title: "萝卜快跑",
                                     onPressed: () {
                                       Navigator.of(context).pushReplacementNamed(
-                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                          "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                               ],
                             ),

@@ -168,7 +168,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -177,7 +177,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                       ],
                                     ),
@@ -228,7 +228,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -237,7 +237,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -246,7 +246,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -255,7 +255,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -264,7 +264,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -273,7 +273,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -282,7 +282,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -291,7 +291,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                       ],
                                     ),
@@ -307,7 +307,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -316,7 +316,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -325,7 +325,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -334,7 +334,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -343,7 +343,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -352,7 +352,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -361,7 +361,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
                                             icon:
@@ -370,7 +370,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pushReplacementNamed(
-                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                       ],
                                     ),
