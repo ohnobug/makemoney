@@ -1,7 +1,17 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:isolate';
 import 'dart:ui';
+import 'user.dart';
+import 'logger.dart';
+import 'dart:convert';
+import 'dart:isolate';
+import 'contact.dart';
+import 'tools/tools.dart';
+import 'settings/account_info.dart';
+import 'components/ljn_custom_physics.dart';
+import 'store/counter/cubit/counter_cubit.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +35,7 @@ import 'package:jiaoyishuoflutter3/home22.dart';
 import 'package:jiaoyishuoflutter3/ins.dart';
 import 'package:jiaoyishuoflutter3/miniprogram.dart';
 import 'package:jiaoyishuoflutter3/mywebview.dart';
+import 'package:jiaoyishuoflutter3/new_friends.dart';
 import 'package:jiaoyishuoflutter3/services_manager.dart';
 import 'package:jiaoyishuoflutter3/set_notes_and_labels.dart';
 import 'package:jiaoyishuoflutter3/settings/about.dart';
@@ -66,16 +77,6 @@ import 'package:jiaoyishuoflutter3/userinfo.dart';
 import 'package:jiaoyishuoflutter3/video_call.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
 import 'package:jiaoyishuoflutter3/wallet.dart';
-import 'package:path_provider/path_provider.dart';
-import 'components/ljn_custom_physics.dart';
-import 'contact.dart';
-import 'logger.dart';
-import 'settings/account_info.dart';
-import 'store/counter/cubit/counter_cubit.dart';
-import 'tools/tools.dart';
-import 'user.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 
 // 定义一个类来封装传递给 Isolate 的多个参数
 class FileServerParams {
@@ -326,6 +327,8 @@ class _App extends State<App> {
                   } else if (settings.name == "/address_book_label") {
                     return pageRouteBuilderAnimation(
                         const LJNAddressBookLabel());
+                  } else if (settings.name == "/new_friends") {
+                    return pageRouteBuilderAnimation(const LJNNewFriends());
                   }
 
                   return null;
@@ -390,11 +393,8 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   int changeIcon = 0;
   late AppBar? appbar;
-
   double _appbarLeft = 0;
-
   bool setStatusHeight = false;
-
   bool showpopup = false;
 
   @override

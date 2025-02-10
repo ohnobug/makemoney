@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_alphabet.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_function_item.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 
-class LJNAddressBookLabel extends StatefulWidget {
-  const LJNAddressBookLabel({super.key});
+class LJNNewFriends extends StatefulWidget {
+  const LJNNewFriends({super.key});
 
   @override
-  State<LJNAddressBookLabel> createState() => LJNAaddressBookLabelState();
+  State<LJNNewFriends> createState() => _LJNNewFriendsState();
 }
 
-class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
+class _LJNNewFriendsState extends State<LJNNewFriends> {
   late List<dynamic> contactList;
 
   @override
@@ -23,17 +24,14 @@ class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
 
     contactList = [
       // 提示
-      Container(
-          height: 80.w,
-          padding: EdgeInsets.only(left: 24.w, right: 24.w),
-          alignment: Alignment.center,
-          child: Text(
-            "你们将互相看不到对方的朋友圈、状态、微信运动、看一看以及第三方登录授权分享的内容。",
-            style: TextStyle(
-                fontSize: 24.w, color: Color.fromARGB(255, 81, 81, 81)),
-          )),
+      const LJNFunctionItem(
+        title: "添加手机联系人",
+        icon: "images/icon/phone.png",
+        link: '/collection_and_payment',
+        underline: false,
+      ),
 
-      LJNAlphabet(title: 'A'),
+      LJNAlphabet(title: '两天前'),
       ContactInformation(
         title: "天空飘来五个字那都不是事",
         icon: "images/avatar_webp/chat_1.webp",
@@ -208,7 +206,7 @@ class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
         link: '',
         underline: false,
       ),
-      LJNAlphabet(title: 'B'),
+      LJNAlphabet(title: '五天前'),
       ContactInformation(
         title: "段延庆",
         icon: "images/avatar_webp/chat_33.webp",
@@ -421,8 +419,27 @@ class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
   Widget _buildPage(SystemState systemState) {
     return Scaffold(
       primary: false,
-      appBar: const LJNAppBar(
-        title: "通讯录标签",
+      appBar: LJNAppBar(
+        title: "新的朋友",
+        actions: [
+          GestureDetector(
+              onTap: () {
+                // 点击事件
+              },
+              child: Container(
+                  // color: Colors.transparent,
+                  height: 90.w,
+                  color: Colors.transparent,
+                  // color: Colors.amber,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(right: 33.w),
+                  child: Text("添加朋友",
+                      style: TextStyle(
+                          // height: 1.08,
+                          color: Colors.black,
+                          fontSize: fontSizeScale(32.w),
+                          fontWeight: FontWeight.w500))))
+        ],
       ),
       body: Stack(
         children: [
@@ -452,7 +469,7 @@ class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
                           vertical: 8.0.w, horizontal: 20.0.w),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(30.w),
                         border: Border.all(
                             color: Color.fromRGBO(158, 158, 158, 0.3)),
                       ),
@@ -476,7 +493,7 @@ class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: " 搜索",
+                                  text: " 搜索 账号/手机号",
                                   style: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     fontSize: 30.w,
@@ -506,34 +523,6 @@ class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
                             return contactList[index];
                           },
                         ))),
-
-                // 底部按钮
-                Container(
-                  height: 90.w,
-                  padding: EdgeInsets.symmetric(horizontal: 50.w),
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 247, 247, 247),
-                      border: Border(
-                          top: BorderSide(
-                        color: const Color.fromARGB(255, 227, 227, 227),
-                        width: 1.5.w,
-                        style: BorderStyle.solid,
-                      ))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "新建",
-                        style: TextStyle(fontSize: 30.w, color: Colors.black),
-                      ),
-                      Text(
-                        "管理",
-                        style: TextStyle(fontSize: 30.w, color: Colors.black),
-                      ),
-                    ],
-                  ),
-                )
               ])),
 
           // 右边的字母表

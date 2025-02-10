@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_alphabet.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
@@ -15,27 +16,6 @@ class LJNContactPage extends StatefulWidget {
 
 class _LJNContactPageState extends State<LJNContactPage> {
   late List<dynamic> contactList;
-
-  // 字母
-  Widget alphabet(String title) {
-    return Container(
-      height: 60.w,
-      color: const Color.fromARGB(255, 237, 237, 237),
-      padding: EdgeInsets.only(left: 30.w),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              height: 1.08,
-              fontSize: fontSizeScale(20.w),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   void initState() {
@@ -56,10 +36,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
           link: '',
           underline: true,
           onPressed: () {
-            Navigator.pushNamed(context, '/chat', arguments: <String, String>{
-              'title': "新的朋友",
-              'icon': "images/avatar/01.png",
-            });
+            Navigator.pushNamed(context, '/new_friends');
           }),
       ContactInformation(
         title: "仅聊天的朋友",
@@ -97,7 +74,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
         link: '',
         underline: false,
       ),
-      alphabet('A'),
+      LJNAlphabet(title: 'A'),
       ContactInformation(
         title: "天空飘来五个字那都不是事",
         icon: "images/avatar_webp/chat_1.webp",
@@ -272,7 +249,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
         link: '',
         underline: false,
       ),
-      alphabet('B'),
+      LJNAlphabet(title: 'B'),
       ContactInformation(
         title: "段延庆",
         icon: "images/avatar_webp/chat_33.webp",

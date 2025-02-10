@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_custom_physics.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_add_button.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_alphabet.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_add_button.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_custom_physics.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 
 class LJNPhoneContact extends StatefulWidget {
   const LJNPhoneContact({super.key});
@@ -52,7 +53,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
             });
             logger.info('绿逾初夏被点击~');
           }),
-      alphabet("A"),
+      LJNAlphabet(title: "A"),
       ContactListItem(
           friendName: "刘航平",
           underline: true,
@@ -131,7 +132,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
             });
             logger.info('无梦相赠被点击~');
           }),
-      alphabet("B"),
+      LJNAlphabet(title: "B"),
       ContactListItem(
           friendName: "张观福",
           underline: true,
@@ -223,7 +224,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
             });
             logger.info('華燈初上被点击~');
           }),
-      alphabet("C"),
+      LJNAlphabet(title: "C"),
       ContactListItem(
           friendName: "朱金照",
           underline: true,
@@ -276,7 +277,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
             });
             logger.info('墨香九歌被点击~');
           }),
-      alphabet("D"),
+      LJNAlphabet(title: "D"),
       ContactListItem(
           friendName: "赵美静",
           underline: true,
@@ -381,7 +382,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
             });
             logger.info('今朝有酒今朝醉被点击~');
           }),
-      alphabet("E"),
+      LJNAlphabet(title: "E"),
       ContactListItem(
         friendName: "马自学",
         underline: false,
@@ -427,27 +428,6 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
                     },
                   ))));
     });
-  }
-
-  // 字母
-  Widget alphabet(String title) {
-    return Container(
-      height: 60.w,
-      color: const Color.fromARGB(255, 237, 237, 237),
-      padding: EdgeInsets.only(left: 30.w),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              height: 1.08,
-              fontSize: fontSizeScale(20.w),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
 

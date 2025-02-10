@@ -376,30 +376,35 @@ class _LJNUserPageState extends State<LJNUserPage> {
                             "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page2')}",
                         underline: true,
                       ),
+
                       const LJNFunctionItem(
                         title: "朋友圈",
                         icon: "images/icon/icon3.png",
                         link: '/friendmoments',
                         underline: true,
                       ),
+
                       const LJNFunctionItem(
                         title: "视频号",
                         icon: "images/icon/icon4.png",
                         link: '/video_player',
                         underline: true,
                       ),
+
                       const LJNFunctionItem(
                         title: "小店订单与卡包",
                         icon: "images/icon/icon5.png",
                         link: '/test',
                         underline: true,
                       ),
+
                       const LJNFunctionItem(
                         title: "表情",
                         icon: "images/icon/icon6.png",
                         link: '/collection_and_payment',
                         underline: false,
                       ),
+
                       Container(
                         width: double.infinity,
                         height: 16.w,

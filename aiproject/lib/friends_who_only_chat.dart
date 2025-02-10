@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_alphabet.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
@@ -16,27 +17,6 @@ class LJNFriendsWhoOnlyChat extends StatefulWidget {
 class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
   late List<dynamic> contactList;
 
-  // 字母
-  Widget alphabet(String title) {
-    return Container(
-      height: 60.w,
-      color: const Color.fromARGB(255, 237, 237, 237),
-      padding: EdgeInsets.only(left: 30.w),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              height: 1.08,
-              fontSize: fontSizeScale(20.w),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   void initState() {
     super.initState();
@@ -50,10 +30,10 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
           child: Text(
             "你们将互相看不到对方的朋友圈、状态、微信运动、看一看以及第三方登录授权分享的内容。",
             style: TextStyle(
-                fontSize: 22.w, color: Color.fromARGB(255, 81, 81, 81)),
+                fontSize: 24.w, color: Color.fromARGB(255, 81, 81, 81)),
           )),
 
-      alphabet('A'),
+      LJNAlphabet(title: 'A'),
       ContactInformation(
         title: "天空飘来五个字那都不是事",
         icon: "images/avatar_webp/chat_1.webp",
@@ -228,7 +208,7 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
         link: '',
         underline: false,
       ),
-      alphabet('B'),
+      LJNAlphabet(title: 'B'),
       ContactInformation(
         title: "段延庆",
         icon: "images/avatar_webp/chat_33.webp",
@@ -463,66 +443,71 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
               child: Column(children: [
                 // 搜索框
                 Container(
-                    margin: EdgeInsets.symmetric(horizontal: 15.w),
-                    padding: EdgeInsets.symmetric(vertical: 15.w),
-                    height: 90.w,
+                    padding:
+                        EdgeInsets.only(bottom: 15.w, left: 15.w, right: 15.w),
+                    height: 75.w,
                     alignment: Alignment.center,
-                    child: TextField(
-                      readOnly: true,
-                      onTap: () {
-                        Navigator.pushNamed(context, '/search');
-                      },
-                      onTapOutside: (event) {
-                        FocusScope.of(context).unfocus();
-                      },
-                      cursorHeight: 35.w,
-                      cursorWidth: 3.w,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          const IconData(
-                            0xe612,
-                            fontFamily: 'Iconfont',
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 8.0.w, horizontal: 20.0.w),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30.w),
+                        border: Border.all(
+                            color: Color.fromRGBO(158, 158, 158, 0.3)),
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/search');
+                        },
+                        child: Center(
+                          // 保证整体内容居中
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                WidgetSpan(
+                                  child: Icon(
+                                    const IconData(
+                                      0xe612,
+                                      fontFamily: 'Iconfont',
+                                    ),
+                                    color: Colors.black,
+                                    size: 40.w,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: " 搜索",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 30.w,
+                                    color: Color.fromARGB(255, 69, 75, 83),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          color: Colors.black,
-                          size: 40.w,
                         ),
-                        prefixIconConstraints: BoxConstraints(
-                          minWidth: 70.w, // 控制图标与文字的最小宽度
-                          // minHeight: 36.w,
-                        ),
-                        hintText: "搜索",
-                        hintStyle: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 30.w,
-                            color: const Color.fromARGB(255, 69, 75, 83)),
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide.none,
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 8.0.w, horizontal: 20.0.w),
                       ),
                     )),
 
                 // 列表
                 Expanded(
-                    child: ScrollConfiguration(
-                        behavior: ScrollConfiguration.of(context)
-                            .copyWith(scrollbars: false),
-                        child: ListView.builder(
-                          primary: false,
-                          padding: EdgeInsets.zero,
-                          physics: const AlwaysScrollableScrollPhysics(
-                              parent: BouncingScrollPhysics()),
-                          itemCount:
-                              contactList.length, // contactList 是你的联系人数据列表
-                          itemBuilder: (context, index) {
-                            return contactList[index];
-                          },
-                        ))),
+                    child: ColoredBox(
+                  color: Colors.white,
+                  child: ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: ListView.builder(
+                        primary: false,
+                        padding: EdgeInsets.zero,
+                        physics: const AlwaysScrollableScrollPhysics(
+                            parent: BouncingScrollPhysics()),
+                        itemCount: contactList.length, // contactList 是你的联系人数据列表
+                        itemBuilder: (context, index) {
+                          return contactList[index];
+                        },
+                      )),
+                )),
 
                 // 底部按钮
                 Container(
