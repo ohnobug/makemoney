@@ -70,13 +70,25 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
       });
     });
 
-    // getCameras();
+    // 识别后结果
     _mobileScannerController.barcodes.listen((BarcodeCapture barcodeCapture) {
       _mobileScannerController.pause();
       _mediaController.play();
 
       if (mounted) {
         final List<Barcode> barcodes = barcodeCapture.barcodes;
+        logger.info("qrcode 的数量: ${barcodes.length}");
+
+        if (barcodes.length == 1) {
+          // 300ms后再次打开页面
+          Future.delayed(Duration(milliseconds: 300), () {
+            if (mounted) {
+              Navigator.of(context).pushReplacementNamed(
+                  "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page2')}");
+            }
+          });
+        }
+
         final screenSize = context.read<SystemCubit>().state.screenSize;
 
         List<Offset> pointCenter = [];
@@ -111,7 +123,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
 
   @override
   Widget build(BuildContext context) {
-// 二维码的位置
+    // 二维码的位置
     final overlays = <Widget>[
       if (_barcodeCapture != null && _barcodeCapture!.barcodes.isNotEmpty)
         for (int i = 0; i < _barcodeCapture!.barcodes.length; i++)
@@ -709,7 +721,7 @@ class _BarcodePoint extends State<BarcodePoint> {
               border: Border.all(
                 color: Color.fromRGBO(
                     255, 255, 255, 0.9), // 边框颜色 (RGB: 243, 255, 248)
-                width: 10.0.w, // 边框宽度
+                width: 6.0.w, // 边框宽度
               ),
             ),
           ),

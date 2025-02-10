@@ -87,7 +87,7 @@ class _ChatListViewState extends State<LJNHome22Page>
           message: "[图片]",
           avatar: "images/avatar/webwxgeticon.jpg",
           lastedTime: "16:49",
-          badge: 99,
+          badge: -1,
           onPressed: () {
             Navigator.pushNamed(context, '/chat', arguments: <String, String>{
               'title': "文件传输助手",
