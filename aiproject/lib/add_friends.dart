@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_search.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNAddFriends extends StatefulWidget {
   const LJNAddFriends({

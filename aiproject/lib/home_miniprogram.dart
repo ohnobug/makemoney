@@ -165,12 +165,20 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             icon:
                                                 "images/miniprogram_icon/duitang.jpg",
                                             title: "堆糖",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/tiankongyueduqi.jpg",
                                             title: "天空阅读器",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                       ],
                                     ),
 
@@ -217,42 +225,74 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             icon:
                                                 "images/miniprogram_icon/duitang.jpg",
                                             title: "堆糖",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/tiankongyueduqi.jpg",
                                             title: "天空阅读器",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/qishuwang.jpg",
                                             title: "奇书网",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/xueyouyoujiao.jpg",
                                             title: "学有优教",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/haiziwang.jpg",
                                             title: "孩子王",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/qianbixiaoshuo.jpg",
                                             title: "铅笔小说",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/chengquanshipin.jpg",
                                             title: "成全视频",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/xiaomishangcheng.jpg",
                                             title: "小米商城",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                       ],
                                     ),
 
@@ -264,42 +304,74 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             icon:
                                                 "images/miniprogram_icon/duitang.jpg",
                                             title: "堆糖",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/tiankongyueduqi.jpg",
                                             title: "天空阅读器",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/qishuwang.jpg",
                                             title: "奇书网",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/xueyouyoujiao.jpg",
                                             title: "学有优教",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/chengquanshipin.jpg",
                                             title: "成全视频",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/xiaomishangcheng.jpg",
                                             title: "小米商城",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/meituxiuxiu.jpg",
                                             title: "美图秀秀",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                         FunctionButton(
                                             icon:
                                                 "images/miniprogram_icon/luobokuaipao.jpg",
                                             title: "萝卜快跑",
-                                            onPressed: () {}),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pushReplacementNamed(
+                                                      "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page1')}");
+                                            }),
                                       ],
                                     ),
                                   ],
