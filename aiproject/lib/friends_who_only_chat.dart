@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_alphabet.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_search.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
@@ -442,53 +443,7 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
               ),
               child: Column(children: [
                 // 搜索框
-                Container(
-                    padding:
-                        EdgeInsets.only(bottom: 15.w, left: 15.w, right: 15.w),
-                    height: 75.w,
-                    alignment: Alignment.center,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 8.0.w, horizontal: 20.0.w),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30.w),
-                        border: Border.all(
-                            color: Color.fromRGBO(158, 158, 158, 0.3)),
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/search');
-                        },
-                        child: Center(
-                          // 保证整体内容居中
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                WidgetSpan(
-                                  child: Icon(
-                                    const IconData(
-                                      0xe612,
-                                      fontFamily: 'Iconfont',
-                                    ),
-                                    color: Colors.black,
-                                    size: 40.w,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: " 搜索",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 30.w,
-                                    color: Color.fromARGB(255, 69, 75, 83),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    )),
+                LJNSearch(link: '/search', title: '搜索'),
 
                 // 列表
                 Expanded(

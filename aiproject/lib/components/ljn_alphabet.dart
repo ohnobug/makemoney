@@ -22,7 +22,7 @@ class LJNAlphabet extends StatelessWidget {
             title,
             style: TextStyle(
               height: 1.08,
-              fontSize: fontSizeScale(22.w),
+              fontSize: fontSizeScale(25.w),
             ),
           ),
         ],

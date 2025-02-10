@@ -631,126 +631,19 @@ class _CustomTabbarState extends State<CustomTabbar>
                         ],
                       ))),
               appBar: null,
-              body: Stack(children: [
-                TabBarView(
-                  physics: systemState.showMiniProgramDrawer == true
-                      ? const NeverScrollableScrollPhysics()
-                      : const CustomTabBarViewScrollPhysics(),
-                  controller: _tabController,
-                  children: const <Widget>[
-                    // LJNTestPage(),
-                    LJNHome22Page(),
-                    LJNContactPage(),
-                    LJNDiscoveryPage(),
-                    LJNUserPage(),
-                  ],
-                ),
-
-                // 背景
-                if (showpopup) ...[
-                  GestureDetector(
-                      onTapDown: (_) {
-                        setState(() {
-                          showpopup = !showpopup;
-                        });
-                      },
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height,
-                          color: Colors.transparent)),
-
-                  // 弹出扫码菜单
-                  Positioned(
-                      right: 15.w,
-                      top: systemState.statusHeight + 80.w,
-                      child: SizedBox(
-                        width: 320.w,
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 320.w,
-                              padding: EdgeInsets.only(right: 32.w),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  SizedBox(
-                                      width: 36.w,
-                                      height: 20.w,
-                                      child: Icon(
-                                        color: const Color.fromARGB(
-                                            255, 76, 76, 76),
-                                        const IconData(
-                                          0xe62c,
-                                          fontFamily: 'Iconfont',
-                                        ),
-                                        size: 42.w,
-                                      ))
-                                ],
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0).w,
-                                color: const Color.fromARGB(255, 76, 76, 76),
-                              ),
-                              width: 320.w,
-                              height: 425.w,
-                              child: Column(
-                                children: [
-                                  // 发起群聊
-                                  LJNPopupMenuItem(
-                                    title: "发起群聊",
-                                    icon: 0xe676,
-                                    onTap: () {
-                                      setState(() {
-                                        showpopup = false;
-                                      });
-                                    },
-                                  ),
-
-                                  LJNPopupMenuItem(
-                                    title: "添加朋友",
-                                    icon: 0xe61f,
-                                    onTap: () {
-                                      setState(() {
-                                        showpopup = false;
-                                      });
-                                      Navigator.pushNamed(
-                                          context, '/add_friends');
-                                    },
-                                  ),
-
-                                  LJNPopupMenuItem(
-                                    title: "扫一扫",
-                                    icon: 0xe69a,
-                                    onTap: () {
-                                      setState(() {
-                                        showpopup = false;
-                                      });
-                                      Navigator.pushNamed(
-                                          context, '/qrcode_scanner');
-                                    },
-                                  ),
-
-                                  LJNPopupMenuItem(
-                                    title: "收付款",
-                                    icon: 0xe611,
-                                    onTap: () {
-                                      setState(() {
-                                        showpopup = false;
-                                      });
-                                      Navigator.pushNamed(
-                                          context, '/collection_and_payment');
-                                    },
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ))
-                ]
-              ])),
+              body: TabBarView(
+                physics: systemState.showMiniProgramDrawer == true
+                    ? const NeverScrollableScrollPhysics()
+                    : const CustomTabBarViewScrollPhysics(),
+                controller: _tabController,
+                children: const <Widget>[
+                  // LJNTestPage(),
+                  LJNHome22Page(),
+                  LJNContactPage(),
+                  LJNDiscoveryPage(),
+                  LJNUserPage(),
+                ],
+              )),
 
           // 浮动在顶部的appbar
           Visibility(
@@ -840,6 +733,108 @@ class _CustomTabbarState extends State<CustomTabbar>
                               ),
                             ])))),
           ),
+
+          // 背景
+          if (showpopup) ...[
+            GestureDetector(
+                onTapDown: (_) {
+                  setState(() {
+                    showpopup = !showpopup;
+                  });
+                },
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    color: Colors.transparent)),
+
+            // 弹出扫码菜单
+            Positioned(
+                right: 15.w,
+                top: systemState.statusHeight + 80.w,
+                child: SizedBox(
+                  width: 320.w,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 320.w,
+                        padding: EdgeInsets.only(right: 32.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                                width: 36.w,
+                                height: 20.w,
+                                child: Icon(
+                                  color: const Color.fromARGB(255, 76, 76, 76),
+                                  const IconData(
+                                    0xe62c,
+                                    fontFamily: 'Iconfont',
+                                  ),
+                                  size: 42.w,
+                                ))
+                          ],
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0).w,
+                          color: const Color.fromARGB(255, 76, 76, 76),
+                        ),
+                        width: 320.w,
+                        height: 425.w,
+                        child: Column(
+                          children: [
+                            // 发起群聊
+                            LJNPopupMenuItem(
+                              title: "发起群聊",
+                              icon: 0xe676,
+                              onTap: () {
+                                setState(() {
+                                  showpopup = false;
+                                });
+                              },
+                            ),
+
+                            LJNPopupMenuItem(
+                              title: "添加朋友",
+                              icon: 0xe61f,
+                              onTap: () {
+                                setState(() {
+                                  showpopup = false;
+                                });
+                                Navigator.pushNamed(context, '/add_friends');
+                              },
+                            ),
+
+                            LJNPopupMenuItem(
+                              title: "扫一扫",
+                              icon: 0xe69a,
+                              onTap: () {
+                                setState(() {
+                                  showpopup = false;
+                                });
+                                Navigator.pushNamed(context, '/qrcode_scanner');
+                              },
+                            ),
+
+                            LJNPopupMenuItem(
+                              title: "收付款",
+                              icon: 0xe611,
+                              onTap: () {
+                                setState(() {
+                                  showpopup = false;
+                                });
+                                Navigator.pushNamed(
+                                    context, '/collection_and_payment');
+                              },
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ))
+          ],
         ],
       );
     });

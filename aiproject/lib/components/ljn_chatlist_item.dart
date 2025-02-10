@@ -151,7 +151,7 @@ class _ChatListItem extends State<ChatListItem> {
                                         style: TextStyle(
                                           height: 1.08,
                                           // fontFamily: "Roboto-Regular",
-                                          fontSize: fontSizeScale(23.0.w),
+                                          fontSize: fontSizeScale(25.0.w),
                                           color: widget.notice
                                               ? Colors.red
                                               : const Color.fromARGB(

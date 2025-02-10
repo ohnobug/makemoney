@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_icon_function_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_search.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
@@ -52,53 +53,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                         parent: BouncingScrollPhysics()),
                     child: Column(children: [
                       // 搜索框
-                      Container(
-                        width: 720.w,
-                        margin: EdgeInsets.symmetric(horizontal: 15.w),
-                        height: 65.w,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(10.w)),
-                        ),
-                        alignment: Alignment.center,
-                        child: Text.rich(
-                          TextSpan(
-                            children: [
-                              WidgetSpan(
-                                child: SizedBox(
-                                    width: 22.w,
-                                    child: Icon(
-                                      const IconData(
-                                        0xe612,
-                                        fontFamily: 'Iconfont',
-                                      ),
-                                      color: const Color.fromARGB(
-                                          255, 176, 176, 176),
-                                      size: 29.w,
-                                    )),
-                                alignment:
-                                    PlaceholderAlignment.middle, // 使图标与文本垂直居中对齐
-                              ),
-                              WidgetSpan(
-                                  child: SizedBox(
-                                width: 18.w,
-                              )),
-                              TextSpan(
-                                text: "账号/手机号",
-                                style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(29.w),
-                                  color:
-                                      const Color.fromARGB(255, 176, 176, 176),
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "LJNFont",
-                                ),
-                              ),
-                            ],
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                      LJNSearch(link: '/search', title: '账号/手机号'),
 
                       SizedBox(
                         height: 44.w,

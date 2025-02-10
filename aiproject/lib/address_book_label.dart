@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_alphabet.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_search.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
@@ -11,10 +12,10 @@ class LJNAddressBookLabel extends StatefulWidget {
   const LJNAddressBookLabel({super.key});
 
   @override
-  State<LJNAddressBookLabel> createState() => LJNAaddressBookLabelState();
+  State<LJNAddressBookLabel> createState() => _LJNAddressBookLabel();
 }
 
-class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
+class _LJNAddressBookLabel extends State<LJNAddressBookLabel> {
   late List<dynamic> contactList;
 
   @override
@@ -27,13 +28,17 @@ class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
           height: 80.w,
           padding: EdgeInsets.only(left: 24.w, right: 24.w),
           alignment: Alignment.center,
+          color: Colors.white,
           child: Text(
             "你们将互相看不到对方的朋友圈、状态、微信运动、看一看以及第三方登录授权分享的内容。",
             style: TextStyle(
                 fontSize: 24.w, color: Color.fromARGB(255, 81, 81, 81)),
           )),
 
-      LJNAlphabet(title: 'A'),
+      LJNAlphabet(
+        title: 'A',
+        color: Colors.white,
+      ),
       ContactInformation(
         title: "天空飘来五个字那都不是事",
         icon: "images/avatar_webp/chat_1.webp",
@@ -208,7 +213,10 @@ class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
         link: '',
         underline: false,
       ),
-      LJNAlphabet(title: 'B'),
+      LJNAlphabet(
+        title: 'B',
+        color: Colors.white,
+      ),
       ContactInformation(
         title: "段延庆",
         icon: "images/avatar_webp/chat_33.webp",
@@ -442,53 +450,7 @@ class LJNAaddressBookLabelState extends State<LJNAddressBookLabel> {
               ),
               child: Column(children: [
                 // 搜索框
-                Container(
-                    padding:
-                        EdgeInsets.only(bottom: 15.w, left: 15.w, right: 15.w),
-                    height: 75.w,
-                    alignment: Alignment.center,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          vertical: 8.0.w, horizontal: 20.0.w),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                            color: Color.fromRGBO(158, 158, 158, 0.3)),
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/search');
-                        },
-                        child: Center(
-                          // 保证整体内容居中
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                WidgetSpan(
-                                  child: Icon(
-                                    const IconData(
-                                      0xe612,
-                                      fontFamily: 'Iconfont',
-                                    ),
-                                    color: Colors.black,
-                                    size: 40.w,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: " 搜索",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 30.w,
-                                    color: Color.fromARGB(255, 69, 75, 83),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    )),
+                LJNSearch(link: '/search', title: '搜索'),
 
                 // 列表
                 Expanded(

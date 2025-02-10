@@ -186,7 +186,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                               0xed9d,
                               fontFamily: 'Iconfont',
                             ),
-                            size: 30.0.w,
+                            size: 29.0.w,
                             color: const Color.fromARGB(255, 164, 164, 164),
                           ))
                   ],
