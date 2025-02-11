@@ -239,7 +239,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
       isScrollControlled: true,
       builder: (BuildContext context) {
         return Container(
-          height: 1145.w,
+          height: 1102.w,
           width: systemState.screenSize.width,
           // padding: EdgeInsets.all(24.w),
           decoration: BoxDecoration(
@@ -254,20 +254,20 @@ void _showPopup(BuildContext context, SystemState systemState) {
               // 小程序信息
               Container(
                 // color: Colors.amber,
-                height: 120.w,
+                height: 125.w,
                 padding: EdgeInsets.only(
                   left: 24.w,
                   right: 24.w,
-                  top: 25.w,
-                  bottom: 25.w,
+                  top: 35.w,
+                  // bottom: 25.w,
                 ),
                 child: Row(
                   children: [
                     Image.asset(
                       assetPath(
                           "images/miniprogram_icon/chengzixiaoshuodaziban.jpg"),
-                      width: 70.0.w,
-                      height: 70.0.w,
+                      width: 90.0.w,
+                      height: 90.0.w,
                       fit: BoxFit.fill,
                     ),
                     SizedBox(
@@ -309,10 +309,10 @@ void _showPopup(BuildContext context, SystemState systemState) {
                 padding: EdgeInsets.only(
                   left: 24.w,
                   right: 24.w,
-                  top: 36.w,
-                  bottom: 36.w,
+                  top: 16.w,
+                  bottom: 16.w,
                 ),
-                height: 135.w,
+                height: 100.w,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,11 +325,10 @@ void _showPopup(BuildContext context, SystemState systemState) {
                         height: 1.08,
                       ),
                     ),
-                    SizedBox(height: 10.w),
                     Text(
                       "精选评价: 很满意，产品质量好",
                       style: TextStyle(
-                        fontSize: 26.w,
+                        fontSize: 24.w,
                         color: Color.fromARGB(255, 113, 113, 113),
                         height: 1.08,
                       ),
@@ -419,6 +418,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
 
               // 功能按钮
               Container(
+                  height: 465.w,
                   width: systemState.screenSize.width,
                   decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 247, 247, 247),
@@ -430,8 +430,8 @@ void _showPopup(BuildContext context, SystemState systemState) {
                       ),
                     ),
                   ),
-                  height: 478.w,
-                  padding: EdgeInsets.only(top: 45.w, bottom: 23.w),
+                  // height: 478.w,
+                  padding: EdgeInsets.only(top: 45.w),
                   child: Column(
                     children: [
                       SizedBox(
@@ -547,6 +547,9 @@ void _showPopup(BuildContext context, SystemState systemState) {
                 color: Color.fromARGB(255, 65, 82, 120),
                 title: "取消",
                 underline: false,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               )
             ],
           ),
@@ -701,7 +704,7 @@ class LJNPopupFunctionButtonState extends State<LJNPopupFunctionButton> {
           color: _isPressed ? Colors.grey[200] : Colors.transparent, // 按下时背景色
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(18.w),
