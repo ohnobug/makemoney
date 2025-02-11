@@ -176,7 +176,9 @@ class _LJNWebviewState extends State<LJNWebview>
                     children: [
                       Expanded(
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            _showPopup(context, systemState);
+                          },
                           child: Container(
                             // 加盒子是为了扩大点击区域
                             color: Colors.transparent,
@@ -218,342 +220,340 @@ class _LJNWebviewState extends State<LJNWebview>
                 ),
               ),
 
-              Container(
-                width: systemState.screenSize.height,
-                height: systemState.screenSize.width,
-                color: Color.fromARGB(102, 0, 0, 0),
-              ),
-
-              Positioned(
-                  width: systemState.screenSize.width,
-                  bottom: 0,
-                  child: Container(
-                    height: 1145.w,
-                    width: systemState.screenSize.width,
-                    // padding: EdgeInsets.all(24.w),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(13.w),
-                        topRight: Radius.circular(13.w),
-                      ),
-                    ),
-                    child: Column(
-                      children: [
-                        // 小程序信息
-                        Container(
-                          // color: Colors.amber,
-                          height: 120.w,
-                          padding: EdgeInsets.only(
-                            left: 24.w,
-                            right: 24.w,
-                            top: 25.w,
-                            bottom: 25.w,
-                          ),
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                assetPath(
-                                    "images/miniprogram_icon/chengzixiaoshuodaziban.jpg"),
-                                width: 70.0.w,
-                                height: 70.0.w,
-                                fit: BoxFit.fill,
-                              ),
-                              SizedBox(
-                                width: 10.w,
-                              ),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "积贝生活",
-                                    style: TextStyle(
-                                      height: 1.08,
-                                      color: Colors.black,
-                                      fontSize: 32.w,
-                                      fontFamily: 'AlibabaPuHuiTi-Medium',
-                                    ),
-                                  ),
-                                  // SizedBox(
-                                  //   height: 10.w,
-                                  // ),
-                                  Text(
-                                    '东城共赢(南海)信息科技有限公司',
-                                    style: TextStyle(
-                                      height: 1.08,
-                                      color: Color.fromARGB(255, 193, 193, 193),
-                                      fontSize: 24.w,
-                                    ),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-
-                        // 评论
-                        Container(
-                          width: systemState.screenSize.width,
-                          padding: EdgeInsets.only(
-                            left: 24.w,
-                            right: 24.w,
-                            top: 36.w,
-                            bottom: 36.w,
-                          ),
-                          height: 135.w,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "暂无交易评分 1条评价",
-                                style: TextStyle(
-                                  fontSize: 26.w,
-                                  color: Colors.black,
-                                  height: 1.08,
-                                ),
-                              ),
-                              Text(
-                                "精选评价: 很满意，产品质量好",
-                                style: TextStyle(
-                                  fontSize: 26.w,
-                                  color: Color.fromARGB(255, 113, 113, 113),
-                                  height: 1.08,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-
-                        // 转发
-                        Container(
-                          color: Color.fromARGB(255, 247, 247, 247),
-                          width: systemState.screenSize.width,
-                          height: 300.w,
-                          padding: EdgeInsets.only(
-                            top: 40.w,
-                            left: 24.w,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '转发给',
-                                style: TextStyle(
-                                  fontSize: 25.w,
-                                  // fontWeight: FontWeight.bold,
-                                  fontFamily: 'AlibabaPuHuiTi-Medium',
-                                ),
-                              ),
-                              SizedBox(
-                                height: 25.w,
-                              ),
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                physics: BouncingScrollPhysics(),
-                                child: Row(
-                                  children: [
-                                    LJNPopupFunctionButton(
-                                      icon:
-                                          "images/miniprogram_icon/uitartuna.jpg",
-                                      title: "随身尺子",
-                                      onPressed: () {},
-                                    ),
-                                    LJNPopupFunctionButton(
-                                      icon:
-                                          "images/miniprogram_icon/chuangzuomao.jpg",
-                                      title: "文件传输助手",
-                                      onPressed: () {},
-                                    ),
-                                    LJNPopupFunctionButton(
-                                      icon:
-                                          "images/miniprogram_icon/upaotui.jpg",
-                                      title: "飞常准查航班",
-                                      onPressed: () {},
-                                    ),
-                                    LJNPopupFunctionButton(
-                                      icon:
-                                          "images/miniprogram_icon/ciweimaoappjiuban.jpg",
-                                      title: "花式昵称",
-                                      onPressed: () {},
-                                    ),
-                                    LJNPopupFunctionButton(
-                                      icon:
-                                          "images/miniprogram_icon/wangwangshangliao.jpg",
-                                      title: "腾讯体育+",
-                                      onPressed: () {},
-                                    ),
-                                    LJNPopupFunctionButton(
-                                      icon:
-                                          "images/miniprogram_icon/daimengPS2moniqi.jpg",
-                                      title: "邮政信使",
-                                      onPressed: () {},
-                                    ),
-                                    LJNPopupFunctionButton(
-                                      icon:
-                                          "images/miniprogram_icon/wangyiyunyinyue.jpg",
-                                      title: "壁纸精选",
-                                      onPressed: () {},
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-
-                        // 功能按钮
-                        Container(
-                            width: systemState.screenSize.width,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 247, 247, 247),
-                              border: Border(
-                                top: BorderSide(
-                                  color:
-                                      const Color.fromARGB(255, 231, 231, 231),
-                                  width: 1.5.w,
-                                  style: BorderStyle.solid,
-                                ),
-                                bottom: BorderSide(
-                                  color:
-                                      const Color.fromARGB(255, 231, 231, 231),
-                                  width: 1.5.w,
-                                  style: BorderStyle.solid,
-                                ),
-                              ),
-                            ),
-                            height: 460.w,
-                            padding: EdgeInsets.only(top: 30.w, bottom: 30.w),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  width: systemState.screenSize.width,
-                                  height: 200.w,
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    physics: BouncingScrollPhysics(),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(width: 24.w),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/dawenmianfeixiaoshuo.jpg",
-                                          title: "秘塔写作猫",
-                                          onPressed: () {},
-                                        ),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/wangzheyingdi.jpg",
-                                          title: "色卡生成器",
-                                          onPressed: () {},
-                                        ),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/duitang.jpg",
-                                          title: "换碎屏",
-                                          onPressed: () {},
-                                        ),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/wanwuxinxuan.jpg",
-                                          title: "报告查一查",
-                                          onPressed: () {},
-                                        ),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/fanqiebiaoqiandayinruanjian.jpg",
-                                          title: "智能翻译官APP",
-                                          onPressed: () {},
-                                        ),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/wanwuzxaixian.jpg",
-                                          title: "倒数记日",
-                                          onPressed: () {},
-                                        ),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/feiwenwangapp2021.jpg",
-                                          title: "文字转换语音",
-                                          onPressed: () {},
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: systemState.screenSize.width,
-                                  height: 200.w,
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    physics: BouncingScrollPhysics(),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(width: 24.w),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/wasaifmguangbojuruanjian.jpg",
-                                          title: "多元调解",
-                                          onPressed: () {},
-                                        ),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/gaodeditu12.12.2.jpg",
-                                          title: "百科知识词典",
-                                          onPressed: () {},
-                                        ),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/weibodongmanlishi.jpg",
-                                          title: "证照拍",
-                                          onPressed: () {},
-                                        ),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/haimianbaobao.jpg",
-                                          title: "习惯杂货铺",
-                                          onPressed: () {},
-                                        ),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/weizhiweizhuangdashi2021.jpg",
-                                          title: "美图秀秀",
-                                          onPressed: () {},
-                                        ),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/haiziwang.jpg",
-                                          title: "暴风影音",
-                                          onPressed: () {},
-                                        ),
-                                        LJNPopupFunctionButton(
-                                          icon:
-                                              "images/miniprogram_icon/woyaozuojihua.jpg",
-                                          title: "酷狗音乐",
-                                          onPressed: () {},
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )),
-
-                        // 取消
-                        LJNPopupButtonMaxWidthButton(
-                          color: Color.fromARGB(255, 65, 82, 120),
-                          title: "取消",
-                          underline: false,
-                        )
-                      ],
-                    ),
-                  ))
+              // Container(
+              //   width: systemState.screenSize.height,
+              //   height: systemState.screenSize.width,
+              //   color: Color.fromARGB(102, 0, 0, 0),
+              // ),
             ],
           ));
     });
   }
+}
+
+void _showPopup(BuildContext context, SystemState systemState) {
+  showModalBottomSheet(
+      context: context,
+      barrierColor: Color.fromARGB(120, 0, 0, 0),
+      // backgroundColor: Colors.red,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Container(
+          height: 1145.w,
+          width: systemState.screenSize.width,
+          // padding: EdgeInsets.all(24.w),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(13.w),
+              topRight: Radius.circular(13.w),
+            ),
+          ),
+          child: Column(
+            children: [
+              // 小程序信息
+              Container(
+                // color: Colors.amber,
+                height: 120.w,
+                padding: EdgeInsets.only(
+                  left: 24.w,
+                  right: 24.w,
+                  top: 25.w,
+                  bottom: 25.w,
+                ),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      assetPath(
+                          "images/miniprogram_icon/chengzixiaoshuodaziban.jpg"),
+                      width: 70.0.w,
+                      height: 70.0.w,
+                      fit: BoxFit.fill,
+                    ),
+                    SizedBox(
+                      width: 10.w,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "积贝生活",
+                          style: TextStyle(
+                            height: 1.08,
+                            color: Colors.black,
+                            fontSize: 32.w,
+                            fontFamily: 'AlibabaPuHuiTi-Medium',
+                          ),
+                        ),
+                        // SizedBox(
+                        //   height: 10.w,
+                        // ),
+                        Text(
+                          '东城共赢(南海)信息科技有限公司',
+                          style: TextStyle(
+                            height: 1.08,
+                            color: Color.fromARGB(255, 193, 193, 193),
+                            fontSize: 24.w,
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+
+              // 评论
+              Container(
+                width: systemState.screenSize.width,
+                padding: EdgeInsets.only(
+                  left: 24.w,
+                  right: 24.w,
+                  top: 36.w,
+                  bottom: 36.w,
+                ),
+                height: 135.w,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "暂无交易评分 1条评价",
+                      style: TextStyle(
+                        fontSize: 26.w,
+                        color: Colors.black,
+                        height: 1.08,
+                      ),
+                    ),
+                    Text(
+                      "精选评价: 很满意，产品质量好",
+                      style: TextStyle(
+                        fontSize: 26.w,
+                        color: Color.fromARGB(255, 113, 113, 113),
+                        height: 1.08,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+
+              // 转发
+              Container(
+                color: Color.fromARGB(255, 247, 247, 247),
+                width: systemState.screenSize.width,
+                height: 300.w,
+                padding: EdgeInsets.only(
+                  top: 40.w,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        margin: EdgeInsets.only(left: 24.w),
+                        child: Text(
+                          '转发给',
+                          style: TextStyle(
+                            fontSize: 25.w,
+                            // fontWeight: FontWeight.bold,
+                            fontFamily: 'AlibabaPuHuiTi-Medium',
+                          ),
+                        )),
+                    SizedBox(
+                      height: 25.w,
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      physics: BouncingScrollPhysics(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 24.w,
+                          ),
+                          LJNPopupFunctionButton(
+                            icon: "images/miniprogram_icon/uitartuna.jpg",
+                            title: "随身尺子",
+                            onPressed: () {},
+                          ),
+                          LJNPopupFunctionButton(
+                            icon: "images/miniprogram_icon/chuangzuomao.jpg",
+                            title: "文件传输助手",
+                            onPressed: () {},
+                          ),
+                          LJNPopupFunctionButton(
+                            icon: "images/miniprogram_icon/upaotui.jpg",
+                            title: "飞常准查航班",
+                            onPressed: () {},
+                          ),
+                          LJNPopupFunctionButton(
+                            icon:
+                                "images/miniprogram_icon/ciweimaoappjiuban.jpg",
+                            title: "花式昵称",
+                            onPressed: () {},
+                          ),
+                          LJNPopupFunctionButton(
+                            icon:
+                                "images/miniprogram_icon/wangwangshangliao.jpg",
+                            title: "腾讯体育+",
+                            onPressed: () {},
+                          ),
+                          LJNPopupFunctionButton(
+                            icon:
+                                "images/miniprogram_icon/daimengPS2moniqi.jpg",
+                            title: "邮政信使",
+                            onPressed: () {},
+                          ),
+                          LJNPopupFunctionButton(
+                            icon: "images/miniprogram_icon/wangyiyunyinyue.jpg",
+                            title: "壁纸精选",
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+
+              // 功能按钮
+              Container(
+                  width: systemState.screenSize.width,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 247, 247, 247),
+                    border: Border(
+                      top: BorderSide(
+                        color: const Color.fromARGB(255, 231, 231, 231),
+                        width: 1.0.w,
+                        style: BorderStyle.solid,
+                      ),
+                    ),
+                  ),
+                  height: 470.w,
+                  padding: EdgeInsets.only(top: 40.w, bottom: 20.w),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: systemState.screenSize.width,
+                        height: 200.w,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          child: Row(
+                            children: [
+                              SizedBox(width: 24.w),
+                              LJNPopupFunctionButton(
+                                icon:
+                                    "images/miniprogram_icon/dawenmianfeixiaoshuo.jpg",
+                                title: "秘塔写作猫",
+                                onPressed: () {},
+                              ),
+                              LJNPopupFunctionButton(
+                                icon:
+                                    "images/miniprogram_icon/wangzheyingdi.jpg",
+                                title: "色卡生成器",
+                                onPressed: () {},
+                              ),
+                              LJNPopupFunctionButton(
+                                icon: "images/miniprogram_icon/duitang.jpg",
+                                title: "换碎屏",
+                                onPressed: () {},
+                              ),
+                              LJNPopupFunctionButton(
+                                icon:
+                                    "images/miniprogram_icon/wanwuxinxuan.jpg",
+                                title: "报告查一查",
+                                onPressed: () {},
+                              ),
+                              LJNPopupFunctionButton(
+                                icon:
+                                    "images/miniprogram_icon/fanqiebiaoqiandayinruanjian.jpg",
+                                title: "智能翻译官APP",
+                                onPressed: () {},
+                              ),
+                              LJNPopupFunctionButton(
+                                icon:
+                                    "images/miniprogram_icon/wanwuzxaixian.jpg",
+                                title: "倒数记日",
+                                onPressed: () {},
+                              ),
+                              LJNPopupFunctionButton(
+                                icon:
+                                    "images/miniprogram_icon/feiwenwangapp2021.jpg",
+                                title: "文字转换语音",
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: systemState.screenSize.width,
+                        height: 200.w,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          physics: BouncingScrollPhysics(),
+                          child: Row(
+                            children: [
+                              SizedBox(width: 24.w),
+                              LJNPopupFunctionButton(
+                                icon:
+                                    "images/miniprogram_icon/wasaifmguangbojuruanjian.jpg",
+                                title: "多元调解",
+                                onPressed: () {},
+                              ),
+                              LJNPopupFunctionButton(
+                                icon:
+                                    "images/miniprogram_icon/gaodeditu12.12.2.jpg",
+                                title: "百科知识词典",
+                                onPressed: () {},
+                              ),
+                              LJNPopupFunctionButton(
+                                icon:
+                                    "images/miniprogram_icon/weibodongmanlishi.jpg",
+                                title: "证照拍",
+                                onPressed: () {},
+                              ),
+                              LJNPopupFunctionButton(
+                                icon:
+                                    "images/miniprogram_icon/haimianbaobao.jpg",
+                                title: "习惯杂货铺",
+                                onPressed: () {},
+                              ),
+                              LJNPopupFunctionButton(
+                                icon:
+                                    "images/miniprogram_icon/weizhiweizhuangdashi2021.jpg",
+                                title: "美图秀秀",
+                                onPressed: () {},
+                              ),
+                              LJNPopupFunctionButton(
+                                icon: "images/miniprogram_icon/haiziwang.jpg",
+                                title: "暴风影音",
+                                onPressed: () {},
+                              ),
+                              LJNPopupFunctionButton(
+                                icon:
+                                    "images/miniprogram_icon/woyaozuojihua.jpg",
+                                title: "酷狗音乐",
+                                onPressed: () {},
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+
+              // 取消
+              LJNPopupButtonMaxWidthButton(
+                color: Color.fromARGB(255, 65, 82, 120),
+                title: "取消",
+                underline: false,
+              )
+            ],
+          ),
+        );
+      });
 }
 
 // 底部弹出取消按钮
@@ -628,7 +628,7 @@ class _LJNPopupButtonMaxWidthButtonState
               color: containerColor,
               border: Border(
                   top: BorderSide(
-                width: 1.5.w,
+                width: 1.0.w,
                 color: Color.fromARGB(255, 228, 228, 228),
               ))),
           child: widget.title is String
@@ -650,8 +650,6 @@ class _LJNPopupButtonMaxWidthButtonState
     });
   }
 }
-
-// 转发好友项与功能项目
 
 // 小程序按钮
 class LJNPopupFunctionButton extends StatefulWidget {
@@ -705,6 +703,7 @@ class LJNPopupFunctionButtonState extends State<LJNPopupFunctionButton> {
           color: _isPressed ? Colors.grey[200] : Colors.transparent, // 按下时背景色
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(
               assetPath(widget.icon),
