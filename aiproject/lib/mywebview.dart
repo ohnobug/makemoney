@@ -325,6 +325,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                         height: 1.08,
                       ),
                     ),
+                    SizedBox(height: 10.w),
                     Text(
                       "精选评价: 很满意，产品质量好",
                       style: TextStyle(
@@ -429,8 +430,8 @@ void _showPopup(BuildContext context, SystemState systemState) {
                       ),
                     ),
                   ),
-                  height: 470.w,
-                  padding: EdgeInsets.only(top: 40.w, bottom: 20.w),
+                  height: 478.w,
+                  padding: EdgeInsets.only(top: 45.w, bottom: 23.w),
                   child: Column(
                     children: [
                       SizedBox(
@@ -445,47 +446,44 @@ void _showPopup(BuildContext context, SystemState systemState) {
                               LJNPopupFunctionButton(
                                 icon:
                                     "images/miniprogram_icon/dawenmianfeixiaoshuo.jpg",
-                                title: "秘塔写作猫",
+                                title: "转发给朋友",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
                                 icon:
                                     "images/miniprogram_icon/wangzheyingdi.jpg",
-                                title: "色卡生成器",
+                                title: "分享到朋友圈",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
                                 icon: "images/miniprogram_icon/duitang.jpg",
-                                title: "换碎屏",
+                                title: "收藏",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
                                 icon:
                                     "images/miniprogram_icon/wanwuxinxuan.jpg",
-                                title: "报告查一查",
+                                title: "添加到我的小程序",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
                                 icon:
                                     "images/miniprogram_icon/fanqiebiaoqiandayinruanjian.jpg",
-                                title: "智能翻译官APP",
+                                title: "添加到桌面",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
                                 icon:
                                     "images/miniprogram_icon/wanwuzxaixian.jpg",
-                                title: "倒数记日",
-                                onPressed: () {},
-                              ),
-                              LJNPopupFunctionButton(
-                                icon:
-                                    "images/miniprogram_icon/feiwenwangapp2021.jpg",
-                                title: "文字转换语音",
+                                title: "在电脑端打开",
                                 onPressed: () {},
                               ),
                             ],
                           ),
                         ),
+                      ),
+                      SizedBox(
+                        height: 10.w,
                       ),
                       SizedBox(
                         width: systemState.screenSize.width,
@@ -499,42 +497,42 @@ void _showPopup(BuildContext context, SystemState systemState) {
                               LJNPopupFunctionButton(
                                 icon:
                                     "images/miniprogram_icon/wasaifmguangbojuruanjian.jpg",
-                                title: "多元调解",
+                                title: "浮窗",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
                                 icon:
                                     "images/miniprogram_icon/gaodeditu12.12.2.jpg",
-                                title: "百科知识词典",
+                                title: "设置",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
                                 icon:
                                     "images/miniprogram_icon/weibodongmanlishi.jpg",
-                                title: "证照拍",
+                                title: "反馈与投诉",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
                                 icon:
                                     "images/miniprogram_icon/haimianbaobao.jpg",
-                                title: "习惯杂货铺",
+                                title: "重新进入小程序",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
                                 icon:
                                     "images/miniprogram_icon/weizhiweizhuangdashi2021.jpg",
-                                title: "美图秀秀",
+                                title: "复制链接",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
                                 icon: "images/miniprogram_icon/haiziwang.jpg",
-                                title: "暴风影音",
+                                title: "翻译",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
                                 icon:
                                     "images/miniprogram_icon/woyaozuojihua.jpg",
-                                title: "酷狗音乐",
+                                title: "成长守护防沉迷",
                                 onPressed: () {},
                               ),
                             ],
@@ -705,13 +703,16 @@ class LJNPopupFunctionButtonState extends State<LJNPopupFunctionButton> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              assetPath(widget.icon),
-              width: 112.w,
-              height: 112.w,
-              cacheHeight: 224.w.toInt(),
-              cacheWidth: 224.w.toInt(),
-              fit: BoxFit.cover, // 让图片完全填满圆形区域
+            ClipRRect(
+              borderRadius: BorderRadius.circular(18.w),
+              child: Image.asset(
+                assetPath(widget.icon),
+                width: 112.w,
+                height: 112.w,
+                cacheHeight: 224.w.toInt(),
+                cacheWidth: 224.w.toInt(),
+                fit: BoxFit.cover, // 让图片完全填满圆形区域
+              ),
             ),
             SizedBox(height: 10.w), // 图标和标题之间的间距
             Text(
@@ -722,7 +723,7 @@ class LJNPopupFunctionButtonState extends State<LJNPopupFunctionButton> {
                 height: 1.08,
                 decoration: TextDecoration.none,
                 color: Color.fromARGB(255, 108, 108, 108),
-                fontSize: fontSizeScale(22.0.w),
+                fontSize: fontSizeScale(20.0.w),
                 overflow: TextOverflow.ellipsis,
               ), // 标题颜色
             ),
