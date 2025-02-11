@@ -167,7 +167,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "堆糖",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -176,7 +176,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "天空阅读器",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                       ],
@@ -227,7 +227,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "堆糖",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -236,7 +236,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "天空阅读器",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -245,7 +245,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "奇书网",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -254,7 +254,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "学有优教",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -263,7 +263,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "孩子王",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -272,7 +272,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "铅笔小说",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -281,7 +281,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "成全视频",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -290,7 +290,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "小米商城",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                       ],
@@ -306,7 +306,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "堆糖",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -315,7 +315,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "天空阅读器",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -324,7 +324,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "奇书网",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -333,7 +333,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "学有优教",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -342,7 +342,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "成全视频",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -351,7 +351,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "小米商城",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -360,7 +360,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "美图秀秀",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                         FunctionButton(
@@ -369,7 +369,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                             title: "萝卜快跑",
                                             onPressed: () {
                                               Navigator.of(context)
-                                                  .pushReplacementNamed(
+                                                  .pushNamed(
                                                       "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                             }),
                                       ],
@@ -444,7 +444,7 @@ class FunctionButtonsSection extends StatelessWidget {
                   crossAxisCount: 4, // 每行显示4个子组件
                   crossAxisSpacing: 16.w, // 列间距
                   mainAxisSpacing: 10.w, // 行间距
-                  childAspectRatio: (1 / 1),
+                  childAspectRatio: 1,
                 ),
                 itemCount: buttons.length,
                 itemBuilder: (context, index) {

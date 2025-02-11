@@ -29,7 +29,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
         message: "今天天气真好，阳光明媚，让人心情愉悦。",
         avatar: "images/miniprogram_icon/yuetongnianruanjian.jpg",
         onPressed: () {
-          Navigator.of(context).pushReplacementNamed(
+          Navigator.of(context).pushNamed(
               "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
         },
       ),
@@ -38,7 +38,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
           message: "[图片]",
           avatar: "images/miniprogram_icon/qidianzhongwen.jpg",
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed(
+            Navigator.of(context).pushNamed(
                 "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
           }),
       ChatListItem(
@@ -46,7 +46,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
           message: "这个怎么样调试?",
           avatar: "images/miniprogram_icon/yehuaxiangdianshiju.jpg",
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed(
+            Navigator.of(context).pushNamed(
                 "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
           }),
       ChatListItem(
@@ -54,7 +54,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
           message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
           avatar: "images/miniprogram_icon/yunbiaoxia.jpg",
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed(
+            Navigator.of(context).pushNamed(
                 "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
           }),
     ];
@@ -65,7 +65,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
         message: "今天天气真好，阳光明媚，让人心情愉悦。",
         avatar: "images/miniprogram_icon/moguyunyou.jpg",
         onPressed: () {
-          Navigator.of(context).pushReplacementNamed(
+          Navigator.of(context).pushNamed(
               "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
         },
       ),
@@ -74,7 +74,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
           message: "[图片]",
           avatar: "images/miniprogram_icon/meituxiuxiu.jpg",
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed(
+            Navigator.of(context).pushNamed(
                 "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
           }),
       ChatListItem(
@@ -82,7 +82,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
           message: "这个怎么样调试?",
           avatar: "images/miniprogram_icon/baidufanyi.jpg",
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed(
+            Navigator.of(context).pushNamed(
                 "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
           }),
       ChatListItem(
@@ -90,7 +90,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
           message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
           avatar: "images/miniprogram_icon/taowuyou.jpg",
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed(
+            Navigator.of(context).pushNamed(
                 "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
           }),
     ];
@@ -163,7 +163,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                         "images/miniprogram_icon/zhihuixiangji.jpg",
                                     title: "智慧相机",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 // FunctionButton(
@@ -172,13 +172,13 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                 //     title: "旺旺商聊",
                                 //     onPressed: () {
                                 //
-                                // Navigator.of(context).pushReplacementNamed("/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");}),
+                                // Navigator.of(context).pushNamed("/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");}),
                                 FunctionButton(
                                     icon:
                                         "images/miniprogram_icon/haimianbaobao.jpg",
                                     title: "海绵宝宝",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
@@ -186,7 +186,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                         "images/miniprogram_icon/taowuyou.jpg",
                                     title: "淘无忧",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
@@ -194,7 +194,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                         "images/miniprogram_icon/wangzheyingdi.jpg",
                                     title: "王者营地",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                               ],
@@ -209,7 +209,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                     icon: "images/miniprogram_icon/duitang.jpg",
                                     title: "堆糖",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
@@ -217,7 +217,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                         "images/miniprogram_icon/tiankongyueduqi.jpg",
                                     title: "天空阅读器",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
@@ -225,7 +225,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                         "images/miniprogram_icon/qishuwang.jpg",
                                     title: "奇书网",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
@@ -233,7 +233,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                         "images/miniprogram_icon/xueyouyoujiao.jpg",
                                     title: "学有优教",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
@@ -241,7 +241,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                         "images/miniprogram_icon/haiziwang.jpg",
                                     title: "孩子王",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
@@ -249,7 +249,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                         "images/miniprogram_icon/qianbixiaoshuo.jpg",
                                     title: "铅笔小说",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
@@ -257,7 +257,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                         "images/miniprogram_icon/chengquanshipin.jpg",
                                     title: "成全视频",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
@@ -265,7 +265,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                         "images/miniprogram_icon/xiaomishangcheng.jpg",
                                     title: "小米商城",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
@@ -273,7 +273,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                         "images/miniprogram_icon/meituxiuxiu.jpg",
                                     title: "美图秀秀",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                                 FunctionButton(
@@ -281,7 +281,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                                         "images/miniprogram_icon/luobokuaipao.jpg",
                                     title: "萝卜快跑",
                                     onPressed: () {
-                                      Navigator.of(context).pushReplacementNamed(
+                                      Navigator.of(context).pushNamed(
                                           "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                     }),
                               ],
