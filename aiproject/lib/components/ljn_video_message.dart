@@ -74,51 +74,53 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
     String filehash = await generateStringChunkHash(filepath);
     String tempFile = filehash.substring(0, 16);
 
-    final List<Directory>? tempDir = await getExternalCacheDirectories();
+    if (!Platform.isWindows) {
+      final List<Directory>? tempDir = await getExternalCacheDirectories();
 
-    // 提取首帧并保存为图片
-    final String outputImagePath = '${tempDir?[0].path}/$tempFile.png';
+      // 提取首帧并保存为图片
+      final String outputImagePath = '${tempDir?[0].path}/$tempFile.png';
 
-    var imageFile = File(outputImagePath);
-    if (imageFile.existsSync() && await isValidImage(imageFile)) {
-      setState(() {
-        picPath = outputImagePath;
-      });
-      return;
-    } else {
-      if (imageFile.existsSync()) {
-        imageFile.deleteSync();
+      var imageFile = File(outputImagePath);
+      if (imageFile.existsSync() && await isValidImage(imageFile)) {
+        setState(() {
+          picPath = outputImagePath;
+        });
+        return;
+      } else {
+        if (imageFile.existsSync()) {
+          imageFile.deleteSync();
+        }
+
+        // 获取应用的文档目录
+        final directory = await getApplicationDocumentsDirectory();
+        String filename = path.basename(filepath);
+
+        // 拼接本地存储的文件路径
+        final videoPath = '${directory.path}/$filename';
+        // =========================================================================
+        // 从 assets 加载视频文件
+        ByteData byteData = await rootBundle.load(filepath);
+        // logger.info('ByteData length: ${byteData.lengthInBytes}');
+        if (byteData.lengthInBytes == 0) {
+          throw Exception('Failed to load video file.');
+        }
+        List<int> bytes = byteData.buffer
+            .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+        final file = File(videoPath);
+        await file.writeAsBytes(bytes);
+        // =========================================================================
+
+        final fileName = await VideoThumbnail.thumbnailFile(
+          video: videoPath,
+          thumbnailPath: outputImagePath,
+          imageFormat: ImageFormat.PNG,
+          quality: 100,
+        );
+
+        setState(() {
+          picPath = fileName.path;
+        });
       }
-
-      // 获取应用的文档目录
-      final directory = await getApplicationDocumentsDirectory();
-      String filename = path.basename(filepath);
-
-      // 拼接本地存储的文件路径
-      final videoPath = '${directory.path}/$filename';
-      // =========================================================================
-      // 从 assets 加载视频文件
-      ByteData byteData = await rootBundle.load(filepath);
-      // logger.info('ByteData length: ${byteData.lengthInBytes}');
-      if (byteData.lengthInBytes == 0) {
-        throw Exception('Failed to load video file.');
-      }
-      List<int> bytes = byteData.buffer
-          .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
-      final file = File(videoPath);
-      await file.writeAsBytes(bytes);
-      // =========================================================================
-
-      final fileName = await VideoThumbnail.thumbnailFile(
-        video: videoPath,
-        thumbnailPath: outputImagePath,
-        imageFormat: ImageFormat.PNG,
-        quality: 100,
-      );
-
-      setState(() {
-        picPath = fileName.path;
-      });
     }
   }
 

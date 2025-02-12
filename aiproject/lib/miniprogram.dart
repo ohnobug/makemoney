@@ -103,6 +103,8 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
       return Scaffold(
           primary: false,
           appBar: LJNAppBar(
+            // bgColor: Colors.red,
+            // color: Colors.amber,
             title: "小程序",
             actions: [
               GestureDetector(
@@ -376,7 +378,7 @@ class FunctionButtonsSection extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4, // 每行显示4个子组件
                   crossAxisSpacing: 16.w, // 列间距
-                  mainAxisSpacing: 50.w, // 行间距
+                  mainAxisSpacing: 30.w, // 行间距
                   childAspectRatio: (1 / 1),
                 ),
                 itemCount: buttons.length,

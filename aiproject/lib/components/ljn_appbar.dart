@@ -44,6 +44,7 @@ class _LJNAppBar extends State<LJNAppBar> {
           child: Container(
               color: bgColor,
               padding: EdgeInsets.only(top: systemState.statusHeight),
+              height: 90.0.w,
               child: AppBar(
                 leading: widget.leading ??
                     GestureDetector(

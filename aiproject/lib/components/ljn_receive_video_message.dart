@@ -62,7 +62,9 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
       videoWidth = videoHeight * aspectRatio;
     }
 
-    getFirstFrame(assetPath(widget.video));
+    if (!Platform.isWindows) {
+      getFirstFrame(assetPath(widget.video));
+    }
   }
 
   Future<void> getFirstFrame(String filepath) async {

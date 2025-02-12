@@ -35,6 +35,8 @@ dependencies:
   shared_preferences: ^2.5.1
   floating: ^5.0.1
   flutter_in_app_pip: ^1.7.4
+  webview_windows: ^0.4.0
+  window_manager: ^0.4.3
 
 dev_dependencies:
   bloc_test: ^10.0.0

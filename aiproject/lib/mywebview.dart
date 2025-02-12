@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
-
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'dart:io';
 import 'package:lottie/lottie.dart';
-// import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:jiaoyishuoflutter3/logger.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_windows/webview_windows.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 
 class LJNWebview extends StatefulWidget {
   final String link;
@@ -22,6 +21,8 @@ class LJNWebview extends StatefulWidget {
 class _LJNWebviewState extends State<LJNWebview>
     with SingleTickerProviderStateMixin {
   late WebViewController webViewController;
+  late WebviewController _windowsWebViewController;
+
   late final AnimationController _lottieController;
 
   bool pageVisible = false;
@@ -30,8 +31,20 @@ class _LJNWebviewState extends State<LJNWebview>
   void initState() {
     super.initState();
 
+    _initLotties();
+
+    if (Platform.isWindows) {
+      _initWindowsWebviewController();
+    } else {
+      _initWebViewController();
+    }
+  }
+
+  void _initLotties() {
     _lottieController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 1000));
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    );
 
     _lottieController.addListener(() {
       if (_lottieController.isCompleted) {
@@ -40,7 +53,9 @@ class _LJNWebviewState extends State<LJNWebview>
         });
       }
     });
+  }
 
+  void _initWebViewController() {
     webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
@@ -116,10 +131,42 @@ class _LJNWebviewState extends State<LJNWebview>
       }
     } else {
       webViewController.loadRequest(Uri.parse(requestUrl));
+    }
+  }
 
-      // webViewController.loadHtmlString(
-      //     "<h1 style='margin-top: 100px'>不符合规则的链接：${widget.link}</h1>",
-      //     baseUrl: requestUrl);
+  Future<void> _initWindowsWebviewController() async {
+    _windowsWebViewController = WebviewController();
+    await _windowsWebViewController.initialize();
+    await _windowsWebViewController.setBackgroundColor(Colors.transparent);
+    await _windowsWebViewController
+        .setPopupWindowPolicy(WebviewPopupWindowPolicy.deny);
+
+    _windowsWebViewController.loadingState.listen((state) {
+      if (state == LoadingState.navigationCompleted) {
+        _lottieController.reset();
+        _lottieController
+          ..duration = const Duration(milliseconds: 1000)
+          ..forward();
+      }
+    });
+
+    final requestUrl = widget.link;
+    if (requestUrl.startsWith('http://inner')) {
+      Uri uri = Uri.parse(requestUrl);
+
+      // 请求页面
+      final response = await http.get(Uri.parse('http://127.0.0.1:9413'),
+          headers: {'Host': uri.host, 'Content-Type': 'text/html'});
+
+      if (response.statusCode == 200) {
+        _windowsWebViewController.loadStringContent(response.body);
+      } else {
+        _windowsWebViewController.loadStringContent(
+          "<h1 style='margin-top: 100px'>页面挂了</h1><a href='/qq'>qqq</a>",
+        );
+      }
+    } else {
+      _windowsWebViewController.loadUrl(requestUrl);
     }
   }
 
@@ -132,7 +179,12 @@ class _LJNWebviewState extends State<LJNWebview>
           body: Stack(
             children: [
               // 页面本身
-              WebViewWidget(controller: webViewController),
+              if (Platform.isWindows)
+                Webview(
+                  _windowsWebViewController,
+                )
+              else
+                WebViewWidget(controller: webViewController),
 
               // 加载动画
               Visibility(

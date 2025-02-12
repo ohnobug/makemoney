@@ -170,7 +170,8 @@ class _App extends State<App> {
                     linkValue = uri.queryParameters['link'] ?? "";
 
                     return pageRouteBuilderAnimation(
-                        LJNWebview(link: linkValue));
+                      LJNWebview(link: linkValue),
+                    );
                   } else if (settings.name == '/services') {
                     return pageRouteBuilderAnimation(const LJNServicesPage());
                   } else if (settings.name == '/chat') {
