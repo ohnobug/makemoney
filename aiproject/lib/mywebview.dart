@@ -424,40 +424,163 @@ void _showPopup(BuildContext context, SystemState systemState) {
                             width: 24.w,
                           ),
                           LJNPopupFunctionButton(
-                            icon: "images/miniprogram_icon/uitartuna.jpg",
+                            icon: Container(
+                                width: 112.w,
+                                height: 112.w,
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(18.w),
+                                ),
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  assetPath(
+                                    "images/miniprogram_icon/uitartuna.jpg",
+                                  ),
+                                  width: 112.w,
+                                  height: 112.w,
+                                  cacheHeight: 224.w.toInt(),
+                                  cacheWidth: 224.w.toInt(),
+                                  fit: BoxFit.cover, // 让图片完全填满圆形区域
+                                )),
                             title: "随身尺子",
                             onPressed: () {},
                           ),
                           LJNPopupFunctionButton(
-                            icon: "images/miniprogram_icon/chuangzuomao.jpg",
+                            icon: Container(
+                                width: 112.w,
+                                height: 112.w,
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(18.w),
+                                ),
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  assetPath(
+                                    "images/miniprogram_icon/chuangzuomao.jpg",
+                                  ),
+                                  width: 112.w,
+                                  height: 112.w,
+                                  cacheHeight: 224.w.toInt(),
+                                  cacheWidth: 224.w.toInt(),
+                                  fit: BoxFit.cover, // 让图片完全填满圆形区域
+                                )),
                             title: "文件传输助手",
                             onPressed: () {},
                           ),
                           LJNPopupFunctionButton(
-                            icon: "images/miniprogram_icon/upaotui.jpg",
+                            icon: Container(
+                                width: 112.w,
+                                height: 112.w,
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(18.w),
+                                ),
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  assetPath(
+                                    "images/miniprogram_icon/upaotui.jpg",
+                                  ),
+                                  width: 112.w,
+                                  height: 112.w,
+                                  cacheHeight: 224.w.toInt(),
+                                  cacheWidth: 224.w.toInt(),
+                                  fit: BoxFit.cover, // 让图片完全填满圆形区域
+                                )),
                             title: "飞常准查航班",
                             onPressed: () {},
                           ),
                           LJNPopupFunctionButton(
-                            icon:
-                                "images/miniprogram_icon/ciweimaoappjiuban.jpg",
+                            icon: Container(
+                                width: 112.w,
+                                height: 112.w,
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(18.w),
+                                ),
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  assetPath(
+                                    "images/miniprogram_icon/wangwangshangliao.jpg",
+                                  ),
+                                  width: 112.w,
+                                  height: 112.w,
+                                  cacheHeight: 224.w.toInt(),
+                                  cacheWidth: 224.w.toInt(),
+                                  fit: BoxFit.cover, // 让图片完全填满圆形区域
+                                )),
                             title: "花式昵称",
                             onPressed: () {},
                           ),
                           LJNPopupFunctionButton(
-                            icon:
-                                "images/miniprogram_icon/wangwangshangliao.jpg",
+                            icon: Container(
+                                width: 112.w,
+                                height: 112.w,
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(18.w),
+                                ),
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  assetPath(
+                                    "images/miniprogram_icon/wangwangshangliao.jpg",
+                                  ),
+                                  width: 112.w,
+                                  height: 112.w,
+                                  cacheHeight: 224.w.toInt(),
+                                  cacheWidth: 224.w.toInt(),
+                                  fit: BoxFit.cover, // 让图片完全填满圆形区域
+                                )),
                             title: "腾讯体育+",
                             onPressed: () {},
                           ),
                           LJNPopupFunctionButton(
-                            icon:
-                                "images/miniprogram_icon/daimengPS2moniqi.jpg",
+                            icon: Container(
+                                width: 112.w,
+                                height: 112.w,
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(18.w),
+                                ),
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  assetPath(
+                                    "images/miniprogram_icon/daimengPS2moniqi.jpg",
+                                  ),
+                                  width: 112.w,
+                                  height: 112.w,
+                                  cacheHeight: 224.w.toInt(),
+                                  cacheWidth: 224.w.toInt(),
+                                  fit: BoxFit.cover, // 让图片完全填满圆形区域
+                                )),
                             title: "邮政信使",
                             onPressed: () {},
                           ),
                           LJNPopupFunctionButton(
-                            icon: "images/miniprogram_icon/wangyiyunyinyue.jpg",
+                            icon: Container(
+                                width: 112.w,
+                                height: 112.w,
+                                clipBehavior: Clip.hardEdge,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(18.w),
+                                ),
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  assetPath(
+                                    "images/miniprogram_icon/wangyiyunyinyue.jpg",
+                                  ),
+                                  width: 112.w,
+                                  height: 112.w,
+                                  cacheHeight: 224.w.toInt(),
+                                  cacheWidth: 224.w.toInt(),
+                                  fit: BoxFit.cover, // 让图片完全填满圆形区域
+                                )),
                             title: "壁纸精选",
                             onPressed: () {},
                           ),
@@ -496,37 +619,137 @@ void _showPopup(BuildContext context, SystemState systemState) {
                             children: [
                               SizedBox(width: 24.w),
                               LJNPopupFunctionButton(
-                                icon:
-                                    "images/miniprogram_icon/dawenmianfeixiaoshuo.jpg",
+                                icon: Container(
+                                    width: 112.w,
+                                    height: 112.w,
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(18.w),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                      assetPath(
+                                          "images/icon/popup_forward.png"),
+                                      width: 55.w,
+                                      height: 55.w,
+                                      cacheHeight: 110.w.toInt(),
+                                      cacheWidth: 110.w.toInt(),
+                                      fit: BoxFit.cover, // 让图片完全填满圆形区域
+                                    )),
                                 title: "转发给朋友",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
-                                icon:
-                                    "images/miniprogram_icon/wangzheyingdi.jpg",
+                                icon: Container(
+                                    width: 112.w,
+                                    height: 112.w,
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(18.w),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                      assetPath(
+                                          "images/icon/popup_circle_of_friends.png"),
+                                      width: 55.w,
+                                      height: 55.w,
+                                      cacheHeight: 110.w.toInt(),
+                                      cacheWidth: 110.w.toInt(),
+                                      fit: BoxFit.cover, // 让图片完全填满圆形区域
+                                    )),
                                 title: "分享到朋友圈",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
-                                icon: "images/miniprogram_icon/duitang.jpg",
+                                icon: Container(
+                                    width: 112.w,
+                                    height: 112.w,
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(18.w),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                      assetPath(
+                                          "images/icon/popup_collection.png"),
+                                      width: 55.w,
+                                      height: 55.w,
+                                      cacheHeight: 110.w.toInt(),
+                                      cacheWidth: 110.w.toInt(),
+                                      fit: BoxFit.cover, // 让图片完全填满圆形区域
+                                    )),
                                 title: "收藏",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
-                                icon:
-                                    "images/miniprogram_icon/wanwuxinxuan.jpg",
+                                icon: Container(
+                                    width: 112.w,
+                                    height: 112.w,
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(18.w),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                      assetPath(
+                                        "images/icon/popup_add_to_mini_Program.png",
+                                      ),
+                                      width: 55.w,
+                                      height: 55.w,
+                                      cacheHeight: 110.w.toInt(),
+                                      cacheWidth: 110.w.toInt(),
+                                      fit: BoxFit.cover, // 让图片完全填满圆形区域
+                                    )),
                                 title: "添加到我的小程序",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
-                                icon:
-                                    "images/miniprogram_icon/fanqiebiaoqiandayinruanjian.jpg",
+                                icon: Container(
+                                    width: 112.w,
+                                    height: 112.w,
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(18.w),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                      assetPath(
+                                        "images/icon/popup_add_to_desktop.png",
+                                      ),
+                                      width: 55.w,
+                                      height: 55.w,
+                                      cacheHeight: 110.w.toInt(),
+                                      cacheWidth: 110.w.toInt(),
+                                      fit: BoxFit.cover, // 让图片完全填满圆形区域
+                                    )),
                                 title: "添加到桌面",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
-                                icon:
-                                    "images/miniprogram_icon/wanwuzxaixian.jpg",
+                                icon: Container(
+                                    width: 112.w,
+                                    height: 112.w,
+                                    clipBehavior: Clip.hardEdge,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(18.w),
+                                    ),
+                                    alignment: Alignment.center,
+                                    child: Image.asset(
+                                      assetPath(
+                                        "images/icon/popup_open_on_computer.png",
+                                      ),
+                                      width: 55.w,
+                                      height: 55.w,
+                                      cacheHeight: 110.w.toInt(),
+                                      cacheWidth: 110.w.toInt(),
+                                      fit: BoxFit.cover, // 让图片完全填满圆形区域
+                                    )),
                                 title: "在电脑端打开",
                                 onPressed: () {},
                               ),
@@ -547,43 +770,149 @@ void _showPopup(BuildContext context, SystemState systemState) {
                             children: [
                               SizedBox(width: 24.w),
                               LJNPopupFunctionButton(
-                                icon:
-                                    "images/miniprogram_icon/wasaifmguangbojuruanjian.jpg",
+                                icon: Container(
+                                  width: 112.w,
+                                  height: 112.w,
+                                  clipBehavior: Clip.hardEdge,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(18.w),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    const IconData(0xe74b,
+                                        fontFamily: 'Iconfont'),
+                                    color: const Color.fromARGB(
+                                        255, 105, 105, 105),
+                                    size: 40.w,
+                                  ),
+                                ),
                                 title: "浮窗",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
-                                icon:
-                                    "images/miniprogram_icon/gaodeditu12.12.2.jpg",
+                                icon: Container(
+                                  width: 112.w,
+                                  height: 112.w,
+                                  clipBehavior: Clip.hardEdge,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(18.w),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    const IconData(0xe74b,
+                                        fontFamily: 'Iconfont'),
+                                    color: const Color.fromARGB(
+                                        255, 105, 105, 105),
+                                    size: 40.w,
+                                  ),
+                                ),
                                 title: "设置",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
-                                icon:
-                                    "images/miniprogram_icon/weibodongmanlishi.jpg",
+                                icon: Container(
+                                  width: 112.w,
+                                  height: 112.w,
+                                  clipBehavior: Clip.hardEdge,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(18.w),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    const IconData(0xe74b,
+                                        fontFamily: 'Iconfont'),
+                                    color: const Color.fromARGB(
+                                        255, 105, 105, 105),
+                                    size: 40.w,
+                                  ),
+                                ),
                                 title: "反馈与投诉",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
-                                icon:
-                                    "images/miniprogram_icon/haimianbaobao.jpg",
+                                icon: Container(
+                                  width: 112.w,
+                                  height: 112.w,
+                                  clipBehavior: Clip.hardEdge,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(18.w),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    const IconData(0xe74b,
+                                        fontFamily: 'Iconfont'),
+                                    color: const Color.fromARGB(
+                                        255, 105, 105, 105),
+                                    size: 40.w,
+                                  ),
+                                ),
                                 title: "重新进入小程序",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
-                                icon:
-                                    "images/miniprogram_icon/weizhiweizhuangdashi2021.jpg",
+                                icon: Container(
+                                  width: 112.w,
+                                  height: 112.w,
+                                  clipBehavior: Clip.hardEdge,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(18.w),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    const IconData(0xe74b,
+                                        fontFamily: 'Iconfont'),
+                                    color: const Color.fromARGB(
+                                        255, 105, 105, 105),
+                                    size: 40.w,
+                                  ),
+                                ),
                                 title: "复制链接",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
-                                icon: "images/miniprogram_icon/haiziwang.jpg",
+                                icon: Container(
+                                  width: 112.w,
+                                  height: 112.w,
+                                  clipBehavior: Clip.hardEdge,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(18.w),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    const IconData(0xe74b,
+                                        fontFamily: 'Iconfont'),
+                                    color: const Color.fromARGB(
+                                        255, 105, 105, 105),
+                                    size: 40.w,
+                                  ),
+                                ),
                                 title: "翻译",
                                 onPressed: () {},
                               ),
                               LJNPopupFunctionButton(
-                                icon:
-                                    "images/miniprogram_icon/woyaozuojihua.jpg",
+                                icon: Container(
+                                  width: 112.w,
+                                  height: 112.w,
+                                  clipBehavior: Clip.hardEdge,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(18.w),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    const IconData(0xe74b,
+                                        fontFamily: 'Iconfont'),
+                                    color: const Color.fromARGB(
+                                        255, 105, 105, 105),
+                                    size: 40.w,
+                                  ),
+                                ),
                                 title: "成长守护防沉迷",
                                 onPressed: () {},
                               ),
@@ -706,7 +1035,7 @@ class _LJNPopupButtonMaxWidthButtonState
 
 // 小程序按钮
 class LJNPopupFunctionButton extends StatefulWidget {
-  final String icon;
+  final Object icon;
   final String title;
   final VoidCallback onPressed;
 
@@ -758,17 +1087,8 @@ class LJNPopupFunctionButtonState extends State<LJNPopupFunctionButton> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(18.w),
-              child: Image.asset(
-                assetPath(widget.icon),
-                width: 112.w,
-                height: 112.w,
-                cacheHeight: 224.w.toInt(),
-                cacheWidth: 224.w.toInt(),
-                fit: BoxFit.cover, // 让图片完全填满圆形区域
-              ),
-            ),
+            widget.icon as Widget,
+
             SizedBox(height: 10.w), // 图标和标题之间的间距
             Text(
               widget.title,
