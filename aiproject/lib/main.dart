@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:window_manager/window_manager.dart';
+
 import 'user.dart';
 import 'logger.dart';
 import 'dart:convert';
@@ -96,6 +98,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
 
+  if (Platform.isWindows) {
+    await _windowsInitApp();
+  }
+
   // 禁止横屏
   if (!kIsWeb) {
     await SystemChrome.setPreferredOrientations(
@@ -120,6 +126,27 @@ void main() async {
   runApp(
     const App(),
   );
+}
+
+Future<void> _windowsInitApp() async {
+  await windowManager.ensureInitialized();
+
+  // 设置窗口的大小
+  await windowManager.setSize(Size(375, 812));
+
+  // 获取窗口的大小
+  final windowSize = await windowManager.getSize();
+
+  // 获取屏幕的分辨率
+  final screenSize =
+      WidgetsBinding.instance.platformDispatcher.views.first.physicalSize;
+
+  // 计算居中的位置
+  final centerX = (screenSize.width - windowSize.width) / 2;
+  final centerY = (screenSize.height - windowSize.height) / 2;
+
+  // 设置窗口位置
+  await windowManager.setPosition(Offset(centerX, centerY));
 }
 
 class App extends StatefulWidget {
