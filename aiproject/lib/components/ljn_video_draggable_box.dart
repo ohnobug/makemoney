@@ -153,9 +153,8 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
                 canPop: false, // 不允许默认弹出，使用自定义逻辑控制返回
                 onPopInvokedWithResult: (didPop, result) async {
                   logger.info('qqqqqqqqqqqqqqqqqq');
-                  if (didPop) {
-                    return;
-                  }
+                  if (didPop) return;
+
                   closeFullScreen(currentPosition);
                 },
                 child: GestureDetector(

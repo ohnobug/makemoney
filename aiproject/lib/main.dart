@@ -216,6 +216,8 @@ class _App extends State<App> {
                       bool didPop,
                       Object? result,
                     ) async {
+                      if (didPop) return;
+
                       logger.info('bbbbbbbbbbbbbbbb');
 
                       final backNavigationAllowed =
