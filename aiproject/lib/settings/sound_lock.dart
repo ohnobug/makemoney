@@ -40,10 +40,10 @@ class _LJNSoundLock extends State<LJNSoundLock> {
                   physics: const AlwaysScrollableScrollPhysics(
                       parent: BouncingScrollPhysics()),
                   child: Container(
-                    width: systemState.screenSize.width,
+                    width: MediaQuery.of(context).size.width,
                     // padding: EdgeInsets.only(left: 90.w, right: 90.w),
                     constraints: BoxConstraints(
-                        minHeight: systemState.screenSize.height -
+                        minHeight: MediaQuery.of(context).size.height -
                             (systemState.statusHeight + 90.w)),
                     // color: const Color.fromARGB(255, 231, 15, 15),
                     child: Column(

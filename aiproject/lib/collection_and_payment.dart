@@ -135,7 +135,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                 Container(
                                     padding: EdgeInsets.only(bottom: 60.w),
                                     height: 320.w,
-                                    width: systemState.screenSize.width,
+                                    width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
                                         border: Border(
                                             bottom: BorderSide(
@@ -155,7 +155,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                   children: [
                                     // 优先付款方式
                                     SizedBox(
-                                      width: systemState.screenSize.width,
+                                      width: MediaQuery.of(context).size.width,
                                       height: 25.w,
                                       child: Row(
                                         crossAxisAlignment:

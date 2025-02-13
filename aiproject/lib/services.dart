@@ -88,7 +88,7 @@ class _LJNServicesPage extends State<LJNServicesPage>
                         child: Container(
                           constraints: BoxConstraints(
                               minHeight:
-                                  systemState.screenSize.height - 205.w),
+                                  MediaQuery.of(context).size.height - 205.w),
                           color: const Color.fromARGB(255, 237, 237, 237),
                           child: Column(
                             children: [
@@ -382,7 +382,7 @@ class _LJNServicesPage extends State<LJNServicesPage>
               child: Container(
                 color: const Color.fromARGB(127, 0, 0, 0),
                 width: 750.w,
-                height: systemState.screenSize.height,
+                height: MediaQuery.of(context).size.height,
               )),
 
         AnimatedBuilder(

@@ -41,7 +41,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                           parent: BouncingScrollPhysics()),
                       child: Container(
                         constraints: BoxConstraints(
-                            minHeight: systemState.screenSize.height - 205.w),
+                            minHeight: MediaQuery.of(context).size.height - 205.w),
                         color: Colors.white,
                         padding: EdgeInsets.only(left: 60.w, right: 60.w),
                         child: Column(

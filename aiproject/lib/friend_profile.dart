@@ -68,8 +68,8 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
         primary: false,
         appBar: null,
         body: SizedBox(
-            width: systemState.screenSize.width,
-            height: systemState.screenSize.height,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             child: Stack(children: [
               LJNAppBar(
                 title: "",
@@ -109,7 +109,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                           .copyWith(scrollbars: false),
                       child: Container(
                           constraints: BoxConstraints(
-                              minHeight: systemState.screenSize.height -
+                              minHeight: MediaQuery.of(context).size.height -
                                   90.w -
                                   systemState.statusHeight),
                           decoration: const BoxDecoration(
@@ -595,7 +595,7 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                     child: Container(
                       color: const Color.fromARGB(127, 0, 0, 0),
                       width: 750.w,
-                      height: systemState.screenSize.height,
+                      height: MediaQuery.of(context).size.height,
                     )),
 
               AnimatedBuilder(

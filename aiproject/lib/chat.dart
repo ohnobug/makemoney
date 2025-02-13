@@ -108,9 +108,7 @@ class _LJNChatPage extends State<LJNChatPage>
   // DateTime? _lastExecuted; // 用来记录上次执行的时间
 
   // 功能面板动画
-  bool _showDialSelector = false;
   late AnimationController _popupAnimationController;
-  late Animation<double> _upAnimation;
 
   @override
   void initState() {
@@ -126,13 +124,6 @@ class _LJNChatPage extends State<LJNChatPage>
       duration: const Duration(milliseconds: 200),
       reverseDuration: const Duration(milliseconds: 50),
       vsync: this,
-    );
-
-    _upAnimation = Tween<double>(begin: -330.w, end: 0).animate(
-      CurvedAnimation(
-        parent: _popupAnimationController,
-        curve: Curves.easeInOut,
-      ),
     );
 
     // 放大缩小语音
@@ -555,10 +546,12 @@ class _LJNChatPage extends State<LJNChatPage>
   final int _showKeyboradDurationMilliseconds = 400;
 
   // 表情选择器高度
-  final double _emojiSelectorHeight = 675.h;
+  // final double _emojiSelectorHeight = 675.w;
+  final double _emojiSelectorHeight = 675.w;
 
   // 功能选择器高度
-  final double _functionSelectorHeight = 630.h;
+  // final double _functionSelectorHeight = 630.w;
+  final double _functionSelectorHeight = 630.w;
 
   // 切换后模式等待时间
   final int _changeTypeMilliseconds = 50;
@@ -804,7 +797,7 @@ class _LJNChatPage extends State<LJNChatPage>
 
     _gotoPositionEmojiPanel(
         begin: 0,
-        end: _emojiSelectorHeight,
+        end: _functionSelectorHeight,
         duration: Duration(milliseconds: _showKeyboradDurationMilliseconds),
         eachFrameScrollToEnd: () {
           _scrollToEnd();
@@ -1351,7 +1344,7 @@ class _LJNChatPage extends State<LJNChatPage>
                                                       contentPadding:
                                                           const EdgeInsets
                                                                   .symmetric(
-                                                                  vertical: 14,
+                                                                  vertical: 19,
                                                                   horizontal:
                                                                       16)
                                                               .w,
@@ -1594,9 +1587,6 @@ class _LJNChatPage extends State<LJNChatPage>
 
               // 语音消息
               if (showVoiceLottie) _buildVoiceWidget(systemState),
-
-              // 视频通话弹窗
-              if (_showDialSelector) _buildVideoCallPopupWidget(systemState)
             ],
           ));
     });
@@ -1659,9 +1649,7 @@ class _LJNChatPage extends State<LJNChatPage>
                 ),
                 onTap: () {
                   logger.info("视频通话");
-                  setState(() {
-                    _showDialSelector = true;
-                  });
+                  _showPopup(context, systemState);
                   _popupAnimationController.forward();
                 }),
             FunctionButton(
@@ -2055,168 +2043,142 @@ class _LJNChatPage extends State<LJNChatPage>
                 }));
   }
 
-  // 视频通话弹窗
-  Widget _buildVideoCallPopupWidget(SystemState systemState) {
-    return GestureDetector(
-        onTap: () {
-          _popupAnimationController.reverse().then((_) {
-            setState(() {
-              _showDialSelector = false;
-            });
-          });
-        },
-        child: Container(
-          color: const Color.fromARGB(127, 0, 0, 0),
-          width: 750.w,
-          height: systemState.screenSize.height,
-          child: Stack(
-            children: [
-              AnimatedBuilder(
-                  animation: _popupAnimationController,
-                  builder: (context, child) {
-                    return Positioned(
-                        left: 0,
-                        bottom: _upAnimation.value,
-                        width: 750.w,
-                        height: 330.w,
-                        child: Container(
-                            width: 750.w,
-                            height: 330.w,
-                            clipBehavior: Clip.hardEdge,
-                            decoration: BoxDecoration(
-                              // color: Colors.red,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20.w),
-                                topRight: Radius.circular(20.w),
-                              ),
-                            ),
-                            child: Column(
-                              children: [
-                                LJNMaxWidthButton(
-                                  title: Text.rich(
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    TextSpan(children: [
-                                      WidgetSpan(
-                                        alignment: PlaceholderAlignment.middle,
-                                        style: const TextStyle(
-                                          decoration: TextDecoration.none,
-                                        ),
-                                        child: Baseline(
-                                          baseline: 31.w,
-                                          baselineType: TextBaseline.alphabetic,
-                                          child: Icon(
-                                            const IconData(
-                                              0xe64f,
-                                              fontFamily: 'Iconfont',
-                                            ),
-                                            color: Colors.black,
-                                            size: 40.w,
-                                          ),
-                                        ),
-                                      ),
-                                      WidgetSpan(
-                                        child: SizedBox(width: 50.w),
-                                      ),
-                                      TextSpan(
-                                        text: "视频通话",
-                                        style: TextStyle(
-                                          height: 1.08,
-                                          fontSize: 30.w,
-                                          decoration: TextDecoration.none,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ]),
-                                  ),
-                                  underline: true,
-                                  // link: '/dial',
-                                  onPressed: () {
-                                    setState(() {
-                                      _showDialSelector = false;
-                                      _popupAnimationController.reset();
-                                    });
+  void _showPopup(BuildContext context, SystemState systemState) {
+    double widthHeightRatio =
+        MediaQuery.of(context).size.width / MediaQuery.of(context).size.height;
 
-                                    Navigator.pushNamed(
-                                      context,
-                                      '/video_call',
-                                    );
-                                  },
-                                ),
-                                LJNMaxWidthButton(
-                                  title: Text.rich(
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    TextSpan(children: [
-                                      WidgetSpan(
-                                        alignment: PlaceholderAlignment.middle,
-                                        style: const TextStyle(
-                                          decoration: TextDecoration.none,
-                                        ),
-                                        child: Baseline(
-                                          baseline: 31.w,
-                                          baselineType: TextBaseline.alphabetic,
-                                          child: Icon(
-                                            const IconData(
-                                              0xe64c,
-                                              fontFamily: 'Iconfont',
-                                            ),
-                                            color: Colors.black,
-                                            size: 40.w,
-                                          ),
-                                        ),
-                                      ),
-                                      WidgetSpan(
-                                        child: SizedBox(width: 50.w),
-                                      ),
-                                      TextSpan(
-                                        text: "语音通话",
-                                        style: TextStyle(
-                                          height: 1.08,
-                                          fontSize: 30.w,
-                                          decoration: TextDecoration.none,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ]),
-                                  ),
-                                  underline: true,
-                                  onPressed: () {
-                                    setState(() {
-                                      _showDialSelector = false;
-                                      _popupAnimationController.reset();
-                                    });
-
-                                    Navigator.pushNamed(
-                                      context,
-                                      '/dial',
-                                    );
-                                  },
-                                ),
-                                Container(
-                                  height: 15.w,
-                                  color:
-                                      const Color.fromARGB(255, 247, 247, 247),
-                                ),
-                                LJNMaxWidthButton(
-                                  title: "取消",
-                                  underline: false,
-                                  onPressed: () {
-                                    _popupAnimationController
-                                        .reverse()
-                                        .then((_) {
-                                      setState(() {
-                                        _showDialSelector = false;
-                                      });
-                                    });
-                                  },
-                                ),
-                              ],
-                            )));
-                  })
-            ],
+    showModalBottomSheet(
+        context: context,
+        barrierColor: Color.fromARGB(120, 0, 0, 0),
+        // backgroundColor: Colors.red,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: widthHeightRatio > 1 ||
+                    MediaQuery.of(context).size.height < 1102.w
+                ? Radius.zero
+                : Radius.circular(13.w),
           ),
-        ));
+        ),
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return Container(
+              width: 750.w,
+              height: 330.w,
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                // color: Colors.red,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.w),
+                  topRight: Radius.circular(20.w),
+                ),
+              ),
+              child: Column(
+                children: [
+                  LJNMaxWidthButton(
+                    title: Text.rich(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      TextSpan(children: [
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          style: const TextStyle(
+                            decoration: TextDecoration.none,
+                          ),
+                          child: Baseline(
+                            baseline: 31.w,
+                            baselineType: TextBaseline.alphabetic,
+                            child: Icon(
+                              const IconData(
+                                0xe64f,
+                                fontFamily: 'Iconfont',
+                              ),
+                              color: Colors.black,
+                              size: 40.w,
+                            ),
+                          ),
+                        ),
+                        WidgetSpan(
+                          child: SizedBox(width: 50.w),
+                        ),
+                        TextSpan(
+                          text: "视频通话",
+                          style: TextStyle(
+                            height: 1.08,
+                            fontSize: 30.w,
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ]),
+                    ),
+                    underline: true,
+                    // link: '/dial',
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/video_call',
+                      );
+                    },
+                  ),
+                  LJNMaxWidthButton(
+                    title: Text.rich(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      TextSpan(children: [
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          style: const TextStyle(
+                            decoration: TextDecoration.none,
+                          ),
+                          child: Baseline(
+                            baseline: 31.w,
+                            baselineType: TextBaseline.alphabetic,
+                            child: Icon(
+                              const IconData(
+                                0xe64c,
+                                fontFamily: 'Iconfont',
+                              ),
+                              color: Colors.black,
+                              size: 40.w,
+                            ),
+                          ),
+                        ),
+                        WidgetSpan(
+                          child: SizedBox(width: 50.w),
+                        ),
+                        TextSpan(
+                          text: "语音通话",
+                          style: TextStyle(
+                            height: 1.08,
+                            fontSize: 30.w,
+                            decoration: TextDecoration.none,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ]),
+                    ),
+                    underline: true,
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/dial',
+                      );
+                    },
+                  ),
+                  Container(
+                    height: 15.w,
+                    color: const Color.fromARGB(255, 247, 247, 247),
+                  ),
+                  LJNMaxWidthButton(
+                    title: "取消",
+                    underline: false,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ));
+        });
   }
 }
 

@@ -435,8 +435,8 @@ class _LJNAddressBookLabel extends State<LJNAddressBookLabel> {
       body: Stack(
         children: [
           Container(
-              width: systemState.screenSize.width,
-              height: systemState.screenSize.height,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [

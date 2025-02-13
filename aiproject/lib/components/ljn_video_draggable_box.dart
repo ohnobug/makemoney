@@ -181,7 +181,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
                         // 背景
                         double distance = _boxOffset.dy.abs();
                         double v =
-                            distance / (systemState.screenSize.height / 2);
+                            distance / (MediaQuery.of(context).size.height / 2);
 
                         if (v > 1) v = 1;
                         _bgTransparentController.value = 1 - v;
@@ -205,8 +205,10 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
                       // 使用 Tween 动画将偏移量平滑过渡到 (0, 0)
                       _positionAnimation = Tween<Offset>(
                         begin: currentPosition,
-                        end: Offset(0,
-                            (systemState.screenSize.height - videoHeight) / 2),
+                        end: Offset(
+                            0,
+                            (MediaQuery.of(context).size.height - videoHeight) /
+                                2),
                       ).animate(CurvedAnimation(
                         parent: _positionAnimationController,
                         curve: Curves.easeInOutCubicEmphasized, // 使用缓动曲线
@@ -231,8 +233,8 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
                       children: [
                         // 背景
                         Container(
-                          width: systemState.screenSize.width,
-                          height: systemState.screenSize.height,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
                           color: Color.fromARGB(
                               _bganimation.value.toInt(), 0, 0, 0),
                         ),

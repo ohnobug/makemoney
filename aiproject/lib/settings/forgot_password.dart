@@ -30,7 +30,7 @@ class _LJNForgotPassword extends State<LJNForgotPassword> {
                   ScrollConfiguration.of(context).copyWith(scrollbars: false),
               child: Container(
                   constraints: BoxConstraints(
-                      minHeight: systemState.screenSize.height -
+                      minHeight: MediaQuery.of(context).size.height -
                           90.w -
                           systemState.statusHeight),
                   color: Colors.white,
@@ -38,7 +38,7 @@ class _LJNForgotPassword extends State<LJNForgotPassword> {
                       physics: const AlwaysScrollableScrollPhysics(
                           parent: BouncingScrollPhysics()),
                       child: Container(
-                          width: systemState.screenSize.width,
+                          width: MediaQuery.of(context).size.width,
                           padding: EdgeInsets.only(left: 70.w, right: 70.w),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

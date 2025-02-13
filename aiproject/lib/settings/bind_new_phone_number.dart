@@ -45,7 +45,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                     ScrollConfiguration.of(context).copyWith(scrollbars: false),
                 child: Container(
                     constraints: BoxConstraints(
-                        minHeight: systemState.screenSize.height -
+                        minHeight: MediaQuery.of(context).size.height -
                             90.w -
                             systemState.statusHeight),
                     color: const Color.fromARGB(255, 237, 237, 237),
@@ -55,7 +55,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                         child: Container(
                           padding: EdgeInsets.only(left: 30.w, right: 30.w),
                           height: 100.w,
-                          width: systemState.screenSize.width,
+                          width: MediaQuery.of(context).size.width,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.end,

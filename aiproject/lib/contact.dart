@@ -468,7 +468,7 @@ class _LJNContactPageState extends State<LJNContactPage> {
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: Container(
             constraints: BoxConstraints(
-                minHeight: systemState.screenSize.height -
+                minHeight: MediaQuery.of(context).size.height -
                     90.w -
                     systemState.statusHeight),
             decoration: const BoxDecoration(

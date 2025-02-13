@@ -2077,7 +2077,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                         Container(
                           color: const Color.fromARGB(255, 246, 246, 246),
                           height: 110.w,
-                          width: systemState.screenSize.width,
+                          width: MediaQuery.of(context).size.width,
                           child: Row(
                             children: [
                               Container(
@@ -2158,7 +2158,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                         // 调整大小的拉杆
                         Container(
                             height: 75.w,
-                            width: systemState.screenSize.width,
+                            width: MediaQuery.of(context).size.width,
                             alignment: Alignment.center,
                             child: Container(
                               width: 85.w,
@@ -2173,7 +2173,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
 
                         // 表情包
                         SizedBox(
-                          width: systemState.screenSize.width,
+                          width: MediaQuery.of(context).size.width,
                           height: 490.w,
                           child: SingleChildScrollView(
                               controller: _scrollController,

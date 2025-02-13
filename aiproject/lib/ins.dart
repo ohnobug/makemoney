@@ -713,8 +713,8 @@ class _LJNInsPage extends State<LJNInsPage> {
             Visibility(
                 visible: bigImgVisible,
                 child: SizedBox(
-                  height: systemState.screenSize.height,
-                  width: systemState.screenSize.width,
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
@@ -734,9 +734,9 @@ class _LJNInsPage extends State<LJNInsPage> {
                               borderRadius: BorderRadius.all(
                                   Radius.circular(20.w)), // 圆角前景
                               child: Container(
-                                width: systemState.screenSize.width - 60.w,
+                                width: MediaQuery.of(context).size.width - 60.w,
                                 constraints: BoxConstraints(
-                                  maxHeight: systemState.screenSize.height -
+                                  maxHeight: MediaQuery.of(context).size.height -
                                       100.w * 2,
                                 ),
                                 decoration: const BoxDecoration(

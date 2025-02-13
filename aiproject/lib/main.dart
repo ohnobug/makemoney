@@ -540,7 +540,7 @@ class _CustomTabbarState extends State<CustomTabbar>
 
       // 新appbar透明度
       double percent75Position =
-          systemState.screenSize.height * 0.25; // 开始显示新appbar的位置
+          MediaQuery.of(context).size.height * 0.25; // 开始显示新appbar的位置
 
       // appbar标题
       Text appBarTitle = const Text("");

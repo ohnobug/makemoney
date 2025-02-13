@@ -73,7 +73,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
             ]),
             body: Container(
                 constraints: BoxConstraints(
-                    minHeight: systemState.screenSize.height -
+                    minHeight: MediaQuery.of(context).size.height -
                         90.w -
                         systemState.statusHeight),
                 color: const Color.fromARGB(255, 237, 237, 237),
@@ -81,7 +81,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                   // 全部账单 标题选项
                   Container(
                     height: 130.w,
-                    width: systemState.screenSize.width,
+                    width: MediaQuery.of(context).size.width,
                     alignment: Alignment.center,
                     padding: EdgeInsets.only(left: 30.w, right: 30.w),
                     decoration: BoxDecoration(
@@ -220,7 +220,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
 
                   // 列表
                   SizedBox(
-                      height: systemState.screenSize.height -
+                      height: MediaQuery.of(context).size.height -
                           90.w -
                           systemState.statusHeight -
                           107.w -
@@ -342,8 +342,8 @@ class _LJNBillDetails extends State<LJNBillDetails>
                   },
                   child: Container(
                     color: const Color.fromARGB(115, 0, 0, 0),
-                    width: systemState.screenSize.width,
-                    height: systemState.screenSize.height,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
                   ))
               : Container(),
 
@@ -357,7 +357,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                     height: 1030.w,
                     child: Container(
                       height: 1030.w,
-                      width: systemState.screenSize.width,
+                      width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.only(left: 45.w, right: 45.w),
                       decoration: BoxDecoration(
                         color: Colors.white,

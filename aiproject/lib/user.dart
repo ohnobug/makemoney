@@ -43,7 +43,7 @@ class _LJNUserPageState extends State<LJNUserPage> {
     return Stack(children: [
       Container(
         constraints:
-            BoxConstraints(minHeight: systemState.screenSize.height - 106.w),
+            BoxConstraints(minHeight: MediaQuery.of(context).size.height - 106.w),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.white, Color.fromARGB(255, 237, 237, 237)],
@@ -54,8 +54,8 @@ class _LJNUserPageState extends State<LJNUserPage> {
         ),
       ),
       SizedBox(
-          width: systemState.screenSize.width,
-          height: systemState.screenSize.height,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           child: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),

@@ -25,7 +25,7 @@ class _FunctionButtonState extends State<FunctionButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: (widget.systemState.screenSize.width) / 4,
+      width: (MediaQuery.of(context).size.width) / 4,
       alignment: Alignment.center,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

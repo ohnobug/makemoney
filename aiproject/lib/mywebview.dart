@@ -191,13 +191,13 @@ class _LJNWebviewState extends State<LJNWebview>
                   visible: !pageVisible,
                   child: Container(
                       color: const Color.fromARGB(255, 177, 177, 177),
-                      width: systemState.screenSize.width,
-                      height: systemState.screenSize.height,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
                       child: Center(
                           child: Lottie.asset(
                         assetPath('lotties/miniprogramloading.json'),
-                        width: systemState.screenSize.width * 0.4,
-                        // height: systemState.screenSize.height,
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        // height: MediaQuery.of(context).size.height,
                         fit: BoxFit.contain,
                         renderCache: RenderCache.drawingCommands,
                         controller: _lottieController,
@@ -273,8 +273,8 @@ class _LJNWebviewState extends State<LJNWebview>
               ),
 
               // Container(
-              //   width: systemState.screenSize.height,
-              //   height: systemState.screenSize.width,
+              //   width: MediaQuery.of(context).size.height,
+              //   height: MediaQuery.of(context).size.width,
               //   color: Color.fromARGB(102, 0, 0, 0),
               // ),
             ],
@@ -342,7 +342,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
 
       // 评论
       Container(
-        width: systemState.screenSize.width,
+        width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.only(
           left: 24.w,
           right: 24.w,
@@ -377,7 +377,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
       // 转发
       Container(
         color: Color.fromARGB(255, 247, 247, 247),
-        width: systemState.screenSize.width,
+        width: MediaQuery.of(context).size.width,
         height: 300.w,
         padding: EdgeInsets.only(
           top: 40.w,
@@ -579,7 +579,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
       // 功能按钮
       Container(
           height: 465.w,
-          width: systemState.screenSize.width,
+          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 247, 247, 247),
             border: Border(
@@ -595,7 +595,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
           child: Column(
             children: [
               SizedBox(
-                width: systemState.screenSize.width,
+                width: MediaQuery.of(context).size.width,
                 height: 200.w,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -744,7 +744,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                 height: 10.w,
               ),
               SizedBox(
-                width: systemState.screenSize.width,
+                width: MediaQuery.of(context).size.width,
                 height: 200.w,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -952,8 +952,8 @@ void _showPopup(BuildContext context, SystemState systemState) {
         return widthHeightRatio > 1 ||
                 MediaQuery.of(context).size.height < 1102.w
             ? SizedBox(
-                height: systemState.screenSize.height,
-                width: systemState.screenSize.width,
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
                 child: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)
                       .copyWith(scrollbars: false),
@@ -968,7 +968,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
               )
             : SizedBox(
                 height: 1102.w,
-                width: systemState.screenSize.width,
+                width: MediaQuery.of(context).size.width,
                 child: popupWidget,
               );
       });
@@ -1040,7 +1040,7 @@ class _LJNPopupButtonMaxWidthButtonState
         },
         child: Container(
           height: 112.w,
-          width: systemState.screenSize.width,
+          width: MediaQuery.of(context).size.width,
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: containerColor,

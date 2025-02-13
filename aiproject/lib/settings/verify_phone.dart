@@ -66,7 +66,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                     ScrollConfiguration.of(context).copyWith(scrollbars: false),
                 child: Container(
                     constraints: BoxConstraints(
-                        minHeight: systemState.screenSize.height -
+                        minHeight: MediaQuery.of(context).size.height -
                             90.w -
                             systemState.statusHeight),
                     color: const Color.fromARGB(255, 237, 237, 237),
@@ -93,7 +93,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                             Container(
                               padding: EdgeInsets.only(left: 50.w, right: 50.w),
                               height: 95.w,
-                              width: systemState.screenSize.width,
+                              width: MediaQuery.of(context).size.width,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [

@@ -48,7 +48,7 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
                     ScrollConfiguration.of(context).copyWith(scrollbars: false),
                 child: Container(
                     constraints: BoxConstraints(
-                        minHeight: systemState.screenSize.height -
+                        minHeight: MediaQuery.of(context).size.height -
                             90.w -
                             systemState.statusHeight),
                     color: Colors.white,
@@ -58,7 +58,7 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
                         child: Container(
                           padding: EdgeInsets.only(left: 50.w, right: 50.w),
                           height: 95.w,
-                          width: systemState.screenSize.width,
+                          width: MediaQuery.of(context).size.width,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [

@@ -880,7 +880,7 @@ class _LJNGroupChatPage extends State<LJNGroupChatPage>
                           flex: 0,
                           child: Container(
                               constraints: BoxConstraints(minHeight: 107.w),
-                              width: systemState.screenSize.width,
+                              width: MediaQuery.of(context).size.width,
                               // margin: EdgeInsets.only(bottom: inputMarginBottom),
                               decoration: BoxDecoration(
                                   color:
@@ -1357,7 +1357,7 @@ class _LJNGroupChatPage extends State<LJNGroupChatPage>
                           return Expanded(
                               flex: 0,
                               child: SizedBox(
-                                  width: systemState.screenSize.width,
+                                  width: MediaQuery.of(context).size.width,
                                   height: _keyboradAnimation.value,
                                   // color: Colors.red,
                                   child: showEmojiSelector
@@ -1387,8 +1387,8 @@ class _LJNGroupChatPage extends State<LJNGroupChatPage>
               // 语音消息
               showVoiceLottie
                   ? SizedBox(
-                      width: systemState.screenSize.width,
-                      height: systemState.screenSize.height,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
                       // padding: EdgeInsets.only(top: systemState.statusHeight),
                       child: // 图标选择器
                           AnimatedBuilder(
@@ -1406,15 +1406,15 @@ class _LJNGroupChatPage extends State<LJNGroupChatPage>
                                     // 背景
                                     Container(
                                       color: const Color.fromARGB(185, 0, 0, 0),
-                                      width: systemState.screenSize.width,
-                                      height: systemState.screenSize.height,
+                                      width: MediaQuery.of(context).size.width,
+                                      height: MediaQuery.of(context).size.height,
                                     ),
 
                                     // 动画
                                     Lottie.asset(
                                       assetPath('lotties/voicepop.json'),
-                                      width: systemState.screenSize.width,
-                                      height: systemState.screenSize.height,
+                                      width: MediaQuery.of(context).size.width,
+                                      height: MediaQuery.of(context).size.height,
                                       fit: BoxFit.contain,
                                       alignment: Alignment.bottomCenter,
                                       renderCache: RenderCache.drawingCommands,
@@ -1655,7 +1655,7 @@ class _LJNGroupChatPage extends State<LJNGroupChatPage>
                                       bottom: 270.w +
                                           _voiceLottieController.value * 30.w,
                                       child: Container(
-                                          width: systemState.screenSize.width,
+                                          width: MediaQuery.of(context).size.width,
                                           alignment: Alignment.center,
                                           child: Text(
                                             '松开发送',

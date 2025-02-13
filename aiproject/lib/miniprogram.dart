@@ -151,7 +151,7 @@ class _LJNMiniProgramPage extends State<LJNMiniProgramPage> {
                           parent: BouncingScrollPhysics()),
                       child: Container(
                         constraints: BoxConstraints(
-                            minHeight: systemState.screenSize.height - 205.w),
+                            minHeight: MediaQuery.of(context).size.height - 205.w),
                         color: const Color.fromARGB(255, 237, 237, 237),
                         child: Column(
                           children: [

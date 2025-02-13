@@ -43,7 +43,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           parent: BouncingScrollPhysics()),
                       child: Container(
                         constraints: BoxConstraints(
-                            minHeight: systemState.screenSize.height - 205.w),
+                            minHeight: MediaQuery.of(context).size.height - 205.w),
                         color: Colors.white,
                         padding: EdgeInsets.only(left: 45.w, right: 45.w),
                         child: Column(

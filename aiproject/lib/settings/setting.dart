@@ -34,7 +34,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                   ScrollConfiguration.of(context).copyWith(scrollbars: false),
               child: Container(
                   constraints: BoxConstraints(
-                      minHeight: systemState.screenSize.height -
+                      minHeight: MediaQuery.of(context).size.height -
                           90.w -
                           systemState.statusHeight),
                   color: const Color.fromARGB(255, 237, 237, 237),

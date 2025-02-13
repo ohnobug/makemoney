@@ -465,7 +465,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                             width: 1.0.w,
                             style: BorderStyle.solid,
                           ))),
-                          width: systemState.screenSize.width,
+                          width: MediaQuery.of(context).size.width,
                           padding: EdgeInsets.only(
                               left: 30.w, right: 30.w, bottom: 10.w, top: 10.w),
                           child: Column(
@@ -559,7 +559,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                               ),
 
                               SizedBox(
-                                width: systemState.screenSize.width,
+                                width: MediaQuery.of(context).size.width,
                                 child: Wrap(
                                   children: historyList.map((item) {
                                     return SizedBox(
@@ -590,7 +590,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                             width: 1.0.w,
                             style: BorderStyle.solid,
                           ))),
-                          width: systemState.screenSize.width,
+                          width: MediaQuery.of(context).size.width,
                           padding: EdgeInsets.only(
                               left: 30.w, right: 30.w, bottom: 10.w, top: 10.w),
                           child: Column(
@@ -685,7 +685,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
 
                               // 标题列表
                               SizedBox(
-                                width: systemState.screenSize.width,
+                                width: MediaQuery.of(context).size.width,
                                 child: Wrap(
                                   children: suggestionsForYouList.map((item) {
                                     return SizedBox(
@@ -715,7 +715,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
 
                     // 热榜
                     SizedBox(
-                      width: systemState.screenSize.width,
+                      width: MediaQuery.of(context).size.width,
                       height: (hotList.length * (72.w + 15.w) + 90.w),
                       child: PageView(
                         scrollDirection: Axis.horizontal,
@@ -750,7 +750,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                   key: hotTitleBoxKey,
                   alignment: Alignment.center,
                   height: 110.w,
-                  width: systemState.screenSize.width,
+                  width: MediaQuery.of(context).size.width,
                   child: SingleChildScrollView(
                     controller: hotTitleBoxController,
                     primary: false,
@@ -802,7 +802,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
         builder: (context, systemState) {
       return Container(
           // height: 4350.w + 90.w,
-          width: systemState.screenSize.width,
+          width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.only(left: 20.w, right: 20.w),
           child: Column(
             children: [
@@ -896,7 +896,7 @@ class _LJNSearchPage extends State<LJNSearchPage> {
                 );
               }),
               SizedBox(
-                width: systemState.screenSize.width,
+                width: MediaQuery.of(context).size.width,
                 height: 90.w,
                 child: const Center(
                     child: Text(

@@ -69,7 +69,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
               ((systemState.homescrollpixels +
                       systemState.statusHeight -
                       400.w) /
-                  (systemState.screenSize.height - newAppbarHeight - 400.w)));
+                  (MediaQuery.of(context).size.height - newAppbarHeight - 400.w)));
       if (miniprogramboxScale < 0) {
         miniprogramboxScale = 0;
       } else if (miniprogramboxScale > 1) {
@@ -77,7 +77,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
       }
 
       return Container(
-          width: systemState.screenSize.width,
+          width: MediaQuery.of(context).size.width,
           height: systemState.homescrollpixels +
               (90.w + systemState.statusHeight + 200.w),
           color: Color.fromARGB((255 * 0.8).toInt(), 50, 48, 70),

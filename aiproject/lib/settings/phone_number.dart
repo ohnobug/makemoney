@@ -42,7 +42,7 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                     ScrollConfiguration.of(context).copyWith(scrollbars: false),
                 child: Container(
                     constraints: BoxConstraints(
-                        minHeight: systemState.screenSize.height -
+                        minHeight: MediaQuery.of(context).size.height -
                             90.w -
                             systemState.statusHeight),
                     color: Colors.white,
@@ -50,7 +50,7 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                         physics: const AlwaysScrollableScrollPhysics(
                             parent: BouncingScrollPhysics()),
                         child: SizedBox(
-                            width: systemState.screenSize.width,
+                            width: MediaQuery.of(context).size.width,
                             // padding: EdgeInsets.only(left: 70.w, right: 70.w),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,

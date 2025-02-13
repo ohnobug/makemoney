@@ -56,7 +56,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
         ),
         body: Container(
             constraints: BoxConstraints(
-              minHeight: systemState.screenSize.height -
+              minHeight: MediaQuery.of(context).size.height -
                   (90.0.w + systemState.statusHeight),
             ),
             color: const Color.fromARGB(255, 237, 237, 237),

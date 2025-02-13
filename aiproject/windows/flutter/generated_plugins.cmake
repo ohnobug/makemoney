@@ -8,6 +8,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_webrtc
   record_windows
   screen_retriever_windows
+  video_player_win
   webview_windows
   window_manager
 )

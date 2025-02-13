@@ -59,7 +59,7 @@ class _LJNTiktikPage extends State<LJNTiktikPage> {
 
             SizedBox(
                 width: 750.w,
-                height: systemState.screenSize.height -
+                height: MediaQuery.of(context).size.height -
                     115.w -
                     systemState.statusHeight,
                 child: PageView.builder(
@@ -295,7 +295,7 @@ class _LJNTiktikPage extends State<LJNTiktikPage> {
 
             // 底部
             Container(
-              width: systemState.screenSize.width,
+              width: MediaQuery.of(context).size.width,
               height: 115.w,
               color: const Color.fromARGB(255, 80, 80, 80),
               child: Row(
@@ -450,7 +450,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
         builder: (context, systemState) {
       return SizedBox(
         width: 750.w,
-        height: systemState.screenSize.height - 115.w,
+        height: MediaQuery.of(context).size.height - 115.w,
         child: _videoController != null && _videoController!.value.isInitialized
             ? FittedBox(
                 fit: BoxFit.cover, // 居中裁剪
@@ -463,7 +463,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
                     )))
             : Container(
                 width: 750.w,
-                height: systemState.screenSize.height - 115.w,
+                height: MediaQuery.of(context).size.height - 115.w,
                 color: Colors.black,
               ),
       );
