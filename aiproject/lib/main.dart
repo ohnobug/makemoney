@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:jiaoyishuoflutter3/camera_view.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_video_draggable_box.dart';
+import 'package:jiaoyishuoflutter3/store/popup/popup_cubit.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'user.dart';
@@ -165,6 +167,20 @@ class _App extends State<App> {
     super.initState();
   }
 
+  bool _defaultOnNavigationNotification(NavigationNotification _) {
+    switch (WidgetsBinding.instance.lifecycleState) {
+      case null:
+      case AppLifecycleState.detached:
+      case AppLifecycleState.inactive:
+        return true;
+      case AppLifecycleState.resumed:
+      case AppLifecycleState.hidden:
+      case AppLifecycleState.paused:
+        SystemNavigator.setFrameworkHandlesBack(true);
+        return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -172,6 +188,7 @@ class _App extends State<App> {
           BlocProvider(create: (_) => CounterCubit()),
           BlocProvider(create: (_) => SystemCubit()),
           BlocProvider(create: (_) => UserCubit()),
+          BlocProvider(create: (_) => PopupCubit()),
         ],
         child: ScreenUtilInit(
             designSize: const Size(750, 1624),
@@ -185,6 +202,63 @@ class _App extends State<App> {
                 navigatorKey: context.read<SystemCubit>().state.navigatorKey,
                 debugShowCheckedModeBanner: false,
                 initialRoute: '/',
+                onNavigationNotification: _defaultOnNavigationNotification,
+                // home: Container(
+                //   width: 300,
+                //   height: 300,
+                //   color: Colors.red,
+                //   child: Text("hallo"),
+                // ),
+                builder: (context, child) {
+                  return PopScope(
+                    canPop: false, // prevent back
+                    onPopInvokedWithResult: (
+                      bool didPop,
+                      Object? result,
+                    ) async {
+                      logger.info('bbbbbbbbbbbbbbbb');
+
+                      final backNavigationAllowed =
+                          context.read<PopupCubit>().state.showFullScreenVideo;
+
+                      if (backNavigationAllowed) {
+                        context
+                            .read<PopupCubit>()
+                            .updateShowFullScreenVideo(false);
+                      } else {
+                        // if (mounted) Navigator.of(context).pop();
+                        context
+                            .read<PopupCubit>()
+                            .updateShowFullScreenVideo(false);
+                      }
+                    },
+                    child: Stack(
+                      children: [
+                        child!,
+
+                        // 视频放大
+                        BlocBuilder<PopupCubit, PopupState>(
+                          builder: (context, popupState) {
+                            return popupState.showFullScreenVideo
+                                ? LJNVideoDraggableBox(
+                                    openBoxSize: popupState.openBoxSize,
+                                    openPosition: popupState.openPosition,
+                                    videoPath: popupState.videoPath,
+                                    onClose: () {
+                                      setState(() {
+                                        context
+                                            .read<PopupCubit>()
+                                            .updateShowFullScreenVideo(false);
+                                      });
+                                    },
+                                  )
+                                : Container();
+                          },
+                        )
+                      ],
+                    ),
+                  );
+                },
                 onGenerateRoute: (settings) {
                   if (settings.name == '/') {
                     return pageRouteBuilderNotAnimation(const CustomTabbar());
@@ -411,6 +485,7 @@ class _App extends State<App> {
   }
 }
 
+// 自定义Tabbar
 class CustomTabbar extends StatefulWidget {
   const CustomTabbar({super.key});
 
@@ -768,103 +843,106 @@ class _CustomTabbarState extends State<CustomTabbar>
           // 背景
           if (showpopup) ...[
             GestureDetector(
-                onTapDown: (_) {
-                  setState(() {
-                    showpopup = !showpopup;
-                  });
-                },
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    color: Colors.transparent)),
+              onTapDown: (_) {
+                setState(() {
+                  showpopup = !showpopup;
+                });
+              },
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  color: Colors.transparent),
+            ),
 
             // 弹出扫码菜单
             Positioned(
-                right: 15.w,
-                top: systemState.statusHeight + 80.w,
-                child: SizedBox(
-                  width: 320.w,
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 320.w,
-                        padding: EdgeInsets.only(right: 32.w),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            SizedBox(
-                                width: 36.w,
-                                height: 20.w,
-                                child: Icon(
-                                  color: const Color.fromARGB(255, 76, 76, 76),
-                                  const IconData(
-                                    0xe62c,
-                                    fontFamily: 'Iconfont',
-                                  ),
-                                  size: 42.w,
-                                ))
-                          ],
-                        ),
+              right: 15.w,
+              top: systemState.statusHeight + 80.w,
+              child: SizedBox(
+                width: 320.w,
+                child: Column(
+                  children: [
+                    Container(
+                      width: 320.w,
+                      padding: EdgeInsets.only(right: 32.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            width: 36.w,
+                            height: 20.w,
+                            child: Icon(
+                              color: const Color.fromARGB(255, 76, 76, 76),
+                              const IconData(
+                                0xe62c,
+                                fontFamily: 'Iconfont',
+                              ),
+                              size: 42.w,
+                            ),
+                          )
+                        ],
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0).w,
-                          color: const Color.fromARGB(255, 76, 76, 76),
-                        ),
-                        width: 320.w,
-                        height: 425.w,
-                        child: Column(
-                          children: [
-                            // 发起群聊
-                            LJNPopupMenuItem(
-                              title: "发起群聊",
-                              icon: 0xe676,
-                              onTap: () {
-                                setState(() {
-                                  showpopup = false;
-                                });
-                              },
-                            ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0).w,
+                        color: const Color.fromARGB(255, 76, 76, 76),
+                      ),
+                      width: 320.w,
+                      height: 425.w,
+                      child: Column(
+                        children: [
+                          // 发起群聊
+                          LJNPopupMenuItem(
+                            title: "发起群聊",
+                            icon: 0xe676,
+                            onTap: () {
+                              setState(() {
+                                showpopup = false;
+                              });
+                            },
+                          ),
 
-                            LJNPopupMenuItem(
-                              title: "添加朋友",
-                              icon: 0xe61f,
-                              onTap: () {
-                                setState(() {
-                                  showpopup = false;
-                                });
-                                Navigator.pushNamed(context, '/add_friends');
-                              },
-                            ),
+                          LJNPopupMenuItem(
+                            title: "添加朋友",
+                            icon: 0xe61f,
+                            onTap: () {
+                              setState(() {
+                                showpopup = false;
+                              });
+                              Navigator.pushNamed(context, '/add_friends');
+                            },
+                          ),
 
-                            LJNPopupMenuItem(
-                              title: "扫一扫",
-                              icon: 0xe69a,
-                              onTap: () {
-                                setState(() {
-                                  showpopup = false;
-                                });
-                                Navigator.pushNamed(context, '/qrcode_scanner');
-                              },
-                            ),
+                          LJNPopupMenuItem(
+                            title: "扫一扫",
+                            icon: 0xe69a,
+                            onTap: () {
+                              setState(() {
+                                showpopup = false;
+                              });
+                              Navigator.pushNamed(context, '/qrcode_scanner');
+                            },
+                          ),
 
-                            LJNPopupMenuItem(
-                              title: "收付款",
-                              icon: 0xe611,
-                              onTap: () {
-                                setState(() {
-                                  showpopup = false;
-                                });
-                                Navigator.pushNamed(
-                                    context, '/collection_and_payment');
-                              },
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ))
+                          LJNPopupMenuItem(
+                            title: "收付款",
+                            icon: 0xe611,
+                            onTap: () {
+                              setState(() {
+                                showpopup = false;
+                              });
+                              Navigator.pushNamed(
+                                  context, '/collection_and_payment');
+                            },
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ],
       );
@@ -872,6 +950,7 @@ class _CustomTabbarState extends State<CustomTabbar>
   }
 }
 
+// 弹窗
 class LJNPopupMenuItem extends StatefulWidget {
   final String title;
   final int icon;
@@ -917,34 +996,37 @@ class _LJNPopupMenuItem extends State<LJNPopupMenuItem> {
       child: Container(
         height: 105.w,
         color: bgColor,
-        child: Row(children: [
-          SizedBox(
-            height: 105.w,
-            width: 105.w,
-            child: Center(
-              child: Icon(
-                color: Colors.white,
-                IconData(
-                  widget.icon,
-                  fontFamily: 'Iconfont',
+        child: Row(
+          children: [
+            SizedBox(
+              height: 105.w,
+              width: 105.w,
+              child: Center(
+                child: Icon(
+                  color: Colors.white,
+                  IconData(
+                    widget.icon,
+                    fontFamily: 'Iconfont',
+                  ),
+                  size: 41.w,
                 ),
-                size: 41.w,
               ),
             ),
-          ),
-          SizedBox(
-            width: 0.w,
-          ),
-          Expanded(
-            child: Container(
+            SizedBox(
+              width: 0.w,
+            ),
+            Expanded(
+              child: Container(
                 height: double.infinity,
                 decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                  color: const Color.fromARGB(255, 85, 85, 85),
-                  width: 1.5.w,
-                  style: BorderStyle.solid,
-                ))),
+                  border: Border(
+                    bottom: BorderSide(
+                      color: const Color.fromARGB(255, 85, 85, 85),
+                      width: 1.5.w,
+                      style: BorderStyle.solid,
+                    ),
+                  ),
+                ),
                 alignment: Alignment.centerLeft,
                 child: Text(
                   widget.title,
@@ -954,14 +1036,17 @@ class _LJNPopupMenuItem extends State<LJNPopupMenuItem> {
                       fontWeight: FontWeight.normal,
                       decoration: TextDecoration.none,
                       color: Colors.white),
-                )),
-          )
-        ]),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 }
 
+// 启动web服务器
 void startWebServer() async {
   RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
 

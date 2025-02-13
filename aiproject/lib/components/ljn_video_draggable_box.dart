@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 
 import 'package:jiaoyishuoflutter3/tools/cancelable_delay.dart';
@@ -151,6 +152,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
             return PopScope(
                 canPop: false, // 不允许默认弹出，使用自定义逻辑控制返回
                 onPopInvokedWithResult: (didPop, result) async {
+                  logger.info('qqqqqqqqqqqqqqqqqq');
                   if (didPop) {
                     return;
                   }

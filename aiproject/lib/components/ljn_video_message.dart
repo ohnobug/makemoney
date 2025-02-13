@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,18 +11,19 @@ import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
-import 'package:path/path.dart' as path;
+
 import 'package:get_thumbnail_video/video_thumbnail.dart';
 
 class LJNVideoMessage extends StatefulWidget {
-  const LJNVideoMessage(
-      {super.key,
-      required this.video,
-      required this.showName,
-      this.name,
-      this.onTap,
-      required this.width,
-      required this.height});
+  const LJNVideoMessage({
+    super.key,
+    required this.video,
+    required this.showName,
+    this.name,
+    this.onTap,
+    required this.width,
+    required this.height,
+  });
 
   final Function(Offset, Size)? onTap;
   final String? name;
@@ -66,10 +68,10 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
     //     setState(() {});
     //   });
 
-    getFirstFrame(assetPath(widget.video));
+    _getFirstFrame(assetPath(widget.video));
   }
 
-  Future<void> getFirstFrame(String filepath) async {
+  Future<void> _getFirstFrame(String filepath) async {
     WidgetsFlutterBinding.ensureInitialized();
     String filehash = await generateStringChunkHash(filepath);
     String tempFile = filehash.substring(0, 16);
@@ -81,7 +83,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
       final String outputImagePath = '${tempDir?[0].path}/$tempFile.png';
 
       var imageFile = File(outputImagePath);
-      if (imageFile.existsSync() && await isValidImage(imageFile)) {
+      if (imageFile.existsSync() && await _isValidImage(imageFile)) {
         setState(() {
           picPath = outputImagePath;
         });
@@ -124,7 +126,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
     }
   }
 
-  Future<bool> isValidImage(File file) async {
+  Future<bool> _isValidImage(File file) async {
     if (file.lengthSync() <= 4) {
       return false;
     }
@@ -176,18 +178,19 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                           const EdgeInsets.only(right: 23, top: 0, bottom: 3).w,
                       // height: 33.w,
                       child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              widget.name ??
-                                  context.read<UserCubit>().state.userinfoName!,
-                              style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(20.w),
-                                  color:
-                                      const Color.fromARGB(255, 130, 130, 130)),
-                            )
-                          ]),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            widget.name ??
+                                context.read<UserCubit>().state.userinfoName!,
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(20.w),
+                              color: const Color.fromARGB(255, 130, 130, 130),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
 
                   // 消息

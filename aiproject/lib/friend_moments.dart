@@ -1,15 +1,12 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:jiaoyishuoflutter3/components/ljn_custom_physics.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jiaoyishuoflutter3/store/popup/popup_cubit.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
-
 import 'logger.dart';
 
 class LJNFriendmomentsPage extends StatefulWidget {
@@ -37,6 +34,12 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
 
   late AnimationController _likeController;
   late Animation<double> _likeAnimation;
+
+  // 显示满屏视频
+  bool showFullScreenVideo = false;
+  Offset openPosition = const Offset(0, 0);
+  Size openBoxSize = const Size(0, 0);
+  String videoPath = "";
 
   @override
   void initState() {
@@ -620,7 +623,7 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
                     )
                   ],
                 ),
-              )
+              ),
             ],
           ),
         );
@@ -931,13 +934,9 @@ class _TweetWidget extends State<TweetWidget> {
                                   if (imagePath == '') {
                                     return const SizedBox();
                                   } else {
-                                    return Image.asset(
-                                      assetPath(imagePath),
-                                      cacheWidth: 380.w.toInt(),
-                                      cacheHeight: 380.w.toInt(),
-                                      width: 186.w,
-                                      height: 186.w,
-                                      fit: BoxFit.cover,
+                                    return LJNTweenImage(
+                                      imagePath: imagePath,
+                                      onTap: (Offset position, Size size) {},
                                     );
                                   }
                                 }).toList(),
@@ -1063,5 +1062,45 @@ class _TweetWidget extends State<TweetWidget> {
         ],
       ),
     );
+  }
+}
+
+class LJNTweenImage extends StatelessWidget {
+  final String imagePath;
+  final GlobalKey imageContainerKey = GlobalKey();
+  final Function(Offset, Size)? onTap;
+
+  LJNTweenImage({super.key, required this.imagePath, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<PopupCubit, PopupState>(builder: (context, popupState) {
+      return GestureDetector(
+        onTap: () {
+          final RenderBox renderBox =
+              imageContainerKey.currentContext?.findRenderObject() as RenderBox;
+
+          Offset position = renderBox.localToGlobal(Offset.zero);
+          Size size = renderBox.size;
+
+          // 显示视频
+          context.read<PopupCubit>().updateVideoPopup(
+                openBoxSize: size,
+                openPosition: position,
+                videoPath: 'images/ins/video2.mp4',
+                showFullScreenVideo: true,
+              );
+        },
+        child: Image.asset(
+          key: imageContainerKey,
+          assetPath(imagePath),
+          cacheWidth: 380.w.toInt(),
+          cacheHeight: 380.w.toInt(),
+          width: 186.w,
+          height: 186.w,
+          fit: BoxFit.cover,
+        ),
+      );
+    });
   }
 }

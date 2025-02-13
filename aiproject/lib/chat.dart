@@ -1,20 +1,22 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:lottie/lottie.dart';
+import 'package:record/record.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path/path.dart' as path;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/chat_function_selector.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_max_width_button.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_my_voice_message.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_receive_message.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_receive_video_message.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_video_draggable_box.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_video_message.dart';
 import 'package:jiaoyishuoflutter3/components/popup.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/chat_emoji_selector.dart';
+import 'package:jiaoyishuoflutter3/store/popup/popup_cubit.dart';
 import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
@@ -22,11 +24,14 @@ import 'package:vibration/vibration.dart';
 import 'components/ljn_my_message.dart';
 import 'store/system/cubit/system_cubit.dart';
 import 'tools/tools.dart';
-import 'package:lottie/lottie.dart';
-import 'package:record/record.dart';
-import 'package:path/path.dart' as path;
 
-enum PannelType { none, emojiSelector, keyboard, functionSelector, voiceButton }
+enum PannelType {
+  none,
+  emojiSelector,
+  keyboard,
+  functionSelector,
+  voiceButton,
+}
 
 class LJNChatPage extends StatefulWidget {
   const LJNChatPage({super.key, required this.title, required this.icon});
@@ -52,7 +57,7 @@ class _LJNChatPage extends State<LJNChatPage>
   TextEditingController inputController = TextEditingController();
 
   // 焦点节点，一般用于自动获取焦点，取消焦点以便隐藏键盘等
-  FocusNode inputFocusNode = FocusNode();
+  FocusNode _inputFocusNode = FocusNode();
 
   final ScrollController _scrollController = ScrollController();
 
@@ -88,8 +93,6 @@ class _LJNChatPage extends State<LJNChatPage>
   late final Animation<Color?> _voiceRightButtonColorAnimation;
 
   // 显示满屏视频
-  bool showFullScreenVideo = false;
-
   GlobalKey videoContainerKey = GlobalKey();
 
   Offset openPosition = const Offset(0, 0);
@@ -395,14 +398,12 @@ class _LJNChatPage extends State<LJNChatPage>
         // 关闭键盘
         SystemChannels.textInput.invokeMethod('TextInput.hide');
 
-        setState(() {
-          openPosition = position;
-          logger.info("openPosition: $openPosition");
-          openBoxSize = size;
-          videoPath = 'images/ins/test.mp4';
-
-          showFullScreenVideo = true;
-        });
+        context.read<PopupCubit>().updateVideoPopup(
+              openBoxSize: size,
+              openPosition: position,
+              videoPath: 'images/ins/video2.mp4',
+              showFullScreenVideo: true,
+            );
       },
     ));
 
@@ -415,14 +416,12 @@ class _LJNChatPage extends State<LJNChatPage>
         // 关闭键盘
         SystemChannels.textInput.invokeMethod('TextInput.hide');
 
-        setState(() {
-          openPosition = position;
-          logger.info("openPosition: $openPosition");
-          openBoxSize = size;
-          videoPath = 'images/ins/video2.mp4';
-
-          showFullScreenVideo = true;
-        });
+        context.read<PopupCubit>().updateVideoPopup(
+              openBoxSize: size,
+              openPosition: position,
+              videoPath: 'images/ins/video2.mp4',
+              showFullScreenVideo: true,
+            );
       },
     ));
 
@@ -437,14 +436,12 @@ class _LJNChatPage extends State<LJNChatPage>
         // 关闭键盘
         SystemChannels.textInput.invokeMethod('TextInput.hide');
 
-        setState(() {
-          openPosition = position;
-          logger.info("openPosition: $openPosition");
-          openBoxSize = size;
-          videoPath = 'images/ins/video2.mp4';
-
-          showFullScreenVideo = true;
-        });
+        context.read<PopupCubit>().updateVideoPopup(
+              openBoxSize: size,
+              openPosition: position,
+              videoPath: 'images/ins/video2.mp4',
+              showFullScreenVideo: true,
+            );
       },
     ));
   }
@@ -452,7 +449,9 @@ class _LJNChatPage extends State<LJNChatPage>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    inputFocusNode.dispose();
+
+    _inputFocusNode.dispose();
+
     _emojiSelectorAnimationContentController.dispose();
     _animationController.dispose();
 
@@ -558,7 +557,7 @@ class _LJNChatPage extends State<LJNChatPage>
   void _showKeyboardFunc() {
     logger.info("显示键盘");
 
-    inputFocusNode.unfocus();
+    _inputFocusNode.unfocus();
 
     setState(() {
       _resizeToAvoidBottomInset = true;
@@ -567,7 +566,7 @@ class _LJNChatPage extends State<LJNChatPage>
     });
 
     Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
-      inputFocusNode.requestFocus();
+      _inputFocusNode.requestFocus();
       SystemChannels.textInput.invokeMethod('TextInput.show');
 
       pannelLog('_showKeyboardFunc');
@@ -585,7 +584,7 @@ class _LJNChatPage extends State<LJNChatPage>
     });
 
     Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
-      inputFocusNode.requestFocus();
+      _inputFocusNode.requestFocus();
       SystemChannels.textInput.invokeMethod('TextInput.hide');
 
       pannelLog('_hideKeyboardFunc');
@@ -597,7 +596,7 @@ class _LJNChatPage extends State<LJNChatPage>
     logger.info("转换到键盘");
 
     if (keyboardType != TextInputType.text) {
-      inputFocusNode.unfocus();
+      _inputFocusNode.unfocus();
     }
 
     setState(() {
@@ -621,7 +620,7 @@ class _LJNChatPage extends State<LJNChatPage>
     logger.info("begin: $_emojiSelectorHeight     end: ${_maxInsets.bottom}");
 
     Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
-      inputFocusNode.requestFocus();
+      _inputFocusNode.requestFocus();
       SystemChannels.textInput.invokeMethod('TextInput.show');
 
       //  等待键盘完成显示，将面板关掉
@@ -653,7 +652,7 @@ class _LJNChatPage extends State<LJNChatPage>
     logger.info("转换到笑脸");
 
     if (keyboardType != TextInputType.none) {
-      inputFocusNode.unfocus();
+      _inputFocusNode.unfocus();
     }
 
     setState(() {
@@ -676,7 +675,7 @@ class _LJNChatPage extends State<LJNChatPage>
     );
 
     Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
-      inputFocusNode.requestFocus();
+      _inputFocusNode.requestFocus();
       SystemChannels.textInput.invokeMethod('TextInput.hide');
 
       pannelLog('_switchEmojiFunc');
@@ -688,7 +687,7 @@ class _LJNChatPage extends State<LJNChatPage>
     logger.info("转换到功能选择面板");
 
     if (keyboardType != TextInputType.none) {
-      inputFocusNode.unfocus();
+      _inputFocusNode.unfocus();
     }
 
     setState(() {
@@ -708,7 +707,7 @@ class _LJNChatPage extends State<LJNChatPage>
     );
 
     Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
-      inputFocusNode.requestFocus();
+      _inputFocusNode.requestFocus();
       SystemChannels.textInput.invokeMethod('TextInput.hide');
 
       pannelLog('_switchFunctionSelector');
@@ -720,7 +719,7 @@ class _LJNChatPage extends State<LJNChatPage>
     logger.info("显示表情选择器");
 
     if (keyboardType == TextInputType.text) {
-      inputFocusNode.unfocus();
+      _inputFocusNode.unfocus();
     }
 
     setState(() {
@@ -738,7 +737,7 @@ class _LJNChatPage extends State<LJNChatPage>
         });
 
     Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
-      inputFocusNode.requestFocus();
+      _inputFocusNode.requestFocus();
       SystemChannels.textInput.invokeMethod('TextInput.hide');
 
       pannelLog('_showEmojiFunc');
@@ -764,7 +763,7 @@ class _LJNChatPage extends State<LJNChatPage>
     });
 
     Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
-      inputFocusNode.requestFocus();
+      _inputFocusNode.requestFocus();
       SystemChannels.textInput.invokeMethod('TextInput.hide');
       pannelLog('_hideEmojiFunc');
     });
@@ -775,7 +774,7 @@ class _LJNChatPage extends State<LJNChatPage>
     logger.info("显示功能选择器");
 
     if (keyboardType == TextInputType.text) {
-      inputFocusNode.unfocus();
+      _inputFocusNode.unfocus();
     }
 
     setState(() {
@@ -793,7 +792,7 @@ class _LJNChatPage extends State<LJNChatPage>
         });
 
     Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
-      inputFocusNode.requestFocus();
+      _inputFocusNode.requestFocus();
       SystemChannels.textInput.invokeMethod('TextInput.hide');
 
       pannelLog('_showFunctionSelector');
@@ -819,7 +818,7 @@ class _LJNChatPage extends State<LJNChatPage>
     });
 
     Future.delayed(Duration(milliseconds: _changeTypeMilliseconds), () {
-      inputFocusNode.requestFocus();
+      _inputFocusNode.requestFocus();
       SystemChannels.textInput.invokeMethod('TextInput.hide');
       pannelLog('_hideFunctionSelector');
     });
@@ -1258,7 +1257,7 @@ class _LJNChatPage extends State<LJNChatPage>
                                                     showCursor: true,
                                                     keyboardType: keyboardType,
                                                     controller: inputController,
-                                                    focusNode: inputFocusNode,
+                                                    focusNode: _inputFocusNode,
                                                     onTap: () {
                                                       if (pannelType ==
                                                           PannelType.none) {
@@ -1559,20 +1558,6 @@ class _LJNChatPage extends State<LJNChatPage>
                       ))
                 ],
               ),
-
-              // 视频放大
-              showFullScreenVideo
-                  ? LJNVideoDraggableBox(
-                      openBoxSize: openBoxSize,
-                      openPosition: openPosition,
-                      videoPath: videoPath,
-                      onClose: () {
-                        setState(() {
-                          showFullScreenVideo = false;
-                        });
-                      },
-                    )
-                  : Container(),
 
               // 语音消息
               if (showVoiceLottie) _buildVoiceWidget(systemState),

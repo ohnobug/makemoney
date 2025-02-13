@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
 
 // 系统的 Cubit
 class SystemCubit extends Cubit<SystemState> {
@@ -52,7 +51,6 @@ class SystemCubit extends Cubit<SystemState> {
 
   // 更新 navigatorKey
   void updateNavigatorKey(GlobalKey<NavigatorState> key) {
-    logger.info("来啦啦啦啦啦啦啦啦啦啦啦");
     emit(SystemState(navigatorKey: key));
   }
 }
