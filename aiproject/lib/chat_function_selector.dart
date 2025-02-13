@@ -35,16 +35,21 @@ class _FunctionButtonState extends State<FunctionButton> {
               setState(() {
                 bgColor = Color.fromARGB(255, 222, 222, 222);
               });
+
               widget.onTap();
             },
             onTapUp: (_) {
-              setState(() {
-                bgColor = Colors.white;
+              Future.delayed(Duration(milliseconds: 300), () {
+                setState(() {
+                  bgColor = Colors.white;
+                });
               });
             },
             onTapCancel: () {
-              setState(() {
-                bgColor = Colors.white;
+              Future.delayed(Duration(milliseconds: 300), () {
+                setState(() {
+                  bgColor = Colors.white;
+                });
               });
             },
             child: Column(

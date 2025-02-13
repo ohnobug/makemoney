@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:jiaoyishuoflutter3/camera_view.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'user.dart';
@@ -357,6 +358,8 @@ class _App extends State<App> {
                         const LJNAddressBookLabel());
                   } else if (settings.name == "/new_friends") {
                     return pageRouteBuilderAnimation(const LJNNewFriends());
+                  } else if (settings.name == "/camera") {
+                    return pageRouteBuilderAnimation(const LJNCameraView());
                   }
 
                   return null;
