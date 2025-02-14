@@ -57,7 +57,7 @@ class _LJNChatPage extends State<LJNChatPage>
   TextEditingController inputController = TextEditingController();
 
   // 焦点节点，一般用于自动获取焦点，取消焦点以便隐藏键盘等
-  FocusNode _inputFocusNode = FocusNode();
+  final FocusNode _inputFocusNode = FocusNode();
 
   final ScrollController _scrollController = ScrollController();
 

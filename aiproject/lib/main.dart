@@ -190,47 +190,47 @@ class _App extends State<App> {
         BlocProvider(create: (_) => UserCubit()),
         BlocProvider(create: (_) => PopupCubit()),
       ],
-      child: PopScope(
-        canPop: false, // prevent back
-        onPopInvokedWithResult: (
-          bool didPop,
-          Object? result,
-        ) async {
-          logger.info('bbbbbbbbbbbbbbbb');
+      child: ScreenUtilInit(
+        designSize: const Size(750, 1624),
+        ensureScreenSize: true,
+        minTextAdapt: true,
+        splitScreenMode: true,
+        enableScaleWH: () => true,
+        enableScaleText: () => true,
+        builder: (context, child) {
+          return PiPMaterialApp(
+            navigatorKey: context.read<SystemCubit>().state.navigatorKey,
+            debugShowCheckedModeBanner: false,
+            initialRoute: '/',
+            onNavigationNotification: _defaultOnNavigationNotification,
+            // home: Container(
+            //   width: 300,
+            //   height: 300,
+            //   color: Colors.red,
+            //   child: Text("hallo"),
+            // ),
+            builder: (context, child) {
+              return PopScope(
+                canPop: false, // prevent back
+                onPopInvokedWithResult: (
+                  bool didPop,
+                  Object? result,
+                ) async {
+                  logger.info('bbbbbbbbbbbbbbbb');
 
-          if (didPop) return;
+                  if (didPop) return;
 
-          final backNavigationAllowed =
-              context.read<PopupCubit>().state.showFullScreenVideo;
+                  final backNavigationAllowed =
+                      context.read<PopupCubit>().state.showFullScreenVideo;
 
-          if (backNavigationAllowed) {
-            context.read<PopupCubit>().updateShowFullScreenVideo(false);
-          } else {
-            // if (mounted) Navigator.of(context).pop();
-            context.read<PopupCubit>().updateShowFullScreenVideo(false);
-          }
-        },
-        child: ScreenUtilInit(
-          designSize: const Size(750, 1624),
-          ensureScreenSize: true,
-          minTextAdapt: true,
-          splitScreenMode: true,
-          enableScaleWH: () => true,
-          enableScaleText: () => true,
-          builder: (context, child) {
-            return PiPMaterialApp(
-              navigatorKey: context.read<SystemCubit>().state.navigatorKey,
-              debugShowCheckedModeBanner: false,
-              initialRoute: '/',
-              onNavigationNotification: _defaultOnNavigationNotification,
-              // home: Container(
-              //   width: 300,
-              //   height: 300,
-              //   color: Colors.red,
-              //   child: Text("hallo"),
-              // ),
-              builder: (context, child) {
-                return Stack(
+                  if (backNavigationAllowed) {
+                    context.read<PopupCubit>().updateShowFullScreenVideo(false);
+                  } else {
+                    // if (mounted) Navigator.of(context).pop();
+                    context.read<PopupCubit>().updateShowFullScreenVideo(false);
+                  }
+                },
+                child: Stack(
                   children: [
                     child!,
 
@@ -254,190 +254,181 @@ class _App extends State<App> {
                       },
                     )
                   ],
+                ),
+              );
+            },
+            onGenerateRoute: (settings) {
+              if (settings.name == '/') {
+                return pageRouteBuilderNotAnimation(const CustomTabbar());
+              } else if (settings.name == '/mywebview' ||
+                  settings.name!.startsWith('/mywebview')) {
+                logger.info("settings.name: ${settings.name}");
+
+                Uri uri = Uri.parse(settings.name!);
+
+                late String linkValue;
+                linkValue = uri.queryParameters['link'] ?? "";
+
+                return pageRouteBuilderAnimation(
+                  LJNWebview(link: linkValue),
                 );
+              } else if (settings.name == '/services') {
+                return pageRouteBuilderAnimation(const LJNServicesPage());
+              } else if (settings.name == '/chat') {
+                var arguments = settings.arguments as Map<String, String>;
+                String title = arguments['title'] as String;
+                String icon = arguments['icon'] as String;
+                return pageRouteBuilderAnimation(
+                    LJNChatPage(title: title, icon: icon));
+              } else if (settings.name == '/group_chat') {
+                var arguments = settings.arguments as Map<String, String>;
+                String title = arguments['title'] as String;
+                String icon = arguments['icon'] as String;
+                return pageRouteBuilderAnimation(
+                    LJNGroupChatPage(title: title, icon: icon));
+              } else if (settings.name == '/qrcode_scanner') {
+                return pageRouteBuilderNotAnimation(const LJNQRCodeScanner());
+              } else if (settings.name == '/video_player') {
+                return pageRouteBuilderAnimation(const LJNVideoPage());
+              } else if (settings.name == '/wallet') {
+                return pageRouteBuilderAnimation(const LJNWalletPage());
+              } else if (settings.name == '/userinfo') {
+                return pageRouteBuilderAnimation(const LJNUserinfoPage());
+              } else if (settings.name == '/friendmoments') {
+                return pageRouteBuilderAnimation(const LJNFriendmomentsPage());
+              } else if (settings.name == '/pocketmoney') {
+                return pageRouteBuilderAnimation(const LJNPocketMoneyPage());
+              } else if (settings.name == '/friendprofile') {
+                var arguments =
+                    settings.arguments as Map<String, String>? ?? {};
+
+                String avatar = arguments['avatar'] ?? "";
+                String name = arguments['name'] ?? "";
+                String nickname = arguments['nickname'] ?? "";
+                String account = arguments['account'] ?? "";
+
+                return pageRouteBuilderAnimation(LJNFriendProfilePage(
+                    name: name,
+                    nickname: nickname,
+                    account: account,
+                    avatar: avatar));
+              } else if (settings.name == '/ins') {
+                return pageRouteBuilderAnimation(const LJNInsPage());
+              } else if (settings.name == '/tiktik') {
+                return pageRouteBuilderAnimation(const LJNTiktikPage());
+              } else if (settings.name == '/miniprogram') {
+                return pageRouteBuilderAnimation(const LJNMiniProgramPage());
+              } else if (settings.name == '/search') {
+                return pageRouteBuilderAnimation(const LJNSearchPage());
+              } else if (settings.name == '/setting') {
+                return pageRouteBuilderAnimation(const LJNSettingPage());
+              } else if (settings.name == '/account_and_secure') {
+                return pageRouteBuilderAnimation(const LJNAccountAndSecure());
+              } else if (settings.name == '/accountinfo') {
+                return pageRouteBuilderAnimation(const LJNAccountInfo());
+              } else if (settings.name == '/change_account') {
+                return pageRouteBuilderAnimation(const LJNChangeAccount());
+              } else if (settings.name == '/forgot_password') {
+                return pageRouteBuilderAnimation(const LJNForgotPassword());
+              } else if (settings.name == '/phone_number') {
+                return pageRouteBuilderAnimation(const LJNPhoneNumber());
+              } else if (settings.name == '/phone_contact') {
+                return pageRouteBuilderAnimation(const LJNPhoneContact());
+              } else if (settings.name == '/verify_phone') {
+                return pageRouteBuilderAnimation(const LJNVerifyPhone());
+              } else if (settings.name == '/bind_new_phone_number') {
+                return pageRouteBuilderAnimation(const LJNBindNewPhoneNumber());
+              } else if (settings.name == '/input_verify_code') {
+                return pageRouteBuilderAnimation(const LJNInputVerifyCode());
+              } else if (settings.name == '/teenage_mode') {
+                return pageRouteBuilderAnimation(const LJNTeenageMode());
+              } else if (settings.name == '/care_mode') {
+                return pageRouteBuilderAnimation(const LJNCareMode());
+              } else if (settings.name == '/new_message_notification') {
+                return pageRouteBuilderAnimation(
+                    const LJNNewMessageNotification());
+              } else if (settings.name == "/collection_and_payment") {
+                return pageRouteBuilderAnimation(
+                    const LJNCollectionAndPayment());
+              } else if (settings.name == "/chat_setting") {
+                return pageRouteBuilderAnimation(const LJNChatSetting());
+              } else if (settings.name == "/common_setting") {
+                return pageRouteBuilderAnimation(const LJNCommonSetting());
+              } else if (settings.name == "/set_password") {
+                return pageRouteBuilderAnimation(const LJNSetPassword());
+              } else if (settings.name == "/logged_devices") {
+                return pageRouteBuilderAnimation(const LJNLoggedDevices());
+              } else if (settings.name == "/device_detail") {
+                return pageRouteBuilderAnimation(const LJNDeviceDetail());
+              } else if (settings.name == "/emergency_contact") {
+                return pageRouteBuilderAnimation(const LJNEmergencyContact());
+              } else if (settings.name == "/more_secure_setting") {
+                return pageRouteBuilderAnimation(const LJNMoreSecureSetting());
+              } else if (settings.name == "/sound_lock") {
+                return pageRouteBuilderAnimation(const LJNSoundLock());
+              } else if (settings.name == "/personinfo_and_permission") {
+                return pageRouteBuilderAnimation(
+                    const LJNPersonalinfoAndPermission());
+              } else if (settings.name ==
+                  "/personalinfo_collection_checklist") {
+                return pageRouteBuilderAnimation(
+                    const LJNPersonalInfoCollectionChecklist());
+              } else if (settings.name == "/about") {
+                return pageRouteBuilderAnimation(const LJNAbout());
+              } else if (settings.name == "/friend_permission") {
+                return pageRouteBuilderAnimation(const LJNFriendPermission());
+              } else if (settings.name == "/change_details") {
+                return pageRouteBuilderAnimation(const LJNChangeDetails());
+              } else if (settings.name == "/bill_details") {
+                return pageRouteBuilderAnimation(const LJNBillDetails());
+              } else if (settings.name == "/friend_message_record") {
+                return pageRouteBuilderAnimation(
+                    const LJNFriendMessageRecord());
+              } else if (settings.name == "/friend_data_setting") {
+                return pageRouteBuilderAnimation(const LJNFriendDataSetting());
+              } else if (settings.name == "/friend_more_info") {
+                return pageRouteBuilderAnimation(const LJNFriendMoreInfo());
+              } else if (settings.name == "/add_friends") {
+                return pageRouteBuilderAnimation(const LJNAddFriends());
+              } else if (settings.name == "/group_message_record") {
+                return pageRouteBuilderAnimation(const LJNGroupMessageRecord());
+              } else if (settings.name == "/dial") {
+                return pageRouteBuilderNotAnimation(const LJNDial());
+              } else if (settings.name == "/services_manager") {
+                return pageRouteBuilderAnimation(const LJNServicesManager());
+              } else if (settings.name == "/friend_data_setting") {
+                return pageRouteBuilderAnimation(const LJNFriendDataSetting());
+              } else if (settings.name == "/set_notes_and_labels") {
+                return pageRouteBuilderAnimation(const LJNSetNotesAndLabels());
+              } else if (settings.name == "/friend_permissions") {
+                return pageRouteBuilderAnimation(const LJNFriendPermissions());
+              } else if (settings.name == "/test") {
+                return pageRouteBuilderAnimation(const LJNTest());
+              } else if (settings.name == "/video_call") {
+                return pageRouteBuilderAnimation(const LJNVideoCall());
+              } else if (settings.name == "/friends_who_only_chat") {
+                return pageRouteBuilderAnimation(const LJNFriendsWhoOnlyChat());
+              } else if (settings.name == "/address_book_label") {
+                return pageRouteBuilderAnimation(const LJNAddressBookLabel());
+              } else if (settings.name == "/new_friends") {
+                return pageRouteBuilderAnimation(const LJNNewFriends());
+              } else if (settings.name == "/camera") {
+                return pageRouteBuilderAnimation(const LJNCameraView());
+              }
+
+              return null;
+            },
+            theme: context.read<SystemCubit>().state.themeData,
+            scrollBehavior: const MaterialScrollBehavior().copyWith(
+              dragDevices: {
+                PointerDeviceKind.mouse,
+                PointerDeviceKind.touch,
+                PointerDeviceKind.stylus,
+                PointerDeviceKind.unknown
               },
-              onGenerateRoute: (settings) {
-                if (settings.name == '/') {
-                  return pageRouteBuilderNotAnimation(const CustomTabbar());
-                } else if (settings.name == '/mywebview' ||
-                    settings.name!.startsWith('/mywebview')) {
-                  logger.info("settings.name: ${settings.name}");
-
-                  Uri uri = Uri.parse(settings.name!);
-
-                  late String linkValue;
-                  linkValue = uri.queryParameters['link'] ?? "";
-
-                  return pageRouteBuilderAnimation(
-                    LJNWebview(link: linkValue),
-                  );
-                } else if (settings.name == '/services') {
-                  return pageRouteBuilderAnimation(const LJNServicesPage());
-                } else if (settings.name == '/chat') {
-                  var arguments = settings.arguments as Map<String, String>;
-                  String title = arguments['title'] as String;
-                  String icon = arguments['icon'] as String;
-                  return pageRouteBuilderAnimation(
-                      LJNChatPage(title: title, icon: icon));
-                } else if (settings.name == '/group_chat') {
-                  var arguments = settings.arguments as Map<String, String>;
-                  String title = arguments['title'] as String;
-                  String icon = arguments['icon'] as String;
-                  return pageRouteBuilderAnimation(
-                      LJNGroupChatPage(title: title, icon: icon));
-                } else if (settings.name == '/qrcode_scanner') {
-                  return pageRouteBuilderNotAnimation(const LJNQRCodeScanner());
-                } else if (settings.name == '/video_player') {
-                  return pageRouteBuilderAnimation(const LJNVideoPage());
-                } else if (settings.name == '/wallet') {
-                  return pageRouteBuilderAnimation(const LJNWalletPage());
-                } else if (settings.name == '/userinfo') {
-                  return pageRouteBuilderAnimation(const LJNUserinfoPage());
-                } else if (settings.name == '/friendmoments') {
-                  return pageRouteBuilderAnimation(
-                      const LJNFriendmomentsPage());
-                } else if (settings.name == '/pocketmoney') {
-                  return pageRouteBuilderAnimation(const LJNPocketMoneyPage());
-                } else if (settings.name == '/friendprofile') {
-                  var arguments =
-                      settings.arguments as Map<String, String>? ?? {};
-
-                  String avatar = arguments['avatar'] ?? "";
-                  String name = arguments['name'] ?? "";
-                  String nickname = arguments['nickname'] ?? "";
-                  String account = arguments['account'] ?? "";
-
-                  return pageRouteBuilderAnimation(LJNFriendProfilePage(
-                      name: name,
-                      nickname: nickname,
-                      account: account,
-                      avatar: avatar));
-                } else if (settings.name == '/ins') {
-                  return pageRouteBuilderAnimation(const LJNInsPage());
-                } else if (settings.name == '/tiktik') {
-                  return pageRouteBuilderAnimation(const LJNTiktikPage());
-                } else if (settings.name == '/miniprogram') {
-                  return pageRouteBuilderAnimation(const LJNMiniProgramPage());
-                } else if (settings.name == '/search') {
-                  return pageRouteBuilderAnimation(const LJNSearchPage());
-                } else if (settings.name == '/setting') {
-                  return pageRouteBuilderAnimation(const LJNSettingPage());
-                } else if (settings.name == '/account_and_secure') {
-                  return pageRouteBuilderAnimation(const LJNAccountAndSecure());
-                } else if (settings.name == '/accountinfo') {
-                  return pageRouteBuilderAnimation(const LJNAccountInfo());
-                } else if (settings.name == '/change_account') {
-                  return pageRouteBuilderAnimation(const LJNChangeAccount());
-                } else if (settings.name == '/forgot_password') {
-                  return pageRouteBuilderAnimation(const LJNForgotPassword());
-                } else if (settings.name == '/phone_number') {
-                  return pageRouteBuilderAnimation(const LJNPhoneNumber());
-                } else if (settings.name == '/phone_contact') {
-                  return pageRouteBuilderAnimation(const LJNPhoneContact());
-                } else if (settings.name == '/verify_phone') {
-                  return pageRouteBuilderAnimation(const LJNVerifyPhone());
-                } else if (settings.name == '/bind_new_phone_number') {
-                  return pageRouteBuilderAnimation(
-                      const LJNBindNewPhoneNumber());
-                } else if (settings.name == '/input_verify_code') {
-                  return pageRouteBuilderAnimation(const LJNInputVerifyCode());
-                } else if (settings.name == '/teenage_mode') {
-                  return pageRouteBuilderAnimation(const LJNTeenageMode());
-                } else if (settings.name == '/care_mode') {
-                  return pageRouteBuilderAnimation(const LJNCareMode());
-                } else if (settings.name == '/new_message_notification') {
-                  return pageRouteBuilderAnimation(
-                      const LJNNewMessageNotification());
-                } else if (settings.name == "/collection_and_payment") {
-                  return pageRouteBuilderAnimation(
-                      const LJNCollectionAndPayment());
-                } else if (settings.name == "/chat_setting") {
-                  return pageRouteBuilderAnimation(const LJNChatSetting());
-                } else if (settings.name == "/common_setting") {
-                  return pageRouteBuilderAnimation(const LJNCommonSetting());
-                } else if (settings.name == "/set_password") {
-                  return pageRouteBuilderAnimation(const LJNSetPassword());
-                } else if (settings.name == "/logged_devices") {
-                  return pageRouteBuilderAnimation(const LJNLoggedDevices());
-                } else if (settings.name == "/device_detail") {
-                  return pageRouteBuilderAnimation(const LJNDeviceDetail());
-                } else if (settings.name == "/emergency_contact") {
-                  return pageRouteBuilderAnimation(const LJNEmergencyContact());
-                } else if (settings.name == "/more_secure_setting") {
-                  return pageRouteBuilderAnimation(
-                      const LJNMoreSecureSetting());
-                } else if (settings.name == "/sound_lock") {
-                  return pageRouteBuilderAnimation(const LJNSoundLock());
-                } else if (settings.name == "/personinfo_and_permission") {
-                  return pageRouteBuilderAnimation(
-                      const LJNPersonalinfoAndPermission());
-                } else if (settings.name ==
-                    "/personalinfo_collection_checklist") {
-                  return pageRouteBuilderAnimation(
-                      const LJNPersonalInfoCollectionChecklist());
-                } else if (settings.name == "/about") {
-                  return pageRouteBuilderAnimation(const LJNAbout());
-                } else if (settings.name == "/friend_permission") {
-                  return pageRouteBuilderAnimation(const LJNFriendPermission());
-                } else if (settings.name == "/change_details") {
-                  return pageRouteBuilderAnimation(const LJNChangeDetails());
-                } else if (settings.name == "/bill_details") {
-                  return pageRouteBuilderAnimation(const LJNBillDetails());
-                } else if (settings.name == "/friend_message_record") {
-                  return pageRouteBuilderAnimation(
-                      const LJNFriendMessageRecord());
-                } else if (settings.name == "/friend_data_setting") {
-                  return pageRouteBuilderAnimation(
-                      const LJNFriendDataSetting());
-                } else if (settings.name == "/friend_more_info") {
-                  return pageRouteBuilderAnimation(const LJNFriendMoreInfo());
-                } else if (settings.name == "/add_friends") {
-                  return pageRouteBuilderAnimation(const LJNAddFriends());
-                } else if (settings.name == "/group_message_record") {
-                  return pageRouteBuilderAnimation(
-                      const LJNGroupMessageRecord());
-                } else if (settings.name == "/dial") {
-                  return pageRouteBuilderNotAnimation(const LJNDial());
-                } else if (settings.name == "/services_manager") {
-                  return pageRouteBuilderAnimation(const LJNServicesManager());
-                } else if (settings.name == "/friend_data_setting") {
-                  return pageRouteBuilderAnimation(
-                      const LJNFriendDataSetting());
-                } else if (settings.name == "/set_notes_and_labels") {
-                  return pageRouteBuilderAnimation(
-                      const LJNSetNotesAndLabels());
-                } else if (settings.name == "/friend_permissions") {
-                  return pageRouteBuilderAnimation(
-                      const LJNFriendPermissions());
-                } else if (settings.name == "/test") {
-                  return pageRouteBuilderAnimation(const LJNTest());
-                } else if (settings.name == "/video_call") {
-                  return pageRouteBuilderAnimation(const LJNVideoCall());
-                } else if (settings.name == "/friends_who_only_chat") {
-                  return pageRouteBuilderAnimation(
-                      const LJNFriendsWhoOnlyChat());
-                } else if (settings.name == "/address_book_label") {
-                  return pageRouteBuilderAnimation(const LJNAddressBookLabel());
-                } else if (settings.name == "/new_friends") {
-                  return pageRouteBuilderAnimation(const LJNNewFriends());
-                } else if (settings.name == "/camera") {
-                  return pageRouteBuilderAnimation(const LJNCameraView());
-                }
-
-                return null;
-              },
-              theme: context.read<SystemCubit>().state.themeData,
-              scrollBehavior: const MaterialScrollBehavior().copyWith(
-                dragDevices: {
-                  PointerDeviceKind.mouse,
-                  PointerDeviceKind.touch,
-                  PointerDeviceKind.stylus,
-                  PointerDeviceKind.unknown
-                },
-              ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

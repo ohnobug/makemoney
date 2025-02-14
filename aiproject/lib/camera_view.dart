@@ -47,8 +47,8 @@ class _LJNCameraViewState extends State<LJNCameraView>
   double _currentScale = 1.0;
   double _baseScale = 1.0;
 
-  double _minAvailableExposureOffset = 0;
-  double _maxAvailableExposureOffset = 0;
+  double minAvailableExposureOffset = 0;
+  double maxAvailableExposureOffset = 0;
 
   // Counting pointers (number of user fingers on screen)
   int _pointers = 0;
@@ -225,11 +225,12 @@ class _LJNCameraViewState extends State<LJNCameraView>
         // The exposure mode is currently not supported on the web.
         ...!kIsWeb
             ? <Future<Object?>>[
-                cameraController.getMinExposureOffset().then(
-                    (double value) => _minAvailableExposureOffset = value),
+                cameraController
+                    .getMinExposureOffset()
+                    .then((double value) => minAvailableExposureOffset = value),
                 cameraController
                     .getMaxExposureOffset()
-                    .then((double value) => _maxAvailableExposureOffset = value)
+                    .then((double value) => maxAvailableExposureOffset = value)
               ]
             : <Future<Object?>>[],
         cameraController
