@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
 
 // 视频弹窗的Cubit
 class PopupCubit extends Cubit<PopupState> {
@@ -8,17 +7,34 @@ class PopupCubit extends Cubit<PopupState> {
 
   // 更新returnButtonEvent
   void updateReturnButtonEvent(bool returnButtonEvent) {
-    logger.info("qqqqqqqqqqqqqqqqqq 来啦111");
-
     emit(state.copyWith(
       returnButtonEvent: returnButtonEvent,
     ));
   }
 
+  void updateShowFullScreenImage(bool showFullScreenImage) {
+    emit(state.copyWith(
+      showFullScreenImage: showFullScreenImage,
+    ));
+  }
+
+  // 更新navigatorKey
+  void updateImagePopup({
+    required Size openBoxSize,
+    required Offset openPosition,
+    required String imagePath,
+    required bool showFullScreenimage,
+  }) {
+    emit(PopupState(
+      openBoxSize: openBoxSize,
+      openPosition: openPosition,
+      sourcePath: imagePath,
+      showFullScreenImage: showFullScreenimage,
+    ));
+  }
+
   // 更新ShowFullScreenVideo
   void updateShowFullScreenVideo(bool showFullScreenVideo) {
-    logger.info("qqqqqqqqqqqqqqqqqq 来啦222");
-
     emit(state.copyWith(
       showFullScreenVideo: showFullScreenVideo,
     ));
@@ -28,13 +44,13 @@ class PopupCubit extends Cubit<PopupState> {
   void updateVideoPopup({
     required Size openBoxSize,
     required Offset openPosition,
-    required String videoPath,
+    required String sourcePath,
     required bool showFullScreenVideo,
   }) {
     emit(PopupState(
       openBoxSize: openBoxSize,
       openPosition: openPosition,
-      videoPath: videoPath,
+      sourcePath: sourcePath,
       showFullScreenVideo: showFullScreenVideo,
     ));
   }
@@ -44,16 +60,18 @@ class PopupCubit extends Cubit<PopupState> {
 class PopupState {
   Size openBoxSize;
   Offset openPosition;
-  String videoPath;
+  String sourcePath;
   bool showFullScreenVideo;
+  bool showFullScreenImage;
   bool returnButtonEvent;
 
   // 构造函数
   PopupState({
     this.openBoxSize = const Size(0, 0),
     this.openPosition = const Offset(0, 0),
-    this.videoPath = '',
+    this.sourcePath = '',
     this.showFullScreenVideo = false,
+    this.showFullScreenImage = false,
     this.returnButtonEvent = false,
   });
 
@@ -61,15 +79,17 @@ class PopupState {
   PopupState copyWith({
     Size? openBoxSize,
     Offset? openPosition,
-    String? videoPath,
+    String? sourcePath,
     bool? showFullScreenVideo,
+    bool? showFullScreenImage,
     bool? returnButtonEvent,
   }) {
     return PopupState(
       openBoxSize: openBoxSize ?? this.openBoxSize,
       openPosition: openPosition ?? this.openPosition,
-      videoPath: videoPath ?? this.videoPath,
+      sourcePath: sourcePath ?? this.sourcePath,
       showFullScreenVideo: showFullScreenVideo ?? this.showFullScreenVideo,
+      showFullScreenImage: showFullScreenImage ?? this.showFullScreenImage,
       returnButtonEvent: returnButtonEvent ?? this.returnButtonEvent,
     );
   }

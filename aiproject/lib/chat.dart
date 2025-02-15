@@ -97,7 +97,7 @@ class _LJNChatPage extends State<LJNChatPage>
 
   Offset openPosition = const Offset(0, 0);
   Size openBoxSize = const Size(0, 0);
-  String videoPath = "";
+  String sourcePath = "";
 
   // 退出语音录制
   bool showCancelVoiceButtons = false;
@@ -401,7 +401,7 @@ class _LJNChatPage extends State<LJNChatPage>
         context.read<PopupCubit>().updateVideoPopup(
               openBoxSize: size,
               openPosition: position,
-              videoPath: 'images/ins/video2.mp4',
+              sourcePath: 'images/ins/video2.mp4',
               showFullScreenVideo: true,
             );
       },
@@ -419,7 +419,7 @@ class _LJNChatPage extends State<LJNChatPage>
         context.read<PopupCubit>().updateVideoPopup(
               openBoxSize: size,
               openPosition: position,
-              videoPath: 'images/ins/video2.mp4',
+              sourcePath: 'images/ins/video2.mp4',
               showFullScreenVideo: true,
             );
       },
@@ -439,7 +439,7 @@ class _LJNChatPage extends State<LJNChatPage>
         context.read<PopupCubit>().updateVideoPopup(
               openBoxSize: size,
               openPosition: position,
-              videoPath: 'images/ins/video2.mp4',
+              sourcePath: 'images/ins/video2.mp4',
               showFullScreenVideo: true,
             );
       },
@@ -902,10 +902,8 @@ class _LJNChatPage extends State<LJNChatPage>
         if (didPop) return;
 
         if (context.read<PopupCubit>().state.showFullScreenVideo == true) {
-          // 返回按钮被按下
           context.read<PopupCubit>().updateReturnButtonEvent(true);
         } else {
-          // 视频未打开，允许默认返回行为
           Navigator.of(context).pop();
         }
       },

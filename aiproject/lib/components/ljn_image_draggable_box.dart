@@ -1,36 +1,35 @@
+import 'dart:async';
 import 'dart:math';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
 import 'package:jiaoyishuoflutter3/store/popup/popup_cubit.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
-
 import 'package:jiaoyishuoflutter3/tools/cancelable_delay.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
-import 'package:video_player/video_player.dart';
 
-class LJNVideoDraggableBox extends StatefulWidget {
+class LJNImaeDraggableBox extends StatefulWidget {
   final VoidCallback? onClose;
 
   final Size openBoxSize;
   final Offset openPosition;
-  final String videoPath;
+  final String imagePath;
 
-  const LJNVideoDraggableBox({
+  const LJNImaeDraggableBox({
     super.key,
     this.onClose,
     required this.openBoxSize,
     required this.openPosition,
-    required this.videoPath,
+    required this.imagePath,
   });
 
   @override
-  State<LJNVideoDraggableBox> createState() => _LJNVideoDraggableBoxState();
+  State<LJNImaeDraggableBox> createState() => _LJNImaeDraggableBoxState();
 }
 
-class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
+class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
     with TickerProviderStateMixin {
   // 位置控制器
   late AnimationController _positionAnimationController;
@@ -44,16 +43,15 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
   late AnimationController _sizedController;
   late Animation<Size> _sizedAnimation;
 
-  // 视频控制器
-  VideoPlayerController? _videoController;
   Offset _boxOffset = Offset.zero; // 小盒子的偏移量
 
-  double videoWidth = 0;
-  double videoHeight = 0;
+  double imageWidth = 0;
+  double imageHeight = 0;
   bool canBeCloseFlag = false;
   Size oldSize = const Size(0, 0);
   Offset? originPoint;
   Offset currentPosition = Offset(0, 0);
+  bool firstOpen = true;
 
   @override
   void initState() {
@@ -86,8 +84,35 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
     // 大小
     _sizedAnimation = Tween<Size>(
       begin: widget.openBoxSize,
-      end: Size(videoWidth, videoHeight),
+      end: Size(imageWidth, imageHeight),
     ).animate(CurvedAnimation(parent: _sizedController, curve: Curves.linear));
+
+    getImageInfo();
+  }
+
+  Image? image;
+
+  Future<void> getImageInfo() async {
+    image = Image.asset(
+      assetPath(widget.imagePath),
+      // width: 750.w,
+      // height: 730.w,
+      fit: BoxFit.contain,
+    );
+
+    Completer<ui.Image> completer = Completer<ui.Image>();
+    image!.image
+        .resolve(ImageConfiguration())
+        .addListener(ImageStreamListener((ImageInfo image, bool _) {
+      completer.complete(image.image);
+    }));
+
+    ui.Image info = await completer.future;
+
+    setState(() {
+      imageWidth = info.width.toDouble();
+      imageHeight = info.height.toDouble();
+    });
   }
 
   @override
@@ -95,7 +120,6 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
     _positionAnimationController.dispose();
     _bgTransparentController.dispose();
     _sizedController.dispose();
-    _videoController?.dispose();
     super.dispose();
   }
 
@@ -104,12 +128,12 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
     return BlocListener<PopupCubit, PopupState>(
       listener: (context, state) {
         logger.info(
-            'qqqqqqqqqqqqqqqqqq showFullScreenVideo ${state.showFullScreenVideo}');
+            'qqqqqqqqqqqqqqqqqq showFullScreenImage ${state.showFullScreenImage}');
         logger.info(
             'qqqqqqqqqqqqqqqqqq returnButtonEvent ${state.returnButtonEvent}');
 
         // 当前为显示满屏视频窗口并且返回按钮被按下
-        if (state.showFullScreenVideo == true &&
+        if (state.showFullScreenImage == true &&
             state.returnButtonEvent == true) {
           logger.info('qqqqqqqqqqqqqqqqqq 3333333333');
 
@@ -118,43 +142,35 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
       },
       child: BlocBuilder<SystemCubit, SystemState>(
         builder: (context, systemState) {
-          _videoController ??= VideoPlayerController.asset(
-            assetPath(widget.videoPath),
-            videoPlayerOptions: VideoPlayerOptions(
-              mixWithOthers: false,
-              allowBackgroundPlayback: false,
-            ),
-          )..initialize().then((_) {
-              // 动态计算视频宽高
-              videoWidth = systemState.screenSize.width;
-              videoHeight = videoWidth / _videoController!.value.aspectRatio;
-
-              // 中心点坐标
-              originPoint = Offset(
-                  (systemState.screenSize.width - videoWidth) / 2,
-                  (systemState.screenSize.height - videoHeight) / 2);
-
-              // 位置
-              _positionAnimation = Tween<Offset>(
-                begin: widget.openPosition,
-                end: Offset(0, originPoint!.dy),
-              ).animate(_positionAnimationController);
-
-              // 背景
-              _bgTransparentController.forward(from: 0.0);
-              _positionAnimationController.forward(from: 0).then((_) {
-                setState(() {
-                  _videoController?.play();
-                });
+          if (firstOpen && imageWidth != 0 && imageHeight != 0) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              setState(() {
+                firstOpen = false;
               });
-
-              // 大小
-              _sizedAnimation = Tween<Size>(
-                begin: widget.openBoxSize,
-                end: Size(videoWidth, videoHeight),
-              ).animate(_sizedController);
-              _sizedController.forward();
             });
+
+            // 中心点坐标
+            originPoint = Offset(
+                (systemState.screenSize.width - imageWidth) / 2,
+                (systemState.screenSize.height - imageHeight) / 2);
+
+            // 位置
+            _positionAnimation = Tween<Offset>(
+              begin: widget.openPosition,
+              end: Offset(0, originPoint!.dy),
+            ).animate(_positionAnimationController);
+
+            // 背景
+            _bgTransparentController.forward(from: 0.0);
+            _positionAnimationController.forward(from: 0).then((_) {});
+
+            // 大小
+            _sizedAnimation = Tween<Size>(
+              begin: widget.openBoxSize,
+              end: Size(imageWidth, imageHeight),
+            ).animate(_sizedController);
+            _sizedController.forward();
+          }
 
           return AnimatedBuilder(
             animation: _positionAnimationController,
@@ -218,7 +234,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
                   _positionAnimation = Tween<Offset>(
                     begin: currentPosition,
                     end: Offset(0,
-                        (MediaQuery.of(context).size.height - videoHeight) / 2),
+                        (MediaQuery.of(context).size.height - imageHeight) / 2),
                   ).animate(CurvedAnimation(
                     parent: _positionAnimationController,
                     curve: Curves.easeInOutCubicEmphasized, // 使用缓动曲线
@@ -249,18 +265,23 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
                           Color.fromARGB(_bganimation.value.toInt(), 0, 0, 0),
                     ),
 
-                    // 视频窗口
-                    Positioned(
+                    // 图片窗口
+                    if (image != null && imageWidth != 0 && imageHeight != 0)
+                      Positioned(
                         left: currentPosition.dx,
                         top: currentPosition.dy,
                         child: Container(
-                            width: _sizedAnimation.value.width,
-                            height: _sizedAnimation.value.height,
-                            color: Colors.transparent,
-                            child: AspectRatio(
-                              aspectRatio: _videoController!.value.aspectRatio,
-                              child: VideoPlayer(_videoController!),
-                            ))),
+                          width: _sizedAnimation.value.width,
+                          height: _sizedAnimation.value.height,
+                          color: Colors.transparent,
+                          child: image,
+                        ),
+                      )
+                    else
+                      Text(
+                        "Loading",
+                        style: TextStyle(color: Colors.red),
+                      ),
 
                     // 关闭按钮
                     if (currentPosition == originPoint)
@@ -305,7 +326,6 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
 
   // 关闭全屏
   void closeFullScreen(Offset currentPosition) {
-    _videoController?.pause();
     _positionAnimationController.stop();
     _bgTransparentController.stop();
     _sizedController.stop();
@@ -336,7 +356,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
       cancelableDelay!.delayed(const Duration(milliseconds: 100), () {
         setState(() {
           context.read<PopupCubit>().updateReturnButtonEvent(false);
-          context.read<PopupCubit>().updateShowFullScreenVideo(false);
+          context.read<PopupCubit>().updateShowFullScreenImage(false);
           if (widget.onClose != null) widget.onClose!();
         });
       });

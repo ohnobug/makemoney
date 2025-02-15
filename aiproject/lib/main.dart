@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:jiaoyishuoflutter3/camera_view.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_image_draggable_box.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_video_draggable_box.dart';
 import 'package:jiaoyishuoflutter3/store/popup/popup_cubit.dart';
 import 'package:window_manager/window_manager.dart';
@@ -217,10 +218,17 @@ class _App extends State<App> {
                           ? LJNVideoDraggableBox(
                               openBoxSize: popupState.openBoxSize,
                               openPosition: popupState.openPosition,
-                              videoPath: popupState.videoPath,
+                              videoPath: popupState.sourcePath,
                               onClose: () {},
                             )
-                          : Container();
+                          : popupState.showFullScreenImage == true
+                              ? LJNImaeDraggableBox(
+                                  openBoxSize: popupState.openBoxSize,
+                                  openPosition: popupState.openPosition,
+                                  imagePath: popupState.sourcePath,
+                                  onClose: () {},
+                                )
+                              : Container();
                     },
                   )
                 ],

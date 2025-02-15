@@ -1109,11 +1109,11 @@ class LJNTweenImage extends StatelessWidget {
           Size size = renderBox.size;
 
           // 显示视频
-          context.read<PopupCubit>().updateVideoPopup(
+          context.read<PopupCubit>().updateImagePopup(
                 openBoxSize: size,
                 openPosition: position,
-                videoPath: 'images/ins/video2.mp4',
-                showFullScreenVideo: true,
+                imagePath: imagePath,
+                showFullScreenimage: true,
               );
         },
         child: Image.asset(
