@@ -401,233 +401,258 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
       _scrollController!.addListener(_scrollListener);
     }
 
-    return BlocBuilder<SystemCubit, SystemState>(
-      builder: (context, systemState) {
-        return Scaffold(
-          primary: false,
-          appBar: null,
-          body: Stack(
-            children: [
-              // 背景
-              _buildBackground(),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
 
-              // 使用 ListView
-              MediaQuery.removePadding(
-                  context: context,
-                  removeTop: true, // 移除顶部的padding
-                  child: Stack(children: [
-                    GestureDetector(
-                      onTapDown: (TapDownDetails details) {
-                        hideLikeBox(quick: true);
-                      },
-                      child: NotificationListener<ScrollNotification>(
-                          onNotification: (ScrollNotification notification) {
-                            if (notification is ScrollUpdateNotification) {
-                              // 用户正在滚动
-                              setState(() {
-                                _isScrolling = true;
-                              });
-                            } else if (notification is ScrollEndNotification) {
-                              // 用户停止滚动
-                              setState(() {
-                                _isScrolling = false;
-                              });
-                            }
-                            return true; // 返回 true 表示已处理该通知
-                          },
-                          child: ScrollConfiguration(
-                              behavior: CustomScrollBehavior().copyWith(
-                                scrollbars: false,
-                                physics: const BouncingScrollPhysics(
-                                    parent: AlwaysScrollableScrollPhysics()),
-                                // physics: const ClampingScrollPhysics(),
-                              ),
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                // addAutomaticKeepAlives: false,
-                                primary: false,
-                                controller: _scrollController,
-                                itemCount:
-                                    tweetList.length + 1, // +1 是因为还包含头像部分
-                                itemBuilder: (context, index) {
-                                  if (index == 0) {
-                                    // 头像及背景信息部分
-                                    return Container(
-                                      height:
-                                          (systemState.statusHeight + 630.w),
-                                      color: Colors.white,
-                                      width: 750.w,
-                                      child: Stack(
-                                        children: [
-                                          // 背景图片
-                                          Transform.translate(
-                                            offset: Offset(0, -100.w),
-                                            child: Image.asset(
-                                              assetPath('images/avatar/fj.jpg'),
-                                              cacheWidth: 1500.w.toInt(),
-                                              cacheHeight:
-                                                  (systemState.statusHeight +
-                                                          1260.w)
-                                                      .toInt(),
-                                              width: 750.w,
-                                              height: 730.w,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
+        if (context.read<PopupCubit>().state.showFullScreenVideo == true) {
+          // 返回按钮被按下
+          context.read<PopupCubit>().updateReturnButtonEvent(true);
+        } else {
+          // 视频未打开，允许默认返回行为
+          Navigator.of(context).pop();
+        }
+      },
+      child: BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+          return Scaffold(
+            primary: false,
+            appBar: null,
+            body: Stack(
+              children: [
+                // 背景
+                _buildBackground(),
 
-                                          // 头像及昵称
-                                          Positioned(
-                                            top: systemState.statusHeight +
-                                                460.w,
-                                            child: Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 35.w),
-                                              width: 750.w,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  // 昵称
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        right: 15.w, top: 5.w),
-                                                    child: Text(
-                                                      context
-                                                          .read<UserCubit>()
-                                                          .state
-                                                          .userinfoName!,
-                                                      style: TextStyle(
-                                                        height: 1.08,
-                                                        fontSize:
-                                                            fontSizeScale(40.w),
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                                  10)
-                                                              .w,
-                                                      child: Image.asset(
-                                                        assetPath(context
-                                                            .read<UserCubit>()
-                                                            .state
-                                                            .userinfoAvatar!),
-                                                        cacheWidth:
-                                                            240.w.toInt(),
-                                                        cacheHeight:
-                                                            240.w.toInt(),
-                                                        width: 120.w,
-                                                        height: 120.w,
-                                                        fit: BoxFit.cover,
-                                                      )),
-                                                ],
+                // 使用 ListView
+                MediaQuery.removePadding(
+                    context: context,
+                    removeTop: true, // 移除顶部的padding
+                    child: Stack(children: [
+                      GestureDetector(
+                        onTapDown: (TapDownDetails details) {
+                          hideLikeBox(quick: true);
+                        },
+                        child: NotificationListener<ScrollNotification>(
+                            onNotification: (ScrollNotification notification) {
+                              if (notification is ScrollUpdateNotification) {
+                                // 用户正在滚动
+                                setState(() {
+                                  _isScrolling = true;
+                                });
+                              } else if (notification
+                                  is ScrollEndNotification) {
+                                // 用户停止滚动
+                                setState(() {
+                                  _isScrolling = false;
+                                });
+                              }
+                              return true; // 返回 true 表示已处理该通知
+                            },
+                            child: ScrollConfiguration(
+                                behavior: CustomScrollBehavior().copyWith(
+                                  scrollbars: false,
+                                  physics: const BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics()),
+                                  // physics: const ClampingScrollPhysics(),
+                                ),
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  // addAutomaticKeepAlives: false,
+                                  primary: false,
+                                  controller: _scrollController,
+                                  itemCount:
+                                      tweetList.length + 1, // +1 是因为还包含头像部分
+                                  itemBuilder: (context, index) {
+                                    if (index == 0) {
+                                      // 头像及背景信息部分
+                                      return Container(
+                                        height:
+                                            (systemState.statusHeight + 630.w),
+                                        color: Colors.white,
+                                        width: 750.w,
+                                        child: Stack(
+                                          children: [
+                                            // 背景图片
+                                            Transform.translate(
+                                              offset: Offset(0, -100.w),
+                                              child: Image.asset(
+                                                assetPath(
+                                                    'images/avatar/fj.jpg'),
+                                                cacheWidth: 1500.w.toInt(),
+                                                cacheHeight:
+                                                    (systemState.statusHeight +
+                                                            1260.w)
+                                                        .toInt(),
+                                                width: 750.w,
+                                                height: 730.w,
+                                                fit: BoxFit.cover,
                                               ),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    );
-                                  } else {
-                                    // Tweet列表
-                                    var tweet = tweetList[index - 1]; // 减去头像部分
-                                    return TweetWidget(
-                                        time: tweet["time"]!,
-                                        avatarUrl: tweet["avatarUrl"]!,
-                                        name: tweet["name"]!,
-                                        tweetContent: tweet["tweetContent"]!,
-                                        likes: tweet["likes"],
-                                        imageList: tweet["imageList"],
-                                        moreOnPress: (Offset position) {
-                                          logger.info("来了咩?");
 
-                                          // 如果列表在滚动, 则更多按钮不能被点击
-                                          if (_isScrolling) return;
+                                            // 头像及昵称
+                                            Positioned(
+                                              top: systemState.statusHeight +
+                                                  460.w,
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: 35.w,
+                                                ),
+                                                width: 750.w,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    // 昵称
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                        right: 15.w,
+                                                        top: 5.w,
+                                                      ),
+                                                      child: Text(
+                                                        context
+                                                            .read<UserCubit>()
+                                                            .state
+                                                            .userinfoName!,
+                                                        style: TextStyle(
+                                                          height: 1.08,
+                                                          fontSize:
+                                                              fontSizeScale(
+                                                            40.w,
+                                                          ),
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                    .circular(
+                                                                        10)
+                                                                .w,
+                                                        child: Image.asset(
+                                                          assetPath(context
+                                                              .read<UserCubit>()
+                                                              .state
+                                                              .userinfoAvatar!),
+                                                          cacheWidth:
+                                                              240.w.toInt(),
+                                                          cacheHeight:
+                                                              240.w.toInt(),
+                                                          width: 120.w,
+                                                          height: 120.w,
+                                                          fit: BoxFit.cover,
+                                                        )),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      // Tweet列表
+                                      var tweet =
+                                          tweetList[index - 1]; // 减去头像部分
+                                      return TweetWidget(
+                                          time: tweet["time"]!,
+                                          avatarUrl: tweet["avatarUrl"]!,
+                                          name: tweet["name"]!,
+                                          tweetContent: tweet["tweetContent"]!,
+                                          likes: tweet["likes"],
+                                          imageList: tweet["imageList"],
+                                          moreOnPress: (Offset position) {
+                                            logger.info("来了咩?");
 
-                                          if (likeBoxVisible) {
-                                            hideLikeBox(quick: false);
-                                          } else {
-                                            showLikeBox(position);
-                                          }
-                                        });
-                                  }
-                                },
-                              ))),
-                    ),
-                  ])),
+                                            // 如果列表在滚动, 则更多按钮不能被点击
+                                            if (_isScrolling) return;
 
-              // 点赞弹框
-              _buildLikeBox(),
-
-              // 顶部透明 AppBar
-              Container(
-                color:
-                    Color.fromARGB(_appBarOpacity.value.toInt(), 237, 237, 237),
-                width: 750.w,
-                height: 90.0.w + systemState.statusHeight,
-                padding: EdgeInsets.only(top: systemState.statusHeight),
-                child: AppBar(
-                  primary: false,
-                  title: const Text("朋友圈"),
-                  centerTitle: true,
-                  titleTextStyle: TextStyle(
-                    height: 1.08,
-                    fontSize: fontSizeScale(32.w),
-                    color:
-                        Color.fromARGB(_appBarOpacity.value.toInt(), 0, 0, 0),
-                    fontFamily: "AlibabaPuHuiTi-Medium",
-                  ),
-                  toolbarHeight: 90.w,
-                  elevation: 0,
-                  scrolledUnderElevation: 0,
-                  backgroundColor: Colors.transparent,
-                  foregroundColor: Colors.transparent,
-                  leading: GestureDetector(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Icon(
-                        const IconData(0xed9e, fontFamily: 'Iconfont'),
-                        color: _appBarOpacity.value.toInt() > 180
-                            ? Colors.black
-                            : Colors.white,
-                        size: 36.w,
+                                            if (likeBoxVisible) {
+                                              hideLikeBox(quick: false);
+                                            } else {
+                                              showLikeBox(position);
+                                            }
+                                          });
+                                    }
+                                  },
+                                ))),
                       ),
+                    ])),
+
+                // 点赞弹框
+                _buildLikeBox(),
+
+                // 顶部透明 AppBar
+                Container(
+                  color: Color.fromARGB(
+                      _appBarOpacity.value.toInt(), 237, 237, 237),
+                  width: 750.w,
+                  height: 90.0.w + systemState.statusHeight,
+                  padding: EdgeInsets.only(top: systemState.statusHeight),
+                  child: AppBar(
+                    primary: false,
+                    title: const Text("朋友圈"),
+                    centerTitle: true,
+                    titleTextStyle: TextStyle(
+                      height: 1.08,
+                      fontSize: fontSizeScale(32.w),
+                      color:
+                          Color.fromARGB(_appBarOpacity.value.toInt(), 0, 0, 0),
+                      fontFamily: "AlibabaPuHuiTi-Medium",
                     ),
-                  ),
-                  actions: [
-                    GestureDetector(
-                      onTap: () {},
+                    toolbarHeight: 90.w,
+                    elevation: 0,
+                    scrolledUnderElevation: 0,
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Colors.transparent,
+                    leading: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
                       child: Container(
                         color: Colors.transparent,
-                        height: 90.w,
-                        padding: EdgeInsets.only(right: 40.w),
-                        alignment: Alignment.center,
-                        child: _appBarOpacity.value.toInt() > 180
-                            ? Icon(
-                                const IconData(0xe68a, fontFamily: 'Iconfont'),
-                                size: 40.w,
-                                color: Colors.black,
-                              )
-                            : Icon(
-                                const IconData(0xe64d, fontFamily: 'Iconfont'),
-                                size: 40.w,
-                                color: Colors.white,
-                              ),
+                        child: Icon(
+                          const IconData(0xed9e, fontFamily: 'Iconfont'),
+                          color: _appBarOpacity.value.toInt() > 180
+                              ? Colors.black
+                              : Colors.white,
+                          size: 36.w,
+                        ),
                       ),
-                    )
-                  ],
+                    ),
+                    actions: [
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          color: Colors.transparent,
+                          height: 90.w,
+                          padding: EdgeInsets.only(right: 40.w),
+                          alignment: Alignment.center,
+                          child: _appBarOpacity.value.toInt() > 180
+                              ? Icon(
+                                  const IconData(0xe68a,
+                                      fontFamily: 'Iconfont'),
+                                  size: 40.w,
+                                  color: Colors.black,
+                                )
+                              : Icon(
+                                  const IconData(0xe64d,
+                                      fontFamily: 'Iconfont'),
+                                  size: 40.w,
+                                  color: Colors.white,
+                                ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
