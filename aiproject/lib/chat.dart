@@ -901,7 +901,8 @@ class _LJNChatPage extends State<LJNChatPage>
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
 
-        if (context.read<PopupCubit>().state.showFullScreenVideo == true) {
+        if (context.read<PopupCubit>().state.showFullScreenVideo == true ||
+            context.read<PopupCubit>().state.showFullScreenImage == true) {
           context.read<PopupCubit>().updateReturnButtonEvent(true);
         } else {
           Navigator.of(context).pop();

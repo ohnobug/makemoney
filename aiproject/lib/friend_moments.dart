@@ -406,11 +406,10 @@ class _LJNFriendmomentsPage extends State<LJNFriendmomentsPage>
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
 
-        if (context.read<PopupCubit>().state.showFullScreenVideo == true) {
-          // 返回按钮被按下
+        if (context.read<PopupCubit>().state.showFullScreenVideo == true ||
+            context.read<PopupCubit>().state.showFullScreenImage == true) {
           context.read<PopupCubit>().updateReturnButtonEvent(true);
         } else {
-          // 视频未打开，允许默认返回行为
           Navigator.of(context).pop();
         }
       },
