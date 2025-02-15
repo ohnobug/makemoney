@@ -124,7 +124,7 @@ void main() async {
     statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
   ));
 
-  startWebServer();
+  // startWebServer();
 
   runApp(
     const App(),
@@ -167,19 +167,19 @@ class _App extends State<App> {
     super.initState();
   }
 
-  bool _defaultOnNavigationNotification(NavigationNotification _) {
-    switch (WidgetsBinding.instance.lifecycleState) {
-      case null:
-      case AppLifecycleState.detached:
-      case AppLifecycleState.inactive:
-        return true;
-      case AppLifecycleState.resumed:
-      case AppLifecycleState.hidden:
-      case AppLifecycleState.paused:
-        SystemNavigator.setFrameworkHandlesBack(true);
-        return true;
-    }
-  }
+  // bool _defaultOnNavigationNotification(NavigationNotification _) {
+  //   switch (WidgetsBinding.instance.lifecycleState) {
+  //     case null:
+  //     case AppLifecycleState.detached:
+  //     case AppLifecycleState.inactive:
+  //       return true;
+  //     case AppLifecycleState.resumed:
+  //     case AppLifecycleState.hidden:
+  //     case AppLifecycleState.paused:
+  //       SystemNavigator.setFrameworkHandlesBack(true);
+  //       return true;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -202,59 +202,28 @@ class _App extends State<App> {
             navigatorKey: context.read<SystemCubit>().state.navigatorKey,
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
-            onNavigationNotification: _defaultOnNavigationNotification,
-            // home: Container(
-            //   width: 300,
-            //   height: 300,
-            //   color: Colors.red,
-            //   child: Text("hallo"),
-            // ),
+            // onNavigationNotification: _defaultOnNavigationNotification,
+            // home: ,
             builder: (context, child) {
-              return PopScope(
-                canPop: false, // prevent back
-                onPopInvokedWithResult: (
-                  bool didPop,
-                  Object? result,
-                ) async {
-                  logger.info('bbbbbbbbbbbbbbbb');
-
-                  if (didPop) return;
-
-                  final backNavigationAllowed =
-                      context.read<PopupCubit>().state.showFullScreenVideo;
-
-                  if (backNavigationAllowed) {
-                    context.read<PopupCubit>().updateShowFullScreenVideo(false);
-                  } else {
-                    // if (mounted) Navigator.of(context).pop();
-                    context.read<PopupCubit>().updateShowFullScreenVideo(false);
-                  }
-                },
-                child: Stack(
-                  children: [
-                    child!,
-
-                    // 视频放大
-                    BlocBuilder<PopupCubit, PopupState>(
-                      builder: (context, popupState) {
-                        return popupState.showFullScreenVideo
-                            ? LJNVideoDraggableBox(
-                                openBoxSize: popupState.openBoxSize,
-                                openPosition: popupState.openPosition,
-                                videoPath: popupState.videoPath,
-                                onClose: () {
-                                  setState(() {
-                                    context
-                                        .read<PopupCubit>()
-                                        .updateShowFullScreenVideo(false);
-                                  });
-                                },
-                              )
-                            : Container();
-                      },
-                    )
-                  ],
-                ),
+              return Stack(
+                children: [
+                  child!,
+                  // 视频放大
+                  BlocBuilder<PopupCubit, PopupState>(
+                    builder: (context, popupState) {
+                      logger.info(
+                          "qqqqqqqqq444444 ${popupState.showFullScreenVideo}");
+                      return popupState.showFullScreenVideo == true
+                          ? LJNVideoDraggableBox(
+                              openBoxSize: popupState.openBoxSize,
+                              openPosition: popupState.openPosition,
+                              videoPath: popupState.videoPath,
+                              onClose: () {},
+                            )
+                          : Container();
+                    },
+                  )
+                ],
               );
             },
             onGenerateRoute: (settings) {
@@ -1030,6 +999,15 @@ class _LJNPopupMenuItem extends State<LJNPopupMenuItem> {
 
 // 启动web服务器
 void startWebServer() async {
+  int port = 9413;
+
+  // 检查端口是否被占用
+  bool isPortAvailable = await isPortOpen(port);
+  if (!isPortAvailable) {
+    logger.info('端口 $port 已被占用，无法启动服务器');
+    return; // 端口被占用，停止启动服务器
+  }
+
   RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
 
   ByteData byteData = await rootBundle.load("assets/web/pages.html");
@@ -1048,11 +1026,23 @@ void startWebServer() async {
   var params = FileServerParams(
     sendPort: receivePort.sendPort,
     rootIsolateToken: rootIsolateToken,
-    port: 9413,
+    port: port,
   );
 
   await Isolate.spawn(startFileServer, params);
   receivePort.listen((message) {
     logger.info(message); // 打印服务器启动消息
   });
+}
+
+// 检查端口是否被占用
+Future<bool> isPortOpen(int port) async {
+  try {
+    final socket = await Socket.connect(InternetAddress.loopbackIPv4, port,
+        timeout: Duration(seconds: 1));
+    await socket.close();
+    return true; // 端口已被占用
+  } catch (e) {
+    return false; // 端口未被占用
+  }
 }

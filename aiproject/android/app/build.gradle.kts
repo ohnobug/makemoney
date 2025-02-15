@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.codegen.intrinsics.ArrayOf
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -7,7 +9,7 @@ plugins {
 
 android {
     namespace = "com.example.jiaoyishuoflutter3"
-    compileSdk = 35
+    compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.0.12077973"
 
     compileOptions {
@@ -28,7 +30,12 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        ndk {
+            abiFilters.addAll(arrayOf("arm64-v8a"))
+        }
     }
+
 
     buildTypes {
         release {
@@ -37,6 +44,7 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+    buildToolsVersion = "35.0.0"
 }
 
 flutter {

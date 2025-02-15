@@ -59,7 +59,7 @@ void showPopup(BuildContext context, SystemState systemState) {
                       ),
                     ),
                     WidgetSpan(
-                      child: SizedBox(width: 50.w),
+                      child: SizedBox(width: 20.w),
                     ),
                     TextSpan(
                       text: "视频通话",
@@ -105,7 +105,7 @@ void showPopup(BuildContext context, SystemState systemState) {
                       ),
                     ),
                     WidgetSpan(
-                      child: SizedBox(width: 50.w),
+                      child: SizedBox(width: 20.w),
                     ),
                     TextSpan(
                       text: "语音通话",

@@ -896,49 +896,62 @@ class _LJNChatPage extends State<LJNChatPage>
       _scrollToEnd();
     });
 
-    return BlocBuilder<SystemCubit, SystemState>(
-        builder: (context, systemState) {
-      return Scaffold(
-          // 是否在键盘弹出时调整布局（避免被键盘遮挡）。
-          resizeToAvoidBottomInset: _resizeToAvoidBottomInset,
-          primary: false,
-          extendBody: false,
-          appBar: null,
-          body: Stack(
-            children: [
-              Column(
-                children: [
-                  // 标题栏
-                  LJNAppBar(
-                    title: widget.title,
-                    actions: [
-                      GestureDetector(
-                        onTap: () {
-                          // 点击事件
-                          Navigator.pushNamed(
-                            context,
-                            '/friend_message_record',
-                          );
-                        },
-                        child: Container(
-                          height: 90.w,
-                          color: Colors.transparent,
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                          child: Icon(
-                            const IconData(
-                              0xe659,
-                              fontFamily: 'Iconfont',
-                            ),
-                            size: 37.w, // 图标大小
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
 
-                  // 主体
-                  Expanded(
+        if (context.read<PopupCubit>().state.showFullScreenVideo == true) {
+          // 返回按钮被按下
+          context.read<PopupCubit>().updateReturnButtonEvent(true);
+        } else {
+          // 视频未打开，允许默认返回行为
+          Navigator.of(context).pop();
+        }
+      },
+      child: BlocBuilder<SystemCubit, SystemState>(
+        builder: (context, systemState) {
+          return Scaffold(
+            // 是否在键盘弹出时调整布局（避免被键盘遮挡）。
+            resizeToAvoidBottomInset: _resizeToAvoidBottomInset,
+            primary: false,
+            extendBody: false,
+            appBar: null,
+            body: Stack(
+              children: [
+                Column(
+                  children: [
+                    // 标题栏
+                    LJNAppBar(
+                      title: widget.title,
+                      actions: [
+                        GestureDetector(
+                          onTap: () {
+                            // 点击事件
+                            Navigator.pushNamed(
+                              context,
+                              '/friend_message_record',
+                            );
+                          },
+                          child: Container(
+                            height: 90.w,
+                            color: Colors.transparent,
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                            child: Icon(
+                              const IconData(
+                                0xe659,
+                                fontFamily: 'Iconfont',
+                              ),
+                              size: 37.w, // 图标大小
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+
+                    // 主体
+                    Expanded(
                       flex: 1,
                       child: Column(
                         children: [
@@ -1555,15 +1568,19 @@ class _LJNChatPage extends State<LJNChatPage>
                             },
                           ),
                         ],
-                      ))
-                ],
-              ),
+                      ),
+                    )
+                  ],
+                ),
 
-              // 语音消息
-              if (showVoiceLottie) _buildVoiceWidget(systemState),
-            ],
-          ));
-    });
+                // 语音消息
+                if (showVoiceLottie) _buildVoiceWidget(systemState),
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 
   // 功能选择器组件

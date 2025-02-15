@@ -1,13 +1,25 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:jiaoyishuoflutter3/logger.dart';
 
 // 视频弹窗的Cubit
 class PopupCubit extends Cubit<PopupState> {
   PopupCubit() : super(PopupState());
 
+  // 更新returnButtonEvent
+  void updateReturnButtonEvent(bool returnButtonEvent) {
+    logger.info("qqqqqqqqqqqqqqqqqq 来啦111");
+
+    emit(state.copyWith(
+      returnButtonEvent: returnButtonEvent,
+    ));
+  }
+
   // 更新ShowFullScreenVideo
   void updateShowFullScreenVideo(bool showFullScreenVideo) {
-    emit(PopupState(
+    logger.info("qqqqqqqqqqqqqqqqqq 来啦222");
+
+    emit(state.copyWith(
       showFullScreenVideo: showFullScreenVideo,
     ));
   }
@@ -34,6 +46,7 @@ class PopupState {
   Offset openPosition;
   String videoPath;
   bool showFullScreenVideo;
+  bool returnButtonEvent;
 
   // 构造函数
   PopupState({
@@ -41,6 +54,7 @@ class PopupState {
     this.openPosition = const Offset(0, 0),
     this.videoPath = '',
     this.showFullScreenVideo = false,
+    this.returnButtonEvent = false,
   });
 
   // 拷贝构造函数
@@ -49,12 +63,14 @@ class PopupState {
     Offset? openPosition,
     String? videoPath,
     bool? showFullScreenVideo,
+    bool? returnButtonEvent,
   }) {
     return PopupState(
       openBoxSize: openBoxSize ?? this.openBoxSize,
       openPosition: openPosition ?? this.openPosition,
       videoPath: videoPath ?? this.videoPath,
       showFullScreenVideo: showFullScreenVideo ?? this.showFullScreenVideo,
+      returnButtonEvent: returnButtonEvent ?? this.returnButtonEvent,
     );
   }
 }
