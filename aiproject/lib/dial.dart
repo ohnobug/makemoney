@@ -129,35 +129,37 @@ class _LJNDial extends State<LJNDial> {
                     ),
                   ),
 
+                  SizedBox(
+                    height: 297.w,
+                  ),
+
                   Expanded(
-                    child: SizedBox(
-                      height: 297.w,
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                              16.0.w), // Adjust the radius as needed
+                          child: Image.asset(
+                            assetPath("images/avatar_webp/chat_55.webp"),
+                            width: 183.0.w,
+                            height: 183.0.w,
+                            cacheWidth: 360.w.toInt(),
+                            cacheHeight: 360.w.toInt(),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30.w,
+                        ),
+                        Text(
+                          "罗绮娴",
+                          style: TextStyle(color: Colors.white, fontSize: 40.w),
+                        ),
+                      ],
                     ),
                   ),
-                  Expanded(
-                      child: Column(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                            16.0.w), // Adjust the radius as needed
-                        child: Image.asset(
-                          assetPath("images/avatar_webp/chat_55.webp"),
-                          width: 183.0.w,
-                          height: 183.0.w,
-                          cacheWidth: 360.w.toInt(),
-                          cacheHeight: 360.w.toInt(),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30.w,
-                      ),
-                      Text(
-                        "罗绮娴",
-                        style: TextStyle(color: Colors.white, fontSize: 40.w),
-                      ),
-                    ],
-                  )),
+
                   // 含Loading的文字
                   LJNDotLoadingText(),
                   SizedBox(
@@ -173,6 +175,7 @@ class _LJNDial extends State<LJNDial> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            // 麦克风开关按钮
                             Container(
                               width: 140.w,
                               height: 140.w,
@@ -205,6 +208,8 @@ class _LJNDial extends State<LJNDial> {
                       SizedBox(
                         width: 77.w,
                       ),
+
+                      // 取消按钮
                       SizedBox(
                         width: 140.w,
                         height: 242.w,
@@ -260,6 +265,8 @@ class _LJNDial extends State<LJNDial> {
                       SizedBox(
                         width: 77.w,
                       ),
+
+                      // 扬声器开关按钮
                       SizedBox(
                         width: 140.w,
                         height: 242.w,
