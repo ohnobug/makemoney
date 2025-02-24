@@ -26,13 +26,13 @@ dependencies:
   get_thumbnail_video: ^0.7.3
   record: ^5.2.0
   uuid: ^3.0.6
-  audioplayers: ^6.1.0
   image_picker: ^1.0.4
   camera: ^0.11.0+2
   collection: ^1.19.0
-  flutter_webrtc: ^0.12.9
-  flutter_whip: ^0.5.5
-  shared_preferences: ^2.5.1
+  flutter_webrtc: ^0.12.11
+  flutter_whip:
+    path: G://mypkg/flutter-whip
+  shared_preferences: ^2.5.2
   flutter_in_app_pip: ^1.7.4
   webview_windows: ^0.4.0
   window_manager: ^0.4.3

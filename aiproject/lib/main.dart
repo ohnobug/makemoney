@@ -125,7 +125,7 @@ void main() async {
     statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
   ));
 
-  // startWebServer();
+  startWebServer();
 
   runApp(
     const App(),
@@ -1043,14 +1043,13 @@ void startWebServer() async {
   });
 }
 
-// 检查端口是否被占用
+// 检查端口是否可绑定（推荐用于启动服务前）
 Future<bool> isPortOpen(int port) async {
   try {
-    final socket = await Socket.connect(InternetAddress.loopbackIPv4, port,
-        timeout: Duration(seconds: 1));
-    await socket.close();
-    return true; // 端口已被占用
-  } catch (e) {
-    return false; // 端口未被占用
+    final server = await ServerSocket.bind(InternetAddress.loopbackIPv4, port);
+    await server.close();
+    return true;
+  } catch (_) {
+    return false;
   }
 }

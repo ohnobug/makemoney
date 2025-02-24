@@ -121,6 +121,7 @@ class _LJNCameraViewState extends State<LJNCameraView>
         onPointerUp: (_) => _pointers--,
         child: OrientationBuilder(builder: (context, orientation) {
           final turn = orientation == Orientation.landscape ? 2 : 1;
+
           return ClipRect(
               child: Transform.scale(
             scale: 1,

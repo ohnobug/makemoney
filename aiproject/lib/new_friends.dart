@@ -39,7 +39,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "天空飘来五个字那都不是事",
         avatar: "images/avatar_webp/chat_1.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是天空飘来五个字那都不是事',
         notice: false,
         lastedTime: Row(
           children: [
@@ -73,7 +73,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "本因",
         avatar: "images/avatar_webp/chat_10.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是本因',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -87,7 +87,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "赵洵",
         avatar: "images/avatar_webp/chat_11.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是赵洵',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -101,7 +101,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "定静师太",
         avatar: "images/avatar_webp/chat_12.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是定静师太',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -115,7 +115,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "李秋水",
         avatar: "images/avatar_webp/chat_13.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是李秋水',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -129,7 +129,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "谭婆",
         avatar: "images/avatar_webp/chat_14.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是谭婆',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -143,7 +143,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "李傀儡",
         avatar: "images/avatar_webp/chat_15.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是李傀儡',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -157,7 +157,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "貂禅",
         avatar: "images/avatar_webp/chat_16.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是貂禅',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -171,7 +171,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "何三七",
         avatar: "images/avatar_webp/chat_17.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是何三七',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -185,7 +185,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "孔融",
         avatar: "images/avatar_webp/chat_18.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是孔融',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -199,7 +199,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "齐堂主",
         avatar: "images/avatar_webp/chat_19.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是齐堂主',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -213,7 +213,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "博尔术",
         avatar: "images/avatar_webp/chat_20.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是博尔术',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -227,7 +227,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "王语嫣",
         avatar: "images/avatar_webp/chat_21.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是王语嫣',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -241,7 +241,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "秦红棉",
         avatar: "images/avatar_webp/chat_22.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是秦红棉',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -255,7 +255,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "天竺僧人",
         avatar: "images/avatar_webp/chat_23.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是天竺僧人',
         notice: false,
         lastedTime: "已过期",
         underline: false,
@@ -267,7 +267,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "段延庆",
         avatar: "images/avatar_webp/chat_33.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是段延庆',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -281,7 +281,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "令狐冲",
         avatar: "images/avatar_webp/chat_34.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是令狐冲',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -295,7 +295,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "英白罗",
         avatar: "images/avatar_webp/chat_35.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是英白罗',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -309,7 +309,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "黄药师",
         avatar: "images/avatar_webp/chat_36.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是黄药师',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -323,7 +323,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "李煜",
         avatar: "images/avatar_webp/chat_37.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是李煜',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -337,7 +337,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "云中鹤",
         avatar: "images/avatar_webp/chat_38.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是云中鹤',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -351,7 +351,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "劳德诺",
         avatar: "images/avatar_webp/chat_39.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是劳德诺',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -365,7 +365,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "包惜弱",
         avatar: "images/avatar_webp/chat_40.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是包惜弱',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -379,7 +379,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "游驹",
         avatar: "images/avatar_webp/chat_41.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是游驹',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -393,7 +393,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "钟万仇",
         avatar: "images/avatar_webp/chat_42.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是钟万仇',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -407,7 +407,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "渔人",
         avatar: "images/avatar_webp/chat_43.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是渔人',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -421,7 +421,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "单叔山",
         avatar: "images/avatar_webp/chat_44.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是单叔山',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -435,7 +435,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "段誉",
         avatar: "images/avatar_webp/chat_45.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是段誉',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -449,7 +449,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "林震南",
         avatar: "images/avatar_webp/chat_46.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是林震南',
         notice: false,
         lastedTime: "已过期",
         underline: true,
@@ -463,7 +463,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ChatListItem(
         friendName: "商鞅",
         avatar: "images/avatar_webp/chat_47.webp",
-        message: '我是Xtransfer彭英研',
+        message: '我是商鞅',
         notice: false,
         lastedTime: "已过期",
         underline: true,
