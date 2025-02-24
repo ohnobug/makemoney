@@ -53,7 +53,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
               children: [
                 LJNAlphabet(
                   title: '备注',
-                  color: Color.fromARGB(255, 237, 237, 237),
+                  bgColor: Color.fromARGB(255, 237, 237, 237),
                 ),
                 const LJNFunctionItem(
                   title: "备注名",
@@ -81,7 +81,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                 ),
                 LJNAlphabet(
                   title: '更多信息',
-                  color: Color.fromARGB(255, 237, 237, 237),
+                  bgColor: Color.fromARGB(255, 237, 237, 237),
                 ),
                 const LJNFunctionItem(
                   title: "我和她共同的群聊",

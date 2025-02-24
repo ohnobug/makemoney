@@ -37,7 +37,7 @@ class _LJNAddressBookLabel extends State<LJNAddressBookLabel> {
 
       LJNAlphabet(
         title: 'A',
-        color: Colors.white,
+        bgColor: Colors.white,
       ),
       ContactInformation(
         title: "天空飘来五个字那都不是事",
@@ -215,7 +215,7 @@ class _LJNAddressBookLabel extends State<LJNAddressBookLabel> {
       ),
       LJNAlphabet(
         title: 'B',
-        color: Colors.white,
+        bgColor: Colors.white,
       ),
       ContactInformation(
         title: "段延庆",

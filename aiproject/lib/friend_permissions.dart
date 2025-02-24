@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_alphabet.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_switch.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
@@ -48,9 +49,11 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
           color: const Color.fromARGB(255, 237, 237, 237),
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics()),
+              parent: BouncingScrollPhysics(),
+            ),
             child: Column(
               children: [
+                // 设置朋友权限
                 Container(
                   alignment: Alignment.centerLeft,
                   height: 64.w,
@@ -58,9 +61,15 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                       const EdgeInsets.only(left: 30.0, right: 0.0, top: 16).w,
                   child: Text(
                     "设置朋友权限",
-                    style: TextStyle(fontSize: 25.w, height: 1.08),
+                    style: TextStyle(
+                      fontSize: 25.w,
+                      height: 1.08,
+                      color: Color.fromARGB(255, 103, 103, 103),
+                    ),
                   ),
                 ),
+
+                // 聊天、朋友圈、微信运动等
                 LJNFunctionItem(
                   title: "聊天、朋友圈、微信运动等",
                   onPress: () {
@@ -75,21 +84,25 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                       ? Expanded(
                           flex: 0,
                           child: Container(
-                              // color: Colors.red,
-                              width: 30.w,
-                              height: 105.0.w,
-                              margin:
-                                  const EdgeInsets.only(left: 10, right: 32).w,
-                              child: Icon(
-                                const IconData(
-                                  0xe60d,
-                                  fontFamily: 'Iconfont',
-                                ),
-                                size: 30.0.w,
-                                color: const Color.fromARGB(255, 69, 182, 87),
-                              )))
+                            // color: Colors.red,
+                            width: 30.w,
+                            height: 105.0.w,
+                            margin:
+                                const EdgeInsets.only(left: 10, right: 32).w,
+                            child: Icon(
+                              const IconData(
+                                0xe60d,
+                                fontFamily: 'Iconfont',
+                              ),
+                              size: 30.0.w,
+                              color: const Color.fromARGB(255, 69, 182, 87),
+                            ),
+                          ),
+                        )
                       : const SizedBox(),
                 ),
+
+                // 仅聊天
                 LJNFunctionItem(
                   title: "仅聊天",
                   // link: '',
@@ -100,68 +113,78 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                       chatOnly = true;
                     });
                   },
-                  showStyle: chatOnly
+                  showStyle: chatOnly == true
                       ? Expanded(
                           flex: 0,
                           child: Container(
-                              // color: Colors.red,
-                              width: 30.w,
-                              height: 105.0.w,
-                              margin:
-                                  const EdgeInsets.only(left: 10, right: 32).w,
-                              child: Icon(
-                                const IconData(
-                                  0xe60d,
-                                  fontFamily: 'Iconfont',
-                                ),
-                                size: 30.0.w,
-                                color: const Color.fromARGB(255, 69, 182, 87),
-                              )))
+                            // color: Colors.red,
+                            width: 30.w,
+                            height: 105.0.w,
+                            margin:
+                                const EdgeInsets.only(left: 10, right: 32).w,
+                            child: Icon(
+                              const IconData(
+                                0xe60d,
+                                fontFamily: 'Iconfont',
+                              ),
+                              size: 30.0.w,
+                              color: const Color.fromARGB(255, 69, 182, 87),
+                            ),
+                          ),
+                        )
                       : const SizedBox(),
                 ),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  height: 64.w,
-                  padding:
-                      const EdgeInsets.only(left: 30.0, right: 0.0, top: 16).w,
-                  child: Text(
-                    "朋友圈和状态",
-                    style: TextStyle(fontSize: 25.w, height: 1.08),
+
+                // 提示语
+                if (chatOnly)
+                  LJNAlphabet(
+                    title: '对方看不到你的朋友圈、状态、微信运动等。',
+                    color: Color.fromARGB(255, 103, 103, 103),
                   ),
-                ),
-                LJNFunctionItem(
+
+                // 不让他看我
+                if (chatOnly == false) ...[
+                  LJNAlphabet(
+                    title: '朋友圈和状态',
+                    color: Color.fromARGB(255, 103, 103, 103),
+                  ),
+                  LJNFunctionItem(
                     title: "不让她看我",
                     // link: '',
                     underline: true,
                     tapEffect: false,
                     showStyle: Expanded(
-                        flex: 0,
-                        child: Container(
-                            margin: const EdgeInsets.only(right: 32).w,
-                            child: LJNSwitch(
-                              initialValue: true,
-                              onChanged: (value) {
-                                logger.info(value);
-                              },
-                            )))),
-                LJNFunctionItem(
-                  title: "不看她",
-                  // link: '',
-                  underline: false,
-                  tapEffect: false,
-                  showStyle: Expanded(
-                    flex: 0,
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 32).w,
-                      child: LJNSwitch(
-                        initialValue: true,
-                        onChanged: (value) {
-                          logger.info(value);
-                        },
+                      flex: 0,
+                      child: Container(
+                        margin: const EdgeInsets.only(right: 32).w,
+                        child: LJNSwitch(
+                          initialValue: true,
+                          onChanged: (value) {
+                            logger.info(value);
+                          },
+                        ),
                       ),
                     ),
                   ),
-                ),
+                  LJNFunctionItem(
+                    title: "不看她",
+                    // link: '',
+                    underline: false,
+                    tapEffect: false,
+                    showStyle: Expanded(
+                      flex: 0,
+                      child: Container(
+                        margin: const EdgeInsets.only(right: 32).w,
+                        child: LJNSwitch(
+                          initialValue: true,
+                          onChanged: (value) {
+                            logger.info(value);
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ],
             ),
           ),

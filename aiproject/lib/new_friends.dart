@@ -34,7 +34,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
 
       LJNAlphabet(
         title: '两天前',
-        color: Color.fromARGB(255, 237, 237, 237),
+        bgColor: Color.fromARGB(255, 237, 237, 237),
       ),
       ChatListItem(
         friendName: "天空飘来五个字那都不是事",
@@ -262,7 +262,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
       ),
       LJNAlphabet(
         title: '五天前',
-        color: Color.fromARGB(255, 237, 237, 237),
+        bgColor: Color.fromARGB(255, 237, 237, 237),
       ),
       ChatListItem(
         friendName: "段延庆",
