@@ -116,6 +116,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                               "/mywebview?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing')}",
                           underline: false,
                         ),
+
                         SizedBox(height: 16.w),
 
                         LJNFunctionItem(
@@ -148,6 +149,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                           showStyle: "微信输入法可以【问AI】了",
                           underline: false,
                         ),
+
                         SizedBox(height: 16.w),
 
                         const LJNFunctionItem(

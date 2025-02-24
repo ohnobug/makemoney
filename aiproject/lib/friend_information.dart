@@ -1,22 +1,22 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_alphabet.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'components/ljn_function_item.dart';
 
-class LJNFriendMoreInfo extends StatefulWidget {
-  const LJNFriendMoreInfo({
+class LJNFriendInformation extends StatefulWidget {
+  const LJNFriendInformation({
     super.key,
   });
 
   @override
-  State<LJNFriendMoreInfo> createState() => _LJNFriendMoreInfo();
+  State<LJNFriendInformation> createState() => _LJNFriendInformation();
 }
 
-class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
+class _LJNFriendInformation extends State<LJNFriendInformation> {
   @override
   void initState() {
     super.initState();
@@ -35,7 +35,7 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
     return Scaffold(
       primary: false,
       appBar: const LJNAppBar(
-        title: "更多信息",
+        title: "朋友资料",
       ),
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -51,8 +51,40 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
             ),
             child: Column(
               children: [
+                LJNAlphabet(
+                  title: '备注',
+                  color: Color.fromARGB(255, 237, 237, 237),
+                ),
                 const LJNFunctionItem(
-                  title: "我和她的共同群聊",
+                  title: "备注名",
+                  link: '',
+                  showStyle: "马化腾",
+                  underline: true,
+                ),
+                const LJNFunctionItem(
+                  title: "标签",
+                  link: '',
+                  showStyle: "同学、朋友",
+                  underline: true,
+                ),
+                const LJNFunctionItem(
+                  title: "电话",
+                  link: '',
+                  showStyle: "+86 18718988850",
+                  underline: true,
+                ),
+                const LJNFunctionItem(
+                  title: "描述",
+                  link: '',
+                  showStyle: "-",
+                  underline: false,
+                ),
+                LJNAlphabet(
+                  title: '更多信息',
+                  color: Color.fromARGB(255, 237, 237, 237),
+                ),
+                const LJNFunctionItem(
+                  title: "我和她共同的群聊",
                   link: '',
                   showStyle: "4个",
                   underline: false,
@@ -63,14 +95,35 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                 ),
                 LJNFunctionItem(
                   height: 135.w,
-                  title: '个人签名',
+                  title: '签名',
+                  underline: true,
+                  // link: '',
+                  showStyle: Container(
+                      // color: Colors.red,
+                      margin: EdgeInsets.only(right: 40.w),
+                      width: 345.w,
+                      child: Text(
+                        "为者常成，行者常至。",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          // height: 1.25,
+                          fontSize: 32.w,
+                          color: const Color.fromARGB(255, 92, 92, 92),
+                        ),
+                      )),
+                ),
+                LJNFunctionItem(
+                  height: 135.w,
+                  title: '来源',
+                  underline: true,
                   // link: '',
                   showStyle: Container(
                     // color: Colors.red,
                     margin: EdgeInsets.only(right: 40.w),
                     width: 345.w,
                     child: Text(
-                      "为者常成，行者常至。",
+                      '通过群聊"深圳腾讯公司董事会"添加',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -80,31 +133,11 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                       ),
                     ),
                   ),
-                  underline: true,
-                ),
-                LJNFunctionItem(
-                  height: 135.w,
-                  title: '来源',
-                  // link: '',
-                  showStyle: Container(
-                      // color: Colors.red,
-                      margin: EdgeInsets.only(right: 40.w),
-                      width: 345.w,
-                      child: Text(
-                        '通过群聊"深圳腾讯公司董事会"添加',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          // height: 1.25,
-                          fontSize: 32.w,
-                          color: const Color.fromARGB(255, 92, 92, 92),
-                        ),
-                      )),
-                  underline: true,
                 ),
                 LJNFunctionItem(
                   title: "添加时间",
                   // link: '',
+                  underline: false,
                   showStyle: Expanded(
                     child: Container(
                       margin: EdgeInsets.only(right: 40.w),
@@ -122,60 +155,12 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                       ),
                     ),
                   ),
-                  underline: false,
                 ),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class IconBox extends StatelessWidget {
-  const IconBox({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 140.w,
-      width: 105.w,
-      alignment: Alignment.topLeft,
-      child: DottedBorder(
-          color: const Color.fromARGB(255, 166, 166, 166),
-          borderType: BorderType.RRect,
-          padding: const EdgeInsets.all(0),
-          borderPadding: const EdgeInsets.all(0),
-          stackFit: StackFit.loose,
-          strokeWidth: 3.w,
-          dashPattern: [16.w, 10.w],
-          strokeCap: StrokeCap.round,
-          radius: Radius.circular(8.0.w),
-          child: SizedBox(
-            width: 105.0.w, // 设置宽度
-            height: 105.0.w, // 设置高度
-            // decoration: BoxDecoration(
-            //   color: Colors.transparent, // 背景透明
-            //   borderRadius: BorderRadius.circular(8.0.w), // 圆角 8
-            //   border: Border.all(
-            //     color: const Color.fromARGB(255, 166, 166, 166), // 边框颜色
-            //     width: 1.0.w,
-            //     style: BorderStyle.solid, // 边框样式
-            //   ),
-            //   shape: BoxShape.rectangle, // 矩形盒子
-            // ),
-            child: Center(
-              child: Icon(
-                const IconData(
-                  0xe616,
-                  fontFamily: 'Iconfont',
-                ), // 使用的图标
-                color: const Color.fromARGB(255, 166, 166, 166), // 图标颜色
-                size: 42.0.w, // 图标大小
-              ),
-            ),
-          )),
     );
   }
 }

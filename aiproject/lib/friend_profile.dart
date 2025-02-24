@@ -224,20 +224,21 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                         // 设置备注与标签
                         const LJNFunctionItem(
                           title: "设置备注与标签",
-                          link: '',
+                          link: '/friend_information',
                           underline: true,
                         ),
 
                         // 朋友权限
                         const LJNFunctionItem(
                           title: "朋友权限",
-                          link: '',
+                          link: '/friend_permissions',
                           underline: true,
                         ),
 
                         Container(
-                            color: const Color.fromARGB(255, 237, 237, 237),
-                            height: 16.w),
+                          color: const Color.fromARGB(255, 237, 237, 237),
+                          height: 16.w,
+                        ),
 
                         // 朋友圈
                         LJNFunctionItem(

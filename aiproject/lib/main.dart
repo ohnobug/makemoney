@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:jiaoyishuoflutter3/camera_view.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_image_draggable_box.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_video_draggable_box.dart';
+import 'package:jiaoyishuoflutter3/friend_information.dart';
 import 'package:jiaoyishuoflutter3/store/popup/popup_cubit.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -391,6 +392,8 @@ class _App extends State<App> {
                 return pageRouteBuilderAnimation(const LJNNewFriends());
               } else if (settings.name == "/camera") {
                 return pageRouteBuilderAnimation(const LJNCameraView());
+              } else if (settings.name == "/friend_information") {
+                return pageRouteBuilderAnimation(const LJNFriendInformation());
               }
 
               return null;

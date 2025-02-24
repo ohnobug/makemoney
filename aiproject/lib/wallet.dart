@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
 import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
@@ -73,10 +72,10 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                         icon: "images/icon/discovery_icon1.png",
                         link: '/pocketmoney',
                         showStyle: Expanded(
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
                               Text.rich(
                                 TextSpan(
                                   children: [
@@ -111,7 +110,9 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                                 ),
                                 textAlign: TextAlign.center,
                               )
-                            ])),
+                            ],
+                          ),
+                        ),
                         underline: true,
                       ),
 

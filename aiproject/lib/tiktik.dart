@@ -89,36 +89,44 @@ class _LJNTiktikPage extends State<LJNTiktikPage> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text.rich(TextSpan(
+                                    Text.rich(
+                                      TextSpan(
                                         children: buildTextSpans(
-                                            "@深圳黑马眼科💖",
-                                            TextStyle(
-                                                height: 1.08,
-                                                fontSize: fontSizeScale(33.w),
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: "AlibabaPuHuiTi"),
-                                            TextStyle(
-                                                height: 1.08,
-                                                fontSize: fontSizeScale(33.w),
-                                                fontFamily:
-                                                    "NotoColorEmoji-Regular")))),
+                                          "@深圳黑马眼科💖",
+                                          TextStyle(
+                                              height: 1.08,
+                                              fontSize: fontSizeScale(33.w),
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: "AlibabaPuHuiTi"),
+                                          TextStyle(
+                                              height: 1.08,
+                                              fontSize: fontSizeScale(33.w),
+                                              fontFamily:
+                                                  "NotoColorEmoji-Regular"),
+                                        ),
+                                      ),
+                                    ),
                                     SizedBox(
                                       height: 20.w,
                                     ),
-                                    Text.rich(TextSpan(
+                                    Text.rich(
+                                      TextSpan(
                                         children: buildTextSpans(
-                                            "深圳黑马眼科, 一家只做近视手术的专科医院,抖音推出1元近视手术",
-                                            TextStyle(
-                                                height: 1.35,
-                                                fontSize: fontSizeScale(28.w),
-                                                color: Colors.white,
-                                                fontFamily: "AlibabaPuHuiTi"),
-                                            TextStyle(
-                                                height: 1.35,
-                                                fontSize: fontSizeScale(28.w),
-                                                fontFamily:
-                                                    "NotoColorEmoji-Regular"))))
+                                          "深圳黑马眼科, 一家只做近视手术的专科医院,抖音推出1元近视手术",
+                                          TextStyle(
+                                              height: 1.35,
+                                              fontSize: fontSizeScale(28.w),
+                                              color: Colors.white,
+                                              fontFamily: "AlibabaPuHuiTi"),
+                                          TextStyle(
+                                              height: 1.35,
+                                              fontSize: fontSizeScale(28.w),
+                                              fontFamily:
+                                                  "NotoColorEmoji-Regular"),
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ),
                               )),

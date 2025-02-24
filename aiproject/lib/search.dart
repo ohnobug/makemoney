@@ -45,25 +45,29 @@ class _LJNSearchPage extends State<LJNSearchPage> {
     // 历史
     historyList.addAll([
       Text(
-          style: TextStyle(fontSize: 32.w, height: 1.08),
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-          "俄公开恐怖分子被捕的画面"),
+        style: TextStyle(fontSize: 32.w, height: 1.08),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+        "俄公开恐怖分子被捕的画面",
+      ),
       Text(
-          style: TextStyle(fontSize: 32.w, height: 1.08),
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-          "微软宣布将终止对Windows10的支持"),
+        style: TextStyle(fontSize: 32.w, height: 1.08),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+        "微软宣布将终止对Windows10的支持",
+      ),
       Text(
-          style: TextStyle(fontSize: 32.w, height: 1.08),
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-          "唐尚珺是弱智的吗 考了那么多次高考"),
+        style: TextStyle(fontSize: 32.w, height: 1.08),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+        "唐尚珺是弱智的吗 考了那么多次高考",
+      ),
       Text(
-          style: TextStyle(fontSize: 32.w, height: 1.08),
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-          "美国大选最新消息"),
+        style: TextStyle(fontSize: 32.w, height: 1.08),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+        "美国大选最新消息",
+      ),
     ]);
 
     // 猜你想搜
