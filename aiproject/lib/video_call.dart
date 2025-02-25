@@ -1,10 +1,14 @@
 import 'dart:core';
+import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:flutter_whip/flutter_whip.dart';
 import 'package:jiaoyishuoflutter3/logger.dart';
+import 'package:jiaoyishuoflutter3/tools/tools.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:video_player/video_player.dart';
 
 class LJNVideoCall extends StatefulWidget {
   const LJNVideoCall({super.key});
@@ -23,11 +27,22 @@ class _LJNVideoCallState extends State<LJNVideoCall> {
   final TextEditingController _serverController = TextEditingController();
   late SharedPreferences _preferences;
 
+  // 音频播放器
+  late dynamic _voiceController;
+
   @override
   void initState() {
     super.initState();
+
+    _voiceController =
+        VideoPlayerController.asset(assetPath("sounds/scan_success.mp3"))
+          ..initialize().then((_) {
+            setState(() {});
+          });
+
     initRenderers();
     _loadSettings();
+    _connect();
   }
 
   void _loadSettings() async {
@@ -155,66 +170,195 @@ class _LJNVideoCallState extends State<LJNVideoCall> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('WHIP Publish Sample'), actions: <Widget>[
-        if (_connecting)
-          IconButton(
-            icon: Icon(Icons.switch_video),
-            onPressed: _toggleCamera,
-          ),
-      ]),
-      body: OrientationBuilder(
-        builder: (context, orientation) {
-          return Column(children: <Widget>[
-            Column(children: <Widget>[
-              FittedBox(
-                child: Text(
-                  stateStr,
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              if (!_connecting)
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10.0, 18.0, 10.0, 0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text('WHIP URI:'),
+      appBar: null,
+      primary: false,
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          children: [
+            if (_connecting)
+              RTCVideoView(
+                _localRenderer,
+                mirror: true,
+                filterQuality: FilterQuality.high,
+                objectFit: RTCVideoViewObjectFit.RTCVideoViewObjectFitCover,
+              )
+            else
+              // 填入Whip URI地址
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10.0, 18.0, 10.0, 0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('WHIP URI:'),
+                    ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0),
+                    child: TextFormField(
+                      controller: _serverController,
+                      keyboardType: TextInputType.text,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black12)),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                    onTap: _toggleCamera,
+                    child: SizedBox(
+                      width: 140.w,
+                      height: 242.w,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          // 麦克风开关按钮
+                          Container(
+                            width: 140.w,
+                            height: 140.w,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(140.w)),
+                            ),
+                            alignment: Alignment.center,
+                            child: Icon(
+                              const IconData(
+                                0xec8c,
+                                fontFamily: 'Iconfont',
+                              ),
+                              color: Colors.black,
+                              size: 64.w,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20.w,
+                          ),
+                          Text(
+                            "麦克风已开",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 25.w),
+                          )
+                        ],
+                      ),
+                    )),
+                SizedBox(
+                  width: 77.w,
                 ),
-              if (!_connecting)
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0),
-                  child: TextFormField(
-                    controller: _serverController,
-                    keyboardType: TextInputType.text,
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(10.0),
-                      border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black12)),
+
+                // 取消按钮
+                GestureDetector(
+                    onTap: _disconnect,
+                    child: SizedBox(
+                      width: 140.w,
+                      height: 242.w,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                              onTap: () async {
+                                // 播放音乐
+                                if (!Platform.isWindows) {
+                                  await _voiceController.play();
+                                }
+
+                                // 等待一会再跳转
+                                await Future.delayed(
+                                    Duration(milliseconds: 600), () {
+                                  if (context.mounted) {
+                                    Navigator.of(context).pop();
+                                  }
+                                });
+                              },
+                              child: Container(
+                                width: 140.w,
+                                height: 140.w,
+                                decoration: BoxDecoration(
+                                  color: const Color.fromARGB(255, 217, 79, 77),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(140.w)),
+                                ),
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  const IconData(
+                                    0xe781,
+                                    fontFamily: 'Iconfont',
+                                  ),
+                                  color: Colors.white,
+                                  size: 64.w,
+                                ),
+                              )),
+                          SizedBox(
+                            height: 20.w,
+                          ),
+                          Text(
+                            "取消",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 25.w),
+                          )
+                        ],
+                      ),
+                    )),
+                SizedBox(
+                  width: 77.w,
+                ),
+
+                // 扬声器开关按钮
+                GestureDetector(
+                  onTap: () {
+                    _connect();
+                  },
+                  child: SizedBox(
+                    width: 140.w,
+                    height: 242.w,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 140.w,
+                          height: 140.w,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 13, 13, 11),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(140.w)),
+                          ),
+                          alignment: Alignment.center,
+                          child: Icon(
+                            const IconData(
+                              0xe69c,
+                              fontFamily: 'Iconfont',
+                            ),
+                            color: Colors.white,
+                            size: 64.w,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.w,
+                        ),
+                        Text(
+                          "扬声器已关",
+                          style: TextStyle(color: Colors.white, fontSize: 25.w),
+                        )
+                      ],
                     ),
                   ),
                 )
-            ]),
-            if (_connecting)
-              Center(
-                child: Container(
-                  margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height - 200,
-                  decoration: BoxDecoration(color: Colors.black54),
-                  child: RTCVideoView(_localRenderer,
-                      mirror: true,
-                      objectFit:
-                          RTCVideoViewObjectFit.RTCVideoViewObjectFitCover),
-                ),
-              )
-          ]);
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _connecting ? _disconnect : _connect,
-        tooltip: _connecting ? 'Hangup' : 'Call',
-        child: Icon(_connecting ? Icons.call_end : Icons.phone),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
