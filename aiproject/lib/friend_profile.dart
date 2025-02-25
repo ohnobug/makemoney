@@ -221,9 +221,9 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                               ],
                             )),
 
-                        // 设置备注与标签
+                        // 朋友资料
                         const LJNFunctionItem(
-                          title: "设置备注与标签",
+                          title: "朋友资料",
                           link: '/friend_information',
                           underline: true,
                         ),

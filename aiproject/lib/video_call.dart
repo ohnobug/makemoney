@@ -172,7 +172,8 @@ class _LJNVideoCallState extends State<LJNVideoCall> {
     return Scaffold(
       appBar: null,
       primary: false,
-      body: SizedBox(
+      body: Container(
+        color: Colors.black54,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Stack(
@@ -186,34 +187,43 @@ class _LJNVideoCallState extends State<LJNVideoCall> {
               )
             else
               // 填入Whip URI地址
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10.0, 18.0, 10.0, 0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('WHIP URI:'),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0),
-                    child: TextFormField(
-                      controller: _serverController,
-                      keyboardType: TextInputType.text,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black12)),
+              Container(
+                  padding: EdgeInsets.only(top: 100.w),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(10.0, 18.0, 10.0, 0).w,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text('WHIP URI:'),
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
+                      Padding(
+                        padding:
+                            const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0).w,
+                        child: TextFormField(
+                          controller: _serverController,
+                          keyboardType: TextInputType.text,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10.0),
+                            border: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black12)),
+                          ),
+                        ),
+                      )
+                    ],
+                  )),
+
+            // 三个按钮
+            Positioned(
+              width: MediaQuery.of(context).size.width,
+              bottom: 100.w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
                     onTap: _toggleCamera,
                     child: SizedBox(
                       width: 140.w,
@@ -251,13 +261,15 @@ class _LJNVideoCallState extends State<LJNVideoCall> {
                           )
                         ],
                       ),
-                    )),
-                SizedBox(
-                  width: 77.w,
-                ),
+                    ),
+                  ),
 
-                // 取消按钮
-                GestureDetector(
+                  SizedBox(
+                    width: 77.w,
+                  ),
+
+                  // 取消按钮
+                  GestureDetector(
                     onTap: _disconnect,
                     child: SizedBox(
                       width: 140.w,
@@ -309,53 +321,57 @@ class _LJNVideoCallState extends State<LJNVideoCall> {
                           )
                         ],
                       ),
-                    )),
-                SizedBox(
-                  width: 77.w,
-                ),
-
-                // 扬声器开关按钮
-                GestureDetector(
-                  onTap: () {
-                    _connect();
-                  },
-                  child: SizedBox(
-                    width: 140.w,
-                    height: 242.w,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 140.w,
-                          height: 140.w,
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 13, 13, 11),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(140.w)),
-                          ),
-                          alignment: Alignment.center,
-                          child: Icon(
-                            const IconData(
-                              0xe69c,
-                              fontFamily: 'Iconfont',
-                            ),
-                            color: Colors.white,
-                            size: 64.w,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.w,
-                        ),
-                        Text(
-                          "扬声器已关",
-                          style: TextStyle(color: Colors.white, fontSize: 25.w),
-                        )
-                      ],
                     ),
                   ),
-                )
-              ],
+
+                  SizedBox(
+                    width: 77.w,
+                  ),
+
+                  // 扬声器开关按钮
+                  GestureDetector(
+                    onTap: () {
+                      _connect();
+                    },
+                    child: SizedBox(
+                      width: 140.w,
+                      height: 242.w,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 140.w,
+                            height: 140.w,
+                            decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 13, 13, 11),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(140.w)),
+                            ),
+                            alignment: Alignment.center,
+                            child: Icon(
+                              const IconData(
+                                0xe69c,
+                                fontFamily: 'Iconfont',
+                              ),
+                              color: Colors.white,
+                              size: 64.w,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20.w,
+                          ),
+                          Text(
+                            "扬声器已关",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 25.w),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             )
           ],
         ),

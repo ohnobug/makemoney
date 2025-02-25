@@ -57,7 +57,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                 ),
                 const LJNFunctionItem(
                   title: "备注名",
-                  link: '',
+                  link: '/set_notes_and_labels',
                   showStyle: "马化腾",
                   underline: true,
                 ),

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
-
 import 'package:jiaoyishuoflutter3/tools/tools.dart';
 
 class LJNSetNotesAndLabels extends StatefulWidget {
@@ -43,7 +41,8 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           parent: BouncingScrollPhysics()),
                       child: Container(
                         constraints: BoxConstraints(
-                            minHeight: MediaQuery.of(context).size.height - 205.w),
+                            minHeight:
+                                MediaQuery.of(context).size.height - 205.w),
                         color: Colors.white,
                         padding: EdgeInsets.only(left: 45.w, right: 45.w),
                         child: Column(
@@ -51,16 +50,16 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                                margin:
-                                    EdgeInsets.only(top: 70.w, bottom: 95.w),
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "设置标注和标签",
-                                  style: TextStyle(
-                                      fontSize: 40.w,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                                )),
+                              margin: EdgeInsets.only(top: 70.w, bottom: 95.w),
+                              alignment: Alignment.center,
+                              child: Text(
+                                "设置标注和标签",
+                                style: TextStyle(
+                                    fontSize: 40.w,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
+                            ),
 
                             Container(
                               padding: EdgeInsets.only(left: 30.w),
@@ -101,9 +100,10 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                   // cursorHeight: 44.w,
                                   cursorWidth: 3.w,
                                   style: TextStyle(
-                                      // height: 1.08,
-                                      fontSize: fontSizeScale(30.w),
-                                      color: Colors.black),
+                                    // height: 1.08,
+                                    fontSize: fontSizeScale(30.w),
+                                    color: Colors.black,
+                                  ),
                                   // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w)),
                                   maxLines: 5,
                                   minLines: 1,
@@ -153,9 +153,10 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                           height: 1.08),
                                     ),
                                     WidgetSpan(
-                                        child: SizedBox(
-                                      width: 10.w,
-                                    )),
+                                      child: SizedBox(
+                                        width: 10.w,
+                                      ),
+                                    ),
                                     TextSpan(
                                       text: '填入',
                                       style: TextStyle(
@@ -203,16 +204,17 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                           fontSize: 32.w, color: Colors.black),
                                     ),
                                     SizedBox(
-                                        width: 30.w,
-                                        child: Icon(
-                                          const IconData(
-                                            0xed9d,
-                                            fontFamily: 'Iconfont',
-                                          ),
-                                          size: 30.0.w,
-                                          color: const Color.fromARGB(
-                                              255, 172, 172, 172),
-                                        ))
+                                      width: 30.w,
+                                      child: Icon(
+                                        const IconData(
+                                          0xed9d,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        size: 30.0.w,
+                                        color: const Color.fromARGB(
+                                            255, 172, 172, 172),
+                                      ),
+                                    )
                                   ],
                                 )),
 
@@ -245,11 +247,14 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                   Container(
                                     height: 105.w,
                                     decoration: BoxDecoration(
-                                        border: Border(
-                                            bottom: BorderSide(
-                                                width: 1.w,
-                                                color: const Color.fromARGB(
-                                                    255, 232, 232, 232)))),
+                                      border: Border(
+                                        bottom: BorderSide(
+                                          width: 1.w,
+                                          color: const Color.fromARGB(
+                                              255, 232, 232, 232),
+                                        ),
+                                      ),
+                                    ),
                                     child: Row(
                                       children: [
                                         Icon(
@@ -286,11 +291,14 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                   Container(
                                     height: 105.w,
                                     decoration: BoxDecoration(
-                                        border: Border(
-                                            bottom: BorderSide(
-                                                width: 1.w,
-                                                color: const Color.fromARGB(
-                                                    255, 232, 232, 232)))),
+                                      border: Border(
+                                        bottom: BorderSide(
+                                          width: 1.w,
+                                          color: const Color.fromARGB(
+                                              255, 232, 232, 232),
+                                        ),
+                                      ),
+                                    ),
                                     child: Row(
                                       children: [
                                         Icon(
@@ -343,10 +351,11 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                         Text(
                                           "添加电话",
                                           style: TextStyle(
-                                              fontSize: 30.w,
-                                              height: 1.08,
-                                              color: const Color.fromARGB(
-                                                  255, 53, 74, 113)),
+                                            fontSize: 30.w,
+                                            height: 1.08,
+                                            color: const Color.fromARGB(
+                                                255, 53, 74, 113),
+                                          ),
                                         ),
                                         const Spacer(), // 这个 Spacer 会把第二个图标推到最右边
                                         Icon(
@@ -446,8 +455,9 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                               height: 210.w,
                               decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 247, 247, 247),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12.w)),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(12.w),
+                                ),
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
