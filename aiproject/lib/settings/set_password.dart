@@ -37,25 +37,27 @@ class _LJNSetPassword extends State<LJNSetPassword> {
           title: "设置密码",
           actions: [
             GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/bind_new_phone_number');
-                },
-                child: Container(
-                    height: 60.w,
-                    constraints: BoxConstraints(minWidth: 98.w),
-                    margin: EdgeInsets.only(right: 30.w),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 74, 193, 99),
-                        borderRadius: BorderRadius.all(Radius.circular(8.w))),
-                    child: Text(
-                      "完成",
-                      // textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25.w,
-                          fontWeight: FontWeight.w100),
-                    )))
+              onTap: () {
+                Navigator.pushNamed(context, '/bind_new_phone_number');
+              },
+              child: Container(
+                height: 60.w,
+                constraints: BoxConstraints(minWidth: 98.w),
+                margin: EdgeInsets.only(right: 30.w),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 74, 193, 99),
+                    borderRadius: BorderRadius.all(Radius.circular(8.w))),
+                child: Text(
+                  "完成",
+                  // textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25.w,
+                      fontWeight: FontWeight.w100),
+                ),
+              ),
+            )
           ],
         ),
         body: ScrollConfiguration(

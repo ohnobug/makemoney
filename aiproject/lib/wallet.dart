@@ -38,19 +38,23 @@ class _LJNWalletPage extends State<LJNWalletPage> {
           title: "钱包",
           actions: [
             GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/bill_details');
-                },
-                child: Container(
-                    color: Colors.transparent,
-                    padding: EdgeInsets.only(right: 40.w),
-                    alignment: Alignment.center,
-                    child: Text("账单",
-                        style: TextStyle(
-                            // height: 1.08,
-                            color: Colors.black,
-                            fontSize: fontSizeScale(32.w),
-                            fontWeight: FontWeight.w500))))
+              onTap: () {
+                Navigator.pushNamed(context, '/bill_details');
+              },
+              child: Container(
+                color: Colors.transparent,
+                padding: EdgeInsets.only(right: 40.w),
+                alignment: Alignment.center,
+                child: Text(
+                  "账单",
+                  style: TextStyle(
+                      // height: 1.08,
+                      color: Colors.black,
+                      fontSize: fontSizeScale(32.w),
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+            )
           ],
         ),
         body: Container(

@@ -206,13 +206,15 @@ class _LJNFriendProfilePage extends State<LJNFriendProfilePage>
                                           ),
 
                                           // 微信号
-                                          Text('微信号: ${widget.account!}',
-                                              style: TextStyle(
-                                                height: 1.08,
-                                                fontSize: fontSizeScale(27.w),
-                                                color: const Color.fromARGB(
-                                                    255, 99, 99, 99),
-                                              )),
+                                          Text(
+                                            '微信号: ${widget.account!}',
+                                            style: TextStyle(
+                                              height: 1.08,
+                                              fontSize: fontSizeScale(27.w),
+                                              color: const Color.fromARGB(
+                                                  255, 99, 99, 99),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),

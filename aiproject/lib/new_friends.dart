@@ -510,22 +510,26 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
         title: "新的朋友",
         actions: [
           GestureDetector(
-              onTap: () {
-                // 点击事件
-              },
-              child: Container(
-                  // color: Colors.transparent,
-                  height: 90.w,
-                  color: Colors.transparent,
-                  // color: Colors.amber,
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.only(right: 33.w),
-                  child: Text("添加朋友",
-                      style: TextStyle(
-                          // height: 1.08,
-                          color: Colors.black,
-                          fontSize: fontSizeScale(32.w),
-                          fontWeight: FontWeight.w500))))
+            onTap: () {
+              // 点击事件
+            },
+            child: Container(
+              // color: Colors.transparent,
+              height: 90.w,
+              color: Colors.transparent,
+              // color: Colors.amber,
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(right: 33.w),
+              child: Text(
+                "添加朋友",
+                style: TextStyle(
+                    // height: 1.08,
+                    color: Colors.black,
+                    fontSize: fontSizeScale(32.w),
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
+          )
         ],
       ),
       body: Container(
