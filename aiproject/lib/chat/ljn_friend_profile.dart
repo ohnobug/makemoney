@@ -148,7 +148,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 45.w,
+                                    width: 30.w,
                                   ),
                                   Expanded(
                                     flex: 1,
@@ -210,15 +210,31 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                         ),
 
                                         // 微信号
-                                        Text(
-                                          '微信号: ${widget.account!}',
-                                          style: TextStyle(
-                                            height: 1.08,
-                                            fontSize: fontSizeScale(27.w),
-                                            color: const Color.fromARGB(
-                                                255, 99, 99, 99),
-                                          ),
-                                        ),
+                                        GestureDetector(
+                                            onTap: () {
+                                              Clipboard.setData(ClipboardData(
+                                                  text: widget.account!));
+
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                      '复制成功!微信号:${widget.account!}'),
+                                                  duration: Duration(
+                                                    seconds: 3,
+                                                  ), // 设置 Snackbar 显示时间
+                                                ),
+                                              );
+                                            },
+                                            child: Text(
+                                              '微信号: ${widget.account!}',
+                                              style: TextStyle(
+                                                height: 1.08,
+                                                fontSize: fontSizeScale(27.w),
+                                                color: const Color.fromARGB(
+                                                    255, 99, 99, 99),
+                                              ),
+                                            )),
                                       ],
                                     ),
                                   ),
