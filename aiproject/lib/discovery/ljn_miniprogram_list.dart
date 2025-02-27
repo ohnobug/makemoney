@@ -357,7 +357,7 @@ class FunctionButtonsSection extends StatelessWidget {
                     title,
                     style: TextStyle(
                       height: 1.08,
-                      fontSize: ljnFontSizeScale(28.w),
+                      fontSize: fontSizeScale(28.w),
                       color: Colors.black,
                     ),
                   ),
@@ -481,7 +481,7 @@ class FunctionButtonState extends State<FunctionButton> {
                     height: 1.08,
                     decoration: TextDecoration.none,
                     color: const Color.fromARGB(255, 92, 92, 92),
-                    fontSize: ljnFontSizeScale(25.0.w),
+                    fontSize: fontSizeScale(25.0.w),
                     overflow: TextOverflow.ellipsis), // 标题颜色
               ),
             ],
@@ -536,7 +536,7 @@ class _FunctionListSection extends State<FunctionListSection> {
                     widget.title,
                     style: TextStyle(
                       height: 1.08,
-                      fontSize: ljnFontSizeScale(28.w),
+                      fontSize: fontSizeScale(28.w),
                       color: Colors.black,
                     ),
                   ),
@@ -681,12 +681,12 @@ class _ChatListItem extends State<ChatListItem> {
                                   widget.friendName,
                                   TextStyle(
                                       height: 1.08,
-                                      fontSize: ljnFontSizeScale(28.0.w),
+                                      fontSize: fontSizeScale(28.0.w),
                                       color: Colors.black,
                                       fontFamily: "AlibabaPuHuiTi"),
                                   TextStyle(
                                       height: 1.08,
-                                      fontSize: ljnFontSizeScale(28.w),
+                                      fontSize: fontSizeScale(28.w),
                                       fontFamily: "NotoColorEmoji-Regular"),
                                 ),
                               ),
@@ -718,13 +718,13 @@ class _ChatListItem extends State<ChatListItem> {
                                   widget.message,
                                   TextStyle(
                                     height: 1.08,
-                                    fontSize: ljnFontSizeScale(25.w),
+                                    fontSize: fontSizeScale(25.w),
                                     color: const Color.fromARGB(
                                         255, 170, 170, 170),
                                   ),
                                   TextStyle(
                                     height: 1.08,
-                                    fontSize: ljnFontSizeScale(25.w),
+                                    fontSize: fontSizeScale(25.w),
                                     color: const Color.fromARGB(
                                         255, 170, 170, 170),
                                   ),

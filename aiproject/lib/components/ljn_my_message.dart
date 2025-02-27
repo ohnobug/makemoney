@@ -52,7 +52,7 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                                   widget.name ?? userState.userinfoName!,
                                   style: TextStyle(
                                     height: 1.08,
-                                    fontSize: ljnFontSizeScale(20.w),
+                                    fontSize: fontSizeScale(20.w),
                                     color: const Color.fromARGB(
                                         255, 130, 130, 130),
                                   ),
@@ -87,7 +87,7 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                               widget.message,
                               style: TextStyle(
                                 height: 1.25,
-                                fontSize: ljnFontSizeScale(31.w),
+                                fontSize: fontSizeScale(31.w),
                                 color: Colors.black,
                                 fontFamily: "AlibabaPuHuiTi",
                               ),

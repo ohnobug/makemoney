@@ -78,7 +78,7 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
               if (widget.icon != null)
                 WidgetSpan(
                   // alignment: PlaceholderAlignment.bottom,
-                  style: TextStyle(fontSize: ljnFontSizeScale(35.w), height: 1),
+                  style: TextStyle(fontSize: fontSizeScale(35.w), height: 1),
                   child: Transform.translate(
                     offset: Offset(
                       0,
@@ -99,7 +99,7 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
                 style: TextStyle(
                   // textBaseline: TextBaseline.ideographic,
                   height: 1.08,
-                  fontSize: ljnFontSizeScale(30.w),
+                  fontSize: fontSizeScale(30.w),
                   color: const Color.fromARGB(255, 58, 81, 124),
                 ),
               )

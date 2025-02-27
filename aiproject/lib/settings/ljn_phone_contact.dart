@@ -558,12 +558,12 @@ class _ContactListItem extends State<ContactListItem> {
                                     widget.friendName,
                                     TextStyle(
                                         height: 1.08,
-                                        fontSize: ljnFontSizeScale(32.0.w),
+                                        fontSize: fontSizeScale(32.0.w),
                                         color: Colors.black,
                                         fontFamily: "AlibabaPuHuiTi"),
                                     TextStyle(
                                         height: 1.08,
-                                        fontSize: ljnFontSizeScale(32.w),
+                                        fontSize: fontSizeScale(32.w),
                                         fontFamily: "NotoColorEmoji-Regular"),
                                   ),
                                 ),
@@ -595,13 +595,13 @@ class _ContactListItem extends State<ContactListItem> {
                                     widget.message,
                                     TextStyle(
                                       height: 1.08,
-                                      fontSize: ljnFontSizeScale(25.w),
+                                      fontSize: fontSizeScale(25.w),
                                       color: const Color.fromARGB(
                                           255, 170, 170, 170),
                                     ),
                                     TextStyle(
                                       height: 1.08,
-                                      fontSize: ljnFontSizeScale(25.w),
+                                      fontSize: fontSizeScale(25.w),
                                       color: const Color.fromARGB(
                                           255, 170, 170, 170),
                                     ),

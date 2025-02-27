@@ -31,6 +31,8 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
   void initState() {
     super.initState();
 
+    logger.info("link:${widget.link}");
+
     _initLotties();
 
     if (Platform.isWindows) {
@@ -1077,7 +1079,7 @@ class _LJNPopupButtonMaxWidthButtonState
                   style: TextStyle(
                     color: widget.color ?? Colors.black,
                     height: 1.08,
-                    fontSize: ljnFontSizeScale(32.0.w),
+                    fontSize: fontSizeScale(32.0.w),
                     decoration: TextDecoration.none,
                     fontFamily: "AlibabaPuHuiTi",
                   ),
@@ -1156,7 +1158,7 @@ class LJNPopupFunctionButtonState extends State<LJNPopupFunctionButton> {
                 height: 1.08,
                 decoration: TextDecoration.none,
                 color: Color.fromARGB(255, 108, 108, 108),
-                fontSize: ljnFontSizeScale(20.0.w),
+                fontSize: fontSizeScale(20.0.w),
                 overflow: TextOverflow.ellipsis,
               ), // 标题颜色
             ),

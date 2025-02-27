@@ -129,7 +129,7 @@ class _LJNUserState extends State<LJNUser> {
                                               style: TextStyle(
                                                 height: 1.5,
                                                 fontSize:
-                                                    ljnFontSizeScale(42.w),
+                                                    fontSizeScale(42.w),
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.black,
                                               ),
@@ -153,7 +153,7 @@ class _LJNUserState extends State<LJNUser> {
                                                 style: TextStyle(
                                                   height: 1.08,
                                                   fontSize:
-                                                      ljnFontSizeScale(28.w),
+                                                      fontSizeScale(28.w),
                                                   color: const Color.fromARGB(
                                                       255, 111, 111, 111),
                                                 ),
@@ -457,7 +457,7 @@ class _LJNStatusButton extends State<LJNStatusButton> {
                   widget.text!,
                   style: TextStyle(
                     height: 1.08,
-                    fontSize: ljnFontSizeScale(24.w),
+                    fontSize: fontSizeScale(24.w),
                     color: const Color.fromARGB(255, 116, 116, 116),
                   ),
                 ),

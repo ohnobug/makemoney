@@ -56,7 +56,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
               '已添加',
               style: TextStyle(
                 height: 1.08,
-                fontSize: ljnFontSizeScale(25.0.w),
+                fontSize: fontSizeScale(25.0.w),
                 color: const Color.fromARGB(255, 170, 170, 170),
               ),
             ),
@@ -486,7 +486,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
                 "10个朋友",
                 style: TextStyle(
                   height: 1.08,
-                  fontSize: ljnFontSizeScale(30.w),
+                  fontSize: fontSizeScale(30.w),
                   color: const Color.fromARGB(255, 125, 125, 125),
                 ),
               ),
@@ -527,7 +527,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
                 style: TextStyle(
                     // height: 1.08,
                     color: Colors.black,
-                    fontSize: ljnFontSizeScale(32.w),
+                    fontSize: fontSizeScale(32.w),
                     fontWeight: FontWeight.w500),
               ),
             ),

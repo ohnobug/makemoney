@@ -196,7 +196,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                       text: "更多",
                                       style: TextStyle(
                                         height: 1.08,
-                                        fontSize: ljnFontSizeScale(26.w),
+                                        fontSize: fontSizeScale(26.w),
                                         color: const Color.fromARGB(
                                             255, 175, 175, 175),
                                       ),
@@ -426,7 +426,7 @@ class FunctionButtonsSection extends StatelessWidget {
                     title,
                     style: TextStyle(
                       height: 1.08,
-                      fontSize: ljnFontSizeScale(26.w),
+                      fontSize: fontSizeScale(26.w),
                       color: const Color.fromARGB(255, 175, 175, 175),
                     ),
                   ),
@@ -539,7 +539,7 @@ class FunctionButtonState extends State<FunctionButton> {
                     height: 1.08,
                     decoration: TextDecoration.none,
                     color: Colors.white,
-                    fontSize: ljnFontSizeScale(26.0.w),
+                    fontSize: fontSizeScale(26.0.w),
                     overflow: TextOverflow.ellipsis), // 标题颜色
               ),
             ],

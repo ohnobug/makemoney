@@ -840,7 +840,7 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
                         centerTitle: true,
                         titleTextStyle: TextStyle(
                             height: 1.08,
-                            fontSize: ljnFontSizeScale(32.w),
+                            fontSize: fontSizeScale(32.w),
                             color: Colors.white,
                             fontFamily: "AlibabaPuHuiTi-Medium"),
                         toolbarHeight: 90.w,

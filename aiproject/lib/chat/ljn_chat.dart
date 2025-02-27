@@ -1373,9 +1373,9 @@ class _LJNChat extends State<LJNChat>
                                                 style: TextStyle(
                                                     // height: 1.08,
                                                     fontSize:
-                                                        ljnFontSizeScale(30.w),
+                                                        fontSizeScale(30.w),
                                                     color: Colors.black),
-                                                // strutStyle: StrutStyle(fontSize: ljnFontSizeScale(20.w),),
+                                                // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
                                                 maxLines: 5,
                                                 minLines: 1,
                                                 onChanged: (newText) {
@@ -1539,7 +1539,7 @@ class _LJNChat extends State<LJNChat>
                                                       style: TextStyle(
                                                           height: 1.08,
                                                           fontSize:
-                                                              ljnFontSizeScale(
+                                                              fontSizeScale(
                                                                   27.w),
                                                           color: Colors.white),
                                                     ),

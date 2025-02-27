@@ -73,7 +73,7 @@ class _LJNAppBar extends State<LJNAppBar> {
             toolbarHeight: 90.w,
             titleTextStyle: TextStyle(
                 height: 1.08,
-                fontSize: ljnFontSizeScale(32.w),
+                fontSize: fontSizeScale(32.w),
                 color: widget.color ?? Colors.black,
                 fontFamily: "AlibabaPuHuiTi-Medium"),
             elevation: 0,

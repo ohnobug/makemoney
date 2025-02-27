@@ -23,7 +23,7 @@ class LJNAlphabet extends StatelessWidget {
             title,
             style: TextStyle(
               height: 1.08,
-              fontSize: ljnFontSizeScale(25.w),
+              fontSize: fontSizeScale(25.w),
               color: color ?? const Color.fromARGB(255, 103, 103, 103),
             ),
           ),

@@ -163,14 +163,14 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                               widget.name!,
                                               TextStyle(
                                                 height: 1.08,
-                                                fontSize: ljnFontSizeScale(40.w),
+                                                fontSize: fontSizeScale(40.w),
                                                 color: Colors.black,
                                                 fontFamily:
                                                     "AlibabaPuHuiTi-Medium",
                                               ),
                                               TextStyle(
                                                 height: 1.08,
-                                                fontSize: ljnFontSizeScale(40.w),
+                                                fontSize: fontSizeScale(40.w),
                                               ),
                                             ),
                                           ),
@@ -187,7 +187,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                               '昵称: ${widget.nickname!}',
                                               TextStyle(
                                                 height: 1.08,
-                                                fontSize: ljnFontSizeScale(27.w),
+                                                fontSize: fontSizeScale(27.w),
                                                 color: const Color.fromARGB(
                                                     255, 99, 99, 99),
                                                 fontFamily:
@@ -195,7 +195,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                               ),
                                               TextStyle(
                                                 height: 1.08,
-                                                fontSize: ljnFontSizeScale(27.w),
+                                                fontSize: fontSizeScale(27.w),
                                               ),
                                             ),
                                           ),
@@ -210,7 +210,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                           '微信号: ${widget.account!}',
                                           style: TextStyle(
                                             height: 1.08,
-                                            fontSize: ljnFontSizeScale(27.w),
+                                            fontSize: fontSizeScale(27.w),
                                             color: const Color.fromARGB(
                                                 255, 99, 99, 99),
                                           ),
@@ -254,7 +254,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                               "朋友圈",
                               style: TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(32.0.w),
+                                fontSize: fontSizeScale(32.0.w),
                                 fontFamily: "AlibabaPuHuiTi",
                               ),
                               maxLines: 1,
@@ -332,7 +332,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                               "视频号",
                               style: TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(32.0.w),
+                                fontSize: fontSizeScale(32.0.w),
                                 fontFamily: "AlibabaPuHuiTi",
                               ),
                               maxLines: 1,
@@ -360,7 +360,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                       widget.name as String,
                                       style: TextStyle(
                                         height: 1.08,
-                                        fontSize: ljnFontSizeScale(32.0.w),
+                                        fontSize: fontSizeScale(32.0.w),
                                         fontFamily: "AlibabaPuHuiTi",
                                       ),
                                       maxLines: 1,

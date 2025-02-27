@@ -52,7 +52,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                   style: TextStyle(
                     // height: 1.08,
                     color: Colors.black,
-                    fontSize: ljnFontSizeScale(32.w),
+                    fontSize: fontSizeScale(32.w),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -155,10 +155,10 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           cursorWidth: 3.w,
                           style: TextStyle(
                             // height: 1.08,
-                            fontSize: ljnFontSizeScale(30.w),
+                            fontSize: fontSizeScale(30.w),
                             color: Colors.black,
                           ),
-                          // strutStyle: StrutStyle(fontSize: ljnFontSizeScale(20.w),),
+                          // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
                           maxLines: 5,
                           minLines: 1,
                           onChanged: (newText) {
@@ -449,9 +449,9 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           cursorWidth: 3.w,
                           style: TextStyle(
                               // height: 1.08,
-                              fontSize: ljnFontSizeScale(30.w),
+                              fontSize: fontSizeScale(30.w),
                               color: Colors.black),
-                          // strutStyle: StrutStyle(fontSize: ljnFontSizeScale(20.w),),
+                          // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
                           maxLines: 5,
                           minLines: 1,
                           onChanged: (newText) {

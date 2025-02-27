@@ -95,7 +95,7 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
                         "2013年11月",
                         style: TextStyle(
                           height: 1.08,
-                          fontSize: ljnFontSizeScale(32.0.w),
+                          fontSize: fontSizeScale(32.0.w),
                           fontFamily: "AlibabaPuHuiTi",
                           color: const Color.fromARGB(255, 83, 83, 83),
                         ),

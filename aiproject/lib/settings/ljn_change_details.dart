@@ -57,7 +57,7 @@ class _LJNChangeDetails extends State<LJNChangeDetails> {
                               text: "2024年12月",
                               style: TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(30.w),
+                                fontSize: fontSizeScale(30.w),
                                 color: Colors.black,
                                 // fontWeight: FontWeight.bold,
                                 fontFamily: "AlibabaPuHuiTi",

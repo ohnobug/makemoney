@@ -130,7 +130,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                             "插件",
                             style: TextStyle(
                               height: 1.08,
-                              fontSize: ljnFontSizeScale(32.0.w),
+                              fontSize: fontSizeScale(32.0.w),
                               fontFamily: "AlibabaPuHuiTi",
                             ),
                             maxLines: 1,

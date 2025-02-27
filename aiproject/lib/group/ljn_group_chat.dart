@@ -1229,9 +1229,9 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                             cursorWidth: 3.w,
                                             style: TextStyle(
                                                 // height: 1.08,
-                                                fontSize: ljnFontSizeScale(30.w),
+                                                fontSize: fontSizeScale(30.w),
                                                 color: Colors.black),
-                                            // strutStyle: StrutStyle(fontSize: ljnFontSizeScale(20.w),),
+                                            // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
                                             maxLines: 5,
                                             minLines: 1,
                                             onChanged: (newText) {
@@ -1376,7 +1376,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                                   style: TextStyle(
                                                       height: 1.08,
                                                       fontSize:
-                                                          ljnFontSizeScale(27.w),
+                                                          fontSizeScale(27.w),
                                                       color: Colors.white),
                                                 ),
                                               )

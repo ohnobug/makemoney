@@ -112,7 +112,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                         widget.title,
                         style: TextStyle(
                           height: 1.08,
-                          fontSize: ljnFontSizeScale(30.0.w),
+                          fontSize: fontSizeScale(30.0.w),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -122,7 +122,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                               '+${widget.change}',
                               style: TextStyle(
                                   height: 1.08,
-                                  fontSize: ljnFontSizeScale(30.0.w),
+                                  fontSize: fontSizeScale(30.0.w),
                                   color:
                                       const Color.fromARGB(255, 242, 191, 46),
                                   fontWeight: FontWeight.bold,
@@ -134,7 +134,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                               '${widget.change}',
                               style: TextStyle(
                                   height: 1.08,
-                                  fontSize: ljnFontSizeScale(30.0.w),
+                                  fontSize: fontSizeScale(30.0.w),
                                   color: const Color.fromARGB(255, 0, 0, 0),
                                   fontWeight: FontWeight.bold,
                                   fontFamily: "LJNFont"),
@@ -155,7 +155,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                         style: TextStyle(
                           height: 1.08,
                           color: const Color.fromARGB(255, 139, 139, 139),
-                          fontSize: ljnFontSizeScale(25.0.w),
+                          fontSize: fontSizeScale(25.0.w),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -165,7 +165,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                         style: TextStyle(
                           height: 1.08,
                           color: const Color.fromARGB(255, 139, 139, 139),
-                          fontSize: ljnFontSizeScale(25.0.w),
+                          fontSize: fontSizeScale(25.0.w),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

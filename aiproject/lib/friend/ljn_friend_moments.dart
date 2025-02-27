@@ -513,7 +513,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                                                       .userinfoName!,
                                                   style: TextStyle(
                                                     height: 1.08,
-                                                    fontSize: ljnFontSizeScale(
+                                                    fontSize: fontSizeScale(
                                                       40.w,
                                                     ),
                                                     color: Colors.white,
@@ -590,7 +590,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                     centerTitle: true,
                     titleTextStyle: TextStyle(
                       height: 1.08,
-                      fontSize: ljnFontSizeScale(32.w),
+                      fontSize: fontSizeScale(32.w),
                       color:
                           Color.fromARGB(_appBarOpacity.value.toInt(), 0, 0, 0),
                       fontFamily: "AlibabaPuHuiTi-Medium",
@@ -811,13 +811,13 @@ class _TweetWidget extends State<TweetWidget> {
             TextStyle(
                 // textBaseline: TextBaseline.alphabetic,
                 height: 1.08,
-                fontSize: ljnFontSizeScale(28.w),
+                fontSize: fontSizeScale(28.w),
                 color: const Color.fromARGB(255, 58, 81, 124),
                 fontFamily: "AlibabaPuHuiTi-Medium"),
             TextStyle(
                 // textBaseline: TextBaseline.alphabetic,
                 height: 1.08,
-                fontSize: ljnFontSizeScale(28.w),
+                fontSize: fontSizeScale(28.w),
                 fontFamily: "NotoColorEmoji-Regular"),
           ),
         ),
@@ -830,7 +830,7 @@ class _TweetWidget extends State<TweetWidget> {
             text: ", ",
             style: TextStyle(
               height: 1.08,
-              fontSize: ljnFontSizeScale(28.w),
+              fontSize: fontSizeScale(28.w),
               color: const Color.fromARGB(255, 58, 81, 124),
               fontFamily: "AlibabaPuHuiTi-Medium",
             ),
@@ -906,14 +906,14 @@ class _TweetWidget extends State<TweetWidget> {
                               widget.name,
                               TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(32.w),
+                                fontSize: fontSizeScale(32.w),
                                 fontFamily: "AlibabaPuHuiTi-Medium",
                                 // fontWeight: FontWeight.w600,
                                 color: const Color.fromARGB(255, 58, 81, 124),
                               ),
                               TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(32.w),
+                                fontSize: fontSizeScale(32.w),
                               ),
                             ),
                           ),
@@ -932,12 +932,12 @@ class _TweetWidget extends State<TweetWidget> {
                               TextStyle(
                                   // textBaseline: TextBaseline.alphabetic,
                                   height: 1.4,
-                                  fontSize: ljnFontSizeScale(32.w),
+                                  fontSize: fontSizeScale(32.w),
                                   fontFamily: "AlibabaPuHuiTi"),
                               TextStyle(
                                   // textBaseline: TextBaseline.alphabetic,
                                   height: 1.08,
-                                  fontSize: ljnFontSizeScale(32.w),
+                                  fontSize: fontSizeScale(32.w),
                                   fontFamily: "NotoColorEmoji-Regular"),
                             ),
                           ),
@@ -972,7 +972,7 @@ class _TweetWidget extends State<TweetWidget> {
                           "深圳市 · 南山区腾讯总部",
                           style: TextStyle(
                             height: 1.08,
-                            fontSize: ljnFontSizeScale(26.w),
+                            fontSize: fontSizeScale(26.w),
                             color: const Color.fromARGB(255, 58, 81, 124),
                           ),
                         ),
@@ -990,7 +990,7 @@ class _TweetWidget extends State<TweetWidget> {
                       widget.time,
                       style: TextStyle(
                         height: 1.08,
-                        fontSize: ljnFontSizeScale(26.w),
+                        fontSize: fontSizeScale(26.w),
                         color: const Color.fromARGB(255, 156, 156, 156),
                       ),
                     ),

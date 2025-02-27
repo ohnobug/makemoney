@@ -188,7 +188,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                   context.read<LJNUserCubit>().state.userinfoName!,
                               style: TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(20.w),
+                                fontSize: fontSizeScale(20.w),
                                 color: const Color.fromARGB(255, 130, 130, 130),
                               ),
                             )

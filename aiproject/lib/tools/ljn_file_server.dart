@@ -10,7 +10,7 @@ import 'package:path_provider/path_provider.dart';
 // import 'package:jiaoyishuoflutter3/tools/tools.dart';
 // import 'package:path/path.dart';
 
-Future<void> ljnStartFileServer(FileServerParams params) async {
+Future<void> startFileServer(FileServerParams params) async {
   BackgroundIsolateBinaryMessenger.ensureInitialized(params.rootIsolateToken);
 
   SendPort sendPort = params.sendPort;
@@ -52,7 +52,7 @@ Future<void> ljnStartFileServer(FileServerParams params) async {
 }
 
 // 启动web服务器
-void ljnStartWebServer() async {
+void startWebServer() async {
   int port = 9413;
 
   // 检查端口是否被占用
@@ -83,7 +83,7 @@ void ljnStartWebServer() async {
     port: port,
   );
 
-  await Isolate.spawn(ljnStartFileServer, params);
+  await Isolate.spawn(startFileServer, params);
   receivePort.listen((message) {
     logger.info(message); // 打印服务器启动消息
   });

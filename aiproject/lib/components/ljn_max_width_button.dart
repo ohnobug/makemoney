@@ -85,7 +85,7 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
                 style: TextStyle(
                   color: widget.color ?? Colors.black,
                   height: 1.08,
-                  fontSize: ljnFontSizeScale(32.0.w),
+                  fontSize: fontSizeScale(32.0.w),
                   decoration: TextDecoration.none,
                   fontFamily: "AlibabaPuHuiTi",
                 ),

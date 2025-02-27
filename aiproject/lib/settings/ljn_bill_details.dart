@@ -69,7 +69,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                     style: TextStyle(
                         // height: 1.08,
                         color: Colors.black,
-                        fontSize: ljnFontSizeScale(32.w),
+                        fontSize: fontSizeScale(32.w),
                         fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -132,7 +132,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                   text: "全部账单",
                                   style: TextStyle(
                                     height: 1.08,
-                                    fontSize: ljnFontSizeScale(30.w),
+                                    fontSize: fontSizeScale(30.w),
                                     color: Colors.black,
                                     // fontWeight: FontWeight.bold,
                                     fontFamily: "AlibabaPuHuiTi",
@@ -164,7 +164,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                               text: "统计",
                               style: TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(30.w),
+                                fontSize: fontSizeScale(30.w),
                                 color: const Color.fromARGB(255, 157, 157, 157),
                                 // fontWeight: FontWeight.bold,
                                 fontFamily: "AlibabaPuHuiTi",
@@ -203,7 +203,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                           text: "2024年12月",
                           style: TextStyle(
                             height: 1.08,
-                            fontSize: ljnFontSizeScale(30.w),
+                            fontSize: fontSizeScale(30.w),
                             color: Colors.black,
                             // fontWeight: FontWeight.bold,
                             fontFamily: "AlibabaPuHuiTi",

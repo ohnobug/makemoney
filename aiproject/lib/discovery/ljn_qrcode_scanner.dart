@@ -328,7 +328,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
             style: TextStyle(
                 height: 1.08,
                 color: Colors.white,
-                fontSize: ljnFontSizeScale(32.w),
+                fontSize: fontSizeScale(32.w),
                 decoration: TextDecoration.none),
           ),
           Text(
@@ -348,7 +348,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
         style: TextStyle(
             height: 1.08,
             color: Colors.white,
-            fontSize: ljnFontSizeScale(26.w),
+            fontSize: fontSizeScale(26.w),
             decoration: TextDecoration.none),
       );
     }
@@ -486,7 +486,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                       "轻触照亮",
                       style: TextStyle(
                           height: 1.08,
-                          fontSize: ljnFontSizeScale(26.w),
+                          fontSize: fontSizeScale(26.w),
                           fontWeight: FontWeight.normal,
                           color: Colors.white,
                           decoration: TextDecoration.none),
@@ -495,7 +495,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                       "识别二维码 / 花草 / 动物 / 商品等",
                       style: TextStyle(
                           height: 1.08,
-                          fontSize: ljnFontSizeScale(28.w),
+                          fontSize: fontSizeScale(28.w),
                           fontWeight: FontWeight.normal,
                           color: Colors.white,
                           decoration: TextDecoration.none),
@@ -547,7 +547,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                         Text("我的二维码",
                             style: TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(22.w),
+                                fontSize: fontSizeScale(22.w),
                                 fontWeight: FontWeight.normal,
                                 color: Colors.white,
                                 decoration: TextDecoration.none))
@@ -593,7 +593,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                               "暴龙太阳眼睛",
                               style: TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(27.w),
+                                fontSize: fontSizeScale(27.w),
                               ),
                             ),
                           ),
@@ -647,7 +647,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                         Text("相册",
                             style: TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(22.w),
+                                fontSize: fontSizeScale(22.w),
                                 fontWeight: FontWeight.normal,
                                 color: Colors.white,
                                 decoration: TextDecoration.none))

@@ -155,7 +155,7 @@ class _LJNServices extends State<LJNServices>
                                           .toString(),
                                       style: TextStyle(
                                         height: 1.08,
-                                        fontSize: ljnFontSizeScale(27.w),
+                                        fontSize: fontSizeScale(27.w),
                                         color: const Color.fromARGB(
                                             255, 156, 215, 179),
                                         // fontWeight: FontWeight.w500,
@@ -546,7 +546,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                     // fontWeight: FontWeight.w100,
                     decoration: TextDecoration.none,
                     color: Colors.white,
-                    fontSize: ljnFontSizeScale(32.0.w),
+                    fontSize: fontSizeScale(32.0.w),
                     overflow: TextOverflow.ellipsis),
               ),
 
@@ -562,7 +562,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                       // fontWeight: FontWeight.w600,
                       decoration: TextDecoration.none,
                       color: const Color.fromARGB(160, 255, 255, 255),
-                      fontSize: ljnFontSizeScale(29.0.w),
+                      fontSize: fontSizeScale(29.0.w),
                       overflow: TextOverflow.ellipsis,
                       fontFamily: "LJNFont"),
                 ),
@@ -641,7 +641,7 @@ class FunctionButtonState extends State<FunctionButton> {
                     height: 1.08,
                     decoration: TextDecoration.none,
                     color: const Color.fromARGB(255, 33, 33, 33),
-                    fontSize: ljnFontSizeScale(25.0.w),
+                    fontSize: fontSizeScale(25.0.w),
                     overflow: TextOverflow.ellipsis), // 标题颜色
               ),
             ],
@@ -688,7 +688,7 @@ class FunctionButtonsSection extends StatelessWidget {
                     title,
                     style: TextStyle(
                       height: 1.08,
-                      fontSize: ljnFontSizeScale(27.w),
+                      fontSize: fontSizeScale(27.w),
                       color: const Color.fromARGB(255, 87, 87, 87),
                     ),
                   ),

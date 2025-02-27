@@ -116,7 +116,7 @@ void main() async {
     );
   }
 
-  ljnSetupLogger();
+  setupLogger();
 
   logger.info('Application is starting...');
   SystemChrome.setSystemUIOverlayStyle(
@@ -126,7 +126,7 @@ void main() async {
     ),
   );
 
-  ljnStartWebServer();
+  startWebServer();
 
   runApp(
     const App(),
@@ -249,6 +249,10 @@ class _App extends State<App> {
                 return pageRouteBuilderNotAnimation(
                   const CustomTabbar(),
                 );
+              } else if (settings.name == '/miniprogram_list') {
+                return pageRouteBuilderAnimation(
+                  const LJNMiniProgramList(),
+                );
               } else if (settings.name == '/miniprogram' ||
                   settings.name!.startsWith('/miniprogram')) {
                 logger.info("settings.name: ${settings.name}");
@@ -327,10 +331,6 @@ class _App extends State<App> {
               } else if (settings.name == '/tiktik') {
                 return pageRouteBuilderAnimation(
                   const LJNTiktik(),
-                );
-              } else if (settings.name == '/miniprogramlist') {
-                return pageRouteBuilderAnimation(
-                  const LJNMiniProgramList(),
                 );
               } else if (settings.name == '/search') {
                 return pageRouteBuilderAnimation(
@@ -778,7 +778,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                   labelColor: const Color.fromARGB(255, 7, 192, 103),
                   labelStyle: TextStyle(
                     height: 1.08,
-                    fontSize: ljnFontSizeScale(22.w),
+                    fontSize: fontSizeScale(22.w),
                   ),
                   unselectedLabelColor: const Color.fromARGB(222, 0, 0, 0),
                   indicator: const BoxDecoration(),
@@ -886,7 +886,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                           centerTitle: true,
                           titleTextStyle: TextStyle(
                               height: 1.08,
-                              fontSize: ljnFontSizeScale(32.w),
+                              fontSize: fontSizeScale(32.w),
                               color: Colors.black,
                               fontFamily: "AlibabaPuHuiTi-Medium"),
                           toolbarHeight: 90.w,
@@ -1136,7 +1136,7 @@ class _LJNPopupMenuItem extends State<LJNPopupMenuItem> {
                   widget.title,
                   style: TextStyle(
                       height: 1.08,
-                      fontSize: ljnFontSizeScale(33.w),
+                      fontSize: fontSizeScale(33.w),
                       fontWeight: FontWeight.normal,
                       decoration: TextDecoration.none,
                       color: Colors.white),

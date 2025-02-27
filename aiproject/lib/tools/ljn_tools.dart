@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // 字体缩放
-double ljnFontSizeScale(double size) {
+double fontSizeScale(double size) {
   return size * 1.0;
 }
 
@@ -50,14 +50,14 @@ List<InlineSpan> buildTextSpans(
   fontTextStyle = TextStyle(
           height: 1.08,
           color: Colors.black,
-          fontSize: ljnFontSizeScale(30.w),
+          fontSize: fontSizeScale(30.w),
           fontFamily: "AlibabaPuHuiTi")
       .merge(fontTextStyle);
 
   iconTextStyle = TextStyle(
           height: 1.08,
           color: Colors.black,
-          fontSize: ljnFontSizeScale(30.w),
+          fontSize: fontSizeScale(30.w),
           fontFamily: "NotoColorEmoji-Regular")
       .merge(iconTextStyle);
 

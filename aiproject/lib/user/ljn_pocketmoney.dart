@@ -83,7 +83,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                 "我的零钱",
                 style: TextStyle(
                   height: 1.08,
-                  fontSize: ljnFontSizeScale(32.w),
+                  fontSize: fontSizeScale(32.w),
                   fontFamily: "AlibabaPuHuiTi-Medium",
                   color: const Color.fromARGB(255, 16, 16, 16),
                 ),
@@ -118,7 +118,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                           .toString(),
                       style: TextStyle(
                         height: 1.08,
-                        fontSize: ljnFontSizeScale(85.w),
+                        fontSize: fontSizeScale(85.w),
                         fontWeight: FontWeight.bold,
                         fontFamily: "LJNFont",
                         color: const Color.fromARGB(255, 16, 16, 16),
@@ -135,7 +135,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                 style: TextStyle(
                     height: 1.08,
                     color: const Color.fromARGB(255, 255, 161, 79),
-                    fontSize: ljnFontSizeScale(30.w),
+                    fontSize: fontSizeScale(30.w),
                     fontFamily: "AlibabaPuHuiTi"),
               ),
               const Expanded(
@@ -168,7 +168,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                     style: TextStyle(
                         height: 1.08,
                         color: const Color.fromARGB(255, 58, 81, 124),
-                        fontSize: ljnFontSizeScale(25.w),
+                        fontSize: fontSizeScale(25.w),
                         fontFamily: "AlibabaPuHuiTi-Medium"),
                   ),
                   WidgetSpan(
@@ -181,7 +181,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                     style: TextStyle(
                         height: 1.08,
                         color: const Color.fromARGB(255, 236, 236, 236),
-                        fontSize: ljnFontSizeScale(25.w),
+                        fontSize: fontSizeScale(25.w),
                         fontFamily: "AlibabaPuHuiTi-Medium"),
                   ),
                   WidgetSpan(
@@ -194,7 +194,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                     style: TextStyle(
                         height: 1.08,
                         color: const Color.fromARGB(255, 58, 81, 124),
-                        fontSize: ljnFontSizeScale(25.w),
+                        fontSize: fontSizeScale(25.w),
                         fontFamily: "AlibabaPuHuiTi-Medium"),
                   ),
                 ]),
@@ -207,7 +207,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                 style: TextStyle(
                     height: 1.08,
                     color: const Color.fromARGB(255, 169, 169, 169),
-                    fontSize: ljnFontSizeScale(23.w),
+                    fontSize: fontSizeScale(23.w),
                     fontFamily: "AlibabaPuHuiTi-Medium"),
               ),
               SizedBox(
@@ -313,7 +313,7 @@ class _LJNChargeButtonState extends State<LJNChargeButton> {
             height: 1.08,
             color: fontColor,
             fontWeight: FontWeight.bold,
-            fontSize: ljnFontSizeScale(32.w),
+            fontSize: fontSizeScale(32.w),
             fontFamily: "AlibabaPuHuiTi",
           ),
         ),

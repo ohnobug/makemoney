@@ -50,7 +50,7 @@ class _LJNWallet extends State<LJNWallet> {
                 style: TextStyle(
                     // height: 1.08,
                     color: Colors.black,
-                    fontSize: ljnFontSizeScale(32.w),
+                    fontSize: fontSizeScale(32.w),
                     fontWeight: FontWeight.w500),
               ),
             ),
@@ -106,7 +106,7 @@ class _LJNWallet extends State<LJNWallet> {
                                     .toString(),
                                 style: TextStyle(
                                   height: 1.08,
-                                  fontSize: ljnFontSizeScale(29.w),
+                                  fontSize: fontSizeScale(29.w),
                                   color: Colors.black,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: "LJNFont",
@@ -141,7 +141,7 @@ class _LJNWallet extends State<LJNWallet> {
                                   text: '收益率1.64%',
                                   style: TextStyle(
                                     height: 1.08,
-                                    fontSize: ljnFontSizeScale(23.w),
+                                    fontSize: fontSizeScale(23.w),
                                     color:
                                         const Color.fromARGB(255, 249, 136, 39),
                                   ),
@@ -174,7 +174,7 @@ class _LJNWallet extends State<LJNWallet> {
                                       .toString(),
                                   style: TextStyle(
                                     height: 1.08,
-                                    fontSize: ljnFontSizeScale(29.w),
+                                    fontSize: fontSizeScale(29.w),
                                     color: Colors.black,
                                     fontWeight: FontWeight.w500,
                                     fontFamily: "LJNFont",

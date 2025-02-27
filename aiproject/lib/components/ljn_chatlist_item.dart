@@ -131,14 +131,14 @@ class _ChatListItem extends State<ChatListItem> {
                                         widget.friendName,
                                         TextStyle(
                                             height: 1.08,
-                                            fontSize: ljnFontSizeScale(31.0.w),
+                                            fontSize: fontSizeScale(31.0.w),
                                             color: widget.notice
                                                 ? Colors.red
                                                 : Colors.black,
                                             fontFamily: "AlibabaPuHuiTi"),
                                         TextStyle(
                                             height: 1.08,
-                                            fontSize: ljnFontSizeScale(31.w),
+                                            fontSize: fontSizeScale(31.w),
                                             fontFamily:
                                                 "NotoColorEmoji-Regular"),
                                       ),
@@ -155,7 +155,7 @@ class _ChatListItem extends State<ChatListItem> {
                                         style: TextStyle(
                                           height: 1.08,
                                           // fontFamily: "Roboto-Regular",
-                                          fontSize: ljnFontSizeScale(25.0.w),
+                                          fontSize: fontSizeScale(25.0.w),
                                           color: widget.notice
                                               ? Colors.red
                                               : const Color.fromARGB(
@@ -190,13 +190,13 @@ class _ChatListItem extends State<ChatListItem> {
                                         widget.message,
                                         TextStyle(
                                           height: 1.08,
-                                          fontSize: ljnFontSizeScale(25.w),
+                                          fontSize: fontSizeScale(25.w),
                                           color: const Color.fromARGB(
                                               255, 170, 170, 170),
                                         ),
                                         TextStyle(
                                           height: 1.08,
-                                          fontSize: ljnFontSizeScale(25.w),
+                                          fontSize: fontSizeScale(25.w),
                                           color: const Color.fromARGB(
                                               255, 170, 170, 170),
                                         ),
@@ -253,7 +253,7 @@ class _ChatListItem extends State<ChatListItem> {
                         maxLines: 1,
                         style: TextStyle(
                           height: 1.08,
-                          fontSize: ljnFontSizeScale(20.w), // 数字大小
+                          fontSize: fontSizeScale(20.w), // 数字大小
                           color: Colors.white, // 数字颜色
                           fontWeight: FontWeight.w600,
                           fontFamily: "LJNFont",

@@ -443,7 +443,7 @@ class _LJNContactState extends State<LJNContact> {
                 "10个朋友",
                 style: TextStyle(
                   height: 1.08,
-                  fontSize: ljnFontSizeScale(30.w),
+                  fontSize: fontSizeScale(30.w),
                   color: const Color.fromARGB(255, 125, 125, 125),
                 ),
               ),
@@ -540,7 +540,7 @@ class _LJNContactState extends State<LJNContact> {
                       String.fromCharCode(65 + i),
                       style: TextStyle(
                         height: 1.08,
-                        fontSize: ljnFontSizeScale(22.w),
+                        fontSize: fontSizeScale(22.w),
                         color: const Color.fromARGB(255, 20, 20, 20),
                       ),
                     ),
@@ -551,7 +551,7 @@ class _LJNContactState extends State<LJNContact> {
                     "#",
                     style: TextStyle(
                       height: 1.08,
-                      fontSize: ljnFontSizeScale(22.w),
+                      fontSize: fontSizeScale(22.w),
                       color: const Color.fromARGB(255, 20, 20, 20),
                     ),
                   ),
@@ -672,7 +672,7 @@ class _ContactInformationState extends State<ContactInformation> {
                         widget.title,
                         style: TextStyle(
                           height: 1.08,
-                          fontSize: ljnFontSizeScale(33.0.w),
+                          fontSize: fontSizeScale(33.0.w),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

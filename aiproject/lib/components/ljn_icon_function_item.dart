@@ -126,13 +126,13 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                               widget.title,
                               TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(31.0.w),
+                                fontSize: fontSizeScale(31.0.w),
                                 color: Colors.black,
                                 fontFamily: "AlibabaPuHuiTi",
                               ),
                               TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(31.w),
+                                fontSize: fontSizeScale(31.w),
                                 fontFamily: "NotoColorEmoji-Regular",
                               ),
                             ),
@@ -150,12 +150,12 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                               widget.message,
                               TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(25.w),
+                                fontSize: fontSizeScale(25.w),
                                 color: const Color.fromARGB(255, 170, 170, 170),
                               ),
                               TextStyle(
                                 height: 1.08,
-                                fontSize: ljnFontSizeScale(25.w),
+                                fontSize: fontSizeScale(25.w),
                                 color: const Color.fromARGB(255, 170, 170, 170),
                               ),
                             ),
