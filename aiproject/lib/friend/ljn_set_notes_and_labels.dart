@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -110,9 +112,10 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                         child: Text(
                           "设置标注和标签",
                           style: TextStyle(
-                              fontSize: 40.w,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                            fontSize: 40.w,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
 
@@ -194,34 +197,46 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                       Container(
                         padding: EdgeInsets.only(left: 30.w),
                         margin: EdgeInsets.only(bottom: 75.w),
-                        alignment: Alignment.centerLeft,
+                        // alignment: Alignment.centerLeft,
+                        // color: Colors.red,
                         child: Text.rich(
+                          textAlign: TextAlign.left,
                           TextSpan(
                             children: [
                               TextSpan(
                                 text: '对方在手机通讯录中的名字为“邓桥香”',
                                 style: TextStyle(
-                                    fontSize: 25.w,
-                                    color: const Color.fromARGB(
-                                        255, 100, 100, 100),
-                                    height: 1.08),
+                                  fontSize: 25.w,
+                                  color:
+                                      const Color.fromARGB(255, 100, 100, 100),
+                                  height: 1.08, // 统一行高
+                                ),
                               ),
                               WidgetSpan(
                                 child: SizedBox(
                                   width: 10.w,
                                 ),
                               ),
-                              TextSpan(
-                                text: '填入',
-                                style: TextStyle(
-                                  fontSize: 25.w,
-                                  color: const Color.fromARGB(255, 81, 94, 132),
-                                  height: 1.08,
+                              WidgetSpan(
+                                alignment: ui.PlaceholderAlignment.middle,
+                                // baseline: TextBaseline.alphabetic,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    inputController1.text = "邓桥香";
+                                  },
+                                  child: Text(
+                                    '填入',
+                                    style: TextStyle(
+                                      fontSize: 25.w,
+                                      color: const Color.fromARGB(
+                                          255, 81, 94, 132),
+                                      height: 1.08, // 统一行高
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ),
 
@@ -238,36 +253,43 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 105.w,
-                        margin: EdgeInsets.only(bottom: 50.w),
-                        padding: EdgeInsets.symmetric(horizontal: 30.w),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 247, 247, 247),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(12.w),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "同学，ajj",
-                              style: TextStyle(
-                                  fontSize: 32.w, color: Colors.black),
+
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/set_friend_tags');
+                        },
+                        child: Container(
+                          height: 105.w,
+                          margin: EdgeInsets.only(bottom: 50.w),
+                          padding: EdgeInsets.symmetric(horizontal: 30.w),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 247, 247, 247),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(12.w),
                             ),
-                            SizedBox(
-                              width: 30.w,
-                              child: Icon(
-                                const IconData(
-                                  0xed9d,
-                                  fontFamily: 'Iconfont',
-                                ),
-                                size: 30.0.w,
-                                color: const Color.fromARGB(255, 172, 172, 172),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "同学，ajj",
+                                style: TextStyle(
+                                    fontSize: 32.w, color: Colors.black),
                               ),
-                            )
-                          ],
+                              SizedBox(
+                                width: 30.w,
+                                child: Icon(
+                                  const IconData(
+                                    0xed9d,
+                                    fontFamily: 'Iconfont',
+                                  ),
+                                  size: 30.0.w,
+                                  color:
+                                      const Color.fromARGB(255, 172, 172, 172),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
 
@@ -341,15 +363,20 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                                   phoneNumberList.removeAt(key);
                                                 });
                                               },
-                                              child: Icon(
-                                                const IconData(
-                                                  0xe627,
-                                                  fontFamily: 'Iconfont',
-                                                ),
-                                                color: const Color.fromARGB(
-                                                    255, 176, 176, 176),
-                                                size: 35.w,
-                                              ),
+                                              child: Container(
+                                                  width: 50.w,
+                                                  height: 50.w,
+                                                  color: Colors.transparent,
+                                                  alignment: Alignment.center,
+                                                  child: Icon(
+                                                    const IconData(
+                                                      0xe627,
+                                                      fontFamily: 'Iconfont',
+                                                    ),
+                                                    color: const Color.fromARGB(
+                                                        255, 176, 176, 176),
+                                                    size: 35.w,
+                                                  )),
                                             ),
                                           ),
                                         ),

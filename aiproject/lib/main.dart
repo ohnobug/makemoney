@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:jiaoyishuoflutter3/friend/ljn_set_friend_tags.dart';
 import 'package:jiaoyishuoflutter3/user/ljn_camera_view.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_image_draggable_box.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_video_draggable_box.dart';
@@ -520,6 +521,10 @@ class _App extends State<App> {
               } else if (settings.name == "/friend_information") {
                 return pageRouteBuilderAnimation(
                   const LJNFriendInformation(),
+                );
+              } else if (settings.name == "/set_friend_tags") {
+                return pageRouteBuilderAnimation(
+                  const LJNSetFriendTags(),
                 );
               }
 
@@ -1135,11 +1140,12 @@ class _LJNPopupMenuItem extends State<LJNPopupMenuItem> {
                 child: Text(
                   widget.title,
                   style: TextStyle(
-                      height: 1.08,
-                      fontSize: fontSizeScale(33.w),
-                      fontWeight: FontWeight.normal,
-                      decoration: TextDecoration.none,
-                      color: Colors.white),
+                    height: 1.08,
+                    fontSize: fontSizeScale(33.w),
+                    fontWeight: FontWeight.normal,
+                    decoration: TextDecoration.none,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             )

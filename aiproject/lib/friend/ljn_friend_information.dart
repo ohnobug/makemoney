@@ -63,7 +63,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                 ),
                 const LJNFunctionItem(
                   title: "标签",
-                  link: '',
+                  link: '/set_friend_tags',
                   showStyle: "同学、朋友",
                   underline: true,
                 ),

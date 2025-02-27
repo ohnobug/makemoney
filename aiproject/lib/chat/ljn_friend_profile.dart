@@ -158,6 +158,8 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                       children: [
                                         // 姓名
                                         RichText(
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                           text: TextSpan(
                                             children: buildTextSpans(
                                               widget.name!,
@@ -182,6 +184,8 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
 
                                         // 昵称
                                         RichText(
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                           text: TextSpan(
                                             children: buildTextSpans(
                                               '昵称: ${widget.nickname!}',
