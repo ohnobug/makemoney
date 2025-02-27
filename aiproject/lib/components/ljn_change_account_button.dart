@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 
 class LJNChangeAccountButton extends StatefulWidget {
   final String title;
@@ -97,7 +97,9 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
       child: Container(
         decoration: BoxDecoration(
           color: containerColor,
-          borderRadius: BorderRadius.all(Radius.circular(10.w)),
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.w),
+          ),
         ),
         alignment: Alignment.center,
         width: 350.w,
@@ -105,11 +107,12 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
         child: Text(
           widget.title,
           style: TextStyle(
-              fontSize: 32.w,
-              height: 1.08,
-              color: widget.readonly == true
-                  ? const Color.fromARGB(255, 184, 184, 184)
-                  : fontColor),
+            fontSize: 32.w,
+            height: 1.08,
+            color: widget.readonly == true
+                ? const Color.fromARGB(255, 184, 184, 184)
+                : fontColor,
+          ),
         ),
       ),
     );

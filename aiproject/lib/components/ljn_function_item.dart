@@ -1,8 +1,8 @@
 // 功能列表
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 
 class LJNFunctionItem extends StatefulWidget {
   final String? icon;
@@ -93,7 +93,8 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
         logger.info("弹起");
       },
       child: Container(
-        height: widget.height ?? 105.0.w,
+        constraints: BoxConstraints(maxHeight: widget.height ?? 105.0.w),
+        // height: widget.height ?? 105.0.w,
         color: containerColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -110,7 +111,9 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                   shape: BoxShape.rectangle,
                   // borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    image: AssetImage(assetPath(widget.icon!)),
+                    image: AssetImage(
+                      assetPath(widget.icon!),
+                    ),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -123,14 +126,16 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                 // height: double.infinity,
                 // width: 400.w,
                 decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                  color: widget.underline
-                      ? const Color.fromARGB(255, 242, 242, 242)
-                      : Colors.transparent,
-                  width: 1.5.w,
-                  style: BorderStyle.solid,
-                ))),
+                  border: Border(
+                    bottom: BorderSide(
+                      color: widget.underline
+                          ? const Color.fromARGB(255, 242, 242, 242)
+                          : Colors.transparent,
+                      width: 1.5.w,
+                      style: BorderStyle.solid,
+                    ),
+                  ),
+                ),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -138,41 +143,45 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                     widget.title is String
                         ? Expanded(
                             child: Container(
-                                padding: widget.icon == null
-                                    ? widget.padding ??
-                                        const EdgeInsets.only(
-                                                left: 30.0, right: 0.0)
-                                            .w
-                                    : const EdgeInsets.all(0),
-                                child: Text(
-                                  widget.title as String,
-                                  style: TextStyle(
-                                    height: 1.08,
-                                    fontSize: fontSizeScale(32.0.w),
-                                    fontFamily: "AlibabaPuHuiTi",
-                                  ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                )))
+                              padding: widget.icon == null
+                                  ? widget.padding ??
+                                      const EdgeInsets.only(
+                                              left: 30.0, right: 0.0)
+                                          .w
+                                  : const EdgeInsets.all(0),
+                              child: Text(
+                                widget.title as String,
+                                style: TextStyle(
+                                  height: 1.08,
+                                  fontSize: ljnFontSizeScale(32.0.w),
+                                  fontFamily: "AlibabaPuHuiTi",
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          )
                         : widget.title as Widget,
                     if (widget.showStyle != null)
                       widget.showStyle is String
                           ? Expanded(
                               child: Container(
-                                  padding: const EdgeInsets.only(left: 10).w,
-                                  // color: Colors.red,
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    widget.showStyle as String,
-                                    style: TextStyle(
-                                      // height: 1.08,
-                                      fontSize: fontSizeScale(30.w),
-                                      color:
-                                          const Color.fromARGB(255, 83, 83, 83),
-                                    ),
-                                  )))
+                                padding: const EdgeInsets.only(left: 10).w,
+                                // color: Colors.red,
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  widget.showStyle as String,
+                                  style: TextStyle(
+                                    // height: 1.08,
+                                    fontSize: ljnFontSizeScale(30.w),
+                                    color:
+                                        const Color.fromARGB(255, 83, 83, 83),
+                                  ),
+                                ),
+                              ),
+                            )
                           : widget.showStyle as Widget,
                     if ([null, true].contains(widget.showLinkIcon) &&
                         widget.link != null)

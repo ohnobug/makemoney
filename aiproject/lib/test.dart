@@ -17,7 +17,9 @@ class LJNTest extends StatelessWidget {
             MaterialButton(
               child: Text('Start floating!'),
               onPressed: () {
-                PictureInPicture.startPiP(pipWidget: BackgroundScreen());
+                PictureInPicture.startPiP(
+                  pipWidget: BackgroundScreen(),
+                );
               },
             ),
           ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 
 class LJNAlphabet extends StatelessWidget {
   final String title;
@@ -22,9 +22,10 @@ class LJNAlphabet extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-                height: 1.08,
-                fontSize: fontSizeScale(25.w),
-                color: color ?? const Color.fromARGB(255, 103, 103, 103)),
+              height: 1.08,
+              fontSize: ljnFontSizeScale(25.w),
+              color: color ?? const Color.fromARGB(255, 103, 103, 103),
+            ),
           ),
         ],
       ),

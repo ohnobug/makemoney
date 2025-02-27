@@ -1,89 +1,86 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:jiaoyishuoflutter3/camera_view.dart';
+import 'package:jiaoyishuoflutter3/user/ljn_camera_view.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_image_draggable_box.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_video_draggable_box.dart';
-import 'package:jiaoyishuoflutter3/friend_information.dart';
-import 'package:jiaoyishuoflutter3/store/popup/popup_cubit.dart';
+import 'package:jiaoyishuoflutter3/friend/ljn_friend_information.dart';
+import 'package:jiaoyishuoflutter3/friend/ljn_friend_more_info.dart';
+import 'package:jiaoyishuoflutter3/store/ljn_popup_cubit.dart';
+import 'package:jiaoyishuoflutter3/user/ljn_user.dart';
 import 'package:window_manager/window_manager.dart';
-
-import 'user.dart';
-import 'logger.dart';
-import 'dart:convert';
+import 'tools/ljn_logger.dart';
 import 'dart:isolate';
-import 'contact.dart';
-import 'tools/tools.dart';
-import 'settings/account_info.dart';
+import 'contract/ljn_contact.dart';
+import 'tools/ljn_tools.dart';
+import 'settings/ljn_account_info.dart';
 import 'components/ljn_custom_physics.dart';
-import 'store/counter/cubit/counter_cubit.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jiaoyishuoflutter3/add_friends.dart';
-import 'package:jiaoyishuoflutter3/address_book_label.dart';
-import 'package:jiaoyishuoflutter3/care_mode.dart';
-import 'package:jiaoyishuoflutter3/chat.dart';
-import 'package:jiaoyishuoflutter3/collection_and_payment.dart';
-import 'package:jiaoyishuoflutter3/dial.dart';
-import 'package:jiaoyishuoflutter3/discovery.dart';
-import 'package:jiaoyishuoflutter3/friend_data_setting.dart';
-import 'package:jiaoyishuoflutter3/friend_message_record.dart';
-import 'package:jiaoyishuoflutter3/friend_more_info.dart';
-import 'package:jiaoyishuoflutter3/friend_permissions.dart';
-import 'package:jiaoyishuoflutter3/friend_moments.dart';
-import 'package:jiaoyishuoflutter3/friends_who_only_chat.dart';
-import 'package:jiaoyishuoflutter3/group_message_record.dart';
-import 'package:jiaoyishuoflutter3/group_chat.dart';
-import 'package:jiaoyishuoflutter3/home22.dart';
-import 'package:jiaoyishuoflutter3/ins.dart';
-import 'package:jiaoyishuoflutter3/miniprogram.dart';
-import 'package:jiaoyishuoflutter3/mywebview.dart';
-import 'package:jiaoyishuoflutter3/new_friends.dart';
-import 'package:jiaoyishuoflutter3/services_manager.dart';
-import 'package:jiaoyishuoflutter3/set_notes_and_labels.dart';
-import 'package:jiaoyishuoflutter3/settings/about.dart';
-import 'package:jiaoyishuoflutter3/settings/bill_details.dart';
-import 'package:jiaoyishuoflutter3/settings/change_details.dart';
-import 'package:jiaoyishuoflutter3/settings/chat_setting.dart';
-import 'package:jiaoyishuoflutter3/settings/common_setting.dart';
-import 'package:jiaoyishuoflutter3/settings/device_detail.dart';
-import 'package:jiaoyishuoflutter3/settings/emergency_contact.dart';
-import 'package:jiaoyishuoflutter3/settings/friend_permission.dart';
-import 'package:jiaoyishuoflutter3/settings/logged_devices.dart';
-import 'package:jiaoyishuoflutter3/settings/more_secure_setting.dart';
-import 'package:jiaoyishuoflutter3/settings/new_message_notification.dart';
-import 'package:jiaoyishuoflutter3/pocketmoney.dart';
-import 'package:jiaoyishuoflutter3/friend_profile.dart';
-import 'package:jiaoyishuoflutter3/qrcode_scanner.dart';
-import 'package:jiaoyishuoflutter3/search.dart';
-import 'package:jiaoyishuoflutter3/services.dart';
-import 'package:jiaoyishuoflutter3/settings/account_and_secure.dart';
-import 'package:jiaoyishuoflutter3/settings/bind_new_phone_number.dart';
-import 'package:jiaoyishuoflutter3/settings/change_account.dart';
-import 'package:jiaoyishuoflutter3/settings/forgot_password.dart';
-import 'package:jiaoyishuoflutter3/settings/input_verify_code.dart';
-import 'package:jiaoyishuoflutter3/settings/personal_info_and_permission.dart';
-import 'package:jiaoyishuoflutter3/settings/personal_info_collection_checklist.dart';
-import 'package:jiaoyishuoflutter3/settings/phone_contact.dart';
-import 'package:jiaoyishuoflutter3/settings/phone_number.dart';
-import 'package:jiaoyishuoflutter3/settings/set_password.dart';
-import 'package:jiaoyishuoflutter3/settings/setting.dart';
-import 'package:jiaoyishuoflutter3/settings/verify_phone.dart';
-import 'package:jiaoyishuoflutter3/settings/sound_lock.dart';
-import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
-import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
-import 'package:jiaoyishuoflutter3/teenage_mode.dart';
+import 'package:jiaoyishuoflutter3/friend/ljn_add_friends.dart';
+import 'package:jiaoyishuoflutter3/contract/ljn_address_book_label.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_care_mode.dart';
+import 'package:jiaoyishuoflutter3/chat/ljn_chat.dart';
+import 'package:jiaoyishuoflutter3/user/ljn_collection_and_payment.dart';
+import 'package:jiaoyishuoflutter3/chat/ljn_dial.dart';
+import 'package:jiaoyishuoflutter3/discovery/ljn_discovery.dart';
+import 'package:jiaoyishuoflutter3/friend/ljn_friend_data_setting.dart';
+import 'package:jiaoyishuoflutter3/friend/ljn_friend_message_record.dart';
+import 'package:jiaoyishuoflutter3/user/ljn_user_more_info.dart';
+import 'package:jiaoyishuoflutter3/friend/ljn_friend_permissions.dart';
+import 'package:jiaoyishuoflutter3/friend/ljn_friend_moments.dart';
+import 'package:jiaoyishuoflutter3/contract/ljn_friends_who_only_chat.dart';
+import 'package:jiaoyishuoflutter3/group/ljn_group_message_record.dart';
+import 'package:jiaoyishuoflutter3/group/ljn_group_chat.dart';
+import 'package:jiaoyishuoflutter3/home/ljn_home.dart';
+import 'package:jiaoyishuoflutter3/discovery/ljn_ins.dart';
+import 'package:jiaoyishuoflutter3/discovery/ljn_miniprogram_list.dart';
+import 'package:jiaoyishuoflutter3/discovery/ljn_miniprogram.dart';
+import 'package:jiaoyishuoflutter3/contract/ljn_new_friends.dart';
+import 'package:jiaoyishuoflutter3/user/ljn_services_manager.dart';
+import 'package:jiaoyishuoflutter3/friend/ljn_set_notes_and_labels.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_about.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_bill_details.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_change_details.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_chat_setting.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_common_setting.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_device_detail.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_emergency_contact.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_friend_permission.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_logged_devices.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_more_secure_setting.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_new_message_notification.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_account_and_secure.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_bind_new_phone_number.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_change_account.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_forgot_password.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_input_verify_code.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_personal_info_and_permission.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_personal_info_collection_checklist.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_phone_contact.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_phone_number.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_set_password.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_setting.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_verify_phone.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_sound_lock.dart';
+import 'package:jiaoyishuoflutter3/settings/ljn_teenage_mode.dart';
+import 'package:jiaoyishuoflutter3/user/ljn_pocketmoney.dart';
+import 'package:jiaoyishuoflutter3/chat/ljn_friend_profile.dart';
+import 'package:jiaoyishuoflutter3/discovery/ljn_qrcode_scanner.dart';
+import 'package:jiaoyishuoflutter3/discovery/ljn_search.dart';
+import 'package:jiaoyishuoflutter3/user/ljn_services.dart';
+import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
+import 'package:jiaoyishuoflutter3/store/ljn_user_cubit.dart';
 import 'package:jiaoyishuoflutter3/test.dart';
-import 'package:jiaoyishuoflutter3/tiktik.dart';
-import 'package:jiaoyishuoflutter3/tools/file_server.dart';
-import 'package:jiaoyishuoflutter3/userinfo.dart';
-import 'package:jiaoyishuoflutter3/video_call.dart';
+import 'package:jiaoyishuoflutter3/discovery/ljn_tiktik.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_file_server.dart';
+import 'package:jiaoyishuoflutter3/user/ljn_userinfo.dart';
+import 'package:jiaoyishuoflutter3/chat/ljn_video_call.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
-import 'package:jiaoyishuoflutter3/wallet.dart';
+import 'package:jiaoyishuoflutter3/user/ljn_wallet.dart';
 
 // 定义一个类来封装传递给 Isolate 的多个参数
 class FileServerParams {
@@ -119,14 +116,17 @@ void main() async {
     );
   }
 
-  setupLogger();
-  logger.info('Application is starting...');
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // 设置状态栏透明
-    statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
-  ));
+  ljnSetupLogger();
 
-  startWebServer();
+  logger.info('Application is starting...');
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // 设置状态栏透明
+      statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
+    ),
+  );
+
+  ljnStartWebServer();
 
   runApp(
     const App(),
@@ -137,7 +137,9 @@ Future<void> _windowsInitApp() async {
   await windowManager.ensureInitialized();
 
   // 设置窗口的大小
-  await windowManager.setSize(Size(375, 812));
+  await windowManager.setSize(
+    Size(375, 812),
+  );
 
   // 获取窗口的大小
   final windowSize = await windowManager.getSize();
@@ -151,7 +153,9 @@ Future<void> _windowsInitApp() async {
   final centerY = (screenSize.height - windowSize.height) / 2;
 
   // 设置窗口位置
-  await windowManager.setPosition(Offset(centerX, centerY));
+  await windowManager.setPosition(
+    Offset(centerX, centerY),
+  );
 }
 
 class App extends StatefulWidget {
@@ -187,10 +191,15 @@ class _App extends State<App> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => CounterCubit()),
-        BlocProvider(create: (_) => SystemCubit()),
-        BlocProvider(create: (_) => UserCubit()),
-        BlocProvider(create: (_) => PopupCubit()),
+        BlocProvider(
+          create: (_) => LJNSystemCubit(),
+        ),
+        BlocProvider(
+          create: (_) => LJNUserCubit(),
+        ),
+        BlocProvider(
+          create: (_) => LJNPopupCubit(),
+        ),
       ],
       child: ScreenUtilInit(
         designSize: const Size(750, 1624),
@@ -201,7 +210,7 @@ class _App extends State<App> {
         enableScaleText: () => true,
         builder: (context, child) {
           return PiPMaterialApp(
-            navigatorKey: context.read<SystemCubit>().state.navigatorKey,
+            navigatorKey: context.read<LJNSystemCubit>().state.navigatorKey,
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
             // onNavigationNotification: _defaultOnNavigationNotification,
@@ -211,7 +220,7 @@ class _App extends State<App> {
                 children: [
                   child!,
                   // 视频放大
-                  BlocBuilder<PopupCubit, PopupState>(
+                  BlocBuilder<LJNPopupCubit, PopupState>(
                     builder: (context, popupState) {
                       logger.info(
                           "qqqqqqqqq444444 ${popupState.showFullScreenVideo}");
@@ -237,9 +246,11 @@ class _App extends State<App> {
             },
             onGenerateRoute: (settings) {
               if (settings.name == '/') {
-                return pageRouteBuilderNotAnimation(const CustomTabbar());
-              } else if (settings.name == '/mywebview' ||
-                  settings.name!.startsWith('/mywebview')) {
+                return pageRouteBuilderNotAnimation(
+                  const CustomTabbar(),
+                );
+              } else if (settings.name == '/miniprogram' ||
+                  settings.name!.startsWith('/miniprogram')) {
                 logger.info("settings.name: ${settings.name}");
 
                 Uri uri = Uri.parse(settings.name!);
@@ -248,34 +259,50 @@ class _App extends State<App> {
                 linkValue = uri.queryParameters['link'] ?? "";
 
                 return pageRouteBuilderAnimation(
-                  LJNWebview(link: linkValue),
+                  LJNMiniProgram(link: linkValue),
                 );
               } else if (settings.name == '/services') {
-                return pageRouteBuilderAnimation(const LJNServicesPage());
+                return pageRouteBuilderAnimation(
+                  const LJNServices(),
+                );
               } else if (settings.name == '/chat') {
                 var arguments = settings.arguments as Map<String, String>;
                 String title = arguments['title'] as String;
                 String icon = arguments['icon'] as String;
                 return pageRouteBuilderAnimation(
-                    LJNChatPage(title: title, icon: icon));
+                  LJNChat(title: title, icon: icon),
+                );
               } else if (settings.name == '/group_chat') {
                 var arguments = settings.arguments as Map<String, String>;
                 String title = arguments['title'] as String;
                 String icon = arguments['icon'] as String;
                 return pageRouteBuilderAnimation(
-                    LJNGroupChatPage(title: title, icon: icon));
+                  LJNGroupChat(title: title, icon: icon),
+                );
               } else if (settings.name == '/qrcode_scanner') {
-                return pageRouteBuilderNotAnimation(const LJNQRCodeScanner());
+                return pageRouteBuilderNotAnimation(
+                  const LJNQRCodeScanner(),
+                );
               } else if (settings.name == '/video_player') {
-                return pageRouteBuilderAnimation(const LJNVideoPage());
+                return pageRouteBuilderAnimation(
+                  const LJNVideoPage(),
+                );
               } else if (settings.name == '/wallet') {
-                return pageRouteBuilderAnimation(const LJNWalletPage());
+                return pageRouteBuilderAnimation(
+                  const LJNWallet(),
+                );
               } else if (settings.name == '/userinfo') {
-                return pageRouteBuilderAnimation(const LJNUserinfoPage());
+                return pageRouteBuilderAnimation(
+                  const LJNUserinfo(),
+                );
               } else if (settings.name == '/friendmoments') {
-                return pageRouteBuilderAnimation(const LJNFriendmomentsPage());
+                return pageRouteBuilderAnimation(
+                  const LJNFriendmoments(),
+                );
               } else if (settings.name == '/pocketmoney') {
-                return pageRouteBuilderAnimation(const LJNPocketMoneyPage());
+                return pageRouteBuilderAnimation(
+                  const LJNPocketMoney(),
+                );
               } else if (settings.name == '/friendprofile') {
                 var arguments =
                     settings.arguments as Map<String, String>? ?? {};
@@ -285,120 +312,220 @@ class _App extends State<App> {
                 String nickname = arguments['nickname'] ?? "";
                 String account = arguments['account'] ?? "";
 
-                return pageRouteBuilderAnimation(LJNFriendProfilePage(
+                return pageRouteBuilderAnimation(
+                  LJNFriendProfile(
                     name: name,
                     nickname: nickname,
                     account: account,
-                    avatar: avatar));
+                    avatar: avatar,
+                  ),
+                );
               } else if (settings.name == '/ins') {
-                return pageRouteBuilderAnimation(const LJNInsPage());
+                return pageRouteBuilderAnimation(
+                  const LJNIns(),
+                );
               } else if (settings.name == '/tiktik') {
-                return pageRouteBuilderAnimation(const LJNTiktikPage());
-              } else if (settings.name == '/miniprogram') {
-                return pageRouteBuilderAnimation(const LJNMiniProgramPage());
+                return pageRouteBuilderAnimation(
+                  const LJNTiktik(),
+                );
+              } else if (settings.name == '/miniprogramlist') {
+                return pageRouteBuilderAnimation(
+                  const LJNMiniProgramList(),
+                );
               } else if (settings.name == '/search') {
-                return pageRouteBuilderAnimation(const LJNSearchPage());
+                return pageRouteBuilderAnimation(
+                  const LJNSearch(),
+                );
               } else if (settings.name == '/setting') {
-                return pageRouteBuilderAnimation(const LJNSettingPage());
+                return pageRouteBuilderAnimation(
+                  const LJNSettingPage(),
+                );
               } else if (settings.name == '/account_and_secure') {
-                return pageRouteBuilderAnimation(const LJNAccountAndSecure());
+                return pageRouteBuilderAnimation(
+                  const LJNAccountAndSecure(),
+                );
               } else if (settings.name == '/accountinfo') {
-                return pageRouteBuilderAnimation(const LJNAccountInfo());
+                return pageRouteBuilderAnimation(
+                  const LJNAccountInfo(),
+                );
               } else if (settings.name == '/change_account') {
-                return pageRouteBuilderAnimation(const LJNChangeAccount());
+                return pageRouteBuilderAnimation(
+                  const LJNChangeAccount(),
+                );
               } else if (settings.name == '/forgot_password') {
-                return pageRouteBuilderAnimation(const LJNForgotPassword());
+                return pageRouteBuilderAnimation(
+                  const LJNForgotPassword(),
+                );
               } else if (settings.name == '/phone_number') {
-                return pageRouteBuilderAnimation(const LJNPhoneNumber());
+                return pageRouteBuilderAnimation(
+                  const LJNPhoneNumber(),
+                );
               } else if (settings.name == '/phone_contact') {
-                return pageRouteBuilderAnimation(const LJNPhoneContact());
+                return pageRouteBuilderAnimation(
+                  const LJNPhoneContact(),
+                );
               } else if (settings.name == '/verify_phone') {
-                return pageRouteBuilderAnimation(const LJNVerifyPhone());
+                return pageRouteBuilderAnimation(
+                  const LJNVerifyPhone(),
+                );
               } else if (settings.name == '/bind_new_phone_number') {
-                return pageRouteBuilderAnimation(const LJNBindNewPhoneNumber());
+                return pageRouteBuilderAnimation(
+                  const LJNBindNewPhoneNumber(),
+                );
               } else if (settings.name == '/input_verify_code') {
-                return pageRouteBuilderAnimation(const LJNInputVerifyCode());
+                return pageRouteBuilderAnimation(
+                  const LJNInputVerifyCode(),
+                );
               } else if (settings.name == '/teenage_mode') {
-                return pageRouteBuilderAnimation(const LJNTeenageMode());
+                return pageRouteBuilderAnimation(
+                  const LJNTeenageMode(),
+                );
               } else if (settings.name == '/care_mode') {
-                return pageRouteBuilderAnimation(const LJNCareMode());
+                return pageRouteBuilderAnimation(
+                  const LJNCareMode(),
+                );
               } else if (settings.name == '/new_message_notification') {
                 return pageRouteBuilderAnimation(
-                    const LJNNewMessageNotification());
+                  const LJNNewMessageNotification(),
+                );
               } else if (settings.name == "/collection_and_payment") {
                 return pageRouteBuilderAnimation(
-                    const LJNCollectionAndPayment());
+                  const LJNCollectionAndPayment(),
+                );
               } else if (settings.name == "/chat_setting") {
-                return pageRouteBuilderAnimation(const LJNChatSetting());
+                return pageRouteBuilderAnimation(
+                  const LJNChatSetting(),
+                );
               } else if (settings.name == "/common_setting") {
-                return pageRouteBuilderAnimation(const LJNCommonSetting());
+                return pageRouteBuilderAnimation(
+                  const LJNCommonSetting(),
+                );
               } else if (settings.name == "/set_password") {
-                return pageRouteBuilderAnimation(const LJNSetPassword());
+                return pageRouteBuilderAnimation(
+                  const LJNSetPassword(),
+                );
               } else if (settings.name == "/logged_devices") {
-                return pageRouteBuilderAnimation(const LJNLoggedDevices());
+                return pageRouteBuilderAnimation(
+                  const LJNLoggedDevices(),
+                );
               } else if (settings.name == "/device_detail") {
-                return pageRouteBuilderAnimation(const LJNDeviceDetail());
+                return pageRouteBuilderAnimation(
+                  const LJNDeviceDetail(),
+                );
               } else if (settings.name == "/emergency_contact") {
-                return pageRouteBuilderAnimation(const LJNEmergencyContact());
+                return pageRouteBuilderAnimation(
+                  const LJNEmergencyContact(),
+                );
               } else if (settings.name == "/more_secure_setting") {
-                return pageRouteBuilderAnimation(const LJNMoreSecureSetting());
+                return pageRouteBuilderAnimation(
+                  const LJNMoreSecureSetting(),
+                );
               } else if (settings.name == "/sound_lock") {
-                return pageRouteBuilderAnimation(const LJNSoundLock());
+                return pageRouteBuilderAnimation(
+                  const LJNSoundLock(),
+                );
               } else if (settings.name == "/personinfo_and_permission") {
                 return pageRouteBuilderAnimation(
-                    const LJNPersonalinfoAndPermission());
+                  const LJNPersonalinfoAndPermission(),
+                );
               } else if (settings.name ==
                   "/personalinfo_collection_checklist") {
                 return pageRouteBuilderAnimation(
-                    const LJNPersonalInfoCollectionChecklist());
+                  const LJNPersonalInfoCollectionChecklist(),
+                );
               } else if (settings.name == "/about") {
-                return pageRouteBuilderAnimation(const LJNAbout());
+                return pageRouteBuilderAnimation(
+                  const LJNAbout(),
+                );
               } else if (settings.name == "/friend_permission") {
-                return pageRouteBuilderAnimation(const LJNFriendPermission());
+                return pageRouteBuilderAnimation(
+                  const LJNFriendPermission(),
+                );
               } else if (settings.name == "/change_details") {
-                return pageRouteBuilderAnimation(const LJNChangeDetails());
+                return pageRouteBuilderAnimation(
+                  const LJNChangeDetails(),
+                );
               } else if (settings.name == "/bill_details") {
-                return pageRouteBuilderAnimation(const LJNBillDetails());
+                return pageRouteBuilderAnimation(
+                  const LJNBillDetails(),
+                );
               } else if (settings.name == "/friend_message_record") {
                 return pageRouteBuilderAnimation(
-                    const LJNFriendMessageRecord());
+                  const LJNFriendMessageRecord(),
+                );
               } else if (settings.name == "/friend_data_setting") {
-                return pageRouteBuilderAnimation(const LJNFriendDataSetting());
+                return pageRouteBuilderAnimation(
+                  const LJNFriendDataSetting(),
+                );
+              } else if (settings.name == "/user_more_info") {
+                return pageRouteBuilderAnimation(
+                  const LJNUserMoreInfo(),
+                );
               } else if (settings.name == "/friend_more_info") {
-                return pageRouteBuilderAnimation(const LJNFriendMoreInfo());
+                return pageRouteBuilderAnimation(
+                  const LJNFriendMoreInfo(),
+                );
               } else if (settings.name == "/add_friends") {
-                return pageRouteBuilderAnimation(const LJNAddFriends());
+                return pageRouteBuilderAnimation(
+                  const LJNAddFriends(),
+                );
               } else if (settings.name == "/group_message_record") {
-                return pageRouteBuilderAnimation(const LJNGroupMessageRecord());
+                return pageRouteBuilderAnimation(
+                  const LJNGroupMessageRecord(),
+                );
               } else if (settings.name == "/dial") {
-                return pageRouteBuilderNotAnimation(const LJNDial());
+                return pageRouteBuilderNotAnimation(
+                  const LJNDial(),
+                );
               } else if (settings.name == "/services_manager") {
-                return pageRouteBuilderAnimation(const LJNServicesManager());
+                return pageRouteBuilderAnimation(
+                  const LJNServicesManager(),
+                );
               } else if (settings.name == "/friend_data_setting") {
-                return pageRouteBuilderAnimation(const LJNFriendDataSetting());
+                return pageRouteBuilderAnimation(
+                  const LJNFriendDataSetting(),
+                );
               } else if (settings.name == "/set_notes_and_labels") {
-                return pageRouteBuilderAnimation(const LJNSetNotesAndLabels());
+                return pageRouteBuilderAnimation(
+                  const LJNSetNotesAndLabels(),
+                );
               } else if (settings.name == "/friend_permissions") {
-                return pageRouteBuilderAnimation(const LJNFriendPermissions());
+                return pageRouteBuilderAnimation(
+                  const LJNFriendPermissions(),
+                );
               } else if (settings.name == "/test") {
-                return pageRouteBuilderAnimation(const LJNTest());
+                return pageRouteBuilderAnimation(
+                  const LJNTest(),
+                );
               } else if (settings.name == "/video_call") {
-                return pageRouteBuilderAnimation(const LJNVideoCall());
+                return pageRouteBuilderAnimation(
+                  const LJNVideoCall(),
+                );
               } else if (settings.name == "/friends_who_only_chat") {
-                return pageRouteBuilderAnimation(const LJNFriendsWhoOnlyChat());
+                return pageRouteBuilderAnimation(
+                  const LJNFriendsWhoOnlyChat(),
+                );
               } else if (settings.name == "/address_book_label") {
-                return pageRouteBuilderAnimation(const LJNAddressBookLabel());
+                return pageRouteBuilderAnimation(
+                  const LJNAddressBookLabel(),
+                );
               } else if (settings.name == "/new_friends") {
-                return pageRouteBuilderAnimation(const LJNNewFriends());
+                return pageRouteBuilderAnimation(
+                  const LJNNewFriends(),
+                );
               } else if (settings.name == "/camera") {
-                return pageRouteBuilderAnimation(const LJNCameraView());
+                return pageRouteBuilderAnimation(
+                  const LJNCameraView(),
+                );
               } else if (settings.name == "/friend_information") {
-                return pageRouteBuilderAnimation(const LJNFriendInformation());
+                return pageRouteBuilderAnimation(
+                  const LJNFriendInformation(),
+                );
               }
 
               return null;
             },
-            theme: context.read<SystemCubit>().state.themeData,
+            theme: context.read<LJNSystemCubit>().state.themeData,
             scrollBehavior: const MaterialScrollBehavior().copyWith(
               dragDevices: {
                 PointerDeviceKind.mouse,
@@ -422,8 +549,9 @@ class _App extends State<App> {
         const end = Offset.zero;
         const curve = Curves.ease;
 
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var tween = Tween(begin: begin, end: end).chain(
+          CurveTween(curve: curve),
+        );
 
         return SlideTransition(
           position: animation.drive(tween),
@@ -480,9 +608,9 @@ class _CustomTabbarState extends State<CustomTabbar>
       }
 
       if ((_tabController.animation!.value - 1).abs() < 0.2) {
-        context.read<SystemCubit>().updateContactazshow(true);
+        context.read<LJNSystemCubit>().updateContactazshow(true);
       } else {
-        context.read<SystemCubit>().updateContactazshow(false);
+        context.read<LJNSystemCubit>().updateContactazshow(false);
       }
 
       if (_tabController.animation!.value >= 2 &&
@@ -535,14 +663,14 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SystemCubit, SystemState>(
+    return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
       if (setStatusHeight == false) {
         if (kIsWeb) {
-          context.read<SystemCubit>().updateStatusHeight(0);
+          context.read<LJNSystemCubit>().updateStatusHeight(0);
         } else {
           context
-              .read<SystemCubit>()
+              .read<LJNSystemCubit>()
               .updateStatusHeight(MediaQuery.of(context).padding.top);
         }
 
@@ -630,88 +758,99 @@ class _CustomTabbarState extends State<CustomTabbar>
         children: [
           // 主界面
           Scaffold(
-              primary: false,
-              bottomNavigationBar: Visibility(
-                  visible: systemState.showMiniProgramDrawer == false,
-                  child: Container(
-                      height: 106.w,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 237, 237, 237),
-                          border: Border(
-                              top: BorderSide(
-                            color: const Color.fromARGB(255, 220, 220, 220),
-                            width: 1.5.w,
-                            style: BorderStyle.solid,
-                          ))),
-                      child: TabBar(
-                        dividerColor: const Color.fromARGB(255, 218, 218, 218),
-                        labelColor: const Color.fromARGB(255, 7, 192, 103),
-                        labelStyle: TextStyle(
-                            height: 1.08, fontSize: fontSizeScale(22.w)),
-                        unselectedLabelColor:
-                            const Color.fromARGB(222, 0, 0, 0),
-                        indicator: const BoxDecoration(),
-                        indicatorColor: Colors.transparent,
-                        controller: _tabController,
-                        overlayColor:
-                            WidgetStateProperty.all(const Color(0x00000000)),
-                        tabs: <Widget>[
-                          Tab(
-                            height: 105.w,
-                            iconMargin: EdgeInsets.only(bottom: 8.w),
-                            icon: SizedBox(
-                                height: 50.w,
-                                width: 50.w,
-                                // color: Colors.red,
-                                child: Center(child: icon1)),
-                            text: "微信",
-                          ),
-                          Tab(
-                            height: 105.w,
-                            iconMargin: EdgeInsets.only(bottom: 8.w),
-                            icon: SizedBox(
-                                height: 50.w,
-                                width: 50.w,
-                                // color: Colors.red,
-                                child: Center(child: icon2)),
-                            text: "通信录",
-                          ),
-                          Tab(
-                            height: 105.w,
-                            iconMargin: EdgeInsets.only(bottom: 8.w),
-                            icon: SizedBox(
-                                height: 50.w,
-                                width: 50.w,
-                                // color: Colors.red,
-                                child: Center(child: icon3)),
-                            text: "发现",
-                          ),
-                          Tab(
-                            height: 105.w,
-                            iconMargin: EdgeInsets.only(bottom: 8.w),
-                            icon: SizedBox(
-                                height: 50.w,
-                                width: 50.w,
-                                // color: Colors.red,
-                                child: Center(child: icon4)),
-                            text: "我",
-                          ),
-                        ],
-                      ))),
-              appBar: null,
-              body: TabBarView(
-                physics: systemState.showMiniProgramDrawer == true
-                    ? const NeverScrollableScrollPhysics()
-                    : const CustomTabBarViewScrollPhysics(),
-                controller: _tabController,
-                children: const <Widget>[
-                  // LJNTestPage(),
-                  LJNHome22Page(),
-                  LJNContactPage(),
-                  LJNDiscoveryPage(),
-                  LJNUserPage(),
-                ],
-              )),
+            primary: false,
+            bottomNavigationBar: Visibility(
+              visible: systemState.showMiniProgramDrawer == false,
+              child: Container(
+                height: 106.w,
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 237, 237, 237),
+                  border: Border(
+                    top: BorderSide(
+                      color: const Color.fromARGB(255, 220, 220, 220),
+                      width: 1.5.w,
+                      style: BorderStyle.solid,
+                    ),
+                  ),
+                ),
+                child: TabBar(
+                  dividerColor: const Color.fromARGB(255, 218, 218, 218),
+                  labelColor: const Color.fromARGB(255, 7, 192, 103),
+                  labelStyle: TextStyle(
+                    height: 1.08,
+                    fontSize: ljnFontSizeScale(22.w),
+                  ),
+                  unselectedLabelColor: const Color.fromARGB(222, 0, 0, 0),
+                  indicator: const BoxDecoration(),
+                  indicatorColor: Colors.transparent,
+                  controller: _tabController,
+                  overlayColor: WidgetStateProperty.all(
+                    const Color(0x00000000),
+                  ),
+                  tabs: <Widget>[
+                    Tab(
+                      height: 105.w,
+                      iconMargin: EdgeInsets.only(bottom: 8.w),
+                      icon: SizedBox(
+                        height: 50.w,
+                        width: 50.w,
+                        // color: Colors.red,
+                        child: Center(child: icon1),
+                      ),
+                      text: "微信",
+                    ),
+                    Tab(
+                      height: 105.w,
+                      iconMargin: EdgeInsets.only(bottom: 8.w),
+                      icon: SizedBox(
+                        height: 50.w,
+                        width: 50.w,
+                        // color: Colors.red,
+                        child: Center(child: icon2),
+                      ),
+                      text: "通信录",
+                    ),
+                    Tab(
+                      height: 105.w,
+                      iconMargin: EdgeInsets.only(bottom: 8.w),
+                      icon: SizedBox(
+                        height: 50.w,
+                        width: 50.w,
+                        // color: Colors.red,
+                        child: Center(child: icon3),
+                      ),
+                      text: "发现",
+                    ),
+                    Tab(
+                      height: 105.w,
+                      iconMargin: EdgeInsets.only(bottom: 8.w),
+                      icon: SizedBox(
+                        height: 50.w,
+                        width: 50.w,
+                        // color: Colors.red,
+                        child: Center(child: icon4),
+                      ),
+                      text: "我",
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            appBar: null,
+            body: TabBarView(
+              physics: systemState.showMiniProgramDrawer == true
+                  ? const NeverScrollableScrollPhysics()
+                  : const CustomTabBarViewScrollPhysics(),
+              controller: _tabController,
+              children: const <Widget>[
+                // LJNTestPage(),
+                LJNHome(),
+                LJNContact(),
+                LJNDiscovery(),
+                LJNUser(),
+              ],
+            ),
+          ),
 
           // 浮动在顶部的appbar
           Visibility(
@@ -719,87 +858,90 @@ class _CustomTabbarState extends State<CustomTabbar>
                 (systemState.homescrollpixels + systemState.statusHeight) <=
                     percent75Position,
             child: Positioned(
-                top: systemState.homescrollpixels,
-                left: _appbarLeft,
-                child: Container(
-                    width: 750.0.w,
-                    height: systemState.statusHeight + 90.w,
-                    color: systemState.homescrollpixels == 0
-                        ? const Color.fromARGB(255, 237, 237, 237)
-                        : Colors.transparent,
-                    // color: systemState.homescrollpixels == 0
-                    //     ? const Color.fromARGB(255, 237, 237, 237)
-                    //     : Colors.red,
-                    child: Listener(
-                        onPointerUp: (event) {
-                          context
-                              .read<SystemCubit>()
-                              .updateShowMiniProgramDrawer(false);
-                        },
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              AppBar(
-                                // App标题栏
-                                primary: false,
-                                title: appBarTitle,
-                                centerTitle: true,
-                                titleTextStyle: TextStyle(
-                                    height: 1.08,
-                                    fontSize: fontSizeScale(32.w),
-                                    color: Colors.black,
-                                    fontFamily: "AlibabaPuHuiTi-Medium"),
-                                toolbarHeight: 90.w,
-                                elevation: 0,
-                                scrolledUnderElevation: 0,
-                                backgroundColor:
-                                    const Color.fromARGB(255, 237, 237, 237),
-                                foregroundColor:
-                                    const Color.fromARGB(255, 237, 237, 237),
-                                actions: [
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Container(
-                                      color: Colors.transparent,
-                                      height: 90.w,
-                                      padding: EdgeInsets.only(
-                                          right: 33.w), // 设置右侧内边距
-                                      child: Icon(
-                                        const IconData(
-                                          0xe612,
-                                          fontFamily: 'Iconfont',
-                                        ),
-                                        size: 40.w, // 图标大小
-                                      ),
-                                    ),
+              top: systemState.homescrollpixels,
+              left: _appbarLeft,
+              child: Container(
+                width: 750.0.w,
+                height: systemState.statusHeight + 90.w,
+                color: systemState.homescrollpixels == 0
+                    ? const Color.fromARGB(255, 237, 237, 237)
+                    : Colors.transparent,
+                // color: systemState.homescrollpixels == 0
+                //     ? const Color.fromARGB(255, 237, 237, 237)
+                //     : Colors.red,
+                child: Listener(
+                  onPointerUp: (event) {
+                    context
+                        .read<LJNSystemCubit>()
+                        .updateShowMiniProgramDrawer(false);
+                  },
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AppBar(
+                          // App标题栏
+                          primary: false,
+                          title: appBarTitle,
+                          centerTitle: true,
+                          titleTextStyle: TextStyle(
+                              height: 1.08,
+                              fontSize: ljnFontSizeScale(32.w),
+                              color: Colors.black,
+                              fontFamily: "AlibabaPuHuiTi-Medium"),
+                          toolbarHeight: 90.w,
+                          elevation: 0,
+                          scrolledUnderElevation: 0,
+                          backgroundColor:
+                              const Color.fromARGB(255, 237, 237, 237),
+                          foregroundColor:
+                              const Color.fromARGB(255, 237, 237, 237),
+                          actions: [
+                            GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                color: Colors.transparent,
+                                height: 90.w,
+                                padding:
+                                    EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                                child: Icon(
+                                  const IconData(
+                                    0xe612,
+                                    fontFamily: 'Iconfont',
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      if (systemState.homescrollpixels == 0) {
-                                        setState(() {
-                                          showpopup = !showpopup;
-                                        });
-                                      }
-                                    },
-                                    child: Container(
-                                      color: Colors.transparent,
-                                      height: 90.w,
-                                      padding: EdgeInsets.only(
-                                          right: 40.w), // 设置右侧内边距
-                                      alignment: Alignment.center,
-                                      child: Icon(
-                                        const IconData(
-                                          0xe726,
-                                          fontFamily: 'Iconfont',
-                                        ),
-                                        size: 42.w, // 图标大小
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  size: 40.w, // 图标大小
+                                ),
                               ),
-                            ])))),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                if (systemState.homescrollpixels == 0) {
+                                  setState(() {
+                                    showpopup = !showpopup;
+                                  });
+                                }
+                              },
+                              child: Container(
+                                color: Colors.transparent,
+                                height: 90.w,
+                                padding:
+                                    EdgeInsets.only(right: 40.w), // 设置右侧内边距
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  const IconData(
+                                    0xe726,
+                                    fontFamily: 'Iconfont',
+                                  ),
+                                  size: 42.w, // 图标大小
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ]),
+                ),
+              ),
+            ),
           ),
 
           // 背景
@@ -994,7 +1136,7 @@ class _LJNPopupMenuItem extends State<LJNPopupMenuItem> {
                   widget.title,
                   style: TextStyle(
                       height: 1.08,
-                      fontSize: fontSizeScale(33.w),
+                      fontSize: ljnFontSizeScale(33.w),
                       fontWeight: FontWeight.normal,
                       decoration: TextDecoration.none,
                       color: Colors.white),
@@ -1005,54 +1147,5 @@ class _LJNPopupMenuItem extends State<LJNPopupMenuItem> {
         ),
       ),
     );
-  }
-}
-
-// 启动web服务器
-void startWebServer() async {
-  int port = 9413;
-
-  // 检查端口是否被占用
-  bool isPortAvailable = await isPortOpen(port);
-  if (!isPortAvailable) {
-    logger.info('端口 $port 已被占用，无法启动服务器');
-    return; // 端口被占用，停止启动服务器
-  }
-
-  RootIsolateToken rootIsolateToken = RootIsolateToken.instance!;
-
-  ByteData byteData = await rootBundle.load("assets/web/pages.html");
-  List<int> bytes = byteData.buffer.asUint8List();
-  String fileContent = utf8.decode(bytes);
-
-  final directory = await getApplicationDocumentsDirectory();
-  final filePath = '${directory.path}/shapages.html';
-  final file = File(filePath);
-  await file.writeAsString(fileContent);
-
-  // 启动web服务器
-  final receivePort = ReceivePort();
-
-  // 创建参数对象
-  var params = FileServerParams(
-    sendPort: receivePort.sendPort,
-    rootIsolateToken: rootIsolateToken,
-    port: port,
-  );
-
-  await Isolate.spawn(startFileServer, params);
-  receivePort.listen((message) {
-    logger.info(message); // 打印服务器启动消息
-  });
-}
-
-// 检查端口是否可绑定（推荐用于启动服务前）
-Future<bool> isPortOpen(int port) async {
-  try {
-    final server = await ServerSocket.bind(InternetAddress.loopbackIPv4, port);
-    await server.close();
-    return true;
-  } catch (_) {
-    return false;
   }
 }

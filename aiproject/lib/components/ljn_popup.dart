@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
+import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
 
 class LJNPopup extends StatefulWidget {
   final Function? onReturn;
@@ -23,7 +23,7 @@ class _LJNPopupState extends State<LJNPopup> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SystemCubit, SystemState>(
+    return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Stack(
           children: [
@@ -45,7 +45,9 @@ class _LJNPopupState extends State<LJNPopup> {
                 decoration: BoxDecoration(
                   // color: Colors.blue,
                   color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(12.w)),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12.w),
+                  ),
                 ),
                 child: Column(
                   children: [

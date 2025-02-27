@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 
 class LJNInputButton extends StatefulWidget {
   final String title;
@@ -95,7 +95,7 @@ class _LJNInputButtonState extends State<LJNInputButton> {
             height: 1.08,
             color: fontColor,
             fontWeight: FontWeight.bold,
-            fontSize: fontSizeScale(32.w),
+            fontSize: ljnFontSizeScale(32.w),
             fontFamily: "AlibabaPuHuiTi",
           ),
         ),

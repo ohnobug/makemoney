@@ -4,11 +4,11 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store/popup/popup_cubit.dart';
-import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
-import 'package:jiaoyishuoflutter3/tools/cancelable_delay.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
+import 'package:jiaoyishuoflutter3/store/ljn_popup_cubit.dart';
+import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_cancelable_delay.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 
 class LJNImaeDraggableBox extends StatefulWidget {
   final VoidCallback? onClose;
@@ -62,18 +62,22 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
       vsync: this,
       duration: const Duration(milliseconds: 100), // 回弹动画时长
     );
-    _positionAnimation = Tween<Offset>(begin: Offset.zero, end: Offset.zero)
-        .animate(CurvedAnimation(
-            parent: _positionAnimationController,
-            curve: Curves.easeInOutCubicEmphasized));
+    _positionAnimation =
+        Tween<Offset>(begin: Offset.zero, end: Offset.zero).animate(
+      CurvedAnimation(
+          parent: _positionAnimationController,
+          curve: Curves.easeInOutCubicEmphasized),
+    );
 
     // 背景透明度控制器
     _bgTransparentController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 100),
     );
-    _bganimation = Tween<double>(begin: 0, end: 255).animate(CurvedAnimation(
-        parent: _bgTransparentController, curve: Curves.easeInOut));
+    _bganimation = Tween<double>(begin: 0, end: 255).animate(
+      CurvedAnimation(
+          parent: _bgTransparentController, curve: Curves.easeInOut),
+    );
 
     // 盒子大小控制器
     _sizedController = AnimationController(
@@ -85,7 +89,9 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
     _sizedAnimation = Tween<Size>(
       begin: widget.openBoxSize,
       end: Size(imageWidth, imageHeight),
-    ).animate(CurvedAnimation(parent: _sizedController, curve: Curves.linear));
+    ).animate(
+      CurvedAnimation(parent: _sizedController, curve: Curves.linear),
+    );
 
     getImageInfo();
   }
@@ -101,11 +107,13 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
     );
 
     Completer<ui.Image> completer = Completer<ui.Image>();
-    image!.image
-        .resolve(ImageConfiguration())
-        .addListener(ImageStreamListener((ImageInfo image, bool _) {
-      completer.complete(image.image);
-    }));
+    image!.image.resolve(ImageConfiguration()).addListener(
+      ImageStreamListener(
+        (ImageInfo image, bool _) {
+          completer.complete(image.image);
+        },
+      ),
+    );
 
     ui.Image info = await completer.future;
 
@@ -125,7 +133,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<PopupCubit, PopupState>(
+    return BlocListener<LJNPopupCubit, PopupState>(
       listener: (context, state) {
         logger.info(
             'qqqqqqqqqqqqqqqqqq showFullScreenImage ${state.showFullScreenImage}');
@@ -140,7 +148,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
           closeFullScreen(currentPosition);
         }
       },
-      child: BlocBuilder<SystemCubit, SystemState>(
+      child: BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
           if (firstOpen && imageWidth != 0 && imageHeight != 0) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -176,13 +184,13 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
             animation: _positionAnimationController,
             builder: (context, child) {
               Offset currentPosition = Offset(
-                  _positionAnimation.value.dx +
-                      _boxOffset.dx +
-                      max((oldSize.width - _sizedAnimation.value.width) / 2, 0),
-                  _positionAnimation.value.dy +
-                      _boxOffset.dy +
-                      max((oldSize.height - _sizedAnimation.value.height) / 2,
-                          0));
+                _positionAnimation.value.dx +
+                    _boxOffset.dx +
+                    max((oldSize.width - _sizedAnimation.value.width) / 2, 0),
+                _positionAnimation.value.dy +
+                    _boxOffset.dy +
+                    max((oldSize.height - _sizedAnimation.value.height) / 2, 0),
+              );
 
               return GestureDetector(
                 onTap: () {
@@ -235,10 +243,12 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
                     begin: currentPosition,
                     end: Offset(0,
                         (MediaQuery.of(context).size.height - imageHeight) / 2),
-                  ).animate(CurvedAnimation(
-                    parent: _positionAnimationController,
-                    curve: Curves.easeInOutCubicEmphasized, // 使用缓动曲线
-                  ));
+                  ).animate(
+                    CurvedAnimation(
+                      parent: _positionAnimationController,
+                      curve: Curves.easeInOutCubicEmphasized, // 使用缓动曲线
+                    ),
+                  );
 
                   setState(() {
                     _boxOffset = Offset.zero;
@@ -297,8 +307,9 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
                             height: 60.w,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50.w)),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(50.w),
+                              ),
                             ),
                             alignment: Alignment.center,
                             child: Icon(
@@ -322,7 +333,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
     );
   }
 
-  CancelableDelay? cancelableDelay;
+  LJNCancelableDelay? cancelableDelay;
 
   // 关闭全屏
   void closeFullScreen(Offset currentPosition) {
@@ -330,7 +341,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
     _bgTransparentController.stop();
     _sizedController.stop();
     canBeCloseFlag = false;
-    cancelableDelay = CancelableDelay();
+    cancelableDelay = LJNCancelableDelay();
 
     setState(() {
       _boxOffset = Offset.zero;
@@ -341,10 +352,12 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
     _positionAnimation = Tween<Offset>(
       begin: widget.openPosition,
       end: currentPosition,
-    ).animate(CurvedAnimation(
-      parent: _positionAnimationController,
-      curve: Curves.linear,
-    ));
+    ).animate(
+      CurvedAnimation(
+        parent: _positionAnimationController,
+        curve: Curves.linear,
+      ),
+    );
 
     _positionAnimationController.value = 1;
     _positionAnimationController.reverse().then((_) {});
@@ -355,8 +368,8 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
       // 创建一个可取消的延迟任务
       cancelableDelay!.delayed(const Duration(milliseconds: 100), () {
         setState(() {
-          context.read<PopupCubit>().updateReturnButtonEvent(false);
-          context.read<PopupCubit>().updateShowFullScreenImage(false);
+          context.read<LJNPopupCubit>().updateReturnButtonEvent(false);
+          context.read<LJNPopupCubit>().updateShowFullScreenImage(false);
           if (widget.onClose != null) widget.onClose!();
         });
       });

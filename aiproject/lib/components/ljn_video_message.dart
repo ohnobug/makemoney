@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_thumbnail_video/index.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
-import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
+import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
+import 'package:jiaoyishuoflutter3/store/ljn_user_cubit.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
@@ -68,7 +68,9 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
     //     setState(() {});
     //   });
 
-    _getFirstFrame(assetPath(widget.video));
+    _getFirstFrame(
+      assetPath(widget.video),
+    );
   }
 
   Future<void> _getFirstFrame(String filepath) async {
@@ -158,48 +160,49 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
   @override
   Widget build(BuildContext context) {
     // 对方发的消息
-    return BlocBuilder<SystemCubit, SystemState>(
-        builder: (context, systemState) {
-      return Container(
-        padding: EdgeInsets.only(left: 22.w, right: 22.w, top: 22.w),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 姓名与消息
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  // 姓名
-                  if (widget.showName)
-                    Container(
-                      padding:
-                          const EdgeInsets.only(right: 23, top: 0, bottom: 3).w,
-                      // height: 33.w,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            widget.name ??
-                                context.read<UserCubit>().state.userinfoName!,
-                            style: TextStyle(
-                              height: 1.08,
-                              fontSize: fontSizeScale(20.w),
-                              color: const Color.fromARGB(255, 130, 130, 130),
-                            ),
-                          )
-                        ],
+    return BlocBuilder<LJNSystemCubit, SystemState>(
+      builder: (context, systemState) {
+        return Container(
+          padding: EdgeInsets.only(left: 22.w, right: 22.w, top: 22.w),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // 姓名与消息
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // 姓名
+                    if (widget.showName)
+                      Container(
+                        padding:
+                            const EdgeInsets.only(right: 23, top: 0, bottom: 3)
+                                .w,
+                        // height: 33.w,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              widget.name ??
+                                  context.read<LJNUserCubit>().state.userinfoName!,
+                              style: TextStyle(
+                                height: 1.08,
+                                fontSize: ljnFontSizeScale(20.w),
+                                color: const Color.fromARGB(255, 130, 130, 130),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
 
-                  // 消息
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      // 消息
-                      GestureDetector(
+                    // 消息
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        // 消息
+                        GestureDetector(
                           onTap: () {
                             final RenderBox renderBox = videoContainerKey
                                 .currentContext
@@ -257,47 +260,50 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                               //   aspectRatio: _controller!.value.aspectRatio,
                               //   child: VideoPlayer(_controller!),
                               // ),
-                              )),
-                      // 箭头
-                      SizedBox(
-                        width: 20.w,
-                        // padding: const EdgeInsets.only(top: 32).w,
-                        // child: null,
-                      ),
-                    ],
-                  ),
-                ],
+                              ),
+                        ),
+                        // 箭头
+                        SizedBox(
+                          width: 20.w,
+                          // padding: const EdgeInsets.only(top: 32).w,
+                          // child: null,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
 
-            // 头像
-            GestureDetector(
+              // 头像
+              GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/friendprofile',
                       arguments: <String, String>{
-                        'name': context.read<UserCubit>().state.userinfoName!,
+                        'name': context.read<LJNUserCubit>().state.userinfoName!,
                         'avatar':
-                            context.read<UserCubit>().state.userinfoAvatar!,
+                            context.read<LJNUserCubit>().state.userinfoAvatar!,
                         'nickname':
-                            context.read<UserCubit>().state.userinfoName!,
+                            context.read<LJNUserCubit>().state.userinfoName!,
                         'account':
-                            context.read<UserCubit>().state.userinfoAccount!,
+                            context.read<LJNUserCubit>().state.userinfoAccount!,
                       });
                 },
                 child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8).w,
-                    child: Image.asset(
-                      assetPath(
-                          context.read<UserCubit>().state.userinfoAvatar!),
-                      cacheWidth: 156.w.toInt(),
-                      cacheHeight: 156.w.toInt(),
-                      width: 78.w,
-                      height: 78.w,
-                      fit: BoxFit.cover,
-                    )))
-          ],
-        ),
-      );
-    });
+                  borderRadius: BorderRadius.circular(8).w,
+                  child: Image.asset(
+                    assetPath(context.read<LJNUserCubit>().state.userinfoAvatar!),
+                    cacheWidth: 156.w.toInt(),
+                    cacheHeight: 156.w.toInt(),
+                    width: 78.w,
+                    height: 78.w,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 }

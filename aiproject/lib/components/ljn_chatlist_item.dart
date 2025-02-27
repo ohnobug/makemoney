@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
+import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 
 class ChatListItem extends StatefulWidget {
   final String avatar;
@@ -38,9 +38,9 @@ class _ChatListItem extends State<ChatListItem> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SystemCubit, SystemState>(
-        builder: (context, systemState) {
-      return GestureDetector(
+    return BlocBuilder<LJNSystemCubit, SystemState>(
+      builder: (context, systemState) {
+        return GestureDetector(
           onTapDown: (_) {
             setState(() {
               containerColor = const Color.fromARGB(255, 229, 229, 229);
@@ -93,15 +93,17 @@ class _ChatListItem extends State<ChatListItem> {
                       child: Container(
                         // alignment: Alignment.center,
                         decoration: BoxDecoration(
-                            // color: Colors.red,
-                            border: Border(
-                                bottom: BorderSide(
-                          color: widget.underline
-                              ? const Color.fromARGB(255, 242, 242, 242)
-                              : Colors.transparent,
-                          width: 1.5.w,
-                          style: BorderStyle.solid,
-                        ))),
+                          // color: Colors.red,
+                          border: Border(
+                            bottom: BorderSide(
+                              color: widget.underline
+                                  ? const Color.fromARGB(255, 242, 242, 242)
+                                  : Colors.transparent,
+                              width: 1.5.w,
+                              style: BorderStyle.solid,
+                            ),
+                          ),
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -117,30 +119,32 @@ class _ChatListItem extends State<ChatListItem> {
                               children: [
                                 // 好友名称
                                 Expanded(
-                                    child: RichText(
-                                  strutStyle: StrutStyle(
-                                      height: 1.08,
-                                      forceStrutHeight: true,
-                                      fontSize: 31.w),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  text: TextSpan(
-                                    children: buildTextSpans(
+                                  child: RichText(
+                                    strutStyle: StrutStyle(
+                                        height: 1.08,
+                                        forceStrutHeight: true,
+                                        fontSize: 31.w),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    text: TextSpan(
+                                      children: buildTextSpans(
                                         widget.friendName,
                                         TextStyle(
                                             height: 1.08,
-                                            fontSize: fontSizeScale(31.0.w),
+                                            fontSize: ljnFontSizeScale(31.0.w),
                                             color: widget.notice
                                                 ? Colors.red
                                                 : Colors.black,
                                             fontFamily: "AlibabaPuHuiTi"),
                                         TextStyle(
                                             height: 1.08,
-                                            fontSize: fontSizeScale(31.w),
+                                            fontSize: ljnFontSizeScale(31.w),
                                             fontFamily:
-                                                "NotoColorEmoji-Regular")),
+                                                "NotoColorEmoji-Regular"),
+                                      ),
+                                    ),
                                   ),
-                                )),
+                                ),
                                 SizedBox(
                                   width: 10.w,
                                 ),
@@ -151,7 +155,7 @@ class _ChatListItem extends State<ChatListItem> {
                                         style: TextStyle(
                                           height: 1.08,
                                           // fontFamily: "Roboto-Regular",
-                                          fontSize: fontSizeScale(25.0.w),
+                                          fontSize: ljnFontSizeScale(25.0.w),
                                           color: widget.notice
                                               ? Colors.red
                                               : const Color.fromARGB(
@@ -183,19 +187,20 @@ class _ChatListItem extends State<ChatListItem> {
                                     overflow: TextOverflow.ellipsis,
                                     text: TextSpan(
                                       children: buildTextSpans(
-                                          widget.message,
-                                          TextStyle(
-                                            height: 1.08,
-                                            fontSize: fontSizeScale(25.w),
-                                            color: const Color.fromARGB(
-                                                255, 170, 170, 170),
-                                          ),
-                                          TextStyle(
-                                            height: 1.08,
-                                            fontSize: fontSizeScale(25.w),
-                                            color: const Color.fromARGB(
-                                                255, 170, 170, 170),
-                                          )),
+                                        widget.message,
+                                        TextStyle(
+                                          height: 1.08,
+                                          fontSize: ljnFontSizeScale(25.w),
+                                          color: const Color.fromARGB(
+                                              255, 170, 170, 170),
+                                        ),
+                                        TextStyle(
+                                          height: 1.08,
+                                          fontSize: ljnFontSizeScale(25.w),
+                                          color: const Color.fromARGB(
+                                              255, 170, 170, 170),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -215,7 +220,8 @@ class _ChatListItem extends State<ChatListItem> {
                                           ),
                                           size: 28.0.w,
                                           color: const Color.fromARGB(
-                                              255, 180, 180, 180))
+                                              255, 180, 180, 180),
+                                        )
                                       : null,
                                 ),
                               ],
@@ -232,42 +238,47 @@ class _ChatListItem extends State<ChatListItem> {
               if (widget.badge != null)
                 if (widget.badge! > 0)
                   Positioned(
-                      left: 95.w,
-                      top: 16.w,
-                      child: Container(
-                        width: 35.w, // 盒子宽度
-                        height: 35.w, // 盒子高度
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle, // 圆形
-                          color: Color.fromRGBO(246, 89, 87, 1), // 盒子颜色
+                    left: 95.w,
+                    top: 16.w,
+                    child: Container(
+                      width: 35.w, // 盒子宽度
+                      height: 35.w, // 盒子高度
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle, // 圆形
+                        color: Color.fromRGBO(246, 89, 87, 1), // 盒子颜色
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        widget.badge.toString(), // 这里可以替换成你想要显示的数字
+                        maxLines: 1,
+                        style: TextStyle(
+                          height: 1.08,
+                          fontSize: ljnFontSizeScale(20.w), // 数字大小
+                          color: Colors.white, // 数字颜色
+                          fontWeight: FontWeight.w600,
+                          fontFamily: "LJNFont",
                         ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          widget.badge.toString(), // 这里可以替换成你想要显示的数字
-                          maxLines: 1,
-                          style: TextStyle(
-                              height: 1.08,
-                              fontSize: fontSizeScale(20.w), // 数字大小
-                              color: Colors.white, // 数字颜色
-                              fontWeight: FontWeight.w600,
-                              fontFamily: "LJNFont"),
-                        ),
-                      ))
+                      ),
+                    ),
+                  )
                 else if (widget.badge! == -1)
                   Positioned(
-                      left: 109.w,
-                      top: 20.w,
-                      child: Container(
-                        width: 20.w, // 盒子宽度
-                        height: 20.w, // 盒子高度
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle, // 圆形
-                          color: Color.fromRGBO(246, 89, 87, 1), // 盒子颜色
-                        ),
-                        child: null,
-                      ))
+                    left: 109.w,
+                    top: 20.w,
+                    child: Container(
+                      width: 20.w, // 盒子宽度
+                      height: 20.w, // 盒子高度
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle, // 圆形
+                        color: Color.fromRGBO(246, 89, 87, 1), // 盒子颜色
+                      ),
+                      child: null,
+                    ),
+                  )
             ],
-          ));
-    });
+          ),
+        );
+      },
+    );
   }
 }

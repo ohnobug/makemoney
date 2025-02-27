@@ -1,8 +1,8 @@
 // 功能按钮
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 
 class LJNFunctionItemButton extends StatefulWidget {
   final Icon? icon;
@@ -60,45 +60,52 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
         height: 105.w,
         width: 750.w,
         decoration: BoxDecoration(
-            color: containerColor,
-            border: Border(
-                bottom: BorderSide(
+          color: containerColor,
+          border: Border(
+            bottom: BorderSide(
               color: const Color.fromARGB(255, 242, 242, 242),
               width: 1.5.w,
               style: BorderStyle.solid,
-            ))),
-        child: Center(
-            child: RichText(
-          strutStyle:
-              StrutStyle(fontSize: 35.w, forceStrutHeight: true, height: 1),
-          // textAlign: TextAlign.center,
-          text: TextSpan(children: [
-            if (widget.icon != null)
-              WidgetSpan(
-                // alignment: PlaceholderAlignment.bottom,
-                style: TextStyle(fontSize: fontSizeScale(35.w), height: 1),
-                child: Transform.translate(
-                  offset: Offset(0, -(3.w)),
-                  child: SizedBox(
-                      width: 35.w,
-                      height: 35.w,
-                      // color: Colors.red,
-                      child: widget.icon as Icon),
-                ),
-              ),
-            WidgetSpan(
-              child: SizedBox(width: 5.w), // 图标和文本之间的间距
             ),
-            TextSpan(
-              text: widget.title,
-              style: TextStyle(
+          ),
+        ),
+        child: Center(
+          child: RichText(
+            strutStyle:
+                StrutStyle(fontSize: 35.w, forceStrutHeight: true, height: 1),
+            // textAlign: TextAlign.center,
+            text: TextSpan(children: [
+              if (widget.icon != null)
+                WidgetSpan(
+                  // alignment: PlaceholderAlignment.bottom,
+                  style: TextStyle(fontSize: ljnFontSizeScale(35.w), height: 1),
+                  child: Transform.translate(
+                    offset: Offset(
+                      0,
+                      -(3.w),
+                    ),
+                    child: SizedBox(
+                        width: 35.w,
+                        height: 35.w,
+                        // color: Colors.red,
+                        child: widget.icon as Icon),
+                  ),
+                ),
+              WidgetSpan(
+                child: SizedBox(width: 5.w), // 图标和文本之间的间距
+              ),
+              TextSpan(
+                text: widget.title,
+                style: TextStyle(
                   // textBaseline: TextBaseline.ideographic,
                   height: 1.08,
-                  fontSize: fontSizeScale(30.w),
-                  color: const Color.fromARGB(255, 58, 81, 124)),
-            )
-          ]),
-        )),
+                  fontSize: ljnFontSizeScale(30.w),
+                  color: const Color.fromARGB(255, 58, 81, 124),
+                ),
+              )
+            ]),
+          ),
+        ),
       ),
     );
   }

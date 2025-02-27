@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_thumbnail_video/index.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
 
-import 'package:jiaoyishuoflutter3/store/system/cubit/system_cubit.dart';
-import 'package:jiaoyishuoflutter3/store/user/cubit/user_cubit.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
+import 'package:jiaoyishuoflutter3/store/ljn_user_cubit.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:path_provider/path_provider.dart';
@@ -63,7 +63,9 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
     }
 
     if (!Platform.isWindows) {
-      getFirstFrame(assetPath(widget.video));
+      getFirstFrame(
+        assetPath(widget.video),
+      );
     }
   }
 
@@ -152,15 +154,15 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
   @override
   Widget build(BuildContext context) {
     // 对方发的消息
-    return BlocBuilder<SystemCubit, SystemState>(
-        builder: (context, systemState) {
-      return Container(
-        padding: EdgeInsets.only(left: 22.w, right: 22.w, top: 22.w),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 头像
-            GestureDetector(
+    return BlocBuilder<LJNSystemCubit, SystemState>(
+      builder: (context, systemState) {
+        return Container(
+          padding: EdgeInsets.only(left: 22.w, right: 22.w, top: 22.w),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // 头像
+              GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/friendprofile',
                       arguments: <String, String>{
@@ -168,60 +170,64 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
                         'avatar': widget.friendAvatar,
                         'nickname': widget.name,
                         'account':
-                            context.read<UserCubit>().state.userinfoAccount!,
+                            context.read<LJNUserCubit>().state.userinfoAccount!,
                       });
                 },
                 child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8).w,
-                    child: Image.asset(
-                      assetPath(widget.friendAvatar),
-                      cacheWidth: 156.w.toInt(),
-                      cacheHeight: 156.w.toInt(),
-                      width: 78.w,
-                      height: 78.w,
-                      fit: BoxFit.cover,
-                    ))),
+                  borderRadius: BorderRadius.circular(8).w,
+                  child: Image.asset(
+                    assetPath(widget.friendAvatar),
+                    cacheWidth: 156.w.toInt(),
+                    cacheHeight: 156.w.toInt(),
+                    width: 78.w,
+                    height: 78.w,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
 
-            // 姓名与消息
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  // 姓名
-                  if (widget.showName)
-                    Container(
-                      padding:
-                          const EdgeInsets.only(left: 23, top: 0, bottom: 3).w,
-                      // height: 33.w,
-                      child: Column(
+              // 姓名与消息
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // 姓名
+                    if (widget.showName)
+                      Container(
+                        padding:
+                            const EdgeInsets.only(left: 23, top: 0, bottom: 3)
+                                .w,
+                        // height: 33.w,
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               widget.name,
                               style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(20.w),
-                                  color:
-                                      const Color.fromARGB(255, 130, 130, 130)),
+                                height: 1.08,
+                                fontSize: ljnFontSizeScale(20.w),
+                                color: const Color.fromARGB(255, 130, 130, 130),
+                              ),
                             )
-                          ]),
-                    ),
-
-                  // 消息
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      // 箭头
-                      SizedBox(
-                        width: 20.w,
-                        // padding: const EdgeInsets.only(top: 32).w,
-                        // child: null,
+                          ],
+                        ),
                       ),
 
-                      // 消息
-                      GestureDetector(
+                    // 消息
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        // 箭头
+                        SizedBox(
+                          width: 20.w,
+                          // padding: const EdgeInsets.only(top: 32).w,
+                          // child: null,
+                        ),
+
+                        // 消息
+                        GestureDetector(
                           onTap: () {
                             final RenderBox renderBox = videoContainerKey
                                 .currentContext
@@ -234,50 +240,52 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
                             widget.onTap!(position, size);
                           },
                           child: Container(
-                              clipBehavior: Clip.hardEdge,
-                              key: videoContainerKey,
-                              width: videoWidth,
-                              height: videoHeight,
-                              // color: Colors.grey,
-                              decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 255, 255, 255),
-                                  borderRadius: BorderRadius.circular(8).w),
-                              child: picPath != null
-                                  ? Stack(
-                                      children: [
-                                        Image.file(
-                                          File(picPath!),
-                                          width: videoWidth,
-                                          height: videoHeight,
-                                          fit: BoxFit.contain,
-                                        ),
-                                        Container(
-                                          width: videoWidth,
-                                          height: videoHeight,
-                                          alignment: Alignment.center,
-                                          color: const Color.fromARGB(
-                                              105, 0, 0, 0),
-                                          child: Icon(
-                                            const IconData(
-                                              0xe6c5,
-                                              fontFamily: 'Iconfont',
-                                            ),
-                                            color: Colors.white,
-                                            size: 78.w,
+                            clipBehavior: Clip.hardEdge,
+                            key: videoContainerKey,
+                            width: videoWidth,
+                            height: videoHeight,
+                            // color: Colors.grey,
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 255, 255, 255),
+                                borderRadius: BorderRadius.circular(8).w),
+                            child: picPath != null
+                                ? Stack(
+                                    children: [
+                                      Image.file(
+                                        File(picPath!),
+                                        width: videoWidth,
+                                        height: videoHeight,
+                                        fit: BoxFit.contain,
+                                      ),
+                                      Container(
+                                        width: videoWidth,
+                                        height: videoHeight,
+                                        alignment: Alignment.center,
+                                        color:
+                                            const Color.fromARGB(105, 0, 0, 0),
+                                        child: Icon(
+                                          const IconData(
+                                            0xe6c5,
+                                            fontFamily: 'Iconfont',
                                           ),
+                                          color: Colors.white,
+                                          size: 78.w,
                                         ),
-                                      ],
-                                    )
-                                  : Container())),
-                    ],
-                  ),
-                ],
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      );
-    });
+            ],
+          ),
+        );
+      },
+    );
   }
 }

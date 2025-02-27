@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LJNReceiveMessage extends StatefulWidget {
@@ -32,29 +32,31 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
         children: [
           // 头像
           GestureDetector(
-              onTap: () {
-                if (widget.onFriendAvatarTap != null) {
-                  widget.onFriendAvatarTap!();
-                }
+            onTap: () {
+              if (widget.onFriendAvatarTap != null) {
+                widget.onFriendAvatarTap!();
+              }
 
-                Navigator.pushNamed(context, '/friendprofile',
-                    arguments: <String, String>{
-                      'name': widget.name,
-                      'avatar': widget.friendAvatar,
-                      'nickname': widget.name,
-                      'account': "tathagata_buddha_loveyou",
-                    });
-              },
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8).w,
-                  child: Image.asset(
-                    assetPath(widget.friendAvatar),
-                    cacheWidth: 156.w.toInt(),
-                    cacheHeight: 156.w.toInt(),
-                    width: 78.w,
-                    height: 78.w,
-                    fit: BoxFit.cover,
-                  ))),
+              Navigator.pushNamed(context, '/friendprofile',
+                  arguments: <String, String>{
+                    'name': widget.name,
+                    'avatar': widget.friendAvatar,
+                    'nickname': widget.name,
+                    'account': "tathagata_buddha_loveyou",
+                  });
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8).w,
+              child: Image.asset(
+                assetPath(widget.friendAvatar),
+                cacheWidth: 156.w.toInt(),
+                cacheHeight: 156.w.toInt(),
+                width: 78.w,
+                height: 78.w,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
 
           // SizedBox(width: 10.w,),
           // 姓名与消息
@@ -75,10 +77,10 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                           Text(
                             widget.name,
                             style: TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(20.w),
-                                color:
-                                    const Color.fromARGB(255, 130, 130, 130)),
+                              height: 1.08,
+                              fontSize: ljnFontSizeScale(20.w),
+                              color: const Color.fromARGB(255, 130, 130, 130),
+                            ),
                           )
                         ]),
                   ),
@@ -97,26 +99,27 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                     ),
                     // 消息
                     Flexible(
-                        child: Container(
-                      constraints: const BoxConstraints(maxWidth: 510).w,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8).w),
-                      padding: EdgeInsets.only(
-                          top: 20.w, bottom: 18.w, left: 23.w, right: 22.w),
-                      child: Text(
-                        softWrap: true,
-                        maxLines: 1000,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.justify,
-                        widget.message,
-                        style: TextStyle(
-                            height: 1.25,
-                            fontSize: fontSizeScale(31.w),
-                            color: Colors.black,
-                            fontFamily: "AlibabaPuHuiTi"),
+                      child: Container(
+                        constraints: const BoxConstraints(maxWidth: 510).w,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8).w),
+                        padding: EdgeInsets.only(
+                            top: 20.w, bottom: 18.w, left: 23.w, right: 22.w),
+                        child: Text(
+                          softWrap: true,
+                          maxLines: 1000,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.justify,
+                          widget.message,
+                          style: TextStyle(
+                              height: 1.25,
+                              fontSize: ljnFontSizeScale(31.w),
+                              color: Colors.black,
+                              fontFamily: "AlibabaPuHuiTi"),
+                        ),
                       ),
-                    )),
+                    ),
                   ],
                 ),
               ],

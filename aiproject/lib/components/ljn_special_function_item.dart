@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 
 class LJNSpecialFunctionItem extends StatefulWidget {
   final double? height;
@@ -80,15 +80,17 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
         height: widget.height ?? 105.0.w,
         padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
         decoration: BoxDecoration(
-            color: containerColor,
-            border: Border(
-                bottom: BorderSide(
+          color: containerColor,
+          border: Border(
+            bottom: BorderSide(
               color: widget.underline
                   ? const Color.fromARGB(255, 242, 242, 242)
                   : Colors.transparent,
               width: 1.5.w,
               style: BorderStyle.solid,
-            ))),
+            ),
+          ),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           // crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,7 +113,7 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
                           widget.title,
                           style: TextStyle(
                             height: 1.08,
-                            fontSize: fontSizeScale(32.0.w),
+                            fontSize: ljnFontSizeScale(32.0.w),
                             fontFamily: "AlibabaPuHuiTi",
                           ),
                           maxLines: 1,
@@ -137,31 +139,34 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
                       padding: const EdgeInsets.only(right: 10, left: 10).w,
                       color: Colors.red,
                       child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              widget.showStyle as String,
-                              style: TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(30.w),
-                                color: const Color.fromARGB(255, 83, 83, 83),
-                              ),
-                            )
-                          ]))
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            widget.showStyle as String,
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: ljnFontSizeScale(30.w),
+                              color: const Color.fromARGB(255, 83, 83, 83),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
                   : widget.showStyle as Widget,
             if (widget.link != null)
               Container(
-                  width: 30.w,
-                  margin: const EdgeInsets.only(right: 32).w,
-                  child: Icon(
-                    const IconData(
-                      0xed9d,
-                      fontFamily: 'Iconfont',
-                    ),
-                    size: 30.0.w,
-                    color: const Color.fromARGB(255, 164, 164, 164),
-                  ))
+                width: 30.w,
+                margin: const EdgeInsets.only(right: 32).w,
+                child: Icon(
+                  const IconData(
+                    0xed9d,
+                    fontFamily: 'Iconfont',
+                  ),
+                  size: 30.0.w,
+                  color: const Color.fromARGB(255, 164, 164, 164),
+                ),
+              )
           ],
         ),
       ),

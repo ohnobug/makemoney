@@ -1,8 +1,8 @@
 // 功能列表
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 
 class LJNChangeDetailItem extends StatefulWidget {
   final String icon;
@@ -64,11 +64,13 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
             ? BoxDecoration(
                 color: containerColor,
                 border: Border(
-                    bottom: BorderSide(
-                  color: const Color.fromARGB(255, 242, 242, 242),
-                  width: 1.5.w,
-                  style: BorderStyle.solid,
-                )))
+                  bottom: BorderSide(
+                    color: const Color.fromARGB(255, 242, 242, 242),
+                    width: 1.5.w,
+                    style: BorderStyle.solid,
+                  ),
+                ),
+              )
             : BoxDecoration(
                 color: containerColor,
                 border: Border(
@@ -83,16 +85,17 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
           children: [
             // 头像
             ClipRRect(
-                borderRadius: BorderRadius.circular(
-                    85.0.w), // Adjust the radius as needed
-                child: Image.asset(
-                  assetPath(widget.icon),
-                  width: 86.0.w,
-                  height: 86.0.w,
-                  cacheHeight: 170.w.toInt(),
-                  cacheWidth: 170.w.toInt(),
-                  fit: BoxFit.cover,
-                )),
+              borderRadius:
+                  BorderRadius.circular(85.0.w), // Adjust the radius as needed
+              child: Image.asset(
+                assetPath(widget.icon),
+                width: 86.0.w,
+                height: 86.0.w,
+                cacheHeight: 170.w.toInt(),
+                cacheWidth: 170.w.toInt(),
+                fit: BoxFit.cover,
+              ),
+            ),
 
             SizedBox(width: 25.w),
             Expanded(
@@ -109,7 +112,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                         widget.title,
                         style: TextStyle(
                           height: 1.08,
-                          fontSize: fontSizeScale(30.0.w),
+                          fontSize: ljnFontSizeScale(30.0.w),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -119,7 +122,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                               '+${widget.change}',
                               style: TextStyle(
                                   height: 1.08,
-                                  fontSize: fontSizeScale(30.0.w),
+                                  fontSize: ljnFontSizeScale(30.0.w),
                                   color:
                                       const Color.fromARGB(255, 242, 191, 46),
                                   fontWeight: FontWeight.bold,
@@ -131,7 +134,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                               '${widget.change}',
                               style: TextStyle(
                                   height: 1.08,
-                                  fontSize: fontSizeScale(30.0.w),
+                                  fontSize: ljnFontSizeScale(30.0.w),
                                   color: const Color.fromARGB(255, 0, 0, 0),
                                   fontWeight: FontWeight.bold,
                                   fontFamily: "LJNFont"),
@@ -152,7 +155,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                         style: TextStyle(
                           height: 1.08,
                           color: const Color.fromARGB(255, 139, 139, 139),
-                          fontSize: fontSizeScale(25.0.w),
+                          fontSize: ljnFontSizeScale(25.0.w),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -162,7 +165,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                         style: TextStyle(
                           height: 1.08,
                           color: const Color.fromARGB(255, 139, 139, 139),
-                          fontSize: fontSizeScale(25.0.w),
+                          fontSize: ljnFontSizeScale(25.0.w),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

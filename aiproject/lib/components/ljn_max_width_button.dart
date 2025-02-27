@@ -1,8 +1,8 @@
 // 功能列表
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/logger.dart';
-import 'package:jiaoyishuoflutter3/tools/tools.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 
 class LJNMaxWidthButton extends StatefulWidget {
   final double? height;
@@ -68,22 +68,24 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
         width: 750.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: containerColor,
-            border: Border(
-                bottom: BorderSide(
+          color: containerColor,
+          border: Border(
+            bottom: BorderSide(
               color: widget.underline
                   ? const Color.fromARGB(255, 242, 242, 242)
                   : Colors.transparent,
               width: 1.5.w,
               style: BorderStyle.solid,
-            ))),
+            ),
+          ),
+        ),
         child: widget.title is String
             ? Text(
                 widget.title as String,
                 style: TextStyle(
                   color: widget.color ?? Colors.black,
                   height: 1.08,
-                  fontSize: fontSizeScale(32.0.w),
+                  fontSize: ljnFontSizeScale(32.0.w),
                   decoration: TextDecoration.none,
                   fontFamily: "AlibabaPuHuiTi",
                 ),

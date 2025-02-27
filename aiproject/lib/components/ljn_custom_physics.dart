@@ -8,7 +8,9 @@ class CustomScrollPhysics extends ScrollPhysics {
 
   @override
   CustomScrollPhysics applyTo(ScrollPhysics? ancestor) {
-    return CustomScrollPhysics(parent: buildParent(ancestor));
+    return CustomScrollPhysics(
+      parent: buildParent(ancestor),
+    );
   }
 
   @override
@@ -32,7 +34,7 @@ class CustomScrollBehavior extends ScrollBehavior {
     // logger.info("ttttttt来了ttttttttttt");
 
     return const CustomScrollPhysics();
-    // return const CustomScrollPhysics().applyTo(const MyBouncingScrollPhysics());
+    // return const CustomScrollPhysics().applyTo(const MyBouncingScrollPhysics(),);
   }
 }
 
@@ -195,7 +197,9 @@ class MyClampingScrollPhysics extends ScrollPhysics {
   @override
   MyClampingScrollPhysics applyTo(ScrollPhysics? ancestor) {
     // logger.info("ccccccccccc来了1111111111");
-    return MyClampingScrollPhysics(parent: buildParent(ancestor));
+    return MyClampingScrollPhysics(
+      parent: buildParent(ancestor),
+    );
   }
 
   @override
@@ -203,27 +207,29 @@ class MyClampingScrollPhysics extends ScrollPhysics {
     // logger.info("ccccccccccc来了2222222222222");
 
     // return 500.w;
-    assert(() {
-      if (value == position.pixels) {
-        throw FlutterError.fromParts(<DiagnosticsNode>[
-          ErrorSummary(
-              '$runtimeType.applyBoundaryConditions() was called redundantly.'),
-          ErrorDescription(
-            'The proposed new position, $value, is exactly equal to the current position of the '
-            'given ${position.runtimeType}, ${position.pixels}.\n'
-            'The applyBoundaryConditions method should only be called when the value is '
-            'going to actually change the pixels, otherwise it is redundant.',
-          ),
-          DiagnosticsProperty<ScrollPhysics>(
-              'The physics object in question was', this,
-              style: DiagnosticsTreeStyle.errorProperty),
-          DiagnosticsProperty<ScrollMetrics>(
-              'The position object in question was', position,
-              style: DiagnosticsTreeStyle.errorProperty),
-        ]);
-      }
-      return true;
-    }());
+    assert(
+      () {
+        if (value == position.pixels) {
+          throw FlutterError.fromParts(<DiagnosticsNode>[
+            ErrorSummary(
+                '$runtimeType.applyBoundaryConditions() was called redundantly.'),
+            ErrorDescription(
+              'The proposed new position, $value, is exactly equal to the current position of the '
+              'given ${position.runtimeType}, ${position.pixels}.\n'
+              'The applyBoundaryConditions method should only be called when the value is '
+              'going to actually change the pixels, otherwise it is redundant.',
+            ),
+            DiagnosticsProperty<ScrollPhysics>(
+                'The physics object in question was', this,
+                style: DiagnosticsTreeStyle.errorProperty),
+            DiagnosticsProperty<ScrollMetrics>(
+                'The position object in question was', position,
+                style: DiagnosticsTreeStyle.errorProperty),
+          ]);
+        }
+        return true;
+      }(),
+    );
 
     // logger.info("ccccccccccc来了2222222222222a");
 
