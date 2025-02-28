@@ -536,11 +536,12 @@ class FunctionButtonState extends State<FunctionButton> {
                 widget.title,
                 maxLines: 1,
                 style: TextStyle(
-                    height: 1.08,
-                    decoration: TextDecoration.none,
-                    color: Colors.white,
-                    fontSize: fontSizeScale(26.0.w),
-                    overflow: TextOverflow.ellipsis), // 标题颜色
+                  height: 1.08,
+                  decoration: TextDecoration.none,
+                  color: Colors.white,
+                  fontSize: fontSizeScale(26.0.w),
+                  overflow: TextOverflow.ellipsis,
+                ), // 标题颜色
               ),
             ],
           ),

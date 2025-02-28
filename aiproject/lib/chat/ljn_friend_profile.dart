@@ -219,7 +219,9 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                                   .showSnackBar(
                                                 SnackBar(
                                                   content: Text(
-                                                      '复制成功!微信号:${widget.account!}'),
+                                                    textAlign: TextAlign.center,
+                                                    '复制成功!微信号:${widget.account!}',
+                                                  ),
                                                   duration: Duration(
                                                     seconds: 3,
                                                   ), // 设置 Snackbar 显示时间

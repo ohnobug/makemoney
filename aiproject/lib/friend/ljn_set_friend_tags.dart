@@ -153,8 +153,11 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                             key,
                             GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  selectedTag.removeAt(key);
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  setState(() {
+                                    willBeRemoveTagofLast = 3;
+                                  });
                                 });
                               },
                               child: FittedBox(
@@ -166,7 +169,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     color:
-                                        const Color.fromARGB(255, 255, 93, 81),
+                                        const Color.fromARGB(255, 74, 193, 99),
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(30.w),
                                     ),
@@ -179,9 +182,9 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
+                                          height: 1.08,
                                           fontSize: 28.w,
-                                          color:
-                                              Color.fromARGB(255, 65, 183, 88),
+                                          color: Colors.white,
                                         ),
                                       ),
                                       GestureDetector(
@@ -200,8 +203,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                               0xe627,
                                               fontFamily: 'Iconfont',
                                             ),
-                                            color: const Color.fromARGB(
-                                                255, 176, 176, 176),
+                                            color: Colors.white,
                                             size: 35.w,
                                           ),
                                         ),
@@ -257,7 +259,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                         fit: BoxFit.scaleDown,
                         child: Container(
                           height: 60.w,
-                          width: 280.w,
+                          width: 310.w,
                           padding: EdgeInsets.only(left: 20.w, right: 20.w),
                           // margin: EdgeInsets.only(right: 17.w),
                           alignment: Alignment.center,
@@ -437,6 +439,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                     spacing: 17.w,
                     runSpacing: 10.w,
                     children: [
+                      // 待选标签
                       ...unselectTags.map(
                         (value) {
                           return GestureDetector(
@@ -470,6 +473,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
+                                    height: 1.08,
                                     fontSize: 28.w,
                                     color: selectedTag.contains(value)
                                         ? Color.fromARGB(255, 65, 183, 88)
@@ -481,6 +485,62 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                             ),
                           );
                         },
+                      ),
+
+                      // 输入标签
+                      GestureDetector(
+                        onTap: () {
+                          _showPopup(context, systemState, (String text) {
+                            if (unselectTags.contains(text)) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    textAlign: TextAlign.center,
+                                    '新建成功!',
+                                  ),
+                                  duration: Duration(
+                                    seconds: 3,
+                                  ), // 设置 Snackbar 显示时间
+                                ),
+                              );
+
+                              return;
+                            }
+
+                            setState(() {
+                              unselectTags.add(text);
+                            });
+                          });
+                        },
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Container(
+                            height: 60.w,
+                            padding: EdgeInsets.symmetric(horizontal: 25.w),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 238, 236, 237),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(30.w),
+                              ),
+                              border: Border.all(
+                                width: 2.w,
+                                color: Color.fromARGB(255, 216, 214, 215),
+                              ),
+                            ),
+                            child: Text(
+                              "新建标签",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                height: 1.08,
+                                fontSize: 28.w,
+                                color: Color.fromARGB(255, 166, 164, 165),
+                              ),
+                            ),
+                          ),
+                        ),
                       )
                     ],
                   ),
@@ -492,4 +552,159 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
       ),
     );
   }
+}
+
+void _showPopup(
+    BuildContext context, SystemState systemState, Function callback) {
+  TextEditingController inputController2 = TextEditingController(text: "");
+
+  showModalBottomSheet(
+    context: context,
+    barrierColor: Color.fromARGB(120, 0, 0, 0),
+    // backgroundColor: Colors.red,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(13.w),
+      ),
+    ),
+    isScrollControlled: true,
+    builder: (BuildContext context) {
+      return StatefulBuilder(
+        builder: (context, setState) {
+          return SizedBox(
+            height: 600.w,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 70.w,
+                ),
+                // 标题
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Icon(
+                        const IconData(
+                          0xe628,
+                          fontFamily: 'Iconfont',
+                        ),
+                        color: Colors.black,
+                        size: 35.w,
+                      ),
+                    ),
+                    Text(
+                      "输入标签",
+                      style: TextStyle(
+                        fontSize: 35.w,
+                        color: Colors.black,
+                        fontFamily: "AlibabaPuHuiTi-Medium",
+                      ),
+                    ),
+                    SizedBox()
+                  ],
+                ),
+
+                SizedBox(
+                  height: 95.w,
+                ),
+
+                // 输入框
+                Container(
+                  color: Colors.transparent,
+                  height: 70.w,
+                  width: systemState.screenSize.width,
+                  padding: EdgeInsets.only(left: 90.w, right: 90.w),
+                  alignment: Alignment.center,
+                  child: TextField(
+                    readOnly: false,
+                    autofocus: false,
+                    showCursor: true,
+                    maxLines: 1,
+                    controller: inputController2,
+                    onTap: () {},
+                    cursorColor: const Color.fromRGBO(62, 174, 86, 1.0),
+                    cursorWidth: 3.w,
+                    style: TextStyle(
+                      fontSize: fontSizeScale(28.w),
+                      color: Color.fromARGB(255, 65, 183, 88),
+                    ),
+                    minLines: 1,
+                    onChanged: (newText) {
+                      setState(() {});
+                    },
+                    decoration: InputDecoration(
+                      isCollapsed: true,
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 5.w,
+                      ),
+                      hintText: '标签名称',
+                      hintStyle: TextStyle(
+                        fontSize: fontSizeScale(35.w),
+                        color: Colors.grey,
+                      ),
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  height: 130.w,
+                ),
+
+                // 确认按钮
+                GestureDetector(
+                  onTap: () {
+                    var text = inputController2.text.trim();
+                    if (text.isEmpty) return;
+
+                    callback(text);
+
+                    inputController2.clear();
+
+                    Navigator.of(context).pop();
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          textAlign: TextAlign.center,
+                          '新建成功!',
+                        ),
+                        duration: Duration(
+                          seconds: 3,
+                        ), // 设置 Snackbar 显示时间
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 345.w,
+                    height: 90.w,
+                    decoration: BoxDecoration(
+                      color: inputController2.text.isEmpty
+                          ? Color.fromARGB(255, 242, 242, 242)
+                          : Color.fromARGB(255, 74, 193, 99),
+                      borderRadius: BorderRadius.circular(10.w),
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "确定",
+                      style: TextStyle(
+                        color: inputController2.text.isEmpty
+                            ? Color.fromARGB(255, 182, 182, 182)
+                            : Colors.white,
+                        fontSize: 32.w,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      );
+    },
+  );
 }
