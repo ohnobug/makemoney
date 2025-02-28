@@ -364,19 +364,20 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                                 });
                                               },
                                               child: Container(
-                                                  width: 50.w,
-                                                  height: 50.w,
-                                                  color: Colors.transparent,
-                                                  alignment: Alignment.center,
-                                                  child: Icon(
-                                                    const IconData(
-                                                      0xe627,
-                                                      fontFamily: 'Iconfont',
-                                                    ),
-                                                    color: const Color.fromARGB(
-                                                        255, 176, 176, 176),
-                                                    size: 35.w,
-                                                  )),
+                                                width: 50.w,
+                                                height: 50.w,
+                                                color: Colors.transparent,
+                                                alignment: Alignment.center,
+                                                child: Icon(
+                                                  const IconData(
+                                                    0xe627,
+                                                    fontFamily: 'Iconfont',
+                                                  ),
+                                                  color: const Color.fromARGB(
+                                                      255, 176, 176, 176),
+                                                  size: 35.w,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -419,14 +420,21 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                       ),
                                     ),
                                     const Spacer(), // 这个 Spacer 会把第二个图标推到最右边
-                                    Icon(
-                                      const IconData(
-                                        0xe655,
-                                        fontFamily: 'Iconfont',
+
+                                    Container(
+                                      width: 50.w,
+                                      height: 50.w,
+                                      color: Colors.transparent,
+                                      alignment: Alignment.center,
+                                      child: Icon(
+                                        const IconData(
+                                          0xe655,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        color: const Color.fromARGB(
+                                            255, 176, 176, 176),
+                                        size: 35.w,
                                       ),
-                                      color: const Color.fromARGB(
-                                          255, 176, 176, 176),
-                                      size: 35.w,
                                     ),
                                   ],
                                 ),

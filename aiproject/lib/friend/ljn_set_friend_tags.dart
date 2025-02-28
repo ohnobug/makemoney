@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
+import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
 import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 
 class LJNSetFriendTags extends StatefulWidget {
@@ -59,10 +61,13 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
   ];
 
   TextEditingController inputController = TextEditingController(text: "");
+  int willBeRemoveTagofLast = 3;
 
   @override
   void initState() {
     super.initState();
+
+    inputController.addListener(() {});
   }
 
   @override
@@ -138,9 +143,80 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                     spacing: 17.w,
                     runSpacing: 10.w,
                     children: [
-                      ...selectedTag.map(
-                        (value) {
-                          return GestureDetector(
+                      ...selectedTag.asMap().map((key, value) {
+                        logger
+                            .info('ttttttttttttttttttt$willBeRemoveTagofLast');
+
+                        if (key == selectedTag.length - 1 &&
+                            willBeRemoveTagofLast == 2) {
+                          return MapEntry(
+                            key,
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  selectedTag.removeAt(key);
+                                });
+                              },
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Container(
+                                  height: 60.w,
+                                  padding: EdgeInsets.only(left: 25.w),
+                                  // margin: EdgeInsets.only(right: 17.w),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromARGB(255, 255, 93, 81),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(30.w),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        value,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 28.w,
+                                          color:
+                                              Color.fromARGB(255, 65, 183, 88),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedTag.removeAt(key);
+                                          });
+                                        },
+                                        child: Container(
+                                          width: 50.w,
+                                          height: 50.w,
+                                          color: Colors.transparent,
+                                          alignment: Alignment.center,
+                                          child: Icon(
+                                            const IconData(
+                                              0xe627,
+                                              fontFamily: 'Iconfont',
+                                            ),
+                                            color: const Color.fromARGB(
+                                                255, 176, 176, 176),
+                                            size: 35.w,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+
+                        return MapEntry(
+                          key,
+                          GestureDetector(
                             onTap: () {
                               setState(() {
                                 selectedTag.remove(value);
@@ -172,16 +248,16 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                 ),
                               ),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      }).values,
 
                       // 输入标签
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Container(
                           height: 60.w,
-                          width: 330.w,
+                          width: 280.w,
                           padding: EdgeInsets.only(left: 20.w, right: 20.w),
                           // margin: EdgeInsets.only(right: 17.w),
                           alignment: Alignment.center,
@@ -202,99 +278,83 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                   // width: 210.w,
                                   alignment: Alignment.center,
                                   height: 60.w,
-                                  child: TextField(
-                                    readOnly: false,
-                                    autofocus: false,
-                                    showCursor: true,
-                                    controller: inputController,
-                                    // focusNode: inputFocusNode1,
-                                    onTap: () {},
-                                    onSubmitted: (value) {
-                                      setState(() {
-                                        selectedTag.add(value);
-                                        unselectTags.add(value);
-                                      });
+                                  child: KeyboardListener(
+                                    focusNode: FocusNode(),
+                                    onKeyEvent: (KeyEvent event) {
+                                      if (event is KeyDownEvent) {
+                                        if (event.logicalKey.keyLabel ==
+                                            "Backspace") {
+                                          if (inputController.text.isEmpty &&
+                                              selectedTag.isNotEmpty) {
+                                            setState(() {
+                                              willBeRemoveTagofLast -= 1;
+                                              if (willBeRemoveTagofLast == 1) {
+                                                selectedTag.removeLast();
+                                                willBeRemoveTagofLast = 3;
+                                              }
+                                            });
+                                          }
+                                        }
+                                        logger.info(
+                                            '|||${inputController.text.isEmpty}||| 按键按下: ${event.logicalKey}');
+                                      } else {
+                                        logger.info(
+                                            '|||${inputController.text.isEmpty}||| ttttttttttt: ${event.logicalKey}');
+                                      }
                                     },
-                                    cursorColor:
-                                        const Color.fromRGBO(62, 174, 86, 1.0),
-                                    // cursorHeight: 44.w,
-                                    cursorWidth: 3.w,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      // height: 1.08,
-                                      fontSize: fontSizeScale(30.w),
-                                      color: Color.fromARGB(255, 65, 183, 88),
-                                    ),
-                                    // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
-                                    minLines: 1,
-                                    onChanged: (newText) {
-                                      inputController.value =
-                                          inputController.value.copyWith(
-                                        text: newText,
-                                        selection: TextSelection.fromPosition(
-                                          TextPosition(offset: newText.length),
-                                        ),
-                                      );
-                                    },
-                                    decoration: InputDecoration(
-                                      // fillColor:
-                                      //     const Color.fromARGB(255, 252, 0, 0),
-                                      // filled: true,
-                                      // focusColor: Colors.red,
-                                      // hoverColor:
-                                      //     const Color.fromARGB(255, 247, 247, 247),
-                                      isCollapsed: true,
-                                      contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 5.w,
-                                        // vertical: 30.w,
-                                      ),
-
-                                      hintText: '选择或者搜索标签',
-                                      hintStyle: TextStyle(
+                                    child: TextField(
+                                      readOnly: false,
+                                      autofocus: false,
+                                      showCursor: true,
+                                      controller: inputController,
+                                      // focusNode: inputFocusNode1,
+                                      onTap: () {},
+                                      onSubmitted: (value) {
+                                        setState(() {
+                                          selectedTag.add(value);
+                                          unselectTags.add(value);
+                                        });
+                                      },
+                                      cursorColor: const Color.fromRGBO(
+                                          62, 174, 86, 1.0),
+                                      // cursorHeight: 44.w,
+                                      cursorWidth: 3.w,
+                                      // textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        // height: 1.08,
                                         fontSize: fontSizeScale(28.w),
-                                        color: Colors.grey,
+                                        color: Color.fromARGB(255, 65, 183, 88),
                                       ),
-                                      border: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 2.w,
-                                          color: const Color.fromARGB(
-                                              255, 85, 85, 85),
+                                      // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
+                                      minLines: 1,
+                                      onChanged: (newText) {
+                                        inputController.value =
+                                            inputController.value.copyWith(
+                                          text: newText,
+                                          selection: TextSelection.fromPosition(
+                                            TextPosition(
+                                                offset: newText.length),
+                                          ),
+                                        );
+                                      },
+                                      decoration: InputDecoration(
+                                        // fillColor:
+                                        //     const Color.fromARGB(255, 252, 0, 0),
+                                        // filled: true,
+                                        // focusColor: Colors.red,
+                                        // hoverColor:
+                                        //     const Color.fromARGB(255, 247, 247, 247),
+                                        isCollapsed: true,
+                                        contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 5.w,
+                                          // vertical: 30.w,
                                         ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 2.w,
-                                          color: const Color.fromARGB(
-                                              255, 85, 85, 85),
+                                        hintText: '创建或搜索标签',
+                                        hintStyle: TextStyle(
+                                          fontSize: fontSizeScale(28.w),
+                                          color: Colors.grey,
                                         ),
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 2.w,
-                                          color: const Color.fromARGB(
-                                              255, 85, 85, 85),
-                                        ),
-                                      ),
-                                      disabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 2.w,
-                                          color: const Color.fromARGB(
-                                              255, 85, 85, 85),
-                                        ),
-                                      ),
-                                      focusedErrorBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 2.w,
-                                          color: const Color.fromARGB(
-                                              255, 85, 85, 85),
-                                        ),
-                                      ),
-                                      errorBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 2.w,
-                                          color: const Color.fromARGB(
-                                              255, 85, 85, 85),
-                                        ),
+                                        border: InputBorder.none,
                                       ),
                                     ),
                                   ),
