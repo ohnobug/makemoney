@@ -571,136 +571,146 @@ void _showPopup(
     builder: (BuildContext context) {
       return StatefulBuilder(
         builder: (context, setState) {
-          return SizedBox(
-            height: 600.w,
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 70.w,
-                ),
-                // 标题
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Icon(
-                        const IconData(
-                          0xe628,
-                          fontFamily: 'Iconfont',
-                        ),
-                        color: Colors.black,
-                        size: 35.w,
-                      ),
-                    ),
-                    Text(
-                      "输入标签",
-                      style: TextStyle(
-                        fontSize: 35.w,
-                        color: Colors.black,
-                        fontFamily: "AlibabaPuHuiTi-Medium",
-                      ),
-                    ),
-                    SizedBox()
-                  ],
-                ),
-
-                SizedBox(
-                  height: 95.w,
-                ),
-
-                // 输入框
-                Container(
-                  color: Colors.transparent,
-                  height: 70.w,
-                  width: systemState.screenSize.width,
-                  padding: EdgeInsets.only(left: 90.w, right: 90.w),
-                  alignment: Alignment.center,
-                  child: TextField(
-                    readOnly: false,
-                    autofocus: false,
-                    showCursor: true,
-                    maxLines: 1,
-                    controller: inputController2,
-                    onTap: () {},
-                    cursorColor: const Color.fromRGBO(62, 174, 86, 1.0),
-                    cursorWidth: 3.w,
-                    style: TextStyle(
-                      fontSize: fontSizeScale(28.w),
-                      color: Color.fromARGB(255, 65, 183, 88),
-                    ),
-                    minLines: 1,
-                    onChanged: (newText) {
-                      setState(() {});
-                    },
-                    decoration: InputDecoration(
-                      isCollapsed: true,
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 5.w,
-                      ),
-                      hintText: '标签名称',
-                      hintStyle: TextStyle(
-                        fontSize: fontSizeScale(35.w),
-                        color: Colors.grey,
-                      ),
-                      border: InputBorder.none,
-                    ),
+          return Container(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: SizedBox(
+              height: 600.w,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 70.w,
                   ),
-                ),
-
-                SizedBox(
-                  height: 130.w,
-                ),
-
-                // 确认按钮
-                GestureDetector(
-                  onTap: () {
-                    var text = inputController2.text.trim();
-                    if (text.isEmpty) return;
-
-                    callback(text);
-
-                    inputController2.clear();
-
-                    Navigator.of(context).pop();
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          textAlign: TextAlign.center,
-                          '新建成功!',
+                  // 标题
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Container(
+                          width: 40.w,
+                          height: 40.w,
+                          alignment: Alignment.center,
+                          child: Icon(
+                            const IconData(
+                              0xe628,
+                              fontFamily: 'Iconfont',
+                            ),
+                            color: Colors.black,
+                            size: 33.w,
+                          ),
                         ),
-                        duration: Duration(
-                          seconds: 3,
-                        ), // 设置 Snackbar 显示时间
                       ),
-                    );
-                  },
-                  child: Container(
-                    width: 345.w,
-                    height: 90.w,
-                    decoration: BoxDecoration(
-                      color: inputController2.text.isEmpty
-                          ? Color.fromARGB(255, 242, 242, 242)
-                          : Color.fromARGB(255, 74, 193, 99),
-                      borderRadius: BorderRadius.circular(10.w),
-                    ),
+                      Text(
+                        "输入标签",
+                        style: TextStyle(
+                          fontSize: 35.w,
+                          color: Colors.black,
+                          fontFamily: "AlibabaPuHuiTi-Medium",
+                        ),
+                      ),
+                      SizedBox()
+                    ],
+                  ),
+
+                  SizedBox(
+                    height: 95.w,
+                  ),
+
+                  // 输入框
+                  Container(
+                    color: Colors.transparent,
+                    height: 70.w,
+                    width: systemState.screenSize.width,
+                    padding: EdgeInsets.only(left: 90.w, right: 90.w),
                     alignment: Alignment.center,
-                    child: Text(
-                      "确定",
+                    child: TextField(
+                      readOnly: false,
+                      autofocus: false,
+                      showCursor: true,
+                      maxLines: 1,
+                      controller: inputController2,
+                      onTap: () {},
+                      cursorColor: const Color.fromRGBO(62, 174, 86, 1.0),
+                      cursorWidth: 3.w,
                       style: TextStyle(
-                        color: inputController2.text.isEmpty
-                            ? Color.fromARGB(255, 182, 182, 182)
-                            : Colors.white,
-                        fontSize: 32.w,
+                        fontSize: fontSizeScale(28.w),
+                        color: Color.fromARGB(255, 65, 183, 88),
+                      ),
+                      minLines: 1,
+                      onChanged: (newText) {
+                        setState(() {});
+                      },
+                      decoration: InputDecoration(
+                        isCollapsed: true,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 5.w,
+                        ),
+                        hintText: '标签名称',
+                        hintStyle: TextStyle(
+                          fontSize: fontSizeScale(35.w),
+                          color: Colors.grey,
+                        ),
+                        border: InputBorder.none,
                       ),
                     ),
                   ),
-                )
-              ],
+
+                  SizedBox(
+                    height: 130.w,
+                  ),
+
+                  // 确认按钮
+                  GestureDetector(
+                    onTap: () {
+                      var text = inputController2.text.trim();
+                      if (text.isEmpty) return;
+
+                      callback(text);
+
+                      inputController2.clear();
+
+                      Navigator.of(context).pop();
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            textAlign: TextAlign.center,
+                            '新建成功!',
+                          ),
+                          duration: Duration(
+                            seconds: 3,
+                          ), // 设置 Snackbar 显示时间
+                        ),
+                      );
+                    },
+                    child: Container(
+                      width: 345.w,
+                      height: 90.w,
+                      decoration: BoxDecoration(
+                        color: inputController2.text.isEmpty
+                            ? Color.fromARGB(255, 242, 242, 242)
+                            : Color.fromARGB(255, 74, 193, 99),
+                        borderRadius: BorderRadius.circular(10.w),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "确定",
+                        style: TextStyle(
+                          color: inputController2.text.isEmpty
+                              ? Color.fromARGB(255, 182, 182, 182)
+                              : Colors.white,
+                          fontSize: 32.w,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         },
