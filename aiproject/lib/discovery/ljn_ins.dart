@@ -657,7 +657,9 @@ class _LJNIns extends State<LJNIns> {
                                         borderSide: BorderSide.none,
                                       ),
                                       contentPadding: EdgeInsets.symmetric(
-                                          vertical: 8.0.w, horizontal: 20.0.w),
+                                        vertical: 8.0.w,
+                                        horizontal: 20.0.w,
+                                      ),
                                     ),
                                   ),
                                 ),
