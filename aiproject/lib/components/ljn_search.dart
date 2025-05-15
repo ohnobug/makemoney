@@ -36,7 +36,7 @@ class _LJNSearch extends State<LJNSearch> {
         },
         child: Container(
           padding: EdgeInsets.only(bottom: 15.w, left: 15.w, right: 15.w),
-          height: 75.w,
+          height: 80.w,
           alignment: Alignment.center,
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 8.0.w, horizontal: 20.0.w),

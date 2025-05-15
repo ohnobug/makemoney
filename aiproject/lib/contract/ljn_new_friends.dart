@@ -551,7 +551,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
         child: Column(
           children: [
             // 搜索框
-            LJNSearch(link: '/search', title: '搜索 账号/手机号'),
+            LJNSearch(link: '/search_friend', title: '搜索 账号/手机号'),
 
             // 列表
             Expanded(

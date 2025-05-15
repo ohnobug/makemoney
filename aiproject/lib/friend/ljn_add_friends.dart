@@ -53,7 +53,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
             child: Column(
               children: [
                 // 搜索框
-                LJNSearch(link: '/search', title: '账号/手机号'),
+                LJNSearch(link: '/search_friend', title: '账号/手机号'),
 
                 SizedBox(
                   height: 44.w,

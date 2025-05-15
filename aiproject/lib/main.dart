@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:jiaoyishuoflutter3/contract/ljn_search_friend.dart';
 import 'package:jiaoyishuoflutter3/friend/ljn_set_friend_tags.dart';
 import 'package:jiaoyishuoflutter3/user/ljn_camera_view.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_image_draggable_box.dart';
@@ -469,6 +470,10 @@ class _App extends State<App> {
               } else if (settings.name == "/add_friends") {
                 return pageRouteBuilderAnimation(
                   const LJNAddFriends(),
+                );
+              } else if (settings.name == "/search_friend") {
+                return pageRouteBuilderAnimation(
+                  const LJNSearchFriend(),
                 );
               } else if (settings.name == "/group_message_record") {
                 return pageRouteBuilderAnimation(
