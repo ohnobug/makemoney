@@ -342,9 +342,10 @@ class _LJNUserState extends State<LJNUser> {
                     title: "收藏",
                     icon: "images/icon/icon2.png",
                     link:
-                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page2')}",
+                        "/miniprogram?link=${Uri.encodeComponent('https://baidu.com')}",
                     underline: true,
                   ),
+                  
 
                   const LJNFunctionItem(
                     title: "朋友圈",
