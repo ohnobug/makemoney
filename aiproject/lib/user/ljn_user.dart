@@ -128,8 +128,7 @@ class _LJNUserState extends State<LJNUser> {
                                               state.userinfoName!,
                                               style: TextStyle(
                                                 height: 1.5,
-                                                fontSize:
-                                                    fontSizeScale(42.w),
+                                                fontSize: fontSizeScale(42.w),
                                                 fontWeight: FontWeight.w600,
                                                 color: Colors.black,
                                               ),
@@ -152,8 +151,7 @@ class _LJNUserState extends State<LJNUser> {
                                                 '微信号：${state.userinfoAccount}',
                                                 style: TextStyle(
                                                   height: 1.08,
-                                                  fontSize:
-                                                      fontSizeScale(28.w),
+                                                  fontSize: fontSizeScale(28.w),
                                                   color: const Color.fromARGB(
                                                       255, 111, 111, 111),
                                                 ),
@@ -369,10 +367,11 @@ class _LJNUserState extends State<LJNUser> {
                     underline: true,
                   ),
 
-                  const LJNFunctionItem(
+                  LJNFunctionItem(
                     title: "表情",
                     icon: "images/icon/icon6.png",
-                    link: '/collection_and_payment',
+                    link:
+                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/code.html')}",
                     underline: false,
                   ),
 

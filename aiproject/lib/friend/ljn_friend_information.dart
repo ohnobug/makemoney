@@ -69,13 +69,13 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                 ),
                 const LJNFunctionItem(
                   title: "电话",
-                  link: '',
+                  link: '/set_notes_and_labels',
                   showStyle: "+86 18718988850",
                   underline: true,
                 ),
                 const LJNFunctionItem(
                   title: "描述",
-                  link: '',
+                  link: '/set_notes_and_labels',
                   showStyle: "-",
                   underline: false,
                 ),
@@ -97,7 +97,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                   height: 135.w,
                   title: '签名',
                   underline: true,
-                  // link: '',
+                  link: null,
                   showStyle: Container(
                     // color: Colors.red,
                     margin: EdgeInsets.only(right: 40.w),
@@ -119,6 +119,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                   title: '来源',
                   underline: true,
                   // link: '',
+                  link: null,
                   showStyle: Container(
                     // color: Colors.red,
                     margin: EdgeInsets.only(right: 40.w),
@@ -138,6 +139,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                 LJNFunctionItem(
                   title: "添加时间",
                   // link: '',
+                  link: null,
                   underline: false,
                   showStyle: Expanded(
                     child: Container(

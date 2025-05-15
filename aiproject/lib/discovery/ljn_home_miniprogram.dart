@@ -514,7 +514,7 @@ class FunctionButtonState extends State<FunctionButton> {
         width: double.infinity,
         decoration: BoxDecoration(
           // color: Colors.orange,
-          color: _isPressed ? Colors.grey[200] : Colors.transparent, // 按下时背景色
+          color: _isPressed ? const Color.fromARGB(83, 238, 238, 238) : Colors.transparent, // 按下时背景色
           borderRadius: BorderRadius.circular(10.0).w, // 圆角半径
         ),
         child: Center(

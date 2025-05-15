@@ -120,10 +120,11 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
     if (requestUrl.startsWith('http://inner')) {
       Uri uri = Uri.parse(requestUrl);
 
-      // 请求页面
-      final response = await http.get(Uri.parse('http://127.0.0.1:9413'),
-          headers: {'Host': uri.host, 'Content-Type': 'text/html'});
+      uri = uri.replace(host: '127.0.0.1', port: 9413);
 
+      // 请求页面
+      final response = await http.get(uri,
+          headers: {'Host': '127.0.0.1', 'Content-Type': 'text/html'});
       if (response.statusCode == 200) {
         webViewController.loadHtmlString(response.body, baseUrl: requestUrl);
       } else {
@@ -158,9 +159,11 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
     if (requestUrl.startsWith('http://inner')) {
       Uri uri = Uri.parse(requestUrl);
 
+      uri.replace(host: 'http://127.0.0.1:9413');
+
       // 请求页面
-      final response = await http.get(Uri.parse('http://127.0.0.1:9413'),
-          headers: {'Host': uri.host, 'Content-Type': 'text/html'});
+      final response = await http
+          .get(uri, headers: {'Host': uri.host, 'Content-Type': 'text/html'});
 
       if (response.statusCode == 200) {
         _windowsWebViewController.loadStringContent(response.body);
