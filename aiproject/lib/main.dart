@@ -1,5 +1,8 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:jiaoyishuoflutter3/contract/ljn_contact_tag_group.dart';
+import 'package:jiaoyishuoflutter3/contract/ljn_contact_tags.dart';
+import 'package:jiaoyishuoflutter3/contract/ljn_official_accounts.dart';
 import 'package:jiaoyishuoflutter3/contract/ljn_search_friend.dart';
 import 'package:jiaoyishuoflutter3/friend/ljn_set_friend_tags.dart';
 import 'package:jiaoyishuoflutter3/user/ljn_camera_view.dart';
@@ -23,7 +26,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/friend/ljn_add_friends.dart';
-import 'package:jiaoyishuoflutter3/contract/ljn_address_book_label.dart';
 import 'package:jiaoyishuoflutter3/settings/ljn_care_mode.dart';
 import 'package:jiaoyishuoflutter3/chat/ljn_chat.dart';
 import 'package:jiaoyishuoflutter3/user/ljn_collection_and_payment.dart';
@@ -511,10 +513,6 @@ class _App extends State<App> {
                 return pageRouteBuilderAnimation(
                   const LJNFriendsWhoOnlyChat(),
                 );
-              } else if (settings.name == "/address_book_label") {
-                return pageRouteBuilderAnimation(
-                  const LJNAddressBookLabel(),
-                );
               } else if (settings.name == "/new_friends") {
                 return pageRouteBuilderAnimation(
                   const LJNNewFriends(),
@@ -530,6 +528,18 @@ class _App extends State<App> {
               } else if (settings.name == "/set_friend_tags") {
                 return pageRouteBuilderAnimation(
                   const LJNSetFriendTags(),
+                );
+              } else if (settings.name == "/contact_tags") {
+                return pageRouteBuilderAnimation(
+                  const LJNContactTags(),
+                );
+              } else if (settings.name == "/contact_tag_group") {
+                return pageRouteBuilderAnimation(
+                  const LJNContactTagGroup(),
+                );
+              } else if (settings.name == "/official_accounts") {
+                return pageRouteBuilderAnimation(
+                  const LJNOfficialAccounts(),
                 );
               }
 

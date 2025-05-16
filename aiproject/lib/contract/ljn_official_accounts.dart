@@ -1,80 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_alphabet.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
+import 'package:jiaoyishuoflutter3/components/ljn_search.dart';
 import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
 import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LJNContact extends StatefulWidget {
-  const LJNContact({super.key});
+class LJNOfficialAccounts extends StatefulWidget {
+  const LJNOfficialAccounts({super.key});
 
   @override
-  State<LJNContact> createState() => _LJNContactState();
+  State<LJNOfficialAccounts> createState() => _LJNOfficialAccountsState();
 }
 
-class _LJNContactState extends State<LJNContact> {
+class _LJNOfficialAccountsState extends State<LJNOfficialAccounts> {
   late List<dynamic> contactList;
 
   @override
   void initState() {
     super.initState();
 
-    logger.info('contact...............');
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<LJNSystemCubit>().updateHomescrollpixels(0);
-      context.read<LJNSystemCubit>().updateShowMiniProgramDrawer(false);
-      context.read<LJNSystemCubit>().updateMainpage2isload(true);
-    });
-
     contactList = [
-      ContactInformation(
-        title: "新的朋友",
-        icon: "images/avatar/01.png",
-        link: '',
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(context, '/new_friends');
-        },
-      ),
-      ContactInformation(
-        title: "仅聊天的朋友",
-        icon: "images/avatar/02.png",
-        link: '',
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(context, '/friends_who_only_chat');
-        },
-      ),
-      ContactInformation(
-        title: "群聊",
-        icon: "images/avatar/03.png",
-        link: '',
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(context, '/chat', arguments: <String, String>{
-            'title': "群聊",
-            'icon': "images/avatar/03.png",
-          });
-        },
-      ),
-      ContactInformation(
-        title: "标签",
-        icon: "images/avatar/04.png",
-        link: '/contact_tags',
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(context, '/contact_tags');
-        },
-      ),
-      ContactInformation(
-        title: "公众号",
-        icon: "images/avatar/05.png",
-        link: '/official_accounts',
-        underline: false,
-      ),
       LJNAlphabet(title: 'A'),
       ContactInformation(
         title: "天空飘来五个字那都不是事",
@@ -456,88 +404,112 @@ class _LJNContactState extends State<LJNContact> {
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
-      return systemState.mainpage2isload!
-          ? _buildPage(systemState)
-          : const LJNPageLoading();
+      return _buildPage(systemState);
     });
   }
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
-    return Stack(children: [
-      // 联系人
-      ScrollConfiguration(
-        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-        child: Container(
-          constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height -
-                  90.w -
-                  systemState.statusHeight),
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color.fromARGB(255, 237, 237, 237),
-                Colors.white,
-              ],
-              stops: [0.3, 0.5],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          child: ListView.builder(
-            primary: false,
-            padding: EdgeInsets.only(top: systemState.statusHeight + 90.w),
-            physics: const AlwaysScrollableScrollPhysics(
-              parent: BouncingScrollPhysics(),
-            ),
-            itemCount: contactList.length, // contactList 是你的联系人数据列表
-            itemBuilder: (context, index) {
-              return contactList[index];
-            },
-          ),
-        ),
+    return Scaffold(
+      primary: false,
+      appBar: const LJNAppBar(
+        title: "公众号",
       ),
-
-      // 右边的字母表
-      Visibility(
-        visible: systemState.contactazshow,
-        child: Positioned(
-          right: 0,
-          top: ((MediaQuery.of(context).size.height - 986.w) / 2) + 40.w,
-          child: SizedBox(
-            width: 40.w,
-            // height: MediaQuery.of(context).size.height - 115.w - 75.w,
+      body: Stack(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 237, 237, 237),
+                  Colors.white,
+                ],
+                stops: [0.3, 0.5],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 34.w,
-                  child: Icon(
-                    const IconData(
-                      0xe677,
-                      fontFamily: 'Iconfont',
+                // 搜索框
+                LJNSearch(link: '/search', title: '搜索'),
+
+                // 列表
+                Expanded(
+                  child: ColoredBox(
+                    color: Colors.white,
+                    child: ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: ListView.builder(
+                        primary: false,
+                        padding: EdgeInsets.zero,
+                        physics: const AlwaysScrollableScrollPhysics(
+                          parent: BouncingScrollPhysics(),
+                        ),
+                        itemCount: contactList.length, // contactList 是你的联系人数据列表
+                        itemBuilder: (context, index) {
+                          return contactList[index];
+                        },
+                      ),
                     ),
-                    size: 22.w,
-                    color: const Color.fromARGB(255, 20, 20, 20),
                   ),
                 ),
-                SizedBox(
-                  height: 34.w,
-                  child: Icon(
-                    const IconData(
-                      0xe6c8,
-                      fontFamily: 'Iconfont',
+              ],
+            ),
+          ),
+
+          // 右边的字母表
+          Positioned(
+            right: 0,
+            top: ((MediaQuery.of(context).size.height - 986.w) / 2) + 40.w,
+            child: SizedBox(
+              width: 40.w,
+              // height: MediaQuery.of(context).size.height - 115.w - 75.w,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 34.w,
+                    child: Icon(
+                      const IconData(
+                        0xe677,
+                        fontFamily: 'Iconfont',
+                      ),
+                      size: 22.w,
+                      color: const Color.fromARGB(255, 20, 20, 20),
                     ),
-                    size: 22.w,
-                    color: const Color.fromARGB(255, 20, 20, 20),
                   ),
-                ),
-                for (int i = 0; i < 26; i++)
+                  SizedBox(
+                    height: 34.w,
+                    child: Icon(
+                      const IconData(
+                        0xe6c8,
+                        fontFamily: 'Iconfont',
+                      ),
+                      size: 22.w,
+                      color: const Color.fromARGB(255, 20, 20, 20),
+                    ),
+                  ),
+                  for (int i = 0; i < 26; i++)
+                    SizedBox(
+                      height: 34.w,
+                      child: Text(
+                        String.fromCharCode(65 + i),
+                        style: TextStyle(
+                          height: 1.08,
+                          fontSize: fontSizeScale(22.w),
+                          color: const Color.fromARGB(255, 20, 20, 20),
+                        ),
+                      ),
+                    ),
                   SizedBox(
                     height: 34.w,
                     child: Text(
-                      String.fromCharCode(65 + i),
+                      "#",
                       style: TextStyle(
                         height: 1.08,
                         fontSize: fontSizeScale(22.w),
@@ -545,23 +517,13 @@ class _LJNContactState extends State<LJNContact> {
                       ),
                     ),
                   ),
-                SizedBox(
-                  height: 34.w,
-                  child: Text(
-                    "#",
-                    style: TextStyle(
-                      height: 1.08,
-                      fontSize: fontSizeScale(22.w),
-                      color: const Color.fromARGB(255, 20, 20, 20),
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      )
-    ]);
+        ],
+      ),
+    );
   }
 }
 
@@ -612,18 +574,13 @@ class _ContactInformationState extends State<ContactInformation> {
           setState(() {
             containerColor = Colors.white;
           });
-
-          if (widget.link != "") {
-            Navigator.pushNamed(context, '/official_accounts');
-          } else {
-            widget.onPressed!();
-          }
+          widget.onPressed!();
         });
 
         logger.info("弹起");
       },
       child: Container(
-        height: 105.0.w,
+        height: 130.0.w,
         padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
         color: containerColor,
         child: Row(
@@ -631,13 +588,13 @@ class _ContactInformationState extends State<ContactInformation> {
             // 头像
             ClipRRect(
               borderRadius:
-                  BorderRadius.circular(7.0.w), // Adjust the radius as needed
+                  BorderRadius.circular(90.0.w), // Adjust the radius as needed
               child: Image.asset(
                 assetPath(widget.icon),
-                width: 75.0.w,
-                height: 75.0.w,
-                cacheHeight: 150.w.toInt(),
-                cacheWidth: 150.w.toInt(),
+                width: 90.0.w,
+                height: 90.0.w,
+                cacheHeight: 300.w.toInt(),
+                cacheWidth: 300.w.toInt(),
                 fit: BoxFit.cover,
               ),
             ),
@@ -645,7 +602,7 @@ class _ContactInformationState extends State<ContactInformation> {
             SizedBox(width: 25.w),
             Expanded(
               child: Container(
-                height: 100.w,
+                height: 125.w,
                 width: 400.w,
                 decoration: widget.underline
                     ? BoxDecoration(

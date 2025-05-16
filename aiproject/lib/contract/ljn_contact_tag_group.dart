@@ -2,21 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_alphabet.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_chatlist_item.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_search.dart';
 import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_function_item.dart';
 import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
 
-class LJNNewFriends extends StatefulWidget {
-  const LJNNewFriends({super.key});
+class LJNContactTagGroup extends StatefulWidget {
+  const LJNContactTagGroup({super.key});
 
   @override
-  State<LJNNewFriends> createState() => _LJNNewFriendsState();
+  State<LJNContactTagGroup> createState() => _LJNContactTagGroupState();
 }
 
-class _LJNNewFriendsState extends State<LJNNewFriends> {
+class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
   late List<dynamic> contactList;
 
   @override
@@ -24,16 +22,8 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
     super.initState();
 
     contactList = [
-      // 提示
-      const LJNFunctionItem(
-        title: "添加手机联系人",
-        icon: "images/icon/phone.png",
-        link: '/collection_and_payment',
-        underline: false,
-      ),
-
       LJNAlphabet(
-        title: '两天前',
+        title: 'A',
         bgColor: Color.fromARGB(255, 237, 237, 237),
       ),
       ChatListItem(
@@ -303,7 +293,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
         underline: false,
       ),
       LJNAlphabet(
-        title: '五天前',
+        title: 'B',
         bgColor: Color.fromARGB(255, 237, 237, 237),
       ),
       ChatListItem(
@@ -595,32 +585,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
     return Scaffold(
       primary: false,
       appBar: LJNAppBar(
-        title: "新的朋友",
-        actions: [
-          GestureDetector(
-            onTap: () {
-              // 点击事件
-              Navigator.pushNamed(context, '/add_friends');
-            },
-            child: Container(
-              // color: Colors.transparent,
-              height: 90.w,
-              color: Colors.transparent,
-              // color: Colors.amber,
-              alignment: Alignment.center,
-              padding: EdgeInsets.only(right: 33.w),
-              child: Text(
-                "添加朋友",
-                style: TextStyle(
-                  // height: 1.08,
-                  color: Colors.black,
-                  fontSize: fontSizeScale(32.w),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          )
-        ],
+        title: "苦命人",
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -638,9 +603,6 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
         ),
         child: Column(
           children: [
-            // 搜索框
-            LJNSearch(link: '/search_friend', title: '搜索 账号/手机号'),
-
             // 列表
             Expanded(
               child: ScrollConfiguration(

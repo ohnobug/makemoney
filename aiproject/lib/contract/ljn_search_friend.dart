@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
 
@@ -41,24 +40,27 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
                   90.w -
                   systemState.statusHeight),
           alignment: Alignment.topLeft,
-          child: Container(
-            padding: EdgeInsets.only(bottom: 20.w),
-            margin: EdgeInsets.only(
-              left: 15.w,
-              right: 15.w,
-              top: systemState.statusHeight + 10.w,
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(
+              parent: BouncingScrollPhysics(),
             ),
-            height: 95.w,
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 237, 237, 237),
-              border: Border(
-                bottom: BorderSide(
-                  color: Colors.grey.withAlpha(128),
-                  width: 1.w,
+            child: Container(
+              padding: EdgeInsets.only(bottom: 20.w),
+              margin: EdgeInsets.only(
+                left: 15.w,
+                right: 15.w,
+                top: systemState.statusHeight + 10.w,
+              ),
+              height: 95.w,
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 237, 237, 237),
+                border: Border(
+                  bottom: BorderSide(
+                    color: Colors.grey.withAlpha(128),
+                    width: 1.w,
+                  ),
                 ),
               ),
-            ),
-            child: Expanded(
               child: Row(
                 children: [
                   Expanded(

@@ -211,32 +211,33 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
 
                                         // 微信号
                                         GestureDetector(
-                                            onTap: () {
-                                              Clipboard.setData(ClipboardData(
-                                                  text: widget.account!));
+                                          onTap: () {
+                                            Clipboard.setData(ClipboardData(
+                                                text: widget.account!));
 
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    textAlign: TextAlign.center,
-                                                    '复制成功!微信号:${widget.account!}',
-                                                  ),
-                                                  duration: Duration(
-                                                    seconds: 3,
-                                                  ), // 设置 Snackbar 显示时间
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  textAlign: TextAlign.center,
+                                                  '复制成功!微信号:${widget.account!}',
                                                 ),
-                                              );
-                                            },
-                                            child: Text(
-                                              '微信号: ${widget.account!}',
-                                              style: TextStyle(
-                                                height: 1.08,
-                                                fontSize: fontSizeScale(27.w),
-                                                color: const Color.fromARGB(
-                                                    255, 99, 99, 99),
+                                                duration: Duration(
+                                                  seconds: 3,
+                                                ), // 设置 Snackbar 显示时间
                                               ),
-                                            )),
+                                            );
+                                          },
+                                          child: Text(
+                                            '微信号: ${widget.account!}',
+                                            style: TextStyle(
+                                              height: 1.08,
+                                              fontSize: fontSizeScale(27.w),
+                                              color: const Color.fromARGB(
+                                                  255, 99, 99, 99),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -457,7 +458,11 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                       ),
                                       size: 30.0.w,
                                       color: const Color.fromARGB(
-                                          255, 164, 164, 164),
+                                        255,
+                                        164,
+                                        164,
+                                        164,
+                                      ),
                                     ))
                               ],
                             ),
