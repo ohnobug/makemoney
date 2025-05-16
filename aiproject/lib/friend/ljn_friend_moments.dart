@@ -9,6 +9,8 @@ import 'package:jiaoyishuoflutter3/store/ljn_user_cubit.dart';
 import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 import '../tools/ljn_logger.dart';
 
+late AnimationController _bgController;
+
 class LJNFriendmoments extends StatefulWidget {
   const LJNFriendmoments({super.key});
 
@@ -33,7 +35,6 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
   late bool _isScrolling = false;
 
   late AnimationController _likeController;
-  late AnimationController _bgController;
   late Animation<double> _likeAnimation;
   // late Animation<double> _bgAnimation;
 
@@ -424,6 +425,11 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
+
+        if (_bgController.isCompleted) {
+          _bgController.reverse();
+          return;
+        }
 
         if (context.read<LJNPopupCubit>().state.showFullScreenVideo == true ||
             context.read<LJNPopupCubit>().state.showFullScreenImage == true) {
@@ -973,253 +979,263 @@ class _TweetWidget extends State<TweetWidget> {
       }
     }
 
-    return Container(
-      width: 750.w,
-      padding: EdgeInsets.only(top: 22.w, bottom: 22.w),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          top: BorderSide(
-            color: const Color.fromARGB(255, 255, 255, 255),
-            width: 0.w,
-          ),
-          bottom: BorderSide(
-            color: const Color.fromARGB(255, 242, 242, 242),
-            width: 1.5.w,
-          ),
-        ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 37.w,
-          ),
-
-          // 头像
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10).w,
-            child: Image.asset(
-              assetPath(widget.avatarUrl),
-              cacheWidth: 154.w.toInt(),
-              cacheHeight: 154.w.toInt(),
-              width: 77.w,
-              height: 77.w,
-              fit: BoxFit.cover,
+    return Listener(
+      onPointerDown: (event) {
+        if (_bgController.isCompleted) {
+          _bgController.reverse();
+        }
+      },
+      child: Container(
+        width: 750.w,
+        padding: EdgeInsets.only(top: 22.w, bottom: 22.w),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            top: BorderSide(
+              color: const Color.fromARGB(255, 255, 255, 255),
+              width: 0.w,
+            ),
+            bottom: BorderSide(
+              color: const Color.fromARGB(255, 242, 242, 242),
+              width: 1.5.w,
             ),
           ),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 37.w,
+            ),
 
-          SizedBox(
-            width: 20.w,
-          ),
+            // 头像
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10).w,
+              child: Image.asset(
+                assetPath(widget.avatarUrl),
+                cacheWidth: 154.w.toInt(),
+                cacheHeight: 154.w.toInt(),
+                width: 77.w,
+                height: 77.w,
+                fit: BoxFit.cover,
+              ),
+            ),
 
-          // 姓名和推文
-          Expanded(
-            flex: 1,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                // 推文整体
-                Container(
-                  margin: EdgeInsets.only(right: 25.w),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        // 姓名
-                        RichText(
-                          strutStyle: StrutStyle(
-                              // height: 1,
-                              // forceStrutHeight: true,
-                              fontSize: 32.w,
-                              leading: 1.w),
-                          text: TextSpan(
-                            children: buildTextSpans(
-                              widget.name,
-                              TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(32.w),
-                                fontFamily: "AlibabaPuHuiTi-Medium",
-                                // fontWeight: FontWeight.w600,
-                                color: const Color.fromARGB(255, 58, 81, 124),
-                              ),
-                              TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(32.w),
-                              ),
-                            ),
-                          ),
-                        ),
-                        // SizedBox(height: 0.w),
+            SizedBox(
+              width: 20.w,
+            ),
 
-                        // 推文
-                        RichText(
-                          strutStyle: StrutStyle(
-                              // height: 1,
-                              // forceStrutHeight: true,
-                              fontSize: 32.w),
-                          text: TextSpan(
-                            children: buildTextSpans(
-                              widget.tweetContent,
-                              TextStyle(
-                                // textBaseline: TextBaseline.alphabetic,
-                                height: 1.4,
-                                fontSize: fontSizeScale(32.w),
-                                fontFamily: "AlibabaPuHuiTi",
-                              ),
-                              TextStyle(
-                                // textBaseline: TextBaseline.alphabetic,
-                                height: 1.08,
-                                fontSize: fontSizeScale(32.w),
-                                fontFamily: "NotoColorEmoji-Regular",
+            // 姓名和推文
+            Expanded(
+              flex: 1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  // 推文整体
+                  Container(
+                    margin: EdgeInsets.only(right: 25.w),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          // 姓名
+                          RichText(
+                            strutStyle: StrutStyle(
+                                // height: 1,
+                                // forceStrutHeight: true,
+                                fontSize: 32.w,
+                                leading: 1.w),
+                            text: TextSpan(
+                              children: buildTextSpans(
+                                widget.name,
+                                TextStyle(
+                                  height: 1.08,
+                                  fontSize: fontSizeScale(32.w),
+                                  fontFamily: "AlibabaPuHuiTi-Medium",
+                                  // fontWeight: FontWeight.w600,
+                                  color: const Color.fromARGB(255, 58, 81, 124),
+                                ),
+                                TextStyle(
+                                  height: 1.08,
+                                  fontSize: fontSizeScale(32.w),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                          // SizedBox(height: 0.w),
 
-                        SizedBox(height: 10.w),
-
-                        // 九宫格
-                        if (widget.imageList != null) ...[
-                          SizedBox(
-                            width: 570.w,
-                            child: Wrap(
-                              spacing: 6.w, // 设置列间距
-                              runSpacing: 6.w, // 设置行间距
-                              children: widget.imageList!.map((imagePath) {
-                                if (imagePath == '') {
-                                  return const SizedBox();
-                                } else {
-                                  return LJNTweenImage(
-                                    imagePath: imagePath,
-                                    onTap: (Offset position, Size size) {},
-                                  );
-                                }
-                              }).toList(),
+                          // 推文
+                          RichText(
+                            strutStyle: StrutStyle(
+                                // height: 1,
+                                // forceStrutHeight: true,
+                                fontSize: 32.w),
+                            text: TextSpan(
+                              children: buildTextSpans(
+                                widget.tweetContent,
+                                TextStyle(
+                                  // textBaseline: TextBaseline.alphabetic,
+                                  height: 1.4,
+                                  fontSize: fontSizeScale(32.w),
+                                  fontFamily: "AlibabaPuHuiTi",
+                                ),
+                                TextStyle(
+                                  // textBaseline: TextBaseline.alphabetic,
+                                  height: 1.08,
+                                  fontSize: fontSizeScale(32.w),
+                                  fontFamily: "NotoColorEmoji-Regular",
+                                ),
+                              ),
                             ),
                           ),
-                          SizedBox(height: 18.w),
-                        ],
 
-                        // 定位信息
-                        Text(
-                          "深圳市 · 南山区腾讯总部",
-                          style: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(26.w),
-                            color: const Color.fromARGB(255, 58, 81, 124),
-                          ),
-                        ),
-                        // SizedBox(height: 5.w),
-                      ]),
-                ),
+                          SizedBox(height: 10.w),
 
-                // 显示时间与更多
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // 时间
-                    Text(
-                      widget.time,
-                      style: TextStyle(
-                        height: 1.08,
-                        fontSize: fontSizeScale(26.w),
-                        color: const Color.fromARGB(255, 156, 156, 156),
-                      ),
-                    ),
-                    // 更多
-                    GestureDetector(
-                      onTap: () {
-                        // 获取点击的位置
-                        final RenderBox? renderBox = _morekey.currentContext
-                            ?.findRenderObject() as RenderBox?;
+                          // 九宫格
 
-                        if (renderBox != null) {
-                          // 获取相对于屏幕的偏移量
-                          final Offset position = renderBox.localToGlobal(
-                            Offset(-350.w, (renderBox.size.height - 75.w) / 2),
-                          );
-
-                          widget.moreOnPress(position);
-                        }
-                      },
-                      child: Container(
-                        key: _morekey,
-                        height: 70.w,
-                        width: 110.w,
-                        // color: Colors.blue,
-                        padding: EdgeInsets.only(left: 25.w, right: 25.w),
-                        color: Colors.transparent,
-                        child: Container(
-                          height: 38.w,
-                          width: 60.w,
-                          decoration: BoxDecoration(
-                            // color: Colors.red,
-                            color: const Color.fromARGB(255, 248, 248, 248),
-                            borderRadius: BorderRadius.circular(6.w),
-                          ),
-                          child: Center(
-                            child: Icon(
-                              const IconData(
-                                0xe667,
-                                fontFamily: 'Iconfont',
+                          if (widget.imageList != null) ...[
+                            SizedBox(
+                              width: 570.w,
+                              child: Wrap(
+                                spacing: 6.w, // 设置列间距
+                                runSpacing: 6.w, // 设置行间距
+                                children: widget.imageList!.map((imagePath) {
+                                  if (imagePath == '') {
+                                    return const SizedBox();
+                                  } else {
+                                    return LJNTweenImage(
+                                      imagePath: imagePath,
+                                      onTap: (Offset position, Size size) {},
+                                    );
+                                  }
+                                }).toList(),
                               ),
-                              size: 37.w,
+                            ),
+                            SizedBox(height: 18.w),
+                          ],
+
+                          // 定位信息
+                          Text(
+                            "深圳市 · 南山区腾讯总部",
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(26.w),
                               color: const Color.fromARGB(255, 58, 81, 124),
                             ),
                           ),
+                          // SizedBox(height: 5.w),
+                        ]),
+                  ),
+
+                  // 显示时间与更多
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // 时间
+                      Text(
+                        widget.time,
+                        style: TextStyle(
+                          height: 1.08,
+                          fontSize: fontSizeScale(26.w),
+                          color: const Color.fromARGB(255, 156, 156, 156),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                      // 更多
+                      GestureDetector(
+                        onTap: () {
+                          // 获取点击的位置
+                          final RenderBox? renderBox = _morekey.currentContext
+                              ?.findRenderObject() as RenderBox?;
 
-                SizedBox(height: 5.w),
+                          if (renderBox != null) {
+                            // 获取相对于屏幕的偏移量
+                            final Offset position = renderBox.localToGlobal(
+                              Offset(
+                                  -350.w, (renderBox.size.height - 75.w) / 2),
+                            );
 
-                // 点赞人员列表
-                Container(
-                  constraints: BoxConstraints(minHeight: 51.w),
-                  alignment: Alignment.topLeft,
-                  margin: EdgeInsets.only(right: 25.w),
-                  padding: EdgeInsets.only(
-                      left: 13.w, right: 13.w, top: 8.w, bottom: 8.w),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 247, 247, 247),
-                    borderRadius: BorderRadius.circular(5.w), // 设置圆角
-                  ),
-                  child: RichText(
-                    maxLines: 1000,
-                    overflow: TextOverflow.visible,
-                    strutStyle: StrutStyle(
-                        fontSize: 28.w, forceStrutHeight: true, leading: 1.w),
-                    text: TextSpan(children: [
-                      WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        style: const TextStyle(height: 1.08),
-                        child: Icon(
-                          const IconData(
-                            0xe70a,
-                            fontFamily: 'Iconfont',
+                            widget.moreOnPress(position);
+                          }
+                        },
+                        child: Container(
+                          key: _morekey,
+                          height: 70.w,
+                          width: 110.w,
+                          // color: Colors.blue,
+                          padding: EdgeInsets.only(left: 25.w, right: 25.w),
+                          color: Colors.transparent,
+                          child: Container(
+                            height: 38.w,
+                            width: 60.w,
+                            decoration: BoxDecoration(
+                              // color: Colors.red,
+                              color: const Color.fromARGB(255, 248, 248, 248),
+                              borderRadius: BorderRadius.circular(6.w),
+                            ),
+                            child: Center(
+                              child: Icon(
+                                const IconData(
+                                  0xe667,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                size: 37.w,
+                                color: const Color.fromARGB(255, 58, 81, 124),
+                              ),
+                            ),
                           ),
-                          color: const Color.fromARGB(255, 58, 81, 124), // 图标颜色
-                          size: 28.w, // 图标大小
                         ),
                       ),
-                      WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: SizedBox(width: 10.w), // 图标和文本之间的间距
-                      ),
-                      ...textSpans
-                    ]),
+                    ],
                   ),
-                )
-              ],
+
+                  SizedBox(height: 5.w),
+
+                  // 点赞人员列表
+                  Container(
+                    constraints: BoxConstraints(minHeight: 51.w),
+                    alignment: Alignment.topLeft,
+                    margin: EdgeInsets.only(right: 25.w),
+                    padding: EdgeInsets.only(
+                        left: 13.w, right: 13.w, top: 8.w, bottom: 8.w),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 247, 247, 247),
+                      borderRadius: BorderRadius.circular(5.w), // 设置圆角
+                    ),
+                    child: RichText(
+                      maxLines: 1000,
+                      overflow: TextOverflow.visible,
+                      strutStyle: StrutStyle(
+                          fontSize: 28.w, forceStrutHeight: true, leading: 1.w),
+                      text: TextSpan(children: [
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          style: const TextStyle(height: 1.08),
+                          child: Icon(
+                            const IconData(
+                              0xe70a,
+                              fontFamily: 'Iconfont',
+                            ),
+                            color:
+                                const Color.fromARGB(255, 58, 81, 124), // 图标颜色
+                            size: 28.w, // 图标大小
+                          ),
+                        ),
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: SizedBox(width: 10.w), // 图标和文本之间的间距
+                        ),
+                        ...textSpans
+                      ]),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
