@@ -37,7 +37,10 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
         ),
       ),
 
-      LJNAlphabet(title: 'A'),
+      LJNAlphabet(
+        title: 'A',
+        bgColor: Colors.white,
+      ),
       ContactInformation(
         title: "天空飘来五个字那都不是事",
         icon: "images/avatar_webp/chat_1.webp",
@@ -212,7 +215,10 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
         link: '',
         underline: false,
       ),
-      LJNAlphabet(title: 'B'),
+      LJNAlphabet(
+        title: 'B',
+        bgColor: Colors.white,
+      ),
       ContactInformation(
         title: "段延庆",
         icon: "images/avatar_webp/chat_33.webp",
@@ -398,18 +404,19 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
         height: 105.0.w,
         color: Colors.white,
         child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "10个朋友",
-                style: TextStyle(
-                  height: 1.08,
-                  fontSize: fontSizeScale(30.w),
-                  color: const Color.fromARGB(255, 125, 125, 125),
-                ),
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "10个朋友",
+              style: TextStyle(
+                height: 1.08,
+                fontSize: fontSizeScale(30.w),
+                color: const Color.fromARGB(255, 125, 125, 125),
               ),
-            ]),
+            ),
+          ],
+        ),
       )
     ];
   }

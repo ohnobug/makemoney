@@ -189,42 +189,48 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                             // 最近使用的小程序
                             FunctionButtonsSection(
                               title: '最近使用的小程序',
-                              rightWidget: Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: "更多",
-                                      style: TextStyle(
-                                        height: 1.08,
-                                        fontSize: fontSizeScale(26.w),
-                                        color: const Color.fromARGB(
-                                            255, 175, 175, 175),
-                                      ),
-                                    ),
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 5.w,
-                                      ),
-                                    ),
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 26.w,
-                                        child: Icon(
-                                          const IconData(
-                                            0xed9d,
-                                            fontFamily: 'Iconfont',
-                                          ),
+                              rightWidget: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                      "/miniprogram_list");
+                                },
+                                child: Text.rich(
+                                  TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: "更多",
+                                        style: TextStyle(
+                                          height: 1.08,
+                                          fontSize: fontSizeScale(26.w),
                                           color: const Color.fromARGB(
-                                              255, 176, 176, 176),
-                                          size: 26.w,
+                                              255, 175, 175, 175),
                                         ),
                                       ),
-                                      alignment: PlaceholderAlignment
-                                          .middle, // 使图标与文本垂直居中对齐
-                                    ),
-                                  ],
+                                      WidgetSpan(
+                                        child: SizedBox(
+                                          width: 5.w,
+                                        ),
+                                      ),
+                                      WidgetSpan(
+                                        child: SizedBox(
+                                          width: 26.w,
+                                          child: Icon(
+                                            const IconData(
+                                              0xed9d,
+                                              fontFamily: 'Iconfont',
+                                            ),
+                                            color: const Color.fromARGB(
+                                                255, 176, 176, 176),
+                                            size: 26.w,
+                                          ),
+                                        ),
+                                        alignment: PlaceholderAlignment
+                                            .middle, // 使图标与文本垂直居中对齐
+                                      ),
+                                    ],
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
                               buttons: [
                                 FunctionButton(
@@ -514,7 +520,9 @@ class FunctionButtonState extends State<FunctionButton> {
         width: double.infinity,
         decoration: BoxDecoration(
           // color: Colors.orange,
-          color: _isPressed ? const Color.fromARGB(83, 238, 238, 238) : Colors.transparent, // 按下时背景色
+          color: _isPressed
+              ? const Color.fromARGB(83, 238, 238, 238)
+              : Colors.transparent, // 按下时背景色
           borderRadius: BorderRadius.circular(10.0).w, // 圆角半径
         ),
         child: Center(

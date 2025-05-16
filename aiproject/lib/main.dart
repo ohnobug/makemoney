@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:jiaoyishuoflutter3/contract/ljn_contact_group.dart';
 import 'package:jiaoyishuoflutter3/contract/ljn_contact_tag_group.dart';
 import 'package:jiaoyishuoflutter3/contract/ljn_contact_tags.dart';
 import 'package:jiaoyishuoflutter3/contract/ljn_official_accounts.dart';
@@ -540,6 +541,10 @@ class _App extends State<App> {
               } else if (settings.name == "/official_accounts") {
                 return pageRouteBuilderAnimation(
                   const LJNOfficialAccounts(),
+                );
+              } else if (settings.name == "/contact_group") {
+                return pageRouteBuilderAnimation(
+                  const LJNContactGroup(),
                 );
               }
 

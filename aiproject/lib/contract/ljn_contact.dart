@@ -42,33 +42,20 @@ class _LJNContactState extends State<LJNContact> {
       ContactInformation(
         title: "仅聊天的朋友",
         icon: "images/avatar/02.png",
-        link: '',
+        link: '/friends_who_only_chat',
         underline: true,
-        onPressed: () {
-          Navigator.pushNamed(context, '/friends_who_only_chat');
-        },
       ),
       ContactInformation(
         title: "群聊",
         icon: "images/avatar/03.png",
-        link: '',
+        link: '/contact_group',
         underline: true,
-        onPressed: () {
-          Navigator.pushNamed(context, '/chat', arguments: <String, String>{
-            'title': "群聊",
-            'icon': "images/avatar/03.png",
-          });
-        },
       ),
       ContactInformation(
-        title: "标签",
-        icon: "images/avatar/04.png",
-        link: '/contact_tags',
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(context, '/contact_tags');
-        },
-      ),
+          title: "标签",
+          icon: "images/avatar/04.png",
+          link: '/contact_tags',
+          underline: true),
       ContactInformation(
         title: "公众号",
         icon: "images/avatar/05.png",
@@ -436,18 +423,19 @@ class _LJNContactState extends State<LJNContact> {
         height: 105.0.w,
         color: Colors.white,
         child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "10个朋友",
-                style: TextStyle(
-                  height: 1.08,
-                  fontSize: fontSizeScale(30.w),
-                  color: const Color.fromARGB(255, 125, 125, 125),
-                ),
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "10个朋友",
+              style: TextStyle(
+                height: 1.08,
+                fontSize: fontSizeScale(30.w),
+                color: const Color.fromARGB(255, 125, 125, 125),
               ),
-            ]),
+            ),
+          ],
+        ),
       )
     ];
   }
@@ -614,7 +602,7 @@ class _ContactInformationState extends State<ContactInformation> {
           });
 
           if (widget.link != "") {
-            Navigator.pushNamed(context, '/official_accounts');
+            Navigator.pushNamed(context, widget.link);
           } else {
             widget.onPressed!();
           }
