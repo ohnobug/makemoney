@@ -59,7 +59,7 @@ class _LJNFriendMomentsCoverSetting
                       link: '',
                       underline: false,
                     ),
-                    SizedBox(height: 106.w),
+                    SizedBox(height: 62.w),
                     const LJNFunctionItem(
                       title: "摄影师作品",
                       link: '',

@@ -631,7 +631,11 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                                                   bottom: 30.w,
                                                   right: 30.w,
                                                   child: GestureDetector(
-                                                    onTap: () {},
+                                                    onTap: () {
+                                                      Navigator.pushNamed(
+                                                          context,
+                                                          "/friend_moments_cover_setting");
+                                                    },
                                                     child: Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
