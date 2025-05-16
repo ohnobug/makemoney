@@ -33,7 +33,9 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
   late bool _isScrolling = false;
 
   late AnimationController _likeController;
+  late AnimationController _bgController;
   late Animation<double> _likeAnimation;
+  // late Animation<double> _bgAnimation;
 
   // 显示满屏视频
   bool showFullScreenVideo = false;
@@ -61,6 +63,23 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
       reverseDuration: const Duration(milliseconds: 100), // 动画持续时间
       vsync: this,
     );
+
+    // 背景AnimationController
+    _bgController = AnimationController(
+      duration: const Duration(milliseconds: 150), // 动画持续时间
+      reverseDuration: const Duration(milliseconds: 100), // 动画持续时间
+      vsync: this,
+    );
+
+    // 背景动画
+    // _bgAnimation =
+    //     Tween<double>(begin: 360.w, end: 0.w).animate(CurvedAnimation(
+    //   parent: _bgController,
+    //   curve: Curves.easeInOut, // 这里设置加速曲线
+    // ))
+    //       ..addListener(() {
+    //         setState(() {});
+    //       });
 
     // 创建Tween来控制 left 从 360.w 到 0.w 的动画
     _likeAnimation =
@@ -464,84 +483,184 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                             itemBuilder: (context, index) {
                               if (index == 0) {
                                 // 头像及背景信息部分
-                                return Container(
-                                  height: (systemState.statusHeight + 630.w),
-                                  color: Colors.white,
-                                  width: 750.w,
-                                  child: Stack(
-                                    children: [
-                                      // 背景图片
-                                      Transform.translate(
-                                        offset: Offset(0, -100.w),
-                                        child: Image.asset(
-                                          assetPath('images/avatar/fj.jpg'),
-                                          cacheWidth: 1500.w.toInt(),
-                                          cacheHeight:
-                                              (systemState.statusHeight +
-                                                      1260.w)
-                                                  .toInt(),
-                                          width: 750.w,
-                                          height: 730.w,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
+                                return AnimatedBuilder(
+                                  animation: _bgController,
+                                  builder: (context, child) {
+                                    return Container(
+                                      height:
+                                          (systemState.statusHeight + 630.w) +
+                                              (600.w * _bgController.value),
+                                      alignment: Alignment.center,
+                                      color: _bgController.isAnimating ||
+                                              _bgController.isCompleted
+                                          ? const Color.fromARGB(255, 0, 0, 0)
+                                          : Colors.white,
+                                      width: 750.w,
+                                      child: Stack(
+                                        children: [
+                                          // 背景图片
+                                          GestureDetector(
+                                            onTap: () {
+                                              if (!_bgController.isCompleted) {
+                                                _bgController.forward();
+                                              } else {
+                                                _bgController.reverse();
+                                              }
+                                            },
+                                            child: Transform.translate(
+                                              offset: _bgController.isCompleted
+                                                  ? Offset(0, 0)
+                                                  : Offset(0, -100.w),
+                                              child: AnimatedBuilder(
+                                                animation: _bgController,
+                                                builder: (context, child) {
+                                                  return Image.asset(
+                                                    assetPath(
+                                                        'images/avatar/fj.jpg'),
+                                                    cacheWidth: 1500.w.toInt(),
+                                                    cacheHeight: (systemState
+                                                                .statusHeight +
+                                                            1260.w)
+                                                        .toInt(),
+                                                    width: 750.w,
+                                                    height: _bgController
+                                                            .isCompleted
+                                                        ? (systemState
+                                                                    .statusHeight +
+                                                                630.w) +
+                                                            (600.w *
+                                                                _bgController
+                                                                    .value)
+                                                        : 730.w,
+                                                    fit: _bgController
+                                                            .isCompleted
+                                                        ? BoxFit.contain
+                                                        : BoxFit.cover,
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
 
-                                      // 头像及昵称
-                                      Positioned(
-                                        top: systemState.statusHeight + 460.w,
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 35.w,
-                                          ),
-                                          width: 750.w,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              // 昵称
-                                              Container(
-                                                margin: EdgeInsets.only(
-                                                  right: 15.w,
-                                                  top: 5.w,
-                                                ),
-                                                child: Text(
-                                                  context
-                                                      .read<LJNUserCubit>()
-                                                      .state
-                                                      .userinfoName!,
-                                                  style: TextStyle(
-                                                    height: 1.08,
-                                                    fontSize: fontSizeScale(
-                                                      40.w,
+                                          // 头像及昵称
+                                          Transform.translate(
+                                              offset: Offset(
+                                                  0,
+                                                  systemState.statusHeight +
+                                                      460.w +
+                                                      (_bgController.value *
+                                                          300.w)),
+                                              child: Opacity(
+                                                opacity:
+                                                    1 - _bgController.value,
+                                                child: GestureDetector(
+                                                    onTap: () {
+                                                      Navigator.pushNamed(
+                                                          context, '/userinfo');
+                                                    },
+                                                    child: Container(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                        horizontal: 35.w,
+                                                      ),
+                                                      width: 750.w,
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          // 昵称
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                              right: 15.w,
+                                                              top: 5.w,
+                                                            ),
+                                                            child: Text(
+                                                              context
+                                                                  .read<
+                                                                      LJNUserCubit>()
+                                                                  .state
+                                                                  .userinfoName!,
+                                                              style: TextStyle(
+                                                                height: 1.08,
+                                                                fontSize:
+                                                                    fontSizeScale(
+                                                                  40.w,
+                                                                ),
+                                                                color: Colors
+                                                                    .white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                        .circular(
+                                                                            10)
+                                                                    .w,
+                                                            child: Image.asset(
+                                                              assetPath(context
+                                                                  .read<
+                                                                      LJNUserCubit>()
+                                                                  .state
+                                                                  .userinfoAvatar!),
+                                                              cacheWidth:
+                                                                  240.w.toInt(),
+                                                              cacheHeight:
+                                                                  240.w.toInt(),
+                                                              width: 120.w,
+                                                              height: 120.w,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )),
+                                              )),
+
+                                          // 更换背景按钮
+                                          _bgController.isCompleted
+                                              ? Positioned(
+                                                  bottom: 30.w,
+                                                  right: 30.w,
+                                                  child: GestureDetector(
+                                                    onTap: () {},
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Icon(
+                                                          const IconData(0xe68a,
+                                                              fontFamily:
+                                                                  'Iconfont'),
+                                                          size: 40.w,
+                                                          color: Colors.white,
+                                                        ),
+                                                        SizedBox(height: 5.w),
+                                                        Text(
+                                                          "换封面",
+                                                          style: TextStyle(
+                                                            fontSize: 22.w,
+                                                            color: Colors.white,
+                                                          ),
+                                                        )
+                                                      ],
                                                     ),
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w600,
                                                   ),
-                                                ),
-                                              ),
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10).w,
-                                                child: Image.asset(
-                                                  assetPath(context
-                                                      .read<LJNUserCubit>()
-                                                      .state
-                                                      .userinfoAvatar!),
-                                                  cacheWidth: 240.w.toInt(),
-                                                  cacheHeight: 240.w.toInt(),
-                                                  width: 120.w,
-                                                  height: 120.w,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                                )
+                                              : SizedBox()
+                                        ],
+                                      ),
+                                    );
+                                  },
                                 );
                               } else {
                                 // Tweet列表
@@ -614,27 +733,36 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                       ),
                     ),
                     actions: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          color: Colors.transparent,
-                          height: 90.w,
-                          padding: EdgeInsets.only(right: 40.w),
-                          alignment: Alignment.center,
-                          child: _appBarOpacity.value.toInt() > 180
-                              ? Icon(
-                                  const IconData(0xe68a,
-                                      fontFamily: 'Iconfont'),
-                                  size: 40.w,
-                                  color: Colors.black,
-                                )
-                              : Icon(
-                                  const IconData(0xe64d,
-                                      fontFamily: 'Iconfont'),
-                                  size: 40.w,
-                                  color: Colors.white,
-                                ),
-                        ),
+                      // 照相机
+                      AnimatedBuilder(
+                        animation: _bgController,
+                        builder: (context, child) {
+                          return Transform.translate(
+                            offset: Offset(0, _bgController.value * -300.w),
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                color: const Color.fromARGB(0, 255, 0, 0),
+                                height: 90.w,
+                                padding: EdgeInsets.only(right: 40.w),
+                                alignment: Alignment.center,
+                                child: _appBarOpacity.value.toInt() > 180
+                                    ? Icon(
+                                        const IconData(0xe68a,
+                                            fontFamily: 'Iconfont'),
+                                        size: 40.w,
+                                        color: Colors.black,
+                                      )
+                                    : Icon(
+                                        const IconData(0xe64d,
+                                            fontFamily: 'Iconfont'),
+                                        size: 40.w,
+                                        color: Colors.white,
+                                      ),
+                              ),
+                            ),
+                          );
+                        },
                       )
                     ],
                   ),
@@ -809,16 +937,18 @@ class _TweetWidget extends State<TweetWidget> {
           children: buildTextSpans(
             name,
             TextStyle(
-                // textBaseline: TextBaseline.alphabetic,
-                height: 1.08,
-                fontSize: fontSizeScale(28.w),
-                color: const Color.fromARGB(255, 58, 81, 124),
-                fontFamily: "AlibabaPuHuiTi-Medium"),
+              // textBaseline: TextBaseline.alphabetic,
+              height: 1.08,
+              fontSize: fontSizeScale(28.w),
+              color: const Color.fromARGB(255, 58, 81, 124),
+              fontFamily: "AlibabaPuHuiTi-Medium",
+            ),
             TextStyle(
-                // textBaseline: TextBaseline.alphabetic,
-                height: 1.08,
-                fontSize: fontSizeScale(28.w),
-                fontFamily: "NotoColorEmoji-Regular"),
+              // textBaseline: TextBaseline.alphabetic,
+              height: 1.08,
+              fontSize: fontSizeScale(28.w),
+              fontFamily: "NotoColorEmoji-Regular",
+            ),
           ),
         ),
       );
@@ -930,15 +1060,17 @@ class _TweetWidget extends State<TweetWidget> {
                             children: buildTextSpans(
                               widget.tweetContent,
                               TextStyle(
-                                  // textBaseline: TextBaseline.alphabetic,
-                                  height: 1.4,
-                                  fontSize: fontSizeScale(32.w),
-                                  fontFamily: "AlibabaPuHuiTi"),
+                                // textBaseline: TextBaseline.alphabetic,
+                                height: 1.4,
+                                fontSize: fontSizeScale(32.w),
+                                fontFamily: "AlibabaPuHuiTi",
+                              ),
                               TextStyle(
-                                  // textBaseline: TextBaseline.alphabetic,
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(32.w),
-                                  fontFamily: "NotoColorEmoji-Regular"),
+                                // textBaseline: TextBaseline.alphabetic,
+                                height: 1.08,
+                                fontSize: fontSizeScale(32.w),
+                                fontFamily: "NotoColorEmoji-Regular",
+                              ),
                             ),
                           ),
                         ),

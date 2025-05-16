@@ -5,6 +5,7 @@ import 'package:jiaoyishuoflutter3/contract/ljn_contact_tag_group.dart';
 import 'package:jiaoyishuoflutter3/contract/ljn_contact_tags.dart';
 import 'package:jiaoyishuoflutter3/contract/ljn_official_accounts.dart';
 import 'package:jiaoyishuoflutter3/contract/ljn_search_friend.dart';
+import 'package:jiaoyishuoflutter3/friend/ljn_friend_moments_cover_setting.dart';
 import 'package:jiaoyishuoflutter3/friend/ljn_set_friend_tags.dart';
 import 'package:jiaoyishuoflutter3/user/ljn_camera_view.dart';
 import 'package:jiaoyishuoflutter3/components/ljn_image_draggable_box.dart';
@@ -545,6 +546,10 @@ class _App extends State<App> {
               } else if (settings.name == "/contact_group") {
                 return pageRouteBuilderAnimation(
                   const LJNContactGroup(),
+                );
+              } else if (settings.name == "/friend_moments_cover_setting") {
+                return pageRouteBuilderAnimation(
+                  const LJNFriendMomentsCoverSetting(),
                 );
               }
 
