@@ -19,10 +19,15 @@ class LJNImaeDraggableBox extends StatefulWidget {
   State<LJNImaeDraggableBox> createState() => _LJNImaeDraggableBoxState();
 }
 
-class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox> {
+class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
+    with TickerProviderStateMixin {
   late Matrix4 _matrix; // 图片的变换矩阵。
   Size? _imageSize; // 图片的实际尺寸。
   Offset initOffset = Offset.zero; // 初始偏移量。
+
+  late AnimationController _animationController;
+  late Animation<Offset> _offsetAnimation;
+  late Animation<double> _scaleAnimation;
 
   double _currentScale = 1.0; // 图片当前的缩放比例。
   Offset _currentOffset = Offset.zero; // 图片当前的平移位置。
@@ -35,6 +40,34 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox> {
   @override
   void initState() {
     super.initState();
+
+    // 放大缩小
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 100),
+      vsync: this,
+    );
+
+    _animationController.addListener(() {
+      setState(() {
+        _matrix = _buildTransformMatrix(); // 重新构建变换矩阵。
+      });
+    });
+
+    _offsetAnimation =
+        Tween<Offset>(begin: Offset.zero, end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
+    _scaleAnimation = Tween<double>(begin: 1, end: 1).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+
     _matrix = Matrix4.identity(); // 初始化变换矩阵。
   }
 
@@ -42,13 +75,32 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onDoubleTap: () {
-        _internalCloseFullScreen(); // 处理双击以关闭全屏。
+        _internalCloseScaleScreen(); // 处理双击以关闭全屏。
       },
       onScaleStart: (details) {
+        // 放大缩小
+        _animationController.reset();
+
+        _offsetAnimation =
+            Tween<Offset>(begin: _currentOffset, end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeInOut,
+          ),
+        );
+
+        _scaleAnimation = Tween<double>(begin: _currentScale, end: 1).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeInOut,
+          ),
+        );
+
         setState(() {
           _gestureStartScale = _currentScale; // 存储当前缩放比例。
           _gestureStartOffset = _currentOffset; // 存储当前偏移量。
           _gestureStartFocalPoint = details.focalPoint; // 存储焦点位置。
+          _matrix = _buildTransformMatrix(); // 重新构建变换矩阵。
         });
       },
       onScaleUpdate: (details) {
@@ -62,55 +114,95 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox> {
         setState(() {
           _currentScale = newTargetScaleOverall; // 更新当前缩放比例。
           _currentOffset = newOffset; // 更新当前偏移量。
+
+          _offsetAnimation =
+              Tween<Offset>(begin: _currentOffset, end: Offset.zero).animate(
+            CurvedAnimation(
+              parent: _animationController,
+              curve: Curves.easeInOut,
+            ),
+          );
+
+          _scaleAnimation = Tween<double>(begin: _currentScale, end: 1).animate(
+            CurvedAnimation(
+              parent: _animationController,
+              curve: Curves.easeInOut,
+            ),
+          );
+
           _matrix = _buildTransformMatrix(); // 重新构建变换矩阵。
         });
       },
-      onScaleEnd: (details) {}, // 处理缩放手势结束。
+      onScaleEnd: (details) {
+        _offsetAnimation =
+            Tween<Offset>(begin: _currentOffset, end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeInOut,
+          ),
+        );
+
+        _scaleAnimation = Tween<double>(begin: _currentScale, end: 1).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeInOut,
+          ),
+        );
+      },
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Stack(
             children: [
-              // 背景。
+              // 背景
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 color: Color.fromARGB(255, 0, 0, 0),
               ),
 
-              // 图片。
-              Center(
-                child: SizedBox(
-                  width: constraints.maxWidth,
-                  height: constraints.maxHeight,
-                  child: Image.asset(
-                    assetPath(widget.imageUrl),
-                    fit: BoxFit.contain,
-                    errorBuilder: (context, error, stackTrace) =>
-                        Center(child: Text('加载失败')), // 如果图片加载失败，显示错误信息。
-                    frameBuilder:
-                        (context, child, frame, wasSynchronouslyLoaded) {
-                      // 一旦图片加载完成，记录图片尺寸。
-                      if (frame != null && _imageSize == null) {
-                        final ImageStream imageStream =
-                            NetworkImage(assetPath(widget.imageUrl))
-                                .resolve(ImageConfiguration.empty);
-                        imageStream.addListener(ImageStreamListener(
-                            (ImageInfo imageInfo, bool synchronousCall) {
-                          setState(() {
-                            _imageSize = Size(imageInfo.image.width.toDouble(),
-                                imageInfo.image.height.toDouble());
-                          });
-                        }));
-                      }
-                      return Transform(
-                        transform: _matrix,
-                        alignment: Alignment.center,
-                        child: child,
-                      );
-                    },
-                  ),
-                ),
-              ),
+              // 图片
+              AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (context, child) {
+                    return Center(
+                      child: SizedBox(
+                        width: constraints.maxWidth,
+                        height: constraints.maxHeight,
+                        child: Image.asset(
+                          assetPath(widget.imageUrl),
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Center(child: Text('加载失败')), // 如果图片加载失败，显示错误信息。
+                          frameBuilder:
+                              (context, child, frame, wasSynchronouslyLoaded) {
+                            // 一旦图片加载完成，记录图片尺寸。
+                            if (frame != null && _imageSize == null) {
+                              final ImageStream imageStream =
+                                  NetworkImage(assetPath(widget.imageUrl))
+                                      .resolve(ImageConfiguration.empty);
+                              imageStream.addListener(
+                                ImageStreamListener(
+                                  (ImageInfo imageInfo, bool synchronousCall) {
+                                    setState(() {
+                                      _imageSize = Size(
+                                        imageInfo.image.width.toDouble(),
+                                        imageInfo.image.height.toDouble(),
+                                      );
+                                    });
+                                  },
+                                ),
+                              );
+                            }
+                            return Transform(
+                              transform: _matrix,
+                              alignment: Alignment.center,
+                              child: child,
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  }),
 
               // 关闭按钮。
               Positioned(
@@ -118,7 +210,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox> {
                 right: 30.w,
                 child: GestureDetector(
                   onTap: () {
-                    _internalCloseFullScreen(); // 处理点击以关闭全屏。
+                    _internalCloseScaleScreen(); // 处理点击以关闭全屏。
                     // widget.onClose?.call(); // 可选地调用外部回调。
                   },
                   child: Container(
@@ -152,20 +244,31 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox> {
   // 根据当前缩放比例和偏移量构建变换矩阵。
   Matrix4 _buildTransformMatrix() {
     return Matrix4.identity()
-      ..translate(_currentOffset.dx, _currentOffset.dy) // 应用平移。
-      ..scale(_currentScale); // 应用缩放。
+      ..translate(_offsetAnimation.value.dx, _offsetAnimation.value.dy)
+      ..scale(_scaleAnimation.value);
   }
 
   // 将图片重置为原始状态（关闭全屏）。
-  void _internalCloseFullScreen() {
-    setState(() {
-      _currentScale = 1.0; // 重置缩放比例。
-      _currentOffset = Offset.zero; // 重置偏移量。
-      _gestureStartScale = 1.0; // 重置手势开始时的缩放比例。
-      _gestureStartOffset = Offset.zero; // 重置手势开始时的偏移量。
-      _gestureStartFocalPoint = Offset.zero; // 重置手势开始时的焦点位置。
-      _matrix = _buildTransformMatrix(); // 重新构建变换矩阵。
+  void _internalCloseScaleScreen() {
+    // setState(() {
+    //   _animationController.addListener(() {
+    //     _currentScale = 1.0; // 重置缩放比例。
+    //     _currentOffset = Offset.zero; // 重置偏移量。
+    //     _gestureStartScale = 1.0; // 重置手势开始时的缩放比例。
+    //     _gestureStartOffset = Offset.zero; // 重置手势开始时的偏移量。
+    //     _gestureStartFocalPoint = Offset.zero; // 重置手势开始时的焦点位置。
+    //     _matrix = _buildTransformMatrix(); // 重新构建变换矩阵。
+    //   });
+    // });
+
+    _animationController.forward().then((v) {
+      setState(() {
+        _currentScale = 1.0; // 重置缩放比例。
+        _currentOffset = Offset.zero; // 重置偏移量。
+        _gestureStartScale = 1.0; // 重置手势开始时的缩放比例。
+        _gestureStartOffset = Offset.zero; // 重置手势开始时的偏移量。
+        _gestureStartFocalPoint = Offset.zero; // 重置手势开始时的焦点位置。
+      });
     });
-    // 可以在此处添加额外的关闭逻辑（例如，动画）。
   }
 }
