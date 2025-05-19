@@ -47,9 +47,6 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
 
   double imageWidth = 0;
   double imageHeight = 0;
-  double newWidth = 0;
-  double newHeight = 0;
-
   bool canBeCloseFlag = false;
   Size oldSize = const Size(0, 0);
   Offset? originPoint;
@@ -120,14 +117,9 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
 
     ui.Image info = await completer.future;
 
-    var newWidth = 750.w;
-    var newHeight = (imageWidth / imageHeight) * newWidth;
-
     setState(() {
-      imageWidth = info.width.toDouble() / 2;
-      imageHeight = info.height.toDouble() / 2;
-      newWidth = newWidth;
-      newHeight = newHeight;
+      imageWidth = info.width.toDouble();
+      imageHeight = info.height.toDouble();
     });
   }
 
@@ -138,6 +130,9 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
     _sizedController.dispose();
     super.dispose();
   }
+
+  double newWidth = 0;
+  double newHeight = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -164,6 +159,9 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
                 firstOpen = false;
               });
             });
+
+            newWidth = systemState.screenSize.width;
+            newHeight = (imageWidth / imageHeight) * newWidth;
 
             // 中心点坐标
             originPoint = Offset((systemState.screenSize.width - newWidth) / 2,
