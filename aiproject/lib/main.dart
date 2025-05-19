@@ -239,10 +239,11 @@ class _App extends State<App> {
                             )
                           : popupState.showFullScreenImage == true
                               ? LJNImaeDraggableBox(
-                                  openBoxSize: popupState.openBoxSize,
-                                  openPosition: popupState.openPosition,
-                                  imagePath: popupState.sourcePath,
-                                  onClose: () {},
+                                  imageUrl: popupState.sourcePath,
+                                  // openBoxSize: popupState.openBoxSize,
+                                  // openPosition: popupState.openPosition,
+                                  // imagePath: popupState.sourcePath,
+                                  // onClose: () {},
                                 )
                               : Container();
                     },

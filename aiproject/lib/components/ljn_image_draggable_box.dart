@@ -1,383 +1,171 @@
-import 'dart:async';
-import 'dart:math';
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
-import 'package:jiaoyishuoflutter3/store/ljn_popup_cubit.dart';
-import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
-import 'package:jiaoyishuoflutter3/tools/ljn_cancelable_delay.dart';
 import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
 
+// 可拖动和缩放的图片框状态组件。
 class LJNImaeDraggableBox extends StatefulWidget {
-  final VoidCallback? onClose;
-
-  final Size openBoxSize;
-  final Offset openPosition;
-  final String imagePath;
+  final String imageUrl; // 图片的URL地址。
+  final double minScale; // 图片允许的最小缩放比例。
+  final double maxScale; // 图片允许的最大缩放比例。
 
   const LJNImaeDraggableBox({
     super.key,
-    this.onClose,
-    required this.openBoxSize,
-    required this.openPosition,
-    required this.imagePath,
+    required this.imageUrl,
+    this.minScale = 0.5,
+    this.maxScale = 5.0,
   });
 
   @override
   State<LJNImaeDraggableBox> createState() => _LJNImaeDraggableBoxState();
 }
 
-class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
-    with TickerProviderStateMixin {
-  // 位置控制器
-  late AnimationController _positionAnimationController;
-  late Animation<Offset> _positionAnimation;
+class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox> {
+  late Matrix4 _matrix; // 图片的变换矩阵。
+  Size? _imageSize; // 图片的实际尺寸。
+  Offset initOffset = Offset.zero; // 初始偏移量。
 
-  // 背景透明度控制器
-  late AnimationController _bgTransparentController;
-  late Animation<double> _bganimation;
+  double _currentScale = 1.0; // 图片当前的缩放比例。
+  Offset _currentOffset = Offset.zero; // 图片当前的平移位置。
 
-  // 盒子大小控制器
-  late AnimationController _sizedController;
-  late Animation<Size> _sizedAnimation;
-
-  Offset _boxOffset = Offset.zero; // 小盒子的偏移量
-
-  double imageWidth = 0;
-  double imageHeight = 0;
-  bool canBeCloseFlag = false;
-  Size oldSize = const Size(0, 0);
-  Offset? originPoint;
-  Offset currentPosition = Offset(0, 0);
-  bool firstOpen = true;
+  // 手势交互过程中的辅助变量。
+  double _gestureStartScale = 1.0; // 手势开始时的缩放比例。
+  Offset _gestureStartOffset = Offset.zero; // 手势开始时的偏移量。
+  Offset _gestureStartFocalPoint = Offset.zero; // 手势开始时的焦点位置。
 
   @override
   void initState() {
     super.initState();
-
-    // 位置控制器
-    _positionAnimationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 100), // 回弹动画时长
-    );
-    _positionAnimation =
-        Tween<Offset>(begin: Offset.zero, end: Offset.zero).animate(
-      CurvedAnimation(
-          parent: _positionAnimationController,
-          curve: Curves.easeInOutCubicEmphasized),
-    );
-
-    // 背景透明度控制器
-    _bgTransparentController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 100),
-    );
-    _bganimation = Tween<double>(begin: 0, end: 255).animate(
-      CurvedAnimation(
-          parent: _bgTransparentController, curve: Curves.easeInOut),
-    );
-
-    // 盒子大小控制器
-    _sizedController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 100),
-    );
-
-    // 大小
-    _sizedAnimation = Tween<Size>(
-      begin: widget.openBoxSize,
-      end: Size(imageWidth, imageHeight),
-    ).animate(
-      CurvedAnimation(parent: _sizedController, curve: Curves.linear),
-    );
-
-    getImageInfo();
+    _matrix = Matrix4.identity(); // 初始化变换矩阵。
   }
-
-  Image? image;
-
-  Future<void> getImageInfo() async {
-    image = Image.asset(
-      assetPath(widget.imagePath),
-      // width: 750.w,
-      // height: 730.w,
-      fit: BoxFit.contain,
-    );
-
-    Completer<ui.Image> completer = Completer<ui.Image>();
-    image!.image.resolve(ImageConfiguration()).addListener(
-      ImageStreamListener(
-        (ImageInfo image, bool _) {
-          completer.complete(image.image);
-        },
-      ),
-    );
-
-    ui.Image info = await completer.future;
-
-    setState(() {
-      imageWidth = info.width.toDouble();
-      imageHeight = info.height.toDouble();
-    });
-  }
-
-  @override
-  void dispose() {
-    _positionAnimationController.dispose();
-    _bgTransparentController.dispose();
-    _sizedController.dispose();
-    super.dispose();
-  }
-
-  double newWidth = 0;
-  double newHeight = 0;
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LJNPopupCubit, PopupState>(
-      listener: (context, state) {
-        logger.info(
-            'qqqqqqqqqqqqqqqqqq showFullScreenImage ${state.showFullScreenImage}');
-        logger.info(
-            'qqqqqqqqqqqqqqqqqq returnButtonEvent ${state.returnButtonEvent}');
-
-        // 当前为显示满屏视频窗口并且返回按钮被按下
-        if (state.showFullScreenImage == true &&
-            state.returnButtonEvent == true) {
-          logger.info('qqqqqqqqqqqqqqqqqq 3333333333');
-
-          closeFullScreen(currentPosition);
-        }
+    return GestureDetector(
+      onDoubleTap: () {
+        _internalCloseFullScreen(); // 处理双击以关闭全屏。
       },
-      child: BlocBuilder<LJNSystemCubit, SystemState>(
-        builder: (context, systemState) {
-          if (firstOpen && imageWidth != 0 && imageHeight != 0) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              setState(() {
-                firstOpen = false;
-              });
-            });
+      onScaleStart: (details) {
+        setState(() {
+          _gestureStartScale = _currentScale; // 存储当前缩放比例。
+          _gestureStartOffset = _currentOffset; // 存储当前偏移量。
+          _gestureStartFocalPoint = details.focalPoint; // 存储焦点位置。
+        });
+      },
+      onScaleUpdate: (details) {
+        final double newTargetScaleOverall =
+            (_gestureStartScale * details.scale)
+                .clamp(widget.minScale, widget.maxScale); // 限制新的缩放比例。
 
-            newWidth = systemState.screenSize.width;
-            newHeight = (imageWidth / imageHeight) * newWidth;
+        final Offset delta = details.focalPoint - _gestureStartFocalPoint;
+        final Offset newOffset = _gestureStartOffset + (delta);
 
-            // 中心点坐标
-            originPoint = Offset((systemState.screenSize.width - newWidth) / 2,
-                (systemState.screenSize.height - newHeight) / 2);
+        setState(() {
+          _currentScale = newTargetScaleOverall; // 更新当前缩放比例。
+          _currentOffset = newOffset; // 更新当前偏移量。
+          _matrix = _buildTransformMatrix(); // 重新构建变换矩阵。
+        });
+      },
+      onScaleEnd: (details) {}, // 处理缩放手势结束。
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Stack(
+            children: [
+              // 背景。
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
 
-            // 位置
-            _positionAnimation = Tween<Offset>(
-              begin: widget.openPosition,
-              end: Offset(0, originPoint!.dy),
-            ).animate(_positionAnimationController);
-
-            // 背景
-            _bgTransparentController.forward(from: 0.0);
-            _positionAnimationController.forward(from: 0).then((_) {});
-
-            // 大小
-            _sizedAnimation = Tween<Size>(
-              begin: widget.openBoxSize,
-              end: Size(newWidth, newHeight),
-            ).animate(_sizedController);
-            _sizedController.forward();
-          }
-
-          return AnimatedBuilder(
-            animation: _positionAnimationController,
-            builder: (context, child) {
-              Offset currentPosition = Offset(
-                _positionAnimation.value.dx +
-                    _boxOffset.dx +
-                    max((oldSize.width - _sizedAnimation.value.width) / 2, 0),
-                _positionAnimation.value.dy +
-                    _boxOffset.dy +
-                    max((oldSize.height - _sizedAnimation.value.height) / 2, 0),
-              );
-
-              return GestureDetector(
-                onTap: () {
-                  closeFullScreen(currentPosition);
-                },
-                onPanDown: (details) {
-                  _positionAnimationController.stop();
-                  _bgTransparentController.stop();
-                  _sizedController.stop();
-
-                  // 缩小或者放大过程再次被点击，取消关闭
-                  cancelableDelay?.cancel();
-
-                  setState(() {
-                    oldSize = _sizedAnimation.value;
-                  });
-                },
-                onPanUpdate: (details) {
-                  // 更新偏移量
-                  setState(() {
-                    // 偏移
-                    _boxOffset += details.delta;
-
-                    // 背景
-                    double distance = _boxOffset.dy.abs();
-                    double v =
-                        distance / (MediaQuery.of(context).size.height / 2);
-
-                    if (v > 1) v = 1;
-                    _bgTransparentController.value = 1 - v;
-
-                    // 大小
-                    _sizedController.value = 1 - v;
-
-                    if (distance > 100) {
-                      canBeCloseFlag = true;
-                    } else {
-                      canBeCloseFlag = false;
-                    }
-                  });
-                },
-                onPanEnd: (DragEndDetails details) {
-                  if (canBeCloseFlag) {
-                    closeFullScreen(currentPosition);
-                    return;
-                  }
-
-                  // 使用 Tween 动画将偏移量平滑过渡到 (0, 0)
-                  _positionAnimation = Tween<Offset>(
-                    begin: currentPosition,
-                    end: Offset(0,
-                        (MediaQuery.of(context).size.height - newHeight) / 2),
-                  ).animate(
-                    CurvedAnimation(
-                      parent: _positionAnimationController,
-                      curve: Curves.easeInOutCubicEmphasized, // 使用缓动曲线
-                    ),
-                  );
-
-                  setState(() {
-                    _boxOffset = Offset.zero;
-                    oldSize = Size.zero;
-                  });
-
-                  _positionAnimationController.reset();
-                  _positionAnimationController.forward(from: 0.0); // 开始动画
-
-                  _bganimation = Tween<double>(
-                          begin: _bgTransparentController.value, end: 255)
-                      .animate(_bgTransparentController);
-                  _bgTransparentController.forward();
-
-                  _sizedController.forward();
-                },
-                child: Stack(
-                  children: [
-                    // 背景
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      color:
-                          Color.fromARGB(_bganimation.value.toInt(), 0, 0, 0),
-                    ),
-
-                    // 图片窗口
-                    if (image != null && imageWidth != 0 && imageHeight != 0)
-                      Positioned(
-                        left: currentPosition.dx,
-                        top: currentPosition.dy,
-                        child: Container(
-                          width: _sizedAnimation.value.width,
-                          height: _sizedAnimation.value.height,
-                          color: Colors.transparent,
-                          child: image,
-                        ),
-                      )
-                    else
-                      Text(
-                        "Loading",
-                        style: TextStyle(color: Colors.red),
-                      ),
-
-                    // 关闭按钮
-                    if (currentPosition == originPoint)
-                      Positioned(
-                        top: 90.w,
-                        right: 30.w,
-                        child: GestureDetector(
-                          onTap: () {
-                            closeFullScreen(currentPosition);
-                          },
-                          child: Container(
-                            width: 60.w,
-                            height: 60.w,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(50.w),
-                              ),
-                            ),
-                            alignment: Alignment.center,
-                            child: Icon(
-                              const IconData(
-                                0xe60f,
-                                fontFamily: 'Iconfont',
-                              ),
-                              size: 30.w, // 图标的大小
-                              color: const Color.fromARGB(255, 0, 0, 0), // 图标颜色
-                            ),
-                          ),
-                        ),
-                      ),
-                  ],
+              // 图片。
+              Center(
+                child: SizedBox(
+                  width: constraints.maxWidth,
+                  height: constraints.maxHeight,
+                  child: Image.asset(
+                    assetPath(widget.imageUrl),
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) =>
+                        Center(child: Text('加载失败')), // 如果图片加载失败，显示错误信息。
+                    frameBuilder:
+                        (context, child, frame, wasSynchronouslyLoaded) {
+                      // 一旦图片加载完成，记录图片尺寸。
+                      if (frame != null && _imageSize == null) {
+                        final ImageStream imageStream =
+                            NetworkImage(assetPath(widget.imageUrl))
+                                .resolve(ImageConfiguration.empty);
+                        imageStream.addListener(ImageStreamListener(
+                            (ImageInfo imageInfo, bool synchronousCall) {
+                          setState(() {
+                            _imageSize = Size(imageInfo.image.width.toDouble(),
+                                imageInfo.image.height.toDouble());
+                          });
+                        }));
+                      }
+                      return Transform(
+                        transform: _matrix,
+                        alignment: Alignment.center,
+                        child: child,
+                      );
+                    },
+                  ),
                 ),
-              );
-            },
+              ),
+
+              // 关闭按钮。
+              Positioned(
+                top: 90.w,
+                right: 30.w,
+                child: GestureDetector(
+                  onTap: () {
+                    _internalCloseFullScreen(); // 处理点击以关闭全屏。
+                    // widget.onClose?.call(); // 可选地调用外部回调。
+                  },
+                  child: Container(
+                    width: 60.w,
+                    height: 60.w,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50.w),
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: Icon(
+                      const IconData(
+                        0xe60f,
+                        fontFamily: 'Iconfont',
+                      ),
+                      size: 30.w,
+                      color: const Color.fromARGB(255, 0, 0, 0),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           );
         },
       ),
     );
   }
 
-  LJNCancelableDelay? cancelableDelay;
+  // 根据当前缩放比例和偏移量构建变换矩阵。
+  Matrix4 _buildTransformMatrix() {
+    return Matrix4.identity()
+      ..translate(_currentOffset.dx, _currentOffset.dy) // 应用平移。
+      ..scale(_currentScale); // 应用缩放。
+  }
 
-  // 关闭全屏
-  void closeFullScreen(Offset currentPosition) {
-    _positionAnimationController.stop();
-    _bgTransparentController.stop();
-    _sizedController.stop();
-    canBeCloseFlag = false;
-    cancelableDelay = LJNCancelableDelay();
-
+  // 将图片重置为原始状态（关闭全屏）。
+  void _internalCloseFullScreen() {
     setState(() {
-      _boxOffset = Offset.zero;
-      oldSize = Size.zero;
+      _currentScale = 1.0; // 重置缩放比例。
+      _currentOffset = Offset.zero; // 重置偏移量。
+      _gestureStartScale = 1.0; // 重置手势开始时的缩放比例。
+      _gestureStartOffset = Offset.zero; // 重置手势开始时的偏移量。
+      _gestureStartFocalPoint = Offset.zero; // 重置手势开始时的焦点位置。
+      _matrix = _buildTransformMatrix(); // 重新构建变换矩阵。
     });
-
-    // 使用 Tween 动画将偏移量平滑过渡到 (0, 0)
-    _positionAnimation = Tween<Offset>(
-      begin: widget.openPosition,
-      end: currentPosition,
-    ).animate(
-      CurvedAnimation(
-        parent: _positionAnimationController,
-        curve: Curves.linear,
-      ),
-    );
-
-    _positionAnimationController.value = 1;
-    _positionAnimationController.reverse().then((_) {});
-
-    _bgTransparentController.reverse();
-
-    _sizedController.reverse().then((_) {
-      // 创建一个可取消的延迟任务
-      cancelableDelay!.delayed(const Duration(milliseconds: 100), () {
-        setState(() {
-          context.read<LJNPopupCubit>().updateReturnButtonEvent(false);
-          context.read<LJNPopupCubit>().updateShowFullScreenImage(false);
-          if (widget.onClose != null) widget.onClose!();
-        });
-      });
-    });
+    // 可以在此处添加额外的关闭逻辑（例如，动画）。
   }
 }
