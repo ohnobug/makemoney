@@ -47,6 +47,9 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
 
   double imageWidth = 0;
   double imageHeight = 0;
+  double newWidth = 0;
+  double newHeight = 0;
+
   bool canBeCloseFlag = false;
   Size oldSize = const Size(0, 0);
   Offset? originPoint;
@@ -117,9 +120,14 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
 
     ui.Image info = await completer.future;
 
+    var newWidth = 750.w;
+    var newHeight = (imageWidth / imageHeight) * newWidth;
+
     setState(() {
-      imageWidth = info.width.toDouble();
-      imageHeight = info.height.toDouble();
+      imageWidth = info.width.toDouble() / 2;
+      imageHeight = info.height.toDouble() / 2;
+      newWidth = newWidth;
+      newHeight = newHeight;
     });
   }
 
@@ -158,9 +166,8 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
             });
 
             // 中心点坐标
-            originPoint = Offset(
-                (systemState.screenSize.width - imageWidth) / 2,
-                (systemState.screenSize.height - imageHeight) / 2);
+            originPoint = Offset((systemState.screenSize.width - newWidth) / 2,
+                (systemState.screenSize.height - newHeight) / 2);
 
             // 位置
             _positionAnimation = Tween<Offset>(
@@ -175,7 +182,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
             // 大小
             _sizedAnimation = Tween<Size>(
               begin: widget.openBoxSize,
-              end: Size(imageWidth, imageHeight),
+              end: Size(newWidth, newHeight),
             ).animate(_sizedController);
             _sizedController.forward();
           }
@@ -242,7 +249,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
                   _positionAnimation = Tween<Offset>(
                     begin: currentPosition,
                     end: Offset(0,
-                        (MediaQuery.of(context).size.height - imageHeight) / 2),
+                        (MediaQuery.of(context).size.height - newHeight) / 2),
                   ).animate(
                     CurvedAnimation(
                       parent: _positionAnimationController,
