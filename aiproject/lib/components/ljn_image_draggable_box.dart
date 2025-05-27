@@ -213,17 +213,17 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
                         ),
                       );
                     },
-                    child: Container(
-                      width: constraints.maxWidth,
-                      height: constraints.maxHeight,
-                      alignment: Alignment.topLeft,
-                      color: const Color.fromARGB(193, 0, 1, 63),
-                      child: AnimatedBuilder(
-                        animation: _animationController,
-                        builder: (context, child) {
-                          return Stack(
-                            children: [
-                              Image.asset(
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: constraints.maxWidth,
+                          height: constraints.maxHeight,
+                          alignment: Alignment.topLeft,
+                          color: const Color.fromARGB(193, 0, 1, 63),
+                          child: AnimatedBuilder(
+                            animation: _animationController,
+                            builder: (context, child) {
+                              return Image.asset(
                                 assetPath(widget.imagePath),
                                 fit: BoxFit.contain,
                                 errorBuilder: (context, error, stackTrace) =>
@@ -246,20 +246,20 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
                                     ),
                                   );
                                 },
-                              ),
-                              Positioned(
-                                top: _offsetAnimation.value.dy,
-                                left: _offsetAnimation.value.dx,
-                                child: Container(
-                                  width: 30.w,
-                                  height: 30.w,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
+                              );
+                            },
+                          ),
+                        ),
+                        Positioned(
+                          top: _offsetAnimation.value.dy,
+                          left: _offsetAnimation.value.dx,
+                          child: Container(
+                            width: 30.w,
+                            height: 30.w,
+                            color: Colors.red,
+                          ),
+                        )
+                      ],
                     ),
                   ),
                   // 关闭按钮。
@@ -309,7 +309,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
     return Matrix4.identity()
       ..translate(_offsetAnimation.value.dx, _offsetAnimation.value.dy)
       ..scale(_scaleAnimation.value);
-      // ..translate(-focalX, -focalY);
+    // ..translate(-focalX, -focalY);
   }
 
   // 将图片重置为原始状态（关闭全屏）。
