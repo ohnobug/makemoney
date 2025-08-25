@@ -84,7 +84,7 @@ import 'package:jiaoyishuoflutter3/test.dart';
 import 'package:jiaoyishuoflutter3/discovery/ljn_tiktik.dart';
 import 'package:jiaoyishuoflutter3/tools/ljn_file_server.dart';
 import 'package:jiaoyishuoflutter3/user/ljn_userinfo.dart';
-import 'package:jiaoyishuoflutter3/chat/ljn_video_call.dart';
+// import 'package:jiaoyishuoflutter3/chat/ljn_video_call.dart';
 import 'package:jiaoyishuoflutter3/videoplayer.dart';
 import 'package:jiaoyishuoflutter3/user/ljn_wallet.dart';
 
@@ -508,9 +508,9 @@ class _App extends State<App> {
                   const LJNTest(),
                 );
               } else if (settings.name == "/video_call") {
-                return pageRouteBuilderAnimation(
-                  const LJNVideoCall(),
-                );
+                // return pageRouteBuilderAnimation(
+                //   const LJNVideoCall(),
+                // );
               } else if (settings.name == "/friends_who_only_chat") {
                 return pageRouteBuilderAnimation(
                   const LJNFriendsWhoOnlyChat(),

@@ -173,15 +173,15 @@ class IconBox extends StatelessWidget {
       width: 105.w,
       alignment: Alignment.topLeft,
       child: DottedBorder(
-        color: const Color.fromARGB(255, 166, 166, 166),
-        borderType: BorderType.RRect,
-        padding: const EdgeInsets.all(0),
-        borderPadding: const EdgeInsets.all(0),
-        stackFit: StackFit.loose,
-        strokeWidth: 3.w,
-        dashPattern: [16.w, 10.w],
-        strokeCap: StrokeCap.round,
-        radius: Radius.circular(8.0.w),
+        // color: const Color.fromARGB(255, 166, 166, 166),
+        // borderType: BorderType.RRect,
+        // padding: const EdgeInsets.all(0),
+        // borderPadding: const EdgeInsets.all(0),
+        // stackFit: StackFit.loose,
+        // strokeWidth: 3.w,
+        // dashPattern: [16.w, 10.w],
+        // strokeCap: StrokeCap.round,
+        // radius: Radius.circular(8.0.w),
         child: SizedBox(
           width: 105.0.w, // 设置宽度
           height: 105.0.w, // 设置高度

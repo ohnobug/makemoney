@@ -175,12 +175,13 @@ class IconBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DottedBorder(
-      color: const Color.fromARGB(255, 166, 166, 166),
-      borderType: BorderType.RRect,
-      strokeWidth: 3.w,
-      dashPattern: [16.w, 10.w],
-      strokeCap: StrokeCap.round,
-      radius: Radius.circular(8.0.w),
+      options: RectDottedBorderOptions(
+        strokeCap: StrokeCap.round,
+        color: const Color.fromARGB(255, 166, 166, 166),
+        dashPattern: [16.w, 10.w],
+        strokeWidth: 3.w,
+        padding: EdgeInsets.all(16),
+      ),
       child: SizedBox(
         width: 91.0.w, // 设置宽度
         height: 91.0.w, // 设置高度

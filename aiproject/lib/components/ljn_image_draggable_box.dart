@@ -43,21 +43,18 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
   double _currentScale = 1.0; // 图片当前的缩放比例。
   Offset _currentOffset = Offset.zero; // 图片当前的平移位置。
 
-  Size _imageSize = Size.zero; // 图片的实际尺寸。
-
   // 手势交互过程中的辅助变量
   double _gestureStartScale = 1.0; // 手势开始时的缩放比例。
   Offset _gestureStartOffset = Offset.zero; // 手势开始时的偏移量。
   Offset _gestureStartFocalPoint = Offset.zero; // 手势开始时的焦点位置。
 
-  getImageSize(filename) async {
+  Future<void> getImageSize(String filename) async {
     final buffer = await rootBundle.load(filename); // get the byte buffer
     final memoryImageSizeResult = imagegetter.ImageSizeGetter.getSizeResult(
         imagegetter.MemoryInput.byteBuffer(buffer.buffer));
     final size = memoryImageSizeResult.size;
     logger.info("qqqqqqqqqqqq: $size");
     setState(() {
-      _imageSize = Size(size.width.toDouble(), size.height.toDouble());
     });
   }
 

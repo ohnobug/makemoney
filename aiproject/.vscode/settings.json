@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "G:/t/detection/aiproject/windows/flutter"
+    "cmake.sourceDirectory": "G:/t/detection/aiproject/windows/flutter",
+    "dart.flutterSdkPath": "C:\\flutter"
 }

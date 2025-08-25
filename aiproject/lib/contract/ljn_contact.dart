@@ -602,7 +602,9 @@ class _ContactInformationState extends State<ContactInformation> {
           });
 
           if (widget.link != "") {
-            Navigator.pushNamed(context, widget.link);
+            if (context.mounted) {
+              Navigator.pushNamed(context, widget.link);
+            }
           } else {
             widget.onPressed!();
           }

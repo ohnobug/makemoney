@@ -98,7 +98,7 @@ void startWebServer() async {
   });
 }
 
-Future<void> copyFiles(source, target) async {
+Future<void> copyFiles(String source, target) async {
   // Read the file content from the package assets
   final ByteData byteData = await rootBundle.load(source);
   final List<int> bytes = byteData.buffer.asUint8List();

@@ -149,7 +149,7 @@ ThemeData lightTheme = ThemeData(
     primary: Colors.black,
     secondary: Colors.grey,
   ),
-  tabBarTheme: const TabBarTheme(
+  tabBarTheme: const TabBarThemeData(
     labelStyle: TextStyle(height: 1.08, fontFamily: "AlibabaPuHuiTi"),
   ),
   primaryColor: Colors.black,
@@ -167,7 +167,7 @@ ThemeData darkTheme = ThemeData(
     primary: Colors.white,
     secondary: Colors.grey,
   ),
-  tabBarTheme: const TabBarTheme(
+  tabBarTheme: const TabBarThemeData(
     labelStyle: TextStyle(height: 1.08, fontFamily: "AlibabaPuHuiTi"),
   ),
   primaryColor: Colors.black,
