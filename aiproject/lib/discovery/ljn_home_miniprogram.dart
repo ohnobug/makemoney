@@ -158,7 +158,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                       child: SingleChildScrollView(
                         controller: _scrollController,
                         physics: const AlwaysScrollableScrollPhysics(
-                          parent: BouncingScrollPhysics(),
+                          parent: BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
                         ),
                         child: Column(
                           children: [

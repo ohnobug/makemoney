@@ -314,18 +314,20 @@ class MyClampingScrollPhysics extends ScrollPhysics {
   }
 }
 
+
+// 自定义tabbar滚动动画
 class CustomTabBarViewScrollPhysics extends PageScrollPhysics {
   const CustomTabBarViewScrollPhysics({super.parent});
 
   @override
   CustomTabBarViewScrollPhysics applyTo(ScrollPhysics? ancestor) {
-    return CustomTabBarViewScrollPhysics(parent: buildParent(ancestor)!);
+    return CustomTabBarViewScrollPhysics(parent: buildParent(ancestor));
   }
 
   @override
-  SpringDescription get spring => const SpringDescription(
-        mass: 50,
-        stiffness: 100,
-        damping: 1.8,
-      );
+  SpringDescription get spring => SpringDescription.withDampingRatio(
+    mass: 0.5,
+    stiffness: 300.0,
+    ratio: 1.0,
+  );
 }
