@@ -7,8 +7,8 @@ plugins {
 
 android {
     namespace = "com.example.jiaoyishuoflutter3"
-    compileSdk = 34
-    ndkVersion = "27.0.12077973"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -24,11 +24,16 @@ android {
         applicationId = "com.example.jiaoyishuoflutter3"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdkVersion flutter.minSdkVersion
+        minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        ndk {
+            abiFilters.addAll(listOf("arm64-v8a"))
+        }
     }
+
 
     buildTypes {
         release {

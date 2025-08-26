@@ -1,17 +1,22 @@
 <manifest xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 震动权限 -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
+    <!-- 录音权限 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- 修改音频设置权限 -->
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
+    <!-- 写磁盘权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:label="维信"
+        android:label="jiaoyishuoflutter3"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
