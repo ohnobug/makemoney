@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 import 'package:flutter/services.dart';
-import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
+import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// Represents parameters for the file server.

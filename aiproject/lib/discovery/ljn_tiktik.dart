@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
-import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
+import 'package:spicychat/tools/ljn_logger.dart';
+import 'package:spicychat/store/ljn_system_cubit.dart';
 
-import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
+import 'package:spicychat/tools/ljn_tools.dart';
 import 'package:video_player/video_player.dart';
 
 class LJNTiktik extends StatefulWidget {

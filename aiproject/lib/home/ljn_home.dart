@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_chatlist_item.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_custom_physics.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_page_loading.dart';
-import 'package:jiaoyishuoflutter3/discovery/ljn_home_miniprogram.dart';
-import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
-import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
-import 'package:jiaoyishuoflutter3/store/ljn_user_cubit.dart';
-import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
+import 'package:spicychat/components/ljn_chatlist_item.dart';
+import 'package:spicychat/components/ljn_custom_physics.dart';
+import 'package:spicychat/components/ljn_page_loading.dart';
+import 'package:spicychat/discovery/ljn_home_miniprogram.dart';
+import 'package:spicychat/tools/ljn_logger.dart';
+import 'package:spicychat/store/ljn_system_cubit.dart';
+import 'package:spicychat/store/ljn_user_cubit.dart';
+import 'package:spicychat/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 

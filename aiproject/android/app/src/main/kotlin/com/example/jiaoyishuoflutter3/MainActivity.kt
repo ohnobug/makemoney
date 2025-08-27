@@ -1,4 +1,4 @@
-package com.example.jiaoyishuoflutter3
+package com.example.spicychat
 
 import io.flutter.embedding.android.FlutterActivity
 

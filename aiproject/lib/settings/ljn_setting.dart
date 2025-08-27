@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
+import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
-import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
+import 'package:spicychat/store/ljn_system_cubit.dart';
+import 'package:spicychat/tools/ljn_tools.dart';
 import '../components/ljn_function_item.dart';
 import '../components/ljn_max_width_button.dart';
 

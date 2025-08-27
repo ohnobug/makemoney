@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:jiaoyishuoflutter3/tools/ljn_logger.dart';
-import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
+import 'package:spicychat/tools/ljn_logger.dart';
+import 'package:spicychat/tools/ljn_tools.dart';
 
 class LJNChangeAccountButton extends StatefulWidget {
   final String title;

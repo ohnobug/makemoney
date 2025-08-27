@@ -7,9 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player/video_player.dart';
-import 'package:jiaoyishuoflutter3/components/ljn_appbar.dart';
-import 'package:jiaoyishuoflutter3/store/ljn_system_cubit.dart';
-import 'package:jiaoyishuoflutter3/tools/ljn_tools.dart';
+import 'package:spicychat/components/ljn_appbar.dart';
+import 'package:spicychat/store/ljn_system_cubit.dart';
+import 'package:spicychat/tools/ljn_tools.dart';
 
 class LJNDial extends StatefulWidget {
   const LJNDial({
