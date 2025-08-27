@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_icon_function_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,7 +46,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
               minHeight: MediaQuery.of(context).size.height -
                   90.w -
                   systemState.statusHeight),
-          color: const Color.fromARGB(255, 237, 237, 237),
+          color: AppColors.neutralGrey11,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -64,7 +65,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                   height: 37.w,
                   width: 750.w,
                   alignment: Alignment.center,
-                  // color: const Color.fromARGB(255, 235, 235, 235),
+                  // color: AppColors.neutralGrey13,
                   child: Text.rich(
                     TextSpan(
                       children: [
@@ -74,7 +75,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                           style: TextStyle(
                             height: 1.08,
                             fontSize: 25.w,
-                            color: const Color.fromARGB(255, 105, 105, 105),
+                            color: AppColors.neutralGrey75,
                           ),
                         ),
                         WidgetSpan(
@@ -85,7 +86,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                           style: const TextStyle(height: 1.08),
                           child: Icon(
                             const IconData(0xe74b, fontFamily: 'Iconfont'),
-                            color: const Color.fromARGB(255, 105, 105, 105),
+                            color: AppColors.neutralGrey75,
                             size: 32.w,
                           ),
                         ),
@@ -164,7 +165,7 @@ class IconBox extends StatelessWidget {
       width: 105.w,
       alignment: Alignment.topLeft,
       child: DottedBorder(
-        // color: const Color.fromARGB(255, 166, 166, 166),
+        // color: AppColors.neutralGrey47,
         // borderType: BorderType.RRect,
         // padding: const EdgeInsets.all(0),
         // borderPadding: const EdgeInsets.all(0),
@@ -177,10 +178,10 @@ class IconBox extends StatelessWidget {
           width: 105.0.w, // 设置宽度
           height: 105.0.w, // 设置高度
           // decoration: BoxDecoration(
-          //   color: Colors.transparent, // 背景透明
+          //   color: AppColors.transparent, // 背景透明
           //   borderRadius: BorderRadius.circular(8.0.w), // 圆角 8
           //   border: Border.all(
-          //     color: const Color.fromARGB(255, 166, 166, 166), // 边框颜色
+          //     color: AppColors.neutralGrey47, // 边框颜色
           //     width: 1.0.w,
           //     style: BorderStyle.solid, // 边框样式
           //   ),
@@ -192,7 +193,7 @@ class IconBox extends StatelessWidget {
                 0xe616,
                 fontFamily: 'Iconfont',
               ), // 使用的图标
-              color: const Color.fromARGB(255, 166, 166, 166), // 图标颜色
+              color: AppColors.neutralGrey47, // 图标颜色
               size: 42.0.w, // 图标大小
             ),
           ),

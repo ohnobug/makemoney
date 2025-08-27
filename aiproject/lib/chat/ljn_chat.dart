@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
-import 'package:spicychat/chat/ljn_chat_function_selector_button.dart';
+import 'package:spicychat/chat/widgets/ljn_chat_function_selector_button.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_my_voice_message.dart';
 import 'package:spicychat/components/ljn_receive_message.dart';
@@ -15,7 +16,7 @@ import 'package:spicychat/components/ljn_receive_video_message.dart';
 import 'package:spicychat/components/ljn_video_message.dart';
 import 'package:spicychat/components/ljn_show_call_popup.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/chat/ljn_chat_emoji_selector.dart';
+import 'package:spicychat/chat/widgets/ljn_chat_emoji_selector.dart';
 import 'package:spicychat/store/ljn_popup_cubit.dart';
 import 'package:spicychat/store/ljn_user_cubit.dart';
 import 'package:path_provider/path_provider.dart';
@@ -117,7 +118,7 @@ class _LJNChat extends State<LJNChat>
 
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // 设置状态栏透明
+        statusBarColor: AppColors.transparent, // 设置状态栏透明
         statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
       ),
     );
@@ -230,8 +231,8 @@ class _LJNChat extends State<LJNChat>
     );
 
     _colorAnimation = ColorTween(
-      begin: const Color.fromARGB(179, 76, 190, 103),
-      end: const Color.fromARGB(255, 76, 190, 102),
+      begin: AppColors.greenTransparent70,
+      end: AppColors.brandGreenVibrant1,
     ).animate(
       CurvedAnimation(
         parent: _animationController,
@@ -1012,7 +1013,7 @@ class _LJNChat extends State<LJNChat>
                           },
                           child: Container(
                             height: 90.w,
-                            color: Colors.transparent,
+                            color: AppColors.transparent,
                             alignment: Alignment.center,
                             padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
                             child: Icon(
@@ -1036,7 +1037,7 @@ class _LJNChat extends State<LJNChat>
                           Expanded(
                             flex: 1,
                             child: ColoredBox(
-                              color: const Color.fromARGB(255, 237, 237, 237),
+                              color: AppColors.neutralGrey11,
                               child: ScrollConfiguration(
                                 behavior: ScrollConfiguration.of(context)
                                     .copyWith(scrollbars: false),
@@ -1080,11 +1081,10 @@ class _LJNChat extends State<LJNChat>
                               width: systemState.screenSize.width,
                               // margin: EdgeInsets.only(bottom: inputMarginBottom),
                               decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 247, 247, 247),
+                                color: AppColors.neutralGrey2,
                                 border: Border(
                                   top: BorderSide(
-                                    color: const Color.fromARGB(
-                                        255, 231, 231, 231),
+                                    color: AppColors.neutralGrey16,
                                     width: 1.5.w,
                                     style: BorderStyle.solid,
                                   ),
@@ -1124,7 +1124,7 @@ class _LJNChat extends State<LJNChat>
                                       }
                                     },
                                     child: Container(
-                                      color: Colors.transparent,
+                                      color: AppColors.transparent,
                                       width: 97.w,
                                       height: 107.w,
                                       padding: EdgeInsets.only(
@@ -1471,7 +1471,7 @@ class _LJNChat extends State<LJNChat>
                                       }
                                     },
                                     child: Container(
-                                      color: Colors.transparent,
+                                      color: AppColors.transparent,
                                       width: 102.w,
                                       height: 107.w,
                                       padding: EdgeInsets.only(
@@ -1589,7 +1589,7 @@ class _LJNChat extends State<LJNChat>
                                         }
                                       },
                                       child: Container(
-                                        color: Colors.transparent,
+                                        color: AppColors.transparent,
                                         width: 87.w,
                                         height: 107.w,
                                         padding: EdgeInsets.only(right: 20.w),
@@ -1652,10 +1652,10 @@ class _LJNChat extends State<LJNChat>
       width: systemState.screenSize.width,
       padding: EdgeInsets.only(top: 98.w),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 247, 247, 247),
+        color: AppColors.neutralGrey2,
         border: Border(
           top: BorderSide(
-            color: const Color.fromARGB(255, 231, 231, 231),
+            color: AppColors.neutralGrey16,
             width: 1.5.w,
             style: BorderStyle.solid,
           ),
@@ -1672,7 +1672,7 @@ class _LJNChat extends State<LJNChat>
                 0xe6ba,
                 fontFamily: 'Iconfont',
               ),
-              color: const Color.fromARGB(255, 25, 25, 25),
+              color: AppColors.neutralNearBlack1,
               size: 52.w,
             ),
             onTap: () {
@@ -1687,7 +1687,7 @@ class _LJNChat extends State<LJNChat>
                 0xe6bb,
                 fontFamily: 'Iconfont',
               ),
-              color: const Color.fromARGB(255, 25, 25, 25),
+              color: AppColors.neutralNearBlack1,
               size: 52.w,
             ),
             onTap: () {
@@ -1706,7 +1706,7 @@ class _LJNChat extends State<LJNChat>
                 0xe64f,
                 fontFamily: 'Iconfont',
               ),
-              color: const Color.fromARGB(255, 25, 25, 25),
+              color: AppColors.neutralNearBlack1,
               size: 52.w,
             ),
             onTap: () {
@@ -1722,7 +1722,7 @@ class _LJNChat extends State<LJNChat>
                 0xe630,
                 fontFamily: 'Iconfont',
               ),
-              color: const Color.fromARGB(255, 25, 25, 25),
+              color: AppColors.neutralNearBlack1,
               size: 52.w,
             ),
             onTap: () {
@@ -1737,7 +1737,7 @@ class _LJNChat extends State<LJNChat>
                 0xe6c6,
                 fontFamily: 'Iconfont',
               ),
-              color: const Color.fromARGB(255, 25, 25, 25),
+              color: AppColors.neutralNearBlack1,
               size: 52.w,
             ),
             onTap: () {
@@ -1752,7 +1752,7 @@ class _LJNChat extends State<LJNChat>
                 0xe62e,
                 fontFamily: 'Iconfont',
               ),
-              color: const Color.fromARGB(255, 25, 25, 25),
+              color: AppColors.neutralNearBlack1,
               size: 52.w,
             ),
             onTap: () {
@@ -1767,7 +1767,7 @@ class _LJNChat extends State<LJNChat>
                 0xe631,
                 fontFamily: 'Iconfont',
               ),
-              color: const Color.fromARGB(255, 25, 25, 25),
+              color: AppColors.neutralNearBlack1,
               size: 52.w,
             ),
             onTap: () {
@@ -1782,7 +1782,7 @@ class _LJNChat extends State<LJNChat>
                   0xe632,
                   fontFamily: 'Iconfont',
                 ),
-                color: const Color.fromARGB(255, 25, 25, 25),
+                color: AppColors.neutralNearBlack1,
                 size: 52.w,
               ),
               onTap: () {
@@ -1814,7 +1814,7 @@ class _LJNChat extends State<LJNChat>
             children: [
               // 背景
               Container(
-                color: const Color.fromARGB(185, 0, 0, 0),
+                color: AppColors.blackTransparent73,
                 width: systemState.screenSize.width,
                 height: systemState.screenSize.height,
               ),
@@ -1844,7 +1844,7 @@ class _LJNChat extends State<LJNChat>
                     0xe81d,
                     fontFamily: 'Iconfont',
                   ),
-                  color: const Color.fromARGB(255, 111, 111, 111),
+                  color: AppColors.neutralGrey71,
                   size: 50.w,
                 ),
               ),
@@ -1868,7 +1868,7 @@ class _LJNChat extends State<LJNChat>
                                     Radius.circular(24.w),
                                   ),
                                   color: leftRight == 2
-                                      ? Color.fromARGB(255, 160, 236, 112)
+                                      ? AppColors.brandGreenLightest
                                       : Colors.red),
                               alignment: leftRight == 1
                                   ? Alignment.center
@@ -1902,8 +1902,8 @@ class _LJNChat extends State<LJNChat>
                                                 0xe85e,
                                                 fontFamily: 'Iconfont',
                                               ),
-                                              color: const Color.fromARGB(
-                                                  255, 60, 60, 60),
+                                              color:
+                                                  AppColors.neutralDarkGrey17,
                                               size: 45.w,
                                             ))
                                       ],
@@ -1913,8 +1913,7 @@ class _LJNChat extends State<LJNChat>
                                         0xe85e,
                                         fontFamily: 'Iconfont',
                                       ),
-                                      color:
-                                          const Color.fromARGB(255, 60, 60, 60),
+                                      color: AppColors.neutralDarkGrey17,
                                       size: 45.w,
                                     ),
                             ),
@@ -1933,7 +1932,7 @@ class _LJNChat extends State<LJNChat>
                                     fontFamily: 'Iconfont',
                                   ), // 使用的图标
                                   color: leftRight == 2
-                                      ? Color.fromARGB(255, 160, 236, 112)
+                                      ? AppColors.brandGreenLightest
                                       : Colors.red, // 图标颜色
                                   size: 40.0.w, // 图标大小
                                 ),
@@ -1960,7 +1959,7 @@ class _LJNChat extends State<LJNChat>
                             fontFamily: "AlibabaPuHuiTi",
                             height: 1.08,
                             fontSize: 29.w,
-                            color: Color.fromARGB(255, 161, 161, 161),
+                            color: AppColors.neutralGrey52,
                           ),
                         ),
                       ))
@@ -1996,7 +1995,7 @@ class _LJNChat extends State<LJNChat>
                         ),
                         color: showCancelVoiceButtons
                             ? Colors.black
-                            : const Color.fromARGB(255, 143, 143, 143),
+                            : AppColors.neutralGrey62,
                         size: 43.w,
                       ),
                     ),
@@ -2014,7 +2013,7 @@ class _LJNChat extends State<LJNChat>
                     '松开发送',
                     style: TextStyle(
                         height: 1.08,
-                        color: Color.fromARGB(255, 173, 173, 173),
+                        color: AppColors.neutralGrey43,
                         fontSize: 30.w,
                         fontFamily: "AlibabaPuHuiTi",
                         decoration: TextDecoration.none),
@@ -2038,7 +2037,7 @@ class _LJNChat extends State<LJNChat>
                             fontFamily: "AlibabaPuHuiTi",
                             height: 1.08,
                             fontSize: 29.w,
-                            color: Color.fromARGB(255, 161, 161, 161),
+                            color: AppColors.neutralGrey52,
                           ),
                         ),
                       ))
@@ -2075,7 +2074,7 @@ class _LJNChat extends State<LJNChat>
                         ),
                         color: showCancelVoiceButtons
                             ? Colors.black
-                            : const Color.fromARGB(255, 143, 143, 143),
+                            : AppColors.neutralGrey62,
                         size: 43.w,
                       ),
                     ),

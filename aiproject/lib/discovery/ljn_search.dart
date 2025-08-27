@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -108,10 +109,11 @@ class _LJNSearch extends State<LJNSearch> {
           maxLines: 1,
           "进博新老朋友如约而至"),
       Text(
-          style: TextStyle(fontSize: 32.w, height: 1.08),
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-          "美国大选选举结果或延迟公布"),
+        style: TextStyle(fontSize: 32.w, height: 1.08),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+        "美国大选选举结果或延迟公布",
+      ),
     ]);
 
     // 抖音热榜标题
@@ -163,7 +165,7 @@ class _LJNSearch extends State<LJNSearch> {
                         0xe71e,
                         fontFamily: 'Iconfont',
                       ), // 使用的图标
-                      color: const Color.fromARGB(255, 255, 0, 0), // 图标颜色
+                      color: AppColors.accentRedPure, // 图标颜色
                       size: 30.w, // 图标大小
                     ),
                   ),
@@ -344,11 +346,12 @@ class _LJNSearch extends State<LJNSearch> {
           // logger.info("子元素在盒子右边, 向左边移动");
           // 子元素在盒子右边, 向左边移动
           hotTitleBoxController.animateTo(
-              childFirstRelativePosition.dx -
-                  parentRenderBox.size.width +
-                  childRenderBox.size.width * 2,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.linear);
+            childFirstRelativePosition.dx -
+                parentRenderBox.size.width +
+                childRenderBox.size.width * 2,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.linear,
+          );
         }
       }
     }
@@ -387,13 +390,13 @@ class _LJNSearch extends State<LJNSearch> {
                   onTap: () => Navigator.of(context).pop(), // 点击事件
                   child: Container(
                     // 加盒子是为了扩大点击区域
-                    color: Colors.transparent,
+                    color: AppColors.transparent,
                     child: Icon(
                       const IconData(
                         0xed9e,
                         fontFamily: 'Iconfont',
                       ), // 使用的图标
-                      color: const Color.fromARGB(255, 99, 99, 99), // 图标颜色
+                      color: AppColors.neutralDarkGrey1, // 图标颜色
                       size: 36.w, // 图标大小
                     ),
                   ),
@@ -429,16 +432,18 @@ class _LJNSearch extends State<LJNSearch> {
                         hintStyle: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 30.w,
-                          color: const Color.fromARGB(255, 69, 75, 83),
+                          color: AppColors.neutralDarkGrey14,
                         ),
                         filled: true,
-                        fillColor: const Color.fromARGB(255, 233, 234, 236),
+                        fillColor: AppColors.neutralGrey14,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide.none,
                         ),
                         contentPadding: EdgeInsets.symmetric(
-                            vertical: 8.0.w, horizontal: 20.0.w),
+                          vertical: 8.0.w,
+                          horizontal: 20.0.w,
+                        ),
                       ),
                     ),
                   ),
@@ -469,7 +474,7 @@ class _LJNSearch extends State<LJNSearch> {
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: const Color.fromARGB(255, 240, 240, 240),
+                                color: AppColors.neutralGrey8,
                                 width: 1.0.w,
                                 style: BorderStyle.solid,
                               ),
@@ -477,7 +482,11 @@ class _LJNSearch extends State<LJNSearch> {
                           ),
                           width: MediaQuery.of(context).size.width,
                           padding: EdgeInsets.only(
-                              left: 30.w, right: 30.w, bottom: 10.w, top: 10.w),
+                            left: 30.w,
+                            right: 30.w,
+                            bottom: 10.w,
+                            top: 10.w,
+                          ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -492,8 +501,7 @@ class _LJNSearch extends State<LJNSearch> {
                                     style: TextStyle(
                                       height: 1.08,
                                       fontSize: 28.w,
-                                      color:
-                                          const Color.fromARGB(255, 64, 64, 64),
+                                      color: AppColors.neutralDarkGrey16,
                                     ),
                                   ),
 
@@ -516,14 +524,14 @@ class _LJNSearch extends State<LJNSearch> {
                                           children: [
                                             Container(
                                               // 加盒子是为了扩大点击区域
-                                              color: Colors.transparent,
+                                              color: AppColors.transparent,
                                               child: Icon(
                                                 const IconData(
                                                   0xe641,
                                                   fontFamily: 'Iconfont',
                                                 ), // 使用的图标
-                                                color: const Color.fromARGB(
-                                                    255, 64, 64, 64), // 图标颜色
+                                                color: AppColors
+                                                    .neutralDarkGrey16, // 图标颜色
                                                 size: 28.w, // 图标大小
                                               ),
                                             ),
@@ -533,10 +541,11 @@ class _LJNSearch extends State<LJNSearch> {
                                             Text(
                                               "换一换",
                                               style: TextStyle(
-                                                  color: const Color.fromARGB(
-                                                      255, 64, 64, 64),
-                                                  fontSize: 28.w,
-                                                  height: 1.08),
+                                                color:
+                                                    AppColors.neutralDarkGrey16,
+                                                fontSize: 28.w,
+                                                height: 1.08,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -552,14 +561,14 @@ class _LJNSearch extends State<LJNSearch> {
                                         // 三个点
                                         Container(
                                           // 加盒子是为了扩大点击区域
-                                          color: Colors.transparent,
+                                          color: AppColors.transparent,
                                           child: Icon(
                                             const IconData(
                                               0xe657,
                                               fontFamily: 'Iconfont',
                                             ), // 使用的图标
-                                            color: const Color.fromARGB(
-                                                255, 64, 64, 64), // 图标颜色
+                                            color: AppColors
+                                                .neutralDarkGrey16, // 图标颜色
                                             size: 28.w, // 图标大小
                                           ),
                                         )
@@ -597,7 +606,7 @@ class _LJNSearch extends State<LJNSearch> {
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: const Color.fromARGB(255, 240, 240, 240),
+                                color: AppColors.neutralGrey8,
                                 width: 1.0.w,
                                 style: BorderStyle.solid,
                               ),
@@ -620,8 +629,7 @@ class _LJNSearch extends State<LJNSearch> {
                                     style: TextStyle(
                                       height: 1.08,
                                       fontSize: 28.w,
-                                      color:
-                                          const Color.fromARGB(255, 64, 64, 64),
+                                      color: AppColors.neutralDarkGrey16,
                                     ),
                                   ),
 
@@ -644,14 +652,14 @@ class _LJNSearch extends State<LJNSearch> {
                                           children: [
                                             Container(
                                               // 加盒子是为了扩大点击区域
-                                              color: Colors.transparent,
+                                              color: AppColors.transparent,
                                               child: Icon(
                                                 const IconData(
                                                   0xe641,
                                                   fontFamily: 'Iconfont',
                                                 ), // 使用的图标
-                                                color: const Color.fromARGB(
-                                                    255, 64, 64, 64), // 图标颜色
+                                                color: AppColors
+                                                    .neutralDarkGrey16, // 图标颜色
                                                 size: 28.w, // 图标大小
                                               ),
                                             ),
@@ -661,8 +669,8 @@ class _LJNSearch extends State<LJNSearch> {
                                             Text(
                                               "换一换",
                                               style: TextStyle(
-                                                  color: const Color.fromARGB(
-                                                      255, 64, 64, 64),
+                                                  color: AppColors
+                                                      .neutralDarkGrey16,
                                                   fontSize: 28.w,
                                                   height: 1.08),
                                             ),
@@ -680,14 +688,14 @@ class _LJNSearch extends State<LJNSearch> {
                                         // 三个点
                                         Container(
                                           // 加盒子是为了扩大点击区域
-                                          color: Colors.transparent,
+                                          color: AppColors.transparent,
                                           child: Icon(
                                             const IconData(
                                               0xe657,
                                               fontFamily: 'Iconfont',
                                             ), // 使用的图标
-                                            color: const Color.fromARGB(
-                                                255, 64, 64, 64), // 图标颜色
+                                            color: AppColors
+                                                .neutralDarkGrey16, // 图标颜色
                                             size: 28.w, // 图标大小
                                           ),
                                         )
@@ -824,8 +832,8 @@ class _LJNSearch extends State<LJNSearch> {
                   height: 72.w,
                   decoration: BoxDecoration(
                     // color: e.key < 3
-                    //     ? const Color.fromARGB(255, 253, 245, 242)
-                    //     : const Color.fromARGB(255, 231, 231, 231),
+                    //     ? AppColors.neutralOffWhitePink
+                    //     : AppColors.neutralGrey16,
                     borderRadius: BorderRadius.all(
                       Radius.circular(10.w),
                     ),
@@ -834,8 +842,8 @@ class _LJNSearch extends State<LJNSearch> {
                       end: Alignment.centerRight, // 渐变结束点
                       colors: [
                         e.key < 3
-                            ? const Color.fromARGB(255, 253, 245, 242)
-                            : const Color.fromARGB(255, 245, 245, 245), // 起始颜色
+                            ? AppColors.neutralOffWhitePink
+                            : AppColors.neutralGrey4, // 起始颜色
                         Colors.white, // 结束颜色
                       ],
                     ),
@@ -859,8 +867,7 @@ class _LJNSearch extends State<LJNSearch> {
                                   0xe649,
                                   fontFamily: 'Iconfont',
                                 ), // 使用的图标
-                                color: const Color.fromARGB(
-                                    255, 247, 171, 66), // 图标颜色
+                                color: AppColors.accentYellowDark2, // 图标颜色
                                 size: 37.w, // 图标大小
                               ),
                               Center(
@@ -883,8 +890,7 @@ class _LJNSearch extends State<LJNSearch> {
                                     height: 1.08,
                                     fontWeight: FontWeight.bold,
                                     // fontStyle: FontStyle.italic,
-                                    color: const Color.fromARGB(
-                                        255, 143, 143, 143),
+                                    color: AppColors.neutralGrey62,
                                   ),
                                 ),
                               )
@@ -906,7 +912,7 @@ class _LJNSearch extends State<LJNSearch> {
                         "1201.2万",
                         style: TextStyle(
                           fontSize: 25.w,
-                          color: const Color.fromARGB(255, 157, 143, 145),
+                          color: AppColors.neutralGrey56,
                         ),
                       )
                     ],

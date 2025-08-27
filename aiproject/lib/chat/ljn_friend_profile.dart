@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../components/ljn_function_item.dart';
+import 'package:spicychat/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 import 'package:spicychat/components/ljn_show_call_popup.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_max_width_button.dart';
+import 'package:spicychat/components/ljn_function_item.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 
 class LJNFriendProfile extends StatefulWidget {
@@ -68,7 +69,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                   },
                   child: Container(
                     height: 90.w,
-                    color: Colors.transparent,
+                    color: AppColors.transparent,
                     padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
                     alignment: Alignment.center,
                     child: Icon(
@@ -96,10 +97,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                           systemState.statusHeight),
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [
-                        Colors.white,
-                        Color.fromARGB(255, 237, 237, 237)
-                      ],
+                      colors: [Colors.white, AppColors.neutralGrey11],
                       stops: [0.3, 0.5],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -118,7 +116,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                             color: Colors.white,
                             border: Border(
                               bottom: BorderSide(
-                                color: const Color.fromARGB(255, 242, 242, 242),
+                                color: AppColors.neutralGrey6,
                                 width: 1.5.w,
                                 style: BorderStyle.solid,
                               ),
@@ -192,8 +190,8 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                               TextStyle(
                                                 height: 1.08,
                                                 fontSize: fontSizeScale(27.w),
-                                                color: const Color.fromARGB(
-                                                    255, 99, 99, 99),
+                                                color:
+                                                    AppColors.neutralDarkGrey1,
                                                 fontFamily:
                                                     "AlibabaPuHuiTi-Medium",
                                               ),
@@ -233,8 +231,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                             style: TextStyle(
                                               height: 1.08,
                                               fontSize: fontSizeScale(27.w),
-                                              color: const Color.fromARGB(
-                                                  255, 99, 99, 99),
+                                              color: AppColors.neutralDarkGrey1,
                                             ),
                                           ),
                                         ),
@@ -262,7 +259,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                         ),
 
                         Container(
-                          color: const Color.fromARGB(255, 237, 237, 237),
+                          color: AppColors.neutralGrey11,
                           height: 16.w,
                         ),
 
@@ -394,76 +391,73 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                     ),
                                     // 视频
                                     Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            assetPath(
-                                                'images/avatar_webp/chat_55.webp'),
-                                            cacheWidth: 180.w.toInt(),
-                                            cacheHeight: 180.w.toInt(),
-                                            width: 90.w,
-                                            height: 90.w,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          SizedBox(
-                                            width: 15.w,
-                                          ),
-                                          Image.asset(
-                                            assetPath(
-                                                'images/avatar_webp/chat_43.webp'),
-                                            cacheWidth: 180.w.toInt(),
-                                            cacheHeight: 180.w.toInt(),
-                                            width: 90.w,
-                                            height: 90.w,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          SizedBox(
-                                            width: 15.w,
-                                          ),
-                                          Image.asset(
-                                            assetPath(
-                                                'images/avatar_webp/chat_96.webp'),
-                                            cacheWidth: 180.w.toInt(),
-                                            cacheHeight: 180.w.toInt(),
-                                            width: 90.w,
-                                            height: 90.w,
-                                            fit: BoxFit.cover,
-                                          ),
-                                          SizedBox(
-                                            width: 15.w,
-                                          ),
-                                          Image.asset(
-                                            assetPath(
-                                                'images/avatar_webp/chat_97.webp'),
-                                            cacheWidth: 180.w.toInt(),
-                                            cacheHeight: 180.w.toInt(),
-                                            width: 90.w,
-                                            height: 90.w,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ])
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          assetPath(
+                                              'images/avatar_webp/chat_55.webp'),
+                                          cacheWidth: 180.w.toInt(),
+                                          cacheHeight: 180.w.toInt(),
+                                          width: 90.w,
+                                          height: 90.w,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        SizedBox(
+                                          width: 15.w,
+                                        ),
+                                        Image.asset(
+                                          assetPath(
+                                              'images/avatar_webp/chat_43.webp'),
+                                          cacheWidth: 180.w.toInt(),
+                                          cacheHeight: 180.w.toInt(),
+                                          width: 90.w,
+                                          height: 90.w,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        SizedBox(
+                                          width: 15.w,
+                                        ),
+                                        Image.asset(
+                                          assetPath(
+                                              'images/avatar_webp/chat_96.webp'),
+                                          cacheWidth: 180.w.toInt(),
+                                          cacheHeight: 180.w.toInt(),
+                                          width: 90.w,
+                                          height: 90.w,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        SizedBox(
+                                          width: 15.w,
+                                        ),
+                                        Image.asset(
+                                          assetPath(
+                                              'images/avatar_webp/chat_97.webp'),
+                                          cacheWidth: 180.w.toInt(),
+                                          cacheHeight: 180.w.toInt(),
+                                          width: 90.w,
+                                          height: 90.w,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 ),
                                 Container(
-                                    width: 30.w,
-                                    margin:
-                                        EdgeInsets.only(right: 32.w, top: 75.w),
-                                    child: Icon(
-                                      const IconData(
-                                        0xed9d,
-                                        fontFamily: 'Iconfont',
-                                      ),
-                                      size: 30.0.w,
-                                      color: const Color.fromARGB(
-                                        255,
-                                        164,
-                                        164,
-                                        164,
-                                      ),
-                                    ))
+                                  width: 30.w,
+                                  margin:
+                                      EdgeInsets.only(right: 32.w, top: 75.w),
+                                  child: Icon(
+                                    const IconData(
+                                      0xed9d,
+                                      fontFamily: 'Iconfont',
+                                    ),
+                                    size: 30.0.w,
+                                    color: AppColors.neutralGrey50,
+                                  ),
+                                )
                               ],
                             ),
                           ),
@@ -478,7 +472,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                         ),
 
                         Container(
-                          color: const Color.fromARGB(255, 237, 237, 237),
+                          color: AppColors.neutralGrey11,
                           height: 16.w,
                         ),
 
@@ -497,7 +491,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                     0xe7b3,
                                     fontFamily: 'Iconfont',
                                   ),
-                                  color: const Color.fromARGB(255, 58, 81, 124),
+                                  color: AppColors.brandBlueDark4,
                                   size: 38.w,
                                 ),
                               ),
@@ -507,7 +501,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: 30.w,
-                                  color: const Color.fromARGB(255, 58, 81, 124),
+                                  color: AppColors.brandBlueDark4,
                                 ),
                               )
                             ],
@@ -537,7 +531,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                     0xe88d,
                                     fontFamily: 'Iconfont',
                                   ),
-                                  color: const Color.fromARGB(255, 58, 81, 124),
+                                  color: AppColors.brandBlueDark4,
                                   size: 42.w,
                                 ),
                               ),
@@ -547,7 +541,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: 30.w,
-                                  color: const Color.fromARGB(255, 58, 81, 124),
+                                  color: AppColors.brandBlueDark4,
                                 ),
                               )
                             ],

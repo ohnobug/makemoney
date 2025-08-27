@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 
@@ -47,7 +48,7 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
         if (tapEffect == false) return;
 
         setState(() {
-          containerColor = const Color.fromARGB(255, 229, 229, 229);
+          containerColor = AppColors.neutralGrey18;
         });
       },
       onTapCancel: () {
@@ -84,8 +85,8 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
           border: Border(
             bottom: BorderSide(
               color: widget.underline
-                  ? const Color.fromARGB(255, 242, 242, 242)
-                  : Colors.transparent,
+                  ? AppColors.neutralGrey6
+                  : AppColors.transparent,
               width: 1.5.w,
               style: BorderStyle.solid,
             ),
@@ -147,7 +148,7 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
                             style: TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(30.w),
-                              color: const Color.fromARGB(255, 83, 83, 83),
+                              color: AppColors.neutralDarkGrey7,
                             ),
                           )
                         ],
@@ -164,7 +165,7 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
                     fontFamily: 'Iconfont',
                   ),
                   size: 30.0.w,
-                  color: const Color.fromARGB(255, 164, 164, 164),
+                  color: AppColors.neutralGrey50,
                 ),
               )
           ],

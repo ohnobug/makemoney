@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 
@@ -34,7 +35,7 @@ class _LJNAddButtonState extends State<LJNAddButton> {
 
     // 判断是否有 backgroundColor，若没有，则使用默认颜色
     originContainerColor =
-        widget.backgroundColor ?? const Color.fromARGB(255, 242, 242, 242);
+        widget.backgroundColor ?? AppColors.neutralGrey6;
 
     setState(() {
       containerColor = originContainerColor;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_change_account_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +32,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
   Widget _buildPage(SystemState systemState) {
     return Scaffold(
       primary: false,
-      appBar: const LJNAppBar(bgColor: Colors.transparent),
+      appBar: const LJNAppBar(bgColor: AppColors.transparent),
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: Container(
@@ -56,7 +57,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                     height: 300.w,
                     alignment: Alignment.bottomCenter,
                     child: Icon(
-                      color: const Color.fromARGB(255, 212, 212, 212),
+                      color: AppColors.neutralGrey32,
                       const IconData(
                         0xe883,
                         fontFamily: 'Iconfont',
@@ -97,11 +98,12 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
 
                   // 修改微信号
                   Container(
-                      padding: EdgeInsets.only(bottom: 180.w),
-                      child: const LJNChangeAccountButton(
-                        title: '修改微信号',
-                        link: "/change_account",
-                      ))
+                    padding: EdgeInsets.only(bottom: 180.w),
+                    child: const LJNChangeAccountButton(
+                      title: '修改微信号',
+                      link: "/change_account",
+                    ),
+                  )
                 ],
               ),
             ),

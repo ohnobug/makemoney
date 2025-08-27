@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_change_account_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +30,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
         primary: false,
         resizeToAvoidBottomInset: false,
         appBar: const LJNAppBar(
-          bgColor: Colors.transparent,
+          bgColor: AppColors.transparent,
         ),
         body: ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -82,12 +83,12 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                         // color: Colors.red,
                         border: Border(
                           top: BorderSide(
-                            color: const Color.fromARGB(255, 229, 229, 229),
+                            color: AppColors.neutralGrey18,
                             width: 1.5.w,
                             style: BorderStyle.solid,
                           ),
                           bottom: BorderSide(
-                            color: const Color.fromARGB(255, 229, 229, 229),
+                            color: AppColors.neutralGrey18,
                             width: 1.5.w,
                             style: BorderStyle.solid,
                           ),
@@ -109,8 +110,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                             child: TextField(
                               controller: _controller,
                               autofocus: true, // 先尝试关闭自动聚焦
-                              cursorColor:
-                                  const Color.fromRGBO(62, 174, 86, 1.0),
+                              cursorColor: AppColors.brandGreenDarker4,
                               cursorWidth: 1.w,
                               onTapOutside: (event) {
                                 FocusScope.of(context).unfocus();
@@ -146,7 +146,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                           '忘记密码',
                           style: TextStyle(
                             fontSize: 24.w,
-                            color: const Color.fromARGB(255, 64, 69, 118),
+                            color: AppColors.brandPurpleDark3,
                           ),
                         ),
                       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_switch.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
@@ -37,7 +38,7 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: const Color.fromARGB(255, 237, 237, 237),
+              color: AppColors.neutralGrey11,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),

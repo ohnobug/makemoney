@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_popup.dart';
 import 'package:spicychat/components/ljn_switch.dart';
@@ -53,7 +54,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                     minHeight: MediaQuery.of(context).size.height -
                         90.w -
                         systemState.statusHeight),
-                color: const Color.fromARGB(255, 237, 237, 237),
+                color: AppColors.neutralGrey11,
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics(),
@@ -71,9 +72,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                         link: '/friend_permissions',
                         underline: false,
                       ),
-                      Container(
-                          color: const Color.fromARGB(255, 237, 237, 237),
-                          height: 16.w),
+                      Container(color: AppColors.neutralGrey11, height: 16.w),
                       const LJNFunctionItem(
                         title: "把她推荐给朋友",
                         link: '',
@@ -89,9 +88,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                           });
                         },
                       ),
-                      Container(
-                          color: const Color.fromARGB(255, 237, 237, 237),
-                          height: 16.w),
+                      Container(color: AppColors.neutralGrey11, height: 16.w),
                       LJNFunctionItem(
                         title: "设为星标朋友",
                         // link: '',
@@ -110,9 +107,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                           ),
                         ),
                       ),
-                      Container(
-                          color: const Color.fromARGB(255, 237, 237, 237),
-                          height: 16.w),
+                      Container(color: AppColors.neutralGrey11, height: 16.w),
                       LJNFunctionItem(
                         title: "加入黑名单",
                         tapEffect: false,
@@ -135,9 +130,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                         link: '',
                         underline: false,
                       ),
-                      Container(
-                          color: const Color.fromARGB(255, 237, 237, 237),
-                          height: 16.w),
+                      Container(color: AppColors.neutralGrey11, height: 16.w),
                       const LJNMaxWidthButton(
                         title: '删除',
                         color: Colors.red,
@@ -173,7 +166,7 @@ class IconBox extends StatelessWidget {
       width: 105.w,
       alignment: Alignment.topLeft,
       child: DottedBorder(
-        // color: const Color.fromARGB(255, 166, 166, 166),
+        // color: AppColors.neutralGrey47,
         // borderType: BorderType.RRect,
         // padding: const EdgeInsets.all(0),
         // borderPadding: const EdgeInsets.all(0),
@@ -186,10 +179,10 @@ class IconBox extends StatelessWidget {
           width: 105.0.w, // 设置宽度
           height: 105.0.w, // 设置高度
           // decoration: BoxDecoration(
-          //   color: Colors.transparent, // 背景透明
+          //   color: AppColors.transparent, // 背景透明
           //   borderRadius: BorderRadius.circular(8.0.w), // 圆角 8
           //   border: Border.all(
-          //     color: const Color.fromARGB(255, 166, 166, 166), // 边框颜色
+          //     color: AppColors.neutralGrey47, // 边框颜色
           //     width: 1.0.w,
           //     style: BorderStyle.solid, // 边框样式
           //   ),
@@ -201,7 +194,7 @@ class IconBox extends StatelessWidget {
                 0xe616,
                 fontFamily: 'Iconfont',
               ), // 使用的图标
-              color: const Color.fromARGB(255, 166, 166, 166), // 图标颜色
+              color: AppColors.neutralGrey47, // 图标颜色
               size: 42.0.w, // 图标大小
             ),
           ),

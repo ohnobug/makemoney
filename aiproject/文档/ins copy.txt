@@ -203,7 +203,7 @@ class _LJNInsPage extends State<LJNInsPage> {
     _scrollController.removeListener(_scrollListener);
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
+      statusBarColor: AppColors.transparent, // 使用白色背景确保图标变为黑色
       statusBarIconBrightness: Brightness.dark, // 确保图标颜色为黑色
     ));
   }
@@ -252,7 +252,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                       primary: false,
                       expandedHeight: _statusHeight + 100.0.w,
                       systemOverlayStyle: SystemUiOverlayStyle(
-                          statusBarColor: Colors.transparent, // 设置状态栏透明
+                          statusBarColor: AppColors.transparent, // 设置状态栏透明
                           statusBarIconBrightness: setStatusLight
                               ? Brightness.light
                               : Brightness.dark),
@@ -295,11 +295,9 @@ class _LJNInsPage extends State<LJNInsPage> {
                                       hintStyle: TextStyle(
                                           fontWeight: FontWeight.normal,
                                           fontSize: 30.w,
-                                          color: const Color.fromARGB(
-                                              255, 69, 75, 83)),
+                                          color: const Color.fromARGB(255, 69, 75, 83)),
                                       filled: true,
-                                      fillColor: const Color.fromARGB(
-                                          255, 217, 220, 224),
+                                      fillColor: const Color.fromARGB(255, 217, 220, 224),
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide: BorderSide.none,

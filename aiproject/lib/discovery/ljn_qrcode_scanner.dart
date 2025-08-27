@@ -2,6 +2,7 @@ import "dart:math" as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
@@ -24,11 +25,12 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
   // 扫码控制器
   final MobileScannerController _mobileScannerController =
       MobileScannerController(
-          torchEnabled: false,
-          returnImage: true,
-          autoStart: true,
-          // detectionTimeoutMs: 30,
-          detectionSpeed: DetectionSpeed.noDuplicates);
+    torchEnabled: false,
+    returnImage: true,
+    autoStart: true,
+    // detectionTimeoutMs: 30,
+    detectionSpeed: DetectionSpeed.noDuplicates,
+  );
 
   BarcodeCapture? _barcodeCapture;
 
@@ -47,7 +49,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
 
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // 设置状态栏透明
+        statusBarColor: AppColors.transparent, // 设置状态栏透明
         statusBarIconBrightness: Brightness.light, // 设置状态栏图标颜色
       ),
     );
@@ -119,7 +121,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
     // 退出全屏
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // 设置状态栏透明
+        statusBarColor: AppColors.transparent, // 设置状态栏透明
         statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
       ),
     );
@@ -357,325 +359,328 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
-        builder: (context, systemState) {
-      return Positioned.fill(
-        child: Column(
-          children: [
-            SizedBox(height: systemState.statusHeight),
+      builder: (context, systemState) {
+        return Positioned.fill(
+          child: Column(
+            children: [
+              SizedBox(height: systemState.statusHeight),
 
-            // 顶层的两按钮
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // 关闭按钮
-                Container(
-                  color: Colors.transparent,
-                  margin: EdgeInsets.only(left: 39.w),
-                  width: 50.w,
-                  height: 50.w,
-                  child: GestureDetector(
-                    onTap: () => Navigator.of(context).pop(), // 点击事件
-                    child: Icon(
-                      const IconData(
-                        0xe601,
-                        fontFamily: 'Iconfont',
-                      ),
-                      size: 50.w, // 图标的大小
-                      color: Colors.white, // 图标颜色
-                    ),
-                  ),
-                ),
-
-                // 更多按钮
-                Container(
-                  color: Colors.transparent,
-                  margin: EdgeInsets.only(right: 39.w),
-                  width: 50.w,
-                  height: 50.w,
-                  child: GestureDetector(
-                    onTap: () => Navigator.of(context).pop(), // 点击事件
-                    child: Icon(
-                      const IconData(
-                        0xe659,
-                        fontFamily: 'Iconfont',
-                      ),
-                      size: 50.w, // 图标的大小
-                      color: Colors.white, // 图标颜色
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            // 中间扫码框
-            Visibility(
-              visible: widget.barcodeCapture == null,
-              child: Expanded(
-                flex: 4,
-                child: Center(
-                  child: SizedBox(
-                    // color: const Color.fromARGB(193, 247, 0, 0),
-                    height: 690.w,
-                    width: 640.w,
-                    child: Stack(
-                      children: [
-                        AnimatedBuilder(
-                          animation: _animation,
-                          builder: (context, child) {
-                            return Positioned(
-                              left: 0,
-                              top: _animation.value,
-                              child: FadeTransition(
-                                opacity: _opacityAnimation, // 透明度动画
-                                child: Image.asset(
-                                  assetPath('images/avatar/scaner_line.png'),
-                                  width: 640.w,
-                                  // height: 20.w,
-                                  fit: BoxFit.fitWidth,
-                                ),
-                              ),
-                            );
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            // 轻触照亮按钮
-            Visibility(
-              visible: widget.barcodeCapture == null,
-              child: Expanded(
-                flex: 0,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // 打开电筒
-                    GestureDetector(
-                      onTap: () {
-                        widget.controller.toggleTorch();
-                      }, // 点击事件
-                      child: Container(
-                        width: 100.w,
-                        height: 100.w,
-                        decoration: const BoxDecoration(
-                            // color: Colors.transparent, // 容器背景颜色
-                            // color: Color.fromARGB(255, 255, 0, 0), // 容器背景颜色
-                            ),
-                        child: Center(
-                          // 使图标居中
-                          child: Icon(
-                            const IconData(
-                              0xe615,
-                              fontFamily: 'Iconfont',
-                            ),
-                            size: 70.w, // 图标大小
-                            color: Colors.white, // 图标颜色
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.w,
-                    ),
-                    Text(
-                      "轻触照亮",
-                      style: TextStyle(
-                          height: 1.08,
-                          fontSize: fontSizeScale(26.w),
-                          fontWeight: FontWeight.normal,
-                          color: Colors.white,
-                          decoration: TextDecoration.none),
-                    ),
-                    Text(
-                      "识别二维码 / 花草 / 动物 / 商品等",
-                      style: TextStyle(
-                          height: 1.08,
-                          fontSize: fontSizeScale(28.w),
-                          fontWeight: FontWeight.normal,
-                          color: Colors.white,
-                          decoration: TextDecoration.none),
-                    ),
-                    SizedBox(
-                      height: 30.w,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            // 两按钮 与 中间商品
-            Visibility(
-              visible: widget.barcodeCapture == null,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // 顶层的两按钮
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // 我的二维码
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 90.w,
-                          height: 90.w,
-                          decoration: const BoxDecoration(
-                            color: Color.fromARGB(80, 230, 230, 230),
-                            shape: BoxShape.circle,
-                          ),
-                          child: GestureDetector(
-                            onTap: () => Navigator.of(context).pop(),
-                            child: Icon(
-                              const IconData(
-                                0xe64b,
-                                fontFamily: 'Iconfont',
-                              ),
-                              size: 35.w,
-                              color: Colors.white,
-                            ),
-                          ),
+                  // 关闭按钮
+                  Container(
+                    color: AppColors.transparent,
+                    margin: EdgeInsets.only(left: 39.w),
+                    width: 50.w,
+                    height: 50.w,
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(), // 点击事件
+                      child: Icon(
+                        const IconData(
+                          0xe601,
+                          fontFamily: 'Iconfont',
                         ),
-                        SizedBox(
-                          height: 5.w,
-                        ),
-                        Text("我的二维码",
-                            style: TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(22.w),
-                                fontWeight: FontWeight.normal,
-                                color: Colors.white,
-                                decoration: TextDecoration.none))
-                      ],
-                    ),
-                  ),
-
-                  // 商品
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      padding: EdgeInsets.all(15.w),
-                      // width: 390.w,
-                      height: 90.w,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(150, 240, 240, 240),
-                        borderRadius: BorderRadius.circular(12.w),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: 61.w,
-                            height: 61.w,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6.w), // 圆角
-                              border: Border.all(
-                                width: 1.w, // 边框宽度
-                                color: Colors.white, // 边框颜色
-                              ),
-                              image: DecorationImage(
-                                image: AssetImage(
-                                  assetPath('images/avatar/baolong.png'),
-                                ),
-                                fit: BoxFit.cover, // 图像填充方式
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 15.w),
-                          Expanded(
-                            flex: 1,
-                            child: Text(
-                              "暴龙太阳眼睛",
-                              style: TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(27.w),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 15.w),
-                          Container(
-                              color: Colors.transparent,
-                              width: 21.w,
-                              // margin: const EdgeInsets.only(right: 15).w,
-                              child: Icon(
-                                const IconData(
-                                  0xed9d,
-                                  fontFamily: 'Iconfont',
-                                ),
-                                size: 21.0.w,
-                                color: Colors.black,
-                              ))
-                        ],
+                        size: 50.w, // 图标的大小
+                        color: Colors.white, // 图标颜色
                       ),
                     ),
                   ),
 
-                  // 相册
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 90.w,
-                          height: 90.w,
-                          decoration: const BoxDecoration(
-                            color: Color.fromARGB(80, 230, 230, 230),
-                            shape: BoxShape.circle,
-                          ),
-                          child: GestureDetector(
-                            onTap: () => Navigator.of(context).pop(),
-                            child: Icon(
-                              const IconData(
-                                0xe6e5,
-                                fontFamily: 'Iconfont',
-                              ),
-                              size: 35.w,
-                              color: Colors.white,
-                            ),
-                          ),
+                  // 更多按钮
+                  Container(
+                    color: AppColors.transparent,
+                    margin: EdgeInsets.only(right: 39.w),
+                    width: 50.w,
+                    height: 50.w,
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(), // 点击事件
+                      child: Icon(
+                        const IconData(
+                          0xe659,
+                          fontFamily: 'Iconfont',
                         ),
-                        SizedBox(
-                          height: 5.w,
-                        ),
-                        Text("相册",
-                            style: TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(22.w),
-                                fontWeight: FontWeight.normal,
-                                color: Colors.white,
-                                decoration: TextDecoration.none))
-                      ],
+                        size: 50.w, // 图标的大小
+                        color: Colors.white, // 图标颜色
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
 
-            Visibility(
-              visible: widget.barcodeCapture == null,
-              child: SizedBox(
-                height: 35.w,
+              // 中间扫码框
+              Visibility(
+                visible: widget.barcodeCapture == null,
+                child: Expanded(
+                  flex: 4,
+                  child: Center(
+                    child: SizedBox(
+                      // color: AppColors.redTransparent76,
+                      height: 690.w,
+                      width: 640.w,
+                      child: Stack(
+                        children: [
+                          AnimatedBuilder(
+                            animation: _animation,
+                            builder: (context, child) {
+                              return Positioned(
+                                left: 0,
+                                top: _animation.value,
+                                child: FadeTransition(
+                                  opacity: _opacityAnimation, // 透明度动画
+                                  child: Image.asset(
+                                    assetPath('images/avatar/scaner_line.png'),
+                                    width: 640.w,
+                                    // height: 20.w,
+                                    fit: BoxFit.fitWidth,
+                                  ),
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
 
-            Visibility(
-              visible: widget.barcodeCapture != null,
-              child: Expanded(
-                flex: 4,
-                child: SizedBox(),
+              // 轻触照亮按钮
+              Visibility(
+                visible: widget.barcodeCapture == null,
+                child: Expanded(
+                  flex: 0,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // 打开电筒
+                      GestureDetector(
+                        onTap: () {
+                          widget.controller.toggleTorch();
+                        }, // 点击事件
+                        child: Container(
+                          width: 100.w,
+                          height: 100.w,
+                          decoration: const BoxDecoration(
+                              // color: AppColors.transparent, // 容器背景颜色
+                              // color: AppColors.accentRedPure, // 容器背景颜色
+                              ),
+                          child: Center(
+                            // 使图标居中
+                            child: Icon(
+                              const IconData(
+                                0xe615,
+                                fontFamily: 'Iconfont',
+                              ),
+                              size: 70.w, // 图标大小
+                              color: Colors.white, // 图标颜色
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.w,
+                      ),
+                      Text(
+                        "轻触照亮",
+                        style: TextStyle(
+                            height: 1.08,
+                            fontSize: fontSizeScale(26.w),
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                            decoration: TextDecoration.none),
+                      ),
+                      Text(
+                        "识别二维码 / 花草 / 动物 / 商品等",
+                        style: TextStyle(
+                            height: 1.08,
+                            fontSize: fontSizeScale(28.w),
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white,
+                            decoration: TextDecoration.none),
+                      ),
+                      SizedBox(
+                        height: 30.w,
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
 
-            // 扫码结果
-            Container(
-                color: const Color.fromARGB(162, 0, 0, 0),
+              // 两按钮 与 中间商品
+              Visibility(
+                visible: widget.barcodeCapture == null,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // 我的二维码
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 90.w,
+                            height: 90.w,
+                            decoration: const BoxDecoration(
+                              color: AppColors.greyTransparent31,
+                              shape: BoxShape.circle,
+                            ),
+                            child: GestureDetector(
+                              onTap: () => Navigator.of(context).pop(),
+                              child: Icon(
+                                const IconData(
+                                  0xe64b,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                size: 35.w,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5.w,
+                          ),
+                          Text(
+                            "我的二维码",
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(22.w),
+                              fontWeight: FontWeight.normal,
+                              color: Colors.white,
+                              decoration: TextDecoration.none,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+
+                    // 商品
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        padding: EdgeInsets.all(15.w),
+                        // width: 390.w,
+                        height: 90.w,
+                        decoration: BoxDecoration(
+                          color: AppColors.greyTransparent59,
+                          borderRadius: BorderRadius.circular(12.w),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 61.w,
+                              height: 61.w,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6.w), // 圆角
+                                border: Border.all(
+                                  width: 1.w, // 边框宽度
+                                  color: Colors.white, // 边框颜色
+                                ),
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    assetPath('images/avatar/baolong.png'),
+                                  ),
+                                  fit: BoxFit.cover, // 图像填充方式
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 15.w),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                "暴龙太阳眼睛",
+                                style: TextStyle(
+                                  height: 1.08,
+                                  fontSize: fontSizeScale(27.w),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 15.w),
+                            Container(
+                                color: AppColors.transparent,
+                                width: 21.w,
+                                // margin: const EdgeInsets.only(right: 15).w,
+                                child: Icon(
+                                  const IconData(
+                                    0xed9d,
+                                    fontFamily: 'Iconfont',
+                                  ),
+                                  size: 21.0.w,
+                                  color: Colors.black,
+                                ))
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    // 相册
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 90.w,
+                            height: 90.w,
+                            decoration: const BoxDecoration(
+                              color: AppColors.greyTransparent31,
+                              shape: BoxShape.circle,
+                            ),
+                            child: GestureDetector(
+                              onTap: () => Navigator.of(context).pop(),
+                              child: Icon(
+                                const IconData(
+                                  0xe6e5,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                size: 35.w,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 5.w,
+                          ),
+                          Text("相册",
+                              style: TextStyle(
+                                  height: 1.08,
+                                  fontSize: fontSizeScale(22.w),
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.white,
+                                  decoration: TextDecoration.none))
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Visibility(
+                visible: widget.barcodeCapture == null,
+                child: SizedBox(
+                  height: 35.w,
+                ),
+              ),
+
+              Visibility(
+                visible: widget.barcodeCapture != null,
+                child: Expanded(
+                  flex: 4,
+                  child: SizedBox(),
+                ),
+              ),
+
+              // 扫码结果
+              Container(
+                color: AppColors.blackTransparent64,
                 width: 750.w,
                 height: 135.w,
                 child: Align(
@@ -695,11 +700,13 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                       ],
                     ),
                   ),
-                ))
-          ],
-        ),
-      );
-    });
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 

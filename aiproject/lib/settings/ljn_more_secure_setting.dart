@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -35,31 +36,33 @@ class _LJNAaccountAndSecure extends State<LJNMoreSecureSetting> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: const Color.fromARGB(255, 237, 237, 237),
+              color: AppColors.neutralGrey11,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
                 ),
-                child: Column(children: [
-                  const LJNFunctionItem(
-                    title: "QQ号",
-                    link: '/',
-                    showStyle: "2281551151",
-                    underline: true,
-                  ),
-                  const LJNFunctionItem(
-                    title: "邮箱地址",
-                    link: '/',
-                    showStyle: "未绑定",
-                    underline: false,
-                  ),
-                  SizedBox(height: 16.w),
-                  const LJNFunctionItem(
-                    title: "手机安全防护",
-                    link: '/',
-                    underline: false,
-                  ),
-                ]),
+                child: Column(
+                  children: [
+                    const LJNFunctionItem(
+                      title: "QQ号",
+                      link: '/',
+                      showStyle: "2281551151",
+                      underline: true,
+                    ),
+                    const LJNFunctionItem(
+                      title: "邮箱地址",
+                      link: '/',
+                      showStyle: "未绑定",
+                      underline: false,
+                    ),
+                    SizedBox(height: 16.w),
+                    const LJNFunctionItem(
+                      title: "手机安全防护",
+                      link: '/',
+                      underline: false,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LJNReceiveMessage extends StatefulWidget {
-  const LJNReceiveMessage(
-      {super.key,
-      required this.message,
-      required this.showName,
-      required this.friendAvatar,
-      required this.name,
-      this.onFriendAvatarTap});
+  const LJNReceiveMessage({
+    super.key,
+    required this.message,
+    required this.showName,
+    required this.friendAvatar,
+    required this.name,
+    this.onFriendAvatarTap,
+  });
 
   final String name;
   final bool showName;
@@ -72,17 +74,18 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                         const EdgeInsets.only(left: 23, top: 0, bottom: 3).w,
                     // height: 33.w,
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            widget.name,
-                            style: TextStyle(
-                              height: 1.08,
-                              fontSize: fontSizeScale(20.w),
-                              color: const Color.fromARGB(255, 130, 130, 130),
-                            ),
-                          )
-                        ]),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          widget.name,
+                          style: TextStyle(
+                            height: 1.08,
+                            fontSize: fontSizeScale(20.w),
+                            color: AppColors.neutralGrey66,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 // 消息
                 Row(
@@ -102,10 +105,15 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                       child: Container(
                         constraints: const BoxConstraints(maxWidth: 510).w,
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8).w),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8).w,
+                        ),
                         padding: EdgeInsets.only(
-                            top: 20.w, bottom: 18.w, left: 23.w, right: 22.w),
+                          top: 20.w,
+                          bottom: 18.w,
+                          left: 23.w,
+                          right: 22.w,
+                        ),
                         child: Text(
                           softWrap: true,
                           maxLines: 1000,
@@ -113,10 +121,11 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                           textAlign: TextAlign.justify,
                           widget.message,
                           style: TextStyle(
-                              height: 1.25,
-                              fontSize: fontSizeScale(31.w),
-                              color: Colors.black,
-                              fontFamily: "AlibabaPuHuiTi"),
+                            height: 1.25,
+                            fontSize: fontSizeScale(31.w),
+                            color: Colors.black,
+                            fontFamily: "AlibabaPuHuiTi",
+                          ),
                         ),
                       ),
                     ),

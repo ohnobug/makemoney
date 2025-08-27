@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:spicychat/colors.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:spicychat/app.dart';
 import 'package:spicychat/tools/ljn_file_server.dart';
@@ -58,7 +59,7 @@ void main() async {
   logger.info('Application is starting...');
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent, // 设置状态栏透明
+      statusBarColor: AppColors.transparent, // 设置状态栏透明
       statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
     ),
   );

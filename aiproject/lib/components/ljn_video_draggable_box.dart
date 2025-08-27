@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/store/ljn_popup_cubit.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -264,7 +265,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
                       child: Container(
                         width: _sizedAnimation.value.width,
                         height: _sizedAnimation.value.height,
-                        color: Colors.transparent,
+                        color: AppColors.transparent,
                         child: AspectRatio(
                           aspectRatio: _videoController!.value.aspectRatio,
                           child: VideoPlayer(_videoController!),
@@ -297,7 +298,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
                                 fontFamily: 'Iconfont',
                               ),
                               size: 30.w, // 图标的大小
-                              color: const Color.fromARGB(255, 0, 0, 0), // 图标颜色
+                              color: AppColors.neutralBlack, // 图标颜色
                             ),
                           ),
                         ),
@@ -344,15 +345,22 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
 
     _bgTransparentController.reverse();
 
-    _sizedController.reverse().then((_) {
-      // 创建一个可取消的延迟任务
-      cancelableDelay!.delayed(const Duration(milliseconds: 100), () {
-        setState(() {
-          context.read<LJNPopupCubit>().updateReturnButtonEvent(false);
-          context.read<LJNPopupCubit>().updateShowFullScreenVideo(false);
-          if (widget.onClose != null) widget.onClose!();
-        });
-      });
-    });
+    _sizedController.reverse().then(
+      (_) {
+        // 创建一个可取消的延迟任务
+        cancelableDelay!.delayed(
+          const Duration(milliseconds: 100),
+          () {
+            setState(
+              () {
+                context.read<LJNPopupCubit>().updateReturnButtonEvent(false);
+                context.read<LJNPopupCubit>().updateShowFullScreenVideo(false);
+                if (widget.onClose != null) widget.onClose!();
+              },
+            );
+          },
+        );
+      },
+    );
   }
 }

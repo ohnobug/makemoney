@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_alphabet.dart';
 import 'package:spicychat/components/ljn_chatlist_item.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
@@ -24,7 +25,7 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
     contactList = [
       LJNAlphabet(
         title: 'A',
-        bgColor: Color.fromARGB(255, 237, 237, 237),
+        bgColor: AppColors.neutralGrey11,
       ),
       ChatListItem(
         friendName: "天空飘来五个字那都不是事",
@@ -38,7 +39,7 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
                 0xe7cc,
                 fontFamily: 'Iconfont',
               ),
-              color: const Color.fromARGB(255, 170, 170, 170),
+              color: AppColors.neutralGrey45,
               size: 28.w,
             ),
             SizedBox(width: 8.0.w),
@@ -47,20 +48,23 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
               style: TextStyle(
                 height: 1.08,
                 fontSize: fontSizeScale(25.0.w),
-                color: const Color.fromARGB(255, 170, 170, 170),
+                color: AppColors.neutralGrey45,
               ),
             ),
           ],
         ),
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "天空飘来五个字那都不是事",
-                'nickname': "天空飘来五个字那都不是事",
-                'account': "天空飘来五个字那都不是事",
-                'avatar': "images/avatar_webp/chat_1.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "天空飘来五个字那都不是事",
+              'nickname': "天空飘来五个字那都不是事",
+              'account': "天空飘来五个字那都不是事",
+              'avatar': "images/avatar_webp/chat_1.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -71,13 +75,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "本因",
-                'nickname': "本因",
-                'account': "本因",
-                'avatar': "images/avatar_webp/chat_10.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "本因",
+              'nickname': "本因",
+              'account': "本因",
+              'avatar': "images/avatar_webp/chat_10.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -88,13 +95,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "赵洵",
-                'nickname': "赵洵",
-                'account': "赵洵",
-                'avatar': "images/avatar_webp/chat_11.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "赵洵",
+              'nickname': "赵洵",
+              'account': "赵洵",
+              'avatar': "images/avatar_webp/chat_11.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -105,13 +115,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "定静师太",
-                'nickname': "定静师太",
-                'account': "定静师太",
-                'avatar': "images/avatar_webp/chat_12.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "定静师太",
+              'nickname': "定静师太",
+              'account': "定静师太",
+              'avatar': "images/avatar_webp/chat_12.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -122,13 +135,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "李秋水",
-                'nickname': "李秋水",
-                'account': "李秋水",
-                'avatar': "images/avatar_webp/chat_13.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "李秋水",
+              'nickname': "李秋水",
+              'account': "李秋水",
+              'avatar': "images/avatar_webp/chat_13.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -139,13 +155,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "谭婆",
-                'nickname': "谭婆",
-                'account': "谭婆",
-                'avatar': "images/avatar_webp/chat_14.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "谭婆",
+              'nickname': "谭婆",
+              'account': "谭婆",
+              'avatar': "images/avatar_webp/chat_14.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -156,13 +175,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "李傀儡",
-                'nickname': "李傀儡",
-                'account': "李傀儡",
-                'avatar': "images/avatar_webp/chat_15.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "李傀儡",
+              'nickname': "李傀儡",
+              'account': "李傀儡",
+              'avatar': "images/avatar_webp/chat_15.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -173,13 +195,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "貂禅",
-                'nickname': "貂禅",
-                'account': "貂禅",
-                'avatar': "images/avatar_webp/chat_16.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "貂禅",
+              'nickname': "貂禅",
+              'account': "貂禅",
+              'avatar': "images/avatar_webp/chat_16.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -190,13 +215,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "何三七",
-                'nickname': "何三七",
-                'account': "何三七",
-                'avatar': "images/avatar_webp/chat_17.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "何三七",
+              'nickname': "何三七",
+              'account': "何三七",
+              'avatar': "images/avatar_webp/chat_17.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -207,13 +235,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "孔融",
-                'nickname': "孔融",
-                'account': "孔融",
-                'avatar': "images/avatar_webp/chat_18.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "孔融",
+              'nickname': "孔融",
+              'account': "孔融",
+              'avatar': "images/avatar_webp/chat_18.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -224,13 +255,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "齐堂主",
-                'nickname': "齐堂主",
-                'account': "齐堂主",
-                'avatar': "images/avatar_webp/chat_19.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "齐堂主",
+              'nickname': "齐堂主",
+              'account': "齐堂主",
+              'avatar': "images/avatar_webp/chat_19.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -241,13 +275,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "博尔术",
-                'nickname': "博尔术",
-                'account': "博尔术",
-                'avatar': "images/avatar_webp/chat_20.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "博尔术",
+              'nickname': "博尔术",
+              'account': "博尔术",
+              'avatar': "images/avatar_webp/chat_20.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -258,13 +295,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "王语嫣",
-                'nickname': "王语嫣",
-                'account': "王语嫣",
-                'avatar': "images/avatar_webp/chat_21.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "王语嫣",
+              'nickname': "王语嫣",
+              'account': "王语嫣",
+              'avatar': "images/avatar_webp/chat_21.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -275,13 +315,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "秦红棉",
-                'nickname': "秦红棉",
-                'account': "秦红棉",
-                'avatar': "images/avatar_webp/chat_22.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "秦红棉",
+              'nickname': "秦红棉",
+              'account': "秦红棉",
+              'avatar': "images/avatar_webp/chat_22.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -294,7 +337,7 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
       ),
       LJNAlphabet(
         title: 'B',
-        bgColor: Color.fromARGB(255, 237, 237, 237),
+        bgColor: AppColors.neutralGrey11,
       ),
       ChatListItem(
         friendName: "段延庆",
@@ -304,13 +347,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "段延庆",
-                'nickname': "段延庆",
-                'account': "段延庆",
-                'avatar': "images/avatar_webp/chat_33.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "段延庆",
+              'nickname': "段延庆",
+              'account': "段延庆",
+              'avatar': "images/avatar_webp/chat_33.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -321,13 +367,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "令狐冲",
-                'nickname': "令狐冲",
-                'account': "令狐冲",
-                'avatar': "images/avatar_webp/chat_34.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "令狐冲",
+              'nickname': "令狐冲",
+              'account': "令狐冲",
+              'avatar': "images/avatar_webp/chat_34.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -338,13 +387,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "英白罗",
-                'nickname': "英白罗",
-                'account': "英白罗",
-                'avatar': "images/avatar_webp/chat_35.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "英白罗",
+              'nickname': "英白罗",
+              'account': "英白罗",
+              'avatar': "images/avatar_webp/chat_35.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -355,13 +407,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "黄药师",
-                'nickname': "黄药师",
-                'account': "黄药师",
-                'avatar': "images/avatar_webp/chat_36.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "黄药师",
+              'nickname': "黄药师",
+              'account': "黄药师",
+              'avatar': "images/avatar_webp/chat_36.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -372,13 +427,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "李煜",
-                'nickname': "李煜",
-                'account': "李煜",
-                'avatar': "images/avatar_webp/chat_37.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "李煜",
+              'nickname': "李煜",
+              'account': "李煜",
+              'avatar': "images/avatar_webp/chat_37.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -389,13 +447,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "云中鹤",
-                'nickname': "云中鹤",
-                'account': "云中鹤",
-                'avatar': "images/avatar_webp/chat_38.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "云中鹤",
+              'nickname': "云中鹤",
+              'account': "云中鹤",
+              'avatar': "images/avatar_webp/chat_38.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -406,13 +467,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "劳德诺",
-                'nickname': "劳德诺",
-                'account': "劳德诺",
-                'avatar': "images/avatar_webp/chat_39.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "劳德诺",
+              'nickname': "劳德诺",
+              'account': "劳德诺",
+              'avatar': "images/avatar_webp/chat_39.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -423,13 +487,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "包惜弱",
-                'nickname': "包惜弱",
-                'account': "包惜弱",
-                'avatar': "images/avatar_webp/chat_40.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "包惜弱",
+              'nickname': "包惜弱",
+              'account': "包惜弱",
+              'avatar': "images/avatar_webp/chat_40.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -440,13 +507,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "游驹",
-                'nickname': "游驹",
-                'account': "游驹",
-                'avatar': "images/avatar_webp/chat_41.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "游驹",
+              'nickname': "游驹",
+              'account': "游驹",
+              'avatar': "images/avatar_webp/chat_41.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -457,13 +527,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "钟万仇",
-                'nickname': "钟万仇",
-                'account': "钟万仇",
-                'avatar': "images/avatar_webp/chat_42.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "钟万仇",
+              'nickname': "钟万仇",
+              'account': "钟万仇",
+              'avatar': "images/avatar_webp/chat_42.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -474,13 +547,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "渔人",
-                'nickname': "渔人",
-                'account': "渔人",
-                'avatar': "images/avatar_webp/chat_43.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "渔人",
+              'nickname': "渔人",
+              'account': "渔人",
+              'avatar': "images/avatar_webp/chat_43.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -491,13 +567,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "单叔山",
-                'nickname': "单叔山",
-                'account': "单叔山",
-                'avatar': "images/avatar_webp/chat_44.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "单叔山",
+              'nickname': "单叔山",
+              'account': "单叔山",
+              'avatar': "images/avatar_webp/chat_44.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -508,13 +587,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "段誉",
-                'nickname': "段誉",
-                'account': "段誉",
-                'avatar': "images/avatar_webp/chat_45.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "段誉",
+              'nickname': "段誉",
+              'account': "段誉",
+              'avatar': "images/avatar_webp/chat_45.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -525,13 +607,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "林震南",
-                'nickname': "林震南",
-                'account': "林震南",
-                'avatar': "images/avatar_webp/chat_46.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "林震南",
+              'nickname': "林震南",
+              'account': "林震南",
+              'avatar': "images/avatar_webp/chat_46.webp",
+            },
+          );
         },
       ),
       ChatListItem(
@@ -542,13 +627,16 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         lastedTime: "已过期",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
-              arguments: <String, String>{
-                'name': "商鞅",
-                'nickname': "商鞅",
-                'account': "商鞅",
-                'avatar': "images/avatar_webp/chat_47.webp",
-              });
+          Navigator.pushNamed(
+            context,
+            '/friendprofile',
+            arguments: <String, String>{
+              'name': "商鞅",
+              'nickname': "商鞅",
+              'account': "商鞅",
+              'avatar': "images/avatar_webp/chat_47.webp",
+            },
+          );
         },
       ),
       Container(
@@ -564,7 +652,7 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
                 style: TextStyle(
                   height: 1.08,
                   fontSize: fontSizeScale(30.w),
-                  color: const Color.fromARGB(255, 125, 125, 125),
+                  color: AppColors.neutralGrey67,
                 ),
               ),
             ]),
@@ -593,7 +681,7 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 237, 237, 237),
+              AppColors.neutralGrey11,
               Colors.white,
             ],
             stops: [0.3, 0.5],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_special_function_item.dart';
 import 'package:spicychat/components/ljn_switch.dart';
@@ -38,7 +39,7 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: const Color.fromARGB(255, 237, 237, 237),
+              color: AppColors.neutralGrey11,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -81,7 +82,7 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                         "开启后，在「通讯录>新的朋友」为你推荐已经注册账号的手机联系人。",
                         maxLines: 3,
                         style: TextStyle(
-                          color: const Color.fromARGB(255, 193, 193, 193),
+                          color: AppColors.neutralGrey35,
                           fontSize: 24.w,
                           overflow: TextOverflow.ellipsis,
                           fontFamily: "AlibabaPuHuiTi",

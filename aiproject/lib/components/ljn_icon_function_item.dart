@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 
@@ -27,14 +28,14 @@ class LJNIconFunctionItem extends StatefulWidget {
 
 class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
   Color containerColor = Colors.white;
-  // Color containerColor = Colors.transparent;
+  // Color containerColor = AppColors.transparent;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (_) {
         setState(() {
-          containerColor = const Color.fromARGB(255, 229, 229, 229);
+          containerColor = AppColors.neutralGrey18;
         });
       },
       onTapCancel: () {
@@ -92,8 +93,8 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                 border: Border(
                   bottom: BorderSide(
                     color: widget.underline
-                        ? const Color.fromARGB(255, 242, 242, 242)
-                        : Colors.transparent,
+                        ? AppColors.neutralGrey6
+                        : AppColors.transparent,
                     width: 1.5.w,
                     style: BorderStyle.solid,
                   ),
@@ -151,12 +152,12 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                               TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(25.w),
-                                color: const Color.fromARGB(255, 170, 170, 170),
+                                color: AppColors.neutralGrey45,
                               ),
                               TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(25.w),
-                                color: const Color.fromARGB(255, 170, 170, 170),
+                                color: AppColors.neutralGrey45,
                               ),
                             ),
                           ),
@@ -180,7 +181,7 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                             fontFamily: 'Iconfont',
                           ),
                           size: 30.0.w,
-                          color: const Color.fromARGB(255, 164, 164, 164),
+                          color: AppColors.neutralGrey50,
                         ),
                       ),
                     )

@@ -1,6 +1,7 @@
 // 功能列表
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 
@@ -129,8 +130,8 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                   border: Border(
                     bottom: BorderSide(
                       color: widget.underline
-                          ? const Color.fromARGB(255, 242, 242, 242)
-                          : Colors.transparent,
+                          ? AppColors.neutralGrey6
+                          : AppColors.transparent,
                       width: 1.5.w,
                       style: BorderStyle.solid,
                     ),
@@ -176,8 +177,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                                   style: TextStyle(
                                     // height: 1.08,
                                     fontSize: fontSizeScale(30.w),
-                                    color:
-                                        const Color.fromARGB(255, 83, 83, 83),
+                                    color: AppColors.neutralDarkGrey7,
                                   ),
                                 ),
                               ),
@@ -186,18 +186,19 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                     if ([null, true].contains(widget.showLinkIcon) &&
                         widget.link != null)
                       Container(
-                          // color: Colors.red,
-                          width: 30.w,
-                          height: widget.height ?? 105.0.w,
-                          margin: const EdgeInsets.only(left: 10, right: 32).w,
-                          child: Icon(
-                            const IconData(
-                              0xed9d,
-                              fontFamily: 'Iconfont',
-                            ),
-                            size: 29.0.w,
-                            color: const Color.fromARGB(255, 164, 164, 164),
-                          ))
+                        // color: Colors.red,
+                        width: 30.w,
+                        height: widget.height ?? 105.0.w,
+                        margin: const EdgeInsets.only(left: 10, right: 32).w,
+                        child: Icon(
+                          const IconData(
+                            0xed9d,
+                            fontFamily: 'Iconfont',
+                          ),
+                          size: 29.0.w,
+                          color: AppColors.neutralGrey50,
+                        ),
+                      )
                   ],
                 ),
               ),

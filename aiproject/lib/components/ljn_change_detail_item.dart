@@ -1,6 +1,7 @@
 // 功能列表
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 
@@ -37,7 +38,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
     return GestureDetector(
       onTapDown: (tapDownDetails) {
         setState(() {
-          containerColor = const Color.fromARGB(255, 229, 229, 229);
+          containerColor = AppColors.neutralGrey18;
         });
       },
       onTapCancel: () {
@@ -65,7 +66,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                 color: containerColor,
                 border: Border(
                   bottom: BorderSide(
-                    color: const Color.fromARGB(255, 242, 242, 242),
+                    color: AppColors.neutralGrey6,
                     width: 1.5.w,
                     style: BorderStyle.solid,
                   ),
@@ -75,7 +76,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                 color: containerColor,
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.transparent,
+                    color: AppColors.transparent,
                     width: 1.5.w,
                     style: BorderStyle.solid,
                   ),
@@ -123,8 +124,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                               style: TextStyle(
                                   height: 1.08,
                                   fontSize: fontSizeScale(30.0.w),
-                                  color:
-                                      const Color.fromARGB(255, 242, 191, 46),
+                                  color: AppColors.accentYellowDark4,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: "LJNFont"),
                               maxLines: 1,
@@ -135,7 +135,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                               style: TextStyle(
                                   height: 1.08,
                                   fontSize: fontSizeScale(30.0.w),
-                                  color: const Color.fromARGB(255, 0, 0, 0),
+                                  color: AppColors.neutralBlack,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: "LJNFont"),
                               maxLines: 1,
@@ -154,7 +154,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                         "12月5日 12:07",
                         style: TextStyle(
                           height: 1.08,
-                          color: const Color.fromARGB(255, 139, 139, 139),
+                          color: AppColors.neutralGrey64,
                           fontSize: fontSizeScale(25.0.w),
                         ),
                         maxLines: 1,
@@ -164,7 +164,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                         "零钱余额 1565.06",
                         style: TextStyle(
                           height: 1.08,
-                          color: const Color.fromARGB(255, 139, 139, 139),
+                          color: AppColors.neutralGrey64,
                           fontSize: fontSizeScale(25.0.w),
                         ),
                         maxLines: 1,

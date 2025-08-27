@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_alphabet.dart';
 import 'package:spicychat/components/ljn_page_loading.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
@@ -431,7 +432,7 @@ class _LJNContactState extends State<LJNContact> {
               style: TextStyle(
                 height: 1.08,
                 fontSize: fontSizeScale(30.w),
-                color: const Color.fromARGB(255, 125, 125, 125),
+                color: AppColors.neutralGrey67,
               ),
             ),
           ],
@@ -464,7 +465,7 @@ class _LJNContactState extends State<LJNContact> {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color.fromARGB(255, 237, 237, 237),
+                AppColors.neutralGrey11,
                 Colors.white,
               ],
               stops: [0.3, 0.5],
@@ -507,7 +508,7 @@ class _LJNContactState extends State<LJNContact> {
                       fontFamily: 'Iconfont',
                     ),
                     size: 22.w,
-                    color: const Color.fromARGB(255, 20, 20, 20),
+                    color: AppColors.neutralNearBlack3,
                   ),
                 ),
                 SizedBox(
@@ -518,7 +519,7 @@ class _LJNContactState extends State<LJNContact> {
                       fontFamily: 'Iconfont',
                     ),
                     size: 22.w,
-                    color: const Color.fromARGB(255, 20, 20, 20),
+                    color: AppColors.neutralNearBlack3,
                   ),
                 ),
                 for (int i = 0; i < 26; i++)
@@ -529,7 +530,7 @@ class _LJNContactState extends State<LJNContact> {
                       style: TextStyle(
                         height: 1.08,
                         fontSize: fontSizeScale(22.w),
-                        color: const Color.fromARGB(255, 20, 20, 20),
+                        color: AppColors.neutralNearBlack3,
                       ),
                     ),
                   ),
@@ -540,7 +541,7 @@ class _LJNContactState extends State<LJNContact> {
                     style: TextStyle(
                       height: 1.08,
                       fontSize: fontSizeScale(22.w),
-                      color: const Color.fromARGB(255, 20, 20, 20),
+                      color: AppColors.neutralNearBlack3,
                     ),
                   ),
                 ),
@@ -585,7 +586,7 @@ class _ContactInformationState extends State<ContactInformation> {
     return GestureDetector(
       onTapDown: (tapDownDetails) {
         setState(() {
-          containerColor = const Color.fromARGB(255, 229, 229, 229);
+          containerColor = AppColors.neutralGrey18;
         });
       },
       onTapCancel: () {
@@ -641,7 +642,7 @@ class _ContactInformationState extends State<ContactInformation> {
                     ? BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
-                            color: const Color.fromARGB(255, 242, 242, 242),
+                            color: AppColors.neutralGrey6,
                             width: 1.5.w,
                             style: BorderStyle.solid,
                           ),
@@ -650,7 +651,7 @@ class _ContactInformationState extends State<ContactInformation> {
                     : BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
-                            color: Colors.transparent,
+                            color: AppColors.transparent,
                             width: 1.5.w,
                             style: BorderStyle.solid,
                           ),

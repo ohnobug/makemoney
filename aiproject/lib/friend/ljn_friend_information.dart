@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_alphabet.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,10 +42,11 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: Container(
           constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height -
-                  90.w -
-                  systemState.statusHeight),
-          color: const Color.fromARGB(255, 237, 237, 237),
+            minHeight: MediaQuery.of(context).size.height -
+                90.w -
+                systemState.statusHeight,
+          ),
+          color: AppColors.neutralGrey11,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -53,7 +55,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
               children: [
                 LJNAlphabet(
                   title: '备注',
-                  bgColor: Color.fromARGB(255, 237, 237, 237),
+                  bgColor: AppColors.neutralGrey11,
                 ),
                 const LJNFunctionItem(
                   title: "备注名",
@@ -81,7 +83,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                 ),
                 LJNAlphabet(
                   title: '更多信息',
-                  bgColor: Color.fromARGB(255, 237, 237, 237),
+                  bgColor: AppColors.neutralGrey11,
                 ),
                 const LJNFunctionItem(
                   title: "我和她共同的群聊",
@@ -90,7 +92,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                   underline: false,
                 ),
                 Container(
-                  color: const Color.fromARGB(255, 237, 237, 237),
+                  color: AppColors.neutralGrey11,
                   height: 16.w,
                 ),
                 LJNFunctionItem(
@@ -109,7 +111,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                       style: TextStyle(
                         // height: 1.25,
                         fontSize: 32.w,
-                        color: const Color.fromARGB(255, 92, 92, 92),
+                        color: AppColors.neutralDarkGrey4,
                       ),
                     ),
                   ),
@@ -131,7 +133,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                       style: TextStyle(
                         // height: 1.25,
                         fontSize: 32.w,
-                        color: const Color.fromARGB(255, 92, 92, 92),
+                        color: AppColors.neutralDarkGrey4,
                       ),
                     ),
                   ),
@@ -151,7 +153,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                           height: 1.08,
                           fontSize: fontSizeScale(32.0.w),
                           fontFamily: "AlibabaPuHuiTi",
-                          color: const Color.fromARGB(255, 83, 83, 83),
+                          color: AppColors.neutralDarkGrey7,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

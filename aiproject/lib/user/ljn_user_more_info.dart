@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -41,10 +42,11 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: Container(
           constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height -
-                  90.w -
-                  systemState.statusHeight),
-          color: const Color.fromARGB(255, 237, 237, 237),
+            minHeight: MediaQuery.of(context).size.height -
+                90.w -
+                systemState.statusHeight,
+          ),
+          color: AppColors.neutralGrey11,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -78,7 +80,7 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
                       style: TextStyle(
                         // height: 1.25,
                         fontSize: 32.w,
-                        color: const Color.fromARGB(255, 92, 92, 92),
+                        color: AppColors.neutralDarkGrey4,
                       ),
                     ),
                   ),
@@ -97,7 +99,7 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
                           height: 1.08,
                           fontSize: fontSizeScale(32.0.w),
                           fontFamily: "AlibabaPuHuiTi",
-                          color: const Color.fromARGB(255, 83, 83, 83),
+                          color: AppColors.neutralDarkGrey7,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -125,7 +127,7 @@ class IconBox extends StatelessWidget {
       width: 105.w,
       alignment: Alignment.topLeft,
       child: DottedBorder(
-        // color: const Color.fromARGB(255, 166, 166, 166),
+        // color: AppColors.neutralGrey47,
         // borderType: BorderType.RRect,
         // padding: const EdgeInsets.all(0),
         // borderPadding: const EdgeInsets.all(0),
@@ -138,10 +140,10 @@ class IconBox extends StatelessWidget {
           width: 105.0.w, // 设置宽度
           height: 105.0.w, // 设置高度
           // decoration: BoxDecoration(
-          //   color: Colors.transparent, // 背景透明
+          //   color: AppColors.transparent, // 背景透明
           //   borderRadius: BorderRadius.circular(8.0.w), // 圆角 8
           //   border: Border.all(
-          //     color: const Color.fromARGB(255, 166, 166, 166), // 边框颜色
+          //     color: AppColors.neutralGrey47, // 边框颜色
           //     width: 1.0.w,
           //     style: BorderStyle.solid, // 边框样式
           //   ),
@@ -153,7 +155,7 @@ class IconBox extends StatelessWidget {
                 0xe616,
                 fontFamily: 'Iconfont',
               ), // 使用的图标
-              color: const Color.fromARGB(255, 166, 166, 166), // 图标颜色
+              color: AppColors.neutralGrey47, // 图标颜色
               size: 42.0.w, // 图标大小
             ),
           ),

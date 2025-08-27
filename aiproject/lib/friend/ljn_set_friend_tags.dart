@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -95,7 +96,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
               margin: EdgeInsets.only(right: 30.w),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 74, 193, 99),
+                color: AppColors.brandGreenVibrant3,
                 borderRadius: BorderRadius.all(
                   Radius.circular(8.w),
                 ),
@@ -122,7 +123,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                 90.w -
                 systemState.statusHeight,
           ),
-          color: const Color.fromARGB(255, 237, 237, 237),
+          color: AppColors.neutralGrey11,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -170,8 +171,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                   // margin: EdgeInsets.only(right: 17.w),
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    color:
-                                        const Color.fromARGB(255, 74, 193, 99),
+                                    color: AppColors.brandGreenVibrant3,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(30.w),
                                     ),
@@ -198,7 +198,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                         child: Container(
                                           width: 50.w,
                                           height: 50.w,
-                                          color: Colors.transparent,
+                                          color: AppColors.transparent,
                                           alignment: Alignment.center,
                                           child: Icon(
                                             const IconData(
@@ -235,7 +235,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                 // margin: EdgeInsets.only(right: 17.w),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 233, 248, 243),
+                                  color: AppColors.brandTealBackground1,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(30.w),
                                   ),
@@ -247,7 +247,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 28.w,
-                                    color: Color.fromARGB(255, 65, 183, 88),
+                                    color: AppColors.brandGreenDarker2,
                                   ),
                                 ),
                               ),
@@ -266,7 +266,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                           // margin: EdgeInsets.only(right: 17.w),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 233, 248, 243),
+                            color: AppColors.brandTealBackground1,
                             borderRadius: BorderRadius.all(
                               Radius.circular(30.w),
                             ),
@@ -331,7 +331,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                       style: TextStyle(
                                         // height: 1.08,
                                         fontSize: fontSizeScale(28.w),
-                                        color: Color.fromARGB(255, 65, 183, 88),
+                                        color: AppColors.brandGreenDarker2,
                                       ),
                                       // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
                                       minLines: 1,
@@ -347,11 +347,11 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                       },
                                       decoration: InputDecoration(
                                         // fillColor:
-                                        //     const Color.fromARGB(255, 252, 0, 0),
+                                        //     AppColors.accentRedVibrant2,
                                         // filled: true,
                                         // focusColor: Colors.red,
                                         // hoverColor:
-                                        //     const Color.fromARGB(255, 247, 247, 247),
+                                        //     AppColors.neutralGrey2,
                                         isCollapsed: true,
                                         contentPadding: EdgeInsets.symmetric(
                                           horizontal: 5.w,
@@ -390,8 +390,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                       0xe64e,
                                       fontFamily: 'Iconfont',
                                     ),
-                                    color:
-                                        const Color.fromARGB(255, 74, 193, 99),
+                                    color: AppColors.brandGreenVibrant3,
                                     size: 35.w,
                                   ),
                                 ),
@@ -418,14 +417,14 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                         "全部标签",
                         style: TextStyle(
                           fontSize: 27.w,
-                          color: Color.fromARGB(255, 155, 155, 155),
+                          color: AppColors.neutralGrey58,
                         ),
                       ),
                       Text(
                         "编辑",
                         style: TextStyle(
                           fontSize: 27.w,
-                          color: Color.fromARGB(255, 155, 155, 155),
+                          color: AppColors.neutralGrey58,
                         ),
                       ),
                     ],
@@ -468,9 +467,8 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                   color: selectedTag.contains(value)
-                                      ? Color.fromARGB(255, 233, 248, 243)
-                                      : const Color.fromARGB(
-                                          255, 247, 247, 247),
+                                      ? AppColors.brandTealBackground1
+                                      : AppColors.neutralGrey2,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(30.w),
                                   ),
@@ -484,9 +482,8 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                     height: 1.08,
                                     fontSize: 28.w,
                                     color: selectedTag.contains(value)
-                                        ? Color.fromARGB(255, 65, 183, 88)
-                                        : const Color.fromARGB(
-                                            255, 159, 159, 159),
+                                        ? AppColors.brandGreenDarker2
+                                        : AppColors.neutralGrey53,
                                   ),
                                 ),
                               ),
@@ -527,13 +524,13 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                             padding: EdgeInsets.symmetric(horizontal: 25.w),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 238, 236, 237),
+                              color: AppColors.neutralGrey10,
                               borderRadius: BorderRadius.all(
                                 Radius.circular(30.w),
                               ),
                               border: Border.all(
                                 width: 1.5.w,
-                                color: Color.fromARGB(255, 216, 214, 215),
+                                color: AppColors.neutralGrey30,
                               ),
                             ),
                             child: Text(
@@ -544,7 +541,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                               style: TextStyle(
                                 height: 1.08,
                                 fontSize: 28.w,
-                                color: Color.fromARGB(255, 166, 164, 165),
+                                color: AppColors.neutralGrey48,
                               ),
                             ),
                           ),
@@ -569,13 +566,13 @@ void _showPopup(
   final underlineInputBorder = UnderlineInputBorder(
     borderSide: BorderSide(
       width: 1.5.w,
-      color: Color.fromARGB(255, 216, 214, 215),
+      color: AppColors.neutralGrey30,
     ),
   );
 
   showModalBottomSheet(
     context: context,
-    barrierColor: Color.fromARGB(120, 0, 0, 0),
+    barrierColor: AppColors.blackTransparent47,
     // backgroundColor: Colors.red,
     isScrollControlled: true,
     shape: RoundedRectangleBorder(
@@ -643,7 +640,7 @@ void _showPopup(
 
                 // 输入框
                 Container(
-                  color: Colors.transparent,
+                  color: AppColors.transparent,
                   height: 70.w,
                   width: 750.w,
                   padding: EdgeInsets.only(left: 90.w, right: 90.w),
@@ -655,11 +652,11 @@ void _showPopup(
                     maxLines: 1,
                     controller: inputController2,
                     onTap: () {},
-                    cursorColor: const Color.fromRGBO(62, 174, 86, 1.0),
+                    cursorColor: AppColors.brandGreenDarker4,
                     cursorWidth: 3.w,
                     style: TextStyle(
                       fontSize: fontSizeScale(28.w),
-                      color: Color.fromARGB(255, 65, 183, 88),
+                      color: AppColors.brandGreenDarker2,
                     ),
                     minLines: 1,
                     onChanged: (newText) {
@@ -719,8 +716,8 @@ void _showPopup(
                     height: 90.w,
                     decoration: BoxDecoration(
                       color: inputController2.text.isEmpty
-                          ? Color.fromARGB(255, 242, 242, 242)
-                          : Color.fromARGB(255, 74, 193, 99),
+                          ? AppColors.neutralGrey6
+                          : AppColors.brandGreenVibrant3,
                       borderRadius: BorderRadius.circular(10.w),
                     ),
                     alignment: Alignment.center,
@@ -728,7 +725,7 @@ void _showPopup(
                       "确定",
                       style: TextStyle(
                         color: inputController2.text.isEmpty
-                            ? Color.fromARGB(255, 182, 182, 182)
+                            ? AppColors.neutralGrey37
                             : Colors.white,
                         fontSize: 32.w,
                       ),

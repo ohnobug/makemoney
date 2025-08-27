@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
-
 import 'package:spicychat/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -116,7 +115,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
               GestureDetector(
                 onTap: () {},
                 child: Container(
-                  color: Colors.transparent,
+                  color: AppColors.transparent,
                   height: 90.w,
                   padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
                   alignment: Alignment.center,
@@ -132,7 +131,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
               GestureDetector(
                 onTap: () {},
                 child: Container(
-                  color: Colors.transparent,
+                  color: AppColors.transparent,
                   height: 90.w,
                   padding: EdgeInsets.only(right: 40.w), // 设置右侧内边距
                   alignment: Alignment.center,
@@ -148,7 +147,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
             ],
           ),
           body: ColoredBox(
-            color: const Color.fromARGB(255, 237, 237, 237),
+            color: AppColors.neutralGrey11,
             child: ScrollConfiguration(
               behavior:
                   ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -159,7 +158,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
                 child: Container(
                   constraints: BoxConstraints(
                       minHeight: MediaQuery.of(context).size.height - 205.w),
-                  color: const Color.fromARGB(255, 237, 237, 237),
+                  color: AppColors.neutralGrey11,
                   child: Column(
                     children: [
                       // 最近使用
@@ -350,40 +349,41 @@ class FunctionButtonsSection extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(top: 33.w, bottom: 16.w, left: 30.w),
             child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      height: 1.08,
-                      fontSize: fontSizeScale(28.w),
-                      color: Colors.black,
-                    ),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    height: 1.08,
+                    fontSize: fontSizeScale(28.w),
+                    color: Colors.black,
                   ),
-                  if (moreUrl != '')
-                    // 三个点
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          moreUrl,
-                        );
-                      },
-                      child: Container(
-                        // height: 90.w,
-                        color: Colors.transparent,
-                        padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                        child: Icon(
-                          const IconData(
-                            0xe659,
-                            fontFamily: 'Iconfont',
-                          ),
-                          size: 37.w, // 图标大小
+                ),
+                if (moreUrl != '')
+                  // 三个点
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        moreUrl,
+                      );
+                    },
+                    child: Container(
+                      // height: 90.w,
+                      color: AppColors.transparent,
+                      padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                      child: Icon(
+                        const IconData(
+                          0xe659,
+                          fontFamily: 'Iconfont',
                         ),
+                        size: 37.w, // 图标大小
                       ),
-                    )
-                ]),
+                    ),
+                  )
+              ],
+            ),
           ),
 
           // 使用 SizedBox 控制 GridView 的大小
@@ -458,7 +458,8 @@ class FunctionButtonState extends State<FunctionButton> {
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: _isPressed ? Colors.grey[200] : Colors.transparent, // 按下时背景色
+          color:
+              _isPressed ? Colors.grey[200] : AppColors.transparent, // 按下时背景色
           borderRadius: BorderRadius.circular(10.0).w, // 圆角半径
         ),
         child: Center(
@@ -478,11 +479,12 @@ class FunctionButtonState extends State<FunctionButton> {
                 widget.title,
                 maxLines: 1,
                 style: TextStyle(
-                    height: 1.08,
-                    decoration: TextDecoration.none,
-                    color: const Color.fromARGB(255, 92, 92, 92),
-                    fontSize: fontSizeScale(25.0.w),
-                    overflow: TextOverflow.ellipsis), // 标题颜色
+                  height: 1.08,
+                  decoration: TextDecoration.none,
+                  color: AppColors.neutralDarkGrey4,
+                  fontSize: fontSizeScale(25.0.w),
+                  overflow: TextOverflow.ellipsis,
+                ), // 标题颜色
               ),
             ],
           ),
@@ -498,11 +500,12 @@ class FunctionListSection extends StatefulWidget {
   final String moreUrl;
   final List<ChatListItem> chatItems;
 
-  const FunctionListSection(
-      {super.key,
-      required this.title,
-      required this.chatItems,
-      required this.moreUrl});
+  const FunctionListSection({
+    super.key,
+    required this.title,
+    required this.chatItems,
+    required this.moreUrl,
+  });
 
   @override
   State<FunctionListSection> createState() => _FunctionListSection();
@@ -529,40 +532,41 @@ class _FunctionListSection extends State<FunctionListSection> {
           Container(
             padding: EdgeInsets.only(top: 33.w, bottom: 16.w, left: 30.w),
             child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    widget.title,
-                    style: TextStyle(
-                      height: 1.08,
-                      fontSize: fontSizeScale(28.w),
-                      color: Colors.black,
-                    ),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  widget.title,
+                  style: TextStyle(
+                    height: 1.08,
+                    fontSize: fontSizeScale(28.w),
+                    color: Colors.black,
                   ),
-                  if (widget.moreUrl != '')
-                    // 三个点
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          widget.moreUrl,
-                        );
-                      },
-                      child: Container(
-                        // height: 90.w,
-                        color: const Color.fromARGB(0, 0, 0, 0),
-                        padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                        child: Icon(
-                          const IconData(
-                            0xe659,
-                            fontFamily: 'Iconfont',
-                          ),
-                          size: 37.w, // 图标大小
+                ),
+                if (widget.moreUrl != '')
+                  // 三个点
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        widget.moreUrl,
+                      );
+                    },
+                    child: Container(
+                      // height: 90.w,
+                      color: AppColors.transparent,
+                      padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                      child: Icon(
+                        const IconData(
+                          0xe659,
+                          fontFamily: 'Iconfont',
                         ),
+                        size: 37.w, // 图标大小
                       ),
-                    )
-                ]),
+                    ),
+                  )
+              ],
+            ),
           ),
 
           // 使用 SizedBox 控制 GridView 的大小
@@ -612,7 +616,7 @@ class _ChatListItem extends State<ChatListItem> {
     return GestureDetector(
       onTapDown: (_) {
         setState(() {
-          containerColor = const Color.fromARGB(255, 229, 229, 229);
+          containerColor = AppColors.neutralGrey18;
         });
       },
       onTapCancel: () {
@@ -680,14 +684,16 @@ class _ChatListItem extends State<ChatListItem> {
                                 children: buildTextSpans(
                                   widget.friendName,
                                   TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(28.0.w),
-                                      color: Colors.black,
-                                      fontFamily: "AlibabaPuHuiTi"),
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(28.0.w),
+                                    color: Colors.black,
+                                    fontFamily: "AlibabaPuHuiTi",
+                                  ),
                                   TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(28.w),
-                                      fontFamily: "NotoColorEmoji-Regular"),
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(28.w),
+                                    fontFamily: "NotoColorEmoji-Regular",
+                                  ),
                                 ),
                               ),
                             ),
@@ -719,14 +725,12 @@ class _ChatListItem extends State<ChatListItem> {
                                   TextStyle(
                                     height: 1.08,
                                     fontSize: fontSizeScale(25.w),
-                                    color: const Color.fromARGB(
-                                        255, 170, 170, 170),
+                                    color: AppColors.neutralGrey45,
                                   ),
                                   TextStyle(
                                     height: 1.08,
                                     fontSize: fontSizeScale(25.w),
-                                    color: const Color.fromARGB(
-                                        255, 170, 170, 170),
+                                    color: AppColors.neutralGrey45,
                                   ),
                                 ),
                               ),

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_custom_physics.dart';
 import 'package:spicychat/contract/ljn_contact.dart';
 import 'package:spicychat/discovery/ljn_discovery.dart';
@@ -33,7 +34,8 @@ class CustomTabbar extends StatefulWidget {
   State<CustomTabbar> createState() => _CustomTabbarState();
 }
 
-class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMixin {
+class _CustomTabbarState extends State<CustomTabbar>
+    with TickerProviderStateMixin {
   late final TabController _tabController;
 
   final List<_TabInfo> _tabs = const [
@@ -51,7 +53,8 @@ class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: _tabs.length, vsync: this, animationDuration: Duration.zero);
+    _tabController = TabController(
+        length: _tabs.length, vsync: this, animationDuration: Duration.zero);
     _tabController.addListener(_handleTabSelection);
   }
 
@@ -62,7 +65,8 @@ class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMix
       });
     }
 
-    if (_tabController.animation!.value >= 2 && _tabController.animation!.value <= 3) {
+    if (_tabController.animation!.value >= 2 &&
+        _tabController.animation!.value <= 3) {
       setState(() {
         _appbarLeft = 750.w * (2 - _tabController.animation!.value);
       });
@@ -108,47 +112,52 @@ class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMix
                 child: Container(
                   height: 106.w,
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 237, 237, 237),
+                    color: AppColors.neutralGrey11,
                     border: Border(
                       top: BorderSide(
-                        color: const Color.fromARGB(255, 220, 220, 220),
+                        color: AppColors.neutralGrey25,
                         width: 1.5.w,
                       ),
                     ),
                   ),
                   child: TabBar(
-                    dividerColor: const Color.fromARGB(255, 218, 218, 218),
-                    labelColor: const Color.fromARGB(255, 7, 192, 103),
+                    dividerColor: AppColors.neutralGrey27,
+                    labelColor: AppColors.brandGreenVibrant6,
                     labelStyle: TextStyle(
                       height: 1.08,
                       fontSize: fontSizeScale(22.w),
                     ),
-                    unselectedLabelColor: const Color.fromARGB(222, 0, 0, 0),
+                    unselectedLabelColor: AppColors.blackTransparent87,
                     indicator: const BoxDecoration(),
                     controller: _tabController,
                     overlayColor: WidgetStateProperty.all(Colors.transparent),
-                    tabs: List.generate(_tabs.length, (index) {
-                      final tabInfo = _tabs[index];
-                      final isSelected = index == _currentIndex;
-                      return Tab(
-                        height: 105.w,
-                        iconMargin: EdgeInsets.only(bottom: 8.w),
-                        icon: SizedBox(
-                          height: 50.w,
-                          width: 50.w,
-                          child: Center(
-                            child: Icon(
-                              IconData(
-                                isSelected ? tabInfo.selectedIcon : tabInfo.icon,
-                                fontFamily: 'Iconfont',
+                    tabs: List.generate(
+                      _tabs.length,
+                      (index) {
+                        final tabInfo = _tabs[index];
+                        final isSelected = index == _currentIndex;
+                        return Tab(
+                          height: 105.w,
+                          iconMargin: EdgeInsets.only(bottom: 8.w),
+                          icon: SizedBox(
+                            height: 50.w,
+                            width: 50.w,
+                            child: Center(
+                              child: Icon(
+                                IconData(
+                                  isSelected
+                                      ? tabInfo.selectedIcon
+                                      : tabInfo.icon,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                size: tabInfo.iconSize.w,
                               ),
-                              size: tabInfo.iconSize.w,
                             ),
                           ),
-                        ),
-                        text: tabInfo.title,
-                      );
-                    }),
+                          text: tabInfo.title,
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -156,7 +165,8 @@ class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMix
               body: TabBarView(
                 physics: systemState.showMiniProgramDrawer
                     ? const NeverScrollableScrollPhysics()
-                    : const CustomTabBarViewScrollPhysics(parent: ClampingScrollPhysics()),
+                    : const CustomTabBarViewScrollPhysics(
+                        parent: ClampingScrollPhysics()),
                 controller: _tabController,
                 children: const <Widget>[
                   LJNHome(),
@@ -167,7 +177,9 @@ class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMix
               ),
             ),
             Visibility(
-              visible: (systemState.homescrollpixels + systemState.statusHeight) <= percent75Position,
+              visible:
+                  (systemState.homescrollpixels + systemState.statusHeight) <=
+                      percent75Position,
               child: Positioned(
                 top: systemState.homescrollpixels,
                 left: _appbarLeft,
@@ -175,10 +187,12 @@ class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMix
                   width: 750.0.w,
                   height: systemState.statusHeight + 90.w,
                   color: systemState.homescrollpixels == 0
-                      ? const Color.fromARGB(255, 237, 237, 237)
-                      : Colors.transparent,
+                      ? AppColors.neutralGrey11
+                      : AppColors.transparent,
                   child: Listener(
-                    onPointerUp: (_) => context.read<LJNSystemCubit>().updateShowMiniProgramDrawer(false),
+                    onPointerUp: (_) => context
+                        .read<LJNSystemCubit>()
+                        .updateShowMiniProgramDrawer(false),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -195,17 +209,18 @@ class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMix
                           toolbarHeight: 90.w,
                           elevation: 0,
                           scrolledUnderElevation: 0,
-                          backgroundColor: const Color.fromARGB(255, 237, 237, 237),
-                          foregroundColor: const Color.fromARGB(255, 237, 237, 237),
+                          backgroundColor: AppColors.neutralGrey11,
+                          foregroundColor: AppColors.neutralGrey11,
                           actions: [
                             GestureDetector(
                               onTap: () {},
                               child: Container(
-                                color: Colors.transparent,
+                                color: AppColors.transparent,
                                 height: 90.w,
                                 padding: EdgeInsets.only(right: 33.w),
                                 child: Icon(
-                                  const IconData(0xe612, fontFamily: 'Iconfont'),
+                                  const IconData(0xe612,
+                                      fontFamily: 'Iconfont'),
                                   size: 40.w,
                                 ),
                               ),
@@ -217,12 +232,15 @@ class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMix
                                 }
                               },
                               child: Container(
-                                color: Colors.transparent,
+                                color: AppColors.transparent,
                                 height: 90.w,
                                 padding: EdgeInsets.only(right: 40.w),
                                 alignment: Alignment.center,
                                 child: Icon(
-                                  const IconData(0xe726, fontFamily: 'Iconfont'),
+                                  const IconData(
+                                    0xe726,
+                                    fontFamily: 'Iconfont',
+                                  ),
                                   size: 42.w,
                                 ),
                               ),
@@ -241,7 +259,7 @@ class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMix
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
-                  color: Colors.transparent,
+                  color: AppColors.transparent,
                 ),
               ),
               Positioned(
@@ -262,7 +280,7 @@ class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMix
                               height: 20.w,
                               child: const Icon(
                                 IconData(0xe62c, fontFamily: 'Iconfont'),
-                                color: Color.fromARGB(255, 76, 76, 76),
+                                color: AppColors.neutralDarkGrey12,
                                 size: 42.0,
                               ),
                             )
@@ -272,7 +290,7 @@ class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMix
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0).w,
-                          color: const Color.fromARGB(255, 76, 76, 76),
+                          color: AppColors.neutralDarkGrey12,
                         ),
                         width: 320.w,
                         height: 425.w,
@@ -281,7 +299,9 @@ class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMix
                             LJNPopupMenuItem(
                               title: "发起群聊",
                               icon: 0xe676,
-                              onTap: () => setState(() => _showPopup = false),
+                              onTap: () => setState(
+                                () => _showPopup = false,
+                              ),
                             ),
                             LJNPopupMenuItem(
                               title: "添加朋友",
@@ -304,7 +324,10 @@ class _CustomTabbarState extends State<CustomTabbar> with TickerProviderStateMix
                               icon: 0xe611,
                               onTap: () {
                                 setState(() => _showPopup = false);
-                                Navigator.pushNamed(context, '/collection_and_payment');
+                                Navigator.pushNamed(
+                                  context,
+                                  '/collection_and_payment',
+                                );
                               },
                             ),
                           ],
@@ -339,15 +362,15 @@ class LJNPopupMenuItem extends StatefulWidget {
 }
 
 class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
-  Color _bgColor = const Color.fromARGB(255, 76, 76, 76);
+  Color _bgColor = AppColors.neutralDarkGrey12;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (_) => setState(() => _bgColor = const Color.fromARGB(255, 68, 68, 68)),
-      onTapCancel: () => setState(() => _bgColor = const Color.fromARGB(255, 76, 76, 76)),
+      onTapDown: (_) => setState(() => _bgColor = AppColors.neutralDarkGrey15),
+      onTapCancel: () => setState(() => _bgColor = AppColors.neutralDarkGrey12),
       onTapUp: (_) {
-        setState(() => _bgColor = const Color.fromARGB(255, 76, 76, 76));
+        setState(() => _bgColor = AppColors.neutralDarkGrey12);
         Future.delayed(const Duration(milliseconds: 50), () {
           widget.onTap?.call();
         });
@@ -374,7 +397,7 @@ class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: const Color.fromARGB(255, 85, 85, 85),
+                      color: AppColors.neutralDarkGrey6,
                       width: 1.5.w,
                     ),
                   ),

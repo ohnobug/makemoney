@@ -301,7 +301,7 @@
 //                               width: 140.w,
 //                               height: 140.w,
 //                               decoration: BoxDecoration(
-//                                 color: const Color.fromARGB(255, 217, 79, 77),
+//                                 color: AppColors.accentRedDark4,
 //                                 borderRadius: BorderRadius.all(
 //                                   Radius.circular(140.w),
 //                                 ),
@@ -350,7 +350,7 @@
 //                             width: 140.w,
 //                             height: 140.w,
 //                             decoration: BoxDecoration(
-//                               color: const Color.fromARGB(255, 13, 13, 11),
+//                               color: AppColors.neutralNearBlack5,
 //                               borderRadius: BorderRadius.all(
 //                                 Radius.circular(140.w),
 //                               ),

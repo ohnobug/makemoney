@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_change_detail_item.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
@@ -58,9 +59,9 @@ class _LJNBillDetails extends State<LJNBillDetails>
                   // 点击事件
                 },
                 child: Container(
-                  // color: Colors.transparent,
+                  // color: AppColors.transparent,
                   height: 90.w,
-                  color: Colors.transparent,
+                  color: AppColors.transparent,
                   // color: Colors.amber,
                   alignment: Alignment.center,
                   padding: EdgeInsets.only(right: 33.w),
@@ -80,7 +81,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: const Color.fromARGB(255, 237, 237, 237),
+              color: AppColors.neutralGrey11,
               child: Column(children: [
                 // 全部账单 标题选项
                 Container(
@@ -89,15 +90,15 @@ class _LJNBillDetails extends State<LJNBillDetails>
                   alignment: Alignment.center,
                   padding: EdgeInsets.only(left: 30.w, right: 30.w),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 239, 239, 239),
+                    color: AppColors.neutralGrey9,
                     border: Border(
                       top: BorderSide(
-                        color: const Color.fromARGB(255, 232, 232, 232),
+                        color: AppColors.neutralGrey15,
                         width: 2.w,
                         style: BorderStyle.solid,
                       ),
                       bottom: BorderSide(
-                        color: const Color.fromARGB(255, 232, 232, 232),
+                        color: AppColors.neutralGrey15,
                         width: 2.w,
                         style: BorderStyle.solid,
                       ),
@@ -120,7 +121,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                           alignment: Alignment.center,
                           padding: EdgeInsets.only(left: 25.w, right: 25.w),
                           decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 227, 227, 227),
+                            color: AppColors.neutralGrey20,
                             borderRadius: BorderRadius.all(
                               Radius.circular(70.w),
                             ),
@@ -165,7 +166,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                               style: TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(30.w),
-                                color: const Color.fromARGB(255, 157, 157, 157),
+                                color: AppColors.neutralGrey55,
                                 // fontWeight: FontWeight.bold,
                                 fontFamily: "AlibabaPuHuiTi",
                               ),
@@ -178,8 +179,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                   0xed9d,
                                   fontFamily: 'Iconfont',
                                 ), // 使用的图标
-                                color: const Color.fromARGB(
-                                    255, 157, 157, 157), // 图标颜色
+                                color: AppColors.neutralGrey55, // 图标颜色
                                 size: 30.w, // 图标大小
                               ),
                             ),
@@ -195,7 +195,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                   height: 107.w,
                   padding: EdgeInsets.only(left: 42.w),
                   alignment: Alignment.centerLeft,
-                  color: const Color.fromARGB(255, 247, 247, 247),
+                  color: AppColors.neutralGrey2,
                   child: Text.rich(
                     TextSpan(
                       children: [
@@ -352,7 +352,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                     });
                   },
                   child: Container(
-                    color: const Color.fromARGB(115, 0, 0, 0),
+                    color: AppColors.blackTransparent45,
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                   ))
@@ -387,10 +387,11 @@ class _LJNBillDetails extends State<LJNBillDetails>
                           child: Text(
                             "选择筛选项",
                             style: TextStyle(
-                                color: Colors.black,
-                                height: 1.08,
-                                fontSize: 27.w,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.black,
+                              height: 1.08,
+                              fontSize: 27.w,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         // 收支类型
@@ -403,7 +404,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                             style: TextStyle(
                               height: 1.08,
                               fontSize: 24.w,
-                              color: const Color.fromARGB(255, 79, 79, 79),
+                              color: AppColors.neutralDarkGrey11,
                             ),
                           ),
                         ),
@@ -460,7 +461,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                             style: TextStyle(
                               height: 1.08,
                               fontSize: 24.w,
-                              color: const Color.fromARGB(255, 79, 79, 79),
+                              color: AppColors.neutralDarkGrey11,
                             ),
                           ),
                         ),
@@ -591,8 +592,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                 height: 90.w,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 242, 242, 242),
+                                  color: AppColors.neutralGrey6,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(12.w),
                                   ),
@@ -600,9 +600,10 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                 child: Text(
                                   "取消",
                                   style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 30.w,
-                                      height: 1.08),
+                                    color: Colors.black,
+                                    fontSize: 30.w,
+                                    height: 1.08,
+                                  ),
                                 ),
                               ),
                             ),
@@ -622,7 +623,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                 height: 90.w,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: const Color.fromARGB(255, 74, 193, 99),
+                                  color: AppColors.brandGreenVibrant3,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(12.w),
                                   ),
@@ -630,9 +631,10 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                 child: Text(
                                   "确定",
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 30.w,
-                                      height: 1.08),
+                                    color: Colors.white,
+                                    fontSize: 30.w,
+                                    height: 1.08,
+                                  ),
                                 ),
                               ),
                             )
@@ -683,12 +685,11 @@ class LJNFilterButton extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: selected
-              ? const Color.fromARGB(255, 232, 249, 241)
-              : const Color.fromARGB(255, 247, 247, 247),
+              ? AppColors.brandTealBackground2
+              : AppColors.neutralGrey2,
           border: Border.all(
-            color: selected
-                ? const Color.fromARGB(255, 83, 175, 105)
-                : const Color.fromARGB(255, 247, 247, 247),
+            color:
+                selected ? AppColors.brandGreenPrimary : AppColors.neutralGrey2,
             width: 2.w,
             style: BorderStyle.solid,
           ),
@@ -701,9 +702,7 @@ class LJNFilterButton extends StatelessWidget {
           style: TextStyle(
             height: 1.08,
             fontSize: 26.w,
-            color: selected
-                ? const Color.fromARGB(255, 49, 176, 78)
-                : Colors.black,
+            color: selected ? AppColors.brandGreenDarker3 : Colors.black,
           ),
         ),
       ),

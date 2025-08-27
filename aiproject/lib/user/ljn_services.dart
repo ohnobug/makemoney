@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_max_width_button.dart';
-
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/store/ljn_user_cubit.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
@@ -63,7 +62,7 @@ class _LJNServices extends State<LJNServices>
                 },
                 child: Container(
                   height: 90.w,
-                  color: Colors.transparent,
+                  color: AppColors.transparent,
                   padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
                   alignment: Alignment.center,
                   child: Icon(
@@ -78,7 +77,7 @@ class _LJNServices extends State<LJNServices>
             ],
           ),
           body: ColoredBox(
-            color: const Color.fromARGB(255, 237, 237, 237),
+            color: AppColors.neutralGrey11,
             child: ScrollConfiguration(
               behavior:
                   ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -89,7 +88,7 @@ class _LJNServices extends State<LJNServices>
                 child: Container(
                   constraints: BoxConstraints(
                       minHeight: MediaQuery.of(context).size.height - 205.w),
-                  color: const Color.fromARGB(255, 237, 237, 237),
+                  color: AppColors.neutralGrey11,
                   child: Column(
                     children: [
                       // 余额
@@ -97,7 +96,7 @@ class _LJNServices extends State<LJNServices>
                         height: 272.w,
                         margin: const EdgeInsets.all(16).w,
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 77, 174, 107),
+                          color: AppColors.brandGreenSlightlyDesaturated,
                           borderRadius: BorderRadius.circular(16.0).w,
                         ),
                         padding: const EdgeInsets.all(16).w,
@@ -136,8 +135,7 @@ class _LJNServices extends State<LJNServices>
                                       child: SizedBox(
                                         width: 22.w,
                                         child: Icon(
-                                          color: const Color.fromARGB(
-                                              255, 156, 215, 179),
+                                          color: AppColors.brandTealMedium,
                                           const IconData(
                                             0xe90d,
                                             fontFamily: 'Iconfont',
@@ -156,8 +154,7 @@ class _LJNServices extends State<LJNServices>
                                       style: TextStyle(
                                         height: 1.08,
                                         fontSize: fontSizeScale(27.w),
-                                        color: const Color.fromARGB(
-                                            255, 156, 215, 179),
+                                        color: AppColors.brandTealMedium,
                                         // fontWeight: FontWeight.w500,
                                         fontFamily: "LJNFont",
                                       ),
@@ -382,7 +379,7 @@ class _LJNServices extends State<LJNServices>
               });
             },
             child: Container(
-              color: const Color.fromARGB(127, 0, 0, 0),
+              color: AppColors.blackTransparent50,
               width: 750.w,
               height: MediaQuery.of(context).size.height,
             ),
@@ -397,7 +394,7 @@ class _LJNServices extends State<LJNServices>
               width: 750.w,
               height: 225.w,
               child: Scaffold(
-                backgroundColor: Colors.transparent,
+                backgroundColor: AppColors.transparent,
                 primary: false,
                 body: Container(
                   width: 750.w,
@@ -416,17 +413,19 @@ class _LJNServices extends State<LJNServices>
                         title: Text.rich(
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          TextSpan(children: [
-                            TextSpan(
-                              text: "服务管理",
-                              style: TextStyle(
-                                height: 1.08,
-                                fontSize: 30.w,
-                                decoration: TextDecoration.none,
-                                color: Colors.black,
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "服务管理",
+                                style: TextStyle(
+                                  height: 1.08,
+                                  fontSize: 30.w,
+                                  decoration: TextDecoration.none,
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                          ]),
+                            ],
+                          ),
                         ),
                         underline: true,
                         onPressed: () {
@@ -443,7 +442,7 @@ class _LJNServices extends State<LJNServices>
                       ),
                       Container(
                         height: 15.w,
-                        color: const Color.fromARGB(255, 247, 247, 247),
+                        color: AppColors.neutralGrey2,
                       ),
                       LJNMaxWidthButton(
                         title: "取消",
@@ -518,9 +517,8 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
         height: 240.w,
         width: 272.w,
         decoration: BoxDecoration(
-          color: _isPressed
-              ? const Color.fromARGB(255, 67, 157, 95)
-              : Colors.transparent,
+          color:
+              _isPressed ? AppColors.brandGreenDarkest : AppColors.transparent,
           borderRadius: BorderRadius.circular(16.0).w,
         ),
         child: Center(
@@ -528,7 +526,7 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                color: Colors.transparent,
+                color: AppColors.transparent,
                 width: 90.w,
                 height: 90.w,
                 child: Center(child: widget.icon),
@@ -542,12 +540,13 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                 widget.title,
                 maxLines: 1,
                 style: TextStyle(
-                    height: 1.08,
-                    // fontWeight: FontWeight.w100,
-                    decoration: TextDecoration.none,
-                    color: Colors.white,
-                    fontSize: fontSizeScale(32.0.w),
-                    overflow: TextOverflow.ellipsis),
+                  height: 1.08,
+                  // fontWeight: FontWeight.w100,
+                  decoration: TextDecoration.none,
+                  color: Colors.white,
+                  fontSize: fontSizeScale(32.0.w),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
 
               SizedBox(height: 10.w),
@@ -558,13 +557,14 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
                   widget.subTitle.toString(),
                   maxLines: 1,
                   style: TextStyle(
-                      height: 1,
-                      // fontWeight: FontWeight.w600,
-                      decoration: TextDecoration.none,
-                      color: const Color.fromARGB(160, 255, 255, 255),
-                      fontSize: fontSizeScale(29.0.w),
-                      overflow: TextOverflow.ellipsis,
-                      fontFamily: "LJNFont"),
+                    height: 1,
+                    // fontWeight: FontWeight.w600,
+                    decoration: TextDecoration.none,
+                    color: AppColors.whiteTransparent63,
+                    fontSize: fontSizeScale(29.0.w),
+                    overflow: TextOverflow.ellipsis,
+                    fontFamily: "LJNFont",
+                  ),
                 ),
               if (widget.subTitle is Widget) widget.subTitle as Widget
             ],
@@ -621,7 +621,8 @@ class FunctionButtonState extends State<FunctionButton> {
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: _isPressed ? Colors.grey[200] : Colors.transparent, // 按下时背景色
+          color:
+              _isPressed ? Colors.grey[200] : AppColors.transparent, // 按下时背景色
           borderRadius: BorderRadius.circular(10.0).w, // 圆角半径
         ),
         child: Center(
@@ -638,11 +639,12 @@ class FunctionButtonState extends State<FunctionButton> {
                 widget.title,
                 maxLines: 1,
                 style: TextStyle(
-                    height: 1.08,
-                    decoration: TextDecoration.none,
-                    color: const Color.fromARGB(255, 33, 33, 33),
-                    fontSize: fontSizeScale(25.0.w),
-                    overflow: TextOverflow.ellipsis), // 标题颜色
+                  height: 1.08,
+                  decoration: TextDecoration.none,
+                  color: AppColors.neutralDarkGrey20,
+                  fontSize: fontSizeScale(25.0.w),
+                  overflow: TextOverflow.ellipsis,
+                ), // 标题颜色
               ),
             ],
           ),
@@ -689,7 +691,7 @@ class FunctionButtonsSection extends StatelessWidget {
                     style: TextStyle(
                       height: 1.08,
                       fontSize: fontSizeScale(27.w),
-                      color: const Color.fromARGB(255, 87, 87, 87),
+                      color: AppColors.neutralDarkGrey5,
                     ),
                   ),
                 ),

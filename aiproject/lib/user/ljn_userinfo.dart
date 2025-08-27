@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -42,7 +43,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
               minHeight: MediaQuery.of(context).size.height -
                   90.w -
                   systemState.statusHeight),
-          color: const Color.fromARGB(255, 237, 237, 237),
+          color: AppColors.neutralGrey11,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -57,24 +58,25 @@ class _LJNUserinfo extends State<LJNUserinfo> {
                   showStyle: Expanded(
                     flex: 1,
                     child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10).w,
-                            child: Image.asset(
-                              assetPath(context
-                                  .read<LJNUserCubit>()
-                                  .state
-                                  .userinfoAvatar!),
-                              cacheWidth: 240.w.toInt(),
-                              cacheHeight: 240.w.toInt(),
-                              width: 120.w,
-                              height: 120.w,
-                              fit: BoxFit.cover,
-                            ),
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10).w,
+                          child: Image.asset(
+                            assetPath(context
+                                .read<LJNUserCubit>()
+                                .state
+                                .userinfoAvatar!),
+                            cacheWidth: 240.w.toInt(),
+                            cacheHeight: 240.w.toInt(),
+                            width: 120.w,
+                            height: 120.w,
+                            fit: BoxFit.cover,
                           ),
-                        ]),
+                        ),
+                      ],
+                    ),
                   ),
                   underline: true,
                 ),
@@ -116,7 +118,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
                             fontFamily: 'Iconfont',
                           ),
                           size: 30.w,
-                          color: const Color.fromARGB(255, 170, 170, 170),
+                          color: AppColors.neutralGrey45,
                         ),
                       ],
                     ),

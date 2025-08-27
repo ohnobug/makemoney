@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_max_width_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,7 +37,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: const Color.fromARGB(255, 237, 237, 237),
+              color: AppColors.neutralGrey11,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -57,7 +58,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                         style: TextStyle(
                           fontSize: 32.w,
                           height: 1.08,
-                          color: const Color.fromARGB(255, 180, 180, 180),
+                          color: AppColors.neutralGrey39,
                         ),
                       ),
                     ),
@@ -78,7 +79,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                           style: TextStyle(
                             fontSize: 32.w,
                             height: 1.08,
-                            color: const Color.fromARGB(255, 180, 180, 180),
+                            color: AppColors.neutralGrey39,
                           ),
                         ),
                       ),
@@ -103,7 +104,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                           style: TextStyle(
                             fontSize: 32.w,
                             height: 1.08,
-                            color: const Color.fromARGB(255, 180, 180, 180),
+                            color: AppColors.neutralGrey39,
                           ),
                         ),
                       ),
@@ -116,7 +117,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                       "登录微信后，当设备处于安全状态时，微信会自动延长登录时间以保持朋友消息的及时收发，此时会更新最近活跃时间。",
                       style: TextStyle(
                         fontSize: 27.w,
-                        color: const Color.fromARGB(255, 149, 149, 149),
+                        color: AppColors.neutralGrey60,
                       ),
                     ),
                   ),

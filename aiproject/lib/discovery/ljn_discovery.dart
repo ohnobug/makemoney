@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_page_loading.dart';
-
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../components/ljn_function_item.dart';
 
 class LJNDiscovery extends StatefulWidget {
@@ -43,7 +41,7 @@ class _LJNDiscovery extends State<LJNDiscovery> {
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: ColoredBox(
-        color: const Color.fromARGB(255, 237, 237, 237),
+        color: AppColors.neutralGrey11,
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(
             parent: BouncingScrollPhysics(),
@@ -97,8 +95,7 @@ class _LJNDiscovery extends State<LJNDiscovery> {
                                 TextStyle(
                                     height: 1.08,
                                     fontSize: fontSizeScale(26.w),
-                                    color:
-                                        const Color.fromARGB(255, 80, 80, 80),
+                                    color: AppColors.neutralDarkGrey10,
                                     fontFamily: "AlibabaPuHuiTi"),
                                 TextStyle(
                                     height: 1.08,
@@ -128,7 +125,7 @@ class _LJNDiscovery extends State<LJNDiscovery> {
                             style: TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(26.w),
-                              color: const Color.fromARGB(255, 80, 80, 80),
+                              color: AppColors.neutralDarkGrey10,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,

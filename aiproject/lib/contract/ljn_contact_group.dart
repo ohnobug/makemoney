@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_alphabet.dart';
 import 'package:spicychat/components/ljn_chatlist_item.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
@@ -24,7 +25,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
     contactList = [
       LJNAlphabet(
         title: '群聊',
-        bgColor: Color.fromARGB(255, 237, 237, 237),
+        bgColor: AppColors.neutralGrey11,
       ),
       ChatListItem(
         friendName: "天空飘来五个字那都不是事",
@@ -274,7 +275,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ),
       LJNAlphabet(
         title: 'B',
-        bgColor: Color.fromARGB(255, 237, 237, 237),
+        bgColor: AppColors.neutralGrey11,
       ),
       ChatListItem(
         friendName: "段延庆",
@@ -544,7 +545,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
                 style: TextStyle(
                   height: 1.08,
                   fontSize: fontSizeScale(30.w),
-                  color: const Color.fromARGB(255, 125, 125, 125),
+                  color: AppColors.neutralGrey67,
                 ),
               ),
             ]),
@@ -573,7 +574,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 237, 237, 237),
+              AppColors.neutralGrey11,
               Colors.white,
             ],
             stops: [0.3, 0.5],

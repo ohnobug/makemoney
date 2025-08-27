@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_thumbnail_video/index.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/store/ljn_user_cubit.dart';
@@ -176,20 +177,25 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                     // 姓名
                     if (widget.showName)
                       Container(
-                        padding:
-                            const EdgeInsets.only(right: 23, top: 0, bottom: 3)
-                                .w,
+                        padding: const EdgeInsets.only(
+                          right: 23,
+                          top: 0,
+                          bottom: 3,
+                        ).w,
                         // height: 33.w,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               widget.name ??
-                                  context.read<LJNUserCubit>().state.userinfoName!,
+                                  context
+                                      .read<LJNUserCubit>()
+                                      .state
+                                      .userinfoName!,
                               style: TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(20.w),
-                                color: const Color.fromARGB(255, 130, 130, 130),
+                                color: AppColors.neutralGrey66,
                               ),
                             )
                           ],
@@ -221,8 +227,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                               height: videoHeight,
                               // color: Colors.grey,
                               decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 158, 236, 114),
+                                  color: AppColors.brandGreenLighter,
                                   borderRadius: BorderRadius.circular(8).w),
                               child: picPath != null
                                   ? Stack(
@@ -237,8 +242,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                           width: videoWidth,
                                           height: videoHeight,
                                           alignment: Alignment.center,
-                                          color: const Color.fromARGB(
-                                              105, 0, 0, 0),
+                                          color: AppColors.blackTransparent41,
                                           child: Icon(
                                             const IconData(
                                               0xe6c5,
@@ -279,7 +283,8 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                 onTap: () {
                   Navigator.pushNamed(context, '/friendprofile',
                       arguments: <String, String>{
-                        'name': context.read<LJNUserCubit>().state.userinfoName!,
+                        'name':
+                            context.read<LJNUserCubit>().state.userinfoName!,
                         'avatar':
                             context.read<LJNUserCubit>().state.userinfoAvatar!,
                         'nickname':
@@ -291,7 +296,8 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8).w,
                   child: Image.asset(
-                    assetPath(context.read<LJNUserCubit>().state.userinfoAvatar!),
+                    assetPath(
+                        context.read<LJNUserCubit>().state.userinfoAvatar!),
                     cacheWidth: 156.w.toInt(),
                     cacheHeight: 156.w.toInt(),
                     width: 78.w,

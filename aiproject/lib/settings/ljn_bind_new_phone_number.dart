@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_add_button.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,7 +51,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                       minHeight: MediaQuery.of(context).size.height -
                           90.w -
                           systemState.statusHeight),
-                  color: const Color.fromARGB(255, 237, 237, 237),
+                  color: AppColors.neutralGrey11,
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(
                       parent: BouncingScrollPhysics(),
@@ -70,8 +71,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                                 fontSize: 30.w,
                               ),
                               autofocus: true,
-                              cursorColor:
-                                  const Color.fromRGBO(62, 174, 86, 1.0),
+                              cursorColor: AppColors.brandGreenDarker4,
                               cursorWidth: 1.w,
                               onTapOutside: (event) {
                                 FocusScope.of(context).unfocus();
@@ -80,31 +80,27 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                                 hintText: '请输入验证码',
                                 hintStyle: TextStyle(
                                   fontSize: 30.w,
-                                  color:
-                                      const Color.fromARGB(255, 147, 147, 147),
+                                  color: AppColors.neutralGrey61,
                                 ),
                                 labelText: '',
                                 isDense: true,
                                 border: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     width: 1.5.w,
-                                    color: const Color.fromARGB(
-                                        255, 104, 199, 145),
+                                    color: AppColors.brandGreenSlightlyLighter,
                                   ),
                                 ),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     width: 1.5.w,
-                                    color: const Color.fromARGB(
-                                        255, 104, 199, 145),
+                                    color: AppColors.brandGreenSlightlyLighter,
                                   ),
                                 ),
                                 // 获取焦点时的底线样式
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     width: 1.5.w,
-                                    color: const Color.fromARGB(
-                                        255, 104, 199, 145),
+                                    color: AppColors.brandGreenSlightlyLighter,
                                   ),
                                 ),
                                 contentPadding:
@@ -117,8 +113,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                           ),
                           LJNAddButton(
                             title: "下一步",
-                            backgroundColor:
-                                const Color.fromARGB(255, 74, 193, 99),
+                            backgroundColor: AppColors.brandGreenVibrant3,
                             onTap: () {
                               showDialog(
                                 context: context,

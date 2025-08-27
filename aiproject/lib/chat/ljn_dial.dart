@@ -6,6 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/chat/widgets/ljn_dial_floating_widget.dart';
+import 'package:spicychat/chat/widgets/ljn_dot_loading_text.dart';
+import 'package:spicychat/colors.dart';
 import 'package:video_player/video_player.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -63,7 +66,7 @@ class _LJNDial extends State<LJNDial> {
 
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
+        statusBarColor: AppColors.transparent, // 使用白色背景确保图标变为黑色
         statusBarIconBrightness: Brightness.light, // 确保图标颜色为黑色
       ),
     );
@@ -73,7 +76,7 @@ class _LJNDial extends State<LJNDial> {
   void dispose() {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
+        statusBarColor: AppColors.transparent, // 使用白色背景确保图标变为黑色
         statusBarIconBrightness: Brightness.dark, // 确保图标颜色为黑色
       ),
     );
@@ -93,13 +96,13 @@ class _LJNDial extends State<LJNDial> {
         appBar: null,
         body: Container(
           width: 750.w,
-          color: const Color.fromARGB(255, 22, 22, 20),
+          color: AppColors.neutralNearBlack2,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               LJNAppBar(
                 title: "",
-                bgColor: Colors.transparent,
+                bgColor: AppColors.transparent,
                 leading: GestureDetector(
                   onTap: () {
                     Navigator.of(context).pop();
@@ -124,7 +127,7 @@ class _LJNDial extends State<LJNDial> {
                     // _enablePip(context);
                   },
                   child: Container(
-                    color: Colors.transparent,
+                    color: AppColors.transparent,
                     child: Icon(
                       const IconData(0xe68f, fontFamily: 'Iconfont'),
                       color: Colors.white,
@@ -167,6 +170,7 @@ class _LJNDial extends State<LJNDial> {
 
               // 含Loading的文字
               LJNDotLoadingText(),
+
               SizedBox(
                 height: 115.w,
               ),
@@ -241,7 +245,7 @@ class _LJNDial extends State<LJNDial> {
                             width: 140.w,
                             height: 140.w,
                             decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 217, 79, 77),
+                              color: AppColors.accentRedDark4,
                               borderRadius: BorderRadius.all(
                                 Radius.circular(140.w),
                               ),
@@ -283,7 +287,7 @@ class _LJNDial extends State<LJNDial> {
                           width: 140.w,
                           height: 140.w,
                           decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 13, 13, 11),
+                            color: AppColors.neutralNearBlack5,
                             borderRadius: BorderRadius.all(
                               Radius.circular(140.w),
                             ),
@@ -324,152 +328,8 @@ class _LJNDial extends State<LJNDial> {
                 color: Colors.blue,
                 child: Text("hello world"),
               ),
-              childWhenDisabled: mainWidget);
+              childWhenDisabled: mainWidget,
+            );
     });
-  }
-}
-
-class LJNDotLoadingText extends StatefulWidget {
-  const LJNDotLoadingText({super.key});
-
-  @override
-  State<LJNDotLoadingText> createState() => _LJNDotLoadingTextState();
-}
-
-class _LJNDotLoadingTextState extends State<LJNDotLoadingText> {
-  int dotCount = 0; // 当前显示的点数
-  Timer? _timer;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // 启动定时器，每隔 500 毫秒更新一次点数
-    _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
-      setState(() {
-        dotCount = (dotCount + 1) % 4; // 循环显示 0 到 3 个点
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel(); // 销毁定时器
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      "等待对方接受邀请${'.' * dotCount}", // 根据点数动态生成文本
-      style: TextStyle(
-        fontSize: 30.w,
-        color: const Color.fromARGB(255, 141, 143, 142),
-      ),
-    );
-  }
-}
-
-class LJNDialFloatingWidget extends StatefulWidget {
-  final SystemState systemState;
-  const LJNDialFloatingWidget({super.key, required this.systemState});
-
-  @override
-  State<LJNDialFloatingWidget> createState() => _LJNDialFloatingWidget();
-}
-
-// 打电话浮窗
-class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
-  late dynamic _videoController;
-
-  double _height = 0;
-  double _width = 0;
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (!Platform.isWindows) {
-      _videoController =
-          VideoPlayerController.asset(assetPath('images/ins/test.mp4'))
-            ..initialize().then((_) {
-              setState(() {
-                if (_videoController.value.aspectRatio > 1) {
-                  // 宽大于高
-                  _width = 350.w;
-                  _height = _width / _videoController.value.aspectRatio;
-                } else {
-                  _height = 622.w;
-                  _width = _height * _videoController.value.aspectRatio;
-                }
-              });
-
-              PictureInPicture.updatePiPParams(
-                pipParams: PiPParams(
-                  pipWindowHeight: _height,
-                  pipWindowWidth: _width,
-                ),
-              );
-
-              _videoController.setLooping(true);
-              // _videoController.setVolume(0.0);
-              _videoController.play();
-            });
-    }
-  }
-
-  @override
-  void dispose() async {
-    _videoController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      // color: Colors.blueAccent,
-      child: Stack(children: [
-        _videoController.value.isInitialized
-            ? AspectRatio(
-                aspectRatio: _videoController.value.aspectRatio,
-                child: VideoPlayer(_videoController),
-              )
-            : SizedBox(),
-
-        // 播放
-        Positioned(
-          bottom: 5.w,
-          left: 5.w,
-          child: ElevatedButton(
-            onPressed: () {
-              if (_videoController.value.isPlaying) {
-                setState(() {
-                  _videoController.pause();
-                });
-              } else {
-                setState(() {
-                  _videoController.play();
-                });
-              }
-            },
-            child:
-                _videoController.value.isPlaying ? Text("Pause") : Text("Play"),
-          ),
-        ),
-
-        // 退出
-        Positioned(
-          bottom: 5.w,
-          right: 5.w,
-          child: ElevatedButton(
-            onPressed: () {
-              PictureInPicture.stopPiP();
-              widget.systemState.navigatorKey.currentState!.pushNamed('/dial');
-            },
-            child: Text("close"),
-          ),
-        ),
-      ]),
-    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_special_function_item.dart';
 import 'package:spicychat/components/ljn_switch.dart';
@@ -37,7 +38,7 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                 minHeight: MediaQuery.of(context).size.height -
                     90.w -
                     systemState.statusHeight),
-            color: const Color.fromARGB(255, 237, 237, 237),
+            color: AppColors.neutralGrey11,
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(
                 parent: BouncingScrollPhysics(),
@@ -69,7 +70,7 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                     "开启后，键盘上的发送按钮会被替换成换行",
                     maxLines: 3,
                     style: TextStyle(
-                      color: const Color.fromARGB(255, 193, 193, 193),
+                      color: AppColors.neutralGrey35,
                       fontSize: 24.w,
                       overflow: TextOverflow.ellipsis,
                       fontFamily: "AlibabaPuHuiTi",
@@ -102,11 +103,17 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                 Container(
                   alignment: Alignment.centerLeft,
                   height: 64.w,
-                  padding:
-                      const EdgeInsets.only(left: 30.0, right: 0.0, top: 16).w,
+                  padding: const EdgeInsets.only(
+                    left: 30.0,
+                    right: 0.0,
+                    top: 16,
+                  ).w,
                   child: Text(
                     "聊天记录",
-                    style: TextStyle(fontSize: 25.w, height: 1.08),
+                    style: TextStyle(
+                      fontSize: 25.w,
+                      height: 1.08,
+                    ),
                   ),
                 ),
                 const LJNFunctionItem(

@@ -1,6 +1,7 @@
 // 通话弹出
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_max_width_button.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 
@@ -10,7 +11,7 @@ void showCallPopup(BuildContext context, SystemState systemState) {
 
   showModalBottomSheet(
     context: context,
-    barrierColor: Color.fromARGB(120, 0, 0, 0),
+    barrierColor: AppColors.blackTransparent47,
     // backgroundColor: Colors.red,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
@@ -129,7 +130,7 @@ void showCallPopup(BuildContext context, SystemState systemState) {
             ),
             Container(
               height: 15.w,
-              color: const Color.fromARGB(255, 247, 247, 247),
+              color: AppColors.neutralGrey2,
             ),
             LJNMaxWidthButton(
               title: "取消",

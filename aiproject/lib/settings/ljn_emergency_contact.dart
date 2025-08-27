@@ -1,9 +1,8 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 
@@ -39,7 +38,7 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
               margin: EdgeInsets.only(right: 30.w),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 74, 193, 99),
+                color: AppColors.brandGreenVibrant3,
                 borderRadius: BorderRadius.all(
                   Radius.circular(8.w),
                 ),
@@ -48,9 +47,10 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                 "完成",
                 // textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 25.w,
-                    fontWeight: FontWeight.w100),
+                  color: Colors.white,
+                  fontSize: 25.w,
+                  fontWeight: FontWeight.w100,
+                ),
               ),
             ),
           )
@@ -68,7 +68,7 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                 minHeight: MediaQuery.of(context).size.height -
                     (systemState.statusHeight + 90.w),
               ),
-              // color: const Color.fromARGB(255, 231, 15, 15),
+              // color: AppColors.accentRedDark2,
               child: Column(
                 children: [
                   Container(
@@ -79,18 +79,19 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                         0xe626,
                         fontFamily: 'Iconfont',
                       ), // 使用的图标
-                      color: const Color.fromARGB(255, 74, 193, 99), // 图标颜色
+                      color: AppColors.brandGreenVibrant3, // 图标颜色
                       size: 195.w, // 图标大小
                     ),
                   ),
                   Text(
                     "应急联系人",
                     style: TextStyle(
-                        height: 1.08,
-                        fontSize: 40.w,
-                        // fontWeight: FontWeight.bold,
-                        // fontFamily: "AlibabaPuHuiTi"
-                        fontFamily: "AlibabaPuHuiTi-Medium"),
+                      height: 1.08,
+                      fontSize: 40.w,
+                      // fontWeight: FontWeight.bold,
+                      // fontFamily: "AlibabaPuHuiTi"
+                      fontFamily: "AlibabaPuHuiTi-Medium",
+                    ),
                   ),
                   SizedBox(
                     height: 60.w,
@@ -101,10 +102,11 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                     child: Text(
                       "从通讯录里选择3位以上你可以随时电话联系的朋友添加成应急联系人。",
                       style: TextStyle(
-                          color: const Color.fromARGB(255, 162, 162, 162),
-                          // height: 1.08,
-                          fontSize: 25.w,
-                          fontFamily: "AlibabaPuHuiTi"),
+                        color: AppColors.neutralGrey51,
+                        // height: 1.08,
+                        fontSize: 25.w,
+                        fontFamily: "AlibabaPuHuiTi",
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -117,7 +119,7 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: const Color.fromARGB(255, 242, 242, 242),
+                          color: AppColors.neutralGrey6,
                           width: 2.w,
                           style: BorderStyle.solid,
                         ),
@@ -127,7 +129,7 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                       "了解如何通过应急联系人找回账号密码",
                       style: TextStyle(
                           height: 1.08,
-                          color: const Color.fromARGB(255, 64, 67, 101),
+                          color: AppColors.brandPurpleDark4,
                           fontSize: 25.w,
                           fontFamily: "AlibabaPuHuiTi"),
                     ),
@@ -177,7 +179,7 @@ class IconBox extends StatelessWidget {
     return DottedBorder(
       options: RectDottedBorderOptions(
         strokeCap: StrokeCap.round,
-        color: const Color.fromARGB(255, 166, 166, 166),
+        color: AppColors.neutralGrey47,
         dashPattern: [16.w, 10.w],
         strokeWidth: 3.w,
         padding: EdgeInsets.all(16),
@@ -186,10 +188,10 @@ class IconBox extends StatelessWidget {
         width: 91.0.w, // 设置宽度
         height: 91.0.w, // 设置高度
         // decoration: BoxDecoration(
-        //   color: Colors.transparent, // 背景透明
+        //   color: AppColors.transparent, // 背景透明
         //   borderRadius: BorderRadius.circular(8.0.w), // 圆角 8
         //   border: Border.all(
-        //     color: const Color.fromARGB(255, 166, 166, 166), // 边框颜色
+        //     color: AppColors.neutralGrey47, // 边框颜色
         //     width: 1.0.w,
         //     style: BorderStyle.solid, // 边框样式
         //   ),
@@ -201,7 +203,7 @@ class IconBox extends StatelessWidget {
               0xe616,
               fontFamily: 'Iconfont',
             ), // 使用的图标
-            color: const Color.fromARGB(255, 166, 166, 166), // 图标颜色
+            color: AppColors.neutralGrey47, // 图标颜色
             size: 36.0.w, // 图标大小
           ),
         ),

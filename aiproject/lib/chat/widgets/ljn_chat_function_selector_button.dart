@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 
 class LJNFunctionSelectorButton extends StatefulWidget {
@@ -35,7 +36,7 @@ class _LJNFunctionSelectorButtonState extends State<LJNFunctionSelectorButton> {
           GestureDetector(
             onTapDown: (_) {
               setState(() {
-                bgColor = Color.fromARGB(255, 222, 222, 222);
+                bgColor = AppColors.neutralGrey24;
               });
 
               widget.onTap();
@@ -72,7 +73,7 @@ class _LJNFunctionSelectorButtonState extends State<LJNFunctionSelectorButton> {
                   widget.title,
                   style: TextStyle(
                     fontSize: 22.w,
-                    color: Color.fromARGB(255, 101, 101, 101),
+                    color: AppColors.neutralGrey77,
                   ),
                 ),
               ],

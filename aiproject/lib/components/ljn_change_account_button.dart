@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 
@@ -32,8 +33,7 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
     super.initState();
 
     // 判断是否有 backgroundColor，若没有，则使用默认颜色
-    originContainerColor =
-        widget.backgroundColor ?? const Color.fromARGB(255, 241, 241, 241);
+    originContainerColor = widget.backgroundColor ?? AppColors.neutralGrey7;
 
     setState(() {
       containerColor = originContainerColor;
@@ -55,7 +55,7 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
 
   @override
   Widget build(BuildContext context) {
-    Color fontColor = const Color.fromARGB(255, 41, 41, 41);
+    Color fontColor = AppColors.neutralDarkGrey19;
     if (widget.color is Color) {
       fontColor = widget.color!;
     }
@@ -109,9 +109,8 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
           style: TextStyle(
             fontSize: 32.w,
             height: 1.08,
-            color: widget.readonly == true
-                ? const Color.fromARGB(255, 184, 184, 184)
-                : fontColor,
+            color:
+                widget.readonly == true ? AppColors.neutralGrey36 : fontColor,
           ),
         ),
       ),

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
@@ -197,7 +198,7 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
             Visibility(
               visible: !pageVisible,
               child: Container(
-                color: const Color.fromARGB(255, 177, 177, 177),
+                color: AppColors.neutralGrey40,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: Center(
@@ -226,10 +227,10 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
                 width: 192.w,
                 height: 64.w,
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(237, 255, 255, 255), // 背景颜色
+                  color: AppColors.whiteTransparent93, // 背景颜色
                   borderRadius: BorderRadius.circular(35.w), // 圆角
                   border: Border.all(
-                    color: const Color.fromARGB(255, 217, 225, 231), // 边框颜色
+                    color: AppColors.neutralGrey28, // 边框颜色
                     width: 1.w, // 边框宽度
                   ),
                 ),
@@ -243,7 +244,7 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
                         },
                         child: Container(
                           // 加盒子是为了扩大点击区域
-                          color: Colors.transparent,
+                          color: AppColors.transparent,
                           child: Icon(
                             const IconData(
                               0xe620,
@@ -258,14 +259,14 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
                     Container(
                       width: 2.w,
                       height: 40.w,
-                      color: const Color.fromARGB(255, 224, 220, 221),
+                      color: AppColors.neutralGrey22,
                     ),
                     Expanded(
                       child: GestureDetector(
                         onTap: () => Navigator.of(context).pop(), // 点击事件
                         child: Container(
                           // 加盒子是为了扩大点击区域
-                          color: Colors.transparent,
+                          color: AppColors.transparent,
                           child: Icon(
                             const IconData(
                               0xe617,
@@ -285,7 +286,7 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
             // Container(
             //   width: MediaQuery.of(context).size.height,
             //   height: MediaQuery.of(context).size.width,
-            //   color: Color.fromARGB(102, 0, 0, 0),
+            //   color: AppColors.blackTransparent40,
             // ),
           ],
         ),
@@ -341,7 +342,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                   '东城共赢(南海)信息科技有限公司',
                   style: TextStyle(
                     height: 1.08,
-                    color: Color.fromARGB(255, 193, 193, 193),
+                    color: AppColors.neutralGrey35,
                     fontSize: 24.w,
                   ),
                 )
@@ -377,7 +378,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
               "精选评价: 很满意，产品质量好",
               style: TextStyle(
                 fontSize: 24.w,
-                color: Color.fromARGB(255, 113, 113, 113),
+                color: AppColors.neutralGrey70,
                 height: 1.08,
               ),
             )
@@ -387,7 +388,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
 
       // 转发
       Container(
-        color: Color.fromARGB(255, 247, 247, 247),
+        color: AppColors.neutralGrey2,
         width: MediaQuery.of(context).size.width,
         height: 300.w,
         padding: EdgeInsets.only(
@@ -600,10 +601,10 @@ void _showPopup(BuildContext context, SystemState systemState) {
         height: 465.w,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 247, 247, 247),
+          color: AppColors.neutralGrey2,
           border: Border(
             top: BorderSide(
-              color: const Color.fromARGB(255, 231, 231, 231),
+              color: AppColors.neutralGrey16,
               width: 1.0.w,
               style: BorderStyle.solid,
             ),
@@ -791,7 +792,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                             0xe667,
                             fontFamily: 'Iconfont',
                           ),
-                          color: const Color.fromARGB(255, 105, 105, 105),
+                          color: AppColors.neutralGrey75,
                           size: 55.w,
                         ),
                       ),
@@ -813,7 +814,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                             0xe684,
                             fontFamily: 'Iconfont',
                           ),
-                          color: const Color.fromARGB(255, 105, 105, 105),
+                          color: AppColors.neutralGrey75,
                           size: 45.w,
                         ),
                       ),
@@ -835,7 +836,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                             0xe6b5,
                             fontFamily: 'Iconfont',
                           ),
-                          color: const Color.fromARGB(255, 105, 105, 105),
+                          color: AppColors.neutralGrey75,
                           size: 45.w,
                         ),
                       ),
@@ -857,7 +858,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                             0xe63e,
                             fontFamily: 'Iconfont',
                           ),
-                          color: const Color.fromARGB(255, 105, 105, 105),
+                          color: AppColors.neutralGrey75,
                           size: 45.w,
                         ),
                       ),
@@ -879,7 +880,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                             0xe66e,
                             fontFamily: 'Iconfont',
                           ),
-                          color: const Color.fromARGB(255, 105, 105, 105),
+                          color: AppColors.neutralGrey75,
                           size: 45.w,
                         ),
                       ),
@@ -901,12 +902,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                             0xe639,
                             fontFamily: 'Iconfont',
                           ),
-                          color: const Color.fromARGB(
-                            255,
-                            105,
-                            105,
-                            105,
-                          ),
+                          color: AppColors.neutralGrey75,
                           size: 45.w,
                         ),
                       ),
@@ -928,12 +924,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                             0xe63a,
                             fontFamily: 'Iconfont',
                           ),
-                          color: const Color.fromARGB(
-                            255,
-                            105,
-                            105,
-                            105,
-                          ),
+                          color: AppColors.neutralGrey75,
                           size: 45.w,
                         ),
                       ),
@@ -950,7 +941,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
 
       // 取消
       LJNPopupButtonMaxWidthButton(
-        color: Color.fromARGB(255, 65, 82, 120),
+        color: AppColors.brandBlueDark3,
         title: "取消",
         underline: false,
         onPressed: () {
@@ -962,7 +953,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
 
   showModalBottomSheet(
       context: context,
-      barrierColor: Color.fromARGB(120, 0, 0, 0),
+      barrierColor: AppColors.blackTransparent47,
       // backgroundColor: Colors.red,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -1030,69 +1021,73 @@ class _LJNPopupButtonMaxWidthButtonState
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
-        builder: (context, systemState) {
-      return GestureDetector(
-        onTapDown: (tapDownDetails) {
-          setState(() {
-            containerColor = const Color.fromARGB(255, 229, 229, 229);
-          });
-        },
-        onTapCancel: () {
-          setState(() {
-            containerColor = Colors.white;
-          });
-
-          logger.info("取消点击");
-        },
-        onTapUp: (tapDownDetails) {
-          Future.delayed(const Duration(milliseconds: 50), () {
+      builder: (context, systemState) {
+        return GestureDetector(
+          onTapDown: (tapDownDetails) {
+            setState(() {
+              containerColor = AppColors.neutralGrey18;
+            });
+          },
+          onTapCancel: () {
             setState(() {
               containerColor = Colors.white;
             });
 
-            if (context.mounted) {
-              if (widget.link != null) {
-                Navigator.pushNamed(context, widget.link!);
-              }
+            logger.info("取消点击");
+          },
+          onTapUp: (tapDownDetails) {
+            Future.delayed(
+              const Duration(milliseconds: 50),
+              () {
+                setState(() {
+                  containerColor = Colors.white;
+                });
 
-              if (widget.onPressed != null) {
-                widget.onPressed!();
-              }
-            }
-          });
+                if (context.mounted) {
+                  if (widget.link != null) {
+                    Navigator.pushNamed(context, widget.link!);
+                  }
 
-          logger.info("弹起");
-        },
-        child: Container(
-          height: 112.w,
-          width: MediaQuery.of(context).size.width,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: containerColor,
-            border: Border(
-              top: BorderSide(
-                width: 1.0.w,
-                color: Color.fromARGB(255, 228, 228, 228),
+                  if (widget.onPressed != null) {
+                    widget.onPressed!();
+                  }
+                }
+              },
+            );
+
+            logger.info("弹起");
+          },
+          child: Container(
+            height: 112.w,
+            width: MediaQuery.of(context).size.width,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: containerColor,
+              border: Border(
+                top: BorderSide(
+                  width: 1.0.w,
+                  color: AppColors.neutralGrey19,
+                ),
               ),
             ),
+            child: widget.title is String
+                ? Text(
+                    widget.title as String,
+                    style: TextStyle(
+                      color: widget.color ?? Colors.black,
+                      height: 1.08,
+                      fontSize: fontSizeScale(32.0.w),
+                      decoration: TextDecoration.none,
+                      fontFamily: "AlibabaPuHuiTi",
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  )
+                : widget.title as Widget,
           ),
-          child: widget.title is String
-              ? Text(
-                  widget.title as String,
-                  style: TextStyle(
-                    color: widget.color ?? Colors.black,
-                    height: 1.08,
-                    fontSize: fontSizeScale(32.0.w),
-                    decoration: TextDecoration.none,
-                    fontFamily: "AlibabaPuHuiTi",
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                )
-              : widget.title as Widget,
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
 
@@ -1145,7 +1140,8 @@ class LJNPopupFunctionButtonState extends State<LJNPopupFunctionButton> {
         margin: EdgeInsets.only(right: 25.w),
         decoration: BoxDecoration(
           // color: Colors.orange,
-          color: _isPressed ? Colors.grey[200] : Colors.transparent, // 按下时背景色
+          color:
+              _isPressed ? Colors.grey[200] : AppColors.transparent, // 按下时背景色
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -1160,7 +1156,7 @@ class LJNPopupFunctionButtonState extends State<LJNPopupFunctionButton> {
               style: TextStyle(
                 height: 1.08,
                 decoration: TextDecoration.none,
-                color: Color.fromARGB(255, 108, 108, 108),
+                color: AppColors.neutralGrey73,
                 fontSize: fontSizeScale(20.0.w),
                 overflow: TextOverflow.ellipsis,
               ), // 标题颜色

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_alphabet.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_switch.dart';
@@ -46,7 +47,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
               minHeight: MediaQuery.of(context).size.height -
                   90.w -
                   systemState.statusHeight),
-          color: const Color.fromARGB(255, 237, 237, 237),
+          color: AppColors.neutralGrey11,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -64,7 +65,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                     style: TextStyle(
                       fontSize: 25.w,
                       height: 1.08,
-                      color: Color.fromARGB(255, 103, 103, 103),
+                      color: AppColors.neutralGrey76,
                     ),
                   ),
                 ),
@@ -95,7 +96,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                                 fontFamily: 'Iconfont',
                               ),
                               size: 30.0.w,
-                              color: const Color.fromARGB(255, 69, 182, 87),
+                              color: AppColors.brandGreenDarker1,
                             ),
                           ),
                         )
@@ -128,7 +129,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                                 fontFamily: 'Iconfont',
                               ),
                               size: 30.0.w,
-                              color: const Color.fromARGB(255, 69, 182, 87),
+                              color: AppColors.brandGreenDarker1,
                             ),
                           ),
                         )
@@ -139,14 +140,14 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                 if (chatOnly)
                   LJNAlphabet(
                     title: '对方看不到你的朋友圈、状态、微信运动等。',
-                    color: Color.fromARGB(255, 103, 103, 103),
+                    color: AppColors.neutralGrey76,
                   ),
 
                 // 不让他看我
                 if (chatOnly == false) ...[
                   LJNAlphabet(
                     title: '朋友圈和状态',
-                    color: Color.fromARGB(255, 103, 103, 103),
+                    color: AppColors.neutralGrey76,
                   ),
                   LJNFunctionItem(
                     title: "不让她看我",

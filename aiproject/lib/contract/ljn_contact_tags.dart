@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_search.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
@@ -26,140 +27,196 @@ class _LJNContactTags extends State<LJNContactTags> {
         title: "天空飘来五个字那都不是事",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "天空飘来五个字那都不是事",
-            'icon': "images/avatar_webp/chat_1.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "天空飘来五个字那都不是事",
+              'icon': "images/avatar_webp/chat_1.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "本因",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "本因",
-            'icon': "images/avatar_webp/chat_10.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "本因",
+              'icon': "images/avatar_webp/chat_10.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "赵洵",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "赵洵",
-            'icon': "images/avatar_webp/chat_11.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "赵洵",
+              'icon': "images/avatar_webp/chat_11.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "定静师太",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "定静师太",
-            'icon': "images/avatar_webp/chat_12.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "定静师太",
+              'icon': "images/avatar_webp/chat_12.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "李秋水",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "李秋水",
-            'icon': "images/avatar_webp/chat_13.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "李秋水",
+              'icon': "images/avatar_webp/chat_13.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "谭婆",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "谭婆",
-            'icon': "images/avatar_webp/chat_14.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "谭婆",
+              'icon': "images/avatar_webp/chat_14.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "李傀儡",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "李傀儡",
-            'icon': "images/avatar_webp/chat_15.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "李傀儡",
+              'icon': "images/avatar_webp/chat_15.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "貂禅",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "貂禅",
-            'icon': "images/avatar_webp/chat_16.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "貂禅",
+              'icon': "images/avatar_webp/chat_16.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "何三七",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "何三七",
-            'icon': "images/avatar_webp/chat_17.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "何三七",
+              'icon': "images/avatar_webp/chat_17.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "孔融",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "孔融",
-            'icon': "images/avatar_webp/chat_18.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "孔融",
+              'icon': "images/avatar_webp/chat_18.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "齐堂主",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "齐堂主",
-            'icon': "images/avatar_webp/chat_19.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "齐堂主",
+              'icon': "images/avatar_webp/chat_19.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "博尔术",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "博尔术",
-            'icon': "images/avatar_webp/chat_20.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "博尔术",
+              'icon': "images/avatar_webp/chat_20.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "王语嫣",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "王语嫣",
-            'icon': "images/avatar_webp/chat_21.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "王语嫣",
+              'icon': "images/avatar_webp/chat_21.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "秦红棉",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "秦红棉",
-            'icon': "images/avatar_webp/chat_22.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "秦红棉",
+              'icon': "images/avatar_webp/chat_22.webp",
+            },
+          );
         },
       ),
       const TagInformation(
@@ -170,150 +227,210 @@ class _LJNContactTags extends State<LJNContactTags> {
         title: "段延庆",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "段延庆",
-            'icon': "images/avatar_webp/chat_33.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "段延庆",
+              'icon': "images/avatar_webp/chat_33.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "令狐冲",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "令狐冲",
-            'icon': "images/avatar_webp/chat_34.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "令狐冲",
+              'icon': "images/avatar_webp/chat_34.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "英白罗",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "英白罗",
-            'icon': "images/avatar_webp/chat_35.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "英白罗",
+              'icon': "images/avatar_webp/chat_35.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "黄药师",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "黄药师",
-            'icon': "images/avatar_webp/chat_36.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "黄药师",
+              'icon': "images/avatar_webp/chat_36.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "李煜",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "李煜",
-            'icon': "images/avatar_webp/chat_37.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "李煜",
+              'icon': "images/avatar_webp/chat_37.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "云中鹤",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "云中鹤",
-            'icon': "images/avatar_webp/chat_38.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "云中鹤",
+              'icon': "images/avatar_webp/chat_38.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "劳德诺",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "劳德诺",
-            'icon': "images/avatar_webp/chat_39.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "劳德诺",
+              'icon': "images/avatar_webp/chat_39.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "包惜弱",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "包惜弱",
-            'icon': "images/avatar_webp/chat_40.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "包惜弱",
+              'icon': "images/avatar_webp/chat_40.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "游驹",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "游驹",
-            'icon': "images/avatar_webp/chat_41.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "游驹",
+              'icon': "images/avatar_webp/chat_41.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "钟万仇",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "钟万仇",
-            'icon': "images/avatar_webp/chat_42.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "钟万仇",
+              'icon': "images/avatar_webp/chat_42.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "渔人",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "渔人",
-            'icon': "images/avatar_webp/chat_43.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "渔人",
+              'icon': "images/avatar_webp/chat_43.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "单叔山",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "单叔山",
-            'icon': "images/avatar_webp/chat_44.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "单叔山",
+              'icon': "images/avatar_webp/chat_44.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "段誉",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "段誉",
-            'icon': "images/avatar_webp/chat_45.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "段誉",
+              'icon': "images/avatar_webp/chat_45.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "林震南",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "林震南",
-            'icon': "images/avatar_webp/chat_46.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "林震南",
+              'icon': "images/avatar_webp/chat_46.webp",
+            },
+          );
         },
       ),
       TagInformation(
         title: "商鞅",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/contact_tag_group', arguments: <String, String>{
-            'title': "商鞅",
-            'icon': "images/avatar_webp/chat_47.webp",
-          });
+          Navigator.pushNamed(
+            context,
+            '/contact_tag_group',
+            arguments: <String, String>{
+              'title': "商鞅",
+              'icon': "images/avatar_webp/chat_47.webp",
+            },
+          );
         },
       ),
       Container(
@@ -329,7 +446,7 @@ class _LJNContactTags extends State<LJNContactTags> {
               style: TextStyle(
                 height: 1.08,
                 fontSize: fontSizeScale(30.w),
-                color: const Color.fromARGB(255, 125, 125, 125),
+                color: AppColors.neutralGrey67,
               ),
             ),
           ],
@@ -361,7 +478,7 @@ class _LJNContactTags extends State<LJNContactTags> {
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromARGB(255, 237, 237, 237),
+                  AppColors.neutralGrey11,
                   Colors.white,
                 ],
                 stops: [0.3, 0.5],
@@ -397,10 +514,10 @@ class _LJNContactTags extends State<LJNContactTags> {
                   height: 90.w,
                   padding: EdgeInsets.symmetric(horizontal: 50.w),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 247, 247, 247),
+                    color: AppColors.neutralGrey2,
                     border: Border(
                       top: BorderSide(
-                        color: const Color.fromARGB(255, 227, 227, 227),
+                        color: AppColors.neutralGrey20,
                         width: 1.5.w,
                         style: BorderStyle.solid,
                       ),
@@ -460,7 +577,7 @@ class _TagInformationState extends State<TagInformation> {
       onTapDown: (tapDownDetails) {
         setState(
           () {
-            containerColor = const Color.fromARGB(255, 229, 229, 229);
+            containerColor = AppColors.neutralGrey18;
           },
         );
       },
@@ -500,7 +617,7 @@ class _TagInformationState extends State<TagInformation> {
                     ? BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
-                            color: const Color.fromARGB(255, 242, 242, 242),
+                            color: AppColors.neutralGrey6,
                             width: 1.5.w,
                             style: BorderStyle.solid,
                           ),
@@ -509,7 +626,7 @@ class _TagInformationState extends State<TagInformation> {
                     : BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
-                            color: Colors.transparent,
+                            color: AppColors.transparent,
                             width: 1.5.w,
                             style: BorderStyle.solid,
                           ),

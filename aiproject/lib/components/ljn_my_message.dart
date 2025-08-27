@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/store/ljn_user_cubit.dart';
@@ -53,8 +54,7 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                                   style: TextStyle(
                                     height: 1.08,
                                     fontSize: fontSizeScale(20.w),
-                                    color: const Color.fromARGB(
-                                        255, 130, 130, 130),
+                                    color: AppColors.neutralGrey66,
                                   ),
                                 );
                               },
@@ -72,7 +72,7 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                           child: Container(
                             constraints: const BoxConstraints(maxWidth: 510).w,
                             decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 158, 236, 114),
+                                color: AppColors.brandGreenLighter,
                                 borderRadius: BorderRadius.circular(8).w),
                             padding: EdgeInsets.only(
                                 top: 20.w,

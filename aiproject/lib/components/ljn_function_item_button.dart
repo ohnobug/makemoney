@@ -1,6 +1,7 @@
 // 功能按钮
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 
@@ -31,7 +32,7 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
     return GestureDetector(
       onTapDown: (tapDownDetails) {
         setState(() {
-          containerColor = const Color.fromARGB(255, 229, 229, 229);
+          containerColor = AppColors.neutralGrey18;
         });
       },
       onTapCancel: () {
@@ -63,7 +64,7 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
           color: containerColor,
           border: Border(
             bottom: BorderSide(
-              color: const Color.fromARGB(255, 242, 242, 242),
+              color: AppColors.neutralGrey6,
               width: 1.5.w,
               style: BorderStyle.solid,
             ),
@@ -100,7 +101,7 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
                   // textBaseline: TextBaseline.ideographic,
                   height: 1.08,
                   fontSize: fontSizeScale(30.w),
-                  color: const Color.fromARGB(255, 58, 81, 124),
+                  color: AppColors.brandBlueDark4,
                 ),
               )
             ]),

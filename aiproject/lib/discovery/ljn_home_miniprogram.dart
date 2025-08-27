@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
-
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 
@@ -94,7 +92,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
               LJNAppBar(
                 title: "最近",
                 leading: Container(),
-                bgColor: Colors.transparent,
+                bgColor: AppColors.transparent,
                 color: Colors.white,
                 actions: [
                   Container(
@@ -103,7 +101,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                     margin: EdgeInsets.only(right: 30.w),
                     padding: EdgeInsets.only(left: 20.w, right: 20.w),
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(38, 134, 134, 134),
+                      color: AppColors.greyTransparent15,
                       borderRadius: BorderRadius.all(
                         Radius.circular(35.w),
                       ),
@@ -116,7 +114,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                             0xe612,
                             fontFamily: 'Iconfont',
                           ),
-                          color: const Color.fromARGB(255, 178, 176, 200),
+                          color: AppColors.brandBlueGreyLight,
                           size: 22.w,
                         ),
                         SizedBox(
@@ -126,7 +124,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                           "搜索",
                           style: TextStyle(
                             fontSize: 22.w,
-                            color: const Color.fromARGB(255, 178, 176, 200),
+                            color: AppColors.brandBlueGreyLight,
                           ),
                         )
                       ],
@@ -158,7 +156,8 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                       child: SingleChildScrollView(
                         controller: _scrollController,
                         physics: const AlwaysScrollableScrollPhysics(
-                          parent: BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
+                          parent: BouncingScrollPhysics(
+                              decelerationRate: ScrollDecelerationRate.fast),
                         ),
                         child: Column(
                           children: [
@@ -191,8 +190,8 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                               title: '最近使用的小程序',
                               rightWidget: GestureDetector(
                                 onTap: () {
-                                  Navigator.of(context).pushNamed(
-                                      "/miniprogram_list");
+                                  Navigator.of(context)
+                                      .pushNamed("/miniprogram_list");
                                 },
                                 child: Text.rich(
                                   TextSpan(
@@ -202,8 +201,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                         style: TextStyle(
                                           height: 1.08,
                                           fontSize: fontSizeScale(26.w),
-                                          color: const Color.fromARGB(
-                                              255, 175, 175, 175),
+                                          color: AppColors.neutralGrey42,
                                         ),
                                       ),
                                       WidgetSpan(
@@ -219,8 +217,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                               0xed9d,
                                               fontFamily: 'Iconfont',
                                             ),
-                                            color: const Color.fromARGB(
-                                                255, 176, 176, 176),
+                                            color: AppColors.neutralGrey41,
                                             size: 26.w,
                                           ),
                                         ),
@@ -433,7 +430,7 @@ class FunctionButtonsSection extends StatelessWidget {
                     style: TextStyle(
                       height: 1.08,
                       fontSize: fontSizeScale(26.w),
-                      color: const Color.fromARGB(255, 175, 175, 175),
+                      color: AppColors.neutralGrey42,
                     ),
                   ),
                   if (rightWidget != null) rightWidget!,
@@ -446,7 +443,7 @@ class FunctionButtonsSection extends StatelessWidget {
 
           // 使用 SizedBox 控制 GridView 的大小
           Container(
-            // color: const Color.fromARGB(255, 24, 237, 201),
+            // color: AppColors.brandTealVibrant,
             margin: const EdgeInsets.all(0),
             padding: EdgeInsets.only(bottom: 16.w, left: 16.0.w, right: 16.w),
             child: GridView.builder(
@@ -521,8 +518,8 @@ class FunctionButtonState extends State<FunctionButton> {
         decoration: BoxDecoration(
           // color: Colors.orange,
           color: _isPressed
-              ? const Color.fromARGB(83, 238, 238, 238)
-              : Colors.transparent, // 按下时背景色
+              ? AppColors.greyTransparent33
+              : AppColors.transparent, // 按下时背景色
           borderRadius: BorderRadius.circular(10.0).w, // 圆角半径
         ),
         child: Center(

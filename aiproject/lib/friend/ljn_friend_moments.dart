@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_custom_physics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_popup_cubit.dart';
@@ -499,7 +500,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                                       alignment: Alignment.center,
                                       color: _bgController.isAnimating ||
                                               _bgController.isCompleted
-                                          ? const Color.fromARGB(255, 0, 0, 0)
+                                          ? AppColors.neutralBlack
                                           : Colors.white,
                                       width: 750.w,
                                       child: Stack(
@@ -727,12 +728,12 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                     toolbarHeight: 90.w,
                     elevation: 0,
                     scrolledUnderElevation: 0,
-                    backgroundColor: Colors.transparent,
-                    foregroundColor: Colors.transparent,
+                    backgroundColor: AppColors.transparent,
+                    foregroundColor: AppColors.transparent,
                     leading: GestureDetector(
                       onTap: () => Navigator.of(context).pop(),
                       child: Container(
-                        color: Colors.transparent,
+                        color: AppColors.transparent,
                         child: Icon(
                           const IconData(0xed9e, fontFamily: 'Iconfont'),
                           color: _appBarOpacity.value.toInt() > 180
@@ -752,7 +753,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                             child: GestureDetector(
                               onTap: () {},
                               child: Container(
-                                color: const Color.fromARGB(0, 255, 0, 0),
+                                color: AppColors.transparentRed,
                                 height: 90.w,
                                 padding: EdgeInsets.only(right: 40.w),
                                 alignment: Alignment.center,
@@ -789,7 +790,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
     return Container(
       width: 750.w,
       height: 530.w,
-      color: const Color.fromARGB(255, 48, 48, 48),
+      color: AppColors.neutralDarkGrey18,
     );
   }
 
@@ -801,7 +802,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
       child: SizedBox(
         width: 360.w,
         height: 75.w,
-        // color: const Color.fromARGB(255, 247, 19, 19), // 外层盒子的红色背景
+        // color: AppColors.accentRedDark1, // 外层盒子的红色背景
         child: Stack(
           children: [
             // 红色盒子本身
@@ -813,7 +814,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                 width: 360.w,
                 height: 75.w,
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 76, 76, 76),
+                  color: AppColors.neutralDarkGrey12,
                   borderRadius: BorderRadius.all(
                     Radius.circular(10.w),
                   ),
@@ -855,31 +856,33 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                     Container(
                       height: 45.w,
                       width: 2.w,
-                      color: const Color.fromARGB(255, 134, 134, 134),
+                      color: AppColors.neutralGrey65,
                     ),
                     Text.rich(
-                      TextSpan(children: [
-                        WidgetSpan(
-                          alignment: PlaceholderAlignment.middle,
-                          style: const TextStyle(height: 1.08),
-                          child: Icon(
-                            const IconData(0xe605, fontFamily: 'Iconfont'),
-                            color: Colors.white,
-                            size: 28.w,
+                      TextSpan(
+                        children: [
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            style: const TextStyle(height: 1.08),
+                            child: Icon(
+                              const IconData(0xe605, fontFamily: 'Iconfont'),
+                              color: Colors.white,
+                              size: 28.w,
+                            ),
                           ),
-                        ),
-                        WidgetSpan(
-                          child: SizedBox(width: 8.w),
-                        ),
-                        TextSpan(
-                          text: "评论",
-                          style: TextStyle(
-                            height: 1.08,
-                            fontSize: 28.w,
-                            color: Colors.white,
+                          WidgetSpan(
+                            child: SizedBox(width: 8.w),
                           ),
-                        ),
-                      ]),
+                          TextSpan(
+                            text: "评论",
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: 28.w,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -950,7 +953,7 @@ class _TweetWidget extends State<TweetWidget> {
               // textBaseline: TextBaseline.alphabetic,
               height: 1.08,
               fontSize: fontSizeScale(28.w),
-              color: const Color.fromARGB(255, 58, 81, 124),
+              color: AppColors.brandBlueDark4,
               fontFamily: "AlibabaPuHuiTi-Medium",
             ),
             TextStyle(
@@ -971,7 +974,7 @@ class _TweetWidget extends State<TweetWidget> {
             style: TextStyle(
               height: 1.08,
               fontSize: fontSizeScale(28.w),
-              color: const Color.fromARGB(255, 58, 81, 124),
+              color: AppColors.brandBlueDark4,
               fontFamily: "AlibabaPuHuiTi-Medium",
             ),
           ),
@@ -992,11 +995,11 @@ class _TweetWidget extends State<TweetWidget> {
           color: Colors.white,
           border: Border(
             top: BorderSide(
-              color: const Color.fromARGB(255, 255, 255, 255),
+              color: AppColors.neutralWhite,
               width: 0.w,
             ),
             bottom: BorderSide(
-              color: const Color.fromARGB(255, 242, 242, 242),
+              color: AppColors.neutralGrey6,
               width: 1.5.w,
             ),
           ),
@@ -1055,7 +1058,7 @@ class _TweetWidget extends State<TweetWidget> {
                                   fontSize: fontSizeScale(32.w),
                                   fontFamily: "AlibabaPuHuiTi-Medium",
                                   // fontWeight: FontWeight.w600,
-                                  color: const Color.fromARGB(255, 58, 81, 124),
+                                  color: AppColors.brandBlueDark4,
                                 ),
                                 TextStyle(
                                   height: 1.08,
@@ -1122,7 +1125,7 @@ class _TweetWidget extends State<TweetWidget> {
                             style: TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(26.w),
-                              color: const Color.fromARGB(255, 58, 81, 124),
+                              color: AppColors.brandBlueDark4,
                             ),
                           ),
                           // SizedBox(height: 5.w),
@@ -1140,7 +1143,7 @@ class _TweetWidget extends State<TweetWidget> {
                         style: TextStyle(
                           height: 1.08,
                           fontSize: fontSizeScale(26.w),
-                          color: const Color.fromARGB(255, 156, 156, 156),
+                          color: AppColors.neutralGrey57,
                         ),
                       ),
                       // 更多
@@ -1166,13 +1169,13 @@ class _TweetWidget extends State<TweetWidget> {
                           width: 110.w,
                           // color: Colors.blue,
                           padding: EdgeInsets.only(left: 25.w, right: 25.w),
-                          color: Colors.transparent,
+                          color: AppColors.transparent,
                           child: Container(
                             height: 38.w,
                             width: 60.w,
                             decoration: BoxDecoration(
                               // color: Colors.red,
-                              color: const Color.fromARGB(255, 248, 248, 248),
+                              color: AppColors.neutralGrey1,
                               borderRadius: BorderRadius.circular(6.w),
                             ),
                             child: Center(
@@ -1182,7 +1185,7 @@ class _TweetWidget extends State<TweetWidget> {
                                   fontFamily: 'Iconfont',
                                 ),
                                 size: 37.w,
-                                color: const Color.fromARGB(255, 58, 81, 124),
+                                color: AppColors.brandBlueDark4,
                               ),
                             ),
                           ),
@@ -1201,7 +1204,7 @@ class _TweetWidget extends State<TweetWidget> {
                     padding: EdgeInsets.only(
                         left: 13.w, right: 13.w, top: 8.w, bottom: 8.w),
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 247, 247, 247),
+                      color: AppColors.neutralGrey2,
                       borderRadius: BorderRadius.circular(5.w), // 设置圆角
                     ),
                     child: RichText(
@@ -1218,8 +1221,7 @@ class _TweetWidget extends State<TweetWidget> {
                               0xe70a,
                               fontFamily: 'Iconfont',
                             ),
-                            color:
-                                const Color.fromARGB(255, 58, 81, 124), // 图标颜色
+                            color: AppColors.brandBlueDark4, // 图标颜色
                             size: 28.w, // 图标大小
                           ),
                         ),
@@ -1251,33 +1253,34 @@ class LJNTweenImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LJNPopupCubit, PopupState>(
-        builder: (context, popupState) {
-      return GestureDetector(
-        onTap: () {
-          final RenderBox renderBox =
-              imageContainerKey.currentContext?.findRenderObject() as RenderBox;
+      builder: (context, popupState) {
+        return GestureDetector(
+          onTap: () {
+            final RenderBox renderBox = imageContainerKey.currentContext
+                ?.findRenderObject() as RenderBox;
 
-          Offset position = renderBox.localToGlobal(Offset.zero);
-          Size size = renderBox.size;
+            Offset position = renderBox.localToGlobal(Offset.zero);
+            Size size = renderBox.size;
 
-          // 显示视频
-          context.read<LJNPopupCubit>().updateImagePopup(
-                openBoxSize: size,
-                openPosition: position,
-                imagePath: imagePath,
-                showFullScreenimage: true,
-              );
-        },
-        child: Image.asset(
-          key: imageContainerKey,
-          assetPath(imagePath),
-          cacheWidth: 380.w.toInt(),
-          cacheHeight: 380.w.toInt(),
-          width: 186.w,
-          height: 186.w,
-          fit: BoxFit.cover,
-        ),
-      );
-    });
+            // 显示视频
+            context.read<LJNPopupCubit>().updateImagePopup(
+                  openBoxSize: size,
+                  openPosition: position,
+                  imagePath: imagePath,
+                  showFullScreenimage: true,
+                );
+          },
+          child: Image.asset(
+            key: imageContainerKey,
+            assetPath(imagePath),
+            cacheWidth: 380.w.toInt(),
+            cacheHeight: 380.w.toInt(),
+            width: 186.w,
+            height: 186.w,
+            fit: BoxFit.cover,
+          ),
+        );
+      },
+    );
   }
 }

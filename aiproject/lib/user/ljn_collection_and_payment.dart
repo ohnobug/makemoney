@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -28,11 +29,11 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
           primary: false,
           appBar: const LJNAppBar(
             title: "收付款",
-            bgColor: Color.fromARGB(255, 42, 172, 102),
+            bgColor: AppColors.brandTealDark3,
             color: Colors.white,
           ),
           body: ColoredBox(
-            color: const Color.fromARGB(255, 42, 172, 102),
+            color: AppColors.brandTealDark3,
             child: ScrollConfiguration(
               behavior:
                   ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -60,8 +61,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                               border: Border(
                                 bottom: BorderSide(
                                   width: 1.w,
-                                  color:
-                                      const Color.fromARGB(255, 243, 243, 243),
+                                  color: AppColors.neutralGrey5,
                                 ),
                               ),
                             ),
@@ -76,8 +76,8 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                         0xe611,
                                         fontFamily: 'Iconfont',
                                       ), // 使用的图标
-                                      color: const Color.fromARGB(
-                                          255, 0, 213, 106), // 图标颜色
+                                      color: AppColors
+                                          .brandGreenVibrantDeep1, // 图标颜色
                                       size: 35.w, // 图标大小
                                     ),
                                     SizedBox(
@@ -88,8 +88,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                       style: TextStyle(
                                         fontSize: 32.w,
                                         height: 1.08,
-                                        color: const Color.fromARGB(
-                                            255, 0, 213, 106),
+                                        color: AppColors.brandGreenVibrantDeep1,
                                       ),
                                     )
                                   ],
@@ -100,10 +99,9 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                   },
                                   child: Container(
                                     height: 90.w,
-                                    color: Colors.transparent,
+                                    color: AppColors.transparent,
                                     child: Icon(
-                                      color: const Color.fromARGB(
-                                          255, 181, 181, 181),
+                                      color: AppColors.neutralGrey38,
                                       const IconData(
                                         0xe659,
                                         fontFamily: 'Iconfont',
@@ -122,7 +120,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                             "优先使用零钱付款",
                             style: TextStyle(
                               fontSize: 25.w,
-                              color: const Color.fromARGB(255, 157, 161, 162),
+                              color: AppColors.neutralGrey54,
                             ),
                           ),
                           SizedBox(
@@ -145,8 +143,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                               border: Border(
                                 bottom: BorderSide(
                                   width: 1.w,
-                                  color:
-                                      const Color.fromARGB(255, 243, 243, 243),
+                                  color: AppColors.neutralGrey5,
                                 ),
                               ),
                             ),
@@ -176,8 +173,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                       style: TextStyle(
                                         fontSize: 25.w,
                                         height: 1.08,
-                                        color: const Color.fromARGB(
-                                            255, 96, 96, 96),
+                                        color: AppColors.neutralDarkGrey2,
                                       ),
                                     ),
                                     Flex(
@@ -188,8 +184,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                           style: TextStyle(
                                             fontSize: 25.w,
                                             height: 1.08,
-                                            color: const Color.fromARGB(
-                                                255, 96, 96, 96),
+                                            color: AppColors.neutralDarkGrey2,
                                           ),
                                         ),
                                         SizedBox(
@@ -200,8 +195,8 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                             0xe891,
                                             fontFamily: 'Iconfont',
                                           ), // 使用的图标
-                                          color: const Color.fromARGB(
-                                              255, 96, 96, 96), // 图标颜色
+                                          color: AppColors
+                                              .neutralDarkGrey2, // 图标颜色
                                           size: 28.w, // 图标大小
                                         )
                                       ],
@@ -219,8 +214,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                 height: 107.w,
                                 padding: EdgeInsets.symmetric(horizontal: 33.w),
                                 decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 255, 250, 231),
+                                  color: AppColors.neutralOffWhiteYellow,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(10.w),
                                   ),
@@ -238,8 +232,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                             0xe6cc,
                                             fontFamily: 'Iconfont',
                                           ), // 使用的图标
-                                          color: const Color.fromARGB(
-                                              255, 251, 193, 30), // 图标颜色
+                                          color: AppColors.accentYellow, // 图标颜色
                                           size: 38.w, // 图标大小
                                         ),
                                         SizedBox(
@@ -250,8 +243,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                           style: TextStyle(
                                             fontSize: 25.w,
                                             height: 1.08,
-                                            color: const Color.fromARGB(
-                                                255, 106, 102, 83),
+                                            color: AppColors.neutralGrey74,
                                           ),
                                         ),
                                       ],
@@ -263,8 +255,8 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                         0xe60d,
                                         fontFamily: 'Iconfont',
                                       ), // 使用的图标
-                                      color: const Color.fromARGB(
-                                          255, 0, 198, 106), // 图标颜色
+                                      color: AppColors
+                                          .brandGreenVibrantDeep2, // 图标颜色
                                       size: 30.w, // 图标大小
                                     )
                                   ],
@@ -281,8 +273,11 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                     ),
 
                     Container(
-                      margin:
-                          EdgeInsets.only(top: 15.w, left: 15.w, right: 15.w),
+                      margin: EdgeInsets.only(
+                        top: 15.w,
+                        left: 15.w,
+                        right: 15.w,
+                      ),
                       clipBehavior: Clip.hardEdge,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
@@ -324,35 +319,35 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                             title: "二维码收款",
                             icon: 0xe623,
                             link: '',
-                            backgroundColor: Color.fromARGB(255, 56, 179, 114),
+                            backgroundColor: AppColors.brandTealDark2,
                             underline: true,
                           ),
                           LJNCAPFunctionItem(
                             title: "赞赏码",
                             icon: 0xe67b,
                             link: '',
-                            backgroundColor: Color.fromARGB(255, 56, 179, 114),
+                            backgroundColor: AppColors.brandTealDark2,
                             underline: true,
                           ),
                           LJNCAPFunctionItem(
                             title: "群收款",
                             icon: 0xe624,
                             link: '',
-                            backgroundColor: Color.fromARGB(255, 56, 179, 114),
+                            backgroundColor: AppColors.brandTealDark2,
                             underline: true,
                           ),
                           LJNCAPFunctionItem(
                             title: "面对面红包",
                             icon: 0xe625,
                             link: '',
-                            backgroundColor: Color.fromARGB(255, 56, 179, 114),
+                            backgroundColor: AppColors.brandTealDark2,
                             underline: true,
                           ),
                           LJNCAPFunctionItem(
                             title: "向银行卡或手机号转账",
                             icon: 0xe661,
                             link: '',
-                            backgroundColor: Color.fromARGB(255, 56, 179, 114),
+                            backgroundColor: AppColors.brandTealDark2,
                             underline: false,
                           ),
                         ],
@@ -486,8 +481,8 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                   border: Border(
                     bottom: BorderSide(
                       color: widget.underline
-                          ? const Color.fromARGB(255, 60, 182, 118)
-                          : Colors.transparent,
+                          ? AppColors.brandTealDark1
+                          : AppColors.transparent,
                       width: 2.w,
                       style: BorderStyle.solid,
                     ),
@@ -528,8 +523,7 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                                       style: TextStyle(
                                         height: 1.08,
                                         fontSize: fontSizeScale(30.w),
-                                        color: const Color.fromARGB(
-                                            255, 83, 83, 83),
+                                        color: AppColors.neutralDarkGrey7,
                                       ),
                                     )
                                   ],
@@ -547,7 +541,7 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                             fontFamily: 'Iconfont',
                           ),
                           size: 30.0.w,
-                          color: const Color.fromARGB(255, 110, 216, 163),
+                          color: AppColors.brandGreenLight,
                         ),
                       )
                   ],

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/store/ljn_user_cubit.dart';
@@ -43,16 +43,17 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
             return Scaffold(
               primary: false,
               resizeToAvoidBottomInset: false,
-              appBar:
-                  const LJNAppBar(title: "填写验证码", bgColor: Colors.transparent),
+              appBar: const LJNAppBar(
+                  title: "填写验证码", bgColor: AppColors.transparent),
               body: ScrollConfiguration(
                 behavior:
                     ScrollConfiguration.of(context).copyWith(scrollbars: false),
                 child: Container(
                   constraints: BoxConstraints(
-                      minHeight: MediaQuery.of(context).size.height -
-                          90.w -
-                          systemState.statusHeight),
+                    minHeight: MediaQuery.of(context).size.height -
+                        90.w -
+                        systemState.statusHeight,
+                  ),
                   color: Colors.white,
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(
@@ -72,8 +73,7 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
                                 fontSize: 30.w,
                               ),
                               autofocus: true,
-                              cursorColor:
-                                  const Color.fromRGBO(62, 174, 86, 1.0),
+                              cursorColor: AppColors.brandGreenDarker4,
                               cursorWidth: 1.w,
                               onTapOutside: (event) {
                                 FocusScope.of(context).unfocus();
@@ -82,31 +82,27 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
                                 hintText: '你本人的手机号',
                                 hintStyle: TextStyle(
                                   fontSize: 30.w,
-                                  color:
-                                      const Color.fromARGB(255, 147, 147, 147),
+                                  color: AppColors.neutralGrey61,
                                 ),
                                 labelText: '',
                                 isDense: true,
                                 border: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     width: 1.5.w,
-                                    color: const Color.fromARGB(
-                                        255, 104, 199, 145),
+                                    color: AppColors.brandGreenSlightlyLighter,
                                   ),
                                 ),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     width: 1.5.w,
-                                    color: const Color.fromARGB(
-                                        255, 104, 199, 145),
+                                    color: AppColors.brandGreenSlightlyLighter,
                                   ),
                                 ),
                                 // 获取焦点时的底线样式
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     width: 1.5.w,
-                                    color: const Color.fromARGB(
-                                        255, 104, 199, 145),
+                                    color: AppColors.brandGreenSlightlyLighter,
                                   ),
                                 ),
                                 contentPadding:

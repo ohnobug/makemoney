@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
@@ -54,8 +55,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
         imagegetter.MemoryInput.byteBuffer(buffer.buffer));
     final size = memoryImageSizeResult.size;
     logger.info("qqqqqqqqqqqq: $size");
-    setState(() {
-    });
+    setState(() {});
   }
 
   @override
@@ -110,7 +110,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
               width: constraints.maxWidth,
               height: constraints.maxHeight,
               alignment: Alignment.topLeft,
-              color: const Color.fromARGB(164, 0, 15, 44),
+              color: AppColors.navyBlueTransparent64,
               child: Stack(
                 children: [
                   // 图片
@@ -216,7 +216,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
                           width: constraints.maxWidth,
                           height: constraints.maxHeight,
                           alignment: Alignment.topLeft,
-                          color: const Color.fromARGB(193, 0, 1, 63),
+                          color: AppColors.navyBlueTransparent76,
                           child: AnimatedBuilder(
                             animation: _animationController,
                             builder: (context, child) {
@@ -284,7 +284,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
                             fontFamily: 'Iconfont',
                           ),
                           size: 30.w,
-                          color: const Color.fromARGB(255, 0, 0, 0),
+                          color: AppColors.neutralBlack,
                         ),
                       ),
                     ),

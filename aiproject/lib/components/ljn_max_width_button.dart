@@ -1,6 +1,7 @@
 // 功能列表
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 
@@ -34,7 +35,7 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
     return GestureDetector(
       onTapDown: (tapDownDetails) {
         setState(() {
-          containerColor = const Color.fromARGB(255, 229, 229, 229);
+          containerColor = AppColors.neutralGrey18;
         });
       },
       onTapCancel: () {
@@ -72,8 +73,8 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
           border: Border(
             bottom: BorderSide(
               color: widget.underline
-                  ? const Color.fromARGB(255, 242, 242, 242)
-                  : Colors.transparent,
+                  ? AppColors.neutralGrey6
+                  : AppColors.transparent,
               width: 1.5.w,
               style: BorderStyle.solid,
             ),

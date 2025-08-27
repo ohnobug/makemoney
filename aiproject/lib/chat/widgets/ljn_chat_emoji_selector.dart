@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
-
 import 'package:spicychat/store/ljn_system_cubit.dart';
 
 class EmojiStatus {
@@ -2072,13 +2071,13 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
         child: ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
           child: ColoredBox(
-            color: const Color.fromARGB(255, 237, 237, 237),
+            color: AppColors.neutralGrey11,
             child: Stack(
               children: [
                 Column(children: [
                   // 搜索按钮
                   Container(
-                    color: const Color.fromARGB(255, 246, 246, 246),
+                    color: AppColors.neutralGrey3,
                     height: 110.w,
                     width: MediaQuery.of(context).size.width,
                     child: Row(
@@ -2088,7 +2087,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                           height: 80.w,
                           margin: EdgeInsets.only(bottom: 0.w),
                           decoration: BoxDecoration(
-                            color: Colors.transparent,
+                            color: AppColors.transparent,
                             borderRadius: BorderRadius.all(
                               Radius.circular(13.w),
                             ),
@@ -2127,7 +2126,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                           height: 80.w,
                           margin: EdgeInsets.only(bottom: 0.w),
                           decoration: BoxDecoration(
-                            color: Colors.transparent,
+                            color: AppColors.transparent,
                             borderRadius: BorderRadius.all(
                               Radius.circular(13.w),
                             ),
@@ -2148,7 +2147,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                             margin: EdgeInsets.only(bottom: 0.w),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: Colors.transparent,
+                              color: AppColors.transparent,
                               borderRadius: BorderRadius.all(
                                 Radius.circular(13.w),
                               ),
@@ -2174,7 +2173,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                       width: 85.w,
                       height: 7.5.w,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 215, 215, 215),
+                        color: AppColors.neutralGrey31,
                         borderRadius: BorderRadius.all(
                           Radius.circular(4.w),
                         ),
@@ -2322,7 +2321,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                         0xe654,
                         fontFamily: 'Iconfont',
                       ), // 使用的图标
-                      color: const Color.fromARGB(255, 202, 202, 202), // 图标颜色
+                      color: AppColors.neutralGrey34, // 图标颜色
                       size: 52.w, // 图标大小
                     ),
                   ),

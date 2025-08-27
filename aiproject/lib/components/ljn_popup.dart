@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 
 class LJNPopup extends StatefulWidget {
@@ -28,7 +29,7 @@ class _LJNPopupState extends State<LJNPopup> {
           children: [
             // 背景
             Container(
-              color: const Color.fromARGB(115, 0, 0, 0),
+              color: AppColors.blackTransparent45,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
             ),
@@ -75,7 +76,7 @@ class _LJNPopupState extends State<LJNPopup> {
                           fontFamily: "AlibabaPuHuiTi",
                           decoration: TextDecoration.none,
                           fontSize: 32.w,
-                          color: const Color.fromARGB(255, 114, 114, 114),
+                          color: AppColors.neutralGrey69,
                         ),
                       ),
                     ),
@@ -93,7 +94,7 @@ class _LJNPopupState extends State<LJNPopup> {
                               0xe65b,
                               fontFamily: 'Iconfont',
                             ),
-                            color: const Color.fromARGB(255, 176, 176, 176),
+                            color: AppColors.neutralGrey41,
                             size: 45.w,
                           ),
                           SizedBox(
@@ -121,7 +122,7 @@ class _LJNPopupState extends State<LJNPopup> {
                         border: Border(
                           top: BorderSide(
                             width: 1.w,
-                            color: const Color.fromARGB(255, 243, 243, 243),
+                            color: AppColors.neutralGrey5,
                           ),
                         ),
                       ),
@@ -137,16 +138,17 @@ class _LJNPopupState extends State<LJNPopup> {
                               },
                               child: Container(
                                 height: 106.w,
-                                color: Colors.transparent,
+                                color: AppColors.transparent,
                                 alignment: Alignment.center,
                                 child: Text(
                                   '返回',
                                   style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      fontSize: 32.w,
-                                      color: Colors.black,
-                                      fontFamily: "AlibabaPuHuiTi-Medium",
-                                      height: 1.08),
+                                    decoration: TextDecoration.none,
+                                    fontSize: 32.w,
+                                    color: Colors.black,
+                                    fontFamily: "AlibabaPuHuiTi-Medium",
+                                    height: 1.08,
+                                  ),
                                 ),
                               ),
                             ),
@@ -154,7 +156,7 @@ class _LJNPopupState extends State<LJNPopup> {
                           Container(
                             height: 106.w,
                             width: 1.w,
-                            color: const Color.fromARGB(255, 243, 243, 243),
+                            color: AppColors.neutralGrey5,
                           ),
                           Expanded(
                             child: GestureDetector(
@@ -165,17 +167,17 @@ class _LJNPopupState extends State<LJNPopup> {
                               },
                               child: Container(
                                 height: 106.w,
-                                color: Colors.transparent,
+                                color: AppColors.transparent,
                                 alignment: Alignment.center,
                                 child: Text(
                                   '了解详情',
                                   style: TextStyle(
-                                      decoration: TextDecoration.none,
-                                      fontSize: 32.w,
-                                      color: const Color.fromARGB(
-                                          255, 78, 96, 146),
-                                      fontFamily: "AlibabaPuHuiTi-Medium",
-                                      height: 1.08),
+                                    decoration: TextDecoration.none,
+                                    fontSize: 32.w,
+                                    color: AppColors.brandBlueDark2,
+                                    fontFamily: "AlibabaPuHuiTi-Medium",
+                                    height: 1.08,
+                                  ),
                                 ),
                               ),
                             ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 
 class LJNSearchFriend extends StatefulWidget {
@@ -34,7 +35,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: Container(
-          color: const Color.fromARGB(255, 237, 237, 237),
+          color: AppColors.neutralGrey11,
           constraints: BoxConstraints(
               minHeight: MediaQuery.of(context).size.height -
                   90.w -
@@ -53,7 +54,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
               ),
               height: 95.w,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 237, 237, 237),
+                color: AppColors.neutralGrey11,
                 border: Border(
                   bottom: BorderSide(
                     color: Colors.grey.withAlpha(128),
@@ -88,7 +89,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
                         hintStyle: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 30.w,
-                          color: const Color.fromARGB(255, 69, 75, 83),
+                          color: AppColors.neutralDarkGrey14,
                         ),
                         filled: true,
                         fillColor: Colors.white,
@@ -112,7 +113,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
                         "取消",
                         style: TextStyle(
                           fontSize: 30.w,
-                          color: Color.fromARGB(255, 89, 108, 140),
+                          color: AppColors.brandBluePrimary,
                         ),
                       ),
                     ),

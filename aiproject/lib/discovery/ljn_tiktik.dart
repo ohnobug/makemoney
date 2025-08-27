@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
-
 import 'package:spicychat/tools/ljn_tools.dart';
 import 'package:video_player/video_player.dart';
 
@@ -26,7 +25,7 @@ class _LJNTiktik extends State<LJNTiktik> {
 
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
+        statusBarColor: AppColors.transparent, // 使用白色背景确保图标变为黑色
         statusBarIconBrightness: Brightness.light, // 确保图标颜色为黑色
       ),
     );
@@ -96,16 +95,17 @@ class _LJNTiktik extends State<LJNTiktik> {
                                       children: buildTextSpans(
                                         "@深圳黑马眼科💖",
                                         TextStyle(
-                                            height: 1.08,
-                                            fontSize: fontSizeScale(33.w),
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: "AlibabaPuHuiTi"),
+                                          height: 1.08,
+                                          fontSize: fontSizeScale(33.w),
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "AlibabaPuHuiTi",
+                                        ),
                                         TextStyle(
-                                            height: 1.08,
-                                            fontSize: fontSizeScale(33.w),
-                                            fontFamily:
-                                                "NotoColorEmoji-Regular"),
+                                          height: 1.08,
+                                          fontSize: fontSizeScale(33.w),
+                                          fontFamily: "NotoColorEmoji-Regular",
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -117,15 +117,16 @@ class _LJNTiktik extends State<LJNTiktik> {
                                       children: buildTextSpans(
                                         "深圳黑马眼科, 一家只做近视手术的专科医院,抖音推出1元近视手术",
                                         TextStyle(
-                                            height: 1.35,
-                                            fontSize: fontSizeScale(28.w),
-                                            color: Colors.white,
-                                            fontFamily: "AlibabaPuHuiTi"),
+                                          height: 1.35,
+                                          fontSize: fontSizeScale(28.w),
+                                          color: Colors.white,
+                                          fontFamily: "AlibabaPuHuiTi",
+                                        ),
                                         TextStyle(
-                                            height: 1.35,
-                                            fontSize: fontSizeScale(28.w),
-                                            fontFamily:
-                                                "NotoColorEmoji-Regular"),
+                                          height: 1.35,
+                                          fontSize: fontSizeScale(28.w),
+                                          fontFamily: "NotoColorEmoji-Regular",
+                                        ),
                                       ),
                                     ),
                                   )
@@ -174,8 +175,7 @@ class _LJNTiktik extends State<LJNTiktik> {
                                       width: 40.w,
                                       height: 40.w,
                                       decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 254, 61, 83),
+                                        color: AppColors.accentRedVibrant1,
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(40.w),
                                         ),
@@ -268,8 +268,9 @@ class _LJNTiktik extends State<LJNTiktik> {
                                       Text(
                                         "1024",
                                         style: TextStyle(
-                                            fontSize: 22.w,
-                                            color: Colors.white),
+                                          fontSize: 22.w,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -296,8 +297,9 @@ class _LJNTiktik extends State<LJNTiktik> {
                                       Text(
                                         "1024",
                                         style: TextStyle(
-                                            fontSize: 22.w,
-                                            color: Colors.white),
+                                          fontSize: 22.w,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ],
                                   )
@@ -316,7 +318,7 @@ class _LJNTiktik extends State<LJNTiktik> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: 115.w,
-                color: const Color.fromARGB(255, 80, 80, 80),
+                color: AppColors.neutralDarkGrey10,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -328,7 +330,7 @@ class _LJNTiktik extends State<LJNTiktik> {
                         fontSize: 32.w,
                         fontWeight: FontWeight.bold,
                         height: 1.08,
-                        color: const Color.fromARGB(255, 255, 255, 255),
+                        color: AppColors.neutralWhite,
                       ),
                     ),
                     Text(
@@ -338,7 +340,7 @@ class _LJNTiktik extends State<LJNTiktik> {
                         fontSize: 32.w,
                         fontWeight: FontWeight.bold,
                         height: 1.08,
-                        color: const Color.fromARGB(255, 181, 181, 181),
+                        color: AppColors.neutralGrey38,
                       ),
                     ),
                     Transform.translate(
@@ -347,7 +349,7 @@ class _LJNTiktik extends State<LJNTiktik> {
                         width: 75.w,
                         height: 60.w,
                         decoration: BoxDecoration(
-                          // color: const Color.fromARGB(255, 254, 61, 83),
+                          // color: AppColors.accentRedVibrant1,
                           borderRadius: BorderRadius.all(
                             Radius.circular(15.w),
                           ),
@@ -375,7 +377,7 @@ class _LJNTiktik extends State<LJNTiktik> {
                         fontSize: 32.w,
                         fontWeight: FontWeight.bold,
                         height: 1.08,
-                        color: const Color.fromARGB(255, 181, 181, 181),
+                        color: AppColors.neutralGrey38,
                       ),
                     ),
                     Text(
@@ -385,7 +387,7 @@ class _LJNTiktik extends State<LJNTiktik> {
                         fontSize: 32.w,
                         fontWeight: FontWeight.bold,
                         height: 1.08,
-                        color: const Color.fromARGB(255, 181, 181, 181),
+                        color: AppColors.neutralGrey38,
                       ),
                     ),
                   ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
@@ -440,7 +441,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
             physics: const BouncingScrollPhysics(),
           ),
           child: ColoredBox(
-            color: const Color.fromARGB(255, 236, 236, 236),
+            color: AppColors.neutralGrey12,
             child: ListView.builder(
               primary: false,
               padding: EdgeInsets.only(bottom: 106.w),
@@ -485,7 +486,7 @@ class ContactListItem extends StatefulWidget {
 
 class _ContactListItem extends State<ContactListItem> {
   Color containerColor = Colors.white;
-  // Color containerColor = Colors.transparent;
+  // Color containerColor = AppColors.transparent;
 
   @override
   Widget build(BuildContext context) {
@@ -519,8 +520,8 @@ class _ContactListItem extends State<ContactListItem> {
                 border: Border(
                   bottom: BorderSide(
                     color: widget.underline
-                        ? const Color.fromARGB(255, 242, 242, 242)
-                        : Colors.transparent,
+                        ? AppColors.neutralGrey6
+                        : AppColors.transparent,
                     width: 1.5.w,
                     style: BorderStyle.solid,
                   ),
@@ -596,14 +597,12 @@ class _ContactListItem extends State<ContactListItem> {
                                     TextStyle(
                                       height: 1.08,
                                       fontSize: fontSizeScale(25.w),
-                                      color: const Color.fromARGB(
-                                          255, 170, 170, 170),
+                                      color: AppColors.neutralGrey45,
                                     ),
                                     TextStyle(
                                       height: 1.08,
                                       fontSize: fontSizeScale(25.w),
-                                      color: const Color.fromARGB(
-                                          255, 170, 170, 170),
+                                      color: AppColors.neutralGrey45,
                                     ),
                                   ),
                                 ),
@@ -619,13 +618,13 @@ class _ContactListItem extends State<ContactListItem> {
                   if (widget.alreadyFriends)
                     const LJNAddButton(
                         title: "添加",
-                        backgroundColor: Color.fromARGB(255, 74, 193, 99))
+                        backgroundColor: AppColors.brandGreenVibrant3)
                   else
                     const LJNAddButton(
                       title: "已添加",
                       // readonly: true,
-                      backgroundColor: Colors.transparent,
-                      color: Color.fromARGB(255, 93, 93, 93),
+                      backgroundColor: AppColors.transparent,
+                      color: AppColors.neutralDarkGrey3,
                     ),
                   SizedBox(
                     width: 25.w,

@@ -185,8 +185,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                   style: TextStyle(
                                       height: 1.08,
                                       fontSize: fontSizeScale(20.w),
-                                      color: const Color.fromARGB(
-                                          255, 130, 130, 130)),
+                                      color: const Color.fromARGB(255, 130, 130, 130)),
                                 )
                               ]),
                         ),
@@ -216,8 +215,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                   height: videoHeight,
                                   // color: Colors.grey,
                                   decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 158, 236, 114),
+                                      color: const Color.fromARGB(255, 158, 236, 114),
                                       borderRadius: BorderRadius.circular(8).w),
                                   child: picPath != null
                                       ? Stack(

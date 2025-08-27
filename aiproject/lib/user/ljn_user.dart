@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_page_loading.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/store/ljn_user_cubit.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
-
 import '../components/ljn_function_item.dart';
 
 class LJNUser extends StatefulWidget {
@@ -47,7 +46,7 @@ class _LJNUserState extends State<LJNUser> {
               minHeight: MediaQuery.of(context).size.height - 106.w),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.white, Color.fromARGB(255, 237, 237, 237)],
+              colors: [Colors.white, AppColors.neutralGrey11],
               stops: [0.3, 0.5],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -113,14 +112,14 @@ class _LJNUserState extends State<LJNUser> {
                                   Navigator.pushNamed(context, '/userinfo');
                                 },
                                 child: Container(
-                                  color: Colors.transparent,
+                                  color: AppColors.transparent,
                                   padding: EdgeInsets.only(right: 40.w),
                                   child: Column(
                                     children: [
                                       // 用户名
                                       Container(
                                         width: double.infinity,
-                                        color: Colors.transparent,
+                                        color: AppColors.transparent,
                                         child: BlocBuilder<LJNUserCubit,
                                             LJNUserState>(
                                           builder: (context, state) {
@@ -152,8 +151,8 @@ class _LJNUserState extends State<LJNUser> {
                                                 style: TextStyle(
                                                   height: 1.08,
                                                   fontSize: fontSizeScale(28.w),
-                                                  color: const Color.fromARGB(
-                                                      255, 111, 111, 111),
+                                                  color:
+                                                      AppColors.neutralGrey71,
                                                 ),
                                               );
                                             },
@@ -167,8 +166,7 @@ class _LJNUserState extends State<LJNUser> {
                                                   fontFamily: 'Iconfont',
                                                 ),
                                                 size: 23.w,
-                                                color: const Color.fromARGB(
-                                                    255, 170, 170, 170),
+                                                color: AppColors.neutralGrey45,
                                               ),
                                               SizedBox(width: 43.w),
                                               Icon(
@@ -177,8 +175,7 @@ class _LJNUserState extends State<LJNUser> {
                                                   fontFamily: 'Iconfont',
                                                 ),
                                                 size: 28.w,
-                                                color: const Color.fromARGB(
-                                                    255, 170, 170, 170),
+                                                color: AppColors.neutralGrey45,
                                               ),
                                             ],
                                           ),
@@ -215,18 +212,19 @@ class _LJNUserState extends State<LJNUser> {
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
-                                                        color: Colors.white,
-                                                        width: 2.0.w),
+                                                      color: Colors.white,
+                                                      width: 2.0.w,
+                                                    ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                                200)
-                                                            .w,
+                                                      200,
+                                                    ).w,
                                                   ),
                                                   child: ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                                1000)
-                                                            .w,
+                                                      1000,
+                                                    ).w,
                                                     child: Image.asset(
                                                       'assets/images/avatar_webp/chat_4.webp',
                                                       width: 30.w,
@@ -242,18 +240,19 @@ class _LJNUserState extends State<LJNUser> {
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
-                                                        color: Colors.white,
-                                                        width: 2.0.w),
+                                                      color: Colors.white,
+                                                      width: 2.0.w,
+                                                    ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                                200)
-                                                            .w,
+                                                      200,
+                                                    ).w,
                                                   ),
                                                   child: ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                                1000)
-                                                            .w,
+                                                      1000,
+                                                    ).w,
                                                     child: Image.asset(
                                                       'assets/images/avatar_webp/chat_5.webp',
                                                       width: 30.w,
@@ -269,12 +268,13 @@ class _LJNUserState extends State<LJNUser> {
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
-                                                        color: Colors.white,
-                                                        width: 2.0.w),
+                                                      color: Colors.white,
+                                                      width: 2.0.w,
+                                                    ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                                200)
-                                                            .w,
+                                                      200,
+                                                    ).w,
                                                   ),
                                                   child: ClipRRect(
                                                     borderRadius:
@@ -299,8 +299,7 @@ class _LJNUserState extends State<LJNUser> {
                                           style: TextStyle(
                                             height: 1.08,
                                             fontSize: 24.w,
-                                            color: const Color.fromARGB(
-                                                255, 116, 116, 116),
+                                            color: AppColors.neutralGrey68,
                                           ),
                                         )
                                       ],
@@ -321,7 +320,7 @@ class _LJNUserState extends State<LJNUser> {
                   Container(
                     width: double.infinity,
                     height: 16.w,
-                    color: const Color.fromARGB(255, 237, 237, 237),
+                    color: AppColors.neutralGrey11,
                   ),
 
                   const LJNFunctionItem(
@@ -335,7 +334,7 @@ class _LJNUserState extends State<LJNUser> {
                   Container(
                     width: double.infinity,
                     height: 16.w,
-                    color: const Color.fromARGB(255, 237, 237, 237),
+                    color: AppColors.neutralGrey11,
                   ),
 
                   LJNFunctionItem(
@@ -345,7 +344,6 @@ class _LJNUserState extends State<LJNUser> {
                         "/miniprogram?link=${Uri.encodeComponent('https://baidu.com')}",
                     underline: true,
                   ),
-                  
 
                   const LJNFunctionItem(
                     title: "朋友圈",
@@ -379,7 +377,7 @@ class _LJNUserState extends State<LJNUser> {
                   Container(
                     width: double.infinity,
                     height: 16.w,
-                    color: const Color.fromARGB(255, 237, 237, 237),
+                    color: AppColors.neutralGrey11,
                   ),
 
                   const LJNFunctionItem(
@@ -441,11 +439,9 @@ class _LJNStatusButton extends State<LJNStatusButton> {
         padding: const EdgeInsets.symmetric(horizontal: 12).w,
         height: 48.w,
         decoration: BoxDecoration(
-          color: _isPressed
-              ? const Color.fromARGB(255, 229, 229, 229)
-              : Colors.transparent,
+          color: _isPressed ? AppColors.neutralGrey18 : AppColors.transparent,
           border: Border.all(
-            color: const Color.fromARGB(255, 231, 231, 231),
+            color: AppColors.neutralGrey16,
             width: 1.w,
           ),
           borderRadius: BorderRadius.circular(24).w,
@@ -458,7 +454,7 @@ class _LJNStatusButton extends State<LJNStatusButton> {
                   style: TextStyle(
                     height: 1.08,
                     fontSize: fontSizeScale(24.w),
-                    color: const Color.fromARGB(255, 116, 116, 116),
+                    color: AppColors.neutralGrey68,
                   ),
                 ),
               ),

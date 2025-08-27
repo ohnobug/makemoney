@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_change_detail_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,7 +37,7 @@ class _LJNChangeDetails extends State<LJNChangeDetails> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: const Color.fromARGB(255, 237, 237, 237),
+              color: AppColors.neutralGrey11,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -49,7 +50,7 @@ class _LJNChangeDetails extends State<LJNChangeDetails> {
                       height: 107.w,
                       padding: EdgeInsets.only(left: 42.w),
                       alignment: Alignment.centerLeft,
-                      color: const Color.fromARGB(255, 247, 247, 247),
+                      color: AppColors.neutralGrey2,
                       child: Text.rich(
                         TextSpan(
                           children: [
@@ -71,7 +72,7 @@ class _LJNChangeDetails extends State<LJNChangeDetails> {
                                   0xe891,
                                   fontFamily: 'Iconfont',
                                 ), // 使用的图标
-                                color: Colors.black, // 图标颜色
+                                color: AppColors.neutralBlack, // 图标颜色
                                 size: 30.w, // 图标大小
                               ),
                             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/store/ljn_user_cubit.dart';
@@ -47,7 +47,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                       Navigator.pushNamed(context, '/bind_new_phone_number');
                     },
                     child: Container(
-                      color: Colors.transparent,
+                      color: AppColors.transparent,
                       height: 90.w,
                       padding: EdgeInsets.only(right: 40.w),
                       alignment: Alignment.center,
@@ -71,7 +71,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                       minHeight: MediaQuery.of(context).size.height -
                           90.w -
                           systemState.statusHeight),
-                  color: const Color.fromARGB(255, 237, 237, 237),
+                  color: AppColors.neutralGrey11,
                   child: SingleChildScrollView(
                     primary: false,
                     physics: const AlwaysScrollableScrollPhysics(
@@ -87,7 +87,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                             style: TextStyle(
                               fontSize: 26.0.w,
                               fontFamily: "AlibabaPuHuiTi",
-                              color: const Color.fromARGB(255, 155, 155, 155),
+                              color: AppColors.neutralGrey58,
                             ),
                           ),
                         ),
@@ -107,8 +107,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                 decoration: BoxDecoration(
                                   border: Border(
                                     bottom: BorderSide(
-                                      color: const Color.fromARGB(
-                                          255, 219, 219, 219),
+                                      color: AppColors.neutralGrey26,
                                       width: 1.5.w,
                                       style: BorderStyle.solid,
                                     ),
@@ -135,53 +134,52 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                 width: 20.w,
                               ),
                               Expanded(
-                                  flex: 1,
-                                  child: TextField(
-                                    style: TextStyle(
+                                flex: 1,
+                                child: TextField(
+                                  style: TextStyle(
+                                    fontSize: 30.w,
+                                  ),
+                                  autofocus: true,
+                                  cursorColor: AppColors.brandGreenDarker4,
+                                  cursorWidth: 1.w,
+                                  onTapOutside: (event) {
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: '你本人的手机号',
+                                    hintStyle: TextStyle(
                                       fontSize: 30.w,
+                                      color: AppColors.neutralGrey61,
                                     ),
-                                    autofocus: true,
-                                    cursorColor:
-                                        const Color.fromRGBO(62, 174, 86, 1.0),
-                                    cursorWidth: 1.w,
-                                    onTapOutside: (event) {
-                                      FocusScope.of(context).unfocus();
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: '你本人的手机号',
-                                      hintStyle: TextStyle(
-                                        fontSize: 30.w,
-                                        color: const Color.fromARGB(
-                                            255, 147, 147, 147),
+                                    labelText: '',
+                                    isDense: true,
+                                    border: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1.5.w,
+                                        color:
+                                            AppColors.brandGreenSlightlyLighter,
                                       ),
-                                      labelText: '',
-                                      isDense: true,
-                                      border: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 1.5.w,
-                                          color: const Color.fromARGB(
-                                              255, 104, 199, 145),
-                                        ),
-                                      ),
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 1.5.w,
-                                          color: const Color.fromARGB(
-                                              255, 104, 199, 145),
-                                        ),
-                                      ),
-                                      // 获取焦点时的底线样式
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 1.5.w,
-                                          color: const Color.fromARGB(
-                                              255, 104, 199, 145),
-                                        ),
-                                      ),
-                                      contentPadding: EdgeInsets.only(
-                                          bottom: 20.w), // 也可调小内边距
                                     ),
-                                  ))
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1.5.w,
+                                        color:
+                                            AppColors.brandGreenSlightlyLighter,
+                                      ),
+                                    ),
+                                    // 获取焦点时的底线样式
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1.5.w,
+                                        color:
+                                            AppColors.brandGreenSlightlyLighter,
+                                      ),
+                                    ),
+                                    contentPadding: EdgeInsets.only(
+                                        bottom: 20.w), // 也可调小内边距
+                                  ),
+                                ),
+                              )
                             ],
                           ),
                         )

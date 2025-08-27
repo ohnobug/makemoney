@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/store/ljn_user_cubit.dart';
 import 'package:lottie/lottie.dart';
@@ -78,8 +79,7 @@ class _LJNTestMessage extends State<LJNTestMessage>
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: fontSizeScale(20.w),
-                                  color:
-                                      const Color.fromARGB(255, 130, 130, 130),
+                                  color: AppColors.neutralGrey66,
                                 ),
                               )
                             ]),
@@ -95,14 +95,16 @@ class _LJNTestMessage extends State<LJNTestMessage>
                             constraints: const BoxConstraints(maxWidth: 510).w,
                             // width: 640.w,
                             decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 158, 236, 114),
+                                color: AppColors.brandGreenLighter,
                                 // border: Border.all(
                                 //     color:
                                 //         Colors.white,
                                 //     width: 1.0.w),
                                 borderRadius: BorderRadius.circular(8).w),
                             padding: EdgeInsets.symmetric(
-                                horizontal: 25.w, vertical: 18.w),
+                              horizontal: 25.w,
+                              vertical: 18.w,
+                            ),
                             child: GestureDetector(
                               onTap: () {
                                 _controller.reset();
@@ -141,13 +143,16 @@ class _LJNTestMessage extends State<LJNTestMessage>
                 builder: (context, userState) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/friendprofile',
-                          arguments: <String, String>{
-                            'name': userState.userinfoName!,
-                            'avatar': userState.userinfoAvatar!,
-                            'nickname': userState.userinfoName!,
-                            'account': userState.userinfoAccount!,
-                          });
+                      Navigator.pushNamed(
+                        context,
+                        '/friendprofile',
+                        arguments: <String, String>{
+                          'name': userState.userinfoName!,
+                          'avatar': userState.userinfoAvatar!,
+                          'nickname': userState.userinfoName!,
+                          'account': userState.userinfoAccount!,
+                        },
+                      );
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8).w,

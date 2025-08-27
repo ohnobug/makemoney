@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/store/ljn_user_cubit.dart';
@@ -25,199 +24,205 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
-        builder: (context, systemState) {
-      return Scaffold(
-        primary: false,
-        appBar: LJNAppBar(
-          title: "",
-          leading: Container(),
-          // color: Colors.transparent,
-          // bgColor: Colors.transparent,
-          actions: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/change_details');
-              },
-              child: Container(
-                color: Colors.transparent,
-                height: 90.w,
-                padding: EdgeInsets.only(right: 40.w),
-                alignment: Alignment.center,
-                child: Text(
-                  "零钱明细",
-                  // textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.black, fontSize: 32.w),
-                ),
-              ),
-            )
-          ],
-        ),
-        body: SizedBox(
-          width: 750.w,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 90.w,
-              ),
-              Container(
-                height: 100.w,
-                width: 100.w,
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 248, 195, 57),
-                  shape: BoxShape.circle, // 设置为圆形
-                ),
-                child: Icon(
-                  const IconData(
-                    0xe640,
-                    fontFamily: 'Iconfont',
+      builder: (context, systemState) {
+        return Scaffold(
+          primary: false,
+          appBar: LJNAppBar(
+            title: "",
+            leading: Container(),
+            // color: AppColors.transparent,
+            // bgColor: AppColors.transparent,
+            actions: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/change_details');
+                },
+                child: Container(
+                  color: AppColors.transparent,
+                  height: 90.w,
+                  padding: EdgeInsets.only(right: 40.w),
+                  alignment: Alignment.center,
+                  child: Text(
+                    "零钱明细",
+                    // textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.black, fontSize: 32.w),
                   ),
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  size: 46.w,
                 ),
-              ),
-              SizedBox(
-                height: 78.w,
-              ),
-              Text(
-                "我的零钱",
-                style: TextStyle(
-                  height: 1.08,
-                  fontSize: fontSizeScale(32.w),
-                  fontFamily: "AlibabaPuHuiTi-Medium",
-                  color: const Color.fromARGB(255, 16, 16, 16),
+              )
+            ],
+          ),
+          body: SizedBox(
+            width: 750.w,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 90.w,
                 ),
-              ),
-              SizedBox(
-                height: 30.w,
-              ),
-              // 余额
-              Text.rich(
-                TextSpan(
-                  children: [
-                    WidgetSpan(
-                      alignment: PlaceholderAlignment.middle,
-                      child: Baseline(
-                        baseline: -7.5.w, // 根据文字的 fontSize 调整基线
-                        baselineType: TextBaseline.alphabetic,
-                        child: Icon(
-                          const IconData(
-                            0xe90d,
-                            fontFamily: 'Iconfont',
+                Container(
+                  height: 100.w,
+                  width: 100.w,
+                  decoration: const BoxDecoration(
+                    color: AppColors.accentYellowDark1,
+                    shape: BoxShape.circle, // 设置为圆形
+                  ),
+                  child: Icon(
+                    const IconData(
+                      0xe640,
+                      fontFamily: 'Iconfont',
+                    ),
+                    color: AppColors.neutralWhite,
+                    size: 46.w,
+                  ),
+                ),
+                SizedBox(
+                  height: 78.w,
+                ),
+                Text(
+                  "我的零钱",
+                  style: TextStyle(
+                    height: 1.08,
+                    fontSize: fontSizeScale(32.w),
+                    fontFamily: "AlibabaPuHuiTi-Medium",
+                    color: AppColors.neutralNearBlack4,
+                  ),
+                ),
+                SizedBox(
+                  height: 30.w,
+                ),
+                // 余额
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      WidgetSpan(
+                        alignment: PlaceholderAlignment.middle,
+                        child: Baseline(
+                          baseline: -7.5.w, // 根据文字的 fontSize 调整基线
+                          baselineType: TextBaseline.alphabetic,
+                          child: Icon(
+                            const IconData(
+                              0xe90d,
+                              fontFamily: 'Iconfont',
+                            ),
+                            color: AppColors.neutralNearBlack4,
+                            size: 55.w,
                           ),
-                          color: const Color.fromARGB(255, 16, 16, 16),
-                          size: 55.w,
                         ),
+                      ),
+                      TextSpan(
+                        text: context
+                            .read<LJNUserCubit>()
+                            .state
+                            .walletBalance
+                            .toString(),
+                        style: TextStyle(
+                          height: 1.08,
+                          fontSize: fontSizeScale(85.w),
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "LJNFont",
+                          color: AppColors.neutralNearBlack4,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 30.w,
+                ),
+                Text(
+                  "转入零钱通 , 能赚又能花 >",
+                  style: TextStyle(
+                    height: 1.08,
+                    color: AppColors.accentOrange,
+                    fontSize: fontSizeScale(30.w),
+                    fontFamily: "AlibabaPuHuiTi",
+                  ),
+                ),
+                const Expanded(
+                  flex: 490,
+                  child: SizedBox(),
+                ),
+
+                const LJNChargeButton(
+                  title: "充值",
+                  color: Colors.white,
+                  backgroundColor: AppColors.brandGreenVibrant3,
+                ),
+
+                SizedBox(
+                  height: 33.w,
+                ),
+                // ????????
+                const LJNChargeButton(
+                  title: "提现",
+                ),
+
+                const Expanded(
+                  flex: 143,
+                  child: SizedBox(),
+                ),
+                Text.rich(
+                  TextSpan(children: [
+                    TextSpan(
+                      text: "常见问题",
+                      style: TextStyle(
+                        height: 1.08,
+                        color: AppColors.brandBlueDark4,
+                        fontSize: fontSizeScale(25.w),
+                        fontFamily: "AlibabaPuHuiTi-Medium",
+                      ),
+                    ),
+                    WidgetSpan(
+                      child: SizedBox(
+                        width: 10.w,
                       ),
                     ),
                     TextSpan(
-                      text: context
-                          .read<LJNUserCubit>()
-                          .state
-                          .walletBalance
-                          .toString(),
+                      text: " | ",
                       style: TextStyle(
                         height: 1.08,
-                        fontSize: fontSizeScale(85.w),
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "LJNFont",
-                        color: const Color.fromARGB(255, 16, 16, 16),
+                        color: AppColors.neutralGrey12,
+                        fontSize: fontSizeScale(25.w),
+                        fontFamily: "AlibabaPuHuiTi-Medium",
                       ),
                     ),
-                  ],
+                    WidgetSpan(
+                      child: SizedBox(
+                        width: 10.w,
+                      ),
+                    ),
+                    TextSpan(
+                      text: "账户升级服务",
+                      style: TextStyle(
+                        height: 1.08,
+                        color: AppColors.brandBlueDark4,
+                        fontSize: fontSizeScale(25.w),
+                        fontFamily: "AlibabaPuHuiTi-Medium",
+                      ),
+                    ),
+                  ]),
                 ),
-              ),
-              SizedBox(
-                height: 30.w,
-              ),
-              Text(
-                "转入零钱通 , 能赚又能花 >",
-                style: TextStyle(
+                SizedBox(
+                  height: 26.w,
+                ),
+                Text(
+                  "本服务由财付通和微众银行提供",
+                  style: TextStyle(
                     height: 1.08,
-                    color: const Color.fromARGB(255, 255, 161, 79),
-                    fontSize: fontSizeScale(30.w),
-                    fontFamily: "AlibabaPuHuiTi"),
-              ),
-              const Expanded(
-                flex: 490,
-                child: SizedBox(),
-              ),
-
-              const LJNChargeButton(
-                title: "充值",
-                color: Colors.white,
-                backgroundColor: Color.fromARGB(255, 74, 193, 99),
-              ),
-
-              SizedBox(
-                height: 33.w,
-              ),
-              // ????????
-              const LJNChargeButton(
-                title: "提现",
-              ),
-
-              const Expanded(
-                flex: 143,
-                child: SizedBox(),
-              ),
-              Text.rich(
-                TextSpan(children: [
-                  TextSpan(
-                    text: "常见问题",
-                    style: TextStyle(
-                        height: 1.08,
-                        color: const Color.fromARGB(255, 58, 81, 124),
-                        fontSize: fontSizeScale(25.w),
-                        fontFamily: "AlibabaPuHuiTi-Medium"),
-                  ),
-                  WidgetSpan(
-                    child: SizedBox(
-                      width: 10.w,
-                    ),
-                  ),
-                  TextSpan(
-                    text: " | ",
-                    style: TextStyle(
-                        height: 1.08,
-                        color: const Color.fromARGB(255, 236, 236, 236),
-                        fontSize: fontSizeScale(25.w),
-                        fontFamily: "AlibabaPuHuiTi-Medium"),
-                  ),
-                  WidgetSpan(
-                    child: SizedBox(
-                      width: 10.w,
-                    ),
-                  ),
-                  TextSpan(
-                    text: "账户升级服务",
-                    style: TextStyle(
-                        height: 1.08,
-                        color: const Color.fromARGB(255, 58, 81, 124),
-                        fontSize: fontSizeScale(25.w),
-                        fontFamily: "AlibabaPuHuiTi-Medium"),
-                  ),
-                ]),
-              ),
-              SizedBox(
-                height: 26.w,
-              ),
-              Text(
-                "本服务由财付通和微众银行提供",
-                style: TextStyle(
-                    height: 1.08,
-                    color: const Color.fromARGB(255, 169, 169, 169),
+                    color: AppColors.neutralGrey46,
                     fontSize: fontSizeScale(23.w),
-                    fontFamily: "AlibabaPuHuiTi-Medium"),
-              ),
-              SizedBox(
-                height: 50.w,
-              ),
-            ],
+                    fontFamily: "AlibabaPuHuiTi-Medium",
+                  ),
+                ),
+                SizedBox(
+                  height: 50.w,
+                ),
+              ],
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
 
@@ -250,8 +255,7 @@ class _LJNChargeButtonState extends State<LJNChargeButton> {
     super.initState();
 
     // 判断是否有 backgroundColor，若没有，则使用默认颜色
-    originContainerColor =
-        widget.backgroundColor ?? const Color.fromARGB(255, 242, 242, 242);
+    originContainerColor = widget.backgroundColor ?? AppColors.neutralGrey6;
 
     setState(() {
       containerColor = originContainerColor;
@@ -260,7 +264,7 @@ class _LJNChargeButtonState extends State<LJNChargeButton> {
 
   @override
   Widget build(BuildContext context) {
-    Color fontColor = const Color.fromARGB(255, 41, 41, 41);
+    Color fontColor = AppColors.neutralDarkGrey19;
     if (widget.color is Color) {
       fontColor = widget.color!;
     }

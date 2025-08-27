@@ -1,8 +1,8 @@
 import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
@@ -43,9 +43,9 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                 Navigator.of(context).pop();
               },
               child: Container(
-                // color: Colors.transparent,
+                // color: AppColors.transparent,
                 height: 90.w,
-                color: Colors.transparent,
+                color: AppColors.transparent,
                 // color: Colors.amber,
                 alignment: Alignment.center,
                 padding: EdgeInsets.only(left: 0.w),
@@ -71,7 +71,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                   margin: EdgeInsets.only(right: 30.w),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 74, 193, 99),
+                    color: AppColors.brandGreenVibrant3,
                     borderRadius: BorderRadius.all(
                       Radius.circular(8.w),
                     ),
@@ -80,9 +80,10 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                     "完成",
                     // textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25.w,
-                        fontWeight: FontWeight.w100),
+                      color: Colors.white,
+                      fontSize: 25.w,
+                      fontWeight: FontWeight.w100,
+                    ),
                   ),
                 ),
               )
@@ -129,7 +130,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           '备注',
                           style: TextStyle(
                             fontSize: 25.w,
-                            color: const Color.fromARGB(255, 100, 100, 100),
+                            color: AppColors.neutralGrey78,
                             height: 1.08,
                           ),
                         ),
@@ -141,7 +142,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                         margin: EdgeInsets.only(bottom: 15.w),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 247, 247, 247),
+                          color: AppColors.neutralGrey2,
                           borderRadius: BorderRadius.all(
                             Radius.circular(12.w),
                           ),
@@ -153,7 +154,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           controller: inputController1,
                           focusNode: inputFocusNode1,
                           onTap: () {},
-                          cursorColor: const Color.fromRGBO(62, 174, 86, 1.0),
+                          cursorColor: AppColors.brandGreenDarker4,
                           // cursorHeight: 44.w,
                           cursorWidth: 3.w,
                           style: TextStyle(
@@ -175,11 +176,11 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           },
                           decoration: InputDecoration(
                             // fillColor:
-                            //     const Color.fromARGB(255, 252, 0, 0),
+                            //     AppColors.accentRedVibrant2,
                             // filled: true,
                             // focusColor: Colors.red,
                             // hoverColor:
-                            //     const Color.fromARGB(255, 247, 247, 247),
+                            //     AppColors.neutralGrey2,
                             isCollapsed: true,
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 32.w, vertical: 30.w),
@@ -207,8 +208,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                 text: '对方在手机通讯录中的名字为“邓桥香”',
                                 style: TextStyle(
                                   fontSize: 25.w,
-                                  color:
-                                      const Color.fromARGB(255, 100, 100, 100),
+                                  color: AppColors.neutralGrey78,
                                   height: 1.08, // 统一行高
                                 ),
                               ),
@@ -228,8 +228,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                     '填入',
                                     style: TextStyle(
                                       fontSize: 25.w,
-                                      color: const Color.fromARGB(
-                                          255, 81, 94, 132),
+                                      color: AppColors.brandBlueDark1,
                                       height: 1.08, // 统一行高
                                     ),
                                   ),
@@ -248,7 +247,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           '标签',
                           style: TextStyle(
                             fontSize: 25.w,
-                            color: const Color.fromARGB(255, 100, 100, 100),
+                            color: AppColors.neutralGrey78,
                             height: 1.08,
                           ),
                         ),
@@ -263,7 +262,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           margin: EdgeInsets.only(bottom: 50.w),
                           padding: EdgeInsets.symmetric(horizontal: 30.w),
                           decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 247, 247, 247),
+                            color: AppColors.neutralGrey2,
                             borderRadius: BorderRadius.all(
                               Radius.circular(12.w),
                             ),
@@ -284,8 +283,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                     fontFamily: 'Iconfont',
                                   ),
                                   size: 30.0.w,
-                                  color:
-                                      const Color.fromARGB(255, 172, 172, 172),
+                                  color: AppColors.neutralGrey44,
                                 ),
                               )
                             ],
@@ -303,7 +301,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           '电话',
                           style: TextStyle(
                             fontSize: 25.w,
-                            color: const Color.fromARGB(255, 100, 100, 100),
+                            color: AppColors.neutralGrey78,
                             height: 1.08,
                           ),
                         ),
@@ -313,7 +311,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                         margin: EdgeInsets.only(bottom: 55.w),
                         padding: EdgeInsets.symmetric(horizontal: 25.w),
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 247, 247, 247),
+                          color: AppColors.neutralGrey2,
                           borderRadius: BorderRadius.all(
                             Radius.circular(12.w),
                           ),
@@ -330,8 +328,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                       border: Border(
                                         bottom: BorderSide(
                                           width: 1.w,
-                                          color: const Color.fromARGB(
-                                              255, 232, 232, 232),
+                                          color: AppColors.neutralGrey15,
                                         ),
                                       ),
                                     ),
@@ -366,15 +363,15 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                               child: Container(
                                                 width: 50.w,
                                                 height: 50.w,
-                                                color: Colors.transparent,
+                                                color: AppColors.transparent,
                                                 alignment: Alignment.center,
                                                 child: Icon(
                                                   const IconData(
                                                     0xe627,
                                                     fontFamily: 'Iconfont',
                                                   ),
-                                                  color: const Color.fromARGB(
-                                                      255, 176, 176, 176),
+                                                  color:
+                                                      AppColors.neutralGrey41,
                                                   size: 35.w,
                                                 ),
                                               ),
@@ -403,8 +400,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                         0xe673,
                                         fontFamily: 'Iconfont',
                                       ),
-                                      color: const Color.fromARGB(
-                                          255, 53, 76, 111),
+                                      color: AppColors.brandBlueDark5,
                                       size: 40.w,
                                     ),
                                     SizedBox(
@@ -415,8 +411,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                       style: TextStyle(
                                         fontSize: 30.w,
                                         height: 1.08,
-                                        color: const Color.fromARGB(
-                                            255, 53, 74, 113),
+                                        color: AppColors.brandBlueDark6,
                                       ),
                                     ),
                                     const Spacer(), // 这个 Spacer 会把第二个图标推到最右边
@@ -424,15 +419,14 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                     Container(
                                       width: 50.w,
                                       height: 50.w,
-                                      color: Colors.transparent,
+                                      color: AppColors.transparent,
                                       alignment: Alignment.center,
                                       child: Icon(
                                         const IconData(
                                           0xe655,
                                           fontFamily: 'Iconfont',
                                         ),
-                                        color: const Color.fromARGB(
-                                            255, 176, 176, 176),
+                                        color: AppColors.neutralGrey41,
                                         size: 35.w,
                                       ),
                                     ),
@@ -454,7 +448,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           '描述',
                           style: TextStyle(
                             fontSize: 25.w,
-                            color: const Color.fromARGB(255, 100, 100, 100),
+                            color: AppColors.neutralGrey78,
                             height: 1.08,
                           ),
                         ),
@@ -467,7 +461,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                         ),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 247, 247, 247),
+                          color: AppColors.neutralGrey2,
                           borderRadius: BorderRadius.all(
                             Radius.circular(12.w),
                           ),
@@ -479,7 +473,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           controller: inputController2,
                           focusNode: inputFocusNode2,
                           onTap: () {},
-                          cursorColor: const Color.fromRGBO(62, 174, 86, 1.0),
+                          cursorColor: AppColors.brandGreenDarker4,
                           // cursorHeight: 44.w,
                           cursorWidth: 3.w,
                           style: TextStyle(
@@ -500,11 +494,11 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           },
                           decoration: InputDecoration(
                             // fillColor:
-                            //     const Color.fromARGB(255, 252, 0, 0),
+                            //     AppColors.accentRedVibrant2,
                             // filled: true,
                             // focusColor: Colors.red,
                             // hoverColor:
-                            //     const Color.fromARGB(255, 247, 247, 247),
+                            //     AppColors.neutralGrey2,
                             isCollapsed: true,
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 32.w, vertical: 30.w),
@@ -523,7 +517,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                         width: 210.w,
                         height: 210.w,
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 247, 247, 247),
+                          color: AppColors.neutralGrey2,
                           borderRadius: BorderRadius.all(
                             Radius.circular(12.w),
                           ),
@@ -536,7 +530,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                 0xe673,
                                 fontFamily: 'Iconfont',
                               ),
-                              color: const Color.fromARGB(255, 65, 73, 117),
+                              color: AppColors.brandPurpleDark2,
                               size: 42.w,
                             ),
                             SizedBox(
@@ -546,7 +540,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                               '添加图片',
                               style: TextStyle(
                                 fontSize: 25.w,
-                                color: const Color.fromARGB(255, 65, 73, 117),
+                                color: AppColors.brandPurpleDark2,
                               ),
                             )
                           ],

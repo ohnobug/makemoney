@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 
 import 'package:spicychat/components/ljn_page_loading.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
@@ -92,7 +93,7 @@ class _LJNIns extends State<LJNIns> {
     _scrollController.removeListener(_scrollListener);
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
+      statusBarColor: AppColors.transparent, // 使用白色背景确保图标变为黑色
       statusBarIconBrightness: Brightness.dark, // 确保图标颜色为黑色
     ));
 
@@ -577,10 +578,10 @@ class _LJNIns extends State<LJNIns> {
                   automaticallyImplyLeading: false,
                   expandedHeight: systemState.statusHeight + 90.0.w,
                   systemOverlayStyle: SystemUiOverlayStyle(
-                      statusBarColor: Colors.transparent, // 设置状态栏透明
+                      statusBarColor: AppColors.transparent, // 设置状态栏透明
                       statusBarIconBrightness:
                           setStatusLight ? Brightness.light : Brightness.dark),
-                  // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                  // backgroundColor: AppColors.neutralWhite,
                   // foregroundColor: Colors.red,
                   flexibleSpace: FlexibleSpaceBar(
                     background: PreferredSize(
@@ -592,7 +593,7 @@ class _LJNIns extends State<LJNIns> {
                           margin:
                               EdgeInsets.only(top: systemState.statusHeight),
                           height: 90.w,
-                          // color: const Color.fromARGB(255, 221, 76, 76), // 设置背景颜色
+                          // color: AppColors.accentRedDark3, // 设置背景颜色
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -602,7 +603,7 @@ class _LJNIns extends State<LJNIns> {
                                     Navigator.of(context).pop(), // 点击事件
                                 child: Container(
                                   // 加盒子是为了扩大点击区域
-                                  color: Colors.transparent,
+                                  color: AppColors.transparent,
                                   child: Icon(
                                     const IconData(
                                       0xed9e,
@@ -647,11 +648,9 @@ class _LJNIns extends State<LJNIns> {
                                       hintStyle: TextStyle(
                                           fontWeight: FontWeight.normal,
                                           fontSize: 30.w,
-                                          color: const Color.fromARGB(
-                                              255, 69, 75, 83)),
+                                          color: AppColors.neutralDarkGrey14),
                                       filled: true,
-                                      fillColor: const Color.fromARGB(
-                                          255, 217, 220, 224),
+                                      fillColor: AppColors.neutralGrey29,
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide: BorderSide.none,
@@ -723,7 +722,7 @@ class _LJNIns extends State<LJNIns> {
                         filter:
                             ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0), // 模糊强度
                         child: Container(
-                          color: const Color.fromARGB(71, 0, 0, 0), // 带透明度的背景颜色
+                          color: AppColors.blackTransparent28, // 带透明度的背景颜色
                         ),
                       ),
                       // 前景内容
@@ -733,7 +732,8 @@ class _LJNIns extends State<LJNIns> {
                             // 图片裁剪
                             ClipRRect(
                               borderRadius: BorderRadius.all(
-                                  Radius.circular(20.w)), // 圆角前景
+                                Radius.circular(20.w),
+                              ), // 圆角前景
                               child: Container(
                                 width: MediaQuery.of(context).size.width - 60.w,
                                 constraints: BoxConstraints(
@@ -742,9 +742,8 @@ class _LJNIns extends State<LJNIns> {
                                           100.w * 2,
                                 ),
                                 decoration: const BoxDecoration(
-                                    color: Color.fromARGB(
-                                        255, 255, 255, 255) // 前景颜色及透明度
-                                    ),
+                                  color: AppColors.neutralWhite,
+                                ),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -788,10 +787,8 @@ class _LJNIns extends State<LJNIns> {
                                           key: likeBtnKey,
                                           decoration: BoxDecoration(
                                             color: isInsideLikeBtn
-                                                ? const Color.fromARGB(
-                                                    255, 240, 240, 240)
-                                                : const Color.fromARGB(
-                                                    255, 210, 210, 210),
+                                                ? AppColors.neutralGrey8
+                                                : AppColors.neutralGrey33,
                                             borderRadius:
                                                 BorderRadius.circular(30.w),
                                           ),
@@ -805,8 +802,8 @@ class _LJNIns extends State<LJNIns> {
                                             ), // 使用的图标
                                             color: isInsideLikeBtn
                                                 ? Colors.red
-                                                : const Color.fromARGB(
-                                                    255, 110, 110, 110), // 图标颜色
+                                                : AppColors
+                                                    .neutralGrey72, // 图标颜色
                                             size: 80.w, // 图标大小
                                           ),
                                         ),
@@ -821,10 +818,8 @@ class _LJNIns extends State<LJNIns> {
                                                 key: xSpeedBtnKey,
                                                 decoration: BoxDecoration(
                                                   color: isInsideXSpeedBtn
-                                                      ? const Color.fromARGB(
-                                                          255, 240, 240, 240)
-                                                      : const Color.fromARGB(
-                                                          255, 210, 210, 210),
+                                                      ? AppColors.neutralGrey8
+                                                      : AppColors.neutralGrey33,
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           30.w),
@@ -837,11 +832,8 @@ class _LJNIns extends State<LJNIns> {
                                                     0xea7c,
                                                     fontFamily: 'Iconfont',
                                                   ), // 使用的图标
-                                                  color: const Color.fromARGB(
-                                                      255,
-                                                      110,
-                                                      110,
-                                                      110), // 图标颜色
+                                                  color: AppColors
+                                                      .neutralGrey72, // 图标颜色
                                                   size: 80.w, // 图标大小
                                                 ),
                                               )),
@@ -851,10 +843,8 @@ class _LJNIns extends State<LJNIns> {
                                           key: collectBtnKey,
                                           decoration: BoxDecoration(
                                             color: isInsideCollectBtn
-                                                ? const Color.fromARGB(
-                                                    255, 240, 240, 240)
-                                                : const Color.fromARGB(
-                                                    255, 210, 210, 210),
+                                                ? AppColors.neutralGrey8
+                                                : AppColors.neutralGrey33,
                                             borderRadius:
                                                 BorderRadius.circular(30.w),
                                           ),
@@ -868,8 +858,8 @@ class _LJNIns extends State<LJNIns> {
                                             ), // 使用的图标
                                             color: isInsideCollectBtn
                                                 ? Colors.red
-                                                : const Color.fromARGB(
-                                                    255, 110, 110, 110), // 图标颜色
+                                                : AppColors
+                                                    .neutralGrey72, // 图标颜色
                                             size: 80.w, // 图标大小
                                           ),
                                         ),
@@ -879,10 +869,8 @@ class _LJNIns extends State<LJNIns> {
                                           key: downloadBtnKey,
                                           decoration: BoxDecoration(
                                             color: isInsideDownloadBtn
-                                                ? const Color.fromARGB(
-                                                    255, 240, 240, 240)
-                                                : const Color.fromARGB(
-                                                    255, 210, 210, 210),
+                                                ? AppColors.neutralGrey8
+                                                : AppColors.neutralGrey33,
                                             borderRadius:
                                                 BorderRadius.circular(30.w),
                                           ),
@@ -896,8 +884,8 @@ class _LJNIns extends State<LJNIns> {
                                             ), // 使用的图标
                                             color: isInsideDownloadBtn
                                                 ? Colors.red
-                                                : const Color.fromARGB(
-                                                    255, 110, 110, 110), // 图标颜色
+                                                : AppColors
+                                                    .neutralGrey72, // 图标颜色
                                             size: 80.w, // 图标大小
                                           ),
                                         ),
@@ -907,10 +895,8 @@ class _LJNIns extends State<LJNIns> {
                                           key: shareBtnKey,
                                           decoration: BoxDecoration(
                                             color: isInsideShareBtn
-                                                ? const Color.fromARGB(
-                                                    255, 240, 240, 240)
-                                                : const Color.fromARGB(
-                                                    255, 210, 210, 210),
+                                                ? AppColors.neutralGrey8
+                                                : AppColors.neutralGrey33,
                                             borderRadius:
                                                 BorderRadius.circular(30.w),
                                           ),
@@ -924,8 +910,8 @@ class _LJNIns extends State<LJNIns> {
                                             ), // 使用的图标
                                             color: isInsideShareBtn
                                                 ? Colors.red
-                                                : const Color.fromARGB(
-                                                    255, 110, 110, 110), // 图标颜色
+                                                : AppColors
+                                                    .neutralGrey72, // 图标颜色
                                             size: 80.w, // 图标大小
                                           ),
                                         ),
@@ -935,10 +921,8 @@ class _LJNIns extends State<LJNIns> {
                                           key: gotoHomeBtnKey,
                                           decoration: BoxDecoration(
                                             color: isInsideHomeBtn
-                                                ? const Color.fromARGB(
-                                                    255, 240, 240, 240)
-                                                : const Color.fromARGB(
-                                                    255, 210, 210, 210),
+                                                ? AppColors.neutralGrey8
+                                                : AppColors.neutralGrey33,
                                             borderRadius:
                                                 BorderRadius.circular(30.w),
                                           ),
@@ -952,8 +936,8 @@ class _LJNIns extends State<LJNIns> {
                                             ), // 使用的图标
                                             color: isInsideHomeBtn
                                                 ? Colors.red
-                                                : const Color.fromARGB(
-                                                    255, 110, 110, 110), // 图标颜色
+                                                : AppColors
+                                                    .neutralGrey72, // 图标颜色
                                             size: 80.w, // 图标大小
                                           ),
                                         )
@@ -972,8 +956,7 @@ class _LJNIns extends State<LJNIns> {
                                 top: 20.w,
                                 right: 20.w,
                                 child: Container(
-                                  // color: const Color.fromARGB(
-                                  //     183, 192, 66, 66),
+                                  // color: const Color.fromARGB(//     183, 192, 66, 66),
                                   margin: EdgeInsets.only(left: 39.w),
                                   width: 200.w,
                                   height: 55.w,
@@ -996,8 +979,8 @@ class _LJNIns extends State<LJNIns> {
                     child: Container(
                       decoration: BoxDecoration(
                         color: isInsideXSpeedBtn
-                            ? const Color.fromARGB(255, 240, 240, 240)
-                            : const Color.fromARGB(255, 210, 210, 210),
+                            ? AppColors.neutralGrey8
+                            : AppColors.neutralGrey33,
                         borderRadius: BorderRadius.circular(30.w),
                       ),
                       // 扩大点击区域
@@ -1014,7 +997,7 @@ class _LJNIns extends State<LJNIns> {
                               key: x3BtnKey,
                               color: isInsideX3Btn
                                   ? Colors.red
-                                  : const Color.fromARGB(255, 210, 210, 210),
+                                  : AppColors.neutralGrey33,
                               child: Center(
                                 child: Text(
                                   "x3",
@@ -1036,7 +1019,7 @@ class _LJNIns extends State<LJNIns> {
                               key: x2BtnKey,
                               color: isInsideX2Btn
                                   ? Colors.red
-                                  : const Color.fromARGB(255, 210, 210, 210),
+                                  : AppColors.neutralGrey33,
                               child: Center(
                                 child: Text(
                                   "x2",
@@ -1058,7 +1041,7 @@ class _LJNIns extends State<LJNIns> {
                               key: x1BtnKey,
                               color: isInsideX1Btn
                                   ? Colors.red
-                                  : const Color.fromARGB(255, 210, 210, 210),
+                                  : AppColors.neutralGrey33,
                               child: Center(
                                 child: Text(
                                   "x1",
@@ -1170,7 +1153,7 @@ class _BigImageBox extends State<BigImageBox> {
           Container(
             width: (MediaQuery.of(context).size.width - 2.w) / 3,
             height: 500.w,
-            color: const Color.fromARGB(255, 247, 247, 247),
+            color: AppColors.neutralGrey2,
             child: show
                 ? Image.asset(
                     width: (MediaQuery.of(context).size.width - 2.w) / 3,
@@ -1288,7 +1271,7 @@ class _SmallImageBox extends State<SmallImageBox> {
           Container(
               width: (MediaQuery.of(context).size.width - 2.w) / 3,
               height: (500.w - 1.w) / 2,
-              color: const Color.fromARGB(255, 247, 247, 247),
+              color: AppColors.neutralGrey2,
               child: show
                   ? Image.asset(
                       width: (MediaQuery.of(context).size.width - 2.w) / 3,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
@@ -43,7 +44,7 @@ class _ChatListItem extends State<ChatListItem> {
         return GestureDetector(
           onTapDown: (_) {
             setState(() {
-              containerColor = const Color.fromARGB(255, 229, 229, 229);
+              containerColor = AppColors.neutralGrey18;
             });
           },
           onTapCancel: () {
@@ -97,8 +98,8 @@ class _ChatListItem extends State<ChatListItem> {
                           border: Border(
                             bottom: BorderSide(
                               color: widget.underline
-                                  ? const Color.fromARGB(255, 242, 242, 242)
-                                  : Colors.transparent,
+                                  ? AppColors.neutralGrey6
+                                  : AppColors.transparent,
                               width: 1.5.w,
                               style: BorderStyle.solid,
                             ),
@@ -158,8 +159,7 @@ class _ChatListItem extends State<ChatListItem> {
                                           fontSize: fontSizeScale(25.0.w),
                                           color: widget.notice
                                               ? Colors.red
-                                              : const Color.fromARGB(
-                                                  255, 170, 170, 170),
+                                              : AppColors.neutralGrey45,
                                         ),
                                       )
                                     : widget.lastedTime,
@@ -191,14 +191,12 @@ class _ChatListItem extends State<ChatListItem> {
                                         TextStyle(
                                           height: 1.08,
                                           fontSize: fontSizeScale(25.w),
-                                          color: const Color.fromARGB(
-                                              255, 170, 170, 170),
+                                          color: AppColors.neutralGrey45,
                                         ),
                                         TextStyle(
                                           height: 1.08,
                                           fontSize: fontSizeScale(25.w),
-                                          color: const Color.fromARGB(
-                                              255, 170, 170, 170),
+                                          color: AppColors.neutralGrey45,
                                         ),
                                       ),
                                     ),
@@ -219,8 +217,7 @@ class _ChatListItem extends State<ChatListItem> {
                                             fontFamily: 'Iconfont',
                                           ),
                                           size: 28.0.w,
-                                          color: const Color.fromARGB(
-                                              255, 180, 180, 180),
+                                          color: AppColors.neutralGrey39,
                                         )
                                       : null,
                                 ),

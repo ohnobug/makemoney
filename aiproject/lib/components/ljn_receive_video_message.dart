@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_thumbnail_video/index.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -16,15 +17,16 @@ import 'package:path/path.dart' as path;
 import 'package:get_thumbnail_video/video_thumbnail.dart';
 
 class LJNReceiveVideoMessage extends StatefulWidget {
-  const LJNReceiveVideoMessage(
-      {super.key,
-      required this.video,
-      required this.showName,
-      required this.name,
-      this.onTap,
-      required this.width,
-      required this.height,
-      required this.friendAvatar});
+  const LJNReceiveVideoMessage({
+    super.key,
+    required this.video,
+    required this.showName,
+    required this.name,
+    this.onTap,
+    required this.width,
+    required this.height,
+    required this.friendAvatar,
+  });
 
   final Function(Offset, Size)? onTap;
   final String name;
@@ -164,14 +166,17 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
               // 头像
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/friendprofile',
-                      arguments: <String, String>{
-                        'name': widget.name,
-                        'avatar': widget.friendAvatar,
-                        'nickname': widget.name,
-                        'account':
-                            context.read<LJNUserCubit>().state.userinfoAccount!,
-                      });
+                  Navigator.pushNamed(
+                    context,
+                    '/friendprofile',
+                    arguments: <String, String>{
+                      'name': widget.name,
+                      'avatar': widget.friendAvatar,
+                      'nickname': widget.name,
+                      'account':
+                          context.read<LJNUserCubit>().state.userinfoAccount!,
+                    },
+                  );
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8).w,
@@ -207,7 +212,7 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
                               style: TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(20.w),
-                                color: const Color.fromARGB(255, 130, 130, 130),
+                                color: AppColors.neutralGrey66,
                               ),
                             )
                           ],
@@ -246,7 +251,7 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
                             height: videoHeight,
                             // color: Colors.grey,
                             decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 255, 255, 255),
+                                color: AppColors.neutralWhite,
                                 borderRadius: BorderRadius.circular(8).w),
                             child: picPath != null
                                 ? Stack(
@@ -261,8 +266,7 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
                                         width: videoWidth,
                                         height: videoHeight,
                                         alignment: Alignment.center,
-                                        color:
-                                            const Color.fromARGB(105, 0, 0, 0),
+                                        color: AppColors.blackTransparent41,
                                         child: Icon(
                                           const IconData(
                                             0xe6c5,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,16 +43,17 @@ class _LJNWallet extends State<LJNWallet> {
               Navigator.pushNamed(context, '/bill_details');
             },
             child: Container(
-              color: Colors.transparent,
+              color: AppColors.transparent,
               padding: EdgeInsets.only(right: 40.w),
               alignment: Alignment.center,
               child: Text(
                 "账单",
                 style: TextStyle(
-                    // height: 1.08,
-                    color: Colors.black,
-                    fontSize: fontSizeScale(32.w),
-                    fontWeight: FontWeight.w500),
+                  // height: 1.08,
+                  color: Colors.black,
+                  fontSize: fontSizeScale(32.w),
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           )
@@ -62,7 +64,7 @@ class _LJNWallet extends State<LJNWallet> {
           minHeight: MediaQuery.of(context).size.height -
               (90.0.w + systemState.statusHeight),
         ),
-        color: const Color.fromARGB(255, 237, 237, 237),
+        color: AppColors.neutralGrey11,
         child: ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
           child: SingleChildScrollView(
@@ -142,8 +144,7 @@ class _LJNWallet extends State<LJNWallet> {
                                   style: TextStyle(
                                     height: 1.08,
                                     fontSize: fontSizeScale(23.w),
-                                    color:
-                                        const Color.fromARGB(255, 249, 136, 39),
+                                    color: AppColors.accentOrangeDark,
                                   ),
                                 ),
                               ],

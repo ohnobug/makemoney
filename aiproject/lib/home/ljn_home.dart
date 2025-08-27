@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_chatlist_item.dart';
 import 'package:spicychat/components/ljn_custom_physics.dart';
 import 'package:spicychat/components/ljn_page_loading.dart';
@@ -763,7 +764,7 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
           Opacity(
             opacity: 1 - topLottieOpacity,
             child: Container(
-              color: const Color.fromARGB(255, 237, 237, 237),
+              color: AppColors.neutralGrey11,
               width: screenSize.width,
               height: systemState.homescrollpixels + (90.w + statusHeight),
               // padding: EdgeInsets.only(top: statusHeight),
@@ -846,13 +847,11 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
                         toolbarHeight: 90.w,
                         elevation: 0,
                         scrolledUnderElevation: 0,
-                        backgroundColor: Color.fromARGB(
-                            (newAppbarOpacity * 255).toInt(), 121, 115, 149),
-                        foregroundColor: Color.fromARGB(
-                            (newAppbarOpacity * 255).toInt(), 121, 115, 149),
+                        backgroundColor: AppColors.brandPurpleGrey.withAlpha((newAppbarOpacity * 255).toInt()),
+                        foregroundColor: AppColors.brandPurpleGrey.withAlpha((newAppbarOpacity * 255).toInt()),
                         actions: [
                           Container(
-                            color: Colors.transparent,
+                            color: AppColors.transparent,
                             height: 90.w,
                             padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
                             alignment: Alignment.center,
@@ -867,7 +866,7 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
                             ),
                           ),
                           Container(
-                            color: Colors.transparent,
+                            color: AppColors.transparent,
                             height: 90.w,
                             padding: EdgeInsets.only(right: 40.w), // 设置右侧内边距
                             child: Icon(
@@ -893,7 +892,7 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
                                   statusHeight +
                                   90.w),
                           child: null,
-                          color: const Color.fromARGB(255, 121, 115, 149),
+                          color: AppColors.brandPurpleGrey,
                         ))
                   ]),
             ),

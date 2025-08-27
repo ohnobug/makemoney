@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_my_voice_message.dart';
 import 'package:spicychat/components/ljn_receive_message.dart';
@@ -10,7 +11,7 @@ import 'package:spicychat/components/ljn_video_draggable_box.dart';
 import 'package:spicychat/components/ljn_video_message.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/chat/ljn_chat_emoji_selector.dart';
+import 'package:spicychat/chat/widgets/ljn_chat_emoji_selector.dart';
 import 'package:spicychat/store/ljn_user_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
@@ -114,7 +115,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
 
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // 设置状态栏透明
+        statusBarColor: AppColors.transparent, // 设置状态栏透明
         statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
       ),
     );
@@ -227,8 +228,8 @@ class _LJNGroupChat extends State<LJNGroupChat>
     );
 
     _colorAnimation = ColorTween(
-      begin: const Color.fromARGB(179, 76, 190, 103),
-      end: const Color.fromARGB(255, 76, 190, 102),
+      begin: AppColors.greenTransparent70,
+      end: AppColors.brandGreenVibrant1,
     ).animate(
       CurvedAnimation(
         parent: _animationController,
@@ -901,7 +902,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                         },
                         child: Container(
                           height: 90.w,
-                          color: Colors.transparent,
+                          color: AppColors.transparent,
                           alignment: Alignment.center,
                           padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
                           child: Icon(
@@ -924,7 +925,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                       Expanded(
                         flex: 1,
                         child: ColoredBox(
-                          color: const Color.fromARGB(255, 237, 237, 237),
+                          color: AppColors.neutralGrey11,
                           child: ScrollConfiguration(
                             behavior: ScrollConfiguration.of(context)
                                 .copyWith(scrollbars: false),
@@ -962,10 +963,10 @@ class _LJNGroupChat extends State<LJNGroupChat>
                           width: MediaQuery.of(context).size.width,
                           // margin: EdgeInsets.only(bottom: inputMarginBottom),
                           decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 247, 247, 247),
+                            color: AppColors.neutralGrey2,
                             border: Border(
                               top: BorderSide(
-                                color: const Color.fromARGB(255, 231, 231, 231),
+                                color: AppColors.neutralGrey16,
                                 width: 1.5.w,
                                 style: BorderStyle.solid,
                               ),
@@ -994,7 +995,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                   }
                                 },
                                 child: Container(
-                                  color: Colors.transparent,
+                                  color: AppColors.transparent,
                                   width: 97.w,
                                   height: 107.w,
                                   padding:
@@ -1310,7 +1311,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                   }
                                 },
                                 child: Container(
-                                  color: Colors.transparent,
+                                  color: AppColors.transparent,
                                   width: 102.w,
                                   height: 107.w,
                                   padding:
@@ -1395,7 +1396,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                     logger.info("加号被点击"); // 点击事件
                                   },
                                   child: Container(
-                                    color: Colors.transparent,
+                                    color: AppColors.transparent,
                                     width: 87.w,
                                     height: 107.w,
                                     padding: EdgeInsets.only(right: 20.w),
@@ -1471,7 +1472,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                             children: [
                               // 背景
                               Container(
-                                color: const Color.fromARGB(185, 0, 0, 0),
+                                color: AppColors.blackTransparent73,
                                 width: MediaQuery.of(context).size.width,
                                 height: MediaQuery.of(context).size.height,
                               ),
@@ -1501,8 +1502,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                     0xe81d,
                                     fontFamily: 'Iconfont',
                                   ),
-                                  color:
-                                      const Color.fromARGB(255, 111, 111, 111),
+                                  color: AppColors.neutralGrey71,
                                   size: 50.w,
                                 ),
                               ),
@@ -1533,8 +1533,8 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                                     Radius.circular(24.w),
                                                   ),
                                                   color: leftRight == 2
-                                                      ? Color.fromARGB(
-                                                          255, 160, 236, 112)
+                                                      ? AppColors
+                                                          .brandGreenLightest
                                                       : Colors.red),
                                               alignment: leftRight == 1
                                                   ? Alignment.center
@@ -1586,9 +1586,8 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                                         0xe85e,
                                                         fontFamily: 'Iconfont',
                                                       ),
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255, 60, 60, 60),
+                                                      color: AppColors
+                                                          .neutralDarkGrey17,
                                                       size: 45.w,
                                                     ),
                                             ),
@@ -1608,8 +1607,8 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                                     fontFamily: 'Iconfont',
                                                   ), // 使用的图标
                                                   color: leftRight == 2
-                                                      ? Color.fromARGB(
-                                                          255, 160, 236, 112)
+                                                      ? AppColors
+                                                          .brandGreenLightest
                                                       : Colors.red, // 图标颜色
                                                   size: 40.0.w, // 图标大小
                                                 ),
@@ -1637,8 +1636,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                             fontFamily: "AlibabaPuHuiTi",
                                             height: 1.08,
                                             fontSize: 29.w,
-                                            color: Color.fromARGB(
-                                                255, 161, 161, 161),
+                                            color: AppColors.neutralGrey52,
                                           ),
                                         ),
                                       ))
@@ -1687,8 +1685,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                         ),
                                         color: showCancelVoiceButtons
                                             ? Colors.black
-                                            : const Color.fromARGB(
-                                                255, 143, 143, 143),
+                                            : AppColors.neutralGrey62,
                                         size: 43.w,
                                       ),
                                     ),
@@ -1707,8 +1704,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                     '松开发送',
                                     style: TextStyle(
                                         height: 1.08,
-                                        color:
-                                            Color.fromARGB(255, 173, 173, 173),
+                                        color: AppColors.neutralGrey43,
                                         fontSize: 30.w,
                                         fontFamily: "AlibabaPuHuiTi",
                                         decoration: TextDecoration.none),
@@ -1732,11 +1728,11 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                             fontFamily: "AlibabaPuHuiTi",
                                             height: 1.08,
                                             fontSize: 29.w,
-                                            color: Color.fromARGB(
-                                                255, 161, 161, 161),
+                                            color: AppColors.neutralGrey52,
                                           ),
                                         ),
-                                      ))
+                                      ),
+                                    )
                                   : SizedBox(),
 
                               // 右边转文字按钮
@@ -1782,8 +1778,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                         ),
                                         color: showCancelVoiceButtons
                                             ? Colors.black
-                                            : const Color.fromARGB(
-                                                255, 143, 143, 143),
+                                            : AppColors.neutralGrey62,
                                         size: 43.w,
                                       ),
                                     ),

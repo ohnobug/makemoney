@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 import 'package:spicychat/components/ljn_appbar.dart';
 import 'package:spicychat/components/ljn_function_item.dart';
 import 'package:spicychat/components/ljn_switch.dart';
@@ -75,14 +75,14 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                           border: Border(
                             bottom: BorderSide(
                               width: 1.5.w,
-                              color: const Color.fromARGB(255, 241, 241, 241),
+                              color: AppColors.neutralGrey7,
                             ),
                           ),
                         ),
                         child: const Text(
                           "金融理财",
                           style: TextStyle(
-                            color: Color.fromARGB(255, 101, 101, 101),
+                            color: AppColors.neutralGrey77,
                           ),
                         ),
                       ),
@@ -164,14 +164,14 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                           border: Border(
                             bottom: BorderSide(
                               width: 1.5.w,
-                              color: const Color.fromARGB(255, 241, 241, 241),
+                              color: AppColors.neutralGrey7,
                             ),
                           ),
                         ),
                         child: const Text(
                           "交通出行",
                           style: TextStyle(
-                            color: Color.fromARGB(255, 101, 101, 101),
+                            color: AppColors.neutralGrey77,
                           ),
                         ),
                       ),
@@ -253,14 +253,14 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                           border: Border(
                             bottom: BorderSide(
                               width: 1.5.w,
-                              color: const Color.fromARGB(255, 241, 241, 241),
+                              color: AppColors.neutralGrey7,
                             ),
                           ),
                         ),
                         child: const Text(
                           "购物消费",
                           style: TextStyle(
-                            color: Color.fromARGB(255, 101, 101, 101),
+                            color: AppColors.neutralGrey77,
                           ),
                         ),
                       ),
