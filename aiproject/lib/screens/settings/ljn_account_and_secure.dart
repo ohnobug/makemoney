@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:spicychat/screens/components/ljn_special_function_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,8 +28,8 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
-          appBar: const LJNAppBar(
-            title: "账号与安全",
+          appBar: LJNAppBar(
+            title: AppLocalizations.of(context)!.accountAndSecurity,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -50,7 +51,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                       builder: (context, userState) {
                         // 账户与安全
                         return LJNFunctionItem(
-                          title: "微信号",
+                          title: AppLocalizations.of(context)!.wechatID,
                           link: '/accountinfo',
                           showStyle: userState.userinfoAccount,
                           underline: true,
@@ -62,7 +63,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                       builder: (context, userState) {
                         // 手机号
                         return LJNFunctionItem(
-                          title: "手机号",
+                          title: AppLocalizations.of(context)!.phoneNumber,
                           link: '/phone_number',
                           showStyle: userState.userinfoPhone,
                           underline: false,
@@ -73,14 +74,14 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                     SizedBox(height: 16.w),
 
                     // 微信密码
-                    const LJNFunctionItem(
-                      title: "微信密码",
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!.wechatPassword,
                       link: '/set_password',
                       underline: true,
                     ),
                     // 声音锁
-                    const LJNFunctionItem(
-                      title: "声音锁",
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!.voiceprint,
                       link: '/sound_lock',
                       underline: false,
                     ),
@@ -88,20 +89,20 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                     SizedBox(height: 16.w),
 
                     // 应急联系人
-                    const LJNFunctionItem(
-                      title: "应急联系人",
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!.emergencyContacts,
                       link: '/emergency_contact',
                       underline: true,
                     ),
                     // 登录过的设备
-                    const LJNFunctionItem(
-                      title: "登录过的设备",
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!.loggedInDevices,
                       link: '/logged_devices',
                       underline: true,
                     ),
                     // 更多安全设置
-                    const LJNFunctionItem(
-                      title: "更多安全设置",
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!.moreSecuritySettings,
                       link: '/more_secure_setting',
                       underline: false,
                     ),
@@ -110,11 +111,11 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
 
                     // 微信安全中心
                     LJNSpecialFunctionItem(
-                      title: "微信安全中心",
+                      title: AppLocalizations.of(context)!.wechatSecurityCenter,
                       height: 178.w,
                       link: '',
                       subTitle: Text(
-                        "如果你遇到账号被盗，无法登录等问题，可以前往安全中心",
+                        AppLocalizations.of(context)!.securityGuidanceFull,
                         maxLines: 3,
                         style: TextStyle(
                           color: AppColors.neutralGrey35,

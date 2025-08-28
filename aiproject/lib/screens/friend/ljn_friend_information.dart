@@ -107,7 +107,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                     margin: EdgeInsets.only(right: 40.w),
                     width: 345.w,
                     child: Text(
-                      "为者常成，行者常至。",
+                      "A journey of a thousand miles begins with a single step.",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -130,7 +130,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                     width: 345.w,
                     child: Text(
                       AppLocalizations.of(context)!
-                          .source_added_from_group_chat("深圳腾讯公司董事会"),
+                          .source_added_from_group_chat("Shenzhen Tencent"),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

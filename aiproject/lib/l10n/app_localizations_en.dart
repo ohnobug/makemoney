@@ -12,7 +12,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get app_name => 'ChatMore';
 
   @override
-  String get tabbar_label_chat => 'ChatMore';
+  String get tabbar_label_chat => 'Chats';
 
   @override
   String get tabbar_label_contacts => 'Contacts';
@@ -375,7 +375,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get autoHotTrends => 'Auto Hot List';
 
   @override
-  String get idiotList => 'Idiot List';
+  String get idiotList => 'Goofball List';
 
   @override
   String get richList => 'Rich List';
@@ -576,6 +576,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get setFriendPermissions => 'Set Friend Permissions';
+
+  @override
+  String get privacyRestrictionFull =>
+      'The other person cannot see your Moments, Status, WeRun, etc.';
+
+  @override
+  String get featureListChatMomentsWeRun => 'Chat, Moments, WeRun, etc.';
 
   @override
   String get chatOnly => 'Chat Only';
@@ -1474,4 +1481,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get scanHintFull => 'Scan QR Codes, Plants, Animals, Products & more';
+
+  @override
+  String get securityGuidanceFull =>
+      'If you encounter problems such as a hacked account or being unable to log in, you can go to the Security Center';
+
+  @override
+  String get youthModeFullDescription =>
+      'To protect the healthy growth of minors, WeChat has introduced Youth Mode. In this mode, some features will be restricted. Please have a guardian set it up.';
+
+  @override
+  String get youthModeTermsOfServiceTitle =>
+      '《WeChat Youth Mode Function Terms of Use》';
+
+  @override
+  String get navigateToResetPasswordGuidanceFull =>
+      'You need to go to \'Settings > Account & Security > WeChat Password\' to reset your WeChat password.';
 }

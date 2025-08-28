@@ -12,7 +12,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get app_name => '特聊';
 
   @override
-  String get tabbar_label_chat => '特聊';
+  String get tabbar_label_chat => '消息';
 
   @override
   String get tabbar_label_contacts => '通信录';
@@ -573,6 +573,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get setFriendPermissions => '设置朋友权限';
+
+  @override
+  String get privacyRestrictionFull => '对方看不到你的朋友圈、状态、微信运动等。';
+
+  @override
+  String get featureListChatMomentsWeRun => '聊天、朋友圈、微信运动等';
 
   @override
   String get chatOnly => '仅聊天';
@@ -1444,4 +1450,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get scanHintFull => '识别二维码 / 花草 / 动物 / 商品等';
+
+  @override
+  String get securityGuidanceFull => '如果你遇到账号被盗，无法登录等问题，可以前往安全中心';
+
+  @override
+  String get youthModeFullDescription =>
+      '为呵护未成年人健康成长，微信推出青少年模式。该模式下部分功能将受限制使用，请监护人主动设置。';
+
+  @override
+  String get youthModeTermsOfServiceTitle => '《微信青少年模式功能使用条款》';
+
+  @override
+  String get navigateToResetPasswordGuidanceFull =>
+      '你需要前往「设置 > 账号与安全 > 微信密码」中重新设置微信密码。';
 }

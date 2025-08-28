@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:spicychat/screens/components/ljn_change_account_button.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
@@ -60,7 +61,7 @@ class _LJNTeenageMode extends State<LJNTeenageMode> {
                       ),
                     ),
                     Text(
-                      "青少年模式",
+                      AppLocalizations.of(context)!.youthMode,
                       style: TextStyle(
                           height: 1.08,
                           fontSize: 40.w,
@@ -73,7 +74,7 @@ class _LJNTeenageMode extends State<LJNTeenageMode> {
                     Container(
                       padding: EdgeInsets.only(left: 70.w, right: 70.w),
                       child: Text(
-                        "为呵护未成年人健康成长，微信推出青少年模式。该模式下部分功能将受限制使用，请监护人主动设置。",
+                        AppLocalizations.of(context)!.youthModeFullDescription,
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 32.w),
                       ),
@@ -121,14 +122,16 @@ class _LJNTeenageMode extends State<LJNTeenageMode> {
                                 ),
                               ),
                             ),
-                            const TextSpan(
-                              text: "我已阅读并同意",
-                              style: TextStyle(
+                            TextSpan(
+                              text: AppLocalizations.of(context)!
+                                  .iHaveReadAndAgree,
+                              style: const TextStyle(
                                 color: AppColors.neutralGrey78,
                               ),
                             ),
                             TextSpan(
-                              text: "《微信青少年模式功能使用条款》",
+                              text: AppLocalizations.of(context)!
+                                  .youthModeTermsOfServiceTitle,
                               style: const TextStyle(
                                 color: AppColors.brandBlueDark7,
                               ),
@@ -147,15 +150,15 @@ class _LJNTeenageMode extends State<LJNTeenageMode> {
                       height: 43.w,
                     ),
                     selectedValue
-                        ? const LJNChangeAccountButton(
-                            title: '开启',
+                        ? LJNChangeAccountButton(
+                            title: AppLocalizations.of(context)!.enable,
                             link: "back",
                             readonly: false,
                             color: AppColors.neutralWhite,
                             backgroundColor: AppColors.brandGreenVibrant7,
                           )
-                        : const LJNChangeAccountButton(
-                            title: '开启',
+                        : LJNChangeAccountButton(
+                            title: AppLocalizations.of(context)!.enable,
                             link: "back",
                             readonly: false,
                             color: AppColors.neutralGrey41,

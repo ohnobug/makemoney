@@ -109,7 +109,7 @@ abstract class AppLocalizations {
   /// No description provided for @tabbar_label_chat.
   ///
   /// In en, this message translates to:
-  /// **'ChatMore'**
+  /// **'Chats'**
   String get tabbar_label_chat;
 
   /// No description provided for @tabbar_label_contacts.
@@ -835,7 +835,7 @@ abstract class AppLocalizations {
   /// No description provided for @idiotList.
   ///
   /// In en, this message translates to:
-  /// **'Idiot List'**
+  /// **'Goofball List'**
   String get idiotList;
 
   /// No description provided for @richList.
@@ -1209,6 +1209,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Set Friend Permissions'**
   String get setFriendPermissions;
+
+  /// No description provided for @privacyRestrictionFull.
+  ///
+  /// In en, this message translates to:
+  /// **'The other person cannot see your Moments, Status, WeRun, etc.'**
+  String get privacyRestrictionFull;
+
+  /// No description provided for @featureListChatMomentsWeRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat, Moments, WeRun, etc.'**
+  String get featureListChatMomentsWeRun;
 
   /// No description provided for @chatOnly.
   ///
@@ -2841,6 +2853,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Scan QR Codes, Plants, Animals, Products & more'**
   String get scanHintFull;
+
+  /// No description provided for @securityGuidanceFull.
+  ///
+  /// In en, this message translates to:
+  /// **'If you encounter problems such as a hacked account or being unable to log in, you can go to the Security Center'**
+  String get securityGuidanceFull;
+
+  /// No description provided for @youthModeFullDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'To protect the healthy growth of minors, WeChat has introduced Youth Mode. In this mode, some features will be restricted. Please have a guardian set it up.'**
+  String get youthModeFullDescription;
+
+  /// No description provided for @youthModeTermsOfServiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'《WeChat Youth Mode Function Terms of Use》'**
+  String get youthModeTermsOfServiceTitle;
+
+  /// No description provided for @navigateToResetPasswordGuidanceFull.
+  ///
+  /// In en, this message translates to:
+  /// **'You need to go to \'Settings > Account & Security > WeChat Password\' to reset your WeChat password.'**
+  String get navigateToResetPasswordGuidanceFull;
 }
 
 class _AppLocalizationsDelegate

@@ -1,7 +1,7 @@
 {
   "@@locale": "es",
   "app_name": "ChatMore",
-  "tabbar_label_chat": "ChatMore",
+  "tabbar_label_chat": "Chats",
   "tabbar_label_contacts": "Contacts",
   "tabbar_label_discover": "Discover",
   "tabbar_label_me": "Me",
@@ -122,7 +122,7 @@
   "musicHotTrends": "Music Hot List",
   "techHotTrends": "Tech Hot List",
   "autoHotTrends": "Auto Hot List",
-  "idiotList": "Idiot List",
+  "idiotList": "Goofball List",
   "richList": "Rich List",
   "prankList": "Prank List",
   "horrorList": "Horror List",
@@ -209,6 +209,8 @@
   "ourMutualGroupChats": "Our Mutual Group Chats",
   "personalSignature": "Personal Signature",
   "setFriendPermissions": "Set Friend Permissions",
+  "privacyRestrictionFull": "The other person cannot see your Moments, Status, WeRun, etc.",
+  "featureListChatMomentsWeRun": "Chat, Moments, WeRun, etc.",
   "chatOnly": "Chat Only",
   "momentsAndStatus": "Moments and Status",
   "hideMyPosts": "Hide My Posts",
@@ -585,5 +587,9 @@
       }
     }
   },
-  "scanHintFull": "Scan QR Codes, Plants, Animals, Products & more"
+  "scanHintFull": "Scan QR Codes, Plants, Animals, Products & more",
+  "securityGuidanceFull": "If you encounter problems such as a hacked account or being unable to log in, you can go to the Security Center",
+  "youthModeFullDescription": "To protect the healthy growth of minors, WeChat has introduced Youth Mode. In this mode, some features will be restricted. Please have a guardian set it up.",
+  "youthModeTermsOfServiceTitle": "《WeChat Youth Mode Function Terms of Use》",
+  "navigateToResetPasswordGuidanceFull": "You need to go to 'Settings > Account & Security > WeChat Password' to reset your WeChat password."
 }

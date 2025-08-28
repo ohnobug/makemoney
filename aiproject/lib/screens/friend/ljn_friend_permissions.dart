@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_alphabet.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:spicychat/screens/components/ljn_switch.dart';
@@ -37,8 +38,8 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
   Widget _buildPage(SystemState systemState) {
     return Scaffold(
       primary: false,
-      appBar: const LJNAppBar(
-        title: "朋友权限",
+      appBar: LJNAppBar(
+        title: AppLocalizations.of(context)!.friendPermissions,
       ),
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -61,7 +62,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                   padding:
                       const EdgeInsets.only(left: 30.0, right: 0.0, top: 16).w,
                   child: Text(
-                    "设置朋友权限",
+                    AppLocalizations.of(context)!.setFriendPermissions,
                     style: TextStyle(
                       fontSize: 25.w,
                       height: 1.08,
@@ -72,7 +73,8 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
 
                 // 聊天、朋友圈、微信运动等
                 LJNFunctionItem(
-                  title: "聊天、朋友圈、微信运动等",
+                  title:
+                      AppLocalizations.of(context)!.featureListChatMomentsWeRun,
                   onPress: () {
                     setState(() {
                       chatOnly = false;
@@ -105,7 +107,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
 
                 // 仅聊天
                 LJNFunctionItem(
-                  title: "仅聊天",
+                  title: AppLocalizations.of(context)!.chatOnly,
                   // link: '',
                   underline: false,
                   tapEffect: true,
@@ -139,18 +141,18 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                 // 提示语
                 if (chatOnly)
                   LJNAlphabet(
-                    title: '对方看不到你的朋友圈、状态、微信运动等。',
+                    title: AppLocalizations.of(context)!.privacyRestrictionFull,
                     color: AppColors.neutralGrey76,
                   ),
 
                 // 不让他看我
                 if (chatOnly == false) ...[
                   LJNAlphabet(
-                    title: '朋友圈和状态',
+                    title: AppLocalizations.of(context)!.momentsAndStatus,
                     color: AppColors.neutralGrey76,
                   ),
                   LJNFunctionItem(
-                    title: "不让她看我",
+                    title: AppLocalizations.of(context)!.hideMyPosts,
                     // link: '',
                     underline: true,
                     tapEffect: false,
@@ -168,7 +170,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                     ),
                   ),
                   LJNFunctionItem(
-                    title: "不看她",
+                    title: AppLocalizations.of(context)!.hideTheirPosts,
                     // link: '',
                     underline: false,
                     tapEffect: false,

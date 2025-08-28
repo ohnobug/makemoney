@@ -83,7 +83,8 @@ class _LJNForgotPassword extends State<LJNForgotPassword> {
                       ),
 
                       Text(
-                        "你需要前往\"设置 > 账号与安全 > 微信密码\"中重新设置微信密码。",
+                        AppLocalizations.of(context)!
+                            .navigateToResetPasswordGuidanceFull,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 30.0.w,

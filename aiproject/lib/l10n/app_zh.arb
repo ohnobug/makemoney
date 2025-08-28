@@ -1,7 +1,7 @@
 {
   "@@locale": "zh",
   "app_name": "特聊",
-  "tabbar_label_chat": "特聊",
+  "tabbar_label_chat": "消息",
   "tabbar_label_contacts": "通信录",
   "tabbar_label_discover": "发现",
   "tabbar_label_me": "我的",
@@ -209,6 +209,8 @@
   "ourMutualGroupChats": "我和她的共同群聊",
   "personalSignature": "个人签名",
   "setFriendPermissions": "设置朋友权限",
+  "privacyRestrictionFull": "对方看不到你的朋友圈、状态、微信运动等。",
+  "featureListChatMomentsWeRun": "聊天、朋友圈、微信运动等",
   "chatOnly": "仅聊天",
   "momentsAndStatus": "朋友圈和状态",
   "hideMyPosts": "不让她看我",
@@ -585,5 +587,9 @@
       }
     }
   },
-  "scanHintFull": "识别二维码 / 花草 / 动物 / 商品等"
+  "scanHintFull": "识别二维码 / 花草 / 动物 / 商品等",
+  "securityGuidanceFull": "如果你遇到账号被盗，无法登录等问题，可以前往安全中心",
+  "youthModeFullDescription": "为呵护未成年人健康成长，微信推出青少年模式。该模式下部分功能将受限制使用，请监护人主动设置。",
+  "youthModeTermsOfServiceTitle": "《微信青少年模式功能使用条款》",
+  "navigateToResetPasswordGuidanceFull": "你需要前往「设置 > 账号与安全 > 微信密码」中重新设置微信密码。"
 }
