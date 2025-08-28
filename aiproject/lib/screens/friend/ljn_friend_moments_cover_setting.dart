@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -27,8 +28,8 @@ class _LJNFriendMomentsCoverSetting
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
-          appBar: const LJNAppBar(
-            title: "更换相册封面",
+          appBar: LJNAppBar(
+            title: AppLocalizations.of(context)!.changeAlbumCover,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -45,24 +46,24 @@ class _LJNFriendMomentsCoverSetting
                 ),
                 child: Column(
                   children: [
-                    const LJNFunctionItem(
-                      title: "从手机相册选择",
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!.selectFromPhoneAlbum,
                       link: '',
                       underline: true,
                     ),
-                    const LJNFunctionItem(
-                      title: "从视频号选择",
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!.selectFromChannels,
                       link: '',
                       underline: true,
                     ),
-                    const LJNFunctionItem(
-                      title: "拍一个",
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!.takeOne,
                       link: '',
                       underline: false,
                     ),
                     SizedBox(height: 62.w),
-                    const LJNFunctionItem(
-                      title: "摄影师作品",
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!.photographerWorks,
                       link: '',
                       underline: false,
                     ),

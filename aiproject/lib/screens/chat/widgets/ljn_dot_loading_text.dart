@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 
 class LJNDotLoadingText extends StatefulWidget {
   const LJNDotLoadingText({super.key});
@@ -35,7 +36,7 @@ class _LJNDotLoadingTextState extends State<LJNDotLoadingText> {
   @override
   Widget build(BuildContext context) {
     return Text(
-      "等待对方接受邀请${'.' * dotCount}", // 根据点数动态生成文本
+      AppLocalizations.of(context)!.waitingForAcceptance + '.' * dotCount,
       style: TextStyle(
         fontSize: 30.w,
         color: AppColors.neutralGrey63,
@@ -43,4 +44,3 @@ class _LJNDotLoadingTextState extends State<LJNDotLoadingText> {
     );
   }
 }
-

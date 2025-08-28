@@ -148,7 +148,9 @@ class _LJNUserState extends State<LJNUser> {
                                               LJNUserState>(
                                             builder: (context, state) {
                                               return Text(
-                                                '微信号：${state.userinfoAccount}',
+                                                AppLocalizations.of(context)!
+                                                    .wechatIdDisplay(
+                                                        state.userinfoAccount!),
                                                 style: TextStyle(
                                                   height: 1.08,
                                                   fontSize: fontSizeScale(28.w),
@@ -213,7 +215,8 @@ class _LJNUserState extends State<LJNUser> {
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
-                                                      color: AppColors.neutralWhite,
+                                                      color: AppColors
+                                                          .neutralWhite,
                                                       width: 2.0.w,
                                                     ),
                                                     borderRadius:
@@ -241,7 +244,8 @@ class _LJNUserState extends State<LJNUser> {
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
-                                                      color: AppColors.neutralWhite,
+                                                      color: AppColors
+                                                          .neutralWhite,
                                                       width: 2.0.w,
                                                     ),
                                                     borderRadius:
@@ -269,7 +273,8 @@ class _LJNUserState extends State<LJNUser> {
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     border: Border.all(
-                                                      color: AppColors.neutralWhite,
+                                                      color: AppColors
+                                                          .neutralWhite,
                                                       width: 2.0.w,
                                                     ),
                                                     borderRadius:
@@ -296,7 +301,8 @@ class _LJNUserState extends State<LJNUser> {
                                         ),
                                         SizedBox(width: 10.w),
                                         Text(
-                                          '等8个朋友',
+                                          AppLocalizations.of(context)!
+                                              .andXMoreFriends(8),
                                           style: TextStyle(
                                             height: 1.08,
                                             fontSize: 24.w,

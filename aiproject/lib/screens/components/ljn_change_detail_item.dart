@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 
@@ -35,6 +36,8 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
 
   @override
   Widget build(BuildContext context) {
+    final DateTime aDate = DateTime(2024, 12, 5, 12, 7);
+
     return GestureDetector(
       onTapDown: (tapDownDetails) {
         setState(() {
@@ -151,7 +154,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "12月5日 12:07",
+                        AppLocalizations.of(context)!.monthDayTimeShort(aDate),
                         style: TextStyle(
                           height: 1.08,
                           color: AppColors.neutralGrey64,
@@ -161,7 +164,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        "零钱余额 1565.06",
+                        AppLocalizations.of(context)!.balanceDisplay(1565.06),
                         style: TextStyle(
                           height: 1.08,
                           color: AppColors.neutralGrey64,

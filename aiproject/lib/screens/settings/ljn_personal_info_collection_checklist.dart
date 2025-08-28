@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,7 +52,7 @@ class _LJPpersonalInfoCollectionChecklist
                       height: 130.w,
                     ),
                     Text(
-                      "个人信息收集清单",
+                      AppLocalizations.of(context)!.personalInfoCollectionList,
                       style: TextStyle(
                           fontSize: 41.w, fontFamily: "AlibabaPuHuiTi-Medium"),
                     ),
@@ -62,7 +63,8 @@ class _LJPpersonalInfoCollectionChecklist
                       margin: EdgeInsets.only(left: 68.w, right: 68.w),
                       child: Text(
                         textAlign: TextAlign.center,
-                        "    你可以查阅微信对你的个人信息的收集情况。以下只统计i0S 8.0.17、Android 8.0.18及之后版本微信所收集的信息。你使用旧版本微信期间的信息收集情况，微信无法完整统计到。",
+                        AppLocalizations.of(context)!
+                            .personalInfoCollectionFullDescription,
                         style: TextStyle(fontSize: 32.w),
                       ),
                     ),
@@ -89,51 +91,52 @@ class _LJPpersonalInfoCollectionChecklist
                               ),
                             ),
                             child: Text(
-                              "基本信息",
+                              AppLocalizations.of(context)!.basicInfo,
                               style: TextStyle(
                                 fontSize: 25.w,
                                 color: AppColors.neutralDarkGrey13,
                               ),
                             ),
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "头像",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.avatar,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "姓名",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.name,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "手机号",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.phoneNumber,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "性别",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.gender,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "地区",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.region,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "个性签名",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!
+                                .personalSignatureTitle,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "地址",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.address,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -163,15 +166,16 @@ class _LJPpersonalInfoCollectionChecklist
                               ),
                             ),
                             child: Text(
-                              "设备信息",
+                              AppLocalizations.of(context)!.deviceInfo,
                               style: TextStyle(
                                 fontSize: 25.w,
                                 color: AppColors.neutralDarkGrey13,
                               ),
                             ),
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "登录过的设备",
+                          LJNPCCFunctionItem(
+                            title:
+                                AppLocalizations.of(context)!.loggedInDevices,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -201,21 +205,22 @@ class _LJPpersonalInfoCollectionChecklist
                               ),
                             ),
                             child: Text(
-                              "用户使用过程信息",
+                              AppLocalizations.of(context)!.userInfoDuringUse,
                               style: TextStyle(
                                 fontSize: 25.w,
                                 color: AppColors.neutralDarkGrey13,
                               ),
                             ),
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "位置",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.location,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "图片与视频",
+                          LJNPCCFunctionItem(
+                            title:
+                                AppLocalizations.of(context)!.imagesAndVideos,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -245,40 +250,41 @@ class _LJPpersonalInfoCollectionChecklist
                               ),
                             ),
                             child: Text(
-                              "社交与内容信息",
+                              AppLocalizations.of(context)!
+                                  .socialAndContentInfo,
                               style: TextStyle(
                                 fontSize: 25.w,
                                 color: AppColors.neutralDarkGrey13,
                               ),
                             ),
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "朋友圈",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.moments,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "状态",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.status,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "微信豆",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.wechatBeans,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "微信运动",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.weRun,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
                             title: Text(
-                              "看一看",
+                              AppLocalizations.of(context)!.look,
                               style: TextStyle(
                                 height: 1.08,
                                 fontWeight: FontWeight.bold,
@@ -292,26 +298,27 @@ class _LJPpersonalInfoCollectionChecklist
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "公众号",
+                          LJNPCCFunctionItem(
+                            title:
+                                AppLocalizations.of(context)!.officialAccounts,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "小程序",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.miniPrograms,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "视频号",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.channels,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "微信游戏",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.wechatGames,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -341,15 +348,15 @@ class _LJPpersonalInfoCollectionChecklist
                               ),
                             ),
                             child: Text(
-                              "联系人信息",
+                              AppLocalizations.of(context)!.contactInfo,
                               style: TextStyle(
                                 fontSize: 25.w,
                                 color: AppColors.neutralDarkGrey13,
                               ),
                             ),
                           ),
-                          const LJNPCCFunctionItem(
-                            title: "手机联系人",
+                          LJNPCCFunctionItem(
+                            title: AppLocalizations.of(context)!.phoneContacts,
                             link: '',
                             underline: true,
                             tapEffect: true,

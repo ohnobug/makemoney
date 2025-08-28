@@ -9,6 +9,152 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
+  String get wechat => '微信';
+
+  @override
+  String get wechatID => '微信号';
+
+  @override
+  String get wechatPassword => '微信密码';
+
+  @override
+  String get wechatSecurityCenter => '微信安全中心';
+
+  @override
+  String get changeWechatID => '修改微信号';
+
+  @override
+  String get wechatBeans => '微信豆';
+
+  @override
+  String get wechatGames => '微信游戏';
+
+  @override
+  String get aboutWeChat => '关于微信';
+
+  @override
+  String get weRun => '微信运动';
+
+  @override
+  String get personalInfoCollectionFullDescription =>
+      '    你可以查阅微信对你的个人信息的收集情况。以下只统计i0S 8.0.17、Android 8.0.18及之后版本微信所收集的信息。你使用旧版本微信期间的信息收集情况，微信无法完整统计到。';
+
+  @override
+  String get privacy_setting_description =>
+      '你们将互相看不到对方的朋友圈、状态、微信运动、看一看以及第三方登录授权分享的内容。';
+
+  @override
+  String copySuccessWithWechatId(String account) {
+    return '复制成功!微信号:$account';
+  }
+
+  @override
+  String get verifyIdentityWithPasswordFull => '填写当前微信登录密码，验证本人身份。';
+
+  @override
+  String get autoDownloadWeChatInstaller => '自动下载微信安装包';
+
+  @override
+  String get wechatIdModificationRuleFull => '微信号是账号的唯一凭证，一年只能修改一次。';
+
+  @override
+  String get device_management_auto_extend_login_info_friendly =>
+      '登录微信后，当设备处于安全状态时，微信会自动延长登录时间以保持朋友消息的及时收发，此时会更新最近活跃时间。';
+
+  @override
+  String get loginWithVoiceprint => '用声音锁登录微信';
+
+  @override
+  String wechatBeanCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '#个微信豆',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get wechatKeyboardFeatureAskAI => '微信输入法可以【问AI】了';
+
+  @override
+  String get setWechatPasswordDescription =>
+      '请设置微信密码。你可以用微信绑定的账号+微信密码登录，比如使用手机号+微信密码登录微信，更快捷。';
+
+  @override
+  String get shortcutPermissionGuidanceFull =>
+      '若添加失败，请前往系统设置，为微信打开「创建桌面快捷方式」的权限。';
+
+  @override
+  String wechatIdDisplay(String account) {
+    return '微信号: $account';
+  }
+
+  @override
+  String myWechatIdDisplay(String account) {
+    return '我的微信号: $account';
+  }
+
+  @override
+  String get youthModeFullDescription =>
+      '为呵护未成年人健康成长，微信推出青少年模式。该模式下部分功能将受限制使用，请监护人主动设置。';
+
+  @override
+  String get youthModeTermsOfServiceTitle => '《微信青少年模式功能使用条款》';
+
+  @override
+  String get navigateToResetPasswordGuidanceFull =>
+      '你需要前往「设置 > 账号与安全 > 微信密码」中重新设置微信密码。';
+
+  @override
+  String get douyinHotTrends => '抖音热榜';
+
+  @override
+  String get yuanxiangSmartChoice => '原乡智选';
+
+  @override
+  String get qqId => 'QQ号';
+
+  @override
+  String get serviceProvidedByTenpayAndWeBank => '本服务由财付通和微众银行提供';
+
+  @override
+  String get weilidaiLoan => '微粒贷借钱';
+
+  @override
+  String get licaitong => '理财通';
+
+  @override
+  String get tencentCharity => '腾讯公益';
+
+  @override
+  String get didiRideHailing => '滴滴出行';
+
+  @override
+  String get jdShopping => '京东购物';
+
+  @override
+  String get meituanWaimai => '美团外卖';
+
+  @override
+  String get meituanSpecialOffers => '美团特价';
+
+  @override
+  String get pinduoduo => '拼多多';
+
+  @override
+  String get vipshop => '唯品会特卖';
+
+  @override
+  String get zhuanzhuanUsedGoods => '转转二手';
+
+  @override
+  String get meituanGroupBuy => '美团团购';
+
+  @override
+  String get qCoinTopUp => 'Q币充值';
+
+  @override
   String get app_name => '特聊';
 
   @override
@@ -99,6 +245,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get searchHintAccountOrPhone => '搜索 账号/手机号';
 
   @override
+  String get accountOrPhone => '账号/手机号';
+
+  @override
   String get speakerOff => '扬声器已关';
 
   @override
@@ -109,6 +258,15 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get moments => '朋友圈';
+
+  @override
+  String fullDateTime(DateTime timestamp) {
+    final intl.DateFormat timestampDateFormat =
+        intl.DateFormat('y年M月d日HH:mm:ss', localeName);
+    final String timestampString = timestampDateFormat.format(timestamp);
+
+    return '$timestampString';
+  }
 
   @override
   String get channels => '视频号';
@@ -351,9 +509,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get myQRCode => '我的二维码';
 
   @override
-  String get douyinHotTrends => '抖音热榜';
-
-  @override
   String get cityHotTrends => '同城榜';
 
   @override
@@ -474,6 +629,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get remark => '备注';
 
   @override
+  String groupChatCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '#个群聊',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get remarkName => '备注名';
 
   @override
@@ -509,9 +674,37 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count个',
+      other: '#个',
     );
     return '$_temp0';
+  }
+
+  @override
+  String monthDayTimeShort(DateTime timestamp) {
+    final intl.DateFormat timestampDateFormat =
+        intl.DateFormat('M月d日 HH:mm', localeName);
+    final String timestampString = timestampDateFormat.format(timestamp);
+
+    return '$timestampString';
+  }
+
+  @override
+  String monthDayTime(DateTime timestamp) {
+    final intl.DateFormat timestampDateFormat =
+        intl.DateFormat('M月d日 ahh:mm', localeName);
+    final String timestampString = timestampDateFormat.format(timestamp);
+
+    return '$timestampString';
+  }
+
+  @override
+  String balanceDisplay(double balance) {
+    final intl.NumberFormat balanceNumberFormat = intl.NumberFormat.currency(
+      locale: localeName,
+    );
+    final String balanceString = balanceNumberFormat.format(balance);
+
+    return '零钱余额 $balanceString';
   }
 
   @override
@@ -546,6 +739,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get changeCover => '换封面';
+
+  @override
+  String get waitingForAcceptance => '等待对方接受邀请';
 
   @override
   String get comment => '评论';
@@ -659,9 +855,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get leaveGroup => '退出群聊';
 
   @override
-  String get wechat => '微信';
-
-  @override
   String get featureIntroduction => '功能介绍';
 
   @override
@@ -671,23 +864,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get accountAndSecurity => '账号与安全';
 
   @override
-  String get wechatID => '微信号';
-
-  @override
   String get phoneNumber => '手机号';
 
   @override
   String nicknameDisplay(String nickname) {
     return '昵称: $nickname';
   }
-
-  @override
-  String copySuccessWithWechatId(String account) {
-    return '复制成功!微信号:$account';
-  }
-
-  @override
-  String get wechatPassword => '微信密码';
 
   @override
   String get voiceprint => '声音锁';
@@ -706,12 +888,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get moreSecuritySettings => '更多安全设置';
 
   @override
-  String get wechatSecurityCenter => '微信安全中心';
-
-  @override
-  String get changeWechatID => '修改微信号';
-
-  @override
   String get bill => '账单';
 
   @override
@@ -722,9 +898,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get statistics => '统计';
-
-  @override
-  String get yuanxiangSmartChoice => '原乡智选';
 
   @override
   String get selectFilter => '选择筛选项';
@@ -796,6 +969,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get verify => '验证';
 
   @override
+  String playbackSpeed(num speed) {
+    final intl.NumberFormat speedNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String speedString = speedNumberFormat.format(speed);
+
+    return '$speedString倍速';
+  }
+
+  @override
   String get balanceDetails => '零钱明细';
 
   @override
@@ -839,9 +1021,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get network_option_wifi_only => '仅Wi-Fi网络';
-
-  @override
-  String get autoDownloadWeChatInstaller => '自动下载微信安装包';
 
   @override
   String get multiLanguage => '多语言';
@@ -889,6 +1068,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get learnHowToRecoverPassword => '了解如何通过应急联系人找回账号密码';
 
   @override
+  String addEmergencyContactsGuidanceFull(int count) {
+    return '从通讯录里选择$count位以上你可以随时电话联系的朋友添加成应急联系人。';
+  }
+
+  @override
   String get iKnow => '我知道了';
 
   @override
@@ -901,15 +1085,8 @@ class AppLocalizationsZh extends AppLocalizations {
   String get recommendContactsToMe => '向我推荐通讯录朋友';
 
   @override
-  String get device_management_auto_extend_login_info_friendly =>
-      '登录微信后，当设备处于安全状态时，微信会自动延长登录时间以保持朋友消息的及时收发，此时会更新最近活跃时间。';
-
-  @override
   String get manageLoginDevicesDescriptionFull =>
       '你的账号在以下设备中登录过，你可以删除设备，删除后在该设备登录时需进行安全验证。';
-
-  @override
-  String get weRun => '微信运动';
 
   @override
   String get contactsBlocklist => '通讯录黑名单';
@@ -1026,12 +1203,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get status => '状态';
 
   @override
-  String get wechatBeans => '微信豆';
-
-  @override
-  String get wechatGames => '微信游戏';
-
-  @override
   String get contactInfo => '联系人信息';
 
   @override
@@ -1042,6 +1213,9 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get show => '显示';
+
+  @override
+  String get phoneBoundAndDiscoverPrompt => '已绑定手机号，轻触下方按钮可了解手机通信录中哪些朋友注册了账号。';
 
   @override
   String get changePhoneNumber => '更换手机号';
@@ -1086,9 +1260,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get plugins => '插件';
 
   @override
-  String get aboutWeChat => '关于微信';
-
-  @override
   String get helpAndFeedback => '帮助与反馈';
 
   @override
@@ -1096,9 +1267,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get logout => '退出';
-
-  @override
-  String get loginWithVoiceprint => '用声音锁登录微信';
 
   @override
   String get resetAndRemove => '重设与删除';
@@ -1123,6 +1291,15 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get prioritizeBalancePayment => '优先使用零钱付款';
+
+  @override
+  String creationTimeDisplay(DateTime date) {
+    final intl.DateFormat dateDateFormat =
+        intl.DateFormat('y年M月d日 HH点mm分', localeName);
+    final String dateString = dateDateFormat.format(date);
+
+    return '创建时间: $dateString';
+  }
 
   @override
   String get priorityPaymentMethod => '优先付款方式';
@@ -1161,9 +1338,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get accountUpgradeService => '账户升级服务';
 
   @override
-  String get serviceProvidedByTenpayAndWeBank => '本服务由财付通和微众银行提供';
-
-  @override
   String get cta_transfer_to_balance_plus_single_line => '转入零钱通 , 能赚又能花 >';
 
   @override
@@ -1174,12 +1348,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get financialServices => '金融理财';
-
-  @override
-  String get weilidaiLoan => '微粒贷借钱';
-
-  @override
-  String get licaitong => '理财通';
 
   @override
   String get insuranceService => '保险服务';
@@ -1197,9 +1365,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get cityServices => '城市服务';
 
   @override
-  String get tencentCharity => '腾讯公益';
-
-  @override
   String get healthCare => '医疗健康';
 
   @override
@@ -1207,9 +1372,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get trainAndFlightTickets => '火车票机票';
-
-  @override
-  String get didiRideHailing => '滴滴出行';
 
   @override
   String get hotel => '酒店';
@@ -1221,25 +1383,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get brandDiscovery => '品牌发现';
 
   @override
-  String get jdShopping => '京东购物';
-
-  @override
-  String get meituanWaimai => '美团外卖';
-
-  @override
   String get movieTicketsAndEntertainment => '电影演出玩乐';
-
-  @override
-  String get meituanSpecialOffers => '美团特价';
-
-  @override
-  String get pinduoduo => '拼多多';
-
-  @override
-  String get vipshop => '唯品会特卖';
-
-  @override
-  String get zhuanzhuanUsedGoods => '转转二手';
 
   @override
   String get serviceManagement => '服务管理';
@@ -1248,13 +1392,12 @@ class AppLocalizationsZh extends AppLocalizations {
   String get hotelAndBAndB => '酒店民宿';
 
   @override
-  String get meituanGroupBuy => '美团团购';
-
-  @override
   String get clickStatus => '点击状态';
 
   @override
-  String get waitingForFourFriends => '等四个朋友';
+  String andXMoreFriends(int count) {
+    return '等$count个朋友';
+  }
 
   @override
   String get storeOrdersAndCardPack => '小店订单与卡包';
@@ -1290,16 +1433,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get myInvoiceTitles => '我的发票抬头';
 
   @override
-  String wechatBeanCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count个微信豆',
-    );
-    return '$_temp0';
-  }
-
-  @override
   String get balancePlus => '零钱通';
 
   @override
@@ -1329,8 +1462,11 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String yearAndMonth(int year, int month) {
-    return '$year年$month月';
+  String yearAndMonth(DateTime date) {
+    final intl.DateFormat dateDateFormat = intl.DateFormat.yMMMM(localeName);
+    final String dateString = dateDateFormat.format(date);
+
+    return '$dateString';
   }
 
   @override
@@ -1350,9 +1486,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get transportation => '交通出行';
 
   @override
-  String get qCoinTopUp => 'Q币充值';
-
-  @override
   String get careModeIntro => '开启「关怀模式」后，可选择以下功能';
 
   @override
@@ -1363,13 +1496,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get careModeFeatureQuietMode => '· 安静模式，避免声音外放打扰。';
-
-  @override
-  String get wechatKeyboardFeatureAskAI => '微信输入法可以【问AI】了';
-
-  @override
-  String get setWechatPasswordDescription =>
-      '请设置微信密码。你可以用微信绑定的账号+微信密码登录，比如使用手机号+微信密码登录微信，更快捷。';
 
   @override
   String passwordValidationRule(int minLength, int maxLength) {
@@ -1396,7 +1522,7 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count个标签',
+      other: '#个标签',
     );
     return '$_temp0';
   }
@@ -1406,28 +1532,19 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count个',
+      other: '#个',
     );
     return '$_temp0';
   }
-
-  @override
-  String get shortcutPermissionGuidanceFull =>
-      '若添加失败，请前往系统设置，为微信打开「创建桌面快捷方式」的权限。';
 
   @override
   String friendCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count个朋友',
+      other: '#个朋友',
     );
     return '$_temp0';
-  }
-
-  @override
-  String wechatIdDisplay(String account) {
-    return '微信号: $account';
   }
 
   @override
@@ -1438,7 +1555,7 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count条评价',
+      other: '#条评价',
     );
     return '$_temp0';
   }
@@ -1453,15 +1570,4 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get securityGuidanceFull => '如果你遇到账号被盗，无法登录等问题，可以前往安全中心';
-
-  @override
-  String get youthModeFullDescription =>
-      '为呵护未成年人健康成长，微信推出青少年模式。该模式下部分功能将受限制使用，请监护人主动设置。';
-
-  @override
-  String get youthModeTermsOfServiceTitle => '《微信青少年模式功能使用条款》';
-
-  @override
-  String get navigateToResetPasswordGuidanceFull =>
-      '你需要前往「设置 > 账号与安全 > 微信密码」中重新设置微信密码。';
 }

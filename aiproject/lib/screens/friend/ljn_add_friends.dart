@@ -37,8 +37,8 @@ class _LJNAddFriends extends State<LJNAddFriends> {
   Widget _buildPage(SystemState systemState) {
     return Scaffold(
       primary: false,
-      appBar: const LJNAppBar(
-        title: "添加朋友",
+      appBar: LJNAppBar(
+        title: AppLocalizations.of(context)!.addFriend,
       ),
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -55,7 +55,9 @@ class _LJNAddFriends extends State<LJNAddFriends> {
             child: Column(
               children: [
                 // 搜索框
-                LJNSearch(link: '/search_friend', title: '账号/手机号'),
+                LJNSearch(
+                    link: '/search_friend',
+                    title: AppLocalizations.of(context)!.accountOrPhone),
 
                 SizedBox(
                   height: 44.w,
@@ -71,8 +73,11 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                     TextSpan(
                       children: [
                         TextSpan(
-                          text:
-                              "我的微信号: ${context.read<LJNUserCubit>().state.userinfoAccount}",
+                          text: AppLocalizations.of(context)!.myWechatIdDisplay(
+                              context
+                                  .read<LJNUserCubit>()
+                                  .state
+                                  .userinfoAccount!),
                           style: TextStyle(
                             height: 1.08,
                             fontSize: 25.w,

@@ -433,8 +433,8 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
         builder: (context, systemState) {
       return Scaffold(
         primary: false,
-        appBar: const LJNAppBar(
-          title: "查看手机通讯录",
+        appBar: LJNAppBar(
+          title: AppLocalizations.of(context)!.viewPhoneContacts,
         ),
         body: ScrollConfiguration(
           behavior: CustomScrollBehavior().copyWith(

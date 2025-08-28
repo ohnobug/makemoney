@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:spicychat/screens/components/ljn_change_account_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,8 +40,9 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
 
             return Scaffold(
               primary: false,
-              appBar:
-                  const LJNAppBar(title: "手机号", bgColor: AppColors.transparent),
+              appBar: LJNAppBar(
+                  title: AppLocalizations.of(context)!.phoneNumber,
+                  bgColor: AppColors.transparent),
               body: ScrollConfiguration(
                 behavior:
                     ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -99,7 +101,9 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                                   });
                                 },
                                 child: Text(
-                                  isHide ? '隐藏' : "显示",
+                                  isHide
+                                      ? AppLocalizations.of(context)!.hide
+                                      : AppLocalizations.of(context)!.show,
                                   strutStyle:
                                       StrutStyle(fontSize: 37.w, height: 1.08),
                                   style: TextStyle(
@@ -118,7 +122,8 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                           Container(
                             padding: EdgeInsets.only(left: 70.w, right: 70.w),
                             child: Text(
-                              "已绑定手机号，轻触下方按钮可了解手机通信录中哪些朋友注册了账号。",
+                              AppLocalizations.of(context)!
+                                  .phoneBoundAndDiscoverPrompt,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 27.0.w,
@@ -129,8 +134,9 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                             height: 720.w,
                             child: null,
                           ),
-                          const LJNChangeAccountButton(
-                            title: '查看手机通讯录',
+                          LJNChangeAccountButton(
+                            title:
+                                AppLocalizations.of(context)!.viewPhoneContacts,
                             color: AppColors.neutralWhite,
                             backgroundColor: AppColors.brandGreenVibrant5,
                             link: "/phone_contact",
@@ -139,8 +145,9 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                           SizedBox(
                             height: 33.w,
                           ),
-                          const LJNChangeAccountButton(
-                            title: '更换手机号',
+                          LJNChangeAccountButton(
+                            title:
+                                AppLocalizations.of(context)!.changePhoneNumber,
                             // color: AppColors.neutralWhite,
                             // backgroundColor: AppColors.brandGreenVibrant5,
                             link: "/verify_phone",

@@ -50,7 +50,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
   Widget _buildPage(SystemState systemState) {
     return Scaffold(
       primary: false,
-      appBar: const LJNAppBar(title: "聊天消息"),
+      appBar: LJNAppBar(title: AppLocalizations.of(context)!.chatMessages),
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: Container(

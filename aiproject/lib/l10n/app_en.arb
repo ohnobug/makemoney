@@ -1,16 +1,91 @@
 {
   "@@locale": "en",
-  "app_name": "ChatMore",
+  "wechat": "WeChat",
+  "wechatID": "WeChat ID",
+  "wechatPassword": "WeChat Password",
+  "wechatSecurityCenter": "WeChat Security Center",
+  "changeWechatID": "Change WeChat ID",
+  "wechatBeans": "WeChat Beans",
+  "wechatGames": "WeChat Games",
+  "aboutWeChat": "About WeChat",
+  "weRun": "WeRun",
+  "personalInfoCollectionFullDescription": "    You can review the personal information collected by WeChat. The following statistics only include information collected by iOS 8.0.17, Android 8.0.18, and later versions of WeChat. WeChat cannot fully account for information collected while you were using older versions.",
+  "privacy_setting_description": "You will not be able to see each other's Moments, Status, WeRun, Top Stories, or content shared from third-party app authorizations.",
+  "copySuccessWithWechatId": "Copied successfully! WeChat ID: {account}",
+  "@copySuccessWithWechatId": {
+    "description": "Toast message shown after successfully copying a WeChat ID",
+    "placeholders": {
+      "account": {
+        "type": "String",
+        "example": "wxid_12345"
+      }
+    }
+  },
+  "verifyIdentityWithPasswordFull": "Enter your current WeChat login password to verify your identity.",
+  "autoDownloadWeChatInstaller": "Automatically download WeChat installer",
+  "wechatIdModificationRuleFull": "Your WeChat ID is the unique identifier for your account and can only be changed once a year.",
+  "device_management_auto_extend_login_info_friendly": "After logging into WeChat, when the device is in a secure state, WeChat will automatically extend the login session to ensure timely message delivery. The last active time will be updated accordingly.",
+  "loginWithVoiceprint": "Log in with Voiceprint",
+  "wechatBeanCount": "{count, plural, one{1 WeChat Bean} other{# WeChat Beans}}",
+  "@wechatBeanCount": {
+    "description": "Displays the number of WeChat Beans",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wechatKeyboardFeatureAskAI": "WeChat Keyboard can now [Ask AI]",
+  "setWechatPasswordDescription": "Please set a WeChat password. You can log in with your bound account + WeChat password, for example, using your phone number + WeChat password for a faster login experience.",
+  "shortcutPermissionGuidanceFull": "If adding the shortcut fails, please go to System Settings and grant WeChat the permission to 'Create home screen shortcuts'.",
+  "wechatIdDisplay": "WeChat ID: {account}",
+  "@wechatIdDisplay": {
+    "description": "Displays the WeChat ID",
+    "placeholders": {
+      "account": {
+        "type": "String"
+      }
+    }
+  },
+  "myWechatIdDisplay": "My WeChat ID: {account}",
+  "@myWechatIdDisplay": {
+    "description": "Displays my WeChat ID",
+    "placeholders": {
+      "account": {
+        "type": "String"
+      }
+    }
+  },
+  "youthModeFullDescription": "To protect the healthy growth of minors, WeChat has introduced Youth Mode. Some features will be restricted in this mode. Guardians are requested to set it up proactively.",
+  "youthModeTermsOfServiceTitle": "《WeChat Youth Mode Terms of Service》",
+  "navigateToResetPasswordGuidanceFull": "You need to go to 'Settings > Account & Security > WeChat Password' to reset your WeChat password.",
+  "douyinHotTrends": "Douyin Hot Trends",
+  "yuanxiangSmartChoice": "Yuanxiang Smart Choice",
+  "qqId": "QQ ID",
+  "serviceProvidedByTenpayAndWeBank": "This service is provided by Tenpay and WeBank",
+  "weilidaiLoan": "Weilidai Loan",
+  "licaitong": "Licaitong",
+  "tencentCharity": "Tencent Charity",
+  "didiRideHailing": "DiDi",
+  "jdShopping": "JD.com Shopping",
+  "meituanWaimai": "Meituan Food Delivery",
+  "meituanSpecialOffers": "Meituan Deals",
+  "pinduoduo": "Pinduoduo",
+  "vipshop": "Vipshop",
+  "zhuanzhuanUsedGoods": "Zhuan Zhuan",
+  "meituanGroupBuy": "Meituan Group Buy",
+  "qCoinTopUp": "Q Coin Top-up",
+  "app_name": "SpecialChat",
   "tabbar_label_chat": "Chats",
   "tabbar_label_contacts": "Contacts",
   "tabbar_label_discover": "Discover",
   "tabbar_label_me": "Me",
   "me": "Me",
-  "displayKeyboard": "Show Keyboard",
+  "displayKeyboard": "Display Keyboard",
   "hideKeyboard": "Hide Keyboard",
   "switchToKeyboard": "Switch to Keyboard",
   "switchToEmoji": "Switch to Emoji",
-  "switchToFunctions": "Switch to Functions",
+  "switchToFunctions": "Switch to Function Panel",
   "showEmojiPicker": "Show Emoji Picker",
   "hideEmojiPicker": "Hide Emoji Picker",
   "showFunctionPanel": "Show Function Panel",
@@ -29,33 +104,45 @@
   "convertToText": "Convert to Text",
   "microphoneOn": "Microphone On",
   "cancel": "Cancel",
-  "searchHintAccountOrPhone": "Search Account/Phone Number",
+  "searchHintAccountOrPhone": "Search by Account/Phone Number",
+  "accountOrPhone": "Account/Phone Number",
   "speakerOff": "Speaker Off",
   "friendProfile": "Friend Profile",
   "friendPermissions": "Friend Permissions",
   "moments": "Moments",
+  "fullDateTime": "{timestamp}",
+  "@fullDateTime": {
+    "description": "Displays a timestamp in a full year-month-day-hour-minute-second format",
+    "placeholders": {
+      "timestamp": {
+        "type": "DateTime",
+        "format": "MMM d, y, h:mm:ss a",
+        "isCustomDateFormat": true
+      }
+    }
+  },
   "channels": "Channels",
   "moreInfo": "More Info",
   "sendMessage": "Send Message",
-  "heSanqi": "He Sanqi",
+  "heSanqi": "Sanqi He",
   "audioVideoCall": "Audio/Video Call",
   "scrolling": "Scrolling",
   "recent": "Recent",
   "allEmojis": "All Emojis",
   "cancelClick": "Cancel Click",
   "popup": "Popup",
-  "loadFailed": "Failed to load",
+  "loadFailed": "Load failed",
   "playRecording": "Play Recording",
-  "loading": "Loading...",
-  "addedToDesktopAttempt": "Attempted to add to desktop",
-  "createDesktopShortcut": "Create Desktop Shortcut",
-  "doNotRemindAgain": "Don't Remind Again",
+  "loading": "Loading",
+  "addedToDesktopAttempt": "Attempted to add to Home Screen",
+  "createDesktopShortcut": "Create Home Screen Shortcut",
+  "doNotRemindAgain": "Do Not Remind Again",
   "back": "Back",
   "learnMore": "Learn More",
   "voiceCall": "Voice Call",
   "cache": "Cache",
   "newFriends": "New Friends",
-  "chatOnlyFriends": "Chat-only Friends",
+  "chatOnlyFriends": "Chat-Only Friends",
   "groupChats": "Group Chats",
   "tags": "Tags",
   "officialAccounts": "Official Accounts",
@@ -74,7 +161,7 @@
   "live": "Live",
   "scan": "Scan",
   "listen": "Listen",
-  "look": "Look",
+  "look": "Top Stories",
   "searchAction": "Search",
   "nearby": "Nearby",
   "shopping": "Shopping",
@@ -97,12 +184,12 @@
   "share": "Share",
   "viewHomepage": "View Homepage",
   "forwardTo": "Forward to",
-  "fileTransferHelper": "File Transfer Helper",
-  "forwardToFriend": "Forward to Friend",
-  "shareToMoments": "Share to Moments",
+  "fileTransferHelper": "File Transfer",
+  "forwardToFriend": "Forward to a friend",
+  "shareToMoments": "Share on Moments",
   "addToMyMiniPrograms": "Add to My Mini Programs",
-  "addToDesktop": "Add to Desktop",
-  "openOnComputer": "Open on Computer",
+  "addToDesktop": "Add to Home Screen",
+  "openOnComputer": "Open on computer",
   "floatingWindow": "Floating Window",
   "settings": "Settings",
   "feedbackAndComplaints": "Feedback & Complaints",
@@ -112,17 +199,16 @@
   "growthGuardianAntiAddiction": "Growth Guardian Anti-Addiction",
   "myFavorites": "My Favorites",
   "nearbyMiniPrograms": "Nearby Mini Programs",
-  "touchToLightUp": "Touch to Light Up",
+  "touchToLightUp": "Touch to light up",
   "myQRCode": "My QR Code",
-  "douyinHotTrends": "Douyin Hot List",
-  "cityHotTrends": "City Hot List",
-  "liveHotTrends": "Live Hot List",
-  "groupBuyHotTrends": "Group Buy Hot List",
-  "brandHotTrends": "Brand Hot List",
-  "musicHotTrends": "Music Hot List",
-  "techHotTrends": "Tech Hot List",
-  "autoHotTrends": "Auto Hot List",
-  "idiotList": "Goofball List",
+  "cityHotTrends": "City Hot Trends",
+  "liveHotTrends": "Live Hot Trends",
+  "groupBuyHotTrends": "Group Buy Hot Trends",
+  "brandHotTrends": "Brand Hot Trends",
+  "musicHotTrends": "Music Hot Trends",
+  "techHotTrends": "Tech Hot Trends",
+  "autoHotTrends": "Auto Hot Trends",
+  "idiotList": "Idiot List",
   "richList": "Rich List",
   "prankList": "Prank List",
   "horrorList": "Horror List",
@@ -133,32 +219,41 @@
   "movieList": "Movie List",
   "tvSeriesList": "TV Series List",
   "guessYouWantToSearch": "Guess you want to search",
-  "changeBatch": "Change",
+  "changeBatch": "Change batch",
   "hotListScrollingComplete": "Hot list scrolling complete",
   "viewFullList": "View Full List",
   "home": "Home",
   "friends": "Friends",
   "messages": "Messages",
-  "radarAddFriends": "Radar Add Friends",
+  "radarAddFriends": "Friend Radar",
   "addNearbyFriends": "Add nearby friends",
   "faceToFaceGroup": "Face-to-Face Group",
-  "joinGroupWithNearbyFriends": "Join the same group chat with nearby friends",
-  "scanQRCode": "Scan QR Code Card",
+  "joinGroupWithNearbyFriends": "Join the same group chat with friends nearby",
+  "scanQRCode": "Scan QR Code Business Card",
   "phoneContacts": "Phone Contacts",
-  "addOrInviteContacts": "Add or invite friends from phone contacts",
+  "addOrInviteContacts": "Add or invite friends from your phone contacts",
   "getMoreInfoAndServices": "Get more information and services",
   "profileSettings": "Profile Settings",
   "setRemarkAndTags": "Set Remark and Tags",
-  "recommendToFriend": "Recommend to a Friend",
+  "recommendToFriend": "Recommend to a friend",
   "setAsStarFriend": "Set as Starred Friend",
   "addToBlocklist": "Add to Blocklist",
   "complain": "Complain",
   "delete": "Delete",
   "remark": "Remark",
+  "groupChatCount": "{count, plural, one{1 group chat} other{# group chats}}",
+  "@groupChatCount": {
+    "description": "Displays the number of group chats",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "remarkName": "Remark Name",
   "info_name_in_phone_contacts": "Their name in your phone contacts is '{contactName}'",
   "@info_name_in_phone_contacts": {
-    "description": "Displays the contact's name from the phone's address book",
+    "description": "Displays the contact's remark name from the phone book",
     "placeholders": {
       "contactName": {
         "type": "String"
@@ -171,7 +266,7 @@
   "ourMutualGroups": "Our Mutual Groups",
   "signature": "Signature",
   "source": "Source",
-  "source_added_from_group_chat": "Added via group chat '{groupName}'",
+  "source_added_from_group_chat": "Added from group chat '{groupName}'",
   "@source_added_from_group_chat": {
     "description": "Source: Added via a specific group chat",
     "placeholders": {
@@ -180,16 +275,49 @@
       }
     }
   },
-  "personCount": "{count, plural, =0{0 people} =1{1 person} other{{count} people}}",
+  "personCount": "{count, plural, one{1 person} other{# people}}",
   "@personCount": {
-    "description": "A generic unit for counting people or items",
+    "description": "A generic unit for a number of people",
     "placeholders": {
       "count": {
         "type": "int"
       }
     }
   },
-  "fromGroupChat": "Via Group Chat",
+  "monthDayTimeShort": "{timestamp}",
+  "@monthDayTimeShort": {
+    "description": "Displays time in a compact month-day hour:minute format",
+    "placeholders": {
+      "timestamp": {
+        "type": "DateTime",
+        "format": "M/d, HH:mm",
+        "isCustomDateFormat": true
+      }
+    }
+  },
+  "monthDayTime": "{timestamp}",
+  "@monthDayTime": {
+    "description": "Displays time in a month-day AM/PM hour:minute format",
+    "placeholders": {
+      "timestamp": {
+        "type": "DateTime",
+        "format": "M/d, h:mm a",
+        "isCustomDateFormat": true
+      }
+    }
+  },
+  "balanceDisplay": "Balance: {balance}",
+  "@balanceDisplay": {
+    "description": "Displays the account balance with its formatted amount",
+    "placeholders": {
+      "balance": {
+        "type": "double",
+        "format": "currency",
+        "symbol": "$"
+      }
+    }
+  },
+  "fromGroupChat": "From group chat",
   "addedTime": "Time Added",
   "chatMessages": "Chat Messages",
   "findChatHistory": "Find Chat History",
@@ -200,16 +328,17 @@
   "clearChatHistory": "Clear Chat History",
   "oneMinuteAgo": "One minute ago",
   "changeCover": "Change Cover",
+  "waitingForAcceptance": "Waiting for acceptance",
   "comment": "Comment",
   "changeAlbumCover": "Change Album Cover",
   "selectFromPhoneAlbum": "Select from Phone Album",
   "selectFromChannels": "Select from Channels",
-  "takeOne": "Take One",
+  "takeOne": "Take a Photo/Video",
   "photographerWorks": "Photographer's Works",
   "ourMutualGroupChats": "Our Mutual Group Chats",
   "personalSignature": "Personal Signature",
   "setFriendPermissions": "Set Friend Permissions",
-  "privacyRestrictionFull": "The other person cannot see your Moments, Status, WeRun, etc.",
+  "privacyRestrictionFull": "They cannot see your Moments, Status, WeRun, etc.",
   "featureListChatMomentsWeRun": "Chat, Moments, WeRun, etc.",
   "chatOnly": "Chat Only",
   "momentsAndStatus": "Moments and Status",
@@ -225,7 +354,7 @@
   "tagName": "Tag Name",
   "done": "Done",
   "setAliasAndTags": "Set Alias and Tags",
-  "fillIn": "Fill in",
+  "fillIn": "Fill In",
   "addPhoneNumber": "Add Phone Number",
   "addImage": "Add Image",
   "plusButtonClicked": "Plus button clicked",
@@ -237,15 +366,13 @@
   "myNicknameInGroup": "My Nickname in Group",
   "showGroupMemberNicknames": "Show Group Member Nicknames",
   "leaveGroup": "Leave Group",
-  "wechat": "WeChat",
   "featureIntroduction": "Feature Introduction",
   "checkNewVersion": "Check for New Version",
-  "accountAndSecurity": "Account and Security",
-  "wechatID": "WeChat ID",
+  "accountAndSecurity": "Account & Security",
   "phoneNumber": "Phone Number",
   "nicknameDisplay": "Nickname: {nickname}",
   "@nicknameDisplay": {
-    "description": "Text for displaying the nickname with its label",
+    "description": "Text for displaying a nickname with its label",
     "placeholders": {
       "nickname": {
         "type": "String",
@@ -253,35 +380,21 @@
       }
     }
   },
-  "copySuccessWithWechatId": "Copied successfully! WeChat ID: {account}",
-  "@copySuccessWithWechatId": {
-    "description": "Toast message shown after successfully copying a WeChat ID",
-    "placeholders": {
-      "account": {
-        "type": "String",
-        "example": "wxid_12345"
-      }
-    }
-  },
-  "wechatPassword": "WeChat Password",
   "voiceprint": "Voiceprint",
   "emergencyContacts": "Emergency Contacts",
   "loggedInDevices": "Logged-in Devices",
-  "phoneNumberBindingDescriptionFull": "One phone number can only be linked to one account. After changing, you can log in to this account with the new phone number. For a phone number already linked to another account, it will be unlinked from the original account after this operation.",
+  "phoneNumberBindingDescriptionFull": "A phone number can only be bound to one account. After changing, you can log in to this account with the new phone number. If the phone number is already bound to another account, it will be unbound from the original account after this operation.",
   "moreSecuritySettings": "More Security Settings",
-  "wechatSecurityCenter": "WeChat Security Center",
-  "changeWechatID": "Change WeChat ID",
   "bill": "Bill",
   "faq": "FAQ",
   "allBills": "All Bills",
   "statistics": "Statistics",
-  "yuanxiangSmartChoice": "Yuanxiang Smart Choice",
   "selectFilter": "Select Filter",
-  "incomeExpenseType": "Income/Expense Type",
+  "incomeExpenseType": "Transaction Type",
   "all": "All",
   "expense": "Expense",
   "income": "Income",
-  "groupSplitBill": "Group Split Bill",
+  "groupSplitBill": "Split Bill",
   "qrCodePayment": "QR Code Payment",
   "merchantPayment": "Merchant Payment",
   "topUpAndWithdrawal": "Top-up & Withdrawal",
@@ -296,13 +409,23 @@
   "securityVerification": "Security Verification",
   "enterPassword": "Enter Password",
   "pleaseEnterPassword": "Please enter your password",
-  "forgotPasswordClicked": "Forgot Password clicked",
+  "forgotPasswordClicked": "Forgot password clicked",
   "forgotPassword": "Forgot Password",
   "verify": "Verify",
+  "playbackSpeed": "{speed}x Speed",
+  "@playbackSpeed": {
+    "description": "Indicates the playback speed of a video or audio",
+    "placeholders": {
+      "speed": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
   "balanceDetails": "Balance Details",
   "chat": "Chat",
-  "useEarpieceToPlayVoice": "Use Earpiece to Play Voice Messages",
-  "useIndependentSendButton": "Use Independent Send Button",
+  "useEarpieceToPlayVoice": "Use earpiece to play voice messages",
+  "useIndependentSendButton": "Use separate send button",
   "chatBackground": "Chat Background",
   "stickerManagement": "Sticker Management",
   "chatHistory": "Chat History",
@@ -314,29 +437,36 @@
   "enableLandscapeMode": "Enable Landscape Mode",
   "action_enable_nfc": "Enable NFC",
   "network_option_wifi_only": "Wi-Fi Only",
-  "autoDownloadWeChatInstaller": "Auto-download WeChat Installer",
-  "multiLanguage": "Language",
+  "multiLanguage": "Multi-language",
   "other": "Other",
   "storageSpace": "Storage Space",
   "fontSize": "Font Size",
   "musicAndAudio": "Music and Audio",
   "discoverPageManagement": "Discover Page Management",
   "accessibility": "Accessibility",
-  "permission_list_items": "Photos, Videos, Files, and Calls",
+  "permission_list_items": "Photos, videos, files, and calls",
   "deviceDetails": "Device Details",
   "deviceName": "Device Name",
   "currentDevice": "Current Device",
   "deviceType": "Device Type",
   "lastActiveTime": "Last Active Time",
   "deleteThisDevice": "Delete This Device",
-  "learnHowToRecoverPassword": "Learn how to recover account password via Emergency Contacts",
-  "iKnow": "I Know",
+  "learnHowToRecoverPassword": "Learn how to recover your account password via emergency contacts",
+  "addEmergencyContactsGuidanceFull": "Select {count} or more friends from your contacts whom you can contact by phone at any time to add as emergency contacts.",
+  "@addEmergencyContactsGuidanceFull": {
+    "description": "Guidance for users to add emergency contacts, including the minimum number required.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+  "iKnow": "Got It",
   "requireVerificationWhenAdded": "Require verification when added as a friend",
   "waysToAddMe": "Ways to Add Me",
   "recommendContactsToMe": "Recommend contacts to me",
-  "device_management_auto_extend_login_info_friendly": "After logging in to WeChat, when the device is in a secure state, WeChat will automatically extend the login time to ensure timely receipt of messages. The last active time will be updated accordingly.",
-  "manageLoginDevicesDescriptionFull": "Your account has been logged in on the following devices. You can delete a device, after which security verification will be required to log in on that device.",
-  "weRun": "WeRun",
+  "manageLoginDevicesDescriptionFull": "Your account has been logged in on the following devices. You can remove a device, after which security verification will be required to log in on that device again.",
   "contactsBlocklist": "Contacts Blocklist",
   "yourPhoneNumber": "Your Phone Number",
   "currentlyLoggedInDevices": "Currently Logged-in Devices",
@@ -346,9 +476,9 @@
   "mobileSecurityProtection": "Mobile Security Protection",
   "newMessageNotifications": "New Message Notifications",
   "notificationToggle": "Notification Toggle",
-  "receiveNewMessageNotifications": "Receive New Message Notifications",
-  "receiveVoiceVideoCallInvites": "Receive Voice and Video Call Invites",
-  "notificationShowMessageDetails": "Notification Shows Message Details",
+  "receiveNewMessageNotifications": "Receive new message notifications",
+  "receiveVoiceVideoCallInvites": "Receive voice and video call invitation alerts",
+  "notificationShowMessageDetails": "Show message details in notifications",
   "soundAndVibration": "Sound & Vibration",
   "newMessageSystemNotification": "New Message System Notification",
   "goToSystemSettings": "Go to System Settings",
@@ -356,7 +486,7 @@
   "alertToneAndRingtone": "Alert Tone & Ringtone",
   "messageTone": "Message Tone",
   "callRingtone": "Call Ringtone",
-  "friendCanHearMyRingtone": "Friend can also hear my ringtone when calling me",
+  "friendCanHearMyRingtone": "Friends can hear my ringtone when they call me",
   "personalInfoAndPermissions": "Personal Info & Permissions",
   "systemPermissionManagement": "System Permission Management",
   "authorizationManagement": "Authorization Management",
@@ -375,12 +505,11 @@
   "imagesAndVideos": "Images & Videos",
   "socialAndContentInfo": "Social & Content Info",
   "status": "Status",
-  "wechatBeans": "WeChat Beans",
-  "wechatGames": "WeChat Games",
   "contactInfo": "Contact Info",
   "viewPhoneContacts": "View Phone Contacts",
   "hide": "Hide",
   "show": "Show",
+  "phoneBoundAndDiscoverPrompt": "Phone number is bound. Tap the button below to see which friends in your phone contacts have registered an account.",
   "changePhoneNumber": "Change Phone Number",
   "setPassword": "Set Password",
   "originalPassword": "Original Password",
@@ -395,19 +524,28 @@
   "privacy": "Privacy",
   "thirdPartyInfoSharingList": "Third-Party Info Sharing List",
   "plugins": "Plugins",
-  "aboutWeChat": "About WeChat",
   "helpAndFeedback": "Help & Feedback",
   "switchAccount": "Switch Account",
   "logout": "Log Out",
-  "loginWithVoiceprint": "Log in with Voiceprint",
   "resetAndRemove": "Reset & Remove",
   "tryToVerifyMyVoice": "Try to verify my voice",
-  "iHaveReadAndAgree": "I have read and agree to",
+  "iHaveReadAndAgree": "I have read and agree",
   "verifyPhoneNumber": "Verify Phone Number",
   "mainlandChina": "Mainland China",
   "payment": "Payment",
   "paymentCode": "Payment Code",
-  "prioritizeBalancePayment": "Prioritize Balance for Payment",
+  "prioritizeBalancePayment": "Prioritize payment with Balance",
+  "creationTimeDisplay": "Created: {date}",
+  "@creationTimeDisplay": {
+    "description": "Displays the creation time with its formatted date",
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "MMM d, y, h:mm a",
+        "isCustomDateFormat": true
+      }
+    }
+  },
   "priorityPaymentMethod": "Priority Payment Method",
   "change": "Change",
   "balance": "Balance",
@@ -415,43 +553,39 @@
   "qrCodeCollection": "QR Code Collection",
   "rewardCode": "Reward Code",
   "faceToFaceRedPacket": "Face-to-Face Red Packet",
-  "transferToBankCardOrPhone": "Transfer to Bank Card or Phone",
+  "transferToBankCardOrPhone": "Transfer to Bank Card or Phone Number",
   "myBalance": "My Balance",
-  "topUp": "Top Up",
+  "topUp": "Top-up",
   "withdraw": "Withdraw",
   "accountUpgradeService": "Account Upgrade Service",
-  "serviceProvidedByTenpayAndWeBank": "This service is provided by Tenpay and WeBank",
-  "cta_transfer_to_balance_plus_single_line": "Transfer to Balance Plus, earn and spend >",
+  "cta_transfer_to_balance_plus_single_line": "Transfer to Balance+, earn and spend >",
   "services": "Services",
   "wallet": "Wallet",
   "financialServices": "Financial Services",
-  "weilidaiLoan": "Weilidai Loan",
-  "licaitong": "Licaitong",
   "insuranceService": "Insurance Service",
   "lifeServices": "Life Services",
   "mobileTopUp": "Mobile Top-up",
   "utilityPayments": "Utility Payments",
   "cityServices": "City Services",
-  "tencentCharity": "Tencent Charity",
   "healthCare": "Health Care",
   "transportServices": "Transport Services",
   "trainAndFlightTickets": "Train & Flight Tickets",
-  "didiRideHailing": "Didi Ride Hailing",
   "hotel": "Hotel",
   "shoppingAndConsumption": "Shopping & Consumption",
   "brandDiscovery": "Brand Discovery",
-  "jdShopping": "JD Shopping",
-  "meituanWaimai": "Meituan Waimai",
-  "movieTicketsAndEntertainment": "Movies & Entertainment",
-  "meituanSpecialOffers": "Meituan Special Offers",
-  "pinduoduo": "Pinduoduo",
-  "vipshop": "Vipshop",
-  "zhuanzhuanUsedGoods": "Zhuanzhuan Used Goods",
+  "movieTicketsAndEntertainment": "Movies, Tickets & Entertainment",
   "serviceManagement": "Service Management",
   "hotelAndBAndB": "Hotel & B&B",
-  "meituanGroupBuy": "Meituan Group Buy",
   "clickStatus": "Click Status",
-  "waitingForFourFriends": "Waiting for 4 friends",
+  "andXMoreFriends": "{count, plural, one{and 1 other friend} other{and # other friends}}",
+  "@andXMoreFriends": {
+    "description": "Suffix for lists showing 'and N more friends'",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "storeOrdersAndCardPack": "Store Orders & Card Pack",
   "stickers": "Stickers",
   "male": "Male",
@@ -463,59 +597,45 @@
   "qrCodeCard": "QR Code Card",
   "myAddresses": "My Addresses",
   "myInvoiceTitles": "My Invoice Titles",
-  "wechatBeanCount": "{count, plural, =0{0 WeChat Beans} =1{1 WeChat Bean} other{{count} WeChat Beans}}",
-  "@wechatBeanCount": {
-    "description": "Displays the number of WeChat Beans",
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "balancePlus": "Balance Plus",
+  "balancePlus": "Balance+",
   "bankCards": "Bank Cards",
   "familyCard": "Family Card",
   "paymentScore": "Payment Score",
   "consumerProtection": "Consumer Protection",
   "taskCompleted": "Task Completed",
   "cancelDelayedTask": "Cancel Delayed Task",
-  "startGroupChat": "Start Group Chat",
-  "label_yield": "Yield Rate: {value}",
+  "startGroupChat": "Start a Group Chat",
+  "label_yield": "Yield: {value}",
   "@label_yield": {
-    "description": "Label for displaying yield rate",
+    "description": "Label for displaying a yield rate",
     "placeholders": {
       "value": {
         "type": "String"
       }
     }
   },
-  "yearAndMonth": "{month}/{year}",
+  "yearAndMonth": "{date}",
   "@yearAndMonth": {
     "description": "Formats year and month",
     "placeholders": {
-      "year": {
-        "type": "int"
-      },
-      "month": {
-        "type": "int"
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMM"
       }
     }
   },
-  "recommendContactsMessageFull": "After enabling, registered phone contacts will be recommended to you in 'Contacts > New Friends'.",
-  "sendButtonReplacedMessageFull": "When enabled, the send button on the keyboard will be replaced with a line break.",
-  "manageServicesDescription": "You can specify the services that appear in 'Services'. If you choose to disable some services, their entries will be hidden, but no historical data will be cleared.",
+  "recommendContactsMessageFull": "When enabled, phone contacts who have registered an account will be recommended to you in 'Contacts > New Friends'.",
+  "sendButtonReplacedMessageFull": "When enabled, the send button on the keyboard will be replaced with a newline button.",
+  "manageServicesDescription": "You can specify which services appear in 'Services'. If you disable a service, its entry point will be hidden, but no historical data will be cleared.",
   "transactionType": "Transaction Type",
   "transportation": "Transportation",
-  "qCoinTopUp": "Q Coin Top-up",
-  "careModeIntro": "After enabling 'Caring Mode', the following functions can be selected:",
+  "careModeIntro": "After enabling 'Caring Mode', you can select the following features:",
   "careModeFeatureAccessibility": "· Larger text, stronger colors, bigger buttons;",
   "careModeFeatureReadMessages": "· Listen to text messages in chats;",
-  "careModeFeatureQuietMode": "· Quiet mode to avoid sound playback disturbance.",
-  "wechatKeyboardFeatureAskAI": "WeChat Keyboard can now [Ask AI]",
-  "setWechatPasswordDescription": "Please set a WeChat password. You can log in with your WeChat-linked account + WeChat password, for example, using your phone number + WeChat password for a quicker login.",
-  "passwordValidationRule": "Password must be a combination of {minLength}-{maxLength} English letters, numbers, and characters (cannot be purely numeric).",
+  "careModeFeatureQuietMode": "· Quiet mode to avoid audio playback disturbances.",
+  "passwordValidationRule": "Password must be {minLength}-{maxLength} characters, combining letters, numbers, and symbols (cannot be purely numeric).",
   "@passwordValidationRule": {
-    "description": "Password format validation hint",
+    "description": "Validation message for the password format",
     "placeholders": {
       "minLength": {
         "type": "int"
@@ -526,11 +646,11 @@
     }
   },
   "forgotOriginalPassword": "Forgot original password?",
-  "privacyPolicySummaryTitle": "《Summary of Privacy Protection Guidelines》",
-  "privacyPolicyTitle": "《Privacy Protection Guidelines》",
+  "privacyPolicySummaryTitle": "《Privacy Policy Summary》",
+  "privacyPolicyTitle": "《Privacy Policy》",
   "releaseToCancel": "Release to Cancel",
   "holdToTalk": "Hold to Talk",
-  "tagCount": "{count, plural, =0{0 tags} =1{1 tag} other{{count} tags}}",
+  "tagCount": "{count, plural, one{1 tag} other{# tags}}",
   "@tagCount": {
     "description": "Displays the number of tags",
     "placeholders": {
@@ -539,7 +659,7 @@
       }
     }
   },
-  "groupCount": "{count, plural, =0{0 groups} =1{1 group} other{{count} groups}}",
+  "groupCount": "{count, plural, one{1 group} other{# groups}}",
   "@groupCount": {
     "description": "Displays the number of mutual groups",
     "placeholders": {
@@ -548,48 +668,35 @@
       }
     }
   },
-  "shortcutPermissionGuidanceFull": "If it fails to add, please go to System Settings and enable the 'Create desktop shortcut' permission for WeChat.",
-  "friendCount": "{count, plural, =0{No friends} =1{1 friend} other{{count} friends}}",
+  "friendCount": "{count, plural, one{1 friend} other{# friends}}",
   "@friendCount": {
-    "description": "Text that displays the number of friends",
+    "description": "Text for displaying the number of friends",
     "placeholders": {
       "count": {
         "type": "int"
       }
     }
   },
-  "wechatIdDisplay": "WeChat ID: {account}",
-  "@wechatIdDisplay": {
-    "description": "Displays the WeChat ID",
-    "placeholders": {
-      "account": {
-        "type": "String"
-      }
-    }
-  },
-  "noTransactionRating": "No transaction rating",
-  "commentCount": "{count, plural, =0{No comments} =1{1 comment} other{{count} comments}}",
+  "noTransactionRating": "No transaction rating yet",
+  "commentCount": "{count, plural, one{1 review} other{# reviews}}",
   "@commentCount": {
-    "description": "Displays the number of comments",
+    "description": "Displays the number of reviews",
     "placeholders": {
       "count": {
         "type": "int"
       }
     }
   },
-  "featuredCommentDisplay": "Featured Comment: {comment}",
+  "featuredCommentDisplay": "Featured Review: {comment}",
   "@featuredCommentDisplay": {
-    "description": "Displays a featured comment with its content",
+    "description": "Displays a featured review and its content",
     "placeholders": {
       "comment": {
         "type": "String",
-        "example": "Very satisfied, product quality is good"
+        "example": "Very satisfied, great product quality."
       }
     }
   },
-  "scanHintFull": "Scan QR Codes, Plants, Animals, Products & more",
-  "securityGuidanceFull": "If you encounter problems such as a hacked account or being unable to log in, you can go to the Security Center",
-  "youthModeFullDescription": "To protect the healthy growth of minors, WeChat has introduced Youth Mode. In this mode, some features will be restricted. Please have a guardian set it up.",
-  "youthModeTermsOfServiceTitle": "《WeChat Youth Mode Function Terms of Use》",
-  "navigateToResetPasswordGuidanceFull": "You need to go to 'Settings > Account & Security > WeChat Password' to reset your WeChat password."
+  "scanHintFull": "Identify QR codes / flowers / animals / products, etc.",
+  "securityGuidanceFull": "If you encounter issues like a hacked account or inability to log in, you can go to the Security Center."
 }

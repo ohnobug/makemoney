@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_alphabet.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:spicychat/screens/components/ljn_search.dart';
@@ -505,7 +506,7 @@ class _LJNOfficialAccountsState extends State<LJNOfficialAccounts> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "10个朋友",
+                AppLocalizations.of(context)!.friendCount(10),
                 style: TextStyle(
                   height: 1.08,
                   fontSize: fontSizeScale(30.w),
@@ -529,8 +530,8 @@ class _LJNOfficialAccountsState extends State<LJNOfficialAccounts> {
   Widget _buildPage(SystemState systemState) {
     return Scaffold(
       primary: false,
-      appBar: const LJNAppBar(
-        title: "公众号",
+      appBar: LJNAppBar(
+        title: AppLocalizations.of(context)!.officialAccounts,
       ),
       body: Stack(
         children: [
@@ -551,7 +552,9 @@ class _LJNOfficialAccountsState extends State<LJNOfficialAccounts> {
             child: Column(
               children: [
                 // 搜索框
-                LJNSearch(link: '/search', title: '搜索'),
+                LJNSearch(
+                    link: '/search',
+                    title: AppLocalizations.of(context)!.search),
 
                 // 列表
                 Expanded(

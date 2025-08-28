@@ -122,7 +122,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                             width: 8.w,
                           ),
                           Text(
-                            "搜索",
+                            AppLocalizations.of(context)!.search,
                             style: TextStyle(
                               fontSize: 22.w,
                               color: AppColors.brandBlueGreyLight,
@@ -164,7 +164,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                           children: [
                             // 听一听
                             FunctionButtonsSection(
-                              title: '听一听',
+                              title: AppLocalizations.of(context)!.listen,
                               buttons: [
                                 FunctionButton(
                                   icon: "images/miniprogram_icon/duitang.jpg",

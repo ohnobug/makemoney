@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/widgets/ljn_custom_tabbar.dart';
 
 class LJNPopupMenu extends StatefulWidget {
@@ -49,12 +50,12 @@ class _LJNPopupMenuState extends State<LJNPopupMenu> {
             child: Column(
               children: [
                 LJNPopupMenuItem(
-                  title: "发起群聊",
+                  title: AppLocalizations.of(context)!.startGroupChat,
                   icon: 0xe676,
                   onTap: () => setState(() => widget.setShowPopup!(false)),
                 ),
                 LJNPopupMenuItem(
-                  title: "添加朋友",
+                  title: AppLocalizations.of(context)!.addFriend,
                   icon: 0xe61f,
                   onTap: () {
                     setState(() => widget.setShowPopup!(false));
@@ -62,7 +63,7 @@ class _LJNPopupMenuState extends State<LJNPopupMenu> {
                   },
                 ),
                 LJNPopupMenuItem(
-                  title: "扫一扫",
+                  title: AppLocalizations.of(context)!.scan,
                   icon: 0xe69a,
                   onTap: () {
                     setState(() => widget.setShowPopup!(false));
@@ -70,7 +71,7 @@ class _LJNPopupMenuState extends State<LJNPopupMenu> {
                   },
                 ),
                 LJNPopupMenuItem(
-                  title: "收付款",
+                  title: AppLocalizations.of(context)!.payment,
                   icon: 0xe611,
                   onTap: () {
                     setState(() => widget.setShowPopup!(false));

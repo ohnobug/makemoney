@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -27,34 +28,36 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
         builder: (context, systemState) {
       return Scaffold(
         primary: false,
-        appBar: LJNAppBar(title: "应急联系人", actions: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, '/bind_new_phone_number');
-            },
-            child: Container(
-              height: 60.w,
-              constraints: BoxConstraints(minWidth: 98.w),
-              margin: EdgeInsets.only(right: 30.w),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: AppColors.brandGreenVibrant3,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(8.w),
+        appBar: LJNAppBar(
+            title: AppLocalizations.of(context)!.emergencyContacts,
+            actions: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/bind_new_phone_number');
+                },
+                child: Container(
+                  height: 60.w,
+                  constraints: BoxConstraints(minWidth: 98.w),
+                  margin: EdgeInsets.only(right: 30.w),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: AppColors.brandGreenVibrant3,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(8.w),
+                    ),
+                  ),
+                  child: Text(
+                    AppLocalizations.of(context)!.done,
+                    // textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppColors.neutralWhite,
+                      fontSize: 25.w,
+                      fontWeight: FontWeight.w100,
+                    ),
+                  ),
                 ),
-              ),
-              child: Text(
-                "完成",
-                // textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: AppColors.neutralWhite,
-                  fontSize: 25.w,
-                  fontWeight: FontWeight.w100,
-                ),
-              ),
-            ),
-          )
-        ]),
+              )
+            ]),
         body: ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
           child: SingleChildScrollView(
@@ -84,7 +87,7 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                     ),
                   ),
                   Text(
-                    "应急联系人",
+                    AppLocalizations.of(context)!.emergencyContacts,
                     style: TextStyle(
                       height: 1.08,
                       fontSize: 40.w,
@@ -100,7 +103,8 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(left: 27.w, right: 27.w),
                     child: Text(
-                      "从通讯录里选择3位以上你可以随时电话联系的朋友添加成应急联系人。",
+                      AppLocalizations.of(context)!
+                          .addEmergencyContactsGuidanceFull(3),
                       style: TextStyle(
                         color: AppColors.neutralGrey51,
                         // height: 1.08,
@@ -126,7 +130,7 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                       ),
                     ),
                     child: Text(
-                      "了解如何通过应急联系人找回账号密码",
+                      AppLocalizations.of(context)!.learnHowToRecoverPassword,
                       style: TextStyle(
                           height: 1.08,
                           color: AppColors.brandPurpleDark4,

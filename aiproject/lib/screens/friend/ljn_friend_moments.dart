@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_custom_physics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_popup_cubit.dart';
@@ -653,14 +654,18 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                                                               fontFamily:
                                                                   'Iconfont'),
                                                           size: 40.w,
-                                                          color: AppColors.neutralWhite,
+                                                          color: AppColors
+                                                              .neutralWhite,
                                                         ),
                                                         SizedBox(height: 5.w),
                                                         Text(
-                                                          "换封面",
+                                                          AppLocalizations.of(
+                                                                  context)!
+                                                              .changeCover,
                                                           style: TextStyle(
                                                             fontSize: 22.w,
-                                                            color: AppColors.neutralWhite,
+                                                            color: AppColors
+                                                                .neutralWhite,
                                                           ),
                                                         )
                                                       ],
@@ -716,7 +721,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                   padding: EdgeInsets.only(top: systemState.statusHeight),
                   child: AppBar(
                     primary: false,
-                    title: const Text("朋友圈"),
+                    title: Text(AppLocalizations.of(context)!.moments),
                     centerTitle: true,
                     titleTextStyle: TextStyle(
                       height: 1.08,
@@ -844,7 +849,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                           child: SizedBox(width: 8.w),
                         ),
                         TextSpan(
-                          text: "赞",
+                          text: AppLocalizations.of(context)!.like,
                           style: TextStyle(
                             height: 1.08,
                             fontSize: 28.w,
@@ -874,7 +879,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                             child: SizedBox(width: 8.w),
                           ),
                           TextSpan(
-                            text: "评论",
+                            text: AppLocalizations.of(context)!.comment,
                             style: TextStyle(
                               height: 1.08,
                               fontSize: 28.w,
@@ -1121,7 +1126,7 @@ class _TweetWidget extends State<TweetWidget> {
 
                           // 定位信息
                           Text(
-                            "深圳市 · 南山区腾讯总部",
+                            "Tencent Headquarters, Nanshan District, Shenzhen",
                             style: TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(26.w),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_alphabet.dart';
 import 'package:spicychat/screens/components/ljn_chatlist_item.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
@@ -22,15 +23,23 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
   void initState() {
     super.initState();
 
+    final l10n = AppLocalizations.of(context)!;
+
+    // 1. 你的 DateTime 对象，来自数据模型
+    final DateTime creationTimestamp = DateTime(2025, 5, 16, 15, 39);
+
+    // 2. 直接调用模板，只需传入 DateTime 对象
+    final String displayText = l10n.creationTimeDisplay(creationTimestamp);
+
     contactList = [
       LJNAlphabet(
-        title: '群聊',
+        title: AppLocalizations.of(context)!.groupChats,
         bgColor: AppColors.neutralGrey11,
       ),
       ChatListItem(
         friendName: "天空飘来五个字那都不是事",
         avatar: "images/avatar_webp/chat_1.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -47,7 +56,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "本因",
         avatar: "images/avatar_webp/chat_10.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -64,7 +73,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "赵洵",
         avatar: "images/avatar_webp/chat_11.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -81,7 +90,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "定静师太",
         avatar: "images/avatar_webp/chat_12.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -98,7 +107,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "李秋水",
         avatar: "images/avatar_webp/chat_13.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -115,7 +124,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "谭婆",
         avatar: "images/avatar_webp/chat_14.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -132,7 +141,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "李傀儡",
         avatar: "images/avatar_webp/chat_15.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -149,7 +158,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "貂禅",
         avatar: "images/avatar_webp/chat_16.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -166,7 +175,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "何三七",
         avatar: "images/avatar_webp/chat_17.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -183,7 +192,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "孔融",
         avatar: "images/avatar_webp/chat_18.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -200,7 +209,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "齐堂主",
         avatar: "images/avatar_webp/chat_19.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -217,7 +226,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "博尔术",
         avatar: "images/avatar_webp/chat_20.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -234,7 +243,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "王语嫣",
         avatar: "images/avatar_webp/chat_21.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -251,7 +260,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "秦红棉",
         avatar: "images/avatar_webp/chat_22.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -268,7 +277,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "天竺僧人",
         avatar: "images/avatar_webp/chat_23.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: false,
@@ -280,7 +289,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "段延庆",
         avatar: "images/avatar_webp/chat_33.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -297,7 +306,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "令狐冲",
         avatar: "images/avatar_webp/chat_34.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -314,7 +323,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "英白罗",
         avatar: "images/avatar_webp/chat_35.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -331,7 +340,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "黄药师",
         avatar: "images/avatar_webp/chat_36.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -348,7 +357,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "李煜",
         avatar: "images/avatar_webp/chat_37.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -365,7 +374,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "云中鹤",
         avatar: "images/avatar_webp/chat_38.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -382,7 +391,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "劳德诺",
         avatar: "images/avatar_webp/chat_39.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -399,7 +408,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "包惜弱",
         avatar: "images/avatar_webp/chat_40.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -416,7 +425,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "游驹",
         avatar: "images/avatar_webp/chat_41.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -433,7 +442,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "钟万仇",
         avatar: "images/avatar_webp/chat_42.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -450,7 +459,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "渔人",
         avatar: "images/avatar_webp/chat_43.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -467,7 +476,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "单叔山",
         avatar: "images/avatar_webp/chat_44.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -484,7 +493,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "段誉",
         avatar: "images/avatar_webp/chat_45.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -501,7 +510,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "林震南",
         avatar: "images/avatar_webp/chat_46.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -518,7 +527,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ChatListItem(
         friendName: "商鞅",
         avatar: "images/avatar_webp/chat_47.webp",
-        message: '创建时间: 2025年5月16日 15点39分',
+        message: displayText,
         notice: false,
         lastedTime: "",
         underline: true,
@@ -541,7 +550,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "10个群聊",
+                AppLocalizations.of(context)!.groupChatCount(4),
                 style: TextStyle(
                   height: 1.08,
                   fontSize: fontSizeScale(30.w),
@@ -566,7 +575,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
     return Scaffold(
       primary: false,
       appBar: LJNAppBar(
-        title: "群聊",
+        title: AppLocalizations.of(context)!.groupChats,
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -25,8 +26,8 @@ class _LJNAaccountAndSecure extends State<LJNMoreSecureSetting> {
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
-          appBar: const LJNAppBar(
-            title: "更多安全设置",
+          appBar: LJNAppBar(
+            title: AppLocalizations.of(context)!.moreSecuritySettings,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -43,21 +44,22 @@ class _LJNAaccountAndSecure extends State<LJNMoreSecureSetting> {
                 ),
                 child: Column(
                   children: [
-                    const LJNFunctionItem(
-                      title: "QQ号",
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!.qqId,
                       link: '/',
                       showStyle: "2281551151",
                       underline: true,
                     ),
-                    const LJNFunctionItem(
-                      title: "邮箱地址",
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!.emailAddress,
                       link: '/',
-                      showStyle: "未绑定",
+                      showStyle: AppLocalizations.of(context)!.notBound,
                       underline: false,
                     ),
                     SizedBox(height: 16.w),
-                    const LJNFunctionItem(
-                      title: "手机安全防护",
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!
+                          .mobileSecurityProtection,
                       link: '/',
                       underline: false,
                     ),

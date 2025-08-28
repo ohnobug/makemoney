@@ -45,7 +45,7 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
             ),
             SizedBox(width: 8.0.w),
             Text(
-              '已添加',
+              AppLocalizations.of(context)!.added,
               style: TextStyle(
                 height: 1.08,
                 fontSize: fontSizeScale(25.0.w),
@@ -649,7 +649,7 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "10个朋友",
+                AppLocalizations.of(context)!.friendCount(10),
                 style: TextStyle(
                   height: 1.08,
                   fontSize: fontSizeScale(30.w),

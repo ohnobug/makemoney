@@ -87,7 +87,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
       resizeToAvoidBottomInset: false,
       primary: false,
       appBar: LJNAppBar(
-        title: "从全部标签中添加",
+        title: AppLocalizations.of(context)!.addFromAllTags,
         actions: [
           GestureDetector(
             onTap: () {},
@@ -103,7 +103,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                 ),
               ),
               child: Text(
-                "保存",
+                AppLocalizations.of(context)!.save,
                 // textAlign: TextAlign.center,
                 style: TextStyle(
                   color: AppColors.neutralWhite,
@@ -358,7 +358,8 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
                                           horizontal: 5.w,
                                           // vertical: 30.w,
                                         ),
-                                        hintText: '创建或搜索标签',
+                                        hintText: AppLocalizations.of(context)!
+                                            .createOrSearchTags,
                                         hintStyle: TextStyle(
                                           fontSize: fontSizeScale(28.w),
                                           color: Colors.grey,

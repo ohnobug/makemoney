@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -43,8 +44,9 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
             return Scaffold(
               primary: false,
               resizeToAvoidBottomInset: false,
-              appBar: const LJNAppBar(
-                  title: "填写验证码", bgColor: AppColors.transparent),
+              appBar: LJNAppBar(
+                  title: AppLocalizations.of(context)!.enterVerificationCode,
+                  bgColor: AppColors.transparent),
               body: ScrollConfiguration(
                 behavior:
                     ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -79,7 +81,8 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
                                 FocusScope.of(context).unfocus();
                               },
                               decoration: InputDecoration(
-                                hintText: '你本人的手机号',
+                                hintText: AppLocalizations.of(context)!
+                                    .yourPhoneNumber,
                                 hintStyle: TextStyle(
                                   fontSize: 30.w,
                                   color: AppColors.neutralGrey61,

@@ -57,7 +57,7 @@ class _LJNChangeDetails extends State<LJNChangeDetails> {
                           children: [
                             TextSpan(
                               text: AppLocalizations.of(context)!
-                                  .yearAndMonth(2024, 12),
+                                  .yearAndMonth(DateTime(2024, 12)),
                               style: TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(30.w),

@@ -55,7 +55,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
             ),
             SizedBox(width: 8.0.w),
             Text(
-              '已添加',
+              AppLocalizations.of(context)!.added,
               style: TextStyle(
                 height: 1.08,
                 fontSize: fontSizeScale(25.0.w),

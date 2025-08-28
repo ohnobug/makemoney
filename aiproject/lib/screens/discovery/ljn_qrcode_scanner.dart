@@ -326,7 +326,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            '扫一扫',
+            AppLocalizations.of(context)!.scan,
             overflow: TextOverflow.fade,
             style: TextStyle(
                 height: 1.08,

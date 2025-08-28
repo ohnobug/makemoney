@@ -9,7 +9,159 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get app_name => 'ChatMore';
+  String get wechat => 'WeChat';
+
+  @override
+  String get wechatID => 'WeChat ID';
+
+  @override
+  String get wechatPassword => 'WeChat Password';
+
+  @override
+  String get wechatSecurityCenter => 'WeChat Security Center';
+
+  @override
+  String get changeWechatID => 'Change WeChat ID';
+
+  @override
+  String get wechatBeans => 'WeChat Beans';
+
+  @override
+  String get wechatGames => 'WeChat Games';
+
+  @override
+  String get aboutWeChat => 'About WeChat';
+
+  @override
+  String get weRun => 'WeRun';
+
+  @override
+  String get personalInfoCollectionFullDescription =>
+      '    You can review the personal information collected by WeChat. The following statistics only include information collected by iOS 8.0.17, Android 8.0.18, and later versions of WeChat. WeChat cannot fully account for information collected while you were using older versions.';
+
+  @override
+  String get privacy_setting_description =>
+      'You will not be able to see each other\'s Moments, Status, WeRun, Top Stories, or content shared from third-party app authorizations.';
+
+  @override
+  String copySuccessWithWechatId(String account) {
+    return 'Copied successfully! WeChat ID: $account';
+  }
+
+  @override
+  String get verifyIdentityWithPasswordFull =>
+      'Enter your current WeChat login password to verify your identity.';
+
+  @override
+  String get autoDownloadWeChatInstaller =>
+      'Automatically download WeChat installer';
+
+  @override
+  String get wechatIdModificationRuleFull =>
+      'Your WeChat ID is the unique identifier for your account and can only be changed once a year.';
+
+  @override
+  String get device_management_auto_extend_login_info_friendly =>
+      'After logging into WeChat, when the device is in a secure state, WeChat will automatically extend the login session to ensure timely message delivery. The last active time will be updated accordingly.';
+
+  @override
+  String get loginWithVoiceprint => 'Log in with Voiceprint';
+
+  @override
+  String wechatBeanCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# WeChat Beans',
+      one: '1 WeChat Bean',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get wechatKeyboardFeatureAskAI => 'WeChat Keyboard can now [Ask AI]';
+
+  @override
+  String get setWechatPasswordDescription =>
+      'Please set a WeChat password. You can log in with your bound account + WeChat password, for example, using your phone number + WeChat password for a faster login experience.';
+
+  @override
+  String get shortcutPermissionGuidanceFull =>
+      'If adding the shortcut fails, please go to System Settings and grant WeChat the permission to \'Create home screen shortcuts\'.';
+
+  @override
+  String wechatIdDisplay(String account) {
+    return 'WeChat ID: $account';
+  }
+
+  @override
+  String myWechatIdDisplay(String account) {
+    return 'My WeChat ID: $account';
+  }
+
+  @override
+  String get youthModeFullDescription =>
+      'To protect the healthy growth of minors, WeChat has introduced Youth Mode. Some features will be restricted in this mode. Guardians are requested to set it up proactively.';
+
+  @override
+  String get youthModeTermsOfServiceTitle =>
+      '《WeChat Youth Mode Terms of Service》';
+
+  @override
+  String get navigateToResetPasswordGuidanceFull =>
+      'You need to go to \'Settings > Account & Security > WeChat Password\' to reset your WeChat password.';
+
+  @override
+  String get douyinHotTrends => 'Douyin Hot Trends';
+
+  @override
+  String get yuanxiangSmartChoice => 'Yuanxiang Smart Choice';
+
+  @override
+  String get qqId => 'QQ ID';
+
+  @override
+  String get serviceProvidedByTenpayAndWeBank =>
+      'This service is provided by Tenpay and WeBank';
+
+  @override
+  String get weilidaiLoan => 'Weilidai Loan';
+
+  @override
+  String get licaitong => 'Licaitong';
+
+  @override
+  String get tencentCharity => 'Tencent Charity';
+
+  @override
+  String get didiRideHailing => 'DiDi';
+
+  @override
+  String get jdShopping => 'JD.com Shopping';
+
+  @override
+  String get meituanWaimai => 'Meituan Food Delivery';
+
+  @override
+  String get meituanSpecialOffers => 'Meituan Deals';
+
+  @override
+  String get pinduoduo => 'Pinduoduo';
+
+  @override
+  String get vipshop => 'Vipshop';
+
+  @override
+  String get zhuanzhuanUsedGoods => 'Zhuan Zhuan';
+
+  @override
+  String get meituanGroupBuy => 'Meituan Group Buy';
+
+  @override
+  String get qCoinTopUp => 'Q Coin Top-up';
+
+  @override
+  String get app_name => 'SpecialChat';
 
   @override
   String get tabbar_label_chat => 'Chats';
@@ -27,7 +179,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get me => 'Me';
 
   @override
-  String get displayKeyboard => 'Show Keyboard';
+  String get displayKeyboard => 'Display Keyboard';
 
   @override
   String get hideKeyboard => 'Hide Keyboard';
@@ -39,7 +191,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get switchToEmoji => 'Switch to Emoji';
 
   @override
-  String get switchToFunctions => 'Switch to Functions';
+  String get switchToFunctions => 'Switch to Function Panel';
 
   @override
   String get showEmojiPicker => 'Show Emoji Picker';
@@ -96,7 +248,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancel => 'Cancel';
 
   @override
-  String get searchHintAccountOrPhone => 'Search Account/Phone Number';
+  String get searchHintAccountOrPhone => 'Search by Account/Phone Number';
+
+  @override
+  String get accountOrPhone => 'Account/Phone Number';
 
   @override
   String get speakerOff => 'Speaker Off';
@@ -111,6 +266,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get moments => 'Moments';
 
   @override
+  String fullDateTime(DateTime timestamp) {
+    final intl.DateFormat timestampDateFormat =
+        intl.DateFormat('MMM d, y, h:mm:ss a', localeName);
+    final String timestampString = timestampDateFormat.format(timestamp);
+
+    return '$timestampString';
+  }
+
+  @override
   String get channels => 'Channels';
 
   @override
@@ -120,7 +284,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sendMessage => 'Send Message';
 
   @override
-  String get heSanqi => 'He Sanqi';
+  String get heSanqi => 'Sanqi He';
 
   @override
   String get audioVideoCall => 'Audio/Video Call';
@@ -141,22 +305,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get popup => 'Popup';
 
   @override
-  String get loadFailed => 'Failed to load';
+  String get loadFailed => 'Load failed';
 
   @override
   String get playRecording => 'Play Recording';
 
   @override
-  String get loading => 'Loading...';
+  String get loading => 'Loading';
 
   @override
-  String get addedToDesktopAttempt => 'Attempted to add to desktop';
+  String get addedToDesktopAttempt => 'Attempted to add to Home Screen';
 
   @override
-  String get createDesktopShortcut => 'Create Desktop Shortcut';
+  String get createDesktopShortcut => 'Create Home Screen Shortcut';
 
   @override
-  String get doNotRemindAgain => 'Don\'t Remind Again';
+  String get doNotRemindAgain => 'Do Not Remind Again';
 
   @override
   String get back => 'Back';
@@ -174,7 +338,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newFriends => 'New Friends';
 
   @override
-  String get chatOnlyFriends => 'Chat-only Friends';
+  String get chatOnlyFriends => 'Chat-Only Friends';
 
   @override
   String get groupChats => 'Group Chats';
@@ -231,7 +395,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get listen => 'Listen';
 
   @override
-  String get look => 'Look';
+  String get look => 'Top Stories';
 
   @override
   String get searchAction => 'Search';
@@ -300,22 +464,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forwardTo => 'Forward to';
 
   @override
-  String get fileTransferHelper => 'File Transfer Helper';
+  String get fileTransferHelper => 'File Transfer';
 
   @override
-  String get forwardToFriend => 'Forward to Friend';
+  String get forwardToFriend => 'Forward to a friend';
 
   @override
-  String get shareToMoments => 'Share to Moments';
+  String get shareToMoments => 'Share on Moments';
 
   @override
   String get addToMyMiniPrograms => 'Add to My Mini Programs';
 
   @override
-  String get addToDesktop => 'Add to Desktop';
+  String get addToDesktop => 'Add to Home Screen';
 
   @override
-  String get openOnComputer => 'Open on Computer';
+  String get openOnComputer => 'Open on computer';
 
   @override
   String get floatingWindow => 'Floating Window';
@@ -345,37 +509,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nearbyMiniPrograms => 'Nearby Mini Programs';
 
   @override
-  String get touchToLightUp => 'Touch to Light Up';
+  String get touchToLightUp => 'Touch to light up';
 
   @override
   String get myQRCode => 'My QR Code';
 
   @override
-  String get douyinHotTrends => 'Douyin Hot List';
+  String get cityHotTrends => 'City Hot Trends';
 
   @override
-  String get cityHotTrends => 'City Hot List';
+  String get liveHotTrends => 'Live Hot Trends';
 
   @override
-  String get liveHotTrends => 'Live Hot List';
+  String get groupBuyHotTrends => 'Group Buy Hot Trends';
 
   @override
-  String get groupBuyHotTrends => 'Group Buy Hot List';
+  String get brandHotTrends => 'Brand Hot Trends';
 
   @override
-  String get brandHotTrends => 'Brand Hot List';
+  String get musicHotTrends => 'Music Hot Trends';
 
   @override
-  String get musicHotTrends => 'Music Hot List';
+  String get techHotTrends => 'Tech Hot Trends';
 
   @override
-  String get techHotTrends => 'Tech Hot List';
+  String get autoHotTrends => 'Auto Hot Trends';
 
   @override
-  String get autoHotTrends => 'Auto Hot List';
-
-  @override
-  String get idiotList => 'Goofball List';
+  String get idiotList => 'Idiot List';
 
   @override
   String get richList => 'Rich List';
@@ -408,7 +569,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get guessYouWantToSearch => 'Guess you want to search';
 
   @override
-  String get changeBatch => 'Change';
+  String get changeBatch => 'Change batch';
 
   @override
   String get hotListScrollingComplete => 'Hot list scrolling complete';
@@ -426,7 +587,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get messages => 'Messages';
 
   @override
-  String get radarAddFriends => 'Radar Add Friends';
+  String get radarAddFriends => 'Friend Radar';
 
   @override
   String get addNearbyFriends => 'Add nearby friends';
@@ -436,16 +597,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get joinGroupWithNearbyFriends =>
-      'Join the same group chat with nearby friends';
+      'Join the same group chat with friends nearby';
 
   @override
-  String get scanQRCode => 'Scan QR Code Card';
+  String get scanQRCode => 'Scan QR Code Business Card';
 
   @override
   String get phoneContacts => 'Phone Contacts';
 
   @override
-  String get addOrInviteContacts => 'Add or invite friends from phone contacts';
+  String get addOrInviteContacts =>
+      'Add or invite friends from your phone contacts';
 
   @override
   String get getMoreInfoAndServices => 'Get more information and services';
@@ -457,7 +619,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setRemarkAndTags => 'Set Remark and Tags';
 
   @override
-  String get recommendToFriend => 'Recommend to a Friend';
+  String get recommendToFriend => 'Recommend to a friend';
 
   @override
   String get setAsStarFriend => 'Set as Starred Friend';
@@ -473,6 +635,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get remark => 'Remark';
+
+  @override
+  String groupChatCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '# group chats',
+      one: '1 group chat',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get remarkName => 'Remark Name';
@@ -502,7 +675,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String source_added_from_group_chat(String groupName) {
-    return 'Added via group chat \'$groupName\'';
+    return 'Added from group chat \'$groupName\'';
   }
 
   @override
@@ -510,15 +683,42 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count people',
+      other: '# people',
       one: '1 person',
-      zero: '0 people',
     );
     return '$_temp0';
   }
 
   @override
-  String get fromGroupChat => 'Via Group Chat';
+  String monthDayTimeShort(DateTime timestamp) {
+    final intl.DateFormat timestampDateFormat =
+        intl.DateFormat('M/d, HH:mm', localeName);
+    final String timestampString = timestampDateFormat.format(timestamp);
+
+    return '$timestampString';
+  }
+
+  @override
+  String monthDayTime(DateTime timestamp) {
+    final intl.DateFormat timestampDateFormat =
+        intl.DateFormat('M/d, h:mm a', localeName);
+    final String timestampString = timestampDateFormat.format(timestamp);
+
+    return '$timestampString';
+  }
+
+  @override
+  String balanceDisplay(double balance) {
+    final intl.NumberFormat balanceNumberFormat = intl.NumberFormat.currency(
+      locale: localeName,
+    );
+    final String balanceString = balanceNumberFormat.format(balance);
+
+    return 'Balance: $balanceString';
+  }
+
+  @override
+  String get fromGroupChat => 'From group chat';
 
   @override
   String get addedTime => 'Time Added';
@@ -551,6 +751,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changeCover => 'Change Cover';
 
   @override
+  String get waitingForAcceptance => 'Waiting for acceptance';
+
+  @override
   String get comment => 'Comment';
 
   @override
@@ -563,7 +766,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectFromChannels => 'Select from Channels';
 
   @override
-  String get takeOne => 'Take One';
+  String get takeOne => 'Take a Photo/Video';
 
   @override
   String get photographerWorks => 'Photographer\'s Works';
@@ -579,7 +782,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacyRestrictionFull =>
-      'The other person cannot see your Moments, Status, WeRun, etc.';
+      'They cannot see your Moments, Status, WeRun, etc.';
 
   @override
   String get featureListChatMomentsWeRun => 'Chat, Moments, WeRun, etc.';
@@ -627,7 +830,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setAliasAndTags => 'Set Alias and Tags';
 
   @override
-  String get fillIn => 'Fill in';
+  String get fillIn => 'Fill In';
 
   @override
   String get addPhoneNumber => 'Add Phone Number';
@@ -663,19 +866,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get leaveGroup => 'Leave Group';
 
   @override
-  String get wechat => 'WeChat';
-
-  @override
   String get featureIntroduction => 'Feature Introduction';
 
   @override
   String get checkNewVersion => 'Check for New Version';
 
   @override
-  String get accountAndSecurity => 'Account and Security';
-
-  @override
-  String get wechatID => 'WeChat ID';
+  String get accountAndSecurity => 'Account & Security';
 
   @override
   String get phoneNumber => 'Phone Number';
@@ -684,14 +881,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String nicknameDisplay(String nickname) {
     return 'Nickname: $nickname';
   }
-
-  @override
-  String copySuccessWithWechatId(String account) {
-    return 'Copied successfully! WeChat ID: $account';
-  }
-
-  @override
-  String get wechatPassword => 'WeChat Password';
 
   @override
   String get voiceprint => 'Voiceprint';
@@ -704,16 +893,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get phoneNumberBindingDescriptionFull =>
-      'One phone number can only be linked to one account. After changing, you can log in to this account with the new phone number. For a phone number already linked to another account, it will be unlinked from the original account after this operation.';
+      'A phone number can only be bound to one account. After changing, you can log in to this account with the new phone number. If the phone number is already bound to another account, it will be unbound from the original account after this operation.';
 
   @override
   String get moreSecuritySettings => 'More Security Settings';
-
-  @override
-  String get wechatSecurityCenter => 'WeChat Security Center';
-
-  @override
-  String get changeWechatID => 'Change WeChat ID';
 
   @override
   String get bill => 'Bill';
@@ -728,13 +911,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statistics => 'Statistics';
 
   @override
-  String get yuanxiangSmartChoice => 'Yuanxiang Smart Choice';
-
-  @override
   String get selectFilter => 'Select Filter';
 
   @override
-  String get incomeExpenseType => 'Income/Expense Type';
+  String get incomeExpenseType => 'Transaction Type';
 
   @override
   String get all => 'All';
@@ -746,7 +926,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get income => 'Income';
 
   @override
-  String get groupSplitBill => 'Group Split Bill';
+  String get groupSplitBill => 'Split Bill';
 
   @override
   String get qrCodePayment => 'QR Code Payment';
@@ -793,7 +973,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pleaseEnterPassword => 'Please enter your password';
 
   @override
-  String get forgotPasswordClicked => 'Forgot Password clicked';
+  String get forgotPasswordClicked => 'Forgot password clicked';
 
   @override
   String get forgotPassword => 'Forgot Password';
@@ -802,16 +982,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get verify => 'Verify';
 
   @override
+  String playbackSpeed(num speed) {
+    final intl.NumberFormat speedNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String speedString = speedNumberFormat.format(speed);
+
+    return '${speedString}x Speed';
+  }
+
+  @override
   String get balanceDetails => 'Balance Details';
 
   @override
   String get chat => 'Chat';
 
   @override
-  String get useEarpieceToPlayVoice => 'Use Earpiece to Play Voice Messages';
+  String get useEarpieceToPlayVoice => 'Use earpiece to play voice messages';
 
   @override
-  String get useIndependentSendButton => 'Use Independent Send Button';
+  String get useIndependentSendButton => 'Use separate send button';
 
   @override
   String get chatBackground => 'Chat Background';
@@ -847,10 +1036,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get network_option_wifi_only => 'Wi-Fi Only';
 
   @override
-  String get autoDownloadWeChatInstaller => 'Auto-download WeChat Installer';
-
-  @override
-  String get multiLanguage => 'Language';
+  String get multiLanguage => 'Multi-language';
 
   @override
   String get other => 'Other';
@@ -871,7 +1057,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accessibility => 'Accessibility';
 
   @override
-  String get permission_list_items => 'Photos, Videos, Files, and Calls';
+  String get permission_list_items => 'Photos, videos, files, and calls';
 
   @override
   String get deviceDetails => 'Device Details';
@@ -893,10 +1079,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get learnHowToRecoverPassword =>
-      'Learn how to recover account password via Emergency Contacts';
+      'Learn how to recover your account password via emergency contacts';
 
   @override
-  String get iKnow => 'I Know';
+  String addEmergencyContactsGuidanceFull(int count) {
+    return 'Select $count or more friends from your contacts whom you can contact by phone at any time to add as emergency contacts.';
+  }
+
+  @override
+  String get iKnow => 'Got It';
 
   @override
   String get requireVerificationWhenAdded =>
@@ -909,15 +1100,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recommendContactsToMe => 'Recommend contacts to me';
 
   @override
-  String get device_management_auto_extend_login_info_friendly =>
-      'After logging in to WeChat, when the device is in a secure state, WeChat will automatically extend the login time to ensure timely receipt of messages. The last active time will be updated accordingly.';
-
-  @override
   String get manageLoginDevicesDescriptionFull =>
-      'Your account has been logged in on the following devices. You can delete a device, after which security verification will be required to log in on that device.';
-
-  @override
-  String get weRun => 'WeRun';
+      'Your account has been logged in on the following devices. You can remove a device, after which security verification will be required to log in on that device again.';
 
   @override
   String get contactsBlocklist => 'Contacts Blocklist';
@@ -948,15 +1132,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get receiveNewMessageNotifications =>
-      'Receive New Message Notifications';
+      'Receive new message notifications';
 
   @override
   String get receiveVoiceVideoCallInvites =>
-      'Receive Voice and Video Call Invites';
+      'Receive voice and video call invitation alerts';
 
   @override
   String get notificationShowMessageDetails =>
-      'Notification Shows Message Details';
+      'Show message details in notifications';
 
   @override
   String get soundAndVibration => 'Sound & Vibration';
@@ -981,7 +1165,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get friendCanHearMyRingtone =>
-      'Friend can also hear my ringtone when calling me';
+      'Friends can hear my ringtone when they call me';
 
   @override
   String get personalInfoAndPermissions => 'Personal Info & Permissions';
@@ -1038,12 +1222,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get status => 'Status';
 
   @override
-  String get wechatBeans => 'WeChat Beans';
-
-  @override
-  String get wechatGames => 'WeChat Games';
-
-  @override
   String get contactInfo => 'Contact Info';
 
   @override
@@ -1054,6 +1232,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get show => 'Show';
+
+  @override
+  String get phoneBoundAndDiscoverPrompt =>
+      'Phone number is bound. Tap the button below to see which friends in your phone contacts have registered an account.';
 
   @override
   String get changePhoneNumber => 'Change Phone Number';
@@ -1098,9 +1280,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get plugins => 'Plugins';
 
   @override
-  String get aboutWeChat => 'About WeChat';
-
-  @override
   String get helpAndFeedback => 'Help & Feedback';
 
   @override
@@ -1110,16 +1289,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Log Out';
 
   @override
-  String get loginWithVoiceprint => 'Log in with Voiceprint';
-
-  @override
   String get resetAndRemove => 'Reset & Remove';
 
   @override
   String get tryToVerifyMyVoice => 'Try to verify my voice';
 
   @override
-  String get iHaveReadAndAgree => 'I have read and agree to';
+  String get iHaveReadAndAgree => 'I have read and agree';
 
   @override
   String get verifyPhoneNumber => 'Verify Phone Number';
@@ -1134,7 +1310,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get paymentCode => 'Payment Code';
 
   @override
-  String get prioritizeBalancePayment => 'Prioritize Balance for Payment';
+  String get prioritizeBalancePayment => 'Prioritize payment with Balance';
+
+  @override
+  String creationTimeDisplay(DateTime date) {
+    final intl.DateFormat dateDateFormat =
+        intl.DateFormat('MMM d, y, h:mm a', localeName);
+    final String dateString = dateDateFormat.format(date);
+
+    return 'Created: $dateString';
+  }
 
   @override
   String get priorityPaymentMethod => 'Priority Payment Method';
@@ -1158,13 +1343,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get faceToFaceRedPacket => 'Face-to-Face Red Packet';
 
   @override
-  String get transferToBankCardOrPhone => 'Transfer to Bank Card or Phone';
+  String get transferToBankCardOrPhone =>
+      'Transfer to Bank Card or Phone Number';
 
   @override
   String get myBalance => 'My Balance';
 
   @override
-  String get topUp => 'Top Up';
+  String get topUp => 'Top-up';
 
   @override
   String get withdraw => 'Withdraw';
@@ -1173,12 +1359,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountUpgradeService => 'Account Upgrade Service';
 
   @override
-  String get serviceProvidedByTenpayAndWeBank =>
-      'This service is provided by Tenpay and WeBank';
-
-  @override
   String get cta_transfer_to_balance_plus_single_line =>
-      'Transfer to Balance Plus, earn and spend >';
+      'Transfer to Balance+, earn and spend >';
 
   @override
   String get services => 'Services';
@@ -1188,12 +1370,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get financialServices => 'Financial Services';
-
-  @override
-  String get weilidaiLoan => 'Weilidai Loan';
-
-  @override
-  String get licaitong => 'Licaitong';
 
   @override
   String get insuranceService => 'Insurance Service';
@@ -1211,9 +1387,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cityServices => 'City Services';
 
   @override
-  String get tencentCharity => 'Tencent Charity';
-
-  @override
   String get healthCare => 'Health Care';
 
   @override
@@ -1221,9 +1394,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get trainAndFlightTickets => 'Train & Flight Tickets';
-
-  @override
-  String get didiRideHailing => 'Didi Ride Hailing';
 
   @override
   String get hotel => 'Hotel';
@@ -1235,25 +1405,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get brandDiscovery => 'Brand Discovery';
 
   @override
-  String get jdShopping => 'JD Shopping';
-
-  @override
-  String get meituanWaimai => 'Meituan Waimai';
-
-  @override
-  String get movieTicketsAndEntertainment => 'Movies & Entertainment';
-
-  @override
-  String get meituanSpecialOffers => 'Meituan Special Offers';
-
-  @override
-  String get pinduoduo => 'Pinduoduo';
-
-  @override
-  String get vipshop => 'Vipshop';
-
-  @override
-  String get zhuanzhuanUsedGoods => 'Zhuanzhuan Used Goods';
+  String get movieTicketsAndEntertainment => 'Movies, Tickets & Entertainment';
 
   @override
   String get serviceManagement => 'Service Management';
@@ -1262,13 +1414,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hotelAndBAndB => 'Hotel & B&B';
 
   @override
-  String get meituanGroupBuy => 'Meituan Group Buy';
-
-  @override
   String get clickStatus => 'Click Status';
 
   @override
-  String get waitingForFourFriends => 'Waiting for 4 friends';
+  String andXMoreFriends(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'and # other friends',
+      one: 'and 1 other friend',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get storeOrdersAndCardPack => 'Store Orders & Card Pack';
@@ -1304,19 +1461,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get myInvoiceTitles => 'My Invoice Titles';
 
   @override
-  String wechatBeanCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count WeChat Beans',
-      one: '1 WeChat Bean',
-      zero: '0 WeChat Beans',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get balancePlus => 'Balance Plus';
+  String get balancePlus => 'Balance+';
 
   @override
   String get bankCards => 'Bank Cards';
@@ -1337,29 +1482,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelDelayedTask => 'Cancel Delayed Task';
 
   @override
-  String get startGroupChat => 'Start Group Chat';
+  String get startGroupChat => 'Start a Group Chat';
 
   @override
   String label_yield(String value) {
-    return 'Yield Rate: $value';
+    return 'Yield: $value';
   }
 
   @override
-  String yearAndMonth(int year, int month) {
-    return '$month/$year';
+  String yearAndMonth(DateTime date) {
+    final intl.DateFormat dateDateFormat = intl.DateFormat.yMMMM(localeName);
+    final String dateString = dateDateFormat.format(date);
+
+    return '$dateString';
   }
 
   @override
   String get recommendContactsMessageFull =>
-      'After enabling, registered phone contacts will be recommended to you in \'Contacts > New Friends\'.';
+      'When enabled, phone contacts who have registered an account will be recommended to you in \'Contacts > New Friends\'.';
 
   @override
   String get sendButtonReplacedMessageFull =>
-      'When enabled, the send button on the keyboard will be replaced with a line break.';
+      'When enabled, the send button on the keyboard will be replaced with a newline button.';
 
   @override
   String get manageServicesDescription =>
-      'You can specify the services that appear in \'Services\'. If you choose to disable some services, their entries will be hidden, but no historical data will be cleared.';
+      'You can specify which services appear in \'Services\'. If you disable a service, its entry point will be hidden, but no historical data will be cleared.';
 
   @override
   String get transactionType => 'Transaction Type';
@@ -1368,11 +1516,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get transportation => 'Transportation';
 
   @override
-  String get qCoinTopUp => 'Q Coin Top-up';
-
-  @override
   String get careModeIntro =>
-      'After enabling \'Caring Mode\', the following functions can be selected:';
+      'After enabling \'Caring Mode\', you can select the following features:';
 
   @override
   String get careModeFeatureAccessibility =>
@@ -1384,29 +1529,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get careModeFeatureQuietMode =>
-      '· Quiet mode to avoid sound playback disturbance.';
-
-  @override
-  String get wechatKeyboardFeatureAskAI => 'WeChat Keyboard can now [Ask AI]';
-
-  @override
-  String get setWechatPasswordDescription =>
-      'Please set a WeChat password. You can log in with your WeChat-linked account + WeChat password, for example, using your phone number + WeChat password for a quicker login.';
+      '· Quiet mode to avoid audio playback disturbances.';
 
   @override
   String passwordValidationRule(int minLength, int maxLength) {
-    return 'Password must be a combination of $minLength-$maxLength English letters, numbers, and characters (cannot be purely numeric).';
+    return 'Password must be $minLength-$maxLength characters, combining letters, numbers, and symbols (cannot be purely numeric).';
   }
 
   @override
   String get forgotOriginalPassword => 'Forgot original password?';
 
   @override
-  String get privacyPolicySummaryTitle =>
-      '《Summary of Privacy Protection Guidelines》';
+  String get privacyPolicySummaryTitle => '《Privacy Policy Summary》';
 
   @override
-  String get privacyPolicyTitle => '《Privacy Protection Guidelines》';
+  String get privacyPolicyTitle => '《Privacy Policy》';
 
   @override
   String get releaseToCancel => 'Release to Cancel';
@@ -1419,9 +1556,8 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count tags',
+      other: '# tags',
       one: '1 tag',
-      zero: '0 tags',
     );
     return '$_temp0';
   }
@@ -1431,70 +1567,47 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count groups',
+      other: '# groups',
       one: '1 group',
-      zero: '0 groups',
     );
     return '$_temp0';
   }
-
-  @override
-  String get shortcutPermissionGuidanceFull =>
-      'If it fails to add, please go to System Settings and enable the \'Create desktop shortcut\' permission for WeChat.';
 
   @override
   String friendCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count friends',
+      other: '# friends',
       one: '1 friend',
-      zero: 'No friends',
     );
     return '$_temp0';
   }
 
   @override
-  String wechatIdDisplay(String account) {
-    return 'WeChat ID: $account';
-  }
-
-  @override
-  String get noTransactionRating => 'No transaction rating';
+  String get noTransactionRating => 'No transaction rating yet';
 
   @override
   String commentCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count comments',
-      one: '1 comment',
-      zero: 'No comments',
+      other: '# reviews',
+      one: '1 review',
     );
     return '$_temp0';
   }
 
   @override
   String featuredCommentDisplay(String comment) {
-    return 'Featured Comment: $comment';
+    return 'Featured Review: $comment';
   }
 
   @override
-  String get scanHintFull => 'Scan QR Codes, Plants, Animals, Products & more';
+  String get scanHintFull =>
+      'Identify QR codes / flowers / animals / products, etc.';
 
   @override
   String get securityGuidanceFull =>
-      'If you encounter problems such as a hacked account or being unable to log in, you can go to the Security Center';
-
-  @override
-  String get youthModeFullDescription =>
-      'To protect the healthy growth of minors, WeChat has introduced Youth Mode. In this mode, some features will be restricted. Please have a guardian set it up.';
-
-  @override
-  String get youthModeTermsOfServiceTitle =>
-      '《WeChat Youth Mode Function Terms of Use》';
-
-  @override
-  String get navigateToResetPasswordGuidanceFull =>
-      'You need to go to \'Settings > Account & Security > WeChat Password\' to reset your WeChat password.';
+      'If you encounter issues like a hacked account or inability to log in, you can go to the Security Center.';
 }

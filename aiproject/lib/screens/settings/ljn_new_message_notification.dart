@@ -29,8 +29,8 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
-          appBar: const LJNAppBar(
-            title: "新消息通知",
+          appBar: LJNAppBar(
+            title: AppLocalizations.of(context)!.newMessageNotifications,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -54,13 +54,14 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
                               .w,
                       child: Text(
-                        "通知开关",
+                        AppLocalizations.of(context)!.notificationToggle,
                         style: TextStyle(fontSize: 25.w, height: 1.08),
                       ),
                     ),
 
                     LJNFunctionItem(
-                      title: "接收新消息通知",
+                      title: AppLocalizations.of(context)!
+                          .receiveNewMessageNotifications,
                       // link: '',
                       underline: true,
                       tapEffect: false,
@@ -99,7 +100,8 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                     SizedBox(height: 16.w),
 
                     LJNFunctionItem(
-                      title: "通知显示消息详情",
+                      title: AppLocalizations.of(context)!
+                          .notificationShowMessageDetails,
                       // link: '',
                       underline: false,
                       tapEffect: false,

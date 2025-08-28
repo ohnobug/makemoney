@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:spicychat/screens/components/ljn_change_account_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -72,7 +73,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                   BlocBuilder<LJNUserCubit, LJNUserState>(
                     builder: (context, userState) {
                       return Text(
-                        "微信号：${userState.userinfoAccount}",
+                        AppLocalizations.of(context)!.wechatIdDisplay(userState.userinfoAccount!),
                         style: TextStyle(
                             fontSize: 40.w,
                             fontWeight: FontWeight.bold,
@@ -85,7 +86,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                     height: 45.w,
                   ),
                   Text(
-                    "微信号是账号的唯一凭证，一年只能修改一次。",
+                    AppLocalizations.of(context)!.wechatIdModificationRuleFull,
                     textAlign: TextAlign.center,
                     style:
                         TextStyle(fontSize: 30.w, fontFamily: "AlibabaPuHuiTi"),
@@ -99,8 +100,8 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                   // 修改微信号
                   Container(
                     padding: EdgeInsets.only(bottom: 180.w),
-                    child: const LJNChangeAccountButton(
-                      title: '修改微信号',
+                    child: LJNChangeAccountButton(
+                      title: AppLocalizations.of(context)!.changeWechatID,
                       link: "/change_account",
                     ),
                   )

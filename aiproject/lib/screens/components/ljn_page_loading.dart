@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 
 class LJNPageLoading extends StatelessWidget {
   const LJNPageLoading({super.key});
@@ -31,9 +32,9 @@ class LJNPageLoading extends StatelessWidget {
             SizedBox(
               width: 10.w,
             ),
-            const Text(
-              "正在加载...",
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.loading,
+              style: const TextStyle(
                 height: 1.08,
                 color: AppColors.neutralGrey49,
               ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:spicychat/screens/components/ljn_change_account_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,7 +57,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                       height: 110.w,
                       alignment: Alignment.bottomCenter,
                       child: Text(
-                        '安全验证',
+                        AppLocalizations.of(context)!.securityVerification,
                         style: TextStyle(
                             fontSize: 42.w,
                             // fontWeight: FontWeight.bold,
@@ -67,7 +68,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                       height: 30.w,
                     ),
                     Text(
-                      "填写当前微信登录密码，验证本人身份。",
+                      AppLocalizations.of(context)!.verifyIdentityWithPasswordFull,
                       style: TextStyle(
                           fontSize: 30.w, fontFamily: "AlibabaPuHuiTi"),
                     ),
@@ -99,7 +100,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "填写密码",
+                            AppLocalizations.of(context)!.enterPassword,
                             style: TextStyle(fontSize: 30.w, height: 1.08),
                           ),
                           SizedBox(
@@ -115,14 +116,16 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                               onTapOutside: (event) {
                                 FocusScope.of(context).unfocus();
                               },
-                              decoration: const InputDecoration(
-                                hintText: '请输入密码',
+                              decoration: InputDecoration(
+                                hintText: AppLocalizations.of(context)!
+                                    .pleaseEnterPassword,
                                 labelText: '',
                                 isDense: true,
-                                border: OutlineInputBorder(
+                                border: const OutlineInputBorder(
                                   borderSide: BorderSide.none, // 无边框
                                 ),
-                                contentPadding: EdgeInsets.all(0), // 也可调小内边距
+                                contentPadding:
+                                    const EdgeInsets.all(0), // 也可调小内边距
                               ),
                             ),
                           ),
@@ -143,7 +146,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                           Navigator.pushNamed(context, '/forgot_password');
                         },
                         child: Text(
-                          '忘记密码',
+                          AppLocalizations.of(context)!.forgotPassword,
                           style: TextStyle(
                             fontSize: 24.w,
                             color: AppColors.brandPurpleDark3,
@@ -160,8 +163,8 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                     // 验证按钮
                     Container(
                         padding: EdgeInsets.only(bottom: 180.w),
-                        child: const LJNChangeAccountButton(
-                          title: '验证',
+                        child: LJNChangeAccountButton(
+                          title: AppLocalizations.of(context)!.verify,
                           link: "",
                           readonly: true,
                         ))

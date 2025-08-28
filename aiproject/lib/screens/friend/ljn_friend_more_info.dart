@@ -114,7 +114,8 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                       margin: EdgeInsets.only(right: 40.w),
                       alignment: Alignment.centerRight,
                       child: Text(
-                        AppLocalizations.of(context)!.yearAndMonth(2023, 11),
+                        AppLocalizations.of(context)!
+                            .yearAndMonth(DateTime(2023, 12)),
                         style: TextStyle(
                           height: 1.08,
                           fontSize: fontSizeScale(32.0.w),

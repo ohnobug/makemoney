@@ -1,5 +1,80 @@
 {
   "@@locale": "zh",
+  "wechat": "微信",
+  "wechatID": "微信号",
+  "wechatPassword": "微信密码",
+  "wechatSecurityCenter": "微信安全中心",
+  "changeWechatID": "修改微信号",
+  "wechatBeans": "微信豆",
+  "wechatGames": "微信游戏",
+  "aboutWeChat": "关于微信",
+  "weRun": "微信运动",
+  "personalInfoCollectionFullDescription": "    你可以查阅微信对你的个人信息的收集情况。以下只统计i0S 8.0.17、Android 8.0.18及之后版本微信所收集的信息。你使用旧版本微信期间的信息收集情况，微信无法完整统计到。",
+  "privacy_setting_description": "你们将互相看不到对方的朋友圈、状态、微信运动、看一看以及第三方登录授权分享的内容。",
+  "copySuccessWithWechatId": "复制成功!微信号:{account}",
+  "@copySuccessWithWechatId": {
+    "description": "复制微信号成功后显示的提示信息",
+    "placeholders": {
+      "account": {
+        "type": "String",
+        "example": "wxid_12345"
+      }
+    }
+  },
+  "verifyIdentityWithPasswordFull": "填写当前微信登录密码，验证本人身份。",
+  "autoDownloadWeChatInstaller": "自动下载微信安装包",
+  "wechatIdModificationRuleFull": "微信号是账号的唯一凭证，一年只能修改一次。",
+  "device_management_auto_extend_login_info_friendly": "登录微信后，当设备处于安全状态时，微信会自动延长登录时间以保持朋友消息的及时收发，此时会更新最近活跃时间。",
+  "loginWithVoiceprint": "用声音锁登录微信",
+  "wechatBeanCount": "{count, plural, other{#个微信豆}}",
+  "@wechatBeanCount": {
+    "description": "显示微信豆的数量",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wechatKeyboardFeatureAskAI": "微信输入法可以【问AI】了",
+  "setWechatPasswordDescription": "请设置微信密码。你可以用微信绑定的账号+微信密码登录，比如使用手机号+微信密码登录微信，更快捷。",
+  "shortcutPermissionGuidanceFull": "若添加失败，请前往系统设置，为微信打开「创建桌面快捷方式」的权限。",
+  "wechatIdDisplay": "微信号: {account}",
+  "@wechatIdDisplay": {
+    "description": "显示微信号",
+    "placeholders": {
+      "account": {
+        "type": "String"
+      }
+    }
+  },
+  "myWechatIdDisplay": "我的微信号: {account}",
+  "@myWechatIdDisplay": {
+    "description": "显示我的微信号",
+    "placeholders": {
+      "account": {
+        "type": "String"
+      }
+    }
+  },
+  "youthModeFullDescription": "为呵护未成年人健康成长，微信推出青少年模式。该模式下部分功能将受限制使用，请监护人主动设置。",
+  "youthModeTermsOfServiceTitle": "《微信青少年模式功能使用条款》",
+  "navigateToResetPasswordGuidanceFull": "你需要前往「设置 > 账号与安全 > 微信密码」中重新设置微信密码。",
+  "douyinHotTrends": "抖音热榜",
+  "yuanxiangSmartChoice": "原乡智选",
+  "qqId": "QQ号",
+  "serviceProvidedByTenpayAndWeBank": "本服务由财付通和微众银行提供",
+  "weilidaiLoan": "微粒贷借钱",
+  "licaitong": "理财通",
+  "tencentCharity": "腾讯公益",
+  "didiRideHailing": "滴滴出行",
+  "jdShopping": "京东购物",
+  "meituanWaimai": "美团外卖",
+  "meituanSpecialOffers": "美团特价",
+  "pinduoduo": "拼多多",
+  "vipshop": "唯品会特卖",
+  "zhuanzhuanUsedGoods": "转转二手",
+  "meituanGroupBuy": "美团团购",
+  "qCoinTopUp": "Q币充值",
   "app_name": "特聊",
   "tabbar_label_chat": "消息",
   "tabbar_label_contacts": "通信录",
@@ -30,10 +105,22 @@
   "microphoneOn": "麦克风已开",
   "cancel": "取消",
   "searchHintAccountOrPhone": "搜索 账号/手机号",
+  "accountOrPhone": "账号/手机号",
   "speakerOff": "扬声器已关",
   "friendProfile": "朋友资料",
   "friendPermissions": "朋友权限",
   "moments": "朋友圈",
+  "fullDateTime": "{timestamp}",
+  "@fullDateTime": {
+    "description": "以年-月-日-时-分-秒的完整格式来显示一个时间点",
+    "placeholders": {
+      "timestamp": {
+        "type": "DateTime",
+        "format": "y年M月d日HH:mm:ss",
+        "isCustomDateFormat": true
+      }
+    }
+  },
   "channels": "视频号",
   "moreInfo": "更多信息",
   "sendMessage": "发信息",
@@ -114,7 +201,6 @@
   "nearbyMiniPrograms": "附近小程序",
   "touchToLightUp": "轻触照亮",
   "myQRCode": "我的二维码",
-  "douyinHotTrends": "抖音热榜",
   "cityHotTrends": "同城榜",
   "liveHotTrends": "直播榜",
   "groupBuyHotTrends": "团购榜",
@@ -155,6 +241,15 @@
   "complain": "投诉",
   "delete": "删除",
   "remark": "备注",
+  "groupChatCount": "{count, plural, other{#个群聊}}",
+  "@groupChatCount": {
+    "description": "显示群聊的数量",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "remarkName": "备注名",
   "info_name_in_phone_contacts": "对方在手机通讯录中的名字为「{contactName}」",
   "@info_name_in_phone_contacts": {
@@ -180,12 +275,45 @@
       }
     }
   },
-  "personCount": "{count, plural, other{{count}个}}",
+  "personCount": "{count, plural, other{#个}}",
   "@personCount": {
     "description": "通用的人数/个数单位",
     "placeholders": {
       "count": {
         "type": "int"
+      }
+    }
+  },
+  "monthDayTimeShort": "{timestamp}",
+  "@monthDayTimeShort": {
+    "description": "以 月-日 时:分 的紧凑格式显示时间",
+    "placeholders": {
+      "timestamp": {
+        "type": "DateTime",
+        "format": "M月d日 HH:mm",
+        "isCustomDateFormat": true
+      }
+    }
+  },
+  "monthDayTime": "{timestamp}",
+  "@monthDayTime": {
+    "description": "以 月-日 上/下午 时:分 的格式显示时间",
+    "placeholders": {
+      "timestamp": {
+        "type": "DateTime",
+        "format": "M月d日 ahh:mm",
+        "isCustomDateFormat": true
+      }
+    }
+  },
+  "balanceDisplay": "零钱余额 {balance}",
+  "@balanceDisplay": {
+    "description": "显示零钱余额及其格式化后的金额",
+    "placeholders": {
+      "balance": {
+        "type": "double",
+        "format": "currency",
+        "symbol": "¥"
       }
     }
   },
@@ -200,6 +328,7 @@
   "clearChatHistory": "清空聊天记录",
   "oneMinuteAgo": "一分钟前",
   "changeCover": "换封面",
+  "waitingForAcceptance": "等待对方接受邀请",
   "comment": "评论",
   "changeAlbumCover": "更换相册封面",
   "selectFromPhoneAlbum": "从手机相册选择",
@@ -237,11 +366,9 @@
   "myNicknameInGroup": "我在群里的昵称",
   "showGroupMemberNicknames": "显示群成员昵称",
   "leaveGroup": "退出群聊",
-  "wechat": "微信",
   "featureIntroduction": "功能介绍",
   "checkNewVersion": "检测新版本",
   "accountAndSecurity": "账号与安全",
-  "wechatID": "微信号",
   "phoneNumber": "手机号",
   "nicknameDisplay": "昵称: {nickname}",
   "@nicknameDisplay": {
@@ -253,29 +380,15 @@
       }
     }
   },
-  "copySuccessWithWechatId": "复制成功!微信号:{account}",
-  "@copySuccessWithWechatId": {
-    "description": "复制微信号成功后显示的提示信息",
-    "placeholders": {
-      "account": {
-        "type": "String",
-        "example": "wxid_12345"
-      }
-    }
-  },
-  "wechatPassword": "微信密码",
   "voiceprint": "声音锁",
   "emergencyContacts": "应急联系人",
   "loggedInDevices": "登录过的设备",
   "phoneNumberBindingDescriptionFull": "一个手机号只能绑定一个账号，更换后可使用新手机号登录此账号。对于已绑定其他账号的手机号，本次操作后将与原账号解绑。",
   "moreSecuritySettings": "更多安全设置",
-  "wechatSecurityCenter": "微信安全中心",
-  "changeWechatID": "修改微信号",
   "bill": "账单",
   "faq": "常见问题",
   "allBills": "全部账单",
   "statistics": "统计",
-  "yuanxiangSmartChoice": "原乡智选",
   "selectFilter": "选择筛选项",
   "incomeExpenseType": "收支类型",
   "all": "全部",
@@ -299,6 +412,16 @@
   "forgotPasswordClicked": "忘记密码被点击",
   "forgotPassword": "忘记密码",
   "verify": "验证",
+  "playbackSpeed": "{speed}倍速",
+  "@playbackSpeed": {
+    "description": "表示视频或音频的播放速度",
+    "placeholders": {
+      "speed": {
+        "type": "num",
+        "format": "decimalPattern"
+      }
+    }
+  },
   "balanceDetails": "零钱明细",
   "chat": "聊天",
   "useEarpieceToPlayVoice": "使用听筒播放语音消息",
@@ -314,7 +437,6 @@
   "enableLandscapeMode": "开启横屏模式",
   "action_enable_nfc": "开启NFC功能",
   "network_option_wifi_only": "仅Wi-Fi网络",
-  "autoDownloadWeChatInstaller": "自动下载微信安装包",
   "multiLanguage": "多语言",
   "other": "其他",
   "storageSpace": "存储空间",
@@ -330,13 +452,21 @@
   "lastActiveTime": "最近活跃时间",
   "deleteThisDevice": "删除该设备",
   "learnHowToRecoverPassword": "了解如何通过应急联系人找回账号密码",
+  "addEmergencyContactsGuidanceFull": "从通讯录里选择{count}位以上你可以随时电话联系的朋友添加成应急联系人。",
+  "@addEmergencyContactsGuidanceFull": {
+    "description": "引导用户添加应急联系人的说明，其中包含所需的最少人数。",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
   "iKnow": "我知道了",
   "requireVerificationWhenAdded": "加我为朋友时需要验证",
   "waysToAddMe": "添加我的方式",
   "recommendContactsToMe": "向我推荐通讯录朋友",
-  "device_management_auto_extend_login_info_friendly": "登录微信后，当设备处于安全状态时，微信会自动延长登录时间以保持朋友消息的及时收发，此时会更新最近活跃时间。",
   "manageLoginDevicesDescriptionFull": "你的账号在以下设备中登录过，你可以删除设备，删除后在该设备登录时需进行安全验证。",
-  "weRun": "微信运动",
   "contactsBlocklist": "通讯录黑名单",
   "yourPhoneNumber": "你本人的手机号",
   "currentlyLoggedInDevices": "已登录的设备",
@@ -375,12 +505,11 @@
   "imagesAndVideos": "图片与视频",
   "socialAndContentInfo": "社交与内容信息",
   "status": "状态",
-  "wechatBeans": "微信豆",
-  "wechatGames": "微信游戏",
   "contactInfo": "联系人信息",
   "viewPhoneContacts": "查看手机通讯录",
   "hide": "隐藏",
   "show": "显示",
+  "phoneBoundAndDiscoverPrompt": "已绑定手机号，轻触下方按钮可了解手机通信录中哪些朋友注册了账号。",
   "changePhoneNumber": "更换手机号",
   "setPassword": "设置密码",
   "originalPassword": "原密码",
@@ -395,11 +524,9 @@
   "privacy": "隐私",
   "thirdPartyInfoSharingList": "第三方信息共享清单",
   "plugins": "插件",
-  "aboutWeChat": "关于微信",
   "helpAndFeedback": "帮助与反馈",
   "switchAccount": "切换账号",
   "logout": "退出",
-  "loginWithVoiceprint": "用声音锁登录微信",
   "resetAndRemove": "重设与删除",
   "tryToVerifyMyVoice": "尝试验证我的声音",
   "iHaveReadAndAgree": "我已阅读并同意",
@@ -408,6 +535,17 @@
   "payment": "收付款",
   "paymentCode": "付款码",
   "prioritizeBalancePayment": "优先使用零钱付款",
+  "creationTimeDisplay": "创建时间: {date}",
+  "@creationTimeDisplay": {
+    "description": "显示创建时间及其格式化后的日期",
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "y年M月d日 HH点mm分",
+        "isCustomDateFormat": true
+      }
+    }
+  },
   "priorityPaymentMethod": "优先付款方式",
   "change": "更改",
   "balance": "零钱",
@@ -420,38 +558,34 @@
   "topUp": "充值",
   "withdraw": "提现",
   "accountUpgradeService": "账户升级服务",
-  "serviceProvidedByTenpayAndWeBank": "本服务由财付通和微众银行提供",
   "cta_transfer_to_balance_plus_single_line": "转入零钱通 , 能赚又能花 >",
   "services": "服务",
   "wallet": "钱包",
   "financialServices": "金融理财",
-  "weilidaiLoan": "微粒贷借钱",
-  "licaitong": "理财通",
   "insuranceService": "保险服务",
   "lifeServices": "生活服务",
   "mobileTopUp": "手机充值",
   "utilityPayments": "生活缴费",
   "cityServices": "城市服务",
-  "tencentCharity": "腾讯公益",
   "healthCare": "医疗健康",
   "transportServices": "出行服务",
   "trainAndFlightTickets": "火车票机票",
-  "didiRideHailing": "滴滴出行",
   "hotel": "酒店",
   "shoppingAndConsumption": "购物消费",
   "brandDiscovery": "品牌发现",
-  "jdShopping": "京东购物",
-  "meituanWaimai": "美团外卖",
   "movieTicketsAndEntertainment": "电影演出玩乐",
-  "meituanSpecialOffers": "美团特价",
-  "pinduoduo": "拼多多",
-  "vipshop": "唯品会特卖",
-  "zhuanzhuanUsedGoods": "转转二手",
   "serviceManagement": "服务管理",
   "hotelAndBAndB": "酒店民宿",
-  "meituanGroupBuy": "美团团购",
   "clickStatus": "点击状态",
-  "waitingForFourFriends": "等四个朋友",
+  "andXMoreFriends": "等{count}个朋友",
+  "@andXMoreFriends": {
+    "description": "用于列表中显示“等N个朋友”的后缀",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "storeOrdersAndCardPack": "小店订单与卡包",
   "stickers": "表情",
   "male": "男",
@@ -463,15 +597,6 @@
   "qrCodeCard": "二维码名片",
   "myAddresses": "我的地址",
   "myInvoiceTitles": "我的发票抬头",
-  "wechatBeanCount": "{count, plural, other{{count}个微信豆}}",
-  "@wechatBeanCount": {
-    "description": "显示微信豆的数量",
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "balancePlus": "零钱通",
   "bankCards": "银行卡",
   "familyCard": "亲属卡",
@@ -489,15 +614,13 @@
       }
     }
   },
-  "yearAndMonth": "{year}年{month}月",
+  "yearAndMonth": "{date}",
   "@yearAndMonth": {
     "description": "格式化年月",
     "placeholders": {
-      "year": {
-        "type": "int"
-      },
-      "month": {
-        "type": "int"
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMM"
       }
     }
   },
@@ -506,13 +629,10 @@
   "manageServicesDescription": "你可以指定出现在「服务」内的服务。若选择关闭部分服务，相应服务入口将隐藏，但不会清空任何历史数据。",
   "transactionType": "交易类型",
   "transportation": "交通出行",
-  "qCoinTopUp": "Q币充值",
   "careModeIntro": "开启「关怀模式」后，可选择以下功能",
   "careModeFeatureAccessibility": "· 文字更大，色彩更强，按钮更大;",
   "careModeFeatureReadMessages": "· 听聊天中的文字消息;",
   "careModeFeatureQuietMode": "· 安静模式，避免声音外放打扰。",
-  "wechatKeyboardFeatureAskAI": "微信输入法可以【问AI】了",
-  "setWechatPasswordDescription": "请设置微信密码。你可以用微信绑定的账号+微信密码登录，比如使用手机号+微信密码登录微信，更快捷。",
   "passwordValidationRule": "密码必须是{minLength}-{maxLength}位的英文字母、数字、字符组合(不能是纯数字)",
   "@passwordValidationRule": {
     "description": "密码格式的验证提示信息",
@@ -530,7 +650,7 @@
   "privacyPolicyTitle": "《隐私保护指引》",
   "releaseToCancel": "松开 取消",
   "holdToTalk": "按住 说话",
-  "tagCount": "{count, plural, other{{count}个标签}}",
+  "tagCount": "{count, plural, other{#个标签}}",
   "@tagCount": {
     "description": "显示标签的数量",
     "placeholders": {
@@ -539,7 +659,7 @@
       }
     }
   },
-  "groupCount": "{count, plural, other{{count}个}}",
+  "groupCount": "{count, plural, other{#个}}",
   "@groupCount": {
     "description": "显示共同群聊的数量",
     "placeholders": {
@@ -548,8 +668,7 @@
       }
     }
   },
-  "shortcutPermissionGuidanceFull": "若添加失败，请前往系统设置，为微信打开「创建桌面快捷方式」的权限。",
-  "friendCount": "{count, plural, other{{count}个朋友}}",
+  "friendCount": "{count, plural, other{#个朋友}}",
   "@friendCount": {
     "description": "显示朋友数量的文本",
     "placeholders": {
@@ -558,17 +677,8 @@
       }
     }
   },
-  "wechatIdDisplay": "微信号: {account}",
-  "@wechatIdDisplay": {
-    "description": "显示微信号",
-    "placeholders": {
-      "account": {
-        "type": "String"
-      }
-    }
-  },
   "noTransactionRating": "暂无交易评分",
-  "commentCount": "{count, plural, other{{count}条评价}}",
+  "commentCount": "{count, plural, other{#条评价}}",
   "@commentCount": {
     "description": "显示评价的数量",
     "placeholders": {
@@ -588,8 +698,5 @@
     }
   },
   "scanHintFull": "识别二维码 / 花草 / 动物 / 商品等",
-  "securityGuidanceFull": "如果你遇到账号被盗，无法登录等问题，可以前往安全中心",
-  "youthModeFullDescription": "为呵护未成年人健康成长，微信推出青少年模式。该模式下部分功能将受限制使用，请监护人主动设置。",
-  "youthModeTermsOfServiceTitle": "《微信青少年模式功能使用条款》",
-  "navigateToResetPasswordGuidanceFull": "你需要前往「设置 > 账号与安全 > 微信密码」中重新设置微信密码。"
+  "securityGuidanceFull": "如果你遇到账号被盗，无法登录等问题，可以前往安全中心"
 }

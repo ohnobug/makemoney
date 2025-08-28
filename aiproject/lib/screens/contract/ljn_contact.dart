@@ -429,7 +429,7 @@ class _LJNContactState extends State<LJNContact> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "10个朋友",
+              AppLocalizations.of(context)!.friendCount(10),
               style: TextStyle(
                 height: 1.08,
                 fontSize: fontSizeScale(30.w),

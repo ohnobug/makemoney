@@ -5,7 +5,6 @@ import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:spicychat/screens/components/ljn_change_detail_item.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
@@ -204,7 +203,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                       children: [
                         TextSpan(
                           text: AppLocalizations.of(context)!
-                              .yearAndMonth(2024, 12),
+                              .yearAndMonth(DateTime(2023, 12)),
                           style: TextStyle(
                             height: 1.08,
                             fontSize: fontSizeScale(30.w),

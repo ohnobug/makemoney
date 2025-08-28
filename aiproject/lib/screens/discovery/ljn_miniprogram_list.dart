@@ -111,7 +111,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
           appBar: LJNAppBar(
             // bgColor: AppColors.accentRedPure,
             // color: Colors.amber,
-            title: "小程序",
+            title: AppLocalizations.of(context)!.miniPrograms,
             actions: [
               GestureDetector(
                 onTap: () {},

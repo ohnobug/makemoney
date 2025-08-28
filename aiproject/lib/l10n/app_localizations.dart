@@ -6,7 +6,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
-import 'app_localizations_es.dart';
 import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
@@ -96,14 +95,265 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('es'),
     Locale('zh')
   ];
+
+  /// No description provided for @wechat.
+  ///
+  /// In en, this message translates to:
+  /// **'WeChat'**
+  String get wechat;
+
+  /// No description provided for @wechatID.
+  ///
+  /// In en, this message translates to:
+  /// **'WeChat ID'**
+  String get wechatID;
+
+  /// No description provided for @wechatPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'WeChat Password'**
+  String get wechatPassword;
+
+  /// No description provided for @wechatSecurityCenter.
+  ///
+  /// In en, this message translates to:
+  /// **'WeChat Security Center'**
+  String get wechatSecurityCenter;
+
+  /// No description provided for @changeWechatID.
+  ///
+  /// In en, this message translates to:
+  /// **'Change WeChat ID'**
+  String get changeWechatID;
+
+  /// No description provided for @wechatBeans.
+  ///
+  /// In en, this message translates to:
+  /// **'WeChat Beans'**
+  String get wechatBeans;
+
+  /// No description provided for @wechatGames.
+  ///
+  /// In en, this message translates to:
+  /// **'WeChat Games'**
+  String get wechatGames;
+
+  /// No description provided for @aboutWeChat.
+  ///
+  /// In en, this message translates to:
+  /// **'About WeChat'**
+  String get aboutWeChat;
+
+  /// No description provided for @weRun.
+  ///
+  /// In en, this message translates to:
+  /// **'WeRun'**
+  String get weRun;
+
+  /// No description provided for @personalInfoCollectionFullDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'    You can review the personal information collected by WeChat. The following statistics only include information collected by iOS 8.0.17, Android 8.0.18, and later versions of WeChat. WeChat cannot fully account for information collected while you were using older versions.'**
+  String get personalInfoCollectionFullDescription;
+
+  /// No description provided for @privacy_setting_description.
+  ///
+  /// In en, this message translates to:
+  /// **'You will not be able to see each other\'s Moments, Status, WeRun, Top Stories, or content shared from third-party app authorizations.'**
+  String get privacy_setting_description;
+
+  /// Toast message shown after successfully copying a WeChat ID
+  ///
+  /// In en, this message translates to:
+  /// **'Copied successfully! WeChat ID: {account}'**
+  String copySuccessWithWechatId(String account);
+
+  /// No description provided for @verifyIdentityWithPasswordFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your current WeChat login password to verify your identity.'**
+  String get verifyIdentityWithPasswordFull;
+
+  /// No description provided for @autoDownloadWeChatInstaller.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatically download WeChat installer'**
+  String get autoDownloadWeChatInstaller;
+
+  /// No description provided for @wechatIdModificationRuleFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Your WeChat ID is the unique identifier for your account and can only be changed once a year.'**
+  String get wechatIdModificationRuleFull;
+
+  /// No description provided for @device_management_auto_extend_login_info_friendly.
+  ///
+  /// In en, this message translates to:
+  /// **'After logging into WeChat, when the device is in a secure state, WeChat will automatically extend the login session to ensure timely message delivery. The last active time will be updated accordingly.'**
+  String get device_management_auto_extend_login_info_friendly;
+
+  /// No description provided for @loginWithVoiceprint.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in with Voiceprint'**
+  String get loginWithVoiceprint;
+
+  /// Displays the number of WeChat Beans
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 WeChat Bean} other{# WeChat Beans}}'**
+  String wechatBeanCount(int count);
+
+  /// No description provided for @wechatKeyboardFeatureAskAI.
+  ///
+  /// In en, this message translates to:
+  /// **'WeChat Keyboard can now [Ask AI]'**
+  String get wechatKeyboardFeatureAskAI;
+
+  /// No description provided for @setWechatPasswordDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Please set a WeChat password. You can log in with your bound account + WeChat password, for example, using your phone number + WeChat password for a faster login experience.'**
+  String get setWechatPasswordDescription;
+
+  /// No description provided for @shortcutPermissionGuidanceFull.
+  ///
+  /// In en, this message translates to:
+  /// **'If adding the shortcut fails, please go to System Settings and grant WeChat the permission to \'Create home screen shortcuts\'.'**
+  String get shortcutPermissionGuidanceFull;
+
+  /// Displays the WeChat ID
+  ///
+  /// In en, this message translates to:
+  /// **'WeChat ID: {account}'**
+  String wechatIdDisplay(String account);
+
+  /// Displays my WeChat ID
+  ///
+  /// In en, this message translates to:
+  /// **'My WeChat ID: {account}'**
+  String myWechatIdDisplay(String account);
+
+  /// No description provided for @youthModeFullDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'To protect the healthy growth of minors, WeChat has introduced Youth Mode. Some features will be restricted in this mode. Guardians are requested to set it up proactively.'**
+  String get youthModeFullDescription;
+
+  /// No description provided for @youthModeTermsOfServiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'《WeChat Youth Mode Terms of Service》'**
+  String get youthModeTermsOfServiceTitle;
+
+  /// No description provided for @navigateToResetPasswordGuidanceFull.
+  ///
+  /// In en, this message translates to:
+  /// **'You need to go to \'Settings > Account & Security > WeChat Password\' to reset your WeChat password.'**
+  String get navigateToResetPasswordGuidanceFull;
+
+  /// No description provided for @douyinHotTrends.
+  ///
+  /// In en, this message translates to:
+  /// **'Douyin Hot Trends'**
+  String get douyinHotTrends;
+
+  /// No description provided for @yuanxiangSmartChoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Yuanxiang Smart Choice'**
+  String get yuanxiangSmartChoice;
+
+  /// No description provided for @qqId.
+  ///
+  /// In en, this message translates to:
+  /// **'QQ ID'**
+  String get qqId;
+
+  /// No description provided for @serviceProvidedByTenpayAndWeBank.
+  ///
+  /// In en, this message translates to:
+  /// **'This service is provided by Tenpay and WeBank'**
+  String get serviceProvidedByTenpayAndWeBank;
+
+  /// No description provided for @weilidaiLoan.
+  ///
+  /// In en, this message translates to:
+  /// **'Weilidai Loan'**
+  String get weilidaiLoan;
+
+  /// No description provided for @licaitong.
+  ///
+  /// In en, this message translates to:
+  /// **'Licaitong'**
+  String get licaitong;
+
+  /// No description provided for @tencentCharity.
+  ///
+  /// In en, this message translates to:
+  /// **'Tencent Charity'**
+  String get tencentCharity;
+
+  /// No description provided for @didiRideHailing.
+  ///
+  /// In en, this message translates to:
+  /// **'DiDi'**
+  String get didiRideHailing;
+
+  /// No description provided for @jdShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'JD.com Shopping'**
+  String get jdShopping;
+
+  /// No description provided for @meituanWaimai.
+  ///
+  /// In en, this message translates to:
+  /// **'Meituan Food Delivery'**
+  String get meituanWaimai;
+
+  /// No description provided for @meituanSpecialOffers.
+  ///
+  /// In en, this message translates to:
+  /// **'Meituan Deals'**
+  String get meituanSpecialOffers;
+
+  /// No description provided for @pinduoduo.
+  ///
+  /// In en, this message translates to:
+  /// **'Pinduoduo'**
+  String get pinduoduo;
+
+  /// No description provided for @vipshop.
+  ///
+  /// In en, this message translates to:
+  /// **'Vipshop'**
+  String get vipshop;
+
+  /// No description provided for @zhuanzhuanUsedGoods.
+  ///
+  /// In en, this message translates to:
+  /// **'Zhuan Zhuan'**
+  String get zhuanzhuanUsedGoods;
+
+  /// No description provided for @meituanGroupBuy.
+  ///
+  /// In en, this message translates to:
+  /// **'Meituan Group Buy'**
+  String get meituanGroupBuy;
+
+  /// No description provided for @qCoinTopUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Q Coin Top-up'**
+  String get qCoinTopUp;
 
   /// No description provided for @app_name.
   ///
   /// In en, this message translates to:
-  /// **'ChatMore'**
+  /// **'SpecialChat'**
   String get app_name;
 
   /// No description provided for @tabbar_label_chat.
@@ -139,7 +389,7 @@ abstract class AppLocalizations {
   /// No description provided for @displayKeyboard.
   ///
   /// In en, this message translates to:
-  /// **'Show Keyboard'**
+  /// **'Display Keyboard'**
   String get displayKeyboard;
 
   /// No description provided for @hideKeyboard.
@@ -163,7 +413,7 @@ abstract class AppLocalizations {
   /// No description provided for @switchToFunctions.
   ///
   /// In en, this message translates to:
-  /// **'Switch to Functions'**
+  /// **'Switch to Function Panel'**
   String get switchToFunctions;
 
   /// No description provided for @showEmojiPicker.
@@ -277,8 +527,14 @@ abstract class AppLocalizations {
   /// No description provided for @searchHintAccountOrPhone.
   ///
   /// In en, this message translates to:
-  /// **'Search Account/Phone Number'**
+  /// **'Search by Account/Phone Number'**
   String get searchHintAccountOrPhone;
+
+  /// No description provided for @accountOrPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Account/Phone Number'**
+  String get accountOrPhone;
 
   /// No description provided for @speakerOff.
   ///
@@ -304,6 +560,12 @@ abstract class AppLocalizations {
   /// **'Moments'**
   String get moments;
 
+  /// Displays a timestamp in a full year-month-day-hour-minute-second format
+  ///
+  /// In en, this message translates to:
+  /// **'{timestamp}'**
+  String fullDateTime(DateTime timestamp);
+
   /// No description provided for @channels.
   ///
   /// In en, this message translates to:
@@ -325,7 +587,7 @@ abstract class AppLocalizations {
   /// No description provided for @heSanqi.
   ///
   /// In en, this message translates to:
-  /// **'He Sanqi'**
+  /// **'Sanqi He'**
   String get heSanqi;
 
   /// No description provided for @audioVideoCall.
@@ -367,7 +629,7 @@ abstract class AppLocalizations {
   /// No description provided for @loadFailed.
   ///
   /// In en, this message translates to:
-  /// **'Failed to load'**
+  /// **'Load failed'**
   String get loadFailed;
 
   /// No description provided for @playRecording.
@@ -379,25 +641,25 @@ abstract class AppLocalizations {
   /// No description provided for @loading.
   ///
   /// In en, this message translates to:
-  /// **'Loading...'**
+  /// **'Loading'**
   String get loading;
 
   /// No description provided for @addedToDesktopAttempt.
   ///
   /// In en, this message translates to:
-  /// **'Attempted to add to desktop'**
+  /// **'Attempted to add to Home Screen'**
   String get addedToDesktopAttempt;
 
   /// No description provided for @createDesktopShortcut.
   ///
   /// In en, this message translates to:
-  /// **'Create Desktop Shortcut'**
+  /// **'Create Home Screen Shortcut'**
   String get createDesktopShortcut;
 
   /// No description provided for @doNotRemindAgain.
   ///
   /// In en, this message translates to:
-  /// **'Don\'t Remind Again'**
+  /// **'Do Not Remind Again'**
   String get doNotRemindAgain;
 
   /// No description provided for @back.
@@ -433,7 +695,7 @@ abstract class AppLocalizations {
   /// No description provided for @chatOnlyFriends.
   ///
   /// In en, this message translates to:
-  /// **'Chat-only Friends'**
+  /// **'Chat-Only Friends'**
   String get chatOnlyFriends;
 
   /// No description provided for @groupChats.
@@ -547,7 +809,7 @@ abstract class AppLocalizations {
   /// No description provided for @look.
   ///
   /// In en, this message translates to:
-  /// **'Look'**
+  /// **'Top Stories'**
   String get look;
 
   /// No description provided for @searchAction.
@@ -685,19 +947,19 @@ abstract class AppLocalizations {
   /// No description provided for @fileTransferHelper.
   ///
   /// In en, this message translates to:
-  /// **'File Transfer Helper'**
+  /// **'File Transfer'**
   String get fileTransferHelper;
 
   /// No description provided for @forwardToFriend.
   ///
   /// In en, this message translates to:
-  /// **'Forward to Friend'**
+  /// **'Forward to a friend'**
   String get forwardToFriend;
 
   /// No description provided for @shareToMoments.
   ///
   /// In en, this message translates to:
-  /// **'Share to Moments'**
+  /// **'Share on Moments'**
   String get shareToMoments;
 
   /// No description provided for @addToMyMiniPrograms.
@@ -709,13 +971,13 @@ abstract class AppLocalizations {
   /// No description provided for @addToDesktop.
   ///
   /// In en, this message translates to:
-  /// **'Add to Desktop'**
+  /// **'Add to Home Screen'**
   String get addToDesktop;
 
   /// No description provided for @openOnComputer.
   ///
   /// In en, this message translates to:
-  /// **'Open on Computer'**
+  /// **'Open on computer'**
   String get openOnComputer;
 
   /// No description provided for @floatingWindow.
@@ -775,7 +1037,7 @@ abstract class AppLocalizations {
   /// No description provided for @touchToLightUp.
   ///
   /// In en, this message translates to:
-  /// **'Touch to Light Up'**
+  /// **'Touch to light up'**
   String get touchToLightUp;
 
   /// No description provided for @myQRCode.
@@ -784,58 +1046,52 @@ abstract class AppLocalizations {
   /// **'My QR Code'**
   String get myQRCode;
 
-  /// No description provided for @douyinHotTrends.
-  ///
-  /// In en, this message translates to:
-  /// **'Douyin Hot List'**
-  String get douyinHotTrends;
-
   /// No description provided for @cityHotTrends.
   ///
   /// In en, this message translates to:
-  /// **'City Hot List'**
+  /// **'City Hot Trends'**
   String get cityHotTrends;
 
   /// No description provided for @liveHotTrends.
   ///
   /// In en, this message translates to:
-  /// **'Live Hot List'**
+  /// **'Live Hot Trends'**
   String get liveHotTrends;
 
   /// No description provided for @groupBuyHotTrends.
   ///
   /// In en, this message translates to:
-  /// **'Group Buy Hot List'**
+  /// **'Group Buy Hot Trends'**
   String get groupBuyHotTrends;
 
   /// No description provided for @brandHotTrends.
   ///
   /// In en, this message translates to:
-  /// **'Brand Hot List'**
+  /// **'Brand Hot Trends'**
   String get brandHotTrends;
 
   /// No description provided for @musicHotTrends.
   ///
   /// In en, this message translates to:
-  /// **'Music Hot List'**
+  /// **'Music Hot Trends'**
   String get musicHotTrends;
 
   /// No description provided for @techHotTrends.
   ///
   /// In en, this message translates to:
-  /// **'Tech Hot List'**
+  /// **'Tech Hot Trends'**
   String get techHotTrends;
 
   /// No description provided for @autoHotTrends.
   ///
   /// In en, this message translates to:
-  /// **'Auto Hot List'**
+  /// **'Auto Hot Trends'**
   String get autoHotTrends;
 
   /// No description provided for @idiotList.
   ///
   /// In en, this message translates to:
-  /// **'Goofball List'**
+  /// **'Idiot List'**
   String get idiotList;
 
   /// No description provided for @richList.
@@ -901,7 +1157,7 @@ abstract class AppLocalizations {
   /// No description provided for @changeBatch.
   ///
   /// In en, this message translates to:
-  /// **'Change'**
+  /// **'Change batch'**
   String get changeBatch;
 
   /// No description provided for @hotListScrollingComplete.
@@ -937,7 +1193,7 @@ abstract class AppLocalizations {
   /// No description provided for @radarAddFriends.
   ///
   /// In en, this message translates to:
-  /// **'Radar Add Friends'**
+  /// **'Friend Radar'**
   String get radarAddFriends;
 
   /// No description provided for @addNearbyFriends.
@@ -955,13 +1211,13 @@ abstract class AppLocalizations {
   /// No description provided for @joinGroupWithNearbyFriends.
   ///
   /// In en, this message translates to:
-  /// **'Join the same group chat with nearby friends'**
+  /// **'Join the same group chat with friends nearby'**
   String get joinGroupWithNearbyFriends;
 
   /// No description provided for @scanQRCode.
   ///
   /// In en, this message translates to:
-  /// **'Scan QR Code Card'**
+  /// **'Scan QR Code Business Card'**
   String get scanQRCode;
 
   /// No description provided for @phoneContacts.
@@ -973,7 +1229,7 @@ abstract class AppLocalizations {
   /// No description provided for @addOrInviteContacts.
   ///
   /// In en, this message translates to:
-  /// **'Add or invite friends from phone contacts'**
+  /// **'Add or invite friends from your phone contacts'**
   String get addOrInviteContacts;
 
   /// No description provided for @getMoreInfoAndServices.
@@ -997,7 +1253,7 @@ abstract class AppLocalizations {
   /// No description provided for @recommendToFriend.
   ///
   /// In en, this message translates to:
-  /// **'Recommend to a Friend'**
+  /// **'Recommend to a friend'**
   String get recommendToFriend;
 
   /// No description provided for @setAsStarFriend.
@@ -1030,13 +1286,19 @@ abstract class AppLocalizations {
   /// **'Remark'**
   String get remark;
 
+  /// Displays the number of group chats
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 group chat} other{# group chats}}'**
+  String groupChatCount(int count);
+
   /// No description provided for @remarkName.
   ///
   /// In en, this message translates to:
   /// **'Remark Name'**
   String get remarkName;
 
-  /// Displays the contact's name from the phone's address book
+  /// Displays the contact's remark name from the phone book
   ///
   /// In en, this message translates to:
   /// **'Their name in your phone contacts is \'{contactName}\''**
@@ -1081,19 +1343,37 @@ abstract class AppLocalizations {
   /// Source: Added via a specific group chat
   ///
   /// In en, this message translates to:
-  /// **'Added via group chat \'{groupName}\''**
+  /// **'Added from group chat \'{groupName}\''**
   String source_added_from_group_chat(String groupName);
 
-  /// A generic unit for counting people or items
+  /// A generic unit for a number of people
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{0 people} =1{1 person} other{{count} people}}'**
+  /// **'{count, plural, one{1 person} other{# people}}'**
   String personCount(int count);
+
+  /// Displays time in a compact month-day hour:minute format
+  ///
+  /// In en, this message translates to:
+  /// **'{timestamp}'**
+  String monthDayTimeShort(DateTime timestamp);
+
+  /// Displays time in a month-day AM/PM hour:minute format
+  ///
+  /// In en, this message translates to:
+  /// **'{timestamp}'**
+  String monthDayTime(DateTime timestamp);
+
+  /// Displays the account balance with its formatted amount
+  ///
+  /// In en, this message translates to:
+  /// **'Balance: {balance}'**
+  String balanceDisplay(double balance);
 
   /// No description provided for @fromGroupChat.
   ///
   /// In en, this message translates to:
-  /// **'Via Group Chat'**
+  /// **'From group chat'**
   String get fromGroupChat;
 
   /// No description provided for @addedTime.
@@ -1156,6 +1436,12 @@ abstract class AppLocalizations {
   /// **'Change Cover'**
   String get changeCover;
 
+  /// No description provided for @waitingForAcceptance.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for acceptance'**
+  String get waitingForAcceptance;
+
   /// No description provided for @comment.
   ///
   /// In en, this message translates to:
@@ -1183,7 +1469,7 @@ abstract class AppLocalizations {
   /// No description provided for @takeOne.
   ///
   /// In en, this message translates to:
-  /// **'Take One'**
+  /// **'Take a Photo/Video'**
   String get takeOne;
 
   /// No description provided for @photographerWorks.
@@ -1213,7 +1499,7 @@ abstract class AppLocalizations {
   /// No description provided for @privacyRestrictionFull.
   ///
   /// In en, this message translates to:
-  /// **'The other person cannot see your Moments, Status, WeRun, etc.'**
+  /// **'They cannot see your Moments, Status, WeRun, etc.'**
   String get privacyRestrictionFull;
 
   /// No description provided for @featureListChatMomentsWeRun.
@@ -1309,7 +1595,7 @@ abstract class AppLocalizations {
   /// No description provided for @fillIn.
   ///
   /// In en, this message translates to:
-  /// **'Fill in'**
+  /// **'Fill In'**
   String get fillIn;
 
   /// No description provided for @addPhoneNumber.
@@ -1378,12 +1664,6 @@ abstract class AppLocalizations {
   /// **'Leave Group'**
   String get leaveGroup;
 
-  /// No description provided for @wechat.
-  ///
-  /// In en, this message translates to:
-  /// **'WeChat'**
-  String get wechat;
-
   /// No description provided for @featureIntroduction.
   ///
   /// In en, this message translates to:
@@ -1399,14 +1679,8 @@ abstract class AppLocalizations {
   /// No description provided for @accountAndSecurity.
   ///
   /// In en, this message translates to:
-  /// **'Account and Security'**
+  /// **'Account & Security'**
   String get accountAndSecurity;
-
-  /// No description provided for @wechatID.
-  ///
-  /// In en, this message translates to:
-  /// **'WeChat ID'**
-  String get wechatID;
 
   /// No description provided for @phoneNumber.
   ///
@@ -1414,23 +1688,11 @@ abstract class AppLocalizations {
   /// **'Phone Number'**
   String get phoneNumber;
 
-  /// Text for displaying the nickname with its label
+  /// Text for displaying a nickname with its label
   ///
   /// In en, this message translates to:
   /// **'Nickname: {nickname}'**
   String nicknameDisplay(String nickname);
-
-  /// Toast message shown after successfully copying a WeChat ID
-  ///
-  /// In en, this message translates to:
-  /// **'Copied successfully! WeChat ID: {account}'**
-  String copySuccessWithWechatId(String account);
-
-  /// No description provided for @wechatPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'WeChat Password'**
-  String get wechatPassword;
 
   /// No description provided for @voiceprint.
   ///
@@ -1453,7 +1715,7 @@ abstract class AppLocalizations {
   /// No description provided for @phoneNumberBindingDescriptionFull.
   ///
   /// In en, this message translates to:
-  /// **'One phone number can only be linked to one account. After changing, you can log in to this account with the new phone number. For a phone number already linked to another account, it will be unlinked from the original account after this operation.'**
+  /// **'A phone number can only be bound to one account. After changing, you can log in to this account with the new phone number. If the phone number is already bound to another account, it will be unbound from the original account after this operation.'**
   String get phoneNumberBindingDescriptionFull;
 
   /// No description provided for @moreSecuritySettings.
@@ -1461,18 +1723,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'More Security Settings'**
   String get moreSecuritySettings;
-
-  /// No description provided for @wechatSecurityCenter.
-  ///
-  /// In en, this message translates to:
-  /// **'WeChat Security Center'**
-  String get wechatSecurityCenter;
-
-  /// No description provided for @changeWechatID.
-  ///
-  /// In en, this message translates to:
-  /// **'Change WeChat ID'**
-  String get changeWechatID;
 
   /// No description provided for @bill.
   ///
@@ -1498,12 +1748,6 @@ abstract class AppLocalizations {
   /// **'Statistics'**
   String get statistics;
 
-  /// No description provided for @yuanxiangSmartChoice.
-  ///
-  /// In en, this message translates to:
-  /// **'Yuanxiang Smart Choice'**
-  String get yuanxiangSmartChoice;
-
   /// No description provided for @selectFilter.
   ///
   /// In en, this message translates to:
@@ -1513,7 +1757,7 @@ abstract class AppLocalizations {
   /// No description provided for @incomeExpenseType.
   ///
   /// In en, this message translates to:
-  /// **'Income/Expense Type'**
+  /// **'Transaction Type'**
   String get incomeExpenseType;
 
   /// No description provided for @all.
@@ -1537,7 +1781,7 @@ abstract class AppLocalizations {
   /// No description provided for @groupSplitBill.
   ///
   /// In en, this message translates to:
-  /// **'Group Split Bill'**
+  /// **'Split Bill'**
   String get groupSplitBill;
 
   /// No description provided for @qrCodePayment.
@@ -1627,7 +1871,7 @@ abstract class AppLocalizations {
   /// No description provided for @forgotPasswordClicked.
   ///
   /// In en, this message translates to:
-  /// **'Forgot Password clicked'**
+  /// **'Forgot password clicked'**
   String get forgotPasswordClicked;
 
   /// No description provided for @forgotPassword.
@@ -1641,6 +1885,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Verify'**
   String get verify;
+
+  /// Indicates the playback speed of a video or audio
+  ///
+  /// In en, this message translates to:
+  /// **'{speed}x Speed'**
+  String playbackSpeed(num speed);
 
   /// No description provided for @balanceDetails.
   ///
@@ -1657,13 +1907,13 @@ abstract class AppLocalizations {
   /// No description provided for @useEarpieceToPlayVoice.
   ///
   /// In en, this message translates to:
-  /// **'Use Earpiece to Play Voice Messages'**
+  /// **'Use earpiece to play voice messages'**
   String get useEarpieceToPlayVoice;
 
   /// No description provided for @useIndependentSendButton.
   ///
   /// In en, this message translates to:
-  /// **'Use Independent Send Button'**
+  /// **'Use separate send button'**
   String get useIndependentSendButton;
 
   /// No description provided for @chatBackground.
@@ -1732,16 +1982,10 @@ abstract class AppLocalizations {
   /// **'Wi-Fi Only'**
   String get network_option_wifi_only;
 
-  /// No description provided for @autoDownloadWeChatInstaller.
-  ///
-  /// In en, this message translates to:
-  /// **'Auto-download WeChat Installer'**
-  String get autoDownloadWeChatInstaller;
-
   /// No description provided for @multiLanguage.
   ///
   /// In en, this message translates to:
-  /// **'Language'**
+  /// **'Multi-language'**
   String get multiLanguage;
 
   /// No description provided for @other.
@@ -1783,7 +2027,7 @@ abstract class AppLocalizations {
   /// No description provided for @permission_list_items.
   ///
   /// In en, this message translates to:
-  /// **'Photos, Videos, Files, and Calls'**
+  /// **'Photos, videos, files, and calls'**
   String get permission_list_items;
 
   /// No description provided for @deviceDetails.
@@ -1825,13 +2069,19 @@ abstract class AppLocalizations {
   /// No description provided for @learnHowToRecoverPassword.
   ///
   /// In en, this message translates to:
-  /// **'Learn how to recover account password via Emergency Contacts'**
+  /// **'Learn how to recover your account password via emergency contacts'**
   String get learnHowToRecoverPassword;
+
+  /// Guidance for users to add emergency contacts, including the minimum number required.
+  ///
+  /// In en, this message translates to:
+  /// **'Select {count} or more friends from your contacts whom you can contact by phone at any time to add as emergency contacts.'**
+  String addEmergencyContactsGuidanceFull(int count);
 
   /// No description provided for @iKnow.
   ///
   /// In en, this message translates to:
-  /// **'I Know'**
+  /// **'Got It'**
   String get iKnow;
 
   /// No description provided for @requireVerificationWhenAdded.
@@ -1852,23 +2102,11 @@ abstract class AppLocalizations {
   /// **'Recommend contacts to me'**
   String get recommendContactsToMe;
 
-  /// No description provided for @device_management_auto_extend_login_info_friendly.
-  ///
-  /// In en, this message translates to:
-  /// **'After logging in to WeChat, when the device is in a secure state, WeChat will automatically extend the login time to ensure timely receipt of messages. The last active time will be updated accordingly.'**
-  String get device_management_auto_extend_login_info_friendly;
-
   /// No description provided for @manageLoginDevicesDescriptionFull.
   ///
   /// In en, this message translates to:
-  /// **'Your account has been logged in on the following devices. You can delete a device, after which security verification will be required to log in on that device.'**
+  /// **'Your account has been logged in on the following devices. You can remove a device, after which security verification will be required to log in on that device again.'**
   String get manageLoginDevicesDescriptionFull;
-
-  /// No description provided for @weRun.
-  ///
-  /// In en, this message translates to:
-  /// **'WeRun'**
-  String get weRun;
 
   /// No description provided for @contactsBlocklist.
   ///
@@ -1927,19 +2165,19 @@ abstract class AppLocalizations {
   /// No description provided for @receiveNewMessageNotifications.
   ///
   /// In en, this message translates to:
-  /// **'Receive New Message Notifications'**
+  /// **'Receive new message notifications'**
   String get receiveNewMessageNotifications;
 
   /// No description provided for @receiveVoiceVideoCallInvites.
   ///
   /// In en, this message translates to:
-  /// **'Receive Voice and Video Call Invites'**
+  /// **'Receive voice and video call invitation alerts'**
   String get receiveVoiceVideoCallInvites;
 
   /// No description provided for @notificationShowMessageDetails.
   ///
   /// In en, this message translates to:
-  /// **'Notification Shows Message Details'**
+  /// **'Show message details in notifications'**
   String get notificationShowMessageDetails;
 
   /// No description provided for @soundAndVibration.
@@ -1987,7 +2225,7 @@ abstract class AppLocalizations {
   /// No description provided for @friendCanHearMyRingtone.
   ///
   /// In en, this message translates to:
-  /// **'Friend can also hear my ringtone when calling me'**
+  /// **'Friends can hear my ringtone when they call me'**
   String get friendCanHearMyRingtone;
 
   /// No description provided for @personalInfoAndPermissions.
@@ -2098,18 +2336,6 @@ abstract class AppLocalizations {
   /// **'Status'**
   String get status;
 
-  /// No description provided for @wechatBeans.
-  ///
-  /// In en, this message translates to:
-  /// **'WeChat Beans'**
-  String get wechatBeans;
-
-  /// No description provided for @wechatGames.
-  ///
-  /// In en, this message translates to:
-  /// **'WeChat Games'**
-  String get wechatGames;
-
   /// No description provided for @contactInfo.
   ///
   /// In en, this message translates to:
@@ -2133,6 +2359,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Show'**
   String get show;
+
+  /// No description provided for @phoneBoundAndDiscoverPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number is bound. Tap the button below to see which friends in your phone contacts have registered an account.'**
+  String get phoneBoundAndDiscoverPrompt;
 
   /// No description provided for @changePhoneNumber.
   ///
@@ -2218,12 +2450,6 @@ abstract class AppLocalizations {
   /// **'Plugins'**
   String get plugins;
 
-  /// No description provided for @aboutWeChat.
-  ///
-  /// In en, this message translates to:
-  /// **'About WeChat'**
-  String get aboutWeChat;
-
   /// No description provided for @helpAndFeedback.
   ///
   /// In en, this message translates to:
@@ -2242,12 +2468,6 @@ abstract class AppLocalizations {
   /// **'Log Out'**
   String get logout;
 
-  /// No description provided for @loginWithVoiceprint.
-  ///
-  /// In en, this message translates to:
-  /// **'Log in with Voiceprint'**
-  String get loginWithVoiceprint;
-
   /// No description provided for @resetAndRemove.
   ///
   /// In en, this message translates to:
@@ -2263,7 +2483,7 @@ abstract class AppLocalizations {
   /// No description provided for @iHaveReadAndAgree.
   ///
   /// In en, this message translates to:
-  /// **'I have read and agree to'**
+  /// **'I have read and agree'**
   String get iHaveReadAndAgree;
 
   /// No description provided for @verifyPhoneNumber.
@@ -2293,8 +2513,14 @@ abstract class AppLocalizations {
   /// No description provided for @prioritizeBalancePayment.
   ///
   /// In en, this message translates to:
-  /// **'Prioritize Balance for Payment'**
+  /// **'Prioritize payment with Balance'**
   String get prioritizeBalancePayment;
+
+  /// Displays the creation time with its formatted date
+  ///
+  /// In en, this message translates to:
+  /// **'Created: {date}'**
+  String creationTimeDisplay(DateTime date);
 
   /// No description provided for @priorityPaymentMethod.
   ///
@@ -2341,7 +2567,7 @@ abstract class AppLocalizations {
   /// No description provided for @transferToBankCardOrPhone.
   ///
   /// In en, this message translates to:
-  /// **'Transfer to Bank Card or Phone'**
+  /// **'Transfer to Bank Card or Phone Number'**
   String get transferToBankCardOrPhone;
 
   /// No description provided for @myBalance.
@@ -2353,7 +2579,7 @@ abstract class AppLocalizations {
   /// No description provided for @topUp.
   ///
   /// In en, this message translates to:
-  /// **'Top Up'**
+  /// **'Top-up'**
   String get topUp;
 
   /// No description provided for @withdraw.
@@ -2368,16 +2594,10 @@ abstract class AppLocalizations {
   /// **'Account Upgrade Service'**
   String get accountUpgradeService;
 
-  /// No description provided for @serviceProvidedByTenpayAndWeBank.
-  ///
-  /// In en, this message translates to:
-  /// **'This service is provided by Tenpay and WeBank'**
-  String get serviceProvidedByTenpayAndWeBank;
-
   /// No description provided for @cta_transfer_to_balance_plus_single_line.
   ///
   /// In en, this message translates to:
-  /// **'Transfer to Balance Plus, earn and spend >'**
+  /// **'Transfer to Balance+, earn and spend >'**
   String get cta_transfer_to_balance_plus_single_line;
 
   /// No description provided for @services.
@@ -2397,18 +2617,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Financial Services'**
   String get financialServices;
-
-  /// No description provided for @weilidaiLoan.
-  ///
-  /// In en, this message translates to:
-  /// **'Weilidai Loan'**
-  String get weilidaiLoan;
-
-  /// No description provided for @licaitong.
-  ///
-  /// In en, this message translates to:
-  /// **'Licaitong'**
-  String get licaitong;
 
   /// No description provided for @insuranceService.
   ///
@@ -2440,12 +2648,6 @@ abstract class AppLocalizations {
   /// **'City Services'**
   String get cityServices;
 
-  /// No description provided for @tencentCharity.
-  ///
-  /// In en, this message translates to:
-  /// **'Tencent Charity'**
-  String get tencentCharity;
-
   /// No description provided for @healthCare.
   ///
   /// In en, this message translates to:
@@ -2463,12 +2665,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Train & Flight Tickets'**
   String get trainAndFlightTickets;
-
-  /// No description provided for @didiRideHailing.
-  ///
-  /// In en, this message translates to:
-  /// **'Didi Ride Hailing'**
-  String get didiRideHailing;
 
   /// No description provided for @hotel.
   ///
@@ -2488,47 +2684,11 @@ abstract class AppLocalizations {
   /// **'Brand Discovery'**
   String get brandDiscovery;
 
-  /// No description provided for @jdShopping.
-  ///
-  /// In en, this message translates to:
-  /// **'JD Shopping'**
-  String get jdShopping;
-
-  /// No description provided for @meituanWaimai.
-  ///
-  /// In en, this message translates to:
-  /// **'Meituan Waimai'**
-  String get meituanWaimai;
-
   /// No description provided for @movieTicketsAndEntertainment.
   ///
   /// In en, this message translates to:
-  /// **'Movies & Entertainment'**
+  /// **'Movies, Tickets & Entertainment'**
   String get movieTicketsAndEntertainment;
-
-  /// No description provided for @meituanSpecialOffers.
-  ///
-  /// In en, this message translates to:
-  /// **'Meituan Special Offers'**
-  String get meituanSpecialOffers;
-
-  /// No description provided for @pinduoduo.
-  ///
-  /// In en, this message translates to:
-  /// **'Pinduoduo'**
-  String get pinduoduo;
-
-  /// No description provided for @vipshop.
-  ///
-  /// In en, this message translates to:
-  /// **'Vipshop'**
-  String get vipshop;
-
-  /// No description provided for @zhuanzhuanUsedGoods.
-  ///
-  /// In en, this message translates to:
-  /// **'Zhuanzhuan Used Goods'**
-  String get zhuanzhuanUsedGoods;
 
   /// No description provided for @serviceManagement.
   ///
@@ -2542,23 +2702,17 @@ abstract class AppLocalizations {
   /// **'Hotel & B&B'**
   String get hotelAndBAndB;
 
-  /// No description provided for @meituanGroupBuy.
-  ///
-  /// In en, this message translates to:
-  /// **'Meituan Group Buy'**
-  String get meituanGroupBuy;
-
   /// No description provided for @clickStatus.
   ///
   /// In en, this message translates to:
   /// **'Click Status'**
   String get clickStatus;
 
-  /// No description provided for @waitingForFourFriends.
+  /// Suffix for lists showing 'and N more friends'
   ///
   /// In en, this message translates to:
-  /// **'Waiting for 4 friends'**
-  String get waitingForFourFriends;
+  /// **'{count, plural, one{and 1 other friend} other{and # other friends}}'**
+  String andXMoreFriends(int count);
 
   /// No description provided for @storeOrdersAndCardPack.
   ///
@@ -2626,16 +2780,10 @@ abstract class AppLocalizations {
   /// **'My Invoice Titles'**
   String get myInvoiceTitles;
 
-  /// Displays the number of WeChat Beans
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, =0{0 WeChat Beans} =1{1 WeChat Bean} other{{count} WeChat Beans}}'**
-  String wechatBeanCount(int count);
-
   /// No description provided for @balancePlus.
   ///
   /// In en, this message translates to:
-  /// **'Balance Plus'**
+  /// **'Balance+'**
   String get balancePlus;
 
   /// No description provided for @bankCards.
@@ -2677,37 +2825,37 @@ abstract class AppLocalizations {
   /// No description provided for @startGroupChat.
   ///
   /// In en, this message translates to:
-  /// **'Start Group Chat'**
+  /// **'Start a Group Chat'**
   String get startGroupChat;
 
-  /// Label for displaying yield rate
+  /// Label for displaying a yield rate
   ///
   /// In en, this message translates to:
-  /// **'Yield Rate: {value}'**
+  /// **'Yield: {value}'**
   String label_yield(String value);
 
   /// Formats year and month
   ///
   /// In en, this message translates to:
-  /// **'{month}/{year}'**
-  String yearAndMonth(int year, int month);
+  /// **'{date}'**
+  String yearAndMonth(DateTime date);
 
   /// No description provided for @recommendContactsMessageFull.
   ///
   /// In en, this message translates to:
-  /// **'After enabling, registered phone contacts will be recommended to you in \'Contacts > New Friends\'.'**
+  /// **'When enabled, phone contacts who have registered an account will be recommended to you in \'Contacts > New Friends\'.'**
   String get recommendContactsMessageFull;
 
   /// No description provided for @sendButtonReplacedMessageFull.
   ///
   /// In en, this message translates to:
-  /// **'When enabled, the send button on the keyboard will be replaced with a line break.'**
+  /// **'When enabled, the send button on the keyboard will be replaced with a newline button.'**
   String get sendButtonReplacedMessageFull;
 
   /// No description provided for @manageServicesDescription.
   ///
   /// In en, this message translates to:
-  /// **'You can specify the services that appear in \'Services\'. If you choose to disable some services, their entries will be hidden, but no historical data will be cleared.'**
+  /// **'You can specify which services appear in \'Services\'. If you disable a service, its entry point will be hidden, but no historical data will be cleared.'**
   String get manageServicesDescription;
 
   /// No description provided for @transactionType.
@@ -2722,16 +2870,10 @@ abstract class AppLocalizations {
   /// **'Transportation'**
   String get transportation;
 
-  /// No description provided for @qCoinTopUp.
-  ///
-  /// In en, this message translates to:
-  /// **'Q Coin Top-up'**
-  String get qCoinTopUp;
-
   /// No description provided for @careModeIntro.
   ///
   /// In en, this message translates to:
-  /// **'After enabling \'Caring Mode\', the following functions can be selected:'**
+  /// **'After enabling \'Caring Mode\', you can select the following features:'**
   String get careModeIntro;
 
   /// No description provided for @careModeFeatureAccessibility.
@@ -2749,25 +2891,13 @@ abstract class AppLocalizations {
   /// No description provided for @careModeFeatureQuietMode.
   ///
   /// In en, this message translates to:
-  /// **'· Quiet mode to avoid sound playback disturbance.'**
+  /// **'· Quiet mode to avoid audio playback disturbances.'**
   String get careModeFeatureQuietMode;
 
-  /// No description provided for @wechatKeyboardFeatureAskAI.
+  /// Validation message for the password format
   ///
   /// In en, this message translates to:
-  /// **'WeChat Keyboard can now [Ask AI]'**
-  String get wechatKeyboardFeatureAskAI;
-
-  /// No description provided for @setWechatPasswordDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Please set a WeChat password. You can log in with your WeChat-linked account + WeChat password, for example, using your phone number + WeChat password for a quicker login.'**
-  String get setWechatPasswordDescription;
-
-  /// Password format validation hint
-  ///
-  /// In en, this message translates to:
-  /// **'Password must be a combination of {minLength}-{maxLength} English letters, numbers, and characters (cannot be purely numeric).'**
+  /// **'Password must be {minLength}-{maxLength} characters, combining letters, numbers, and symbols (cannot be purely numeric).'**
   String passwordValidationRule(int minLength, int maxLength);
 
   /// No description provided for @forgotOriginalPassword.
@@ -2779,13 +2909,13 @@ abstract class AppLocalizations {
   /// No description provided for @privacyPolicySummaryTitle.
   ///
   /// In en, this message translates to:
-  /// **'《Summary of Privacy Protection Guidelines》'**
+  /// **'《Privacy Policy Summary》'**
   String get privacyPolicySummaryTitle;
 
   /// No description provided for @privacyPolicyTitle.
   ///
   /// In en, this message translates to:
-  /// **'《Privacy Protection Guidelines》'**
+  /// **'《Privacy Policy》'**
   String get privacyPolicyTitle;
 
   /// No description provided for @releaseToCancel.
@@ -2803,80 +2933,50 @@ abstract class AppLocalizations {
   /// Displays the number of tags
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{0 tags} =1{1 tag} other{{count} tags}}'**
+  /// **'{count, plural, one{1 tag} other{# tags}}'**
   String tagCount(int count);
 
   /// Displays the number of mutual groups
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{0 groups} =1{1 group} other{{count} groups}}'**
+  /// **'{count, plural, one{1 group} other{# groups}}'**
   String groupCount(int count);
 
-  /// No description provided for @shortcutPermissionGuidanceFull.
+  /// Text for displaying the number of friends
   ///
   /// In en, this message translates to:
-  /// **'If it fails to add, please go to System Settings and enable the \'Create desktop shortcut\' permission for WeChat.'**
-  String get shortcutPermissionGuidanceFull;
-
-  /// Text that displays the number of friends
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, =0{No friends} =1{1 friend} other{{count} friends}}'**
+  /// **'{count, plural, one{1 friend} other{# friends}}'**
   String friendCount(int count);
-
-  /// Displays the WeChat ID
-  ///
-  /// In en, this message translates to:
-  /// **'WeChat ID: {account}'**
-  String wechatIdDisplay(String account);
 
   /// No description provided for @noTransactionRating.
   ///
   /// In en, this message translates to:
-  /// **'No transaction rating'**
+  /// **'No transaction rating yet'**
   String get noTransactionRating;
 
-  /// Displays the number of comments
+  /// Displays the number of reviews
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{No comments} =1{1 comment} other{{count} comments}}'**
+  /// **'{count, plural, one{1 review} other{# reviews}}'**
   String commentCount(int count);
 
-  /// Displays a featured comment with its content
+  /// Displays a featured review and its content
   ///
   /// In en, this message translates to:
-  /// **'Featured Comment: {comment}'**
+  /// **'Featured Review: {comment}'**
   String featuredCommentDisplay(String comment);
 
   /// No description provided for @scanHintFull.
   ///
   /// In en, this message translates to:
-  /// **'Scan QR Codes, Plants, Animals, Products & more'**
+  /// **'Identify QR codes / flowers / animals / products, etc.'**
   String get scanHintFull;
 
   /// No description provided for @securityGuidanceFull.
   ///
   /// In en, this message translates to:
-  /// **'If you encounter problems such as a hacked account or being unable to log in, you can go to the Security Center'**
+  /// **'If you encounter issues like a hacked account or inability to log in, you can go to the Security Center.'**
   String get securityGuidanceFull;
-
-  /// No description provided for @youthModeFullDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'To protect the healthy growth of minors, WeChat has introduced Youth Mode. In this mode, some features will be restricted. Please have a guardian set it up.'**
-  String get youthModeFullDescription;
-
-  /// No description provided for @youthModeTermsOfServiceTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'《WeChat Youth Mode Function Terms of Use》'**
-  String get youthModeTermsOfServiceTitle;
-
-  /// No description provided for @navigateToResetPasswordGuidanceFull.
-  ///
-  /// In en, this message translates to:
-  /// **'You need to go to \'Settings > Account & Security > WeChat Password\' to reset your WeChat password.'**
-  String get navigateToResetPasswordGuidanceFull;
 }
 
 class _AppLocalizationsDelegate
@@ -2890,7 +2990,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'es', 'zh'].contains(locale.languageCode);
+      <String>['en', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -2901,8 +3001,6 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   switch (locale.languageCode) {
     case 'en':
       return AppLocalizationsEn();
-    case 'es':
-      return AppLocalizationsEs();
     case 'zh':
       return AppLocalizationsZh();
   }

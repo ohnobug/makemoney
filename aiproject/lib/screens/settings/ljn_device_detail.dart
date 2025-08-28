@@ -23,12 +23,14 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
 
   @override
   Widget build(BuildContext context) {
+    final DateTime theTimestamp = DateTime(2024, 11, 10, 15, 23);
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
-          appBar: const LJNAppBar(
-            title: "设备详情",
+          appBar: LJNAppBar(
+            title: AppLocalizations.of(context)!.deviceDetails,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -47,14 +49,14 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                   LJNFunctionItem(
                     // height: 150.w,
 
-                    title: "设备名称",
+                    title: AppLocalizations.of(context)!.deviceName,
                     link: '',
                     tapEffect: true,
                     underline: true,
                     showStyle: Expanded(
                       flex: 1,
                       child: Text(
-                        "当前设备",
+                        AppLocalizations.of(context)!.currentDevice,
                         textAlign: TextAlign.end,
                         style: TextStyle(
                           fontSize: 32.w,
@@ -67,7 +69,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                   LJNFunctionItem(
                     // height: 150.w,
 
-                    title: "设备类型",
+                    title: AppLocalizations.of(context)!.deviceType,
                     // link: '',
                     tapEffect: false,
                     underline: false,
@@ -101,7 +103,8 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                       child: Container(
                         margin: EdgeInsets.only(right: 30.w),
                         child: Text(
-                          "11月10日 下午15:23",
+                          AppLocalizations.of(context)!
+                              .monthDayTime(theTimestamp),
                           style: TextStyle(
                             fontSize: 32.w,
                             height: 1.08,
@@ -115,7 +118,8 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                     margin: EdgeInsets.only(
                         left: 30.w, right: 30.w, top: 22.w, bottom: 22.w),
                     child: Text(
-                      AppLocalizations.of(context)!.device_management_auto_extend_login_info_friendly,
+                      AppLocalizations.of(context)!
+                          .device_management_auto_extend_login_info_friendly,
                       style: TextStyle(
                         fontSize: 27.w,
                         color: AppColors.neutralGrey60,

@@ -31,7 +31,7 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
         padding: EdgeInsets.only(left: 24.w, right: 24.w),
         alignment: Alignment.center,
         child: Text(
-          "你们将互相看不到对方的朋友圈、状态、微信运动、看一看以及第三方登录授权分享的内容。",
+          AppLocalizations.of(context)!.privacy_setting_description,
           style: TextStyle(
             fontSize: 24.w,
             color: AppColors.neutralDarkGrey9,
@@ -410,7 +410,7 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "10个朋友",
+              AppLocalizations.of(context)!.friendCount(10),
               style: TextStyle(
                 height: 1.08,
                 fontSize: fontSizeScale(30.w),
@@ -435,8 +435,8 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
   Widget _buildPage(SystemState systemState) {
     return Scaffold(
       primary: false,
-      appBar: const LJNAppBar(
-        title: "仅聊天的朋友",
+      appBar: LJNAppBar(
+        title: AppLocalizations.of(context)!.chatOnlyFriends,
       ),
       body: Stack(
         children: [

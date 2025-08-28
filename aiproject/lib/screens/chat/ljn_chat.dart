@@ -1322,7 +1322,8 @@ class _LJNChat extends State<LJNChat>
                                               ),
                                               alignment: Alignment.center,
                                               child: Text(
-                                                "按住 说话",
+                                                AppLocalizations.of(context)!
+                                                    .holdToTalk,
                                                 style: TextStyle(
                                                   fontSize: 31.w,
                                                   height: 1.08,

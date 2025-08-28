@@ -532,10 +532,10 @@ class _LJNIns extends State<LJNIns> {
 
     Widget statusWidget = Container();
     if (isInsideX2Btn) {
-      statusWidget = Text("2倍速",
+      statusWidget = Text(AppLocalizations.of(context)!.playbackSpeed(2),
           style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite));
     } else if (isInsideX3Btn) {
-      statusWidget = Text("3倍速",
+      statusWidget = Text(AppLocalizations.of(context)!.playbackSpeed(3),
           style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite));
     } else if (isInsideLikeBtn) {
       statusWidget = Text(AppLocalizations.of(context)!.like,
@@ -639,7 +639,8 @@ class _LJNIns extends State<LJNIns> {
                                       minWidth: 70.w, // 控制图标与文字的最小宽度
                                       // minHeight: 36.w,
                                     ),
-                                    hintText: "搜索",
+                                    hintText:
+                                        AppLocalizations.of(context)!.search,
                                     hintStyle: TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize: 30.w,
