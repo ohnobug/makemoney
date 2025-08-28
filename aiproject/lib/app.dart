@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/themes.dart';
 import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_image_draggable_box.dart';
 import 'package:spicychat/screens/components/ljn_video_draggable_box.dart';
@@ -36,8 +37,21 @@ class _AppState extends State<App> {
         return BlocBuilder<LJNSystemCubit, SystemState>(
             builder: (context, systemState) {
           return PiPMaterialApp(
+            // 1. 设置浅色主题
+            // 将您定义好的 lightTheme 赋值给 theme 属性
+            theme: lightTheme,
+
+            // 2. 设置深色主题
+            // 将您定义好的 darkTheme 赋值给 darkTheme 属性
+            darkTheme: darkTheme,
+
+            // 3. 设置主题模式
+            // ThemeMode.system 会根据用户手机的系统设置自动切换浅色或深色模式
+            // 您也可以设置为 ThemeMode.light 或 ThemeMode.dark 来强制使用特定主题
+            themeMode: systemState.themeMode,
+
             // navigatorKey 仍然使用 read，因为它通常是初始化后不变的
-            navigatorKey: context.read<LJNSystemCubit>().state.navigatorKey,
+            navigatorKey: systemState.navigatorKey,
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
             localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -87,10 +101,7 @@ class _AppState extends State<App> {
                 },
               );
             },
-            // 使用优化后的路由管理器
             onGenerateRoute: AppRouter.onGenerateRoute,
-            // 使用 watch 来响应 LJNSystemCubit 中 themeData 的变化
-            theme: context.watch<LJNSystemCubit>().state.themeData,
             scrollBehavior: const MaterialScrollBehavior().copyWith(
               dragDevices: {
                 PointerDeviceKind.mouse,

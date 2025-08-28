@@ -22,13 +22,14 @@ class AppColors {
   static const Color brandGreenVibrantDeep1 = Color(0xFFBF360C); // 深活力橙 1
   static const Color brandGreenVibrantDeep2 = Color(0xFFD84315); // 深活力橙 2
   static const Color brandGreenPrimary = Color(0xFFF57C00); // 品牌主橙色 (取自果皮)
-  static const Color brandGreenSlightlyDesaturated = Color(0xFFE57A27); // 略微去饱和的橙
+  static const Color brandGreenSlightlyDesaturated =
+      Color(0xFFE57A27); // 略微去饱和的橙
   static const Color brandGreenDarker1 = Color(0xFFE65100); // 较深的橙色 1
   static const Color brandGreenDarker2 = Color(0xFFD84315); // 较深的橙色 2
   static const Color brandGreenDarker3 = Color(0xFFBF360C); // 较深的橙色 3
   static const Color brandGreenDarker4 = Color(0xFFA9310A); // 较深的橙色 4
   static const Color brandGreenDarkest = Color(0xFF8C2807); // 最深的橙色 (用于阴影)
-  
+
   // ===========================================================================
   // 品牌色 (蓝/灰色系 - 作为辅助色)
   // Brand Colors (Blues & Grays - As Accent)
@@ -68,7 +69,8 @@ class AppColors {
   // Functional/Accent Colors (Reds, Oranges, Yellows)
   // ===========================================================================
 
-  static const Color accentRedPure = Color.fromARGB(255, 255, 0, 0); // 纯红保留，用于特殊场景
+  static const Color accentRedPure =
+      Color.fromARGB(255, 255, 0, 0); // 纯红保留，用于特殊场景
   static const Color accentRedVibrant1 = Color(0xFFEF5350); // 活力的红色 (警示)
   static const Color accentRedVibrant2 = Color(0xFFE53935); // (近似1)
   static const Color accentRedDark1 = Color(0xFFD32F2F); // 深红色 1
@@ -216,7 +218,7 @@ class AppColors {
   // -- 透明白色 --
   static const Color whiteTransparent93 = Color.fromARGB(237, 255, 255, 255);
   static const Color whiteTransparent63 = Color.fromARGB(160, 255, 255, 255);
-  
+
   // -- 透明灰色 --
   static const Color greyTransparent59 = Color.fromARGB(150, 240, 240, 240);
   static const Color greyTransparent33 = Color.fromARGB(83, 238, 238, 238);
@@ -237,11 +239,187 @@ class AppColors {
   // -- 透明彩色 --
   static const Color redTransparent76 = Color.fromARGB(193, 239, 83, 80);
   static const Color redTransparent72 = Color.fromARGB(183, 211, 47, 47);
-  static const Color greenTransparent70 = Color.fromARGB(179, 245, 124, 0); // (现在是透明橙色)
-  static const Color navyBlueTransparent76 = Color.fromARGB(193, 38, 50, 56); // (透明灰蓝)
-  static const Color navyBlueTransparent64 = Color.fromARGB(164, 26, 35, 39); // (更深的透明灰蓝)
+  static const Color greenTransparent70 =
+      Color.fromARGB(179, 245, 124, 0); // (现在是透明橙色)
+  static const Color navyBlueTransparent76 =
+      Color.fromARGB(193, 38, 50, 56); // (透明灰蓝)
+  static const Color navyBlueTransparent64 =
+      Color.fromARGB(164, 26, 35, 39); // (更深的透明灰蓝)
 
   // -- 完全透明 --
   static const Color transparent = Color.fromARGB(0, 0, 0, 0);
-  static const Color transparentRed = Color.fromARGB(0, 255, 0, 0); // 与 transparent 效果相同
+  static const Color transparentRed =
+      Color.fromARGB(0, 255, 0, 0); // 与 transparent 效果相同
 }
+
+// -----------------------------------------------------------------------------
+//                          LIGHT THEME (活力鲜橙 - 日间模式)
+// -----------------------------------------------------------------------------
+ThemeData lightTheme = ThemeData(
+  useMaterial3: true,
+  brightness: Brightness.light, // 明确指定为浅色主题
+  fontFamily: "AlibabaPuHuiTi",
+  fontFamilyFallback: const ['Noto Sans SC'],
+
+  // 核心颜色方案 (ColorScheme)
+  colorScheme: const ColorScheme.light(
+    // -- 品牌色 --
+    primary: AppColors.brandGreenVibrant5, // 主品牌色 (主色调橙)，用于按钮、FAB、活动状态等
+    onPrimary: AppColors.neutralWhite, // 在主品牌色之上的文本/图标颜色 (白色)
+
+    primaryContainer: AppColors.brandGreenLightest, // 主色的浅色容器背景，如高亮区域
+    onPrimaryContainer: AppColors.brandGreenDarkest, // 在上述容器之上的文本颜色
+
+    secondary: AppColors.brandBluePrimary, // 辅助品牌色 (灰蓝色)，用于次要按钮、筛选器等
+    onSecondary: AppColors.neutralWhite, // 在辅助品牌色之上的文本/图标颜色
+
+    secondaryContainer: AppColors.brandBlueDark4,
+    onSecondaryContainer: AppColors.neutralGrey15,
+
+    surface: AppColors.neutralWhite, // 卡片、对话框、底部菜单的背景色 (白色)
+    onSurface: AppColors.neutralNearBlack1, // 表面之上的主要文本颜色
+
+    // -- 功能色 --
+    error: AppColors.accentRedDark1, // 错误状态颜色 (深红色)
+    onError: AppColors.neutralWhite, // 错误颜色之上的文本/图标颜色
+  ),
+
+  // --- 特定组件的主题微调 ---
+
+  // AppBar 主题
+  appBarTheme: const AppBarTheme(
+    backgroundColor: AppColors.neutralWhite, // AppBar 背景色
+    foregroundColor: AppColors.neutralNearBlack1, // AppBar 标题和图标颜色
+    elevation: 0.5, // 添加轻微的阴影以示区分
+    iconTheme: IconThemeData(color: AppColors.neutralNearBlack1),
+    titleTextStyle: TextStyle(
+      fontFamily: "AlibabaPuHuiTi",
+      color: AppColors.neutralNearBlack1,
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
+
+  // TabBar 主题
+  tabBarTheme: const TabBarThemeData(
+    labelColor: AppColors.brandGreenVibrant5, // 选中的标签颜色
+    unselectedLabelColor: AppColors.neutralGrey62, // 未选中的标签颜色
+    indicatorColor: AppColors.brandGreenVibrant5, // 指示器颜色
+    labelStyle: TextStyle(
+        height: 1.08,
+        fontFamily: "AlibabaPuHuiTi",
+        fontWeight: FontWeight.bold),
+  ),
+
+  // 悬浮按钮主题
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: AppColors.brandGreenVibrant5, // FAB 背景色
+    foregroundColor: AppColors.neutralWhite, // FAB 图标颜色
+  ),
+
+  // 普通按钮主题
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: AppColors.brandGreenVibrant5, // 按钮背景色
+      foregroundColor: AppColors.neutralWhite, // 按钮文字颜色
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+    ),
+  ),
+
+  // 卡片主题
+  cardTheme: CardThemeData(
+    elevation: 1,
+    color: AppColors.neutralWhite,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+  ),
+);
+
+// -----------------------------------------------------------------------------
+//                           DARK THEME (活力鲜橙 - 夜间模式)
+// -----------------------------------------------------------------------------
+ThemeData darkTheme = ThemeData(
+  useMaterial3: true,
+  brightness: Brightness.dark, // 明确指定为深色主题
+  fontFamily: "AlibabaPuHuiTi",
+  fontFamilyFallback: const ['Noto Sans SC'],
+
+  // 核心颜色方案 (ColorScheme)
+  colorScheme: const ColorScheme.dark(
+    // -- 品牌色 --
+    primary: AppColors.brandGreenVibrant4, // 主品牌色 (选择一个在深色背景上更柔和的橙色)
+    onPrimary: AppColors.neutralNearBlack1, // 在主品牌色之上的文本/图标颜色
+
+    primaryContainer: AppColors.brandGreenDarker3,
+    onPrimaryContainer: AppColors.brandGreenLighter,
+
+    secondary: AppColors.brandBlueGreyLight, // 辅助品牌色 (选择一个更亮的灰蓝色以保证对比度)
+    onSecondary: AppColors.neutralNearBlack3, // 在辅助品牌色之上的文本/图标颜色
+
+    secondaryContainer: AppColors.brandBlueDark1,
+    onSecondaryContainer: AppColors.neutralGrey10,
+
+    surface: AppColors.neutralNearBlack2, // 卡片、对话框等的背景色 (比背景略浅)
+    onSurface: AppColors.neutralGrey5, // 表面之上的主要文本颜色
+
+    // -- 功能色 --
+    error: AppColors.accentRedVibrant1, // 错误状态颜色 (选择一个更亮的红色以保证可见性)
+    onError: AppColors.neutralBlack, // 错误颜色之上的文本/图标颜色
+  ),
+
+  // --- 特定组件的主题微调 ---
+
+  // AppBar 主题
+  appBarTheme: const AppBarTheme(
+    backgroundColor: AppColors.neutralNearBlack2, // AppBar 背景色 (与表面一致)
+    foregroundColor: AppColors.neutralGrey5, // AppBar 标题和图标颜色
+    elevation: 0,
+    iconTheme: IconThemeData(color: AppColors.neutralGrey5),
+    titleTextStyle: TextStyle(
+      fontFamily: "AlibabaPuHuiTi",
+      color: AppColors.neutralGrey5,
+      fontSize: 20.0,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
+
+  // TabBar 主题
+  tabBarTheme: const TabBarThemeData(
+    labelColor: AppColors.brandGreenVibrant4,
+    unselectedLabelColor: AppColors.neutralGrey68,
+    indicatorColor: AppColors.brandGreenVibrant4,
+    labelStyle: TextStyle(
+        height: 1.08,
+        fontFamily: "AlibabaPuHuiTi",
+        fontWeight: FontWeight.bold),
+  ),
+
+  // 悬浮按钮主题
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: AppColors.brandGreenVibrant4,
+    foregroundColor: AppColors.neutralNearBlack1,
+  ),
+
+  // 普通按钮主题
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: AppColors.brandGreenVibrant4,
+      foregroundColor: AppColors.neutralNearBlack1,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+    ),
+  ),
+
+  // 卡片主题
+  cardTheme: CardThemeData(
+    elevation: 1,
+    color: AppColors.neutralNearBlack2, // 卡片颜色与表面一致
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+  ),
+);

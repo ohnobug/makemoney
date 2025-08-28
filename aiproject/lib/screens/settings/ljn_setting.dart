@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/colors.dart';
+import 'package:spicychat/themes.dart';
 import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -69,9 +69,16 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     ),
                     SizedBox(height: 16.w),
 
+                    // 语言设置
                     LJNFunctionItem(
                       title: AppLocalizations.of(context)!.languageSetting,
                       link: '/language_setting',
+                      underline: true,
+                    ),
+                    // 主题设置
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!.themeSetting,
+                      link: '/theme_setting',
                       underline: false,
                     ),
 

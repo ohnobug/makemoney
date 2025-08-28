@@ -51,6 +51,7 @@ import 'package:spicychat/screens/settings/ljn_phone_number.dart';
 import 'package:spicychat/screens/settings/ljn_set_password.dart';
 import 'package:spicychat/screens/settings/ljn_setting.dart';
 import 'package:spicychat/screens/settings/ljn_sound_lock.dart';
+import 'package:spicychat/screens/settings/ljn_theme_setting.dart';
 import 'package:spicychat/screens/settings/ljn_youth_mode.dart';
 import 'package:spicychat/screens/settings/ljn_verify_phone.dart';
 import 'package:spicychat/test.dart';
@@ -221,6 +222,8 @@ class AppRouter {
         return _pageRouteBuilderAnimation(const LJNFriendMomentsCoverSetting());
       case '/language_setting':
         return _pageRouteBuilderAnimation(const LJNLanguageSetting());
+      case '/theme_setting':
+        return _pageRouteBuilderAnimation(const LJNThemeSetting());
 
       default:
         // 可以返回一个统一的404页面

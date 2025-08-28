@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/chat/widgets/ljn_dial_floating_widget.dart';
 import 'package:spicychat/screens/chat/widgets/ljn_dot_loading_text.dart';
-import 'package:spicychat/colors.dart';
+import 'package:spicychat/themes.dart';
 import 'package:video_player/video_player.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';

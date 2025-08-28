@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/colors.dart';
+import 'package:spicychat/themes.dart';
 
 class LJNSwitch extends StatefulWidget {
   final bool initialValue; // 初始开关状态

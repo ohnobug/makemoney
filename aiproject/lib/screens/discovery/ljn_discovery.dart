@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/colors.dart';
+import 'package:spicychat/themes.dart';
 import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_page_loading.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';

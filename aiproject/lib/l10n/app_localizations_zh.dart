@@ -1409,6 +1409,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get searchHistory => '搜索历史';
 
   @override
+  String get themeSetting => '主题';
+
+  @override
   String get male => '男';
 
   @override

@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:spicychat/colors.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
 
 // 系统的 Cubit
@@ -67,23 +66,22 @@ class LJNSystemCubit extends Cubit<SystemState> {
     );
   }
 
-  void updatethemeData(ThemeData themeData) {
+  // [修复 1] 方法名和参数类型已更正，以匹配状态
+  void updateThemeMode(ThemeMode themeMode) {
     emit(
-      state.copyWith(themeData: themeData),
+      state.copyWith(themeMode: themeMode),
     );
   }
 
-  // 更新 navigatorKey
+  // [修复 2] 此方法现在使用 copyWith，以防止丢失其他状态
   void updateNavigatorKey(GlobalKey<NavigatorState> key) {
     emit(
-      SystemState(navigatorKey: key),
+      state.copyWith(navigatorKey: key),
     );
   }
 
-  // 更新各种状态的方法
   void updateLanguage(String language) {
-    logger.info("ttttttttttttttttttttttttt $language");
-
+    logger.info("Updating language to: $language");
     emit(
       state.copyWith(currentLocale: Locale(language)),
     );
@@ -102,10 +100,10 @@ class SystemState {
   final Size screenSize;
   final double statusHeight;
   final bool showMiniProgramDrawer;
-  final ThemeData themeData;
+  final ThemeMode themeMode; // 状态中应存储 ThemeMode
   final Locale currentLocale;
 
-  // 构造函数
+  // [修复 3] 构造函数语法已更正
   SystemState({
     this.homescrollpixels = 0,
     this.contactazshow = false,
@@ -117,24 +115,25 @@ class SystemState {
     this.statusHeight = 0,
     this.showMiniProgramDrawer = false,
     this.currentLocale = const Locale('en'),
-    ThemeData? themeData,
+    this.themeMode = ThemeMode.system, // 正确的参数和默认值
     required this.navigatorKey,
-  }) : themeData = themeData ?? lightTheme;
+  });
 
-  // 拷贝构造函数
-  SystemState copyWith(
-      {double? homescrollpixels,
-      bool? contactazshow,
-      bool? mainpage1isload,
-      bool? mainpage2isload,
-      bool? mainpage3isload,
-      bool? mainpage4isload,
-      Size? screenSize,
-      double? statusHeight,
-      bool? showMiniProgramDrawer,
-      ThemeData? themeData,
-      Locale? currentLocale,
-      GlobalKey<NavigatorState>? navigatorKey}) {
+  // [修复 4] copyWith 方法中的逻辑和命名已更正
+  SystemState copyWith({
+    double? homescrollpixels,
+    bool? contactazshow,
+    bool? mainpage1isload,
+    bool? mainpage2isload,
+    bool? mainpage3isload,
+    bool? mainpage4isload,
+    Size? screenSize,
+    double? statusHeight,
+    bool? showMiniProgramDrawer,
+    ThemeMode? themeMode, // 参数名与类型匹配
+    Locale? currentLocale,
+    GlobalKey<NavigatorState>? navigatorKey,
+  }) {
     return SystemState(
       homescrollpixels: homescrollpixels ?? this.homescrollpixels,
       contactazshow: contactazshow ?? this.contactazshow,
@@ -146,46 +145,9 @@ class SystemState {
       statusHeight: statusHeight ?? this.statusHeight,
       showMiniProgramDrawer:
           showMiniProgramDrawer ?? this.showMiniProgramDrawer,
-      themeData: themeData ?? this.themeData,
+      themeMode: themeMode ?? this.themeMode,
       navigatorKey: navigatorKey ?? this.navigatorKey,
       currentLocale: currentLocale ?? this.currentLocale,
     );
   }
 }
-
-// 主题数据（可以根据需要调整）
-ThemeData lightTheme = ThemeData(
-  useMaterial3: true,
-  appBarTheme: const AppBarTheme(
-    iconTheme: IconThemeData(color: AppColors.neutralBlack),
-  ),
-  colorScheme: const ColorScheme.light(
-    primaryContainer: AppColors.neutralWhite,
-    primary: AppColors.neutralBlack,
-    secondary: Colors.grey,
-  ),
-  tabBarTheme: const TabBarThemeData(
-    labelStyle: TextStyle(height: 1.08, fontFamily: "AlibabaPuHuiTi"),
-  ),
-  primaryColor: AppColors.neutralBlack,
-  fontFamily: "AlibabaPuHuiTi",
-  fontFamilyFallback: const ['Noto Sans SC'],
-);
-
-ThemeData darkTheme = ThemeData(
-  useMaterial3: true,
-  appBarTheme: const AppBarTheme(
-    iconTheme: IconThemeData(color: AppColors.neutralBlack),
-  ),
-  colorScheme: const ColorScheme.dark(
-    primaryContainer: AppColors.neutralBlack,
-    primary: AppColors.neutralWhite,
-    secondary: Colors.grey,
-  ),
-  tabBarTheme: const TabBarThemeData(
-    labelStyle: TextStyle(height: 1.08, fontFamily: "AlibabaPuHuiTi"),
-  ),
-  primaryColor: AppColors.neutralBlack,
-  fontFamily: "AlibabaPuHuiTi",
-  fontFamilyFallback: const ['Noto Sans SC'],
-);

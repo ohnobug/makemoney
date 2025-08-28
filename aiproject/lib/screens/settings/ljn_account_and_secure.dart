@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/colors.dart';
+import 'package:spicychat/themes.dart';
 import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:spicychat/screens/components/ljn_special_function_item.dart';
@@ -112,7 +112,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                     // 微信安全中心
                     LJNSpecialFunctionItem(
                       title: AppLocalizations.of(context)!.wechatSecurityCenter,
-                      height: 178.w,
+                      height: null,
                       link: '',
                       subTitle: Text(
                         AppLocalizations.of(context)!.securityGuidanceFull,

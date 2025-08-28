@@ -1434,6 +1434,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchHistory => 'Search History';
 
   @override
+  String get themeSetting => 'Theme';
+
+  @override
   String get male => 'Male';
 
   @override

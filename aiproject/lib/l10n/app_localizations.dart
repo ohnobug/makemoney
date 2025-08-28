@@ -2750,6 +2750,12 @@ abstract class AppLocalizations {
   /// **'Search History'**
   String get searchHistory;
 
+  /// No description provided for @themeSetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get themeSetting;
+
   /// No description provided for @male.
   ///
   /// In en, this message translates to:

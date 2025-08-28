@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/colors.dart';
+import 'package:spicychat/themes.dart';
 import 'package:spicychat/l10n/app_localizations.dart';
 import 'package:spicychat/screens/components/ljn_chatlist_item.dart';
 import 'package:spicychat/screens/components/ljn_custom_physics.dart';

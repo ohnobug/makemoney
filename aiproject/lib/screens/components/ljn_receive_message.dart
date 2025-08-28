@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spicychat/colors.dart';
+import 'package:spicychat/themes.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

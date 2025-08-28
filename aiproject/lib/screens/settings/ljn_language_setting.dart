@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/colors.dart';
+import 'package:spicychat/themes.dart';
 import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -89,7 +89,6 @@ class _LJNLanguageSettingState extends State<LJNLanguageSetting> {
     );
   }
 
-  /// 构建搜索框
   Widget _buildSearchBar() {
     return Container(
       height: 72.w,
@@ -98,18 +97,34 @@ class _LJNLanguageSettingState extends State<LJNLanguageSetting> {
         borderRadius: BorderRadius.circular(10.w),
       ),
       child: TextField(
+        // [新增 1] 添加 textAlignVertical.center 使文本在垂直方向上居中
+        textAlignVertical: TextAlignVertical.center,
+        style: TextStyle(fontSize: 30.w), // 实际输入文本的样式
         decoration: InputDecoration(
           hintText: '搜索语言...',
-          hintStyle: TextStyle(color: AppColors.neutralGrey41, fontSize: 30.w),
+          hintStyle: TextStyle(
+            color: AppColors.neutralGrey41,
+            fontSize: 30.w,
+            // [修复] 确保 hintStyle 和 style 的 fontSize 相同，避免跳动
+          ),
           prefixIcon: Icon(
             Icons.search,
             color: AppColors.neutralGrey41,
             size: 40.w,
           ),
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 12.w),
+
+          // [新增 2] isCollapsed 移除了 TextField 内部的默认边距
+          // 这使得我们可以通过 contentPadding 完全控制内容的位置
+          isCollapsed: true,
+
+          // [新增 3] contentPadding 设置为 zero，因为 textAlignVertical 会处理居中
+          // 如果您仍然觉得位置不准，可以微调 vertical 的值，例如 EdgeInsets.symmetric(vertical: 2.w)
+          contentPadding: EdgeInsets.zero,
+
+          border: InputBorder.none, // 移除边框
+          focusedBorder: InputBorder.none, // 聚焦时也移除边框
+          enabledBorder: InputBorder.none, // 可用时也移除边框
         ),
-        // 在这里可以添加搜索逻辑
         onChanged: (value) {
           // TODO: 实现语言搜索过滤
         },
@@ -133,25 +148,25 @@ class _LJNLanguageSettingState extends State<LJNLanguageSetting> {
 
   /// 构建包含语言列表的卡片
   /// 构建一个语言选择卡片，展示可用的语言选项。
-///
-/// 参数：
-///   - `languages`: 语言选项列表，包含每种语言的名称和代码。
-///   - `currentLocale`: 当前选中的语言区域。
-///
-/// 返回值：
-///   - 返回一个 [Card] 组件，内部使用 [ListView.separated] 展示语言选项，
-///     每个选项之间用分隔线隔开。
-///
-/// 功能说明：
-///   - 卡片无阴影（`elevation: 0`），边距为零（`margin: EdgeInsets.zero`）。
-///   - 卡片背景为白色（`Colors.white`）。
-///   - 列表项不可滚动（`physics: const NeverScrollableScrollPhysics()`）。
-///   - 每个语言选项会根据当前语言区域判断是否被选中。
-///   - 分隔线高度为 1，颜色为中性灰色（`AppColors.neutralGrey7`）。
-///
-/// 注意：
-///   - 中文（`zh`）和繁体中文（`zh_TW`）会被视为同一种语言。
-Widget _buildLanguageCard(
+  ///
+  /// 参数：
+  ///   - `languages`: 语言选项列表，包含每种语言的名称和代码。
+  ///   - `currentLocale`: 当前选中的语言区域。
+  ///
+  /// 返回值：
+  ///   - 返回一个 [Card] 组件，内部使用 [ListView.separated] 展示语言选项，
+  ///     每个选项之间用分隔线隔开。
+  ///
+  /// 功能说明：
+  ///   - 卡片无阴影（`elevation: 0`），边距为零（`margin: EdgeInsets.zero`）。
+  ///   - 卡片背景为白色（`Colors.white`）。
+  ///   - 列表项不可滚动（`physics: const NeverScrollableScrollPhysics()`）。
+  ///   - 每个语言选项会根据当前语言区域判断是否被选中。
+  ///   - 分隔线高度为 1，颜色为中性灰色（`AppColors.neutralGrey7`）。
+  ///
+  /// 注意：
+  ///   - 中文（`zh`）和繁体中文（`zh_TW`）会被视为同一种语言。
+  Widget _buildLanguageCard(
       List<LanguageOption> languages, Locale currentLocale) {
     return Card(
       elevation: 0,

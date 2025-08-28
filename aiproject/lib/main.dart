@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:spicychat/colors.dart';
+import 'package:spicychat/themes.dart';
 import 'package:spicychat/store/ljn_popup_cubit.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:window_manager/window_manager.dart';
