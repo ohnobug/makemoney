@@ -532,26 +532,47 @@ class _LJNIns extends State<LJNIns> {
 
     Widget statusWidget = Container();
     if (isInsideX2Btn) {
-      statusWidget = Text(AppLocalizations.of(context)!.playbackSpeed(2),
-          style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite));
+      statusWidget = Text(
+        AppLocalizations.of(context)!.playbackSpeed(2),
+        textAlign: TextAlign.right,
+        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+      );
     } else if (isInsideX3Btn) {
-      statusWidget = Text(AppLocalizations.of(context)!.playbackSpeed(3),
-          style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite));
+      statusWidget = Text(
+        AppLocalizations.of(context)!.playbackSpeed(3),
+        textAlign: TextAlign.right,
+        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+      );
     } else if (isInsideLikeBtn) {
-      statusWidget = Text(AppLocalizations.of(context)!.like,
-          style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite));
+      statusWidget = Text(
+        AppLocalizations.of(context)!.like,
+        textAlign: TextAlign.right,
+        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+      );
     } else if (isInsideCollectBtn) {
-      statusWidget = Text(AppLocalizations.of(context)!.favorite,
-          style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite));
+      statusWidget = Text(
+        AppLocalizations.of(context)!.favorite,
+        textAlign: TextAlign.right,
+        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+      );
     } else if (isInsideDownloadBtn) {
-      statusWidget = Text(AppLocalizations.of(context)!.download,
-          style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite));
+      statusWidget = Text(
+        AppLocalizations.of(context)!.download,
+        textAlign: TextAlign.right,
+        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+      );
     } else if (isInsideShareBtn) {
-      statusWidget = Text(AppLocalizations.of(context)!.share,
-          style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite));
+      statusWidget = Text(
+        AppLocalizations.of(context)!.share,
+        textAlign: TextAlign.right,
+        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+      );
     } else if (isInsideHomeBtn) {
-      statusWidget = Text(AppLocalizations.of(context)!.viewHomepage,
-          style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite));
+      statusWidget = Text(
+        AppLocalizations.of(context)!.viewHomepage,
+        textAlign: TextAlign.right,
+        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+      );
     }
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
@@ -946,11 +967,12 @@ class _LJNIns extends State<LJNIns> {
                             top: 20.w,
                             right: 20.w,
                             child: Container(
-                              // color: const Color.fromARGB(//     183, 192, 66, 66),
+                              alignment: Alignment.centerRight,
+                              // color: const Color.fromARGB(183, 192, 66, 66),
                               margin: EdgeInsets.only(left: 39.w),
-                              width: 200.w,
+                              width: 400.w,
                               height: 55.w,
-                              child: Center(child: statusWidget),
+                              child: statusWidget,
                             ),
                           )
                         ],

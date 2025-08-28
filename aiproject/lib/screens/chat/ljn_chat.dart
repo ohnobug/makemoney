@@ -617,7 +617,7 @@ class _LJNChat extends State<LJNChat>
 
   // 功能选择器高度
   // final double _functionSelectorHeight = 630.w;
-  final double _functionSelectorHeight = 630.w;
+  final double _functionSelectorHeight = 500.w;
 
   // 切换后模式等待时间
   final int _changeTypeMilliseconds = 50;
@@ -1658,7 +1658,7 @@ class _LJNChat extends State<LJNChat>
   Widget _buildChatFunctionSelector(SystemState systemState) {
     return Container(
       width: systemState.screenSize.width,
-      padding: EdgeInsets.only(top: 98.w),
+      padding: EdgeInsets.only(top: 45.w),
       decoration: BoxDecoration(
         color: AppColors.neutralGrey2,
         border: Border(
