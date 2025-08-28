@@ -10,6 +10,11 @@ import 'package:spicychat/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../tools/ljn_logger.dart';
 
+// --- UI优化常量 ---
+const double kCardBorderRadius = 16.0;
+const double kHorizontalPadding = 16.0;
+const double kVerticalCardMargin = 18.0;
+
 class LJNServices extends StatefulWidget {
   const LJNServices({super.key});
 
@@ -26,20 +31,23 @@ class _LJNServices extends State<LJNServices>
   @override
   void initState() {
     super.initState();
-
-    // 初始化 _animationContentController
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 200),
       reverseDuration: const Duration(milliseconds: 50),
       vsync: this,
     );
-
     _upAnimation = Tween<double>(begin: -330.w, end: 0).animate(
       CurvedAnimation(
         parent: _animationController,
         curve: Curves.easeInOut,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -54,7 +62,6 @@ class _LJNServices extends State<LJNServices>
             actions: [
               GestureDetector(
                 onTap: () {
-                  // 点击事件
                   setState(() {
                     showSelector = true;
                   });
@@ -64,308 +71,217 @@ class _LJNServices extends State<LJNServices>
                 child: Container(
                   height: 90.w,
                   color: AppColors.transparent,
-                  padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                  padding: EdgeInsets.only(right: 33.w),
                   alignment: Alignment.center,
                   child: Icon(
                     const IconData(
                       0xe659,
                       fontFamily: 'Iconfont',
                     ),
-                    size: 37.w, // 图标大小
+                    size: 37.w,
                   ),
                 ),
               )
             ],
           ),
-          body: ColoredBox(
-            color: AppColors.neutralGrey11,
-            child: ScrollConfiguration(
-              behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
-                ),
-                child: Container(
-                  constraints: BoxConstraints(
-                      minHeight: MediaQuery.of(context).size.height - 205.w),
-                  color: AppColors.neutralGrey11,
-                  child: Column(
-                    children: [
-                      // 余额
-                      Container(
-                        height: 272.w,
-                        margin: const EdgeInsets.all(16).w,
-                        decoration: BoxDecoration(
-                          color: AppColors.brandGreenSlightlyDesaturated,
-                          borderRadius: BorderRadius.circular(16.0).w,
-                        ),
-                        padding: const EdgeInsets.all(16).w,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            CollectionAndPayment(
-                              icon: Icon(
-                                  const IconData(
-                                    0xe658,
-                                    fontFamily: 'Iconfont',
-                                  ),
-                                  size: 72.w,
-                                  color: AppColors.neutralWhite),
-                              title: AppLocalizations.of(context)!.payment,
-                              subTitle: " ",
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, '/collection_and_payment');
-                                logger.info('点击了收付款还款按钮~~');
-                              },
-                            ),
-                            CollectionAndPayment(
-                              icon: Icon(
-                                  const IconData(
-                                    0xe6e4,
-                                    fontFamily: 'Iconfont',
-                                  ),
-                                  size: 72.w,
-                                  color: AppColors.neutralWhite),
-                              title: AppLocalizations.of(context)!.wallet,
-                              subTitle: Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 22.w,
-                                        child: Icon(
-                                          color: AppColors.brandTealMedium,
-                                          const IconData(
-                                            0xe90d,
-                                            fontFamily: 'Iconfont',
-                                          ),
-                                          size: 25.w, // 图标大小
-                                        ),
-                                      ),
-                                      alignment: PlaceholderAlignment.middle,
-                                    ),
-                                    TextSpan(
-                                      text: context
-                                          .read<LJNUserCubit>()
-                                          .state
-                                          .walletBalance
-                                          .toString(),
-                                      style: TextStyle(
-                                        height: 1.08,
-                                        fontSize: fontSizeScale(27.w),
-                                        color: AppColors.brandTealMedium,
-                                        // fontWeight: FontWeight.w500,
-                                        fontFamily: "LJNFont",
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              onPressed: () {
-                                // logger.info('点击了钱包按钮~~');
-                                Navigator.pushNamed(context, '/wallet');
-                              },
-                            )
-                          ],
-                        ),
-                      ),
+          backgroundColor: AppColors.neutralGrey11,
+          body: ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: kHorizontalPadding.w)
+                  .copyWith(top: 16.w, bottom: 32.w),
+              child: Column(
+                children: [
+                  // --- 顶部核心功能卡片 (已修复对齐问题) ---
+                  _buildHeaderCard(context),
 
-                      // 金融理财
-                      FunctionButtonsSection(
-                        title: AppLocalizations.of(context)!.financialServices,
-                        buttons: [
-                          FunctionButton(
-                            icon: "images/icon/server_icon1.png",
-                            title: AppLocalizations.of(context)!
-                                .creditCardRepayment,
-                            onPressed: () {
-                              logger.info('点击了信用卡还款按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon2.png",
-                            title: AppLocalizations.of(context)!.licaitong,
-                            onPressed: () {
-                              logger.info('点击了理财通按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon3.png",
-                            title:
-                                AppLocalizations.of(context)!.insuranceService,
-                            onPressed: () {
-                              logger.info('点击了保险服务按钮~~');
-                            },
-                          ),
-                        ],
-                      ),
+                  SizedBox(height: kVerticalCardMargin.w),
 
-                      // 生活服务
-                      FunctionButtonsSection(
-                        title: AppLocalizations.of(context)!.lifeServices,
-                        buttons: [
-                          FunctionButton(
-                            icon: "images/icon/server_icon4.png",
-                            title: AppLocalizations.of(context)!.mobileTopUp,
-                            onPressed: () {
-                              logger.info('点击了手机充值按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon5.png",
-                            title:
-                                AppLocalizations.of(context)!.utilityPayments,
-                            onPressed: () {
-                              logger.info('点击了生活缴费按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon6.png",
-                            title: AppLocalizations.of(context)!.qCoinTopUp,
-                            onPressed: () {
-                              logger.info('点击了Q币充值按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon7.png",
-                            title: AppLocalizations.of(context)!.cityServices,
-                            onPressed: () {
-                              logger.info('点击了城市服务按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon8.png",
-                            title: AppLocalizations.of(context)!.tencentCharity,
-                            onPressed: () {
-                              logger.info('点击了腾讯公益按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon9.png",
-                            title: AppLocalizations.of(context)!.healthCare,
-                            onPressed: () {
-                              logger.info('点击了医疗健康按钮~~');
-                            },
-                          ),
-                        ],
+                  // --- 服务分区 ---
+                  FunctionButtonsSection(
+                    title: AppLocalizations.of(context)!.financialServices,
+                    buttons: [
+                      FunctionButton(
+                        icon: "images/icon/server_icon1.png",
+                        title:
+                            AppLocalizations.of(context)!.creditCardRepayment,
+                        onPressed: () {
+                          logger.info('点击了信用卡还款按钮~~');
+                        },
                       ),
-
-                      // 交通出行
-                      FunctionButtonsSection(
-                        title: AppLocalizations.of(context)!.transportation,
-                        buttons: [
-                          FunctionButton(
-                            icon: "images/icon/server_icon10.png",
-                            title:
-                                AppLocalizations.of(context)!.transportServices,
-                            onPressed: () {
-                              logger.info('点击了出行服务按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon11.png",
-                            title: AppLocalizations.of(context)!
-                                .trainAndFlightTickets,
-                            onPressed: () {
-                              logger.info('点击了火车票机票按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon12.png",
-                            title:
-                                AppLocalizations.of(context)!.didiRideHailing,
-                            onPressed: () {
-                              logger.info('点击了滴滴出行按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon122.png",
-                            title: AppLocalizations.of(context)!.hotel,
-                            onPressed: () {
-                              logger.info('点击了酒店按钮~~');
-                            },
-                          ),
-                        ],
+                      FunctionButton(
+                        icon: "images/icon/server_icon2.png",
+                        title: AppLocalizations.of(context)!.licaitong,
+                        onPressed: () {
+                          logger.info('点击了理财通按钮~~');
+                        },
                       ),
-
-                      // 购物消费
-                      FunctionButtonsSection(
-                        title: AppLocalizations.of(context)!
-                            .shoppingAndConsumption,
-                        buttons: [
-                          FunctionButton(
-                            icon: "images/icon/server_icon13.png",
-                            title: AppLocalizations.of(context)!.brandDiscovery,
-                            onPressed: () {
-                              logger.info('点击了品牌发现按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon14.png",
-                            title: AppLocalizations.of(context)!.jdShopping,
-                            onPressed: () {
-                              logger.info('点击了京东购物按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon15.png",
-                            title: AppLocalizations.of(context)!.meituanWaimai,
-                            onPressed: () {
-                              logger.info('点击了美团外卖按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon16.png",
-                            title: AppLocalizations.of(context)!
-                                .movieTicketsAndEntertainment,
-                            onPressed: () {
-                              logger.info('点击了电影演出玩乐按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon17.png",
-                            title: AppLocalizations.of(context)!
-                                .meituanSpecialOffers,
-                            onPressed: () {
-                              logger.info('点击了美团特价按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon18.png",
-                            title: AppLocalizations.of(context)!.pinduoduo,
-                            onPressed: () {
-                              logger.info('点击了拼多多按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon19.png",
-                            title: AppLocalizations.of(context)!.vipshop,
-                            onPressed: () {
-                              logger.info('点击了唯品会特卖按钮~~');
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/icon/server_icon20.png",
-                            title: AppLocalizations.of(context)!
-                                .zhuanzhuanUsedGoods,
-                            onPressed: () {
-                              logger.info('点击了转转二手按钮~~');
-                            },
-                          ),
-                        ],
+                      FunctionButton(
+                        icon: "images/icon/server_icon3.png",
+                        title: AppLocalizations.of(context)!.insuranceService,
+                        onPressed: () {
+                          logger.info('点击了保险服务按钮~~');
+                        },
                       ),
                     ],
                   ),
-                ),
+
+                  FunctionButtonsSection(
+                    title: AppLocalizations.of(context)!.lifeServices,
+                    buttons: [
+                      FunctionButton(
+                        icon: "images/icon/server_icon4.png",
+                        title: AppLocalizations.of(context)!.mobileTopUp,
+                        onPressed: () {
+                          logger.info('点击了手机充值按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon5.png",
+                        title: AppLocalizations.of(context)!.utilityPayments,
+                        onPressed: () {
+                          logger.info('点击了生活缴费按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon6.png",
+                        title: AppLocalizations.of(context)!.qCoinTopUp,
+                        onPressed: () {
+                          logger.info('点击了Q币充值按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon7.png",
+                        title: AppLocalizations.of(context)!.cityServices,
+                        onPressed: () {
+                          logger.info('点击了城市服务按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon8.png",
+                        title: AppLocalizations.of(context)!.tencentCharity,
+                        onPressed: () {
+                          logger.info('点击了腾讯公益按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon9.png",
+                        title: AppLocalizations.of(context)!.healthCare,
+                        onPressed: () {
+                          logger.info('点击了医疗健康按钮~~');
+                        },
+                      ),
+                    ],
+                  ),
+
+                  FunctionButtonsSection(
+                    title: AppLocalizations.of(context)!.transportation,
+                    buttons: [
+                      FunctionButton(
+                        icon: "images/icon/server_icon10.png",
+                        title: AppLocalizations.of(context)!.transportServices,
+                        onPressed: () {
+                          logger.info('点击了出行服务按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon11.png",
+                        title:
+                            AppLocalizations.of(context)!.trainAndFlightTickets,
+                        onPressed: () {
+                          logger.info('点击了火车票机票按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon12.png",
+                        title: AppLocalizations.of(context)!.didiRideHailing,
+                        onPressed: () {
+                          logger.info('点击了滴滴出行按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon122.png",
+                        title: AppLocalizations.of(context)!.hotel,
+                        onPressed: () {
+                          logger.info('点击了酒店按钮~~');
+                        },
+                      ),
+                    ],
+                  ),
+
+                  FunctionButtonsSection(
+                    title: AppLocalizations.of(context)!.shoppingAndConsumption,
+                    buttons: [
+                      FunctionButton(
+                        icon: "images/icon/server_icon13.png",
+                        title: AppLocalizations.of(context)!.brandDiscovery,
+                        onPressed: () {
+                          logger.info('点击了品牌发现按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon14.png",
+                        title: AppLocalizations.of(context)!.jdShopping,
+                        onPressed: () {
+                          logger.info('点击了京东购物按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon15.png",
+                        title: AppLocalizations.of(context)!.meituanWaimai,
+                        onPressed: () {
+                          logger.info('点击了美团外卖按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon16.png",
+                        title: AppLocalizations.of(context)!
+                            .movieTicketsAndEntertainment,
+                        onPressed: () {
+                          logger.info('点击了电影演出玩乐按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon17.png",
+                        title:
+                            AppLocalizations.of(context)!.meituanSpecialOffers,
+                        onPressed: () {
+                          logger.info('点击了美团特价按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon18.png",
+                        title: AppLocalizations.of(context)!.pinduoduo,
+                        onPressed: () {
+                          logger.info('点击了拼多多按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon19.png",
+                        title: AppLocalizations.of(context)!.vipshop,
+                        onPressed: () {
+                          logger.info('点击了唯品会特卖按钮~~');
+                        },
+                      ),
+                      FunctionButton(
+                        icon: "images/icon/server_icon20.png",
+                        title:
+                            AppLocalizations.of(context)!.zhuanzhuanUsedGoods,
+                        onPressed: () {
+                          logger.info('点击了转转二手按钮~~');
+                        },
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
         ),
 
-        // 背景色
+        // --- 底部弹出菜单 (保持不变) ---
         if (showSelector)
           GestureDetector(
             onTap: () {
@@ -381,7 +297,6 @@ class _LJNServices extends State<LJNServices>
               height: MediaQuery.of(context).size.height,
             ),
           ),
-
         AnimatedBuilder(
           animation: _animationController,
           builder: (context, child) {
@@ -398,7 +313,7 @@ class _LJNServices extends State<LJNServices>
                   height: 225.w,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
-                    // color: AppColors.accentRedPure,
+                    color: AppColors.neutralWhite,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20.w),
                       topRight: Radius.circular(20.w),
@@ -427,15 +342,15 @@ class _LJNServices extends State<LJNServices>
                         ),
                         underline: true,
                         onPressed: () {
-                          setState(() {
-                            showSelector = false;
-                            _animationController.reset();
+                          _animationController.reverse().then((_) {
+                            setState(() {
+                              showSelector = false;
+                            });
+                            Navigator.pushNamed(
+                              context,
+                              '/services_manager',
+                            );
                           });
-
-                          Navigator.pushNamed(
-                            context,
-                            '/services_manager',
-                          );
                         },
                       ),
                       Container(
@@ -465,106 +380,158 @@ class _LJNServices extends State<LJNServices>
       ]);
     });
   }
+
+  /// 构建器：顶部核心功能卡片
+  Widget _buildHeaderCard(BuildContext context) {
+    // 定义余额文本的样式，以便复用
+    final balanceTextStyle = TextStyle(
+      height: 1.1,
+      fontSize: fontSizeScale(30.w),
+      color: AppColors.accentYellow,
+      fontFamily: "LJNFont",
+    );
+
+    return Container(
+      height: 272.w,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [
+            AppColors.brandGreenVibrant4,
+            AppColors.brandGreenVibrant5,
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(kCardBorderRadius).w,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.brandGreenDarkest.withOpacity(0.2),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Expanded(
+            child: CollectionAndPayment(
+              icon: Icon(
+                  const IconData(
+                    0xe658,
+                    fontFamily: 'Iconfont',
+                  ),
+                  size: 72.w,
+                  color: AppColors.neutralWhite),
+              title: AppLocalizations.of(context)!.payment,
+              // 优化点：传入一个隐形的占位符，其样式与余额完全相同
+              subTitle: Text('', style: balanceTextStyle),
+              onPressed: () {
+                Navigator.pushNamed(context, '/collection_and_payment');
+                logger.info('点击了收付款还款按钮~~');
+              },
+            ),
+          ),
+          Container(
+            width: 1,
+            height: 100.w,
+            color: AppColors.neutralWhite.withOpacity(0.2),
+          ),
+          Expanded(
+            child: CollectionAndPayment(
+              icon: Icon(
+                  const IconData(
+                    0xe6e4,
+                    fontFamily: 'Iconfont',
+                  ),
+                  size: 72.w,
+                  color: AppColors.neutralWhite),
+              title: AppLocalizations.of(context)!.wallet,
+              // 正常传入余额组件
+              subTitle: Text.rich(
+                TextSpan(
+                  children: [
+                    WidgetSpan(
+                      child: Icon(
+                        const IconData(
+                          0xe90d,
+                          fontFamily: 'Iconfont',
+                        ),
+                        size: 25.w,
+                        color: AppColors.accentYellow,
+                      ),
+                      alignment: PlaceholderAlignment.middle,
+                    ),
+                    const WidgetSpan(child: SizedBox(width: 4)),
+                    TextSpan(
+                      text: context
+                          .read<LJNUserCubit>()
+                          .state
+                          .walletBalance
+                          .toString(),
+                      style: balanceTextStyle,
+                    ),
+                  ],
+                ),
+                textAlign: TextAlign.center,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/wallet');
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-// 收付款
-class CollectionAndPayment extends StatefulWidget {
+/// 顶部核心功能按钮 (已修改为必须接收subTitle)
+class CollectionAndPayment extends StatelessWidget {
   final Icon icon;
   final String title;
   final VoidCallback onPressed;
-  final Object? subTitle;
+  final Widget subTitle; // 优化点：从 Widget? 变为 Widget
 
-  const CollectionAndPayment(
-      {super.key,
-      required this.icon,
-      required this.title,
-      required this.onPressed,
-      this.subTitle});
-
-  @override
-  State<CollectionAndPayment> createState() => _CollectionAndPaymentState();
-}
-
-class _CollectionAndPaymentState extends State<CollectionAndPayment> {
-  bool _isPressed = false;
+  const CollectionAndPayment({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.onPressed,
+    required this.subTitle, // 优化点：变为必传参数
+  });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onPressed,
-      onTapDown: (_) {
-        setState(() {
-          _isPressed = true;
-        });
-      },
-      onTapUp: (_) {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
-      onTapCancel: () {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
-      child: Container(
-        height: 240.w,
-        width: 272.w,
-        decoration: BoxDecoration(
-          color:
-              _isPressed ? AppColors.brandGreenDarkest : AppColors.transparent,
-          borderRadius: BorderRadius.circular(16.0).w,
-        ),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(kCardBorderRadius).w,
+        onTap: onPressed,
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                color: AppColors.transparent,
+              SizedBox(
                 width: 90.w,
                 height: 90.w,
-                child: Center(child: widget.icon),
+                child: Center(child: icon),
               ),
-
-              // SizedBox(height: 15.w),
               SizedBox(height: 10.w),
-
-              // 钱包、收付款
               Text(
-                widget.title,
+                title,
                 maxLines: 1,
                 style: TextStyle(
-                  height: 1.08,
-                  // fontWeight: FontWeight.w100,
+                  height: 1.1,
                   decoration: TextDecoration.none,
                   color: AppColors.neutralWhite,
                   fontSize: fontSizeScale(32.0.w),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-
               SizedBox(height: 10.w),
-
-              if (widget.subTitle is String)
-                // 余额
-                Text(
-                  widget.subTitle.toString(),
-                  maxLines: 1,
-                  style: TextStyle(
-                    height: 1,
-                    // fontWeight: FontWeight.w600,
-                    decoration: TextDecoration.none,
-                    color: AppColors.whiteTransparent63,
-                    fontSize: fontSizeScale(29.0.w),
-                    overflow: TextOverflow.ellipsis,
-                    fontFamily: "LJNFont",
-                  ),
-                ),
-              if (widget.subTitle is Widget) widget.subTitle as Widget
+              // 现在直接使用subTitle，无需判断是否为null
+              subTitle,
             ],
           ),
         ),
@@ -573,7 +540,8 @@ class _CollectionAndPaymentState extends State<CollectionAndPayment> {
   }
 }
 
-class FunctionButton extends StatefulWidget {
+/// 网格功能按钮 (保持对齐修复后的版本)
+class FunctionButton extends StatelessWidget {
   final String icon;
   final String title;
   final VoidCallback onPressed;
@@ -586,63 +554,41 @@ class FunctionButton extends StatefulWidget {
   });
 
   @override
-  FunctionButtonState createState() => FunctionButtonState();
-}
-
-class FunctionButtonState extends State<FunctionButton> {
-  bool _isPressed = false;
-
-  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onPressed,
-      onTapDown: (_) {
-        setState(() {
-          _isPressed = true;
-        });
-      },
-      onTapUp: (_) {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
-      onTapCancel: () {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
-      child: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color:
-              _isPressed ? Colors.grey[200] : AppColors.transparent, // 按下时背景色
-          borderRadius: BorderRadius.circular(10.0).w, // 圆角半径
-        ),
-        child: Center(
+    final double fontHeight = fontSizeScale(25.0.w);
+    final double lineHeight = 1.2;
+    final double textContainerHeight = fontHeight * lineHeight * 2 + 4.w;
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10.0).w,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onPressed,
           child: Column(
-            mainAxisSize: MainAxisSize.min, // 使按钮大小适应内容
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                assetPath(widget.icon),
+                assetPath(icon),
                 width: 57.w,
                 height: 57.w,
-              ), // 图标颜色
-              SizedBox(height: 16.w), // 图标和标题之间的间距
-              Text(
-                widget.title,
-                maxLines: 1,
-                style: TextStyle(
-                  height: 1.08,
-                  decoration: TextDecoration.none,
-                  color: AppColors.neutralDarkGrey20,
-                  fontSize: fontSizeScale(25.0.w),
-                  overflow: TextOverflow.ellipsis,
-                ), // 标题颜色
+              ),
+              SizedBox(height: 16.w),
+              Container(
+                height: textContainerHeight,
+                alignment: Alignment.topCenter,
+                child: Text(
+                  title,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    height: lineHeight,
+                    decoration: TextDecoration.none,
+                    color: AppColors.neutralDarkGrey20,
+                    fontSize: fontHeight,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ),
             ],
           ),
@@ -652,7 +598,7 @@ class FunctionButtonState extends State<FunctionButton> {
   }
 }
 
-// FunctionButtonsSection 组件
+/// 功能分区组件 (保持优化后的版本)
 class FunctionButtonsSection extends StatelessWidget {
   final String title;
   final List<FunctionButton> buttons;
@@ -666,56 +612,42 @@ class FunctionButtonsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 16, left: 16, right: 16).w,
+      margin: EdgeInsets.only(bottom: kVerticalCardMargin.w),
       decoration: BoxDecoration(
         color: AppColors.neutralWhite,
-        borderRadius: BorderRadius.circular(16.0).w,
+        borderRadius: BorderRadius.circular(kCardBorderRadius).w,
       ),
-      padding: const EdgeInsets.only(bottom: 16).w,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Container(
-                  // height: 80.w,
-                  // color: Colors.amber,
-                  padding: EdgeInsets.only(top: 33.w, bottom: 16.w, left: 30.w),
-                  child: Text(
-                    title,
-                    style: TextStyle(
-                      height: 1.08,
-                      fontSize: fontSizeScale(27.w),
-                      color: AppColors.neutralDarkGrey5,
-                    ),
-                  ),
-                ),
+          Padding(
+            padding: EdgeInsets.only(
+                top: 33.w, left: 30.w, right: 30.w, bottom: 16.w),
+            child: Text(
+              title,
+              style: TextStyle(
+                height: 1.1,
+                fontSize: fontSizeScale(29.w),
+                fontWeight: FontWeight.w600,
+                color: AppColors.neutralDarkGrey5,
               ),
-            ],
-          ),
-
-          // 使用 SizedBox 控制 GridView 的大小
-          Container(
-            padding: const EdgeInsets.all(16.0).w,
-            // height: 200, // 根据实际需要调整高度
-            child: GridView.builder(
-              padding: EdgeInsets.zero,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4, // 每行显示4个子组件
-                crossAxisSpacing: 16.w, // 列间距
-                mainAxisSpacing: 12.w, // 行间距
-                childAspectRatio: (1 / 1),
-              ),
-              itemCount: buttons.length,
-              itemBuilder: (context, index) {
-                return Center(child: buttons[index]);
-              },
-              shrinkWrap: true, // 根据内容调整 GridView 大小
-              physics: const NeverScrollableScrollPhysics(), // 禁用滚动
             ),
+          ),
+          GridView.builder(
+            padding:
+                EdgeInsets.symmetric(horizontal: 16.w).copyWith(bottom: 24.w),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              crossAxisSpacing: 16.w,
+              mainAxisSpacing: 12.w,
+              childAspectRatio: 0.85,
+            ),
+            itemCount: buttons.length,
+            itemBuilder: (context, index) {
+              return buttons[index];
+            },
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
           ),
         ],
       ),
