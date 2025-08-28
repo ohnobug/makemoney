@@ -44,7 +44,7 @@ class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
               child: Center(
                 child: Icon(
                   IconData(widget.icon, fontFamily: 'Iconfont'),
-                  color: Colors.white,
+                  color: AppColors.neutralWhite,
                   size: 41.w,
                 ),
               ),
@@ -68,7 +68,7 @@ class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
                     fontSize: fontSizeScale(33.w),
                     fontWeight: FontWeight.normal,
                     decoration: TextDecoration.none,
-                    color: Colors.white,
+                    color: AppColors.neutralWhite,
                   ),
                 ),
               ),

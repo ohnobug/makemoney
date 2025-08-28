@@ -5,6 +5,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:spicychat/colors.dart';
 
 // 字体缩放
 double fontSizeScale(double size) {
@@ -49,14 +50,14 @@ List<InlineSpan> buildTextSpans(
 
   fontTextStyle = TextStyle(
           height: 1.08,
-          color: Colors.black,
+          color: AppColors.neutralBlack,
           fontSize: fontSizeScale(30.w),
           fontFamily: "AlibabaPuHuiTi")
       .merge(fontTextStyle);
 
   iconTextStyle = TextStyle(
           height: 1.08,
-          color: Colors.black,
+          color: AppColors.neutralBlack,
           fontSize: fontSizeScale(30.w),
           fontFamily: "NotoColorEmoji-Regular")
       .merge(iconTextStyle);
@@ -89,7 +90,7 @@ List<InlineSpan> buildTextSpans(
           height: iconHeight,
           // margin: EdgeInsets.only(
           //     left: iconHeight * 0.1, right: iconHeight * 0.1),
-          // color: Colors.red,
+          // color: AppColors.accentRedPure,
           alignment: Alignment.topLeft,
           child: Text(
             match.group(0) as String,

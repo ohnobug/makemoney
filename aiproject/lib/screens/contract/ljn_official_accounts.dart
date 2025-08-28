@@ -1,0 +1,769 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:spicychat/colors.dart';
+import 'package:spicychat/screens/components/ljn_alphabet.dart';
+import 'package:spicychat/screens/components/ljn_appbar.dart';
+import 'package:spicychat/screens/components/ljn_search.dart';
+import 'package:spicychat/tools/ljn_logger.dart';
+import 'package:spicychat/store/ljn_system_cubit.dart';
+import 'package:spicychat/tools/ljn_tools.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class LJNOfficialAccounts extends StatefulWidget {
+  const LJNOfficialAccounts({super.key});
+
+  @override
+  State<LJNOfficialAccounts> createState() => _LJNOfficialAccountsState();
+}
+
+class _LJNOfficialAccountsState extends State<LJNOfficialAccounts> {
+  late List<dynamic> contactList;
+
+  @override
+  void initState() {
+    super.initState();
+
+    contactList = [
+      LJNAlphabet(title: 'A'),
+      ContactInformation(
+        title: "天空飘来五个字那都不是事",
+        icon: "images/avatar_webp/chat_1.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "天空飘来五个字那都不是事",
+              'icon': "images/avatar_webp/chat_1.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "本因",
+        icon: "images/avatar_webp/chat_10.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "本因",
+              'icon': "images/avatar_webp/chat_10.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "赵洵",
+        icon: "images/avatar_webp/chat_11.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "赵洵",
+              'icon': "images/avatar_webp/chat_11.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "定静师太",
+        icon: "images/avatar_webp/chat_12.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "定静师太",
+              'icon': "images/avatar_webp/chat_12.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "李秋水",
+        icon: "images/avatar_webp/chat_13.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "李秋水",
+              'icon': "images/avatar_webp/chat_13.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "谭婆",
+        icon: "images/avatar_webp/chat_14.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "谭婆",
+              'icon': "images/avatar_webp/chat_14.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "李傀儡",
+        icon: "images/avatar_webp/chat_15.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "李傀儡",
+              'icon': "images/avatar_webp/chat_15.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "貂禅",
+        icon: "images/avatar_webp/chat_16.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "貂禅",
+              'icon': "images/avatar_webp/chat_16.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "何三七",
+        icon: "images/avatar_webp/chat_17.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "何三七",
+              'icon': "images/avatar_webp/chat_17.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "孔融",
+        icon: "images/avatar_webp/chat_18.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "孔融",
+              'icon': "images/avatar_webp/chat_18.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "齐堂主",
+        icon: "images/avatar_webp/chat_19.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "齐堂主",
+              'icon': "images/avatar_webp/chat_19.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "博尔术",
+        icon: "images/avatar_webp/chat_20.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "博尔术",
+              'icon': "images/avatar_webp/chat_20.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "王语嫣",
+        icon: "images/avatar_webp/chat_21.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "王语嫣",
+              'icon': "images/avatar_webp/chat_21.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "秦红棉",
+        icon: "images/avatar_webp/chat_22.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "秦红棉",
+              'icon': "images/avatar_webp/chat_22.webp",
+            },
+          );
+        },
+      ),
+      const ContactInformation(
+        title: "天竺僧人",
+        icon: "images/avatar_webp/chat_23.webp",
+        link: '',
+        underline: false,
+      ),
+      LJNAlphabet(title: 'B'),
+      ContactInformation(
+        title: "段延庆",
+        icon: "images/avatar_webp/chat_33.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "段延庆",
+              'icon': "images/avatar_webp/chat_33.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "令狐冲",
+        icon: "images/avatar_webp/chat_34.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "令狐冲",
+              'icon': "images/avatar_webp/chat_34.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "英白罗",
+        icon: "images/avatar_webp/chat_35.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "英白罗",
+              'icon': "images/avatar_webp/chat_35.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "黄药师",
+        icon: "images/avatar_webp/chat_36.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "黄药师",
+              'icon': "images/avatar_webp/chat_36.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "李煜",
+        icon: "images/avatar_webp/chat_37.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "李煜",
+              'icon': "images/avatar_webp/chat_37.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "云中鹤",
+        icon: "images/avatar_webp/chat_38.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "云中鹤",
+              'icon': "images/avatar_webp/chat_38.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "劳德诺",
+        icon: "images/avatar_webp/chat_39.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "劳德诺",
+              'icon': "images/avatar_webp/chat_39.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "包惜弱",
+        icon: "images/avatar_webp/chat_40.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "包惜弱",
+              'icon': "images/avatar_webp/chat_40.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "游驹",
+        icon: "images/avatar_webp/chat_41.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "游驹",
+              'icon': "images/avatar_webp/chat_41.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "钟万仇",
+        icon: "images/avatar_webp/chat_42.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "钟万仇",
+              'icon': "images/avatar_webp/chat_42.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "渔人",
+        icon: "images/avatar_webp/chat_43.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "渔人",
+              'icon': "images/avatar_webp/chat_43.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "单叔山",
+        icon: "images/avatar_webp/chat_44.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "单叔山",
+              'icon': "images/avatar_webp/chat_44.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "段誉",
+        icon: "images/avatar_webp/chat_45.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "段誉",
+              'icon': "images/avatar_webp/chat_45.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "林震南",
+        icon: "images/avatar_webp/chat_46.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "林震南",
+              'icon': "images/avatar_webp/chat_46.webp",
+            },
+          );
+        },
+      ),
+      ContactInformation(
+        title: "商鞅",
+        icon: "images/avatar_webp/chat_47.webp",
+        link: '',
+        underline: true,
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            '/chat',
+            arguments: <String, String>{
+              'title': "商鞅",
+              'icon': "images/avatar_webp/chat_47.webp",
+            },
+          );
+        },
+      ),
+      Container(
+        width: 750.w,
+        height: 105.0.w,
+        color: AppColors.neutralWhite,
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "10个朋友",
+                style: TextStyle(
+                  height: 1.08,
+                  fontSize: fontSizeScale(30.w),
+                  color: AppColors.neutralGrey67,
+                ),
+              ),
+            ]),
+      )
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LJNSystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return _buildPage(systemState);
+    });
+  }
+
+  // 另起一个函数方便管理
+  Widget _buildPage(SystemState systemState) {
+    return Scaffold(
+      primary: false,
+      appBar: const LJNAppBar(
+        title: "公众号",
+      ),
+      body: Stack(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColors.neutralGrey11,
+                  AppColors.neutralWhite,
+                ],
+                stops: [0.3, 0.5],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            child: Column(
+              children: [
+                // 搜索框
+                LJNSearch(link: '/search', title: '搜索'),
+
+                // 列表
+                Expanded(
+                  child: ColoredBox(
+                    color: AppColors.neutralWhite,
+                    child: ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: ListView.builder(
+                        primary: false,
+                        padding: EdgeInsets.zero,
+                        physics: const AlwaysScrollableScrollPhysics(
+                          parent: BouncingScrollPhysics(),
+                        ),
+                        itemCount: contactList.length, // contactList 是你的联系人数据列表
+                        itemBuilder: (context, index) {
+                          return contactList[index];
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // 右边的字母表
+          Positioned(
+            right: 0,
+            top: ((MediaQuery.of(context).size.height - 986.w) / 2) + 40.w,
+            child: SizedBox(
+              width: 40.w,
+              // height: MediaQuery.of(context).size.height - 115.w - 75.w,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 34.w,
+                    child: Icon(
+                      const IconData(
+                        0xe677,
+                        fontFamily: 'Iconfont',
+                      ),
+                      size: 22.w,
+                      color: AppColors.neutralNearBlack3,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 34.w,
+                    child: Icon(
+                      const IconData(
+                        0xe6c8,
+                        fontFamily: 'Iconfont',
+                      ),
+                      size: 22.w,
+                      color: AppColors.neutralNearBlack3,
+                    ),
+                  ),
+                  for (int i = 0; i < 26; i++)
+                    SizedBox(
+                      height: 34.w,
+                      child: Text(
+                        String.fromCharCode(65 + i),
+                        style: TextStyle(
+                          height: 1.08,
+                          fontSize: fontSizeScale(22.w),
+                          color: AppColors.neutralNearBlack3,
+                        ),
+                      ),
+                    ),
+                  SizedBox(
+                    height: 34.w,
+                    child: Text(
+                      "#",
+                      style: TextStyle(
+                        height: 1.08,
+                        fontSize: fontSizeScale(22.w),
+                        color: AppColors.neutralNearBlack3,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// 功能列表
+class ContactInformation extends StatefulWidget {
+  final String icon;
+  final String title;
+  final String link;
+  final bool underline;
+  final int? showStyle;
+  final Function()? onPressed;
+
+  const ContactInformation({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.link,
+    required this.underline,
+    this.showStyle,
+    this.onPressed,
+  });
+
+  @override
+  State<ContactInformation> createState() => _ContactInformationState();
+}
+
+class _ContactInformationState extends State<ContactInformation> {
+  // bool isClicked = false;
+  Color containerColor = AppColors.neutralWhite;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (tapDownDetails) {
+        setState(() {
+          containerColor = AppColors.neutralGrey18;
+        });
+      },
+      onTapCancel: () {
+        setState(() {
+          containerColor = AppColors.neutralWhite;
+        });
+
+        logger.info("取消点击");
+      },
+      onTapUp: (tapDownDetails) {
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            containerColor = AppColors.neutralWhite;
+          });
+          widget.onPressed!();
+        });
+
+        logger.info("弹起");
+      },
+      child: Container(
+        height: 130.0.w,
+        padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
+        color: containerColor,
+        child: Row(
+          children: [
+            // 头像
+            ClipRRect(
+              borderRadius:
+                  BorderRadius.circular(90.0.w), // Adjust the radius as needed
+              child: Image.asset(
+                assetPath(widget.icon),
+                width: 90.0.w,
+                height: 90.0.w,
+                cacheHeight: 300.w.toInt(),
+                cacheWidth: 300.w.toInt(),
+                fit: BoxFit.cover,
+              ),
+            ),
+
+            SizedBox(width: 25.w),
+            Expanded(
+              child: Container(
+                height: 125.w,
+                width: 400.w,
+                decoration: widget.underline
+                    ? BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: AppColors.neutralGrey6,
+                            width: 1.5.w,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                      )
+                    : BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: AppColors.transparent,
+                            width: 1.5.w,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                      ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // 标题
+                    Expanded(
+                      flex: 1,
+                      // width: 100.w,
+                      child: Text(
+                        widget.title,
+                        style: TextStyle(
+                          height: 1.08,
+                          fontSize: fontSizeScale(33.0.w),
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

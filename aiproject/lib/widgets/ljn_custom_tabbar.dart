@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/colors.dart';
-import 'package:spicychat/components/ljn_custom_physics.dart';
-import 'package:spicychat/contract/ljn_contact.dart';
-import 'package:spicychat/discovery/ljn_discovery.dart';
-import 'package:spicychat/home/ljn_home.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
+import 'package:spicychat/screens/components/ljn_custom_physics.dart';
+import 'package:spicychat/screens/contract/ljn_contact.dart';
+import 'package:spicychat/screens/discovery/ljn_discovery.dart';
+import 'package:spicychat/screens/home/ljn_home.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
-import 'package:spicychat/user/ljn_user.dart';
+import 'package:spicychat/screens/user/ljn_user.dart';
 
 /// 用于存储每个Tab信息的辅助类
 class _TabInfo {
@@ -38,12 +39,32 @@ class _CustomTabbarState extends State<CustomTabbar>
     with TickerProviderStateMixin {
   late final TabController _tabController;
 
-  final List<_TabInfo> _tabs = const [
-    _TabInfo(title: '微信', icon: 0xe7b3, selectedIcon: 0xe676, iconSize: 45.0),
-    _TabInfo(title: '通信录', icon: 0xe608, selectedIcon: 0xe609, iconSize: 48.0),
-    _TabInfo(title: '发现', icon: 0xe61c, selectedIcon: 0xe638, iconSize: 43.0),
-    _TabInfo(title: '我', icon: 0xe63f, selectedIcon: 0xe62b, iconSize: 48.0),
-  ];
+  List<_TabInfo> get _tabs => [
+        _TabInfo(
+          title: AppLocalizations.of(context)!.tabbar_label_chat,
+          icon: 0xe7b3,
+          selectedIcon: 0xe676,
+          iconSize: 45.0,
+        ),
+        _TabInfo(
+          title: AppLocalizations.of(context)!.tabbar_label_contacts,
+          icon: 0xe608,
+          selectedIcon: 0xe609,
+          iconSize: 48.0,
+        ),
+        _TabInfo(
+          title: AppLocalizations.of(context)!.tabbar_label_discover,
+          icon: 0xe61c,
+          selectedIcon: 0xe638,
+          iconSize: 43.0,
+        ),
+        _TabInfo(
+          title: AppLocalizations.of(context)!.tabbar_label_me,
+          icon: 0xe63f,
+          selectedIcon: 0xe62b,
+          iconSize: 48.0,
+        ),
+      ];
 
   int _currentIndex = 0;
   double _appbarLeft = 0;
@@ -166,7 +187,8 @@ class _CustomTabbarState extends State<CustomTabbar>
                 physics: systemState.showMiniProgramDrawer
                     ? const NeverScrollableScrollPhysics()
                     : const CustomTabBarViewScrollPhysics(
-                        parent: ClampingScrollPhysics()),
+                        parent: ClampingScrollPhysics(),
+                      ),
                 controller: _tabController,
                 children: const <Widget>[
                   LJNHome(),
@@ -203,7 +225,7 @@ class _CustomTabbarState extends State<CustomTabbar>
                           titleTextStyle: TextStyle(
                             height: 1.08,
                             fontSize: fontSizeScale(32.w),
-                            color: Colors.black,
+                            color: AppColors.neutralBlack,
                             fontFamily: "AlibabaPuHuiTi-Medium",
                           ),
                           toolbarHeight: 90.w,
@@ -296,31 +318,36 @@ class _CustomTabbarState extends State<CustomTabbar>
                         height: 425.w,
                         child: Column(
                           children: [
+                            // 发起群聊
                             LJNPopupMenuItem(
-                              title: "发起群聊",
+                              title:
+                                  AppLocalizations.of(context)!.startGroupChat,
                               icon: 0xe676,
                               onTap: () => setState(
                                 () => _showPopup = false,
                               ),
                             ),
+                            // 添加好友
                             LJNPopupMenuItem(
-                              title: "添加朋友",
+                              title: AppLocalizations.of(context)!.addFriend,
                               icon: 0xe61f,
                               onTap: () {
                                 setState(() => _showPopup = false);
                                 Navigator.pushNamed(context, '/add_friends');
                               },
                             ),
+                            // 扫一扫
                             LJNPopupMenuItem(
-                              title: "扫一扫",
+                              title: AppLocalizations.of(context)!.scan,
                               icon: 0xe69a,
                               onTap: () {
                                 setState(() => _showPopup = false);
                                 Navigator.pushNamed(context, '/qrcode_scanner');
                               },
                             ),
+                            // 收付款
                             LJNPopupMenuItem(
-                              title: "收付款",
+                              title: AppLocalizations.of(context)!.payment,
                               icon: 0xe611,
                               onTap: () {
                                 setState(() => _showPopup = false);
@@ -386,7 +413,7 @@ class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
               child: Center(
                 child: Icon(
                   IconData(widget.icon, fontFamily: 'Iconfont'),
-                  color: Colors.white,
+                  color: AppColors.neutralWhite,
                   size: 41.w,
                 ),
               ),
@@ -410,7 +437,7 @@ class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
                     fontSize: fontSizeScale(33.w),
                     fontWeight: FontWeight.normal,
                     decoration: TextDecoration.none,
-                    color: Colors.white,
+                    color: AppColors.neutralWhite,
                   ),
                 ),
               ),

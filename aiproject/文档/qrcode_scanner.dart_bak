@@ -105,7 +105,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
         return Container(
           width: systemState.screenSize.width,
           height: systemState.screenSize.height,
-          color: Colors.black,
+          color: AppColors.neutralBlack,
         );
       } else {
         return Stack(
@@ -277,13 +277,13 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
             overflow: TextOverflow.fade,
             style: TextStyle(
                 height: 1.08,
-                color: Colors.white,
+                color: AppColors.neutralWhite,
                 fontSize: fontSizeScale(32.w),
                 decoration: TextDecoration.none),
           ),
           Text(
             "•",
-            style: TextStyle(color: Colors.white, fontSize: 30.w),
+            style: TextStyle(color: AppColors.neutralWhite, fontSize: 30.w),
           )
         ],
       );
@@ -293,7 +293,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
         overflow: TextOverflow.fade,
         style: TextStyle(
             height: 1.08,
-            color: Colors.white,
+            color: AppColors.neutralWhite,
             fontSize: fontSizeScale(26.w),
             decoration: TextDecoration.none),
       );
@@ -328,7 +328,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                         fontFamily: 'Iconfont',
                       ),
                       size: 50.w, // 图标的大小
-                      color: Colors.white, // 图标颜色
+                      color: AppColors.neutralWhite, // 图标颜色
                     ),
                   ),
                 ),
@@ -347,7 +347,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                         fontFamily: 'Iconfont',
                       ),
                       size: 50.w, // 图标的大小
-                      color: Colors.white, // 图标颜色
+                      color: AppColors.neutralWhite, // 图标颜色
                     ),
                   ),
                 ),
@@ -417,7 +417,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                               fontFamily: 'Iconfont',
                             ),
                             size: 70.w, // 图标大小
-                            color: Colors.white, // 图标颜色
+                            color: AppColors.neutralWhite, // 图标颜色
                           ),
                         ),
                       ),
@@ -426,12 +426,12 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                       height: 10.w,
                     ),
                     Text(
-                      "轻触照亮",
+                      AppLocalizations.of(context)!.touchToLightUp,
                       style: TextStyle(
                           height: 1.08,
                           fontSize: fontSizeScale(26.w),
                           fontWeight: FontWeight.normal,
-                          color: Colors.white,
+                          color: AppColors.neutralWhite,
                           decoration: TextDecoration.none),
                     ),
                     Text(
@@ -440,7 +440,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                           height: 1.08,
                           fontSize: fontSizeScale(28.w),
                           fontWeight: FontWeight.normal,
-                          color: Colors.white,
+                          color: AppColors.neutralWhite,
                           decoration: TextDecoration.none),
                     ),
                     SizedBox(
@@ -478,18 +478,18 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                                   fontFamily: 'Iconfont',
                                 ),
                                 size: 35.w,
-                                color: Colors.white,
+                                color: AppColors.neutralWhite,
                               ),
                             )),
                         SizedBox(
                           height: 5.w,
                         ),
-                        Text("我的二维码",
+                        Text(AppLocalizations.of(context)!.myQRCode,
                             style: TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(22.w),
                                 fontWeight: FontWeight.normal,
-                                color: Colors.white,
+                                color: AppColors.neutralWhite,
                                 decoration: TextDecoration.none))
                       ],
                     ),
@@ -516,7 +516,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                               borderRadius: BorderRadius.circular(6.w), // 圆角
                               border: Border.all(
                                 width: 1.w, // 边框宽度
-                                color: Colors.white, // 边框颜色
+                                color: AppColors.neutralWhite, // 边框颜色
                               ),
                               image: DecorationImage(
                                 image: AssetImage(
@@ -545,7 +545,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                                   fontFamily: 'Iconfont',
                                 ),
                                 size: 21.0.w,
-                                color: Colors.black,
+                                color: AppColors.neutralBlack,
                               ))
                         ],
                       ),
@@ -574,18 +574,18 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                                   fontFamily: 'Iconfont',
                                 ),
                                 size: 35.w,
-                                color: Colors.white,
+                                color: AppColors.neutralWhite,
                               ),
                             )),
                         SizedBox(
                           height: 5.w,
                         ),
-                        Text("相册",
+                        Text(AppLocalizations.of(context)!.album,
                             style: TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(22.w),
                                 fontWeight: FontWeight.normal,
-                                color: Colors.white,
+                                color: AppColors.neutralWhite,
                                 decoration: TextDecoration.none))
                       ],
                     ),
@@ -614,7 +614,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     height: 135.w,
-                    color: Colors.black.withValues(alpha: 0.4),
+                    color: AppColors.neutralBlack.withValues(alpha: 0.4),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

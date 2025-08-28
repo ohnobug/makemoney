@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:spicychat/colors.dart';
 
 // 系统的 Cubit
 class LJNSystemCubit extends Cubit<SystemState> {
@@ -142,17 +143,17 @@ class SystemState {
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   appBarTheme: const AppBarTheme(
-    iconTheme: IconThemeData(color: Colors.black),
+    iconTheme: IconThemeData(color: AppColors.neutralBlack),
   ),
   colorScheme: const ColorScheme.light(
-    primaryContainer: Colors.white,
-    primary: Colors.black,
+    primaryContainer: AppColors.neutralWhite,
+    primary: AppColors.neutralBlack,
     secondary: Colors.grey,
   ),
   tabBarTheme: const TabBarThemeData(
     labelStyle: TextStyle(height: 1.08, fontFamily: "AlibabaPuHuiTi"),
   ),
-  primaryColor: Colors.black,
+  primaryColor: AppColors.neutralBlack,
   fontFamily: "AlibabaPuHuiTi",
   fontFamilyFallback: const ['Noto Sans SC'],
 );
@@ -160,17 +161,17 @@ ThemeData lightTheme = ThemeData(
 ThemeData darkTheme = ThemeData(
   useMaterial3: true,
   appBarTheme: const AppBarTheme(
-    iconTheme: IconThemeData(color: Colors.black),
+    iconTheme: IconThemeData(color: AppColors.neutralBlack),
   ),
   colorScheme: const ColorScheme.dark(
-    primaryContainer: Colors.black,
-    primary: Colors.white,
+    primaryContainer: AppColors.neutralBlack,
+    primary: AppColors.neutralWhite,
     secondary: Colors.grey,
   ),
   tabBarTheme: const TabBarThemeData(
     labelStyle: TextStyle(height: 1.08, fontFamily: "AlibabaPuHuiTi"),
   ),
-  primaryColor: Colors.black,
+  primaryColor: AppColors.neutralBlack,
   fontFamily: "AlibabaPuHuiTi",
   fontFamilyFallback: const ['Noto Sans SC'],
 );

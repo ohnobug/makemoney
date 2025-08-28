@@ -4,8 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/components/ljn_image_draggable_box.dart';
-import 'package:spicychat/components/ljn_video_draggable_box.dart';
+import 'package:spicychat/l10n/app_localizations.dart';
+import 'package:spicychat/screens/components/ljn_image_draggable_box.dart';
+import 'package:spicychat/screens/components/ljn_video_draggable_box.dart';
 import 'package:spicychat/routing/app_router.dart';
 import 'package:spicychat/store/ljn_popup_cubit.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
@@ -43,33 +44,43 @@ class _App extends State<App> {
             navigatorKey: context.read<LJNSystemCubit>().state.navigatorKey,
             debugShowCheckedModeBanner: false,
             initialRoute: '/',
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
             builder: (context, child) {
-              return Stack(
-                children: [
-                  child!,
-                  // Video/Image viewer
-                  BlocBuilder<LJNPopupCubit, PopupState>(
-                    builder: (context, popupState) {
-                      if (popupState.showFullScreenVideo) {
-                        return LJNVideoDraggableBox(
-                          openBoxSize: popupState.openBoxSize,
-                          openPosition: popupState.openPosition,
-                          videoPath: popupState.sourcePath,
-                          onClose: () {},
-                        );
-                      }
-                      if (popupState.showFullScreenImage) {
-                        return LJNImaeDraggableBox(
-                          openBoxSize: popupState.openBoxSize,
-                          openPosition: popupState.openPosition,
-                          imagePath: popupState.sourcePath,
-                          onClose: () {},
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  ),
-                ],
+              return Localizations.override(
+                context: context,
+                locale: const Locale('en'),
+                child: Builder(
+                  builder: (context) {
+                    return Stack(
+                      children: [
+                        child!,
+                        // Video/Image viewer
+                        BlocBuilder<LJNPopupCubit, PopupState>(
+                          builder: (context, popupState) {
+                            if (popupState.showFullScreenVideo) {
+                              return LJNVideoDraggableBox(
+                                openBoxSize: popupState.openBoxSize,
+                                openPosition: popupState.openPosition,
+                                videoPath: popupState.sourcePath,
+                                onClose: () {},
+                              );
+                            }
+                            if (popupState.showFullScreenImage) {
+                              return LJNImaeDraggableBox(
+                                openBoxSize: popupState.openBoxSize,
+                                openPosition: popupState.openPosition,
+                                imagePath: popupState.sourcePath,
+                                onClose: () {},
+                              );
+                            }
+                            return const SizedBox.shrink();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                ),
               );
             },
             // 使用优化后的路由管理器

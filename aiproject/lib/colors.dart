@@ -1,86 +1,87 @@
 import 'package:flutter/material.dart';
 
 /// 应用的全局颜色配置
+/// (已根据“活力鲜橙”主题进行专业调整)
 class AppColors {
   // ===========================================================================
-  // 核心品牌色 (绿色系)
-  // Core Brand Colors (Greens)
+  // 核心品牌色 (橙色系)
+  // Core Brand Colors (Oranges) - Replaced Greens
   // ===========================================================================
 
-  static const Color brandGreenLightest = Color.fromARGB(255, 160, 236, 112);
-  static const Color brandGreenLighter = Color.fromARGB(255, 158, 236, 114);
-  static const Color brandGreenLight = Color.fromARGB(255, 110, 216, 163);
-  static const Color brandGreenSlightlyLighter = Color.fromARGB(255, 104, 199, 145);
-  static const Color brandGreenVibrant1 = Color.fromARGB(255, 76, 190, 102);
-  static const Color brandGreenVibrant2 = Color.fromARGB(255, 75, 190, 97);
-  static const Color brandGreenVibrant3 = Color.fromARGB(255, 74, 193, 99);
-  static const Color brandGreenVibrant4 = Color.fromARGB(255, 63, 198, 94);
-  static const Color brandGreenVibrant5 = Color.fromARGB(255, 52, 192, 95);
-  static const Color brandGreenVibrant6 = Color.fromARGB(255, 7, 192, 103);
-  static const Color brandGreenVibrant7 = Color.fromARGB(255, 5, 190, 94);
-  static const Color brandGreenVibrantDeep1 = Color.fromARGB(255, 0, 213, 106);
-  static const Color brandGreenVibrantDeep2 = Color.fromARGB(255, 0, 198, 106);
-  static const Color brandGreenPrimary = Color.fromARGB(255, 83, 175, 105);
-  static const Color brandGreenSlightlyDesaturated = Color.fromARGB(255, 77, 174, 107);
-  static const Color brandGreenDarker1 = Color.fromARGB(255, 69, 182, 87);
-  static const Color brandGreenDarker2 = Color.fromARGB(255, 65, 183, 88);
-  static const Color brandGreenDarker3 = Color.fromARGB(255, 49, 176, 78);
-  static const Color brandGreenDarker4 =Color.fromARGB(255, 62, 174, 86);
-  static const Color brandGreenDarkest = Color.fromARGB(255, 67, 157, 95);
+  static const Color brandGreenLightest = Color(0xFFFFF4E0); // 极浅的橙色，用于高亮背景
+  static const Color brandGreenLighter = Color(0xFFFFE0B2); // 较浅的橙色
+  static const Color brandGreenLight = Color(0xFFFFCC80); // 明亮的橙色
+  static const Color brandGreenSlightlyLighter = Color(0xFFFFB74D); // 略亮的橙色
+  static const Color brandGreenVibrant1 = Color(0xFFFFA726); // 活力橙 1 (果肉)
+  static const Color brandGreenVibrant2 = Color(0xFFFF9800); // 活力橙 2
+  static const Color brandGreenVibrant3 = Color(0xFFFB8C00); // 活力橙 3
+  static const Color brandGreenVibrant4 = Color(0xFFF57C00); // 活力橙 4
+  static const Color brandGreenVibrant5 = Color(0xFFEF6C00); // 活力橙 5 (主色调)
+  static const Color brandGreenVibrant6 = Color(0xFFE65100); // 活力橙 6
+  static const Color brandGreenVibrant7 = Color(0xFFD84315); // 活力橙 7 (偏红)
+  static const Color brandGreenVibrantDeep1 = Color(0xFFBF360C); // 深活力橙 1
+  static const Color brandGreenVibrantDeep2 = Color(0xFFD84315); // 深活力橙 2
+  static const Color brandGreenPrimary = Color(0xFFF57C00); // 品牌主橙色 (取自果皮)
+  static const Color brandGreenSlightlyDesaturated = Color(0xFFE57A27); // 略微去饱和的橙
+  static const Color brandGreenDarker1 = Color(0xFFE65100); // 较深的橙色 1
+  static const Color brandGreenDarker2 = Color(0xFFD84315); // 较深的橙色 2
+  static const Color brandGreenDarker3 = Color(0xFFBF360C); // 较深的橙色 3
+  static const Color brandGreenDarker4 = Color(0xFFA9310A); // 较深的橙色 4
+  static const Color brandGreenDarkest = Color(0xFF8C2807); // 最深的橙色 (用于阴影)
   
   // ===========================================================================
-  // 品牌色 (蓝/紫色系)
-  // Brand Colors (Blues & Purples)
+  // 品牌色 (蓝/灰色系 - 作为辅助色)
+  // Brand Colors (Blues & Grays - As Accent)
   // ===========================================================================
 
-  static const Color brandBlueGreyLight = Color.fromARGB(255, 178, 176, 200);
-  static const Color brandPurpleGrey = Color.fromARGB(255, 121, 115, 149);
-  static const Color brandBluePrimary = Color.fromARGB(255, 89, 108, 140);
-  static const Color brandBlueDark1 = Color.fromARGB(255, 81, 94, 132);
-  static const Color brandBlueDark2 = Color.fromARGB(255, 78, 96, 146);
-  static const Color brandBlueDark3 = Color.fromARGB(255, 65, 82, 120);
-  static const Color brandBlueDark4 = Color.fromARGB(255, 58, 81, 124);
-  static const Color brandBlueDark5 = Color.fromARGB(255, 53, 76, 111);
-  static const Color brandBlueDark6 = Color.fromARGB(255, 53, 74, 113);
-  static const Color brandBlueDark7 = Color.fromARGB(255, 48, 61, 88);
-  static const Color brandPurpleDark1 = Color.fromARGB(255, 81, 88, 135);
-  static const Color brandPurpleDark2 = Color.fromARGB(255, 65, 73, 117);
-  static const Color brandPurpleDark3 = Color.fromARGB(255, 64, 69, 118);
-  static const Color brandPurpleDark4 = Color.fromARGB(255, 64, 67, 101);
-  static const Color brandPurpleDark5 = Color.fromARGB(255, 50, 48, 70);
+  static const Color brandBlueGreyLight = Color(0xFFB0BEC5); // 浅灰蓝
+  static const Color brandPurpleGrey = Color(0xFF78909C); // 中灰蓝
+  static const Color brandBluePrimary = Color(0xFF607D8B); // 主灰蓝
+  static const Color brandBlueDark1 = Color(0xFF546E7A); // 深灰蓝 1
+  static const Color brandBlueDark2 = Color(0xFF455A64); // 深灰蓝 2
+  static const Color brandBlueDark3 = Color(0xFF37474F); // 深灰蓝 3
+  static const Color brandBlueDark4 = Color(0xFF263238); // 深灰蓝 4
+  static const Color brandBlueDark5 = Color(0xFF1B2428); // 深灰蓝 5
+  static const Color brandBlueDark6 = Color(0xFF263238); // (同4)
+  static const Color brandBlueDark7 = Color(0xFF1E282C); // (近似5)
+  static const Color brandPurpleDark1 = Color(0xFF546E7A); // (同深灰蓝1)
+  static const Color brandPurpleDark2 = Color(0xFF455A64); // (同深灰蓝2)
+  static const Color brandPurpleDark3 = Color(0xFF37474F); // (同深灰蓝3)
+  static const Color brandPurpleDark4 = Color(0xFF263238); // (同深灰蓝4)
+  static const Color brandPurpleDark5 = Color(0xFF1A2124); // (最深)
 
   // ===========================================================================
-  // 品牌色 (水鸭/蓝绿色系)
-  // Brand Colors (Teals & Cyans)
+  // 品牌色 (大地色系)
+  // Brand Colors (Earth Tones) - Replaced Teals
   // ===========================================================================
 
-  static const Color brandTealBackground1 = Color.fromARGB(255, 233, 248, 243);
-  static const Color brandTealBackground2 = Color.fromARGB(255, 232, 249, 241);
-  static const Color brandTealVibrant = Color.fromARGB(255, 24, 237, 201);
-  static const Color brandTealMedium = Color.fromARGB(255, 156, 215, 179);
-  static const Color brandTealDark1 = Color.fromARGB(255, 60, 182, 118);
-  static const Color brandTealDark2 = Color.fromARGB(255, 56, 179, 114);
-  static const Color brandTealDark3 = Color.fromARGB(255, 42, 172, 102);
+  static const Color brandTealBackground1 = Color(0xFFF5F1E9); // 极浅的暖沙色背景
+  static const Color brandTealBackground2 = Color(0xFFF3EFE6); // (近似1)
+  static const Color brandTealVibrant = Color(0xFFE2C5A6); // 活力的沙色
+  static const Color brandTealMedium = Color(0xFFC4A98A); // 中等沙色
+  static const Color brandTealDark1 = Color(0xFFA1887F); // 暖褐色 1
+  static const Color brandTealDark2 = Color(0xFF8D6E63); // 暖褐色 2
+  static const Color brandTealDark3 = Color(0xFF795548); // 暖褐色 3 (最深)
 
   // ===========================================================================
   // 功能/强调色 (红/橙/黄色系)
   // Functional/Accent Colors (Reds, Oranges, Yellows)
   // ===========================================================================
 
-  static const Color accentRedPure = Color.fromARGB(255, 255, 0, 0);
-  static const Color accentRedVibrant1 = Color.fromARGB(255, 254, 61, 83);
-  static const Color accentRedVibrant2 = Color.fromARGB(255, 252, 0, 0);
-  static const Color accentRedDark1 = Color.fromARGB(255, 247, 19, 19);
-  static const Color accentRedDark2 = Color.fromARGB(255, 231, 15, 15);
-  static const Color accentRedDark3 = Color.fromARGB(255, 221, 76, 76);
-  static const Color accentRedDark4 = Color.fromARGB(255, 217, 79, 77);
-  static const Color accentOrange = Color.fromARGB(255, 255, 161, 79);
-  static const Color accentOrangeDark = Color.fromARGB(255, 249, 136, 39);
-  static const Color accentYellow = Color.fromARGB(255, 251, 193, 30);
-  static const Color accentYellowDark1 = Color.fromARGB(255, 248, 195, 57);
-  static const Color accentYellowDark2 = Color.fromARGB(255, 247, 171, 66);
-  static const Color accentYellowDark3 = Color.fromARGB(255, 244, 197, 58);
-  static const Color accentYellowDark4 = Color.fromARGB(255, 242, 191, 46);
+  static const Color accentRedPure = Color.fromARGB(255, 255, 0, 0); // 纯红保留，用于特殊场景
+  static const Color accentRedVibrant1 = Color(0xFFEF5350); // 活力的红色 (警示)
+  static const Color accentRedVibrant2 = Color(0xFFE53935); // (近似1)
+  static const Color accentRedDark1 = Color(0xFFD32F2F); // 深红色 1
+  static const Color accentRedDark2 = Color(0xFFC62828); // 深红色 2
+  static const Color accentRedDark3 = Color(0xFFB71C1C); // 深红色 3
+  static const Color accentRedDark4 = Color(0xFFD50000); // (近似)
+  static const Color accentOrange = Color(0xFFFFB300); // 强调橙色 (取自果肉高光)
+  static const Color accentOrangeDark = Color(0xFFFF8F00); // 深强调橙
+  static const Color accentYellow = Color(0xFFFFCA28); // 强调黄色
+  static const Color accentYellowDark1 = Color(0xFFFFC107); // 深强调黄 1
+  static const Color accentYellowDark2 = Color(0xFFFFB300); // 深强调黄 2
+  static const Color accentYellowDark3 = Color(0xFFFFA000); // 深强调黄 3
+  static const Color accentYellowDark4 = Color(0xFFFF8F00); // 深强调黄 4
 
   // ===========================================================================
   // 中性色 (白色和浅灰色系)
@@ -88,8 +89,8 @@ class AppColors {
   // ===========================================================================
 
   static const Color neutralWhite = Color.fromARGB(255, 255, 255, 255);
-  static const Color neutralOffWhiteYellow = Color.fromARGB(255, 255, 250, 231);
-  static const Color neutralOffWhitePink = Color.fromARGB(255, 253, 245, 242);
+  static const Color neutralOffWhiteYellow = Color(0xFFFFF8E1); // 暖调米白 (源于橙皮内侧)
+  static const Color neutralOffWhitePink = Color(0xFFFFF3E0); // (近似)
   static const Color neutralGrey1 = Color.fromARGB(255, 248, 248, 248);
   static const Color neutralGrey2 = Color.fromARGB(255, 247, 247, 247);
   static const Color neutralGrey3 = Color.fromARGB(255, 246, 246, 246);
@@ -169,7 +170,7 @@ class AppColors {
   static const Color neutralGrey71 = Color.fromARGB(255, 111, 111, 111);
   static const Color neutralGrey72 = Color.fromARGB(255, 110, 110, 110);
   static const Color neutralGrey73 = Color.fromARGB(255, 108, 108, 108);
-  static const Color neutralGrey74 = Color.fromARGB(255, 106, 102, 83);
+  static const Color neutralGrey74 = Color(0xFF6D6A5F); // 略带暖调的深灰
   static const Color neutralGrey75 = Color.fromARGB(255, 105, 105, 105);
   static const Color neutralGrey76 = Color.fromARGB(255, 103, 103, 103);
   static const Color neutralGrey77 = Color.fromARGB(255, 101, 101, 101);
@@ -187,13 +188,13 @@ class AppColors {
   static const Color neutralDarkGrey5 = Color.fromARGB(255, 87, 87, 87);
   static const Color neutralDarkGrey6 = Color.fromARGB(255, 85, 85, 85);
   static const Color neutralDarkGrey7 = Color.fromARGB(255, 83, 83, 83);
-  static const Color neutralDarkGrey8 = Color.fromARGB(255, 82, 83, 108);
+  static const Color neutralDarkGrey8 = Color(0xFF454B5B); // 深灰蓝
   static const Color neutralDarkGrey9 = Color.fromARGB(255, 81, 81, 81);
   static const Color neutralDarkGrey10 = Color.fromARGB(255, 80, 80, 80);
   static const Color neutralDarkGrey11 = Color.fromARGB(255, 79, 79, 79);
   static const Color neutralDarkGrey12 = Color.fromARGB(255, 76, 76, 76);
   static const Color neutralDarkGrey13 = Color.fromARGB(255, 74, 74, 74);
-  static const Color neutralDarkGrey14 = Color.fromARGB(255, 69, 75, 83);
+  static const Color neutralDarkGrey14 = Color(0xFF383F47); // 深灰蓝
   static const Color neutralDarkGrey15 = Color.fromARGB(255, 68, 68, 68);
   static const Color neutralDarkGrey16 = Color.fromARGB(255, 64, 64, 64);
   static const Color neutralDarkGrey17 = Color.fromARGB(255, 60, 60, 60);
@@ -234,11 +235,11 @@ class AppColors {
   static const Color blackTransparent28 = Color.fromARGB(71, 0, 0, 0);
 
   // -- 透明彩色 --
-  static const Color redTransparent76 = Color.fromARGB(193, 247, 0, 0);
-  static const Color redTransparent72 = Color.fromARGB(183, 192, 66, 66);
-  static const Color greenTransparent70 = Color.fromARGB(179, 76, 190, 103);
-  static const Color navyBlueTransparent76 = Color.fromARGB(193, 0, 1, 63);
-  static const Color navyBlueTransparent64 = Color.fromARGB(164, 0, 15, 44);
+  static const Color redTransparent76 = Color.fromARGB(193, 239, 83, 80);
+  static const Color redTransparent72 = Color.fromARGB(183, 211, 47, 47);
+  static const Color greenTransparent70 = Color.fromARGB(179, 245, 124, 0); // (现在是透明橙色)
+  static const Color navyBlueTransparent76 = Color.fromARGB(193, 38, 50, 56); // (透明灰蓝)
+  static const Color navyBlueTransparent64 = Color.fromARGB(164, 26, 35, 39); // (更深的透明灰蓝)
 
   // -- 完全透明 --
   static const Color transparent = Color.fromARGB(0, 0, 0, 0);

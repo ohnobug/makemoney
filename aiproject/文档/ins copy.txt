@@ -257,7 +257,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                               ? Brightness.light
                               : Brightness.dark),
                       // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                      // foregroundColor: Colors.red,
+                      // foregroundColor: AppColors.accentRedPure,
                       flexibleSpace: FlexibleSpaceBar(
                         background: Container(
                           padding: EdgeInsets.symmetric(
@@ -284,7 +284,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                                           0xe612,
                                           fontFamily: 'Iconfont',
                                         ),
-                                        color: Colors.black,
+                                        color: AppColors.neutralBlack,
                                         size: 40.w,
                                       ),
                                       prefixIconConstraints: BoxConstraints(
@@ -405,7 +405,7 @@ class _BigImageBox extends State<BigImageBox> {
             top: 15.w,
             left: 200.w,
             child: Icon(
-              color: Colors.white,
+              color: AppColors.neutralWhite,
               const IconData(
                 0xe777,
                 fontFamily: 'Iconfont',
@@ -457,7 +457,7 @@ class SmallImageBox extends StatelessWidget {
               top: 15.w,
               left: 200.w,
               child: Icon(
-                color: Colors.white,
+                color: AppColors.neutralWhite,
                 const IconData(
                   0xe777,
                   fontFamily: 'Iconfont',
@@ -470,7 +470,7 @@ class SmallImageBox extends StatelessWidget {
               top: 15.w,
               left: 200.w,
               child: Icon(
-                color: Colors.white,
+                color: AppColors.neutralWhite,
                 const IconData(
                   0xe61d,
                   fontFamily: 'Iconfont',
@@ -548,7 +548,7 @@ class _VideoBox extends State<VideoBox> {
             top: 15.w,
             left: 200.w,
             child: Icon(
-              color: Colors.white,
+              color: AppColors.neutralWhite,
               const IconData(
                 0xe61d,
                 fontFamily: 'Iconfont',
@@ -654,7 +654,7 @@ class _LJNInsStyle extends State<LJNInsStyle> {
     // return Container(
     //   width: 750.w,
     //   height: 500.w,
-    //   color: Colors.red,
+    //   color: AppColors.accentRedPure,
     //   key: _containerKey,
     //   margin: EdgeInsets.only(bottom: 4.w),
     //   child: Text("key:$_containerKey  position:$myPosition canplay: $canPlay"),

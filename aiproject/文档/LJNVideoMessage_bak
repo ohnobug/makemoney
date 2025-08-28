@@ -227,9 +227,10 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                               fit: BoxFit.contain,
                                             ),
                                             const Text(
-                                              "缓存",
+                                              AppLocalizations.of(context)!.cache,
                                               style: TextStyle(
-                                                  color: Colors.white),
+                                                  color: AppColors.neutralWhite,
+                                                  ),
                                             ),
                                           ],
                                         )
@@ -238,7 +239,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                   //   aspectRatio: _controller!.value.aspectRatio,
                                   //   child: VideoPlayer(_controller!),
                                   // ),
-                                  )),
+                                  ),),
                           // 箭头
                           SizedBox(
                             width: 20.w,
