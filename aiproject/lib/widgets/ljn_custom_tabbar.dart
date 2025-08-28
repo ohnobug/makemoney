@@ -12,15 +12,13 @@ import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:spicychat/tools/ljn_tools.dart';
 import 'package:spicychat/screens/user/ljn_user.dart';
 
-/// 用于存储每个Tab信息的辅助类
+// 关键改动 1: _TabInfo 不再需要 title 属性。它只存储不依赖 context 的静态信息。
 class _TabInfo {
-  final String title;
   final int icon;
   final int selectedIcon;
   final double iconSize;
 
   const _TabInfo({
-    required this.title,
     required this.icon,
     required this.selectedIcon,
     required this.iconSize,
@@ -28,20 +26,24 @@ class _TabInfo {
 }
 
 /// 自定义Tabbar
-class CustomTabbar extends StatefulWidget {
-  const CustomTabbar({super.key});
+class LJNCustomTabbar extends StatefulWidget {
+  const LJNCustomTabbar({super.key});
 
   @override
-  State<CustomTabbar> createState() => _CustomTabbarState();
+  State<LJNCustomTabbar> createState() => _LJNCustomTabbarState();
 }
 
-class _CustomTabbarState extends State<CustomTabbar>
+class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     with TickerProviderStateMixin {
-  // 修改点 1: 将 _tabController 和 _tabs 声明为 late final
   late final TabController _tabController;
-  late List<_TabInfo> _tabs;
-  // 修改点 2: 添加一个布尔标志位，防止重复初始化
-  bool _dependenciesInitialized = false;
+
+  // 关键改动 2: _tabs 列表现在是 final，并且只包含静态的图标信息。
+  final List<_TabInfo> _tabs = const [
+    _TabInfo(icon: 0xe7b3, selectedIcon: 0xe676, iconSize: 45.0),
+    _TabInfo(icon: 0xe608, selectedIcon: 0xe609, iconSize: 48.0),
+    _TabInfo(icon: 0xe61c, selectedIcon: 0xe638, iconSize: 43.0),
+    _TabInfo(icon: 0xe63f, selectedIcon: 0xe62b, iconSize: 48.0),
+  ];
 
   int _currentIndex = 0;
   double _appbarLeft = 0;
@@ -51,56 +53,16 @@ class _CustomTabbarState extends State<CustomTabbar>
   @override
   void initState() {
     super.initState();
-    // 修改点 3: 将依赖 context 的初始化逻辑从 initState 移出
+    // 关键改动 3: TabController 可以在 initState 中安全地初始化，因为它不再依赖 context。
+    _tabController = TabController(
+      length: _tabs.length,
+      vsync: this,
+      animationDuration: Duration.zero,
+    );
+    _tabController.addListener(_handleTabSelection);
   }
-
-  // 修改点 4: 使用 didChangeDependencies 方法来安全地进行依赖 context 的初始化
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    // 使用标志位确保此段逻辑只执行一次
-    if (!_dependenciesInitialized) {
-      // 在这里 context 是完全可用的，可以安全地访问 AppLocalizations
-      _tabs = [
-        _TabInfo(
-          title: AppLocalizations.of(context)!.tabbar_label_chat,
-          icon: 0xe7b3,
-          selectedIcon: 0xe676,
-          iconSize: 45.0,
-        ),
-        _TabInfo(
-          title: AppLocalizations.of(context)!.tabbar_label_contacts,
-          icon: 0xe608,
-          selectedIcon: 0xe609,
-          iconSize: 48.0,
-        ),
-        _TabInfo(
-          title: AppLocalizations.of(context)!.tabbar_label_discover,
-          icon: 0xe61c,
-          selectedIcon: 0xe638,
-          iconSize: 43.0,
-        ),
-        _TabInfo(
-          title: AppLocalizations.of(context)!.tabbar_label_me,
-          icon: 0xe63f,
-          selectedIcon: 0xe62b,
-          iconSize: 48.0,
-        ),
-      ];
-
-      // 在 _tabs 初始化后，再初始化 TabController
-      _tabController = TabController(
-        length: _tabs.length,
-        vsync: this,
-        animationDuration: Duration.zero,
-      );
-      _tabController.addListener(_handleTabSelection);
-
-      // 更新标志位
-      _dependenciesInitialized = true;
-    }
-  }
+  
+  // 关键改动 4: didChangeDependencies 不再需要了，可以安全删除。
 
   void _handleTabSelection() {
     if (_tabController.index != _currentIndex) {
@@ -134,16 +96,22 @@ class _CustomTabbarState extends State<CustomTabbar>
     super.dispose();
   }
 
+  // 辅助方法，用于在 build 方法中获取动态标题列表
+  List<String> _getTabTitles(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return [
+      l10n.tabbar_label_chat,
+      l10n.tabbar_label_contacts,
+      l10n.tabbar_label_discover,
+      l10n.tabbar_label_me,
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
-    // didChangeDependencies 可能会在 build 之前未被调用，
-    // 这里加一个检查确保 controller 已经被初始化。
-    if (!_dependenciesInitialized) {
-      // 在 build 第一次运行时，依赖肯定已经准备好了，
-      // 如果还没初始化，就调用一下。
-      // 这是一种备用安全措施，正常情况下不会执行。
-      didChangeDependencies();
-    }
+    // 关键改动 5: 在 build 方法中获取最新的标题。
+    // 这样每次语言切换导致重建时，标题都会被刷新。
+    final tabTitles = _getTabTitles(context);
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
@@ -153,7 +121,8 @@ class _CustomTabbarState extends State<CustomTabbar>
           _setStatusHeight = true;
         }
 
-        final appBarTitle = Text(_tabs[_currentIndex].title);
+        // 使用从 build 方法中动态获取的标题
+        final appBarTitle = Text(tabTitles[_currentIndex]);
         final percent75Position = MediaQuery.of(context).size.height * 0.25;
 
         return Stack(
@@ -207,7 +176,8 @@ class _CustomTabbarState extends State<CustomTabbar>
                               ),
                             ),
                           ),
-                          text: tabInfo.title,
+                          // 关键改动 6: 直接从动态标题列表中获取 text
+                          text: tabTitles[index],
                         );
                       },
                     ),
@@ -218,8 +188,8 @@ class _CustomTabbarState extends State<CustomTabbar>
               body: TabBarView(
                 physics: systemState.showMiniProgramDrawer
                     ? const NeverScrollableScrollPhysics()
-                    : const CustomTabBarViewScrollPhysics(
-                        parent: ClampingScrollPhysics(),
+                    : CustomTabBarViewScrollPhysics( // 这里使用了自定义的 LJNCustomTabBarViewScrollPhysics
+                        parent: const ClampingScrollPhysics(),
                       ),
                 controller: _tabController,
                 children: const <Widget>[

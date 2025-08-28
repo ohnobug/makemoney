@@ -1406,6 +1406,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get stickers => '表情';
 
   @override
+  String get searchHistory => '搜索历史';
+
+  @override
   String get male => '男';
 
   @override
@@ -1522,7 +1525,7 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '#个标签',
+      other: '$count 个标签',
     );
     return '$_temp0';
   }
@@ -1532,7 +1535,7 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '#个',
+      other: '$count 个',
     );
     return '$_temp0';
   }
@@ -1542,7 +1545,7 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '#个朋友',
+      other: '$count 个朋友',
     );
     return '$_temp0';
   }
@@ -1555,7 +1558,7 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '#条评价',
+      other: '$count 条评价',
     );
     return '$_temp0';
   }

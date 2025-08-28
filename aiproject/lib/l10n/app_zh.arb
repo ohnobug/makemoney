@@ -594,6 +594,7 @@
   },
   "storeOrdersAndCardPack": "小店订单与卡包",
   "stickers": "表情",
+  "searchHistory": "搜索历史",
   "male": "男",
   "guangdongGuangzhou": "广东广州",
   "registrationTime": "注册时间",
@@ -656,7 +657,7 @@
   "privacyPolicyTitle": "《隐私保护指引》",
   "releaseToCancel": "松开 取消",
   "holdToTalk": "按住 说话",
-  "tagCount": "{count, plural, other{#个标签}}",
+  "tagCount": "{count, plural, other{{count} 个标签}}",
   "@tagCount": {
     "description": "显示标签的数量",
     "placeholders": {
@@ -665,7 +666,7 @@
       }
     }
   },
-  "groupCount": "{count, plural, other{#个}}",
+  "groupCount": "{count, plural, other{{count} 个}}",
   "@groupCount": {
     "description": "显示共同群聊的数量",
     "placeholders": {
@@ -674,7 +675,7 @@
       }
     }
   },
-  "friendCount": "{count, plural, other{#个朋友}}",
+  "friendCount": "{count, plural, other{{count} 个朋友}}",
   "@friendCount": {
     "description": "显示朋友数量的文本",
     "placeholders": {
@@ -684,7 +685,7 @@
     }
   },
   "noTransactionRating": "暂无交易评分",
-  "commentCount": "{count, plural, other{#条评价}}",
+  "commentCount": "{count, plural, other{{count} 条评价}}",
   "@commentCount": {
     "description": "显示评价的数量",
     "placeholders": {

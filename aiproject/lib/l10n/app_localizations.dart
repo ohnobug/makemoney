@@ -2729,7 +2729,7 @@ abstract class AppLocalizations {
   /// Suffix for lists showing 'and N more friends'
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, one{and 1 other friend} other{and # other friends}}'**
+  /// **'{count, plural, one{and 1 other friend} other{and {count} other friends}}'**
   String andXMoreFriends(int count);
 
   /// No description provided for @storeOrdersAndCardPack.
@@ -2743,6 +2743,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Stickers'**
   String get stickers;
+
+  /// No description provided for @searchHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Search History'**
+  String get searchHistory;
 
   /// No description provided for @male.
   ///
@@ -2951,19 +2957,19 @@ abstract class AppLocalizations {
   /// Displays the number of tags
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, one{1 tag} other{# tags}}'**
+  /// **'{count, plural, one{1 tag} other{{count} tags}}'**
   String tagCount(int count);
 
   /// Displays the number of mutual groups
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, one{1 group} other{# groups}}'**
+  /// **'{count, plural, one{1 group} other{{count} groups}}'**
   String groupCount(int count);
 
   /// Text for displaying the number of friends
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, one{1 friend} other{# friends}}'**
+  /// **'{count, plural, one{1 friend} other{{count} friends}}'**
   String friendCount(int count);
 
   /// No description provided for @noTransactionRating.
@@ -2975,7 +2981,7 @@ abstract class AppLocalizations {
   /// Displays the number of reviews
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, one{1 review} other{# reviews}}'**
+  /// **'{count, plural, one{1 review} other{{count} reviews}}'**
   String commentCount(int count);
 
   /// Displays a featured review and its content

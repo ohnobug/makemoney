@@ -11,6 +11,30 @@ import 'package:spicychat/screens/components/ljn_appbar.dart';
 import 'package:spicychat/screens/components/ljn_function_item.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 
+// 关键改动 1: 创建数据模型来存储静态数据
+enum FriendStatus { added, expired }
+
+class _FriendItemData {
+  final String name;
+  final String avatar;
+  final String message;
+  final bool underline;
+  final FriendStatus status;
+
+  const _FriendItemData({
+    required this.name,
+    required this.avatar,
+    required this.message,
+    required this.status,
+    this.underline = true,
+  });
+}
+
+class _TimeSeparatorData {
+  final String titleKey;
+  const _TimeSeparatorData(this.titleKey);
+}
+
 class LJNNewFriends extends StatefulWidget {
   const LJNNewFriends({super.key});
 
@@ -19,708 +43,209 @@ class LJNNewFriends extends StatefulWidget {
 }
 
 class _LJNNewFriendsState extends State<LJNNewFriends> {
-  late List<dynamic> contactList;
-  bool _dependenciesInitialized = false;
+  // 关键改动 2: staticDataList 只存储不依赖 context 的静态数据模型
+  final List<dynamic> staticDataList = const [
+    _TimeSeparatorData('twoDaysAgo'),
+    _FriendItemData(
+        name: "天空飘来五个字那都不是事",
+        avatar: "images/avatar_webp/chat_1.webp",
+        message: '我是天空飘来五个字那都不是事',
+        status: FriendStatus.added),
+    _FriendItemData(
+        name: "本因",
+        avatar: "images/avatar_webp/chat_10.webp",
+        message: '我是本因',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "赵洵",
+        avatar: "images/avatar_webp/chat_11.webp",
+        message: '我是赵洵',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "定静师太",
+        avatar: "images/avatar_webp/chat_12.webp",
+        message: '我是定静师太',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "李秋水",
+        avatar: "images/avatar_webp/chat_13.webp",
+        message: '我是李秋水',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "谭婆",
+        avatar: "images/avatar_webp/chat_14.webp",
+        message: '我是谭婆',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "李傀儡",
+        avatar: "images/avatar_webp/chat_15.webp",
+        message: '我是李傀儡',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "貂禅",
+        avatar: "images/avatar_webp/chat_16.webp",
+        message: '我是貂禅',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "何三七",
+        avatar: "images/avatar_webp/chat_17.webp",
+        message: '我是何三七',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "孔融",
+        avatar: "images/avatar_webp/chat_18.webp",
+        message: '我是孔融',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "齐堂主",
+        avatar: "images/avatar_webp/chat_19.webp",
+        message: '我是齐堂主',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "博尔术",
+        avatar: "images/avatar_webp/chat_20.webp",
+        message: '我是博尔术',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "王语嫣",
+        avatar: "images/avatar_webp/chat_21.webp",
+        message: '我是王语嫣',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "秦红棉",
+        avatar: "images/avatar_webp/chat_22.webp",
+        message: '我是秦红棉',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "天竺僧人",
+        avatar: "images/avatar_webp/chat_23.webp",
+        message: '我是天竺僧人',
+        status: FriendStatus.expired,
+        underline: false),
+    _TimeSeparatorData('fiveDaysAgo'),
+    _FriendItemData(
+        name: "段延庆",
+        avatar: "images/avatar_webp/chat_33.webp",
+        message: '我是段延庆',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "令狐冲",
+        avatar: "images/avatar_webp/chat_34.webp",
+        message: '我是令狐冲',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "英白罗",
+        avatar: "images/avatar_webp/chat_35.webp",
+        message: '我是英白罗',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "黄药师",
+        avatar: "images/avatar_webp/chat_36.webp",
+        message: '我是黄药师',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "李煜",
+        avatar: "images/avatar_webp/chat_37.webp",
+        message: '我是李煜',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "云中鹤",
+        avatar: "images/avatar_webp/chat_38.webp",
+        message: '我是云中鹤',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "劳德诺",
+        avatar: "images/avatar_webp/chat_39.webp",
+        message: '我是劳德诺',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "包惜弱",
+        avatar: "images/avatar_webp/chat_40.webp",
+        message: '我是包惜弱',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "游驹",
+        avatar: "images/avatar_webp/chat_41.webp",
+        message: '我是游驹',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "钟万仇",
+        avatar: "images/avatar_webp/chat_42.webp",
+        message: '我是钟万仇',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "渔人",
+        avatar: "images/avatar_webp/chat_43.webp",
+        message: '我是渔人',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "单叔山",
+        avatar: "images/avatar_webp/chat_44.webp",
+        message: '我是单叔山',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "段誉",
+        avatar: "images/avatar_webp/chat_45.webp",
+        message: '我是段誉',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "林震南",
+        avatar: "images/avatar_webp/chat_46.webp",
+        message: '我是林震南',
+        status: FriendStatus.expired),
+    _FriendItemData(
+        name: "商鞅",
+        avatar: "images/avatar_webp/chat_47.webp",
+        message: '我是商鞅',
+        status: FriendStatus.expired),
+  ];
 
   @override
   void initState() {
     super.initState();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    contactList = [
-      // 提示
-      LJNFunctionItem(
-        title: AppLocalizations.of(context)!.addPhoneContacts,
-        icon: "images/icon/phone.png",
-        link: '/collection_and_payment',
-        underline: false,
-      ),
-
-      LJNAlphabet(
-        title: AppLocalizations.of(context)!.twoDaysAgo,
-        bgColor: AppColors.neutralGrey11,
-      ),
-      ChatListItem(
-        friendName: "天空飘来五个字那都不是事",
-        avatar: "images/avatar_webp/chat_1.webp",
-        message: '我是天空飘来五个字那都不是事',
-        notice: false,
-        lastedTime: Row(
-          children: [
-            Icon(
-              const IconData(
-                0xe7cc,
-                fontFamily: 'Iconfont',
-              ),
-              color: AppColors.neutralGrey45,
-              size: 28.w,
-            ),
-            SizedBox(width: 8.0.w),
-            Text(
-              AppLocalizations.of(context)!.added,
-              style: TextStyle(
-                height: 1.08,
-                fontSize: fontSizeScale(25.0.w),
-                color: AppColors.neutralGrey45,
-              ),
-            ),
-          ],
-        ),
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "天空飘来五个字那都不是事",
-              'nickname': "天空飘来五个字那都不是事",
-              'account': "天空飘来五个字那都不是事",
-              'avatar': "images/avatar_webp/chat_1.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "本因",
-        avatar: "images/avatar_webp/chat_10.webp",
-        message: '我是本因',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "本因",
-              'nickname': "本因",
-              'account': "本因",
-              'avatar': "images/avatar_webp/chat_10.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "赵洵",
-        avatar: "images/avatar_webp/chat_11.webp",
-        message: '我是赵洵',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "赵洵",
-              'nickname': "赵洵",
-              'account': "赵洵",
-              'avatar': "images/avatar_webp/chat_11.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "定静师太",
-        avatar: "images/avatar_webp/chat_12.webp",
-        message: '我是定静师太',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "定静师太",
-              'nickname': "定静师太",
-              'account': "定静师太",
-              'avatar': "images/avatar_webp/chat_12.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "李秋水",
-        avatar: "images/avatar_webp/chat_13.webp",
-        message: '我是李秋水',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "李秋水",
-              'nickname': "李秋水",
-              'account': "李秋水",
-              'avatar': "images/avatar_webp/chat_13.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "谭婆",
-        avatar: "images/avatar_webp/chat_14.webp",
-        message: '我是谭婆',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "谭婆",
-              'nickname': "谭婆",
-              'account': "谭婆",
-              'avatar': "images/avatar_webp/chat_14.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "李傀儡",
-        avatar: "images/avatar_webp/chat_15.webp",
-        message: '我是李傀儡',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "李傀儡",
-              'nickname': "李傀儡",
-              'account': "李傀儡",
-              'avatar': "images/avatar_webp/chat_15.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "貂禅",
-        avatar: "images/avatar_webp/chat_16.webp",
-        message: '我是貂禅',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "貂禅",
-              'nickname': "貂禅",
-              'account': "貂禅",
-              'avatar': "images/avatar_webp/chat_16.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "何三七",
-        avatar: "images/avatar_webp/chat_17.webp",
-        message: '我是何三七',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "何三七",
-              'nickname': "何三七",
-              'account': "何三七",
-              'avatar': "images/avatar_webp/chat_17.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "孔融",
-        avatar: "images/avatar_webp/chat_18.webp",
-        message: '我是孔融',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "孔融",
-              'nickname': "孔融",
-              'account': "孔融",
-              'avatar': "images/avatar_webp/chat_18.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "齐堂主",
-        avatar: "images/avatar_webp/chat_19.webp",
-        message: '我是齐堂主',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "齐堂主",
-              'nickname': "齐堂主",
-              'account': "齐堂主",
-              'avatar': "images/avatar_webp/chat_19.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "博尔术",
-        avatar: "images/avatar_webp/chat_20.webp",
-        message: '我是博尔术',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "博尔术",
-              'nickname': "博尔术",
-              'account': "博尔术",
-              'avatar': "images/avatar_webp/chat_20.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "王语嫣",
-        avatar: "images/avatar_webp/chat_21.webp",
-        message: '我是王语嫣',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "王语嫣",
-              'nickname': "王语嫣",
-              'account': "王语嫣",
-              'avatar': "images/avatar_webp/chat_21.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "秦红棉",
-        avatar: "images/avatar_webp/chat_22.webp",
-        message: '我是秦红棉',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "秦红棉",
-              'nickname': "秦红棉",
-              'account': "秦红棉",
-              'avatar': "images/avatar_webp/chat_22.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "天竺僧人",
-        avatar: "images/avatar_webp/chat_23.webp",
-        message: '我是天竺僧人',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: false,
-      ),
-      LJNAlphabet(
-        title: AppLocalizations.of(context)!.fiveDaysAgo,
-        bgColor: AppColors.neutralGrey11,
-      ),
-      ChatListItem(
-        friendName: "段延庆",
-        avatar: "images/avatar_webp/chat_33.webp",
-        message: '我是段延庆',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "段延庆",
-              'nickname': "段延庆",
-              'account': "段延庆",
-              'avatar': "images/avatar_webp/chat_33.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "令狐冲",
-        avatar: "images/avatar_webp/chat_34.webp",
-        message: '我是令狐冲',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "令狐冲",
-              'nickname': "令狐冲",
-              'account': "令狐冲",
-              'avatar': "images/avatar_webp/chat_34.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "英白罗",
-        avatar: "images/avatar_webp/chat_35.webp",
-        message: '我是英白罗',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "英白罗",
-              'nickname': "英白罗",
-              'account': "英白罗",
-              'avatar': "images/avatar_webp/chat_35.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "黄药师",
-        avatar: "images/avatar_webp/chat_36.webp",
-        message: '我是黄药师',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "黄药师",
-              'nickname': "黄药师",
-              'account': "黄药师",
-              'avatar': "images/avatar_webp/chat_36.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "李煜",
-        avatar: "images/avatar_webp/chat_37.webp",
-        message: '我是李煜',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "李煜",
-              'nickname': "李煜",
-              'account': "李煜",
-              'avatar': "images/avatar_webp/chat_37.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "云中鹤",
-        avatar: "images/avatar_webp/chat_38.webp",
-        message: '我是云中鹤',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "云中鹤",
-              'nickname': "云中鹤",
-              'account': "云中鹤",
-              'avatar': "images/avatar_webp/chat_38.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "劳德诺",
-        avatar: "images/avatar_webp/chat_39.webp",
-        message: '我是劳德诺',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "劳德诺",
-              'nickname': "劳德诺",
-              'account': "劳德诺",
-              'avatar': "images/avatar_webp/chat_39.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "包惜弱",
-        avatar: "images/avatar_webp/chat_40.webp",
-        message: '我是包惜弱',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "包惜弱",
-              'nickname': "包惜弱",
-              'account': "包惜弱",
-              'avatar': "images/avatar_webp/chat_40.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "游驹",
-        avatar: "images/avatar_webp/chat_41.webp",
-        message: '我是游驹',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "游驹",
-              'nickname': "游驹",
-              'account': "游驹",
-              'avatar': "images/avatar_webp/chat_41.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "钟万仇",
-        avatar: "images/avatar_webp/chat_42.webp",
-        message: '我是钟万仇',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "钟万仇",
-              'nickname': "钟万仇",
-              'account': "钟万仇",
-              'avatar': "images/avatar_webp/chat_42.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "渔人",
-        avatar: "images/avatar_webp/chat_43.webp",
-        message: '我是渔人',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "渔人",
-              'nickname': "渔人",
-              'account': "渔人",
-              'avatar': "images/avatar_webp/chat_43.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "单叔山",
-        avatar: "images/avatar_webp/chat_44.webp",
-        message: '我是单叔山',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "单叔山",
-              'nickname': "单叔山",
-              'account': "单叔山",
-              'avatar': "images/avatar_webp/chat_44.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "段誉",
-        avatar: "images/avatar_webp/chat_45.webp",
-        message: '我是段誉',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "段誉",
-              'nickname': "段誉",
-              'account': "段誉",
-              'avatar': "images/avatar_webp/chat_45.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "林震南",
-        avatar: "images/avatar_webp/chat_46.webp",
-        message: '我是林震南',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "林震南",
-              'nickname': "林震南",
-              'account': "林震南",
-              'avatar': "images/avatar_webp/chat_46.webp",
-            },
-          );
-        },
-      ),
-      ChatListItem(
-        friendName: "商鞅",
-        avatar: "images/avatar_webp/chat_47.webp",
-        message: '我是商鞅',
-        notice: false,
-        lastedTime: AppLocalizations.of(context)!.expired,
-        underline: true,
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            '/friendprofile',
-            arguments: <String, String>{
-              'name': "商鞅",
-              'nickname': "商鞅",
-              'account': "商鞅",
-              'avatar': "images/avatar_webp/chat_47.webp",
-            },
-          );
-        },
-      ),
-      Container(
-        width: 750.w,
-        height: 105.0.w,
-        color: AppColors.neutralWhite,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              AppLocalizations.of(context)!.friendCount(10),
-              style: TextStyle(
-                height: 1.08,
-                fontSize: fontSizeScale(30.w),
-                color: AppColors.neutralGrey67,
-              ),
-            ),
-          ],
-        ),
-      )
-    ];
-
-    // 更新标志位
-    _dependenciesInitialized = true;
-  }
+  // 关键改动 3: 移除整个 didChangeDependencies 方法
 
   @override
   Widget build(BuildContext context) {
-    // didChangeDependencies 可能会在 build 之前未被调用，
-    // 这里加一个检查确保 controller 已经被初始化。
-    if (!_dependenciesInitialized) {
-      // 在 build 第一次运行时，依赖肯定已经准备好了，
-      // 如果还没初始化，就调用一下。
-      // 这是一种备用安全措施，正常情况下不会执行。
-      didChangeDependencies();
-    }
-
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
       return _buildPage(systemState);
     });
   }
 
-  // 另起一个函数方便管理
+  // 辅助方法，用于根据 key 获取时间分隔符的标题
+  String _getTimeSeparatorTitle(AppLocalizations l10n, String key) {
+    switch (key) {
+      case 'twoDaysAgo':
+        return l10n.twoDaysAgo;
+      case 'fiveDaysAgo':
+        return l10n.fiveDaysAgo;
+      default:
+        return '';
+    }
+  }
+
   Widget _buildPage(SystemState systemState) {
+    // 关键改动 4: 在 build 方法内部获取最新的 l10n 实例
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       primary: false,
       appBar: LJNAppBar(
-        title: AppLocalizations.of(context)!.newFriends,
+        title: l10n.newFriends,
         actions: [
           GestureDetector(
-            onTap: () {
-              // 点击事件
-              Navigator.pushNamed(context, '/add_friends');
-            },
+            onTap: () => Navigator.pushNamed(context, '/add_friends'),
             child: Container(
-              // color: AppColors.transparent,
               height: 90.w,
               color: AppColors.transparent,
-              // color: Colors.amber,
               alignment: Alignment.center,
               padding: EdgeInsets.only(right: 33.w),
               child: Text(
-                AppLocalizations.of(context)!.addFriend,
+                l10n.addFriend,
                 style: TextStyle(
-                  // height: 1.08,
                   color: AppColors.neutralBlack,
                   fontSize: fontSizeScale(32.w),
                   fontWeight: FontWeight.w500,
@@ -735,10 +260,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              AppColors.neutralGrey11,
-              AppColors.neutralWhite,
-            ],
+            colors: [AppColors.neutralGrey11, AppColors.neutralWhite],
             stops: [0.3, 0.5],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -746,12 +268,8 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
         ),
         child: Column(
           children: [
-            // 搜索框
             LJNSearch(
-                link: '/search_friend',
-                title: AppLocalizations.of(context)!.searchHintAccountOrPhone),
-
-            // 列表
+                link: '/search_friend', title: l10n.searchHintAccountOrPhone),
             Expanded(
               child: ScrollConfiguration(
                 behavior:
@@ -762,9 +280,101 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics(),
                   ),
-                  itemCount: contactList.length, // contactList 是你的联系人数据列表
+                  // +2 for header and footer
+                  itemCount: staticDataList.length + 2,
                   itemBuilder: (context, index) {
-                    return contactList[index];
+                    // 关键改动 5: 在 itemBuilder 中动态构建 UI
+                    // Header Item
+                    if (index == 0) {
+                      return LJNFunctionItem(
+                        title: l10n.addPhoneContacts,
+                        icon: "images/icon/phone.png",
+                        link: '/collection_and_payment',
+                        underline: false,
+                      );
+                    }
+
+                    // Footer Item
+                    if (index == staticDataList.length + 1) {
+                      return Container(
+                        width: 750.w,
+                        height: 105.0.w,
+                        color: AppColors
+                            .neutralWhite, // Assuming a white background for the footer
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              l10n.friendCount(staticDataList
+                                  .whereType<_FriendItemData>()
+                                  .length),
+                              style: TextStyle(
+                                height: 1.08,
+                                fontSize: fontSizeScale(30.w),
+                                color: AppColors.neutralGrey67,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+
+                    // Data List Items
+                    final itemData =
+                        staticDataList[index - 1]; // Adjust index for data list
+
+                    if (itemData is _TimeSeparatorData) {
+                      return LJNAlphabet(
+                        title: _getTimeSeparatorTitle(l10n, itemData.titleKey),
+                        bgColor: AppColors.neutralGrey11,
+                      );
+                    }
+
+                    if (itemData is _FriendItemData) {
+                      return ChatListItem(
+                        friendName: itemData.name,
+                        avatar: itemData.avatar,
+                        message: itemData.message,
+                        notice: false,
+                        lastedTime: itemData.status == FriendStatus.added
+                            ? Row(
+                                children: [
+                                  Icon(
+                                    const IconData(0xe7cc,
+                                        fontFamily: 'Iconfont'),
+                                    color: AppColors.neutralGrey45,
+                                    size: 28.w,
+                                  ),
+                                  SizedBox(width: 8.0.w),
+                                  Text(
+                                    l10n.added,
+                                    style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(25.0.w),
+                                      color: AppColors.neutralGrey45,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : l10n.expired,
+                        underline: itemData.underline,
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/friendprofile',
+                            arguments: <String, String>{
+                              'name': itemData.name,
+                              'nickname': itemData.name,
+                              'account': itemData.name,
+                              'avatar': itemData.avatar,
+                            },
+                          );
+                        },
+                      );
+                    }
+
+                    return const SizedBox.shrink();
                   },
                 ),
               ),

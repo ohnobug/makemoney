@@ -1418,7 +1418,7 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'and # other friends',
+      other: 'and $count other friends',
       one: 'and 1 other friend',
     );
     return '$_temp0';
@@ -1429,6 +1429,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stickers => 'Stickers';
+
+  @override
+  String get searchHistory => 'Search History';
 
   @override
   String get male => 'Male';
@@ -1553,7 +1556,7 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# tags',
+      other: '$count tags',
       one: '1 tag',
     );
     return '$_temp0';
@@ -1564,7 +1567,7 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# groups',
+      other: '$count groups',
       one: '1 group',
     );
     return '$_temp0';
@@ -1575,7 +1578,7 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# friends',
+      other: '$count friends',
       one: '1 friend',
     );
     return '$_temp0';
@@ -1589,7 +1592,7 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# reviews',
+      other: '$count reviews',
       one: '1 review',
     );
     return '$_temp0';

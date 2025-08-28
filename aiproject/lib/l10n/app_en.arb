@@ -583,7 +583,7 @@
   "serviceManagement": "Service Management",
   "hotelAndBAndB": "Hotel & B&B",
   "clickStatus": "Click Status",
-  "andXMoreFriends": "{count, plural, one{and 1 other friend} other{and # other friends}}",
+  "andXMoreFriends": "{count, plural, one{and 1 other friend} other{and {count} other friends}}",
   "@andXMoreFriends": {
     "description": "Suffix for lists showing 'and N more friends'",
     "placeholders": {
@@ -594,6 +594,7 @@
   },
   "storeOrdersAndCardPack": "Store Orders & Card Pack",
   "stickers": "Stickers",
+  "searchHistory": "Search History",
   "male": "Male",
   "guangdongGuangzhou": "Guangdong, Guangzhou",
   "registrationTime": "Registration Time",
@@ -656,7 +657,7 @@
   "privacyPolicyTitle": "《Privacy Policy》",
   "releaseToCancel": "Release to Cancel",
   "holdToTalk": "Hold to Talk",
-  "tagCount": "{count, plural, one{1 tag} other{# tags}}",
+  "tagCount": "{count, plural, one{1 tag} other{{count} tags}}",
   "@tagCount": {
     "description": "Displays the number of tags",
     "placeholders": {
@@ -665,7 +666,7 @@
       }
     }
   },
-  "groupCount": "{count, plural, one{1 group} other{# groups}}",
+  "groupCount": "{count, plural, one{1 group} other{{count} groups}}",
   "@groupCount": {
     "description": "Displays the number of mutual groups",
     "placeholders": {
@@ -674,7 +675,7 @@
       }
     }
   },
-  "friendCount": "{count, plural, one{1 friend} other{# friends}}",
+  "friendCount": "{count, plural, one{1 friend} other{{count} friends}}",
   "@friendCount": {
     "description": "Text for displaying the number of friends",
     "placeholders": {
@@ -684,7 +685,7 @@
     }
   },
   "noTransactionRating": "No transaction rating yet",
-  "commentCount": "{count, plural, one{1 review} other{# reviews}}",
+  "commentCount": "{count, plural, one{1 review} other{{count} reviews}}",
   "@commentCount": {
     "description": "Displays the number of reviews",
     "placeholders": {

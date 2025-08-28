@@ -79,7 +79,7 @@ class AppRouter {
 
     switch (settings.name) {
       case '/':
-        return _pageRouteBuilderNotAnimation(const CustomTabbar());
+        return _pageRouteBuilderNotAnimation(const LJNCustomTabbar());
       case '/miniprogram_list':
         return _pageRouteBuilderAnimation(const LJNMiniProgramList());
       case '/services':
