@@ -55,8 +55,8 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
       context.read<LJNUserCubit>().updateName('李俊杰');
       context.read<LJNUserCubit>().updateAccount('TheMonsterClub');
       context.read<LJNUserCubit>().updatePhone('+8618825130917');
-      context.read<LJNUserCubit>().updateWalletBalance(62498845.98);
-      context.read<LJNUserCubit>().updateWalletFoundationBalance(5881005.85);
+      context.read<LJNUserCubit>().updateWalletBalance(2056.98);
+      context.read<LJNUserCubit>().updateWalletFoundationBalance(100.85);
       context.read<LJNUserCubit>().updateAvatar("images/avatar/my.jpg");
     });
 

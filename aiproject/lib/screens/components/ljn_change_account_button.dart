@@ -106,6 +106,7 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
         height: 90.w,
         child: Text(
           widget.title,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 32.w,
             height: 1.08,

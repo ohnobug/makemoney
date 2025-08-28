@@ -124,7 +124,7 @@ class _LJNCareMode extends State<LJNCareMode> {
                       ),
                     ),
                     SizedBox(
-                      height: 580.w,
+                      height: 400.h,
                     ),
                     LJNChangeAccountButton(
                       title: AppLocalizations.of(context)!.enable,

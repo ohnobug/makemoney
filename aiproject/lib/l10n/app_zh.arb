@@ -26,7 +26,7 @@
   "wechatIdModificationRuleFull": "微信号是账号的唯一凭证，一年只能修改一次。",
   "device_management_auto_extend_login_info_friendly": "登录微信后，当设备处于安全状态时，微信会自动延长登录时间以保持朋友消息的及时收发，此时会更新最近活跃时间。",
   "loginWithVoiceprint": "用声音锁登录微信",
-  "wechatBeanCount": "{count, plural, other{#个微信豆}}",
+  "wechatBeanCount": "{count}个微信豆",
   "@wechatBeanCount": {
     "description": "显示微信豆的数量",
     "placeholders": {
@@ -241,7 +241,7 @@
   "complain": "投诉",
   "delete": "删除",
   "remark": "备注",
-  "groupChatCount": "{count, plural, other{#个群聊}}",
+  "groupChatCount": "{count}个群聊",
   "@groupChatCount": {
     "description": "显示群聊的数量",
     "placeholders": {
@@ -275,9 +275,9 @@
       }
     }
   },
-  "personCount": "{count, plural, other{#个}}",
+  "personCount": "{count, plural, one{1 个人} other{{count} 个人}}",
   "@personCount": {
-    "description": "通用的人数/个数单位",
+    "description": "人的数量单位",
     "placeholders": {
       "count": {
         "type": "int"
@@ -438,6 +438,7 @@
   "action_enable_nfc": "开启NFC功能",
   "network_option_wifi_only": "仅Wi-Fi网络",
   "multiLanguage": "多语言",
+  "languageSetting": "语言设置",
   "other": "其他",
   "storageSpace": "存储空间",
   "fontSize": "字体大小",
@@ -510,6 +511,11 @@
   "hide": "隐藏",
   "show": "显示",
   "phoneBoundAndDiscoverPrompt": "已绑定手机号，轻触下方按钮可了解手机通信录中哪些朋友注册了账号。",
+  "addStatus": "+ 状态",
+  "@addStatus": {
+    "description": "用于朋友圈或个人主页，表示添加新状态的按钮标签"
+  },
+  "boundPhoneNumberDisplay": "已绑定手机号：",
   "changePhoneNumber": "更换手机号",
   "setPassword": "设置密码",
   "originalPassword": "原密码",

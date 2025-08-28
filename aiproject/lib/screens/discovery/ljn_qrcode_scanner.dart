@@ -106,7 +106,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
             Future.delayed(Duration(milliseconds: 300), () {
               if (mounted) {
                 Navigator.of(context).pushReplacementNamed(
-                    "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page2')}");
+                    "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/#/page2')}");
               }
             });
           });

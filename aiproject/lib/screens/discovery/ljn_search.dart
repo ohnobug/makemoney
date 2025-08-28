@@ -39,9 +39,38 @@ class _LJNSearch extends State<LJNSearch> {
 
   double hotTitleBoxTop = 0;
 
+  bool _dependenciesInitialized = false;
+
   @override
   void initState() {
     super.initState();
+
+    // 页面滚动监听
+    pageController.addListener(() {
+      logger.info("pageController.offset: ${pageController.offset}");
+      setState(() {
+        pageControllerOffset = pageController.offset;
+      });
+    });
+
+    // 确保在布局完成后获取高度
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final historyKeyContext = historyKey.currentContext;
+      if (historyKeyContext != null) {
+        final renderBox = historyKeyContext.findRenderObject() as RenderBox?;
+        if (renderBox != null) {
+          setState(() {
+            historyHeight = renderBox.size.height;
+            logger.info("historyHeight: $historyHeight");
+          });
+        }
+      }
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
 
     // 历史
     historyList.addAll([
@@ -77,10 +106,12 @@ class _LJNSearch extends State<LJNSearch> {
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
         "李小龙标志性打耳光动作",
-        style: TextStyle(fontSize: 32.w, height: 1.08, color: AppColors.accentRedPure),
+        style: TextStyle(
+            fontSize: 32.w, height: 1.08, color: AppColors.accentRedPure),
       ),
       Text(
-        style: TextStyle(fontSize: 32.w, height: 1.08, color: AppColors.accentRedPure),
+        style: TextStyle(
+            fontSize: 32.w, height: 1.08, color: AppColors.accentRedPure),
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
         "向佐扇自己一耳光",
@@ -276,27 +307,8 @@ class _LJNSearch extends State<LJNSearch> {
           "#2024美国大选那些事儿#"),
     ]);
 
-    // 页面滚动监听
-    pageController.addListener(() {
-      logger.info("pageController.offset: ${pageController.offset}");
-      setState(() {
-        pageControllerOffset = pageController.offset;
-      });
-    });
-
-    // 确保在布局完成后获取高度
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final historyKeyContext = historyKey.currentContext;
-      if (historyKeyContext != null) {
-        final renderBox = historyKeyContext.findRenderObject() as RenderBox?;
-        if (renderBox != null) {
-          setState(() {
-            historyHeight = renderBox.size.height;
-            logger.info("historyHeight: $historyHeight");
-          });
-        }
-      }
-    });
+    // 更新标志位
+    _dependenciesInitialized = true;
   }
 
   // 判断盒子是否在显示, 若不显示则显示都可视区域
@@ -362,6 +374,15 @@ class _LJNSearch extends State<LJNSearch> {
 
   @override
   Widget build(BuildContext context) {
+    // didChangeDependencies 可能会在 build 之前未被调用，
+    // 这里加一个检查确保 controller 已经被初始化。
+    if (!_dependenciesInitialized) {
+      // 在 build 第一次运行时，依赖肯定已经准备好了，
+      // 如果还没初始化，就调用一下。
+      // 这是一种备用安全措施，正常情况下不会执行。
+      didChangeDependencies();
+    }
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
       logger.info("pageControllerOffset $pageControllerOffset");
@@ -510,7 +531,8 @@ class _LJNSearch extends State<LJNSearch> {
 
                                   // 右边
                                   SizedBox(
-                                    width: 220.w,
+                                    // color: Colors.red,
+                                    width: 270.w,
                                     height: 70.w,
                                     child: Row(
                                       mainAxisAlignment:
@@ -544,6 +566,7 @@ class _LJNSearch extends State<LJNSearch> {
                                             Text(
                                               AppLocalizations.of(context)!
                                                   .changeBatch,
+                                              overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 color:
                                                     AppColors.neutralDarkGrey16,
@@ -640,7 +663,7 @@ class _LJNSearch extends State<LJNSearch> {
 
                                   // 右边
                                   SizedBox(
-                                    width: 220.w,
+                                    width: 270.w,
                                     height: 70.w,
                                     child: Row(
                                       mainAxisAlignment:
@@ -674,6 +697,7 @@ class _LJNSearch extends State<LJNSearch> {
                                             Text(
                                               AppLocalizations.of(context)!
                                                   .changeBatch,
+                                              overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 color:
                                                     AppColors.neutralDarkGrey16,

@@ -78,6 +78,7 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
                       "为者常成，行者常至。",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.end,
                       style: TextStyle(
                         // height: 1.25,
                         fontSize: 32.w,

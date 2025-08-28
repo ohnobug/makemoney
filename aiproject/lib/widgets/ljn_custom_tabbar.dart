@@ -37,9 +37,32 @@ class CustomTabbar extends StatefulWidget {
 
 class _CustomTabbarState extends State<CustomTabbar>
     with TickerProviderStateMixin {
+  // 修改点 1: 将 _tabController 和 _tabs 声明为 late final
   late final TabController _tabController;
+  late List<_TabInfo> _tabs;
+  // 修改点 2: 添加一个布尔标志位，防止重复初始化
+  bool _dependenciesInitialized = false;
 
-  List<_TabInfo> get _tabs => [
+  int _currentIndex = 0;
+  double _appbarLeft = 0;
+  bool _setStatusHeight = false;
+  bool _showPopup = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // 修改点 3: 将依赖 context 的初始化逻辑从 initState 移出
+  }
+
+  // 修改点 4: 使用 didChangeDependencies 方法来安全地进行依赖 context 的初始化
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // 使用标志位确保此段逻辑只执行一次
+    if (!_dependenciesInitialized) {
+      // 在这里 context 是完全可用的，可以安全地访问 AppLocalizations
+      _tabs = [
         _TabInfo(
           title: AppLocalizations.of(context)!.tabbar_label_chat,
           icon: 0xe7b3,
@@ -66,17 +89,17 @@ class _CustomTabbarState extends State<CustomTabbar>
         ),
       ];
 
-  int _currentIndex = 0;
-  double _appbarLeft = 0;
-  bool _setStatusHeight = false;
-  bool _showPopup = false;
+      // 在 _tabs 初始化后，再初始化 TabController
+      _tabController = TabController(
+        length: _tabs.length,
+        vsync: this,
+        animationDuration: Duration.zero,
+      );
+      _tabController.addListener(_handleTabSelection);
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(
-        length: _tabs.length, vsync: this, animationDuration: Duration.zero);
-    _tabController.addListener(_handleTabSelection);
+      // 更新标志位
+      _dependenciesInitialized = true;
+    }
   }
 
   void _handleTabSelection() {
@@ -113,6 +136,15 @@ class _CustomTabbarState extends State<CustomTabbar>
 
   @override
   Widget build(BuildContext context) {
+    // didChangeDependencies 可能会在 build 之前未被调用，
+    // 这里加一个检查确保 controller 已经被初始化。
+    if (!_dependenciesInitialized) {
+      // 在 build 第一次运行时，依赖肯定已经准备好了，
+      // 如果还没初始化，就调用一下。
+      // 这是一种备用安全措施，正常情况下不会执行。
+      didChangeDependencies();
+    }
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         if (!_setStatusHeight) {

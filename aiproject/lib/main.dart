@@ -1,13 +1,17 @@
 import 'dart:io';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/store/ljn_popup_cubit.dart';
+import 'package:spicychat/store/ljn_system_cubit.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:spicychat/app.dart';
 import 'package:spicychat/tools/ljn_file_server.dart';
 import 'package:spicychat/tools/ljn_logger.dart';
+import 'package:spicychat/store/ljn_user_cubit.dart';
 
 Future<void> _windowsInitApp() async {
   await windowManager.ensureInitialized();
@@ -66,7 +70,9 @@ void main() async {
 
   startWebServer();
 
-  runApp(
-    const App(),
-  );
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider(create: (_) => LJNSystemCubit()),
+    BlocProvider(create: (_) => LJNUserCubit()),
+    BlocProvider(create: (_) => LJNPopupCubit()),
+  ], child: const App()));
 }

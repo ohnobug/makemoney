@@ -78,8 +78,10 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
         logger.info("弹起");
       },
       child: Container(
-        height: widget.height ?? 105.0.w,
-        padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
+        //  ?? 105.0.w
+        // height: 105.0.w,
+        height: widget.height,
+        padding: const EdgeInsets.only(left: 30.0, right: 0.0, top: 20, bottom: 20).w,
         decoration: BoxDecoration(
           color: containerColor,
           border: Border(

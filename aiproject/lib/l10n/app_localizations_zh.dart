@@ -66,12 +66,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String wechatBeanCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '#个微信豆',
-    );
-    return '$_temp0';
+    return '$count个微信豆';
   }
 
   @override
@@ -630,12 +625,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String groupChatCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '#个群聊',
-    );
-    return '$_temp0';
+    return '$count个群聊';
   }
 
   @override
@@ -674,7 +664,8 @@ class AppLocalizationsZh extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '#个',
+      other: '$count 个人',
+      one: '1 个人',
     );
     return '$_temp0';
   }
@@ -1026,6 +1017,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get multiLanguage => '多语言';
 
   @override
+  String get languageSetting => '语言设置';
+
+  @override
   String get other => '其他';
 
   @override
@@ -1216,6 +1210,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get phoneBoundAndDiscoverPrompt => '已绑定手机号，轻触下方按钮可了解手机通信录中哪些朋友注册了账号。';
+
+  @override
+  String get addStatus => '+ 状态';
+
+  @override
+  String get boundPhoneNumberDisplay => '已绑定手机号：';
 
   @override
   String get changePhoneNumber => '更换手机号';

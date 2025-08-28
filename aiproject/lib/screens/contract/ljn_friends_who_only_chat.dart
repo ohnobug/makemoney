@@ -19,10 +19,16 @@ class LJNFriendsWhoOnlyChat extends StatefulWidget {
 
 class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
   late List<dynamic> contactList;
+  bool _dependenciesInitialized = false;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
 
     contactList = [
       // 提示
@@ -421,10 +427,22 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
         ),
       )
     ];
+
+    // 更新标志位
+    _dependenciesInitialized = true;
   }
 
   @override
   Widget build(BuildContext context) {
+    // didChangeDependencies 可能会在 build 之前未被调用，
+    // 这里加一个检查确保 controller 已经被初始化。
+    if (!_dependenciesInitialized) {
+      // 在 build 第一次运行时，依赖肯定已经准备好了，
+      // 如果还没初始化，就调用一下。
+      // 这是一种备用安全措施，正常情况下不会执行。
+      didChangeDependencies();
+    }
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
       return _buildPage(systemState);

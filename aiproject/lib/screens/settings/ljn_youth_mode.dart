@@ -9,14 +9,14 @@ import 'package:spicychat/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spicychat/store/ljn_system_cubit.dart';
 
-class LJNTeenageMode extends StatefulWidget {
-  const LJNTeenageMode({super.key});
+class LJNYouthMode extends StatefulWidget {
+  const LJNYouthMode({super.key});
 
   @override
-  State<LJNTeenageMode> createState() => _LJNTeenageMode();
+  State<LJNYouthMode> createState() => _LJNYouthMode();
 }
 
-class _LJNTeenageMode extends State<LJNTeenageMode> {
+class _LJNYouthMode extends State<LJNYouthMode> {
   bool selectedValue = false;
 
   @override
@@ -79,11 +79,14 @@ class _LJNTeenageMode extends State<LJNTeenageMode> {
                         style: TextStyle(fontSize: 32.w),
                       ),
                     ),
-                    SizedBox(
-                      height: 625.w,
+                    Container(
+                      // color: Colors.red,
+                      height: 500.h,
                     ),
                     Container(
                       alignment: Alignment.center,
+                      width: 650.w,
+                      // color: Colors.amber,
                       child: Text.rich(
                         TextSpan(
                           style:

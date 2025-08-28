@@ -72,7 +72,7 @@ class _LJNWallet extends State<LJNWallet> {
             ),
             child: Column(
               children: [
-                // 朋友圈
+                // 余额
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.balance,
                   icon: "images/icon/discovery_icon1.png",

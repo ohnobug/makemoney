@@ -69,6 +69,14 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     ),
                     SizedBox(height: 16.w),
 
+                    LJNFunctionItem(
+                      title: AppLocalizations.of(context)!.languageSetting,
+                      link: '/language_setting',
+                      underline: false,
+                    ),
+
+                    SizedBox(height: 16.w),
+
                     // 新消息通知 与 聊天 和 通用
                     LJNFunctionItem(
                       title:
@@ -121,7 +129,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       title: AppLocalizations.of(context)!
                           .thirdPartyInfoSharingList,
                       link:
-                          "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing')}",
+                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing')}",
                       underline: false,
                     ),
 

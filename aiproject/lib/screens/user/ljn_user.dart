@@ -195,7 +195,8 @@ class _LJNUserState extends State<LJNUser> {
                               Row(
                                 children: [
                                   LJNStatusButton(
-                                    text: '+ 状态',
+                                    text:
+                                        AppLocalizations.of(context)!.addStatus,
                                     onPressed: () {
                                       logger.info('点击状态');
                                     },
@@ -348,7 +349,7 @@ class _LJNUserState extends State<LJNUser> {
                     title: AppLocalizations.of(context)!.favorite,
                     icon: "images/icon/icon2.png",
                     link:
-                        "/miniprogram?link=${Uri.encodeComponent('https://baidu.com')}",
+                        "/open_miniprogram?link=${Uri.encodeComponent('https://baidu.com')}",
                     underline: true,
                   ),
 
@@ -377,7 +378,7 @@ class _LJNUserState extends State<LJNUser> {
                     title: AppLocalizations.of(context)!.stickers,
                     icon: "images/icon/icon6.png",
                     link:
-                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/code.html')}",
+                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/code.html')}",
                     underline: false,
                   ),
 

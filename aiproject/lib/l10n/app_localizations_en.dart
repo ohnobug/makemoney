@@ -69,13 +69,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String wechatBeanCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '# WeChat Beans',
-      one: '1 WeChat Bean',
-    );
-    return '$_temp0';
+    return '$count WeChat Beans';
   }
 
   @override
@@ -638,13 +632,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String groupChatCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '# group chats',
-      one: '1 group chat',
-    );
-    return '$_temp0';
+    return '$count group chats';
   }
 
   @override
@@ -683,7 +671,7 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# people',
+      other: '$count people',
       one: '1 person',
     );
     return '$_temp0';
@@ -1039,6 +1027,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get multiLanguage => 'Multi-language';
 
   @override
+  String get languageSetting => 'Language Setting';
+
+  @override
   String get other => 'Other';
 
   @override
@@ -1236,6 +1227,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get phoneBoundAndDiscoverPrompt =>
       'Phone number is bound. Tap the button below to see which friends in your phone contacts have registered an account.';
+
+  @override
+  String get addStatus => '+ Status';
+
+  @override
+  String get boundPhoneNumberDisplay => 'Bound Phone: ';
 
   @override
   String get changePhoneNumber => 'Change Phone Number';

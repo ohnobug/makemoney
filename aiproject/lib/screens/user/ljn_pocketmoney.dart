@@ -30,7 +30,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
           primary: false,
           appBar: LJNAppBar(
             title: "",
-            leading: Container(),
+            // leading: Container(),
             // color: AppColors.transparent,
             // bgColor: AppColors.transparent,
             actions: [

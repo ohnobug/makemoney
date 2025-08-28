@@ -153,6 +153,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
                   showStyle: AppLocalizations.of(context)!.wechatBeanCount(3),
                   underline: false,
                 ),
+
                 SizedBox(height: 16.w),
 
                 // 我的地址

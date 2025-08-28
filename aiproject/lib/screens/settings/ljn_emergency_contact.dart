@@ -189,8 +189,8 @@ class IconBox extends StatelessWidget {
         padding: EdgeInsets.all(16),
       ),
       child: SizedBox(
-        width: 91.0.w, // 设置宽度
-        height: 91.0.w, // 设置高度
+        width: 55.0.w, // 设置宽度
+        height: 55.0.w, // 设置高度
         // decoration: BoxDecoration(
         //   color: AppColors.transparent, // 背景透明
         //   borderRadius: BorderRadius.circular(8.0.w), // 圆角 8

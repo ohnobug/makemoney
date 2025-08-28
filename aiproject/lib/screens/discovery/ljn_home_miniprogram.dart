@@ -171,7 +171,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "堆糖",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -180,7 +180,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "天空阅读器",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                               ],
@@ -238,7 +238,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "堆糖",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -247,7 +247,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "天空阅读器",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -255,7 +255,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "奇书网",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -264,7 +264,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "学有优教",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -272,7 +272,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "孩子王",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -281,7 +281,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "铅笔小说",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -290,7 +290,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "成全视频",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -299,7 +299,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "小米商城",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                               ],
@@ -315,7 +315,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "堆糖",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -324,7 +324,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "天空阅读器",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -332,7 +332,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "奇书网",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -341,7 +341,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "学有优教",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -350,7 +350,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "成全视频",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -359,7 +359,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "小米商城",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -368,7 +368,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "美图秀秀",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                                 FunctionButton(
@@ -377,7 +377,7 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
                                   title: "萝卜快跑",
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        "/miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
                               ],

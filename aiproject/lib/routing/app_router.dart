@@ -40,6 +40,7 @@ import 'package:spicychat/screens/settings/ljn_emergency_contact.dart';
 import 'package:spicychat/screens/settings/ljn_forgot_password.dart';
 import 'package:spicychat/screens/settings/ljn_friend_permission.dart';
 import 'package:spicychat/screens/settings/ljn_input_verify_code.dart';
+import 'package:spicychat/screens/settings/ljn_language_setting.dart';
 import 'package:spicychat/screens/settings/ljn_logged_devices.dart';
 import 'package:spicychat/screens/settings/ljn_more_secure_setting.dart';
 import 'package:spicychat/screens/settings/ljn_new_message_notification.dart';
@@ -50,7 +51,7 @@ import 'package:spicychat/screens/settings/ljn_phone_number.dart';
 import 'package:spicychat/screens/settings/ljn_set_password.dart';
 import 'package:spicychat/screens/settings/ljn_setting.dart';
 import 'package:spicychat/screens/settings/ljn_sound_lock.dart';
-import 'package:spicychat/screens/settings/ljn_teenage_mode.dart';
+import 'package:spicychat/screens/settings/ljn_youth_mode.dart';
 import 'package:spicychat/screens/settings/ljn_verify_phone.dart';
 import 'package:spicychat/test.dart';
 import 'package:spicychat/screens/user/ljn_camera_view.dart';
@@ -69,7 +70,8 @@ import 'package:spicychat/widgets/ljn_custom_tabbar.dart';
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     // 特殊处理带参数的动态路由
-    if (settings.name != null && settings.name!.startsWith('/miniprogram')) {
+    if (settings.name != null &&
+        settings.name!.startsWith('/open_miniprogram')) {
       final uri = Uri.parse(settings.name!);
       final linkValue = uri.queryParameters['link'] ?? "";
       return _pageRouteBuilderAnimation(LJNMiniProgram(link: linkValue));
@@ -137,7 +139,7 @@ class AppRouter {
       case '/input_verify_code':
         return _pageRouteBuilderAnimation(const LJNInputVerifyCode());
       case '/teenage_mode':
-        return _pageRouteBuilderAnimation(const LJNTeenageMode());
+        return _pageRouteBuilderAnimation(const LJNYouthMode());
       case '/care_mode':
         return _pageRouteBuilderAnimation(const LJNCareMode());
       case '/new_message_notification':
@@ -217,6 +219,8 @@ class AppRouter {
         return _pageRouteBuilderAnimation(const LJNContactGroup());
       case '/friend_moments_cover_setting':
         return _pageRouteBuilderAnimation(const LJNFriendMomentsCoverSetting());
+      case '/language_setting':
+        return _pageRouteBuilderAnimation(const LJNLanguageSetting());
 
       default:
         // 可以返回一个统一的404页面

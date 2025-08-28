@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:spicychat/colors.dart';
+import 'package:spicychat/tools/ljn_logger.dart';
 
 // 系统的 Cubit
 class LJNSystemCubit extends Cubit<SystemState> {
@@ -78,6 +79,15 @@ class LJNSystemCubit extends Cubit<SystemState> {
       SystemState(navigatorKey: key),
     );
   }
+
+  // 更新各种状态的方法
+  void updateLanguage(String language) {
+    logger.info("ttttttttttttttttttttttttt $language");
+
+    emit(
+      state.copyWith(currentLocale: Locale(language)),
+    );
+  }
 }
 
 // 系统状态
@@ -93,6 +103,7 @@ class SystemState {
   final double statusHeight;
   final bool showMiniProgramDrawer;
   final ThemeData themeData;
+  final Locale currentLocale;
 
   // 构造函数
   SystemState({
@@ -105,6 +116,7 @@ class SystemState {
     this.screenSize = const Size(0, 0),
     this.statusHeight = 0,
     this.showMiniProgramDrawer = false,
+    this.currentLocale = const Locale('en'),
     ThemeData? themeData,
     required this.navigatorKey,
   }) : themeData = themeData ?? lightTheme;
@@ -121,6 +133,7 @@ class SystemState {
       double? statusHeight,
       bool? showMiniProgramDrawer,
       ThemeData? themeData,
+      Locale? currentLocale,
       GlobalKey<NavigatorState>? navigatorKey}) {
     return SystemState(
       homescrollpixels: homescrollpixels ?? this.homescrollpixels,
@@ -135,6 +148,7 @@ class SystemState {
           showMiniProgramDrawer ?? this.showMiniProgramDrawer,
       themeData: themeData ?? this.themeData,
       navigatorKey: navigatorKey ?? this.navigatorKey,
+      currentLocale: currentLocale ?? this.currentLocale,
     );
   }
 }

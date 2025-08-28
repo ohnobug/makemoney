@@ -76,9 +76,11 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                     showStyle: Expanded(
                       flex: 1,
                       child: Container(
+                        // color: Colors.red,
                         margin: EdgeInsets.only(right: 30.w),
                         child: Text(
                           "Windows 11 x64",
+                          textAlign: TextAlign.right,
                           style: TextStyle(
                             fontSize: 32.w,
                             height: 1.08,
@@ -105,6 +107,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                         child: Text(
                           AppLocalizations.of(context)!
                               .monthDayTime(theTimestamp),
+                          textAlign: TextAlign.right,
                           style: TextStyle(
                             fontSize: 32.w,
                             height: 1.08,

@@ -71,7 +71,7 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                '已绑定手机号：',
+                                AppLocalizations.of(context)!.boundPhoneNumberDisplay,
                                 strutStyle:
                                     StrutStyle(fontSize: 37.w, height: 1.08),
                                 style: TextStyle(
@@ -134,6 +134,8 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                             height: 720.w,
                             child: null,
                           ),
+
+                          // 查看电话联系人
                           LJNChangeAccountButton(
                             title:
                                 AppLocalizations.of(context)!.viewPhoneContacts,
@@ -145,6 +147,8 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                           SizedBox(
                             height: 33.w,
                           ),
+
+                          // 修改电话毫秒
                           LJNChangeAccountButton(
                             title:
                                 AppLocalizations.of(context)!.changePhoneNumber,

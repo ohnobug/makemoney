@@ -203,7 +203,7 @@ abstract class AppLocalizations {
   /// Displays the number of WeChat Beans
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, one{1 WeChat Bean} other{# WeChat Beans}}'**
+  /// **'{count} WeChat Beans'**
   String wechatBeanCount(int count);
 
   /// No description provided for @wechatKeyboardFeatureAskAI.
@@ -1289,7 +1289,7 @@ abstract class AppLocalizations {
   /// Displays the number of group chats
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, one{1 group chat} other{# group chats}}'**
+  /// **'{count} group chats}'**
   String groupChatCount(int count);
 
   /// No description provided for @remarkName.
@@ -1349,7 +1349,7 @@ abstract class AppLocalizations {
   /// A generic unit for a number of people
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, one{1 person} other{# people}}'**
+  /// **'{count, plural, one{1 person} other{{count} people}}'**
   String personCount(int count);
 
   /// Displays time in a compact month-day hour:minute format
@@ -1988,6 +1988,12 @@ abstract class AppLocalizations {
   /// **'Multi-language'**
   String get multiLanguage;
 
+  /// No description provided for @languageSetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Language Setting'**
+  String get languageSetting;
+
   /// No description provided for @other.
   ///
   /// In en, this message translates to:
@@ -2365,6 +2371,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Phone number is bound. Tap the button below to see which friends in your phone contacts have registered an account.'**
   String get phoneBoundAndDiscoverPrompt;
+
+  /// The label for a button to add a new status, used in Moments or on the profile page
+  ///
+  /// In en, this message translates to:
+  /// **'+ Status'**
+  String get addStatus;
+
+  /// No description provided for @boundPhoneNumberDisplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Bound Phone: '**
+  String get boundPhoneNumberDisplay;
 
   /// No description provided for @changePhoneNumber.
   ///

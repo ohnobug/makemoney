@@ -93,7 +93,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                   ),
 
                   SizedBox(
-                    height: 620.w,
+                    height: 620.h,
                     child: null,
                   ),
 

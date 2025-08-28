@@ -65,7 +65,7 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                 ),
                 LJNSpecialFunctionItem(
                   title: AppLocalizations.of(context)!.useIndependentSendButton,
-                  height: 137.w,
+                  height: null,
                   // link: '',
                   subTitle: Text(
                     AppLocalizations.of(context)!.sendButtonReplacedMessageFull,

@@ -79,7 +79,7 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                           AppLocalizations.of(context)!.recommendContactsToMe,
                       tapEffect: false,
                       underline: false,
-                      height: 137.w,
+                      height: null,
                       // link: '',
                       subTitle: Text(
                         AppLocalizations.of(context)!

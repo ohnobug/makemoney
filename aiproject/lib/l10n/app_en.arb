@@ -26,7 +26,7 @@
   "wechatIdModificationRuleFull": "Your WeChat ID is the unique identifier for your account and can only be changed once a year.",
   "device_management_auto_extend_login_info_friendly": "After logging into WeChat, when the device is in a secure state, WeChat will automatically extend the login session to ensure timely message delivery. The last active time will be updated accordingly.",
   "loginWithVoiceprint": "Log in with Voiceprint",
-  "wechatBeanCount": "{count, plural, one{1 WeChat Bean} other{# WeChat Beans}}",
+  "wechatBeanCount": "{count} WeChat Beans",
   "@wechatBeanCount": {
     "description": "Displays the number of WeChat Beans",
     "placeholders": {
@@ -241,7 +241,7 @@
   "complain": "Complain",
   "delete": "Delete",
   "remark": "Remark",
-  "groupChatCount": "{count, plural, one{1 group chat} other{# group chats}}",
+  "groupChatCount": "{count} group chats}",
   "@groupChatCount": {
     "description": "Displays the number of group chats",
     "placeholders": {
@@ -275,7 +275,7 @@
       }
     }
   },
-  "personCount": "{count, plural, one{1 person} other{# people}}",
+  "personCount": "{count, plural, one{1 person} other{{count} people}}",
   "@personCount": {
     "description": "A generic unit for a number of people",
     "placeholders": {
@@ -438,6 +438,7 @@
   "action_enable_nfc": "Enable NFC",
   "network_option_wifi_only": "Wi-Fi Only",
   "multiLanguage": "Multi-language",
+  "languageSetting": "Language Setting",
   "other": "Other",
   "storageSpace": "Storage Space",
   "fontSize": "Font Size",
@@ -510,6 +511,11 @@
   "hide": "Hide",
   "show": "Show",
   "phoneBoundAndDiscoverPrompt": "Phone number is bound. Tap the button below to see which friends in your phone contacts have registered an account.",
+  "addStatus": "+ Status",
+  "@addStatus": {
+    "description": "The label for a button to add a new status, used in Moments or on the profile page"
+  },
+  "boundPhoneNumberDisplay": "Bound Phone: ",
   "changePhoneNumber": "Change Phone Number",
   "setPassword": "Set Password",
   "originalPassword": "Original Password",
