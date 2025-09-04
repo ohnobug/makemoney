@@ -2,15 +2,15 @@ import 'dart:io';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/tools/ljn_logger.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/tools/ljn_tools.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_windows/webview_windows.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
 
 class LJNMiniProgram extends StatefulWidget {
   final String link;

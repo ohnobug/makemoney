@@ -1,15 +1,15 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/screens/components/ljn_appbar.dart';
-import 'package:spicychat/screens/components/ljn_popup.dart';
-import 'package:spicychat/screens/components/ljn_switch.dart';
-import 'package:spicychat/screens/components/ljn_max_width_button.dart';
-import 'package:spicychat/tools/ljn_logger.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/screens/components/ljn_popup.dart';
+import 'package:vigaviga/screens/components/ljn_switch.dart';
+import 'package:vigaviga/screens/components/ljn_max_width_button.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
 import '../components/ljn_function_item.dart';
 
 class LJNFriendDataSetting extends StatefulWidget {
@@ -55,7 +55,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                     minHeight: MediaQuery.of(context).size.height -
                         90.w -
                         systemState.statusHeight),
-                color: AppColors.neutralGrey11,
+                color: Theme.of(context).colorScheme.surface,
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics(),
@@ -73,7 +73,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                         link: '/friend_permissions',
                         underline: false,
                       ),
-                      Container(color: AppColors.neutralGrey11, height: 16.w),
+                      Container(color: Theme.of(context).colorScheme.surface, height: 16.w),
                       LJNFunctionItem(
                         title: AppLocalizations.of(context)!.recommendToFriend,
                         link: '',
@@ -89,7 +89,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                           });
                         },
                       ),
-                      Container(color: AppColors.neutralGrey11, height: 16.w),
+                      Container(color: Theme.of(context).colorScheme.surface, height: 16.w),
                       LJNFunctionItem(
                         title: AppLocalizations.of(context)!.setAsStarFriend,
                         // link: '',
@@ -108,7 +108,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                           ),
                         ),
                       ),
-                      Container(color: AppColors.neutralGrey11, height: 16.w),
+                      Container(color: Theme.of(context).colorScheme.surface, height: 16.w),
                       LJNFunctionItem(
                         title: AppLocalizations.of(context)!.addToBlocklist,
                         tapEffect: false,
@@ -131,7 +131,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                         link: '',
                         underline: false,
                       ),
-                      Container(color: AppColors.neutralGrey11, height: 16.w),
+                      Container(color: Theme.of(context).colorScheme.surface, height: 16.w),
                       LJNMaxWidthButton(
                         title: AppLocalizations.of(context)!.delete,
                         color: AppColors.accentRedPure,

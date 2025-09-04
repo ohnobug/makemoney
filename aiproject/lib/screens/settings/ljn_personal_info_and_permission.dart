@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/screens/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
 import '../components/ljn_function_item.dart';
 
 class LJNPersonalinfoAndPermission extends StatefulWidget {
@@ -39,7 +39,7 @@ class _LJNPersonalinfoAndPermission
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: AppColors.neutralGrey11,
+              color: Theme.of(context).colorScheme.surface,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
 
 class LJNSearchFriend extends StatefulWidget {
   const LJNSearchFriend({
@@ -36,7 +36,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: Container(
-          color: AppColors.neutralGrey11,
+          color: Theme.of(context).colorScheme.surface,
           constraints: BoxConstraints(
               minHeight: MediaQuery.of(context).size.height -
                   90.w -
@@ -55,7 +55,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
               ),
               height: 95.w,
               decoration: BoxDecoration(
-                color: AppColors.neutralGrey11,
+                color: Theme.of(context).colorScheme.surface,
                 border: Border(
                   bottom: BorderSide(
                     color: Colors.grey.withAlpha(128),

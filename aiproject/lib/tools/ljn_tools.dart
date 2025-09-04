@@ -5,7 +5,7 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/themes.dart';
+import 'package:vigaviga/themes.dart';
 
 // 字体缩放
 double fontSizeScale(double size) {

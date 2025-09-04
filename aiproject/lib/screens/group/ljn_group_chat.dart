@@ -3,17 +3,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/screens/components/ljn_appbar.dart';
-import 'package:spicychat/screens/components/ljn_my_voice_message.dart';
-import 'package:spicychat/screens/components/ljn_receive_message.dart';
-import 'package:spicychat/screens/components/ljn_video_draggable_box.dart';
-import 'package:spicychat/screens/components/ljn_video_message.dart';
-import 'package:spicychat/tools/ljn_logger.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/screens/components/ljn_my_voice_message.dart';
+import 'package:vigaviga/screens/components/ljn_receive_message.dart';
+import 'package:vigaviga/screens/components/ljn_video_draggable_box.dart';
+import 'package:vigaviga/screens/components/ljn_video_message.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/screens/chat/widgets/ljn_chat_emoji_selector.dart';
-import 'package:spicychat/store/ljn_user_cubit.dart';
+import 'package:vigaviga/screens/chat/widgets/ljn_chat_emoji_selector.dart';
+import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vibration/vibration.dart';
@@ -926,7 +926,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                       Expanded(
                         flex: 1,
                         child: ColoredBox(
-                          color: AppColors.neutralGrey11,
+                          color: Theme.of(context).colorScheme.surface,
                           child: ScrollConfiguration(
                             behavior: ScrollConfiguration.of(context)
                                 .copyWith(scrollbars: false),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/screens/components/ljn_page_loading.dart';
-import 'package:spicychat/tools/ljn_logger.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/screens/components/ljn_page_loading.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
-import 'package:spicychat/store/ljn_user_cubit.dart';
-import 'package:spicychat/tools/ljn_tools.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/store/ljn_user_cubit.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 import '../components/ljn_function_item.dart';
 
 class LJNUser extends StatefulWidget {
@@ -45,9 +45,12 @@ class _LJNUserState extends State<LJNUser> {
         Container(
           constraints: BoxConstraints(
               minHeight: MediaQuery.of(context).size.height - 106.w),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [AppColors.neutralWhite, AppColors.neutralGrey11],
+              colors: [
+                AppColors.neutralWhite,
+                Theme.of(context).colorScheme.surface
+              ],
               stops: [0.3, 0.5],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -328,7 +331,7 @@ class _LJNUserState extends State<LJNUser> {
                   Container(
                     width: double.infinity,
                     height: 16.w,
-                    color: AppColors.neutralGrey11,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
 
                   LJNFunctionItem(
@@ -342,7 +345,7 @@ class _LJNUserState extends State<LJNUser> {
                   Container(
                     width: double.infinity,
                     height: 16.w,
-                    color: AppColors.neutralGrey11,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
 
                   LJNFunctionItem(
@@ -385,7 +388,7 @@ class _LJNUserState extends State<LJNUser> {
                   Container(
                     width: double.infinity,
                     height: 16.w,
-                    color: AppColors.neutralGrey11,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
 
                   LJNFunctionItem(

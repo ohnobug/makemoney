@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/screens/components/ljn_alphabet.dart';
-import 'package:spicychat/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/screens/components/ljn_alphabet.dart';
+import 'package:vigaviga/screens/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
-import 'package:spicychat/tools/ljn_tools.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 import '../components/ljn_function_item.dart';
 
 class LJNFriendInformation extends StatefulWidget {
@@ -47,7 +47,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                 90.w -
                 systemState.statusHeight,
           ),
-          color: AppColors.neutralGrey11,
+          color: Theme.of(context).colorScheme.surface,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -56,7 +56,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
               children: [
                 LJNAlphabet(
                   title: AppLocalizations.of(context)!.remark,
-                  bgColor: AppColors.neutralGrey11,
+                  bgColor: Theme.of(context).colorScheme.surface,
                 ),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.remarkName,
@@ -85,7 +85,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                 ),
                 LJNAlphabet(
                   title: AppLocalizations.of(context)!.moreInfo,
-                  bgColor: AppColors.neutralGrey11,
+                  bgColor: Theme.of(context).colorScheme.surface,
                 ),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.ourMutualGroups,
@@ -94,7 +94,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                   underline: false,
                 ),
                 Container(
-                  color: AppColors.neutralGrey11,
+                  color: Theme.of(context).colorScheme.surface,
                   height: 16.w,
                 ),
                 LJNFunctionItem(

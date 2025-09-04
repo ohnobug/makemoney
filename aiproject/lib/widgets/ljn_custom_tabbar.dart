@@ -2,15 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/screens/components/ljn_custom_physics.dart';
-import 'package:spicychat/screens/contract/ljn_contact.dart';
-import 'package:spicychat/screens/discovery/ljn_discovery.dart';
-import 'package:spicychat/screens/home/ljn_home.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
-import 'package:spicychat/tools/ljn_tools.dart';
-import 'package:spicychat/screens/user/ljn_user.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/screens/components/ljn_custom_physics.dart';
+import 'package:vigaviga/screens/contract/ljn_contact.dart';
+import 'package:vigaviga/screens/discovery/ljn_discovery.dart';
+import 'package:vigaviga/screens/home/ljn_home.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/screens/user/ljn_user.dart';
 
 // 关键改动 1: _TabInfo 不再需要 title 属性。它只存储不依赖 context 的静态信息。
 class _TabInfo {
@@ -134,7 +134,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 child: Container(
                   height: 106.w,
                   decoration: BoxDecoration(
-                    color: AppColors.neutralGrey11,
+                    color: Theme.of(context).colorScheme.surface,
                     border: Border(
                       top: BorderSide(
                         color: AppColors.neutralGrey25,
@@ -211,7 +211,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                   width: 750.0.w,
                   height: systemState.statusHeight + 90.w,
                   color: systemState.homescrollpixels == 0
-                      ? AppColors.neutralGrey11
+                      ? Theme.of(context).colorScheme.surface
                       : AppColors.transparent,
                   child: Listener(
                     onPointerUp: (_) => context
@@ -233,8 +233,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                           toolbarHeight: 90.w,
                           elevation: 0,
                           scrolledUnderElevation: 0,
-                          backgroundColor: AppColors.neutralGrey11,
-                          foregroundColor: AppColors.neutralGrey11,
+                          backgroundColor: Theme.of(context).colorScheme.surface,
+                          foregroundColor: Theme.of(context).colorScheme.surface,
                           actions: [
                             GestureDetector(
                               onTap: () {},

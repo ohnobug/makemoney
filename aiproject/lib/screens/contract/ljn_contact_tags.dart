@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/screens/components/ljn_appbar.dart';
-import 'package:spicychat/screens/components/ljn_search.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
-import 'package:spicychat/tools/ljn_tools.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/screens/components/ljn_search.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // 关键改动 1: 创建一个数据模型来存储静态数据
@@ -96,9 +96,12 @@ class _LJNContactTagsState extends State<LJNContactTags> {
           Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [AppColors.neutralGrey11, AppColors.neutralWhite],
+                colors: [
+                  Theme.of(context).colorScheme.surface,
+                  AppColors.neutralWhite
+                ],
                 stops: [0.3, 0.5],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,

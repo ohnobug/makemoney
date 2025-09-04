@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
-import 'package:spicychat/tools/ljn_tools.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 
 class LJNAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String? title;
@@ -33,7 +33,7 @@ class _LJNAppBar extends State<LJNAppBar> {
   @override
   void initState() {
     super.initState();
-    bgColor = widget.bgColor ?? AppColors.neutralGrey11;
+    bgColor = widget.bgColor ?? Theme.of(context).colorScheme.surface;
   }
 
   @override

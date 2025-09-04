@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
-import 'package:spicychat/logger.dart';
-import 'package:spicychat/store.dart';
+import 'package:vigaviga/logger.dart';
+import 'package:vigaviga/store.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/tools/tools.dart';
+import 'package:vigaviga/tools/tools.dart';
 import 'package:video_player/video_player.dart';
 
 class LJNInsPage extends StatefulWidget {

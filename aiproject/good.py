@@ -76,7 +76,7 @@ COLOR_MAP = {
     (255, 240, 240, 240): "AppColors.neutralGrey8",
     (255, 239, 239, 239): "AppColors.neutralGrey9",
     (255, 238, 236, 237): "AppColors.neutralGrey10",
-    (255, 237, 237, 237): "AppColors.neutralGrey11",
+    (255, 237, 237, 237): "Theme.of(context).colorScheme.surface",
     (255, 236, 236, 236): "AppColors.neutralGrey12",
     (255, 235, 235, 235): "AppColors.neutralGrey13",
     (255, 233, 234, 236): "AppColors.neutralGrey14",

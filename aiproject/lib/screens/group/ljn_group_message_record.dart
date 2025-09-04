@@ -1,16 +1,16 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/screens/components/ljn_appbar.dart';
-import 'package:spicychat/screens/components/ljn_max_width_button.dart';
-import 'package:spicychat/screens/components/ljn_switch.dart';
-import 'package:spicychat/tools/ljn_logger.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/screens/components/ljn_max_width_button.dart';
+import 'package:vigaviga/screens/components/ljn_switch.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
-import 'package:spicychat/tools/ljn_tools.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 
 import '../components/ljn_function_item.dart';
 
@@ -59,9 +59,12 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                 90.w -
                 systemState.statusHeight,
           ),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [AppColors.neutralWhite, AppColors.neutralGrey11],
+              colors: [
+                AppColors.neutralWhite,
+                Theme.of(context).colorScheme.surface
+              ],
               stops: [0.3, 0.5],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -227,7 +230,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                   ),
                 ),
                 Container(
-                  color: AppColors.neutralGrey11,
+                  color: Theme.of(context).colorScheme.surface,
                   height: 16.w,
                 ),
                 LJNFunctionItem(
@@ -270,14 +273,16 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                   showStyle: "",
                   underline: false,
                 ),
-                Container(color: AppColors.neutralGrey11, height: 16.w),
+                Container(
+                    color: Theme.of(context).colorScheme.surface, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.findChatHistory,
                   link: '',
                   showStyle: "",
                   underline: false,
                 ),
-                Container(color: AppColors.neutralGrey11, height: 16.w),
+                Container(
+                    color: Theme.of(context).colorScheme.surface, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.muteNotifications,
                   // link: '',
@@ -332,7 +337,8 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                     ),
                   ),
                 ),
-                Container(color: AppColors.neutralGrey11, height: 16.w),
+                Container(
+                    color: Theme.of(context).colorScheme.surface, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.myNicknameInGroup,
                   link: '',
@@ -357,7 +363,8 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                     ),
                   ),
                 ),
-                Container(color: AppColors.neutralGrey11, height: 16.w),
+                Container(
+                    color: Theme.of(context).colorScheme.surface, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.setChatBackground,
                   link: '',
@@ -373,13 +380,15 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                   link: '',
                   underline: false,
                 ),
-                Container(color: AppColors.neutralGrey11, height: 16.w),
+                Container(
+                    color: Theme.of(context).colorScheme.surface, height: 16.w),
                 LJNMaxWidthButton(
                   title: AppLocalizations.of(context)!.leaveGroup,
                   color: AppColors.accentRedPure,
                   underline: false,
                 ),
-                Container(color: AppColors.neutralGrey11, height: 50.w),
+                Container(
+                    color: Theme.of(context).colorScheme.surface, height: 50.w),
               ],
             ),
           ),

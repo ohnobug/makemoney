@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
 
 class LJNPageLoading extends StatelessWidget {
   const LJNPageLoading({super.key});
@@ -14,7 +14,7 @@ class LJNPageLoading extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: AppColors.neutralGrey11,
+        color: Theme.of(context).colorScheme.surface,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

@@ -4,8 +4,8 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_webrtc/flutter_webrtc.dart';
-// import 'package:spicychat/tools/ljn_logger.dart';
-// import 'package:spicychat/tools/ljn_tools.dart';
+// import 'package:vigaviga/tools/ljn_logger.dart';
+// import 'package:vigaviga/tools/ljn_tools.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:video_player/video_player.dart';
 

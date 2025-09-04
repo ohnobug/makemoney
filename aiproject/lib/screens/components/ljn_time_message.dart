@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
 
 class LJNTimeMessage extends StatefulWidget {
   const LJNTimeMessage({super.key});

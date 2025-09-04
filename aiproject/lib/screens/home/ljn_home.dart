@@ -1,16 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/screens/components/ljn_chatlist_item.dart';
-import 'package:spicychat/screens/components/ljn_custom_physics.dart';
-import 'package:spicychat/screens/components/ljn_page_loading.dart';
-import 'package:spicychat/screens/discovery/ljn_home_miniprogram.dart';
-import 'package:spicychat/tools/ljn_logger.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
-import 'package:spicychat/store/ljn_user_cubit.dart';
-import 'package:spicychat/tools/ljn_tools.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/screens/components/ljn_chatlist_item.dart';
+import 'package:vigaviga/screens/components/ljn_custom_physics.dart';
+import 'package:vigaviga/screens/components/ljn_page_loading.dart';
+import 'package:vigaviga/screens/discovery/ljn_home_miniprogram.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/store/ljn_user_cubit.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
@@ -765,7 +765,7 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
           Opacity(
             opacity: 1 - topLottieOpacity,
             child: Container(
-              color: AppColors.neutralGrey11,
+              color: Theme.of(context).colorScheme.surface,
               width: screenSize.width,
               height: systemState.homescrollpixels + (90.w + statusHeight),
               // padding: EdgeInsets.only(top: statusHeight),

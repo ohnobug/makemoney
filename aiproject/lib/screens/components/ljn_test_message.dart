@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
-import 'package:spicychat/store/ljn_user_cubit.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:lottie/lottie.dart';
 
-import 'package:spicychat/tools/ljn_tools.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 
 class LJNTestMessage extends StatefulWidget {
   const LJNTestMessage(

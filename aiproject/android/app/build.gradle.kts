@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.spicychat"
+    namespace = "com.example.vigaviga"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.spicychat"
+        applicationId = "com.example.vigaviga"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
@@ -53,4 +53,10 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    implementation(kotlin("stdlib-jdk7"))
+    // 在这里添加 SplashScreen 的依赖库
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }

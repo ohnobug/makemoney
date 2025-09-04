@@ -2,9 +2,9 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/tools/ljn_logger.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:video_player/video_player.dart';
 
 /// Camera example home widget.

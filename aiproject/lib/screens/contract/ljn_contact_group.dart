@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/screens/components/ljn_alphabet.dart';
-import 'package:spicychat/screens/components/ljn_chatlist_item.dart';
-import 'package:spicychat/tools/ljn_tools.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/screens/components/ljn_alphabet.dart';
+import 'package:vigaviga/screens/components/ljn_chatlist_item.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/screens/components/ljn_appbar.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
+import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
 
 class LJNContactGroup extends StatefulWidget {
   const LJNContactGroup({super.key});
@@ -34,7 +34,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
     contactList = [
       LJNAlphabet(
         title: AppLocalizations.of(context)!.groupChats,
-        bgColor: AppColors.neutralGrey11,
+        bgColor: Theme.of(context).colorScheme.surface,
       ),
       ChatListItem(
         friendName: "天空飘来五个字那都不是事",
@@ -284,7 +284,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ),
       LJNAlphabet(
         title: 'B',
-        bgColor: AppColors.neutralGrey11,
+        bgColor: Theme.of(context).colorScheme.surface,
       ),
       ChatListItem(
         friendName: "段延庆",
@@ -580,10 +580,10 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              AppColors.neutralGrey11,
+              Theme.of(context).colorScheme.surface,
               AppColors.neutralWhite,
             ],
             stops: [0.3, 0.5],

@@ -1,15 +1,15 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/screens/components/ljn_appbar.dart';
-import 'package:spicychat/screens/components/ljn_switch.dart';
-import 'package:spicychat/tools/ljn_logger.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/screens/components/ljn_switch.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
-import 'package:spicychat/store/ljn_user_cubit.dart';
-import 'package:spicychat/tools/ljn_tools.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/store/ljn_user_cubit.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 import '../components/ljn_function_item.dart';
 
 class LJNFriendMessageRecord extends StatefulWidget {
@@ -56,9 +56,12 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
               minHeight: MediaQuery.of(context).size.height -
                   90.w -
                   systemState.statusHeight),
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [AppColors.neutralWhite, AppColors.neutralGrey11],
+              colors: [
+                AppColors.neutralWhite,
+                Theme.of(context).colorScheme.surface
+              ],
               stops: [0.3, 0.5],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -118,13 +121,15 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                     ],
                   ),
                 ),
-                Container(color: AppColors.neutralGrey11, height: 16.w),
+                Container(
+                    color: Theme.of(context).colorScheme.surface, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.findChatHistory,
                   link: '',
                   underline: false,
                 ),
-                Container(color: AppColors.neutralGrey11, height: 16.w),
+                Container(
+                    color: Theme.of(context).colorScheme.surface, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.muteNotifications,
                   // link: '',
@@ -179,19 +184,22 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                     ),
                   ),
                 ),
-                Container(color: AppColors.neutralGrey11, height: 16.w),
+                Container(
+                    color: Theme.of(context).colorScheme.surface, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.setChatBackground,
                   link: '',
                   underline: false,
                 ),
-                Container(color: AppColors.neutralGrey11, height: 16.w),
+                Container(
+                    color: Theme.of(context).colorScheme.surface, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.clearChatHistory,
                   link: '',
                   underline: false,
                 ),
-                Container(color: AppColors.neutralGrey11, height: 16.w),
+                Container(
+                    color: Theme.of(context).colorScheme.surface, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.complain,
                   link: '',

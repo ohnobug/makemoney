@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/screens/components/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
 
 // [改动 1] 创建一个新的数据模型来表示主题选项
 class ThemeOption {

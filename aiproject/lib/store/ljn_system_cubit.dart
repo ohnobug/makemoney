@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:spicychat/tools/ljn_logger.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 
 // 系统的 Cubit
 class LJNSystemCubit extends Cubit<SystemState> {

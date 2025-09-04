@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:spicychat/themes.dart';
+import 'package:vigaviga/themes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/tools/ljn_tools.dart';
-import 'package:spicychat/screens/components/ljn_show_call_popup.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/screens/components/ljn_show_call_popup.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/screens/components/ljn_appbar.dart';
-import 'package:spicychat/screens/components/ljn_max_width_button.dart';
-import 'package:spicychat/screens/components/ljn_function_item.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
+import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/screens/components/ljn_max_width_button.dart';
+import 'package:vigaviga/screens/components/ljn_function_item.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
 
 class LJNFriendProfile extends StatefulWidget {
   const LJNFriendProfile({
@@ -96,9 +96,12 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                       minHeight: MediaQuery.of(context).size.height -
                           90.w -
                           systemState.statusHeight),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [AppColors.neutralWhite, AppColors.neutralGrey11],
+                      colors: [
+                        AppColors.neutralWhite,
+                        Theme.of(context).colorScheme.surface
+                      ],
                       stops: [0.3, 0.5],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -267,7 +270,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                         ),
 
                         Container(
-                          color: AppColors.neutralGrey11,
+                          color: Theme.of(context).colorScheme.surface,
                           height: 16.w,
                         ),
 
@@ -477,7 +480,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                         ),
 
                         Container(
-                          color: AppColors.neutralGrey11,
+                          color: Theme.of(context).colorScheme.surface,
                           height: 16.w,
                         ),
 

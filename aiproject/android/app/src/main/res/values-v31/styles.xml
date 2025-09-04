@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Android 12+ (API 31+) 会使用这个主题 -->
+    <style name="LaunchTheme" parent="Theme.SplashScreen">
+
+        <!-- 1. 设置启动画面的背景颜色 (例如白色) -->
+        <item name="windowSplashScreenBackground">@android:color/white</item>
+
+        <!-- 2. 设置启动画面的图标 (直接指向你的PNG图片) -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_splash</item>
+
+        <!-- 3. 设置启动画面结束后应用的主题 -->
+        <item name="postSplashScreenTheme">@style/NormalTheme</item>
+
+    </style>
+</resources>

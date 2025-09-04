@@ -1,113 +1,110 @@
 import 'package:flutter/material.dart';
 
-/// 应用的全局颜色配置
-/// (已根据“活力鲜橙”主题进行专业调整)
 class AppColors {
   // ===========================================================================
-  // 核心品牌色 (橙色系)
-  // Core Brand Colors (Oranges) - Replaced Greens
+  // 核心品牌色 (映射为 紫/品红色系 - 源自 "VIGAVIGA" 字体和蜂鸟)
+  // Core Brand Colors (Mapped to Purples/Magentas from logo text)
   // ===========================================================================
 
-  static const Color brandGreenLightest = Color(0xFFFFF4E0); // 极浅的橙色，用于高亮背景
-  static const Color brandGreenLighter = Color(0xFFFFE0B2); // 较浅的橙色
-  static const Color brandGreenLight = Color(0xFFFFCC80); // 明亮的橙色
-  static const Color brandGreenSlightlyLighter = Color(0xFFFFB74D); // 略亮的橙色
-  static const Color brandGreenVibrant1 = Color(0xFFFFA726); // 活力橙 1 (果肉)
-  static const Color brandGreenVibrant2 = Color(0xFFFF9800); // 活力橙 2
-  static const Color brandGreenVibrant3 = Color(0xFFFB8C00); // 活力橙 3
-  static const Color brandGreenVibrant4 = Color(0xFFF57C00); // 活力橙 4
-  static const Color brandGreenVibrant5 = Color(0xFFEF6C00); // 活力橙 5 (主色调)
-  static const Color brandGreenVibrant6 = Color(0xFFE65100); // 活力橙 6
-  static const Color brandGreenVibrant7 = Color(0xFFD84315); // 活力橙 7 (偏红)
-  static const Color brandGreenVibrantDeep1 = Color(0xFFBF360C); // 深活力橙 1
-  static const Color brandGreenVibrantDeep2 = Color(0xFFD84315); // 深活力橙 2
-  static const Color brandGreenPrimary = Color(0xFFF57C00); // 品牌主橙色 (取自果皮)
+  static const Color brandGreenLightest = Color(0xFFEADCF5); // 极浅的紫罗兰
+  static const Color brandGreenLighter = Color(0xFFD6BDE9); // 较浅的紫罗兰
+  static const Color brandGreenLight = Color(0xFFB894D7); // 明亮的紫罗兰
+  static const Color brandGreenSlightlyLighter = Color(0xFF9F7AC8); // 略亮的紫罗兰
+  static const Color brandGreenVibrant1 = Color(0xFF8A5DBA); // 活力紫 1
+  static const Color brandGreenVibrant2 = Color(0xFF7B4FB0); // 活力紫 2
+  static const Color brandGreenVibrant3 = Color(0xFF6E3E91); // 活力紫 3 (主色调)
+  static const Color brandGreenVibrant4 = Color(0xFF8A5DBA); // 活力紫 4 (用于深色主题，选择更亮的)
+  static const Color brandGreenVibrant5 = Color(0xFF6E3E91); // 活力紫 5 (同主色调)
+  static const Color brandGreenVibrant6 = Color(0xFF4B296B); // 活力紫 6
+  static const Color brandGreenVibrant7 = Color(0xFF3C2055); // 活力紫 7
+  static const Color brandGreenVibrantDeep1 = Color(0xFF4B296B); // 深活力紫 1
+  static const Color brandGreenVibrantDeep2 = Color(0xFF3C2055); // 深活力紫 2
+  static const Color brandGreenPrimary = Color(0xFF6E3E91); // 品牌主紫色
   static const Color brandGreenSlightlyDesaturated =
-      Color(0xFFE57A27); // 略微去饱和的橙
-  static const Color brandGreenDarker1 = Color(0xFFE65100); // 较深的橙色 1
-  static const Color brandGreenDarker2 = Color(0xFFD84315); // 较深的橙色 2
-  static const Color brandGreenDarker3 = Color(0xFFBF360C); // 较深的橙色 3
-  static const Color brandGreenDarker4 = Color(0xFFA9310A); // 较深的橙色 4
-  static const Color brandGreenDarkest = Color(0xFF8C2807); // 最深的橙色 (用于阴影)
+      Color(0xFF7A5A93); // 略微去饱和的紫
+  static const Color brandGreenDarker1 = Color(0xFF5F3480); // 较深的紫色 1
+  static const Color brandGreenDarker2 = Color(0xFF4B296B); // 较深的紫色 2
+  static const Color brandGreenDarker3 = Color(0xFF3C2055); // 较深的紫色 3
+  static const Color brandGreenDarker4 = Color(0xFF2E1942); // 较深的紫色 4
+  static const Color brandGreenDarkest = Color(0xFF2E1942); // 最深的紫色
 
   // ===========================================================================
-  // 品牌色 (蓝/灰色系 - 作为辅助色)
-  // Brand Colors (Blues & Grays - As Accent)
+  // 辅助品牌色 (映射为 水晶蓝/青色系 - 源自图片顶部冰晶)
+  // Brand Colors (Mapped to Crystal Blues/Cyans from crystals)
   // ===========================================================================
 
-  static const Color brandBlueGreyLight = Color(0xFFB0BEC5); // 浅灰蓝
-  static const Color brandPurpleGrey = Color(0xFF78909C); // 中灰蓝
-  static const Color brandBluePrimary = Color(0xFF607D8B); // 主灰蓝
-  static const Color brandBlueDark1 = Color(0xFF546E7A); // 深灰蓝 1
-  static const Color brandBlueDark2 = Color(0xFF455A64); // 深灰蓝 2
-  static const Color brandBlueDark3 = Color(0xFF37474F); // 深灰蓝 3
-  static const Color brandBlueDark4 = Color(0xFF263238); // 深灰蓝 4
-  static const Color brandBlueDark5 = Color(0xFF1B2428); // 深灰蓝 5
-  static const Color brandBlueDark6 = Color(0xFF263238); // (同4)
-  static const Color brandBlueDark7 = Color(0xFF1E282C); // (近似5)
-  static const Color brandPurpleDark1 = Color(0xFF546E7A); // (同深灰蓝1)
-  static const Color brandPurpleDark2 = Color(0xFF455A64); // (同深灰蓝2)
-  static const Color brandPurpleDark3 = Color(0xFF37474F); // (同深灰蓝3)
-  static const Color brandPurpleDark4 = Color(0xFF263238); // (同深灰蓝4)
-  static const Color brandPurpleDark5 = Color(0xFF1A2124); // (最深)
+  static const Color brandBlueGreyLight = Color(0xFFA6E7F1); // 浅水晶蓝
+  static const Color brandPurpleGrey = Color(0xFF61CFE2); // 中水晶蓝
+  static const Color brandBluePrimary = Color(0xFF3EC8E0); // 主水晶蓝
+  static const Color brandBlueDark1 = Color(0xFF2AB8D3); // 深水晶蓝 1
+  static const Color brandBlueDark2 = Color(0xFF1DA2BB); // 深水晶蓝 2
+  static const Color brandBlueDark3 = Color(0xFF009BCC); // 深水晶蓝 3
+  static const Color brandBlueDark4 = Color(0xFF0083B3); // 深水晶蓝 4
+  static const Color brandBlueDark5 = Color(0xFF006D99); // 深水晶蓝 5
+  static const Color brandBlueDark6 = Color(0xFF0083B3); // (同4)
+  static const Color brandBlueDark7 = Color(0xFF006D99); // (近似5)
+  static const Color brandPurpleDark1 = Color(0xFF1DA2BB); // (同深水晶蓝2)
+  static const Color brandPurpleDark2 = Color(0xFF009BCC); // (同深水晶蓝3)
+  static const Color brandPurpleDark3 = Color(0xFF0083B3); // (同深水晶蓝4)
+  static const Color brandPurpleDark4 = Color(0xFF006D99); // (同深水晶蓝5)
+  static const Color brandPurpleDark5 = Color(0xFF005A7F); // (最深)
 
   // ===========================================================================
-  // 品牌色 (大地色系)
-  // Brand Colors (Earth Tones) - Replaced Teals
+  // 第三品牌色 (映射为 生命绿系 - 源自图片顶部绿叶)
+  // Brand Colors (Mapped to Nature Greens from leaves)
   // ===========================================================================
 
-  static const Color brandTealBackground1 = Color(0xFFF5F1E9); // 极浅的暖沙色背景
-  static const Color brandTealBackground2 = Color(0xFFF3EFE6); // (近似1)
-  static const Color brandTealVibrant = Color(0xFFE2C5A6); // 活力的沙色
-  static const Color brandTealMedium = Color(0xFFC4A98A); // 中等沙色
-  static const Color brandTealDark1 = Color(0xFFA1887F); // 暖褐色 1
-  static const Color brandTealDark2 = Color(0xFF8D6E63); // 暖褐色 2
-  static const Color brandTealDark3 = Color(0xFF795548); // 暖褐色 3 (最深)
+  static const Color brandTealBackground1 = Color(0xFFE1F5E2); // 极浅的薄荷绿背景
+  static const Color brandTealBackground2 = Color(0xFFD2EDD4); // (近似1)
+  static const Color brandTealVibrant = Color(0xFF6BBF59); // 活力的生命绿
+  static const Color brandTealMedium = Color(0xFF57A94A); // 中等生命绿
+  static const Color brandTealDark1 = Color(0xFF46913C); // 暖绿色 1
+  static const Color brandTealDark2 = Color(0xFF3E8B43); // 暖绿色 2
+  static const Color brandTealDark3 = Color(0xFF317534); // 暖绿色 3 (最深)
 
   // ===========================================================================
-  // 功能/强调色 (红/橙/黄色系)
-  // Functional/Accent Colors (Reds, Oranges, Yellows)
+  // 功能/强调色 (映射为 狮王橙/红色系 - 源自狮子和鹿)
+  // Functional/Accent Colors (Mapped to Lion's Oranges/Reds)
   // ===========================================================================
 
-  static const Color accentRedPure =
-      Color.fromARGB(255, 255, 0, 0); // 纯红保留，用于特殊场景
-  static const Color accentRedVibrant1 = Color(0xFFEF5350); // 活力的红色 (警示)
-  static const Color accentRedVibrant2 = Color(0xFFE53935); // (近似1)
-  static const Color accentRedDark1 = Color(0xFFD32F2F); // 深红色 1
-  static const Color accentRedDark2 = Color(0xFFC62828); // 深红色 2
-  static const Color accentRedDark3 = Color(0xFFB71C1C); // 深红色 3
-  static const Color accentRedDark4 = Color(0xFFD50000); // (近似)
-  static const Color accentOrange = Color(0xFFFFB300); // 强调橙色 (取自果肉高光)
-  static const Color accentOrangeDark = Color(0xFFFF8F00); // 深强调橙
-  static const Color accentYellow = Color(0xFFFFCA28); // 强调黄色
-  static const Color accentYellowDark1 = Color(0xFFFFC107); // 深强调黄 1
-  static const Color accentYellowDark2 = Color(0xFFFFB300); // 深强调黄 2
-  static const Color accentYellowDark3 = Color(0xFFFFA000); // 深强调黄 3
-  static const Color accentYellowDark4 = Color(0xFFFF8F00); // 深强调黄 4
+  static const Color accentRedPure = Color(0xFFD94A3D); // 纯红替换为狮子的活力红
+  static const Color accentRedVibrant1 = Color(0xFFE55B4F); // 活力的红色 (警示)
+  static const Color accentRedVibrant2 = Color(0xFFD94A3D); // (近似1)
+  static const Color accentRedDark1 = Color(0xFFC33C2E); // 深红色 1
+  static const Color accentRedDark2 = Color(0xFFB02F21); // 深红色 2
+  static const Color accentRedDark3 = Color(0xFF8C2519); // 深红色 3
+  static const Color accentRedDark4 = Color(0xFFD94A3D); // (近似)
+  static const Color accentOrange = Color(0xFFF37A23); // 强调橙色 (狮子主色)
+  static const Color accentOrangeDark = Color(0xFFDD681E); // 深强调橙
+  static const Color accentYellow = Color(0xFFF9B82C); // 强调黄色 (鹿的金色)
+  static const Color accentYellowDark1 = Color(0xFFF7AB1A); // 深强调黄 1
+  static const Color accentYellowDark2 = Color(0xFFF5A10F); // 深强调黄 2
+  static const Color accentYellowDark3 = Color(0xFFE9960B); // 深强调黄 3
+  static const Color accentYellowDark4 = Color(0xFFD68909); // 深强调黄 4
 
   // ===========================================================================
-  // 中性色 (白色和浅灰色系)
-  // Neutrals (Whites & Light Grays)
+  // 中性色 (白色和浅灰色系 - 仅微调主题中使用的部分)
+  // Neutrals (Whites & Light Grays - only adjusted used ones)
   // ===========================================================================
 
   static const Color neutralWhite = Color.fromARGB(255, 255, 255, 255);
-  static const Color neutralOffWhiteYellow = Color(0xFFFFF8E1); // 暖调米白 (源于橙皮内侧)
-  static const Color neutralOffWhitePink = Color(0xFFFFF3E0); // (近似)
+  static const Color neutralOffWhiteYellow = Color(0xFFFEFBFB); // 调整为更纯净的米白
+  static const Color neutralOffWhitePink = Color(0xFFFFFBFB); // (近似)
   static const Color neutralGrey1 = Color.fromARGB(255, 248, 248, 248);
   static const Color neutralGrey2 = Color.fromARGB(255, 247, 247, 247);
   static const Color neutralGrey3 = Color.fromARGB(255, 246, 246, 246);
   static const Color neutralGrey4 = Color.fromARGB(255, 245, 245, 245);
-  static const Color neutralGrey5 = Color.fromARGB(255, 243, 243, 243);
+  static const Color neutralGrey5 = Color(0xFFF1F3F5); // 用于深色模式前景
   static const Color neutralGrey6 = Color.fromARGB(255, 242, 242, 242);
   static const Color neutralGrey7 = Color.fromARGB(255, 241, 241, 241);
   static const Color neutralGrey8 = Color.fromARGB(255, 240, 240, 240);
   static const Color neutralGrey9 = Color.fromARGB(255, 239, 239, 239);
-  static const Color neutralGrey10 = Color.fromARGB(255, 238, 236, 237);
+  static const Color neutralGrey10 = Color(0xFFDEE2E6);
   static const Color neutralGrey11 = Color.fromARGB(255, 237, 237, 237);
   static const Color neutralGrey12 = Color.fromARGB(255, 236, 236, 236);
   static const Color neutralGrey13 = Color.fromARGB(255, 235, 235, 235);
   static const Color neutralGrey14 = Color.fromARGB(255, 233, 234, 236);
-  static const Color neutralGrey15 = Color.fromARGB(255, 232, 232, 232);
+  static const Color neutralGrey15 = Color(0xFFCED4DA);
   static const Color neutralGrey16 = Color.fromARGB(255, 231, 231, 231);
   static const Color neutralGrey17 = Color.fromARGB(255, 230, 230, 230);
   static const Color neutralGrey18 = Color.fromARGB(255, 229, 229, 229);
@@ -160,27 +157,27 @@ class AppColors {
   static const Color neutralGrey59 = Color.fromARGB(255, 150, 150, 150);
   static const Color neutralGrey60 = Color.fromARGB(255, 149, 149, 149);
   static const Color neutralGrey61 = Color.fromARGB(255, 147, 147, 147);
-  static const Color neutralGrey62 = Color.fromARGB(255, 143, 143, 143);
+  static const Color neutralGrey62 = Color(0xFF6C757D); // 用于亮色主题未选中标签
   static const Color neutralGrey63 = Color.fromARGB(255, 141, 143, 142);
   static const Color neutralGrey64 = Color.fromARGB(255, 139, 139, 139);
   static const Color neutralGrey65 = Color.fromARGB(255, 134, 134, 134);
   static const Color neutralGrey66 = Color.fromARGB(255, 130, 130, 130);
   static const Color neutralGrey67 = Color.fromARGB(255, 125, 125, 125);
-  static const Color neutralGrey68 = Color.fromARGB(255, 116, 116, 116);
+  static const Color neutralGrey68 = Color(0xFF495057); // 用于深色主题未选中标签
   static const Color neutralGrey69 = Color.fromARGB(255, 114, 114, 114);
   static const Color neutralGrey70 = Color.fromARGB(255, 113, 113, 113);
   static const Color neutralGrey71 = Color.fromARGB(255, 111, 111, 111);
   static const Color neutralGrey72 = Color.fromARGB(255, 110, 110, 110);
   static const Color neutralGrey73 = Color.fromARGB(255, 108, 108, 108);
-  static const Color neutralGrey74 = Color(0xFF6D6A5F); // 略带暖调的深灰
+  static const Color neutralGrey74 = Color(0xFF6D6A5F);
   static const Color neutralGrey75 = Color.fromARGB(255, 105, 105, 105);
   static const Color neutralGrey76 = Color.fromARGB(255, 103, 103, 103);
   static const Color neutralGrey77 = Color.fromARGB(255, 101, 101, 101);
   static const Color neutralGrey78 = Color.fromARGB(255, 100, 100, 100);
 
   // ===========================================================================
-  // 中性色 (深灰色与黑色系)
-  // Neutrals (Dark Grays & Blacks)
+  // 中性色 (深灰色与黑色系 - 微调)
+  // Neutrals (Dark Grays & Blacks - Adjusted)
   // ===========================================================================
 
   static const Color neutralDarkGrey1 = Color.fromARGB(255, 99, 99, 99);
@@ -190,22 +187,22 @@ class AppColors {
   static const Color neutralDarkGrey5 = Color.fromARGB(255, 87, 87, 87);
   static const Color neutralDarkGrey6 = Color.fromARGB(255, 85, 85, 85);
   static const Color neutralDarkGrey7 = Color.fromARGB(255, 83, 83, 83);
-  static const Color neutralDarkGrey8 = Color(0xFF454B5B); // 深灰蓝
+  static const Color neutralDarkGrey8 = Color(0xFF454B5B);
   static const Color neutralDarkGrey9 = Color.fromARGB(255, 81, 81, 81);
   static const Color neutralDarkGrey10 = Color.fromARGB(255, 80, 80, 80);
   static const Color neutralDarkGrey11 = Color.fromARGB(255, 79, 79, 79);
   static const Color neutralDarkGrey12 = Color.fromARGB(255, 76, 76, 76);
   static const Color neutralDarkGrey13 = Color.fromARGB(255, 74, 74, 74);
-  static const Color neutralDarkGrey14 = Color(0xFF383F47); // 深灰蓝
+  static const Color neutralDarkGrey14 = Color(0xFF383F47);
   static const Color neutralDarkGrey15 = Color.fromARGB(255, 68, 68, 68);
   static const Color neutralDarkGrey16 = Color.fromARGB(255, 64, 64, 64);
   static const Color neutralDarkGrey17 = Color.fromARGB(255, 60, 60, 60);
   static const Color neutralDarkGrey18 = Color.fromARGB(255, 48, 48, 48);
   static const Color neutralDarkGrey19 = Color.fromARGB(255, 41, 41, 41);
   static const Color neutralDarkGrey20 = Color.fromARGB(255, 33, 33, 33);
-  static const Color neutralNearBlack1 = Color.fromARGB(255, 25, 25, 25);
-  static const Color neutralNearBlack2 = Color.fromARGB(255, 22, 22, 20);
-  static const Color neutralNearBlack3 = Color.fromARGB(255, 20, 20, 20);
+  static const Color neutralNearBlack1 = Color(0xFF212529); // 用于亮色主题文本
+  static const Color neutralNearBlack2 = Color(0xFF1A1423); // 用于深色主题背景 (带紫色调)
+  static const Color neutralNearBlack3 = Color(0xFF14101C);
   static const Color neutralNearBlack4 = Color.fromARGB(255, 16, 16, 16);
   static const Color neutralNearBlack5 = Color.fromARGB(255, 13, 13, 11);
   static const Color neutralBlack = Color.fromARGB(255, 0, 0, 0);
@@ -237,60 +234,56 @@ class AppColors {
   static const Color blackTransparent28 = Color.fromARGB(71, 0, 0, 0);
 
   // -- 透明彩色 --
-  static const Color redTransparent76 = Color.fromARGB(193, 239, 83, 80);
-  static const Color redTransparent72 = Color.fromARGB(183, 211, 47, 47);
-  static const Color greenTransparent70 =
-      Color.fromARGB(179, 245, 124, 0); // (现在是透明橙色)
-  static const Color navyBlueTransparent76 =
-      Color.fromARGB(193, 38, 50, 56); // (透明灰蓝)
-  static const Color navyBlueTransparent64 =
-      Color.fromARGB(164, 26, 35, 39); // (更深的透明灰蓝)
+  static const Color redTransparent76 = Color.fromARGB(193, 229, 91, 79);
+  static const Color redTransparent72 = Color.fromARGB(183, 217, 74, 61);
+  static const Color greenTransparent70 = Color(0xB36E3E91); // (现在是透明紫色)
+  static const Color navyBlueTransparent76 = Color(0xC1009BCC); // (透明水晶蓝)
+  static const Color navyBlueTransparent64 = Color(0xA40083B3); // (更深的透明水晶蓝)
 
   // -- 完全透明 --
   static const Color transparent = Color.fromARGB(0, 0, 0, 0);
-  static const Color transparentRed =
-      Color.fromARGB(0, 255, 0, 0); // 与 transparent 效果相同
+  static const Color transparentRed = Color.fromARGB(0, 255, 0, 0);
 }
 
 // -----------------------------------------------------------------------------
-//                          LIGHT THEME (活力鲜橙 - 日间模式)
+//                          LIGHT THEME (活力自然 - 日间模式)
 // -----------------------------------------------------------------------------
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
-  brightness: Brightness.light, // 明确指定为浅色主题
+  brightness: Brightness.light,
   fontFamily: "AlibabaPuHuiTi",
   fontFamilyFallback: const ['Noto Sans SC'],
 
   // 核心颜色方案 (ColorScheme)
   colorScheme: const ColorScheme.light(
     // -- 品牌色 --
-    primary: AppColors.brandGreenVibrant5, // 主品牌色 (主色调橙)，用于按钮、FAB、活动状态等
-    onPrimary: AppColors.neutralWhite, // 在主品牌色之上的文本/图标颜色 (白色)
+    primary: AppColors.brandGreenVibrant5, // 主品牌色 (映射为紫色)
+    onPrimary: AppColors.neutralWhite,
 
-    primaryContainer: AppColors.brandGreenLightest, // 主色的浅色容器背景，如高亮区域
-    onPrimaryContainer: AppColors.brandGreenDarkest, // 在上述容器之上的文本颜色
+    primaryContainer: AppColors.brandGreenLightest, // 映射为浅紫色
+    onPrimaryContainer: AppColors.brandGreenDarkest, // 映射为深紫色
 
-    secondary: AppColors.brandBluePrimary, // 辅助品牌色 (灰蓝色)，用于次要按钮、筛选器等
-    onSecondary: AppColors.neutralWhite, // 在辅助品牌色之上的文本/图标颜色
+    secondary: AppColors.brandBluePrimary, // 辅助品牌色 (映射为水晶蓝)
+    onSecondary: AppColors.neutralWhite,
 
     secondaryContainer: AppColors.brandBlueDark4,
     onSecondaryContainer: AppColors.neutralGrey15,
 
-    surface: AppColors.neutralWhite, // 卡片、对话框、底部菜单的背景色 (白色)
-    onSurface: AppColors.neutralNearBlack1, // 表面之上的主要文本颜色
+    surface: AppColors.neutralGrey11,
+    onSurface: AppColors.neutralNearBlack1,
 
     // -- 功能色 --
-    error: AppColors.accentRedDark1, // 错误状态颜色 (深红色)
-    onError: AppColors.neutralWhite, // 错误颜色之上的文本/图标颜色
+    error: AppColors.accentRedDark1, // 映射为狮王红
+    onError: AppColors.neutralWhite,
   ),
 
   // --- 特定组件的主题微调 ---
 
   // AppBar 主题
   appBarTheme: const AppBarTheme(
-    backgroundColor: AppColors.neutralWhite, // AppBar 背景色
-    foregroundColor: AppColors.neutralNearBlack1, // AppBar 标题和图标颜色
-    elevation: 0.5, // 添加轻微的阴影以示区分
+    backgroundColor: AppColors.neutralWhite,
+    foregroundColor: AppColors.neutralNearBlack1,
+    elevation: 0.5,
     iconTheme: IconThemeData(color: AppColors.neutralNearBlack1),
     titleTextStyle: TextStyle(
       fontFamily: "AlibabaPuHuiTi",
@@ -302,9 +295,9 @@ ThemeData lightTheme = ThemeData(
 
   // TabBar 主题
   tabBarTheme: const TabBarThemeData(
-    labelColor: AppColors.brandGreenVibrant5, // 选中的标签颜色
-    unselectedLabelColor: AppColors.neutralGrey62, // 未选中的标签颜色
-    indicatorColor: AppColors.brandGreenVibrant5, // 指示器颜色
+    labelColor: AppColors.brandGreenVibrant5, // 选中的标签颜色 (紫色)
+    unselectedLabelColor: AppColors.neutralGrey62,
+    indicatorColor: AppColors.brandGreenVibrant5, // 指示器颜色 (紫色)
     labelStyle: TextStyle(
         height: 1.08,
         fontFamily: "AlibabaPuHuiTi",
@@ -313,15 +306,15 @@ ThemeData lightTheme = ThemeData(
 
   // 悬浮按钮主题
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
-    backgroundColor: AppColors.brandGreenVibrant5, // FAB 背景色
-    foregroundColor: AppColors.neutralWhite, // FAB 图标颜色
+    backgroundColor: AppColors.brandGreenVibrant5, // FAB 背景色 (紫色)
+    foregroundColor: AppColors.neutralWhite,
   ),
 
   // 普通按钮主题
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: AppColors.brandGreenVibrant5, // 按钮背景色
-      foregroundColor: AppColors.neutralWhite, // 按钮文字颜色
+      backgroundColor: AppColors.brandGreenVibrant5, // 按钮背景色 (紫色)
+      foregroundColor: AppColors.neutralWhite,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
@@ -339,35 +332,35 @@ ThemeData lightTheme = ThemeData(
 );
 
 // -----------------------------------------------------------------------------
-//                           DARK THEME (活力鲜橙 - 夜间模式)
+//                           DARK THEME (奇幻森林 - 夜间模式)
 // -----------------------------------------------------------------------------
 ThemeData darkTheme = ThemeData(
   useMaterial3: true,
-  brightness: Brightness.dark, // 明确指定为深色主题
+  brightness: Brightness.dark,
   fontFamily: "AlibabaPuHuiTi",
   fontFamilyFallback: const ['Noto Sans SC'],
 
   // 核心颜色方案 (ColorScheme)
   colorScheme: const ColorScheme.dark(
     // -- 品牌色 --
-    primary: AppColors.brandGreenVibrant4, // 主品牌色 (选择一个在深色背景上更柔和的橙色)
-    onPrimary: AppColors.neutralNearBlack1, // 在主品牌色之上的文本/图标颜色
+    primary: AppColors.brandGreenVibrant4, // 主品牌色 (映射为更亮的紫色)
+    onPrimary: AppColors.neutralWhite, // 在主品牌色之上的文本/图标颜色
 
     primaryContainer: AppColors.brandGreenDarker3,
     onPrimaryContainer: AppColors.brandGreenLighter,
 
-    secondary: AppColors.brandBlueGreyLight, // 辅助品牌色 (选择一个更亮的灰蓝色以保证对比度)
-    onSecondary: AppColors.neutralNearBlack3, // 在辅助品牌色之上的文本/图标颜色
+    secondary: AppColors.brandBlueGreyLight, // 辅助品牌色 (映射为更亮的水晶蓝)
+    onSecondary: AppColors.brandBlueDark5, // 在辅助品牌色之上的文本/图标颜色
 
     secondaryContainer: AppColors.brandBlueDark1,
     onSecondaryContainer: AppColors.neutralGrey10,
 
-    surface: AppColors.neutralNearBlack2, // 卡片、对话框等的背景色 (比背景略浅)
+    surface: AppColors.neutralNearBlack2, // 卡片、对话框等的背景色 (带品牌感的紫色调黑)
     onSurface: AppColors.neutralGrey5, // 表面之上的主要文本颜色
 
     // -- 功能色 --
-    error: AppColors.accentRedVibrant1, // 错误状态颜色 (选择一个更亮的红色以保证可见性)
-    onError: AppColors.neutralBlack, // 错误颜色之上的文本/图标颜色
+    error: AppColors.accentRedVibrant1, // 错误状态颜色 (映射为更亮的狮王红)
+    onError: AppColors.neutralWhite,
   ),
 
   // --- 特定组件的主题微调 ---
@@ -375,7 +368,7 @@ ThemeData darkTheme = ThemeData(
   // AppBar 主题
   appBarTheme: const AppBarTheme(
     backgroundColor: AppColors.neutralNearBlack2, // AppBar 背景色 (与表面一致)
-    foregroundColor: AppColors.neutralGrey5, // AppBar 标题和图标颜色
+    foregroundColor: AppColors.neutralGrey5,
     elevation: 0,
     iconTheme: IconThemeData(color: AppColors.neutralGrey5),
     titleTextStyle: TextStyle(
@@ -388,9 +381,9 @@ ThemeData darkTheme = ThemeData(
 
   // TabBar 主题
   tabBarTheme: const TabBarThemeData(
-    labelColor: AppColors.brandGreenVibrant4,
+    labelColor: AppColors.brandGreenVibrant4, // 映射为更亮的紫色
     unselectedLabelColor: AppColors.neutralGrey68,
-    indicatorColor: AppColors.brandGreenVibrant4,
+    indicatorColor: AppColors.brandGreenVibrant4, // 映射为更亮的紫色
     labelStyle: TextStyle(
         height: 1.08,
         fontFamily: "AlibabaPuHuiTi",
@@ -399,15 +392,15 @@ ThemeData darkTheme = ThemeData(
 
   // 悬浮按钮主题
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
-    backgroundColor: AppColors.brandGreenVibrant4,
-    foregroundColor: AppColors.neutralNearBlack1,
+    backgroundColor: AppColors.brandGreenVibrant4, // 映射为更亮的紫色
+    foregroundColor: AppColors.neutralWhite,
   ),
 
   // 普通按钮主题
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: AppColors.brandGreenVibrant4,
-      foregroundColor: AppColors.neutralNearBlack1,
+      backgroundColor: AppColors.brandGreenVibrant4, // 映射为更亮的紫色
+      foregroundColor: AppColors.neutralWhite,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),

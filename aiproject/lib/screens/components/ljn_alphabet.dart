@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/tools/ljn_tools.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 
 class LJNAlphabet extends StatelessWidget {
   final String title;
@@ -15,7 +15,7 @@ class LJNAlphabet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60.w,
-      color: bgColor ?? AppColors.neutralGrey11,
+      color: bgColor ?? Theme.of(context).colorScheme.surface,
       padding: EdgeInsets.only(left: 30.w),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

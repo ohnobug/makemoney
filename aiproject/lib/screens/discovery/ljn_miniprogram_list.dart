@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spicychat/themes.dart';
-import 'package:spicychat/l10n/app_localizations.dart';
-import 'package:spicychat/screens/components/ljn_appbar.dart';
-import 'package:spicychat/tools/ljn_logger.dart';
-import 'package:spicychat/store/ljn_system_cubit.dart';
-import 'package:spicychat/tools/ljn_tools.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LJNMiniProgramList extends StatefulWidget {
@@ -148,7 +148,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
             ],
           ),
           body: ColoredBox(
-            color: AppColors.neutralGrey11,
+            color: Theme.of(context).colorScheme.surface,
             child: ScrollConfiguration(
               behavior:
                   ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -159,7 +159,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
                 child: Container(
                   constraints: BoxConstraints(
                       minHeight: MediaQuery.of(context).size.height - 205.w),
-                  color: AppColors.neutralGrey11,
+                  color: Theme.of(context).colorScheme.surface,
                   child: Column(
                     children: [
                       // 最近使用

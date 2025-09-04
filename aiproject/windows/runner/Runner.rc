@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "spicychat" "\0"
+            VALUE "FileDescription", "vigaviga" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "spicychat" "\0"
+            VALUE "InternalName", "vigaviga" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "spicychat.exe" "\0"
-            VALUE "ProductName", "spicychat" "\0"
+            VALUE "OriginalFilename", "vigaviga.exe" "\0"
+            VALUE "ProductName", "vigaviga" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
