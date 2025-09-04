@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_text_spans.dart';
 
 class LJNIconFunctionItem extends StatefulWidget {
   final String avatar;
@@ -27,7 +28,7 @@ class LJNIconFunctionItem extends StatefulWidget {
 }
 
 class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
-  Color containerColor = AppColors.neutralWhite;
+  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
   // Color containerColor = AppColors.transparent;
 
   @override
@@ -35,12 +36,12 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
     return GestureDetector(
       onTapDown: (_) {
         setState(() {
-          containerColor = AppColors.neutralGrey18;
+          containerColor = Theme.of(context).listTileTheme.selectedTileColor!;
         });
       },
       onTapCancel: () {
         setState(() {
-          containerColor = AppColors.neutralWhite;
+          containerColor = Theme.of(context).listTileTheme.tileColor!;
         });
 
         logger.info("取消点击");
@@ -48,7 +49,7 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
       onTapUp: (tapDownDetails) {
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
-            containerColor = AppColors.neutralWhite;
+            containerColor = Theme.of(context).listTileTheme.tileColor!;
           });
 
           if (context.mounted) {
@@ -93,7 +94,7 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                 border: Border(
                   bottom: BorderSide(
                     color: widget.underline
-                        ? AppColors.neutralGrey6
+                        ? Theme.of(context).listTileTheme.selectedTileColor!
                         : AppColors.transparent,
                     width: 1.5.w,
                     style: BorderStyle.solid,
@@ -114,52 +115,40 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                         ),
 
                         // 标题
-                        RichText(
+                        LJNTextSpans(
                           strutStyle: StrutStyle(
                             height: 1.08,
                             forceStrutHeight: true,
                             fontSize: 31.w,
                           ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          text: TextSpan(
-                            children: buildTextSpans(
-                              widget.title,
-                              TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(31.0.w),
-                                color: AppColors.neutralBlack,
-                                fontFamily: "AlibabaPuHuiTi",
-                              ),
-                              TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(31.w),
-                                fontFamily: "NotoColorEmoji-Regular",
-                              ),
-                            ),
+                          text: widget.title,
+                          style: TextStyle(
+                            height: 1.08,
+                            fontSize: fontSizeScale(31.0.w),
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontFamily: "AlibabaPuHuiTi",
+                          ),
+                          emojiStyle: TextStyle(
+                            height: 1.08,
+                            fontSize: fontSizeScale(31.w),
+                            fontFamily: "NotoColorEmoji-Regular",
                           ),
                         ),
 
                         SizedBox(height: 10.w),
 
                         // 好友消息
-                        RichText(
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          text: TextSpan(
-                            children: buildTextSpans(
-                              widget.message,
-                              TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(25.w),
-                                color: AppColors.neutralGrey45,
-                              ),
-                              TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(25.w),
-                                color: AppColors.neutralGrey45,
-                              ),
-                            ),
+                        LJNTextSpans(
+                          text: widget.message,
+                          style: TextStyle(
+                            height: 1.08,
+                            fontSize: fontSizeScale(25.w),
+                            color: AppColors.neutralGrey45,
+                          ),
+                          emojiStyle: TextStyle(
+                            height: 1.08,
+                            fontSize: fontSizeScale(25.w),
+                            color: AppColors.neutralGrey45,
                           ),
                         ),
                       ],

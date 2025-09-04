@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 
@@ -207,7 +207,7 @@ class _LJNLanguageSettingState extends State<LJNLanguageSetting> {
         style: TextStyle(
           fontSize: 32.w,
           fontWeight: FontWeight.w500,
-          color: AppColors.neutralBlack,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
       ),
       subtitle: Text(

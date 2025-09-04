@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_alphabet.dart';
-import 'package:vigaviga/screens/components/ljn_chatlist_item.dart';
-import 'package:vigaviga/screens/components/ljn_search.dart';
+import 'package:vigaviga/widgets/ljn_alphabet.dart';
+import 'package:vigaviga/widgets/ljn_chatlist_item.dart';
+import 'package:vigaviga/widgets/ljn_search.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
-import 'package:vigaviga/screens/components/ljn_function_item.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_function_item.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 
 // 关键改动 1: 创建数据模型来存储静态数据
@@ -246,7 +246,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
               child: Text(
                 l10n.addFriend,
                 style: TextStyle(
-                  color: AppColors.neutralBlack,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: fontSizeScale(32.w),
                   fontWeight: FontWeight.w500,
                 ),

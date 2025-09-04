@@ -286,7 +286,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
                             fontFamily: 'Iconfont',
                           ),
                           size: 30.w,
-                          color: AppColors.neutralBlack,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                     ),

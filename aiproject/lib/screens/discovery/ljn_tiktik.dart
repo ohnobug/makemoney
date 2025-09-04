@@ -8,6 +8,7 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:video_player/video_player.dart';
+import 'package:vigaviga/widgets/ljn_text_spans.dart';
 
 class LJNTiktik extends StatefulWidget {
   const LJNTiktik({super.key});
@@ -54,7 +55,7 @@ class _LJNTiktik extends State<LJNTiktik> {
           body: Column(
             children: [
               Container(
-                color: AppColors.neutralBlack,
+                color: Theme.of(context).colorScheme.onSurface,
                 width: 750.w,
                 height: systemState.statusHeight,
               ),
@@ -74,7 +75,7 @@ class _LJNTiktik extends State<LJNTiktik> {
                     return Container(
                       width: double.infinity,
                       height: double.infinity,
-                      color: AppColors.neutralBlack,
+                      color: Theme.of(context).colorScheme.onSurface,
                       child: Stack(
                         children: [
                           // 视频播放
@@ -91,44 +92,36 @@ class _LJNTiktik extends State<LJNTiktik> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text.rich(
-                                    TextSpan(
-                                      children: buildTextSpans(
-                                        "@深圳黑马眼科💖",
-                                        TextStyle(
-                                          height: 1.08,
-                                          fontSize: fontSizeScale(33.w),
-                                          color: AppColors.neutralWhite,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: "AlibabaPuHuiTi",
-                                        ),
-                                        TextStyle(
-                                          height: 1.08,
-                                          fontSize: fontSizeScale(33.w),
-                                          fontFamily: "NotoColorEmoji-Regular",
-                                        ),
-                                      ),
+                                  LJNTextSpans(
+                                    text: "@深圳黑马眼科💖",
+                                    style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(33.w),
+                                      color: AppColors.neutralWhite,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: "AlibabaPuHuiTi",
+                                    ),
+                                    emojiStyle: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(33.w),
+                                      fontFamily: "NotoColorEmoji-Regular",
                                     ),
                                   ),
                                   SizedBox(
                                     height: 20.w,
                                   ),
-                                  Text.rich(
-                                    TextSpan(
-                                      children: buildTextSpans(
-                                        "深圳黑马眼科, 一家只做近视手术的专科医院,抖音推出1元近视手术",
-                                        TextStyle(
-                                          height: 1.35,
-                                          fontSize: fontSizeScale(28.w),
-                                          color: AppColors.neutralWhite,
-                                          fontFamily: "AlibabaPuHuiTi",
-                                        ),
-                                        TextStyle(
-                                          height: 1.35,
-                                          fontSize: fontSizeScale(28.w),
-                                          fontFamily: "NotoColorEmoji-Regular",
-                                        ),
-                                      ),
+                                  LJNTextSpans(
+                                    text: "深圳黑马眼科, 一家只做近视手术的专科医院,抖音推出1元近视手术",
+                                    style: TextStyle(
+                                      height: 1.35,
+                                      fontSize: fontSizeScale(28.w),
+                                      color: AppColors.neutralWhite,
+                                      fontFamily: "AlibabaPuHuiTi",
+                                    ),
+                                    emojiStyle: TextStyle(
+                                      height: 1.35,
+                                      fontSize: fontSizeScale(28.w),
+                                      fontFamily: "NotoColorEmoji-Regular",
                                     ),
                                   )
                                 ],
@@ -499,7 +492,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
                   : Container(
                       width: 750.w,
                       height: MediaQuery.of(context).size.height - 115.w,
-                      color: AppColors.neutralBlack,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
         );
       },

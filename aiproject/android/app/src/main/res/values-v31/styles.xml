@@ -11,6 +11,5 @@
 
         <!-- 3. 设置启动画面结束后应用的主题 -->
         <item name="postSplashScreenTheme">@style/NormalTheme</item>
-
     </style>
 </resources>

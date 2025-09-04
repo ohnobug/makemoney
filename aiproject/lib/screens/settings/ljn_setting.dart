@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
-import '../components/ljn_function_item.dart';
-import '../components/ljn_max_width_button.dart';
+import '../../widgets/ljn_function_item.dart';
+import '../../widgets/ljn_max_width_button.dart';
 
 class LJNSettingPage extends StatefulWidget {
   const LJNSettingPage({super.key});
@@ -163,7 +162,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                               0xe610,
                               fontFamily: 'Iconfont',
                             ), // 使用的图标
-                            color: AppColors.neutralBlack, // 图标颜色
+                            color: Theme.of(context).colorScheme.onSurface, // 图标颜色
                             size: 36.w, // 图标大小
                           )
                         ],

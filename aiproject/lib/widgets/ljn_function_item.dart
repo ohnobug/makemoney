@@ -19,20 +19,21 @@ class LJNFunctionItem extends StatefulWidget {
   final EdgeInsetsGeometry? margin;
   final Function? onPress;
 
-  const LJNFunctionItem(
-      {super.key,
-      this.icon,
-      this.height,
-      this.padding,
-      required this.title,
-      this.link,
-      this.showLinkIcon,
-      required this.underline,
-      this.showStyle,
-      this.tapEffect,
-      this.backgroundColor,
-      this.margin,
-      this.onPress});
+  const LJNFunctionItem({
+    super.key,
+    this.icon,
+    this.height,
+    this.padding,
+    required this.title,
+    this.link,
+    this.showLinkIcon,
+    required this.underline,
+    this.showStyle,
+    this.tapEffect,
+    this.backgroundColor,
+    this.margin,
+    this.onPress,
+  });
 
   @override
   State<LJNFunctionItem> createState() => _LJNFunctionItemState();
@@ -48,7 +49,8 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
   void initState() {
     super.initState();
 
-    originContainerColor = widget.backgroundColor ?? AppColors.neutralWhite;
+    originContainerColor =
+        widget.backgroundColor ?? Theme.of(context).listTileTheme.tileColor!;
 
     setState(() {
       containerColor = originContainerColor;
@@ -62,7 +64,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
       onTapDown: (tapDownDetails) {
         if (tapEffect == false) return;
         setState(() {
-          containerColor = darkenColor(originContainerColor, 0.1);
+          containerColor = Theme.of(context).listTileTheme.selectedTileColor!;
         });
       },
       onTapCancel: () {
@@ -130,7 +132,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                   border: Border(
                     bottom: BorderSide(
                       color: widget.underline
-                          ? AppColors.neutralGrey6
+                          ? Theme.of(context).listTileTheme.selectedTileColor!
                           : AppColors.transparent,
                       width: 1.5.w,
                       style: BorderStyle.solid,

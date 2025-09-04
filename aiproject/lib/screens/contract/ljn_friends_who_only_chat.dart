@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_alphabet.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
-import 'package:vigaviga/screens/components/ljn_search.dart';
+import 'package:vigaviga/widgets/ljn_alphabet.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_search.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -218,11 +218,15 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
                     Text(l10n.add,
                         style: TextStyle(
                             fontSize: 30.w,
-                            color: AppColors.neutralBlack)), // 使用 l10n
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface)), // 使用 l10n
                     Text(l10n.remove,
                         style: TextStyle(
                             fontSize: 30.w,
-                            color: AppColors.neutralBlack)), // 使用 l10n
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface)), // 使用 l10n
                   ],
                 ),
               )
@@ -299,7 +303,7 @@ class ContactInformation extends StatefulWidget {
 }
 
 class _ContactInformationState extends State<ContactInformation> {
-  Color containerColor = AppColors.neutralWhite;
+  late Color containerColor = Theme.of(context).colorScheme.surface;
 
   @override
   Widget build(BuildContext context) {
@@ -310,13 +314,14 @@ class _ContactInformationState extends State<ContactInformation> {
       },
       onTapCancel: () {
         if (widget.onPressed == null) return;
-        setState(() => containerColor = AppColors.neutralWhite);
+        setState(() => containerColor = Theme.of(context).colorScheme.surface);
       },
       onTapUp: (tapDownDetails) {
         if (widget.onPressed == null) return;
         Future.delayed(const Duration(milliseconds: 50), () {
           if (!mounted) return;
-          setState(() => containerColor = AppColors.neutralWhite);
+          setState(
+              () => containerColor = Theme.of(context).colorScheme.surface);
           widget.onPressed?.call();
         });
       },
@@ -345,7 +350,7 @@ class _ContactInformationState extends State<ContactInformation> {
                   border: Border(
                     bottom: widget.underline
                         ? BorderSide(
-                            color: AppColors.neutralGrey6,
+                            color: Theme.of(context).listTileTheme.selectedTileColor!,
                             width: 1.5.w,
                             style: BorderStyle.solid,
                           )

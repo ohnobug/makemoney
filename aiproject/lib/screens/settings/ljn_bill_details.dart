@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
-import 'package:vigaviga/screens/components/ljn_change_detail_item.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_change_detail_item.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
@@ -70,7 +70,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                     AppLocalizations.of(context)!.faq,
                     style: TextStyle(
                       // height: 1.08,
-                      color: AppColors.neutralBlack,
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontSize: fontSizeScale(32.w),
                       fontWeight: FontWeight.w500,
                     ),
@@ -136,7 +136,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                   style: TextStyle(
                                     height: 1.08,
                                     fontSize: fontSizeScale(30.w),
-                                    color: AppColors.neutralBlack,
+                                    color: Theme.of(context).colorScheme.onSurface,
                                     // fontWeight: FontWeight.bold,
                                     fontFamily: "AlibabaPuHuiTi",
                                   ),
@@ -149,7 +149,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                       0xe60a,
                                       fontFamily: 'Iconfont',
                                     ), // 使用的图标
-                                    color: AppColors.neutralBlack, // 图标颜色
+                                    color: Theme.of(context).colorScheme.onSurface, // 图标颜色
                                     size: 25.w, // 图标大小
                                   ),
                                 ),
@@ -207,7 +207,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                           style: TextStyle(
                             height: 1.08,
                             fontSize: fontSizeScale(30.w),
-                            color: AppColors.neutralBlack,
+                            color: Theme.of(context).colorScheme.onSurface,
                             // fontWeight: FontWeight.bold,
                             fontFamily: "AlibabaPuHuiTi",
                           ),
@@ -219,7 +219,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                               0xe891,
                               fontFamily: 'Iconfont',
                             ), // 使用的图标
-                            color: AppColors.neutralBlack, // 图标颜色
+                            color: Theme.of(context).colorScheme.onSurface, // 图标颜色
                             size: 30.w, // 图标大小
                           ),
                         ),
@@ -390,7 +390,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                           child: Text(
                             AppLocalizations.of(context)!.selectFilter,
                             style: TextStyle(
-                              color: AppColors.neutralBlack,
+                              color: Theme.of(context).colorScheme.onSurface,
                               height: 1.08,
                               fontSize: 27.w,
                               fontWeight: FontWeight.bold,
@@ -600,7 +600,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                 height: 90.w,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: AppColors.neutralGrey6,
+                                  color: Theme.of(context).listTileTheme.selectedTileColor!,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(12.w),
                                   ),
@@ -608,7 +608,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                                 child: Text(
                                   AppLocalizations.of(context)!.cancel,
                                   style: TextStyle(
-                                    color: AppColors.neutralBlack,
+                                    color: Theme.of(context).colorScheme.onSurface,
                                     fontSize: 30.w,
                                     height: 1.08,
                                   ),
@@ -711,7 +711,7 @@ class LJNFilterButton extends StatelessWidget {
             height: 1.08,
             fontSize: 26.w,
             color:
-                selected ? AppColors.brandGreenDarker3 : AppColors.neutralBlack,
+                selected ? AppColors.brandGreenDarker3 : Theme.of(context).colorScheme.onSurface,
           ),
         ),
       ),

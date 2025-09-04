@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
-import 'package:vigaviga/screens/components/ljn_max_width_button.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
@@ -334,7 +334,7 @@ class _LJNServices extends State<LJNServices>
                                   height: 1.08,
                                   fontSize: 30.w,
                                   decoration: TextDecoration.none,
-                                  color: AppColors.neutralBlack,
+                                  color: Theme.of(context).colorScheme.onSurface,
                                 ),
                               ),
                             ],
@@ -405,7 +405,7 @@ class _LJNServices extends State<LJNServices>
         borderRadius: BorderRadius.circular(kCardBorderRadius).w,
         boxShadow: [
           BoxShadow(
-            color: AppColors.brandGreenDarkest.withOpacity(0.2),
+            color: AppColors.brandGreenDarkest.withAlpha(50),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -435,7 +435,7 @@ class _LJNServices extends State<LJNServices>
           Container(
             width: 1,
             height: 100.w,
-            color: AppColors.neutralWhite.withOpacity(0.2),
+            color: AppColors.neutralWhite.withAlpha(50),
           ),
           Expanded(
             child: CollectionAndPayment(

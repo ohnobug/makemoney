@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/widgets/ljn_text_spans.dart';
 
 class LJNMiniProgramList extends StatefulWidget {
   const LJNMiniProgramList({super.key});
@@ -358,7 +359,7 @@ class FunctionButtonsSection extends StatelessWidget {
                   style: TextStyle(
                     height: 1.08,
                     fontSize: fontSizeScale(28.w),
-                    color: AppColors.neutralBlack,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
                 if (moreUrl != '')
@@ -541,7 +542,7 @@ class _FunctionListSection extends State<FunctionListSection> {
                   style: TextStyle(
                     height: 1.08,
                     fontSize: fontSizeScale(28.w),
-                    color: AppColors.neutralBlack,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
                 if (widget.moreUrl != '')
@@ -610,7 +611,7 @@ class ChatListItem extends StatefulWidget {
 }
 
 class _ChatListItem extends State<ChatListItem> {
-  Color containerColor = AppColors.neutralWhite;
+  late Color containerColor = Theme.of(context).colorScheme.surface;
 
   @override
   Widget build(BuildContext context) {
@@ -622,7 +623,7 @@ class _ChatListItem extends State<ChatListItem> {
       },
       onTapCancel: () {
         setState(() {
-          containerColor = AppColors.neutralWhite;
+          containerColor = Theme.of(context).colorScheme.surface;
         });
 
         logger.info("取消点击");
@@ -630,7 +631,7 @@ class _ChatListItem extends State<ChatListItem> {
       onTapUp: (tapDownDetails) {
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
-            containerColor = AppColors.neutralWhite;
+            containerColor = Theme.of(context).colorScheme.surface;
           });
           widget.onPressed!();
         });
@@ -678,24 +679,18 @@ class _ChatListItem extends State<ChatListItem> {
                         children: [
                           // 好友名称
                           Expanded(
-                            child: RichText(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              text: TextSpan(
-                                children: buildTextSpans(
-                                  widget.friendName,
-                                  TextStyle(
-                                    height: 1.08,
-                                    fontSize: fontSizeScale(28.0.w),
-                                    color: AppColors.neutralBlack,
-                                    fontFamily: "AlibabaPuHuiTi",
-                                  ),
-                                  TextStyle(
-                                    height: 1.08,
-                                    fontSize: fontSizeScale(28.w),
-                                    fontFamily: "NotoColorEmoji-Regular",
-                                  ),
-                                ),
+                            child: LJNTextSpans(
+                              text: widget.friendName,
+                              style: TextStyle(
+                                height: 1.08,
+                                fontSize: fontSizeScale(28.0.w),
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontFamily: "AlibabaPuHuiTi",
+                              ),
+                              emojiStyle: TextStyle(
+                                height: 1.08,
+                                fontSize: fontSizeScale(28.w),
+                                fontFamily: "NotoColorEmoji-Regular",
                               ),
                             ),
                           ),
@@ -717,23 +712,17 @@ class _ChatListItem extends State<ChatListItem> {
                             // color: Colors.amber,
                             // width: 400.w,
                             // margin: EdgeInsets.only(right: 65.w),
-                            child: RichText(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              text: TextSpan(
-                                children: buildTextSpans(
-                                  widget.message,
-                                  TextStyle(
-                                    height: 1.08,
-                                    fontSize: fontSizeScale(25.w),
-                                    color: AppColors.neutralGrey45,
-                                  ),
-                                  TextStyle(
-                                    height: 1.08,
-                                    fontSize: fontSizeScale(25.w),
-                                    color: AppColors.neutralGrey45,
-                                  ),
-                                ),
+                            child: LJNTextSpans(
+                              text: widget.message,
+                              style: TextStyle(
+                                height: 1.08,
+                                fontSize: fontSizeScale(25.w),
+                                color: AppColors.neutralGrey45,
+                              ),
+                              emojiStyle: TextStyle(
+                                height: 1.08,
+                                fontSize: fontSizeScale(25.w),
+                                color: AppColors.neutralGrey45,
                               ),
                             ),
                           ),

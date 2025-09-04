@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 // import 'package:vigaviga/tools/tools.dart';
 import 'package:video_player/video_player.dart';
@@ -50,7 +49,7 @@ class _LJNVideoState extends State<LJNVideoPage> {
                   0xea81,
                   fontFamily: 'Iconfont',
                 ), // 使用的图标
-                color: AppColors.neutralBlack, // 图标颜色
+                color: Theme.of(context).colorScheme.onSurface, // 图标颜色
                 size: 36.w, // 图标大小
               )
             : Icon(
@@ -58,7 +57,7 @@ class _LJNVideoState extends State<LJNVideoPage> {
                   0xea82,
                   fontFamily: 'Iconfont',
                 ), // 使用的图标
-                color: AppColors.neutralBlack, // 图标颜色
+                color: Theme.of(context).colorScheme.onSurface, // 图标颜色
                 size: 36.w, // 图标大小
               ),
       ),

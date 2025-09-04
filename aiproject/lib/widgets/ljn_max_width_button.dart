@@ -28,7 +28,7 @@ class LJNMaxWidthButton extends StatefulWidget {
 
 class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
   // bool isClicked = false;
-  Color containerColor = AppColors.neutralWhite;
+  late Color containerColor = Theme.of(context).colorScheme.surface;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
       },
       onTapCancel: () {
         setState(() {
-          containerColor = AppColors.neutralWhite;
+          containerColor = Theme.of(context).colorScheme.surface;
         });
 
         logger.info("取消点击");
@@ -48,7 +48,7 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
       onTapUp: (tapDownDetails) {
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
-            containerColor = AppColors.neutralWhite;
+            containerColor = Theme.of(context).colorScheme.surface;
           });
 
           if (context.mounted) {
@@ -73,7 +73,7 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
           border: Border(
             bottom: BorderSide(
               color: widget.underline
-                  ? AppColors.neutralGrey6
+                  ? Theme.of(context).listTileTheme.selectedTileColor!
                   : AppColors.transparent,
               width: 1.5.w,
               style: BorderStyle.solid,
@@ -84,7 +84,8 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
             ? Text(
                 widget.title as String,
                 style: TextStyle(
-                  color: widget.color ?? AppColors.neutralBlack,
+                  color:
+                      widget.color ?? Theme.of(context).colorScheme.onSurface,
                   height: 1.08,
                   fontSize: fontSizeScale(32.0.w),
                   decoration: TextDecoration.none,

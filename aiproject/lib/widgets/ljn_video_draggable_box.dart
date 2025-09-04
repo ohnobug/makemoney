@@ -298,7 +298,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
                                 fontFamily: 'Iconfont',
                               ),
                               size: 30.w, // 图标的大小
-                              color: AppColors.neutralBlack, // 图标颜色
+                              color: Theme.of(context).colorScheme.onSurface, // 图标颜色
                             ),
                           ),
                         ),

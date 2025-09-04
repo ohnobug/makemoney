@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
-import 'package:vigaviga/screens/components/ljn_max_width_button.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import '../components/ljn_function_item.dart';
+import '../../widgets/ljn_function_item.dart';
 
 class LJNDeviceDetail extends StatefulWidget {
   const LJNDeviceDetail({super.key});

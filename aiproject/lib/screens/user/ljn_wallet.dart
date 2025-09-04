@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
-import '../components/ljn_function_item.dart';
+import '../../widgets/ljn_function_item.dart';
 import '../../tools/ljn_tools.dart';
 
 class LJNWallet extends StatefulWidget {
@@ -49,7 +49,7 @@ class _LJNWallet extends State<LJNWallet> {
                 AppLocalizations.of(context)!.bill,
                 style: TextStyle(
                   // height: 1.08,
-                  color: AppColors.neutralBlack,
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: fontSizeScale(32.w),
                   fontWeight: FontWeight.w500,
                 ),
@@ -108,7 +108,7 @@ class _LJNWallet extends State<LJNWallet> {
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: fontSizeScale(29.w),
-                                  color: AppColors.neutralBlack,
+                                  color: Theme.of(context).colorScheme.onSurface,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: "LJNFont",
                                 ),
@@ -176,7 +176,7 @@ class _LJNWallet extends State<LJNWallet> {
                                   style: TextStyle(
                                     height: 1.08,
                                     fontSize: fontSizeScale(29.w),
-                                    color: AppColors.neutralBlack,
+                                    color: Theme.of(context).colorScheme.onSurface,
                                     fontWeight: FontWeight.w500,
                                     fontFamily: "LJNFont",
                                   ),

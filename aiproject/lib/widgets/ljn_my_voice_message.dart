@@ -147,7 +147,7 @@ class _LJNMyMessage extends State<LJNMyVoiceMessage>
                                     style: TextStyle(
                                       height: 1.25,
                                       fontSize: fontSizeScale(31.w),
-                                      color: AppColors.neutralBlack,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                       fontFamily: "",
                                     ),
                                   ),

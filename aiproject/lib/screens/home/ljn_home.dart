@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_chatlist_item.dart';
-import 'package:vigaviga/screens/components/ljn_custom_physics.dart';
-import 'package:vigaviga/screens/components/ljn_page_loading.dart';
+import 'package:vigaviga/widgets/ljn_chatlist_item.dart';
+import 'package:vigaviga/widgets/ljn_custom_physics.dart';
+import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/screens/discovery/ljn_home_miniprogram.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
@@ -702,7 +702,7 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
             height: screenSize.height - (90.w + statusHeight),
             width: screenSize.width,
             child: Container(
-              color: AppColors.neutralWhite,
+              color: Theme.of(context).listTileTheme.tileColor!,
             ),
           ),
 
@@ -841,21 +841,19 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
                       title:
                           Text(AppLocalizations.of(context)!.tabbar_label_chat),
                       centerTitle: true,
-                      titleTextStyle: TextStyle(
-                        height: 1.08,
-                        fontSize: fontSizeScale(32.w),
-                        color: AppColors.neutralWhite,
-                        fontFamily: "AlibabaPuHuiTi-Medium",
-                      ),
+                      titleTextStyle:
+                          Theme.of(context).appBarTheme.titleTextStyle,
                       toolbarHeight: 90.w,
                       elevation: 0,
                       scrolledUnderElevation: 0,
-                      backgroundColor: AppColors.brandPurpleGrey.withAlpha(
-                        (newAppbarOpacity * 255).toInt(),
-                      ),
-                      foregroundColor: AppColors.brandPurpleGrey.withAlpha(
-                        (newAppbarOpacity * 255).toInt(),
-                      ),
+                      backgroundColor:
+                          Theme.of(context).listTileTheme.tileColor!.withAlpha(
+                                (newAppbarOpacity * 255).toInt(),
+                              ),
+                      foregroundColor:
+                          Theme.of(context).listTileTheme.tileColor!.withAlpha(
+                                (newAppbarOpacity * 255).toInt(),
+                              ),
                       actions: [
                         Container(
                           color: AppColors.transparent,

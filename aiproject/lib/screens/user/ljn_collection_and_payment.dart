@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
@@ -295,7 +295,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                             icon: 0xe6f5,
                             iconColor: AppColors.accentRedPure,
                             link: '',
-                            color: AppColors.neutralBlack,
+                            color: Theme.of(context).colorScheme.onSurface,
                             backgroundColor: AppColors.neutralWhite,
                             underline: false,
                           ),

@@ -4,12 +4,13 @@ import 'package:vigaviga/themes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
-import 'package:vigaviga/screens/components/ljn_show_call_popup.dart';
+import 'package:vigaviga/widgets/ljn_show_call_popup.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
-import 'package:vigaviga/screens/components/ljn_max_width_button.dart';
-import 'package:vigaviga/screens/components/ljn_function_item.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_max_width_button.dart';
+import 'package:vigaviga/widgets/ljn_function_item.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/widgets/ljn_text_spans.dart';
 
 class LJNFriendProfile extends StatefulWidget {
   const LJNFriendProfile({
@@ -120,7 +121,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                             color: AppColors.neutralWhite,
                             border: Border(
                               bottom: BorderSide(
-                                color: AppColors.neutralGrey6,
+                                color: Theme.of(context).listTileTheme.selectedTileColor!,
                                 width: 1.5.w,
                                 style: BorderStyle.solid,
                               ),
@@ -159,24 +160,19 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                           CrossAxisAlignment.start,
                                       children: [
                                         // 姓名
-                                        RichText(
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          text: TextSpan(
-                                            children: buildTextSpans(
-                                              widget.name!,
-                                              TextStyle(
-                                                height: 1.08,
-                                                fontSize: fontSizeScale(40.w),
-                                                color: AppColors.neutralBlack,
-                                                fontFamily:
-                                                    "AlibabaPuHuiTi-Medium",
-                                              ),
-                                              TextStyle(
-                                                height: 1.08,
-                                                fontSize: fontSizeScale(40.w),
-                                              ),
-                                            ),
+                                        LJNTextSpans(
+                                          text: widget.name!,
+                                          style: TextStyle(
+                                            height: 1.08,
+                                            fontSize: fontSizeScale(40.w),
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
+                                            fontFamily: "AlibabaPuHuiTi-Medium",
+                                          ),
+                                          emojiStyle: TextStyle(
+                                            height: 1.08,
+                                            fontSize: fontSizeScale(40.w),
                                           ),
                                         ),
 
@@ -185,27 +181,19 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                         ),
 
                                         // 昵称
-                                        RichText(
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          text: TextSpan(
-                                            children: buildTextSpans(
-                                              AppLocalizations.of(context)!
-                                                  .nicknameDisplay(
-                                                      widget.nickname!),
-                                              TextStyle(
-                                                height: 1.08,
-                                                fontSize: fontSizeScale(27.w),
-                                                color:
-                                                    AppColors.neutralDarkGrey1,
-                                                fontFamily:
-                                                    "AlibabaPuHuiTi-Medium",
-                                              ),
-                                              TextStyle(
-                                                height: 1.08,
-                                                fontSize: fontSizeScale(27.w),
-                                              ),
-                                            ),
+                                        LJNTextSpans(
+                                          text: AppLocalizations.of(context)!
+                                              .nicknameDisplay(
+                                                  widget.nickname!),
+                                          style: TextStyle(
+                                            height: 1.08,
+                                            fontSize: fontSizeScale(27.w),
+                                            color: AppColors.neutralDarkGrey1,
+                                            fontFamily: "AlibabaPuHuiTi-Medium",
+                                          ),
+                                          emojiStyle: TextStyle(
+                                            height: 1.08,
+                                            fontSize: fontSizeScale(27.w),
                                           ),
                                         ),
 

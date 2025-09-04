@@ -614,7 +614,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                                     fontFamily: 'Iconfont',
                                   ),
                                   size: 21.0.w,
-                                  color: AppColors.neutralBlack,
+                                  color: Theme.of(context).colorScheme.onSurface,
                                 ))
                           ],
                         ),
@@ -692,7 +692,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     height: 135.w,
-                    color: AppColors.neutralBlack.withValues(alpha: 0.4),
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

@@ -32,7 +32,7 @@ class LJNChangeDetailItem extends StatefulWidget {
 
 class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
   // bool isClicked = false;
-  Color containerColor = AppColors.neutralWhite;
+  late Color containerColor = Theme.of(context).colorScheme.surface;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
       },
       onTapCancel: () {
         setState(() {
-          containerColor = AppColors.neutralWhite;
+          containerColor = Theme.of(context).colorScheme.surface;
         });
 
         logger.info("取消点击");
@@ -54,7 +54,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
       onTapUp: (tapDownDetails) {
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
-            containerColor = AppColors.neutralWhite;
+            containerColor = Theme.of(context).colorScheme.surface;
           });
           widget.onPressed!();
         });
@@ -69,7 +69,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                 color: containerColor,
                 border: Border(
                   bottom: BorderSide(
-                    color: AppColors.neutralGrey6,
+                    color: Theme.of(context).listTileTheme.selectedTileColor!,
                     width: 1.5.w,
                     style: BorderStyle.solid,
                   ),
@@ -138,7 +138,8 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                               style: TextStyle(
                                   height: 1.08,
                                   fontSize: fontSizeScale(30.0.w),
-                                  color: AppColors.neutralBlack,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: "LJNFont"),
                               maxLines: 1,

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_page_loading.dart';
+import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../components/ljn_function_item.dart';
+import 'package:vigaviga/widgets/ljn_text_spans.dart';
+import '../../widgets/ljn_function_item.dart';
 
 class LJNDiscovery extends StatefulWidget {
   const LJNDiscovery({super.key});
@@ -87,24 +88,18 @@ class _LJNDiscovery extends State<LJNDiscovery> {
                           width: 14.w,
                         ),
                         Expanded(
-                          child: RichText(
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            text: TextSpan(
-                              children: buildTextSpans(
-                                "李俊南集团💖李俊男李俊男李俊男李俊男李俊男李俊男李俊男李俊男  最近💖",
-                                TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(26.w),
-                                  color: AppColors.neutralDarkGrey10,
-                                  fontFamily: "AlibabaPuHuiTi",
-                                ),
-                                TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(26.w),
-                                  fontFamily: "NotoColorEmoji-Regular",
-                                ),
-                              ),
+                          child: LJNTextSpans(
+                            text: "李俊南集团💖李俊男李俊男李俊男李俊男李俊男李俊男李俊男李俊男  最近💖",
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(26.w),
+                              color: AppColors.neutralDarkGrey10,
+                              fontFamily: "AlibabaPuHuiTi",
+                            ),
+                            emojiStyle: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(26.w),
+                              fontFamily: "NotoColorEmoji-Regular",
                             ),
                           ),
                         ),

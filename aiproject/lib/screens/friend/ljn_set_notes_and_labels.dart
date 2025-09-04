@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
@@ -54,7 +54,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                   AppLocalizations.of(context)!.cancel,
                   style: TextStyle(
                     // height: 1.08,
-                    color: AppColors.neutralBlack,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: fontSizeScale(32.w),
                     fontWeight: FontWeight.w500,
                   ),
@@ -116,7 +116,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           style: TextStyle(
                             fontSize: 40.w,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.neutralBlack,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                       ),
@@ -161,7 +161,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           style: TextStyle(
                             // height: 1.08,
                             fontSize: fontSizeScale(30.w),
-                            color: AppColors.neutralBlack,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                           // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
                           maxLines: 5,
@@ -276,7 +276,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                 "同学，ajj",
                                 style: TextStyle(
                                     fontSize: 32.w,
-                                    color: AppColors.neutralBlack),
+                                    color: Theme.of(context).colorScheme.onSurface),
                               ),
                               SizedBox(
                                 width: 30.w,
@@ -351,7 +351,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                           style: TextStyle(
                                             fontSize: 27.w,
                                             height: 1.08,
-                                            color: AppColors.neutralBlack,
+                                            color: Theme.of(context).colorScheme.onSurface,
                                           ),
                                         ),
                                         Expanded(
@@ -483,7 +483,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           style: TextStyle(
                               // height: 1.08,
                               fontSize: fontSizeScale(30.w),
-                              color: AppColors.neutralBlack),
+                              color: Theme.of(context).colorScheme.onSurface),
                           // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
                           maxLines: 5,
                           minLines: 1,

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_custom_physics.dart';
+import 'package:vigaviga/widgets/ljn_custom_physics.dart';
 import 'package:vigaviga/screens/contract/ljn_contact.dart';
 import 'package:vigaviga/screens/discovery/ljn_discovery.dart';
 import 'package:vigaviga/screens/home/ljn_home.dart';
@@ -61,7 +61,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     );
     _tabController.addListener(_handleTabSelection);
   }
-  
+
   // 关键改动 4: didChangeDependencies 不再需要了，可以安全删除。
 
   void _handleTabSelection() {
@@ -137,19 +137,18 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                     color: Theme.of(context).colorScheme.surface,
                     border: Border(
                       top: BorderSide(
-                        color: AppColors.neutralGrey25,
+                        color: Theme.of(context).tabBarTheme.dividerColor!,
                         width: 1.5.w,
                       ),
+                      bottom: BorderSide(width: 0),
                     ),
                   ),
                   child: TabBar(
-                    dividerColor: AppColors.neutralGrey27,
-                    labelColor: AppColors.brandGreenVibrant6,
-                    labelStyle: TextStyle(
-                      height: 1.08,
-                      fontSize: fontSizeScale(22.w),
-                    ),
-                    unselectedLabelColor: AppColors.blackTransparent87,
+                    dividerColor: Theme.of(context).tabBarTheme.dividerColor,
+                    labelColor: Theme.of(context).tabBarTheme.labelColor,
+                    labelStyle: Theme.of(context).tabBarTheme.labelStyle,
+                    unselectedLabelColor:
+                        Theme.of(context).tabBarTheme.unselectedLabelColor,
                     indicator: const BoxDecoration(),
                     controller: _tabController,
                     overlayColor: WidgetStateProperty.all(Colors.transparent),
@@ -188,7 +187,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
               body: TabBarView(
                 physics: systemState.showMiniProgramDrawer
                     ? const NeverScrollableScrollPhysics()
-                    : CustomTabBarViewScrollPhysics( // 这里使用了自定义的 LJNCustomTabBarViewScrollPhysics
+                    : CustomTabBarViewScrollPhysics(
+                        // 这里使用了自定义的 LJNCustomTabBarViewScrollPhysics
                         parent: const ClampingScrollPhysics(),
                       ),
                 controller: _tabController,
@@ -227,14 +227,16 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                           titleTextStyle: TextStyle(
                             height: 1.08,
                             fontSize: fontSizeScale(32.w),
-                            color: AppColors.neutralBlack,
+                            color: Theme.of(context).colorScheme.onSurface,
                             fontFamily: "AlibabaPuHuiTi-Medium",
                           ),
                           toolbarHeight: 90.w,
                           elevation: 0,
                           scrolledUnderElevation: 0,
-                          backgroundColor: Theme.of(context).colorScheme.surface,
-                          foregroundColor: Theme.of(context).colorScheme.surface,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.surface,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.surface,
                           actions: [
                             GestureDetector(
                               onTap: () {},

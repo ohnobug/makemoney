@@ -251,7 +251,8 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
                               0xe620,
                               fontFamily: 'Iconfont',
                             ), // 使用的图标
-                            color: AppColors.neutralBlack, // 图标颜色
+                            color:
+                                Theme.of(context).colorScheme.onSurface, // 图标颜色
                             size: 36.w, // 图标大小
                           ),
                         ),
@@ -273,7 +274,8 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
                               0xe617,
                               fontFamily: 'Iconfont',
                             ), // 使用的图标
-                            color: AppColors.neutralBlack, // 图标颜色
+                            color:
+                                Theme.of(context).colorScheme.onSurface, // 图标颜色
                             size: 36.w, // 图标大小
                           ),
                         ),
@@ -331,7 +333,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                   "积贝生活",
                   style: TextStyle(
                     height: 1.08,
-                    color: AppColors.neutralBlack,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 32.w,
                     fontFamily: 'AlibabaPuHuiTi-Medium',
                   ),
@@ -371,7 +373,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
               AppLocalizations.of(context)!.noTransactionRating,
               style: TextStyle(
                 fontSize: 26.w,
-                color: AppColors.neutralBlack,
+                color: Theme.of(context).colorScheme.onSurface,
                 height: 1.08,
               ),
             ),
@@ -379,7 +381,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
               AppLocalizations.of(context)!.commentCount(1),
               style: TextStyle(
                 fontSize: 26.w,
-                color: AppColors.neutralBlack,
+                color: Theme.of(context).colorScheme.onSurface,
                 height: 1.08,
               ),
             ),
@@ -1028,7 +1030,7 @@ class LJNPopupButtonMaxWidthButton extends StatefulWidget {
 class _LJNPopupButtonMaxWidthButtonState
     extends State<LJNPopupButtonMaxWidthButton> {
   // bool isClicked = false;
-  Color containerColor = AppColors.neutralWhite;
+  late Color containerColor = Theme.of(context).colorScheme.surface;
 
   @override
   Widget build(BuildContext context) {
@@ -1042,7 +1044,7 @@ class _LJNPopupButtonMaxWidthButtonState
           },
           onTapCancel: () {
             setState(() {
-              containerColor = AppColors.neutralWhite;
+              containerColor = Theme.of(context).colorScheme.surface;
             });
 
             logger.info("取消点击");
@@ -1052,7 +1054,7 @@ class _LJNPopupButtonMaxWidthButtonState
               const Duration(milliseconds: 50),
               () {
                 setState(() {
-                  containerColor = AppColors.neutralWhite;
+                  containerColor = Theme.of(context).colorScheme.surface;
                 });
 
                 if (context.mounted) {
@@ -1086,7 +1088,8 @@ class _LJNPopupButtonMaxWidthButtonState
                 ? Text(
                     widget.title as String,
                     style: TextStyle(
-                      color: widget.color ?? AppColors.neutralBlack,
+                      color: widget.color ??
+                          Theme.of(context).colorScheme.onSurface,
                       height: 1.08,
                       fontSize: fontSizeScale(32.0.w),
                       decoration: TextDecoration.none,

@@ -5,6 +5,7 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_text_spans.dart';
 
 class ChatListItem extends StatefulWidget {
   final String avatar;
@@ -35,7 +36,7 @@ class ChatListItem extends StatefulWidget {
 }
 
 class _ChatListItem extends State<ChatListItem> {
-  Color containerColor = AppColors.neutralWhite;
+  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +45,13 @@ class _ChatListItem extends State<ChatListItem> {
         return GestureDetector(
           onTapDown: (_) {
             setState(() {
-              containerColor = AppColors.neutralGrey18;
+              containerColor =
+                  Theme.of(context).listTileTheme.selectedTileColor!;
             });
           },
           onTapCancel: () {
             setState(() {
-              containerColor = AppColors.neutralWhite;
+              containerColor = Theme.of(context).listTileTheme.tileColor!;
             });
 
             logger.info("取消点击");
@@ -57,7 +59,7 @@ class _ChatListItem extends State<ChatListItem> {
           onTapUp: (tapDownDetails) {
             Future.delayed(const Duration(milliseconds: 50), () {
               setState(() {
-                containerColor = AppColors.neutralWhite;
+                containerColor = Theme.of(context).listTileTheme.tileColor!;
               });
               widget.onPressed!();
             });
@@ -98,7 +100,7 @@ class _ChatListItem extends State<ChatListItem> {
                           border: Border(
                             bottom: BorderSide(
                               color: widget.underline
-                                  ? AppColors.neutralGrey6
+                                  ? Theme.of(context).listTileTheme.selectedTileColor!
                                   : AppColors.transparent,
                               width: 1.5.w,
                               style: BorderStyle.solid,
@@ -120,32 +122,29 @@ class _ChatListItem extends State<ChatListItem> {
                               children: [
                                 // 好友名称
                                 Expanded(
-                                  child: RichText(
-                                    strutStyle: StrutStyle(
-                                        height: 1.08,
-                                        forceStrutHeight: true,
-                                        fontSize: 31.w),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    text: TextSpan(
-                                      children: buildTextSpans(
-                                        widget.friendName,
-                                        TextStyle(
-                                            height: 1.08,
-                                            fontSize: fontSizeScale(31.0.w),
-                                            color: widget.notice
-                                                ? AppColors.accentRedPure
-                                                : AppColors.neutralBlack,
-                                            fontFamily: "AlibabaPuHuiTi"),
-                                        TextStyle(
-                                            height: 1.08,
-                                            fontSize: fontSizeScale(31.w),
-                                            fontFamily:
-                                                "NotoColorEmoji-Regular"),
-                                      ),
-                                    ),
+                                    child: LJNTextSpans(
+                                  strutStyle: StrutStyle(
+                                    height: 1.08,
+                                    forceStrutHeight: true,
+                                    fontSize: 31.w,
                                   ),
-                                ),
+                                  text: widget.friendName,
+                                  style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(31.0.w),
+                                    color: widget.notice
+                                        ? AppColors.accentRedPure
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
+                                    fontFamily: "AlibabaPuHuiTi",
+                                  ),
+                                  emojiStyle: TextStyle(
+                                    height: 1.08,
+                                    fontSize: fontSizeScale(31.w),
+                                    fontFamily: "NotoColorEmoji-Regular",
+                                  ),
+                                )),
                                 SizedBox(
                                   width: 10.w,
                                 ),
@@ -182,23 +181,17 @@ class _ChatListItem extends State<ChatListItem> {
                                   // color: Colors.amber,
                                   // width: 400.w,
                                   // margin: EdgeInsets.only(right: 65.w),
-                                  child: RichText(
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    text: TextSpan(
-                                      children: buildTextSpans(
-                                        widget.message,
-                                        TextStyle(
-                                          height: 1.08,
-                                          fontSize: fontSizeScale(25.w),
-                                          color: AppColors.neutralGrey45,
-                                        ),
-                                        TextStyle(
-                                          height: 1.08,
-                                          fontSize: fontSizeScale(25.w),
-                                          color: AppColors.neutralGrey45,
-                                        ),
-                                      ),
+                                  child: LJNTextSpans(
+                                    text: widget.message,
+                                    style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(25.w),
+                                      color: AppColors.neutralGrey45,
+                                    ),
+                                    emojiStyle: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(25.w),
+                                      color: AppColors.neutralGrey45,
                                     ),
                                   ),
                                 ),

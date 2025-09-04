@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 
 class LJNAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String? title;
@@ -43,7 +42,7 @@ class _LJNAppBar extends State<LJNAppBar> {
         return PreferredSize(
           preferredSize: Size.fromHeight(90.0.w + systemState.statusHeight),
           child: Container(
-            color: bgColor,
+            color: Theme.of(context).appBarTheme.backgroundColor,
             padding: EdgeInsets.only(top: systemState.statusHeight),
             height: 90.0.w + systemState.statusHeight,
             child: AppBar(
@@ -63,24 +62,22 @@ class _LJNAppBar extends State<LJNAppBar> {
                           0xed9e,
                           fontFamily: 'Iconfont',
                         ), // 使用的图标
-                        color: widget.color ?? AppColors.neutralBlack, // 图标颜色
+                        color: widget.color ??
+                            Theme.of(context).colorScheme.onSurface, // 图标颜色
                         size: 36.w, // 图标大小
                       ),
                     ),
                   ),
               primary: false,
-              centerTitle: true,
+              centerTitle: Theme.of(context).appBarTheme.centerTitle,
               title: Text(widget.title ?? ""),
-              toolbarHeight: 90.w,
-              titleTextStyle: TextStyle(
-                  height: 1.08,
-                  fontSize: fontSizeScale(32.w),
-                  color: widget.color ?? AppColors.neutralBlack,
-                  fontFamily: "AlibabaPuHuiTi-Medium"),
-              elevation: 0,
-              scrolledUnderElevation: 0,
-              backgroundColor: bgColor,
-              foregroundColor: bgColor,
+              toolbarHeight: Theme.of(context).appBarTheme.toolbarHeight,
+              titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
+              elevation: Theme.of(context).appBarTheme.elevation,
+              scrolledUnderElevation:
+                  Theme.of(context).appBarTheme.scrolledUnderElevation,
+              backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+              foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
               actions: widget.actions,
             ),
           ),

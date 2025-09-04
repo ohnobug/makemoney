@@ -252,7 +252,7 @@ class _LJNSearch extends State<LJNSearch> {
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                             const IconData(0xe612, fontFamily: 'Iconfont'),
-                            color: AppColors.neutralBlack,
+                            color: Theme.of(context).colorScheme.onSurface,
                             size: 40.w),
                         prefixIconConstraints: BoxConstraints(minWidth: 70.w),
                         hintText: l10n.search,

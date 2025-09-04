@@ -79,7 +79,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
                             0xe612,
                             fontFamily: 'Iconfont',
                           ),
-                          color: AppColors.neutralBlack,
+                          color: Theme.of(context).colorScheme.onSurface,
                           size: 40.w,
                         ),
                         prefixIconConstraints: BoxConstraints(

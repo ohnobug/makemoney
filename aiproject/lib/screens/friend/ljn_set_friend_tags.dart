@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
@@ -617,7 +617,7 @@ void _showPopup(
                             0xe628,
                             fontFamily: 'Iconfont',
                           ),
-                          color: AppColors.neutralBlack,
+                          color: Theme.of(context).colorScheme.onSurface,
                           size: 33.w,
                         ),
                       ),
@@ -627,7 +627,7 @@ void _showPopup(
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 35.w,
-                        color: AppColors.neutralBlack,
+                        color: Theme.of(context).colorScheme.onSurface,
                         fontFamily: "AlibabaPuHuiTi-Medium",
                       ),
                     ),
@@ -719,7 +719,7 @@ void _showPopup(
                     height: 90.w,
                     decoration: BoxDecoration(
                       color: inputController2.text.isEmpty
-                          ? AppColors.neutralGrey6
+                          ? Theme.of(context).listTileTheme.selectedTileColor!
                           : AppColors.brandGreenVibrant3,
                       borderRadius: BorderRadius.circular(10.w),
                     ),

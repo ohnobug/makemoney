@@ -1,14 +1,17 @@
 import 'dart:math';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_custom_physics.dart';
+import 'package:vigaviga/widgets/ljn_custom_physics.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_popup_cubit.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_spans.dart';
+import 'package:vigaviga/widgets/ljn_text_spans.dart';
 import '../../tools/ljn_logger.dart';
 
 late AnimationController _bgController;
@@ -501,7 +504,9 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                                       alignment: Alignment.center,
                                       color: _bgController.isAnimating ||
                                               _bgController.isCompleted
-                                          ? AppColors.neutralBlack
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
                                           : AppColors.neutralWhite,
                                       width: 750.w,
                                       child: Stack(
@@ -742,7 +747,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                         child: Icon(
                           const IconData(0xed9e, fontFamily: 'Iconfont'),
                           color: _appBarOpacity.value.toInt() > 180
-                              ? AppColors.neutralBlack
+                              ? Theme.of(context).colorScheme.onSurface
                               : AppColors.neutralWhite,
                           size: 36.w,
                         ),
@@ -767,7 +772,9 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                                         const IconData(0xe68a,
                                             fontFamily: 'Iconfont'),
                                         size: 40.w,
-                                        color: AppColors.neutralBlack,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
                                       )
                                     : Icon(
                                         const IconData(0xe64d,
@@ -931,6 +938,8 @@ class _TweetWidget extends State<TweetWidget> {
     return random.nextInt(103) + 1; // 生成1到103的随机数
   }
 
+  final List<TapGestureRecognizer> _recognizers = [];
+
   // 最后点击更多位置
   late Offset morePosition;
 
@@ -944,15 +953,37 @@ class _TweetWidget extends State<TweetWidget> {
   }
 
   @override
+  void dispose() {
+    // 非常重要：释放所有 recognizer，防止内存泄漏
+    for (var recognizer in _recognizers) {
+      recognizer.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<TextSpan> textSpans = [];
+    List textSpans = [];
 
     for (int index = 0; index < widget.likes!.length; index++) {
       final name = widget.likes![index];
 
-      textSpans.add(
-        TextSpan(
-          children: buildTextSpans(
+      // 1. 为每个名字创建一个 TapGestureRecognizer
+      final recognizer = TapGestureRecognizer()
+        ..onTap = () {
+          // 在这里处理点击事件
+          logger.info('Tapped on: $name');
+          Navigator.pushNamed(context, '/chat', arguments: <String, String>{
+            'title': name,
+            'icon': "images/avatar_webp/chat_17.webp",
+          });
+        };
+      _recognizers.add(recognizer);
+
+      var item = TextSpan(
+          recognizer: recognizer,
+          children: LJNBuildspan(
+            context,
             name,
             TextStyle(
               // textBaseline: TextBaseline.alphabetic,
@@ -967,9 +998,9 @@ class _TweetWidget extends State<TweetWidget> {
               fontSize: fontSizeScale(28.w),
               fontFamily: "NotoColorEmoji-Regular",
             ),
-          ),
-        ),
-      );
+          ));
+
+      textSpans.add(item);
 
       if (index != widget.likes!.length - 1) {
         // 逗号
@@ -1004,7 +1035,7 @@ class _TweetWidget extends State<TweetWidget> {
               width: 0.w,
             ),
             bottom: BorderSide(
-              color: AppColors.neutralGrey6,
+              color: Theme.of(context).listTileTheme.selectedTileColor!,
               width: 1.5.w,
             ),
           ),
@@ -1049,60 +1080,49 @@ class _TweetWidget extends State<TweetWidget> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           // 姓名
-                          RichText(
+                          LJNTextSpans(
                             strutStyle: StrutStyle(
                                 // height: 1,
                                 // forceStrutHeight: true,
                                 fontSize: 32.w,
                                 leading: 1.w),
-                            text: TextSpan(
-                              children: buildTextSpans(
-                                widget.name,
-                                TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(32.w),
-                                  fontFamily: "AlibabaPuHuiTi-Medium",
-                                  // fontWeight: FontWeight.w600,
-                                  color: AppColors.brandBlueDark4,
-                                ),
-                                TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(32.w),
-                                ),
-                              ),
+                            text: widget.name,
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(32.w),
+                              fontFamily: "AlibabaPuHuiTi-Medium",
+                              // fontWeight: FontWeight.w600,
+                              color: AppColors.brandBlueDark4,
+                            ),
+                            emojiStyle: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(32.w),
                             ),
                           ),
-                          // SizedBox(height: 0.w),
-
                           // 推文
-                          RichText(
+                          LJNTextSpans(
                             strutStyle: StrutStyle(
                                 // height: 1,
                                 // forceStrutHeight: true,
                                 fontSize: 32.w),
-                            text: TextSpan(
-                              children: buildTextSpans(
-                                widget.tweetContent,
-                                TextStyle(
-                                  // textBaseline: TextBaseline.alphabetic,
-                                  height: 1.4,
-                                  fontSize: fontSizeScale(32.w),
-                                  fontFamily: "AlibabaPuHuiTi",
-                                ),
-                                TextStyle(
-                                  // textBaseline: TextBaseline.alphabetic,
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(32.w),
-                                  fontFamily: "NotoColorEmoji-Regular",
-                                ),
-                              ),
+                            text: widget.tweetContent,
+                            style: TextStyle(
+                              // textBaseline: TextBaseline.alphabetic,
+                              height: 1.4,
+                              fontSize: fontSizeScale(32.w),
+                              fontFamily: "AlibabaPuHuiTi",
+                            ),
+                            emojiStyle: TextStyle(
+                              // textBaseline: TextBaseline.alphabetic,
+                              height: 1.08,
+                              fontSize: fontSizeScale(32.w),
+                              fontFamily: "NotoColorEmoji-Regular",
                             ),
                           ),
 
                           SizedBox(height: 10.w),
 
                           // 九宫格
-
                           if (widget.imageList != null) ...[
                             SizedBox(
                               width: 570.w,

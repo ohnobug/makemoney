@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
-import 'package:vigaviga/screens/components/ljn_special_function_item.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_special_function_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import '../components/ljn_function_item.dart';
+import '../../widgets/ljn_function_item.dart';
 
 class LJNLoggedDevices extends StatefulWidget {
   const LJNLoggedDevices({super.key});
@@ -46,7 +46,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                     Navigator.pushNamed(context, '/bind_new_phone_number');
                   },
                   child: Container(
-                    // color: AppColors.neutralBlack,
+                    // color: Theme.of(context).colorScheme.onSurface,
                     height: 90.w,
                     padding: EdgeInsets.only(right: 40.w),
                     alignment: Alignment.center,
@@ -54,7 +54,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                       AppLocalizations.of(context)!.edit,
                       // textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: AppColors.neutralBlack,
+                          color: Theme.of(context).colorScheme.onSurface,
                           fontSize: 32.w,
                           fontWeight: FontWeight.w100),
                     ),

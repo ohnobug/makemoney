@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
@@ -127,7 +127,7 @@ class _LJNSetPasswordState extends State<LJNSetPassword> {
               style: TextStyle(
                 fontSize: 26.w,
                 height: 1.08,
-                color: AppColors.neutralBlack,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
             SizedBox(height: 10.w),
@@ -223,7 +223,7 @@ class _FormInputRow extends StatelessWidget {
               style: TextStyle(
                 height: 1.08,
                 fontSize: 30.w,
-                color: AppColors.neutralBlack,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ),

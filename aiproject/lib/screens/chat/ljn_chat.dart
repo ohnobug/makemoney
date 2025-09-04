@@ -10,12 +10,12 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/screens/chat/widgets/ljn_chat_function_selector_button.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
-import 'package:vigaviga/screens/components/ljn_my_voice_message.dart';
-import 'package:vigaviga/screens/components/ljn_receive_message.dart';
-import 'package:vigaviga/screens/components/ljn_receive_video_message.dart';
-import 'package:vigaviga/screens/components/ljn_video_message.dart';
-import 'package:vigaviga/screens/components/ljn_show_call_popup.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_my_voice_message.dart';
+import 'package:vigaviga/widgets/ljn_receive_message.dart';
+import 'package:vigaviga/widgets/ljn_receive_video_message.dart';
+import 'package:vigaviga/widgets/ljn_video_message.dart';
+import 'package:vigaviga/widgets/ljn_show_call_popup.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/screens/chat/widgets/ljn_chat_emoji_selector.dart';
 import 'package:vigaviga/store/ljn_popup_cubit.dart';
@@ -23,7 +23,7 @@ import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vibration/vibration.dart';
-import '../components/ljn_my_message.dart';
+import '../../widgets/ljn_my_message.dart';
 import '../../store/ljn_system_cubit.dart';
 import '../../tools/ljn_tools.dart';
 
@@ -1377,7 +1377,7 @@ class _LJNChat extends State<LJNChat>
                                                     fontSize:
                                                         fontSizeScale(30.w),
                                                     color:
-                                                        AppColors.neutralBlack),
+                                                        Theme.of(context).colorScheme.onSurface),
                                                 // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
                                                 maxLines: 5,
                                                 minLines: 1,
@@ -2002,7 +2002,7 @@ class _LJNChat extends State<LJNChat>
                           fontFamily: 'Iconfont',
                         ),
                         color: showCancelVoiceButtons
-                            ? AppColors.neutralBlack
+                            ? Theme.of(context).colorScheme.onSurface
                             : AppColors.neutralGrey62,
                         size: 43.w,
                       ),
@@ -2083,7 +2083,7 @@ class _LJNChat extends State<LJNChat>
                           fontFamily: 'Iconfont',
                         ),
                         color: showCancelVoiceButtons
-                            ? AppColors.neutralBlack
+                            ? Theme.of(context).colorScheme.onSurface
                             : AppColors.neutralGrey62,
                         size: 43.w,
                       ),

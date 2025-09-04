@@ -11,7 +11,7 @@ import 'package:vigaviga/screens/chat/widgets/ljn_dial_floating_widget.dart';
 import 'package:vigaviga/screens/chat/widgets/ljn_dot_loading_text.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:video_player/video_player.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
@@ -201,7 +201,7 @@ class _LJNDial extends State<LJNDial> {
                               0xec8c,
                               fontFamily: 'Iconfont',
                             ),
-                            color: AppColors.neutralBlack,
+                            color: Theme.of(context).colorScheme.onSurface,
                             size: 64.w,
                           ),
                         ),

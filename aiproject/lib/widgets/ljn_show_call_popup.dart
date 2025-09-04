@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_max_width_button.dart';
+import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 
 void showCallPopup(BuildContext context, SystemState systemState) {
@@ -55,7 +55,7 @@ void showCallPopup(BuildContext context, SystemState systemState) {
                             0xe64f,
                             fontFamily: 'Iconfont',
                           ),
-                          color: AppColors.neutralBlack,
+                          color: Theme.of(context).colorScheme.onSurface,
                           size: 40.w,
                         ),
                       ),
@@ -69,7 +69,7 @@ void showCallPopup(BuildContext context, SystemState systemState) {
                         height: 1.08,
                         fontSize: 30.w,
                         decoration: TextDecoration.none,
-                        color: AppColors.neutralBlack,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   ],
@@ -102,7 +102,7 @@ void showCallPopup(BuildContext context, SystemState systemState) {
                           0xe64c,
                           fontFamily: 'Iconfont',
                         ),
-                        color: AppColors.neutralBlack,
+                        color: Theme.of(context).colorScheme.onSurface,
                         size: 40.w,
                       ),
                     ),
@@ -116,7 +116,7 @@ void showCallPopup(BuildContext context, SystemState systemState) {
                       height: 1.08,
                       fontSize: 30.w,
                       decoration: TextDecoration.none,
-                      color: AppColors.neutralBlack,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                 ]),

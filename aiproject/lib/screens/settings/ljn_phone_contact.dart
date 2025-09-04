@@ -5,11 +5,12 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
-import 'package:vigaviga/screens/components/ljn_alphabet.dart';
-import 'package:vigaviga/screens/components/ljn_add_button.dart';
-import 'package:vigaviga/screens/components/ljn_custom_physics.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_alphabet.dart';
+import 'package:vigaviga/widgets/ljn_add_button.dart';
+import 'package:vigaviga/widgets/ljn_custom_physics.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/widgets/ljn_text_spans.dart';
 
 class LJNPhoneContact extends StatefulWidget {
   const LJNPhoneContact({super.key});
@@ -486,7 +487,7 @@ class ContactListItem extends StatefulWidget {
 }
 
 class _ContactListItem extends State<ContactListItem> {
-  Color containerColor = AppColors.neutralWhite;
+  late Color containerColor = Theme.of(context).colorScheme.surface;
   // Color containerColor = AppColors.transparent;
 
   @override
@@ -521,7 +522,7 @@ class _ContactListItem extends State<ContactListItem> {
                 border: Border(
                   bottom: BorderSide(
                     color: widget.underline
-                        ? AppColors.neutralGrey6
+                        ? Theme.of(context).listTileTheme.selectedTileColor!
                         : AppColors.transparent,
                     width: 1.5.w,
                     style: BorderStyle.solid,
@@ -548,29 +549,24 @@ class _ContactListItem extends State<ContactListItem> {
                           children: [
                             // 好友名称
                             Expanded(
-                              child: RichText(
+                              child: LJNTextSpans(
+                                text: widget.friendName,
                                 strutStyle: StrutStyle(
                                   height: 1,
                                   forceStrutHeight: true,
                                   fontSize: 32.w,
                                 ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                text: TextSpan(
-                                  children: buildTextSpans(
-                                    widget.friendName,
-                                    TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(32.0.w),
-                                      color: AppColors.neutralBlack,
-                                      fontFamily: "AlibabaPuHuiTi",
-                                    ),
-                                    TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(32.w),
-                                      fontFamily: "NotoColorEmoji-Regular",
-                                    ),
-                                  ),
+                                style: TextStyle(
+                                  height: 1.08,
+                                  fontSize: fontSizeScale(32.0.w),
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                  fontFamily: "AlibabaPuHuiTi",
+                                ),
+                                emojiStyle: TextStyle(
+                                  height: 1.08,
+                                  fontSize: fontSizeScale(32.w),
+                                  fontFamily: "NotoColorEmoji-Regular",
                                 ),
                               ),
                             ),
@@ -592,23 +588,17 @@ class _ContactListItem extends State<ContactListItem> {
                               // color: Colors.amber,
                               // width: 400.w,
                               // margin: EdgeInsets.only(right: 65.w),
-                              child: RichText(
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                text: TextSpan(
-                                  children: buildTextSpans(
-                                    widget.message,
-                                    TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(25.w),
-                                      color: AppColors.neutralGrey45,
-                                    ),
-                                    TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(25.w),
-                                      color: AppColors.neutralGrey45,
-                                    ),
-                                  ),
+                              child: LJNTextSpans(
+                                text: widget.message,
+                                style: TextStyle(
+                                  height: 1.08,
+                                  fontSize: fontSizeScale(25.w),
+                                  color: AppColors.neutralGrey45,
+                                ),
+                                emojiStyle: TextStyle(
+                                  height: 1.08,
+                                  fontSize: fontSizeScale(25.w),
+                                  color: AppColors.neutralGrey45,
                                 ),
                               ),
                             ),

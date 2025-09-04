@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_alphabet.dart';
-import 'package:vigaviga/screens/components/ljn_chatlist_item.dart';
+import 'package:vigaviga/widgets/ljn_alphabet.dart';
+import 'package:vigaviga/widgets/ljn_chatlist_item.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 
 class LJNContactGroup extends StatefulWidget {

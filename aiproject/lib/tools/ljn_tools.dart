@@ -4,8 +4,6 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/themes.dart';
 
 // 字体缩放
 double fontSizeScale(double size) {
@@ -42,81 +40,6 @@ final RegExp emojiRegex = RegExp(
   r'[\u{2640}\u{2642}]', // 性别符号
   unicode: true,
 );
-List<InlineSpan> buildTextSpans(
-    String text, TextStyle fontTextStyle, TextStyle iconTextStyle) {
-  List<InlineSpan> spans = [];
-  final matches = emojiRegex.allMatches(text);
-  int lastMatchEnd = 0;
-
-  fontTextStyle = TextStyle(
-          height: 1.08,
-          color: AppColors.neutralBlack,
-          fontSize: fontSizeScale(30.w),
-          fontFamily: "AlibabaPuHuiTi")
-      .merge(fontTextStyle);
-
-  iconTextStyle = TextStyle(
-          height: 1.08,
-          color: AppColors.neutralBlack,
-          fontSize: fontSizeScale(30.w),
-          fontFamily: "NotoColorEmoji-Regular")
-      .merge(iconTextStyle);
-
-  iconTextStyle = iconTextStyle.merge(
-    TextStyle(fontSize: fontTextStyle.fontSize! * 0.9),
-  );
-
-  for (final match in matches) {
-    // 添加前面的非emoji文本
-    if (match.start > lastMatchEnd) {
-      spans.add(
-        TextSpan(
-          text: text.substring(lastMatchEnd, match.start),
-          style: fontTextStyle,
-        ),
-      );
-    }
-
-    // double fontHeight = (fontTextStyle.height! * fontTextStyle.fontSize!);
-    double iconHeight = (iconTextStyle.height! * iconTextStyle.fontSize!);
-
-    // 添加emoji
-    spans.add(
-      // 为了居中emoji
-      WidgetSpan(
-        alignment: PlaceholderAlignment.middle,
-        child: Container(
-          width: iconHeight * 1.2,
-          height: iconHeight,
-          // margin: EdgeInsets.only(
-          //     left: iconHeight * 0.1, right: iconHeight * 0.1),
-          // color: AppColors.accentRedPure,
-          alignment: Alignment.topLeft,
-          child: Text(
-            match.group(0) as String,
-            style: iconTextStyle,
-            strutStyle: StrutStyle(
-              fontSize: iconTextStyle.fontSize,
-              forceStrutHeight: true,
-              height: 1,
-            ),
-          ),
-        ),
-      ),
-    );
-
-    lastMatchEnd = match.end;
-  }
-
-  // 添加最后的非emoji文本
-  if (lastMatchEnd < text.length) {
-    spans.add(
-      TextSpan(text: text.substring(lastMatchEnd), style: fontTextStyle),
-    );
-  }
-
-  return spans;
-}
 
 // 随机人名
 String mockName() {

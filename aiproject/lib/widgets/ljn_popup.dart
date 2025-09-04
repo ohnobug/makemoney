@@ -61,7 +61,7 @@ class _LJNPopupState extends State<LJNPopup> {
                           fontFamily: "AlibabaPuHuiTi",
                           fontSize: 30.w,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.neutralBlack,
+                          color: Theme.of(context).colorScheme.onSurface,
                           decoration: TextDecoration.none,
                           height: 1.08,
                         ),
@@ -109,7 +109,7 @@ class _LJNPopupState extends State<LJNPopup> {
                               fontFamily: "AlibabaPuHuiTi",
                               decoration: TextDecoration.none,
                               fontSize: 30.w,
-                              color: AppColors.neutralBlack,
+                              color: Theme.of(context).colorScheme.onSurface,
                               height: 1.08,
                             ),
                           )
@@ -147,7 +147,7 @@ class _LJNPopupState extends State<LJNPopup> {
                                   style: TextStyle(
                                     decoration: TextDecoration.none,
                                     fontSize: 32.w,
-                                    color: AppColors.neutralBlack,
+                                    color: Theme.of(context).colorScheme.onSurface,
                                     fontFamily: "AlibabaPuHuiTi-Medium",
                                     height: 1.08,
                                   ),

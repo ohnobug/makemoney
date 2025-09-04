@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
@@ -56,7 +56,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                         AppLocalizations.of(context)!.nextStep,
                         // textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: AppColors.neutralBlack,
+                          color: Theme.of(context).colorScheme.onSurface,
                           fontSize: 32.w,
                         ),
                       ),
@@ -123,14 +123,14 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                       "+86",
                                       style: TextStyle(
                                           fontSize: 24.w,
-                                          color: AppColors.neutralBlack),
+                                          color: Theme.of(context).colorScheme.onSurface),
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!
                                           .mainlandChina,
                                       style: TextStyle(
                                           fontSize: 15.w,
-                                          color: AppColors.neutralBlack),
+                                          color: Theme.of(context).colorScheme.onSurface),
                                     ),
                                   ],
                                 ),

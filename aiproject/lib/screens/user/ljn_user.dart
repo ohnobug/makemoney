@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_page_loading.dart';
+import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
-import '../components/ljn_function_item.dart';
+import '../../widgets/ljn_function_item.dart';
 
 class LJNUser extends StatefulWidget {
   const LJNUser({super.key});
@@ -48,7 +48,7 @@ class _LJNUserState extends State<LJNUser> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                AppColors.neutralWhite,
+                Theme.of(context).cardTheme.color!,
                 Theme.of(context).colorScheme.surface
               ],
               stops: [0.3, 0.5],
@@ -72,7 +72,7 @@ class _LJNUserState extends State<LJNUser> {
                 children: [
                   // 顶部功能区域
                   Container(
-                    color: AppColors.neutralWhite,
+                    color: Theme.of(context).cardTheme.color!,
                     padding: EdgeInsets.only(
                       top: 120.0.w + systemState.statusHeight,
                       left: 32.w,
@@ -133,7 +133,9 @@ class _LJNUserState extends State<LJNUser> {
                                                 height: 1.5,
                                                 fontSize: fontSizeScale(42.w),
                                                 fontWeight: FontWeight.w600,
-                                                color: AppColors.neutralBlack,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onSurface,
                                               ),
                                             );
                                           },

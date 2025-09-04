@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_alphabet.dart';
-import 'package:vigaviga/screens/components/ljn_page_loading.dart';
+import 'package:vigaviga/widgets/ljn_alphabet.dart';
+import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
@@ -332,25 +332,29 @@ class ContactInformation extends StatefulWidget {
 }
 
 class _ContactInformationState extends State<ContactInformation> {
-  Color containerColor = AppColors.neutralWhite;
+  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (tapDownDetails) {
-        setState(() => containerColor = AppColors.neutralGrey18);
+        setState(() => containerColor =
+            Theme.of(context).listTileTheme.selectedTileColor!);
       },
       onTapCancel: () {
-        setState(() => containerColor = AppColors.neutralWhite);
+        setState(
+            () => containerColor = Theme.of(context).listTileTheme.tileColor!);
       },
       onTapUp: (tapDownDetails) {
         Future.delayed(const Duration(milliseconds: 50), () {
           if (!mounted) return;
-          setState(() => containerColor = AppColors.neutralWhite);
+          setState(() =>
+              containerColor = Theme.of(context).listTileTheme.tileColor!);
 
           if (widget.onPressed != null) {
             widget.onPressed!();
           } else if (widget.link.isNotEmpty) {
+            // ignore: use_build_context_synchronously
             Navigator.pushNamed(context, widget.link);
           }
         });
@@ -380,7 +384,7 @@ class _ContactInformationState extends State<ContactInformation> {
                   border: Border(
                     bottom: widget.underline
                         ? BorderSide(
-                            color: AppColors.neutralGrey6,
+                            color: Theme.of(context).listTileTheme.selectedTileColor!,
                             width: 1.5.w,
                             style: BorderStyle.solid,
                           )

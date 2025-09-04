@@ -25,19 +25,19 @@ class LJNFunctionItemButton extends StatefulWidget {
 
 class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
   // bool isClicked = false;
-  Color containerColor = AppColors.neutralWhite;
+  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (tapDownDetails) {
         setState(() {
-          containerColor = AppColors.neutralGrey18;
+          containerColor = Theme.of(context).listTileTheme.selectedTileColor!;
         });
       },
       onTapCancel: () {
         setState(() {
-          containerColor = AppColors.neutralWhite;
+          containerColor = Theme.of(context).listTileTheme.tileColor!;
         });
 
         logger.info("取消点击");
@@ -45,7 +45,7 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
       onTapUp: (tapDownDetails) {
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
-            containerColor = AppColors.neutralWhite;
+            containerColor = Theme.of(context).listTileTheme.tileColor!;
           });
 
           if (context.mounted) {
@@ -64,7 +64,7 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
           color: containerColor,
           border: Border(
             bottom: BorderSide(
-              color: AppColors.neutralGrey6,
+              color: Theme.of(context).listTileTheme.selectedTileColor!,
               width: 1.5.w,
               style: BorderStyle.solid,
             ),

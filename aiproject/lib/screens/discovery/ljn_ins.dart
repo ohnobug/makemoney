@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_page_loading.dart';
+import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
@@ -626,7 +626,7 @@ class _LJNIns extends State<LJNIns> {
                                     0xed9e,
                                     fontFamily: 'Iconfont',
                                   ), // 使用的图标
-                                  color: AppColors.neutralBlack, // 图标颜色
+                                  color: Theme.of(context).colorScheme.onSurface, // 图标颜色
                                   size: 36.w, // 图标大小
                                 ),
                               ),
@@ -653,7 +653,7 @@ class _LJNIns extends State<LJNIns> {
                                         0xe612,
                                         fontFamily: 'Iconfont',
                                       ),
-                                      color: AppColors.neutralBlack,
+                                      color: Theme.of(context).colorScheme.onSurface,
                                       size: 40.w,
                                     ),
                                     prefixIconConstraints: BoxConstraints(
@@ -1018,7 +1018,7 @@ class _LJNIns extends State<LJNIns> {
                                 style: TextStyle(
                                   color: isInsideX3Btn
                                       ? AppColors.neutralWhite
-                                      : AppColors.neutralBlack,
+                                      : Theme.of(context).colorScheme.onSurface,
                                   height: 1,
                                   fontFamily: "AlibabaPuHuiTi-Medium",
                                   fontSize: 30.w,
@@ -1041,7 +1041,7 @@ class _LJNIns extends State<LJNIns> {
                                 style: TextStyle(
                                   color: isInsideX2Btn
                                       ? AppColors.neutralWhite
-                                      : AppColors.neutralBlack,
+                                      : Theme.of(context).colorScheme.onSurface,
                                   height: 1,
                                   fontFamily: "AlibabaPuHuiTi-Medium",
                                   fontSize: 30.w,
@@ -1064,7 +1064,7 @@ class _LJNIns extends State<LJNIns> {
                                 style: TextStyle(
                                   color: isInsideX1Btn
                                       ? AppColors.neutralWhite
-                                      : AppColors.neutralBlack,
+                                      : Theme.of(context).colorScheme.onSurface,
                                   height: 1,
                                   fontFamily: "AlibabaPuHuiTi-Medium",
                                   fontSize: 30.w,

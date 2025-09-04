@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
-import 'package:vigaviga/screens/components/ljn_function_item.dart';
-import 'package:vigaviga/screens/components/ljn_switch.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_function_item.dart';
+import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 
@@ -56,7 +56,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         style: TextStyle(
                             fontSize: 40.w,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.neutralBlack),
+                            color: Theme.of(context).colorScheme.onSurface),
                       ),
                       SizedBox(
                         height: 35.w,
@@ -65,7 +65,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         textAlign: TextAlign.center,
                         AppLocalizations.of(context)!.manageServicesDescription,
                         style: TextStyle(
-                            fontSize: 31.w, color: AppColors.neutralBlack),
+                            fontSize: 31.w, color: Theme.of(context).colorScheme.onSurface),
                       ),
                       SizedBox(
                         height: 103.w,

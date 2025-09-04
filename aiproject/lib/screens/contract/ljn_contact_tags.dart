@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/components/ljn_appbar.dart';
-import 'package:vigaviga/screens/components/ljn_search.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_search.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -189,12 +189,14 @@ class _LJNContactTagsState extends State<LJNContactTags> {
                       Text(
                         l10n.newAction, // 使用 l10n
                         style: TextStyle(
-                            fontSize: 30.w, color: AppColors.neutralBlack),
+                            fontSize: 30.w,
+                            color: Theme.of(context).colorScheme.onSurface),
                       ),
                       Text(
                         l10n.edit, // 使用 l10n
                         style: TextStyle(
-                            fontSize: 30.w, color: AppColors.neutralBlack),
+                            fontSize: 30.w,
+                            color: Theme.of(context).colorScheme.onSurface),
                       ),
                     ],
                   ),
@@ -227,7 +229,7 @@ class TagInformation extends StatefulWidget {
 }
 
 class _TagInformationState extends State<TagInformation> {
-  Color containerColor = AppColors.neutralWhite;
+  late Color containerColor = Theme.of(context).colorScheme.surface;
 
   @override
   Widget build(BuildContext context) {
@@ -238,7 +240,7 @@ class _TagInformationState extends State<TagInformation> {
       },
       onTapCancel: () {
         if (widget.onPressed == null) return;
-        setState(() => containerColor = AppColors.neutralWhite);
+        setState(() => containerColor = Theme.of(context).colorScheme.surface);
       },
       onTapUp: (tapDownDetails) {
         if (widget.onPressed == null) return;
@@ -247,7 +249,8 @@ class _TagInformationState extends State<TagInformation> {
           () {
             if (mounted) {
               // 检查 widget 是否还在树中
-              setState(() => containerColor = AppColors.neutralWhite);
+              setState(
+                  () => containerColor = Theme.of(context).colorScheme.surface);
               widget.onPressed?.call();
             }
           },
@@ -267,7 +270,7 @@ class _TagInformationState extends State<TagInformation> {
                   border: Border(
                     bottom: widget.underline
                         ? BorderSide(
-                            color: AppColors.neutralGrey6,
+                            color: Theme.of(context).listTileTheme.selectedTileColor!,
                             width: 1.5.w,
                             style: BorderStyle.solid,
                           )
