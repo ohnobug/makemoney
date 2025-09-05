@@ -27,120 +27,129 @@ class _LJNAbout extends State<LJNAbout> {
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
-        return Scaffold(
-          primary: false,
-          appBar: const LJNAppBar(
-            bgColor: AppColors.transparent,
-          ),
-          body: ScrollConfiguration(
-            behavior:
-                ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics(),
-              ),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                // padding: EdgeInsets.only(left: 90.w, right: 90.w),
-                constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height -
-                      (systemState.statusHeight + 90.w),
+        return Theme(
+          data: Theme.of(context).copyWith(
+            appBarTheme: Theme.of(context).appBarTheme.copyWith(
+                  backgroundColor: AppColors.transparent,
                 ),
-                // color: AppColors.accentRedDark2,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 470.w,
-                      width: MediaQuery.of(context).size.width,
-                      // color: AppColors.accentRedPure,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // Icon(
-                          //   const IconData(
-                          //     0xe6b8,
-                          //     fontFamily: 'Iconfont',
-                          //   ), // 使用的图标
-                          //   color: const Color.fromARGB(//       255, 75, 190, 97), // 图标颜色
-                          //   size: 110.w, // 图标大小
-                          // ),
-                          Image.asset(
-                            assetPath("images/icon/logo.png"),
-                            width: 122.0.w,
-                            height: 122.0.w,
-                            fit: BoxFit.contain,
-                          ),
-                          SizedBox(
-                            height: 70.w,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.app_name,
-                            style: TextStyle(
-                              height: 1.08,
-                              fontSize: 43.w,
-                              // fontWeight: FontWeight.bold,
-                              fontFamily: "AlibabaPuHuiTi-Medium",
+          ),
+          child: Scaffold(
+            primary: false,
+            appBar: LJNAppBar(),
+            body: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics(),
+                ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  // padding: EdgeInsets.only(left: 90.w, right: 90.w),
+                  constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height -
+                        (systemState.statusHeight + 90.w),
+                  ),
+                  // color: AppColors.accentRedDark2,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 470.w,
+                        width: MediaQuery.of(context).size.width,
+                        // color: AppColors.accentRedPure,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // Icon(
+                            //   const IconData(
+                            //     0xe6b8,
+                            //     fontFamily: 'Iconfont',
+                            //   ), // 使用的图标
+                            //   color: const Color.fromARGB(//       255, 75, 190, 97), // 图标颜色
+                            //   size: 110.w, // 图标大小
+                            // ),
+                            Image.asset(
+                              assetPath("images/icon/logo.png"),
+                              width: 122.0.w,
+                              height: 122.0.w,
+                              fit: BoxFit.contain,
                             ),
-                          ),
-                          SizedBox(
-                            height: 18.w,
-                          ),
-                          Text(
-                            "Version 8.0.53",
-                            style: TextStyle(
-                              height: 1.08,
-                              fontSize: 27.w,
-                              fontFamily: "AlibabaPuHuiTi",
+                            SizedBox(
+                              height: 70.w,
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 630.w,
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        // borderRadius:
-                        //     BorderRadius.all(Radius.circular(12.w),),
-                        border: Border(
-                          top: BorderSide(
-                            color: Theme.of(context).listTileTheme.selectedTileColor!,
-                            width: 1.5.w,
-                            style: BorderStyle.solid,
-                          ),
-                          bottom: BorderSide(
-                            color: Theme.of(context).listTileTheme.selectedTileColor!,
-                            width: 1.5.w,
-                            style: BorderStyle.solid,
-                          ),
+                            Text(
+                              AppLocalizations.of(context)!.app_name,
+                              style: TextStyle(
+                                height: 1.08,
+                                fontSize: 43.w,
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: "AlibabaPuHuiTi-Medium",
+                              ),
+                            ),
+                            SizedBox(
+                              height: 18.w,
+                            ),
+                            Text(
+                              "Version 8.0.53",
+                              style: TextStyle(
+                                height: 1.08,
+                                fontSize: 27.w,
+                                fontFamily: "AlibabaPuHuiTi",
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      child: Column(
-                        children: [
-                          LJNFunctionItem(
-                            title: AppLocalizations.of(context)!
-                                .featureIntroduction,
-                            link: '',
-                            backgroundColor: AppColors.neutralWhite,
-                            underline: true,
+                      Container(
+                        width: 630.w,
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
+                          // borderRadius:
+                          //     BorderRadius.all(Radius.circular(12.w),),
+                          border: Border(
+                            top: BorderSide(
+                              color: Theme.of(context)
+                                  .listTileTheme
+                                  .selectedTileColor!,
+                              width: 1.5.w,
+                              style: BorderStyle.solid,
+                            ),
+                            bottom: BorderSide(
+                              color: Theme.of(context)
+                                  .listTileTheme
+                                  .selectedTileColor!,
+                              width: 1.5.w,
+                              style: BorderStyle.solid,
+                            ),
                           ),
-                          LJNFunctionItem(
-                            title: AppLocalizations.of(context)!.complain,
-                            link: '',
-                            backgroundColor: AppColors.neutralWhite,
-                            underline: true,
-                          ),
-                          LJNFunctionItem(
-                            title:
-                                AppLocalizations.of(context)!.checkNewVersion,
-                            link: '',
-                            backgroundColor: AppColors.neutralWhite,
-                            underline: false,
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+                        ),
+                        child: Column(
+                          children: [
+                            LJNFunctionItem(
+                              title: AppLocalizations.of(context)!
+                                  .featureIntroduction,
+                              link: '',
+                              backgroundColor: AppColors.neutralWhite,
+                              underline: true,
+                            ),
+                            LJNFunctionItem(
+                              title: AppLocalizations.of(context)!.complain,
+                              link: '',
+                              backgroundColor: AppColors.neutralWhite,
+                              underline: true,
+                            ),
+                            LJNFunctionItem(
+                              title:
+                                  AppLocalizations.of(context)!.checkNewVersion,
+                              link: '',
+                              backgroundColor: AppColors.neutralWhite,
+                              underline: false,
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

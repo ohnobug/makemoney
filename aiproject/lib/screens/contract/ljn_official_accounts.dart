@@ -4,6 +4,7 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_alphabet.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_contact_item.dart';
 import 'package:vigaviga/widgets/ljn_search.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
@@ -162,20 +163,21 @@ class _LJNOfficialAccountsState extends State<LJNOfficialAccounts> {
                               height: 105.0.w,
                               color: AppColors.neutralWhite,
                               child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      l10n.friendCount(staticDataList
-                                          .whereType<_OfficialAccountData>()
-                                          .length), // Dynamic count
-                                      style: TextStyle(
-                                        height: 1.08,
-                                        fontSize: fontSizeScale(30.w),
-                                        color: AppColors.neutralGrey67,
-                                      ),
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    l10n.friendCount(staticDataList
+                                        .whereType<_OfficialAccountData>()
+                                        .length), // Dynamic count
+                                    style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(30.w),
+                                      color: AppColors.neutralGrey67,
                                     ),
-                                  ]),
+                                  ),
+                                ],
+                              ),
                             );
                           }
                         },
@@ -197,13 +199,19 @@ class _LJNOfficialAccountsState extends State<LJNOfficialAccounts> {
                 children: [
                   SizedBox(
                     height: 34.w,
-                    child: Icon(const IconData(0xe677, fontFamily: 'Iconfont'),
-                        size: 22.w, color: AppColors.neutralNearBlack3),
+                    child: Icon(
+                      const IconData(0xe677, fontFamily: 'Iconfont'),
+                      size: 22.w,
+                      color: AppColors.neutralNearBlack3,
+                    ),
                   ),
                   SizedBox(
                     height: 34.w,
-                    child: Icon(const IconData(0xe6c8, fontFamily: 'Iconfont'),
-                        size: 22.w, color: AppColors.neutralNearBlack3),
+                    child: Icon(
+                      const IconData(0xe6c8, fontFamily: 'Iconfont'),
+                      size: 22.w,
+                      color: AppColors.neutralNearBlack3,
+                    ),
                   ),
                   for (int i = 0; i < 26; i++)
                     SizedBox(
@@ -211,127 +219,28 @@ class _LJNOfficialAccountsState extends State<LJNOfficialAccounts> {
                       child: Text(
                         String.fromCharCode(65 + i),
                         style: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(22.w),
-                            color: AppColors.neutralNearBlack3),
+                          height: 1.08,
+                          fontSize: fontSizeScale(22.w),
+                          color: AppColors.neutralNearBlack3,
+                        ),
                       ),
                     ),
                   SizedBox(
                     height: 34.w,
-                    child: Text("#",
-                        style: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(22.w),
-                            color: AppColors.neutralNearBlack3)),
+                    child: Text(
+                      "#",
+                      style: TextStyle(
+                        height: 1.08,
+                        fontSize: fontSizeScale(22.w),
+                        color: AppColors.neutralNearBlack3,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ContactInformation extends StatefulWidget {
-  final String icon;
-  final String title;
-  final String link;
-  final bool underline;
-  final int? showStyle;
-  final Function()? onPressed;
-
-  const ContactInformation({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.link,
-    required this.underline,
-    this.showStyle,
-    this.onPressed,
-  });
-
-  @override
-  State<ContactInformation> createState() => _ContactInformationState();
-}
-
-class _ContactInformationState extends State<ContactInformation> {
-  late Color containerColor = Theme.of(context).colorScheme.surface;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (tapDownDetails) {
-        if (widget.onPressed == null) return;
-        setState(() => containerColor = AppColors.neutralGrey18);
-      },
-      onTapCancel: () {
-        if (widget.onPressed == null) return;
-        setState(() => containerColor = Theme.of(context).colorScheme.surface);
-      },
-      onTapUp: (tapDownDetails) {
-        if (widget.onPressed == null) return;
-        Future.delayed(const Duration(milliseconds: 50), () {
-          if (!mounted) return;
-          setState(
-              () => containerColor = Theme.of(context).colorScheme.surface);
-          widget.onPressed?.call();
-        });
-      },
-      child: Container(
-        height: 130.0.w,
-        padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
-        color: containerColor,
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(90.0.w),
-              child: Image.asset(
-                assetPath(widget.icon),
-                width: 90.0.w,
-                height: 90.0.w,
-                cacheHeight: 300,
-                cacheWidth: 300,
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(width: 25.w),
-            Expanded(
-              child: Container(
-                height: 125.w,
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: widget.underline
-                        ? BorderSide(
-                            color: Theme.of(context).listTileTheme.selectedTileColor!,
-                            width: 1.5.w,
-                            style: BorderStyle.solid,
-                          )
-                        : BorderSide.none,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        widget.title,
-                        style: TextStyle(
-                          height: 1.08,
-                          fontSize: fontSizeScale(33.0.w),
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

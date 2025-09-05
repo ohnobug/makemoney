@@ -8,6 +8,7 @@ import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 import '../../widgets/ljn_function_item.dart';
 
 class LJNFriendPermission extends StatefulWidget {
@@ -40,7 +41,7 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: Theme.of(context).colorScheme.surface,
+              color: Theme.of(context).colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -66,7 +67,7 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    LJNVerticalGap(
                       height: 16.w,
                     ),
                     LJNFunctionItem(
@@ -141,7 +142,7 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                       link: '',
                       underline: true,
                     ),
-                    SizedBox(
+                    LJNVerticalGap(
                       height: 16.w,
                     ),
                     LJNFunctionItem(

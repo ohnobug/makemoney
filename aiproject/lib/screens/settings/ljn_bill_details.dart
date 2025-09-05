@@ -83,7 +83,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: Theme.of(context).colorScheme.surface,
+              color: Theme.of(context).colorScheme.surfaceContainer,
               child: Column(children: [
                 // 全部账单 标题选项
                 Container(

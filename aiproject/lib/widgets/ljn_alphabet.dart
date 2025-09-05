@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
 class LJNAlphabet extends StatelessWidget {
@@ -9,13 +8,18 @@ class LJNAlphabet extends StatelessWidget {
   final Color? color;
 
   // 构造函数接收一个标题参数
-  const LJNAlphabet({super.key, required this.title, this.bgColor, this.color});
+  const LJNAlphabet({
+    super.key,
+    required this.title,
+    this.bgColor,
+    this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 60.w,
-      color: bgColor ?? Theme.of(context).colorScheme.surface,
+      color: bgColor ?? Theme.of(context).colorScheme.surfaceContainer,
       padding: EdgeInsets.only(left: 30.w),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -25,7 +29,7 @@ class LJNAlphabet extends StatelessWidget {
             style: TextStyle(
               height: 1.08,
               fontSize: fontSizeScale(25.w),
-              color: color ?? AppColors.neutralGrey76,
+              color: color ?? Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ],

@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 import '../../widgets/ljn_function_item.dart';
 
 class LJNUser extends StatefulWidget {
@@ -49,7 +50,7 @@ class _LJNUserState extends State<LJNUser> {
             gradient: LinearGradient(
               colors: [
                 Theme.of(context).cardTheme.color!,
-                Theme.of(context).colorScheme.surface
+                Theme.of(context).colorScheme.surfaceContainer
               ],
               stops: [0.3, 0.5],
               begin: Alignment.topCenter,
@@ -72,7 +73,7 @@ class _LJNUserState extends State<LJNUser> {
                 children: [
                   // 顶部功能区域
                   Container(
-                    color: Theme.of(context).cardTheme.color!,
+                    color: Theme.of(context).colorScheme.surface,
                     padding: EdgeInsets.only(
                       top: 120.0.w + systemState.statusHeight,
                       left: 32.w,
@@ -330,10 +331,8 @@ class _LJNUserState extends State<LJNUser> {
                     ),
                   ),
 
-                  Container(
-                    width: double.infinity,
+                  LJNVerticalGap(
                     height: 16.w,
-                    color: Theme.of(context).colorScheme.surface,
                   ),
 
                   LJNFunctionItem(
@@ -343,11 +342,8 @@ class _LJNUserState extends State<LJNUser> {
                     underline: false,
                   ),
 
-                  // 间隔
-                  Container(
-                    width: double.infinity,
+                  LJNVerticalGap(
                     height: 16.w,
-                    color: Theme.of(context).colorScheme.surface,
                   ),
 
                   LJNFunctionItem(
@@ -387,10 +383,8 @@ class _LJNUserState extends State<LJNUser> {
                     underline: false,
                   ),
 
-                  Container(
-                    width: double.infinity,
+                  LJNVerticalGap(
                     height: 16.w,
-                    color: Theme.of(context).colorScheme.surface,
                   ),
 
                   LJNFunctionItem(

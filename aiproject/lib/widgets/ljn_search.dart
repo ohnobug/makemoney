@@ -37,13 +37,13 @@ class _LJNSearch extends State<LJNSearch> {
           },
           child: Container(
             padding: EdgeInsets.only(bottom: 15.w, left: 15.w, right: 15.w),
-            height: 80.w,
+            height: 90.w,
             alignment: Alignment.center,
             child: Container(
               padding:
                   EdgeInsets.symmetric(vertical: 8.0.w, horizontal: 20.0.w),
               decoration: BoxDecoration(
-                color: AppColors.neutralWhite,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(15).w,
                 // border: Border.all(color: Color.fromRGBO(158, 158, 158, 0.3),),
               ),
@@ -58,7 +58,7 @@ class _LJNSearch extends State<LJNSearch> {
                             0xe612,
                             fontFamily: 'Iconfont',
                           ),
-                          color: AppColors.neutralGrey43,
+                          color: Theme.of(context).colorScheme.onSurface,
                           size: 37.w,
                         ),
                       ),
@@ -67,7 +67,7 @@ class _LJNSearch extends State<LJNSearch> {
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 31.w,
-                          color: AppColors.neutralGrey43,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                     ],

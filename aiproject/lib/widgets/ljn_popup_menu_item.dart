@@ -20,15 +20,17 @@ class LJNPopupMenuItem extends StatefulWidget {
 }
 
 class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
-  Color _bgColor = AppColors.neutralDarkGrey12;
+  late Color _bgColor = Theme.of(context).listTileTheme.tileColor!;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (_) => setState(() => _bgColor = AppColors.neutralDarkGrey15),
-      onTapCancel: () => setState(() => _bgColor = AppColors.neutralDarkGrey12),
+      onTapDown: (_) => setState(
+          () => _bgColor = Theme.of(context).listTileTheme.selectedTileColor!),
+      onTapCancel: () =>
+          setState(() => _bgColor = Theme.of(context).listTileTheme.tileColor!),
       onTapUp: (_) {
-        setState(() => _bgColor = AppColors.neutralDarkGrey12);
+        setState(() => _bgColor = Theme.of(context).listTileTheme.tileColor!);
         Future.delayed(const Duration(milliseconds: 50), () {
           widget.onTap?.call();
         });

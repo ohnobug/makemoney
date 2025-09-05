@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/widgets/ljn_appbar_inner.dart';
 import 'package:vigaviga/widgets/ljn_custom_physics.dart';
 import 'package:vigaviga/screens/contract/ljn_contact.dart';
 import 'package:vigaviga/screens/discovery/ljn_discovery.dart';
@@ -122,7 +123,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
         }
 
         // 使用从 build 方法中动态获取的标题
-        final appBarTitle = Text(tabTitles[_currentIndex]);
+        final appBarTitle = tabTitles[_currentIndex];
         final percent75Position = MediaQuery.of(context).size.height * 0.25;
 
         return Stack(
@@ -134,17 +135,17 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 child: Container(
                   height: 106.w,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
+                    color: Theme.of(context).colorScheme.surfaceContainer,
                     border: Border(
                       top: BorderSide(
                         color: Theme.of(context).tabBarTheme.dividerColor!,
                         width: 1.5.w,
                       ),
-                      bottom: BorderSide(width: 0),
                     ),
                   ),
                   child: TabBar(
-                    dividerColor: Theme.of(context).tabBarTheme.dividerColor,
+                    dividerColor:
+                        Theme.of(context).colorScheme.surfaceContainer,
                     labelColor: Theme.of(context).tabBarTheme.labelColor,
                     labelStyle: Theme.of(context).tabBarTheme.labelStyle,
                     unselectedLabelColor:
@@ -211,7 +212,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                   width: 750.0.w,
                   height: systemState.statusHeight + 90.w,
                   color: systemState.homescrollpixels == 0
-                      ? Theme.of(context).colorScheme.surface
+                      ? Theme.of(context).appBarTheme.backgroundColor
                       : AppColors.transparent,
                   child: Listener(
                     onPointerUp: (_) => context
@@ -220,23 +221,9 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        AppBar(
-                          primary: false,
+                        LJNAppBarInner(
+                          context: context,
                           title: appBarTitle,
-                          centerTitle: true,
-                          titleTextStyle: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(32.w),
-                            color: Theme.of(context).colorScheme.onSurface,
-                            fontFamily: "AlibabaPuHuiTi-Medium",
-                          ),
-                          toolbarHeight: 90.w,
-                          elevation: 0,
-                          scrolledUnderElevation: 0,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.surface,
-                          foregroundColor:
-                              Theme.of(context).colorScheme.surface,
                           actions: [
                             GestureDetector(
                               onTap: () {},
@@ -245,8 +232,14 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                                 height: 90.w,
                                 padding: EdgeInsets.only(right: 33.w),
                                 child: Icon(
-                                  const IconData(0xe612,
-                                      fontFamily: 'Iconfont'),
+                                  color: Theme.of(context)
+                                      .appBarTheme
+                                      .titleTextStyle!
+                                      .color,
+                                  const IconData(
+                                    0xe612,
+                                    fontFamily: 'Iconfont',
+                                  ),
                                   size: 40.w,
                                 ),
                               ),
@@ -263,6 +256,10 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                                 padding: EdgeInsets.only(right: 40.w),
                                 alignment: Alignment.center,
                                 child: Icon(
+                                  color: Theme.of(context)
+                                      .appBarTheme
+                                      .titleTextStyle!
+                                      .color,
                                   const IconData(
                                     0xe726,
                                     fontFamily: 'Iconfont',
@@ -272,7 +269,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                               ),
                             ),
                           ],
-                        ),
+                          leading: null,
+                        )
                       ],
                     ),
                   ),

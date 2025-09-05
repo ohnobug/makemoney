@@ -84,7 +84,7 @@ class _LJNServices extends State<LJNServices>
               )
             ],
           ),
-          backgroundColor: Theme.of(context).colorScheme.surface,
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
           body: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -334,7 +334,8 @@ class _LJNServices extends State<LJNServices>
                                   height: 1.08,
                                   fontSize: 30.w,
                                   decoration: TextDecoration.none,
-                                  color: Theme.of(context).colorScheme.onSurface,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
                                 ),
                               ),
                             ],

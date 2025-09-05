@@ -11,6 +11,7 @@ import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/widgets/ljn_text_spans.dart';
+import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 
 class LJNFriendProfile extends StatefulWidget {
   const LJNFriendProfile({
@@ -59,7 +60,6 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
           children: [
             LJNAppBar(
               title: "",
-              bgColor: AppColors.neutralWhite,
               actions: [
                 GestureDetector(
                   onTap: () {
@@ -121,7 +121,9 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                             color: AppColors.neutralWhite,
                             border: Border(
                               bottom: BorderSide(
-                                color: Theme.of(context).listTileTheme.selectedTileColor!,
+                                color: Theme.of(context)
+                                    .listTileTheme
+                                    .selectedTileColor!,
                                 width: 1.5.w,
                                 style: BorderStyle.solid,
                               ),
@@ -257,8 +259,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                           underline: true,
                         ),
 
-                        Container(
-                          color: Theme.of(context).colorScheme.surface,
+                        LJNVerticalGap(
                           height: 16.w,
                         ),
 
@@ -467,8 +468,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                           underline: false,
                         ),
 
-                        Container(
-                          color: Theme.of(context).colorScheme.surface,
+                        LJNVerticalGap(
                           height: 16.w,
                         ),
 

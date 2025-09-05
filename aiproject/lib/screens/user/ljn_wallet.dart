@@ -63,7 +63,7 @@ class _LJNWallet extends State<LJNWallet> {
           minHeight: MediaQuery.of(context).size.height -
               (90.0.w + systemState.statusHeight),
         ),
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).colorScheme.surfaceContainer,
         child: ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
           child: SingleChildScrollView(
@@ -108,7 +108,8 @@ class _LJNWallet extends State<LJNWallet> {
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: fontSizeScale(29.w),
-                                  color: Theme.of(context).colorScheme.onSurface,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: "LJNFont",
                                 ),
@@ -176,7 +177,8 @@ class _LJNWallet extends State<LJNWallet> {
                                   style: TextStyle(
                                     height: 1.08,
                                     fontSize: fontSizeScale(29.w),
-                                    color: Theme.of(context).colorScheme.onSurface,
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
                                     fontWeight: FontWeight.w500,
                                     fontFamily: "LJNFont",
                                   ),

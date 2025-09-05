@@ -272,7 +272,8 @@ ThemeData lightTheme = ThemeData(
     onSecondary: AppColors.neutralWhite,
     secondaryContainer: AppColors.brandBlueDark4,
     onSecondaryContainer: AppColors.neutralGrey15,
-    surface: AppColors.neutralGrey11, // surface 同时定义了页面背景和卡片等组件的背景
+    surface: AppColors.neutralWhite, // surface 同时定义了页面背景和卡片等组件的背景
+    surfaceContainer: AppColors.neutralGrey11,
     onSurface: AppColors.neutralNearBlack1,
     error: AppColors.accentRedDark1,
     onError: AppColors.neutralWhite,
@@ -285,21 +286,22 @@ ThemeData lightTheme = ThemeData(
     scrolledUnderElevation: 0,
     centerTitle: true,
     toolbarHeight: 90.w,
-    backgroundColor: AppColors.neutralWhite,
+    backgroundColor: AppColors.neutralGrey11,
     foregroundColor: AppColors.neutralNearBlack1,
     elevation: 0,
     iconTheme: const IconThemeData(color: AppColors.neutralNearBlack1),
     titleTextStyle: TextStyle(
-        height: 1.08,
-        fontSize: fontSizeScale(32.w),
-        color: AppColors.neutralNearBlack1,
-        fontFamily: "AlibabaPuHuiTi-Medium"),
+      height: 1.08,
+      fontSize: fontSizeScale(32.w),
+      color: AppColors.neutralNearBlack1,
+      fontFamily: "AlibabaPuHuiTi-Medium",
+    ),
   ),
 
   // TabBar 主题
   tabBarTheme: TabBarThemeData(
     labelColor: AppColors.brandGreenPrimary,
-    unselectedLabelColor: AppColors.blackTransparent87,
+    unselectedLabelColor: AppColors.neutralBlack,
     indicatorColor: AppColors.brandGreenPrimary,
     dividerColor: AppColors.neutralGrey25,
     labelStyle: TextStyle(
@@ -385,7 +387,8 @@ ThemeData darkTheme = ThemeData(
     onSecondary: AppColors.brandBlueDark5,
     secondaryContainer: AppColors.brandBlueDark1,
     onSecondaryContainer: AppColors.neutralGrey10,
-    surface: AppColors.brandGreenDarkest, // surface 同时定义了页面背景和卡片等组件的背景
+    surface: AppColors.brandGreenDarker2, // surface 同时定义了页面背景和卡片等组件的背景
+    surfaceContainer: AppColors.brandGreenDarkest,
     onSurface: AppColors.neutralGrey5,
     error: AppColors.accentRedVibrant1,
     onError: AppColors.neutralWhite,
@@ -398,15 +401,16 @@ ThemeData darkTheme = ThemeData(
     scrolledUnderElevation: 0,
     centerTitle: true,
     toolbarHeight: 90.w,
-    backgroundColor: AppColors.neutralNearBlack2,
+    backgroundColor: AppColors.brandGreenDarkest,
     foregroundColor: AppColors.neutralGrey5,
     elevation: 0,
     iconTheme: const IconThemeData(color: AppColors.neutralGrey5),
     titleTextStyle: TextStyle(
-        height: 1.08,
-        fontSize: fontSizeScale(32.w),
-        color: AppColors.neutralGrey5,
-        fontFamily: "AlibabaPuHuiTi-Medium"),
+      height: 1.08,
+      fontSize: fontSizeScale(32.w),
+      color: AppColors.neutralGrey5,
+      fontFamily: "AlibabaPuHuiTi-Medium",
+    ),
   ),
 
   // TabBar 主题
@@ -414,7 +418,7 @@ ThemeData darkTheme = ThemeData(
     labelColor: AppColors.brandGreenVibrant4,
     unselectedLabelColor: AppColors.brandGreenLightest,
     indicatorColor: AppColors.brandGreenVibrant4,
-    dividerColor: AppColors.neutralGrey25,
+    dividerColor: AppColors.neutralGrey75,
     labelStyle: TextStyle(
       height: 1.08,
       fontSize: fontSizeScale(22.w),
@@ -455,7 +459,7 @@ ThemeData darkTheme = ThemeData(
   // 卡片主题
   cardTheme: CardThemeData(
     elevation: 1,
-    color: AppColors.neutralNearBlack2,
+    color: AppColors.brandGreenDarkest,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12.0),
     ),
@@ -466,7 +470,7 @@ ThemeData darkTheme = ThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12.0),
     ),
-    tileColor: AppColors.neutralNearBlack2,
+    tileColor: AppColors.brandGreenDarker2,
     selectedTileColor: AppColors.brandGreenDarker3,
     iconColor: AppColors.neutralGrey5,
     textColor: AppColors.neutralGrey5,

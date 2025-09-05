@@ -90,48 +90,59 @@ class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // appbar标题
-                LJNAppBar(
-                  title: AppLocalizations.of(context)!.recent,
-                  leading: Container(),
-                  bgColor: AppColors.transparent,
-                  color: AppColors.neutralWhite,
-                  actions: [
-                    Container(
-                      // width: 80.w,
-                      height: 44.w,
-                      margin: EdgeInsets.only(right: 30.w),
-                      padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                      decoration: BoxDecoration(
-                        color: AppColors.greyTransparent15,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(35.w),
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    appBarTheme: Theme.of(context).appBarTheme.copyWith(
+                          backgroundColor: Colors.transparent,
+                          titleTextStyle: Theme.of(context)
+                              .appBarTheme
+                              .titleTextStyle!
+                              .copyWith(
+                                color: Colors.white,
+                              ),
                         ),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            const IconData(
-                              0xe612,
-                              fontFamily: 'Iconfont',
-                            ),
-                            color: AppColors.brandBlueGreyLight,
-                            size: 22.w,
+                  ),
+                  child: LJNAppBar(
+                    title: AppLocalizations.of(context)!.recent,
+                    leading: Container(),
+                    actions: [
+                      Container(
+                        // width: 80.w,
+                        height: 55.w,
+                        margin: EdgeInsets.only(right: 30.w),
+                        padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                        decoration: BoxDecoration(
+                          color: AppColors.greyTransparent15,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(35.w),
                           ),
-                          SizedBox(
-                            width: 8.w,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.search,
-                            style: TextStyle(
-                              fontSize: 22.w,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              const IconData(
+                                0xe612,
+                                fontFamily: 'Iconfont',
+                              ),
                               color: AppColors.brandBlueGreyLight,
+                              size: 26.w,
                             ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+                            SizedBox(
+                              width: 8.w,
+                            ),
+                            Text(
+                              AppLocalizations.of(context)!.search,
+                              style: TextStyle(
+                                fontSize: 26.w,
+                                color: AppColors.brandBlueGreyLight,
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
 
                 // 列表

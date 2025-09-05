@@ -39,7 +39,7 @@ class _LJNThemeSettingState extends State<LJNThemeSetting> {
 
         return Scaffold(
           // 使用当前主题的背景色
-          backgroundColor: Theme.of(context).colorScheme.surface,
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
           appBar: const LJNAppBar(
             title: '外观', // AppBar 标题更新
           ),

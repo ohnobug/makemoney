@@ -2073,7 +2073,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: ColoredBox(
-              color: Theme.of(context).colorScheme.surface,
+              color: Theme.of(context).colorScheme.surfaceContainer,
               child: Stack(
                 children: [
                   Column(
@@ -2100,7 +2100,9 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                   0xe612,
                                   fontFamily: 'Iconfont',
                                 ), // 使用的图标
-                                color: Theme.of(context).colorScheme.onSurface, // 图标颜色
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface, // 图标颜色
                                 size: 45.w, // 图标大小
                               ),
                             ),
@@ -2120,7 +2122,9 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                   0xe702,
                                   fontFamily: 'Iconfont',
                                 ), // 使用的图标
-                                color: Theme.of(context).colorScheme.onSurface, // 图标颜色
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface, // 图标颜色
                                 size: 45.w, // 图标大小
                               ),
                             ),
@@ -2139,7 +2143,9 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                   0xe682,
                                   fontFamily: 'Iconfont',
                                 ), // 使用的图标
-                                color: Theme.of(context).colorScheme.onSurface, // 图标颜色
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface, // 图标颜色
                                 size: 45.w, // 图标大小
                               ),
                             ),
@@ -2160,7 +2166,9 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                     0xe621,
                                     fontFamily: 'Iconfont',
                                   ), // 使用的图标
-                                  color: Theme.of(context).colorScheme.onSurface, // 图标颜色
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurface, // 图标颜色
                                   size: 45.w, // 图标大小
                                 ))
                           ],
@@ -2208,7 +2216,9 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                     AppLocalizations.of(context)!.recent,
                                     style: TextStyle(
                                         fontSize: 27.w,
-                                        color: Theme.of(context).colorScheme.onSurface,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
                                         height: 1.08),
                                   ),
                                 ),
@@ -2259,7 +2269,9 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                     AppLocalizations.of(context)!.allEmojis,
                                     style: TextStyle(
                                       fontSize: 27.w,
-                                      color: Theme.of(context).colorScheme.onSurface,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
                                       height: 1.08,
                                     ),
                                   ),

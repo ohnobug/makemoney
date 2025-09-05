@@ -6,6 +6,7 @@ import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 import '../../widgets/ljn_function_item.dart';
 
 class LJNDeviceDetail extends StatefulWidget {
@@ -40,7 +41,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: Theme.of(context).colorScheme.surface,
+              color: Theme.of(context).colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -90,7 +91,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  LJNVerticalGap(
                     height: 16.w,
                   ),
                   LJNFunctionItem(

@@ -41,79 +41,89 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
                   '${phone.substring(0, 6)}${'*' * (phone.length - 10)}${phone.substring(phone.length - 4, phone.length)}';
             }
 
-            return Scaffold(
-              primary: false,
-              resizeToAvoidBottomInset: false,
-              appBar: LJNAppBar(
-                  title: AppLocalizations.of(context)!.enterVerificationCode,
-                  bgColor: AppColors.transparent),
-              body: ScrollConfiguration(
-                behavior:
-                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                child: Container(
-                  constraints: BoxConstraints(
-                    minHeight: MediaQuery.of(context).size.height -
-                        90.w -
-                        systemState.statusHeight,
-                  ),
-                  color: AppColors.neutralWhite,
-                  child: SingleChildScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(
-                      parent: BouncingScrollPhysics(),
+            return Theme(
+              data: Theme.of(context).copyWith(
+                appBarTheme: Theme.of(context).appBarTheme.copyWith(
+                      backgroundColor: AppColors.transparent,
                     ),
-                    child: Container(
-                      padding: EdgeInsets.only(left: 50.w, right: 50.w),
-                      height: 95.w,
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            child: TextField(
-                              style: TextStyle(
-                                fontSize: 30.w,
-                              ),
-                              autofocus: true,
-                              cursorColor: AppColors.brandGreenDarker4,
-                              cursorWidth: 1.w,
-                              onTapOutside: (event) {
-                                FocusScope.of(context).unfocus();
-                              },
-                              decoration: InputDecoration(
-                                hintText: AppLocalizations.of(context)!
-                                    .yourPhoneNumber,
-                                hintStyle: TextStyle(
+              ),
+              child: Scaffold(
+                primary: false,
+                resizeToAvoidBottomInset: false,
+                appBar: LJNAppBar(
+                  title: AppLocalizations.of(context)!.enterVerificationCode,
+                ),
+                body: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context)
+                      .copyWith(scrollbars: false),
+                  child: Container(
+                    constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height -
+                          90.w -
+                          systemState.statusHeight,
+                    ),
+                    color: AppColors.neutralWhite,
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(
+                        parent: BouncingScrollPhysics(),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.only(left: 50.w, right: 50.w),
+                        height: 95.w,
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: TextField(
+                                style: TextStyle(
                                   fontSize: 30.w,
-                                  color: AppColors.neutralGrey61,
                                 ),
-                                labelText: '',
-                                isDense: true,
-                                border: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1.5.w,
-                                    color: AppColors.brandGreenSlightlyLighter,
+                                autofocus: true,
+                                cursorColor: AppColors.brandGreenDarker4,
+                                cursorWidth: 1.w,
+                                onTapOutside: (event) {
+                                  FocusScope.of(context).unfocus();
+                                },
+                                decoration: InputDecoration(
+                                  hintText: AppLocalizations.of(context)!
+                                      .yourPhoneNumber,
+                                  hintStyle: TextStyle(
+                                    fontSize: 30.w,
+                                    color: AppColors.neutralGrey61,
                                   ),
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1.5.w,
-                                    color: AppColors.brandGreenSlightlyLighter,
+                                  labelText: '',
+                                  isDense: true,
+                                  border: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1.5.w,
+                                      color:
+                                          AppColors.brandGreenSlightlyLighter,
+                                    ),
                                   ),
-                                ),
-                                // 获取焦点时的底线样式
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1.5.w,
-                                    color: AppColors.brandGreenSlightlyLighter,
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1.5.w,
+                                      color:
+                                          AppColors.brandGreenSlightlyLighter,
+                                    ),
                                   ),
+                                  // 获取焦点时的底线样式
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1.5.w,
+                                      color:
+                                          AppColors.brandGreenSlightlyLighter,
+                                    ),
+                                  ),
+                                  contentPadding:
+                                      EdgeInsets.only(bottom: 20.w), // 也可调小内边距
                                 ),
-                                contentPadding:
-                                    EdgeInsets.only(bottom: 20.w), // 也可调小内边距
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

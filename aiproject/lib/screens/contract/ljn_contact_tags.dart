@@ -229,18 +229,21 @@ class TagInformation extends StatefulWidget {
 }
 
 class _TagInformationState extends State<TagInformation> {
-  late Color containerColor = Theme.of(context).colorScheme.surface;
+  late Color containerColor =
+      Theme.of(context).listTileTheme.tileColor!;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (tapDownDetails) {
         if (widget.onPressed == null) return;
-        setState(() => containerColor = AppColors.neutralGrey18);
+        setState(() => containerColor =
+            Theme.of(context).listTileTheme.selectedTileColor!);
       },
       onTapCancel: () {
         if (widget.onPressed == null) return;
-        setState(() => containerColor = Theme.of(context).colorScheme.surface);
+        setState(
+            () => containerColor = Theme.of(context).listTileTheme.tileColor!);
       },
       onTapUp: (tapDownDetails) {
         if (widget.onPressed == null) return;
@@ -249,8 +252,8 @@ class _TagInformationState extends State<TagInformation> {
           () {
             if (mounted) {
               // 检查 widget 是否还在树中
-              setState(
-                  () => containerColor = Theme.of(context).colorScheme.surface);
+              setState(() =>
+                  containerColor = Theme.of(context).listTileTheme.tileColor!);
               widget.onPressed?.call();
             }
           },
@@ -270,7 +273,9 @@ class _TagInformationState extends State<TagInformation> {
                   border: Border(
                     bottom: widget.underline
                         ? BorderSide(
-                            color: Theme.of(context).listTileTheme.selectedTileColor!,
+                            color: Theme.of(context)
+                                .listTileTheme
+                                .selectedTileColor!,
                             width: 1.5.w,
                             style: BorderStyle.solid,
                           )

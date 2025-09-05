@@ -11,6 +11,7 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 
 import '../../widgets/ljn_function_item.dart';
 
@@ -63,7 +64,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
             gradient: LinearGradient(
               colors: [
                 AppColors.neutralWhite,
-                Theme.of(context).colorScheme.surface
+                Theme.of(context).colorScheme.surfaceContainer
               ],
               stops: [0.3, 0.5],
               begin: Alignment.topCenter,
@@ -229,8 +230,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                     ],
                   ),
                 ),
-                Container(
-                  color: Theme.of(context).colorScheme.surface,
+                LJNVerticalGap(
                   height: 16.w,
                 ),
                 LJNFunctionItem(
@@ -274,7 +274,8 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                   underline: false,
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surface, height: 16.w),
+                    color: Theme.of(context).colorScheme.surfaceContainer,
+                    height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.findChatHistory,
                   link: '',
@@ -282,7 +283,8 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                   underline: false,
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surface, height: 16.w),
+                    color: Theme.of(context).colorScheme.surfaceContainer,
+                    height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.muteNotifications,
                   // link: '',
@@ -338,7 +340,8 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                   ),
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surface, height: 16.w),
+                    color: Theme.of(context).colorScheme.surfaceContainer,
+                    height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.myNicknameInGroup,
                   link: '',
@@ -364,7 +367,8 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                   ),
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surface, height: 16.w),
+                    color: Theme.of(context).colorScheme.surfaceContainer,
+                    height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.setChatBackground,
                   link: '',
@@ -381,14 +385,16 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                   underline: false,
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surface, height: 16.w),
+                    color: Theme.of(context).colorScheme.surfaceContainer,
+                    height: 16.w),
                 LJNMaxWidthButton(
                   title: AppLocalizations.of(context)!.leaveGroup,
                   color: AppColors.accentRedPure,
                   underline: false,
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surface, height: 50.w),
+                    color: Theme.of(context).colorScheme.surfaceContainer,
+                    height: 50.w),
               ],
             ),
           ),

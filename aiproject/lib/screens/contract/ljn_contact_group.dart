@@ -34,7 +34,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
     contactList = [
       LJNAlphabet(
         title: AppLocalizations.of(context)!.groupChats,
-        bgColor: Theme.of(context).colorScheme.surface,
+        bgColor: Theme.of(context).colorScheme.surfaceContainer,
       ),
       ChatListItem(
         friendName: "天空飘来五个字那都不是事",
@@ -284,7 +284,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ),
       LJNAlphabet(
         title: 'B',
-        bgColor: Theme.of(context).colorScheme.surface,
+        bgColor: Theme.of(context).colorScheme.surfaceContainer,
       ),
       ChatListItem(
         friendName: "段延庆",

@@ -1038,7 +1038,9 @@ class _LJNChat extends State<LJNChat>
                           Expanded(
                             flex: 1,
                             child: ColoredBox(
-                              color: Theme.of(context).colorScheme.surface,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surfaceContainer,
                               child: ScrollConfiguration(
                                 behavior: ScrollConfiguration.of(context)
                                     .copyWith(scrollbars: false),
@@ -1376,8 +1378,9 @@ class _LJNChat extends State<LJNChat>
                                                     // height: 1.08,
                                                     fontSize:
                                                         fontSizeScale(30.w),
-                                                    color:
-                                                        Theme.of(context).colorScheme.onSurface),
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .onSurface),
                                                 // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
                                                 maxLines: 5,
                                                 minLines: 1,

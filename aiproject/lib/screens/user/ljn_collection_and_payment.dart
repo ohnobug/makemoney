@@ -26,345 +26,359 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
-        return Scaffold(
-          primary: false,
-          appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.payment,
-            bgColor: AppColors.brandTealDark3,
-            color: AppColors.neutralWhite,
-          ),
-          body: ColoredBox(
-            color: AppColors.brandTealDark3,
-            child: ScrollConfiguration(
-              behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
+        return Theme(
+          data: Theme.of(context).copyWith(
+            appBarTheme: Theme.of(context).appBarTheme.copyWith(
+                  backgroundColor: AppColors.brandTealDark3,
                 ),
-                child: Column(
-                  children: [
-                    Container(
-                      margin:
-                          EdgeInsets.only(top: 15.w, left: 15.w, right: 15.w),
-                      padding: EdgeInsets.all(30.w),
-                      decoration: BoxDecoration(
-                        color: AppColors.neutralWhite,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10.w),
+          ),
+          child: Scaffold(
+            primary: false,
+            appBar: LJNAppBar(
+              title: AppLocalizations.of(context)!.payment,
+            ),
+            body: ColoredBox(
+              color: AppColors.brandTealDark3,
+              child: ScrollConfiguration(
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin:
+                            EdgeInsets.only(top: 15.w, left: 15.w, right: 15.w),
+                        padding: EdgeInsets.all(30.w),
+                        decoration: BoxDecoration(
+                          color: AppColors.neutralWhite,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10.w),
+                          ),
                         ),
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 110.w,
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  width: 1.w,
-                                  color: AppColors.neutralGrey5,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 110.w,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    width: 1.w,
+                                    color: AppColors.neutralGrey5,
+                                  ),
                                 ),
                               ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        const IconData(
+                                          0xe611,
+                                          fontFamily: 'Iconfont',
+                                        ), // 使用的图标
+                                        color: AppColors
+                                            .brandGreenVibrantDeep1, // 图标颜色
+                                        size: 35.w, // 图标大小
+                                      ),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .paymentCode,
+                                        style: TextStyle(
+                                          fontSize: 32.w,
+                                          height: 1.08,
+                                          color:
+                                              AppColors.brandGreenVibrantDeep1,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      // 点击事件
+                                    },
+                                    child: Container(
+                                      height: 90.w,
+                                      color: AppColors.transparent,
+                                      child: Icon(
+                                        color: AppColors.neutralGrey38,
+                                        const IconData(
+                                          0xe659,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        size: 43.w, // 图标大小
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      const IconData(
-                                        0xe611,
-                                        fontFamily: 'Iconfont',
-                                      ), // 使用的图标
-                                      color: AppColors
-                                          .brandGreenVibrantDeep1, // 图标颜色
-                                      size: 35.w, // 图标大小
-                                    ),
-                                    SizedBox(
-                                      width: 10.w,
-                                    ),
-                                    Text(
-                                      AppLocalizations.of(context)!.paymentCode,
-                                      style: TextStyle(
-                                        fontSize: 32.w,
-                                        height: 1.08,
-                                        color: AppColors.brandGreenVibrantDeep1,
-                                      ),
-                                    )
-                                  ],
+                            SizedBox(
+                              height: 40.w,
+                            ),
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .prioritizeBalancePayment,
+                              style: TextStyle(
+                                fontSize: 25.w,
+                                color: AppColors.neutralGrey54,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.w,
+                            ),
+                            Image.asset(
+                              assetPath("images/avatar/linecode.png"),
+                              width: 630.0.w,
+                              height: 195.0.w,
+                              fit: BoxFit.fill,
+                            ),
+                            SizedBox(
+                              height: 55.w,
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(bottom: 60.w),
+                              height: 320.w,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    width: 1.w,
+                                    color: AppColors.neutralGrey5,
+                                  ),
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    // 点击事件
-                                  },
-                                  child: Container(
-                                    height: 90.w,
-                                    color: AppColors.transparent,
-                                    child: Icon(
-                                      color: AppColors.neutralGrey38,
-                                      const IconData(
-                                        0xe659,
-                                        fontFamily: 'Iconfont',
+                              ),
+                              child: Image.asset(
+                                assetPath("images/avatar/qrcode.png"),
+                                width: 320.0.w,
+                                height: 320.0.w,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 33.w,
+                            ),
+                            Column(
+                              children: [
+                                // 优先付款方式
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 25.w,
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!
+                                            .priorityPaymentMethod,
+                                        style: TextStyle(
+                                          fontSize: 25.w,
+                                          height: 1.08,
+                                          color: AppColors.neutralDarkGrey2,
+                                        ),
                                       ),
-                                      size: 43.w, // 图标大小
+                                      Flex(
+                                        direction: Axis.horizontal,
+                                        children: [
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .change,
+                                            style: TextStyle(
+                                              fontSize: 25.w,
+                                              height: 1.08,
+                                              color: AppColors.neutralDarkGrey2,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 15.w,
+                                          ),
+                                          Icon(
+                                            const IconData(
+                                              0xe891,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color: AppColors
+                                                .neutralDarkGrey2, // 图标颜色
+                                            size: 28.w, // 图标大小
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                                SizedBox(
+                                  height: 20.w,
+                                ),
+
+                                // 零钱
+                                Container(
+                                  height: 107.w,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 33.w),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.neutralOffWhiteYellow,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10.w),
                                     ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      // 零钱
+                                      Flex(
+                                        direction: Axis.horizontal,
+                                        children: [
+                                          Icon(
+                                            const IconData(
+                                              0xe6cc,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color:
+                                                AppColors.accentYellow, // 图标颜色
+                                            size: 38.w, // 图标大小
+                                          ),
+                                          SizedBox(
+                                            width: 10.w,
+                                          ),
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .balance,
+                                            style: TextStyle(
+                                              fontSize: 25.w,
+                                              height: 1.08,
+                                              color: AppColors.neutralGrey74,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+
+                                      // 打勾
+                                      Icon(
+                                        const IconData(
+                                          0xe60d,
+                                          fontFamily: 'Iconfont',
+                                        ), // 使用的图标
+                                        color: AppColors
+                                            .brandGreenVibrantDeep2, // 图标颜色
+                                        size: 30.w, // 图标大小
+                                      )
+                                    ],
                                   ),
                                 )
                               ],
                             ),
-                          ),
-                          SizedBox(
-                            height: 40.w,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!
-                                .prioritizeBalancePayment,
-                            style: TextStyle(
-                              fontSize: 25.w,
-                              color: AppColors.neutralGrey54,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10.w,
-                          ),
-                          Image.asset(
-                            assetPath("images/avatar/linecode.png"),
-                            width: 630.0.w,
-                            height: 195.0.w,
-                            fit: BoxFit.fill,
-                          ),
-                          SizedBox(
-                            height: 55.w,
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(bottom: 60.w),
-                            height: 320.w,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  width: 1.w,
-                                  color: AppColors.neutralGrey5,
-                                ),
-                              ),
-                            ),
-                            child: Image.asset(
-                              assetPath("images/avatar/qrcode.png"),
-                              width: 320.0.w,
-                              height: 320.0.w,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 33.w,
-                          ),
-                          Column(
-                            children: [
-                              // 优先付款方式
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width,
-                                height: 25.w,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!
-                                          .priorityPaymentMethod,
-                                      style: TextStyle(
-                                        fontSize: 25.w,
-                                        height: 1.08,
-                                        color: AppColors.neutralDarkGrey2,
-                                      ),
-                                    ),
-                                    Flex(
-                                      direction: Axis.horizontal,
-                                      children: [
-                                        Text(
-                                          AppLocalizations.of(context)!.change,
-                                          style: TextStyle(
-                                            fontSize: 25.w,
-                                            height: 1.08,
-                                            color: AppColors.neutralDarkGrey2,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 15.w,
-                                        ),
-                                        Icon(
-                                          const IconData(
-                                            0xe891,
-                                            fontFamily: 'Iconfont',
-                                          ), // 使用的图标
-                                          color: AppColors
-                                              .neutralDarkGrey2, // 图标颜色
-                                          size: 28.w, // 图标大小
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              SizedBox(
-                                height: 20.w,
-                              ),
-
-                              // 零钱
-                              Container(
-                                height: 107.w,
-                                padding: EdgeInsets.symmetric(horizontal: 33.w),
-                                decoration: BoxDecoration(
-                                  color: AppColors.neutralOffWhiteYellow,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10.w),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    // 零钱
-                                    Flex(
-                                      direction: Axis.horizontal,
-                                      children: [
-                                        Icon(
-                                          const IconData(
-                                            0xe6cc,
-                                            fontFamily: 'Iconfont',
-                                          ), // 使用的图标
-                                          color: AppColors.accentYellow, // 图标颜色
-                                          size: 38.w, // 图标大小
-                                        ),
-                                        SizedBox(
-                                          width: 10.w,
-                                        ),
-                                        Text(
-                                          AppLocalizations.of(context)!.balance,
-                                          style: TextStyle(
-                                            fontSize: 25.w,
-                                            height: 1.08,
-                                            color: AppColors.neutralGrey74,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-
-                                    // 打勾
-                                    Icon(
-                                      const IconData(
-                                        0xe60d,
-                                        fontFamily: 'Iconfont',
-                                      ), // 使用的图标
-                                      color: AppColors
-                                          .brandGreenVibrantDeep2, // 图标颜色
-                                      size: 30.w, // 图标大小
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: 10.w,
-                    ),
-
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: 15.w,
-                        left: 15.w,
-                        right: 15.w,
-                      ),
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(15.w),
+                          ],
                         ),
                       ),
-                      child: Column(
-                        children: [
-                          LJNCAPFunctionItem(
-                            title:
-                                AppLocalizations.of(context)!.digitalRMBPayment,
-                            icon: 0xe6f5,
-                            iconColor: AppColors.accentRedPure,
-                            link: '',
-                            color: Theme.of(context).colorScheme.onSurface,
-                            backgroundColor: AppColors.neutralWhite,
-                            underline: false,
-                          ),
-                        ],
+
+                      SizedBox(
+                        height: 10.w,
                       ),
-                    ),
 
-                    SizedBox(
-                      height: 10.w,
-                    ),
-
-                    // 列表
-                    Container(
-                      margin:
-                          EdgeInsets.only(top: 15.w, left: 15.w, right: 15.w),
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(15.w),
+                      Container(
+                        margin: EdgeInsets.only(
+                          top: 15.w,
+                          left: 15.w,
+                          right: 15.w,
+                        ),
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15.w),
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            LJNCAPFunctionItem(
+                              title: AppLocalizations.of(context)!
+                                  .digitalRMBPayment,
+                              icon: 0xe6f5,
+                              iconColor: AppColors.accentRedPure,
+                              link: '',
+                              color: Theme.of(context).colorScheme.onSurface,
+                              backgroundColor: AppColors.neutralWhite,
+                              underline: false,
+                            ),
+                          ],
                         ),
                       ),
-                      child: Column(
-                        children: [
-                          LJNCAPFunctionItem(
-                            title:
-                                AppLocalizations.of(context)!.qrCodeCollection,
-                            icon: 0xe623,
-                            link: '',
-                            backgroundColor: AppColors.brandTealDark2,
-                            underline: true,
-                          ),
-                          LJNCAPFunctionItem(
-                            title: AppLocalizations.of(context)!.rewardCode,
-                            icon: 0xe67b,
-                            link: '',
-                            backgroundColor: AppColors.brandTealDark2,
-                            underline: true,
-                          ),
-                          LJNCAPFunctionItem(
-                            title: AppLocalizations.of(context)!.groupSplitBill,
-                            icon: 0xe624,
-                            link: '',
-                            backgroundColor: AppColors.brandTealDark2,
-                            underline: true,
-                          ),
-                          LJNCAPFunctionItem(
-                            title: AppLocalizations.of(context)!
-                                .faceToFaceRedPacket,
-                            icon: 0xe625,
-                            link: '',
-                            backgroundColor: AppColors.brandTealDark2,
-                            underline: true,
-                          ),
-                          LJNCAPFunctionItem(
-                            title: AppLocalizations.of(context)!
-                                .transferToBankCardOrPhone,
-                            icon: 0xe661,
-                            link: '',
-                            backgroundColor: AppColors.brandTealDark2,
-                            underline: false,
-                          ),
-                        ],
-                      ),
-                    ),
 
-                    SizedBox(
-                      height: 20.w,
-                    )
-                  ],
+                      SizedBox(
+                        height: 10.w,
+                      ),
+
+                      // 列表
+                      Container(
+                        margin:
+                            EdgeInsets.only(top: 15.w, left: 15.w, right: 15.w),
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(15.w),
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            LJNCAPFunctionItem(
+                              title: AppLocalizations.of(context)!
+                                  .qrCodeCollection,
+                              icon: 0xe623,
+                              link: '',
+                              backgroundColor: AppColors.brandTealDark2,
+                              underline: true,
+                            ),
+                            LJNCAPFunctionItem(
+                              title: AppLocalizations.of(context)!.rewardCode,
+                              icon: 0xe67b,
+                              link: '',
+                              backgroundColor: AppColors.brandTealDark2,
+                              underline: true,
+                            ),
+                            LJNCAPFunctionItem(
+                              title:
+                                  AppLocalizations.of(context)!.groupSplitBill,
+                              icon: 0xe624,
+                              link: '',
+                              backgroundColor: AppColors.brandTealDark2,
+                              underline: true,
+                            ),
+                            LJNCAPFunctionItem(
+                              title: AppLocalizations.of(context)!
+                                  .faceToFaceRedPacket,
+                              icon: 0xe625,
+                              link: '',
+                              backgroundColor: AppColors.brandTealDark2,
+                              underline: true,
+                            ),
+                            LJNCAPFunctionItem(
+                              title: AppLocalizations.of(context)!
+                                  .transferToBankCardOrPhone,
+                              icon: 0xe661,
+                              link: '',
+                              backgroundColor: AppColors.brandTealDark2,
+                              underline: false,
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(
+                        height: 20.w,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

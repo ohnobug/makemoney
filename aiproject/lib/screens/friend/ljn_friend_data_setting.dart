@@ -10,6 +10,7 @@ import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 import '../../widgets/ljn_function_item.dart';
 
 class LJNFriendDataSetting extends StatefulWidget {
@@ -55,7 +56,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                     minHeight: MediaQuery.of(context).size.height -
                         90.w -
                         systemState.statusHeight),
-                color: Theme.of(context).colorScheme.surface,
+                color: Theme.of(context).colorScheme.surfaceContainer,
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics(),
@@ -73,7 +74,9 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                         link: '/friend_permissions',
                         underline: false,
                       ),
-                      Container(color: Theme.of(context).colorScheme.surface, height: 16.w),
+                      LJNVerticalGap(
+                        height: 16.w,
+                      ),
                       LJNFunctionItem(
                         title: AppLocalizations.of(context)!.recommendToFriend,
                         link: '',
@@ -89,7 +92,9 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                           });
                         },
                       ),
-                      Container(color: Theme.of(context).colorScheme.surface, height: 16.w),
+                      LJNVerticalGap(
+                        height: 16.w,
+                      ),
                       LJNFunctionItem(
                         title: AppLocalizations.of(context)!.setAsStarFriend,
                         // link: '',
@@ -108,7 +113,9 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                           ),
                         ),
                       ),
-                      Container(color: Theme.of(context).colorScheme.surface, height: 16.w),
+                      LJNVerticalGap(
+                        height: 16.w,
+                      ),
                       LJNFunctionItem(
                         title: AppLocalizations.of(context)!.addToBlocklist,
                         tapEffect: false,
@@ -131,7 +138,9 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                         link: '',
                         underline: false,
                       ),
-                      Container(color: Theme.of(context).colorScheme.surface, height: 16.w),
+                      LJNVerticalGap(
+                        height: 16.w,
+                      ),
                       LJNMaxWidthButton(
                         title: AppLocalizations.of(context)!.delete,
                         color: AppColors.accentRedPure,

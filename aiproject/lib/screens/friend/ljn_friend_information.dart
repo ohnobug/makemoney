@@ -7,6 +7,7 @@ import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 import '../../widgets/ljn_function_item.dart';
 
 class LJNFriendInformation extends StatefulWidget {
@@ -47,7 +48,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                 90.w -
                 systemState.statusHeight,
           ),
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.surfaceContainer,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -56,7 +57,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
               children: [
                 LJNAlphabet(
                   title: AppLocalizations.of(context)!.remark,
-                  bgColor: Theme.of(context).colorScheme.surface,
+                  bgColor: Theme.of(context).colorScheme.surfaceContainer,
                 ),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.remarkName,
@@ -85,7 +86,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                 ),
                 LJNAlphabet(
                   title: AppLocalizations.of(context)!.moreInfo,
-                  bgColor: Theme.of(context).colorScheme.surface,
+                  bgColor: Theme.of(context).colorScheme.surfaceContainer,
                 ),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.ourMutualGroups,
@@ -93,8 +94,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                   showStyle: AppLocalizations.of(context)!.personCount(4),
                   underline: false,
                 ),
-                Container(
-                  color: Theme.of(context).colorScheme.surface,
+                LJNVerticalGap(
                   height: 16.w,
                 ),
                 LJNFunctionItem(

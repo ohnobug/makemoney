@@ -29,9 +29,7 @@ class _LJPpersonalInfoCollectionChecklist
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
-          appBar: const LJNAppBar(
-            bgColor: AppColors.neutralWhite,
-          ),
+          appBar: const LJNAppBar(),
           body: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -84,7 +82,9 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Theme.of(context).listTileTheme.selectedTileColor!,
+                                  color: Theme.of(context)
+                                      .listTileTheme
+                                      .selectedTileColor!,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
@@ -159,7 +159,9 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Theme.of(context).listTileTheme.selectedTileColor!,
+                                  color: Theme.of(context)
+                                      .listTileTheme
+                                      .selectedTileColor!,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
@@ -198,7 +200,9 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Theme.of(context).listTileTheme.selectedTileColor!,
+                                  color: Theme.of(context)
+                                      .listTileTheme
+                                      .selectedTileColor!,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
@@ -243,7 +247,9 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Theme.of(context).listTileTheme.selectedTileColor!,
+                                  color: Theme.of(context)
+                                      .listTileTheme
+                                      .selectedTileColor!,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
@@ -341,7 +347,9 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Theme.of(context).listTileTheme.selectedTileColor!,
+                                  color: Theme.of(context)
+                                      .listTileTheme
+                                      .selectedTileColor!,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),

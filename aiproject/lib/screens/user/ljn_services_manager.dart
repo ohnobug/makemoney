@@ -30,7 +30,6 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
           primary: false,
           appBar: const LJNAppBar(
             title: "",
-            bgColor: AppColors.neutralWhite,
           ),
           body: ColoredBox(
             color: AppColors.neutralWhite,
@@ -65,7 +64,8 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         textAlign: TextAlign.center,
                         AppLocalizations.of(context)!.manageServicesDescription,
                         style: TextStyle(
-                            fontSize: 31.w, color: Theme.of(context).colorScheme.onSurface),
+                            fontSize: 31.w,
+                            color: Theme.of(context).colorScheme.onSurface),
                       ),
                       SizedBox(
                         height: 103.w,

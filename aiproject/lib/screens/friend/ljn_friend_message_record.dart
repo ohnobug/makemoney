@@ -60,7 +60,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
             gradient: LinearGradient(
               colors: [
                 AppColors.neutralWhite,
-                Theme.of(context).colorScheme.surface
+                Theme.of(context).colorScheme.surfaceContainer
               ],
               stops: [0.3, 0.5],
               begin: Alignment.topCenter,
@@ -122,14 +122,14 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                   ),
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surface, height: 16.w),
+                    color: Theme.of(context).colorScheme.surfaceContainer, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.findChatHistory,
                   link: '',
                   underline: false,
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surface, height: 16.w),
+                    color: Theme.of(context).colorScheme.surfaceContainer, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.muteNotifications,
                   // link: '',
@@ -185,21 +185,21 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                   ),
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surface, height: 16.w),
+                    color: Theme.of(context).colorScheme.surfaceContainer, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.setChatBackground,
                   link: '',
                   underline: false,
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surface, height: 16.w),
+                    color: Theme.of(context).colorScheme.surfaceContainer, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.clearChatHistory,
                   link: '',
                   underline: false,
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surface, height: 16.w),
+                    color: Theme.of(context).colorScheme.surfaceContainer, height: 16.w),
                 LJNFunctionItem(
                   title: AppLocalizations.of(context)!.complain,
                   link: '',

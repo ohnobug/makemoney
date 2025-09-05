@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -659,10 +661,12 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
     return Stack(
       children: [
         if (systemState.homescrollpixels > 0)
-          Image.asset(assetPath("lotties/miniprogrambg.awebp"),
-              width: screenSize.width,
-              height: screenSize.height,
-              fit: BoxFit.cover),
+          Image.asset(
+            assetPath("lotties/miniprogrambg.awebp"),
+            width: screenSize.width,
+            height: screenSize.height,
+            fit: BoxFit.cover,
+          ),
 
         // // 背景
         // Lottie.asset(
@@ -702,7 +706,7 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
             height: screenSize.height - (90.w + statusHeight),
             width: screenSize.width,
             child: Container(
-              color: Theme.of(context).listTileTheme.tileColor!,
+              color: Theme.of(context).colorScheme.surfaceContainer,
             ),
           ),
 
@@ -765,7 +769,7 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
           Opacity(
             opacity: 1 - topLottieOpacity,
             child: Container(
-              color: Theme.of(context).colorScheme.surface,
+              color: Theme.of(context).colorScheme.surfaceContainer,
               width: screenSize.width,
               height: systemState.homescrollpixels + (90.w + statusHeight),
               // padding: EdgeInsets.only(top: statusHeight),
@@ -788,7 +792,7 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
             ),
           ),
 
-        // 新appbar
+        // 下拉时候的新appbar
         if ((systemState.homescrollpixels + statusHeight) > percent25Position)
           Positioned(
             height: 90.w +
@@ -846,14 +850,18 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
                       toolbarHeight: 90.w,
                       elevation: 0,
                       scrolledUnderElevation: 0,
-                      backgroundColor:
-                          Theme.of(context).listTileTheme.tileColor!.withAlpha(
-                                (newAppbarOpacity * 255).toInt(),
-                              ),
-                      foregroundColor:
-                          Theme.of(context).listTileTheme.tileColor!.withAlpha(
-                                (newAppbarOpacity * 255).toInt(),
-                              ),
+                      backgroundColor: Theme.of(context)
+                          .appBarTheme
+                          .backgroundColor!
+                          .withAlpha(
+                            (min(newAppbarOpacity + 0.8, 1) * 255).toInt(),
+                          ),
+                      foregroundColor: Theme.of(context)
+                          .appBarTheme
+                          .foregroundColor!
+                          .withAlpha(
+                            (min(newAppbarOpacity + 0.8, 1) * 255).toInt(),
+                          ),
                       actions: [
                         Container(
                           color: AppColors.transparent,
@@ -895,7 +903,7 @@ class _ChatListViewState extends State<LJNHome> with TickerProviderStateMixin {
                       height: screenSize.height -
                           (systemState.homescrollpixels + statusHeight + 90.w),
                       child: null,
-                      color: AppColors.brandPurpleGrey,
+                      color: Theme.of(context).listTileTheme.tileColor!,
                     ),
                   )
                 ],

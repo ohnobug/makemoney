@@ -37,7 +37,6 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
           primary: false,
           appBar: LJNAppBar(
             title: "",
-            bgColor: AppColors.neutralWhite,
             leading: GestureDetector(
               onTap: () {
                 // 点击事件
@@ -276,7 +275,9 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                 "同学，ajj",
                                 style: TextStyle(
                                     fontSize: 32.w,
-                                    color: Theme.of(context).colorScheme.onSurface),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface),
                               ),
                               SizedBox(
                                 width: 30.w,
@@ -351,7 +352,9 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                           style: TextStyle(
                                             fontSize: 27.w,
                                             height: 1.08,
-                                            color: Theme.of(context).colorScheme.onSurface,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
                                           ),
                                         ),
                                         Expanded(

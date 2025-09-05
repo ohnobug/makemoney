@@ -16,9 +16,11 @@ class LJNSetPassword extends StatefulWidget {
 
 class _LJNSetPasswordState extends State<LJNSetPassword> {
   // 仅需要为需要获取其值的输入框创建 Controller
-  final TextEditingController originPasswordController = TextEditingController();
+  final TextEditingController originPasswordController =
+      TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
@@ -72,11 +74,12 @@ class _LJNSetPasswordState extends State<LJNSetPassword> {
     );
   }
 
-  Widget _buildPageBody(BuildContext context, AppLocalizations l10n, LJNUserState userState, SystemState systemState) {
+  Widget _buildPageBody(BuildContext context, AppLocalizations l10n,
+      LJNUserState userState, SystemState systemState) {
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: Container(
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).colorScheme.surfaceContainer,
         // 使用 ListView 代替 SingleChildScrollView + Column，代码更简洁
         child: ListView(
           physics: const AlwaysScrollableScrollPhysics(
@@ -196,7 +199,6 @@ class _InfoRow extends StatelessWidget {
   }
 }
 
-
 // 提取的公共组件 2: 带标签的输入框行
 class _FormInputRow extends StatelessWidget {
   final String label;
@@ -246,14 +248,18 @@ class _FormInputRow extends StatelessWidget {
                   color: AppColors.neutralGrey61,
                 ),
                 isDense: true,
-                border: UnderlineInputBorder( // 统一样式
-                  borderSide: BorderSide(width: 1.5.w, color: AppColors.neutralGrey21),
+                border: UnderlineInputBorder(
+                  // 统一样式
+                  borderSide:
+                      BorderSide(width: 1.5.w, color: AppColors.neutralGrey21),
                 ),
                 enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(width: 1.5.w, color: AppColors.neutralGrey21),
+                  borderSide:
+                      BorderSide(width: 1.5.w, color: AppColors.neutralGrey21),
                 ),
                 focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(width: 1.5.w, color: AppColors.brandGreenSlightlyLighter),
+                  borderSide: BorderSide(
+                      width: 1.5.w, color: AppColors.brandGreenSlightlyLighter),
                 ),
                 // 调整 contentPadding 使文本和下划线对齐更佳
                 contentPadding: EdgeInsets.only(bottom: 15.w),

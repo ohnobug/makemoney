@@ -4,23 +4,11 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_alphabet.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_contact_item.dart';
 import 'package:vigaviga/widgets/ljn_search.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-// 关键改动 1: 创建一个数据模型来存储静态数据
-class _ContactItemData {
-  final String title;
-  final String icon;
-  final bool underline;
-
-  const _ContactItemData({
-    required this.title,
-    required this.icon,
-    this.underline = true,
-  });
-}
 
 class LJNFriendsWhoOnlyChat extends StatefulWidget {
   const LJNFriendsWhoOnlyChat({super.key});
@@ -34,41 +22,44 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
   // 它是一个 final 列表，包含了所有原始数据
   final List<dynamic> staticDataList = const [
     'A', // 字母可以直接用 String
-    _ContactItemData(
-        title: "天空飘来五个字那都不是事", icon: "images/avatar_webp/chat_1.webp"),
-    _ContactItemData(title: "本因", icon: "images/avatar_webp/chat_10.webp"),
-    _ContactItemData(title: "赵洵", icon: "images/avatar_webp/chat_11.webp"),
-    _ContactItemData(title: "定静师太", icon: "images/avatar_webp/chat_12.webp"),
-    _ContactItemData(title: "李秋水", icon: "images/avatar_webp/chat_13.webp"),
-    _ContactItemData(title: "谭婆", icon: "images/avatar_webp/chat_14.webp"),
-    _ContactItemData(title: "李傀儡", icon: "images/avatar_webp/chat_15.webp"),
-    _ContactItemData(title: "貂禅", icon: "images/avatar_webp/chat_16.webp"),
-    _ContactItemData(title: "何三七", icon: "images/avatar_webp/chat_17.webp"),
-    _ContactItemData(title: "孔融", icon: "images/avatar_webp/chat_18.webp"),
-    _ContactItemData(title: "齐堂主", icon: "images/avatar_webp/chat_19.webp"),
-    _ContactItemData(title: "博尔术", icon: "images/avatar_webp/chat_20.webp"),
-    _ContactItemData(title: "王语嫣", icon: "images/avatar_webp/chat_21.webp"),
-    _ContactItemData(title: "秦红棉", icon: "images/avatar_webp/chat_22.webp"),
-    _ContactItemData(
-        title: "天竺僧人",
-        icon: "images/avatar_webp/chat_23.webp",
-        underline: false),
+    ContactItemData(
+      title: "天空飘来五个字那都不是事",
+      icon: "images/avatar_webp/chat_1.webp",
+    ),
+    ContactItemData(title: "本因", icon: "images/avatar_webp/chat_10.webp"),
+    ContactItemData(title: "赵洵", icon: "images/avatar_webp/chat_11.webp"),
+    ContactItemData(title: "定静师太", icon: "images/avatar_webp/chat_12.webp"),
+    ContactItemData(title: "李秋水", icon: "images/avatar_webp/chat_13.webp"),
+    ContactItemData(title: "谭婆", icon: "images/avatar_webp/chat_14.webp"),
+    ContactItemData(title: "李傀儡", icon: "images/avatar_webp/chat_15.webp"),
+    ContactItemData(title: "貂禅", icon: "images/avatar_webp/chat_16.webp"),
+    ContactItemData(title: "何三七", icon: "images/avatar_webp/chat_17.webp"),
+    ContactItemData(title: "孔融", icon: "images/avatar_webp/chat_18.webp"),
+    ContactItemData(title: "齐堂主", icon: "images/avatar_webp/chat_19.webp"),
+    ContactItemData(title: "博尔术", icon: "images/avatar_webp/chat_20.webp"),
+    ContactItemData(title: "王语嫣", icon: "images/avatar_webp/chat_21.webp"),
+    ContactItemData(title: "秦红棉", icon: "images/avatar_webp/chat_22.webp"),
+    ContactItemData(
+      title: "天竺僧人",
+      icon: "images/avatar_webp/chat_23.webp",
+      underline: false,
+    ),
     'B',
-    _ContactItemData(title: "段延庆", icon: "images/avatar_webp/chat_33.webp"),
-    _ContactItemData(title: "令狐冲", icon: "images/avatar_webp/chat_34.webp"),
-    _ContactItemData(title: "英白罗", icon: "images/avatar_webp/chat_35.webp"),
-    _ContactItemData(title: "黄药师", icon: "images/avatar_webp/chat_36.webp"),
-    _ContactItemData(title: "李煜", icon: "images/avatar_webp/chat_37.webp"),
-    _ContactItemData(title: "云中鹤", icon: "images/avatar_webp/chat_38.webp"),
-    _ContactItemData(title: "劳德诺", icon: "images/avatar_webp/chat_39.webp"),
-    _ContactItemData(title: "包惜弱", icon: "images/avatar_webp/chat_40.webp"),
-    _ContactItemData(title: "游驹", icon: "images/avatar_webp/chat_41.webp"),
-    _ContactItemData(title: "钟万仇", icon: "images/avatar_webp/chat_42.webp"),
-    _ContactItemData(title: "渔人", icon: "images/avatar_webp/chat_43.webp"),
-    _ContactItemData(title: "单叔山", icon: "images/avatar_webp/chat_44.webp"),
-    _ContactItemData(title: "段誉", icon: "images/avatar_webp/chat_45.webp"),
-    _ContactItemData(title: "林震南", icon: "images/avatar_webp/chat_46.webp"),
-    _ContactItemData(title: "商鞅", icon: "images/avatar_webp/chat_47.webp"),
+    ContactItemData(title: "段延庆", icon: "images/avatar_webp/chat_33.webp"),
+    ContactItemData(title: "令狐冲", icon: "images/avatar_webp/chat_34.webp"),
+    ContactItemData(title: "英白罗", icon: "images/avatar_webp/chat_35.webp"),
+    ContactItemData(title: "黄药师", icon: "images/avatar_webp/chat_36.webp"),
+    ContactItemData(title: "李煜", icon: "images/avatar_webp/chat_37.webp"),
+    ContactItemData(title: "云中鹤", icon: "images/avatar_webp/chat_38.webp"),
+    ContactItemData(title: "劳德诺", icon: "images/avatar_webp/chat_39.webp"),
+    ContactItemData(title: "包惜弱", icon: "images/avatar_webp/chat_40.webp"),
+    ContactItemData(title: "游驹", icon: "images/avatar_webp/chat_41.webp"),
+    ContactItemData(title: "钟万仇", icon: "images/avatar_webp/chat_42.webp"),
+    ContactItemData(title: "渔人", icon: "images/avatar_webp/chat_43.webp"),
+    ContactItemData(title: "单叔山", icon: "images/avatar_webp/chat_44.webp"),
+    ContactItemData(title: "段誉", icon: "images/avatar_webp/chat_45.webp"),
+    ContactItemData(title: "林震南", icon: "images/avatar_webp/chat_46.webp"),
+    ContactItemData(title: "商鞅", icon: "images/avatar_webp/chat_47.webp"),
   ];
 
   @override
@@ -111,126 +102,142 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
                 end: Alignment.bottomCenter,
               ),
             ),
-            child: Column(children: [
-              LJNSearch(link: '/search', title: l10n.search), // 使用 l10n
-              Expanded(
-                child: ColoredBox(
-                  color: AppColors.neutralWhite,
-                  child: ScrollConfiguration(
-                    behavior: ScrollConfiguration.of(context)
-                        .copyWith(scrollbars: false),
-                    child: ListView.builder(
-                      primary: false,
-                      padding: EdgeInsets.zero,
-                      physics: const AlwaysScrollableScrollPhysics(
-                        parent: BouncingScrollPhysics(),
-                      ),
-                      // +2 for header and footer
-                      itemCount: staticDataList.length + 2,
-                      itemBuilder: (context, index) {
-                        // 关键改动 5: 在 itemBuilder 中动态构建 UI
-                        // Header
-                        if (index == 0) {
-                          return Container(
-                            height: 80.w,
-                            padding: EdgeInsets.symmetric(horizontal: 24.w),
-                            alignment: Alignment.center,
-                            child: Text(
-                              l10n.privacy_setting_description, // 使用 l10n
-                              style: TextStyle(
-                                fontSize: 24.w,
-                                color: AppColors.neutralDarkGrey9,
-                              ),
-                            ),
-                          );
-                        }
-                        // Footer
-                        if (index == staticDataList.length + 1) {
-                          return Container(
-                            width: 750.w,
-                            height: 105.0.w,
-                            color: AppColors.neutralWhite,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  l10n.friendCount(staticDataList
-                                      .whereType<_ContactItemData>()
-                                      .length), // 使用 l10n
-                                  style: TextStyle(
-                                    height: 1.08,
-                                    fontSize: fontSizeScale(30.w),
-                                    color: AppColors.neutralGrey67,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
+            child: Column(
+              children: [
+                // 搜索栏
+                LJNSearch(link: '/search', title: l10n.search), // 使用 l10n
 
-                        // List Items
-                        final itemData = staticDataList[
-                            index - 1]; // Adjust index for data list
-                        if (itemData is String) {
-                          return LJNAlphabet(
-                              title: itemData, bgColor: AppColors.neutralWhite);
-                        }
-                        if (itemData is _ContactItemData) {
-                          return ContactInformation(
-                            title: itemData.title,
-                            icon: itemData.icon,
-                            link: '',
-                            underline: itemData.underline,
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/chat',
+                Expanded(
+                  child: ColoredBox(
+                    color: AppColors.neutralWhite,
+                    child: ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: ListView.builder(
+                        primary: false,
+                        padding: EdgeInsets.zero,
+                        physics: const AlwaysScrollableScrollPhysics(
+                          parent: BouncingScrollPhysics(),
+                        ),
+                        // +2 for header and footer
+                        itemCount: staticDataList.length + 2,
+                        itemBuilder: (context, index) {
+                          // 文本
+                          // Header
+                          if (index == 0) {
+                            return Container(
+                              // height: 80.w,
+                              padding: EdgeInsets.only(
+                                left: 24.w,
+                                right: 24.w,
+                                bottom: 20.w,
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                l10n.privacy_setting_description, // 使用 l10n
+                                style: TextStyle(
+                                  fontSize: 24.w,
+                                  color: AppColors.neutralDarkGrey9,
+                                ),
+                              ),
+                            );
+                          }
+                          // Footer
+                          if (index == staticDataList.length + 1) {
+                            return Container(
+                              width: 750.w,
+                              height: 105.0.w,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surfaceContainer,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    l10n.friendCount(staticDataList
+                                        .whereType<ContactItemData>()
+                                        .length), // 使用 l10n
+                                    style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(30.w),
+                                      color: AppColors.neutralGrey67,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+
+                          // List Items
+                          final itemData = staticDataList[
+                              index - 1]; // Adjust index for data list
+                          if (itemData is String) {
+                            return LJNAlphabet(
+                              title: itemData,
+                            );
+                          }
+                          if (itemData is ContactItemData) {
+                            return ContactInformation(
+                              title: itemData.title,
+                              icon: itemData.icon,
+                              link: '',
+                              underline: itemData.underline,
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  '/chat',
                                   arguments: <String, String>{
                                     'title': itemData.title,
                                     'icon': itemData.icon,
-                                  });
-                            },
-                          );
-                        }
+                                  },
+                                );
+                              },
+                            );
+                          }
 
-                        return const SizedBox.shrink();
-                      },
+                          return const SizedBox.shrink();
+                        },
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                height: 90.w,
-                padding: EdgeInsets.symmetric(horizontal: 50.w),
-                decoration: BoxDecoration(
-                  color: AppColors.neutralGrey2,
-                  border: Border(
-                    top: BorderSide(
-                      color: AppColors.neutralGrey20,
-                      width: 1.5.w,
-                      style: BorderStyle.solid,
+                Container(
+                  height: 90.w,
+                  padding: EdgeInsets.symmetric(horizontal: 50.w),
+                  decoration: BoxDecoration(
+                    color: AppColors.neutralGrey2,
+                    border: Border(
+                      top: BorderSide(
+                        color: AppColors.neutralGrey20,
+                        width: 1.5.w,
+                        style: BorderStyle.solid,
+                      ),
                     ),
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(l10n.add,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        l10n.add,
                         style: TextStyle(
-                            fontSize: 30.w,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface)), // 使用 l10n
-                    Text(l10n.remove,
+                          fontSize: 30.w,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ), // 使用 l10n
+                      Text(
+                        l10n.remove,
                         style: TextStyle(
-                            fontSize: 30.w,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface)), // 使用 l10n
-                  ],
-                ),
-              )
-            ]),
+                          fontSize: 30.w,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ), // 使用 l10n
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
           Positioned(
             right: 0,
@@ -243,13 +250,19 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
                 children: [
                   SizedBox(
                     height: 34.w,
-                    child: Icon(const IconData(0xe677, fontFamily: 'Iconfont'),
-                        size: 22.w, color: AppColors.neutralNearBlack3),
+                    child: Icon(
+                      const IconData(0xe677, fontFamily: 'Iconfont'),
+                      size: 22.w,
+                      color: AppColors.neutralNearBlack3,
+                    ),
                   ),
                   SizedBox(
                     height: 34.w,
-                    child: Icon(const IconData(0xe6c8, fontFamily: 'Iconfont'),
-                        size: 22.w, color: AppColors.neutralNearBlack3),
+                    child: Icon(
+                      const IconData(0xe6c8, fontFamily: 'Iconfont'),
+                      size: 22.w,
+                      color: AppColors.neutralNearBlack3,
+                    ),
                   ),
                   for (int i = 0; i < 26; i++)
                     SizedBox(
@@ -257,127 +270,28 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
                       child: Text(
                         String.fromCharCode(65 + i),
                         style: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(22.w),
-                            color: AppColors.neutralNearBlack3),
+                          height: 1.08,
+                          fontSize: fontSizeScale(22.w),
+                          color: AppColors.neutralNearBlack3,
+                        ),
                       ),
                     ),
                   SizedBox(
                     height: 34.w,
-                    child: Text("#",
-                        style: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(22.w),
-                            color: AppColors.neutralNearBlack3)),
+                    child: Text(
+                      "#",
+                      style: TextStyle(
+                        height: 1.08,
+                        fontSize: fontSizeScale(22.w),
+                        color: AppColors.neutralNearBlack3,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ContactInformation extends StatefulWidget {
-  final String icon;
-  final String title;
-  final String link;
-  final bool underline;
-  final int? showStyle;
-  final Function()? onPressed;
-
-  const ContactInformation({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.link,
-    required this.underline,
-    this.showStyle,
-    this.onPressed,
-  });
-
-  @override
-  State<ContactInformation> createState() => _ContactInformationState();
-}
-
-class _ContactInformationState extends State<ContactInformation> {
-  late Color containerColor = Theme.of(context).colorScheme.surface;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (tapDownDetails) {
-        if (widget.onPressed == null) return;
-        setState(() => containerColor = AppColors.neutralGrey18);
-      },
-      onTapCancel: () {
-        if (widget.onPressed == null) return;
-        setState(() => containerColor = Theme.of(context).colorScheme.surface);
-      },
-      onTapUp: (tapDownDetails) {
-        if (widget.onPressed == null) return;
-        Future.delayed(const Duration(milliseconds: 50), () {
-          if (!mounted) return;
-          setState(
-              () => containerColor = Theme.of(context).colorScheme.surface);
-          widget.onPressed?.call();
-        });
-      },
-      child: Container(
-        height: 105.0.w,
-        padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
-        color: containerColor,
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(7.0.w),
-              child: Image.asset(
-                assetPath(widget.icon),
-                width: 75.0.w,
-                height: 75.0.w,
-                cacheHeight: 150,
-                cacheWidth: 150,
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(width: 25.w),
-            Expanded(
-              child: Container(
-                height: 100.w,
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: widget.underline
-                        ? BorderSide(
-                            color: Theme.of(context).listTileTheme.selectedTileColor!,
-                            width: 1.5.w,
-                            style: BorderStyle.solid,
-                          )
-                        : BorderSide.none,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        widget.title,
-                        style: TextStyle(
-                          height: 1.08,
-                          fontSize: fontSizeScale(33.0.w),
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

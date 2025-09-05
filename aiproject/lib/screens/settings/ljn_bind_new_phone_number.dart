@@ -52,7 +52,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                       minHeight: MediaQuery.of(context).size.height -
                           90.w -
                           systemState.statusHeight),
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).colorScheme.surfaceContainer,
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(
                       parent: BouncingScrollPhysics(),

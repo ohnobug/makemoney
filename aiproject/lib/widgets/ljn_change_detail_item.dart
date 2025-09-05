@@ -32,7 +32,7 @@ class LJNChangeDetailItem extends StatefulWidget {
 
 class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
   // bool isClicked = false;
-  late Color containerColor = Theme.of(context).colorScheme.surface;
+  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +41,12 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
     return GestureDetector(
       onTapDown: (tapDownDetails) {
         setState(() {
-          containerColor = AppColors.neutralGrey18;
+          containerColor = Theme.of(context).listTileTheme.selectedTileColor!;
         });
       },
       onTapCancel: () {
         setState(() {
-          containerColor = Theme.of(context).colorScheme.surface;
+          containerColor = Theme.of(context).listTileTheme.tileColor!;
         });
 
         logger.info("取消点击");
@@ -54,7 +54,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
       onTapUp: (tapDownDetails) {
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
-            containerColor = Theme.of(context).colorScheme.surface;
+            containerColor = Theme.of(context).listTileTheme.tileColor!;
           });
           widget.onPressed!();
         });

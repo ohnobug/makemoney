@@ -72,7 +72,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                       minHeight: MediaQuery.of(context).size.height -
                           90.w -
                           systemState.statusHeight),
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).colorScheme.surfaceContainer,
                   child: SingleChildScrollView(
                     primary: false,
                     physics: const AlwaysScrollableScrollPhysics(
@@ -123,14 +123,18 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                       "+86",
                                       style: TextStyle(
                                           fontSize: 24.w,
-                                          color: Theme.of(context).colorScheme.onSurface),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface),
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!
                                           .mainlandChina,
                                       style: TextStyle(
                                           fontSize: 15.w,
-                                          color: Theme.of(context).colorScheme.onSurface),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface),
                                     ),
                                   ],
                                 ),

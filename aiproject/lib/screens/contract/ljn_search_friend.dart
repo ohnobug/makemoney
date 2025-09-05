@@ -36,7 +36,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: Container(
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.surfaceContainer,
           constraints: BoxConstraints(
               minHeight: MediaQuery.of(context).size.height -
                   90.w -
@@ -55,7 +55,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
               ),
               height: 95.w,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
+                color: Theme.of(context).colorScheme.surfaceContainer,
                 border: Border(
                   bottom: BorderSide(
                     color: Colors.grey.withAlpha(128),

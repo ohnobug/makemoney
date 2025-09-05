@@ -926,7 +926,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                       Expanded(
                         flex: 1,
                         child: ColoredBox(
-                          color: Theme.of(context).colorScheme.surface,
+                          color: Theme.of(context).colorScheme.surfaceContainer,
                           child: ScrollConfiguration(
                             behavior: ScrollConfiguration.of(context)
                                 .copyWith(scrollbars: false),

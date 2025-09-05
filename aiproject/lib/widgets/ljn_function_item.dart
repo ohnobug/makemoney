@@ -41,21 +41,25 @@ class LJNFunctionItem extends StatefulWidget {
 
 class _LJNFunctionItemState extends State<LJNFunctionItem> {
   // bool isClicked = false;
-  late Color originContainerColor;
   late Color containerColor;
   late bool tapEffect;
+  late Color originContainerColor;
 
   @override
   void initState() {
     super.initState();
 
+    tapEffect = widget.tapEffect ?? true;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // 在这里进行依赖于 context 的初始化
     originContainerColor =
         widget.backgroundColor ?? Theme.of(context).listTileTheme.tileColor!;
-
-    setState(() {
-      containerColor = originContainerColor;
-      tapEffect = widget.tapEffect ?? true;
-    });
+    // 直接赋值，不需要 setState
+    containerColor = originContainerColor;
   }
 
   @override

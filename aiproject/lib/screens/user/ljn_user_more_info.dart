@@ -47,7 +47,7 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
                 90.w -
                 systemState.statusHeight,
           ),
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.surfaceContainer,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),

@@ -30,9 +30,7 @@ class _LJNSoundLock extends State<LJNSoundLock> {
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
-          appBar: const LJNAppBar(
-            bgColor: AppColors.neutralWhite,
-          ),
+          appBar: const LJNAppBar(),
           body: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),

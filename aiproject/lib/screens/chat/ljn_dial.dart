@@ -101,38 +101,44 @@ class _LJNDial extends State<LJNDial> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              LJNAppBar(
-                title: "",
-                bgColor: AppColors.transparent,
-                leading: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
+              Theme(
+                data: Theme.of(context).copyWith(
+                  appBarTheme: Theme.of(context).appBarTheme.copyWith(
+                        backgroundColor: AppColors.transparent,
+                      ),
+                ),
+                child: LJNAppBar(
+                  title: "",
+                  leading: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
 
-                    if (!Platform.isWindows) {
-                      Future.delayed(Duration(milliseconds: 100), () {
-                        // 应用级画中画
-                        PictureInPicture.startPiP(
-                          pipWidget: PiPWidget(
-                            pipBorderRadius: 5,
-                            elevation: 10,
-                            onPiPClose: () {},
-                            child: LJNDialFloatingWidget(
-                              systemState: systemState,
+                      if (!Platform.isWindows) {
+                        Future.delayed(Duration(milliseconds: 100), () {
+                          // 应用级画中画
+                          PictureInPicture.startPiP(
+                            pipWidget: PiPWidget(
+                              pipBorderRadius: 5,
+                              elevation: 10,
+                              onPiPClose: () {},
+                              child: LJNDialFloatingWidget(
+                                systemState: systemState,
+                              ),
                             ),
-                          ),
-                        );
-                      });
-                    }
+                          );
+                        });
+                      }
 
-                    // 进入系统级画中画
-                    // _enablePip(context);
-                  },
-                  child: Container(
-                    color: AppColors.transparent,
-                    child: Icon(
-                      const IconData(0xe68f, fontFamily: 'Iconfont'),
-                      color: AppColors.neutralWhite,
-                      size: 36.w,
+                      // 进入系统级画中画
+                      // _enablePip(context);
+                    },
+                    child: Container(
+                      color: AppColors.transparent,
+                      child: Icon(
+                        const IconData(0xe68f, fontFamily: 'Iconfont'),
+                        color: AppColors.neutralWhite,
+                        size: 36.w,
+                      ),
                     ),
                   ),
                 ),
@@ -163,7 +169,8 @@ class _LJNDial extends State<LJNDial> {
                     ),
                     Text(
                       "罗绮娴",
-                      style: TextStyle(color: AppColors.neutralWhite, fontSize: 40.w),
+                      style: TextStyle(
+                          color: AppColors.neutralWhite, fontSize: 40.w),
                     ),
                   ],
                 ),
@@ -210,7 +217,8 @@ class _LJNDial extends State<LJNDial> {
                         ),
                         Text(
                           AppLocalizations.of(context)!.microphoneOn,
-                          style: TextStyle(color: AppColors.neutralWhite, fontSize: 25.w),
+                          style: TextStyle(
+                              color: AppColors.neutralWhite, fontSize: 25.w),
                         )
                       ],
                     ),
@@ -267,7 +275,8 @@ class _LJNDial extends State<LJNDial> {
                         ),
                         Text(
                           AppLocalizations.of(context)!.cancel,
-                          style: TextStyle(color: AppColors.neutralWhite, fontSize: 25.w),
+                          style: TextStyle(
+                              color: AppColors.neutralWhite, fontSize: 25.w),
                         )
                       ],
                     ),
@@ -308,7 +317,8 @@ class _LJNDial extends State<LJNDial> {
                         ),
                         Text(
                           AppLocalizations.of(context)!.speakerOff,
-                          style: TextStyle(color: AppColors.neutralWhite, fontSize: 25.w),
+                          style: TextStyle(
+                              color: AppColors.neutralWhite, fontSize: 25.w),
                         )
                       ],
                     ),

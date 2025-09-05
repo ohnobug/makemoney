@@ -14,7 +14,7 @@ class LJNPageLoading extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).colorScheme.surfaceContainer,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

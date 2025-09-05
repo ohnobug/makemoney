@@ -330,7 +330,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
                     if (itemData is _TimeSeparatorData) {
                       return LJNAlphabet(
                         title: _getTimeSeparatorTitle(l10n, itemData.titleKey),
-                        bgColor: Theme.of(context).colorScheme.surface,
+                        bgColor: Theme.of(context).colorScheme.surfaceContainer,
                       );
                     }
 

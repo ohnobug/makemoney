@@ -149,7 +149,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
             ],
           ),
           body: ColoredBox(
-            color: Theme.of(context).colorScheme.surface,
+            color: Theme.of(context).colorScheme.surfaceContainer,
             child: ScrollConfiguration(
               behavior:
                   ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -160,7 +160,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
                 child: Container(
                   constraints: BoxConstraints(
                       minHeight: MediaQuery.of(context).size.height - 205.w),
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).colorScheme.surfaceContainer,
                   child: Column(
                     children: [
                       // 最近使用
@@ -611,19 +611,19 @@ class ChatListItem extends StatefulWidget {
 }
 
 class _ChatListItem extends State<ChatListItem> {
-  late Color containerColor = Theme.of(context).colorScheme.surface;
+  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (_) {
         setState(() {
-          containerColor = AppColors.neutralGrey18;
+          containerColor = Theme.of(context).listTileTheme.selectedTileColor!;
         });
       },
       onTapCancel: () {
         setState(() {
-          containerColor = Theme.of(context).colorScheme.surface;
+          containerColor = Theme.of(context).listTileTheme.tileColor!;
         });
 
         logger.info("取消点击");
@@ -631,7 +631,7 @@ class _ChatListItem extends State<ChatListItem> {
       onTapUp: (tapDownDetails) {
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
-            containerColor = Theme.of(context).colorScheme.surface;
+            containerColor = Theme.of(context).listTileTheme.tileColor!;
           });
           widget.onPressed!();
         });

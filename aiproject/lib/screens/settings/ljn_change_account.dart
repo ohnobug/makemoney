@@ -26,155 +26,164 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
-        builder: (context, systemState) {
-      return Scaffold(
-        primary: false,
-        resizeToAvoidBottomInset: false,
-        appBar: const LJNAppBar(
-          bgColor: AppColors.transparent,
-        ),
-        body: ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-          child: Container(
-            constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height -
-                    90.w -
-                    systemState.statusHeight),
-            color: AppColors.neutralWhite,
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics(),
-              ),
+      builder: (context, systemState) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            appBarTheme: Theme.of(context).appBarTheme.copyWith(
+                  backgroundColor: AppColors.transparent,
+                ),
+          ),
+          child: Scaffold(
+            primary: false,
+            resizeToAvoidBottomInset: false,
+            appBar: const LJNAppBar(),
+            body: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
               child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 70.w, right: 70.w),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      // color: AppColors.accentRedPure,
-                      height: 110.w,
-                      alignment: Alignment.bottomCenter,
-                      child: Text(
-                        AppLocalizations.of(context)!.securityVerification,
-                        style: TextStyle(
-                            fontSize: 42.w,
-                            // fontWeight: FontWeight.bold,
-                            fontFamily: "AlibabaPuHuiTi-Medium"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 30.w,
-                    ),
-                    Text(
-                      AppLocalizations.of(context)!.verifyIdentityWithPasswordFull,
-                      style: TextStyle(
-                          fontSize: 30.w, fontFamily: "AlibabaPuHuiTi"),
-                    ),
-                    SizedBox(
-                      height: 60.w,
-                    ),
-
-                    // 填写密码字段
-                    Container(
-                      height: 110.w,
-                      width: 610.w,
-                      decoration: BoxDecoration(
-                        // color: AppColors.accentRedPure,
-                        border: Border(
-                          top: BorderSide(
-                            color: AppColors.neutralGrey18,
-                            width: 1.5.w,
-                            style: BorderStyle.solid,
-                          ),
-                          bottom: BorderSide(
-                            color: AppColors.neutralGrey18,
-                            width: 1.5.w,
-                            style: BorderStyle.solid,
+                constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height -
+                        90.w -
+                        systemState.statusHeight),
+                color: AppColors.neutralWhite,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
+                  ),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.only(left: 70.w, right: 70.w),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          // color: AppColors.accentRedPure,
+                          height: 110.w,
+                          alignment: Alignment.bottomCenter,
+                          child: Text(
+                            AppLocalizations.of(context)!.securityVerification,
+                            style: TextStyle(
+                                fontSize: 42.w,
+                                // fontWeight: FontWeight.bold,
+                                fontFamily: "AlibabaPuHuiTi-Medium"),
                           ),
                         ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.enterPassword,
-                            style: TextStyle(fontSize: 30.w, height: 1.08),
-                          ),
-                          SizedBox(
-                            width: 50.w,
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: TextField(
-                              controller: _controller,
-                              autofocus: true, // 先尝试关闭自动聚焦
-                              cursorColor: AppColors.brandGreenDarker4,
-                              cursorWidth: 1.w,
-                              onTapOutside: (event) {
-                                FocusScope.of(context).unfocus();
-                              },
-                              decoration: InputDecoration(
-                                hintText: AppLocalizations.of(context)!
-                                    .pleaseEnterPassword,
-                                labelText: '',
-                                isDense: true,
-                                border: const OutlineInputBorder(
-                                  borderSide: BorderSide.none, // 无边框
-                                ),
-                                contentPadding:
-                                    const EdgeInsets.all(0), // 也可调小内边距
+                        SizedBox(
+                          height: 30.w,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!
+                              .verifyIdentityWithPasswordFull,
+                          style: TextStyle(
+                              fontSize: 30.w, fontFamily: "AlibabaPuHuiTi"),
+                        ),
+                        SizedBox(
+                          height: 60.w,
+                        ),
+
+                        // 填写密码字段
+                        Container(
+                          height: 110.w,
+                          width: 610.w,
+                          decoration: BoxDecoration(
+                            // color: AppColors.accentRedPure,
+                            border: Border(
+                              top: BorderSide(
+                                color: AppColors.neutralGrey18,
+                                width: 1.5.w,
+                                style: BorderStyle.solid,
+                              ),
+                              bottom: BorderSide(
+                                color: AppColors.neutralGrey18,
+                                width: 1.5.w,
+                                style: BorderStyle.solid,
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: 25.w,
-                    ),
-
-                    SizedBox(
-                      width: 610.w,
-                      child: GestureDetector(
-                        onTap: () {
-                          // forgot_password
-                          logger.info("忘记密码被点击");
-                          Navigator.pushNamed(context, '/forgot_password');
-                        },
-                        child: Text(
-                          AppLocalizations.of(context)!.forgotPassword,
-                          style: TextStyle(
-                            fontSize: 24.w,
-                            color: AppColors.brandPurpleDark3,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.enterPassword,
+                                style: TextStyle(fontSize: 30.w, height: 1.08),
+                              ),
+                              SizedBox(
+                                width: 50.w,
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: TextField(
+                                  controller: _controller,
+                                  autofocus: true, // 先尝试关闭自动聚焦
+                                  cursorColor: AppColors.brandGreenDarker4,
+                                  cursorWidth: 1.w,
+                                  onTapOutside: (event) {
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: AppLocalizations.of(context)!
+                                        .pleaseEnterPassword,
+                                    labelText: '',
+                                    isDense: true,
+                                    border: const OutlineInputBorder(
+                                      borderSide: BorderSide.none, // 无边框
+                                    ),
+                                    contentPadding:
+                                        const EdgeInsets.all(0), // 也可调小内边距
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                    ),
 
-                    SizedBox(
-                      height: 780.w,
-                      child: null,
-                    ),
+                        SizedBox(
+                          height: 25.w,
+                        ),
 
-                    // 验证按钮
-                    Container(
-                        padding: EdgeInsets.only(bottom: 180.w),
-                        child: LJNChangeAccountButton(
-                          title: AppLocalizations.of(context)!.verify,
-                          link: "",
-                          readonly: true,
-                        ))
-                  ],
+                        SizedBox(
+                          width: 610.w,
+                          child: GestureDetector(
+                            onTap: () {
+                              // forgot_password
+                              logger.info("忘记密码被点击");
+                              Navigator.pushNamed(context, '/forgot_password');
+                            },
+                            child: Text(
+                              AppLocalizations.of(context)!.forgotPassword,
+                              style: TextStyle(
+                                fontSize: 24.w,
+                                color: AppColors.brandPurpleDark3,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        SizedBox(
+                          height: 780.w,
+                          child: null,
+                        ),
+
+                        // 验证按钮
+                        Container(
+                          padding: EdgeInsets.only(bottom: 180.w),
+                          child: LJNChangeAccountButton(
+                            title: AppLocalizations.of(context)!.verify,
+                            link: "",
+                            readonly: true,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
