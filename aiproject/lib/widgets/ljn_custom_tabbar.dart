@@ -39,11 +39,11 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   late final TabController _tabController;
 
   // 关键改动 2: _tabs 列表现在是 final，并且只包含静态的图标信息。
-  final List<_TabInfo> _tabs = const [
-    _TabInfo(icon: 0xe7b3, selectedIcon: 0xe676, iconSize: 45.0),
-    _TabInfo(icon: 0xe608, selectedIcon: 0xe609, iconSize: 48.0),
-    _TabInfo(icon: 0xe61c, selectedIcon: 0xe638, iconSize: 43.0),
-    _TabInfo(icon: 0xe63f, selectedIcon: 0xe62b, iconSize: 48.0),
+  final List<_TabInfo> _tabs = [
+    _TabInfo(icon: 0xe7b3, selectedIcon: 0xe676, iconSize: 90.0.w),
+    _TabInfo(icon: 0xe608, selectedIcon: 0xe609, iconSize: 96.0.w),
+    _TabInfo(icon: 0xe61c, selectedIcon: 0xe638, iconSize: 86.0.w),
+    _TabInfo(icon: 0xe63f, selectedIcon: 0xe62b, iconSize: 96.0.w),
   ];
 
   int _currentIndex = 0;
