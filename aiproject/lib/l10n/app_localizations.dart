@@ -392,6 +392,12 @@ abstract class AppLocalizations {
   /// **'Me'**
   String get tabbar_label_me;
 
+  /// No description provided for @contacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Contacts'**
+  String get contacts;
+
   /// No description provided for @me.
   ///
   /// In en, this message translates to:

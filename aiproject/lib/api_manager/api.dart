@@ -3,6 +3,7 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_chatlist_item.dart';
+import 'package:vigaviga/widgets/ljn_contact_item.dart';
 
 // 得到最近聊天的列表
 List<ChatListItem> getChatItems(BuildContext context) {
@@ -462,5 +463,73 @@ List<ChatListItem> getChatItems(BuildContext context) {
         });
       },
     ),
+  ];
+}
+
+// 返回联系人信息
+List<dynamic> getContactDataList() {
+  return [
+    FunctionItemData(
+        titleKey: 'newFriends',
+        icon: "images/avatar/01.png",
+        link: '/new_friends',
+        underline: true),
+    FunctionItemData(
+        titleKey: 'chatOnlyFriends',
+        icon: "images/avatar/02.png",
+        link: '/friends_who_only_chat',
+        underline: true),
+    FunctionItemData(
+        titleKey: 'groupChats',
+        icon: "images/avatar/03.png",
+        link: '/contact_group',
+        underline: true),
+    FunctionItemData(
+        titleKey: 'tags',
+        icon: "images/avatar/04.png",
+        link: '/contact_tags',
+        underline: true),
+    FunctionItemData(
+        titleKey: 'officialAccounts',
+        icon: "images/avatar/05.png",
+        link: '/official_accounts',
+        underline: false),
+    'A', // 字母
+    ContactItemData(
+        title: "天空飘来五个字那都不是事", icon: "images/avatar_webp/chat_1.webp"),
+    ContactItemData(title: "本因", icon: "images/avatar_webp/chat_10.webp"),
+    ContactItemData(title: "赵洵", icon: "images/avatar_webp/chat_11.webp"),
+    ContactItemData(title: "定静师太", icon: "images/avatar_webp/chat_12.webp"),
+    ContactItemData(title: "李秋水", icon: "images/avatar_webp/chat_13.webp"),
+    ContactItemData(title: "谭婆", icon: "images/avatar_webp/chat_14.webp"),
+    ContactItemData(title: "李傀儡", icon: "images/avatar_webp/chat_15.webp"),
+    ContactItemData(title: "貂禅", icon: "images/avatar_webp/chat_16.webp"),
+    ContactItemData(title: "何三七", icon: "images/avatar_webp/chat_17.webp"),
+    ContactItemData(title: "孔融", icon: "images/avatar_webp/chat_18.webp"),
+    ContactItemData(title: "齐堂主", icon: "images/avatar_webp/chat_19.webp"),
+    ContactItemData(title: "博尔术", icon: "images/avatar_webp/chat_20.webp"),
+    ContactItemData(title: "王语嫣", icon: "images/avatar_webp/chat_21.webp"),
+    ContactItemData(title: "秦红棉", icon: "images/avatar_webp/chat_22.webp"),
+    ContactItemData(
+      title: "天竺僧人",
+      icon: "images/avatar_webp/chat_23.webp",
+      underline: false,
+    ),
+    'B',
+    ContactItemData(title: "段延庆", icon: "images/avatar_webp/chat_33.webp"),
+    ContactItemData(title: "令狐冲", icon: "images/avatar_webp/chat_34.webp"),
+    ContactItemData(title: "英白罗", icon: "images/avatar_webp/chat_35.webp"),
+    ContactItemData(title: "黄药师", icon: "images/avatar_webp/chat_36.webp"),
+    ContactItemData(title: "李煜", icon: "images/avatar_webp/chat_37.webp"),
+    ContactItemData(title: "云中鹤", icon: "images/avatar_webp/chat_38.webp"),
+    ContactItemData(title: "劳德诺", icon: "images/avatar_webp/chat_39.webp"),
+    ContactItemData(title: "包惜弱", icon: "images/avatar_webp/chat_40.webp"),
+    ContactItemData(title: "游驹", icon: "images/avatar_webp/chat_41.webp"),
+    ContactItemData(title: "钟万仇", icon: "images/avatar_webp/chat_42.webp"),
+    ContactItemData(title: "渔人", icon: "images/avatar_webp/chat_43.webp"),
+    ContactItemData(title: "单叔山", icon: "images/avatar_webp/chat_44.webp"),
+    ContactItemData(title: "段誉", icon: "images/avatar_webp/chat_45.webp"),
+    ContactItemData(title: "林震南", icon: "images/avatar_webp/chat_46.webp"),
+    ContactItemData(title: "商鞅", icon: "images/avatar_webp/chat_47.webp"),
   ];
 }

@@ -9,9 +9,8 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/widgets/ljn_appbar_inner.dart';
 import 'package:vigaviga/widgets/ljn_custom_physics.dart';
-import 'package:vigaviga/screens/contract/ljn_contact.dart';
 import 'package:vigaviga/screens/discovery/ljn_discovery.dart';
-import 'package:vigaviga/screens/recent_chats/ljn_recent_chats_list.dart';
+import 'package:vigaviga/screens/contract/ljn_recent_chats_list.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/screens/user/ljn_user.dart';
 import 'package:vigaviga/widgets/ljn_popup_menu.dart';
@@ -45,7 +44,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   final List<_TabInfo> _tabs = [
     _TabInfo(icon: 0xe7b3, selectedIcon: 0xe676, iconSize: 90.0.w), // 短视频
     _TabInfo(icon: 0xe61c, selectedIcon: 0xe638, iconSize: 86.0.w), // 发现
-    _TabInfo(icon: 0xe625, selectedIcon: 0xe609, iconSize: 96.0.w), // 发布
+    _TabInfo(icon: 0xe67c, selectedIcon: 0xe642, iconSize: 96.0.w), // 发布
     _TabInfo(icon: 0xe7b3, selectedIcon: 0xe676, iconSize: 90.0.w), // 聊天
     _TabInfo(icon: 0xe63f, selectedIcon: 0xe62b, iconSize: 96.0.w), // 我的
   ];

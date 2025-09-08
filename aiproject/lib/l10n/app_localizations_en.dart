@@ -176,6 +176,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tabbar_label_me => 'Me';
 
   @override
+  String get contacts => 'Contacts';
+
+  @override
   String get me => 'Me';
 
   @override

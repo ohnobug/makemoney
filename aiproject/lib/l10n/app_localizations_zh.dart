@@ -171,6 +171,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get tabbar_label_me => '我的';
 
   @override
+  String get contacts => '联系人';
+
+  @override
   String get me => '我';
 
   @override
