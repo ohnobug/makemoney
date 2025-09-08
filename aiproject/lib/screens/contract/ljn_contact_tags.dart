@@ -229,8 +229,7 @@ class TagInformation extends StatefulWidget {
 }
 
 class _TagInformationState extends State<TagInformation> {
-  late Color containerColor =
-      Theme.of(context).listTileTheme.tileColor!;
+  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
 
   @override
   Widget build(BuildContext context) {
@@ -272,13 +271,9 @@ class _TagInformationState extends State<TagInformation> {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: widget.underline
-                        ? BorderSide(
-                            color: Theme.of(context)
-                                .listTileTheme
-                                .selectedTileColor!,
-                            width: 1.5.w,
-                            style: BorderStyle.solid,
-                          )
+                        ? (Theme.of(context).listTileTheme.shape
+                                as RoundedRectangleBorder)
+                            .side
                         : BorderSide.none,
                   ),
                 ),

@@ -356,6 +356,12 @@ abstract class AppLocalizations {
   /// **'SpecialChat'**
   String get app_name;
 
+  /// No description provided for @tabbar_label_arts.
+  ///
+  /// In en, this message translates to:
+  /// **'Arts'**
+  String get tabbar_label_arts;
+
   /// No description provided for @tabbar_label_chat.
   ///
   /// In en, this message translates to:
@@ -367,6 +373,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Contacts'**
   String get tabbar_label_contacts;
+
+  /// No description provided for @tabbar_label_publisher.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish'**
+  String get tabbar_label_publisher;
 
   /// No description provided for @tabbar_label_discover.
   ///
@@ -3007,6 +3019,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If you encounter issues like a hacked account or inability to log in, you can go to the Security Center.'**
   String get securityGuidanceFull;
+
+  /// No description provided for @shortVideos.
+  ///
+  /// In en, this message translates to:
+  /// **'Short Videos'**
+  String get shortVideos;
 }
 
 class _AppLocalizationsDelegate

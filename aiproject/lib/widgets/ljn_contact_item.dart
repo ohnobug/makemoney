@@ -32,7 +32,6 @@ class ContactItemData {
   });
 }
 
-
 class ContactInformation extends StatefulWidget {
   final String icon;
   final String title;
@@ -107,13 +106,9 @@ class _ContactInformationState extends State<ContactInformation> {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: widget.underline
-                        ? BorderSide(
-                            color: Theme.of(context)
-                                .listTileTheme
-                                .selectedTileColor!,
-                            width: 1.5.w,
-                            style: BorderStyle.solid,
-                          )
+                        ? (Theme.of(context).listTileTheme.shape
+                                as RoundedRectangleBorder)
+                            .side
                         : BorderSide.none,
                   ),
                 ),

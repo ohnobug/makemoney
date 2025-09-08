@@ -2,16 +2,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/screens/publisher/ljn_publisher.dart';
+import 'package:vigaviga/screens/shortvideos/ljn_arts.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/widgets/ljn_appbar_inner.dart';
 import 'package:vigaviga/widgets/ljn_custom_physics.dart';
 import 'package:vigaviga/screens/contract/ljn_contact.dart';
 import 'package:vigaviga/screens/discovery/ljn_discovery.dart';
-import 'package:vigaviga/screens/home/ljn_home.dart';
+import 'package:vigaviga/screens/recent_chats/ljn_recent_chats_list.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/screens/user/ljn_user.dart';
+import 'package:vigaviga/widgets/ljn_popup_menu.dart';
 
 // 关键改动 1: _TabInfo 不再需要 title 属性。它只存储不依赖 context 的静态信息。
 class _TabInfo {
@@ -40,14 +43,17 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
   // 关键改动 2: _tabs 列表现在是 final，并且只包含静态的图标信息。
   final List<_TabInfo> _tabs = [
-    _TabInfo(icon: 0xe7b3, selectedIcon: 0xe676, iconSize: 90.0.w),
-    _TabInfo(icon: 0xe608, selectedIcon: 0xe609, iconSize: 96.0.w),
-    _TabInfo(icon: 0xe61c, selectedIcon: 0xe638, iconSize: 86.0.w),
-    _TabInfo(icon: 0xe63f, selectedIcon: 0xe62b, iconSize: 96.0.w),
+    _TabInfo(icon: 0xe7b3, selectedIcon: 0xe676, iconSize: 90.0.w), // 短视频
+    _TabInfo(icon: 0xe61c, selectedIcon: 0xe638, iconSize: 86.0.w), // 发现
+    _TabInfo(icon: 0xe625, selectedIcon: 0xe609, iconSize: 96.0.w), // 发布
+    _TabInfo(icon: 0xe7b3, selectedIcon: 0xe676, iconSize: 90.0.w), // 聊天
+    _TabInfo(icon: 0xe63f, selectedIcon: 0xe62b, iconSize: 96.0.w), // 我的
   ];
 
-  int _currentIndex = 0;
+  int _tabbarIndex = 0;
+  int _appbarNameIndex = 0;
   double _appbarLeft = 0;
+  bool _hiddenAppbar = true;
   bool _setStatusHeight = false;
   bool _showPopup = false;
 
@@ -60,39 +66,55 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
       vsync: this,
       animationDuration: Duration.zero,
     );
-    _tabController.addListener(_handleTabSelection);
+
+    _tabController.addListener(() {
+      setState(() {
+        _tabbarIndex = _tabController.index;
+        _appbarNameIndex = _tabbarIndex;
+      });
+    });
+
+    _tabController.animation?.addListener(_handleAnimation);
   }
 
-  // 关键改动 4: didChangeDependencies 不再需要了，可以安全删除。
+  void _handleAnimation() {
+    logger.info("bbbbbbbbbbbbbbbbb：${_tabController.animation!.value}");
 
-  void _handleTabSelection() {
-    if (_tabController.index != _currentIndex) {
+    if (_tabController.animation!.value < 1) {
+      // 首页的tabbar隐藏
       setState(() {
-        _currentIndex = _tabController.index;
+        _appbarLeft = (1 - _tabController.animation!.value) * 750.w;
+        _hiddenAppbar = false;
+        _appbarNameIndex = 1;
       });
-    }
-
-    if (_tabController.animation!.value >= 2 &&
-        _tabController.animation!.value <= 3) {
+    } else if (_tabController.animation!.value > 3 &&
+        _tabController.animation!.value < 4) {
+      // 第四个切换到第五个的情况：个人中心的tabbar隐藏
       setState(() {
-        _appbarLeft = 750.w * (2 - _tabController.animation!.value);
+        _appbarLeft = (_tabController.animation!.value.floor() -
+                _tabController.animation!.value) *
+            750.w;
+        _hiddenAppbar = false;
+        _appbarNameIndex = 3;
       });
-    } else if (_appbarLeft != 0) {
+    } else if (_tabController.animation!.value == 0 ||
+        _tabController.animation!.value == 4) {
+      // 第一个 和 第五个 tabbar 隐藏 appbar
+      setState(() {
+        _hiddenAppbar = true;
+      });
+    } else {
+      // 正常情况
       setState(() {
         _appbarLeft = 0;
+        _hiddenAppbar = false;
       });
-    }
-
-    if ((_tabController.animation!.value - 1).abs() < 0.2) {
-      context.read<LJNSystemCubit>().updateContactazshow(true);
-    } else {
-      context.read<LJNSystemCubit>().updateContactazshow(false);
     }
   }
 
   @override
   void dispose() {
-    _tabController.removeListener(_handleTabSelection);
+    _tabController.animation?.removeListener(_handleAnimation);
     _tabController.dispose();
     super.dispose();
   }
@@ -101,9 +123,10 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   List<String> _getTabTitles(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return [
-      l10n.tabbar_label_chat,
-      l10n.tabbar_label_contacts,
+      l10n.tabbar_label_arts,
       l10n.tabbar_label_discover,
+      l10n.tabbar_label_publisher,
+      l10n.tabbar_label_chat,
       l10n.tabbar_label_me,
     ];
   }
@@ -123,7 +146,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
         }
 
         // 使用从 build 方法中动态获取的标题
-        final appBarTitle = tabTitles[_currentIndex];
+        final appBarTitle = tabTitles[_appbarNameIndex];
         final percent75Position = MediaQuery.of(context).size.height * 0.25;
 
         return Stack(
@@ -157,7 +180,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                       _tabs.length,
                       (index) {
                         final tabInfo = _tabs[index];
-                        final isSelected = index == _currentIndex;
                         return Tab(
                           height: 105.w,
                           iconMargin: EdgeInsets.only(bottom: 8.w),
@@ -167,7 +189,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                             child: Center(
                               child: Icon(
                                 IconData(
-                                  isSelected
+                                  index == _tabbarIndex
                                       ? tabInfo.selectedIcon
                                       : tabInfo.icon,
                                   fontFamily: 'Iconfont',
@@ -194,17 +216,21 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                       ),
                 controller: _tabController,
                 children: const <Widget>[
-                  LJNHome(),
-                  LJNContact(),
+                  LJNArts(),
                   LJNDiscovery(),
+                  LJNPublisher(),
+                  LJNRecentChatsList(),
                   LJNUser(),
                 ],
               ),
             ),
+
+            // 顶部Appbar
+            // 关于visible说明：如果在聊天界面下拉则隐藏顶部Appbar、如果在Tab1和Tab5（个人中心）则隐藏
             Visibility(
-              visible:
-                  (systemState.homescrollpixels + systemState.statusHeight) <=
-                      percent75Position,
+              visible: !_hiddenAppbar &&
+                  ((systemState.homescrollpixels + systemState.statusHeight) <=
+                      percent75Position),
               child: Positioned(
                 top: systemState.homescrollpixels,
                 left: _appbarLeft,
@@ -225,25 +251,35 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                           context: context,
                           title: appBarTitle,
                           actions: [
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                color: AppColors.transparent,
-                                height: 90.w,
-                                padding: EdgeInsets.only(right: 33.w),
-                                child: Icon(
-                                  color: Theme.of(context)
-                                      .appBarTheme
-                                      .titleTextStyle!
-                                      .color,
-                                  const IconData(
-                                    0xe612,
-                                    fontFamily: 'Iconfont',
+                            // 联系列表按钮
+                            if (_tabbarIndex == 3)
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/contact',
+                                  );
+                                },
+                                child: Container(
+                                  color: AppColors.transparent,
+                                  height: 90.w,
+                                  padding: EdgeInsets.only(right: 33.w),
+                                  alignment: Alignment.center,
+                                  child: Icon(
+                                    color: Theme.of(context)
+                                        .appBarTheme
+                                        .titleTextStyle!
+                                        .color,
+                                    const IconData(
+                                      0xe608,
+                                      fontFamily: 'Iconfont',
+                                    ),
+                                    size: 42.w,
                                   ),
-                                  size: 40.w,
                                 ),
                               ),
-                            ),
+
+                            // 添加联系人按钮
                             GestureDetector(
                               onTap: () {
                                 if (systemState.homescrollpixels == 0) {
@@ -253,7 +289,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                               child: Container(
                                 color: AppColors.transparent,
                                 height: 90.w,
-                                padding: EdgeInsets.only(right: 40.w),
+                                padding: EdgeInsets.only(right: 33.w),
                                 alignment: Alignment.center,
                                 child: Icon(
                                   color: Theme.of(context)
@@ -268,8 +304,35 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                                 ),
                               ),
                             ),
+
+                            // 占位
+                            SizedBox(
+                              width: 7.w,
+                            )
                           ],
-                          leading: null,
+                          leading: _tabbarIndex == 3
+                              ?
+                              // 搜索按钮
+                              GestureDetector(
+                                  onTap: () {},
+                                  child: Container(
+                                    color: AppColors.transparent,
+                                    height: 90.w,
+                                    padding: EdgeInsets.only(left: 33.w),
+                                    child: Icon(
+                                      color: Theme.of(context)
+                                          .appBarTheme
+                                          .titleTextStyle!
+                                          .color,
+                                      const IconData(
+                                        0xe612,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      size: 40.w,
+                                    ),
+                                  ),
+                                )
+                              : SizedBox(),
                         )
                       ],
                     ),
@@ -277,6 +340,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 ),
               ),
             ),
+
+            // 弹框
             if (_showPopup) ...[
               GestureDetector(
                 onTapDown: (_) => setState(() => _showPopup = false),
@@ -291,78 +356,11 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 top: systemState.statusHeight + 80.w,
                 child: SizedBox(
                   width: 320.w,
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 320.w,
-                        padding: EdgeInsets.only(right: 32.w),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            SizedBox(
-                              width: 36.w,
-                              height: 20.w,
-                              child: const Icon(
-                                IconData(0xe62c, fontFamily: 'Iconfont'),
-                                color: AppColors.neutralDarkGrey12,
-                                size: 42.0,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0).w,
-                          color: AppColors.neutralDarkGrey12,
-                        ),
-                        width: 320.w,
-                        height: 425.w,
-                        child: Column(
-                          children: [
-                            // 发起群聊
-                            LJNPopupMenuItem(
-                              title:
-                                  AppLocalizations.of(context)!.startGroupChat,
-                              icon: 0xe676,
-                              onTap: () => setState(
-                                () => _showPopup = false,
-                              ),
-                            ),
-                            // 添加好友
-                            LJNPopupMenuItem(
-                              title: AppLocalizations.of(context)!.addFriend,
-                              icon: 0xe61f,
-                              onTap: () {
-                                setState(() => _showPopup = false);
-                                Navigator.pushNamed(context, '/add_friends');
-                              },
-                            ),
-                            // 扫一扫
-                            LJNPopupMenuItem(
-                              title: AppLocalizations.of(context)!.scan,
-                              icon: 0xe69a,
-                              onTap: () {
-                                setState(() => _showPopup = false);
-                                Navigator.pushNamed(context, '/qrcode_scanner');
-                              },
-                            ),
-                            // 收付款
-                            LJNPopupMenuItem(
-                              title: AppLocalizations.of(context)!.payment,
-                              icon: 0xe611,
-                              onTap: () {
-                                setState(() => _showPopup = false);
-                                Navigator.pushNamed(
-                                  context,
-                                  '/collection_and_payment',
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+                  child: LJNPopupMenu(
+                    showPopup: _showPopup,
+                    setShowPopup: (bool value) {
+                      _showPopup = !_showPopup;
+                    },
                   ),
                 ),
               )
@@ -370,83 +368,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
           ],
         );
       },
-    );
-  }
-}
-
-class LJNPopupMenuItem extends StatefulWidget {
-  final String title;
-  final int icon;
-  final Function()? onTap;
-
-  const LJNPopupMenuItem({
-    super.key,
-    required this.title,
-    required this.icon,
-    this.onTap,
-  });
-
-  @override
-  State<LJNPopupMenuItem> createState() => _LJNPopupMenuItemState();
-}
-
-class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
-  Color _bgColor = AppColors.neutralDarkGrey12;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (_) => setState(() => _bgColor = AppColors.neutralDarkGrey15),
-      onTapCancel: () => setState(() => _bgColor = AppColors.neutralDarkGrey12),
-      onTapUp: (_) {
-        setState(() => _bgColor = AppColors.neutralDarkGrey12);
-        Future.delayed(const Duration(milliseconds: 50), () {
-          widget.onTap?.call();
-        });
-      },
-      child: Container(
-        height: 105.w,
-        color: _bgColor,
-        child: Row(
-          children: [
-            SizedBox(
-              height: 105.w,
-              width: 105.w,
-              child: Center(
-                child: Icon(
-                  IconData(widget.icon, fontFamily: 'Iconfont'),
-                  color: AppColors.neutralWhite,
-                  size: 41.w,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                height: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: AppColors.neutralDarkGrey6,
-                      width: 1.5.w,
-                    ),
-                  ),
-                ),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  widget.title,
-                  style: TextStyle(
-                    height: 1.08,
-                    fontSize: fontSizeScale(33.w),
-                    fontWeight: FontWeight.normal,
-                    decoration: TextDecoration.none,
-                    color: AppColors.neutralWhite,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

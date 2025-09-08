@@ -1,0 +1,448 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:video_player/video_player.dart';
+import 'package:vigaviga/widgets/ljn_text_spans.dart';
+
+class LJNArts extends StatefulWidget {
+  const LJNArts({super.key});
+
+  @override
+  State<LJNArts> createState() => _LJNArts();
+}
+
+class _LJNArts extends State<LJNArts> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: AppColors.transparent, // 使用白色背景确保图标变为黑色
+        statusBarIconBrightness: Brightness.light, // 确保图标颜色为黑色
+      ),
+    );
+
+    _pageController.addListener(() {
+      setState(() {
+        _currentPage = _pageController.page!.round();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose(); // 清理控制器
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LJNSystemCubit, SystemState>(
+      builder: (context, systemState) {
+        return Scaffold(
+          primary: false,
+          appBar: null,
+          body: Stack(
+            children: [
+              Column(
+                children: [
+                  SizedBox(
+                    width: 750.w,
+                    height: MediaQuery.of(context).size.height - 106.w,
+                    child: PageView.builder(
+                      controller: _pageController,
+                      scrollDirection: Axis.vertical,
+                      itemCount: 100,
+                      itemBuilder: (context, index) {
+                        bool isCurrentPage = index == _currentPage;
+
+                        return Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          color: Theme.of(context).colorScheme.onSurface,
+                          child: Stack(
+                            children: [
+                              // 视频播放
+                              CustomVideoPlayer(canPlay: isCurrentPage),
+
+                              // 搜索按钮
+                              Positioned(
+                                top: 90.w,
+                                right: 28.w,
+                                child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        '/search',
+                                      );
+                                    },
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      height: 58.w,
+                                      child: Icon(
+                                        color: AppColors.neutralWhite,
+                                        const IconData(
+                                          0xe612,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        size: 42.w, // 图标大小
+                                      ),
+                                    )),
+                              ),
+
+                              // 简介
+                              Positioned(
+                                left: 0,
+                                bottom: 0,
+                                child: Container(
+                                  width: 575.w,
+                                  padding: EdgeInsets.all(25.w),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      LJNTextSpans(
+                                        text: "@深圳黑马眼科💖",
+                                        style: TextStyle(
+                                          height: 1.08,
+                                          fontSize: fontSizeScale(33.w),
+                                          color: AppColors.neutralWhite,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "AlibabaPuHuiTi",
+                                        ),
+                                        emojiStyle: TextStyle(
+                                          height: 1.08,
+                                          fontSize: fontSizeScale(33.w),
+                                          fontFamily: "NotoColorEmoji-Regular",
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20.w,
+                                      ),
+                                      LJNTextSpans(
+                                        text:
+                                            "深圳黑马眼科, 一家只做近视手术的专科医院,抖音推出1元近视手术",
+                                        style: TextStyle(
+                                          height: 1.35,
+                                          fontSize: fontSizeScale(28.w),
+                                          color: AppColors.neutralWhite,
+                                          fontFamily: "AlibabaPuHuiTi",
+                                        ),
+                                        emojiStyle: TextStyle(
+                                          height: 1.35,
+                                          fontSize: fontSizeScale(28.w),
+                                          fontFamily: "NotoColorEmoji-Regular",
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                              // 点赞等
+                              Positioned(
+                                bottom: 0,
+                                right: 10.w,
+                                child: SizedBox(
+                                  width: 100.w,
+                                  height: 778.w,
+                                  child: Column(
+                                    children: [
+                                      // 头像
+                                      Container(
+                                        width: 100.0.w,
+                                        height: 100.0.w,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.rectangle,
+                                          borderRadius:
+                                              BorderRadius.circular(100.w),
+                                          image: DecorationImage(
+                                            image: ResizeImage(
+                                              AssetImage(
+                                                assetPath(
+                                                    'images/avatar_webp/chat_10.webp'),
+                                              ),
+                                              width: 180.w.toInt(),
+                                              height: 180.w.toInt(),
+                                            ),
+                                            fit: BoxFit.cover,
+                                          ),
+                                          border: Border.all(
+                                              color: AppColors.neutralWhite,
+                                              width: 4.w),
+                                        ),
+                                      ),
+
+                                      // 添加
+                                      Transform.translate(
+                                        offset: Offset(0, -20.w),
+                                        child: Container(
+                                          width: 40.w,
+                                          height: 40.w,
+                                          decoration: BoxDecoration(
+                                            color: AppColors.accentRedVibrant1,
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(40.w),
+                                            ),
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              const IconData(
+                                                0xe616,
+                                                fontFamily: 'Iconfont',
+                                              ), // 使用的图标
+                                              color: AppColors
+                                                  .neutralWhite, // 图标颜色
+                                              size: 28.w, // 图标大小
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+
+                                      // 点赞
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            const IconData(
+                                              0xe61e,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color:
+                                                AppColors.neutralWhite, // 图标颜色
+                                            size: 63.w, // 图标大小
+                                          ),
+                                          SizedBox(
+                                            height: 10.w,
+                                          ),
+                                          Text(
+                                            "1024",
+                                            style: TextStyle(
+                                                fontSize: 22.w,
+                                                color: AppColors.neutralWhite),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 43.w,
+                                      ),
+
+                                      // 评论
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            const IconData(
+                                              0xe665,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color:
+                                                AppColors.neutralWhite, // 图标颜色
+                                            size: 63.w, // 图标大小
+                                          ),
+                                          SizedBox(
+                                            height: 10.w,
+                                          ),
+                                          Text(
+                                            "1024",
+                                            style: TextStyle(
+                                                fontSize: 22.w,
+                                                color: AppColors.neutralWhite),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 43.w,
+                                      ),
+
+                                      // 收藏
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            const IconData(
+                                              0xe602,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color:
+                                                AppColors.neutralWhite, // 图标颜色
+                                            size: 63.w, // 图标大小
+                                          ),
+                                          SizedBox(
+                                            height: 10.w,
+                                          ),
+                                          Text(
+                                            "1024",
+                                            style: TextStyle(
+                                              fontSize: 22.w,
+                                              color: AppColors.neutralWhite,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 43.w,
+                                      ),
+
+                                      // 转发
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            const IconData(
+                                              0xe6c7,
+                                              fontFamily: 'Iconfont',
+                                            ), // 使用的图标
+                                            color:
+                                                AppColors.neutralWhite, // 图标颜色
+                                            size: 63.w, // 图标大小
+                                          ),
+                                          SizedBox(
+                                            height: 10.w,
+                                          ),
+                                          Text(
+                                            "1024",
+                                            style: TextStyle(
+                                              fontSize: 22.w,
+                                              color: AppColors.neutralWhite,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class CustomVideoPlayer extends StatefulWidget {
+  final bool? canPlay;
+
+  const CustomVideoPlayer({super.key, this.canPlay});
+
+  @override
+  State<CustomVideoPlayer> createState() => _CustomVideoPlayerState();
+}
+
+class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
+  late VideoPlayerController? _videoController;
+
+  @override
+  void didUpdateWidget(CustomVideoPlayer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.canPlay != widget.canPlay) {
+      // if (_videoController == null) {
+      //   initVideoState();
+      // }
+
+      if (_videoController!.value.isInitialized) {
+        if (widget.canPlay == true) {
+          setState(() {
+            _videoController!.play();
+          });
+        } else {
+          // setState(() {
+          _videoController!.pause();
+          //   _videoController!.dispose();
+          //   _videoController = null;
+          // });
+        }
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initVideoState();
+  }
+
+  void initVideoState() {
+    // 创建视频控制器并初始化
+    _videoController = VideoPlayerController.asset(
+      assetPath('images/ins/video2.mp4'),
+      videoPlayerOptions: VideoPlayerOptions(
+        mixWithOthers: true,
+        allowBackgroundPlayback: false,
+      ),
+    );
+
+    // 初始化视频控制器
+    _videoController!.initialize().then((_) {
+      setState(() {
+        _videoController!.setLooping(true); // 循环播放
+        _videoController!.setVolume(1.0); // 设置音量
+
+        if (widget.canPlay == true) {
+          _videoController!.play();
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    logger.info("我销毁啦！！！");
+    _videoController!.dispose(); // 销毁视频控制器
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LJNSystemCubit, SystemState>(
+      builder: (context, systemState) {
+        return SizedBox(
+          width: 750.w,
+          height: MediaQuery.of(context).size.height - 106.w,
+          child:
+              _videoController != null && _videoController!.value.isInitialized
+                  ? FittedBox(
+                      fit: BoxFit.cover, // 居中裁剪
+                      child: SizedBox(
+                        width: _videoController!.value.size.width,
+                        height: _videoController!.value.size.height,
+                        child: AspectRatio(
+                          aspectRatio: _videoController!.value.aspectRatio,
+                          child: VideoPlayer(_videoController!),
+                        ),
+                      ),
+                    )
+                  : Container(
+                      width: 750.w,
+                      height: MediaQuery.of(context).size.height - 106.w,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+        );
+      },
+    );
+  }
+}

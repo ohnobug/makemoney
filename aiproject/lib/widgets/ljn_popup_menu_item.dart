@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/themes.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 
 class LJNPopupMenuItem extends StatefulWidget {
   final String title;
@@ -20,17 +18,16 @@ class LJNPopupMenuItem extends StatefulWidget {
 }
 
 class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
-  late Color _bgColor = Theme.of(context).listTileTheme.tileColor!;
+  late Color _bgColor = Colors.transparent;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (_) => setState(
           () => _bgColor = Theme.of(context).listTileTheme.selectedTileColor!),
-      onTapCancel: () =>
-          setState(() => _bgColor = Theme.of(context).listTileTheme.tileColor!),
+      onTapCancel: () => setState(() => _bgColor = Colors.transparent),
       onTapUp: (_) {
-        setState(() => _bgColor = Theme.of(context).listTileTheme.tileColor!);
+        setState(() => _bgColor = Colors.transparent);
         Future.delayed(const Duration(milliseconds: 50), () {
           widget.onTap?.call();
         });
@@ -40,38 +37,33 @@ class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
         color: _bgColor,
         child: Row(
           children: [
+            // icon
             SizedBox(
               height: 105.w,
-              width: 105.w,
+              width: 80.w,
               child: Center(
                 child: Icon(
                   IconData(widget.icon, fontFamily: 'Iconfont'),
-                  color: AppColors.neutralWhite,
-                  size: 41.w,
+                  color: Theme.of(context).popupMenuTheme.iconColor,
+                  size: Theme.of(context).popupMenuTheme.iconSize,
                 ),
               ),
             ),
+            // 文字
             Expanded(
               child: Container(
                 height: double.infinity,
                 decoration: BoxDecoration(
                   border: Border(
-                    bottom: BorderSide(
-                      color: AppColors.neutralDarkGrey6,
-                      width: 1.5.w,
-                    ),
+                    bottom: (Theme.of(context).listTileTheme.shape
+                            as RoundedRectangleBorder)
+                        .side,
                   ),
                 ),
                 alignment: Alignment.centerLeft,
                 child: Text(
                   widget.title,
-                  style: TextStyle(
-                    height: 1.08,
-                    fontSize: fontSizeScale(33.w),
-                    fontWeight: FontWeight.normal,
-                    decoration: TextDecoration.none,
-                    color: AppColors.neutralWhite,
-                  ),
+                  style: Theme.of(context).popupMenuTheme.textStyle,
                 ),
               ),
             ),

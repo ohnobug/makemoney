@@ -520,13 +520,11 @@ class _ContactListItem extends State<ContactListItem> {
               decoration: BoxDecoration(
                 // color: AppColors.accentRedPure,
                 border: Border(
-                  bottom: BorderSide(
-                    color: widget.underline
-                        ? Theme.of(context).listTileTheme.selectedTileColor!
-                        : AppColors.transparent,
-                    width: 1.5.w,
-                    style: BorderStyle.solid,
-                  ),
+                  bottom: widget.underline
+                      ? (Theme.of(context).listTileTheme.shape
+                              as RoundedRectangleBorder)
+                          .side
+                      : BorderSide.none,
                 ),
               ),
               child: Row(

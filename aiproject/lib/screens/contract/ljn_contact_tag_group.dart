@@ -224,8 +224,8 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
+              Theme.of(context).colorScheme.surfaceContainer,
               Theme.of(context).colorScheme.surface,
-              AppColors.neutralWhite,
             ],
             stops: [0.3, 0.5],
             begin: Alignment.topCenter,
@@ -256,20 +256,21 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
                         height: 105.0.w,
                         color: AppColors.neutralWhite,
                         child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                l10n.friendCount(contactDataList
-                                    .whereType<_ContactListItemData>()
-                                    .length), // 动态计算好友数量
-                                style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(30.w),
-                                  color: AppColors.neutralGrey67,
-                                ),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              l10n.friendCount(contactDataList
+                                  .whereType<_ContactListItemData>()
+                                  .length), // 动态计算好友数量
+                              style: TextStyle(
+                                height: 1.08,
+                                fontSize: fontSizeScale(30.w),
+                                color: AppColors.neutralGrey67,
                               ),
-                            ]),
+                            ),
+                          ],
+                        ),
                       );
                     }
                   },

@@ -76,8 +76,10 @@
   "meituanGroupBuy": "Meituan Group Buy",
   "qCoinTopUp": "Q Coin Top-up",
   "app_name": "SpecialChat",
+  "tabbar_label_arts": "Arts",
   "tabbar_label_chat": "Chats",
   "tabbar_label_contacts": "Contacts",
+  "tabbar_label_publisher": "Publish",
   "tabbar_label_discover": "Discover",
   "tabbar_label_me": "Me",
   "me": "Me",
@@ -706,5 +708,6 @@
     }
   },
   "scanHintFull": "Identify QR codes / flowers / animals / products, etc.",
-  "securityGuidanceFull": "If you encounter issues like a hacked account or inability to log in, you can go to the Security Center."
+  "securityGuidanceFull": "If you encounter issues like a hacked account or inability to log in, you can go to the Security Center.",
+  "shortVideos": "Short Videos"
 }

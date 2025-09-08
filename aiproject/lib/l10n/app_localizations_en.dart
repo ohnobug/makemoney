@@ -158,10 +158,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get app_name => 'SpecialChat';
 
   @override
+  String get tabbar_label_arts => 'Arts';
+
+  @override
   String get tabbar_label_chat => 'Chats';
 
   @override
   String get tabbar_label_contacts => 'Contacts';
+
+  @override
+  String get tabbar_label_publisher => 'Publish';
 
   @override
   String get tabbar_label_discover => 'Discover';
@@ -1613,4 +1619,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get securityGuidanceFull =>
       'If you encounter issues like a hacked account or inability to log in, you can go to the Security Center.';
+
+  @override
+  String get shortVideos => 'Short Videos';
 }

@@ -9,16 +9,16 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
-class LJNHomeMiniProgram extends StatefulWidget {
+class LJNChatMiniProgram extends StatefulWidget {
   final Function reverse;
 
-  const LJNHomeMiniProgram({super.key, required this.reverse});
+  const LJNChatMiniProgram({super.key, required this.reverse});
 
   @override
-  State<LJNHomeMiniProgram> createState() => _LJNHomeMiniProgram();
+  State<LJNChatMiniProgram> createState() => _LJNChatMiniProgram();
 }
 
-class _LJNHomeMiniProgram extends State<LJNHomeMiniProgram> {
+class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
   final ScrollController _scrollController = ScrollController();
   // Size _screenSize = const Size(0, 0);
   bool figerRelease = false;

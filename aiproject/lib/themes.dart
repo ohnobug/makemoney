@@ -353,13 +353,31 @@ ThemeData lightTheme = ThemeData(
   // ListTile 主题
   listTileTheme: ListTileThemeData(
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
+      // borderRadius: BorderRadius.circular(12.0),
+      side: BorderSide(
+        color: AppColors.brandGreenLightest,
+        width: 1.5.w,
+        style: BorderStyle.solid,
+      ),
     ),
     tileColor: AppColors.neutralWhite,
     selectedTileColor: AppColors.brandGreenLightest,
     iconColor: AppColors.neutralDarkGrey1,
     textColor: AppColors.neutralNearBlack1,
     subtitleTextStyle: const TextStyle(color: AppColors.neutralGrey62),
+  ),
+
+  // 弹窗风格
+  popupMenuTheme: PopupMenuThemeData(
+    iconColor: AppColors.neutralDarkGrey1,
+    iconSize: 41.w,
+    textStyle: TextStyle(
+      height: 1.08,
+      fontSize: fontSizeScale(30.w),
+      fontWeight: FontWeight.normal,
+      decoration: TextDecoration.none,
+      color: AppColors.neutralNearBlack1,
+    ),
   ),
 );
 
@@ -468,12 +486,30 @@ ThemeData darkTheme = ThemeData(
   // ListTile 主题
   listTileTheme: ListTileThemeData(
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
+      // borderRadius: BorderRadius.circular(12.0),
+      side: BorderSide(
+        color: AppColors.brandGreenDarker3,
+        width: 1.5.w,
+        style: BorderStyle.solid,
+      ),
     ),
     tileColor: AppColors.brandGreenDarker2,
     selectedTileColor: AppColors.brandGreenDarker3,
     iconColor: AppColors.neutralGrey5,
     textColor: AppColors.neutralGrey5,
     subtitleTextStyle: const TextStyle(color: AppColors.neutralGrey68),
+  ),
+
+  // 弹窗风格
+  popupMenuTheme: PopupMenuThemeData(
+    iconColor: AppColors.neutralGrey5,
+    iconSize: 41.w,
+    textStyle: TextStyle(
+      height: 1.08,
+      fontSize: fontSizeScale(30.w),
+      fontWeight: FontWeight.normal,
+      decoration: TextDecoration.none,
+      color: AppColors.neutralGrey5,
+    ),
   ),
 );

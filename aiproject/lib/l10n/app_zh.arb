@@ -76,8 +76,10 @@
   "meituanGroupBuy": "美团团购",
   "qCoinTopUp": "Q币充值",
   "app_name": "特聊",
+  "tabbar_label_arts": "艺术",
   "tabbar_label_chat": "消息",
   "tabbar_label_contacts": "通信录",
+  "tabbar_label_publisher": "发布",
   "tabbar_label_discover": "发现",
   "tabbar_label_me": "我的",
   "me": "我",
@@ -706,5 +708,6 @@
     }
   },
   "scanHintFull": "识别二维码 / 花草 / 动物 / 商品等",
-  "securityGuidanceFull": "如果你遇到账号被盗，无法登录等问题，可以前往安全中心"
+  "securityGuidanceFull": "如果你遇到账号被盗，无法登录等问题，可以前往安全中心",
+  "shortVideos": "短视频"
 }

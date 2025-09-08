@@ -64,27 +64,16 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
       child: Container(
         height: 150.0.w,
         padding: const EdgeInsets.only(left: 40.0, right: 40.0).w,
-        decoration: widget.underline
-            ? BoxDecoration(
-                color: containerColor,
-                border: Border(
-                  bottom: BorderSide(
-                    color: Theme.of(context).listTileTheme.selectedTileColor!,
-                    width: 1.5.w,
-                    style: BorderStyle.solid,
-                  ),
-                ),
-              )
-            : BoxDecoration(
-                color: containerColor,
-                border: Border(
-                  bottom: BorderSide(
-                    color: AppColors.transparent,
-                    width: 1.5.w,
-                    style: BorderStyle.solid,
-                  ),
-                ),
-              ),
+        decoration: BoxDecoration(
+          color: containerColor,
+          border: Border(
+            bottom: widget.underline
+                ? (Theme.of(context).listTileTheme.shape
+                        as RoundedRectangleBorder)
+                    .side
+                : BorderSide.none,
+          ),
+        ),
         child: Row(
           children: [
             // 头像

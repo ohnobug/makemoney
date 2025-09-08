@@ -236,8 +236,14 @@ class _LJNSearch extends State<LJNSearch> {
                   onTap: () => Navigator.of(context).pop(),
                   child: Container(
                     color: AppColors.transparent,
-                    child: Icon(const IconData(0xed9e, fontFamily: 'Iconfont'),
-                        color: AppColors.neutralDarkGrey1, size: 36.w),
+                    child: Icon(
+                      const IconData(
+                        0xe628,
+                        fontFamily: 'Iconfont',
+                      ),
+                      color: AppColors.neutralDarkGrey1,
+                      size: 36.w,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -251,22 +257,30 @@ class _LJNSearch extends State<LJNSearch> {
                       cursorWidth: 3.w,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
-                            const IconData(0xe612, fontFamily: 'Iconfont'),
-                            color: Theme.of(context).colorScheme.onSurface,
-                            size: 40.w),
+                          const IconData(
+                            0xe612,
+                            fontFamily: 'Iconfont',
+                          ),
+                          color: Theme.of(context).colorScheme.onSurface,
+                          size: 40.w,
+                        ),
                         prefixIconConstraints: BoxConstraints(minWidth: 70.w),
                         hintText: l10n.search,
                         hintStyle: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 30.w,
-                            color: AppColors.neutralDarkGrey14),
+                          fontWeight: FontWeight.normal,
+                          fontSize: 30.w,
+                          color: AppColors.neutralDarkGrey14,
+                        ),
                         filled: true,
                         fillColor: AppColors.neutralGrey14,
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide.none),
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide.none,
+                        ),
                         contentPadding: EdgeInsets.symmetric(
-                            vertical: 8.0.w, horizontal: 20.0.w),
+                          vertical: 8.0.w,
+                          horizontal: 20.0.w,
+                        ),
                       ),
                     ),
                   ),

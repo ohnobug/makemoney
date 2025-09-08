@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vigaviga/screens/chat/ljn_chat.dart';
+import 'package:vigaviga/screens/contract/ljn_contact.dart';
 import 'package:vigaviga/screens/contract/ljn_contact_group.dart';
 import 'package:vigaviga/screens/contract/ljn_contact_tag_group.dart';
 import 'package:vigaviga/screens/contract/ljn_contact_tags.dart';
@@ -12,7 +13,8 @@ import 'package:vigaviga/screens/discovery/ljn_miniprogram.dart';
 import 'package:vigaviga/screens/discovery/ljn_miniprogram_list.dart';
 import 'package:vigaviga/screens/discovery/ljn_qrcode_scanner.dart';
 import 'package:vigaviga/screens/discovery/ljn_search.dart';
-import 'package:vigaviga/screens/discovery/ljn_tiktik.dart';
+import 'package:vigaviga/screens/publisher/ljn_publisher.dart';
+import 'package:vigaviga/screens/shortvideos/ljn_arts.dart';
 import 'package:vigaviga/screens/friend/ljn_add_friends.dart';
 import 'package:vigaviga/screens/friend/ljn_friend_data_setting.dart';
 import 'package:vigaviga/screens/friend/ljn_friend_information.dart';
@@ -85,6 +87,8 @@ class AppRouter {
         return _pageRouteBuilderAnimation(const LJNMiniProgramList());
       case '/services':
         return _pageRouteBuilderAnimation(const LJNServices());
+      case '/tiktik':
+        return _pageRouteBuilderAnimation(const LJNArts());
       case '/chat':
         final args = settings.arguments as Map<String, String>;
         return _pageRouteBuilderAnimation(
@@ -115,10 +119,8 @@ class AppRouter {
         ));
       case '/ins':
         return _pageRouteBuilderAnimation(const LJNIns());
-      case '/tiktik':
-        return _pageRouteBuilderAnimation(const LJNTiktik());
       case '/search':
-        return _pageRouteBuilderAnimation(const LJNSearch());
+        return _pageRouteBuilderNotAnimation(const LJNSearch());
       case '/setting':
         return _pageRouteBuilderAnimation(const LJNSettingPage());
       case '/account_and_secure':
@@ -210,6 +212,10 @@ class AppRouter {
         return _pageRouteBuilderAnimation(const LJNFriendInformation());
       case '/set_friend_tags':
         return _pageRouteBuilderAnimation(const LJNSetFriendTags());
+      case '/publisher':
+        return _pageRouteBuilderAnimation(const LJNPublisher());
+      case '/contact':
+        return _pageRouteBuilderAnimation(const LJNContact());
       case '/contact_tags':
         return _pageRouteBuilderAnimation(const LJNContactTags());
       case '/contact_tag_group':

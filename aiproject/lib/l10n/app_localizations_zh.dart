@@ -153,10 +153,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get app_name => '特聊';
 
   @override
+  String get tabbar_label_arts => '艺术';
+
+  @override
   String get tabbar_label_chat => '消息';
 
   @override
   String get tabbar_label_contacts => '通信录';
+
+  @override
+  String get tabbar_label_publisher => '发布';
 
   @override
   String get tabbar_label_discover => '发现';
@@ -1576,4 +1582,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get securityGuidanceFull => '如果你遇到账号被盗，无法登录等问题，可以前往安全中心';
+
+  @override
+  String get shortVideos => '短视频';
 }
