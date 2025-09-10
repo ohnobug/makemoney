@@ -24,6 +24,9 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return BlocBuilder<LJNUserCubit, LJNUserState>(
@@ -41,7 +44,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
               primary: false,
               resizeToAvoidBottomInset: false,
               appBar: LJNAppBar(
-                title: AppLocalizations.of(context)!.verifyPhoneNumber,
+                title: l10n.verifyPhoneNumber,
                 actions: [
                   GestureDetector(
                     onTap: () {
@@ -53,10 +56,10 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                       padding: EdgeInsets.only(right: 40.w),
                       alignment: Alignment.center,
                       child: Text(
-                        AppLocalizations.of(context)!.nextStep,
+                        l10n.nextStep,
                         // textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: theme.colorScheme.onSurface,
                           fontSize: 32.w,
                         ),
                       ),
@@ -72,7 +75,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                       minHeight: MediaQuery.of(context).size.height -
                           90.w -
                           systemState.statusHeight),
-                  color: Theme.of(context).colorScheme.surfaceContainer,
+                  color: theme.colorScheme.surfaceContainer,
                   child: SingleChildScrollView(
                     primary: false,
                     physics: const AlwaysScrollableScrollPhysics(
@@ -123,18 +126,14 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                       "+86",
                                       style: TextStyle(
                                           fontSize: 24.w,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurface),
+                                          color: theme.colorScheme.onSurface),
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!
                                           .mainlandChina,
                                       style: TextStyle(
                                           fontSize: 15.w,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurface),
+                                          color: theme.colorScheme.onSurface),
                                     ),
                                   ],
                                 ),

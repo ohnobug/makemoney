@@ -24,13 +24,16 @@ class _LJNCareMode extends State<LJNCareMode> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Theme(
-          data: Theme.of(context).copyWith(
-            appBarTheme: Theme.of(context).appBarTheme.copyWith(
-                  backgroundColor: AppColors.transparent,
-                ),
+          data: theme.copyWith(
+            appBarTheme: theme.appBarTheme.copyWith(
+              backgroundColor: AppColors.transparent,
+            ),
           ),
           child: Scaffold(
             primary: false,
@@ -65,7 +68,7 @@ class _LJNCareMode extends State<LJNCareMode> {
                         ),
                       ),
                       Text(
-                        AppLocalizations.of(context)!.caringMode,
+                        l10n.caringMode,
                         style: TextStyle(
                             height: 1.08,
                             fontSize: 40.w,
@@ -79,7 +82,7 @@ class _LJNCareMode extends State<LJNCareMode> {
                         alignment: Alignment.topLeft,
                         margin: EdgeInsets.only(left: 70.w, right: 70.w),
                         child: Text(
-                          AppLocalizations.of(context)!.careModeIntro,
+                          l10n.careModeIntro,
                           style: TextStyle(
                               fontSize: 32.w,
                               fontFamily: "AlibabaPuHuiTi-Medium"),
@@ -134,7 +137,7 @@ class _LJNCareMode extends State<LJNCareMode> {
                         height: 400.h,
                       ),
                       LJNChangeAccountButton(
-                        title: AppLocalizations.of(context)!.enable,
+                        title: l10n.enable,
                         link: "back",
                         readonly: false,
                         color: AppColors.neutralWhite,

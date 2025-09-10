@@ -4,6 +4,12 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get_thumbnail_video/index.dart';
+import 'package:get_thumbnail_video/video_thumbnail.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 
 // 字体缩放
 double fontSizeScale(double size) {
@@ -16,11 +22,88 @@ String assetPath(String path) {
     return path;
   }
 
-  if (Platform.isAndroid) {
-    return 'assets/$path';
-  }
+  // if (Platform.isAndroid) {
+  //   return 'assets/$path';
+  // }
 
   return 'assets/$path';
+}
+
+// 是否有效的图片
+Future<bool> isValidImage(File file) async {
+  if (file.lengthSync() <= 4) {
+    return false;
+  }
+
+  logger.info("file length: ${file.lengthSync()}");
+
+  final bytes = await file.openRead(0, 4).first;
+  if (bytes[0] == 0x89 &&
+      bytes[1] == 0x50 &&
+      bytes[2] == 0x4E &&
+      bytes[3] == 0x47) {
+    logger.info("This is a valid PNG file.");
+    return true;
+  } else if (bytes[0] == 0xFF && bytes[1] == 0xD8 && bytes[2] == 0xFF) {
+    logger.info("This is a valid JPG file.");
+    return true;
+  } else {
+    logger.info("Unknown file format.");
+    return false;
+  }
+}
+
+// 获取视频首帧
+Future<String> getFirstFrame(String filepath) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  String filehash = await generateStringChunkHash(filepath);
+  String tempFile = filehash.substring(0, 16);
+
+  final List<Directory>? tempDir = await getExternalCacheDirectories();
+
+  // 提取首帧并保存为图片
+  final String outputImagePath = '${tempDir?[0].path}/$tempFile.png';
+
+  var imageFile = File(outputImagePath);
+  if (imageFile.existsSync() && await isValidImage(imageFile)) {
+    return outputImagePath;
+  } else {
+    if (imageFile.existsSync()) {
+      imageFile.deleteSync();
+    }
+
+    // 获取应用的文档目录
+    final directory = await getApplicationDocumentsDirectory();
+    String filename = path.basename(filepath);
+
+    // 拼接本地存储的文件路径
+    final videoPath = '${directory.path}/$filename';
+    // =========================================================================
+    // 从 assets 加载视频文件
+    ByteData byteData = await rootBundle.load(filepath);
+    // logger.info('ByteData length: ${byteData.lengthInBytes}');
+    if (byteData.lengthInBytes == 0) {
+      throw Exception('Failed to load video file.');
+    }
+    List<int> bytes = byteData.buffer
+        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
+    final file = File(videoPath);
+    await file.writeAsBytes(bytes);
+    // =========================================================================
+
+    final fileName = await VideoThumbnail.thumbnailFile(
+      video: videoPath,
+      thumbnailPath: outputImagePath,
+      imageFormat: ImageFormat.PNG,
+      quality: 100,
+    );
+
+    // setState(() {
+    //   picPath = fileName.path;
+    // });
+
+    return fileName.path;
+  }
 }
 
 // 正则表达式匹配所有 emoji

@@ -17,9 +17,11 @@ class LJNAlphabet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return Container(
       height: 60.w,
-      color: bgColor ?? Theme.of(context).colorScheme.surfaceContainer,
+      color: bgColor ?? theme.colorScheme.surfaceContainer,
       padding: EdgeInsets.only(left: 30.w),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -29,7 +31,7 @@ class LJNAlphabet extends StatelessWidget {
             style: TextStyle(
               height: 1.08,
               fontSize: fontSizeScale(25.w),
-              color: color ?? Theme.of(context).colorScheme.onSurface,
+              color: color ?? theme.colorScheme.onSurface,
             ),
           ),
         ],

@@ -50,6 +50,9 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       primary: false,
       appBar: null,
@@ -101,7 +104,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                     gradient: LinearGradient(
                       colors: [
                         AppColors.neutralWhite,
-                        Theme.of(context).colorScheme.surface
+                        theme.colorScheme.surface
                       ],
                       stops: [0.3, 0.5],
                       begin: Alignment.topCenter,
@@ -121,9 +124,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                             color: AppColors.neutralWhite,
                             border: Border(
                               bottom: BorderSide(
-                                color: Theme.of(context)
-                                    .listTileTheme
-                                    .selectedTileColor!,
+                                color: theme.listTileTheme.selectedTileColor!,
                                 width: 1.5.w,
                                 style: BorderStyle.solid,
                               ),
@@ -167,9 +168,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                           style: TextStyle(
                                             height: 1.08,
                                             fontSize: fontSizeScale(40.w),
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSurface,
+                                            color: theme.colorScheme.onSurface,
                                             fontFamily: "AlibabaPuHuiTi-Medium",
                                           ),
                                           emojiStyle: TextStyle(
@@ -246,15 +245,14 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
 
                         // 朋友资料
                         LJNFunctionItem(
-                          title: AppLocalizations.of(context)!.friendProfile,
+                          title: l10n.friendProfile,
                           link: '/friend_information',
                           underline: true,
                         ),
 
                         // 朋友权限
                         LJNFunctionItem(
-                          title:
-                              AppLocalizations.of(context)!.friendPermissions,
+                          title: l10n.friendPermissions,
                           link: '/friend_permissions',
                           underline: true,
                         ),
@@ -271,7 +269,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                             height: double.infinity,
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              AppLocalizations.of(context)!.moments,
+                              l10n.moments,
                               style: TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(32.0.w),
@@ -346,7 +344,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                             height: double.infinity,
                             alignment: Alignment.topLeft,
                             child: Text(
-                              AppLocalizations.of(context)!.channels,
+                              l10n.channels,
                               style: TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(32.0.w),
@@ -463,7 +461,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
 
                         // 更多信息
                         LJNFunctionItem(
-                          title: AppLocalizations.of(context)!.moreInfo,
+                          title: l10n.moreInfo,
                           link: '/friend_more_info',
                           underline: false,
                         ),
@@ -493,7 +491,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                               ),
                               // SizedBox(width: 12.w),
                               Text(
-                                AppLocalizations.of(context)!.sendMessage,
+                                l10n.sendMessage,
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: 30.w,
@@ -533,7 +531,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                               ),
                               SizedBox(width: 8.w),
                               Text(
-                                AppLocalizations.of(context)!.audioVideoCall,
+                                l10n.audioVideoCall,
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: 30.w,

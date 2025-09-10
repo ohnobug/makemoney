@@ -24,18 +24,21 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Theme(
-          data: Theme.of(context).copyWith(
-            appBarTheme: Theme.of(context).appBarTheme.copyWith(
-                  backgroundColor: AppColors.brandTealDark3,
-                ),
+          data: theme.copyWith(
+            appBarTheme: theme.appBarTheme.copyWith(
+              backgroundColor: AppColors.brandTealDark3,
+            ),
           ),
           child: Scaffold(
             primary: false,
             appBar: LJNAppBar(
-              title: AppLocalizations.of(context)!.payment,
+              title: l10n.payment,
             ),
             body: ColoredBox(
               color: AppColors.brandTealDark3,
@@ -307,7 +310,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                               icon: 0xe6f5,
                               iconColor: AppColors.accentRedPure,
                               link: '',
-                              color: Theme.of(context).colorScheme.onSurface,
+                              color: theme.colorScheme.onSurface,
                               backgroundColor: AppColors.neutralWhite,
                               underline: false,
                             ),
@@ -340,7 +343,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                               underline: true,
                             ),
                             LJNCAPFunctionItem(
-                              title: AppLocalizations.of(context)!.rewardCode,
+                              title: l10n.rewardCode,
                               icon: 0xe67b,
                               link: '',
                               backgroundColor: AppColors.brandTealDark2,
@@ -348,7 +351,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                             ),
                             LJNCAPFunctionItem(
                               title:
-                                  AppLocalizations.of(context)!.groupSplitBill,
+                                  l10n.groupSplitBill,
                               icon: 0xe624,
                               link: '',
                               backgroundColor: AppColors.brandTealDark2,

@@ -78,6 +78,7 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
   }
 
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
     // 关键改动 4: 在 build 方法内部获取最新的 l10n 实例
     final l10n = AppLocalizations.of(context)!;
 
@@ -93,10 +94,7 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Theme.of(context).colorScheme.surface,
-                  AppColors.neutralWhite
-                ],
+                colors: [theme.colorScheme.surface, AppColors.neutralWhite],
                 stops: [0.3, 0.5],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -147,9 +145,7 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
                             return Container(
                               width: 750.w,
                               height: 105.0.w,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainer,
+                              color: theme.colorScheme.surfaceContainer,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -223,14 +219,14 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
                         l10n.add,
                         style: TextStyle(
                           fontSize: 30.w,
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: theme.colorScheme.onSurface,
                         ),
                       ), // 使用 l10n
                       Text(
                         l10n.remove,
                         style: TextStyle(
                           fontSize: 30.w,
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: theme.colorScheme.onSurface,
                         ),
                       ), // 使用 l10n
                     ],

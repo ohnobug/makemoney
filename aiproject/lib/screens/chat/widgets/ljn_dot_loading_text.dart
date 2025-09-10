@@ -35,8 +35,10 @@ class _LJNDotLoadingTextState extends State<LJNDotLoadingText> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Text(
-      AppLocalizations.of(context)!.waitingForAcceptance + '.' * dotCount,
+      l10n.waitingForAcceptance + '.' * dotCount,
       style: TextStyle(
         fontSize: 30.w,
         color: AppColors.neutralGrey63,

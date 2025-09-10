@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/store/ljn_popup_cubit.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_chatlist_item.dart';
 import 'package:vigaviga/widgets/ljn_contact_item.dart';
+import 'package:vigaviga/screens/chat/widgets/ljn_my_message.dart';
+import 'package:vigaviga/screens/chat/widgets/ljn_receive_message.dart';
+import 'package:vigaviga/screens/chat/widgets/ljn_receive_video_message.dart';
+import 'package:vigaviga/screens/chat/widgets/ljn_video_message.dart';
 
 // 得到最近聊天的列表
 List<ChatListItem> getChatItems(BuildContext context) {
@@ -531,5 +538,238 @@ List<dynamic> getContactDataList() {
     ContactItemData(title: "段誉", icon: "images/avatar_webp/chat_45.webp"),
     ContactItemData(title: "林震南", icon: "images/avatar_webp/chat_46.webp"),
     ContactItemData(title: "商鞅", icon: "images/avatar_webp/chat_47.webp"),
+  ];
+}
+
+// 聊天消息
+List<Widget> mockMessages(BuildContext context, String icon, String title) {
+  final List<Widget> mockMessages = [
+    const LJNMyMessage(
+      message: '今晚，我们开始吧，准备好了吗？',
+      showName: false,
+    ),
+    LJNReceiveMessage(
+      message: '嗯，准备好了。虽然有点紧张，但我知道我们已经决定了。',
+      showName: false,
+      friendAvatar: icon,
+      name: title,
+    ),
+    const LJNMyMessage(
+      message: '我也是。虽然我们之前谈了很多次，但真的要开始时，心里还是有些忐忑。',
+      showName: false,
+    ),
+    LJNReceiveMessage(
+      message: '我也是。突然想到，万一不能顺利怀上怎么办？',
+      showName: false,
+      friendAvatar: icon,
+      name: title,
+    ),
+    const LJNMyMessage(
+      message: '别担心，慢慢来。就算不顺利，我们也会一起面对，不急的。最重要的是我们愿意一起尝试，给自己一个机会。',
+      showName: false,
+    ),
+    LJNReceiveMessage(
+      message: '你说得对，我只是怕自己压力太大，万一做不到怎么办。',
+      showName: false,
+      friendAvatar: icon,
+      name: title,
+    ),
+    const LJNMyMessage(
+      message: '我们做不到的事很少，我相信我们能行。而且，压力大了，放轻松点，别太给自己太多负担。',
+      showName: false,
+    ),
+    LJNReceiveMessage(
+      message: '嗯，我知道。你也知道，我的身体不是那么好，可能会有点麻烦。',
+      showName: false,
+      friendAvatar: icon,
+      name: title,
+    ),
+    const LJNMyMessage(
+      message: '我知道，但我们一起走这条路，不管怎么样，我们都有彼此支持。我会陪着你，咱们不会有任何困难是过不去的。',
+      showName: false,
+    ),
+    LJNReceiveMessage(
+      message: '有你在我身边，我就不怕了。你觉得，如果不顺利，我们也不应该急对吧？',
+      showName: false,
+      friendAvatar: icon,
+      name: title,
+    ),
+    const LJNMyMessage(
+      message: '对，别急，顺其自然。如果真有问题，我们可以一起去看医生，解决的办法总有的。',
+      showName: false,
+    ),
+    LJNReceiveMessage(
+      message: '嗯，既然你这么说，我也放心了。',
+      showName: false,
+      friendAvatar: icon,
+      name: title,
+    ),
+    LJNReceiveMessage(
+      message: '其实，我一直很期待有个孩子，能有一个属于我们的家庭。',
+      showName: false,
+      friendAvatar: icon,
+      name: title,
+    ),
+    const LJNMyMessage(
+      message: '我也是。我们将来可以一起看他成长，一起陪着他做作业、玩游戏，甚至一起教他做事。',
+      showName: false,
+    ),
+    LJNReceiveMessage(
+      message: '你觉得我们的孩子会是什么样的？像你，还是像我？',
+      showName: false,
+      friendAvatar: icon,
+      name: title,
+    ),
+    const LJNMyMessage(
+      message: '不管像谁，都一定是最棒的。',
+      showName: false,
+    ),
+    const LJNMyMessage(
+      message: '但我想，他应该会有你的聪明和我的耐心，能很好地适应生活中的挑战。',
+      showName: false,
+    ),
+    LJNReceiveMessage(
+      message: '那也太完美了吧。希望他能继承我们的优点，少一些缺点。',
+      showName: false,
+      friendAvatar: icon,
+      name: title,
+    ),
+    const LJNMyMessage(
+      message: '无论如何，我们都得给他一个充满爱的家庭，这才是最重要的。',
+      showName: false,
+    ),
+    const LJNMyMessage(
+      message: '今晚，就是我们的开始了。',
+      showName: false,
+    ),
+    LJNReceiveMessage(
+      message: '是的，今晚开始。未来的路我们一起走。',
+      showName: false,
+      friendAvatar: icon,
+      name: title,
+    ),
+    const LJNMyMessage(
+      message: '今晚，我们做的每一步，都是为了未来的孩子，都是为了我们共同的未来。',
+      showName: false,
+    ),
+    LJNReceiveMessage(
+      message: '嗯，今晚我们就开始，未来的一切，交给时间。',
+      showName: false,
+      friendAvatar: icon,
+      name: title,
+    ),
+    LJNReceiveMessage(
+      message: '你准备好了吗？',
+      showName: false,
+      friendAvatar: icon,
+      name: title,
+    ),
+    const LJNMyMessage(
+      message: '准备好了，永远准备好。',
+      showName: false,
+    ),
+    LJNVideoMessage(
+      video: 'images/ins/test.mp4',
+      width: 768,
+      height: 576,
+      showName: false,
+      onTap: (Offset position, Size size) {
+        // 关闭键盘
+        SystemChannels.textInput.invokeMethod('TextInput.hide');
+        context.read<LJNPopupCubit>().updateVideoPopup(
+              openBoxSize: size,
+              openPosition: position,
+              sourcePath: 'images/ins/video2.mp4',
+              showFullScreenVideo: true,
+            );
+      },
+    ),
+    LJNVideoMessage(
+      video: 'images/ins/video2.mp4',
+      width: 576,
+      height: 1024,
+      showName: false,
+      onTap: (Offset position, Size size) {
+        // 关闭键盘
+        SystemChannels.textInput.invokeMethod('TextInput.hide');
+        context.read<LJNPopupCubit>().updateVideoPopup(
+              openBoxSize: size,
+              openPosition: position,
+              sourcePath: 'images/ins/video2.mp4',
+              showFullScreenVideo: true,
+            );
+      },
+    ),
+    LJNReceiveVideoMessage(
+      video: 'images/ins/video2.mp4',
+      width: 576,
+      height: 1024,
+      showName: false,
+      friendAvatar: icon,
+      name: title,
+      onTap: (Offset position, Size size) {
+        // 关闭键盘
+        SystemChannels.textInput.invokeMethod('TextInput.hide');
+        context.read<LJNPopupCubit>().updateVideoPopup(
+              openBoxSize: size,
+              openPosition: position,
+              sourcePath: 'images/ins/video2.mp4',
+              showFullScreenVideo: true,
+            );
+      },
+    ),
+  ];
+
+  return mockMessages;
+}
+
+// 数据模型，用于存储不依赖 context 的静态数据
+class TagInfoData {
+  final String title;
+  final String icon;
+  final bool underline;
+
+  const TagInfoData({
+    required this.title,
+    required this.icon,
+    this.underline = true,
+  });
+}
+
+List<TagInfoData> getTagInfoData() {
+  return [
+    TagInfoData(title: "天空飘来五个字那都不是事", icon: "images/avatar_webp/chat_1.webp"),
+    TagInfoData(title: "本因", icon: "images/avatar_webp/chat_10.webp"),
+    TagInfoData(title: "赵洵", icon: "images/avatar_webp/chat_11.webp"),
+    TagInfoData(title: "定静师太", icon: "images/avatar_webp/chat_12.webp"),
+    TagInfoData(title: "李秋水", icon: "images/avatar_webp/chat_13.webp"),
+    TagInfoData(title: "谭婆", icon: "images/avatar_webp/chat_14.webp"),
+    TagInfoData(title: "李傀儡", icon: "images/avatar_webp/chat_15.webp"),
+    TagInfoData(title: "貂禅", icon: "images/avatar_webp/chat_16.webp"),
+    TagInfoData(title: "何三七", icon: "images/avatar_webp/chat_17.webp"),
+    TagInfoData(title: "孔融", icon: "images/avatar_webp/chat_18.webp"),
+    TagInfoData(title: "齐堂主", icon: "images/avatar_webp/chat_19.webp"),
+    TagInfoData(title: "博尔术", icon: "images/avatar_webp/chat_20.webp"),
+    TagInfoData(title: "王语嫣", icon: "images/avatar_webp/chat_21.webp"),
+    TagInfoData(title: "秦红棉", icon: "images/avatar_webp/chat_22.webp"),
+    TagInfoData(
+        title: "天竺僧人",
+        icon: "images/avatar_webp/chat_23.webp",
+        underline: false),
+    TagInfoData(title: "段延庆", icon: "images/avatar_webp/chat_33.webp"),
+    TagInfoData(title: "令狐冲", icon: "images/avatar_webp/chat_34.webp"),
+    TagInfoData(title: "英白罗", icon: "images/avatar_webp/chat_35.webp"),
+    TagInfoData(title: "黄药师", icon: "images/avatar_webp/chat_36.webp"),
+    TagInfoData(title: "李煜", icon: "images/avatar_webp/chat_37.webp"),
+    TagInfoData(title: "云中鹤", icon: "images/avatar_webp/chat_38.webp"),
+    TagInfoData(title: "劳德诺", icon: "images/avatar_webp/chat_39.webp"),
+    TagInfoData(title: "包惜弱", icon: "images/avatar_webp/chat_40.webp"),
+    TagInfoData(title: "游驹", icon: "images/avatar_webp/chat_41.webp"),
+    TagInfoData(title: "钟万仇", icon: "images/avatar_webp/chat_42.webp"),
+    TagInfoData(title: "渔人", icon: "images/avatar_webp/chat_43.webp"),
+    TagInfoData(title: "单叔山", icon: "images/avatar_webp/chat_44.webp"),
+    TagInfoData(title: "段誉", icon: "images/avatar_webp/chat_45.webp"),
+    TagInfoData(title: "林震南", icon: "images/avatar_webp/chat_46.webp"),
+    TagInfoData(title: "商鞅", icon: "images/avatar_webp/chat_47.webp"),
   ];
 }

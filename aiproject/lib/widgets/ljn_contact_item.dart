@@ -55,29 +55,38 @@ class ContactInformation extends StatefulWidget {
 }
 
 class _ContactInformationState extends State<ContactInformation> {
-  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
+  // 唯一的内部状态：是否被按下
+  bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
+    // 在 build 方法中获取所有依赖 context 的信息
+    ThemeData theme = Theme.of(context);
+
+    Color normalColor = theme.listTileTheme.tileColor!;
+    Color pressedColor = theme.listTileTheme.selectedTileColor!;
+
+    // 根据按压状态动态计算当前颜色
+    Color currentColor = _isPressed ? pressedColor : normalColor;
+
     return GestureDetector(
       onTapDown: (tapDownDetails) {
-        setState(() => containerColor =
-            Theme.of(context).listTileTheme.selectedTileColor!);
+        setState(() => _isPressed = true);
       },
       onTapCancel: () {
-        setState(
-            () => containerColor = Theme.of(context).listTileTheme.tileColor!);
+        setState(() => _isPressed = false);
       },
       onTapUp: (tapDownDetails) {
+        // 先恢复视觉状态
+        setState(() => _isPressed = false);
+
+        // 延迟执行后续操作
         Future.delayed(const Duration(milliseconds: 50), () {
           if (!mounted) return;
-          setState(() =>
-              containerColor = Theme.of(context).listTileTheme.tileColor!);
 
           if (widget.onPressed != null) {
             widget.onPressed!();
           } else if (widget.link.isNotEmpty) {
-            // ignore: use_build_context_synchronously
             Navigator.pushNamed(context, widget.link);
           }
         });
@@ -85,7 +94,8 @@ class _ContactInformationState extends State<ContactInformation> {
       child: Container(
         height: 105.0.w,
         padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
-        color: containerColor,
+        // 使用在 build 方法中计算出的颜色
+        color: currentColor,
         child: Row(
           children: [
             ClipRRect(
@@ -106,8 +116,7 @@ class _ContactInformationState extends State<ContactInformation> {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: widget.underline
-                        ? (Theme.of(context).listTileTheme.shape
-                                as RoundedRectangleBorder)
+                        ? (theme.listTileTheme.shape as RoundedRectangleBorder)
                             .side
                         : BorderSide.none,
                   ),

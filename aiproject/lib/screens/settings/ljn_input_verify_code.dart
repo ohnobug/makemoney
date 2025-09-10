@@ -28,6 +28,9 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return BlocBuilder<LJNUserCubit, LJNUserState>(
@@ -42,16 +45,16 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
             }
 
             return Theme(
-              data: Theme.of(context).copyWith(
-                appBarTheme: Theme.of(context).appBarTheme.copyWith(
-                      backgroundColor: AppColors.transparent,
-                    ),
+              data: theme.copyWith(
+                appBarTheme: theme.appBarTheme.copyWith(
+                  backgroundColor: AppColors.transparent,
+                ),
               ),
               child: Scaffold(
                 primary: false,
                 resizeToAvoidBottomInset: false,
                 appBar: LJNAppBar(
-                  title: AppLocalizations.of(context)!.enterVerificationCode,
+                  title: l10n.enterVerificationCode,
                 ),
                 body: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)

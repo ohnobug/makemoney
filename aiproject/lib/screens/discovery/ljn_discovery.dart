@@ -40,10 +40,13 @@ class _LJNDiscovery extends State<LJNDiscovery> {
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: ColoredBox(
-        color: Theme.of(context).colorScheme.surfaceContainer,
+        color: theme.colorScheme.surfaceContainer,
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(
             parent: BouncingScrollPhysics(),
@@ -54,7 +57,7 @@ class _LJNDiscovery extends State<LJNDiscovery> {
 
               // 朋友圈
               LJNFunctionItem(
-                title: AppLocalizations.of(context)!.moments,
+                title: l10n.moments,
                 icon: "images/icon/discovery_icon1.png",
                 link: '/friendmoments',
                 underline: false,
@@ -63,7 +66,7 @@ class _LJNDiscovery extends State<LJNDiscovery> {
 
               // 视频号、直播
               LJNFunctionItem(
-                title: AppLocalizations.of(context)!.channels,
+                title: l10n.channels,
                 icon: "images/icon/discovery_icon2.png",
                 link: '/ins',
                 underline: true,
@@ -107,7 +110,7 @@ class _LJNDiscovery extends State<LJNDiscovery> {
                 ),
               ),
               LJNFunctionItem(
-                title: AppLocalizations.of(context)!.live,
+                title: l10n.live,
                 icon: "images/icon/discovery_icon3.png",
                 link: '/tiktik',
                 underline: false,
@@ -150,13 +153,13 @@ class _LJNDiscovery extends State<LJNDiscovery> {
 
               // 扫一扫、听一听
               LJNFunctionItem(
-                title: AppLocalizations.of(context)!.scan,
+                title: l10n.scan,
                 icon: "images/icon/discovery_icon4.png",
                 link: '/qrcode_scanner',
                 underline: true,
               ),
               LJNFunctionItem(
-                title: AppLocalizations.of(context)!.listen,
+                title: l10n.listen,
                 icon: "images/icon/discovery_icon5.png",
                 link: '',
                 underline: false,
@@ -165,13 +168,13 @@ class _LJNDiscovery extends State<LJNDiscovery> {
 
               // 看一看、搜一搜
               LJNFunctionItem(
-                title: AppLocalizations.of(context)!.look,
+                title: l10n.look,
                 icon: "images/icon/discovery_icon6.png",
                 link: '',
                 underline: true,
               ),
               LJNFunctionItem(
-                title: AppLocalizations.of(context)!.searchAction,
+                title: l10n.searchAction,
                 icon: "images/icon/discovery_icon7.png",
                 link: '/search',
                 underline: false,
@@ -180,7 +183,7 @@ class _LJNDiscovery extends State<LJNDiscovery> {
 
               // 附近
               LJNFunctionItem(
-                title: AppLocalizations.of(context)!.nearby,
+                title: l10n.nearby,
                 icon: "images/icon/discovery_icon8.png",
                 link: '',
                 underline: false,
@@ -189,13 +192,13 @@ class _LJNDiscovery extends State<LJNDiscovery> {
 
               // 购物、游戏
               LJNFunctionItem(
-                title: AppLocalizations.of(context)!.shopping,
+                title: l10n.shopping,
                 icon: "images/icon/discovery_icon9.png",
                 link: '',
                 underline: true,
               ),
               LJNFunctionItem(
-                title: AppLocalizations.of(context)!.games,
+                title: l10n.games,
                 icon: "images/icon/discovery_icon10.png",
                 link: '',
                 underline: false,
@@ -204,7 +207,7 @@ class _LJNDiscovery extends State<LJNDiscovery> {
 
               // 小程序
               LJNFunctionItem(
-                title: AppLocalizations.of(context)!.miniPrograms,
+                title: l10n.miniPrograms,
                 icon: "images/icon/discovery_icon11.png",
                 link: '/miniprogram_list',
                 underline: false,

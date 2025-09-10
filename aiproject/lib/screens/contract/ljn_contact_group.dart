@@ -33,7 +33,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
 
     contactList = [
       LJNAlphabet(
-        title: AppLocalizations.of(context)!.groupChats,
+        title: l10n.groupChats,
         bgColor: Theme.of(context).colorScheme.surfaceContainer,
       ),
       ChatListItem(
@@ -546,18 +546,19 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         height: 105.0.w,
         color: AppColors.neutralWhite,
         child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.groupChatCount(4),
-                style: TextStyle(
-                  height: 1.08,
-                  fontSize: fontSizeScale(30.w),
-                  color: AppColors.neutralGrey67,
-                ),
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              l10n.groupChatCount(4),
+              style: TextStyle(
+                height: 1.08,
+                fontSize: fontSizeScale(30.w),
+                color: AppColors.neutralGrey67,
               ),
-            ]),
+            ),
+          ],
+        ),
       )
     ];
   }
@@ -572,10 +573,13 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       primary: false,
       appBar: LJNAppBar(
-        title: AppLocalizations.of(context)!.groupChats,
+        title: l10n.groupChats,
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -583,7 +587,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Theme.of(context).colorScheme.surface,
+              theme.colorScheme.surface,
               AppColors.neutralWhite,
             ],
             stops: [0.3, 0.5],

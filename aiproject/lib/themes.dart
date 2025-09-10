@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
+// Your AppColors class remains exactly the same...
 class AppColors {
   // ===========================================================================
   // 核心品牌色 (映射为 紫/品红色系 - 源自 "VIGAVIGA" 字体和蜂鸟)
@@ -250,20 +251,16 @@ class AppColors {
 
 // -----------------------------------------------------------------------------
 //                          LIGHT THEME (活力自然 - 日间模式)
-//                    (已更新为推荐的 Material 3 fromSeed 构造方式)
 // -----------------------------------------------------------------------------
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
   fontFamily: "AlibabaPuHuiTi",
   fontFamilyFallback: const ['Noto Sans SC'],
-
-  // 使用 fromSeed 构造函数来创建 Material 3 兼容的颜色方案
   colorScheme: ColorScheme.fromSeed(
-    seedColor: AppColors.brandGreenVibrant5, // 使用您的主品牌色作为种子
+    seedColor: AppColors.brandGreenVibrant5,
     brightness: Brightness.light,
   ).copyWith(
-    // 使用 copyWith 覆盖自动生成的颜色，以确保与您的设计完全匹配
     primary: AppColors.brandGreenVibrant5,
     onPrimary: AppColors.neutralWhite,
     primaryContainer: AppColors.brandGreenLightest,
@@ -272,16 +269,12 @@ ThemeData lightTheme = ThemeData(
     onSecondary: AppColors.neutralWhite,
     secondaryContainer: AppColors.brandBlueDark4,
     onSecondaryContainer: AppColors.neutralGrey15,
-    surface: AppColors.neutralWhite, // surface 同时定义了页面背景和卡片等组件的背景
+    surface: AppColors.neutralWhite,
     surfaceContainer: AppColors.neutralGrey11,
     onSurface: AppColors.neutralNearBlack1,
     error: AppColors.accentRedDark1,
     onError: AppColors.neutralWhite,
   ),
-
-  // --- 特定组件的主题微调 ---
-
-  // AppBar 主题
   appBarTheme: AppBarTheme(
     scrolledUnderElevation: 0,
     centerTitle: true,
@@ -297,8 +290,6 @@ ThemeData lightTheme = ThemeData(
       fontFamily: "AlibabaPuHuiTi-Medium",
     ),
   ),
-
-  // TabBar 主题
   tabBarTheme: TabBarThemeData(
     labelColor: AppColors.brandGreenPrimary,
     unselectedLabelColor: AppColors.neutralBlack,
@@ -309,51 +300,97 @@ ThemeData lightTheme = ThemeData(
       fontSize: fontSizeScale(22.w),
     ),
   ),
-
-  // 悬浮按钮主题
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: AppColors.brandGreenVibrant5,
     foregroundColor: AppColors.neutralWhite,
   ),
-
-  // 普通按钮主题 (已更新为 ButtonStyle 并添加 overlayColor)
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(AppColors.brandGreenVibrant5),
       foregroundColor: WidgetStateProperty.all(AppColors.neutralWhite),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(8.0.w),
+          side: BorderSide(
+            color: AppColors.brandGreenLightest,
+            width: 1.5.w,
+            style: BorderStyle.solid,
+          ),
         ),
       ),
-      // 定义按下、悬停等状态的覆盖颜色 (水波纹效果)
       overlayColor: WidgetStateProperty.resolveWith<Color?>(
         (Set<WidgetState> states) {
           if (states.contains(WidgetState.pressed)) {
-            return AppColors.whiteTransparent63.withAlpha(50); // 按下时
+            return AppColors.whiteTransparent63.withAlpha(50);
           }
           if (states.contains(WidgetState.hovered)) {
-            return AppColors.whiteTransparent63.withAlpha(25); // 悬停时
+            return AppColors.whiteTransparent63.withAlpha(25);
           }
-          return null; // 其他状态无覆盖
+          return null;
         },
       ),
     ),
   ),
 
-  // 卡片主题
+  // =======================================================================
+  // ====================    新添加的 OutlinedButton 主题    ====================
+  // =======================================================================
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: ButtonStyle(
+      // 设置按钮的最小尺寸来控制高度
+      minimumSize: WidgetStateProperty.all<Size>(Size(0, 48.w)),
+      // 设置内边距
+      padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+        EdgeInsets.symmetric(horizontal: 12.w),
+      ),
+      // 设置形状和圆角
+      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24.w),
+        ),
+      ),
+      // 设置边框颜色和宽度
+      side: WidgetStateProperty.all<BorderSide>(
+        const BorderSide(
+          color: AppColors.neutralGrey16, // 亮色模式下的边框颜色
+          width: 1.0,
+        ),
+      ),
+      // **核心**：处理不同状态下的颜色
+      backgroundColor: WidgetStateProperty.resolveWith<Color>(
+        (Set<WidgetState> states) {
+          // 当按钮被按下时，返回高亮颜色
+          if (states.contains(WidgetState.pressed)) {
+            return AppColors.neutralGrey18; // 亮色模式下的按下颜色
+          }
+          // 其他所有状态下，背景都是透明的
+          return Colors.transparent;
+        },
+      ),
+      // 设置文字和图标的颜色
+      foregroundColor: WidgetStateProperty.all<Color>(
+        AppColors.neutralGrey68, // 亮色模式下的文字颜色
+      ),
+      // 移除阴影
+      elevation: WidgetStateProperty.all(0),
+    ),
+  ),
+  // =======================================================================
+
   cardTheme: CardThemeData(
     elevation: 1,
     color: AppColors.neutralWhite,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
+      borderRadius: BorderRadius.circular(12.0.w),
+      side: BorderSide(
+        color: AppColors.brandGreenLightest,
+        width: 1.5.w,
+        style: BorderStyle.solid,
+      ),
     ),
   ),
-
-  // ListTile 主题
   listTileTheme: ListTileThemeData(
     shape: RoundedRectangleBorder(
-      // borderRadius: BorderRadius.circular(12.0),
       side: BorderSide(
         color: AppColors.brandGreenLightest,
         width: 1.5.w,
@@ -366,8 +403,6 @@ ThemeData lightTheme = ThemeData(
     textColor: AppColors.neutralNearBlack1,
     subtitleTextStyle: const TextStyle(color: AppColors.neutralGrey62),
   ),
-
-  // 弹窗风格
   popupMenuTheme: PopupMenuThemeData(
     iconColor: AppColors.neutralDarkGrey1,
     iconSize: 41.w,
@@ -383,20 +418,16 @@ ThemeData lightTheme = ThemeData(
 
 // -----------------------------------------------------------------------------
 //                           DARK THEME (奇幻森林 - 夜间模式)
-//                    (已更新为推荐的 Material 3 fromSeed 构造方式)
 // -----------------------------------------------------------------------------
 ThemeData darkTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.dark,
   fontFamily: "AlibabaPuHuiTi",
   fontFamilyFallback: const ['Noto Sans SC'],
-
-  // 使用 fromSeed 构造函数来创建 Material 3 兼容的颜色方案
   colorScheme: ColorScheme.fromSeed(
-    seedColor: AppColors.brandGreenVibrant4, // 使用您的主品牌色作为种子
+    seedColor: AppColors.brandGreenVibrant4,
     brightness: Brightness.dark,
   ).copyWith(
-    // 使用 copyWith 覆盖自动生成的颜色，以确保与您的设计完全匹配
     primary: AppColors.brandGreenVibrant4,
     onPrimary: AppColors.neutralWhite,
     primaryContainer: AppColors.brandGreenDarker3,
@@ -405,16 +436,12 @@ ThemeData darkTheme = ThemeData(
     onSecondary: AppColors.brandBlueDark5,
     secondaryContainer: AppColors.brandBlueDark1,
     onSecondaryContainer: AppColors.neutralGrey10,
-    surface: AppColors.brandGreenDarker2, // surface 同时定义了页面背景和卡片等组件的背景
+    surface: AppColors.brandGreenDarker2,
     surfaceContainer: AppColors.brandGreenDarkest,
     onSurface: AppColors.neutralGrey5,
     error: AppColors.accentRedVibrant1,
     onError: AppColors.neutralWhite,
   ),
-
-  // --- 特定组件的主题微调 ---
-
-  // AppBar 主题
   appBarTheme: AppBarTheme(
     scrolledUnderElevation: 0,
     centerTitle: true,
@@ -430,8 +457,6 @@ ThemeData darkTheme = ThemeData(
       fontFamily: "AlibabaPuHuiTi-Medium",
     ),
   ),
-
-  // TabBar 主题
   tabBarTheme: TabBarThemeData(
     labelColor: AppColors.brandGreenVibrant4,
     unselectedLabelColor: AppColors.brandGreenLightest,
@@ -442,51 +467,97 @@ ThemeData darkTheme = ThemeData(
       fontSize: fontSizeScale(22.w),
     ),
   ),
-
-  // 悬浮按钮主题
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: AppColors.brandGreenVibrant4,
     foregroundColor: AppColors.neutralWhite,
   ),
-
-  // 普通按钮主题 (已更新为 ButtonStyle 并添加 overlayColor)
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all(AppColors.brandGreenVibrant4),
       foregroundColor: WidgetStateProperty.all(AppColors.neutralWhite),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.circular(8.0.w),
+          side: BorderSide(
+            color: AppColors.brandGreenDarker3,
+            width: 1.5.w,
+            style: BorderStyle.solid,
+          ),
         ),
       ),
-      // 定义按下、悬停等状态的覆盖颜色 (水波纹效果)
       overlayColor: WidgetStateProperty.resolveWith<Color?>(
         (Set<WidgetState> states) {
           if (states.contains(WidgetState.pressed)) {
-            return AppColors.whiteTransparent63.withAlpha(50); // 按下时
+            return AppColors.whiteTransparent63.withAlpha(50);
           }
           if (states.contains(WidgetState.hovered)) {
-            return AppColors.whiteTransparent63.withAlpha(25); // 悬停时
+            return AppColors.whiteTransparent63.withAlpha(25);
           }
-          return null; // 其他状态无覆盖
+          return null;
         },
       ),
     ),
   ),
 
-  // 卡片主题
+  // =======================================================================
+  // ====================    新添加的 OutlinedButton 主题    ====================
+  // =======================================================================
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: ButtonStyle(
+      // 设置按钮的最小尺寸来控制高度
+      minimumSize: WidgetStateProperty.all<Size>(Size(0, 48.w)),
+      // 设置内边距
+      padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+        EdgeInsets.symmetric(horizontal: 12.w),
+      ),
+      // 设置形状和圆角
+      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24.w),
+        ),
+      ),
+      // 设置边框颜色和宽度
+      side: WidgetStateProperty.all<BorderSide>(
+        const BorderSide(
+          color: AppColors.neutralDarkGrey15, // 暗色模式下的边框颜色
+          width: 1.0,
+        ),
+      ),
+      // **核心**：处理不同状态下的颜色
+      backgroundColor: WidgetStateProperty.resolveWith<Color>(
+        (Set<WidgetState> states) {
+          // 当按钮被按下时，返回高亮颜色
+          if (states.contains(WidgetState.pressed)) {
+            return AppColors.neutralDarkGrey18; // 暗色模式下的按下颜色
+          }
+          // 其他所有状态下，背景都是透明的
+          return Colors.transparent;
+        },
+      ),
+      // 设置文字和图标的颜色
+      foregroundColor: WidgetStateProperty.all<Color>(
+        AppColors.neutralGrey5, // 暗色模式下的文字颜色
+      ),
+      // 移除阴影
+      elevation: WidgetStateProperty.all(0),
+    ),
+  ),
+  // =======================================================================
+
   cardTheme: CardThemeData(
     elevation: 1,
     color: AppColors.brandGreenDarkest,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12.0),
+      side: BorderSide(
+        color: AppColors.brandGreenDarker3,
+        width: 1.5.w,
+        style: BorderStyle.solid,
+      ),
     ),
   ),
-
-  // ListTile 主题
   listTileTheme: ListTileThemeData(
     shape: RoundedRectangleBorder(
-      // borderRadius: BorderRadius.circular(12.0),
       side: BorderSide(
         color: AppColors.brandGreenDarker3,
         width: 1.5.w,
@@ -499,8 +570,6 @@ ThemeData darkTheme = ThemeData(
     textColor: AppColors.neutralGrey5,
     subtitleTextStyle: const TextStyle(color: AppColors.neutralGrey68),
   ),
-
-  // 弹窗风格
   popupMenuTheme: PopupMenuThemeData(
     iconColor: AppColors.neutralGrey5,
     iconSize: 41.w,

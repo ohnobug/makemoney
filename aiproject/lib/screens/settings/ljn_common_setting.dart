@@ -23,12 +23,15 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.generalSettings,
+            title: l10n.generalSettings,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -38,7 +41,7 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: theme.colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -49,19 +52,19 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                     height: 64.w,
                     padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
                     child: Text(
-                      AppLocalizations.of(context)!.interfaceAndDisplay,
+                      l10n.interfaceAndDisplay,
                       style: TextStyle(fontSize: 25.w, height: 1.08),
                     ),
                   ),
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.darkMode,
+                    title: l10n.darkMode,
                     link: '',
                     underline: true,
                     tapEffect: true,
-                    showStyle: AppLocalizations.of(context)!.followSystem,
+                    showStyle: l10n.followSystem,
                   ),
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.enableLandscapeMode,
+                    title: l10n.enableLandscapeMode,
                     // link: '',
                     underline: true,
                     tapEffect: false,
@@ -79,7 +82,7 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                     ),
                   ),
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.action_enable_nfc,
+                    title: l10n.action_enable_nfc,
                     // link: '',
                     underline: true,
                     tapEffect: false,
@@ -102,18 +105,17 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                     link: '',
                     underline: true,
                     tapEffect: true,
-                    showStyle:
-                        AppLocalizations.of(context)!.network_option_wifi_only,
+                    showStyle: l10n.network_option_wifi_only,
                   ),
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.multiLanguage,
+                    title: l10n.multiLanguage,
                     link: '',
                     underline: true,
                     tapEffect: true,
-                    showStyle: AppLocalizations.of(context)!.followSystem,
+                    showStyle: l10n.followSystem,
                   ),
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.transfer,
+                    title: l10n.transfer,
                     link: '',
                     underline: false,
                     tapEffect: true,
@@ -125,37 +127,37 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                         const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
                             .w,
                     child: Text(
-                      AppLocalizations.of(context)!.other,
+                      l10n.other,
                       style: TextStyle(fontSize: 25.w, height: 1.08),
                     ),
                   ),
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.storageSpace,
+                    title: l10n.storageSpace,
                     link: '',
                     underline: true,
                   ),
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.fontSize,
+                    title: l10n.fontSize,
                     link: '',
                     underline: true,
                   ),
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.musicAndAudio,
+                    title: l10n.musicAndAudio,
                     link: '',
                     underline: true,
                   ),
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.permission_list_items,
+                    title: l10n.permission_list_items,
                     link: '',
                     underline: true,
                   ),
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.discoverPageManagement,
+                    title: l10n.discoverPageManagement,
                     link: '',
                     underline: true,
                   ),
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.accessibility,
+                    title: l10n.accessibility,
                     link: '',
                     underline: false,
                   ),

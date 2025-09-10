@@ -230,6 +230,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
   Widget _buildPage(SystemState systemState) {
     // 关键改动 4: 在 build 方法内部获取最新的 l10n 实例
     final l10n = AppLocalizations.of(context)!;
+    ThemeData theme = Theme.of(context);
 
     return Scaffold(
       primary: false,
@@ -246,7 +247,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
               child: Text(
                 l10n.addFriend,
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.onSurface,
+                  color: theme.colorScheme.onSurface,
                   fontSize: fontSizeScale(32.w),
                   fontWeight: FontWeight.w500,
                 ),
@@ -260,10 +261,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Theme.of(context).colorScheme.surface,
-              AppColors.neutralWhite
-            ],
+            colors: [theme.colorScheme.surface, AppColors.neutralWhite],
             stops: [0.3, 0.5],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -330,7 +328,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
                     if (itemData is _TimeSeparatorData) {
                       return LJNAlphabet(
                         title: _getTimeSeparatorTitle(l10n, itemData.titleKey),
-                        bgColor: Theme.of(context).colorScheme.surfaceContainer,
+                        bgColor: theme.colorScheme.surfaceContainer,
                       );
                     }
 

@@ -1,20 +1,14 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_thumbnail_video/index.dart';
 import 'package:vigaviga/themes.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
-
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
-import 'package:path/path.dart' as path;
-import 'package:get_thumbnail_video/video_thumbnail.dart';
 
 class LJNReceiveVideoMessage extends StatefulWidget {
   const LJNReceiveVideoMessage({
@@ -64,87 +58,23 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
       videoWidth = videoHeight * aspectRatio;
     }
 
-    if (!Platform.isWindows) {
-      getFirstFrame(
+    if (kIsWeb) {
+      _controller = VideoPlayerController.asset(assetPath(widget.video))
+        ..initialize().then((_) {
+          setState(() {});
+        });
+    } else {
+      getVideoFirstFrame();
+    }
+  }
+
+  // 获取视频首帧
+  void getVideoFirstFrame() {
+    setState(() async {
+      picPath = await getFirstFrame(
         assetPath(widget.video),
       );
-    }
-  }
-
-  Future<void> getFirstFrame(String filepath) async {
-    WidgetsFlutterBinding.ensureInitialized();
-    String filehash = await generateStringChunkHash(filepath);
-    String tempFile = filehash.substring(0, 16);
-
-    final List<Directory>? tempDir = await getExternalCacheDirectories();
-
-    // 提取首帧并保存为图片
-    final String outputImagePath = '${tempDir?[0].path}/$tempFile.png';
-
-    var imageFile = File(outputImagePath);
-    if (imageFile.existsSync() && await isValidImage(imageFile)) {
-      setState(() {
-        picPath = outputImagePath;
-      });
-      return;
-    } else {
-      if (imageFile.existsSync()) {
-        imageFile.deleteSync();
-      }
-
-      // 获取应用的文档目录
-      final directory = await getApplicationDocumentsDirectory();
-      String filename = path.basename(filepath);
-
-      // 拼接本地存储的文件路径
-      final videoPath = '${directory.path}/$filename';
-      // =========================================================================
-      // 从 assets 加载视频文件
-      ByteData byteData = await rootBundle.load(filepath);
-      // logger.info('ByteData length: ${byteData.lengthInBytes}');
-      if (byteData.lengthInBytes == 0) {
-        throw Exception('Failed to load video file.');
-      }
-      List<int> bytes = byteData.buffer
-          .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
-      final file = File(videoPath);
-      await file.writeAsBytes(bytes);
-      // =========================================================================
-
-      final fileName = await VideoThumbnail.thumbnailFile(
-        video: videoPath,
-        thumbnailPath: outputImagePath,
-        imageFormat: ImageFormat.PNG,
-        quality: 100,
-      );
-
-      setState(() {
-        picPath = fileName.path;
-      });
-    }
-  }
-
-  Future<bool> isValidImage(File file) async {
-    if (file.lengthSync() <= 4) {
-      return false;
-    }
-
-    logger.info("file length: ${file.lengthSync()}");
-
-    final bytes = await file.openRead(0, 4).first;
-    if (bytes[0] == 0x89 &&
-        bytes[1] == 0x50 &&
-        bytes[2] == 0x4E &&
-        bytes[3] == 0x47) {
-      logger.info("This is a valid PNG file.");
-      return true;
-    } else if (bytes[0] == 0xFF && bytes[1] == 0xD8 && bytes[2] == 0xFF) {
-      logger.info("This is a valid JPG file.");
-      return true;
-    } else {
-      logger.info("Unknown file format.");
-      return false;
-    }
+    });
   }
 
   @override
@@ -153,13 +83,85 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
     super.dispose();
   }
 
+  Widget? firstFrame;
+
   @override
   Widget build(BuildContext context) {
+    if (firstFrame == null) {
+      // 如果是网页则直接显示视频
+      if (kIsWeb) {
+        firstFrame = Stack(
+          children: [
+            Positioned.fill(
+              child: AspectRatio(
+                aspectRatio: _controller!.value.aspectRatio,
+                child: VideoPlayer(_controller!),
+              ),
+            ),
+            Positioned.fill(
+              child: Container(
+                width: videoWidth,
+                height: videoHeight,
+                alignment: Alignment.center,
+                color: AppColors.blackTransparent41,
+                child: Icon(
+                  const IconData(
+                    0xe6c5,
+                    fontFamily: 'Iconfont',
+                  ),
+                  color: AppColors.neutralWhite,
+                  size: 78.w,
+                ),
+              ),
+            ),
+          ],
+        );
+      } else {
+        // 如果是app则先通过api获取视频首帧
+        if (picPath == null) {
+          firstFrame = Container();
+        } else {
+          firstFrame = Stack(
+            children: [
+              Positioned.fill(
+                child: Image.file(
+                  File(picPath!),
+                  width: videoWidth,
+                  height: videoHeight,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              Positioned.fill(
+                child: Container(
+                  width: videoWidth,
+                  height: videoHeight,
+                  alignment: Alignment.center,
+                  color: AppColors.blackTransparent41,
+                  child: Icon(
+                    const IconData(
+                      0xe6c5,
+                      fontFamily: 'Iconfont',
+                    ),
+                    color: AppColors.neutralWhite,
+                    size: 78.w,
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+      }
+    }
+
     // 对方发的消息
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Container(
-          padding: EdgeInsets.only(left: 22.w, right: 22.w, top: 22.w),
+          padding: EdgeInsets.only(
+            left: 22.w,
+            right: 22.w,
+            top: 22.w,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -200,9 +202,11 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
                     // 姓名
                     if (widget.showName)
                       Container(
-                        padding:
-                            const EdgeInsets.only(left: 23, top: 0, bottom: 3)
-                                .w,
+                        padding: const EdgeInsets.only(
+                          left: 23,
+                          top: 0,
+                          bottom: 3,
+                        ).w,
                         // height: 33.w,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -251,34 +255,10 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
                             height: videoHeight,
                             // color: Colors.grey,
                             decoration: BoxDecoration(
-                                color: AppColors.neutralWhite,
-                                borderRadius: BorderRadius.circular(8).w),
-                            child: picPath != null
-                                ? Stack(
-                                    children: [
-                                      Image.file(
-                                        File(picPath!),
-                                        width: videoWidth,
-                                        height: videoHeight,
-                                        fit: BoxFit.contain,
-                                      ),
-                                      Container(
-                                        width: videoWidth,
-                                        height: videoHeight,
-                                        alignment: Alignment.center,
-                                        color: AppColors.blackTransparent41,
-                                        child: Icon(
-                                          const IconData(
-                                            0xe6c5,
-                                            fontFamily: 'Iconfont',
-                                          ),
-                                          color: AppColors.neutralWhite,
-                                          size: 78.w,
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : Container(),
+                              color: AppColors.neutralWhite,
+                              borderRadius: BorderRadius.circular(8).w,
+                            ),
+                            child: firstFrame,
                           ),
                         ),
                       ],

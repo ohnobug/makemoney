@@ -26,13 +26,16 @@ class _LJNYouthMode extends State<LJNYouthMode> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Theme(
-          data: Theme.of(context).copyWith(
-            appBarTheme: Theme.of(context).appBarTheme.copyWith(
-                  backgroundColor: AppColors.transparent,
-                ),
+          data: theme.copyWith(
+            appBarTheme: theme.appBarTheme.copyWith(
+              backgroundColor: AppColors.transparent,
+            ),
           ),
           child: Scaffold(
             primary: false,
@@ -65,7 +68,7 @@ class _LJNYouthMode extends State<LJNYouthMode> {
                         ),
                       ),
                       Text(
-                        AppLocalizations.of(context)!.youthMode,
+                        l10n.youthMode,
                         style: TextStyle(
                           height: 1.08,
                           fontSize: 40.w,
@@ -163,14 +166,14 @@ class _LJNYouthMode extends State<LJNYouthMode> {
                       ),
                       selectedValue
                           ? LJNChangeAccountButton(
-                              title: AppLocalizations.of(context)!.enable,
+                              title: l10n.enable,
                               link: "back",
                               readonly: false,
                               color: AppColors.neutralWhite,
                               backgroundColor: AppColors.brandGreenVibrant7,
                             )
                           : LJNChangeAccountButton(
-                              title: AppLocalizations.of(context)!.enable,
+                              title: l10n.enable,
                               link: "back",
                               readonly: false,
                               color: AppColors.neutralGrey41,

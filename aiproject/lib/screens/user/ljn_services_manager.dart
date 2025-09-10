@@ -24,6 +24,9 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
@@ -51,21 +54,20 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         height: 100.w,
                       ),
                       Text(
-                        AppLocalizations.of(context)!.serviceManagement,
+                        l10n.serviceManagement,
                         style: TextStyle(
                             fontSize: 40.w,
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.onSurface),
+                            color: theme.colorScheme.onSurface),
                       ),
                       SizedBox(
                         height: 35.w,
                       ),
                       Text(
                         textAlign: TextAlign.center,
-                        AppLocalizations.of(context)!.manageServicesDescription,
+                        l10n.manageServicesDescription,
                         style: TextStyle(
-                            fontSize: 31.w,
-                            color: Theme.of(context).colorScheme.onSurface),
+                            fontSize: 31.w, color: theme.colorScheme.onSurface),
                       ),
                       SizedBox(
                         height: 103.w,
@@ -82,7 +84,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                           ),
                         ),
                         child: Text(
-                          AppLocalizations.of(context)!.financialServices,
+                          l10n.financialServices,
                           style: const TextStyle(
                             color: AppColors.neutralGrey77,
                           ),
@@ -90,7 +92,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                       ),
                       LJNFunctionItem(
                         title:
-                            AppLocalizations.of(context)!.creditCardRepayment,
+                            l10n.creditCardRepayment,
                         icon: "images/icon/server_icon1.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -107,7 +109,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.weilidaiLoan,
+                        title: l10n.weilidaiLoan,
                         icon: "images/icon/discovery_icon4.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -124,7 +126,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.licaitong,
+                        title: l10n.licaitong,
                         icon: "images/icon/server_icon2.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -141,7 +143,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.insuranceService,
+                        title: l10n.insuranceService,
                         icon: "images/icon/server_icon3.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -172,14 +174,14 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                           ),
                         ),
                         child: Text(
-                          AppLocalizations.of(context)!.transportation,
+                          l10n.transportation,
                           style: const TextStyle(
                             color: AppColors.neutralGrey77,
                           ),
                         ),
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.transportServices,
+                        title: l10n.transportServices,
                         icon: "images/icon/server_icon10.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -197,7 +199,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                       ),
                       LJNFunctionItem(
                         title:
-                            AppLocalizations.of(context)!.trainAndFlightTickets,
+                            l10n.trainAndFlightTickets,
                         icon: "images/icon/server_icon11.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -214,7 +216,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.didiRideHailing,
+                        title: l10n.didiRideHailing,
                         icon: "images/icon/server_icon12.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -231,7 +233,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.hotelAndBAndB,
+                        title: l10n.hotelAndBAndB,
                         icon: "images/icon/server_icon122.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -262,14 +264,14 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                           ),
                         ),
                         child: Text(
-                          AppLocalizations.of(context)!.shoppingAndConsumption,
+                          l10n.shoppingAndConsumption,
                           style: const TextStyle(
                             color: AppColors.neutralGrey77,
                           ),
                         ),
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.brandDiscovery,
+                        title: l10n.brandDiscovery,
                         icon: "images/icon/server_icon13.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -286,7 +288,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.jdShopping,
+                        title: l10n.jdShopping,
                         icon: "images/icon/server_icon14.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -303,7 +305,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.meituanWaimai,
+                        title: l10n.meituanWaimai,
                         icon: "images/icon/server_icon15.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -339,7 +341,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                       ),
                       LJNFunctionItem(
                         title:
-                            AppLocalizations.of(context)!.meituanSpecialOffers,
+                            l10n.meituanSpecialOffers,
                         icon: "images/icon/server_icon15.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -356,7 +358,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.pinduoduo,
+                        title: l10n.pinduoduo,
                         icon: "images/icon/server_icon18.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -373,7 +375,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.vipshop,
+                        title: l10n.vipshop,
                         icon: "images/icon/server_icon19.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -391,7 +393,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                       ),
                       LJNFunctionItem(
                         title:
-                            AppLocalizations.of(context)!.zhuanzhuanUsedGoods,
+                            l10n.zhuanzhuanUsedGoods,
                         icon: "images/icon/server_icon20.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),

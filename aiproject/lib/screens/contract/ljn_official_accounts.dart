@@ -90,6 +90,7 @@ class _LJNOfficialAccountsState extends State<LJNOfficialAccounts> {
   Widget _buildPage(SystemState systemState) {
     // 关键改动 4: 在 build 方法内部获取最新的 l10n 实例
     final l10n = AppLocalizations.of(context)!;
+    ThemeData theme = Theme.of(context);
 
     return Scaffold(
       primary: false,
@@ -103,10 +104,7 @@ class _LJNOfficialAccountsState extends State<LJNOfficialAccounts> {
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Theme.of(context).colorScheme.surface,
-                  AppColors.neutralWhite
-                ],
+                colors: [theme.colorScheme.surface, AppColors.neutralWhite],
                 stops: [0.3, 0.5],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,

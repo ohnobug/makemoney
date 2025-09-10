@@ -25,13 +25,16 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Theme(
-          data: Theme.of(context).copyWith(
-            appBarTheme: Theme.of(context).appBarTheme.copyWith(
-                  backgroundColor: AppColors.transparent,
-                ),
+          data: theme.copyWith(
+            appBarTheme: theme.appBarTheme.copyWith(
+              backgroundColor: AppColors.transparent,
+            ),
           ),
           child: Scaffold(
             primary: false,
@@ -62,7 +65,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                           height: 110.w,
                           alignment: Alignment.bottomCenter,
                           child: Text(
-                            AppLocalizations.of(context)!.securityVerification,
+                            l10n.securityVerification,
                             style: TextStyle(
                                 fontSize: 42.w,
                                 // fontWeight: FontWeight.bold,
@@ -106,7 +109,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                AppLocalizations.of(context)!.enterPassword,
+                                l10n.enterPassword,
                                 style: TextStyle(fontSize: 30.w, height: 1.08),
                               ),
                               SizedBox(
@@ -152,7 +155,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                               Navigator.pushNamed(context, '/forgot_password');
                             },
                             child: Text(
-                              AppLocalizations.of(context)!.forgotPassword,
+                              l10n.forgotPassword,
                               style: TextStyle(
                                 fontSize: 24.w,
                                 color: AppColors.brandPurpleDark3,
@@ -170,7 +173,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                         Container(
                           padding: EdgeInsets.only(bottom: 180.w),
                           child: LJNChangeAccountButton(
-                            title: AppLocalizations.of(context)!.verify,
+                            title: l10n.verify,
                             link: "",
                             readonly: true,
                           ),

@@ -430,12 +430,14 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
       return Scaffold(
         primary: false,
         appBar: LJNAppBar(
-          title: AppLocalizations.of(context)!.viewPhoneContacts,
+          title: l10n.viewPhoneContacts,
         ),
         body: ScrollConfiguration(
           behavior: CustomScrollBehavior().copyWith(
@@ -487,11 +489,14 @@ class ContactListItem extends StatefulWidget {
 }
 
 class _ContactListItem extends State<ContactListItem> {
-  late Color containerColor = Theme.of(context).colorScheme.surface;
   // Color containerColor = AppColors.transparent;
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+    Color containerColor = theme.colorScheme.surface;
+
     return Container(
       color: containerColor,
       height: 135.0.w,
@@ -521,8 +526,7 @@ class _ContactListItem extends State<ContactListItem> {
                 // color: AppColors.accentRedPure,
                 border: Border(
                   bottom: widget.underline
-                      ? (Theme.of(context).listTileTheme.shape
-                              as RoundedRectangleBorder)
+                      ? (theme.listTileTheme.shape as RoundedRectangleBorder)
                           .side
                       : BorderSide.none,
                 ),
@@ -557,8 +561,7 @@ class _ContactListItem extends State<ContactListItem> {
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: fontSizeScale(32.0.w),
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
+                                  color: theme.colorScheme.onSurface,
                                   fontFamily: "AlibabaPuHuiTi",
                                 ),
                                 emojiStyle: TextStyle(
@@ -609,12 +612,12 @@ class _ContactListItem extends State<ContactListItem> {
                   // 右边按钮
                   if (widget.alreadyFriends)
                     LJNAddButton(
-                      title: AppLocalizations.of(context)!.add,
+                      title: l10n.add,
                       backgroundColor: AppColors.brandGreenVibrant3,
                     )
                   else
                     LJNAddButton(
-                      title: AppLocalizations.of(context)!.added,
+                      title: l10n.added,
                       // readonly: true,
                       backgroundColor: AppColors.transparent,
                       color: AppColors.neutralDarkGrey3,

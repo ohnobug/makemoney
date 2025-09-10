@@ -24,12 +24,15 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.accountAndSecurity,
+            title: l10n.accountAndSecurity,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -40,7 +43,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                     90.w -
                     systemState.statusHeight,
               ),
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: theme.colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -51,7 +54,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                       builder: (context, userState) {
                         // 账户与安全
                         return LJNFunctionItem(
-                          title: AppLocalizations.of(context)!.wechatID,
+                          title: l10n.wechatID,
                           link: '/accountinfo',
                           showStyle: userState.userinfoAccount,
                           underline: true,
@@ -63,7 +66,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                       builder: (context, userState) {
                         // 手机号
                         return LJNFunctionItem(
-                          title: AppLocalizations.of(context)!.phoneNumber,
+                          title: l10n.phoneNumber,
                           link: '/phone_number',
                           showStyle: userState.userinfoPhone,
                           underline: false,
@@ -75,13 +78,13 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
 
                     // 微信密码
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.wechatPassword,
+                      title: l10n.wechatPassword,
                       link: '/set_password',
                       underline: true,
                     ),
                     // 声音锁
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.voiceprint,
+                      title: l10n.voiceprint,
                       link: '/sound_lock',
                       underline: false,
                     ),
@@ -90,19 +93,19 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
 
                     // 应急联系人
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.emergencyContacts,
+                      title: l10n.emergencyContacts,
                       link: '/emergency_contact',
                       underline: true,
                     ),
                     // 登录过的设备
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.loggedInDevices,
+                      title: l10n.loggedInDevices,
                       link: '/logged_devices',
                       underline: true,
                     ),
                     // 更多安全设置
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.moreSecuritySettings,
+                      title: l10n.moreSecuritySettings,
                       link: '/more_secure_setting',
                       underline: false,
                     ),
@@ -111,11 +114,11 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
 
                     // 微信安全中心
                     LJNSpecialFunctionItem(
-                      title: AppLocalizations.of(context)!.wechatSecurityCenter,
+                      title: l10n.wechatSecurityCenter,
                       height: null,
                       link: '',
                       subTitle: Text(
-                        AppLocalizations.of(context)!.securityGuidanceFull,
+                        l10n.securityGuidanceFull,
                         maxLines: 3,
                         style: TextStyle(
                           color: AppColors.neutralGrey35,

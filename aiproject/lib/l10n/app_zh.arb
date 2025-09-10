@@ -555,6 +555,7 @@
       }
     }
   },
+  "tagExistsError": "标签存在错误",
   "priorityPaymentMethod": "优先付款方式",
   "change": "更改",
   "balance": "零钱",

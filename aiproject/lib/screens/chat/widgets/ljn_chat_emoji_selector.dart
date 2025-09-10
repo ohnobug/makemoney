@@ -2064,6 +2064,9 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return SingleChildScrollView(
@@ -2073,7 +2076,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: ColoredBox(
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: theme.colorScheme.surfaceContainer,
               child: Stack(
                 children: [
                   Column(
@@ -2100,9 +2103,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                   0xe612,
                                   fontFamily: 'Iconfont',
                                 ), // 使用的图标
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurface, // 图标颜色
+                                color: theme.colorScheme.onSurface, // 图标颜色
                                 size: 45.w, // 图标大小
                               ),
                             ),
@@ -2122,9 +2123,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                   0xe702,
                                   fontFamily: 'Iconfont',
                                 ), // 使用的图标
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurface, // 图标颜色
+                                color: theme.colorScheme.onSurface, // 图标颜色
                                 size: 45.w, // 图标大小
                               ),
                             ),
@@ -2143,9 +2142,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                   0xe682,
                                   fontFamily: 'Iconfont',
                                 ), // 使用的图标
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurface, // 图标颜色
+                                color: theme.colorScheme.onSurface, // 图标颜色
                                 size: 45.w, // 图标大小
                               ),
                             ),
@@ -2166,9 +2163,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                     0xe621,
                                     fontFamily: 'Iconfont',
                                   ), // 使用的图标
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurface, // 图标颜色
+                                  color: theme.colorScheme.onSurface, // 图标颜色
                                   size: 45.w, // 图标大小
                                 ))
                           ],
@@ -2213,12 +2208,10 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                   alignment: Alignment.topLeft,
                                   padding: EdgeInsets.only(left: 36.25.w),
                                   child: Text(
-                                    AppLocalizations.of(context)!.recent,
+                                    l10n.recent,
                                     style: TextStyle(
                                         fontSize: 27.w,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onSurface,
+                                        color: theme.colorScheme.onSurface,
                                         height: 1.08),
                                   ),
                                 ),
@@ -2266,12 +2259,10 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                   alignment: Alignment.topLeft,
                                   padding: EdgeInsets.only(left: 36.25.w),
                                   child: Text(
-                                    AppLocalizations.of(context)!.allEmojis,
+                                    l10n.allEmojis,
                                     style: TextStyle(
                                       fontSize: 27.w,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onSurface,
+                                      color: theme.colorScheme.onSurface,
                                       height: 1.08,
                                     ),
                                   ),

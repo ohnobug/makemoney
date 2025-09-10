@@ -7,6 +7,9 @@ import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 
 void showCallPopup(BuildContext context, SystemState systemState) {
+  ThemeData theme = Theme.of(context);
+  AppLocalizations l10n = AppLocalizations.of(context)!;
+
   double widthHeightRatio =
       MediaQuery.of(context).size.width / MediaQuery.of(context).size.height;
 
@@ -55,7 +58,7 @@ void showCallPopup(BuildContext context, SystemState systemState) {
                             0xe64f,
                             fontFamily: 'Iconfont',
                           ),
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: theme.colorScheme.onSurface,
                           size: 40.w,
                         ),
                       ),
@@ -64,12 +67,12 @@ void showCallPopup(BuildContext context, SystemState systemState) {
                       child: SizedBox(width: 20.w),
                     ),
                     TextSpan(
-                      text: AppLocalizations.of(context)!.videoCall,
+                      text: l10n.videoCall,
                       style: TextStyle(
                         height: 1.08,
                         fontSize: 30.w,
                         decoration: TextDecoration.none,
-                        color: Theme.of(context).colorScheme.onSurface,
+                        color: theme.colorScheme.onSurface,
                       ),
                     ),
                   ],
@@ -102,7 +105,7 @@ void showCallPopup(BuildContext context, SystemState systemState) {
                           0xe64c,
                           fontFamily: 'Iconfont',
                         ),
-                        color: Theme.of(context).colorScheme.onSurface,
+                        color: theme.colorScheme.onSurface,
                         size: 40.w,
                       ),
                     ),
@@ -111,12 +114,12 @@ void showCallPopup(BuildContext context, SystemState systemState) {
                     child: SizedBox(width: 20.w),
                   ),
                   TextSpan(
-                    text: AppLocalizations.of(context)!.voiceCall,
+                    text: l10n.voiceCall,
                     style: TextStyle(
                       height: 1.08,
                       fontSize: 30.w,
                       decoration: TextDecoration.none,
-                      color: Theme.of(context).colorScheme.onSurface,
+                      color: theme.colorScheme.onSurface,
                     ),
                   ),
                 ]),
@@ -134,7 +137,7 @@ void showCallPopup(BuildContext context, SystemState systemState) {
               color: AppColors.neutralGrey2,
             ),
             LJNMaxWidthButton(
-              title: AppLocalizations.of(context)!.cancel,
+              title: l10n.cancel,
               underline: false,
               onPressed: () {
                 Navigator.pop(context);

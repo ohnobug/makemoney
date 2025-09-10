@@ -31,6 +31,8 @@ class _LJNThemeSettingState extends State<LJNThemeSetting> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     // 使用 BlocBuilder 来监听 LJNSystemCubit 的状态变化
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
@@ -39,7 +41,7 @@ class _LJNThemeSettingState extends State<LJNThemeSetting> {
 
         return Scaffold(
           // 使用当前主题的背景色
-          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+          backgroundColor: theme.colorScheme.surfaceContainer,
           appBar: const LJNAppBar(
             title: '外观', // AppBar 标题更新
           ),
@@ -57,10 +59,11 @@ class _LJNThemeSettingState extends State<LJNThemeSetting> {
 
   /// 构建包含主题列表的卡片
   Widget _buildThemeCard(List<ThemeOption> options, ThemeMode currentMode) {
+    ThemeData theme = Theme.of(context);
+
     return Card(
       // 使用当前主题的卡片颜色
-      color: Theme.of(context).cardTheme.color ??
-          Theme.of(context).colorScheme.surface,
+      color: theme.cardTheme.color ?? theme.colorScheme.surface,
       elevation: 0,
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
@@ -79,7 +82,7 @@ class _LJNThemeSettingState extends State<LJNThemeSetting> {
         separatorBuilder: (context, index) => Divider(
           height: 1,
           thickness: 1,
-          color: Theme.of(context).dividerColor.withAlpha(25),
+          color: theme.dividerColor.withAlpha(25),
           indent: 32.w,
           endIndent: 32.w,
         ),
@@ -89,6 +92,8 @@ class _LJNThemeSettingState extends State<LJNThemeSetting> {
 
   /// 构建单个主题条目
   Widget _buildThemeTile(ThemeOption option, bool isSelected) {
+    ThemeData theme = Theme.of(context);
+
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.w),
       title: Text(
@@ -97,7 +102,7 @@ class _LJNThemeSettingState extends State<LJNThemeSetting> {
           fontSize: 32.w,
           fontWeight: FontWeight.w500,
           // 使用当前主题的文本颜色
-          color: Theme.of(context).colorScheme.onSurface,
+          color: theme.colorScheme.onSurface,
         ),
       ),
       // [改动 6] UI 简化，移除了副标题
@@ -105,12 +110,12 @@ class _LJNThemeSettingState extends State<LJNThemeSetting> {
           ? Icon(
               Icons.check_circle_rounded, // 使用一个更现代的图标
               // 使用当前主题的主色
-              color: Theme.of(context).colorScheme.primary,
+              color: theme.colorScheme.primary,
               size: 44.w,
             )
           : Icon(
               Icons.circle_outlined, // 未选中时显示空心圆
-              color: Theme.of(context).colorScheme.onSurface.withAlpha(75),
+              color: theme.colorScheme.onSurface.withAlpha(75),
               size: 44.w,
             ),
       onTap: () {

@@ -30,13 +30,16 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       primary: false,
       appBar: null,
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: Container(
-          color: Theme.of(context).colorScheme.surfaceContainer,
+          color: theme.colorScheme.surfaceContainer,
           constraints: BoxConstraints(
               minHeight: MediaQuery.of(context).size.height -
                   90.w -
@@ -55,7 +58,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
               ),
               height: 95.w,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainer,
+                color: theme.colorScheme.surfaceContainer,
                 border: Border(
                   bottom: BorderSide(
                     color: Colors.grey.withAlpha(128),
@@ -79,7 +82,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
                             0xe612,
                             fontFamily: 'Iconfont',
                           ),
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: theme.colorScheme.onSurface,
                           size: 40.w,
                         ),
                         prefixIconConstraints: BoxConstraints(
@@ -112,7 +115,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
                       alignment: Alignment.center,
                       width: 100.w,
                       child: Text(
-                        AppLocalizations.of(context)!.cancel,
+                        l10n.cancel,
                         style: TextStyle(
                           fontSize: 30.w,
                           color: AppColors.brandBluePrimary,

@@ -25,6 +25,9 @@ class _LJPpersonalInfoCollectionChecklist
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
@@ -50,7 +53,7 @@ class _LJPpersonalInfoCollectionChecklist
                       height: 130.w,
                     ),
                     Text(
-                      AppLocalizations.of(context)!.personalInfoCollectionList,
+                      l10n.personalInfoCollectionList,
                       style: TextStyle(
                           fontSize: 41.w, fontFamily: "AlibabaPuHuiTi-Medium"),
                     ),
@@ -82,16 +85,14 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Theme.of(context)
-                                      .listTileTheme
-                                      .selectedTileColor!,
+                                  color: theme.listTileTheme.selectedTileColor!,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
                               ),
                             ),
                             child: Text(
-                              AppLocalizations.of(context)!.basicInfo,
+                              l10n.basicInfo,
                               style: TextStyle(
                                 fontSize: 25.w,
                                 color: AppColors.neutralDarkGrey13,
@@ -99,31 +100,31 @@ class _LJPpersonalInfoCollectionChecklist
                             ),
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.avatar,
+                            title: l10n.avatar,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.name,
+                            title: l10n.name,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.phoneNumber,
+                            title: l10n.phoneNumber,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.gender,
+                            title: l10n.gender,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.region,
+                            title: l10n.region,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -136,7 +137,7 @@ class _LJPpersonalInfoCollectionChecklist
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.address,
+                            title: l10n.address,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -159,16 +160,14 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Theme.of(context)
-                                      .listTileTheme
-                                      .selectedTileColor!,
+                                  color: theme.listTileTheme.selectedTileColor!,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
                               ),
                             ),
                             child: Text(
-                              AppLocalizations.of(context)!.deviceInfo,
+                              l10n.deviceInfo,
                               style: TextStyle(
                                 fontSize: 25.w,
                                 color: AppColors.neutralDarkGrey13,
@@ -177,7 +176,7 @@ class _LJPpersonalInfoCollectionChecklist
                           ),
                           LJNPCCFunctionItem(
                             title:
-                                AppLocalizations.of(context)!.loggedInDevices,
+                                l10n.loggedInDevices,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -200,16 +199,14 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Theme.of(context)
-                                      .listTileTheme
-                                      .selectedTileColor!,
+                                  color: theme.listTileTheme.selectedTileColor!,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
                               ),
                             ),
                             child: Text(
-                              AppLocalizations.of(context)!.userInfoDuringUse,
+                              l10n.userInfoDuringUse,
                               style: TextStyle(
                                 fontSize: 25.w,
                                 color: AppColors.neutralDarkGrey13,
@@ -217,14 +214,14 @@ class _LJPpersonalInfoCollectionChecklist
                             ),
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.location,
+                            title: l10n.location,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
                             title:
-                                AppLocalizations.of(context)!.imagesAndVideos,
+                                l10n.imagesAndVideos,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -247,9 +244,7 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Theme.of(context)
-                                      .listTileTheme
-                                      .selectedTileColor!,
+                                  color: theme.listTileTheme.selectedTileColor!,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
@@ -265,32 +260,32 @@ class _LJPpersonalInfoCollectionChecklist
                             ),
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.moments,
+                            title: l10n.moments,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.status,
+                            title: l10n.status,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.wechatBeans,
+                            title: l10n.wechatBeans,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.weRun,
+                            title: l10n.weRun,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
                             title: Text(
-                              AppLocalizations.of(context)!.look,
+                              l10n.look,
                               style: TextStyle(
                                 height: 1.08,
                                 fontWeight: FontWeight.bold,
@@ -306,25 +301,25 @@ class _LJPpersonalInfoCollectionChecklist
                           ),
                           LJNPCCFunctionItem(
                             title:
-                                AppLocalizations.of(context)!.officialAccounts,
+                                l10n.officialAccounts,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.miniPrograms,
+                            title: l10n.miniPrograms,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.channels,
+                            title: l10n.channels,
                             link: '',
                             underline: true,
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.wechatGames,
+                            title: l10n.wechatGames,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -347,16 +342,14 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: Theme.of(context)
-                                      .listTileTheme
-                                      .selectedTileColor!,
+                                  color: theme.listTileTheme.selectedTileColor!,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
                               ),
                             ),
                             child: Text(
-                              AppLocalizations.of(context)!.contactInfo,
+                              l10n.contactInfo,
                               style: TextStyle(
                                 fontSize: 25.w,
                                 color: AppColors.neutralDarkGrey13,
@@ -364,7 +357,7 @@ class _LJPpersonalInfoCollectionChecklist
                             ),
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!.phoneContacts,
+                            title: l10n.phoneContacts,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -432,6 +425,8 @@ class _LJNPCCFunctionItemState extends State<LJNPCCFunctionItem> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return GestureDetector(
       onTapDown: (tapDownDetails) {
         if (tapEffect == false) return;
@@ -500,8 +495,7 @@ class _LJNPCCFunctionItemState extends State<LJNPCCFunctionItem> {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: widget.underline
-                        ? (Theme.of(context).listTileTheme.shape
-                                as RoundedRectangleBorder)
+                        ? (theme.listTileTheme.shape as RoundedRectangleBorder)
                             .side
                         : BorderSide.none,
                   ),

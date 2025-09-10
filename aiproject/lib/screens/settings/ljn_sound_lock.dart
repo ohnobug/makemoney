@@ -26,6 +26,8 @@ class _LJNSoundLock extends State<LJNSoundLock> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
@@ -61,7 +63,7 @@ class _LJNSoundLock extends State<LJNSoundLock> {
                       ),
                     ),
                     Text(
-                      AppLocalizations.of(context)!.voiceprint,
+                      l10n.voiceprint,
                       style: TextStyle(
                         height: 1.08,
                         fontSize: 40.w,
@@ -104,7 +106,7 @@ class _LJNSoundLock extends State<LJNSoundLock> {
                             ),
                           ),
                           LJNFunctionItem(
-                            title: AppLocalizations.of(context)!.resetAndRemove,
+                            title: l10n.resetAndRemove,
                             link: '',
                             backgroundColor: AppColors.neutralGrey2,
                             underline: true,

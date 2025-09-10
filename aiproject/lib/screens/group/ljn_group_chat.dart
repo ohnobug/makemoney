@@ -1,28 +1,29 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:uuid/uuid.dart';
+import 'package:record/record.dart';
+import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as path;
+import 'package:vibration/vibration.dart';
+
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
-import 'package:vigaviga/widgets/ljn_my_voice_message.dart';
-import 'package:vigaviga/widgets/ljn_receive_message.dart';
-import 'package:vigaviga/widgets/ljn_video_draggable_box.dart';
-import 'package:vigaviga/widgets/ljn_video_message.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/screens/chat/widgets/ljn_my_message.dart';
+import 'package:vigaviga/screens/chat/widgets/ljn_my_voice_message.dart';
+import 'package:vigaviga/screens/chat/widgets/ljn_receive_message.dart';
+import 'package:vigaviga/screens/chat/widgets/ljn_video_message.dart';
 import 'package:vigaviga/screens/chat/widgets/ljn_chat_emoji_selector.dart';
+import 'package:vigaviga/screens/chat/widgets/ljn_video_draggable_box.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:uuid/uuid.dart';
-import 'package:vibration/vibration.dart';
-import '../../widgets/ljn_my_message.dart';
-import '../../store/ljn_system_cubit.dart';
-import '../../tools/ljn_tools.dart';
-import 'package:lottie/lottie.dart';
-import 'package:record/record.dart';
-import 'package:path/path.dart' as path;
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 
 class LJNGroupChat extends StatefulWidget {
   const LJNGroupChat({super.key, required this.title, required this.icon});
@@ -870,6 +871,9 @@ class _LJNGroupChat extends State<LJNGroupChat>
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     viewInsets = MediaQuery.of(context).viewInsets;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -926,7 +930,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                       Expanded(
                         flex: 1,
                         child: ColoredBox(
-                          color: Theme.of(context).colorScheme.surfaceContainer,
+                          color: theme.colorScheme.surfaceContainer,
                           child: ScrollConfiguration(
                             behavior: ScrollConfiguration.of(context)
                                 .copyWith(scrollbars: false),
@@ -1233,7 +1237,8 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                             style: TextStyle(
                                                 // height: 1.08,
                                                 fontSize: fontSizeScale(30.w),
-                                                color: Theme.of(context).colorScheme.onSurface),
+                                                color: theme
+                                                    .colorScheme.onSurface),
                                             // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
                                             maxLines: 5,
                                             minLines: 1,
@@ -1540,7 +1545,8 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                                   color: leftRight == 2
                                                       ? AppColors
                                                           .brandGreenLightest
-                                                      : AppColors.accentRedPure),
+                                                      : AppColors
+                                                          .accentRedPure),
                                               alignment: leftRight == 1
                                                   ? Alignment.center
                                                   : Alignment.topLeft,
@@ -1614,7 +1620,8 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                                   color: leftRight == 2
                                                       ? AppColors
                                                           .brandGreenLightest
-                                                      : AppColors.accentRedPure, // 图标颜色
+                                                      : AppColors
+                                                          .accentRedPure, // 图标颜色
                                                   size: 40.0.w, // 图标大小
                                                 ),
                                               ),
@@ -1690,7 +1697,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                           fontFamily: 'Iconfont',
                                         ),
                                         color: showCancelVoiceButtons
-                                            ? Theme.of(context).colorScheme.onSurface
+                                            ? theme.colorScheme.onSurface
                                             : AppColors.neutralGrey62,
                                         size: 43.w,
                                       ),
@@ -1707,7 +1714,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                   width: MediaQuery.of(context).size.width,
                                   alignment: Alignment.center,
                                   child: Text(
-                                    AppLocalizations.of(context)!.releaseToSend,
+                                    l10n.releaseToSend,
                                     style: TextStyle(
                                         height: 1.08,
                                         color: AppColors.neutralGrey43,
@@ -1784,7 +1791,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                           fontFamily: 'Iconfont',
                                         ),
                                         color: showCancelVoiceButtons
-                                            ? Theme.of(context).colorScheme.onSurface
+                                            ? theme.colorScheme.onSurface
                                             : AppColors.neutralGrey62,
                                         size: 43.w,
                                       ),

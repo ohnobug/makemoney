@@ -46,9 +46,12 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       primary: false,
-      appBar: LJNAppBar(title: AppLocalizations.of(context)!.chatMessages),
+      appBar: LJNAppBar(title: l10n.chatMessages),
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: Container(
@@ -60,7 +63,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
             gradient: LinearGradient(
               colors: [
                 AppColors.neutralWhite,
-                Theme.of(context).colorScheme.surfaceContainer
+                theme.colorScheme.surfaceContainer
               ],
               stops: [0.3, 0.5],
               begin: Alignment.topCenter,
@@ -122,16 +125,16 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                   ),
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surfaceContainer, height: 16.w),
+                    color: theme.colorScheme.surfaceContainer, height: 16.w),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.findChatHistory,
+                  title: l10n.findChatHistory,
                   link: '',
                   underline: false,
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surfaceContainer, height: 16.w),
+                    color: theme.colorScheme.surfaceContainer, height: 16.w),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.muteNotifications,
+                  title: l10n.muteNotifications,
                   // link: '',
                   underline: true,
                   tapEffect: false,
@@ -149,7 +152,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                   ),
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.pinToTop,
+                  title: l10n.pinToTop,
                   // link: '',
                   underline: true,
                   tapEffect: false,
@@ -167,7 +170,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                   ),
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.alert,
+                  title: l10n.alert,
                   // link: '',
                   underline: false,
                   tapEffect: false,
@@ -185,23 +188,23 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                   ),
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surfaceContainer, height: 16.w),
+                    color: theme.colorScheme.surfaceContainer, height: 16.w),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.setChatBackground,
+                  title: l10n.setChatBackground,
                   link: '',
                   underline: false,
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surfaceContainer, height: 16.w),
+                    color: theme.colorScheme.surfaceContainer, height: 16.w),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.clearChatHistory,
+                  title: l10n.clearChatHistory,
                   link: '',
                   underline: false,
                 ),
                 Container(
-                    color: Theme.of(context).colorScheme.surfaceContainer, height: 16.w),
+                    color: theme.colorScheme.surfaceContainer, height: 16.w),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.complain,
+                  title: l10n.complain,
                   link: '',
                   underline: false,
                 ),

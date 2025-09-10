@@ -555,6 +555,7 @@
       }
     }
   },
+  "tagExistsError": "Tag Exists Error",
   "priorityPaymentMethod": "Priority Payment Method",
   "change": "Change",
   "balance": "Balance",

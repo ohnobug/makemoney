@@ -19,8 +19,8 @@ class LJNSetFriendTags extends StatefulWidget {
 }
 
 class _LJNSetFriendTags extends State<LJNSetFriendTags> {
+  // Data for tags - this part is fine
   List<String> selectedTag = [];
-
   List<String> unselectTags = [
     "同学",
     "老婆",
@@ -62,51 +62,58 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
     "贪腐官员"
   ];
 
-  TextEditingController inputController = TextEditingController(text: "");
-  FocusNode focusNode = FocusNode();
+  final TextEditingController inputController = TextEditingController();
+  final FocusNode focusNode = FocusNode();
   int willBeRemoveTagofLast = 3;
 
   @override
-  void initState() {
-    super.initState();
-
-    inputController.addListener(() {});
+  void dispose() {
+    inputController.dispose();
+    focusNode.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
-      return _buildPage(systemState);
+      // Pass both context and systemState to the build method
+      return _buildPage(context, systemState);
     });
   }
 
-  // 另起一个函数方便管理
-  Widget _buildPage(SystemState systemState) {
+  Widget _buildPage(BuildContext context, SystemState systemState) {
+    // Core Refactor: Get theme and l10n instance once at the top of the build method
+    ThemeData theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       primary: false,
       appBar: LJNAppBar(
-        title: AppLocalizations.of(context)!.addFromAllTags,
+        title: l10n.addFromAllTags,
         actions: [
+          // "Save" button
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              // Your save logic here
+            },
             child: Container(
               height: 60.w,
               constraints: BoxConstraints(minWidth: 98.w),
               margin: EdgeInsets.only(right: 30.w),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: AppColors.brandGreenVibrant3,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(8.w),
-                ),
+                // Corrected: Use primary color from theme
+                color: colorScheme.primary,
+                borderRadius: BorderRadius.all(Radius.circular(8.w)),
               ),
               child: Text(
-                AppLocalizations.of(context)!.save,
-                // textAlign: TextAlign.center,
+                l10n.save,
                 style: TextStyle(
-                  color: AppColors.neutralWhite,
+                  // Corrected: Use onPrimary color for text on primary background
+                  color: colorScheme.onPrimary,
                   fontSize: 25.w,
                   fontWeight: FontWeight.w100,
                 ),
@@ -115,441 +122,74 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
           )
         ],
       ),
-      body: ScrollConfiguration(
-        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-        child: Container(
-          width: 750.w,
-          constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context).size.height -
-                90.w -
-                systemState.statusHeight,
-          ),
-          color: Theme.of(context).colorScheme.surfaceContainer,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        // Corrected: Use a theme-aware background color
+        color: theme.colorScheme.surfaceContainer,
+        child: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
             ),
             child: Column(
               children: [
-                // 已选标签
+                // "Selected Tags" section
                 Container(
                   width: 750.w,
-                  padding: EdgeInsets.only(
-                    left: 30.w,
-                    top: 35.w,
-                    bottom: 35.w,
-                    right: 10.w,
-                  ),
-                  color: AppColors.neutralWhite,
+                  padding: EdgeInsets.fromLTRB(30.w, 35.w, 10.w, 35.w),
+                  // Corrected: Use cardColor or surface for white backgrounds
+                  color: theme.cardColor,
                   constraints: BoxConstraints(minHeight: 102.w),
                   child: Wrap(
-                    direction: Axis.horizontal,
                     spacing: 17.w,
                     runSpacing: 10.w,
                     children: [
-                      ...selectedTag.asMap().map((key, value) {
-                        logger
-                            .info('ttttttttttttttttttt$willBeRemoveTagofLast');
-
-                        if (key == selectedTag.length - 1 &&
-                            willBeRemoveTagofLast == 2) {
-                          return MapEntry(
-                            key,
-                            GestureDetector(
-                              onTap: () {
-                                WidgetsBinding.instance
-                                    .addPostFrameCallback((_) {
-                                  setState(() {
-                                    willBeRemoveTagofLast = 3;
-                                  });
-                                });
-                              },
-                              child: FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Container(
-                                  height: 60.w,
-                                  padding: EdgeInsets.only(left: 25.w),
-                                  // margin: EdgeInsets.only(right: 17.w),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.brandGreenVibrant3,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(30.w),
-                                    ),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        value,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          height: 1.08,
-                                          fontSize: 28.w,
-                                          color: AppColors.neutralWhite,
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            selectedTag.removeAt(key);
-                                          });
-                                        },
-                                        child: Container(
-                                          width: 50.w,
-                                          height: 50.w,
-                                          color: AppColors.transparent,
-                                          alignment: Alignment.center,
-                                          child: Icon(
-                                            const IconData(
-                                              0xe627,
-                                              fontFamily: 'Iconfont',
-                                            ),
-                                            color: AppColors.neutralWhite,
-                                            size: 35.w,
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-
-                        return MapEntry(
-                          key,
-                          GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedTag.remove(value);
-                              });
-                            },
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Container(
-                                height: 60.w,
-                                padding:
-                                    EdgeInsets.only(left: 25.w, right: 25.w),
-                                // margin: EdgeInsets.only(right: 17.w),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: AppColors.brandTealBackground1,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(30.w),
-                                  ),
-                                ),
-                                child: Text(
-                                  value,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 28.w,
-                                    color: AppColors.brandGreenDarker2,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }).values,
-
-                      // 输入标签
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Container(
-                          height: 60.w,
-                          width: 310.w,
-                          padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                          // margin: EdgeInsets.only(right: 17.w),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: AppColors.brandTealBackground1,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(30.w),
-                            ),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              // 输入框
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  // width: 210.w,
-                                  alignment: Alignment.center,
-                                  height: 60.w,
-                                  child: KeyboardListener(
-                                    focusNode: FocusNode(),
-                                    onKeyEvent: (KeyEvent event) {
-                                      if (event is KeyDownEvent) {
-                                        if (event.logicalKey.keyLabel ==
-                                            "Backspace") {
-                                          if (inputController.text.isEmpty &&
-                                              selectedTag.isNotEmpty) {
-                                            setState(() {
-                                              willBeRemoveTagofLast -= 1;
-                                              if (willBeRemoveTagofLast == 1) {
-                                                selectedTag.removeLast();
-                                                willBeRemoveTagofLast = 3;
-                                              }
-                                            });
-                                          }
-                                        }
-                                        logger.info(
-                                            '|||${inputController.text.isEmpty}||| 按键按下: ${event.logicalKey}');
-                                      } else {
-                                        logger.info(
-                                            '|||${inputController.text.isEmpty}||| ttttttttttt: ${event.logicalKey}');
-                                      }
-                                    },
-                                    child: TextField(
-                                      readOnly: false,
-                                      autofocus: false,
-                                      showCursor: true,
-                                      controller: inputController,
-                                      focusNode: focusNode,
-                                      onTapOutside: (event) {
-                                        focusNode.unfocus();
-                                      },
-                                      // focusNode: inputFocusNode1,
-                                      onTap: () {},
-                                      onSubmitted: (value) {
-                                        setState(() {
-                                          selectedTag.add(value);
-                                          unselectTags.add(value);
-                                        });
-                                      },
-                                      cursorColor: const Color.fromRGBO(
-                                          62, 174, 86, 1.0),
-                                      // cursorHeight: 44.w,
-                                      cursorWidth: 3.w,
-                                      // textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        // height: 1.08,
-                                        fontSize: fontSizeScale(28.w),
-                                        color: AppColors.brandGreenDarker2,
-                                      ),
-                                      // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
-                                      minLines: 1,
-                                      onChanged: (newText) {
-                                        inputController.value =
-                                            inputController.value.copyWith(
-                                          text: newText,
-                                          selection: TextSelection.fromPosition(
-                                            TextPosition(
-                                                offset: newText.length),
-                                          ),
-                                        );
-                                      },
-                                      decoration: InputDecoration(
-                                        // fillColor:
-                                        //     AppColors.accentRedVibrant2,
-                                        // filled: true,
-                                        // focusColor: AppColors.accentRedPure,
-                                        // hoverColor:
-                                        //     AppColors.neutralGrey2,
-                                        isCollapsed: true,
-                                        contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 5.w,
-                                          // vertical: 30.w,
-                                        ),
-                                        hintText: AppLocalizations.of(context)!
-                                            .createOrSearchTags,
-                                        hintStyle: TextStyle(
-                                          fontSize: fontSizeScale(28.w),
-                                          color: Colors.grey,
-                                        ),
-                                        border: InputBorder.none,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              // 确认按钮
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedTag
-                                        .add(inputController.text.trim());
-                                    unselectTags
-                                        .add(inputController.text.trim());
-                                    inputController.clear();
-                                  });
-                                },
-                                child: Container(
-                                  width: 40.w,
-                                  height: 40.w,
-                                  alignment: Alignment.center,
-                                  // color: AppColors.accentRedPure,
-                                  child: Icon(
-                                    const IconData(
-                                      0xe64e,
-                                      fontFamily: 'Iconfont',
-                                    ),
-                                    color: AppColors.brandGreenVibrant3,
-                                    size: 35.w,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
+                      ..._buildSelectedTags(theme),
+                      _buildTagInputField(theme, l10n),
                     ],
                   ),
                 ),
-
-                // 标题
+                // "All Tags" title section
                 Container(
                   height: 73.w,
                   width: 750.w,
-                  padding: EdgeInsets.only(left: 30.w, right: 30.w),
+                  padding: EdgeInsets.symmetric(horizontal: 30.w),
                   alignment: Alignment.center,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    // crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        AppLocalizations.of(context)!.allTags,
+                        l10n.allTags,
                         style: TextStyle(
                           fontSize: 27.w,
-                          color: AppColors.neutralGrey58,
+                          // Corrected: Use a theme color for subtitles
+                          color: theme.textTheme.bodySmall?.color,
                         ),
                       ),
                       Text(
-                        AppLocalizations.of(context)!.edit,
+                        l10n.edit,
                         style: TextStyle(
                           fontSize: 27.w,
-                          color: AppColors.neutralGrey58,
+                          color: theme.textTheme.bodySmall?.color,
                         ),
                       ),
                     ],
                   ),
                 ),
-
-                // 未选标签
+                // "Unselected Tags" section
                 Container(
                   width: 750.w,
-                  padding: EdgeInsets.only(
-                    left: 30.w,
-                    right: 10.w,
-                    bottom: 200.w,
-                  ),
-                  // color: AppColors.neutralWhite,
+                  padding:
+                      EdgeInsets.only(left: 30.w, right: 10.w, bottom: 200.w),
                   constraints: BoxConstraints(minHeight: 102.w),
                   child: Wrap(
-                    direction: Axis.horizontal,
                     spacing: 17.w,
                     runSpacing: 10.w,
                     children: [
-                      // 待选标签
-                      ...unselectTags.map(
-                        (value) {
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                if (selectedTag.contains(value)) {
-                                  selectedTag.remove(value);
-                                } else {
-                                  selectedTag.add(value);
-                                }
-                              });
-                            },
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Container(
-                                height: 60.w,
-                                padding: EdgeInsets.symmetric(horizontal: 25.w),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: selectedTag.contains(value)
-                                      ? AppColors.brandTealBackground1
-                                      : AppColors.neutralGrey2,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(30.w),
-                                  ),
-                                ),
-                                child: Text(
-                                  value,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    height: 1.08,
-                                    fontSize: 28.w,
-                                    color: selectedTag.contains(value)
-                                        ? AppColors.brandGreenDarker2
-                                        : AppColors.neutralGrey53,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-
-                      // 输入标签
-                      GestureDetector(
-                        onTap: () {
-                          _showPopup(context, systemState, (String text) {
-                            if (unselectTags.contains(text)) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    textAlign: TextAlign.center,
-                                    AppLocalizations.of(context)!
-                                        .create_success_message,
-                                  ),
-                                  duration: Duration(
-                                    seconds: 3,
-                                  ), // 设置 Snackbar 显示时间
-                                ),
-                              );
-
-                              return;
-                            }
-
-                            setState(() {
-                              unselectTags.add(text);
-                            });
-                          });
-                        },
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Container(
-                            height: 60.w,
-                            padding: EdgeInsets.symmetric(horizontal: 25.w),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: AppColors.neutralGrey10,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(30.w),
-                              ),
-                              border: Border.all(
-                                width: 1.5.w,
-                                color: AppColors.neutralGrey30,
-                              ),
-                            ),
-                            child: Text(
-                              AppLocalizations.of(context)!.newTag,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                height: 1.08,
-                                fontSize: 28.w,
-                                color: AppColors.neutralGrey48,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
+                      ..._buildUnselectedTags(theme),
+                      _buildNewTagButton(context, systemState, theme, l10n),
                     ],
                   ),
                 ),
@@ -560,182 +200,355 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
       ),
     );
   }
+
+  // Helper method to build the list of selected tags
+  List<Widget> _buildSelectedTags(ThemeData theme) {
+    return selectedTag.asMap().entries.map((entry) {
+      int key = entry.key;
+      String value = entry.value;
+
+      bool isLast = key == selectedTag.length - 1;
+      bool isMarkedForDelete = isLast && willBeRemoveTagofLast == 2;
+
+      // Define theme-aware colors
+      final Color tagColor = isMarkedForDelete
+          ? theme.colorScheme.error // Use error color for deletion warning
+          : theme.colorScheme.primaryContainer;
+      final Color textColor = isMarkedForDelete
+          ? theme.colorScheme.onError
+          : theme.colorScheme.onPrimaryContainer;
+
+      if (isMarkedForDelete) {
+        return GestureDetector(
+          onTap: () => setState(() => willBeRemoveTagofLast = 3),
+          child: _buildTag(
+            text: value,
+            tagColor: tagColor,
+            textColor: textColor,
+            hasDeleteIcon: true,
+            onDelete: () => setState(() {
+              selectedTag.removeAt(key);
+              willBeRemoveTagofLast = 3; // Reset state after deletion
+            }),
+          ),
+        );
+      }
+
+      return GestureDetector(
+        onTap: () => setState(() => selectedTag.remove(value)),
+        child: _buildTag(text: value, tagColor: tagColor, textColor: textColor),
+      );
+    }).toList();
+  }
+
+  // Helper method to build the list of unselected tags
+  List<Widget> _buildUnselectedTags(ThemeData theme) {
+    return unselectTags.map((value) {
+      bool isSelected = selectedTag.contains(value);
+      final Color tagColor = isSelected
+          ? theme.colorScheme.primaryContainer
+          : theme.chipTheme.backgroundColor ?? theme.colorScheme.surfaceVariant;
+      final Color textColor = isSelected
+          ? theme.colorScheme.onPrimaryContainer
+          : theme.chipTheme.labelStyle?.color ??
+              theme.colorScheme.onSurfaceVariant;
+
+      return GestureDetector(
+        onTap: () {
+          setState(() {
+            if (isSelected) {
+              selectedTag.remove(value);
+            } else {
+              selectedTag.add(value);
+            }
+          });
+        },
+        child: _buildTag(text: value, tagColor: tagColor, textColor: textColor),
+      );
+    }).toList();
+  }
+
+  // A generic tag widget to reduce code duplication
+  Widget _buildTag({
+    required String text,
+    required Color tagColor,
+    required Color textColor,
+    bool hasDeleteIcon = false,
+    VoidCallback? onDelete,
+  }) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Container(
+        height: 60.w,
+        padding: EdgeInsets.only(left: 25.w, right: hasDeleteIcon ? 0 : 25.w),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: tagColor,
+          borderRadius: BorderRadius.all(Radius.circular(30.w)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              text,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 28.w, color: textColor),
+            ),
+            if (hasDeleteIcon)
+              GestureDetector(
+                onTap: onDelete,
+                child: Container(
+                  width: 50.w,
+                  height: 50.w,
+                  color: Colors.transparent,
+                  alignment: Alignment.center,
+                  child: Icon(Icons.cancel, color: textColor, size: 35.w),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Input field for new tags
+  Widget _buildTagInputField(ThemeData theme, AppLocalizations l10n) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Container(
+        height: 60.w,
+        width: 310.w,
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        decoration: BoxDecoration(
+          color: theme.chipTheme.backgroundColor ??
+              theme.colorScheme.surfaceVariant,
+          borderRadius: BorderRadius.all(Radius.circular(30.w)),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: KeyboardListener(
+                focusNode:
+                    FocusNode(), // Use a local focus node for the listener
+                onKeyEvent: (KeyEvent event) {
+                  if (event is KeyDownEvent &&
+                      event.logicalKey == LogicalKeyboardKey.backspace &&
+                      inputController.text.isEmpty &&
+                      selectedTag.isNotEmpty) {
+                    setState(() {
+                      willBeRemoveTagofLast--;
+                      if (willBeRemoveTagofLast == 1) {
+                        selectedTag.removeLast();
+                        willBeRemoveTagofLast = 3;
+                      }
+                    });
+                  }
+                },
+                child: TextField(
+                  controller: inputController,
+                  focusNode: focusNode,
+                  onSubmitted: (value) {
+                    if (value.trim().isNotEmpty) {
+                      setState(() {
+                        selectedTag.add(value.trim());
+                        if (!unselectTags.contains(value.trim())) {
+                          unselectTags.add(value.trim());
+                        }
+                        inputController.clear();
+                      });
+                    }
+                  },
+                  cursorColor: theme.primaryColor,
+                  style: TextStyle(
+                    fontSize: fontSizeScale(28.w),
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                  decoration: InputDecoration(
+                    isCollapsed: true,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 5.w),
+                    hintText: l10n.createOrSearchTags,
+                    hintStyle: TextStyle(
+                      fontSize: fontSizeScale(28.w),
+                      color: theme.hintColor,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                final text = inputController.text.trim();
+                if (text.isNotEmpty) {
+                  setState(() {
+                    selectedTag.add(text);
+                    if (!unselectTags.contains(text)) {
+                      unselectTags.add(text);
+                    }
+                    inputController.clear();
+                  });
+                }
+              },
+              child: Icon(
+                Icons.add_circle,
+                color: theme.primaryColor,
+                size: 35.w,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  // "New Tag" button
+  Widget _buildNewTagButton(BuildContext context, SystemState systemState,
+      ThemeData theme, AppLocalizations l10n) {
+    return GestureDetector(
+      onTap: () {
+        _showNewTagPopup(context, systemState, (String text) {
+          if (unselectTags.contains(text)) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  l10n.tagExistsError,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            );
+            return;
+          }
+          setState(() => unselectTags.add(text));
+        });
+      },
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Container(
+          height: 60.w,
+          padding: EdgeInsets.symmetric(horizontal: 25.w),
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.all(Radius.circular(30.w)),
+            border: Border.all(
+              width: 1.5.w,
+              color: theme.dividerColor,
+            ),
+          ),
+          child: Text(
+            l10n.newTag,
+            style: TextStyle(
+              fontSize: 28.w,
+              color: theme.textTheme.bodyMedium?.color,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-void _showPopup(
-    BuildContext context, SystemState systemState, Function callback) {
-  TextEditingController inputController2 = TextEditingController(text: "");
-
-  final underlineInputBorder = UnderlineInputBorder(
-    borderSide: BorderSide(
-      width: 1.5.w,
-      color: AppColors.neutralGrey30,
-    ),
-  );
+// Popup for creating a new tag
+void _showNewTagPopup(
+    BuildContext context, SystemState systemState, Function(String) callback) {
+  final TextEditingController inputController2 = TextEditingController();
+  final l10n = AppLocalizations.of(context)!;
+  ThemeData theme = Theme.of(context);
+  final colorScheme = theme.colorScheme;
 
   showModalBottomSheet(
     context: context,
-    barrierColor: AppColors.blackTransparent47,
-    // backgroundColor: AppColors.accentRedPure,
     isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(13.w),
-      ),
-    ),
+    backgroundColor: Colors.transparent, // Make sheet background transparent
     builder: (BuildContext context) {
       return StatefulBuilder(
         builder: (context, setState) {
-          return Container(
-            color: AppColors.neutralWhite,
-            height: 600.w,
-            width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-            ),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 70.w,
-                ),
+          bool isInputEmpty = inputController2.text.trim().isEmpty;
+          final Color confirmButtonColor =
+              isInputEmpty ? theme.disabledColor : colorScheme.primary;
+          final Color confirmTextColor = isInputEmpty
+              ? colorScheme.onSurface.withOpacity(0.38)
+              : colorScheme.onPrimary;
 
-                // 标题
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Container(
-                        width: 40.w,
-                        height: 40.w,
-                        margin: EdgeInsets.only(left: 50.w),
-                        alignment: Alignment.center,
-                        child: Icon(
-                          const IconData(
-                            0xe628,
-                            fontFamily: 'Iconfont',
-                          ),
-                          color: Theme.of(context).colorScheme.onSurface,
-                          size: 33.w,
-                        ),
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Container(
+              decoration: BoxDecoration(
+                color: theme.cardColor,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(13.w)),
+              ),
+              height: 600.w,
+              child: Column(
+                children: [
+                  SizedBox(height: 70.w),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.close, color: colorScheme.onSurface),
+                        onPressed: () => Navigator.of(context).pop(),
                       ),
-                    ),
-                    Text(
-                      AppLocalizations.of(context)!.enterTag,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 35.w,
-                        color: Theme.of(context).colorScheme.onSurface,
-                        fontFamily: "AlibabaPuHuiTi-Medium",
+                      Text(
+                        l10n.enterTag,
+                        style: theme.textTheme.titleLarge,
                       ),
-                    ),
-                    SizedBox(
-                      width: 90.w,
-                    )
-                  ],
-                ),
-
-                SizedBox(
-                  height: 95.w,
-                ),
-
-                // 输入框
-                Container(
-                  color: AppColors.transparent,
-                  height: 70.w,
-                  width: 750.w,
-                  padding: EdgeInsets.only(left: 90.w, right: 90.w),
-                  alignment: Alignment.center,
-                  child: TextField(
-                    readOnly: false,
-                    autofocus: false,
-                    showCursor: true,
-                    maxLines: 1,
-                    controller: inputController2,
-                    onTap: () {},
-                    cursorColor: AppColors.brandGreenDarker4,
-                    cursorWidth: 3.w,
-                    style: TextStyle(
-                      fontSize: fontSizeScale(28.w),
-                      color: AppColors.brandGreenDarker2,
-                    ),
-                    minLines: 1,
-                    onChanged: (newText) {
-                      setState(() {});
-                    },
-                    decoration: InputDecoration(
-                      isCollapsed: true,
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 5.w,
-                        vertical: 15.w,
-                      ),
-                      hintText: AppLocalizations.of(context)!.tagName,
-                      hintStyle: TextStyle(
-                        fontSize: fontSizeScale(35.w),
-                        color: Colors.grey,
-                      ),
-                      border: underlineInputBorder,
-                      focusedBorder: underlineInputBorder,
-                      enabledBorder: underlineInputBorder,
-                      disabledBorder: underlineInputBorder,
-                      focusedErrorBorder: underlineInputBorder,
-                      errorBorder: underlineInputBorder,
-                    ),
+                      SizedBox(width: 90.w), // To balance the close button
+                    ],
                   ),
-                ),
-
-                SizedBox(
-                  height: 130.w,
-                ),
-
-                // 确认按钮
-                GestureDetector(
-                  onTap: () {
-                    var text = inputController2.text.trim();
-                    if (text.isEmpty) return;
-
-                    callback(text);
-
-                    inputController2.clear();
-
-                    Navigator.of(context).pop();
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          textAlign: TextAlign.center,
-                          AppLocalizations.of(context)!.create_success_message,
-                        ),
-                        duration: Duration(
-                          seconds: 3,
-                        ), // 设置 Snackbar 显示时间
-                      ),
-                    );
-                  },
-                  child: Container(
-                    width: 345.w,
-                    height: 90.w,
-                    decoration: BoxDecoration(
-                      color: inputController2.text.isEmpty
-                          ? Theme.of(context).listTileTheme.selectedTileColor!
-                          : AppColors.brandGreenVibrant3,
-                      borderRadius: BorderRadius.circular(10.w),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      AppLocalizations.of(context)!.confirm,
-                      style: TextStyle(
-                        color: inputController2.text.isEmpty
-                            ? AppColors.neutralGrey37
-                            : AppColors.neutralWhite,
-                        fontSize: 32.w,
+                  SizedBox(height: 95.w),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 90.w),
+                    child: TextField(
+                      controller: inputController2,
+                      autofocus: true,
+                      cursorColor: colorScheme.primary,
+                      style: TextStyle(color: colorScheme.onSurface),
+                      onChanged: (_) => setState(() {}),
+                      decoration: InputDecoration(
+                        hintText: l10n.tagName,
+                        hintStyle: TextStyle(color: theme.hintColor),
+                        // Using theme's default input border
                       ),
                     ),
                   ),
-                )
-              ],
+                  const Spacer(),
+                  GestureDetector(
+                    onTap: isInputEmpty
+                        ? null
+                        : () {
+                            callback(inputController2.text.trim());
+                            Navigator.of(context).pop();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  l10n.create_success_message,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            );
+                          },
+                    child: Container(
+                      width: 345.w,
+                      height: 90.w,
+                      decoration: BoxDecoration(
+                        color: confirmButtonColor,
+                        borderRadius: BorderRadius.circular(10.w),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        l10n.confirm,
+                        style: TextStyle(
+                          color: confirmTextColor,
+                          fontSize: 32.w,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 50.w), // Bottom padding
+                ],
+              ),
             ),
           );
         },

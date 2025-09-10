@@ -21,12 +21,15 @@ class _LJNAaccountAndSecure extends State<LJNMoreSecureSetting> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.moreSecuritySettings,
+            title: l10n.moreSecuritySettings,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -36,7 +39,7 @@ class _LJNAaccountAndSecure extends State<LJNMoreSecureSetting> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: theme.colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -44,15 +47,15 @@ class _LJNAaccountAndSecure extends State<LJNMoreSecureSetting> {
                 child: Column(
                   children: [
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.qqId,
+                      title: l10n.qqId,
                       link: '/',
                       showStyle: "2281551151",
                       underline: true,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.emailAddress,
+                      title: l10n.emailAddress,
                       link: '/',
-                      showStyle: AppLocalizations.of(context)!.notBound,
+                      showStyle: l10n.notBound,
                       underline: false,
                     ),
                     SizedBox(height: 16.w),

@@ -2558,6 +2558,12 @@ abstract class AppLocalizations {
   /// **'Created: {date}'**
   String creationTimeDisplay(DateTime date);
 
+  /// No description provided for @tagExistsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Tag Exists Error'**
+  String get tagExistsError;
+
   /// No description provided for @priorityPaymentMethod.
   ///
   /// In en, this message translates to:

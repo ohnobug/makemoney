@@ -1328,6 +1328,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get tagExistsError => 'Tag Exists Error';
+
+  @override
   String get priorityPaymentMethod => 'Priority Payment Method';
 
   @override

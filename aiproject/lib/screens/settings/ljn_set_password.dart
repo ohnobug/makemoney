@@ -76,10 +76,12 @@ class _LJNSetPasswordState extends State<LJNSetPassword> {
 
   Widget _buildPageBody(BuildContext context, AppLocalizations l10n,
       LJNUserState userState, SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: Container(
-        color: Theme.of(context).colorScheme.surfaceContainer,
+        color: theme.colorScheme.surfaceContainer,
         // 使用 ListView 代替 SingleChildScrollView + Column，代码更简洁
         child: ListView(
           physics: const AlwaysScrollableScrollPhysics(
@@ -130,7 +132,7 @@ class _LJNSetPasswordState extends State<LJNSetPassword> {
               style: TextStyle(
                 fontSize: 26.w,
                 height: 1.08,
-                color: Theme.of(context).colorScheme.onSurface,
+                color: theme.colorScheme.onSurface,
               ),
             ),
             SizedBox(height: 10.w),
@@ -213,6 +215,8 @@ class _FormInputRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return SizedBox(
       height: 75.w,
       child: Row(
@@ -225,7 +229,7 @@ class _FormInputRow extends StatelessWidget {
               style: TextStyle(
                 height: 1.08,
                 fontSize: 30.w,
-                color: Theme.of(context).colorScheme.onSurface,
+                color: theme.colorScheme.onSurface,
               ),
             ),
           ),

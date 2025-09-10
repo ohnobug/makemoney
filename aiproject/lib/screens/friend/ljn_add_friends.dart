@@ -35,10 +35,13 @@ class _LJNAddFriends extends State<LJNAddFriends> {
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       primary: false,
       appBar: LJNAppBar(
-        title: AppLocalizations.of(context)!.addFriend,
+        title: l10n.addFriend,
       ),
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -47,7 +50,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
               minHeight: MediaQuery.of(context).size.height -
                   90.w -
                   systemState.statusHeight),
-          color: Theme.of(context).colorScheme.surfaceContainer,
+          color: theme.colorScheme.surfaceContainer,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -55,9 +58,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
             child: Column(
               children: [
                 // 搜索框
-                LJNSearch(
-                    link: '/search_friend',
-                    title: AppLocalizations.of(context)!.accountOrPhone),
+                LJNSearch(link: '/search_friend', title: l10n.accountOrPhone),
 
                 SizedBox(
                   height: 44.w,
@@ -73,11 +74,10 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                     TextSpan(
                       children: [
                         TextSpan(
-                          text: AppLocalizations.of(context)!.myWechatIdDisplay(
-                              context
-                                  .read<LJNUserCubit>()
-                                  .state
-                                  .userinfoAccount!),
+                          text: l10n.myWechatIdDisplay(context
+                              .read<LJNUserCubit>()
+                              .state
+                              .userinfoAccount!),
                           style: TextStyle(
                             height: 1.08,
                             fontSize: 25.w,
@@ -106,44 +106,43 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                 ),
 
                 LJNIconFunctionItem(
-                  title: AppLocalizations.of(context)!.radarAddFriends,
+                  title: l10n.radarAddFriends,
                   link: '',
                   underline: true,
                   avatar: "images/icon/add_friend_icon1.png",
-                  message: AppLocalizations.of(context)!.addNearbyFriends,
+                  message: l10n.addNearbyFriends,
                 ),
 
                 LJNIconFunctionItem(
-                  title: AppLocalizations.of(context)!.faceToFaceGroup,
+                  title: l10n.faceToFaceGroup,
                   link: '',
                   underline: true,
                   avatar: "images/icon/add_friend_icon2.png",
-                  message:
-                      AppLocalizations.of(context)!.joinGroupWithNearbyFriends,
+                  message: l10n.joinGroupWithNearbyFriends,
                 ),
 
                 LJNIconFunctionItem(
-                  title: AppLocalizations.of(context)!.scan,
+                  title: l10n.scan,
                   link: '/qrcode_scanner',
                   underline: true,
                   avatar: "images/icon/add_friend_icon3.png",
-                  message: AppLocalizations.of(context)!.scanQRCode,
+                  message: l10n.scanQRCode,
                 ),
 
                 LJNIconFunctionItem(
-                  title: AppLocalizations.of(context)!.phoneContacts,
+                  title: l10n.phoneContacts,
                   link: '/phone_contact',
                   underline: true,
                   avatar: "images/icon/add_friend_icon4.png",
-                  message: AppLocalizations.of(context)!.addOrInviteContacts,
+                  message: l10n.addOrInviteContacts,
                 ),
 
                 LJNIconFunctionItem(
-                  title: AppLocalizations.of(context)!.officialAccounts,
+                  title: l10n.officialAccounts,
                   link: '',
                   underline: true,
                   avatar: "images/icon/add_friend_icon5.png",
-                  message: AppLocalizations.of(context)!.getMoreInfoAndServices,
+                  message: l10n.getMoreInfoAndServices,
                 ),
               ],
             ),

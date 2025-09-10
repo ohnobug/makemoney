@@ -24,6 +24,9 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     final DateTime theTimestamp = DateTime(2024, 11, 10, 15, 23);
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
@@ -31,7 +34,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.deviceDetails,
+            title: l10n.deviceDetails,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -41,7 +44,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: theme.colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -50,14 +53,14 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                   LJNFunctionItem(
                     // height: 150.w,
 
-                    title: AppLocalizations.of(context)!.deviceName,
+                    title: l10n.deviceName,
                     link: '',
                     tapEffect: true,
                     underline: true,
                     showStyle: Expanded(
                       flex: 1,
                       child: Text(
-                        AppLocalizations.of(context)!.currentDevice,
+                        l10n.currentDevice,
                         textAlign: TextAlign.end,
                         style: TextStyle(
                           fontSize: 32.w,
@@ -70,7 +73,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                   LJNFunctionItem(
                     // height: 150.w,
 
-                    title: AppLocalizations.of(context)!.deviceType,
+                    title: l10n.deviceType,
                     // link: '',
                     tapEffect: false,
                     underline: false,
@@ -97,7 +100,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                   LJNFunctionItem(
                     // height: 150.w,
 
-                    title: AppLocalizations.of(context)!.lastActiveTime,
+                    title: l10n.lastActiveTime,
                     // link: '',
                     tapEffect: false,
                     underline: false,
@@ -131,7 +134,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                     ),
                   ),
                   LJNMaxWidthButton(
-                    title: AppLocalizations.of(context)!.deleteThisDevice,
+                    title: l10n.deleteThisDevice,
                     color: AppColors.accentRedPure,
                     link: '',
                     underline: false,

@@ -24,12 +24,15 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.newMessageNotifications,
+            title: l10n.newMessageNotifications,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -39,7 +42,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: theme.colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -53,7 +56,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
                               .w,
                       child: Text(
-                        AppLocalizations.of(context)!.notificationToggle,
+                        l10n.notificationToggle,
                         style: TextStyle(fontSize: 25.w, height: 1.08),
                       ),
                     ),
@@ -125,7 +128,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
                               .w,
                       child: Text(
-                        AppLocalizations.of(context)!.soundAndVibration,
+                        l10n.soundAndVibration,
                         style: TextStyle(fontSize: 25.w, height: 1.08),
                       ),
                     ),
@@ -136,15 +139,13 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           .newMessageSystemNotification,
                       link: '',
                       underline: true,
-                      showStyle:
-                          AppLocalizations.of(context)!.goToSystemSettings,
+                      showStyle: l10n.goToSystemSettings,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.voiceVideoCallAlerts,
+                      title: l10n.voiceVideoCallAlerts,
                       link: '',
                       underline: false,
-                      showStyle:
-                          AppLocalizations.of(context)!.goToSystemSettings,
+                      showStyle: l10n.goToSystemSettings,
                     ),
 
                     Container(
@@ -154,26 +155,25 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                           const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
                               .w,
                       child: Text(
-                        AppLocalizations.of(context)!.alertToneAndRingtone,
+                        l10n.alertToneAndRingtone,
                         style: TextStyle(fontSize: 25.w, height: 1.08),
                       ),
                     ),
 
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.messageTone,
+                      title: l10n.messageTone,
                       link: '',
                       underline: true,
-                      showStyle: AppLocalizations.of(context)!.followSystem,
+                      showStyle: l10n.followSystem,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.callRingtone,
+                      title: l10n.callRingtone,
                       link: '',
                       underline: true,
                       showStyle: "SISTER SISTER",
                     ),
                     LJNFunctionItem(
-                      title:
-                          AppLocalizations.of(context)!.friendCanHearMyRingtone,
+                      title: l10n.friendCanHearMyRingtone,
                       // link: '',
                       underline: false,
                       tapEffect: false,

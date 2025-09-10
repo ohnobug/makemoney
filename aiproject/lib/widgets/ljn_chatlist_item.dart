@@ -35,33 +35,53 @@ class ChatListItem extends StatefulWidget {
   State<ChatListItem> createState() => _ChatListItem();
 }
 
+// =========================================================================
+// ====================    这里是完整的、修正后的 State 类    ====================
+// =========================================================================
 class _ChatListItem extends State<ChatListItem> {
-  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
+  // 唯一的内部状态：只用来记录列表项是否被用户按下。
+  bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
+    // 核心修正：在 build 方法内部获取所有依赖于外部环境（如此处的 Theme）的值。
+    // 这样每次UI刷新（包括主题切换），都能拿到最新的正确颜色。
+    ThemeData theme = Theme.of(context);
+    Color normalColor = theme.listTileTheme.tileColor!;
+    Color pressedColor = theme.listTileTheme.selectedTileColor!;
+
+    // 根据内部状态 _isPressed 动态地计算出当前应该显示的背景颜色。
+    Color currentColor = _isPressed ? pressedColor : normalColor;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return GestureDetector(
+          // onTapDown 只负责更新内部状态
           onTapDown: (_) {
             setState(() {
-              containerColor =
-                  Theme.of(context).listTileTheme.selectedTileColor!;
+              _isPressed = true;
             });
           },
+          // onTapCancel 只负责更新内部状态
           onTapCancel: () {
             setState(() {
-              containerColor = Theme.of(context).listTileTheme.tileColor!;
+              _isPressed = false;
             });
-
             logger.info("取消点击");
           },
+          // onTapUp 负责恢复状态并执行操作
           onTapUp: (tapDownDetails) {
+            // 1. 立即恢复视觉状态，让UI响应更及时
+            setState(() {
+              _isPressed = false;
+            });
+
+            // 2. 延迟一小段时间再执行回调，让用户能看到颜色恢复的动画效果
             Future.delayed(const Duration(milliseconds: 50), () {
-              setState(() {
-                containerColor = Theme.of(context).listTileTheme.tileColor!;
-              });
-              widget.onPressed!();
+              // 检查 widget 是否还在树上，并且 onPressed 回调不为空
+              if (mounted && widget.onPressed != null) {
+                widget.onPressed!();
+              }
             });
 
             logger.info("弹起");
@@ -70,15 +90,16 @@ class _ChatListItem extends State<ChatListItem> {
             children: [
               // 头像以及名称日期等信息
               Container(
-                color: containerColor,
+                // 使用在 build 方法开头计算出的正确颜色
+                color: currentColor,
                 height: 135.0.w,
                 padding: const EdgeInsets.only(left: 30.0).w,
                 child: Row(
                   children: [
                     // 头像
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(widget.avatarRadius ??
-                          8.0.w), // Adjust the radius as needed
+                      borderRadius:
+                          BorderRadius.circular(widget.avatarRadius ?? 8.0.w),
                       child: Image.asset(
                         assetPath(widget.avatar),
                         width: 90.0.w,
@@ -94,11 +115,10 @@ class _ChatListItem extends State<ChatListItem> {
                     // 右边区域
                     Expanded(
                       child: Container(
-                        // alignment: Alignment.center,
                         decoration: BoxDecoration(
                           border: Border(
                             bottom: widget.underline
-                                ? (Theme.of(context).listTileTheme.shape
+                                ? (theme.listTileTheme.shape
                                         as RoundedRectangleBorder)
                                     .side
                                 : BorderSide.none,
@@ -131,9 +151,7 @@ class _ChatListItem extends State<ChatListItem> {
                                     fontSize: fontSizeScale(31.0.w),
                                     color: widget.notice
                                         ? AppColors.accentRedPure
-                                        : Theme.of(context)
-                                            .colorScheme
-                                            .onSurface,
+                                        : theme.colorScheme.onSurface,
                                     fontFamily: "AlibabaPuHuiTi",
                                   ),
                                   emojiStyle: TextStyle(
@@ -151,7 +169,6 @@ class _ChatListItem extends State<ChatListItem> {
                                         widget.lastedTime,
                                         style: TextStyle(
                                           height: 1.08,
-                                          // fontFamily: "Roboto-Regular",
                                           fontSize: fontSizeScale(25.0.w),
                                           color: widget.notice
                                               ? AppColors.accentRedPure
@@ -175,9 +192,6 @@ class _ChatListItem extends State<ChatListItem> {
                               children: [
                                 Expanded(
                                   flex: 1,
-                                  // color: Colors.amber,
-                                  // width: 400.w,
-                                  // margin: EdgeInsets.only(right: 65.w),
                                   child: LJNTextSpans(
                                     text: widget.message,
                                     style: TextStyle(
@@ -197,7 +211,6 @@ class _ChatListItem extends State<ChatListItem> {
                                 Container(
                                   width: 30.w,
                                   height: 30.w,
-                                  // color: AppColors.accentRedPure,
                                   margin:
                                       EdgeInsets.only(left: 30.w, right: 30.w),
                                   child: widget.notice
@@ -228,20 +241,20 @@ class _ChatListItem extends State<ChatListItem> {
                     left: 95.w,
                     top: 16.w,
                     child: Container(
-                      width: 35.w, // 盒子宽度
-                      height: 35.w, // 盒子高度
+                      width: 35.w,
+                      height: 35.w,
                       decoration: const BoxDecoration(
-                        shape: BoxShape.circle, // 圆形
-                        color: Color.fromRGBO(246, 89, 87, 1), // 盒子颜色
+                        shape: BoxShape.circle,
+                        color: Color.fromRGBO(246, 89, 87, 1),
                       ),
                       alignment: Alignment.center,
                       child: Text(
-                        widget.badge.toString(), // 这里可以替换成你想要显示的数字
+                        widget.badge.toString(),
                         maxLines: 1,
                         style: TextStyle(
                           height: 1.08,
-                          fontSize: fontSizeScale(20.w), // 数字大小
-                          color: AppColors.neutralWhite, // 数字颜色
+                          fontSize: fontSizeScale(20.w),
+                          color: AppColors.neutralWhite,
                           fontWeight: FontWeight.w600,
                           fontFamily: "LJNFont",
                         ),
@@ -253,11 +266,11 @@ class _ChatListItem extends State<ChatListItem> {
                     left: 109.w,
                     top: 20.w,
                     child: Container(
-                      width: 20.w, // 盒子宽度
-                      height: 20.w, // 盒子高度
+                      width: 20.w,
+                      height: 20.w,
                       decoration: const BoxDecoration(
-                        shape: BoxShape.circle, // 圆形
-                        color: Color.fromRGBO(246, 89, 87, 1), // 盒子颜色
+                        shape: BoxShape.circle,
+                        color: Color.fromRGBO(246, 89, 87, 1),
                       ),
                       child: null,
                     ),

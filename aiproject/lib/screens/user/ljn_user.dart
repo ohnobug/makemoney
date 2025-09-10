@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/widgets/ljn_page_loading.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
-import '../../widgets/ljn_function_item.dart';
+import 'package:vigaviga/widgets/ljn_function_item.dart';
 
 class LJNUser extends StatefulWidget {
   const LJNUser({super.key});
@@ -41,6 +41,9 @@ class _LJNUserState extends State<LJNUser> {
   }
 
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Stack(
       children: [
         Container(
@@ -49,8 +52,8 @@ class _LJNUserState extends State<LJNUser> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Theme.of(context).cardTheme.color!,
-                Theme.of(context).colorScheme.surfaceContainer
+                theme.cardTheme.color!,
+                theme.colorScheme.surfaceContainer
               ],
               stops: [0.3, 0.5],
               begin: Alignment.topCenter,
@@ -73,7 +76,7 @@ class _LJNUserState extends State<LJNUser> {
                 children: [
                   // 顶部功能区域
                   Container(
-                    color: Theme.of(context).colorScheme.surface,
+                    color: theme.colorScheme.surface,
                     padding: EdgeInsets.only(
                       top: 120.0.w + systemState.statusHeight,
                       left: 32.w,
@@ -90,14 +93,26 @@ class _LJNUserState extends State<LJNUser> {
                             borderRadius: BorderRadius.circular(10).w,
                             child: BlocBuilder<LJNUserCubit, LJNUserState>(
                               builder: (context, state) {
-                                return Image.asset(
-                                  assetPath(state.userinfoAvatar!),
-                                  cacheWidth: 240.w.toInt(),
-                                  cacheHeight: 240.w.toInt(),
-                                  width: 120.w,
-                                  height: 120.w,
-                                  fit: BoxFit.cover,
-                                );
+                                if (state.userinfoAvatar == null ||
+                                    state.userinfoAvatar!.isEmpty) {
+                                  return Image.asset(
+                                    assetPath('images/avatar/default.png'),
+                                    cacheWidth: 240.w.toInt(),
+                                    cacheHeight: 240.w.toInt(),
+                                    width: 120.w,
+                                    height: 120.w,
+                                    fit: BoxFit.cover,
+                                  );
+                                } else {
+                                  return Image.asset(
+                                    assetPath(state.userinfoAvatar!),
+                                    cacheWidth: 240.w.toInt(),
+                                    cacheHeight: 240.w.toInt(),
+                                    width: 120.w,
+                                    height: 120.w,
+                                    fit: BoxFit.cover,
+                                  );
+                                }
                               },
                             ),
                           ),
@@ -134,9 +149,8 @@ class _LJNUserState extends State<LJNUser> {
                                                 height: 1.5,
                                                 fontSize: fontSizeScale(42.w),
                                                 fontWeight: FontWeight.w600,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onSurface,
+                                                color:
+                                                    theme.colorScheme.onSurface,
                                               ),
                                             );
                                           },
@@ -150,23 +164,31 @@ class _LJNUserState extends State<LJNUser> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          BlocBuilder<LJNUserCubit,
-                                              LJNUserState>(
-                                            builder: (context, state) {
-                                              return Text(
-                                                AppLocalizations.of(context)!
-                                                    .wechatIdDisplay(
-                                                        state.userinfoAccount!),
-                                                style: TextStyle(
-                                                  height: 1.08,
-                                                  fontSize: fontSizeScale(28.w),
-                                                  color:
-                                                      AppColors.neutralGrey71,
-                                                ),
-                                              );
-                                            },
+                                          // 使用 Expanded 包裹 BlocBuilder，让文本自动填充可用空间
+                                          Expanded(
+                                            child: BlocBuilder<LJNUserCubit,
+                                                LJNUserState>(
+                                              builder: (context, state) {
+                                                return Text(
+                                                  AppLocalizations.of(context)!
+                                                      .wechatIdDisplay(state
+                                                          .userinfoAccount!),
+                                                  style: TextStyle(
+                                                    height: 1.08,
+                                                    fontSize:
+                                                        fontSizeScale(28.w),
+                                                    color:
+                                                        AppColors.neutralGrey71,
+                                                  ),
+                                                  // 可选: 如果文本太长，可以设置如何显示，比如用省略号
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                );
+                                              },
+                                            ),
                                           ),
-                                          // 二维码图标
+                                          // 二维码图标（这部分保持不变）
                                           Row(
                                             children: [
                                               Icon(
@@ -202,7 +224,7 @@ class _LJNUserState extends State<LJNUser> {
                                 children: [
                                   LJNStatusButton(
                                     text:
-                                        AppLocalizations.of(context)!.addStatus,
+                                        l10n.addStatus,
                                     onPressed: () {
                                       logger.info('点击状态');
                                     },
@@ -212,12 +234,12 @@ class _LJNUserState extends State<LJNUser> {
                                     child: Row(
                                       children: [
                                         SizedBox(
-                                          height: 60.w,
+                                          height: 30.w,
                                           width: 85.w,
                                           child: Stack(
                                             children: <Widget>[
                                               Positioned(
-                                                top: 6.w,
+                                                // top: 6.w,
                                                 left: 0.w,
                                                 child: Container(
                                                   decoration: BoxDecoration(
@@ -246,7 +268,7 @@ class _LJNUserState extends State<LJNUser> {
                                                 ),
                                               ),
                                               Positioned(
-                                                top: 6.w,
+                                                // top: 6.w,
                                                 left: 25.w,
                                                 child: Container(
                                                   decoration: BoxDecoration(
@@ -275,7 +297,7 @@ class _LJNUserState extends State<LJNUser> {
                                                 ),
                                               ),
                                               Positioned(
-                                                top: 6.w,
+                                                // top: 6.w,
                                                 left: 50.w,
                                                 child: Container(
                                                   decoration: BoxDecoration(
@@ -313,7 +335,7 @@ class _LJNUserState extends State<LJNUser> {
                                           style: TextStyle(
                                             height: 1.08,
                                             fontSize: 24.w,
-                                            color: AppColors.neutralGrey68,
+                                            color: theme.colorScheme.onSurface,
                                           ),
                                         )
                                       ],
@@ -336,7 +358,7 @@ class _LJNUserState extends State<LJNUser> {
                   ),
 
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.services,
+                    title: l10n.services,
                     icon: "images/icon/icon1.png",
                     link: '/services',
                     underline: false,
@@ -347,7 +369,7 @@ class _LJNUserState extends State<LJNUser> {
                   ),
 
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.favorite,
+                    title: l10n.favorite,
                     icon: "images/icon/icon2.png",
                     link:
                         "/open_miniprogram?link=${Uri.encodeComponent('https://baidu.com')}",
@@ -355,28 +377,28 @@ class _LJNUserState extends State<LJNUser> {
                   ),
 
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.moments,
+                    title: l10n.moments,
                     icon: "images/icon/icon3.png",
                     link: '/friendmoments',
                     underline: true,
                   ),
 
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.channels,
+                    title: l10n.channels,
                     icon: "images/icon/icon4.png",
                     link: '/video_player',
                     underline: true,
                   ),
 
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.storeOrdersAndCardPack,
+                    title: l10n.storeOrdersAndCardPack,
                     icon: "images/icon/icon5.png",
                     link: '/test',
                     underline: true,
                   ),
 
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.stickers,
+                    title: l10n.stickers,
                     icon: "images/icon/icon6.png",
                     link:
                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/code.html')}",
@@ -388,7 +410,7 @@ class _LJNUserState extends State<LJNUser> {
                   ),
 
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.settings,
+                    title: l10n.settings,
                     icon: "images/icon/icon7.png",
                     link: '/setting',
                     underline: false,
@@ -403,11 +425,16 @@ class _LJNUserState extends State<LJNUser> {
   }
 }
 
-// 状态按钮
-class LJNStatusButton extends StatefulWidget {
+class LJNStatusButton extends StatelessWidget {
+  /// 当按钮中只显示文本时使用此属性。
   final String? text;
+
+  /// 当按钮中需要显示复杂的子组件（如图标+文本）时使用此属性。
+  /// 如果 `text` 不为 null，`child` 将被忽略。
   final Widget? child;
-  final Function() onPressed;
+
+  /// 按钮的点击回调函数。
+  final VoidCallback onPressed;
 
   const LJNStatusButton({
     super.key,
@@ -417,55 +444,26 @@ class LJNStatusButton extends StatefulWidget {
   });
 
   @override
-  State<LJNStatusButton> createState() => _LJNStatusButton();
-}
-
-class _LJNStatusButton extends State<LJNStatusButton> {
-  bool _isPressed = false;
-
-  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onPressed,
-      onTapDown: (_) {
-        setState(() {
-          _isPressed = true;
-        });
-      },
-      onTapUp: (_) {
-        setState(() {
-          _isPressed = false;
-        });
-      },
-      onTapCancel: () {
-        setState(() {
-          _isPressed = false;
-        });
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12).w,
-        height: 48.w,
-        decoration: BoxDecoration(
-          color: _isPressed ? AppColors.neutralGrey18 : AppColors.transparent,
-          border: Border.all(
-            color: AppColors.neutralGrey16,
-            width: 1.w,
-          ),
-          borderRadius: BorderRadius.circular(24).w,
-        ),
-        child: widget.text == null
-            ? widget.child
-            : Center(
-                child: Text(
-                  widget.text!,
-                  style: TextStyle(
-                    height: 1.08,
-                    fontSize: fontSizeScale(24.w),
-                    color: AppColors.neutralGrey68,
-                  ),
-                ),
+    // 使用 Flutter 内置的 OutlinedButton
+    return OutlinedButton(
+      // 将 onPressed 回调直接传递给 OutlinedButton
+      onPressed: onPressed,
+
+      // 根据传入的属性决定按钮的内容
+      // 如果 text 不为空，则显示文本
+      // 否则，显示 child
+      child: text != null
+          ? Text(
+              text!,
+              style: TextStyle(
+                // 文本样式可以从主题中继承，也可以在这里覆盖
+                // 注意：颜色通常由主题的 `foregroundColor` 控制，这里可以不写
+                height: 1.08,
+                fontSize: fontSizeScale(24.w),
               ),
-      ),
+            )
+          : child!,
     );
   }
 }

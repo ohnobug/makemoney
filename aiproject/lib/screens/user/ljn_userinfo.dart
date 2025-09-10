@@ -32,10 +32,13 @@ class _LJNUserinfo extends State<LJNUserinfo> {
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       primary: false,
       appBar: LJNAppBar(
-        title: AppLocalizations.of(context)!.personalInfo,
+        title: l10n.personalInfo,
       ),
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -44,7 +47,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
               minHeight: MediaQuery.of(context).size.height -
                   90.w -
                   systemState.statusHeight),
-          color: Theme.of(context).colorScheme.surfaceContainer,
+          color: theme.colorScheme.surfaceContainer,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -53,7 +56,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
               children: [
                 // 头像
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.avatar,
+                  title: l10n.avatar,
                   height: 150.w,
                   link: '',
                   showStyle: Expanded(
@@ -83,21 +86,21 @@ class _LJNUserinfo extends State<LJNUserinfo> {
                 ),
                 // 姓名
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.nickName,
+                  title: l10n.nickName,
                   // icon: "images/icon/discovery_icon2.png",
                   link: '',
                   showStyle: context.read<LJNUserCubit>().state.userinfoName!,
                   underline: true,
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.pat,
+                  title: l10n.pat,
                   link: '',
                   underline: true,
                 ),
 
                 // 微信号
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.wechatID,
+                  title: l10n.wechatID,
                   link: '/accountinfo',
                   showStyle: context.read<LJNUserCubit>().state.userinfoAccount,
                   underline: true,
@@ -105,7 +108,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
 
                 // 二维码名片
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.qrCodeCard,
+                  title: l10n.qrCodeCard,
                   link: '',
                   showStyle: Expanded(
                     flex: 1,
@@ -129,7 +132,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
 
                 // 更多信息
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.moreInfo,
+                  title: l10n.moreInfo,
                   link: '/user_more_info',
                   underline: false,
                 ),
@@ -138,7 +141,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
 
                 // 来电铃声
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.callRingtone,
+                  title: l10n.callRingtone,
                   link: '',
                   showStyle: 'SISTER  - JAVA',
                   underline: false,
@@ -148,9 +151,9 @@ class _LJNUserinfo extends State<LJNUserinfo> {
 
                 // 微信豆
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.wechatBeans,
+                  title: l10n.wechatBeans,
                   link: '',
-                  showStyle: AppLocalizations.of(context)!.wechatBeanCount(3),
+                  showStyle: l10n.wechatBeanCount(3),
                   underline: false,
                 ),
 
@@ -158,14 +161,14 @@ class _LJNUserinfo extends State<LJNUserinfo> {
 
                 // 我的地址
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.myAddresses,
+                  title: l10n.myAddresses,
                   link: '',
                   underline: true,
                 ),
 
                 // 我的发票抬头
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.myInvoiceTitles,
+                  title: l10n.myInvoiceTitles,
                   link: '',
                   underline: false,
                 ),

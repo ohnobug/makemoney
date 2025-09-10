@@ -9,6 +9,8 @@ List<InlineSpan> LJNBuildspan(
   TextStyle? fontTextStyle,
   TextStyle? iconTextStyle,
 ) {
+  ThemeData theme = Theme.of(context);
+
   List<InlineSpan> spans = [];
   final matches = emojiRegex.allMatches(text);
   int lastMatchEnd = 0;
@@ -16,14 +18,14 @@ List<InlineSpan> LJNBuildspan(
   // 为字体和图标设置默认样式，并与传入的样式合并
   TextStyle defaultFontTextStyle = TextStyle(
     height: 1.08,
-    color: Theme.of(context).colorScheme.onSurface,
+    color: theme.colorScheme.onSurface,
     fontSize: 30.sp, // 使用 sp 适配字体大小
     fontFamily: "AlibabaPuHuiTi",
   ).merge(fontTextStyle);
 
   TextStyle defaultIconTextStyle = TextStyle(
     height: 1.08,
-    color: Theme.of(context).colorScheme.onSurface,
+    color: theme.colorScheme.onSurface,
     fontSize: 30.sp, // 使用 sp 适配字体大小
     fontFamily: "NotoColorEmoji-Regular",
   ).merge(iconTextStyle);

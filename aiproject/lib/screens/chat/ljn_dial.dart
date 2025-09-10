@@ -39,31 +39,31 @@ class _LJNDial extends State<LJNDial> {
     super.initState();
 
     // 实例化播放器
-    if (!Platform.isWindows) {
-      floating = Floating();
+    // if (!Platform.isWindows) {
+    floating = Floating();
 
-      _voiceController =
-          VideoPlayerController.asset(assetPath("sounds/scan_success.mp3"))
-            ..initialize().then((_) {
-              setState(() {});
-            });
+    _voiceController =
+        VideoPlayerController.asset(assetPath("sounds/scan_success.mp3"))
+          ..initialize().then((_) {
+            setState(() {});
+          });
 
-      PictureInPicture.updatePiPParams(
-        pipParams: PiPParams(
-          pipWindowHeight: 400.w,
-          pipWindowWidth: 400.w,
-          bottomSpace: 5,
-          leftSpace: 5,
-          rightSpace: 5,
-          topSpace: 5,
-          maxSize: Size(400, 400),
-          minSize: Size(200, 200),
-          movable: true,
-          resizable: false,
-          initialCorner: PIPViewCorner.bottomRight,
-        ),
-      );
-    }
+    PictureInPicture.updatePiPParams(
+      pipParams: PiPParams(
+        pipWindowHeight: 400.w,
+        pipWindowWidth: 400.w,
+        bottomSpace: 5,
+        leftSpace: 5,
+        rightSpace: 5,
+        topSpace: 5,
+        maxSize: Size(400, 400),
+        minSize: Size(200, 200),
+        movable: true,
+        resizable: false,
+        initialCorner: PIPViewCorner.bottomRight,
+      ),
+    );
+    // }
 
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
@@ -82,14 +82,17 @@ class _LJNDial extends State<LJNDial> {
       ),
     );
 
-    if (!Platform.isWindows) {
-      _voiceController.dispose();
-    }
+    // if (!Platform.isWindows) {
+    _voiceController.dispose();
+    // }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
       Widget mainWidget = Scaffold(
@@ -102,10 +105,10 @@ class _LJNDial extends State<LJNDial> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Theme(
-                data: Theme.of(context).copyWith(
-                  appBarTheme: Theme.of(context).appBarTheme.copyWith(
-                        backgroundColor: AppColors.transparent,
-                      ),
+                data: theme.copyWith(
+                  appBarTheme: theme.appBarTheme.copyWith(
+                    backgroundColor: AppColors.transparent,
+                  ),
                 ),
                 child: LJNAppBar(
                   title: "",
@@ -113,21 +116,21 @@ class _LJNDial extends State<LJNDial> {
                     onTap: () {
                       Navigator.of(context).pop();
 
-                      if (!Platform.isWindows) {
-                        Future.delayed(Duration(milliseconds: 100), () {
-                          // 应用级画中画
-                          PictureInPicture.startPiP(
-                            pipWidget: PiPWidget(
-                              pipBorderRadius: 5,
-                              elevation: 10,
-                              onPiPClose: () {},
-                              child: LJNDialFloatingWidget(
-                                systemState: systemState,
-                              ),
+                      // if (!Platform.isWindows) {
+                      Future.delayed(Duration(milliseconds: 100), () {
+                        // 应用级画中画
+                        PictureInPicture.startPiP(
+                          pipWidget: PiPWidget(
+                            pipBorderRadius: 5,
+                            elevation: 10,
+                            onPiPClose: () {},
+                            child: LJNDialFloatingWidget(
+                              systemState: systemState,
                             ),
-                          );
-                        });
-                      }
+                          ),
+                        );
+                      });
+                      // }
 
                       // 进入系统级画中画
                       // _enablePip(context);
@@ -208,7 +211,7 @@ class _LJNDial extends State<LJNDial> {
                               0xec8c,
                               fontFamily: 'Iconfont',
                             ),
-                            color: Theme.of(context).colorScheme.onSurface,
+                            color: theme.colorScheme.onSurface,
                             size: 64.w,
                           ),
                         ),
@@ -216,7 +219,7 @@ class _LJNDial extends State<LJNDial> {
                           height: 20.w,
                         ),
                         Text(
-                          AppLocalizations.of(context)!.microphoneOn,
+                          l10n.microphoneOn,
                           style: TextStyle(
                               color: AppColors.neutralWhite, fontSize: 25.w),
                         )
@@ -238,9 +241,9 @@ class _LJNDial extends State<LJNDial> {
                         GestureDetector(
                           onTap: () async {
                             // 播放音乐
-                            if (!Platform.isWindows) {
-                              await _voiceController.play();
-                            }
+                            // if (!Platform.isWindows) {
+                            await _voiceController.play();
+                            // }
 
                             // 等待一会再跳转
                             await Future.delayed(Duration(milliseconds: 600),
@@ -274,7 +277,7 @@ class _LJNDial extends State<LJNDial> {
                           height: 20.w,
                         ),
                         Text(
-                          AppLocalizations.of(context)!.cancel,
+                          l10n.cancel,
                           style: TextStyle(
                               color: AppColors.neutralWhite, fontSize: 25.w),
                         )
@@ -316,7 +319,7 @@ class _LJNDial extends State<LJNDial> {
                           height: 20.w,
                         ),
                         Text(
-                          AppLocalizations.of(context)!.speakerOff,
+                          l10n.speakerOff,
                           style: TextStyle(
                               color: AppColors.neutralWhite, fontSize: 25.w),
                         )

@@ -42,12 +42,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
 
-  if (Platform.isWindows) {
-    await _windowsInitApp();
-  }
-
   // 禁止横屏
   if (!kIsWeb) {
+    if (Platform.isWindows) {
+      await _windowsInitApp();
+    }
+
     await SystemChrome.setPreferredOrientations(
       [
         DeviceOrientation.portraitUp, // 竖屏 Portrait 模式

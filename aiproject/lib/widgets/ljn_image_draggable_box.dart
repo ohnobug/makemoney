@@ -103,6 +103,9 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return LayoutBuilder(
@@ -226,8 +229,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
                                 fit: BoxFit.contain,
                                 errorBuilder: (context, error, stackTrace) =>
                                     Center(
-                                  child: Text(
-                                      AppLocalizations.of(context)!.loadFailed),
+                                  child: Text(l10n.loadFailed),
                                 ),
                                 frameBuilder: (
                                   context,
@@ -286,7 +288,7 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
                             fontFamily: 'Iconfont',
                           ),
                           size: 30.w,
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: theme.colorScheme.onSurface,
                         ),
                       ),
                     ),

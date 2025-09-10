@@ -159,14 +159,15 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
   }
 
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+
     // 关键改动 4: 在 build 方法内部获取最新的 l10n 实例
     final l10n = AppLocalizations.of(context)!;
 
     // 辅助函数，用于根据静态数据构建列表项 Widget
     Widget buildListItem(dynamic itemData) {
       if (itemData is String) {
-        return LJNAlphabet(
-            title: itemData, bgColor: Theme.of(context).colorScheme.surface);
+        return LJNAlphabet(title: itemData, bgColor: theme.colorScheme.surface);
       }
 
       if (itemData is _ContactListItemData) {
@@ -224,8 +225,8 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Theme.of(context).colorScheme.surfaceContainer,
-              Theme.of(context).colorScheme.surface,
+              theme.colorScheme.surfaceContainer,
+              theme.colorScheme.surface,
             ],
             stops: [0.3, 0.5],
             begin: Alignment.topCenter,

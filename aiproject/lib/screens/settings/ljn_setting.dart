@@ -23,12 +23,15 @@ class _LJNSettingPage extends State<LJNSettingPage> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.settings,
+            title: l10n.settings,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -38,7 +41,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: theme.colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -48,7 +51,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     // 账户与安全
                     LJNFunctionItem(
                       title:
-                          AppLocalizations.of(context)!.accountAndSecurityTitle,
+                          l10n.accountAndSecurityTitle,
                       link: '/account_and_secure',
                       underline: false,
                     ),
@@ -57,12 +60,12 @@ class _LJNSettingPage extends State<LJNSettingPage> {
 
                     // 青少年模式 与 关怀模式
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.youthMode,
+                      title: l10n.youthMode,
                       link: '/teenage_mode',
                       underline: true,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.caringMode,
+                      title: l10n.caringMode,
                       link: '/care_mode',
                       underline: false,
                     ),
@@ -70,13 +73,13 @@ class _LJNSettingPage extends State<LJNSettingPage> {
 
                     // 语言设置
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.languageSetting,
+                      title: l10n.languageSetting,
                       link: '/language_setting',
                       underline: true,
                     ),
                     // 主题设置
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.themeSetting,
+                      title: l10n.themeSetting,
                       link: '/theme_setting',
                       underline: false,
                     ),
@@ -86,17 +89,17 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     // 新消息通知 与 聊天 和 通用
                     LJNFunctionItem(
                       title:
-                          AppLocalizations.of(context)!.newMessageNotifications,
+                          l10n.newMessageNotifications,
                       link: '/new_message_notification',
                       underline: true,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.chat,
+                      title: l10n.chat,
                       link: '/chat_setting',
                       underline: true,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.general,
+                      title: l10n.general,
                       link: '/common_setting',
                       underline: false,
                     ),
@@ -108,14 +111,14 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       height: 64.w,
                       padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
                       child: Text(
-                        AppLocalizations.of(context)!.privacy,
+                        l10n.privacy,
                         style: TextStyle(fontSize: 25.w, height: 1.08),
                       ),
                     ),
 
                     // 朋友权限 与 个人信息与权限 和 个人信息收集清单 和 第三方信息共享清单
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.friendPermissions,
+                      title: l10n.friendPermissions,
                       link: '/friend_permission',
                       underline: true,
                     ),
@@ -148,7 +151,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                             width: 30.w,
                           ),
                           Text(
-                            AppLocalizations.of(context)!.plugins,
+                            l10n.plugins,
                             style: TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(32.0.w),
@@ -162,7 +165,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                               0xe610,
                               fontFamily: 'Iconfont',
                             ), // 使用的图标
-                            color: Theme.of(context).colorScheme.onSurface, // 图标颜色
+                            color: theme.colorScheme.onSurface, // 图标颜色
                             size: 36.w, // 图标大小
                           )
                         ],
@@ -176,26 +179,26 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     SizedBox(height: 16.w),
 
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.aboutWeChat,
+                      title: l10n.aboutWeChat,
                       link: '/about',
                       underline: true,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.helpAndFeedback,
+                      title: l10n.helpAndFeedback,
                       link: '',
                       underline: false,
                     ),
                     SizedBox(height: 16.w),
 
                     LJNMaxWidthButton(
-                      title: AppLocalizations.of(context)!.switchAccount,
+                      title: l10n.switchAccount,
                       link: '',
                       underline: false,
                     ),
                     SizedBox(height: 16.w),
 
                     LJNMaxWidthButton(
-                      title: AppLocalizations.of(context)!.logout,
+                      title: l10n.logout,
                       link: '',
                       underline: false,
                     ),

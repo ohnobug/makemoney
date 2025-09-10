@@ -395,6 +395,8 @@ class _LJNIns extends State<LJNIns> {
 
   // 显示大图窗口
   void showBigImg(BuildContext context, ImageInfo? info, bool? show) {
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     // 显示盒子
     if (show != null && show == true) {
       // 播放视频
@@ -416,14 +418,14 @@ class _LJNIns extends State<LJNIns> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text(AppLocalizations.of(context)!.prompt),
-              content: Text(AppLocalizations.of(context)!.userLiked),
+              title: Text(l10n.prompt),
+              content: Text(l10n.userLiked),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text(AppLocalizations.of(context)!.confirm),
+                  child: Text(l10n.confirm),
                 )
               ],
             );
@@ -442,14 +444,14 @@ class _LJNIns extends State<LJNIns> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text(AppLocalizations.of(context)!.prompt),
-              content: Text(AppLocalizations.of(context)!.userLiked),
+              title: Text(l10n.prompt),
+              content: Text(l10n.userLiked),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text(AppLocalizations.of(context)!.confirm),
+                  child: Text(l10n.confirm),
                 )
               ],
             );
@@ -463,14 +465,14 @@ class _LJNIns extends State<LJNIns> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text(AppLocalizations.of(context)!.prompt),
-              content: Text(AppLocalizations.of(context)!.userDownloaded),
+              title: Text(l10n.prompt),
+              content: Text(l10n.userDownloaded),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text(AppLocalizations.of(context)!.confirm),
+                  child: Text(l10n.confirm),
                 )
               ],
             );
@@ -484,14 +486,14 @@ class _LJNIns extends State<LJNIns> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text(AppLocalizations.of(context)!.prompt),
-              content: Text(AppLocalizations.of(context)!.userFavorited),
+              title: Text(l10n.prompt),
+              content: Text(l10n.userFavorited),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text(AppLocalizations.of(context)!.confirm),
+                  child: Text(l10n.confirm),
                 )
               ],
             );
@@ -523,7 +525,9 @@ class _LJNIns extends State<LJNIns> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     Offset xSpeedSelectorPosition = const Offset(0, 0);
+
     if (xSpeedBtnKey.currentContext != null) {
       final RenderBox renderBox =
           xSpeedBtnKey.currentContext!.findRenderObject() as RenderBox;
@@ -533,43 +537,43 @@ class _LJNIns extends State<LJNIns> {
     Widget statusWidget = Container();
     if (isInsideX2Btn) {
       statusWidget = Text(
-        AppLocalizations.of(context)!.playbackSpeed(2),
+        l10n.playbackSpeed(2),
         textAlign: TextAlign.right,
         style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
       );
     } else if (isInsideX3Btn) {
       statusWidget = Text(
-        AppLocalizations.of(context)!.playbackSpeed(3),
+        l10n.playbackSpeed(3),
         textAlign: TextAlign.right,
         style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
       );
     } else if (isInsideLikeBtn) {
       statusWidget = Text(
-        AppLocalizations.of(context)!.like,
+        l10n.like,
         textAlign: TextAlign.right,
         style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
       );
     } else if (isInsideCollectBtn) {
       statusWidget = Text(
-        AppLocalizations.of(context)!.favorite,
+        l10n.favorite,
         textAlign: TextAlign.right,
         style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
       );
     } else if (isInsideDownloadBtn) {
       statusWidget = Text(
-        AppLocalizations.of(context)!.download,
+        l10n.download,
         textAlign: TextAlign.right,
         style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
       );
     } else if (isInsideShareBtn) {
       statusWidget = Text(
-        AppLocalizations.of(context)!.share,
+        l10n.share,
         textAlign: TextAlign.right,
         style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
       );
     } else if (isInsideHomeBtn) {
       statusWidget = Text(
-        AppLocalizations.of(context)!.viewHomepage,
+        l10n.viewHomepage,
         textAlign: TextAlign.right,
         style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
       );
@@ -577,6 +581,8 @@ class _LJNIns extends State<LJNIns> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
+      ThemeData theme = Theme.of(context);
+
       return Scaffold(
         primary: false,
         resizeToAvoidBottomInset: false,
@@ -626,7 +632,7 @@ class _LJNIns extends State<LJNIns> {
                                     0xed9e,
                                     fontFamily: 'Iconfont',
                                   ), // 使用的图标
-                                  color: Theme.of(context).colorScheme.onSurface, // 图标颜色
+                                  color: theme.colorScheme.onSurface, // 图标颜色
                                   size: 36.w, // 图标大小
                                 ),
                               ),
@@ -653,15 +659,14 @@ class _LJNIns extends State<LJNIns> {
                                         0xe612,
                                         fontFamily: 'Iconfont',
                                       ),
-                                      color: Theme.of(context).colorScheme.onSurface,
+                                      color: theme.colorScheme.onSurface,
                                       size: 40.w,
                                     ),
                                     prefixIconConstraints: BoxConstraints(
                                       minWidth: 70.w, // 控制图标与文字的最小宽度
                                       // minHeight: 36.w,
                                     ),
-                                    hintText:
-                                        AppLocalizations.of(context)!.search,
+                                    hintText: l10n.search,
                                     hintStyle: TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize: 30.w,
@@ -1018,7 +1023,7 @@ class _LJNIns extends State<LJNIns> {
                                 style: TextStyle(
                                   color: isInsideX3Btn
                                       ? AppColors.neutralWhite
-                                      : Theme.of(context).colorScheme.onSurface,
+                                      : theme.colorScheme.onSurface,
                                   height: 1,
                                   fontFamily: "AlibabaPuHuiTi-Medium",
                                   fontSize: 30.w,
@@ -1041,7 +1046,7 @@ class _LJNIns extends State<LJNIns> {
                                 style: TextStyle(
                                   color: isInsideX2Btn
                                       ? AppColors.neutralWhite
-                                      : Theme.of(context).colorScheme.onSurface,
+                                      : theme.colorScheme.onSurface,
                                   height: 1,
                                   fontFamily: "AlibabaPuHuiTi-Medium",
                                   fontSize: 30.w,
@@ -1064,7 +1069,7 @@ class _LJNIns extends State<LJNIns> {
                                 style: TextStyle(
                                   color: isInsideX1Btn
                                       ? AppColors.neutralWhite
-                                      : Theme.of(context).colorScheme.onSurface,
+                                      : theme.colorScheme.onSurface,
                                   height: 1,
                                   fontFamily: "AlibabaPuHuiTi-Medium",
                                   fontSize: 30.w,

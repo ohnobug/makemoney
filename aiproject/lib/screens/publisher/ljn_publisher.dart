@@ -8,8 +8,10 @@ class LJNPublisher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: theme.colorScheme.surface,
       appBar: LJNAppBar(
         title: AppLocalizations.of(context)?.tabbar_label_publisher,
       ),
@@ -66,7 +68,8 @@ class LJNPublisher extends StatelessWidget {
     required String description,
     required VoidCallback onTap,
   }) {
-    final theme = Theme.of(context);
+    ThemeData theme = Theme.of(context);
+
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12.r),
@@ -118,7 +121,8 @@ class LJNPublisher extends StatelessWidget {
 
   /// 构建底部的成本说明文字 (文案、价格已更新)
   Widget _buildCostDisclaimer(BuildContext context) {
-    final theme = Theme.of(context);
+    ThemeData theme = Theme.of(context);
+
     final regularStyle = theme.textTheme.bodySmall
         ?.copyWith(color: theme.colorScheme.onSurfaceVariant);
     final boldStyle = regularStyle?.copyWith(

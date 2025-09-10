@@ -284,7 +284,7 @@ class _LJNInsPage extends State<LJNInsPage> {
                                           0xe612,
                                           fontFamily: 'Iconfont',
                                         ),
-                                        color: Theme.of(context).colorScheme.onSurface,
+                                        color: theme.colorScheme.onSurface,
                                         size: 40.w,
                                       ),
                                       prefixIconConstraints: BoxConstraints(

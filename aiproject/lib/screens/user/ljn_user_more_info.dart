@@ -34,10 +34,13 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       primary: false,
       appBar: LJNAppBar(
-        title: AppLocalizations.of(context)!.moreInfo,
+        title: l10n.moreInfo,
       ),
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -47,7 +50,7 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
                 90.w -
                 systemState.statusHeight,
           ),
-          color: Theme.of(context).colorScheme.surfaceContainer,
+          color: theme.colorScheme.surfaceContainer,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -55,20 +58,20 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
             child: Column(
               children: [
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.gender,
+                  title: l10n.gender,
                   link: '',
-                  showStyle: AppLocalizations.of(context)!.male,
+                  showStyle: l10n.male,
                   underline: false,
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.region,
+                  title: l10n.region,
                   link: '',
-                  showStyle: AppLocalizations.of(context)!.guangdongGuangzhou,
+                  showStyle: l10n.guangdongGuangzhou,
                   underline: false,
                 ),
                 LJNFunctionItem(
                   height: 135.w,
-                  title: AppLocalizations.of(context)!.personalSignature,
+                  title: l10n.personalSignature,
                   // link: '',
                   showStyle: Container(
                     // color: AppColors.accentRedPure,
@@ -89,7 +92,7 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
                   underline: true,
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.registrationTime,
+                  title: l10n.registrationTime,
                   // link: '',
                   showStyle: Expanded(
                     child: Container(

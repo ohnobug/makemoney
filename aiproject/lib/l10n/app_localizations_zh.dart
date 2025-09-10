@@ -1311,6 +1311,9 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get tagExistsError => '标签存在错误';
+
+  @override
   String get priorityPaymentMethod => '优先付款方式';
 
   @override

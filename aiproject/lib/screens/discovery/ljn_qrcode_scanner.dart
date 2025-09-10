@@ -134,6 +134,8 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     // 二维码的位置
     final overlays = <Widget>[
       if (_barcodeCapture != null && _barcodeCapture!.barcodes.isNotEmpty)
@@ -320,13 +322,15 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
 
   // 底部
   Widget _buildBarcode() {
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     if (widget.barcodeCapture == null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            AppLocalizations.of(context)!.scan,
+            l10n.scan,
             overflow: TextOverflow.fade,
             style: TextStyle(
                 height: 1.08,
@@ -359,6 +363,9 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Positioned.fill(
@@ -486,7 +493,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                         height: 10.w,
                       ),
                       Text(
-                        AppLocalizations.of(context)!.touchToLightUp,
+                        l10n.touchToLightUp,
                         style: TextStyle(
                             height: 1.08,
                             fontSize: fontSizeScale(26.w),
@@ -495,7 +502,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                             decoration: TextDecoration.none),
                       ),
                       Text(
-                        AppLocalizations.of(context)!.scanHintFull,
+                        l10n.scanHintFull,
                         style: TextStyle(
                             height: 1.08,
                             fontSize: fontSizeScale(28.w),
@@ -548,7 +555,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                             height: 5.w,
                           ),
                           Text(
-                            AppLocalizations.of(context)!.myQRCode,
+                            l10n.myQRCode,
                             style: TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(22.w),
@@ -614,7 +621,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                                     fontFamily: 'Iconfont',
                                   ),
                                   size: 21.0.w,
-                                  color: Theme.of(context).colorScheme.onSurface,
+                                  color: theme.colorScheme.onSurface,
                                 ))
                           ],
                         ),
@@ -651,7 +658,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                             height: 5.w,
                           ),
                           Text(
-                            AppLocalizations.of(context)!.album,
+                            l10n.album,
                             style: TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(22.w),
@@ -692,7 +699,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     height: 135.w,
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

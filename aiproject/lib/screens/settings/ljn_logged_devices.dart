@@ -30,6 +30,8 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
   Widget build(BuildContext context) {
     final myDate = DateTime(2023, 11, 10, 15, 23);
     final locale = Localizations.localeOf(context).toString();
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
 
     final formatter = DateFormat('M月d日 ahh:mm', locale);
     final formattedString = formatter.format(myDate);
@@ -39,22 +41,22 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-              title: AppLocalizations.of(context)!.loggedInDevices,
+              title: l10n.loggedInDevices,
               actions: [
                 GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, '/bind_new_phone_number');
                   },
                   child: Container(
-                    // color: Theme.of(context).colorScheme.onSurface,
+                    // color: theme.colorScheme.onSurface,
                     height: 90.w,
                     padding: EdgeInsets.only(right: 40.w),
                     alignment: Alignment.center,
                     child: Text(
-                      AppLocalizations.of(context)!.edit,
+                      l10n.edit,
                       // textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: theme.colorScheme.onSurface,
                           fontSize: 32.w,
                           fontWeight: FontWeight.w100),
                     ),
@@ -69,7 +71,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: theme.colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -93,7 +95,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                       padding: EdgeInsets.only(
                           left: 30.0.w, right: 0.0.w, top: 16.w),
                       child: Text(
-                        AppLocalizations.of(context)!.currentlyLoggedInDevices,
+                        l10n.currentlyLoggedInDevices,
                         style: TextStyle(
                           fontSize: 25.w,
                           height: 1.08,
@@ -111,7 +113,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         child: Container(
                           constraints: BoxConstraints(maxWidth: 375.w),
                           child: Text(
-                            AppLocalizations.of(context)!.currentDevice,
+                            l10n.currentDevice,
                             textAlign: TextAlign.end,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -138,7 +140,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                           const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
                               .w,
                       child: Text(
-                        AppLocalizations.of(context)!.loggedOutDevices,
+                        l10n.loggedOutDevices,
                         style: TextStyle(
                           fontSize: 25.w,
                           height: 1.08,

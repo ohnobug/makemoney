@@ -46,6 +46,8 @@ class _LJNMyMessage extends State<LJNMyVoiceMessage>
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     // 对方发的消息
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
@@ -147,7 +149,7 @@ class _LJNMyMessage extends State<LJNMyVoiceMessage>
                                     style: TextStyle(
                                       height: 1.25,
                                       fontSize: fontSizeScale(31.w),
-                                      color: Theme.of(context).colorScheme.onSurface,
+                                      color: theme.colorScheme.onSurface,
                                       fontFamily: "",
                                     ),
                                   ),

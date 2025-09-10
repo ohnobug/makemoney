@@ -23,12 +23,15 @@ class _LJNFriendMomentsCoverSetting
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.changeAlbumCover,
+            title: l10n.changeAlbumCover,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -38,7 +41,7 @@ class _LJNFriendMomentsCoverSetting
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: theme.colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -46,23 +49,23 @@ class _LJNFriendMomentsCoverSetting
                 child: Column(
                   children: [
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.selectFromPhoneAlbum,
+                      title: l10n.selectFromPhoneAlbum,
                       link: '',
                       underline: true,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.selectFromChannels,
+                      title: l10n.selectFromChannels,
                       link: '',
                       underline: true,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.takeOne,
+                      title: l10n.takeOne,
                       link: '',
                       underline: false,
                     ),
                     SizedBox(height: 62.w),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.photographerWorks,
+                      title: l10n.photographerWorks,
                       link: '',
                       underline: false,
                     ),

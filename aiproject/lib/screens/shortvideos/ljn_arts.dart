@@ -46,6 +46,8 @@ class _LJNArts extends State<LJNArts> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
@@ -68,7 +70,7 @@ class _LJNArts extends State<LJNArts> {
                         return Container(
                           width: double.infinity,
                           height: double.infinity,
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: theme.colorScheme.onSurface,
                           child: Stack(
                             children: [
                               // 视频播放
@@ -418,6 +420,8 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return SizedBox(
@@ -439,7 +443,7 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
                   : Container(
                       width: 750.w,
                       height: MediaQuery.of(context).size.height - 106.w,
-                      color: Theme.of(context).colorScheme.onSurface,
+                      color: theme.colorScheme.onSurface,
                     ),
         );
       },

@@ -132,6 +132,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     // 关键改动 5: 在 build 方法中获取最新的标题。
     // 这样每次语言切换导致重建时，标题都会被刷新。
     final tabTitles = _getTabTitles(context);
@@ -157,21 +159,20 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 child: Container(
                   height: 106.w,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surfaceContainer,
+                    color: theme.colorScheme.surfaceContainer,
                     border: Border(
                       top: BorderSide(
-                        color: Theme.of(context).tabBarTheme.dividerColor!,
+                        color: theme.tabBarTheme.dividerColor!,
                         width: 1.5.w,
                       ),
                     ),
                   ),
                   child: TabBar(
-                    dividerColor:
-                        Theme.of(context).colorScheme.surfaceContainer,
-                    labelColor: Theme.of(context).tabBarTheme.labelColor,
-                    labelStyle: Theme.of(context).tabBarTheme.labelStyle,
+                    dividerColor: theme.colorScheme.surfaceContainer,
+                    labelColor: theme.tabBarTheme.labelColor,
+                    labelStyle: theme.tabBarTheme.labelStyle,
                     unselectedLabelColor:
-                        Theme.of(context).tabBarTheme.unselectedLabelColor,
+                        theme.tabBarTheme.unselectedLabelColor,
                     indicator: const BoxDecoration(),
                     controller: _tabController,
                     overlayColor: WidgetStateProperty.all(Colors.transparent),
@@ -237,7 +238,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                   width: 750.0.w,
                   height: systemState.statusHeight + 90.w,
                   color: systemState.homescrollpixels == 0
-                      ? Theme.of(context).appBarTheme.backgroundColor
+                      ? theme.appBarTheme.backgroundColor
                       : AppColors.transparent,
                   child: Listener(
                     onPointerUp: (_) => context
@@ -265,10 +266,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                                   padding: EdgeInsets.only(right: 33.w),
                                   alignment: Alignment.center,
                                   child: Icon(
-                                    color: Theme.of(context)
-                                        .appBarTheme
-                                        .titleTextStyle!
-                                        .color,
+                                    color:
+                                        theme.appBarTheme.titleTextStyle!.color,
                                     const IconData(
                                       0xe608,
                                       fontFamily: 'Iconfont',
@@ -291,10 +290,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                                 padding: EdgeInsets.only(right: 33.w),
                                 alignment: Alignment.center,
                                 child: Icon(
-                                  color: Theme.of(context)
-                                      .appBarTheme
-                                      .titleTextStyle!
-                                      .color,
+                                  color:
+                                      theme.appBarTheme.titleTextStyle!.color,
                                   const IconData(
                                     0xe726,
                                     fontFamily: 'Iconfont',
@@ -319,10 +316,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                                     height: 90.w,
                                     padding: EdgeInsets.only(left: 33.w),
                                     child: Icon(
-                                      color: Theme.of(context)
-                                          .appBarTheme
-                                          .titleTextStyle!
-                                          .color,
+                                      color: theme
+                                          .appBarTheme.titleTextStyle!.color,
                                       const IconData(
                                         0xe612,
                                         fontFamily: 'Iconfont',

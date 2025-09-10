@@ -24,12 +24,15 @@ class _LJNPersonalinfoAndPermission
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.personalInfoAndPermissions,
+            title: l10n.personalInfoAndPermissions,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -39,7 +42,7 @@ class _LJNPersonalinfoAndPermission
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: theme.colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -55,7 +58,7 @@ class _LJNPersonalinfoAndPermission
                     ),
                     LJNFunctionItem(
                       title:
-                          AppLocalizations.of(context)!.authorizationManagement,
+                          l10n.authorizationManagement,
                       link: '',
                       underline: false,
                       tapEffect: true,
@@ -90,7 +93,7 @@ class _LJNPersonalinfoAndPermission
                           ),
                         ),
                         Text(
-                          AppLocalizations.of(context)!.privacyPolicyTitle,
+                          l10n.privacyPolicyTitle,
                           style: TextStyle(
                             fontSize: 26.w,
                             height: 1.08,

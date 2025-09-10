@@ -9,6 +9,8 @@ AppBar LJNAppBarInner({
   List<Widget>? actions,
   Widget? leading,
 }) {
+  ThemeData theme = Theme.of(context);
+
   return AppBar(
     leading: leading ??
         GestureDetector(
@@ -26,22 +28,20 @@ AppBar LJNAppBarInner({
                 0xed9e,
                 fontFamily: 'Iconfont',
               ), // 使用的图标
-              color:
-                  Theme.of(context).appBarTheme.titleTextStyle!.color, // 图标颜色
+              color: theme.appBarTheme.titleTextStyle!.color, // 图标颜色
               size: 36.w, // 图标大小
             ),
           ),
         ),
     primary: false,
-    centerTitle: Theme.of(context).appBarTheme.centerTitle,
+    centerTitle: theme.appBarTheme.centerTitle,
     title: Text(title),
-    toolbarHeight: Theme.of(context).appBarTheme.toolbarHeight,
-    titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
-    elevation: Theme.of(context).appBarTheme.elevation,
-    scrolledUnderElevation:
-        Theme.of(context).appBarTheme.scrolledUnderElevation,
-    backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-    foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+    toolbarHeight: theme.appBarTheme.toolbarHeight,
+    titleTextStyle: theme.appBarTheme.titleTextStyle,
+    elevation: theme.appBarTheme.elevation,
+    scrolledUnderElevation: theme.appBarTheme.scrolledUnderElevation,
+    backgroundColor: theme.appBarTheme.backgroundColor,
+    foregroundColor: theme.appBarTheme.foregroundColor,
     actions: actions,
   );
 }

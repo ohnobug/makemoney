@@ -59,6 +59,9 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         double newAppbarHeight = 90.w + 17.w;
@@ -91,19 +94,17 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
               children: [
                 // appbar标题
                 Theme(
-                  data: Theme.of(context).copyWith(
-                    appBarTheme: Theme.of(context).appBarTheme.copyWith(
-                          backgroundColor: Colors.transparent,
-                          titleTextStyle: Theme.of(context)
-                              .appBarTheme
-                              .titleTextStyle!
-                              .copyWith(
-                                color: Colors.white,
-                              ),
-                        ),
+                  data: theme.copyWith(
+                    appBarTheme: theme.appBarTheme.copyWith(
+                      backgroundColor: Colors.transparent,
+                      titleTextStyle:
+                          theme.appBarTheme.titleTextStyle!.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                   child: LJNAppBar(
-                    title: AppLocalizations.of(context)!.recent,
+                    title: l10n.recent,
                     leading: Container(),
                     actions: [
                       Container(
@@ -132,7 +133,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                               width: 8.w,
                             ),
                             Text(
-                              AppLocalizations.of(context)!.search,
+                              l10n.search,
                               style: TextStyle(
                                 fontSize: 26.w,
                                 color: AppColors.brandBlueGreyLight,
@@ -175,7 +176,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                           children: [
                             // 听一听
                             FunctionButtonsSection(
-                              title: AppLocalizations.of(context)!.listen,
+                              title: l10n.listen,
                               buttons: [
                                 FunctionButton(
                                   icon: "images/miniprogram_icon/duitang.jpg",
@@ -210,8 +211,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                   TextSpan(
                                     children: [
                                       TextSpan(
-                                        text:
-                                            AppLocalizations.of(context)!.more,
+                                        text: l10n.more,
                                         style: TextStyle(
                                           height: 1.08,
                                           fontSize: fontSizeScale(26.w),
@@ -318,8 +318,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
 
                             // 我的常用小程序
                             FunctionButtonsSection(
-                              title:
-                                  AppLocalizations.of(context)!.myMiniPrograms,
+                              title: l10n.myMiniPrograms,
                               buttons: [
                                 FunctionButton(
                                   icon: "images/miniprogram_icon/duitang.jpg",

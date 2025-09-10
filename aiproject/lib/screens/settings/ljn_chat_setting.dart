@@ -25,12 +25,15 @@ class _LJNChatSetting extends State<LJNChatSetting> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
       return Scaffold(
         primary: false,
         appBar: LJNAppBar(
-          title: AppLocalizations.of(context)!.chat,
+          title: l10n.chat,
         ),
         body: ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -39,14 +42,14 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                 minHeight: MediaQuery.of(context).size.height -
                     90.w -
                     systemState.statusHeight),
-            color: Theme.of(context).colorScheme.surfaceContainer,
+            color: theme.colorScheme.surfaceContainer,
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(
                 parent: BouncingScrollPhysics(),
               ),
               child: Column(children: [
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.useEarpieceToPlayVoice,
+                  title: l10n.useEarpieceToPlayVoice,
                   // link: '',
                   underline: true,
                   tapEffect: false,
@@ -64,11 +67,11 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                   ),
                 ),
                 LJNSpecialFunctionItem(
-                  title: AppLocalizations.of(context)!.useIndependentSendButton,
+                  title: l10n.useIndependentSendButton,
                   height: null,
                   // link: '',
                   subTitle: Text(
-                    AppLocalizations.of(context)!.sendButtonReplacedMessageFull,
+                    l10n.sendButtonReplacedMessageFull,
                     maxLines: 3,
                     style: TextStyle(
                       color: AppColors.neutralGrey35,
@@ -92,12 +95,12 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                   underline: true,
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.chatBackground,
+                  title: l10n.chatBackground,
                   link: '',
                   underline: true,
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.stickerManagement,
+                  title: l10n.stickerManagement,
                   link: '',
                   underline: false,
                 ),
@@ -110,7 +113,7 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                     top: 16,
                   ).w,
                   child: Text(
-                    AppLocalizations.of(context)!.chatHistory,
+                    l10n.chatHistory,
                     style: TextStyle(
                       fontSize: 25.w,
                       height: 1.08,
@@ -118,13 +121,12 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                   ),
                 ),
                 LJNFunctionItem(
-                  title:
-                      AppLocalizations.of(context)!.chatHistoryMigrationBackup,
+                  title: l10n.chatHistoryMigrationBackup,
                   link: '',
                   underline: true,
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.clearChatHistory,
+                  title: l10n.clearChatHistory,
                   link: '',
                   underline: false,
                 ),

@@ -8,13 +8,16 @@ class LJNPageLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       primary: false,
       appBar: null,
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        color: Theme.of(context).colorScheme.surfaceContainer,
+        color: theme.colorScheme.surfaceContainer,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -33,7 +36,7 @@ class LJNPageLoading extends StatelessWidget {
               width: 10.w,
             ),
             Text(
-              AppLocalizations.of(context)!.loading,
+              l10n.loading,
               style: const TextStyle(
                 height: 1.08,
                 color: AppColors.neutralGrey49,

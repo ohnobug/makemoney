@@ -31,6 +31,9 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
@@ -50,10 +53,10 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                 alignment: Alignment.center,
                 padding: EdgeInsets.only(left: 0.w),
                 child: Text(
-                  AppLocalizations.of(context)!.cancel,
+                  l10n.cancel,
                   style: TextStyle(
                     // height: 1.08,
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: theme.colorScheme.onSurface,
                     fontSize: fontSizeScale(32.w),
                     fontWeight: FontWeight.w500,
                   ),
@@ -77,7 +80,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                     ),
                   ),
                   child: Text(
-                    AppLocalizations.of(context)!.done,
+                    l10n.done,
                     // textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColors.neutralWhite,
@@ -111,11 +114,11 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                         margin: EdgeInsets.only(top: 70.w, bottom: 95.w),
                         alignment: Alignment.center,
                         child: Text(
-                          AppLocalizations.of(context)!.setAliasAndTags,
+                          l10n.setAliasAndTags,
                           style: TextStyle(
                             fontSize: 40.w,
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.onSurface,
+                            color: theme.colorScheme.onSurface,
                           ),
                         ),
                       ),
@@ -127,7 +130,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                         ),
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          AppLocalizations.of(context)!.remark,
+                          l10n.remark,
                           style: TextStyle(
                             fontSize: 25.w,
                             color: AppColors.neutralGrey78,
@@ -160,7 +163,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           style: TextStyle(
                             // height: 1.08,
                             fontSize: fontSizeScale(30.w),
-                            color: Theme.of(context).colorScheme.onSurface,
+                            color: theme.colorScheme.onSurface,
                           ),
                           // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
                           maxLines: 5,
@@ -226,7 +229,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                     inputController1.text = "邓桥香";
                                   },
                                   child: Text(
-                                    AppLocalizations.of(context)!.fillIn,
+                                    l10n.fillIn,
                                     style: TextStyle(
                                       fontSize: 25.w,
                                       color: AppColors.brandBlueDark1,
@@ -245,7 +248,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                         margin: EdgeInsets.only(bottom: 15.w),
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          AppLocalizations.of(context)!.remark,
+                          l10n.remark,
                           style: TextStyle(
                             fontSize: 25.w,
                             color: AppColors.neutralGrey78,
@@ -275,9 +278,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                 "同学，ajj",
                                 style: TextStyle(
                                     fontSize: 32.w,
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onSurface),
+                                    color: theme.colorScheme.onSurface),
                               ),
                               SizedBox(
                                 width: 30.w,
@@ -302,7 +303,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                         ),
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          AppLocalizations.of(context)!.phone,
+                          l10n.phone,
                           style: TextStyle(
                             fontSize: 25.w,
                             color: AppColors.neutralGrey78,
@@ -352,9 +353,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                           style: TextStyle(
                                             fontSize: 27.w,
                                             height: 1.08,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSurface,
+                                            color: theme.colorScheme.onSurface,
                                           ),
                                         ),
                                         Expanded(
@@ -452,7 +451,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                         ),
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          AppLocalizations.of(context)!.description,
+                          l10n.description,
                           style: TextStyle(
                             fontSize: 25.w,
                             color: AppColors.neutralGrey78,
@@ -486,7 +485,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           style: TextStyle(
                               // height: 1.08,
                               fontSize: fontSizeScale(30.w),
-                              color: Theme.of(context).colorScheme.onSurface),
+                              color: theme.colorScheme.onSurface),
                           // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
                           maxLines: 5,
                           minLines: 1,
@@ -544,7 +543,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                               height: 25.w,
                             ),
                             Text(
-                              AppLocalizations.of(context)!.addImage,
+                              l10n.addImage,
                               style: TextStyle(
                                 fontSize: 25.w,
                                 color: AppColors.brandPurpleDark2,

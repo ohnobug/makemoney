@@ -25,6 +25,9 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return BlocBuilder<LJNUserCubit, LJNUserState>(
@@ -39,15 +42,15 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
             }
 
             return Theme(
-              data: Theme.of(context).copyWith(
-                appBarTheme: Theme.of(context).appBarTheme.copyWith(
-                      backgroundColor: AppColors.transparent,
-                    ),
+              data: theme.copyWith(
+                appBarTheme: theme.appBarTheme.copyWith(
+                  backgroundColor: AppColors.transparent,
+                ),
               ),
               child: Scaffold(
                 primary: false,
                 appBar: LJNAppBar(
-                  title: AppLocalizations.of(context)!.phoneNumber,
+                  title: l10n.phoneNumber,
                 ),
                 body: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)
@@ -109,8 +112,8 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                                   },
                                   child: Text(
                                     isHide
-                                        ? AppLocalizations.of(context)!.hide
-                                        : AppLocalizations.of(context)!.show,
+                                        ? l10n.hide
+                                        : l10n.show,
                                     strutStyle: StrutStyle(
                                         fontSize: 37.w, height: 1.08),
                                     style: TextStyle(

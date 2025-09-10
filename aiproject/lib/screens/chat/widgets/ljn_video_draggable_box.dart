@@ -108,6 +108,8 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return BlocListener<LJNPopupCubit, PopupState>(
       listener: (context, state) {
         logger.info(
@@ -298,7 +300,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
                                 fontFamily: 'Iconfont',
                               ),
                               size: 30.w, // 图标的大小
-                              color: Theme.of(context).colorScheme.onSurface, // 图标颜色
+                              color: theme.colorScheme.onSurface, // 图标颜色
                             ),
                           ),
                         ),

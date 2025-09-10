@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vigaviga/api_manager/api.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
@@ -7,19 +8,6 @@ import 'package:vigaviga/widgets/ljn_search.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-// 关键改动 1: 创建一个数据模型来存储静态数据
-class _TagInfoData {
-  final String title;
-  final String icon;
-  final bool underline;
-
-  const _TagInfoData({
-    required this.title,
-    required this.icon,
-    this.underline = true,
-  });
-}
 
 class LJNContactTags extends StatefulWidget {
   const LJNContactTags({super.key});
@@ -29,50 +17,8 @@ class LJNContactTags extends StatefulWidget {
 }
 
 class _LJNContactTagsState extends State<LJNContactTags> {
-  // 关键改动 2: tagDataList 只存储不依赖 context 的静态数据模型
-  // 列表现在包含了所有原始数据，未经省略。
-  final List<_TagInfoData> tagDataList = const [
-    _TagInfoData(title: "天空飘来五个字那都不是事", icon: "images/avatar_webp/chat_1.webp"),
-    _TagInfoData(title: "本因", icon: "images/avatar_webp/chat_10.webp"),
-    _TagInfoData(title: "赵洵", icon: "images/avatar_webp/chat_11.webp"),
-    _TagInfoData(title: "定静师太", icon: "images/avatar_webp/chat_12.webp"),
-    _TagInfoData(title: "李秋水", icon: "images/avatar_webp/chat_13.webp"),
-    _TagInfoData(title: "谭婆", icon: "images/avatar_webp/chat_14.webp"),
-    _TagInfoData(title: "李傀儡", icon: "images/avatar_webp/chat_15.webp"),
-    _TagInfoData(title: "貂禅", icon: "images/avatar_webp/chat_16.webp"),
-    _TagInfoData(title: "何三七", icon: "images/avatar_webp/chat_17.webp"),
-    _TagInfoData(title: "孔融", icon: "images/avatar_webp/chat_18.webp"),
-    _TagInfoData(title: "齐堂主", icon: "images/avatar_webp/chat_19.webp"),
-    _TagInfoData(title: "博尔术", icon: "images/avatar_webp/chat_20.webp"),
-    _TagInfoData(title: "王语嫣", icon: "images/avatar_webp/chat_21.webp"),
-    _TagInfoData(title: "秦红棉", icon: "images/avatar_webp/chat_22.webp"),
-    _TagInfoData(
-        title: "天竺僧人",
-        icon: "images/avatar_webp/chat_23.webp",
-        underline: false), // 假设天竺僧人没有头像icon，这里可以传空字符串或默认值
-    _TagInfoData(title: "段延庆", icon: "images/avatar_webp/chat_33.webp"),
-    _TagInfoData(title: "令狐冲", icon: "images/avatar_webp/chat_34.webp"),
-    _TagInfoData(title: "英白罗", icon: "images/avatar_webp/chat_35.webp"),
-    _TagInfoData(title: "黄药师", icon: "images/avatar_webp/chat_36.webp"),
-    _TagInfoData(title: "李煜", icon: "images/avatar_webp/chat_37.webp"),
-    _TagInfoData(title: "云中鹤", icon: "images/avatar_webp/chat_38.webp"),
-    _TagInfoData(title: "劳德诺", icon: "images/avatar_webp/chat_39.webp"),
-    _TagInfoData(title: "包惜弱", icon: "images/avatar_webp/chat_40.webp"),
-    _TagInfoData(title: "游驹", icon: "images/avatar_webp/chat_41.webp"),
-    _TagInfoData(title: "钟万仇", icon: "images/avatar_webp/chat_42.webp"),
-    _TagInfoData(title: "渔人", icon: "images/avatar_webp/chat_43.webp"),
-    _TagInfoData(title: "单叔山", icon: "images/avatar_webp/chat_44.webp"),
-    _TagInfoData(title: "段誉", icon: "images/avatar_webp/chat_45.webp"),
-    _TagInfoData(title: "林震南", icon: "images/avatar_webp/chat_46.webp"),
-    _TagInfoData(title: "商鞅", icon: "images/avatar_webp/chat_47.webp"),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  // 关键改动 3: 移除整个 didChangeDependencies 方法
+  // 列表包含了所有原始数据
+  final List<TagInfoData> tagDataList = getTagInfoData();
 
   @override
   Widget build(BuildContext context) {
@@ -83,13 +29,13 @@ class _LJNContactTagsState extends State<LJNContactTags> {
   }
 
   Widget _buildPage(SystemState systemState) {
-    // 关键改动 4: 在 build 方法内部获取最新的 l10n 实例
     final l10n = AppLocalizations.of(context)!;
+    ThemeData theme = Theme.of(context);
 
     return Scaffold(
       primary: false,
       appBar: LJNAppBar(
-        title: l10n.contactTags, // 使用 l10n 获取标题
+        title: l10n.contactTags,
       ),
       body: Stack(
         children: [
@@ -98,10 +44,7 @@ class _LJNContactTagsState extends State<LJNContactTags> {
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Theme.of(context).colorScheme.surface,
-                  AppColors.neutralWhite
-                ],
+                colors: [theme.colorScheme.surface, AppColors.neutralWhite],
                 stops: [0.3, 0.5],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -111,7 +54,7 @@ class _LJNContactTagsState extends State<LJNContactTags> {
               children: [
                 LJNSearch(
                   link: '/search_friend',
-                  title: l10n.search, // 使用 l10n 获取搜索提示
+                  title: l10n.search,
                 ),
                 Expanded(
                   child: ScrollConfiguration(
@@ -125,7 +68,6 @@ class _LJNContactTagsState extends State<LJNContactTags> {
                       ),
                       itemCount: tagDataList.length + 1, // +1 用于底部的统计行
                       itemBuilder: (context, index) {
-                        // 关键改动 5: 在 itemBuilder 中动态构建 UI
                         if (index < tagDataList.length) {
                           final tagData = tagDataList[index];
                           return TagInformation(
@@ -153,8 +95,7 @@ class _LJNContactTagsState extends State<LJNContactTags> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
-                                  l10n.tagCount(
-                                      tagDataList.length), // 使用 l10n 和动态数量
+                                  l10n.tagCount(tagDataList.length),
                                   style: TextStyle(
                                     height: 1.08,
                                     fontSize: fontSizeScale(30.w),
@@ -187,16 +128,14 @@ class _LJNContactTagsState extends State<LJNContactTags> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        l10n.newAction, // 使用 l10n
+                        l10n.newAction,
                         style: TextStyle(
-                            fontSize: 30.w,
-                            color: Theme.of(context).colorScheme.onSurface),
+                            fontSize: 30.w, color: theme.colorScheme.onSurface),
                       ),
                       Text(
-                        l10n.edit, // 使用 l10n
+                        l10n.edit,
                         style: TextStyle(
-                            fontSize: 30.w,
-                            color: Theme.of(context).colorScheme.onSurface),
+                            fontSize: 30.w, color: theme.colorScheme.onSurface),
                       ),
                     ],
                   ),
@@ -229,30 +168,41 @@ class TagInformation extends StatefulWidget {
 }
 
 class _TagInformationState extends State<TagInformation> {
-  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
+  // 唯一的内部状态：只记录该项是否被用户按下。
+  bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
+    // 核心修正：在 build 方法内部获取所有依赖于外部环境（如 Theme）的值。
+    ThemeData theme = Theme.of(context);
+
+    final Color normalColor = theme.listTileTheme.tileColor!;
+    final Color pressedColor = theme.listTileTheme.selectedTileColor!;
+
+    // 根据内部状态 _isPressed，动态地计算出当前应该显示的背景颜色。
+    final Color currentColor = _isPressed ? pressedColor : normalColor;
+
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTapDown: (tapDownDetails) {
         if (widget.onPressed == null) return;
-        setState(() => containerColor =
-            Theme.of(context).listTileTheme.selectedTileColor!);
+        setState(() => _isPressed = true);
       },
       onTapCancel: () {
         if (widget.onPressed == null) return;
-        setState(
-            () => containerColor = Theme.of(context).listTileTheme.tileColor!);
+        setState(() => _isPressed = false);
       },
       onTapUp: (tapDownDetails) {
         if (widget.onPressed == null) return;
+
+        // 1. 立即恢复视觉状态
+        setState(() => _isPressed = false);
+
+        // 2. 延迟执行回调
         Future.delayed(
           const Duration(milliseconds: 50),
           () {
             if (mounted) {
-              // 检查 widget 是否还在树中
-              setState(() =>
-                  containerColor = Theme.of(context).listTileTheme.tileColor!);
               widget.onPressed?.call();
             }
           },
@@ -261,18 +211,18 @@ class _TagInformationState extends State<TagInformation> {
       child: Container(
         height: 120.0.w,
         padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
-        color: containerColor,
+        // 使用在 build 方法开头计算出的正确颜色
+        color: currentColor,
         child: Row(
           children: [
             Expanded(
               child: Container(
-                height: 115.w, // 稍小于父容器高度以显示下划线
+                height: 115.w,
                 width: 400.w,
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: widget.underline
-                        ? (Theme.of(context).listTileTheme.shape
-                                as RoundedRectangleBorder)
+                        ? (theme.listTileTheme.shape as RoundedRectangleBorder)
                             .side
                         : BorderSide.none,
                   ),

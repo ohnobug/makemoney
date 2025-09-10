@@ -18,23 +18,57 @@ class LJNPopupMenuItem extends StatefulWidget {
 }
 
 class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
-  late Color _bgColor = Colors.transparent;
+  // 唯一的内部状态：只记录该菜单项是否被用户按下。
+  bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
+    // 核心修正：在 build 方法内部获取所有依赖于外部环境（如此处的 Theme）的值。
+    ThemeData theme = Theme.of(context);
+
+    // 1. 定义未按下时的背景色
+    const Color normalColor = Colors.transparent;
+
+    // 2. 从当前主题获取按下时的背景色
+    Color pressedColor = theme.listTileTheme.selectedTileColor!;
+
+    // 3. 根据内部状态 _isPressed，动态地计算出当前应该显示的背景颜色。
+    Color currentColor = _isPressed ? pressedColor : normalColor;
+
     return GestureDetector(
-      onTapDown: (_) => setState(
-          () => _bgColor = Theme.of(context).listTileTheme.selectedTileColor!),
-      onTapCancel: () => setState(() => _bgColor = Colors.transparent),
-      onTapUp: (_) {
-        setState(() => _bgColor = Colors.transparent);
-        Future.delayed(const Duration(milliseconds: 50), () {
-          widget.onTap?.call();
+      // onTapDown 只负责更新内部状态
+      onTapDown: (_) {
+        setState(() {
+          _isPressed = true;
         });
       },
+      // onTapCancel 只负责更新内部状态
+      onTapCancel: () {
+        setState(() {
+          _isPressed = false;
+        });
+      },
+      // onTapUp 负责恢复状态并执行操作
+      onTapUp: (_) {
+        // 1. 立即恢复视觉状态
+        setState(() {
+          _isPressed = false;
+        });
+
+        // 2. 延迟执行回调，让用户能看到颜色恢复的动画效果
+        Future.delayed(const Duration(milliseconds: 50), () {
+          // 检查 widget 是否还在树上
+          if (mounted) {
+            widget.onTap?.call();
+          }
+        });
+      },
+      // 使用一个透明的容器来增大点击区域，并避免 GestureDetector 的一些默认行为
+      behavior: HitTestBehavior.opaque,
       child: Container(
         height: 105.w,
-        color: _bgColor,
+        // 使用在 build 方法开头计算出的正确颜色
+        color: currentColor,
         child: Row(
           children: [
             // icon
@@ -44,8 +78,8 @@ class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
               child: Center(
                 child: Icon(
                   IconData(widget.icon, fontFamily: 'Iconfont'),
-                  color: Theme.of(context).popupMenuTheme.iconColor,
-                  size: Theme.of(context).popupMenuTheme.iconSize,
+                  color: theme.popupMenuTheme.iconColor,
+                  size: theme.popupMenuTheme.iconSize,
                 ),
               ),
             ),
@@ -55,15 +89,17 @@ class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
                 height: double.infinity,
                 decoration: BoxDecoration(
                   border: Border(
-                    bottom: (Theme.of(context).listTileTheme.shape
-                            as RoundedRectangleBorder)
-                        .side,
+                    // 从当前主题获取边框样式
+                    bottom:
+                        (theme.listTileTheme.shape as RoundedRectangleBorder)
+                            .side,
                   ),
                 ),
                 alignment: Alignment.centerLeft,
                 child: Text(
                   widget.title,
-                  style: Theme.of(context).popupMenuTheme.textStyle,
+                  // 从当前主题获取文本样式
+                  style: theme.popupMenuTheme.textStyle,
                 ),
               ),
             ),

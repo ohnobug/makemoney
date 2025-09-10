@@ -40,72 +40,85 @@ class LJNFunctionItem extends StatefulWidget {
 }
 
 class _LJNFunctionItemState extends State<LJNFunctionItem> {
-  // bool isClicked = false;
-  late Color containerColor;
-  late bool tapEffect;
-  late Color originContainerColor;
-
-  @override
-  void initState() {
-    super.initState();
-
-    tapEffect = widget.tapEffect ?? true;
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // 在这里进行依赖于 context 的初始化
-    originContainerColor =
-        widget.backgroundColor ?? Theme.of(context).listTileTheme.tileColor!;
-    // 直接赋值，不需要 setState
-    containerColor = originContainerColor;
-  }
+  // 唯一的内部状态：只用来记录该组件是否被用户按下。
+  bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
+    // 核心修正：在 build 方法内部获取所有依赖于外部环境（如 Theme 或 widget 属性）的值。
+    // 这样每次UI刷新（包括主题切换），都能拿到最新的正确值。
+    ThemeData theme = Theme.of(context);
+
+    final bool tapEffect = widget.tapEffect ?? true;
+
+    // 1. 决定原始背景色（未按下时）
+    // 优先使用 widget 传入的 backgroundColor，如果没有则从当前主题中获取。
+    final Color originContainerColor =
+        widget.backgroundColor ?? theme.listTileTheme.tileColor!;
+
+    // 2. 决定按下时的背景色
+    final Color pressedContainerColor = theme.listTileTheme.selectedTileColor!;
+
+    // 3. 根据内部状态 _isPressed 和是否启用点击效果，动态地计算出当前应该显示的背景颜色。
+    final Color currentContainerColor = (_isPressed && tapEffect)
+        ? pressedContainerColor
+        : originContainerColor;
+
     return GestureDetector(
+      // onTapDown 只负责更新内部状态
       onTapDown: (tapDownDetails) {
-        if (tapEffect == false) return;
+        if (!tapEffect) return;
         setState(() {
-          containerColor = Theme.of(context).listTileTheme.selectedTileColor!;
+          _isPressed = true;
         });
       },
+      // onTapCancel 只负责更新内部状态
       onTapCancel: () {
-        if (tapEffect == false) return;
+        if (!tapEffect) return;
         setState(() {
-          containerColor = originContainerColor;
+          _isPressed = false;
         });
-
         logger.info("取消点击");
       },
+      // onTapUp 负责恢复状态并执行操作
       onTapUp: (tapDownDetails) {
-        if (tapEffect == false) return;
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            containerColor = originContainerColor;
-          });
+        // 如果没有点击效果，则直接执行操作
+        if (!tapEffect) {
+          if (widget.link != null) {
+            Navigator.pushNamed(context, widget.link!);
+          }
+          if (widget.onPress != null) {
+            widget.onPress!();
+          }
+          return;
+        }
 
+        // 如果有点击效果：
+        // 1. 立即恢复视觉状态，让UI响应更及时
+        setState(() {
+          _isPressed = false;
+        });
+
+        // 2. 延迟一小段时间再执行回调，让用户能看到颜色恢复的动画效果
+        Future.delayed(const Duration(milliseconds: 50), () {
+          // 检查 widget 是否还在树上
           if (context.mounted) {
             if (widget.link != null) {
               Navigator.pushNamed(context, widget.link!);
             }
-
             if (widget.onPress != null) {
               widget.onPress!();
             }
           }
         });
-
         logger.info("弹起");
       },
       child: Container(
         constraints: BoxConstraints(maxHeight: widget.height ?? 105.0.w),
-        // height: widget.height ?? 105.0.w,
-        color: containerColor,
+        // 使用在 build 方法开头计算出的正确颜色
+        color: currentContainerColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (widget.icon != null) ...[
               // 头像
@@ -116,7 +129,6 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                     const EdgeInsets.only(left: 30.0, right: 0.0).w,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
-                  // borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
                     image: AssetImage(
                       assetPath(widget.icon!),
@@ -130,19 +142,15 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
             Expanded(
               child: Container(
                 height: double.infinity,
-                // height: double.infinity,
-                // width: 400.w,
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: widget.underline
-                        ? (Theme.of(context).listTileTheme.shape
-                                as RoundedRectangleBorder)
+                        ? (theme.listTileTheme.shape as RoundedRectangleBorder)
                             .side
                         : BorderSide.none,
                   ),
                 ),
                 child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // 标题
                     widget.title is String
@@ -172,16 +180,14 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                           ? Expanded(
                               child: Container(
                                 padding: const EdgeInsets.only(left: 10).w,
-                                // color: AppColors.accentRedPure,
                                 alignment: Alignment.centerRight,
                                 child: Text(
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   widget.showStyle as String,
                                   style: TextStyle(
-                                    // height: 1.08,
                                     fontSize: fontSizeScale(30.w),
-                                    color: AppColors.neutralDarkGrey7,
+                                    color: theme.colorScheme.onSurface,
                                   ),
                                 ),
                               ),
@@ -190,7 +196,6 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                     if ([null, true].contains(widget.showLinkIcon) &&
                         widget.link != null)
                       Container(
-                        // color: AppColors.accentRedPure,
                         width: 30.w,
                         height: widget.height ?? 105.0.w,
                         margin: const EdgeInsets.only(left: 10, right: 32).w,

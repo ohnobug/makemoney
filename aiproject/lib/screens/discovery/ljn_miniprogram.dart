@@ -299,6 +299,7 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
 }
 
 void _showPopup(BuildContext context, SystemState systemState) {
+  AppLocalizations l10n = AppLocalizations.of(context)!;
   double widthHeightRatio =
       MediaQuery.of(context).size.width / MediaQuery.of(context).size.height;
 
@@ -370,7 +371,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.of(context)!.noTransactionRating,
+              l10n.noTransactionRating,
               style: TextStyle(
                 fontSize: 26.w,
                 color: Theme.of(context).colorScheme.onSurface,
@@ -378,7 +379,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
               ),
             ),
             Text(
-              AppLocalizations.of(context)!.commentCount(1),
+              l10n.commentCount(1),
               style: TextStyle(
                 fontSize: 26.w,
                 color: Theme.of(context).colorScheme.onSurface,
@@ -386,7 +387,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
               ),
             ),
             Text(
-              AppLocalizations.of(context)!.featuredCommentDisplay("very good"),
+              l10n.featuredCommentDisplay("very good"),
               style: TextStyle(
                 fontSize: 24.w,
                 color: AppColors.neutralGrey70,
@@ -411,7 +412,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
             Container(
               margin: EdgeInsets.only(left: 24.w),
               child: Text(
-                AppLocalizations.of(context)!.forwardTo,
+                l10n.forwardTo,
                 style: TextStyle(
                   fontSize: 25.w,
                   // fontWeight: FontWeight.bold,
@@ -653,7 +654,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           fit: BoxFit.cover, // 让图片完全填满圆形区域
                         ),
                       ),
-                      title: AppLocalizations.of(context)!.forwardToFriend,
+                      title: l10n.forwardToFriend,
                       onPressed: () {},
                     ),
                     LJNPopupFunctionButton(
@@ -675,7 +676,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           fit: BoxFit.cover, // 让图片完全填满圆形区域
                         ),
                       ),
-                      title: AppLocalizations.of(context)!.shareToMoments,
+                      title: l10n.shareToMoments,
                       onPressed: () {},
                     ),
                     LJNPopupFunctionButton(
@@ -697,7 +698,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           fit: BoxFit.cover, // 让图片完全填满圆形区域
                         ),
                       ),
-                      title: AppLocalizations.of(context)!.favorite,
+                      title: l10n.favorite,
                       onPressed: () {},
                     ),
                     LJNPopupFunctionButton(
@@ -721,7 +722,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           fit: BoxFit.cover, // 让图片完全填满圆形区域
                         ),
                       ),
-                      title: AppLocalizations.of(context)!.addToMyMiniPrograms,
+                      title: l10n.addToMyMiniPrograms,
                       onPressed: () {},
                     ),
                     LJNPopupFunctionButton(
@@ -745,7 +746,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           fit: BoxFit.cover, // 让图片完全填满圆形区域
                         ),
                       ),
-                      title: AppLocalizations.of(context)!.addToDesktop,
+                      title: l10n.addToDesktop,
                       onPressed: () {},
                     ),
                     LJNPopupFunctionButton(
@@ -769,7 +770,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           fit: BoxFit.cover, // 让图片完全填满圆形区域
                         ),
                       ),
-                      title: AppLocalizations.of(context)!.openOnComputer,
+                      title: l10n.openOnComputer,
                       onPressed: () {},
                     ),
                   ],
@@ -807,7 +808,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           size: 55.w,
                         ),
                       ),
-                      title: AppLocalizations.of(context)!.floatingWindow,
+                      title: l10n.floatingWindow,
                       onPressed: () {},
                     ),
                     LJNPopupFunctionButton(
@@ -829,7 +830,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           size: 45.w,
                         ),
                       ),
-                      title: AppLocalizations.of(context)!.settings,
+                      title: l10n.settings,
                       onPressed: () {},
                     ),
                     LJNPopupFunctionButton(
@@ -851,8 +852,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           size: 45.w,
                         ),
                       ),
-                      title:
-                          AppLocalizations.of(context)!.feedbackAndComplaints,
+                      title: l10n.feedbackAndComplaints,
                       onPressed: () {},
                     ),
                     LJNPopupFunctionButton(
@@ -874,7 +874,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           size: 45.w,
                         ),
                       ),
-                      title: AppLocalizations.of(context)!.reEnterMiniProgram,
+                      title: l10n.reEnterMiniProgram,
                       onPressed: () {},
                     ),
                     LJNPopupFunctionButton(
@@ -896,7 +896,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           size: 45.w,
                         ),
                       ),
-                      title: AppLocalizations.of(context)!.copyLink,
+                      title: l10n.copyLink,
                       onPressed: () {},
                     ),
                     LJNPopupFunctionButton(
@@ -918,7 +918,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           size: 45.w,
                         ),
                       ),
-                      title: AppLocalizations.of(context)!.translate,
+                      title: l10n.translate,
                       onPressed: () {},
                     ),
                     LJNPopupFunctionButton(
@@ -955,7 +955,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
       // 取消
       LJNPopupButtonMaxWidthButton(
         color: AppColors.brandBlueDark3,
-        title: AppLocalizations.of(context)!.cancel,
+        title: l10n.cancel,
         underline: false,
         onPressed: () {
           Navigator.pop(context);
@@ -1030,8 +1030,7 @@ class LJNPopupButtonMaxWidthButton extends StatefulWidget {
 class _LJNPopupButtonMaxWidthButtonState
     extends State<LJNPopupButtonMaxWidthButton> {
   // bool isClicked = false;
-  late Color containerColor =
-      Theme.of(context).listTileTheme.tileColor!;
+  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
 
   @override
   Widget build(BuildContext context) {

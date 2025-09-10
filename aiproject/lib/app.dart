@@ -4,10 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_image_draggable_box.dart';
-import 'package:vigaviga/widgets/ljn_video_draggable_box.dart';
+import 'package:vigaviga/screens/chat/widgets/ljn_video_draggable_box.dart';
 import 'package:vigaviga/routing/app_router.dart';
 import 'package:vigaviga/store/ljn_popup_cubit.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
@@ -24,6 +25,13 @@ class _AppState extends State<App> {
   void initState() {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     super.initState();
+
+    context.read<LJNUserCubit>().updateName('李俊杰');
+    context.read<LJNUserCubit>().updateAccount('TheMonsterClub');
+    context.read<LJNUserCubit>().updatePhone('+8618825130917');
+    context.read<LJNUserCubit>().updateWalletBalance(2056.98);
+    context.read<LJNUserCubit>().updateWalletFoundationBalance(100.85);
+    context.read<LJNUserCubit>().updateAvatar("images/avatar/my.jpg");
   }
 
   @override

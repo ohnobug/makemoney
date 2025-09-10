@@ -24,6 +24,9 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
@@ -44,10 +47,10 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                   padding: EdgeInsets.only(right: 40.w),
                   alignment: Alignment.center,
                   child: Text(
-                    AppLocalizations.of(context)!.balanceDetails,
+                    l10n.balanceDetails,
                     // textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface, fontSize: 32.w),
+                        color: theme.colorScheme.onSurface, fontSize: 32.w),
                   ),
                 ),
               )
@@ -81,7 +84,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                   height: 78.w,
                 ),
                 Text(
-                  AppLocalizations.of(context)!.myBalance,
+                  l10n.myBalance,
                   style: TextStyle(
                     height: 1.08,
                     fontSize: fontSizeScale(32.w),
@@ -147,7 +150,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                 ),
 
                 LJNChargeButton(
-                  title: AppLocalizations.of(context)!.topUp,
+                  title: l10n.topUp,
                   color: AppColors.neutralWhite,
                   backgroundColor: AppColors.brandGreenVibrant3,
                 ),
@@ -157,7 +160,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                 ),
                 // ????????
                 LJNChargeButton(
-                  title: AppLocalizations.of(context)!.withdraw,
+                  title: l10n.withdraw,
                 ),
 
                 const Expanded(
@@ -167,7 +170,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                 Text.rich(
                   TextSpan(children: [
                     TextSpan(
-                      text: AppLocalizations.of(context)!.faq,
+                      text: l10n.faq,
                       style: TextStyle(
                         height: 1.08,
                         color: AppColors.brandBlueDark4,
@@ -195,7 +198,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                       ),
                     ),
                     TextSpan(
-                      text: AppLocalizations.of(context)!.accountUpgradeService,
+                      text: l10n.accountUpgradeService,
                       style: TextStyle(
                         height: 1.08,
                         color: AppColors.brandBlueDark4,

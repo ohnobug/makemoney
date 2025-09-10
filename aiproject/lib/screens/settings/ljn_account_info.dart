@@ -31,11 +31,14 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Theme(
-      data: Theme.of(context).copyWith(
-        appBarTheme: Theme.of(context).appBarTheme.copyWith(
-              backgroundColor: AppColors.transparent,
-            ),
+      data: theme.copyWith(
+        appBarTheme: theme.appBarTheme.copyWith(
+          backgroundColor: AppColors.transparent,
+        ),
       ),
       child: Scaffold(
         primary: false,
@@ -109,7 +112,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                     Container(
                       padding: EdgeInsets.only(bottom: 180.w),
                       child: LJNChangeAccountButton(
-                        title: AppLocalizations.of(context)!.changeWechatID,
+                        title: l10n.changeWechatID,
                         link: "/change_account",
                       ),
                     )

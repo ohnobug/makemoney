@@ -35,10 +35,13 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       primary: false,
       appBar: LJNAppBar(
-        title: AppLocalizations.of(context)!.friendProfile,
+        title: l10n.friendProfile,
       ),
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -48,7 +51,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                 90.w -
                 systemState.statusHeight,
           ),
-          color: Theme.of(context).colorScheme.surfaceContainer,
+          color: theme.colorScheme.surfaceContainer,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -56,42 +59,42 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
             child: Column(
               children: [
                 LJNAlphabet(
-                  title: AppLocalizations.of(context)!.remark,
-                  bgColor: Theme.of(context).colorScheme.surfaceContainer,
+                  title: l10n.remark,
+                  bgColor: theme.colorScheme.surfaceContainer,
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.remarkName,
+                  title: l10n.remarkName,
                   link: '/set_notes_and_labels',
                   showStyle: "马化腾",
                   underline: true,
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.tags,
+                  title: l10n.tags,
                   link: '/set_friend_tags',
                   showStyle: AppLocalizations.of(context)!
                       .relation_classmate_or_friend,
                   underline: true,
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.phone,
+                  title: l10n.phone,
                   link: '/set_notes_and_labels',
                   showStyle: "+86 18718988850",
                   underline: true,
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.description,
+                  title: l10n.description,
                   link: '/set_notes_and_labels',
                   showStyle: "-",
                   underline: false,
                 ),
                 LJNAlphabet(
-                  title: AppLocalizations.of(context)!.moreInfo,
-                  bgColor: Theme.of(context).colorScheme.surfaceContainer,
+                  title: l10n.moreInfo,
+                  bgColor: theme.colorScheme.surfaceContainer,
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.ourMutualGroups,
+                  title: l10n.ourMutualGroups,
                   link: '',
-                  showStyle: AppLocalizations.of(context)!.personCount(4),
+                  showStyle: l10n.personCount(4),
                   underline: false,
                 ),
                 LJNVerticalGap(
@@ -99,7 +102,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                 ),
                 LJNFunctionItem(
                   height: 135.w,
-                  title: AppLocalizations.of(context)!.signature,
+                  title: l10n.signature,
                   underline: true,
                   link: null,
                   showStyle: Container(
@@ -120,7 +123,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                 ),
                 LJNFunctionItem(
                   height: 135.w,
-                  title: AppLocalizations.of(context)!.source,
+                  title: l10n.source,
                   underline: true,
                   // link: '',
                   link: null,
@@ -142,7 +145,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                   ),
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.addedTime,
+                  title: l10n.addedTime,
                   // link: '',
                   link: null,
                   underline: false,

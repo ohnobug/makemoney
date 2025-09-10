@@ -217,6 +217,7 @@ class _LJNSearch extends State<LJNSearch> {
 
       // 关键改动 4: 在 build 方法内部获取最新的 l10n 实例
       final l10n = AppLocalizations.of(context)!;
+      ThemeData theme = Theme.of(context);
 
       return Scaffold(
         primary: false,
@@ -261,7 +262,7 @@ class _LJNSearch extends State<LJNSearch> {
                             0xe612,
                             fontFamily: 'Iconfont',
                           ),
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: theme.colorScheme.onSurface,
                           size: 40.w,
                         ),
                         prefixIconConstraints: BoxConstraints(minWidth: 70.w),

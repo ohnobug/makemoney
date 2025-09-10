@@ -40,13 +40,16 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Stack(
       children: [
         Positioned(
           child: Scaffold(
             primary: false,
             appBar: LJNAppBar(
-              title: AppLocalizations.of(context)!.profileSettings,
+              title: l10n.profileSettings,
             ),
             body: ScrollConfiguration(
               behavior:
@@ -56,7 +59,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                     minHeight: MediaQuery.of(context).size.height -
                         90.w -
                         systemState.statusHeight),
-                color: Theme.of(context).colorScheme.surfaceContainer,
+                color: theme.colorScheme.surfaceContainer,
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics(),
@@ -64,13 +67,13 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                   child: Column(
                     children: [
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.setRemarkAndTags,
+                        title: l10n.setRemarkAndTags,
                         link: '/set_notes_and_labels',
                         showStyle: "邓子乔",
                         underline: true,
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.friendPermissions,
+                        title: l10n.friendPermissions,
                         link: '/friend_permissions',
                         underline: false,
                       ),
@@ -78,12 +81,12 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                         height: 16.w,
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.recommendToFriend,
+                        title: l10n.recommendToFriend,
                         link: '',
                         underline: true,
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.addToDesktop,
+                        title: l10n.addToDesktop,
                         // link: '',
                         underline: false,
                         onPress: () {
@@ -96,7 +99,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                         height: 16.w,
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.setAsStarFriend,
+                        title: l10n.setAsStarFriend,
                         // link: '',
                         underline: false,
                         tapEffect: false,
@@ -117,7 +120,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                         height: 16.w,
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.addToBlocklist,
+                        title: l10n.addToBlocklist,
                         tapEffect: false,
                         underline: true,
                         showStyle: Expanded(
@@ -134,7 +137,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!.complain,
+                        title: l10n.complain,
                         link: '',
                         underline: false,
                       ),
@@ -142,7 +145,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                         height: 16.w,
                       ),
                       LJNMaxWidthButton(
-                        title: AppLocalizations.of(context)!.delete,
+                        title: l10n.delete,
                         color: AppColors.accentRedPure,
                         underline: false,
                       ),

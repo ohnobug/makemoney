@@ -25,33 +25,33 @@ class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
   void initState() {
     super.initState();
 
-    if (!Platform.isWindows) {
-      _videoController =
-          VideoPlayerController.asset(assetPath('images/ins/test.mp4'))
-            ..initialize().then((_) {
-              setState(() {
-                if (_videoController.value.aspectRatio > 1) {
-                  // 宽大于高
-                  _width = 350.w;
-                  _height = _width / _videoController.value.aspectRatio;
-                } else {
-                  _height = 622.w;
-                  _width = _height * _videoController.value.aspectRatio;
-                }
-              });
-
-              PictureInPicture.updatePiPParams(
-                pipParams: PiPParams(
-                  pipWindowHeight: _height,
-                  pipWindowWidth: _width,
-                ),
-              );
-
-              _videoController.setLooping(true);
-              // _videoController.setVolume(0.0);
-              _videoController.play();
+    // if (!Platform.isWindows) {
+    _videoController =
+        VideoPlayerController.asset(assetPath('images/ins/test.mp4'))
+          ..initialize().then((_) {
+            setState(() {
+              if (_videoController.value.aspectRatio > 1) {
+                // 宽大于高
+                _width = 350.w;
+                _height = _width / _videoController.value.aspectRatio;
+              } else {
+                _height = 622.w;
+                _width = _height * _videoController.value.aspectRatio;
+              }
             });
-    }
+
+            PictureInPicture.updatePiPParams(
+              pipParams: PiPParams(
+                pipWindowHeight: _height,
+                pipWindowWidth: _width,
+              ),
+            );
+
+            _videoController.setLooping(true);
+            // _videoController.setVolume(0.0);
+            _videoController.play();
+          });
+    // }
   }
 
   @override

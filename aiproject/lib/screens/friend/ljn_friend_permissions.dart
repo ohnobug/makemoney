@@ -28,171 +28,171 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
-      return _buildPage(systemState);
-    });
-  }
-
-  // 另起一个函数方便管理
-  Widget _buildPage(SystemState systemState) {
-    return Scaffold(
-      primary: false,
-      appBar: LJNAppBar(
-        title: AppLocalizations.of(context)!.friendPermissions,
-      ),
-      body: ScrollConfiguration(
-        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-        child: Container(
-          constraints: BoxConstraints(
+      return Scaffold(
+        primary: false,
+        appBar: LJNAppBar(
+          title: l10n.friendPermissions,
+        ),
+        body: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+          child: Container(
+            constraints: BoxConstraints(
               minHeight: MediaQuery.of(context).size.height -
                   90.w -
-                  systemState.statusHeight),
-          color: Theme.of(context).colorScheme.surfaceContainer,
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(
-              parent: BouncingScrollPhysics(),
+                  systemState.statusHeight,
             ),
-            child: Column(
-              children: [
-                // 设置朋友权限
-                Container(
-                  alignment: Alignment.centerLeft,
-                  height: 64.w,
-                  padding:
-                      const EdgeInsets.only(left: 30.0, right: 0.0, top: 16).w,
-                  child: Text(
-                    AppLocalizations.of(context)!.setFriendPermissions,
-                    style: TextStyle(
-                      fontSize: 25.w,
-                      height: 1.08,
-                      color: AppColors.neutralGrey76,
-                    ),
-                  ),
-                ),
-
-                // 聊天、朋友圈、微信运动等
-                LJNFunctionItem(
-                  title:
-                      AppLocalizations.of(context)!.featureListChatMomentsWeRun,
-                  onPress: () {
-                    setState(() {
-                      chatOnly = false;
-                    });
-                  },
-                  underline: true,
-                  tapEffect: true,
-                  showLinkIcon: false,
-                  showStyle: chatOnly == false
-                      ? Expanded(
-                          flex: 0,
-                          child: Container(
-                            // color: AppColors.accentRedPure,
-                            width: 30.w,
-                            height: 105.0.w,
-                            margin:
-                                const EdgeInsets.only(left: 10, right: 32).w,
-                            child: Icon(
-                              const IconData(
-                                0xe60d,
-                                fontFamily: 'Iconfont',
-                              ),
-                              size: 30.0.w,
-                              color: AppColors.brandGreenDarker1,
-                            ),
-                          ),
-                        )
-                      : const SizedBox(),
-                ),
-
-                // 仅聊天
-                LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.chatOnly,
-                  // link: '',
-                  underline: false,
-                  tapEffect: true,
-                  onPress: () {
-                    setState(() {
-                      chatOnly = true;
-                    });
-                  },
-                  showStyle: chatOnly == true
-                      ? Expanded(
-                          flex: 0,
-                          child: Container(
-                            // color: AppColors.accentRedPure,
-                            width: 30.w,
-                            height: 105.0.w,
-                            margin:
-                                const EdgeInsets.only(left: 10, right: 32).w,
-                            child: Icon(
-                              const IconData(
-                                0xe60d,
-                                fontFamily: 'Iconfont',
-                              ),
-                              size: 30.0.w,
-                              color: AppColors.brandGreenDarker1,
-                            ),
-                          ),
-                        )
-                      : const SizedBox(),
-                ),
-
-                // 提示语
-                if (chatOnly)
-                  LJNAlphabet(
-                    title: AppLocalizations.of(context)!.privacyRestrictionFull,
-                    color: AppColors.neutralGrey76,
-                  ),
-
-                // 不让他看我
-                if (chatOnly == false) ...[
-                  LJNAlphabet(
-                    title: AppLocalizations.of(context)!.momentsAndStatus,
-                    color: AppColors.neutralGrey76,
-                  ),
-                  LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.hideMyPosts,
-                    // link: '',
-                    underline: true,
-                    tapEffect: false,
-                    showStyle: Expanded(
-                      flex: 0,
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 32).w,
-                        child: LJNSwitch(
-                          initialValue: true,
-                          onChanged: (value) {
-                            logger.info(value);
-                          },
-                        ),
+            color: theme.colorScheme.surfaceContainer,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(
+                parent: BouncingScrollPhysics(),
+              ),
+              child: Column(
+                children: [
+                  // 设置朋友权限
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    height: 64.w,
+                    padding:
+                        const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
+                            .w,
+                    child: Text(
+                      l10n.setFriendPermissions,
+                      style: TextStyle(
+                        fontSize: 25.w,
+                        height: 1.08,
+                        color: AppColors.neutralGrey76,
                       ),
                     ),
                   ),
+
+                  // 聊天、朋友圈、微信运动等
                   LJNFunctionItem(
-                    title: AppLocalizations.of(context)!.hideTheirPosts,
+                    title: AppLocalizations.of(context)!
+                        .featureListChatMomentsWeRun,
+                    onPress: () {
+                      setState(() {
+                        chatOnly = false;
+                      });
+                    },
+                    underline: true,
+                    tapEffect: true,
+                    showLinkIcon: false,
+                    showStyle: chatOnly == false
+                        ? Expanded(
+                            flex: 0,
+                            child: Container(
+                              // color: AppColors.accentRedPure,
+                              width: 30.w,
+                              height: 105.0.w,
+                              margin:
+                                  const EdgeInsets.only(left: 10, right: 32).w,
+                              child: Icon(
+                                const IconData(
+                                  0xe60d,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                size: 30.0.w,
+                                color: AppColors.brandGreenDarker1,
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
+                  ),
+
+                  // 仅聊天
+                  LJNFunctionItem(
+                    title: l10n.chatOnly,
                     // link: '',
                     underline: false,
-                    tapEffect: false,
-                    showStyle: Expanded(
-                      flex: 0,
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 32).w,
-                        child: LJNSwitch(
-                          initialValue: true,
-                          onChanged: (value) {
-                            logger.info(value);
-                          },
+                    tapEffect: true,
+                    onPress: () {
+                      setState(() {
+                        chatOnly = true;
+                      });
+                    },
+                    showStyle: chatOnly == true
+                        ? Expanded(
+                            flex: 0,
+                            child: Container(
+                              // color: AppColors.accentRedPure,
+                              width: 30.w,
+                              height: 105.0.w,
+                              margin:
+                                  const EdgeInsets.only(left: 10, right: 32).w,
+                              child: Icon(
+                                const IconData(
+                                  0xe60d,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                size: 30.0.w,
+                                color: AppColors.brandGreenDarker1,
+                              ),
+                            ),
+                          )
+                        : const SizedBox(),
+                  ),
+
+                  // 提示语
+                  if (chatOnly)
+                    LJNAlphabet(
+                      title: l10n.privacyRestrictionFull,
+                      color: AppColors.neutralGrey76,
+                    ),
+
+                  // 不让他看我
+                  if (chatOnly == false) ...[
+                    LJNAlphabet(
+                      title: l10n.momentsAndStatus,
+                      color: AppColors.neutralGrey76,
+                    ),
+                    LJNFunctionItem(
+                      title: l10n.hideMyPosts,
+                      // link: '',
+                      underline: true,
+                      tapEffect: false,
+                      showStyle: Expanded(
+                        flex: 0,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 32).w,
+                          child: LJNSwitch(
+                            initialValue: true,
+                            onChanged: (value) {
+                              logger.info(value);
+                            },
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                    LJNFunctionItem(
+                      title: l10n.hideTheirPosts,
+                      // link: '',
+                      underline: false,
+                      tapEffect: false,
+                      showStyle: Expanded(
+                        flex: 0,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 32).w,
+                          child: LJNSwitch(
+                            initialValue: true,
+                            onChanged: (value) {
+                              logger.info(value);
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

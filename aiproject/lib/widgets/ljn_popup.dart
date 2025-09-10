@@ -24,6 +24,9 @@ class _LJNPopupState extends State<LJNPopup> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Stack(
@@ -56,12 +59,12 @@ class _LJNPopupState extends State<LJNPopup> {
                       height: 136.w,
                       padding: EdgeInsets.only(top: 63.w, bottom: 35.w),
                       child: Text(
-                        AppLocalizations.of(context)!.addedToDesktopAttempt,
+                        l10n.addedToDesktopAttempt,
                         style: TextStyle(
                           fontFamily: "AlibabaPuHuiTi",
                           fontSize: 30.w,
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: theme.colorScheme.onSurface,
                           decoration: TextDecoration.none,
                           height: 1.08,
                         ),
@@ -103,13 +106,13 @@ class _LJNPopupState extends State<LJNPopup> {
                             width: 15.w,
                           ),
                           Text(
-                            AppLocalizations.of(context)!.doNotRemindAgain,
+                            l10n.doNotRemindAgain,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: "AlibabaPuHuiTi",
                               decoration: TextDecoration.none,
                               fontSize: 30.w,
-                              color: Theme.of(context).colorScheme.onSurface,
+                              color: theme.colorScheme.onSurface,
                               height: 1.08,
                             ),
                           )
@@ -143,11 +146,11 @@ class _LJNPopupState extends State<LJNPopup> {
                                 color: AppColors.transparent,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  AppLocalizations.of(context)!.back,
+                                  l10n.back,
                                   style: TextStyle(
                                     decoration: TextDecoration.none,
                                     fontSize: 32.w,
-                                    color: Theme.of(context).colorScheme.onSurface,
+                                    color: theme.colorScheme.onSurface,
                                     fontFamily: "AlibabaPuHuiTi-Medium",
                                     height: 1.08,
                                   ),
@@ -172,7 +175,7 @@ class _LJNPopupState extends State<LJNPopup> {
                                 color: AppColors.transparent,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  AppLocalizations.of(context)!.learnMore,
+                                  l10n.learnMore,
                                   style: TextStyle(
                                     decoration: TextDecoration.none,
                                     fontSize: 32.w,

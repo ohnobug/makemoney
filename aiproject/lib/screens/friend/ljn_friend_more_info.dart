@@ -35,10 +35,13 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       primary: false,
       appBar: LJNAppBar(
-        title: AppLocalizations.of(context)!.moreInfo,
+        title: l10n.moreInfo,
       ),
       body: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -47,7 +50,7 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
               minHeight: MediaQuery.of(context).size.height -
                   90.w -
                   systemState.statusHeight),
-          color: Theme.of(context).colorScheme.surfaceContainer,
+          color: theme.colorScheme.surfaceContainer,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
               parent: BouncingScrollPhysics(),
@@ -55,9 +58,9 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
             child: Column(
               children: [
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.ourMutualGroupChats,
+                  title: l10n.ourMutualGroupChats,
                   link: '',
-                  showStyle: AppLocalizations.of(context)!.groupCount(4),
+                  showStyle: l10n.groupCount(4),
                   underline: false,
                 ),
                 LJNVerticalGap(
@@ -65,7 +68,7 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                 ),
                 LJNFunctionItem(
                   height: 135.w,
-                  title: AppLocalizations.of(context)!.personalSignature,
+                  title: l10n.personalSignature,
                   // link: '',
                   showStyle: Container(
                     // color: AppColors.accentRedPure,
@@ -86,7 +89,7 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                 ),
                 LJNFunctionItem(
                   height: 135.w,
-                  title: AppLocalizations.of(context)!.source,
+                  title: l10n.source,
                   // link: '',
                   showStyle: Container(
                     // color: AppColors.accentRedPure,
@@ -107,7 +110,7 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                   underline: true,
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.addedTime,
+                  title: l10n.addedTime,
                   // link: '',
                   showStyle: Expanded(
                     child: Container(

@@ -176,7 +176,7 @@
 //       appBar: null,
 //       primary: false,
 //       body: Container(
-//         color: Theme.of(context).colorScheme.onSurface54,
+//         color: theme.colorScheme.onSurface54,
 //         width: MediaQuery.of(context).size.width,
 //         height: MediaQuery.of(context).size.height,
 //         child: Stack(
@@ -210,7 +210,7 @@
 //                         decoration: InputDecoration(
 //                           contentPadding: EdgeInsets.all(10.0),
 //                           border: UnderlineInputBorder(
-//                             borderSide: BorderSide(color: Theme.of(context).colorScheme.onSurface12),
+//                             borderSide: BorderSide(color: theme.colorScheme.onSurface12),
 //                           ),
 //                         ),
 //                       ),
@@ -251,7 +251,7 @@
 //                                 0xec8c,
 //                                 fontFamily: 'Iconfont',
 //                               ),
-//                               color: Theme.of(context).colorScheme.onSurface,
+//                               color: theme.colorScheme.onSurface,
 //                               size: 64.w,
 //                             ),
 //                           ),

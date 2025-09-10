@@ -22,13 +22,16 @@ class _LJNForgotPassword extends State<LJNForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Theme(
-          data: Theme.of(context).copyWith(
-            appBarTheme: Theme.of(context).appBarTheme.copyWith(
-                  backgroundColor: AppColors.transparent,
-                ),
+          data: theme.copyWith(
+            appBarTheme: theme.appBarTheme.copyWith(
+              backgroundColor: AppColors.transparent,
+            ),
           ),
           child: Scaffold(
             primary: false,
@@ -77,7 +80,7 @@ class _LJNForgotPassword extends State<LJNForgotPassword> {
                         ),
 
                         Text(
-                          AppLocalizations.of(context)!.forgotPassword,
+                          l10n.forgotPassword,
                           style: TextStyle(
                             fontSize: 42.w,
                             fontWeight: FontWeight.bold,
@@ -107,7 +110,7 @@ class _LJNForgotPassword extends State<LJNForgotPassword> {
                         Container(
                           padding: EdgeInsets.only(bottom: 180.w),
                           child: LJNChangeAccountButton(
-                            title: AppLocalizations.of(context)!.iKnow,
+                            title: l10n.iKnow,
                             link: "back",
                             readonly: false,
                           ),

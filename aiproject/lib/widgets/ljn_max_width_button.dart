@@ -1,7 +1,8 @@
 // 功能列表
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
@@ -13,86 +14,100 @@ class LJNMaxWidthButton extends StatefulWidget {
   final bool underline;
   final Function? onPressed;
 
-  const LJNMaxWidthButton(
-      {super.key,
-      this.height,
-      required this.title,
-      this.color,
-      this.link,
-      required this.underline,
-      this.onPressed});
+  const LJNMaxWidthButton({
+    super.key,
+    this.height,
+    required this.title,
+    this.color,
+    this.link,
+    required this.underline,
+    this.onPressed,
+  });
 
   @override
   State<LJNMaxWidthButton> createState() => _LJNMaxWidthButtonState();
 }
 
 class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
-  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
+  // 只用一个状态来记录是否被按下
+  bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (tapDownDetails) {
-        setState(() {
-          containerColor = Theme.of(context).listTileTheme.selectedTileColor!;
-        });
-      },
-      onTapCancel: () {
-        setState(() {
-          containerColor = Theme.of(context).listTileTheme.tileColor!;
-        });
+    // 在 build 方法中根据当前主题和按压状态决定颜色
+    ThemeData theme = Theme.of(context);
 
-        logger.info("取消点击");
-      },
-      onTapUp: (tapDownDetails) {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            containerColor = Theme.of(context).listTileTheme.tileColor!;
-          });
+    final Color normalColor = theme.listTileTheme.tileColor!;
+    final Color pressedColor = theme.listTileTheme.selectedTileColor!;
 
-          if (context.mounted) {
-            if (widget.link != null) {
-              Navigator.pushNamed(context, widget.link!);
-            }
+    // 根据 _isPressed 状态动态选择颜色
+    final Color currentColor = _isPressed ? pressedColor : normalColor;
 
-            if (widget.onPressed != null) {
-              widget.onPressed!();
-            }
-          }
-        });
+    return BlocBuilder<LJNSystemCubit, SystemState>(
+      builder: (context, systemState) {
+        return GestureDetector(
+          onTapDown: (tapDownDetails) {
+            setState(() {
+              _isPressed = true;
+            });
+          },
+          onTapCancel: () {
+            setState(() {
+              _isPressed = false;
+            });
+            logger.info("取消点击");
+          },
+          onTapUp: (tapDownDetails) {
+            // 先恢复状态，再执行操作
+            setState(() {
+              _isPressed = false;
+            });
 
-        logger.info("弹起");
-      },
-      child: Container(
-        height: widget.height ?? 105.0.w,
-        width: 750.w,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: containerColor,
-          border: Border(
-            bottom: widget.underline
-                ? (Theme.of(context).listTileTheme.shape
-                        as RoundedRectangleBorder)
-                    .side
-                : BorderSide.none,
+            // 延迟一点点时间，让用户能看到颜色恢复的效果
+            Future.delayed(const Duration(milliseconds: 50), () {
+              if (context.mounted) {
+                if (widget.link != null) {
+                  Navigator.pushNamed(context, widget.link!);
+                }
+
+                if (widget.onPressed != null) {
+                  widget.onPressed!();
+                }
+              }
+            });
+
+            logger.info("弹起");
+          },
+          child: Container(
+            height: widget.height ?? 105.0.w,
+            width: 750.w,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              // 直接使用在 build 方法中计算出的颜色
+              color: currentColor,
+              border: Border(
+                bottom: widget.underline
+                    ? (theme.listTileTheme.shape as RoundedRectangleBorder).side
+                    : BorderSide.none,
+              ),
+            ),
+            child: widget.title is String
+                ? Text(
+                    widget.title as String,
+                    style: TextStyle(
+                      color: widget.color ?? theme.colorScheme.onSurface,
+                      height: 1.08,
+                      fontSize: fontSizeScale(32.0.w),
+                      decoration: TextDecoration.none,
+                      fontFamily: "AlibabaPuHuiTi",
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  )
+                : widget.title as Widget,
           ),
-        ),
-        child: widget.title is String
-            ? Text(
-                widget.title as String,
-                style: TextStyle(
-                  color:
-                      widget.color ?? Theme.of(context).colorScheme.onSurface,
-                  height: 1.08,
-                  fontSize: fontSizeScale(32.0.w),
-                  decoration: TextDecoration.none,
-                  fontFamily: "AlibabaPuHuiTi",
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              )
-            : widget.title as Widget,
-      ),
+        );
+      },
     );
   }
 }

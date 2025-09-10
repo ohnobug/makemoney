@@ -26,9 +26,15 @@ class LJNReceiveMessage extends StatefulWidget {
 class _LJNReceiveMessage extends State<LJNReceiveMessage> {
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     // 对方发的消息
     return Container(
-      padding: EdgeInsets.only(left: 22.w, right: 22.w, top: 22.w),
+      padding: EdgeInsets.only(
+        left: 22.w,
+        right: 22.w,
+        top: 22.w,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -123,7 +129,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                           style: TextStyle(
                             height: 1.25,
                             fontSize: fontSizeScale(31.w),
-                            color: Theme.of(context).colorScheme.onSurface,
+                            color: theme.colorScheme.onSurface,
                             fontFamily: "AlibabaPuHuiTi",
                           ),
                         ),

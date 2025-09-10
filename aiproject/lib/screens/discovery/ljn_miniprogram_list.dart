@@ -3,11 +3,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/widgets/ljn_text_spans.dart';
+
+// --- Data Models for clean data/UI separation ---
+class _FunctionButtonData {
+  final String icon;
+  final String title;
+  const _FunctionButtonData({required this.icon, required this.title});
+}
+
+class _ChatListItemData {
+  final String avatar;
+  final String friendName;
+  final String message;
+  const _ChatListItemData(
+      {required this.avatar, required this.friendName, required this.message});
+}
 
 class LJNMiniProgramList extends StatefulWidget {
   const LJNMiniProgramList({super.key});
@@ -17,116 +31,109 @@ class LJNMiniProgramList extends StatefulWidget {
 }
 
 class _LJNMiniProgramList extends State<LJNMiniProgramList> {
-  late final List<ChatListItem> chatItems;
-  late final List<ChatListItem> chatItems2;
+  // Store static data in data models, not widgets.
+  static const String _dummyLink =
+      "http://inner_list_of_third_party_information_sharing/";
 
-  @override
-  void initState() {
-    super.initState();
+  final List<_FunctionButtonData> recentUseData = const [
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/zhihuixiangji.jpg", title: "智慧相机"),
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/haimianbaobao.jpg", title: "海绵宝宝"),
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/taowuyou.jpg", title: "淘无忧"),
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/wangzheyingdi.jpg", title: "王者营地"),
+  ];
 
-    chatItems = [
-      ChatListItem(
+  final List<_FunctionButtonData> myFavoritesData = const [
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/duitang.jpg", title: "堆糖"),
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/tiankongyueduqi.jpg", title: "天空阅读器"),
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/qishuwang.jpg", title: "奇书网"),
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/xueyouyoujiao.jpg", title: "学有优教"),
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/haiziwang.jpg", title: "孩子王"),
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/qianbixiaoshuo.jpg", title: "铅笔小说"),
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/chengquanshipin.jpg", title: "成全视频"),
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/xiaomishangcheng.jpg", title: "小米商城"),
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/meituxiuxiu.jpg", title: "美图秀秀"),
+    _FunctionButtonData(
+        icon: "images/miniprogram_icon/luobokuaipao.jpg", title: "萝卜快跑"),
+  ];
+
+  final List<_ChatListItemData> transportData = const [
+    _ChatListItemData(
         friendName: "粤童年",
         message: "今天天气真好，阳光明媚，让人心情愉悦。",
-        avatar: "images/miniprogram_icon/yuetongnianruanjian.jpg",
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-              "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-        },
-      ),
-      ChatListItem(
+        avatar: "images/miniprogram_icon/yuetongnianruanjian.jpg"),
+    _ChatListItemData(
         friendName: '起点中文',
         message: "[图片]",
-        avatar: "images/miniprogram_icon/qidianzhongwen.jpg",
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-              "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-        },
-      ),
-      ChatListItem(
+        avatar: "images/miniprogram_icon/qidianzhongwen.jpg"),
+    _ChatListItemData(
         friendName: "野花香电视剧",
         message: "这个怎么样调试?",
-        avatar: "images/miniprogram_icon/yehuaxiangdianshiju.jpg",
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-              "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-        },
-      ),
-      ChatListItem(
+        avatar: "images/miniprogram_icon/yehuaxiangdianshiju.jpg"),
+    _ChatListItemData(
         friendName: "韵镖侠",
         message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
-        avatar: "images/miniprogram_icon/yunbiaoxia.jpg",
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-              "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-        },
-      ),
-    ];
+        avatar: "images/miniprogram_icon/yunbiaoxia.jpg"),
+  ];
 
-    chatItems2 = [
-      ChatListItem(
+  final List<_ChatListItemData> nearbyData = const [
+    _ChatListItemData(
         friendName: "蘑菇云游",
         message: "今天天气真好，阳光明媚，让人心情愉悦。",
-        avatar: "images/miniprogram_icon/moguyunyou.jpg",
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-              "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-        },
-      ),
-      ChatListItem(
+        avatar: "images/miniprogram_icon/moguyunyou.jpg"),
+    _ChatListItemData(
         friendName: '美图秀秀',
         message: "[图片]",
-        avatar: "images/miniprogram_icon/meituxiuxiu.jpg",
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-              "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-        },
-      ),
-      ChatListItem(
+        avatar: "images/miniprogram_icon/meituxiuxiu.jpg"),
+    _ChatListItemData(
         friendName: "百度翻译",
         message: "这个怎么样调试?",
-        avatar: "images/miniprogram_icon/baidufanyi.jpg",
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-              "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-        },
-      ),
-      ChatListItem(
+        avatar: "images/miniprogram_icon/baidufanyi.jpg"),
+    _ChatListItemData(
         friendName: "淘无忧",
         message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
-        avatar: "images/miniprogram_icon/taowuyou.jpg",
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-              "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-        },
-      ),
-    ];
+        avatar: "images/miniprogram_icon/taowuyou.jpg"),
+  ];
+
+  void _navigateToMiniProgram(BuildContext context) {
+    Navigator.of(context)
+        .pushNamed("/open_miniprogram?link=${Uri.encodeComponent(_dummyLink)}");
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    ThemeData theme = Theme.of(context);
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            // bgColor: AppColors.accentRedPure,
-            // color: Colors.amber,
-            title: AppLocalizations.of(context)!.miniPrograms,
+            title: l10n.miniPrograms,
             actions: [
               GestureDetector(
                 onTap: () {},
                 child: Container(
                   color: AppColors.transparent,
                   height: 90.w,
-                  padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                  padding: EdgeInsets.only(right: 33.w),
                   alignment: Alignment.center,
                   child: Icon(
-                    const IconData(
-                      0xe612,
-                      fontFamily: 'Iconfont',
-                    ),
-                    size: 40.w, // 图标大小
+                    const IconData(0xe612, fontFamily: 'Iconfont'),
+                    size: 40.w,
                   ),
                 ),
               ),
@@ -135,21 +142,18 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
                 child: Container(
                   color: AppColors.transparent,
                   height: 90.w,
-                  padding: EdgeInsets.only(right: 40.w), // 设置右侧内边距
+                  padding: EdgeInsets.only(right: 40.w),
                   alignment: Alignment.center,
                   child: Icon(
-                    const IconData(
-                      0xe726,
-                      fontFamily: 'Iconfont',
-                    ),
-                    size: 42.w, // 图标大小
+                    const IconData(0xe726, fontFamily: 'Iconfont'),
+                    size: 42.w,
                   ),
                 ),
               ),
             ],
           ),
           body: ColoredBox(
-            color: Theme.of(context).colorScheme.surfaceContainer,
+            color: theme.colorScheme.surfaceContainer,
             child: ScrollConfiguration(
               behavior:
                   ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -160,157 +164,62 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
                 child: Container(
                   constraints: BoxConstraints(
                       minHeight: MediaQuery.of(context).size.height - 205.w),
-                  color: Theme.of(context).colorScheme.surfaceContainer,
+                  color: theme.colorScheme.surfaceContainer,
                   child: Column(
                     children: [
                       // 最近使用
                       FunctionButtonsSection(
-                        title: AppLocalizations.of(context)!.recent,
+                        title: l10n.recent,
                         moreUrl: "/",
-                        buttons: [
-                          FunctionButton(
-                            icon: "images/miniprogram_icon/zhihuixiangji.jpg",
-                            title: "智慧相机",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                          // FunctionButton(
-                          //     icon:
-                          //         "images/miniprogram_icon/wangwangshangliao.jpg",
-                          //     title: "旺旺商聊",
-                          //     onPressed: () {
-                          //
-                          // Navigator.of(context).pushNamed("/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");},),
-                          FunctionButton(
-                            icon: "images/miniprogram_icon/haimianbaobao.jpg",
-                            title: "海绵宝宝",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/miniprogram_icon/taowuyou.jpg",
-                            title: "淘无忧",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/miniprogram_icon/wangzheyingdi.jpg",
-                            title: "王者营地",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                        ],
+                        buttons: recentUseData
+                            .map((data) => FunctionButton(
+                                  icon: data.icon,
+                                  title: data.title,
+                                  onPressed: () =>
+                                      _navigateToMiniProgram(context),
+                                ))
+                            .toList(),
                       ),
-
                       // 我的常用
                       FunctionButtonsSection(
-                        title: AppLocalizations.of(context)!.myFavorites,
+                        title: l10n.myFavorites,
                         moreUrl: "",
-                        buttons: [
-                          FunctionButton(
-                            icon: "images/miniprogram_icon/duitang.jpg",
-                            title: "堆糖",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/miniprogram_icon/tiankongyueduqi.jpg",
-                            title: "天空阅读器",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/miniprogram_icon/qishuwang.jpg",
-                            title: "奇书网",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/miniprogram_icon/xueyouyoujiao.jpg",
-                            title: "学有优教",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/miniprogram_icon/haiziwang.jpg",
-                            title: "孩子王",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/miniprogram_icon/qianbixiaoshuo.jpg",
-                            title: "铅笔小说",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/miniprogram_icon/chengquanshipin.jpg",
-                            title: "成全视频",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                          FunctionButton(
-                            icon:
-                                "images/miniprogram_icon/xiaomishangcheng.jpg",
-                            title: "小米商城",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/miniprogram_icon/meituxiuxiu.jpg",
-                            title: "美图秀秀",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                          FunctionButton(
-                            icon: "images/miniprogram_icon/luobokuaipao.jpg",
-                            title: "萝卜快跑",
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                  "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
-                            },
-                          ),
-                        ],
+                        buttons: myFavoritesData
+                            .map((data) => FunctionButton(
+                                  icon: data.icon,
+                                  title: data.title,
+                                  onPressed: () =>
+                                      _navigateToMiniProgram(context),
+                                ))
+                            .toList(),
                       ),
-
                       // 交通出行
                       FunctionListSection(
-                        title: "交通出行",
+                        title: "交通出行", // Assuming this is not in l10n
                         moreUrl: '/',
-                        chatItems: chatItems,
+                        chatItems: transportData
+                            .map((data) => ChatListItem(
+                                  avatar: data.avatar,
+                                  friendName: data.friendName,
+                                  message: data.message,
+                                  onPressed: () =>
+                                      _navigateToMiniProgram(context),
+                                ))
+                            .toList(),
                       ),
-
                       // 附近小程序
                       FunctionListSection(
-                        title: AppLocalizations.of(context)!.nearbyMiniPrograms,
+                        title: l10n.nearbyMiniPrograms,
                         moreUrl: '/',
-                        chatItems: chatItems2,
+                        chatItems: nearbyData
+                            .map((data) => ChatListItem(
+                                  avatar: data.avatar,
+                                  friendName: data.friendName,
+                                  message: data.message,
+                                  onPressed: () =>
+                                      _navigateToMiniProgram(context),
+                                ))
+                            .toList(),
                       )
                     ],
                   ),
@@ -324,7 +233,11 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
   }
 }
 
-// 小程序按钮项组
+// =========================================================================
+// ====================       以下是页面使用的子组件        ====================
+// =========================================================================
+
+// --- 小程序按钮项组 ---
 class FunctionButtonsSection extends StatelessWidget {
   final String title;
   final List<FunctionButton> buttons;
@@ -338,6 +251,8 @@ class FunctionButtonsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return Container(
       margin: const EdgeInsets.only(bottom: 18, left: 18, right: 18).w,
       decoration: BoxDecoration(
@@ -359,52 +274,38 @@ class FunctionButtonsSection extends StatelessWidget {
                   style: TextStyle(
                     height: 1.08,
                     fontSize: fontSizeScale(28.w),
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: theme.colorScheme.onSurface,
                   ),
                 ),
-                if (moreUrl != '')
-                  // 三个点
+                if (moreUrl.isNotEmpty)
                   GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        moreUrl,
-                      );
-                    },
+                    onTap: () => Navigator.pushNamed(context, moreUrl),
                     child: Container(
-                      // height: 90.w,
                       color: AppColors.transparent,
-                      padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                      padding: EdgeInsets.only(right: 33.w),
                       child: Icon(
-                        const IconData(
-                          0xe659,
-                          fontFamily: 'Iconfont',
-                        ),
-                        size: 37.w, // 图标大小
+                        const IconData(0xe659, fontFamily: 'Iconfont'),
+                        size: 37.w,
                       ),
                     ),
                   )
               ],
             ),
           ),
-
-          // 使用 SizedBox 控制 GridView 的大小
           Container(
             padding: const EdgeInsets.all(16.0).w,
             child: GridView.builder(
               padding: EdgeInsets.zero,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4, // 每行显示4个子组件
-                crossAxisSpacing: 16.w, // 列间距
-                mainAxisSpacing: 30.w, // 行间距
-                childAspectRatio: (1 / 1),
+                crossAxisCount: 4,
+                crossAxisSpacing: 16.w,
+                mainAxisSpacing: 30.w,
+                childAspectRatio: 1.0,
               ),
               itemCount: buttons.length,
-              itemBuilder: (context, index) {
-                return Center(child: buttons[index]);
-              },
-              shrinkWrap: true, // 根据内容调整 GridView 大小
-              physics: const NeverScrollableScrollPhysics(), // 禁用滚动
+              itemBuilder: (context, index) => Center(child: buttons[index]),
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
             ),
           ),
         ],
@@ -413,7 +314,7 @@ class FunctionButtonsSection extends StatelessWidget {
   }
 }
 
-// 小程序按钮
+// --- 小程序按钮 (已修正) ---
 class FunctionButton extends StatefulWidget {
   final String icon;
   final String title;
@@ -435,48 +336,40 @@ class FunctionButtonState extends State<FunctionButton> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
+    // 修正：从当前主题获取颜色，而不是硬编码
+    final Color pressedColor = theme.highlightColor;
+
     return GestureDetector(
       onTap: widget.onPressed,
-      onTapDown: (_) {
-        setState(() {
-          _isPressed = true;
-        });
-      },
-      onTapUp: (_) {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
-      onTapCancel: () {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
+      onTapDown: (_) => setState(() => _isPressed = true),
+      onTapUp: (_) => Future.delayed(const Duration(milliseconds: 50), () {
+        if (mounted) setState(() => _isPressed = false);
+      }),
+      onTapCancel: () => Future.delayed(const Duration(milliseconds: 50), () {
+        if (mounted) setState(() => _isPressed = false);
+      }),
       child: Container(
         height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
-          color:
-              _isPressed ? Colors.grey[200] : AppColors.transparent, // 按下时背景色
-          borderRadius: BorderRadius.circular(10.0).w, // 圆角半径
+          color: _isPressed ? pressedColor : Colors.transparent,
+          borderRadius: BorderRadius.circular(10.0).w,
         ),
         child: Center(
           child: Column(
-            mainAxisSize: MainAxisSize.min, // 使按钮大小适应内容
+            mainAxisSize: MainAxisSize.min,
             children: [
               ClipOval(
                 child: Image.asset(
                   assetPath(widget.icon),
                   width: 95.w,
                   height: 95.w,
-                  fit: BoxFit.cover, // 让图片完全填满圆形区域
+                  fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(height: 22.w), // 图标和标题之间的间距
+              SizedBox(height: 22.w),
               Text(
                 widget.title,
                 maxLines: 1,
@@ -486,7 +379,7 @@ class FunctionButtonState extends State<FunctionButton> {
                   color: AppColors.neutralDarkGrey4,
                   fontSize: fontSizeScale(25.0.w),
                   overflow: TextOverflow.ellipsis,
-                ), // 标题颜色
+                ),
               ),
             ],
           ),
@@ -496,8 +389,8 @@ class FunctionButtonState extends State<FunctionButton> {
   }
 }
 
-// 小程序列表项组
-class FunctionListSection extends StatefulWidget {
+// --- 小程序列表项组 ---
+class FunctionListSection extends StatelessWidget {
   final String title;
   final String moreUrl;
   final List<ChatListItem> chatItems;
@@ -510,17 +403,9 @@ class FunctionListSection extends StatefulWidget {
   });
 
   @override
-  State<FunctionListSection> createState() => _FunctionListSection();
-}
-
-class _FunctionListSection extends State<FunctionListSection> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return Container(
       margin: const EdgeInsets.only(bottom: 18, left: 18, right: 18).w,
       decoration: BoxDecoration(
@@ -538,52 +423,34 @@ class _FunctionListSection extends State<FunctionListSection> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  widget.title,
+                  title,
                   style: TextStyle(
                     height: 1.08,
                     fontSize: fontSizeScale(28.w),
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: theme.colorScheme.onSurface,
                   ),
                 ),
-                if (widget.moreUrl != '')
-                  // 三个点
+                if (moreUrl.isNotEmpty)
                   GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        widget.moreUrl,
-                      );
-                    },
+                    onTap: () => Navigator.pushNamed(context, moreUrl),
                     child: Container(
-                      // height: 90.w,
                       color: AppColors.transparent,
-                      padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
+                      padding: EdgeInsets.only(right: 33.w),
                       child: Icon(
-                        const IconData(
-                          0xe659,
-                          fontFamily: 'Iconfont',
-                        ),
-                        size: 37.w, // 图标大小
+                        const IconData(0xe659, fontFamily: 'Iconfont'),
+                        size: 37.w,
                       ),
                     ),
                   )
               ],
             ),
           ),
-
-          // 使用 SizedBox 控制 GridView 的大小
           ListView.builder(
             primary: false,
-            itemCount: widget.chatItems.length,
+            itemCount: chatItems.length,
             shrinkWrap: true,
-            // controller: _customScrollController,
-            // physics: const CustomScrollPhysics()
-            //     .applyTo(const MyBouncingScrollPhysics(),),
-            // physics: const MyBouncingScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              return widget.chatItems[index];
-            },
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) => chatItems[index],
           ),
         ],
       ),
@@ -591,7 +458,7 @@ class _FunctionListSection extends State<FunctionListSection> {
   }
 }
 
-// 小程序列表项
+// --- 小程序列表项 (已修正) ---
 class ChatListItem extends StatefulWidget {
   final String avatar;
   final String friendName;
@@ -607,134 +474,87 @@ class ChatListItem extends StatefulWidget {
   });
 
   @override
-  State<ChatListItem> createState() => _ChatListItem();
+  State<ChatListItem> createState() => _ChatListItemState();
 }
 
-class _ChatListItem extends State<ChatListItem> {
-  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
+class _ChatListItemState extends State<ChatListItem> {
+  bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
+    final Color normalColor = theme.listTileTheme.tileColor!;
+    final Color pressedColor = theme.listTileTheme.selectedTileColor!;
+    final Color currentColor = _isPressed ? pressedColor : normalColor;
+
     return GestureDetector(
-      onTapDown: (_) {
-        setState(() {
-          containerColor = Theme.of(context).listTileTheme.selectedTileColor!;
-        });
-      },
-      onTapCancel: () {
-        setState(() {
-          containerColor = Theme.of(context).listTileTheme.tileColor!;
-        });
-
-        logger.info("取消点击");
-      },
-      onTapUp: (tapDownDetails) {
+      behavior: HitTestBehavior.opaque,
+      onTapDown: (_) => setState(() => _isPressed = true),
+      onTapCancel: () => setState(() => _isPressed = false),
+      onTapUp: (_) {
+        setState(() => _isPressed = false);
         Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            containerColor = Theme.of(context).listTileTheme.tileColor!;
-          });
-          widget.onPressed!();
+          if (mounted) widget.onPressed?.call();
         });
-
-        logger.info("弹起");
       },
-      child: Stack(
-        children: [
-          // 头像以及名称日期等信息
-          Container(
-            color: containerColor,
-            height: 135.0.w,
-            padding: const EdgeInsets.only(left: 30.0).w,
-            child: Row(
-              children: [
-                // 头像
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(95).w,
-                  child: Image.asset(
-                    assetPath(widget.avatar),
-                    cacheWidth: 190.w.toInt(),
-                    cacheHeight: 190.w.toInt(),
-                    width: 95.w,
-                    height: 95.w,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-
-                SizedBox(width: 23.w),
-
-                // 右边区域
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 12.w,
-                      ),
-
-                      // 好友名称和消息时间
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // 好友名称
-                          Expanded(
-                            child: LJNTextSpans(
-                              text: widget.friendName,
-                              style: TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(28.0.w),
-                                color: Theme.of(context).colorScheme.onSurface,
-                                fontFamily: "AlibabaPuHuiTi",
-                              ),
-                              emojiStyle: TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(28.w),
-                                fontFamily: "NotoColorEmoji-Regular",
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                        ],
-                      ),
-
-                      SizedBox(height: 10.w),
-
-                      // 好友消息
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            flex: 1,
-                            // color: Colors.amber,
-                            // width: 400.w,
-                            // margin: EdgeInsets.only(right: 65.w),
-                            child: LJNTextSpans(
-                              text: widget.message,
-                              style: TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(25.w),
-                                color: AppColors.neutralGrey45,
-                              ),
-                              emojiStyle: TextStyle(
-                                height: 1.08,
-                                fontSize: fontSizeScale(25.w),
-                                color: AppColors.neutralGrey45,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+      child: Container(
+        color: currentColor,
+        height: 135.0.w,
+        padding: const EdgeInsets.only(left: 30.0).w,
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(95).w,
+              child: Image.asset(
+                assetPath(widget.avatar),
+                cacheWidth: 190.w.toInt(),
+                cacheHeight: 190.w.toInt(),
+                width: 95.w,
+                height: 95.w,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-        ],
+            SizedBox(width: 23.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(width: 12.w),
+                  LJNTextSpans(
+                    text: widget.friendName,
+                    style: TextStyle(
+                      height: 1.08,
+                      fontSize: fontSizeScale(28.0.w),
+                      color: theme.colorScheme.onSurface,
+                      fontFamily: "AlibabaPuHuiTi",
+                    ),
+                    emojiStyle: TextStyle(
+                      height: 1.08,
+                      fontSize: fontSizeScale(28.w),
+                      fontFamily: "NotoColorEmoji-Regular",
+                    ),
+                  ),
+                  SizedBox(height: 10.w),
+                  LJNTextSpans(
+                    text: widget.message,
+                    style: TextStyle(
+                      height: 1.08,
+                      fontSize: fontSizeScale(25.w),
+                      color: AppColors.neutralGrey45,
+                    ),
+                    emojiStyle: TextStyle(
+                      height: 1.08,
+                      fontSize: fontSizeScale(25.w),
+                      color: AppColors.neutralGrey45,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

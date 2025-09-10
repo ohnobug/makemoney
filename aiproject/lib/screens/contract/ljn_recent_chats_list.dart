@@ -55,13 +55,6 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
             .read<LJNSystemCubit>()
             .updateStatusHeight(MediaQuery.of(context).padding.top);
       }
-
-      context.read<LJNUserCubit>().updateName('李俊杰');
-      context.read<LJNUserCubit>().updateAccount('TheMonsterClub');
-      context.read<LJNUserCubit>().updatePhone('+8618825130917');
-      context.read<LJNUserCubit>().updateWalletBalance(2056.98);
-      context.read<LJNUserCubit>().updateWalletFoundationBalance(100.85);
-      context.read<LJNUserCubit>().updateAvatar("images/avatar/my.jpg");
     });
 
     _lottieController = AnimationController(vsync: this);
@@ -158,6 +151,9 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
   }
 
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     double newAppbarHeight = 90.w + initialCoverLayerHeight;
 
     // 新appbar透明度
@@ -251,7 +247,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
             height: screenSize.height - (90.w + statusHeight),
             width: screenSize.width,
             child: Container(
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: theme.colorScheme.surfaceContainer,
             ),
           ),
 
@@ -313,7 +309,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
         Opacity(
           opacity: systemState.homescrollpixels > 0 ? 1 - topLottieOpacity : 0,
           child: Container(
-            color: Theme.of(context).colorScheme.surfaceContainer,
+            color: theme.colorScheme.surfaceContainer,
             width: screenSize.width,
             height: systemState.homescrollpixels + (90.w + statusHeight),
             // padding: EdgeInsets.only(top: statusHeight),
@@ -385,28 +381,21 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
                     ),
                     child: AppBar(
                       primary: false,
-                      title:
-                          Text(AppLocalizations.of(context)!.tabbar_label_chat),
+                      title: Text(l10n.tabbar_label_chat),
                       centerTitle: true,
-                      titleTextStyle:
-                          Theme.of(context).appBarTheme.titleTextStyle,
-                      toolbarHeight:
-                          Theme.of(context).appBarTheme.toolbarHeight,
-                      elevation: Theme.of(context).appBarTheme.elevation,
+                      titleTextStyle: theme.appBarTheme.titleTextStyle,
+                      toolbarHeight: theme.appBarTheme.toolbarHeight,
+                      elevation: theme.appBarTheme.elevation,
                       scrolledUnderElevation:
-                          Theme.of(context).appBarTheme.scrolledUnderElevation,
-                      backgroundColor: Theme.of(context)
-                          .appBarTheme
-                          .backgroundColor!
-                          .withAlpha(
-                            (min(newAppbarOpacity + 0.8, 1) * 255).toInt(),
-                          ),
-                      foregroundColor: Theme.of(context)
-                          .appBarTheme
-                          .foregroundColor!
-                          .withAlpha(
-                            (min(newAppbarOpacity + 0.8, 1) * 255).toInt(),
-                          ),
+                          theme.appBarTheme.scrolledUnderElevation,
+                      backgroundColor:
+                          theme.appBarTheme.backgroundColor!.withAlpha(
+                        (min(newAppbarOpacity + 0.8, 1) * 255).toInt(),
+                      ),
+                      foregroundColor:
+                          theme.appBarTheme.foregroundColor!.withAlpha(
+                        (min(newAppbarOpacity + 0.8, 1) * 255).toInt(),
+                      ),
                       actions: [
                         // 联系列表按钮
                         GestureDetector(
@@ -422,10 +411,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
                             padding: EdgeInsets.only(right: 33.w),
                             alignment: Alignment.center,
                             child: Icon(
-                              color: Theme.of(context)
-                                  .appBarTheme
-                                  .titleTextStyle!
-                                  .color,
+                              color: theme.appBarTheme.titleTextStyle!.color,
                               const IconData(
                                 0xe608,
                                 fontFamily: 'Iconfont',
@@ -442,10 +428,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
                           padding: EdgeInsets.only(right: 33.w),
                           alignment: Alignment.center,
                           child: Icon(
-                            color: Theme.of(context)
-                                .appBarTheme
-                                .titleTextStyle!
-                                .color,
+                            color: theme.appBarTheme.titleTextStyle!.color,
                             const IconData(
                               0xe726,
                               fontFamily: 'Iconfont',
@@ -464,10 +447,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
                         height: 90.w,
                         padding: EdgeInsets.only(left: 33.w),
                         child: Icon(
-                          color: Theme.of(context)
-                              .appBarTheme
-                              .titleTextStyle!
-                              .color,
+                          color: theme.appBarTheme.titleTextStyle!.color,
                           const IconData(
                             0xe612,
                             fontFamily: 'Iconfont',
@@ -486,7 +466,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
                       height: screenSize.height -
                           (systemState.homescrollpixels + statusHeight + 90.w),
                       child: null,
-                      color: Theme.of(context).listTileTheme.tileColor!,
+                      color: theme.listTileTheme.tileColor!,
                     ),
                   )
                 ],

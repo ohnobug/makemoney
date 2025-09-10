@@ -24,40 +24,42 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
+    final l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
       return Scaffold(
         primary: false,
-        appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.emergencyContacts,
-            actions: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/bind_new_phone_number');
-                },
-                child: Container(
-                  height: 60.w,
-                  constraints: BoxConstraints(minWidth: 98.w),
-                  margin: EdgeInsets.only(right: 30.w),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: AppColors.brandGreenVibrant3,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(8.w),
-                    ),
-                  ),
-                  child: Text(
-                    AppLocalizations.of(context)!.done,
-                    // textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: AppColors.neutralWhite,
-                      fontSize: 25.w,
-                      fontWeight: FontWeight.w100,
-                    ),
-                  ),
+        appBar: LJNAppBar(title: l10n.emergencyContacts, actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/bind_new_phone_number');
+            },
+            child: Container(
+              height: 60.w,
+              constraints: BoxConstraints(minWidth: 98.w),
+              margin: EdgeInsets.only(right: 30.w),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: AppColors.brandGreenVibrant3,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(8.w),
                 ),
-              )
-            ]),
+              ),
+              child: Text(
+                l10n.done,
+                // textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: AppColors.neutralWhite,
+                  fontSize: 25.w,
+                  fontWeight: FontWeight.w100,
+                ),
+              ),
+            ),
+          )
+        ]),
         body: ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
           child: SingleChildScrollView(
@@ -87,7 +89,7 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                     ),
                   ),
                   Text(
-                    AppLocalizations.of(context)!.emergencyContacts,
+                    l10n.emergencyContacts,
                     style: TextStyle(
                       height: 1.08,
                       fontSize: 40.w,
@@ -103,8 +105,7 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(left: 27.w, right: 27.w),
                     child: Text(
-                      AppLocalizations.of(context)!
-                          .addEmergencyContactsGuidanceFull(3),
+                      l10n.addEmergencyContactsGuidanceFull(3),
                       style: TextStyle(
                         color: AppColors.neutralGrey51,
                         // height: 1.08,
@@ -123,14 +124,14 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: Theme.of(context).listTileTheme.selectedTileColor!,
+                          color: theme.listTileTheme.selectedTileColor!,
                           width: 2.w,
                           style: BorderStyle.solid,
                         ),
                       ),
                     ),
                     child: Text(
-                      AppLocalizations.of(context)!.learnHowToRecoverPassword,
+                      l10n.learnHowToRecoverPassword,
                       style: TextStyle(
                           height: 1.08,
                           color: AppColors.brandPurpleDark4,

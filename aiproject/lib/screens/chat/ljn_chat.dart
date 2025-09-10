@@ -6,15 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vigaviga/api_manager/api.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/screens/chat/widgets/ljn_chat_function_selector_button.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
-import 'package:vigaviga/widgets/ljn_my_voice_message.dart';
-import 'package:vigaviga/widgets/ljn_receive_message.dart';
-import 'package:vigaviga/widgets/ljn_receive_video_message.dart';
-import 'package:vigaviga/widgets/ljn_video_message.dart';
+import 'package:vigaviga/screens/chat/widgets/ljn_my_voice_message.dart';
 import 'package:vigaviga/widgets/ljn_show_call_popup.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/screens/chat/widgets/ljn_chat_emoji_selector.dart';
@@ -23,7 +21,7 @@ import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vibration/vibration.dart';
-import '../../widgets/ljn_my_message.dart';
+import 'widgets/ljn_my_message.dart';
 import '../../store/ljn_system_cubit.dart';
 import '../../tools/ljn_tools.dart';
 
@@ -79,7 +77,7 @@ class _LJNChat extends State<LJNChat>
   late final Animation<double> _voiceTextBoxWidthAnimation;
   late final Animation<double> _voiceTextBoxBottomIconRightAnimation;
 
-  List<StatefulWidget> messageList = [];
+  List<Widget> messageList = [];
 
   // 取消按钮变大效果
   late AnimationController _voiceLeftButtonScaleController;
@@ -241,7 +239,9 @@ class _LJNChat extends State<LJNChat>
       ),
     );
 
-    mock();
+    setState(() {
+      messageList = mockMessages(context, widget.icon, widget.title);
+    });
 
     WidgetsBinding.instance.addObserver(this);
   }
@@ -268,257 +268,6 @@ class _LJNChat extends State<LJNChat>
   void _scrollToEnd() {
     _scrollController.jumpTo(
       _scrollController.position.maxScrollExtent,
-    );
-  }
-
-  void mock() {
-    messageList.add(
-      const LJNMyMessage(
-        message: '今晚，我们开始吧，准备好了吗？',
-        showName: false,
-      ),
-    );
-
-    messageList.add(
-      LJNReceiveMessage(
-        message: '嗯，准备好了。虽然有点紧张，但我知道我们已经决定了。',
-        showName: false,
-        friendAvatar: widget.icon,
-        name: widget.title,
-      ),
-    );
-    messageList.add(
-      const LJNMyMessage(
-        message: '我也是。虽然我们之前谈了很多次，但真的要开始时，心里还是有些忐忑。',
-        showName: false,
-      ),
-    );
-
-    messageList.add(
-      LJNReceiveMessage(
-        message: '我也是。突然想到，万一不能顺利怀上怎么办？',
-        showName: false,
-        friendAvatar: widget.icon,
-        name: widget.title,
-      ),
-    );
-    messageList.add(
-      const LJNMyMessage(
-        message: '别担心，慢慢来。就算不顺利，我们也会一起面对，不急的。最重要的是我们愿意一起尝试，给自己一个机会。',
-        showName: false,
-      ),
-    );
-
-    messageList.add(
-      LJNReceiveMessage(
-        message: '你说得对，我只是怕自己压力太大，万一做不到怎么办。',
-        showName: false,
-        friendAvatar: widget.icon,
-        name: widget.title,
-      ),
-    );
-    messageList.add(
-      const LJNMyMessage(
-        message: '我们做不到的事很少，我相信我们能行。而且，压力大了，放轻松点，别太给自己太多负担。',
-        showName: false,
-      ),
-    );
-
-    messageList.add(
-      LJNReceiveMessage(
-        message: '嗯，我知道。你也知道，我的身体不是那么好，可能会有点麻烦。',
-        showName: false,
-        friendAvatar: widget.icon,
-        name: widget.title,
-      ),
-    );
-    messageList.add(
-      const LJNMyMessage(
-        message: '我知道，但我们一起走这条路，不管怎么样，我们都有彼此支持。我会陪着你，咱们不会有任何困难是过不去的。',
-        showName: false,
-      ),
-    );
-
-    messageList.add(
-      LJNReceiveMessage(
-        message: '有你在我身边，我就不怕了。你觉得，如果不顺利，我们也不应该急对吧？',
-        showName: false,
-        friendAvatar: widget.icon,
-        name: widget.title,
-      ),
-    );
-    messageList.add(
-      const LJNMyMessage(
-        message: '对，别急，顺其自然。如果真有问题，我们可以一起去看医生，解决的办法总有的。',
-        showName: false,
-      ),
-    );
-
-    messageList.add(
-      LJNReceiveMessage(
-        message: '嗯，既然你这么说，我也放心了。',
-        showName: false,
-        friendAvatar: widget.icon,
-        name: widget.title,
-      ),
-    );
-    messageList.add(
-      LJNReceiveMessage(
-        message: '其实，我一直很期待有个孩子，能有一个属于我们的家庭。',
-        showName: false,
-        friendAvatar: widget.icon,
-        name: widget.title,
-      ),
-    );
-    messageList.add(
-      const LJNMyMessage(
-        message: '我也是。我们将来可以一起看他成长，一起陪着他做作业、玩游戏，甚至一起教他做事。',
-        showName: false,
-      ),
-    );
-
-    messageList.add(
-      LJNReceiveMessage(
-        message: '你觉得我们的孩子会是什么样的？像你，还是像我？',
-        showName: false,
-        friendAvatar: widget.icon,
-        name: widget.title,
-      ),
-    );
-    messageList.add(
-      const LJNMyMessage(
-        message: '不管像谁，都一定是最棒的。',
-        showName: false,
-      ),
-    );
-
-    messageList.add(
-      const LJNMyMessage(
-        message: '但我想，他应该会有你的聪明和我的耐心，能很好地适应生活中的挑战。',
-        showName: false,
-      ),
-    );
-
-    messageList.add(
-      LJNReceiveMessage(
-        message: '那也太完美了吧。希望他能继承我们的优点，少一些缺点。',
-        showName: false,
-        friendAvatar: widget.icon,
-        name: widget.title,
-      ),
-    );
-    messageList.add(
-      const LJNMyMessage(
-        message: '无论如何，我们都得给他一个充满爱的家庭，这才是最重要的。',
-        showName: false,
-      ),
-    );
-
-    messageList.add(
-      const LJNMyMessage(
-        message: '今晚，就是我们的开始了。',
-        showName: false,
-      ),
-    );
-
-    messageList.add(
-      LJNReceiveMessage(
-        message: '是的，今晚开始。未来的路我们一起走。',
-        showName: false,
-        friendAvatar: widget.icon,
-        name: widget.title,
-      ),
-    );
-    messageList.add(
-      const LJNMyMessage(
-        message: '今晚，我们做的每一步，都是为了未来的孩子，都是为了我们共同的未来。',
-        showName: false,
-      ),
-    );
-
-    messageList.add(
-      LJNReceiveMessage(
-        message: '嗯，今晚我们就开始，未来的一切，交给时间。',
-        showName: false,
-        friendAvatar: widget.icon,
-        name: widget.title,
-      ),
-    );
-    messageList.add(
-      LJNReceiveMessage(
-        message: '你准备好了吗？',
-        showName: false,
-        friendAvatar: widget.icon,
-        name: widget.title,
-      ),
-    );
-    messageList.add(
-      const LJNMyMessage(
-        message: '准备好了，永远准备好。',
-        showName: false,
-      ),
-    );
-
-    messageList.add(
-      LJNVideoMessage(
-        video: 'images/ins/test.mp4',
-        width: 768,
-        height: 576,
-        showName: false,
-        onTap: (Offset position, Size size) {
-          // 关闭键盘
-          SystemChannels.textInput.invokeMethod('TextInput.hide');
-
-          context.read<LJNPopupCubit>().updateVideoPopup(
-                openBoxSize: size,
-                openPosition: position,
-                sourcePath: 'images/ins/video2.mp4',
-                showFullScreenVideo: true,
-              );
-        },
-      ),
-    );
-
-    messageList.add(
-      LJNVideoMessage(
-        video: 'images/ins/video2.mp4',
-        width: 576,
-        height: 1024,
-        showName: false,
-        onTap: (Offset position, Size size) {
-          // 关闭键盘
-          SystemChannels.textInput.invokeMethod('TextInput.hide');
-
-          context.read<LJNPopupCubit>().updateVideoPopup(
-                openBoxSize: size,
-                openPosition: position,
-                sourcePath: 'images/ins/video2.mp4',
-                showFullScreenVideo: true,
-              );
-        },
-      ),
-    );
-
-    messageList.add(
-      LJNReceiveVideoMessage(
-        video: 'images/ins/video2.mp4',
-        width: 576,
-        height: 1024,
-        showName: false,
-        friendAvatar: widget.icon,
-        name: widget.title,
-        onTap: (Offset position, Size size) {
-          // 关闭键盘
-          SystemChannels.textInput.invokeMethod('TextInput.hide');
-
-          context.read<LJNPopupCubit>().updateVideoPopup(
-                openBoxSize: size,
-                openPosition: position,
-                sourcePath: 'images/ins/video2.mp4',
-                showFullScreenVideo: true,
-              );
-        },
-      ),
     );
   }
 
@@ -969,6 +718,9 @@ class _LJNChat extends State<LJNChat>
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    ColorScheme colorScheme = theme.colorScheme;
+
     _viewInsets = MediaQuery.of(context).viewInsets;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -1038,9 +790,7 @@ class _LJNChat extends State<LJNChat>
                           Expanded(
                             flex: 1,
                             child: ColoredBox(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainer,
+                              color: colorScheme.surfaceContainer,
                               child: ScrollConfiguration(
                                 behavior: ScrollConfiguration.of(context)
                                     .copyWith(scrollbars: false),
@@ -1059,7 +809,9 @@ class _LJNChat extends State<LJNChat>
                                   },
                                   child: SingleChildScrollView(
                                     padding: EdgeInsets.only(
-                                        top: 30.w, bottom: 30.w),
+                                      top: 30.w,
+                                      bottom: 30.w,
+                                    ),
                                     controller: _scrollController,
                                     physics:
                                         const AlwaysScrollableScrollPhysics(
@@ -1375,12 +1127,10 @@ class _LJNChat extends State<LJNChat>
                                                 // cursorHeight: 44.w,
                                                 cursorWidth: 3.w,
                                                 style: TextStyle(
-                                                    // height: 1.08,
-                                                    fontSize:
-                                                        fontSizeScale(30.w),
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .onSurface),
+                                                  // height: 1.08,
+                                                  fontSize: fontSizeScale(30.w),
+                                                  color: colorScheme.onSurface,
+                                                ),
                                                 // strutStyle: StrutStyle(fontSize: fontSizeScale(20.w),),
                                                 maxLines: 5,
                                                 minLines: 1,
@@ -1659,6 +1409,8 @@ class _LJNChat extends State<LJNChat>
 
   // 功能选择器组件
   Widget _buildChatFunctionSelector(SystemState systemState) {
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Container(
       width: systemState.screenSize.width,
       padding: EdgeInsets.only(top: 45.w),
@@ -1677,7 +1429,7 @@ class _LJNChat extends State<LJNChat>
         children: [
           LJNFunctionSelectorButton(
             systemState: systemState,
-            title: AppLocalizations.of(context)!.album,
+            title: l10n.album,
             icon: Icon(
               const IconData(
                 0xe6ba,
@@ -1692,7 +1444,7 @@ class _LJNChat extends State<LJNChat>
           ),
           LJNFunctionSelectorButton(
             systemState: systemState,
-            title: AppLocalizations.of(context)!.camera,
+            title: l10n.camera,
             icon: Icon(
               const IconData(
                 0xe6bb,
@@ -1711,7 +1463,7 @@ class _LJNChat extends State<LJNChat>
           ),
           LJNFunctionSelectorButton(
             systemState: systemState,
-            title: AppLocalizations.of(context)!.videoCall,
+            title: l10n.videoCall,
             icon: Icon(
               const IconData(
                 0xe64f,
@@ -1727,7 +1479,7 @@ class _LJNChat extends State<LJNChat>
           ),
           LJNFunctionSelectorButton(
             systemState: systemState,
-            title: AppLocalizations.of(context)!.location,
+            title: l10n.location,
             icon: Icon(
               const IconData(
                 0xe630,
@@ -1742,7 +1494,7 @@ class _LJNChat extends State<LJNChat>
           ),
           LJNFunctionSelectorButton(
             systemState: systemState,
-            title: AppLocalizations.of(context)!.redPacket,
+            title: l10n.redPacket,
             icon: Icon(
               const IconData(
                 0xe6c6,
@@ -1757,7 +1509,7 @@ class _LJNChat extends State<LJNChat>
           ),
           LJNFunctionSelectorButton(
             systemState: systemState,
-            title: AppLocalizations.of(context)!.gift,
+            title: l10n.gift,
             icon: Icon(
               const IconData(
                 0xe62e,
@@ -1772,7 +1524,7 @@ class _LJNChat extends State<LJNChat>
           ),
           LJNFunctionSelectorButton(
             systemState: systemState,
-            title: AppLocalizations.of(context)!.transfer,
+            title: l10n.transfer,
             icon: Icon(
               const IconData(
                 0xe631,
@@ -1787,7 +1539,7 @@ class _LJNChat extends State<LJNChat>
           ),
           LJNFunctionSelectorButton(
               systemState: systemState,
-              title: AppLocalizations.of(context)!.voiceInput,
+              title: l10n.voiceInput,
               icon: Icon(
                 const IconData(
                   0xe632,
@@ -1806,6 +1558,10 @@ class _LJNChat extends State<LJNChat>
 
   // 按住语音时候的效果
   Widget _buildVoiceWidget(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    ColorScheme colorScheme = theme.colorScheme;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return SizedBox(
       width: systemState.screenSize.width,
       height: systemState.screenSize.height,
@@ -1964,7 +1720,7 @@ class _LJNChat extends State<LJNChat>
                         height: 30.w,
                         alignment: Alignment.center,
                         child: Text(
-                          AppLocalizations.of(context)!.releaseToCancel,
+                          l10n.releaseToCancel,
                           style: TextStyle(
                             decoration: TextDecoration.none,
                             fontFamily: "AlibabaPuHuiTi",
@@ -2005,7 +1761,7 @@ class _LJNChat extends State<LJNChat>
                           fontFamily: 'Iconfont',
                         ),
                         color: showCancelVoiceButtons
-                            ? Theme.of(context).colorScheme.onSurface
+                            ? colorScheme.onSurface
                             : AppColors.neutralGrey62,
                         size: 43.w,
                       ),
@@ -2021,7 +1777,7 @@ class _LJNChat extends State<LJNChat>
                   width: systemState.screenSize.width,
                   alignment: Alignment.center,
                   child: Text(
-                    AppLocalizations.of(context)!.releaseToSend,
+                    l10n.releaseToSend,
                     style: TextStyle(
                       height: 1.08,
                       color: AppColors.neutralGrey43,
@@ -2043,7 +1799,7 @@ class _LJNChat extends State<LJNChat>
                         height: 30.w,
                         alignment: Alignment.center,
                         child: Text(
-                          AppLocalizations.of(context)!.convertToText,
+                          l10n.convertToText,
                           style: TextStyle(
                             decoration: TextDecoration.none,
                             fontFamily: "AlibabaPuHuiTi",
@@ -2086,7 +1842,7 @@ class _LJNChat extends State<LJNChat>
                           fontFamily: 'Iconfont',
                         ),
                         color: showCancelVoiceButtons
-                            ? Theme.of(context).colorScheme.onSurface
+                            ? colorScheme.onSurface
                             : AppColors.neutralGrey62,
                         size: 43.w,
                       ),

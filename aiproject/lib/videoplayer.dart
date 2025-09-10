@@ -26,6 +26,10 @@ class _LJNVideoState extends State<LJNVideoPage> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
+    ColorScheme colorScheme = theme.colorScheme;
+
     return Scaffold(
       body: Center(
         child: _controller.value.isInitialized
@@ -49,7 +53,7 @@ class _LJNVideoState extends State<LJNVideoPage> {
                   0xea81,
                   fontFamily: 'Iconfont',
                 ), // 使用的图标
-                color: Theme.of(context).colorScheme.onSurface, // 图标颜色
+                color: colorScheme.onSurface, // 图标颜色
                 size: 36.w, // 图标大小
               )
             : Icon(
@@ -57,7 +61,7 @@ class _LJNVideoState extends State<LJNVideoPage> {
                   0xea82,
                   fontFamily: 'Iconfont',
                 ), // 使用的图标
-                color: Theme.of(context).colorScheme.onSurface, // 图标颜色
+                color: colorScheme.onSurface, // 图标颜色
                 size: 36.w, // 图标大小
               ),
       ),

@@ -70,13 +70,14 @@ class _LJNContactState extends State<LJNContact> {
   Widget _buildPage(BuildContext context, SystemState systemState) {
     // 关键改动 4: 在 build 方法内部获取最新的 l10n 实例
     final l10n = AppLocalizations.of(context)!;
+    ThemeData theme = Theme.of(context);
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.contacts,
+            title: l10n.contacts,
           ),
           body: Stack(
             children: [
@@ -89,8 +90,8 @@ class _LJNContactState extends State<LJNContact> {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Theme.of(context).colorScheme.surface,
-                        Theme.of(context).colorScheme.surfaceContainer
+                        theme.colorScheme.surface,
+                        theme.colorScheme.surfaceContainer
                       ],
                       stops: [0.3, 0.5],
                       begin: Alignment.topCenter,
@@ -148,7 +149,7 @@ class _LJNContactState extends State<LJNContact> {
                         return Container(
                           width: 750.w,
                           height: 105.0.w,
-                          color: Theme.of(context).colorScheme.surfaceContainer,
+                          color: theme.colorScheme.surfaceContainer,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -162,8 +163,7 @@ class _LJNContactState extends State<LJNContact> {
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: fontSizeScale(30.w),
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
+                                  color: theme.colorScheme.onSurface,
                                 ),
                               ),
                             ],

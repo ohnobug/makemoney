@@ -36,12 +36,14 @@ class _LJNAppBar extends State<LJNAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return PreferredSize(
           preferredSize: Size.fromHeight(90.0.w + systemState.statusHeight),
           child: Container(
-            color: Theme.of(context).appBarTheme.backgroundColor,
+            color: theme.appBarTheme.backgroundColor,
             padding: EdgeInsets.only(top: systemState.statusHeight),
             height: 90.0.w + systemState.statusHeight,
             child: LJNAppBarInner(

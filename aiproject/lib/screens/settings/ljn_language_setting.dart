@@ -200,6 +200,8 @@ class _LJNLanguageSettingState extends State<LJNLanguageSetting> {
 
   /// 构建单个语言条目
   Widget _buildLanguageTile(LanguageOption language, bool isSelected) {
+    ThemeData theme = Theme.of(context);
+
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 8.w),
       title: Text(
@@ -207,7 +209,7 @@ class _LJNLanguageSettingState extends State<LJNLanguageSetting> {
         style: TextStyle(
           fontSize: 32.w,
           fontWeight: FontWeight.w500,
-          color: Theme.of(context).colorScheme.onSurface,
+          color: theme.colorScheme.onSurface,
         ),
       ),
       subtitle: Text(

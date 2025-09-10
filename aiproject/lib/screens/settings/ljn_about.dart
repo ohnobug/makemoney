@@ -25,13 +25,16 @@ class _LJNAbout extends State<LJNAbout> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Theme(
-          data: Theme.of(context).copyWith(
-            appBarTheme: Theme.of(context).appBarTheme.copyWith(
-                  backgroundColor: AppColors.transparent,
-                ),
+          data: theme.copyWith(
+            appBarTheme: theme.appBarTheme.copyWith(
+              backgroundColor: AppColors.transparent,
+            ),
           ),
           child: Scaffold(
             primary: false,
@@ -78,7 +81,7 @@ class _LJNAbout extends State<LJNAbout> {
                               height: 70.w,
                             ),
                             Text(
-                              AppLocalizations.of(context)!.app_name,
+                              l10n.app_name,
                               style: TextStyle(
                                 height: 1.08,
                                 fontSize: 43.w,
@@ -108,16 +111,12 @@ class _LJNAbout extends State<LJNAbout> {
                           //     BorderRadius.all(Radius.circular(12.w),),
                           border: Border(
                             top: BorderSide(
-                              color: Theme.of(context)
-                                  .listTileTheme
-                                  .selectedTileColor!,
+                              color: theme.listTileTheme.selectedTileColor!,
                               width: 1.5.w,
                               style: BorderStyle.solid,
                             ),
                             bottom: BorderSide(
-                              color: Theme.of(context)
-                                  .listTileTheme
-                                  .selectedTileColor!,
+                              color: theme.listTileTheme.selectedTileColor!,
                               width: 1.5.w,
                               style: BorderStyle.solid,
                             ),
@@ -133,14 +132,13 @@ class _LJNAbout extends State<LJNAbout> {
                               underline: true,
                             ),
                             LJNFunctionItem(
-                              title: AppLocalizations.of(context)!.complain,
+                              title: l10n.complain,
                               link: '',
                               backgroundColor: AppColors.neutralWhite,
                               underline: true,
                             ),
                             LJNFunctionItem(
-                              title:
-                                  AppLocalizations.of(context)!.checkNewVersion,
+                              title: l10n.checkNewVersion,
                               link: '',
                               backgroundColor: AppColors.neutralWhite,
                               underline: false,

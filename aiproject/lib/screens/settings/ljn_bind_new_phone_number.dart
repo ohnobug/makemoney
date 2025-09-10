@@ -25,6 +25,9 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return BlocBuilder<LJNUserCubit, LJNUserState>(
@@ -42,7 +45,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
               primary: false,
               resizeToAvoidBottomInset: false,
               appBar: LJNAppBar(
-                title: AppLocalizations.of(context)!.enterVerificationCode,
+                title: l10n.enterVerificationCode,
               ),
               body: ScrollConfiguration(
                 behavior:
@@ -52,7 +55,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                       minHeight: MediaQuery.of(context).size.height -
                           90.w -
                           systemState.statusHeight),
-                  color: Theme.of(context).colorScheme.surfaceContainer,
+                  color: theme.colorScheme.surfaceContainer,
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(
                       parent: BouncingScrollPhysics(),
@@ -114,15 +117,14 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                             width: 20.w,
                           ),
                           LJNAddButton(
-                            title: AppLocalizations.of(context)!.nextStep,
+                            title: l10n.nextStep,
                             backgroundColor: AppColors.brandGreenVibrant3,
                             onTap: () {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: Text(
-                                        AppLocalizations.of(context)!.prompt),
+                                    title: Text(l10n.prompt),
                                     content: Text(
                                       AppLocalizations.of(context)!
                                           .pleaseEnterCorrectVerificationCode,
@@ -133,7 +135,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                                           Navigator.of(context).pop();
                                         },
                                         child: Text(
-                                          AppLocalizations.of(context)!.confirm,
+                                          l10n.confirm,
                                         ),
                                       )
                                     ],

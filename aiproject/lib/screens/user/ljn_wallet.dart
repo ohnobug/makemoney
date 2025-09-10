@@ -32,10 +32,13 @@ class _LJNWallet extends State<LJNWallet> {
 
   // 另起一个函数方便管理
   Widget _buildPage(SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       primary: false,
       appBar: LJNAppBar(
-        title: AppLocalizations.of(context)!.wallet,
+        title: l10n.wallet,
         actions: [
           GestureDetector(
             onTap: () {
@@ -46,10 +49,10 @@ class _LJNWallet extends State<LJNWallet> {
               padding: EdgeInsets.only(right: 40.w),
               alignment: Alignment.center,
               child: Text(
-                AppLocalizations.of(context)!.bill,
+                l10n.bill,
                 style: TextStyle(
                   // height: 1.08,
-                  color: Theme.of(context).colorScheme.onSurface,
+                  color: theme.colorScheme.onSurface,
                   fontSize: fontSizeScale(32.w),
                   fontWeight: FontWeight.w500,
                 ),
@@ -63,7 +66,7 @@ class _LJNWallet extends State<LJNWallet> {
           minHeight: MediaQuery.of(context).size.height -
               (90.0.w + systemState.statusHeight),
         ),
-        color: Theme.of(context).colorScheme.surfaceContainer,
+        color: theme.colorScheme.surfaceContainer,
         child: ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
           child: SingleChildScrollView(
@@ -74,7 +77,7 @@ class _LJNWallet extends State<LJNWallet> {
               children: [
                 // 余额
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.balance,
+                  title: l10n.balance,
                   icon: "images/icon/discovery_icon1.png",
                   link: '/pocketmoney',
                   showStyle: Expanded(
@@ -108,8 +111,7 @@ class _LJNWallet extends State<LJNWallet> {
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: fontSizeScale(29.w),
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
+                                  color: theme.colorScheme.onSurface,
                                   fontWeight: FontWeight.w500,
                                   fontFamily: "LJNFont",
                                 ),
@@ -126,7 +128,7 @@ class _LJNWallet extends State<LJNWallet> {
 
                 // 视频号、直播
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.balancePlus,
+                  title: l10n.balancePlus,
                   icon: "images/icon/discovery_icon2.png",
                   link: '',
                   showStyle: SizedBox(
@@ -177,8 +179,7 @@ class _LJNWallet extends State<LJNWallet> {
                                   style: TextStyle(
                                     height: 1.08,
                                     fontSize: fontSizeScale(29.w),
-                                    color:
-                                        Theme.of(context).colorScheme.onSurface,
+                                    color: theme.colorScheme.onSurface,
                                     fontWeight: FontWeight.w500,
                                     fontFamily: "LJNFont",
                                   ),
@@ -192,7 +193,7 @@ class _LJNWallet extends State<LJNWallet> {
                   underline: true,
                 ),
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.bankCards,
+                  title: l10n.bankCards,
                   icon: "images/icon/discovery_icon3.png",
                   link: '',
                   underline: true,
@@ -200,7 +201,7 @@ class _LJNWallet extends State<LJNWallet> {
 
                 // 扫一扫、听一听
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.familyCard,
+                  title: l10n.familyCard,
                   icon: "images/icon/discovery_icon4.png",
                   link: '',
                   underline: false,
@@ -209,7 +210,7 @@ class _LJNWallet extends State<LJNWallet> {
                 SizedBox(height: 16.w),
 
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.paymentScore,
+                  title: l10n.paymentScore,
                   icon: "images/icon/discovery_icon5.png",
                   link: '',
                   underline: false,
@@ -218,7 +219,7 @@ class _LJNWallet extends State<LJNWallet> {
 
                 // 消费者保护
                 LJNFunctionItem(
-                  title: AppLocalizations.of(context)!.consumerProtection,
+                  title: l10n.consumerProtection,
                   icon: "images/icon/discovery_icon6.png",
                   link: '',
                   underline: false,

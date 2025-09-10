@@ -26,12 +26,15 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.friendPermissions,
+            title: l10n.friendPermissions,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -41,7 +44,7 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: theme.colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -71,13 +74,12 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                       height: 16.w,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.waysToAddMe,
+                      title: l10n.waysToAddMe,
                       link: '',
                       underline: true,
                     ),
                     LJNSpecialFunctionItem(
-                      title:
-                          AppLocalizations.of(context)!.recommendContactsToMe,
+                      title: l10n.recommendContactsToMe,
                       tapEffect: false,
                       underline: false,
                       height: null,
@@ -113,32 +115,32 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                           const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
                               .w,
                       child: Text(
-                        AppLocalizations.of(context)!.friendPermissions,
+                        l10n.friendPermissions,
                         style: TextStyle(fontSize: 25.w, height: 1.08),
                       ),
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.chatOnly,
+                      title: l10n.chatOnly,
                       link: '',
                       underline: true,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.moments,
+                      title: l10n.moments,
                       link: '',
                       underline: true,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.channels,
+                      title: l10n.channels,
                       link: '',
                       underline: true,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.look,
+                      title: l10n.look,
                       link: '',
                       underline: true,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.weRun,
+                      title: l10n.weRun,
                       link: '',
                       underline: true,
                     ),
@@ -146,7 +148,7 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                       height: 16.w,
                     ),
                     LJNFunctionItem(
-                      title: AppLocalizations.of(context)!.contactsBlocklist,
+                      title: l10n.contactsBlocklist,
                       link: '',
                       underline: false,
                     ),

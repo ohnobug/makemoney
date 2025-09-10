@@ -227,7 +227,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                                               fit: BoxFit.contain,
                                             ),
                                             const Text(
-                                              AppLocalizations.of(context)!.cache,
+                                              l10n.cache,
                                               style: TextStyle(
                                                   color: AppColors.neutralWhite,
                                                   ),

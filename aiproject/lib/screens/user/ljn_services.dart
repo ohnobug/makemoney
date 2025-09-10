@@ -52,13 +52,16 @@ class _LJNServices extends State<LJNServices>
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
       return Stack(children: [
         Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.services,
+            title: l10n.services,
             actions: [
               GestureDetector(
                 onTap: () {
@@ -84,7 +87,7 @@ class _LJNServices extends State<LJNServices>
               )
             ],
           ),
-          backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+          backgroundColor: theme.colorScheme.surfaceContainer,
           body: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -101,26 +104,25 @@ class _LJNServices extends State<LJNServices>
 
                   // --- 服务分区 ---
                   FunctionButtonsSection(
-                    title: AppLocalizations.of(context)!.financialServices,
+                    title: l10n.financialServices,
                     buttons: [
                       FunctionButton(
                         icon: "images/icon/server_icon1.png",
-                        title:
-                            AppLocalizations.of(context)!.creditCardRepayment,
+                        title: l10n.creditCardRepayment,
                         onPressed: () {
                           logger.info('点击了信用卡还款按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon2.png",
-                        title: AppLocalizations.of(context)!.licaitong,
+                        title: l10n.licaitong,
                         onPressed: () {
                           logger.info('点击了理财通按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon3.png",
-                        title: AppLocalizations.of(context)!.insuranceService,
+                        title: l10n.insuranceService,
                         onPressed: () {
                           logger.info('点击了保险服务按钮~~');
                         },
@@ -129,46 +131,46 @@ class _LJNServices extends State<LJNServices>
                   ),
 
                   FunctionButtonsSection(
-                    title: AppLocalizations.of(context)!.lifeServices,
+                    title: l10n.lifeServices,
                     buttons: [
                       FunctionButton(
                         icon: "images/icon/server_icon4.png",
-                        title: AppLocalizations.of(context)!.mobileTopUp,
+                        title: l10n.mobileTopUp,
                         onPressed: () {
                           logger.info('点击了手机充值按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon5.png",
-                        title: AppLocalizations.of(context)!.utilityPayments,
+                        title: l10n.utilityPayments,
                         onPressed: () {
                           logger.info('点击了生活缴费按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon6.png",
-                        title: AppLocalizations.of(context)!.qCoinTopUp,
+                        title: l10n.qCoinTopUp,
                         onPressed: () {
                           logger.info('点击了Q币充值按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon7.png",
-                        title: AppLocalizations.of(context)!.cityServices,
+                        title: l10n.cityServices,
                         onPressed: () {
                           logger.info('点击了城市服务按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon8.png",
-                        title: AppLocalizations.of(context)!.tencentCharity,
+                        title: l10n.tencentCharity,
                         onPressed: () {
                           logger.info('点击了腾讯公益按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon9.png",
-                        title: AppLocalizations.of(context)!.healthCare,
+                        title: l10n.healthCare,
                         onPressed: () {
                           logger.info('点击了医疗健康按钮~~');
                         },
@@ -177,33 +179,32 @@ class _LJNServices extends State<LJNServices>
                   ),
 
                   FunctionButtonsSection(
-                    title: AppLocalizations.of(context)!.transportation,
+                    title: l10n.transportation,
                     buttons: [
                       FunctionButton(
                         icon: "images/icon/server_icon10.png",
-                        title: AppLocalizations.of(context)!.transportServices,
+                        title: l10n.transportServices,
                         onPressed: () {
                           logger.info('点击了出行服务按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon11.png",
-                        title:
-                            AppLocalizations.of(context)!.trainAndFlightTickets,
+                        title: l10n.trainAndFlightTickets,
                         onPressed: () {
                           logger.info('点击了火车票机票按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon12.png",
-                        title: AppLocalizations.of(context)!.didiRideHailing,
+                        title: l10n.didiRideHailing,
                         onPressed: () {
                           logger.info('点击了滴滴出行按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon122.png",
-                        title: AppLocalizations.of(context)!.hotel,
+                        title: l10n.hotel,
                         onPressed: () {
                           logger.info('点击了酒店按钮~~');
                         },
@@ -212,25 +213,25 @@ class _LJNServices extends State<LJNServices>
                   ),
 
                   FunctionButtonsSection(
-                    title: AppLocalizations.of(context)!.shoppingAndConsumption,
+                    title: l10n.shoppingAndConsumption,
                     buttons: [
                       FunctionButton(
                         icon: "images/icon/server_icon13.png",
-                        title: AppLocalizations.of(context)!.brandDiscovery,
+                        title: l10n.brandDiscovery,
                         onPressed: () {
                           logger.info('点击了品牌发现按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon14.png",
-                        title: AppLocalizations.of(context)!.jdShopping,
+                        title: l10n.jdShopping,
                         onPressed: () {
                           logger.info('点击了京东购物按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon15.png",
-                        title: AppLocalizations.of(context)!.meituanWaimai,
+                        title: l10n.meituanWaimai,
                         onPressed: () {
                           logger.info('点击了美团外卖按钮~~');
                         },
@@ -245,30 +246,28 @@ class _LJNServices extends State<LJNServices>
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon17.png",
-                        title:
-                            AppLocalizations.of(context)!.meituanSpecialOffers,
+                        title: l10n.meituanSpecialOffers,
                         onPressed: () {
                           logger.info('点击了美团特价按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon18.png",
-                        title: AppLocalizations.of(context)!.pinduoduo,
+                        title: l10n.pinduoduo,
                         onPressed: () {
                           logger.info('点击了拼多多按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon19.png",
-                        title: AppLocalizations.of(context)!.vipshop,
+                        title: l10n.vipshop,
                         onPressed: () {
                           logger.info('点击了唯品会特卖按钮~~');
                         },
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon20.png",
-                        title:
-                            AppLocalizations.of(context)!.zhuanzhuanUsedGoods,
+                        title: l10n.zhuanzhuanUsedGoods,
                         onPressed: () {
                           logger.info('点击了转转二手按钮~~');
                         },
@@ -334,8 +333,7 @@ class _LJNServices extends State<LJNServices>
                                   height: 1.08,
                                   fontSize: 30.w,
                                   decoration: TextDecoration.none,
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
+                                  color: theme.colorScheme.onSurface,
                                 ),
                               ),
                             ],
@@ -359,7 +357,7 @@ class _LJNServices extends State<LJNServices>
                         color: AppColors.neutralGrey2,
                       ),
                       LJNMaxWidthButton(
-                        title: AppLocalizations.of(context)!.cancel,
+                        title: l10n.cancel,
                         underline: false,
                         onPressed: () {
                           _animationController.reverse().then(
@@ -384,6 +382,8 @@ class _LJNServices extends State<LJNServices>
 
   /// 构建器：顶部核心功能卡片
   Widget _buildHeaderCard(BuildContext context) {
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     // 定义余额文本的样式，以便复用
     final balanceTextStyle = TextStyle(
       height: 1.1,
@@ -424,7 +424,7 @@ class _LJNServices extends State<LJNServices>
                   ),
                   size: 72.w,
                   color: AppColors.neutralWhite),
-              title: AppLocalizations.of(context)!.payment,
+              title: l10n.payment,
               // 优化点：传入一个隐形的占位符，其样式与余额完全相同
               subTitle: Text('', style: balanceTextStyle),
               onPressed: () {
@@ -447,7 +447,7 @@ class _LJNServices extends State<LJNServices>
                   ),
                   size: 72.w,
                   color: AppColors.neutralWhite),
-              title: AppLocalizations.of(context)!.wallet,
+              title: l10n.wallet,
               // 正常传入余额组件
               subTitle: Text.rich(
                 TextSpan(

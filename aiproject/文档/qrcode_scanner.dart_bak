@@ -105,7 +105,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner>
         return Container(
           width: systemState.screenSize.width,
           height: systemState.screenSize.height,
-          color: Theme.of(context).colorScheme.onSurface,
+          color: theme.colorScheme.onSurface,
         );
       } else {
         return Stack(
@@ -426,7 +426,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                       height: 10.w,
                     ),
                     Text(
-                      AppLocalizations.of(context)!.touchToLightUp,
+                      l10n.touchToLightUp,
                       style: TextStyle(
                           height: 1.08,
                           fontSize: fontSizeScale(26.w),
@@ -484,7 +484,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                         SizedBox(
                           height: 5.w,
                         ),
-                        Text(AppLocalizations.of(context)!.myQRCode,
+                        Text(l10n.myQRCode,
                             style: TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(22.w),
@@ -545,7 +545,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                                   fontFamily: 'Iconfont',
                                 ),
                                 size: 21.0.w,
-                                color: Theme.of(context).colorScheme.onSurface,
+                                color: theme.colorScheme.onSurface,
                               ))
                         ],
                       ),
@@ -580,7 +580,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                         SizedBox(
                           height: 5.w,
                         ),
-                        Text(AppLocalizations.of(context)!.album,
+                        Text(l10n.album,
                             style: TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(22.w),
@@ -614,7 +614,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     height: 135.w,
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.4),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

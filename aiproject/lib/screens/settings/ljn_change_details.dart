@@ -23,12 +23,15 @@ class _LJNChangeDetails extends State<LJNChangeDetails> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            title: AppLocalizations.of(context)!.balanceDetails,
+            title: l10n.balanceDetails,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -38,7 +41,7 @@ class _LJNChangeDetails extends State<LJNChangeDetails> {
                   minHeight: MediaQuery.of(context).size.height -
                       90.w -
                       systemState.statusHeight),
-              color: Theme.of(context).colorScheme.surfaceContainer,
+              color: theme.colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
@@ -61,7 +64,7 @@ class _LJNChangeDetails extends State<LJNChangeDetails> {
                               style: TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(30.w),
-                                color: Theme.of(context).colorScheme.onSurface,
+                                color: theme.colorScheme.onSurface,
                                 // fontWeight: FontWeight.bold,
                                 fontFamily: "AlibabaPuHuiTi",
                               ),
@@ -74,7 +77,7 @@ class _LJNChangeDetails extends State<LJNChangeDetails> {
                                   0xe891,
                                   fontFamily: 'Iconfont',
                                 ), // 使用的图标
-                                color: Theme.of(context).colorScheme.onSurface, // 图标颜色
+                                color: theme.colorScheme.onSurface, // 图标颜色
                                 size: 30.w, // 图标大小
                               ),
                             ),

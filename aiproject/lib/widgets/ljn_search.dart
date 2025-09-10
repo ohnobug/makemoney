@@ -22,6 +22,8 @@ class LJNSearch extends StatefulWidget {
 class _LJNSearch extends State<LJNSearch> {
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return GestureDetector(
@@ -42,7 +44,7 @@ class _LJNSearch extends State<LJNSearch> {
               padding:
                   EdgeInsets.symmetric(vertical: 8.0.w, horizontal: 20.0.w),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
+                color: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(15).w,
                 // border: Border.all(color: Color.fromRGBO(158, 158, 158, 0.3),),
               ),
@@ -57,7 +59,7 @@ class _LJNSearch extends State<LJNSearch> {
                             0xe612,
                             fontFamily: 'Iconfont',
                           ),
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: theme.colorScheme.onSurface,
                           size: 37.w,
                         ),
                       ),
@@ -66,7 +68,7 @@ class _LJNSearch extends State<LJNSearch> {
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 31.w,
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: theme.colorScheme.onSurface,
                         ),
                       ),
                     ],

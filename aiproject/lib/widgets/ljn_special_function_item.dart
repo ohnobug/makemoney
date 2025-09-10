@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
@@ -13,161 +12,120 @@ class LJNSpecialFunctionItem extends StatefulWidget {
   final Widget? subTitle;
   final bool? tapEffect;
 
-  const LJNSpecialFunctionItem(
-      {super.key,
-      this.height,
-      required this.title,
-      this.link,
-      required this.underline,
-      this.showStyle,
-      this.subTitle,
-      this.tapEffect});
+  const LJNSpecialFunctionItem({
+    super.key,
+    this.height,
+    required this.title,
+    this.link,
+    required this.underline,
+    this.showStyle,
+    this.subTitle,
+    this.tapEffect,
+  });
 
   @override
   State<LJNSpecialFunctionItem> createState() => _LJNSpecialFunctionItemState();
 }
 
+// =========================================================================
+// ====================    这里是完整的、修正后的 State 类    ====================
+// =========================================================================
 class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
-  // bool isClicked = false;
-  late Color containerColor = Theme.of(context).listTileTheme.tileColor!;
-  late bool tapEffect;
-
-  @override
-  void initState() {
-    super.initState();
-
-    setState(() {
-      tapEffect = widget.tapEffect ?? true;
-    });
-  }
+  // 唯一的内部状态：只记录该项是否被用户按下。
+  bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
+    // 核心修正：在 build 方法内部获取所有依赖于外部环境（如 Theme 或 widget 属性）的值。
+    ThemeData theme = Theme.of(context);
+
+    final bool tapEffect = widget.tapEffect ?? true;
+    final bool isTappable = widget.link != null && tapEffect;
+
+    // 1. 定义不同状态下的颜色
+    final Color normalColor = theme.listTileTheme.tileColor!;
+    final Color pressedColor = theme.listTileTheme.selectedTileColor!;
+    final Color iconColor = theme.hintColor;
+    final Color dividerColor = theme.dividerColor;
+
+    // 2. 根据内部状态 _isPressed，动态地计算出当前应该显示的背景颜色。
+    final Color currentColor =
+        (_isPressed && isTappable) ? pressedColor : normalColor;
+
     return GestureDetector(
-      onTapDown: (tapDownDetails) {
-        if (tapEffect == false) return;
-
-        setState(() {
-          containerColor = Theme.of(context).listTileTheme.selectedTileColor!;
-        });
+      behavior: HitTestBehavior.opaque,
+      // onTapDown 只负责更新内部状态
+      onTapDown: (_) {
+        if (!isTappable) return;
+        setState(() => _isPressed = true);
       },
+      // onTapCancel 只负责更新内部状态
       onTapCancel: () {
-        if (tapEffect == false) return;
-
-        setState(() {
-          containerColor = Theme.of(context).listTileTheme.tileColor!;
-        });
-
-        logger.info("取消点击");
+        if (!isTappable) return;
+        setState(() => _isPressed = false);
       },
-      onTapUp: (tapDownDetails) {
-        if (tapEffect == false) return;
-
+      // onTapUp 负责恢复状态并执行操作
+      onTapUp: (_) {
+        if (!isTappable) return;
+        // 1. 立即恢复视觉状态
+        setState(() => _isPressed = false);
+        // 2. 延迟执行导航
         Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            containerColor = Theme.of(context).listTileTheme.tileColor!;
-          });
-
-          if (context.mounted) {
-            if (widget.link != null) {
-              Navigator.pushNamed(context, widget.link!);
-            }
+          if (mounted && widget.link != null) {
+            Navigator.pushNamed(context, widget.link!);
           }
         });
-
-        logger.info("弹起");
       },
       child: Container(
-        //  ?? 105.0.w
-        // height: 105.0.w,
         height: widget.height,
-        padding:
-            const EdgeInsets.only(left: 30.0, right: 0.0, top: 20, bottom: 20)
-                .w,
+        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0).w,
         decoration: BoxDecoration(
-          color: containerColor,
+          // 使用在 build 方法开头计算出的正确颜色
+          color: currentColor,
           border: Border(
             bottom: widget.underline
-                ? (Theme.of(context).listTileTheme.shape
-                        as RoundedRectangleBorder)
-                    .side
+                ? BorderSide(color: dividerColor, width: 1.5.w)
                 : BorderSide.none,
           ),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              flex: 1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 标题
-                  SizedBox(
-                    // flex: 1,
-                    // color: AppColors.accentRedPure,
-                    width: 500.w,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.title,
-                          style: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(32.0.w),
-                            fontFamily: "AlibabaPuHuiTi",
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(
-                          height: 14.w,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(0),
-                          // color: AppColors.accentRedPure,
-                          child: widget.subTitle,
-                        )
-                      ],
+                  Text(
+                    widget.title,
+                    style: TextStyle(
+                      fontSize: fontSizeScale(32.0.w),
+                      fontFamily: "AlibabaPuHuiTi",
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
+                  if (widget.subTitle != null) ...[
+                    SizedBox(height: 14.w),
+                    widget.subTitle!,
+                  ]
                 ],
               ),
             ),
             if (widget.showStyle != null)
-              widget.showStyle is String
-                  ? Container(
-                      padding: const EdgeInsets.only(right: 10, left: 10).w,
-                      color: AppColors.accentRedPure,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            widget.showStyle as String,
-                            style: TextStyle(
-                              height: 1.08,
-                              fontSize: fontSizeScale(30.w),
-                              color: AppColors.neutralDarkGrey7,
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  : widget.showStyle as Widget,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: widget.showStyle!,
+              ),
             if (widget.link != null)
               Container(
                 width: 30.w,
-                margin: const EdgeInsets.only(right: 32).w,
+                margin:
+                    EdgeInsets.only(left: 10.w), // Add left margin for spacing
                 child: Icon(
-                  const IconData(
-                    0xed9d,
-                    fontFamily: 'Iconfont',
-                  ),
+                  const IconData(0xed9d, fontFamily: 'Iconfont'),
                   size: 30.0.w,
-                  color: AppColors.neutralGrey50,
+                  // 使用主题感知的图标颜色
+                  color: iconColor,
                 ),
               )
           ],
