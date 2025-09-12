@@ -40,12 +40,14 @@ dependencies:
     sdk: flutter
   intl: any
   go_router: ^16.2.1
+  cupertino_icons: ^1.0.6
 
 dev_dependencies:
   bloc_test: ^10.0.0
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: "^0.13.1"
 
 flutter:
   generate: true
@@ -74,9 +76,23 @@ flutter:
     - family: NotoColorEmoji-Regular
       fonts:
         - asset: ./assets/fonts/NotoColorEmoji-Regular.ttf
-    - family: Roboto-Regular
+    - family: Roboto
       fonts:
-        - asset: ./assets/fonts/google_fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/google_fonts/Roboto-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/google_fonts/Roboto-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/google_fonts/Roboto-Bold.ttf
+          weight: 700
     - family: Iconfont
       fonts:
         - asset: ./assets/fonts/iconfont/iconfont.ttf
+
+flutter_launcher_icons:
+  android: false
+  ios: false
+  web:
+    generate: true
+    image_path: "assets/images/icon/1.jpeg"
+    background_color: "#0175C2"
+    theme_color: "#0175C2"

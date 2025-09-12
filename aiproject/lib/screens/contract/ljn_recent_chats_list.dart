@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +11,6 @@ import 'package:vigaviga/widgets/ljn_custom_physics.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
@@ -201,34 +199,21 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
 
     return Stack(
       children: [
-        if (systemState.homescrollpixels > 0)
-          Image.asset(
+        // 小程序背景
+        Visibility(
+          visible: systemState.homescrollpixels > 0,
+          child: Image.asset(
             assetPath("lotties/miniprogrambg.awebp"),
             width: screenSize.width,
             height: screenSize.height,
             fit: BoxFit.cover,
           ),
-
-        // // 背景
-        // Lottie.asset(
-        //   assetPath('lotties/miniprogrambg.json'),
-        //   width: screenSize.width,
-        //   height: screenSize.height,
-        //   fit: BoxFit.fill,
-        //   renderCache: RenderCache.raster,
-        //   controller: _bglottieController,
-        //   animate: true,
-        //   backgroundLoading: true,
-        //   onLoaded: (composition) {
-        //     _bglottieController
-        //       ..duration = const Duration(milliseconds: 10000)
-        //       ..repeat(); // 使用 repeat() 使动画循环
-        //   },
-        // ),
+        ),
 
         // 小程序, 需要现在在appbar下面
-        if (systemState.homescrollpixels > 0)
-          Positioned(
+        Visibility(
+          visible: systemState.homescrollpixels > 0,
+          child: Positioned(
             top: 0,
             left: 0,
             // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
@@ -237,10 +222,12 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
             width: screenSize.width,
             child: LJNChatMiniProgram(reverse: reverse),
           ),
+        ),
 
         // 列表背景
-        if (systemState.homescrollpixels > 0)
-          Positioned(
+        Visibility(
+          visible: systemState.homescrollpixels > 0,
+          child: Positioned(
             top: 90.w + statusHeight + systemState.homescrollpixels,
             left: 0,
             // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
@@ -250,6 +237,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
               color: theme.colorScheme.surfaceContainer,
             ),
           ),
+        ),
 
         // 列表
         Positioned(
@@ -306,34 +294,37 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
         ),
 
         // 三个点点动画
-        Opacity(
-          opacity: systemState.homescrollpixels > 0 ? 1 - topLottieOpacity : 0,
-          child: Container(
-            color: theme.colorScheme.surfaceContainer,
-            width: screenSize.width,
-            height: systemState.homescrollpixels + (90.w + statusHeight),
-            // padding: EdgeInsets.only(top: statusHeight),
-            child: _lottieController.isCompleted
-                ? null
-                : Lottie.asset(
-                    assetPath('lotties/homeminiprogramdarwing.json'),
-                    width: screenSize.width,
-                    height: systemState.homescrollpixels + statusHeight + 90.w,
-                    fit: BoxFit.contain,
-                    renderCache: RenderCache.drawingCommands,
-                    controller: _lottieController,
-                    onLoaded: (composition) {
-                      // _lottieController
-                      //   ..duration = const Duration(milliseconds: 600)
-                      //   ..forward();
-                    },
-                  ),
+        Visibility(
+          visible: !_lottieController.isCompleted,
+          child: Opacity(
+            opacity:
+                systemState.homescrollpixels > 0 ? 1 - topLottieOpacity : 0,
+            child: Container(
+              color: theme.colorScheme.surfaceContainer,
+              width: screenSize.width,
+              height: systemState.homescrollpixels + (90.w + statusHeight),
+              child: Lottie.asset(
+                assetPath('lotties/homeminiprogramdarwing.json'),
+                width: screenSize.width,
+                height: systemState.homescrollpixels + statusHeight + 90.w,
+                fit: BoxFit.contain,
+                renderCache: RenderCache.drawingCommands,
+                controller: _lottieController,
+                onLoaded: (composition) {
+                  // _lottieController
+                  //   ..duration = const Duration(milliseconds: 600)
+                  //   ..forward();
+                },
+              ),
+            ),
           ),
         ),
 
         // 下拉时候的新appbar
-        if ((systemState.homescrollpixels + statusHeight) > percent25Position)
-          Positioned(
+        Visibility(
+          visible:
+              (systemState.homescrollpixels + statusHeight) > percent25Position,
+          child: Positioned(
             height: 90.w +
                 (screenSize.height -
                     (systemState.homescrollpixels + statusHeight + 90.w)),
@@ -473,6 +464,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
               ),
             ),
           ),
+        ),
       ],
     );
   }

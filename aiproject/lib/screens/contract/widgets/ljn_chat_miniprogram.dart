@@ -147,30 +147,23 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                 ),
 
                 // 列表
-                Listener(
-                  onPointerDown: (event) {
-                    setState(() {
+                Expanded(
+                  child: Listener(
+                    onPointerDown: (event) {
                       figerRelease = false;
-                    });
-                  },
-                  onPointerUp: (event) {
-                    setState(() {
+                    },
+                    onPointerUp: (event) {
                       figerRelease = true;
-                    });
 
-                    widget.reverse();
-                  },
-                  child: SizedBox(
-                    // color: Colors.cyan,
-                    height: systemState.homescrollpixels + 200.w,
+                      widget.reverse();
+                    },
                     child: ScrollConfiguration(
                       behavior: ScrollConfiguration.of(context)
                           .copyWith(scrollbars: false),
                       child: SingleChildScrollView(
                         controller: _scrollController,
                         physics: const AlwaysScrollableScrollPhysics(
-                          parent: BouncingScrollPhysics(
-                              decelerationRate: ScrollDecelerationRate.fast),
+                          parent: BouncingScrollPhysics(),
                         ),
                         child: Column(
                           children: [
@@ -392,6 +385,12 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                 ),
                               ],
                             ),
+
+                            Container(
+                              color: Colors.blue,
+                              width: 750.w,
+                              height: 500.w,
+                            )
                           ],
                         ),
                       ),

@@ -2242,9 +2242,10 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                               key: emojiList[index].globalKey,
                                               emojiList[index].emoji,
                                               style: TextStyle(
-                                                  fontSize: 53.w,
-                                                  fontFamily:
-                                                      "NotoColorEmoji-Regular"),
+                                                fontSize: 53.w,
+                                                fontFamily:
+                                                    "NotoColorEmoji-Regular",
+                                              ),
                                             ),
                                           ),
                                         );

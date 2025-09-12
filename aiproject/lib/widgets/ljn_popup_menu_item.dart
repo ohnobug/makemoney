@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LJNPopupMenuItem extends StatefulWidget {
   final String title;
-  final int icon;
+  final IconData icon;
   final Function()? onTap;
 
   const LJNPopupMenuItem({
@@ -77,7 +77,7 @@ class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
               width: 80.w,
               child: Center(
                 child: Icon(
-                  IconData(widget.icon, fontFamily: 'Iconfont'),
+                  widget.icon,
                   color: theme.popupMenuTheme.iconColor,
                   size: theme.popupMenuTheme.iconSize,
                 ),

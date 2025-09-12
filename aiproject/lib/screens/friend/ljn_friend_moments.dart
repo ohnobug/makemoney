@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vigaviga/api_manager/api.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_custom_physics.dart';
@@ -31,7 +32,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
   late AnimationController _appBarcontroller;
   late Animation<double> _appBarOpacity;
 
-  late List<Map<String, dynamic>> tweetList;
+  late List tweetList;
 
   Offset lastedMoreButtonPosition = const Offset(-1000, -1000);
   bool likeBoxVisible = false;
@@ -476,13 +477,13 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
           children: [
             // ... (The like/comment buttons can be stateless now) ...
             _LikeCommentButton(
-              icon: 0xe682,
+              icon: const IconData(0xe682, fontFamily: 'Iconfont'),
               text: l10n.like,
               color: textColor,
             ),
             Container(height: 45.w, width: 2.w, color: dividerColor),
             _LikeCommentButton(
-              icon: 0xe605,
+              icon: const IconData(0xe605, fontFamily: 'Iconfont'),
               text: l10n.comment,
               color: textColor,
             ),
@@ -493,33 +494,12 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
   }
 
   void _initializeTweetData() {
-    tweetList = const [
-      // ... your full tweetList data remains here ...
-      {
-        "time": "一分钟前",
-        "avatarUrl": 'images/avatar_webp/chat_1.webp',
-        "name": "李珣🐞",
-        "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
-        "imageList": [
-          'images/avatar_webp/chat_1.webp',
-          'images/avatar_webp/chat_2.webp',
-          'images/avatar_webp/chat_3.webp',
-          'images/avatar_webp/chat_4.webp',
-          'images/avatar_webp/chat_5.webp',
-          'images/avatar_webp/chat_6.webp',
-          'images/avatar_webp/chat_7.webp',
-          'images/avatar_webp/chat_8.webp',
-          'images/avatar_webp/chat_9.webp',
-        ],
-        "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
-      },
-      // ... and so on for all your other tweet entries.
-    ];
+    tweetList = getTweetList();
   }
 }
 
 class _LikeCommentButton extends StatelessWidget {
-  final int icon;
+  final IconData icon;
   final String text;
   final Color color;
 
@@ -533,9 +513,19 @@ class _LikeCommentButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(IconData(icon, fontFamily: 'Iconfont'), color: color, size: 31.w),
+        Icon(
+          icon,
+          color: color,
+          size: 31.w,
+        ),
         SizedBox(width: 8.w),
-        Text(text, style: TextStyle(fontSize: 28.w, color: color)),
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 28.w,
+            color: color,
+          ),
+        ),
       ],
     );
   }

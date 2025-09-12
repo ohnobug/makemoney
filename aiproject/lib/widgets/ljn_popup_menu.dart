@@ -56,7 +56,7 @@ class _LJNPopupMenuState extends State<LJNPopupMenu> {
                   // Start Group Chat
                   LJNPopupMenuItem(
                     title: l10n.startGroupChat,
-                    icon: 0xe676,
+                    icon: const IconData(0xe676, fontFamily: "iconfont"),
                     // Corrected: Removed unnecessary local setState.
                     // The parent widget is responsible for hiding the popup.
                     onTap: () => widget.setShowPopup?.call(false),
@@ -64,7 +64,7 @@ class _LJNPopupMenuState extends State<LJNPopupMenu> {
                   // Add Friend
                   LJNPopupMenuItem(
                     title: l10n.addFriend,
-                    icon: 0xe61f,
+                    icon: const IconData(0xe61f, fontFamily: "iconfont"),
                     onTap: () {
                       widget.setShowPopup?.call(false);
                       Navigator.pushNamed(context, '/add_friends');
@@ -73,7 +73,7 @@ class _LJNPopupMenuState extends State<LJNPopupMenu> {
                   // Scan QR Code
                   LJNPopupMenuItem(
                     title: l10n.scan,
-                    icon: 0xe69a,
+                    icon: const IconData(0xe69a, fontFamily: "iconfont"),
                     onTap: () {
                       widget.setShowPopup?.call(false);
                       Navigator.pushNamed(context, '/qrcode_scanner');
@@ -82,7 +82,7 @@ class _LJNPopupMenuState extends State<LJNPopupMenu> {
                   // Payment
                   LJNPopupMenuItem(
                     title: l10n.payment,
-                    icon: 0xe611,
+                    icon: const IconData(0xe611, fontFamily: "iconfont"),
                     onTap: () {
                       widget.setShowPopup?.call(false);
                       Navigator.pushNamed(context, '/collection_and_payment');

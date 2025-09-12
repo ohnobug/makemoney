@@ -26,7 +26,7 @@ String assetPath(String path) {
   //   return 'assets/$path';
   // }
 
-  return 'assets/$path';
+  return path;
 }
 
 // 是否有效的图片
@@ -82,6 +82,7 @@ Future<String> getFirstFrame(String filepath) async {
     // 从 assets 加载视频文件
     ByteData byteData = await rootBundle.load(filepath);
     // logger.info('ByteData length: ${byteData.lengthInBytes}');
+
     if (byteData.lengthInBytes == 0) {
       throw Exception('Failed to load video file.');
     }
@@ -97,10 +98,6 @@ Future<String> getFirstFrame(String filepath) async {
       imageFormat: ImageFormat.PNG,
       quality: 100,
     );
-
-    // setState(() {
-    //   picPath = fileName.path;
-    // });
 
     return fileName.path;
   }

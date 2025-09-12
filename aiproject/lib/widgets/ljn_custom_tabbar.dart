@@ -17,8 +17,8 @@ import 'package:vigaviga/widgets/ljn_popup_menu.dart';
 
 // 关键改动 1: _TabInfo 不再需要 title 属性。它只存储不依赖 context 的静态信息。
 class _TabInfo {
-  final int icon;
-  final int selectedIcon;
+  final IconData icon;
+  final IconData selectedIcon;
   final double iconSize;
 
   const _TabInfo({
@@ -42,11 +42,66 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
   // 关键改动 2: _tabs 列表现在是 final，并且只包含静态的图标信息。
   final List<_TabInfo> _tabs = [
-    _TabInfo(icon: 0xe7b3, selectedIcon: 0xe676, iconSize: 90.0.w), // 短视频
-    _TabInfo(icon: 0xe61c, selectedIcon: 0xe638, iconSize: 86.0.w), // 发现
-    _TabInfo(icon: 0xe67c, selectedIcon: 0xe642, iconSize: 96.0.w), // 发布
-    _TabInfo(icon: 0xe7b3, selectedIcon: 0xe676, iconSize: 90.0.w), // 聊天
-    _TabInfo(icon: 0xe63f, selectedIcon: 0xe62b, iconSize: 96.0.w), // 我的
+    // 短视频
+    _TabInfo(
+      icon: const IconData(
+        0xe7b3,
+        fontFamily: "Iconfont",
+      ),
+      selectedIcon: const IconData(
+        0xe676,
+        fontFamily: "Iconfont",
+      ),
+      iconSize: 90.0.w,
+    ),
+    // 发现
+    _TabInfo(
+      icon: const IconData(
+        0xe61c,
+        fontFamily: "Iconfont",
+      ),
+      selectedIcon: const IconData(
+        0xe638,
+        fontFamily: "Iconfont",
+      ),
+      iconSize: 86.0.w,
+    ),
+    // 发布
+    _TabInfo(
+      icon: const IconData(
+        0xe67c,
+        fontFamily: "Iconfont",
+      ),
+      selectedIcon: const IconData(
+        0xe642,
+        fontFamily: "Iconfont",
+      ),
+      iconSize: 96.0.w,
+    ),
+    // 聊天
+    _TabInfo(
+      icon: const IconData(
+        0xe7b3,
+        fontFamily: "Iconfont",
+      ),
+      selectedIcon: const IconData(
+        0xe676,
+        fontFamily: "Iconfont",
+      ),
+      iconSize: 90.0.w,
+    ),
+    // 我的
+    _TabInfo(
+      icon: const IconData(
+        0xe63f,
+        fontFamily: "Iconfont",
+      ),
+      selectedIcon: const IconData(
+        0xe62b,
+        fontFamily: "Iconfont",
+      ),
+      iconSize: 96.0.w,
+    ),
   ];
 
   int _tabbarIndex = 0;
@@ -180,6 +235,10 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                       _tabs.length,
                       (index) {
                         final tabInfo = _tabs[index];
+                        final icon = index == _tabbarIndex
+                            ? tabInfo.selectedIcon
+                            : tabInfo.icon;
+
                         return Tab(
                           height: 105.w,
                           iconMargin: EdgeInsets.only(bottom: 8.w),
@@ -188,12 +247,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                             width: 50.w,
                             child: Center(
                               child: Icon(
-                                IconData(
-                                  index == _tabbarIndex
-                                      ? tabInfo.selectedIcon
-                                      : tabInfo.icon,
-                                  fontFamily: 'Iconfont',
-                                ),
+                                icon,
                                 size: tabInfo.iconSize.w,
                               ),
                             ),

@@ -307,7 +307,10 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                             LJNCAPFunctionItem(
                               title: AppLocalizations.of(context)!
                                   .digitalRMBPayment,
-                              icon: 0xe6f5,
+                              icon: const IconData(
+                                0xe6f5,
+                                fontFamily: 'Iconfont',
+                              ),
                               iconColor: AppColors.accentRedPure,
                               link: '',
                               color: theme.colorScheme.onSurface,
@@ -337,22 +340,30 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                             LJNCAPFunctionItem(
                               title: AppLocalizations.of(context)!
                                   .qrCodeCollection,
-                              icon: 0xe623,
+                              icon: const IconData(
+                                0xe623,
+                                fontFamily: "Iconfont",
+                              ),
                               link: '',
                               backgroundColor: AppColors.brandTealDark2,
                               underline: true,
                             ),
                             LJNCAPFunctionItem(
                               title: l10n.rewardCode,
-                              icon: 0xe67b,
+                              icon: const IconData(
+                                0xe67b,
+                                fontFamily: "Iconfont",
+                              ),
                               link: '',
                               backgroundColor: AppColors.brandTealDark2,
                               underline: true,
                             ),
                             LJNCAPFunctionItem(
-                              title:
-                                  l10n.groupSplitBill,
-                              icon: 0xe624,
+                              title: l10n.groupSplitBill,
+                              icon: const IconData(
+                                0xe624,
+                                fontFamily: "Iconfont",
+                              ),
                               link: '',
                               backgroundColor: AppColors.brandTealDark2,
                               underline: true,
@@ -360,7 +371,10 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                             LJNCAPFunctionItem(
                               title: AppLocalizations.of(context)!
                                   .faceToFaceRedPacket,
-                              icon: 0xe625,
+                              icon: const IconData(
+                                0xe625,
+                                fontFamily: "Iconfont",
+                              ),
                               link: '',
                               backgroundColor: AppColors.brandTealDark2,
                               underline: true,
@@ -368,7 +382,10 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                             LJNCAPFunctionItem(
                               title: AppLocalizations.of(context)!
                                   .transferToBankCardOrPhone,
-                              icon: 0xe661,
+                              icon: const IconData(
+                                0xe661,
+                                fontFamily: "Iconfont",
+                              ),
                               link: '',
                               backgroundColor: AppColors.brandTealDark2,
                               underline: false,
@@ -393,7 +410,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
 }
 
 class LJNCAPFunctionItem extends StatefulWidget {
-  final int? icon;
+  final IconData? icon;
   final Color? iconColor;
   final double? height;
   final String title;
@@ -486,10 +503,7 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                 width: 40.0.w,
                 height: 40.0.w,
                 child: Icon(
-                  IconData(
-                    widget.icon!,
-                    fontFamily: 'Iconfont',
-                  ), // 使用的图标
+                  widget.icon!, // 使用的图标
                   color: widget.iconColor ?? AppColors.neutralWhite, // 图标颜色
                   size: 35.w, // 图标大小
                 ),
