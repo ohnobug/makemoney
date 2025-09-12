@@ -43,7 +43,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
         if (currentScrollPosition > maxScrollExtent) {
           if (currentScrollPosition - maxScrollExtent > 200.w) {
             _scrollController.jumpTo(0);
-
+            widget.reverse();
             context.read<LJNSystemCubit>().updateShowMiniProgramDrawer(false);
           }
         }
@@ -154,8 +154,6 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                     },
                     onPointerUp: (event) {
                       figerRelease = true;
-
-                      widget.reverse();
                     },
                     child: ScrollConfiguration(
                       behavior: ScrollConfiguration.of(context)
