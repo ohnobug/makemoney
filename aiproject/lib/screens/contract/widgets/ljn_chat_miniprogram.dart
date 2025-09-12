@@ -42,8 +42,9 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
         // 检查是否超出
         if (currentScrollPosition > maxScrollExtent) {
           if (currentScrollPosition - maxScrollExtent > 200.w) {
-            _scrollController.jumpTo(0);
             widget.reverse();
+            
+            _scrollController.jumpTo(0);
             context.read<LJNSystemCubit>().updateShowMiniProgramDrawer(false);
           }
         }
@@ -384,11 +385,11 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                               ],
                             ),
 
-                            Container(
-                              color: Colors.blue,
-                              width: 750.w,
-                              height: 500.w,
-                            )
+                            // Container(
+                            //   color: Colors.blue,
+                            //   width: 750.w,
+                            //   height: 500.w,
+                            // )
                           ],
                         ),
                       ),
