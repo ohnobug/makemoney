@@ -20,13 +20,9 @@ double fontSizeScale(double size) {
 String assetPath(String path) {
   if (kIsWeb) {
     return path;
+  } else {
+    return 'assets/$path';
   }
-
-  // if (Platform.isAndroid) {
-  //   return 'assets/$path';
-  // }
-
-  return path;
 }
 
 // 是否有效的图片

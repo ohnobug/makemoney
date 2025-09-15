@@ -24,7 +24,7 @@ class LJNRecentChatsList extends StatefulWidget {
 
 class _LJNRecentChatsList extends State<LJNRecentChatsList>
     with TickerProviderStateMixin {
-  final _customScrollController = ScrollController();
+  final _miniprogramScrollController = ScrollController();
 
   late final List<ChatListItem> chatItems;
   AnimationController? _animationController;
@@ -58,7 +58,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
     _lottieController = AnimationController(vsync: this);
     _bglottieController = AnimationController(vsync: this);
 
-    _customScrollController.addListener(scrollListener);
+    _miniprogramScrollController.addListener(scrollListener);
 
     chatItems = getChatItems(context);
   }
@@ -72,14 +72,14 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
 
   void scrollListener() {
     // 下拉的时候
-    if (_customScrollController.position.pixels <= 0) {
+    if (_miniprogramScrollController.position.pixels <= 0) {
       context.read<LJNSystemCubit>().updateHomescrollpixels(
-            _customScrollController.position.pixels.abs(),
+            _miniprogramScrollController.position.pixels.abs(),
           );
     } else {
       // 上拉
       double newValue = context.read<LJNSystemCubit>().state.homescrollpixels +
-          _customScrollController.position.pixels;
+          _miniprogramScrollController.position.pixels;
       if (newValue < 0) {
         context.read<LJNSystemCubit>().updateHomescrollpixels(newValue);
       } else {
@@ -91,16 +91,16 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
   // 恢复
   void reverse() {
     // 使开始位置变成下拉的位置
-    _customScrollController.jumpTo(0);
+    _miniprogramScrollController.jumpTo(0);
     _animationController!.value =
         context.read<LJNSystemCubit>().state.homescrollpixels;
     _physics = const NeverScrollableScrollPhysics();
 
-    _customScrollController.removeListener(scrollListener);
+    _miniprogramScrollController.removeListener(scrollListener);
     _animationController!.reverse().then((_) {
-      _customScrollController.jumpTo(0);
+      _miniprogramScrollController.jumpTo(0);
       _physics = const MyBouncingScrollPhysics();
-      _customScrollController.addListener(scrollListener);
+      _miniprogramScrollController.addListener(scrollListener);
 
       context.read<LJNSystemCubit>().updateShowMiniProgramDrawer(false);
     });
@@ -248,27 +248,28 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
           height: screenSize.height - (90.w + statusHeight),
           child: Listener(
             onPointerUp: (event) {
-              logger.info("释放那一刻 ${_customScrollController.position.pixels}");
-              if (_customScrollController.position.pixels < -100) {
+              logger.info(
+                  "释放那一刻 ${_miniprogramScrollController.position.pixels}");
+              if (_miniprogramScrollController.position.pixels < -100) {
                 // _forwarding = true;
                 logger.info(
                     "this is systemState.homescrollpixels: ${systemState.homescrollpixels}");
 
                 // ???
                 _animationController!.value = systemState.homescrollpixels;
-                _customScrollController.jumpTo(0);
+                _miniprogramScrollController.jumpTo(0);
                 _physics = const NeverScrollableScrollPhysics();
 
                 context
                     .read<LJNSystemCubit>()
                     .updateShowMiniProgramDrawer(true);
 
-                _customScrollController.removeListener(scrollListener);
+                _miniprogramScrollController.removeListener(scrollListener);
 
                 _animationController!.forward().then((_) {
-                  _customScrollController.jumpTo(0);
+                  _miniprogramScrollController.jumpTo(0);
                   _physics = const MyBouncingScrollPhysics();
-                  _customScrollController.addListener(scrollListener);
+                  _miniprogramScrollController.addListener(scrollListener);
                 });
               }
             },
@@ -283,7 +284,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
                 // padding: EdgeInsets.all(0.w),
                 itemCount: chatItems.length,
                 shrinkWrap: true,
-                controller: _customScrollController,
+                controller: _miniprogramScrollController,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
                   return chatItems[index];

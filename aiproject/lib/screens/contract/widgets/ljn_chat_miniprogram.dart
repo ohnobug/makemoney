@@ -22,6 +22,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
   final ScrollController _scrollController = ScrollController();
   // Size _screenSize = const Size(0, 0);
   bool figerRelease = false;
+  // Timer? _timer;
 
   @override
   void initState() {
@@ -43,9 +44,16 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
         if (currentScrollPosition > maxScrollExtent) {
           if (currentScrollPosition - maxScrollExtent > 200.w) {
             widget.reverse();
-            
-            _scrollController.jumpTo(0);
-            context.read<LJNSystemCubit>().updateShowMiniProgramDrawer(false);
+
+            // // 500毫秒后，恢复到原初的样子
+            // _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
+            //   setState(() {
+            //     _scrollController.jumpTo(0);
+            //     context
+            //         .read<LJNSystemCubit>()
+            //         .updateShowMiniProgramDrawer(false);
+            //   });
+            // });
           }
         }
       }
@@ -55,6 +63,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
   @override
   void dispose() {
     logger.info("撤退");
+    // _timer?.cancel();
     super.dispose();
   }
 
