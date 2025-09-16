@@ -7,6 +7,7 @@ import 'package:vigaviga/widgets/ljn_function_item.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 
 class LJNAbout extends StatefulWidget {
   const LJNAbout({super.key});
@@ -124,24 +125,28 @@ class _LJNAbout extends State<LJNAbout> {
                         ),
                         child: Column(
                           children: [
-                            LJNFunctionItem(
-                              title: AppLocalizations.of(context)!
-                                  .featureIntroduction,
-                              link: '',
-                              backgroundColor: AppColors.neutralWhite,
-                              underline: true,
-                            ),
-                            LJNFunctionItem(
-                              title: l10n.complain,
-                              link: '',
-                              backgroundColor: AppColors.neutralWhite,
-                              underline: true,
-                            ),
-                            LJNFunctionItem(
-                              title: l10n.checkNewVersion,
-                              link: '',
-                              backgroundColor: AppColors.neutralWhite,
-                              underline: false,
+                            LJNFunctionList(
+                              children: [
+                                LJNFunctionItem(
+                                  title: AppLocalizations.of(context)!
+                                      .featureIntroduction,
+                                  link: '',
+                                  backgroundColor: AppColors.neutralWhite,
+                                  underline: true,
+                                ),
+                                LJNFunctionItem(
+                                  title: l10n.complain,
+                                  link: '',
+                                  backgroundColor: AppColors.neutralWhite,
+                                  underline: true,
+                                ),
+                                LJNFunctionItem(
+                                  title: l10n.checkNewVersion,
+                                  link: '',
+                                  backgroundColor: AppColors.neutralWhite,
+                                  underline: false,
+                                )
+                              ],
                             )
                           ],
                         ),

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_popup.dart';
 import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/widgets/ljn_max_width_button.dart';
@@ -66,89 +67,97 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                   ),
                   child: Column(
                     children: [
-                      LJNFunctionItem(
-                        title: l10n.setRemarkAndTags,
-                        link: '/set_notes_and_labels',
-                        showStyle: "邓子乔",
-                        underline: true,
-                      ),
-                      LJNFunctionItem(
-                        title: l10n.friendPermissions,
-                        link: '/friend_permissions',
-                        underline: false,
-                      ),
-                      LJNVerticalGap(
-                        height: 16.w,
-                      ),
-                      LJNFunctionItem(
-                        title: l10n.recommendToFriend,
-                        link: '',
-                        underline: true,
-                      ),
-                      LJNFunctionItem(
-                        title: l10n.addToDesktop,
-                        // link: '',
-                        underline: false,
-                        onPress: () {
-                          setState(() {
-                            showPopup = true;
-                          });
-                        },
-                      ),
-                      LJNVerticalGap(
-                        height: 16.w,
-                      ),
-                      LJNFunctionItem(
-                        title: l10n.setAsStarFriend,
-                        // link: '',
-                        underline: false,
-                        tapEffect: false,
-                        showStyle: Expanded(
-                          flex: 0,
-                          child: Container(
-                            margin: const EdgeInsets.only(right: 32).w,
-                            child: LJNSwitch(
-                              initialValue: false,
-                              onChanged: (value) {
-                                logger.info(value);
-                              },
+                      LJNFunctionList(children: [
+                        LJNFunctionItem(
+                          title: l10n.setRemarkAndTags,
+                          link: '/set_notes_and_labels',
+                          showStyle: "邓子乔",
+                          underline: true,
+                        ),
+                        LJNFunctionItem(
+                          title: l10n.friendPermissions,
+                          link: '/friend_permissions',
+                          underline: false,
+                        ),
+                      ]),
+
+// 推荐、 添加到桌面
+                      LJNFunctionList(children: [
+                        LJNFunctionItem(
+                          title: l10n.recommendToFriend,
+                          link: '',
+                          underline: true,
+                        ),
+                        LJNFunctionItem(
+                          title: l10n.addToDesktop,
+                          // link: '',
+                          underline: false,
+                          onPress: () {
+                            setState(() {
+                              showPopup = true;
+                            });
+                          },
+                        ),
+                      ]),
+
+                      // 设置星标朋友
+                      LJNFunctionList(children: [
+                        LJNFunctionItem(
+                          title: l10n.setAsStarFriend,
+                          // link: '',
+                          underline: false,
+                          tapEffect: false,
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: LJNSwitch(
+                                initialValue: false,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      LJNVerticalGap(
-                        height: 16.w,
-                      ),
-                      LJNFunctionItem(
-                        title: l10n.addToBlocklist,
-                        tapEffect: false,
-                        underline: true,
-                        showStyle: Expanded(
-                          flex: 0,
-                          child: Container(
-                            margin: const EdgeInsets.only(right: 32).w,
-                            child: LJNSwitch(
-                              initialValue: false,
-                              onChanged: (value) {
-                                logger.info(value);
-                              },
+                      ]),
+
+                      // 添加到黑名单、投诉
+                      LJNFunctionList(
+                        children: [
+                          LJNFunctionItem(
+                            title: l10n.addToBlocklist,
+                            tapEffect: false,
+                            underline: true,
+                            showStyle: Expanded(
+                              flex: 0,
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 32).w,
+                                child: LJNSwitch(
+                                  initialValue: false,
+                                  onChanged: (value) {
+                                    logger.info(value);
+                                  },
+                                ),
+                              ),
                             ),
                           ),
+                          LJNFunctionItem(
+                            title: l10n.complain,
+                            link: '',
+                            underline: false,
+                          ),
+                        ],
+                      ),
+
+                      // 删除好友
+                      LJNFunctionList(children: [
+                        LJNMaxWidthButton(
+                          title: l10n.delete,
+                          color: AppColors.accentRedPure,
+                          underline: false,
                         ),
-                      ),
-                      LJNFunctionItem(
-                        title: l10n.complain,
-                        link: '',
-                        underline: false,
-                      ),
-                      LJNVerticalGap(
-                        height: 16.w,
-                      ),
-                      LJNMaxWidthButton(
-                        title: l10n.delete,
-                        color: AppColors.accentRedPure,
-                        underline: false,
-                      ),
+                      ])
                     ],
                   ),
                 ),

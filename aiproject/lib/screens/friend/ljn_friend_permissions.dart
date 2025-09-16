@@ -4,6 +4,7 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_alphabet.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 
@@ -71,70 +72,76 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                   ),
 
                   // 聊天、朋友圈、微信运动等
-                  LJNFunctionItem(
-                    title: AppLocalizations.of(context)!
-                        .featureListChatMomentsWeRun,
-                    onPress: () {
-                      setState(() {
-                        chatOnly = false;
-                      });
-                    },
-                    underline: true,
-                    tapEffect: true,
-                    showLinkIcon: false,
-                    showStyle: chatOnly == false
-                        ? Expanded(
-                            flex: 0,
-                            child: Container(
-                              // color: AppColors.accentRedPure,
-                              width: 30.w,
-                              height: 105.0.w,
-                              margin:
-                                  const EdgeInsets.only(left: 10, right: 32).w,
-                              child: Icon(
-                                const IconData(
-                                  0xe60d,
-                                  fontFamily: 'Iconfont',
+                  LJNFunctionList(
+                    children: [
+                      // 微信运动
+                      LJNFunctionItem(
+                        title: l10n.featureListChatMomentsWeRun,
+                        onPress: () {
+                          setState(() {
+                            chatOnly = false;
+                          });
+                        },
+                        underline: true,
+                        tapEffect: true,
+                        showLinkIcon: false,
+                        showStyle: chatOnly == false
+                            ? Expanded(
+                                flex: 0,
+                                child: Container(
+                                  // color: AppColors.accentRedPure,
+                                  width: 30.w,
+                                  height: 105.0.w,
+                                  margin:
+                                      const EdgeInsets.only(left: 10, right: 32)
+                                          .w,
+                                  child: Icon(
+                                    const IconData(
+                                      0xe60d,
+                                      fontFamily: 'Iconfont',
+                                    ),
+                                    size: 30.0.w,
+                                    color: AppColors.brandGreenDarker1,
+                                  ),
                                 ),
-                                size: 30.0.w,
-                                color: AppColors.brandGreenDarker1,
-                              ),
-                            ),
-                          )
-                        : const SizedBox(),
-                  ),
+                              )
+                            : const SizedBox(),
+                      ),
 
-                  // 仅聊天
-                  LJNFunctionItem(
-                    title: l10n.chatOnly,
-                    // link: '',
-                    underline: false,
-                    tapEffect: true,
-                    onPress: () {
-                      setState(() {
-                        chatOnly = true;
-                      });
-                    },
-                    showStyle: chatOnly == true
-                        ? Expanded(
-                            flex: 0,
-                            child: Container(
-                              // color: AppColors.accentRedPure,
-                              width: 30.w,
-                              height: 105.0.w,
-                              margin:
-                                  const EdgeInsets.only(left: 10, right: 32).w,
-                              child: Icon(
-                                const IconData(
-                                  0xe60d,
-                                  fontFamily: 'Iconfont',
+                      // 仅聊天
+                      LJNFunctionItem(
+                        title: l10n.chatOnly,
+                        // link: '',
+                        underline: false,
+                        tapEffect: true,
+                        onPress: () {
+                          setState(() {
+                            chatOnly = true;
+                          });
+                        },
+                        showStyle: chatOnly == true
+                            ? Expanded(
+                                flex: 0,
+                                child: Container(
+                                  // color: AppColors.accentRedPure,
+                                  width: 30.w,
+                                  height: 105.0.w,
+                                  margin:
+                                      const EdgeInsets.only(left: 10, right: 32)
+                                          .w,
+                                  child: Icon(
+                                    const IconData(
+                                      0xe60d,
+                                      fontFamily: 'Iconfont',
+                                    ),
+                                    size: 30.0.w,
+                                    color: AppColors.brandGreenDarker1,
+                                  ),
                                 ),
-                                size: 30.0.w,
-                                color: AppColors.brandGreenDarker1,
-                              ),
-                            ),
-                          )
-                        : const SizedBox(),
+                              )
+                            : const SizedBox(),
+                      ),
+                    ],
                   ),
 
                   // 提示语
@@ -150,41 +157,46 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                       title: l10n.momentsAndStatus,
                       color: AppColors.neutralGrey76,
                     ),
-                    LJNFunctionItem(
-                      title: l10n.hideMyPosts,
-                      // link: '',
-                      underline: true,
-                      tapEffect: false,
-                      showStyle: Expanded(
-                        flex: 0,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 32).w,
-                          child: LJNSwitch(
-                            initialValue: true,
-                            onChanged: (value) {
-                              logger.info(value);
-                            },
+                    // 隐藏我的朋友圈、状态
+                    LJNFunctionList(
+                      children: [
+                        LJNFunctionItem(
+                          title: l10n.hideMyPosts,
+                          // link: '',
+                          underline: true,
+                          tapEffect: false,
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: LJNSwitch(
+                                initialValue: true,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    LJNFunctionItem(
-                      title: l10n.hideTheirPosts,
-                      // link: '',
-                      underline: false,
-                      tapEffect: false,
-                      showStyle: Expanded(
-                        flex: 0,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 32).w,
-                          child: LJNSwitch(
-                            initialValue: true,
-                            onChanged: (value) {
-                              logger.info(value);
-                            },
+                        LJNFunctionItem(
+                          title: l10n.hideTheirPosts,
+                          // link: '',
+                          underline: false,
+                          tapEffect: false,
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: LJNSwitch(
+                                initialValue: true,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ],

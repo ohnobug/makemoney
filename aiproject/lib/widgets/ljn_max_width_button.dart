@@ -80,7 +80,7 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
           },
           child: Container(
             height: widget.height ?? 105.0.w,
-            width: 750.w,
+            width: double.infinity,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               // 直接使用在 build 方法中计算出的颜色

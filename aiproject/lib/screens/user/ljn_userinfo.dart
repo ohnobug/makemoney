@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import '../../widgets/ljn_function_item.dart';
 
 class LJNUserinfo extends StatefulWidget {
@@ -54,123 +55,135 @@ class _LJNUserinfo extends State<LJNUserinfo> {
             ),
             child: Column(
               children: [
-                // 头像
-                LJNFunctionItem(
-                  title: l10n.avatar,
-                  height: 150.w,
-                  link: '',
-                  showStyle: Expanded(
-                    flex: 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10).w,
-                          child: Image.asset(
-                            assetPath(context
-                                .read<LJNUserCubit>()
-                                .state
-                                .userinfoAvatar!),
-                            cacheWidth: 240.w.toInt(),
-                            cacheHeight: 240.w.toInt(),
-                            width: 120.w,
-                            height: 120.w,
-                            fit: BoxFit.cover,
+                // 用户信息
+                LJNFunctionList(children: [
+                  // 头像
+                  LJNFunctionItem(
+                    title: l10n.avatar,
+                    height: 150.w,
+                    link: '',
+                    showStyle: Expanded(
+                      flex: 1,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10).w,
+                            child: Image.asset(
+                              assetPath(context
+                                  .read<LJNUserCubit>()
+                                  .state
+                                  .userinfoAvatar!),
+                              cacheWidth: 240.w.toInt(),
+                              cacheHeight: 240.w.toInt(),
+                              width: 120.w,
+                              height: 120.w,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
+                    underline: true,
                   ),
-                  underline: true,
-                ),
-                // 姓名
-                LJNFunctionItem(
-                  title: l10n.nickName,
-                  // icon: "images/icon/discovery_icon2.png",
-                  link: '',
-                  showStyle: context.read<LJNUserCubit>().state.userinfoName!,
-                  underline: true,
-                ),
-                LJNFunctionItem(
-                  title: l10n.pat,
-                  link: '',
-                  underline: true,
-                ),
 
-                // 微信号
-                LJNFunctionItem(
-                  title: l10n.wechatID,
-                  link: '/accountinfo',
-                  showStyle: context.read<LJNUserCubit>().state.userinfoAccount,
-                  underline: true,
-                ),
+                  // 姓名
+                  LJNFunctionItem(
+                    title: l10n.nickName,
+                    // icon: "images/icon/discovery_icon2.png",
+                    link: '',
+                    showStyle: context.read<LJNUserCubit>().state.userinfoName!,
+                    underline: true,
+                  ),
 
-                // 二维码名片
-                LJNFunctionItem(
-                  title: l10n.qrCodeCard,
-                  link: '',
-                  showStyle: Expanded(
-                    flex: 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          const IconData(
-                            0xe74b,
-                            fontFamily: 'Iconfont',
+                  // 拍一拍
+                  LJNFunctionItem(
+                    title: l10n.pat,
+                    link: '',
+                    underline: true,
+                  ),
+
+                  // 微信号
+                  LJNFunctionItem(
+                    title: l10n.wechatID,
+                    link: '/accountinfo',
+                    showStyle:
+                        context.read<LJNUserCubit>().state.userinfoAccount,
+                    underline: true,
+                  ),
+
+                  // 二维码名片
+                  LJNFunctionItem(
+                    title: l10n.qrCodeCard,
+                    link: '',
+                    showStyle: Expanded(
+                      flex: 1,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            const IconData(
+                              0xe74b,
+                              fontFamily: 'Iconfont',
+                            ),
+                            size: 30.w,
+                            color: AppColors.neutralGrey45,
                           ),
-                          size: 30.w,
-                          color: AppColors.neutralGrey45,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
+                    underline: true,
                   ),
-                  underline: true,
-                ),
 
-                // 更多信息
-                LJNFunctionItem(
-                  title: l10n.moreInfo,
-                  link: '/user_more_info',
-                  underline: false,
-                ),
-
-                SizedBox(height: 16.w),
+                  // 更多信息
+                  LJNFunctionItem(
+                    title: l10n.moreInfo,
+                    link: '/user_more_info',
+                    underline: false,
+                  ),
+                ]),
 
                 // 来电铃声
-                LJNFunctionItem(
-                  title: l10n.callRingtone,
-                  link: '',
-                  showStyle: 'SISTER  - JAVA',
-                  underline: false,
-                ),
-
-                SizedBox(height: 16.w),
+                LJNFunctionList(children: [
+                  // 来电铃声
+                  LJNFunctionItem(
+                    title: l10n.callRingtone,
+                    link: '',
+                    showStyle: 'SISTER  - JAVA',
+                    underline: false,
+                  ),
+                ]),
 
                 // 微信豆
-                LJNFunctionItem(
-                  title: l10n.wechatBeans,
-                  link: '',
-                  showStyle: l10n.wechatBeanCount(3),
-                  underline: false,
-                ),
-
-                SizedBox(height: 16.w),
+                LJNFunctionList(children: [
+                  // 微信豆
+                  LJNFunctionItem(
+                    title: l10n.wechatBeans,
+                    link: '',
+                    showStyle: l10n.wechatBeanCount(3),
+                    underline: false,
+                  ),
+                ]),
 
                 // 我的地址
-                LJNFunctionItem(
-                  title: l10n.myAddresses,
-                  link: '',
-                  underline: true,
-                ),
+                LJNFunctionList(
+                  children: [
+                    // 我的地址
+                    LJNFunctionItem(
+                      title: l10n.myAddresses,
+                      link: '',
+                      underline: true,
+                    ),
 
-                // 我的发票抬头
-                LJNFunctionItem(
-                  title: l10n.myInvoiceTitles,
-                  link: '',
-                  underline: false,
+                    // 我的发票抬头
+                    LJNFunctionItem(
+                      title: l10n.myInvoiceTitles,
+                      link: '',
+                      underline: false,
+                    ),
+                  ],
                 ),
               ],
             ),

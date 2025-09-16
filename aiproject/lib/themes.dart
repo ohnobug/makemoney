@@ -280,7 +280,7 @@ ThemeData lightTheme = ThemeData(
     scrolledUnderElevation: 0,
     centerTitle: true,
     toolbarHeight: 90.w,
-    backgroundColor: AppColors.neutralGrey11,
+    backgroundColor: AppColors.neutralGrey2,
     foregroundColor: AppColors.neutralNearBlack1,
     elevation: 0,
     iconTheme: const IconThemeData(color: AppColors.neutralNearBlack1),

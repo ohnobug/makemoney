@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_special_function_item.dart';
 import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
@@ -48,62 +49,75 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                 parent: BouncingScrollPhysics(),
               ),
               child: Column(children: [
-                LJNFunctionItem(
-                  title: l10n.useEarpieceToPlayVoice,
-                  // link: '',
-                  underline: true,
-                  tapEffect: false,
-                  showStyle: Expanded(
-                    flex: 0,
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 32).w,
-                      child: LJNSwitch(
-                        initialValue: false,
-                        onChanged: (value) {
-                          logger.info(value);
-                        },
+                LJNFunctionList(
+                  children: [
+                    // 使用听筒播放语音
+                    LJNFunctionItem(
+                      title: l10n.useEarpieceToPlayVoice,
+                      // link: '',
+                      underline: true,
+                      tapEffect: false,
+                      showStyle: Expanded(
+                        flex: 0,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 32).w,
+                          child: LJNSwitch(
+                            initialValue: false,
+                            onChanged: (value) {
+                              logger.info(value);
+                            },
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                LJNSpecialFunctionItem(
-                  title: l10n.useIndependentSendButton,
-                  height: null,
-                  // link: '',
-                  subTitle: Text(
-                    l10n.sendButtonReplacedMessageFull,
-                    maxLines: 3,
-                    style: TextStyle(
-                      color: AppColors.neutralGrey35,
-                      fontSize: 24.w,
-                      overflow: TextOverflow.ellipsis,
-                      fontFamily: "AlibabaPuHuiTi",
-                    ),
-                  ),
-                  showStyle: Expanded(
-                    flex: 0,
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 32).w,
-                      child: LJNSwitch(
-                        initialValue: false,
-                        onChanged: (value) {
-                          logger.info(value);
-                        },
+
+                    // 使用独立发送按钮
+                    LJNSpecialFunctionItem(
+                      title: l10n.useIndependentSendButton,
+                      height: null,
+                      // link: '',
+                      subTitle: Text(
+                        l10n.sendButtonReplacedMessageFull,
+                        maxLines: 3,
+                        style: TextStyle(
+                          color: AppColors.neutralGrey35,
+                          fontSize: 24.w,
+                          overflow: TextOverflow.ellipsis,
+                          fontFamily: "AlibabaPuHuiTi",
+                        ),
                       ),
+                      showStyle: Expanded(
+                        flex: 0,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 32).w,
+                          child: LJNSwitch(
+                            initialValue: false,
+                            onChanged: (value) {
+                              logger.info(value);
+                            },
+                          ),
+                        ),
+                      ),
+                      underline: true,
                     ),
-                  ),
-                  underline: true,
+
+                    // 聊天背景
+                    LJNFunctionItem(
+                      title: l10n.chatBackground,
+                      link: '',
+                      underline: true,
+                    ),
+
+                    // 表情管理
+                    LJNFunctionItem(
+                      title: l10n.stickerManagement,
+                      link: '',
+                      underline: false,
+                    ),
+                  ],
                 ),
-                LJNFunctionItem(
-                  title: l10n.chatBackground,
-                  link: '',
-                  underline: true,
-                ),
-                LJNFunctionItem(
-                  title: l10n.stickerManagement,
-                  link: '',
-                  underline: false,
-                ),
+
+                // 聊天记录
                 Container(
                   alignment: Alignment.centerLeft,
                   height: 64.w,
@@ -120,17 +134,20 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                     ),
                   ),
                 ),
-                LJNFunctionItem(
-                  title: l10n.chatHistoryMigrationBackup,
-                  link: '',
-                  underline: true,
-                ),
-                LJNFunctionItem(
-                  title: l10n.clearChatHistory,
-                  link: '',
-                  underline: false,
-                ),
-                SizedBox(height: 16.w),
+
+                // 聊天记录迁移备份
+                LJNFunctionList(children: [
+                  LJNFunctionItem(
+                    title: l10n.chatHistoryMigrationBackup,
+                    link: '',
+                    underline: true,
+                  ),
+                  LJNFunctionItem(
+                    title: l10n.clearChatHistory,
+                    link: '',
+                    underline: false,
+                  ),
+                ]),
               ]),
             ),
           ),

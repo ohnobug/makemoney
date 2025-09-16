@@ -7,6 +7,7 @@ import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 import '../../widgets/ljn_function_item.dart';
 
@@ -62,111 +63,125 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                   title: l10n.remark,
                   bgColor: theme.colorScheme.surfaceContainer,
                 ),
-                LJNFunctionItem(
-                  title: l10n.remarkName,
-                  link: '/set_notes_and_labels',
-                  showStyle: "马化腾",
-                  underline: true,
-                ),
-                LJNFunctionItem(
-                  title: l10n.tags,
-                  link: '/set_friend_tags',
-                  showStyle: AppLocalizations.of(context)!
-                      .relation_classmate_or_friend,
-                  underline: true,
-                ),
-                LJNFunctionItem(
-                  title: l10n.phone,
-                  link: '/set_notes_and_labels',
-                  showStyle: "+86 18718988850",
-                  underline: true,
-                ),
-                LJNFunctionItem(
-                  title: l10n.description,
-                  link: '/set_notes_and_labels',
-                  showStyle: "-",
-                  underline: false,
-                ),
+                LJNFunctionList(children: [
+                  LJNFunctionItem(
+                    title: l10n.remarkName,
+                    link: '/set_notes_and_labels',
+                    showStyle: "马化腾",
+                    underline: true,
+                  ),
+                  LJNFunctionItem(
+                    title: l10n.tags,
+                    link: '/set_friend_tags',
+                    showStyle: AppLocalizations.of(context)!
+                        .relation_classmate_or_friend,
+                    underline: true,
+                  ),
+                  LJNFunctionItem(
+                    title: l10n.phone,
+                    link: '/set_notes_and_labels',
+                    showStyle: "+86 18718988850",
+                    underline: true,
+                  ),
+                  LJNFunctionItem(
+                    title: l10n.description,
+                    link: '/set_notes_and_labels',
+                    showStyle: "-",
+                    underline: false,
+                  ),
+                ]),
                 LJNAlphabet(
                   title: l10n.moreInfo,
                   bgColor: theme.colorScheme.surfaceContainer,
                 ),
-                LJNFunctionItem(
-                  title: l10n.ourMutualGroups,
-                  link: '',
-                  showStyle: l10n.personCount(4),
-                  underline: false,
-                ),
-                LJNVerticalGap(
-                  height: 16.w,
-                ),
-                LJNFunctionItem(
-                  height: 135.w,
-                  title: l10n.signature,
-                  underline: true,
-                  link: null,
-                  showStyle: Container(
-                    // color: AppColors.accentRedPure,
-                    margin: EdgeInsets.only(right: 40.w),
-                    width: 345.w,
-                    child: Text(
-                      "A journey of a thousand miles begins with a single step.",
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        // height: 1.25,
-                        fontSize: 32.w,
-                        color: AppColors.neutralDarkGrey4,
-                      ),
-                    ),
+
+                // 我们的共同群聊
+                LJNFunctionList(children: [
+                  LJNFunctionItem(
+                    title: l10n.ourMutualGroups,
+                    link: '',
+                    showStyle: l10n.personCount(4),
+                    underline: false,
                   ),
-                ),
-                LJNFunctionItem(
-                  height: 135.w,
-                  title: l10n.source,
-                  underline: true,
-                  // link: '',
-                  link: null,
-                  showStyle: Container(
-                    // color: AppColors.accentRedPure,
-                    margin: EdgeInsets.only(right: 40.w),
-                    width: 345.w,
-                    child: Text(
-                      AppLocalizations.of(context)!
-                          .source_added_from_group_chat("Shenzhen Tencent"),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        // height: 1.25,
-                        fontSize: 32.w,
-                        color: AppColors.neutralDarkGrey4,
-                      ),
-                    ),
-                  ),
-                ),
-                LJNFunctionItem(
-                  title: l10n.addedTime,
-                  // link: '',
-                  link: null,
-                  underline: false,
-                  showStyle: Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(right: 40.w),
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .yearAndMonth(DateTime(2024, 10)),
-                        style: TextStyle(
-                          height: 1.08,
-                          fontSize: fontSizeScale(32.0.w),
-                          fontFamily: "AlibabaPuHuiTi",
-                          color: AppColors.neutralDarkGrey7,
+                ]),
+
+                // 签名、来源、添加时间
+                LJNFunctionList(
+                  children: [
+                    // 签名
+                    LJNFunctionItem(
+                      height: 135.w,
+                      title: l10n.signature,
+                      underline: true,
+                      link: null,
+                      showStyle: Container(
+                        // color: AppColors.accentRedPure,
+                        margin: EdgeInsets.only(right: 40.w),
+                        width: 345.w,
+                        child: Text(
+                          "A journey of a thousand miles begins with a single step.",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            // height: 1.25,
+                            fontSize: 32.w,
+                            color: AppColors.neutralDarkGrey4,
+                          ),
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                  ),
+
+                    // 来源
+                    LJNFunctionItem(
+                      height: 135.w,
+                      title: l10n.source,
+                      underline: true,
+                      // link: '',
+                      link: null,
+                      showStyle: Container(
+                        // color: AppColors.accentRedPure,
+                        margin: EdgeInsets.only(right: 40.w),
+                        width: 345.w,
+                        child: Text(
+                          AppLocalizations.of(context)!
+                              .source_added_from_group_chat("Shenzhen Tencent"),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            // height: 1.25,
+                            fontSize: 32.w,
+                            color: AppColors.neutralDarkGrey4,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // 添加时间
+                    LJNFunctionItem(
+                      title: l10n.addedTime,
+                      // link: '',
+                      link: null,
+                      underline: false,
+                      showStyle: Expanded(
+                        child: Container(
+                          margin: EdgeInsets.only(right: 40.w),
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            AppLocalizations.of(context)!
+                                .yearAndMonth(DateTime(2024, 10)),
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(32.0.w),
+                              fontFamily: "AlibabaPuHuiTi",
+                              color: AppColors.neutralDarkGrey7,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ],
             ),

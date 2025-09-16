@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_special_function_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
@@ -48,88 +49,92 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
                 ),
-                child: Column(
-                  children: [
-                    BlocBuilder<LJNUserCubit, LJNUserState>(
-                      builder: (context, userState) {
+                child: BlocBuilder<LJNUserCubit, LJNUserState>(
+                  builder: (context, userState) {
+                    return Column(
+                      children: [
                         // 账户与安全
-                        return LJNFunctionItem(
-                          title: l10n.wechatID,
-                          link: '/accountinfo',
-                          showStyle: userState.userinfoAccount,
-                          underline: true,
-                        );
-                      },
-                    ),
+                        LJNFunctionList(
+                          children: [
+                            LJNFunctionItem(
+                              title: l10n.wechatID,
+                              link: '/accountinfo',
+                              showStyle: userState.userinfoAccount,
+                              underline: true,
+                            ),
 
-                    BlocBuilder<LJNUserCubit, LJNUserState>(
-                      builder: (context, userState) {
-                        // 手机号
-                        return LJNFunctionItem(
-                          title: l10n.phoneNumber,
-                          link: '/phone_number',
-                          showStyle: userState.userinfoPhone,
-                          underline: false,
-                        );
-                      },
-                    ),
-
-                    SizedBox(height: 16.w),
-
-                    // 微信密码
-                    LJNFunctionItem(
-                      title: l10n.wechatPassword,
-                      link: '/set_password',
-                      underline: true,
-                    ),
-                    // 声音锁
-                    LJNFunctionItem(
-                      title: l10n.voiceprint,
-                      link: '/sound_lock',
-                      underline: false,
-                    ),
-
-                    SizedBox(height: 16.w),
-
-                    // 应急联系人
-                    LJNFunctionItem(
-                      title: l10n.emergencyContacts,
-                      link: '/emergency_contact',
-                      underline: true,
-                    ),
-                    // 登录过的设备
-                    LJNFunctionItem(
-                      title: l10n.loggedInDevices,
-                      link: '/logged_devices',
-                      underline: true,
-                    ),
-                    // 更多安全设置
-                    LJNFunctionItem(
-                      title: l10n.moreSecuritySettings,
-                      link: '/more_secure_setting',
-                      underline: false,
-                    ),
-
-                    SizedBox(height: 16.w),
-
-                    // 微信安全中心
-                    LJNSpecialFunctionItem(
-                      title: l10n.wechatSecurityCenter,
-                      height: null,
-                      link: '',
-                      subTitle: Text(
-                        l10n.securityGuidanceFull,
-                        maxLines: 3,
-                        style: TextStyle(
-                          color: AppColors.neutralGrey35,
-                          fontSize: 24.w,
-                          overflow: TextOverflow.ellipsis,
-                          fontFamily: "AlibabaPuHuiTi",
+                            // 手机号
+                            LJNFunctionItem(
+                              title: l10n.phoneNumber,
+                              link: '/phone_number',
+                              showStyle: userState.userinfoPhone,
+                              underline: false,
+                            ),
+                          ],
                         ),
-                      ),
-                      underline: false,
-                    ),
-                  ],
+
+                        // 微信密码
+                        LJNFunctionList(
+                          children: [
+                            LJNFunctionItem(
+                              title: l10n.wechatPassword,
+                              link: '/set_password',
+                              underline: true,
+                            ),
+                            // 声音锁
+                            LJNFunctionItem(
+                              title: l10n.voiceprint,
+                              link: '/sound_lock',
+                              underline: false,
+                            ),
+                          ],
+                        ),
+
+                        // 应急联系人
+                        LJNFunctionList(
+                          children: [
+                            LJNFunctionItem(
+                              title: l10n.emergencyContacts,
+                              link: '/emergency_contact',
+                              underline: true,
+                            ),
+                            // 登录过的设备
+                            LJNFunctionItem(
+                              title: l10n.loggedInDevices,
+                              link: '/logged_devices',
+                              underline: true,
+                            ),
+                            // 更多安全设置
+                            LJNFunctionItem(
+                              title: l10n.moreSecuritySettings,
+                              link: '/more_secure_setting',
+                              underline: false,
+                            ),
+                          ],
+                        ),
+
+                        // 微信安全中心
+                        LJNFunctionList(children: [
+                          LJNSpecialFunctionItem(
+                            title: l10n.wechatSecurityCenter,
+                            height: null,
+                            link: '',
+                            subTitle: Text(
+                              l10n.securityGuidanceFull,
+                              maxLines: 3,
+                              style: TextStyle(
+                                color: AppColors.neutralGrey35,
+                                fontSize: 24.w,
+                                overflow: TextOverflow.ellipsis,
+                                fontFamily: "AlibabaPuHuiTi",
+                              ),
+                            ),
+                            underline: false,
+                          ),
+                        ]),
+                      ],
+                    );
+                  },
                 ),
               ),
             ),

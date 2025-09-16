@@ -4,6 +4,7 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -86,38 +87,43 @@ class _LJNSoundLock extends State<LJNSoundLock> {
                       ),
                       child: Column(
                         children: [
-                          LJNFunctionItem(
-                            title: AppLocalizations.of(context)!
-                                .loginWithVoiceprint,
-                            tapEffect: false,
-                            underline: true,
-                            backgroundColor: AppColors.neutralGrey2,
-                            showStyle: Expanded(
-                              flex: 0,
-                              child: Container(
-                                margin: const EdgeInsets.only(right: 32).w,
-                                child: LJNSwitch(
-                                  initialValue: false,
-                                  onChanged: (value) {
-                                    logger.info(value);
-                                  },
+                          LJNFunctionList(children: [
+                            // 语音锁
+                            LJNFunctionItem(
+                              title: l10n.loginWithVoiceprint,
+                              tapEffect: false,
+                              underline: true,
+                              // backgroundColor: AppColors.neutralGrey2,
+                              showStyle: Expanded(
+                                flex: 0,
+                                child: Container(
+                                  margin: const EdgeInsets.only(right: 32).w,
+                                  child: LJNSwitch(
+                                    initialValue: false,
+                                    onChanged: (value) {
+                                      logger.info(value);
+                                    },
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          LJNFunctionItem(
-                            title: l10n.resetAndRemove,
-                            link: '',
-                            backgroundColor: AppColors.neutralGrey2,
-                            underline: true,
-                          ),
-                          LJNFunctionItem(
-                            title: AppLocalizations.of(context)!
-                                .tryToVerifyMyVoice,
-                            link: '',
-                            backgroundColor: AppColors.neutralGrey2,
-                            underline: false,
-                          ),
+
+                            // 重置并移除
+                            LJNFunctionItem(
+                              title: l10n.resetAndRemove,
+                              link: '',
+                              // backgroundColor: AppColors.neutralGrey2,
+                              underline: true,
+                            ),
+
+                            // 尝试验证我的声音
+                            LJNFunctionItem(
+                              title: l10n.tryToVerifyMyVoice,
+                              link: '',
+                              // backgroundColor: AppColors.neutralGrey2,
+                              underline: false,
+                            ),
+                          ])
                         ],
                       ),
                     )

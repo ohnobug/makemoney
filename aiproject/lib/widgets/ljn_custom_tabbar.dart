@@ -214,7 +214,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 child: Container(
                   height: 106.w,
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceContainer,
+                    color: theme.appBarTheme.backgroundColor,
                     border: Border(
                       top: BorderSide(
                         color: theme.dividerColor,
@@ -223,7 +223,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                     ),
                   ),
                   child: TabBar(
-                    dividerColor: theme.colorScheme.surfaceContainer,
+                    dividerColor: theme.appBarTheme.backgroundColor,
                     labelColor: theme.tabBarTheme.labelColor,
                     labelStyle: theme.tabBarTheme.labelStyle,
                     unselectedLabelColor:

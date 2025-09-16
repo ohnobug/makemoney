@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,15 +61,16 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                   90.w -
                   systemState.statusHeight),
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                AppColors.neutralWhite,
-                theme.colorScheme.surfaceContainer
-              ],
-              stops: [0.3, 0.5],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+            color: theme.colorScheme.surfaceContainer,
+            // gradient: LinearGradient(
+            //   colors: [
+            //     AppColors.neutralWhite,
+            //     theme.colorScheme.surfaceContainer
+            //   ],
+            //   stops: [0.3, 0.5],
+            //   begin: Alignment.topCenter,
+            //   end: Alignment.bottomCenter,
+            // ),
           ),
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
@@ -80,6 +82,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                   height: 202.w,
                   width: 750.w,
                   padding: EdgeInsets.only(left: 25.w, right: 25.w),
+                  color: theme.colorScheme.surface,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -124,89 +127,113 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                     ],
                   ),
                 ),
-                Container(
-                    color: theme.colorScheme.surfaceContainer, height: 16.w),
-                LJNFunctionItem(
-                  title: l10n.findChatHistory,
-                  link: '',
-                  underline: false,
+
+                // 查找聊天记录
+                LJNFunctionList(
+                  children: [
+                    LJNFunctionItem(
+                      title: l10n.findChatHistory,
+                      link: '',
+                      underline: false,
+                    )
+                  ],
                 ),
-                Container(
-                    color: theme.colorScheme.surfaceContainer, height: 16.w),
-                LJNFunctionItem(
-                  title: l10n.muteNotifications,
-                  // link: '',
-                  underline: true,
-                  tapEffect: false,
-                  showStyle: Expanded(
-                    flex: 0,
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 32).w,
-                      child: LJNSwitch(
-                        initialValue: false,
-                        onChanged: (value) {
-                          logger.info(value);
-                        },
+
+                // 消息设置
+                LJNFunctionList(
+                  children: [
+                    // 静音
+                    LJNFunctionItem(
+                      title: l10n.muteNotifications,
+                      // link: '',
+                      underline: true,
+                      tapEffect: false,
+                      showStyle: Expanded(
+                        flex: 0,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 32).w,
+                          child: LJNSwitch(
+                            initialValue: false,
+                            onChanged: (value) {
+                              logger.info(value);
+                            },
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                LJNFunctionItem(
-                  title: l10n.pinToTop,
-                  // link: '',
-                  underline: true,
-                  tapEffect: false,
-                  showStyle: Expanded(
-                    flex: 0,
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 32).w,
-                      child: LJNSwitch(
-                        initialValue: false,
-                        onChanged: (value) {
-                          logger.info(value);
-                        },
+                    // 置顶
+                    LJNFunctionItem(
+                      title: l10n.pinToTop,
+                      // link: '',
+                      underline: true,
+                      tapEffect: false,
+                      showStyle: Expanded(
+                        flex: 0,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 32).w,
+                          child: LJNSwitch(
+                            initialValue: false,
+                            onChanged: (value) {
+                              logger.info(value);
+                            },
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                LJNFunctionItem(
-                  title: l10n.alert,
-                  // link: '',
-                  underline: false,
-                  tapEffect: false,
-                  showStyle: Expanded(
-                    flex: 0,
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 32).w,
-                      child: LJNSwitch(
-                        initialValue: false,
-                        onChanged: (value) {
-                          logger.info(value);
-                        },
+
+                    // 消息提醒
+                    LJNFunctionItem(
+                      title: l10n.alert,
+                      // link: '',
+                      underline: false,
+                      tapEffect: false,
+                      showStyle: Expanded(
+                        flex: 0,
+                        child: Container(
+                          margin: const EdgeInsets.only(right: 32).w,
+                          child: LJNSwitch(
+                            initialValue: false,
+                            onChanged: (value) {
+                              logger.info(value);
+                            },
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-                Container(
-                    color: theme.colorScheme.surfaceContainer, height: 16.w),
-                LJNFunctionItem(
-                  title: l10n.setChatBackground,
-                  link: '',
-                  underline: false,
+
+                // 设置聊天背景
+                LJNFunctionList(
+                  children: [
+                    LJNFunctionItem(
+                      title: l10n.setChatBackground,
+                      link: '',
+                      underline: false,
+                    ),
+                  ],
                 ),
-                Container(
-                    color: theme.colorScheme.surfaceContainer, height: 16.w),
-                LJNFunctionItem(
-                  title: l10n.clearChatHistory,
-                  link: '',
-                  underline: false,
+
+                // 清除聊天记录
+                LJNFunctionList(
+                  children: [
+                    LJNFunctionItem(
+                      title: l10n.clearChatHistory,
+                      link: '',
+                      underline: false,
+                    ),
+                  ],
                 ),
-                Container(
-                    color: theme.colorScheme.surfaceContainer, height: 16.w),
-                LJNFunctionItem(
-                  title: l10n.complain,
-                  link: '',
-                  underline: false,
+
+                // 投诉
+                LJNFunctionList(
+                  children: [
+                    LJNFunctionItem(
+                      title: l10n.complain,
+                      link: '',
+                      underline: false,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -227,15 +254,16 @@ class IconBox extends StatelessWidget {
       width: 105.w,
       alignment: Alignment.topLeft,
       child: DottedBorder(
-        // color: AppColors.neutralGrey47,
-        // borderType: BorderType.RRect,
-        // padding: const EdgeInsets.all(0),
-        // borderPadding: const EdgeInsets.all(0),
-        // stackFit: StackFit.loose,
-        // strokeWidth: 3.w,
-        // dashPattern: [16.w, 10.w],
-        // strokeCap: StrokeCap.round,
-        // radius: Radius.circular(8.0.w),
+        options: RoundedRectDottedBorderOptions(
+          color: AppColors.neutralGrey47,
+          padding: const EdgeInsets.all(0),
+          borderPadding: const EdgeInsets.all(0),
+          stackFit: StackFit.loose,
+          strokeWidth: 2.5.w,
+          dashPattern: [16.w, 10.w],
+          strokeCap: StrokeCap.round,
+          radius: Radius.circular(8.0.w),
+        ),
         child: SizedBox(
           width: 105.0.w, // 设置宽度
           height: 105.0.w, // 设置高度

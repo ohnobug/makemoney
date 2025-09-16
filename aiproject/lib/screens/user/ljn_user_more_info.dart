@@ -7,6 +7,7 @@ import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import '../../widgets/ljn_function_item.dart';
 
 class LJNUserMoreInfo extends StatefulWidget {
@@ -57,63 +58,81 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
             ),
             child: Column(
               children: [
-                LJNFunctionItem(
-                  title: l10n.gender,
-                  link: '',
-                  showStyle: l10n.male,
-                  underline: false,
-                ),
-                LJNFunctionItem(
-                  title: l10n.region,
-                  link: '',
-                  showStyle: l10n.guangdongGuangzhou,
-                  underline: false,
-                ),
-                LJNFunctionItem(
-                  height: 135.w,
-                  title: l10n.personalSignature,
-                  // link: '',
-                  showStyle: Container(
-                    // color: AppColors.accentRedPure,
-                    margin: EdgeInsets.only(right: 40.w),
-                    width: 345.w,
-                    child: Text(
-                      "为者常成，行者常至。",
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.end,
-                      style: TextStyle(
-                        // height: 1.25,
-                        fontSize: 32.w,
-                        color: AppColors.neutralDarkGrey4,
-                      ),
-                    ),
+                // 性别
+                LJNFunctionList(children: [
+                  // 性别
+                  LJNFunctionItem(
+                    title: l10n.gender,
+                    link: '',
+                    showStyle: l10n.male,
+                    underline: false,
                   ),
-                  underline: true,
-                ),
-                LJNFunctionItem(
-                  title: l10n.registrationTime,
-                  // link: '',
-                  showStyle: Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(right: 40.w),
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .yearAndMonth(DateTime(2023, 12)),
-                        style: TextStyle(
-                          height: 1.08,
-                          fontSize: fontSizeScale(32.0.w),
-                          fontFamily: "AlibabaPuHuiTi",
-                          color: AppColors.neutralDarkGrey7,
+                ]),
+
+                // 地区
+                LJNFunctionList(children: [
+                  // 地区
+                  LJNFunctionItem(
+                    title: l10n.region,
+                    link: '',
+                    showStyle: l10n.guangdongGuangzhou,
+                    underline: false,
+                  ),
+                ]),
+
+                // 个人签名及注册时间
+                LJNFunctionList(
+                  children: [
+                    // 个人签名
+                    LJNFunctionItem(
+                      height: 135.w,
+                      title: l10n.personalSignature,
+                      // link: '',
+                      showStyle: Container(
+                        // color: AppColors.accentRedPure,
+                        margin: EdgeInsets.only(right: 40.w),
+                        width: 345.w,
+                        child: Text(
+                          "为者常成，行者常至。",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            // height: 1.25,
+                            fontSize: 32.w,
+                            color: AppColors.neutralDarkGrey4,
+                          ),
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
                       ),
+                      underline: true,
                     ),
-                  ),
-                  underline: false,
-                ),
+
+                    // 注册时间
+                    LJNFunctionItem(
+                      title: l10n.registrationTime,
+                      // link: '',
+                      showStyle: Expanded(
+                        child: Container(
+                          margin: EdgeInsets.only(right: 40.w),
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            AppLocalizations.of(context)!
+                                .yearAndMonth(DateTime(2023, 12)),
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(32.0.w),
+                              fontFamily: "AlibabaPuHuiTi",
+                              color: AppColors.neutralDarkGrey7,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                      underline: false,
+                    ),
+                  ],
+                )
               ],
             ),
           ),
@@ -133,28 +152,19 @@ class IconBox extends StatelessWidget {
       width: 105.w,
       alignment: Alignment.topLeft,
       child: DottedBorder(
-        // color: AppColors.neutralGrey47,
-        // borderType: BorderType.RRect,
-        // padding: const EdgeInsets.all(0),
-        // borderPadding: const EdgeInsets.all(0),
-        // stackFit: StackFit.loose,
-        // strokeWidth: 3.w,
-        // dashPattern: [16.w, 10.w],
-        // strokeCap: StrokeCap.round,
-        // radius: Radius.circular(8.0.w),
+        options: RoundedRectDottedBorderOptions(
+          color: AppColors.neutralGrey47,
+          padding: const EdgeInsets.all(0),
+          borderPadding: const EdgeInsets.all(0),
+          stackFit: StackFit.loose,
+          strokeWidth: 2.5.w,
+          dashPattern: [16.w, 10.w],
+          strokeCap: StrokeCap.round,
+          radius: Radius.circular(8.0.w),
+        ),
         child: SizedBox(
           width: 105.0.w, // 设置宽度
           height: 105.0.w, // 设置高度
-          // decoration: BoxDecoration(
-          //   color: AppColors.transparent, // 背景透明
-          //   borderRadius: BorderRadius.circular(8.0.w), // 圆角 8
-          //   border: Border.all(
-          //     color: AppColors.neutralGrey47, // 边框颜色
-          //     width: 1.0.w,
-          //     style: BorderStyle.solid, // 边框样式
-          //   ),
-          //   shape: BoxShape.rectangle, // 矩形盒子
-          // ),
           child: Center(
             child: Icon(
               const IconData(

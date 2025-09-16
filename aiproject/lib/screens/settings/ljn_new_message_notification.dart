@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,145 +53,183 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                     Container(
                       alignment: Alignment.centerLeft,
                       height: 64.w,
-                      padding:
-                          const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
-                              .w,
+                      padding: const EdgeInsets.only(
+                        left: 30.0,
+                        right: 0.0,
+                        top: 16,
+                      ).w,
                       child: Text(
                         l10n.notificationToggle,
-                        style: TextStyle(fontSize: 25.w, height: 1.08),
+                        style: TextStyle(
+                          fontSize: 25.w,
+                          height: 1.08,
+                        ),
                       ),
                     ),
 
-                    LJNFunctionItem(
-                      title: AppLocalizations.of(context)!
-                          .receiveNewMessageNotifications,
-                      // link: '',
-                      underline: true,
-                      tapEffect: false,
-                      showStyle: Expanded(
-                        flex: 0,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 32).w,
-                          child: LJNSwitch(
-                            initialValue: true,
-                            onChanged: (value) {
-                              logger.info(value);
-                            },
+                    // 通知开关
+                    LJNFunctionList(
+                      children: [
+                        // 新消息通知
+                        LJNFunctionItem(
+                          title: l10n.receiveNewMessageNotifications,
+                          // link: '',
+                          underline: true,
+                          tapEffect: false,
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: LJNSwitch(
+                                initialValue: true,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    LJNFunctionItem(
-                      title: AppLocalizations.of(context)!
-                          .receiveVoiceVideoCallInvites,
-                      // link: '',
-                      underline: false,
-                      tapEffect: false,
-                      showStyle: Expanded(
-                        flex: 0,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 32).w,
-                          child: LJNSwitch(
-                            initialValue: true,
-                            onChanged: (value) {
-                              logger.info(value);
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 16.w),
 
-                    LJNFunctionItem(
-                      title: AppLocalizations.of(context)!
-                          .notificationShowMessageDetails,
-                      // link: '',
-                      underline: false,
-                      tapEffect: false,
-                      showStyle: Expanded(
-                        flex: 0,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 32).w,
-                          child: LJNSwitch(
-                            initialValue: true,
-                            onChanged: (value) {
-                              logger.info(value);
-                            },
+                        // 接收语音视频通话邀请
+                        LJNFunctionItem(
+                          title: l10n.receiveVoiceVideoCallInvites,
+                          // link: '',
+                          underline: false,
+                          tapEffect: false,
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: LJNSwitch(
+                                initialValue: true,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
+                    ),
+
+                    // 显示消息详情
+                    LJNFunctionList(
+                      children: [
+                        // 显示消息详情
+                        LJNFunctionItem(
+                          title: l10n.notificationShowMessageDetails,
+                          // link: '',
+                          underline: false,
+                          tapEffect: false,
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: LJNSwitch(
+                                initialValue: true,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
 
                     Container(
                       alignment: Alignment.centerLeft,
                       height: 64.w,
-                      padding:
-                          const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
-                              .w,
+                      padding: const EdgeInsets.only(
+                        left: 30.0,
+                        right: 0.0,
+                        top: 16,
+                      ).w,
                       child: Text(
                         l10n.soundAndVibration,
-                        style: TextStyle(fontSize: 25.w, height: 1.08),
+                        style: TextStyle(
+                          fontSize: 25.w,
+                          height: 1.08,
+                        ),
                       ),
                     ),
 
                     // 声音与震动
-                    LJNFunctionItem(
-                      title: AppLocalizations.of(context)!
-                          .newMessageSystemNotification,
-                      link: '',
-                      underline: true,
-                      showStyle: l10n.goToSystemSettings,
-                    ),
-                    LJNFunctionItem(
-                      title: l10n.voiceVideoCallAlerts,
-                      link: '',
-                      underline: false,
-                      showStyle: l10n.goToSystemSettings,
-                    ),
+                    LJNFunctionList(children: [
+                      // 新消息系统通知
+                      LJNFunctionItem(
+                        title: AppLocalizations.of(context)!
+                            .newMessageSystemNotification,
+                        link: '',
+                        underline: true,
+                        showStyle: l10n.goToSystemSettings,
+                      ),
+                      // 语音视频通话提醒
+                      LJNFunctionItem(
+                        title: l10n.voiceVideoCallAlerts,
+                        link: '',
+                        underline: false,
+                        showStyle: l10n.goToSystemSettings,
+                      ),
+                    ]),
 
                     Container(
                       alignment: Alignment.centerLeft,
                       height: 64.w,
-                      padding:
-                          const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
-                              .w,
+                      padding: const EdgeInsets.only(
+                        left: 30.0,
+                        right: 0.0,
+                        top: 16,
+                      ).w,
                       child: Text(
                         l10n.alertToneAndRingtone,
-                        style: TextStyle(fontSize: 25.w, height: 1.08),
-                      ),
-                    ),
-
-                    LJNFunctionItem(
-                      title: l10n.messageTone,
-                      link: '',
-                      underline: true,
-                      showStyle: l10n.followSystem,
-                    ),
-                    LJNFunctionItem(
-                      title: l10n.callRingtone,
-                      link: '',
-                      underline: true,
-                      showStyle: "SISTER SISTER",
-                    ),
-                    LJNFunctionItem(
-                      title: l10n.friendCanHearMyRingtone,
-                      // link: '',
-                      underline: false,
-                      tapEffect: false,
-                      showStyle: Expanded(
-                        flex: 0,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 32).w,
-                          child: LJNSwitch(
-                            initialValue: true,
-                            onChanged: (value) {
-                              logger.info(value);
-                            },
-                          ),
+                        style: TextStyle(
+                          fontSize: 25.w,
+                          height: 1.08,
                         ),
                       ),
                     ),
-                    SizedBox(height: 16.w),
+
+                    // 铃声与提示音
+                    LJNFunctionList(
+                      children: [
+                        // 消息铃声
+                        LJNFunctionItem(
+                          title: l10n.messageTone,
+                          link: '',
+                          underline: true,
+                          showStyle: l10n.followSystem,
+                        ),
+
+                        // 通话铃声
+                        LJNFunctionItem(
+                          title: l10n.callRingtone,
+                          link: '',
+                          underline: true,
+                          showStyle: "SISTER SISTER",
+                        ),
+
+                        // 好友能听到我的铃声
+                        LJNFunctionItem(
+                          title: l10n.friendCanHearMyRingtone,
+                          // link: '',
+                          underline: false,
+                          tapEffect: false,
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: LJNSwitch(
+                                initialValue: true,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

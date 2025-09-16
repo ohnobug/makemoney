@@ -134,7 +134,7 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
                   const IconData(0xed9d, fontFamily: 'Iconfont'),
                   size: 30.0.w,
                   // 使用主题感知的图标颜色
-                  color: theme.hintColor,
+                  color: theme.colorScheme.onSurface.withAlpha(100),
                 ),
               )
           ],

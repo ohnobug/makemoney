@@ -13,12 +13,12 @@ class LJNVerticalGap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    // ThemeData theme = Theme.of(context);
 
     return Container(
       width: double.infinity,
       height: height ?? 16.w,
-      color: color ?? theme.colorScheme.surfaceContainer,
+      color: color ?? Colors.transparent,
     );
   }
 }

@@ -7,6 +7,7 @@ import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
@@ -50,15 +51,16 @@ class _LJNUserState extends State<LJNUser> {
           constraints: BoxConstraints(
               minHeight: MediaQuery.of(context).size.height - 106.w),
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                theme.cardTheme.color!,
-                theme.colorScheme.surfaceContainer
-              ],
-              stops: [0.3, 0.5],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
+            color: theme.colorScheme.surfaceContainer,
+            // gradient: LinearGradient(
+            //   colors: [
+            //     theme.cardTheme.color!,
+            //     theme.colorScheme.surfaceContainer
+            //   ],
+            //   stops: [0.3, 0.5],
+            //   begin: Alignment.topCenter,
+            //   end: Alignment.bottomCenter,
+            // ),
           ),
         ),
         SizedBox(
@@ -223,8 +225,7 @@ class _LJNUserState extends State<LJNUser> {
                               Row(
                                 children: [
                                   LJNStatusButton(
-                                    text:
-                                        l10n.addStatus,
+                                    text: l10n.addStatus,
                                     onPressed: () {
                                       logger.info('点击状态');
                                     },
@@ -353,67 +354,70 @@ class _LJNUserState extends State<LJNUser> {
                     ),
                   ),
 
-                  LJNVerticalGap(
-                    height: 16.w,
+                  // LJNVerticalGap(
+                  //   height: 8.w,
+                  // ),
+
+                  // 服务
+                  LJNFunctionList(
+                    children: [
+                      LJNFunctionItem(
+                        title: l10n.services,
+                        icon: "images/icon/icon1.png",
+                        link: '/services',
+                        underline: false,
+                      )
+                    ],
                   ),
 
-                  LJNFunctionItem(
-                    title: l10n.services,
-                    icon: "images/icon/icon1.png",
-                    link: '/services',
-                    underline: false,
+                  // 功能列表
+                  LJNFunctionList(
+                    children: [
+                      LJNFunctionItem(
+                        title: l10n.favorite,
+                        icon: "images/icon/icon2.png",
+                        link:
+                            "/open_miniprogram?link=${Uri.encodeComponent('https://baidu.com')}",
+                        underline: true,
+                      ),
+                      LJNFunctionItem(
+                        title: l10n.moments,
+                        icon: "images/icon/icon3.png",
+                        link: '/friendmoments',
+                        underline: true,
+                      ),
+                      LJNFunctionItem(
+                        title: l10n.channels,
+                        icon: "images/icon/icon4.png",
+                        link: '/video_player',
+                        underline: true,
+                      ),
+                      LJNFunctionItem(
+                        title: l10n.storeOrdersAndCardPack,
+                        icon: "images/icon/icon5.png",
+                        link: '/test',
+                        underline: true,
+                      ),
+                      LJNFunctionItem(
+                        title: l10n.stickers,
+                        icon: "images/icon/icon6.png",
+                        link:
+                            "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/code.html')}",
+                        underline: false,
+                      ),
+                    ],
                   ),
 
-                  LJNVerticalGap(
-                    height: 16.w,
-                  ),
-
-                  LJNFunctionItem(
-                    title: l10n.favorite,
-                    icon: "images/icon/icon2.png",
-                    link:
-                        "/open_miniprogram?link=${Uri.encodeComponent('https://baidu.com')}",
-                    underline: true,
-                  ),
-
-                  LJNFunctionItem(
-                    title: l10n.moments,
-                    icon: "images/icon/icon3.png",
-                    link: '/friendmoments',
-                    underline: true,
-                  ),
-
-                  LJNFunctionItem(
-                    title: l10n.channels,
-                    icon: "images/icon/icon4.png",
-                    link: '/video_player',
-                    underline: true,
-                  ),
-
-                  LJNFunctionItem(
-                    title: l10n.storeOrdersAndCardPack,
-                    icon: "images/icon/icon5.png",
-                    link: '/test',
-                    underline: true,
-                  ),
-
-                  LJNFunctionItem(
-                    title: l10n.stickers,
-                    icon: "images/icon/icon6.png",
-                    link:
-                        "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/code.html')}",
-                    underline: false,
-                  ),
-
-                  LJNVerticalGap(
-                    height: 16.w,
-                  ),
-
-                  LJNFunctionItem(
-                    title: l10n.settings,
-                    icon: "images/icon/icon7.png",
-                    link: '/setting',
-                    underline: false,
+                  // 设置
+                  LJNFunctionList(
+                    children: [
+                      LJNFunctionItem(
+                        title: l10n.settings,
+                        icon: "images/icon/icon7.png",
+                        link: '/setting',
+                        underline: false,
+                      )
+                    ],
                   ),
                 ],
               ),

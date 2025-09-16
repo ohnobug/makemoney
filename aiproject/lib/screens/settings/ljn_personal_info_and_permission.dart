@@ -5,6 +5,7 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import '../../widgets/ljn_function_item.dart';
 
 class LJNPersonalinfoAndPermission extends StatefulWidget {
@@ -49,37 +50,49 @@ class _LJNPersonalinfoAndPermission
                 ),
                 child: Column(
                   children: [
-                    LJNFunctionItem(
-                      title: AppLocalizations.of(context)!
-                          .systemPermissionManagement,
-                      link: '',
-                      underline: true,
-                      tapEffect: true,
+                    LJNFunctionList(
+                      children: [
+                        // 系统权限管理
+                        LJNFunctionItem(
+                          title: l10n.systemPermissionManagement,
+                          link: '',
+                          underline: true,
+                          tapEffect: true,
+                        ),
+                        // 授权管理
+                        LJNFunctionItem(
+                          title: l10n.authorizationManagement,
+                          link: '',
+                          underline: false,
+                          tapEffect: true,
+                        ),
+                      ],
                     ),
-                    LJNFunctionItem(
-                      title:
-                          l10n.authorizationManagement,
-                      link: '',
-                      underline: false,
-                      tapEffect: true,
-                    ),
-                    SizedBox(height: 16.w),
-                    LJNFunctionItem(
-                      title: AppLocalizations.of(context)!
-                          .personalizedAdManagement,
-                      link: '',
-                      underline: false,
-                      tapEffect: true,
-                    ),
-                    SizedBox(height: 16.w),
-                    LJNFunctionItem(
-                      title: AppLocalizations.of(context)!
-                          .browseAndExportPersonalInfo,
-                      link: '',
-                      underline: false,
-                      tapEffect: true,
-                    ),
+
+                    // 个性化广告管理
+                    LJNFunctionList(children: [
+                      // 个性化广告管理
+                      LJNFunctionItem(
+                        title: l10n.personalizedAdManagement,
+                        link: '',
+                        underline: false,
+                        tapEffect: true,
+                      ),
+                    ]),
+
+                    // 浏览和导出个人信息
+                    LJNFunctionList(children: [
+                      // 浏览和导出个人信息
+                      LJNFunctionItem(
+                        title: l10n.browseAndExportPersonalInfo,
+                        link: '',
+                        underline: false,
+                        tapEffect: true,
+                      ),
+                    ]),
+
                     SizedBox(height: 920.w),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

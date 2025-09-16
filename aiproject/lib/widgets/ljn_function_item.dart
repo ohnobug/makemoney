@@ -128,7 +128,10 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                 width: 40.0.w,
                 height: 40.0.w,
                 margin: widget.margin ??
-                    const EdgeInsets.only(left: 30.0, right: 0.0).w,
+                    const EdgeInsets.only(
+                      left: 30.0,
+                      right: 0.0,
+                    ).w,
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   image: DecorationImage(
@@ -168,7 +171,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                               child: Text(
                                 widget.title as String,
                                 style: TextStyle(
-                                  height: 1.08.w,
+                                  height: 1.08,
                                   fontSize: fontSizeScale(32.0.w),
                                   fontFamily: "AlibabaPuHuiTi",
                                 ),
@@ -196,19 +199,24 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                               ),
                             )
                           : widget.showStyle as Widget,
+
+                    // 显示右侧箭头
                     if ([null, true].contains(widget.showLinkIcon) &&
                         widget.link != null)
                       Container(
                         width: 30.w,
                         height: widget.height ?? 105.0.w,
-                        margin: const EdgeInsets.only(left: 10, right: 32).w,
+                        margin: const EdgeInsets.only(
+                          left: 10,
+                          right: 32,
+                        ).w,
                         child: Icon(
                           const IconData(
                             0xed9d,
                             fontFamily: 'Iconfont',
                           ),
                           size: 29.0.w,
-                          color: AppColors.neutralGrey50,
+                          color: theme.colorScheme.onSurface.withAlpha(100),
                         ),
                       )
                   ],

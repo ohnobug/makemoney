@@ -7,6 +7,7 @@ import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 import '../../widgets/ljn_function_item.dart';
 
@@ -57,80 +58,86 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
             ),
             child: Column(
               children: [
-                LJNFunctionItem(
-                  title: l10n.ourMutualGroupChats,
-                  link: '',
-                  showStyle: l10n.groupCount(4),
-                  underline: false,
-                ),
-                LJNVerticalGap(
-                  height: 16.w,
-                ),
-                LJNFunctionItem(
-                  height: 135.w,
-                  title: l10n.personalSignature,
-                  // link: '',
-                  showStyle: Container(
-                    // color: AppColors.accentRedPure,
-                    margin: EdgeInsets.only(right: 40.w),
-                    width: 345.w,
-                    child: Text(
-                      "为者常成，行者常至。",
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        // height: 1.25,
-                        fontSize: 32.w,
-                        color: AppColors.neutralDarkGrey4,
-                      ),
-                    ),
+                // 我们的共同群聊
+                LJNFunctionList(children: [
+                  LJNFunctionItem(
+                    title: l10n.ourMutualGroupChats,
+                    link: '',
+                    showStyle: l10n.groupCount(4),
+                    underline: false,
                   ),
-                  underline: true,
-                ),
-                LJNFunctionItem(
-                  height: 135.w,
-                  title: l10n.source,
-                  // link: '',
-                  showStyle: Container(
-                    // color: AppColors.accentRedPure,
-                    margin: EdgeInsets.only(right: 40.w),
-                    width: 345.w,
-                    child: Text(
-                      AppLocalizations.of(context)!
-                          .source_added_from_group_chat("深圳腾讯公司董事会"),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        // height: 1.25,
-                        fontSize: 32.w,
-                        color: AppColors.neutralDarkGrey4,
-                      ),
-                    ),
-                  ),
-                  underline: true,
-                ),
-                LJNFunctionItem(
-                  title: l10n.addedTime,
-                  // link: '',
-                  showStyle: Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(right: 40.w),
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        AppLocalizations.of(context)!
-                            .yearAndMonth(DateTime(2023, 12)),
-                        style: TextStyle(
-                          height: 1.08,
-                          fontSize: fontSizeScale(32.0.w),
-                          fontFamily: "AlibabaPuHuiTi",
-                          color: AppColors.neutralDarkGrey7,
+                ]),
+
+                // 个人签名、来源、添加时间
+                LJNFunctionList(
+                  children: [
+                    LJNFunctionItem(
+                      height: 135.w,
+                      title: l10n.personalSignature,
+                      // link: '',
+                      showStyle: Container(
+                        // color: AppColors.accentRedPure,
+                        margin: EdgeInsets.only(right: 40.w),
+                        width: 345.w,
+                        child: Text(
+                          "为者常成，行者常至。",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            // height: 1.25,
+                            fontSize: 32.w,
+                            color: AppColors.neutralDarkGrey4,
+                          ),
                         ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
                       ),
+                      underline: true,
                     ),
-                  ),
-                  underline: false,
+                    LJNFunctionItem(
+                      height: 135.w,
+                      title: l10n.source,
+                      // link: '',
+                      showStyle: Container(
+                        // color: AppColors.accentRedPure,
+                        margin: EdgeInsets.only(right: 40.w),
+                        width: 345.w,
+                        child: Text(
+                          AppLocalizations.of(context)!
+                              .source_added_from_group_chat("深圳腾讯公司董事会"),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            // height: 1.25,
+                            fontSize: 32.w,
+                            color: AppColors.neutralDarkGrey4,
+                          ),
+                        ),
+                      ),
+                      underline: true,
+                    ),
+                    LJNFunctionItem(
+                      title: l10n.addedTime,
+                      // link: '',
+                      showStyle: Expanded(
+                        child: Container(
+                          margin: EdgeInsets.only(right: 40.w),
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            AppLocalizations.of(context)!
+                                .yearAndMonth(DateTime(2023, 12)),
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: fontSizeScale(32.0.w),
+                              fontFamily: "AlibabaPuHuiTi",
+                              color: AppColors.neutralDarkGrey7,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                      underline: false,
+                    ),
+                  ],
                 ),
               ],
             ),

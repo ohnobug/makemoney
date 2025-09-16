@@ -4,6 +4,7 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import '../../widgets/ljn_function_item.dart';
 
 class LJNMoreSecureSetting extends StatefulWidget {
@@ -46,25 +47,35 @@ class _LJNAaccountAndSecure extends State<LJNMoreSecureSetting> {
                 ),
                 child: Column(
                   children: [
-                    LJNFunctionItem(
-                      title: l10n.qqId,
-                      link: '/',
-                      showStyle: "2281551151",
-                      underline: true,
+                    // QQ号、邮箱地址
+                    LJNFunctionList(
+                      children: [
+                        // QQ号
+                        LJNFunctionItem(
+                          title: l10n.qqId,
+                          link: '/',
+                          showStyle: "2281551151",
+                          underline: true,
+                        ),
+                        // 邮箱地址
+                        LJNFunctionItem(
+                          title: l10n.emailAddress,
+                          link: '/',
+                          showStyle: l10n.notBound,
+                          underline: false,
+                        ),
+                      ],
                     ),
-                    LJNFunctionItem(
-                      title: l10n.emailAddress,
-                      link: '/',
-                      showStyle: l10n.notBound,
-                      underline: false,
-                    ),
-                    SizedBox(height: 16.w),
-                    LJNFunctionItem(
-                      title: AppLocalizations.of(context)!
-                          .mobileSecurityProtection,
-                      link: '/',
-                      underline: false,
-                    ),
+
+                    // 手机安全保护
+                    LJNFunctionList(children: [
+                      // 手机安全保护
+                      LJNFunctionItem(
+                        title: l10n.mobileSecurityProtection,
+                        link: '/',
+                        underline: false,
+                      ),
+                    ]),
                   ],
                 ),
               ),

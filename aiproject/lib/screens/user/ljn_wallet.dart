@@ -6,6 +6,7 @@ import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import '../../widgets/ljn_function_item.dart';
 import '../../tools/ljn_tools.dart';
 
@@ -75,154 +76,167 @@ class _LJNWallet extends State<LJNWallet> {
             ),
             child: Column(
               children: [
-                // 余额
-                LJNFunctionItem(
-                  title: l10n.balance,
-                  icon: "images/icon/discovery_icon1.png",
-                  link: '/pocketmoney',
-                  showStyle: Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              WidgetSpan(
-                                child: SizedBox(
-                                  width: 22.w,
-                                  child: Icon(
-                                    const IconData(
-                                      0xe90d,
-                                      fontFamily: 'Iconfont',
-                                    ),
-                                    size: 25.w, // 图标大小
-                                  ),
-                                ),
-                                alignment:
-                                    PlaceholderAlignment.middle, // 使图标与文本垂直居中对齐
-                              ),
+                // 余额、余额宝、银行卡、扫一扫
+                LJNFunctionList(
+                  children: [
+                    // 余额
+                    LJNFunctionItem(
+                      title: l10n.balance,
+                      icon: "images/icon/discovery_icon1.png",
+                      link: '/pocketmoney',
+                      showStyle: Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text.rich(
                               TextSpan(
-                                text: context
-                                    .read<LJNUserCubit>()
-                                    .state
-                                    .walletBalance
-                                    .toString(),
-                                style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(29.w),
-                                  color: theme.colorScheme.onSurface,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "LJNFont",
-                                ),
-                              ),
-                            ],
-                          ),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
-                    ),
-                  ),
-                  underline: true,
-                ),
-
-                // 视频号、直播
-                LJNFunctionItem(
-                  title: l10n.balancePlus,
-                  icon: "images/icon/discovery_icon2.png",
-                  link: '',
-                  showStyle: SizedBox(
-                    width: 480.w,
-                    // color: AppColors.accentRedPure,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: AppLocalizations.of(context)!
-                                      .label_yield("1.64%"),
-                                  style: TextStyle(
-                                    height: 1.08,
-                                    fontSize: fontSizeScale(23.w),
-                                    color: AppColors.accentOrangeDark,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Text.rich(
-                            TextSpan(
-                              children: [
-                                WidgetSpan(
-                                  child: SizedBox(
-                                    width: 22.w,
-                                    child: Icon(
-                                      const IconData(
-                                        0xe90d,
-                                        fontFamily: 'Iconfont',
+                                children: [
+                                  WidgetSpan(
+                                    child: SizedBox(
+                                      width: 22.w,
+                                      child: Icon(
+                                        const IconData(
+                                          0xe90d,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        size: 25.w, // 图标大小
                                       ),
-                                      size: 25.w, // 图标大小
+                                    ),
+                                    alignment: PlaceholderAlignment
+                                        .middle, // 使图标与文本垂直居中对齐
+                                  ),
+                                  TextSpan(
+                                    text: context
+                                        .read<LJNUserCubit>()
+                                        .state
+                                        .walletBalance
+                                        .toString(),
+                                    style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(29.w),
+                                      color: theme.colorScheme.onSurface,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "LJNFont",
                                     ),
                                   ),
-                                  alignment: PlaceholderAlignment
-                                      .middle, // 使图标与文本垂直居中对齐
-                                ),
+                                ],
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          ],
+                        ),
+                      ),
+                      underline: true,
+                    ),
+
+                    // 视频号、直播
+                    LJNFunctionItem(
+                      title: l10n.balancePlus,
+                      icon: "images/icon/discovery_icon2.png",
+                      link: '',
+                      showStyle: SizedBox(
+                        width: 480.w,
+                        // color: AppColors.accentRedPure,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text.rich(
                                 TextSpan(
-                                  text: context
-                                      .read<LJNUserCubit>()
-                                      .state
-                                      .walletFoundationBalance
-                                      .toString(),
-                                  style: TextStyle(
-                                    height: 1.08,
-                                    fontSize: fontSizeScale(29.w),
-                                    color: theme.colorScheme.onSurface,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "LJNFont",
-                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!
+                                          .label_yield("1.64%"),
+                                      style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(23.w),
+                                        color: AppColors.accentOrangeDark,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            textAlign: TextAlign.center,
-                          )
-                        ]),
-                  ),
-                  underline: true,
-                ),
-                LJNFunctionItem(
-                  title: l10n.bankCards,
-                  icon: "images/icon/discovery_icon3.png",
-                  link: '',
-                  underline: true,
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    WidgetSpan(
+                                      child: SizedBox(
+                                        width: 22.w,
+                                        child: Icon(
+                                          const IconData(
+                                            0xe90d,
+                                            fontFamily: 'Iconfont',
+                                          ),
+                                          size: 25.w, // 图标大小
+                                        ),
+                                      ),
+                                      alignment: PlaceholderAlignment
+                                          .middle, // 使图标与文本垂直居中对齐
+                                    ),
+                                    TextSpan(
+                                      text: context
+                                          .read<LJNUserCubit>()
+                                          .state
+                                          .walletFoundationBalance
+                                          .toString(),
+                                      style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(29.w),
+                                        color: theme.colorScheme.onSurface,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "LJNFont",
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
+                              )
+                            ]),
+                      ),
+                      underline: true,
+                    ),
+
+                    // 银行卡
+                    LJNFunctionItem(
+                      title: l10n.bankCards,
+                      icon: "images/icon/discovery_icon3.png",
+                      link: '',
+                      underline: true,
+                    ),
+
+                    // 扫一扫、听一听
+                    LJNFunctionItem(
+                      title: l10n.familyCard,
+                      icon: "images/icon/discovery_icon4.png",
+                      link: '',
+                      underline: false,
+                    ),
+                  ],
                 ),
 
-                // 扫一扫、听一听
-                LJNFunctionItem(
-                  title: l10n.familyCard,
-                  icon: "images/icon/discovery_icon4.png",
-                  link: '',
-                  underline: false,
+                // 支付分
+                LJNFunctionList(
+                  children: [
+                    LJNFunctionItem(
+                      title: l10n.paymentScore,
+                      icon: "images/icon/discovery_icon5.png",
+                      link: '',
+                      underline: false,
+                    ),
+                  ],
                 ),
-
-                SizedBox(height: 16.w),
-
-                LJNFunctionItem(
-                  title: l10n.paymentScore,
-                  icon: "images/icon/discovery_icon5.png",
-                  link: '',
-                  underline: false,
-                ),
-                SizedBox(height: 16.w),
 
                 // 消费者保护
-                LJNFunctionItem(
-                  title: l10n.consumerProtection,
-                  icon: "images/icon/discovery_icon6.png",
-                  link: '',
-                  underline: false,
+                LJNFunctionList(
+                  children: [
+                    LJNFunctionItem(
+                      title: l10n.consumerProtection,
+                      icon: "images/icon/discovery_icon6.png",
+                      link: '',
+                      underline: false,
+                    ),
+                  ],
                 ),
               ],
             ),

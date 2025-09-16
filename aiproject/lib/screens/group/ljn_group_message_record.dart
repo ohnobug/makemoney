@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
@@ -45,354 +46,400 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
-        builder: (context, systemState) {
-      return Scaffold(
-        primary: false,
-        appBar: LJNAppBar(title: l10n.chatMessages),
-        body: ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-          child: Container(
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height -
-                  90.w -
-                  systemState.statusHeight,
-            ),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  AppColors.neutralWhite,
-                  theme.colorScheme.surfaceContainer
-                ],
-                stops: [0.3, 0.5],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+      builder: (context, systemState) {
+        return Scaffold(
+          primary: false,
+          appBar: LJNAppBar(title: l10n.chatMessages),
+          body: ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: Container(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height -
+                    90.w -
+                    systemState.statusHeight,
               ),
-            ),
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics(),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    AppColors.neutralWhite,
+                    theme.colorScheme.surfaceContainer
+                  ],
+                  stops: [0.3, 0.5],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
               ),
-              child: Column(
-                children: [
-                  Container(
-                    height: 202.w,
-                    width: 750.w,
-                    padding: EdgeInsets.only(left: 25.w, right: 25.w),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 105.w,
-                          height: 140.w,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8).w,
-                                child: Image.asset(
-                                  assetPath('images/avatar_webp/chat_20.webp'),
-                                  cacheWidth: 210.w.toInt(),
-                                  cacheHeight: 210.w.toInt(),
-                                  width: 105.w,
-                                  height: 105.w,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 13.w,
-                              ),
-                              Text(
-                                '赵长鹏赵长鹏赵长鹏赵长鹏赵长鹏',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: 20.w,
-                                  color: AppColors.neutralGrey46,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 37.w,
-                        ),
-                        SizedBox(
-                          width: 105.w,
-                          height: 140.w,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8).w,
-                                child: Image.asset(
-                                  assetPath('images/avatar_webp/chat_21.webp'),
-                                  cacheWidth: 210.w.toInt(),
-                                  cacheHeight: 210.w.toInt(),
-                                  width: 105.w,
-                                  height: 105.w,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 13.w,
-                              ),
-                              Text(
-                                '郭亮',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: 20.w,
-                                  color: AppColors.neutralGrey46,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 37.w,
-                        ),
-                        SizedBox(
-                          width: 105.w,
-                          height: 140.w,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8).w,
-                                child: Image.asset(
-                                  assetPath('images/avatar_webp/chat_25.webp'),
-                                  cacheWidth: 210.w.toInt(),
-                                  cacheHeight: 210.w.toInt(),
-                                  width: 105.w,
-                                  height: 105.w,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 13.w,
-                              ),
-                              Text(
-                                '马化腾',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: 20.w,
-                                  color: AppColors.neutralGrey46,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 37.w,
-                        ),
-                        SizedBox(
-                          width: 105.w,
-                          height: 140.w,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8).w,
-                                child: Image.asset(
-                                  assetPath('images/avatar_webp/chat_28.webp'),
-                                  cacheWidth: 210.w.toInt(),
-                                  cacheHeight: 210.w.toInt(),
-                                  width: 105.w,
-                                  height: 105.w,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 13.w,
-                              ),
-                              Text(
-                                '雷军',
-                                style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: 20.w,
-                                  color: AppColors.neutralGrey46,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 37.w,
-                        ),
-                        const IconBox()
-                      ],
-                    ),
-                  ),
-                  LJNVerticalGap(
-                    height: 16.w,
-                  ),
-                  LJNFunctionItem(
-                    title: l10n.groupChatName,
-                    link: '',
-                    showStyle: "请说英语",
-                    underline: true,
-                  ),
-                  LJNFunctionItem(
-                    title: l10n.groupQRCode,
-                    link: '',
-                    showStyle: Expanded(
-                      flex: 1,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics(),
+                ),
+                child: Column(
+                  children: [
+                    // 群成员头像
+                    Container(
+                      height: 202.w,
+                      width: 750.w,
+                      padding: EdgeInsets.only(left: 25.w, right: 25.w),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(
-                            const IconData(
-                              0xe74b,
-                              fontFamily: 'Iconfont',
+                          SizedBox(
+                            width: 105.w,
+                            height: 140.w,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8).w,
+                                  child: Image.asset(
+                                    assetPath(
+                                        'images/avatar_webp/chat_20.webp'),
+                                    cacheWidth: 210.w.toInt(),
+                                    cacheHeight: 210.w.toInt(),
+                                    width: 105.w,
+                                    height: 105.w,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 13.w,
+                                ),
+                                Text(
+                                  '赵长鹏赵长鹏赵长鹏赵长鹏赵长鹏',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: 20.w,
+                                    color: AppColors.neutralGrey46,
+                                  ),
+                                )
+                              ],
                             ),
-                            size: 30.w,
-                            color: AppColors.neutralGrey45,
                           ),
+                          SizedBox(
+                            width: 37.w,
+                          ),
+                          SizedBox(
+                            width: 105.w,
+                            height: 140.w,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8).w,
+                                  child: Image.asset(
+                                    assetPath(
+                                        'images/avatar_webp/chat_21.webp'),
+                                    cacheWidth: 210.w.toInt(),
+                                    cacheHeight: 210.w.toInt(),
+                                    width: 105.w,
+                                    height: 105.w,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 13.w,
+                                ),
+                                Text(
+                                  '郭亮',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: 20.w,
+                                    color: AppColors.neutralGrey46,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 37.w,
+                          ),
+                          SizedBox(
+                            width: 105.w,
+                            height: 140.w,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8).w,
+                                  child: Image.asset(
+                                    assetPath(
+                                        'images/avatar_webp/chat_25.webp'),
+                                    cacheWidth: 210.w.toInt(),
+                                    cacheHeight: 210.w.toInt(),
+                                    width: 105.w,
+                                    height: 105.w,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 13.w,
+                                ),
+                                Text(
+                                  '马化腾',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: 20.w,
+                                    color: AppColors.neutralGrey46,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 37.w,
+                          ),
+                          SizedBox(
+                            width: 105.w,
+                            height: 140.w,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8).w,
+                                  child: Image.asset(
+                                    assetPath(
+                                        'images/avatar_webp/chat_28.webp'),
+                                    cacheWidth: 210.w.toInt(),
+                                    cacheHeight: 210.w.toInt(),
+                                    width: 105.w,
+                                    height: 105.w,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 13.w,
+                                ),
+                                Text(
+                                  '雷军',
+                                  style: TextStyle(
+                                    height: 1.08,
+                                    fontSize: 20.w,
+                                    color: AppColors.neutralGrey46,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 37.w,
+                          ),
+                          const IconBox()
                         ],
                       ),
                     ),
-                    underline: true,
-                  ),
-                  LJNFunctionItem(
-                    title: l10n.groupAnnouncement,
-                    link: '',
-                    showStyle: "",
-                    underline: true,
-                  ),
-                  LJNFunctionItem(
-                    title: l10n.remark,
-                    link: '',
-                    showStyle: "",
-                    underline: false,
-                  ),
-                  Container(
-                      color: theme.colorScheme.surfaceContainer, height: 16.w),
-                  LJNFunctionItem(
-                    title: l10n.findChatHistory,
-                    link: '',
-                    showStyle: "",
-                    underline: false,
-                  ),
-                  Container(
-                      color: theme.colorScheme.surfaceContainer, height: 16.w),
-                  LJNFunctionItem(
-                    title: l10n.muteNotifications,
-                    // link: '',
-                    underline: true,
-                    tapEffect: false,
-                    showStyle: Expanded(
-                      flex: 0,
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 32).w,
-                        child: LJNSwitch(
-                          initialValue: false,
-                          onChanged: (value) {
-                            logger.info(value);
-                          },
-                        ),
+
+                    // 群聊名称、 群二维码、 群公告、 群备注
+                    LJNFunctionList(children: [
+                      // 群聊名称
+                      LJNFunctionItem(
+                        title: l10n.groupChatName,
+                        link: '',
+                        showStyle: "请说英语",
+                        underline: true,
                       ),
-                    ),
-                  ),
-                  LJNFunctionItem(
-                    title: l10n.pinToTop,
-                    // link: '',
-                    underline: true,
-                    tapEffect: false,
-                    showStyle: Expanded(
-                      flex: 0,
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 32).w,
-                        child: LJNSwitch(
-                          initialValue: false,
-                          onChanged: (value) {
-                            logger.info(value);
-                          },
+                      // 群二维码
+                      LJNFunctionItem(
+                        title: l10n.groupQRCode,
+                        link: '',
+                        showStyle: Expanded(
+                          flex: 1,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                const IconData(
+                                  0xe74b,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                size: 30.w,
+                                color: AppColors.neutralGrey45,
+                              ),
+                            ],
+                          ),
                         ),
+                        underline: true,
                       ),
-                    ),
-                  ),
-                  LJNFunctionItem(
-                    title: l10n.saveToContacts,
-                    // link: '',
-                    underline: false,
-                    tapEffect: false,
-                    showStyle: Expanded(
-                      flex: 0,
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 32).w,
-                        child: LJNSwitch(
-                          initialValue: false,
-                          onChanged: (value) {
-                            logger.info(value);
-                          },
+                      // 群公告
+                      LJNFunctionItem(
+                        title: l10n.groupAnnouncement,
+                        link: '',
+                        showStyle: "",
+                        underline: true,
+                      ),
+                      // 群备注
+                      LJNFunctionItem(
+                        title: l10n.remark,
+                        link: '',
+                        showStyle: "",
+                        underline: false,
+                      ),
+                    ]),
+
+                    // 查找聊天记录
+                    LJNFunctionList(
+                      children: [
+                        // 查找聊天记录
+                        LJNFunctionItem(
+                          title: l10n.findChatHistory,
+                          link: '',
+                          showStyle: "",
+                          underline: false,
                         ),
-                      ),
+                      ],
                     ),
-                  ),
-                  Container(
-                      color: theme.colorScheme.surfaceContainer, height: 16.w),
-                  LJNFunctionItem(
-                    title: l10n.myNicknameInGroup,
-                    link: '',
-                    showStyle: "李俊杰",
-                    underline: true,
-                  ),
-                  LJNFunctionItem(
-                    title: l10n.showGroupMemberNicknames,
-                    // link: '',
-                    underline: false,
-                    tapEffect: false,
-                    showStyle: Expanded(
-                      flex: 0,
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 32).w,
-                        child: LJNSwitch(
-                          initialValue: true,
-                          onChanged: (value) {
-                            logger.info(value);
-                          },
+
+                    // 消息设置
+                    LJNFunctionList(
+                      children: [
+                        // 消息免打扰
+                        LJNFunctionItem(
+                          title: l10n.muteNotifications,
+                          // link: '',
+                          underline: true,
+                          tapEffect: false,
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: LJNSwitch(
+                                initialValue: false,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+
+                        // 置顶聊天
+                        LJNFunctionItem(
+                          title: l10n.pinToTop,
+                          // link: '',
+                          underline: true,
+                          tapEffect: false,
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: LJNSwitch(
+                                initialValue: false,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        // 保存到通讯录
+                        LJNFunctionItem(
+                          title: l10n.saveToContacts,
+                          // link: '',
+                          underline: false,
+                          tapEffect: false,
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: LJNSwitch(
+                                initialValue: false,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Container(
-                      color: theme.colorScheme.surfaceContainer, height: 16.w),
-                  LJNFunctionItem(
-                    title: l10n.setChatBackground,
-                    link: '',
-                    underline: true,
-                  ),
-                  LJNFunctionItem(
-                    title: l10n.clearChatHistory,
-                    link: '',
-                    underline: true,
-                  ),
-                  LJNFunctionItem(
-                    title: l10n.complain,
-                    link: '',
-                    underline: false,
-                  ),
-                  Container(
-                      color: theme.colorScheme.surfaceContainer, height: 16.w),
-                  LJNMaxWidthButton(
-                    title: l10n.leaveGroup,
-                    color: AppColors.accentRedPure,
-                    underline: false,
-                  ),
-                  Container(
-                      color: theme.colorScheme.surfaceContainer, height: 50.w),
-                ],
+
+                    // 聊天设置
+                    LJNFunctionList(
+                      children: [
+                        // 我的群昵称
+                        LJNFunctionItem(
+                          title: l10n.myNicknameInGroup,
+                          link: '',
+                          showStyle: "李俊杰",
+                          underline: true,
+                        ),
+
+                        // 显示群成员昵称
+                        LJNFunctionItem(
+                          title: l10n.showGroupMemberNicknames,
+                          // link: '',
+                          underline: false,
+                          tapEffect: false,
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: LJNSwitch(
+                                initialValue: true,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    // 设置聊天背景、清空聊天记录、投诉
+                    LJNFunctionList(children: [
+                      // 设置聊天背景
+                      LJNFunctionItem(
+                        title: l10n.setChatBackground,
+                        link: '',
+                        underline: true,
+                      ),
+
+                      // 清空聊天记录
+                      LJNFunctionItem(
+                        title: l10n.clearChatHistory,
+                        link: '',
+                        underline: true,
+                      ),
+
+                      // 投诉
+                      LJNFunctionItem(
+                        title: l10n.complain,
+                        link: '',
+                        underline: false,
+                      ),
+                    ]),
+
+                    // 退出群聊
+                    LJNFunctionList(children: [
+                      // 退出群聊
+                      LJNMaxWidthButton(
+                        title: l10n.leaveGroup,
+                        color: AppColors.accentRedPure,
+                        underline: false,
+                      ),
+                    ]),
+
+                    Container(
+                      color: theme.colorScheme.surfaceContainer,
+                      height: 50.w,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }
 

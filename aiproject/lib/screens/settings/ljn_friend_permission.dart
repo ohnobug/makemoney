@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_special_function_item.dart';
 import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
@@ -51,63 +52,71 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                 ),
                 child: Column(
                   children: [
-                    LJNFunctionItem(
-                      title: AppLocalizations.of(context)!
-                          .requireVerificationWhenAdded,
-                      // link: '',
-                      underline: false,
-                      tapEffect: false,
-                      showStyle: Expanded(
-                        flex: 0,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 32).w,
-                          child: LJNSwitch(
-                            initialValue: true,
-                            onChanged: (value) {
-                              logger.info(value);
-                            },
+                    // 添加好友时需要验证
+                    LJNFunctionList(children: [
+                      // 添加好友时需要验证
+                      LJNFunctionItem(
+                        title: l10n.requireVerificationWhenAdded,
+                        // link: '',
+                        underline: false,
+                        tapEffect: false,
+                        showStyle: Expanded(
+                          flex: 0,
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 32).w,
+                            child: LJNSwitch(
+                              initialValue: true,
+                              onChanged: (value) {
+                                logger.info(value);
+                              },
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    LJNVerticalGap(
-                      height: 16.w,
-                    ),
-                    LJNFunctionItem(
-                      title: l10n.waysToAddMe,
-                      link: '',
-                      underline: true,
-                    ),
-                    LJNSpecialFunctionItem(
-                      title: l10n.recommendContactsToMe,
-                      tapEffect: false,
-                      underline: false,
-                      height: null,
-                      // link: '',
-                      subTitle: Text(
-                        AppLocalizations.of(context)!
-                            .recommendContactsMessageFull,
-                        maxLines: 3,
-                        style: TextStyle(
-                          color: AppColors.neutralGrey35,
-                          fontSize: 24.w,
-                          overflow: TextOverflow.ellipsis,
-                          fontFamily: "AlibabaPuHuiTi",
+                    ]),
+
+                    LJNFunctionList(
+                      children: [
+                        // 加我的方式
+                        LJNFunctionItem(
+                          title: l10n.waysToAddMe,
+                          link: '',
+                          underline: true,
                         ),
-                      ),
-                      showStyle: Expanded(
-                        flex: 0,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 32).w,
-                          child: LJNSwitch(
-                            initialValue: false,
-                            onChanged: (value) {
-                              logger.info(value);
-                            },
+                        // 通过手机号找到我
+                        LJNSpecialFunctionItem(
+                          title: l10n.recommendContactsToMe,
+                          tapEffect: false,
+                          underline: false,
+                          height: null,
+                          // link: '',
+                          subTitle: Text(
+                            AppLocalizations.of(context)!
+                                .recommendContactsMessageFull,
+                            maxLines: 3,
+                            style: TextStyle(
+                              color: AppColors.neutralGrey35,
+                              fontSize: 24.w,
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: "AlibabaPuHuiTi",
+                            ),
+                          ),
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: LJNSwitch(
+                                initialValue: false,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
+
                     Container(
                       alignment: Alignment.centerLeft,
                       height: 64.w,
@@ -119,40 +128,51 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                         style: TextStyle(fontSize: 25.w, height: 1.08),
                       ),
                     ),
-                    LJNFunctionItem(
-                      title: l10n.chatOnly,
-                      link: '',
-                      underline: true,
+
+                    // 只聊天、朋友圈、频道、看一看、微信运动、通讯录黑名单
+                    LJNFunctionList(
+                      children: [
+                        // 只聊天
+                        LJNFunctionItem(
+                          title: l10n.chatOnly,
+                          link: '',
+                          underline: true,
+                        ),
+                        // 朋友圈
+                        LJNFunctionItem(
+                          title: l10n.moments,
+                          link: '',
+                          underline: true,
+                        ),
+                        // 频道
+                        LJNFunctionItem(
+                          title: l10n.channels,
+                          link: '',
+                          underline: true,
+                        ),
+                        // 看一看
+                        LJNFunctionItem(
+                          title: l10n.look,
+                          link: '',
+                          underline: true,
+                        ),
+                        // 微信运动
+                        LJNFunctionItem(
+                          title: l10n.weRun,
+                          link: '',
+                          underline: true,
+                        ),
+                        LJNVerticalGap(
+                          height: 16.w,
+                        ),
+                        // 通讯录黑名单
+                        LJNFunctionItem(
+                          title: l10n.contactsBlocklist,
+                          link: '',
+                          underline: false,
+                        ),
+                      ],
                     ),
-                    LJNFunctionItem(
-                      title: l10n.moments,
-                      link: '',
-                      underline: true,
-                    ),
-                    LJNFunctionItem(
-                      title: l10n.channels,
-                      link: '',
-                      underline: true,
-                    ),
-                    LJNFunctionItem(
-                      title: l10n.look,
-                      link: '',
-                      underline: true,
-                    ),
-                    LJNFunctionItem(
-                      title: l10n.weRun,
-                      link: '',
-                      underline: true,
-                    ),
-                    LJNVerticalGap(
-                      height: 16.w,
-                    ),
-                    LJNFunctionItem(
-                      title: l10n.contactsBlocklist,
-                      link: '',
-                      underline: false,
-                    ),
-                    SizedBox(height: 16.w),
                   ],
                 ),
               ),

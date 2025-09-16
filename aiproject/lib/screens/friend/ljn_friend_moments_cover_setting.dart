@@ -4,6 +4,7 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import '../../widgets/ljn_function_item.dart';
 
 class LJNFriendMomentsCoverSetting extends StatefulWidget {
@@ -48,27 +49,32 @@ class _LJNFriendMomentsCoverSetting
                 ),
                 child: Column(
                   children: [
-                    LJNFunctionItem(
-                      title: l10n.selectFromPhoneAlbum,
-                      link: '',
-                      underline: true,
-                    ),
-                    LJNFunctionItem(
-                      title: l10n.selectFromChannels,
-                      link: '',
-                      underline: true,
-                    ),
-                    LJNFunctionItem(
-                      title: l10n.takeOne,
-                      link: '',
-                      underline: false,
-                    ),
-                    SizedBox(height: 62.w),
-                    LJNFunctionItem(
-                      title: l10n.photographerWorks,
-                      link: '',
-                      underline: false,
-                    ),
+                    // 功能列表
+                    LJNFunctionList(
+                      children: [
+                        LJNFunctionItem(
+                          title: l10n.selectFromPhoneAlbum,
+                          link: '',
+                          underline: true,
+                        ),
+                        LJNFunctionItem(
+                          title: l10n.selectFromChannels,
+                          link: '',
+                          underline: true,
+                        ),
+                        LJNFunctionItem(
+                          title: l10n.takeOne,
+                          link: '',
+                          underline: false,
+                        ),
+                        SizedBox(height: 62.w),
+                        LJNFunctionItem(
+                          title: l10n.photographerWorks,
+                          link: '',
+                          underline: false,
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),

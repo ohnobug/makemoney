@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_special_function_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
@@ -40,29 +41,27 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
       builder: (context, systemState) {
         return Scaffold(
           primary: false,
-          appBar: LJNAppBar(
-              title: l10n.loggedInDevices,
-              actions: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/bind_new_phone_number');
-                  },
-                  child: Container(
-                    // color: theme.colorScheme.onSurface,
-                    height: 90.w,
-                    padding: EdgeInsets.only(right: 40.w),
-                    alignment: Alignment.center,
-                    child: Text(
-                      l10n.edit,
-                      // textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: theme.colorScheme.onSurface,
-                          fontSize: 32.w,
-                          fontWeight: FontWeight.w100),
-                    ),
-                  ),
-                )
-              ]),
+          appBar: LJNAppBar(title: l10n.loggedInDevices, actions: [
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/bind_new_phone_number');
+              },
+              child: Container(
+                // color: theme.colorScheme.onSurface,
+                height: 90.w,
+                padding: EdgeInsets.only(right: 40.w),
+                alignment: Alignment.center,
+                child: Text(
+                  l10n.edit,
+                  // textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: theme.colorScheme.onSurface,
+                      fontSize: 32.w,
+                      fontWeight: FontWeight.w100),
+                ),
+              ),
+            )
+          ]),
           body: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -103,36 +102,40 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         ),
                       ),
                     ),
-                    LJNFunctionItem(
-                      // height: 150.w,
-                      title: "HONOR-RNA-AN100",
-                      link: '/device_detail',
-                      underline: true,
-                      showStyle: Expanded(
-                        flex: 0,
-                        child: Container(
-                          constraints: BoxConstraints(maxWidth: 375.w),
-                          child: Text(
-                            l10n.currentDevice,
-                            textAlign: TextAlign.end,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 25.w,
-                              height: 1.08,
-                              color: AppColors.neutralGrey39,
+
+                    // 当前设备
+                    LJNFunctionList(children: [
+                      LJNFunctionItem(
+                        // height: 150.w,
+                        title: "HONOR-RNA-AN100",
+                        link: '/device_detail',
+                        underline: true,
+                        showStyle: Expanded(
+                          flex: 0,
+                          child: Container(
+                            constraints: BoxConstraints(maxWidth: 375.w),
+                            child: Text(
+                              l10n.currentDevice,
+                              textAlign: TextAlign.end,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 25.w,
+                                height: 1.08,
+                                color: AppColors.neutralGrey39,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    const LJNFunctionItem(
-                      // height: 150.w,
-                      title: "iphone20",
-                      link: '/device_detail',
-                      underline: false,
-                      // showStyle: "当前设备"
-                    ),
+                      const LJNFunctionItem(
+                        // height: 150.w,
+                        title: "iphone20",
+                        link: '/device_detail',
+                        underline: false,
+                        // showStyle: "当前设备"
+                      ),
+                    ]),
                     Container(
                       alignment: Alignment.centerLeft,
                       height: 64.w,
@@ -148,124 +151,130 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         ),
                       ),
                     ),
-                    LJNSpecialFunctionItem(
-                      height: 150.w,
-                      title: "HONOR-RNA-AN100",
-                      link: '/device_detail',
-                      underline: true,
-                      subTitle: Text(
-                        formattedString,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: AppColors.neutralGrey35,
-                          fontSize: 24.w,
-                          overflow: TextOverflow.ellipsis,
-                          fontFamily: "AlibabaPuHuiTi",
+
+                    // 登出设备
+                    LJNFunctionList(
+                      children: [
+                        LJNSpecialFunctionItem(
+                          height: 150.w,
+                          title: "HONOR-RNA-AN100",
+                          link: '/device_detail',
+                          underline: true,
+                          subTitle: Text(
+                            formattedString,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: AppColors.neutralGrey35,
+                              fontSize: 24.w,
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: "AlibabaPuHuiTi",
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    LJNSpecialFunctionItem(
-                      height: 150.w,
-                      title: "HONOR-RNA-AN100",
-                      link: '/device_detail',
-                      underline: true,
-                      subTitle: Text(
-                        formattedString,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: AppColors.neutralGrey35,
-                          fontSize: 24.w,
-                          overflow: TextOverflow.ellipsis,
-                          fontFamily: "AlibabaPuHuiTi",
+                        LJNSpecialFunctionItem(
+                          height: 150.w,
+                          title: "HONOR-RNA-AN100",
+                          link: '/device_detail',
+                          underline: true,
+                          subTitle: Text(
+                            formattedString,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: AppColors.neutralGrey35,
+                              fontSize: 24.w,
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: "AlibabaPuHuiTi",
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    LJNSpecialFunctionItem(
-                      height: 150.w,
-                      title: "HONOR-RNA-AN100",
-                      link: '/device_detail',
-                      underline: true,
-                      subTitle: Text(
-                        formattedString,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: AppColors.neutralGrey35,
-                          fontSize: 24.w,
-                          overflow: TextOverflow.ellipsis,
-                          fontFamily: "AlibabaPuHuiTi",
+                        LJNSpecialFunctionItem(
+                          height: 150.w,
+                          title: "HONOR-RNA-AN100",
+                          link: '/device_detail',
+                          underline: true,
+                          subTitle: Text(
+                            formattedString,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: AppColors.neutralGrey35,
+                              fontSize: 24.w,
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: "AlibabaPuHuiTi",
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    LJNSpecialFunctionItem(
-                      height: 150.w,
-                      title: "HONOR-RNA-AN100",
-                      link: '/device_detail',
-                      underline: true,
-                      subTitle: Text(
-                        formattedString,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: AppColors.neutralGrey35,
-                          fontSize: 24.w,
-                          overflow: TextOverflow.ellipsis,
-                          fontFamily: "AlibabaPuHuiTi",
+                        LJNSpecialFunctionItem(
+                          height: 150.w,
+                          title: "HONOR-RNA-AN100",
+                          link: '/device_detail',
+                          underline: true,
+                          subTitle: Text(
+                            formattedString,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: AppColors.neutralGrey35,
+                              fontSize: 24.w,
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: "AlibabaPuHuiTi",
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    LJNSpecialFunctionItem(
-                      height: 150.w,
-                      title: "HONOR-RNA-AN100",
-                      link: '/device_detail',
-                      underline: true,
-                      subTitle: Text(
-                        formattedString,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: AppColors.neutralGrey35,
-                          fontSize: 24.w,
-                          overflow: TextOverflow.ellipsis,
-                          fontFamily: "AlibabaPuHuiTi",
+                        LJNSpecialFunctionItem(
+                          height: 150.w,
+                          title: "HONOR-RNA-AN100",
+                          link: '/device_detail',
+                          underline: true,
+                          subTitle: Text(
+                            formattedString,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: AppColors.neutralGrey35,
+                              fontSize: 24.w,
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: "AlibabaPuHuiTi",
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    LJNSpecialFunctionItem(
-                      height: 150.w,
-                      title: "HONOR-RNA-AN100",
-                      link: '/device_detail',
-                      underline: true,
-                      subTitle: Text(
-                        formattedString,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: AppColors.neutralGrey35,
-                          fontSize: 24.w,
-                          overflow: TextOverflow.ellipsis,
-                          fontFamily: "AlibabaPuHuiTi",
+                        LJNSpecialFunctionItem(
+                          height: 150.w,
+                          title: "HONOR-RNA-AN100",
+                          link: '/device_detail',
+                          underline: true,
+                          subTitle: Text(
+                            formattedString,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: AppColors.neutralGrey35,
+                              fontSize: 24.w,
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: "AlibabaPuHuiTi",
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    LJNSpecialFunctionItem(
-                      height: 150.w,
-                      title: "HONOR-RNA-AN100",
-                      link: '/device_detail',
-                      underline: true,
-                      subTitle: Text(
-                        formattedString,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: AppColors.neutralGrey35,
-                          fontSize: 24.w,
-                          overflow: TextOverflow.ellipsis,
-                          fontFamily: "AlibabaPuHuiTi",
+                        LJNSpecialFunctionItem(
+                          height: 150.w,
+                          title: "HONOR-RNA-AN100",
+                          link: '/device_detail',
+                          underline: true,
+                          subTitle: Text(
+                            formattedString,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: AppColors.neutralGrey35,
+                              fontSize: 24.w,
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: "AlibabaPuHuiTi",
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),
