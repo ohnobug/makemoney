@@ -107,7 +107,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                             right: 50.w,
                           ),
                           height: 95.w,
-                          width: MediaQuery.of(context).size.width,
+                          width: 750.w,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -118,7 +118,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                   border: Border(
                                     bottom: BorderSide(
                                       color: theme.dividerColor,
-                                      width: 1.5.w,
+                                      width: 1.0.w,
                                       style: BorderStyle.solid,
                                     ),
                                   ),
@@ -169,20 +169,20 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                     isDense: true,
                                     border: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                        width: 1.5.w,
+                                        width: 1.0.w,
                                         color: theme.dividerColor,
                                       ),
                                     ),
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                        width: 1.5.w,
+                                        width: 1.0.w,
                                         color: theme.dividerColor,
                                       ),
                                     ),
                                     // 获取焦点时的底线样式
                                     focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                        width: 1.5.w,
+                                        width: 1.0.w,
                                         color: theme.dividerColor,
                                       ),
                                     ),

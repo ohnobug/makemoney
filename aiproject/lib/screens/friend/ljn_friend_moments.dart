@@ -667,7 +667,7 @@ class _TweetWidgetState extends State<TweetWidget> {
           border: Border(
             bottom: BorderSide(
               color: theme.dividerColor, // 使用主题的分隔线颜色
-              width: 1.5.w,
+              width: 1.0.w,
             ),
           ),
         ),
@@ -708,6 +708,7 @@ class _TweetWidgetState extends State<TweetWidget> {
 
                         // 朋友圈文本内容
                         LJNTextSpans(
+                          maxLines: 15,
                           text: widget.tweetContent,
                           style: TextStyle(
                             height: 1.4,

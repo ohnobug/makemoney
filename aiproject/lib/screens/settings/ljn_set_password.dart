@@ -256,19 +256,19 @@ class _FormInputRow extends StatelessWidget {
                 border: UnderlineInputBorder(
                   // 统一样式
                   borderSide: BorderSide(
-                    width: 1.5.w,
+                    width: 1.0.w,
                     color: theme.dividerColor,
                   ),
                 ),
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                    width: 1.5.w,
+                    width: 1.0.w,
                     color: theme.dividerColor,
                   ),
                 ),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                    width: 1.5.w,
+                    width: 1.0.w,
                     color: theme.dividerColor,
                   ),
                 ),

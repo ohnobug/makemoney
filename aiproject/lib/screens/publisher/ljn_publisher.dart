@@ -73,9 +73,14 @@ class LJNPublisher extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(12.r),
+      borderRadius: BorderRadius.circular(
+        12.r,
+      ),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
+        padding: EdgeInsets.symmetric(
+          horizontal: 20.w,
+          vertical: 24.h,
+        ),
         decoration: BoxDecoration(
           color: theme.colorScheme.surfaceContainerHighest.withAlpha(128),
           borderRadius: BorderRadius.circular(12.r),

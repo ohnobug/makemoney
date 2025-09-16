@@ -92,7 +92,7 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
             bottom: widget.underline
                 ? BorderSide(
                     color: theme.dividerColor,
-                    width: 1.5.w,
+                    width: 1.0.w,
                   )
                 : BorderSide.none,
           ),
@@ -131,7 +131,10 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
                 margin:
                     EdgeInsets.only(left: 10.w), // Add left margin for spacing
                 child: Icon(
-                  const IconData(0xed9d, fontFamily: 'Iconfont'),
+                  const IconData(
+                    0xed9d,
+                    fontFamily: 'Iconfont',
+                  ),
                   size: 30.0.w,
                   // 使用主题感知的图标颜色
                   color: theme.colorScheme.onSurface.withAlpha(100),

@@ -431,7 +431,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
             color: Colors.transparent,
             borderRadius: BorderRadius.all(Radius.circular(30.w)),
             border: Border.all(
-              width: 1.5.w,
+              width: 1.0.w,
               color: theme.dividerColor,
             ),
           ),

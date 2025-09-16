@@ -316,7 +316,7 @@ class _LJNSearch extends State<LJNSearch> {
                     ),
                     SizedBox(height: 110.w),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width,
+                      width: 750.w,
                       height: (staticHotData.length * (72.w + 15.w) + 90.w),
                       child: PageView(
                         scrollDirection: Axis.horizontal,
@@ -347,7 +347,7 @@ class _LJNSearch extends State<LJNSearch> {
                 key: hotTitleBoxKey,
                 alignment: Alignment.center,
                 height: 110.w,
-                width: MediaQuery.of(context).size.width,
+                width: 750.w,
                 child: SingleChildScrollView(
                   controller: hotTitleBoxController,
                   primary: false,
@@ -406,7 +406,7 @@ class _LJNSearch extends State<LJNSearch> {
           ),
         ),
       ),
-      width: MediaQuery.of(context).size.width,
+      width: 750.w,
       padding: EdgeInsets.fromLTRB(
         30.w,
         10.w,
@@ -469,7 +469,7 @@ class _LJNSearch extends State<LJNSearch> {
             ],
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width,
+            width: 750.w,
             child: Wrap(
               children: data.map((item) {
                 return SizedBox(
@@ -510,7 +510,7 @@ class _LJNSearch extends State<LJNSearch> {
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
     return Container(
-      width: MediaQuery.of(context).size.width,
+      width: 750.w,
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         children: [
@@ -622,7 +622,7 @@ class _LJNSearch extends State<LJNSearch> {
             },
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width,
+            width: 750.w,
             height: 90.w,
             child: Center(
               child: Text(

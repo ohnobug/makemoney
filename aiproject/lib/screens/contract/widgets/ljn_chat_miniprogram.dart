@@ -91,7 +91,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
         }
 
         return Container(
-          width: MediaQuery.of(context).size.width,
+          width: 750.w,
           height: systemState.homescrollpixels +
               (90.w + systemState.statusHeight + 200.w),
           color: Color.fromARGB((255 * 0.8).toInt(), 50, 48, 70),
@@ -231,7 +231,8 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                               0xed9d,
                                               fontFamily: 'Iconfont',
                                             ),
-                                            color: AppColors.neutralGrey41,
+                                            color: theme.colorScheme.onSurface
+                                                .withAlpha(100),
                                             size: 26.w,
                                           ),
                                         ),

@@ -73,7 +73,7 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
                       child: Container(
                         padding: EdgeInsets.only(left: 50.w, right: 50.w),
                         height: 95.w,
-                        width: MediaQuery.of(context).size.width,
+                        width: 750.w,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -99,20 +99,20 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
                                   isDense: true,
                                   border: UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                      width: 1.5.w,
+                                      width: 1.0.w,
                                       color: theme.dividerColor,
                                     ),
                                   ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                      width: 1.5.w,
+                                      width: 1.0.w,
                                       color: theme.dividerColor,
                                     ),
                                   ),
                                   // 获取焦点时的底线样式
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
-                                      width: 1.5.w,
+                                      width: 1.0.w,
                                       color: theme.dividerColor,
                                     ),
                                   ),

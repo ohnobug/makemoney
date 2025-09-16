@@ -63,7 +63,7 @@ class _LJNUserState extends State<LJNUser> {
           ),
         ),
         SizedBox(
-          width: MediaQuery.of(context).size.width,
+          width: 750.w,
           height: MediaQuery.of(context).size.height,
           child: ScrollConfiguration(
             behavior:
@@ -197,7 +197,9 @@ class _LJNUserState extends State<LJNUser> {
                                                   fontFamily: 'Iconfont',
                                                 ),
                                                 size: 23.w,
-                                                color: AppColors.neutralGrey45,
+                                                color: theme
+                                                    .colorScheme.onSurface
+                                                    .withAlpha(100),
                                               ),
                                               SizedBox(width: 43.w),
                                               Icon(
@@ -206,7 +208,9 @@ class _LJNUserState extends State<LJNUser> {
                                                   fontFamily: 'Iconfont',
                                                 ),
                                                 size: 28.w,
-                                                color: AppColors.neutralGrey45,
+                                                color: theme
+                                                    .colorScheme.onSurface
+                                                    .withAlpha(100),
                                               ),
                                             ],
                                           ),

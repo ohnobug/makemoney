@@ -314,7 +314,7 @@ ThemeData lightTheme = ThemeData(
           borderRadius: BorderRadius.circular(8.0.w),
           side: BorderSide(
             color: AppColors.brandGreenLightest,
-            width: 1.5.w,
+            width: 1.0.w,
             style: BorderStyle.solid,
           ),
         ),
@@ -352,9 +352,9 @@ ThemeData lightTheme = ThemeData(
       ),
       // 设置边框颜色和宽度
       side: WidgetStateProperty.all<BorderSide>(
-        const BorderSide(
+        BorderSide(
           color: AppColors.brandGreenLightest, // 亮色模式下的边框颜色
-          width: 1.0,
+          width: 1.0.w,
         ),
       ),
       // **核心**：处理不同状态下的颜色
@@ -385,7 +385,7 @@ ThemeData lightTheme = ThemeData(
       borderRadius: BorderRadius.circular(12.0.w),
       side: BorderSide(
         color: AppColors.brandGreenLightest,
-        width: 1.5.w,
+        width: 1.0.w,
         style: BorderStyle.solid,
       ),
     ),
@@ -394,7 +394,7 @@ ThemeData lightTheme = ThemeData(
     shape: RoundedRectangleBorder(
       side: BorderSide(
         color: AppColors.brandGreenLightest,
-        width: 1.5.w,
+        width: 1.0.w,
         style: BorderStyle.solid,
       ),
     ),
@@ -482,7 +482,7 @@ ThemeData darkTheme = ThemeData(
           borderRadius: BorderRadius.circular(8.0.w),
           side: BorderSide(
             color: AppColors.brandGreenDarker1,
-            width: 1.5.w,
+            width: 1.0.w,
             style: BorderStyle.solid,
           ),
         ),
@@ -553,7 +553,7 @@ ThemeData darkTheme = ThemeData(
       borderRadius: BorderRadius.circular(12.0),
       side: BorderSide(
         color: AppColors.brandGreenDarker1,
-        width: 1.5.w,
+        width: 1.0.w,
         style: BorderStyle.solid,
       ),
     ),
@@ -562,7 +562,7 @@ ThemeData darkTheme = ThemeData(
     shape: RoundedRectangleBorder(
       side: BorderSide(
         color: AppColors.brandGreenDarker1,
-        width: 1.5.w,
+        width: 1.0.w,
         style: BorderStyle.solid,
       ),
     ),

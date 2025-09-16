@@ -66,7 +66,7 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                         parent: BouncingScrollPhysics(),
                       ),
                       child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
+                        width: 750.w,
                         // padding: EdgeInsets.only(left: 70.w, right: 70.w),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,

@@ -46,7 +46,7 @@ class _LJNCareMode extends State<LJNCareMode> {
                   parent: BouncingScrollPhysics(),
                 ),
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: 750.w,
                   // padding: EdgeInsets.only(left: 90.w, right: 90.w),
                   constraints: BoxConstraints(
                     minHeight: MediaQuery.of(context).size.height -

@@ -63,7 +63,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                     child: Container(
                       padding: EdgeInsets.only(left: 30.w, right: 30.w),
                       height: 100.w,
-                      width: MediaQuery.of(context).size.width,
+                      width: 750.w,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -90,20 +90,20 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                                 isDense: true,
                                 border: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                    width: 1.5.w,
+                                    width: 1.0.w,
                                     color: theme.dividerColor,
                                   ),
                                 ),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                    width: 1.5.w,
+                                    width: 1.0.w,
                                     color: theme.dividerColor,
                                   ),
                                 ),
                                 // 获取焦点时的底线样式
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                    width: 1.5.w,
+                                    width: 1.0.w,
                                     color: theme.dividerColor,
                                   ),
                                 ),

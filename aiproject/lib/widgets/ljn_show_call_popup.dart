@@ -11,7 +11,7 @@ void showCallPopup(BuildContext context, SystemState systemState) {
   AppLocalizations l10n = AppLocalizations.of(context)!;
 
   double widthHeightRatio =
-      MediaQuery.of(context).size.width / MediaQuery.of(context).size.height;
+      750.w / MediaQuery.of(context).size.height;
 
   showModalBottomSheet(
     context: context,

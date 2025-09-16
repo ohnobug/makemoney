@@ -965,14 +965,14 @@ class _LJNGroupChat extends State<LJNGroupChat>
                         flex: 0,
                         child: Container(
                           constraints: BoxConstraints(minHeight: 107.w),
-                          width: MediaQuery.of(context).size.width,
+                          width: 750.w,
                           // margin: EdgeInsets.only(bottom: inputMarginBottom),
                           decoration: BoxDecoration(
                             color: AppColors.neutralGrey2,
                             border: Border(
                               top: BorderSide(
                                 color: theme.dividerColor,
-                                width: 1.5.w,
+                                width: 1.0.w,
                                 style: BorderStyle.solid,
                               ),
                             ),
@@ -1432,7 +1432,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                           return Expanded(
                             flex: 0,
                             child: SizedBox(
-                                width: MediaQuery.of(context).size.width,
+                                width: 750.w,
                                 height: _keyboradAnimation.value,
                                 // color: AppColors.accentRedPure,
                                 child: showEmojiSelector
@@ -1463,7 +1463,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
               // 语音消息
               showVoiceLottie
                   ? SizedBox(
-                      width: MediaQuery.of(context).size.width,
+                      width: 750.w,
                       height: MediaQuery.of(context).size.height,
                       // padding: EdgeInsets.only(top: systemState.statusHeight),
                       child: // 图标选择器
@@ -1482,14 +1482,14 @@ class _LJNGroupChat extends State<LJNGroupChat>
                               // 背景
                               Container(
                                 color: AppColors.blackTransparent73,
-                                width: MediaQuery.of(context).size.width,
+                                width: 750.w,
                                 height: MediaQuery.of(context).size.height,
                               ),
 
                               // 动画
                               Lottie.asset(
                                 assetPath('lotties/voicepop.json'),
-                                width: MediaQuery.of(context).size.width,
+                                width: 750.w,
                                 height: MediaQuery.of(context).size.height,
                                 fit: BoxFit.contain,
                                 alignment: Alignment.bottomCenter,
@@ -1709,7 +1709,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                 bottom:
                                     270.w + _voiceLottieController.value * 30.w,
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width,
+                                  width: 750.w,
                                   alignment: Alignment.center,
                                   child: Text(
                                     l10n.releaseToSend,

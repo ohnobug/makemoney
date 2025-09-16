@@ -220,7 +220,7 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
         title: "苦命人", // 注意：这里的标题是硬编码的
       ),
       body: Container(
-        width: MediaQuery.of(context).size.width,
+        width: 750.w,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -261,9 +261,11 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              l10n.friendCount(contactDataList
-                                  .whereType<_ContactListItemData>()
-                                  .length), // 动态计算好友数量
+                              l10n.friendCount(
+                                contactDataList
+                                    .whereType<_ContactListItemData>()
+                                    .length,
+                              ), // 动态计算好友数量
                               style: TextStyle(
                                 height: 1.08,
                                 fontSize: fontSizeScale(30.w),

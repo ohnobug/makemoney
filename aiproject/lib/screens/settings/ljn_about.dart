@@ -48,7 +48,7 @@ class _LJNAbout extends State<LJNAbout> {
                   parent: BouncingScrollPhysics(),
                 ),
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: 750.w,
                   // padding: EdgeInsets.only(left: 90.w, right: 90.w),
                   constraints: BoxConstraints(
                     minHeight: MediaQuery.of(context).size.height -
@@ -59,7 +59,7 @@ class _LJNAbout extends State<LJNAbout> {
                     children: [
                       SizedBox(
                         height: 470.w,
-                        width: MediaQuery.of(context).size.width,
+                        width: 750.w,
                         // color: AppColors.accentRedPure,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -113,12 +113,12 @@ class _LJNAbout extends State<LJNAbout> {
                           border: Border(
                             top: BorderSide(
                               color: theme.dividerColor,
-                              width: 1.5.w,
+                              width: 1.0.w,
                               style: BorderStyle.solid,
                             ),
                             bottom: BorderSide(
                               color: theme.dividerColor,
-                              width: 1.5.w,
+                              width: 1.0.w,
                               style: BorderStyle.solid,
                             ),
                           ),

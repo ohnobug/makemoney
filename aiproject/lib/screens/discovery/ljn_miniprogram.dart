@@ -183,128 +183,130 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
-        builder: (context, systemState) {
-      return Scaffold(
-        appBar: null,
-        body: Stack(
-          children: [
-            // 页面本身
-            if (!kIsWeb)
-              if (Platform.isWindows)
-                Webview(
-                  _windowsWebViewController,
-                )
-              else
-                WebViewWidget(controller: webViewController),
+      builder: (context, systemState) {
+        return Scaffold(
+          appBar: null,
+          body: Stack(
+            children: [
+              // 页面本身
+              if (!kIsWeb)
+                if (Platform.isWindows)
+                  Webview(
+                    _windowsWebViewController,
+                  )
+                else
+                  WebViewWidget(controller: webViewController),
 
-            // 加载动画
-            Visibility(
-              visible: !pageVisible,
-              child: Container(
-                color: AppColors.neutralGrey40,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: Center(
-                  child: Lottie.asset(
-                    assetPath('lotties/miniprogramloading.json'),
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    // height: MediaQuery.of(context).size.height,
-                    fit: BoxFit.contain,
-                    renderCache: RenderCache.drawingCommands,
-                    controller: _lottieController,
-                    onLoaded: (composition) {
-                      // _lottieController
-                      //   ..duration = const Duration(milliseconds: 600)
-                      //   ..forward();
-                    },
+              // 加载动画
+              Visibility(
+                visible: !pageVisible,
+                child: Container(
+                  color: AppColors.neutralGrey40,
+                  width: 750.w,
+                  height: MediaQuery.of(context).size.height,
+                  child: Center(
+                    child: Lottie.asset(
+                      assetPath('lotties/miniprogramloading.json'),
+                      width: 750.w * 0.4,
+                      // height: MediaQuery.of(context).size.height,
+                      fit: BoxFit.contain,
+                      renderCache: RenderCache.drawingCommands,
+                      controller: _lottieController,
+                      onLoaded: (composition) {
+                        // _lottieController
+                        //   ..duration = const Duration(milliseconds: 600)
+                        //   ..forward();
+                      },
+                    ),
                   ),
                 ),
               ),
-            ),
 
-            // 关闭按钮
-            Positioned(
-              right: 17.w,
-              top: 90.w,
-              child: Container(
-                width: 192.w,
-                height: 64.w,
-                decoration: BoxDecoration(
-                  color: AppColors.whiteTransparent93, // 背景颜色
-                  borderRadius: BorderRadius.circular(35.w), // 圆角
-                  border: Border.all(
-                    color: AppColors.neutralGrey28, // 边框颜色
-                    width: 1.w, // 边框宽度
+              // 关闭按钮
+              Positioned(
+                right: 17.w,
+                top: 90.w,
+                child: Container(
+                  width: 192.w,
+                  height: 64.w,
+                  decoration: BoxDecoration(
+                    color: AppColors.whiteTransparent93, // 背景颜色
+                    borderRadius: BorderRadius.circular(35.w), // 圆角
+                    border: Border.all(
+                      color: AppColors.neutralGrey28, // 边框颜色
+                      width: 1.w, // 边框宽度
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            _showPopup(context, systemState);
+                          },
+                          child: Container(
+                            // 加盒子是为了扩大点击区域
+                            color: AppColors.transparent,
+                            child: Icon(
+                              const IconData(
+                                0xe620,
+                                fontFamily: 'Iconfont',
+                              ), // 使用的图标
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface, // 图标颜色
+                              size: 36.w, // 图标大小
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 2.w,
+                        height: 40.w,
+                        color: AppColors.neutralGrey22,
+                      ),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => Navigator.of(context).pop(), // 点击事件
+                          child: Container(
+                            // 加盒子是为了扩大点击区域
+                            color: AppColors.transparent,
+                            child: Icon(
+                              const IconData(
+                                0xe617,
+                                fontFamily: 'Iconfont',
+                              ), // 使用的图标
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface, // 图标颜色
+                              size: 36.w, // 图标大小
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          _showPopup(context, systemState);
-                        },
-                        child: Container(
-                          // 加盒子是为了扩大点击区域
-                          color: AppColors.transparent,
-                          child: Icon(
-                            const IconData(
-                              0xe620,
-                              fontFamily: 'Iconfont',
-                            ), // 使用的图标
-                            color:
-                                Theme.of(context).colorScheme.onSurface, // 图标颜色
-                            size: 36.w, // 图标大小
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 2.w,
-                      height: 40.w,
-                      color: AppColors.neutralGrey22,
-                    ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () => Navigator.of(context).pop(), // 点击事件
-                        child: Container(
-                          // 加盒子是为了扩大点击区域
-                          color: AppColors.transparent,
-                          child: Icon(
-                            const IconData(
-                              0xe617,
-                              fontFamily: 'Iconfont',
-                            ), // 使用的图标
-                            color:
-                                Theme.of(context).colorScheme.onSurface, // 图标颜色
-                            size: 36.w, // 图标大小
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ),
-            ),
 
-            // Container(
-            //   width: MediaQuery.of(context).size.height,
-            //   height: MediaQuery.of(context).size.width,
-            //   color: AppColors.blackTransparent40,
-            // ),
-          ],
-        ),
-      );
-    });
+              // Container(
+              //   width: MediaQuery.of(context).size.height,
+              //   height: 750.w,
+              //   color: AppColors.blackTransparent40,
+              // ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
 
 void _showPopup(BuildContext context, SystemState systemState) {
   AppLocalizations l10n = AppLocalizations.of(context)!;
   ThemeData theme = Theme.of(context);
-  double widthHeightRatio =
-      MediaQuery.of(context).size.width / MediaQuery.of(context).size.height;
+  double widthHeightRatio = 750.w / MediaQuery.of(context).size.height;
 
   Widget popupWidget = Column(
     children: [
@@ -361,7 +363,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
 
       // 评论
       Container(
-        width: MediaQuery.of(context).size.width,
+        width: 750.w,
         padding: EdgeInsets.only(
           left: 24.w,
           right: 24.w,
@@ -404,7 +406,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
       // 转发
       Container(
         color: AppColors.neutralGrey2,
-        width: MediaQuery.of(context).size.width,
+        width: 750.w,
         height: 300.w,
         padding: EdgeInsets.only(
           top: 40.w,
@@ -614,7 +616,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
       // 功能按钮
       Container(
         height: 465.w,
-        width: MediaQuery.of(context).size.width,
+        width: 750.w,
         decoration: BoxDecoration(
           color: AppColors.neutralGrey2,
           border: Border(
@@ -630,7 +632,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
         child: Column(
           children: [
             SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: 750.w,
               height: 200.w,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -784,7 +786,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
               height: 10.w,
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width,
+              width: 750.w,
               height: 200.w,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -984,7 +986,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                 MediaQuery.of(context).size.height < 1102.w
             ? SizedBox(
                 height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
+                width: 750.w,
                 child: ScrollConfiguration(
                   behavior: ScrollConfiguration.of(context)
                       .copyWith(scrollbars: false),
@@ -999,7 +1001,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
               )
             : SizedBox(
                 height: 1102.w,
-                width: MediaQuery.of(context).size.width,
+                width: 750.w,
                 child: popupWidget,
               );
       });
@@ -1078,7 +1080,7 @@ class _LJNPopupButtonMaxWidthButtonState
           },
           child: Container(
             height: 112.w,
-            width: MediaQuery.of(context).size.width,
+            width: 750.w,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: containerColor,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/widgets/ljn_alphabet.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
@@ -39,9 +40,10 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: Container(
               constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height -
-                      90.w -
-                      systemState.statusHeight),
+                minHeight: MediaQuery.of(context).size.height -
+                    90.w -
+                    systemState.statusHeight,
+              ),
               color: theme.colorScheme.surfaceContainer,
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(
@@ -106,24 +108,9 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       ),
                     ]),
 
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      height: 64.w,
-                      padding: const EdgeInsets.only(
-                        left: 30.0,
-                        right: 0.0,
-                      ).w,
-                      child: Text(
-                        l10n.privacy,
-                        style: TextStyle(
-                          fontSize: 25.w,
-                          height: 1.08,
-                        ),
-                      ),
-                    ),
-
                     // 朋友权限 与 个人信息与权限 和 个人信息收集清单 和 第三方信息共享清单
                     LJNFunctionList(
+                      title: LJNAlphabet(title: l10n.privacy),
                       children: [
                         LJNFunctionItem(
                           title: l10n.friendPermissions,

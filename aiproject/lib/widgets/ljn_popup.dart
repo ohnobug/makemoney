@@ -34,13 +34,13 @@ class _LJNPopupState extends State<LJNPopup> {
             // 背景
             Container(
               color: AppColors.blackTransparent45,
-              width: MediaQuery.of(context).size.width,
+              width: 750.w,
               height: MediaQuery.of(context).size.height,
             ),
 
             // 弹窗
             Positioned(
-              left: (MediaQuery.of(context).size.width - 603.w) / 2,
+              left: (750.w - 603.w) / 2,
               top: (MediaQuery.of(context).size.height - 495.w) / 2,
               child: Container(
                 width: 603.w,

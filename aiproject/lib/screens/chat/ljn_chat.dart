@@ -842,7 +842,7 @@ class _LJNChat extends State<LJNChat>
                                 border: Border(
                                   top: BorderSide(
                                     color: theme.dividerColor,
-                                    width: 1.5.w,
+                                    width: 1.0.w,
                                     style: BorderStyle.solid,
                                   ),
                                 ),
@@ -1426,7 +1426,7 @@ class _LJNChat extends State<LJNChat>
         border: Border(
           top: BorderSide(
             color: theme.dividerColor,
-            width: 1.5.w,
+            width: 1.0.w,
             style: BorderStyle.solid,
           ),
         ),

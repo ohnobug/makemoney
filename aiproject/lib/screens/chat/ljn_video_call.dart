@@ -177,7 +177,7 @@
 //       primary: false,
 //       body: Container(
 //         color: theme.colorScheme.onSurface54,
-//         width: MediaQuery.of(context).size.width,
+//         width: 750.w,
 //         height: MediaQuery.of(context).size.height,
 //         child: Stack(
 //           children: [
@@ -221,7 +221,7 @@
 
 //             // 三个按钮
 //             Positioned(
-//               width: MediaQuery.of(context).size.width,
+//               width: 750.w,
 //               bottom: 100.w,
 //               child: Row(
 //                 mainAxisAlignment: MainAxisAlignment.center,

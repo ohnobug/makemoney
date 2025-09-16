@@ -57,7 +57,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
       primary: false,
       appBar: null,
       body: SizedBox(
-        width: MediaQuery.of(context).size.width,
+        width: 750.w,
         height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
@@ -126,7 +126,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                             border: Border(
                               bottom: BorderSide(
                                 color: theme.dividerColor,
-                                width: 1.5.w,
+                                width: 1.0.w,
                                 style: BorderStyle.solid,
                               ),
                             ),
@@ -338,14 +338,17 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                   ),
                                 ),
                               ),
-                              underline: false,
+                              underline: true,
                             ),
 
                             // 视频号
                             LJNFunctionItem(
                               title: Container(
                                 width: 190.w,
-                                padding: EdgeInsets.only(left: 30.w, top: 38.w),
+                                padding: EdgeInsets.only(
+                                  left: 30.w,
+                                  top: 38.w,
+                                ),
                                 height: double.infinity,
                                 alignment: Alignment.topLeft,
                                 child: Text(
@@ -455,7 +458,9 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                     Container(
                                       width: 30.w,
                                       margin: EdgeInsets.only(
-                                          right: 32.w, top: 75.w),
+                                        right: 32.w,
+                                        top: 75.w,
+                                      ),
                                       child: Icon(
                                         const IconData(
                                           0xed9d,

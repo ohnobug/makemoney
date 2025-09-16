@@ -85,7 +85,7 @@ class _LJPpersonalInfoCollectionChecklist
                               border: Border(
                                 bottom: BorderSide(
                                   color: theme.dividerColor,
-                                  width: 1.5.w,
+                                  width: 1.0.w,
                                   style: BorderStyle.solid,
                                 ),
                               ),
@@ -160,7 +160,7 @@ class _LJPpersonalInfoCollectionChecklist
                               border: Border(
                                 bottom: BorderSide(
                                   color: theme.dividerColor,
-                                  width: 1.5.w,
+                                  width: 1.0.w,
                                   style: BorderStyle.solid,
                                 ),
                               ),
@@ -198,7 +198,7 @@ class _LJPpersonalInfoCollectionChecklist
                               border: Border(
                                 bottom: BorderSide(
                                   color: theme.dividerColor,
-                                  width: 1.5.w,
+                                  width: 1.0.w,
                                   style: BorderStyle.solid,
                                 ),
                               ),
@@ -242,7 +242,7 @@ class _LJPpersonalInfoCollectionChecklist
                               border: Border(
                                 bottom: BorderSide(
                                   color: theme.dividerColor,
-                                  width: 1.5.w,
+                                  width: 1.0.w,
                                   style: BorderStyle.solid,
                                 ),
                               ),
@@ -338,7 +338,7 @@ class _LJPpersonalInfoCollectionChecklist
                               border: Border(
                                 bottom: BorderSide(
                                   color: theme.dividerColor,
-                                  width: 1.5.w,
+                                  width: 1.0.w,
                                   style: BorderStyle.solid,
                                 ),
                               ),
@@ -554,7 +554,7 @@ class _LJNPCCFunctionItemState extends State<LJNPCCFunctionItem> {
                             fontFamily: 'Iconfont',
                           ),
                           size: 30.0.w,
-                          color: AppColors.neutralGrey50,
+                          color: theme.colorScheme.onSurface.withAlpha(100),
                         ),
                       )
                   ],

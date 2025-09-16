@@ -38,7 +38,6 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
     Color normalColor = theme.listTileTheme.tileColor!;
     Color pressedColor = theme.listTileTheme.selectedTileColor!;
     Color subtitleColor = theme.textTheme.bodySmall?.color ?? theme.hintColor;
-    Color iconColor = theme.hintColor;
 
     // 2. 根据内部状态 _isPressed，动态地计算出当前应该显示的背景颜色。
     Color currentColor = _isPressed ? pressedColor : normalColor;
@@ -107,7 +106,7 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                     bottom: widget.underline
                         ? BorderSide(
                             color: theme.dividerColor,
-                            width: 1.5.w,
+                            width: 1.0.w,
                           )
                         : BorderSide.none,
                   ),
@@ -152,10 +151,12 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                           right: 32.w,
                         ),
                         child: Icon(
-                          const IconData(0xed9d, fontFamily: 'Iconfont'),
+                          const IconData(
+                            0xed9d,
+                            fontFamily: 'Iconfont',
+                          ),
                           size: 30.0.w,
-                          // 使用主题感知的图标颜色
-                          color: iconColor,
+                          color: theme.colorScheme.onSurface.withAlpha(100),
                         ),
                       )
                   ],

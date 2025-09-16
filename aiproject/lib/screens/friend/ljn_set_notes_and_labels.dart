@@ -291,7 +291,8 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                     fontFamily: 'Iconfont',
                                   ),
                                   size: 30.0.w,
-                                  color: AppColors.neutralGrey44,
+                                  color: theme.colorScheme.onSurface
+                                      .withAlpha(100),
                                 ),
                               )
                             ],

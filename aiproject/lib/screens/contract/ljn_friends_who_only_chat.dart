@@ -90,7 +90,7 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
       body: Stack(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width,
+            width: 750.w,
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -206,7 +206,7 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
                     border: Border(
                       top: BorderSide(
                         color: theme.dividerColor,
-                        width: 1.5.w,
+                        width: 1.0.w,
                         style: BorderStyle.solid,
                       ),
                     ),

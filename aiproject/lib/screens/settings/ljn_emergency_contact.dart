@@ -67,7 +67,7 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
               parent: BouncingScrollPhysics(),
             ),
             child: Container(
-              width: MediaQuery.of(context).size.width,
+              width: 750.w,
               // padding: EdgeInsets.only(left: 90.w, right: 90.w),
               constraints: BoxConstraints(
                 minHeight: MediaQuery.of(context).size.height -
@@ -119,7 +119,10 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.only(left: 27.w, right: 27.w),
+                    margin: EdgeInsets.only(
+                      left: 27.w,
+                      right: 27.w,
+                    ),
                     padding: EdgeInsets.only(bottom: 35.w),
                     decoration: BoxDecoration(
                       border: Border(
@@ -133,10 +136,11 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                     child: Text(
                       l10n.learnHowToRecoverPassword,
                       style: TextStyle(
-                          height: 1.08,
-                          color: AppColors.brandPurpleDark4,
-                          fontSize: 25.w,
-                          fontFamily: "AlibabaPuHuiTi"),
+                        height: 1.08,
+                        color: AppColors.brandPurpleDark4,
+                        fontSize: 25.w,
+                        fontFamily: "AlibabaPuHuiTi",
+                      ),
                     ),
                   ),
                   SizedBox(

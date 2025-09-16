@@ -50,7 +50,7 @@ class _LJNForgotPassword extends State<LJNForgotPassword> {
                     parent: BouncingScrollPhysics(),
                   ),
                   child: Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: 750.w,
                     padding: EdgeInsets.only(
                       left: 70.w,
                       right: 70.w,

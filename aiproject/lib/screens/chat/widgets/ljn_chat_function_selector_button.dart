@@ -45,7 +45,7 @@ class _LJNFunctionSelectorButtonState extends State<LJNFunctionSelectorButton> {
         _isPressed ? pressedContainerColor : originContainerColor;
 
     return Container(
-      width: (MediaQuery.of(context).size.width) / 4,
+      width: (750.w) / 4,
       alignment: Alignment.center,
       color: currentContainerColor,
       child: Column(

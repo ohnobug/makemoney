@@ -34,7 +34,6 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
     contactList = [
       LJNAlphabet(
         title: l10n.groupChats,
-        bgColor: Theme.of(context).colorScheme.surfaceContainer,
       ),
       ChatListItem(
         friendName: "天空飘来五个字那都不是事",
@@ -284,7 +283,6 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
       ),
       LJNAlphabet(
         title: 'B',
-        bgColor: Theme.of(context).colorScheme.surfaceContainer,
       ),
       ChatListItem(
         friendName: "段延庆",
@@ -582,7 +580,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         title: l10n.groupChats,
       ),
       body: Container(
-        width: MediaQuery.of(context).size.width,
+        width: 750.w,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           gradient: LinearGradient(

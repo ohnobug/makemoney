@@ -619,7 +619,8 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                                     fontFamily: 'Iconfont',
                                   ),
                                   size: 21.0.w,
-                                  color: theme.colorScheme.onSurface,
+                                  color: theme.colorScheme.onSurface
+                                      .withAlpha(100),
                                 ))
                           ],
                         ),

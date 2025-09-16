@@ -2085,7 +2085,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                       Container(
                         color: AppColors.neutralGrey3,
                         height: 110.w,
-                        width: MediaQuery.of(context).size.width,
+                        width: 750.w,
                         child: Row(
                           children: [
                             Container(
@@ -2173,7 +2173,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                       // 调整大小的拉杆
                       Container(
                         height: 75.w,
-                        width: MediaQuery.of(context).size.width,
+                        width: 750.w,
                         alignment: Alignment.center,
                         child: Container(
                           width: 85.w,
@@ -2190,7 +2190,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
 
                       // 表情包
                       SizedBox(
-                        width: MediaQuery.of(context).size.width,
+                        width: 750.w,
                         height: 490.w,
                         child: SingleChildScrollView(
                           controller: _scrollController,
@@ -2210,9 +2210,10 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                   child: Text(
                                     l10n.recent,
                                     style: TextStyle(
-                                        fontSize: 27.w,
-                                        color: theme.colorScheme.onSurface,
-                                        height: 1.08),
+                                      fontSize: 27.w,
+                                      color: theme.colorScheme.onSurface,
+                                      height: 1.08,
+                                    ),
                                   ),
                                 ),
                                 Container(

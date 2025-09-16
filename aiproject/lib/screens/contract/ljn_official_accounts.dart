@@ -100,7 +100,7 @@ class _LJNOfficialAccountsState extends State<LJNOfficialAccounts> {
       body: Stack(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width,
+            width: 750.w,
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
               gradient: LinearGradient(

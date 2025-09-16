@@ -393,7 +393,7 @@ class _BigImageBox extends State<BigImageBox> {
       child: Stack(
         children: [
           Container(
-            width: (MediaQuery.of(context).size.width - 2.w) / 3,
+            width: (750.w - 2.w) / 3,
             height: 500.w,
             color: const Color.fromARGB(255, 247, 247, 247),
             child: Image.asset(
@@ -445,7 +445,7 @@ class SmallImageBox extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-              width: (MediaQuery.of(context).size.width - 2.w) / 3,
+              width: (750.w - 2.w) / 3,
               height: (500.w - 1.w) / 2,
               color: const Color.fromARGB(255, 247, 247, 247),
               child: Image.asset(
@@ -535,7 +535,7 @@ class _VideoBox extends State<VideoBox> {
       child: Stack(
         children: [
           Container(
-            width: (MediaQuery.of(context).size.width - 2.w) / 3,
+            width: (750.w - 2.w) / 3,
             height: 500.w,
             color: const Color.fromARGB(255, 247, 247, 247),
             child: VlcPlayer(
@@ -627,9 +627,9 @@ class _LJNInsStyle extends State<LJNInsStyle> {
           if (widget.bigImgPosition == 1) {
             dx = 0;
           } else if (widget.bigImgPosition == 2) {
-            dx = ((MediaQuery.of(context).size.width - 2.w) / 3) + 1.w;
+            dx = ((750.w - 2.w) / 3) + 1.w;
           } else if (widget.bigImgPosition == 3) {
-            dx = ((MediaQuery.of(context).size.width - 2.w) / 3) * 2 + 2.w;
+            dx = ((750.w - 2.w) / 3) * 2 + 2.w;
           }
 
           videoState?.setOffset(Offset(dx, position.dy));

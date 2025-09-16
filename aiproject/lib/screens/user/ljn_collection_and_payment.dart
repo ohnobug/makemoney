@@ -150,7 +150,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                             Container(
                               padding: EdgeInsets.only(bottom: 60.w),
                               height: 320.w,
-                              width: MediaQuery.of(context).size.width,
+                              width: 750.w,
                               decoration: BoxDecoration(
                                 border: Border(
                                   bottom: BorderSide(
@@ -173,7 +173,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                               children: [
                                 // 优先付款方式
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width,
+                                  width: 750.w,
                                   height: 25.w,
                                   child: Row(
                                     crossAxisAlignment:
@@ -451,6 +451,8 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return GestureDetector(
       onTapDown: (tapDownDetails) {
         if (tapEffect == false) return;
@@ -566,7 +568,7 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                             fontFamily: 'Iconfont',
                           ),
                           size: 30.0.w,
-                          color: AppColors.brandGreenLight,
+                          color: theme.colorScheme.onSurface.withAlpha(100),
                         ),
                       )
                   ],

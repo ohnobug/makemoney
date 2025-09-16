@@ -254,7 +254,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
                   children: [
                     // 背景
                     Container(
-                      width: MediaQuery.of(context).size.width,
+                      width: 750.w,
                       height: MediaQuery.of(context).size.height,
                       color:
                           Color.fromARGB(_bganimation.value.toInt(), 0, 0, 0),

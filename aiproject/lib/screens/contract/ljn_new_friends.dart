@@ -257,7 +257,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
         ],
       ),
       body: Container(
-        width: MediaQuery.of(context).size.width,
+        width: 750.w,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           gradient: LinearGradient(

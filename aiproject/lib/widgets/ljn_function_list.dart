@@ -3,10 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 
 class LJNFunctionList extends StatelessWidget {
+  final Widget? title;
   final List<Widget> children;
 
   const LJNFunctionList({
     super.key,
+    this.title,
     required this.children,
   });
 
@@ -16,9 +18,13 @@ class LJNFunctionList extends StatelessWidget {
 
     return Column(
       children: [
-        LJNVerticalGap(
-          height: 16.w,
-        ),
+        if (title == null)
+          LJNVerticalGap(
+            height: 16.w,
+          )
+        else
+          title!,
+
         Container(
           // height: 1.w,
           width: 750.w,

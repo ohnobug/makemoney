@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/widgets/ljn_alphabet.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_special_function_item.dart';
@@ -117,26 +118,9 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                   ],
                 ),
 
-                // 聊天记录
-                Container(
-                  alignment: Alignment.centerLeft,
-                  height: 64.w,
-                  padding: const EdgeInsets.only(
-                    left: 30.0,
-                    right: 0.0,
-                    top: 16,
-                  ).w,
-                  child: Text(
-                    l10n.chatHistory,
-                    style: TextStyle(
-                      fontSize: 25.w,
-                      height: 1.08,
-                    ),
-                  ),
-                ),
-
                 // 聊天记录迁移备份
                 LJNFunctionList(
+                  title: LJNAlphabet(title: l10n.chatHistory),
                   children: [
                     LJNFunctionItem(
                       title: l10n.chatHistoryMigrationBackup,

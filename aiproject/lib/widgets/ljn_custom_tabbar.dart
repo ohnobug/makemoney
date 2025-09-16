@@ -218,7 +218,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                     border: Border(
                       top: BorderSide(
                         color: theme.dividerColor,
-                        width: 1.5.w,
+                        width: 1.0.w,
                       ),
                     ),
                   ),
@@ -394,7 +394,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
               GestureDetector(
                 onTapDown: (_) => setState(() => _showPopup = false),
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: 750.w,
                   height: MediaQuery.of(context).size.height,
                   color: AppColors.transparent,
                 ),

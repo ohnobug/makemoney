@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/widgets/ljn_alphabet.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_switch.dart';
@@ -50,25 +51,9 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                 ),
                 child: Column(
                   children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      height: 64.w,
-                      padding: const EdgeInsets.only(
-                        left: 30.0,
-                        right: 0.0,
-                        top: 16,
-                      ).w,
-                      child: Text(
-                        l10n.notificationToggle,
-                        style: TextStyle(
-                          fontSize: 25.w,
-                          height: 1.08,
-                        ),
-                      ),
-                    ),
-
                     // 通知开关
                     LJNFunctionList(
+                      title: LJNAlphabet(title: l10n.notificationToggle),
                       children: [
                         // 新消息通知
                         LJNFunctionItem(
@@ -137,60 +122,30 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                       ],
                     ),
 
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      height: 64.w,
-                      padding: const EdgeInsets.only(
-                        left: 30.0,
-                        right: 0.0,
-                        top: 16,
-                      ).w,
-                      child: Text(
-                        l10n.soundAndVibration,
-                        style: TextStyle(
-                          fontSize: 25.w,
-                          height: 1.08,
-                        ),
-                      ),
-                    ),
-
                     // 声音与震动
-                    LJNFunctionList(children: [
-                      // 新消息系统通知
-                      LJNFunctionItem(
-                        title: l10n.newMessageSystemNotification,
-                        link: '',
-                        underline: true,
-                        showStyle: l10n.goToSystemSettings,
-                      ),
-                      // 语音视频通话提醒
-                      LJNFunctionItem(
-                        title: l10n.voiceVideoCallAlerts,
-                        link: '',
-                        underline: false,
-                        showStyle: l10n.goToSystemSettings,
-                      ),
-                    ]),
-
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      height: 64.w,
-                      padding: const EdgeInsets.only(
-                        left: 30.0,
-                        right: 0.0,
-                        top: 16,
-                      ).w,
-                      child: Text(
-                        l10n.alertToneAndRingtone,
-                        style: TextStyle(
-                          fontSize: 25.w,
-                          height: 1.08,
+                    LJNFunctionList(
+                      title: LJNAlphabet(title: l10n.soundAndVibration),
+                      children: [
+                        // 新消息系统通知
+                        LJNFunctionItem(
+                          title: l10n.newMessageSystemNotification,
+                          link: '',
+                          underline: true,
+                          showStyle: l10n.goToSystemSettings,
                         ),
-                      ),
+                        // 语音视频通话提醒
+                        LJNFunctionItem(
+                          title: l10n.voiceVideoCallAlerts,
+                          link: '',
+                          underline: false,
+                          showStyle: l10n.goToSystemSettings,
+                        ),
+                      ],
                     ),
 
                     // 铃声与提示音
                     LJNFunctionList(
+                      title: LJNAlphabet(title: l10n.alertToneAndRingtone),
                       children: [
                         // 消息铃声
                         LJNFunctionItem(

@@ -22,7 +22,10 @@ class LJNAlphabet extends StatelessWidget {
     return Container(
       height: 60.w,
       color: bgColor ?? theme.colorScheme.surfaceContainer,
-      padding: EdgeInsets.only(left: 30.w),
+      padding: EdgeInsets.only(
+        left: 30.w,
+        top: 8.w,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

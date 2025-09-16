@@ -603,9 +603,10 @@ class _LJNIns extends State<LJNIns> {
                   automaticallyImplyLeading: false,
                   expandedHeight: systemState.statusHeight + 90.0.w,
                   systemOverlayStyle: SystemUiOverlayStyle(
-                      statusBarColor: AppColors.transparent, // 设置状态栏透明
-                      statusBarIconBrightness:
-                          setStatusLight ? Brightness.light : Brightness.dark),
+                    statusBarColor: AppColors.transparent, // 设置状态栏透明
+                    statusBarIconBrightness:
+                        setStatusLight ? Brightness.light : Brightness.dark,
+                  ),
                   // backgroundColor: AppColors.neutralWhite,
                   // foregroundColor: AppColors.accentRedPure,
                   flexibleSpace: FlexibleSpaceBar(
@@ -614,7 +615,9 @@ class _LJNIns extends State<LJNIns> {
                           Size.fromHeight(90.0.w + systemState.statusHeight),
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 16.w, vertical: 0.w),
+                          horizontal: 16.w,
+                          vertical: 0.w,
+                        ),
                         margin: EdgeInsets.only(top: systemState.statusHeight),
                         height: 90.w,
                         // color: AppColors.accentRedDark3, // 设置背景颜色
@@ -675,7 +678,7 @@ class _LJNIns extends State<LJNIns> {
                                     filled: true,
                                     fillColor: AppColors.neutralGrey29,
                                     border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
+                                      borderRadius: BorderRadius.circular(30).w,
                                       borderSide: BorderSide.none,
                                     ),
                                     contentPadding: EdgeInsets.symmetric(
@@ -738,7 +741,7 @@ class _LJNIns extends State<LJNIns> {
               visible: bigImgVisible,
               child: SizedBox(
                 height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
+                width: 750.w,
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
@@ -759,7 +762,7 @@ class _LJNIns extends State<LJNIns> {
                               Radius.circular(20.w),
                             ), // 圆角前景
                             child: Container(
-                              width: MediaQuery.of(context).size.width - 60.w,
+                              width: 750.w - 60.w,
                               constraints: BoxConstraints(
                                 maxHeight: MediaQuery.of(context).size.height -
                                     100.w * 2,
@@ -1175,15 +1178,15 @@ class _BigImageBox extends State<BigImageBox> {
       child: Stack(
         children: [
           Container(
-            width: (MediaQuery.of(context).size.width - 2.w) / 3,
+            width: (750.w - 2.w) / 3,
             height: 500.w,
             color: AppColors.neutralGrey2,
             child: show
                 ? Image.asset(
-                    width: (MediaQuery.of(context).size.width - 2.w) / 3,
+                    width: (750.w - 2.w) / 3,
                     height: 500.w,
                     // cacheWidth:
-                    //     (((MediaQuery.of(context).size.width - 2.w) / 3) * 2)
+                    //     (((750.w - 2.w) / 3) * 2)
                     //         .toInt(),
                     cacheHeight: (500.w * 2).toInt(),
                     fit: BoxFit.cover,
@@ -1293,15 +1296,15 @@ class _SmallImageBox extends State<SmallImageBox> {
       child: Stack(
         children: [
           Container(
-              width: (MediaQuery.of(context).size.width - 2.w) / 3,
+              width: (750.w - 2.w) / 3,
               height: (500.w - 1.w) / 2,
               color: AppColors.neutralGrey2,
               child: show
                   ? Image.asset(
-                      width: (MediaQuery.of(context).size.width - 2.w) / 3,
+                      width: (750.w - 2.w) / 3,
                       height: (500.w - 1.w) / 2,
                       // cacheWidth:
-                      //     (((MediaQuery.of(context).size.width - 2.w) / 3) * 2)
+                      //     (((750.w - 2.w) / 3) * 2)
                       //         .toInt(),
                       cacheHeight: (500.w - 1.w).toInt(),
                       assetPath(widget.image),
@@ -1444,7 +1447,7 @@ class _VideoBox2 extends State<VideoBox2> {
       child: Stack(
         children: [
           SizedBox(
-            width: (MediaQuery.of(context).size.width - 2.w) / 3,
+            width: (750.w - 2.w) / 3,
             height: 500.w,
             child: finalCountdownFinished
                 ? (_controller != null && _controller!.value.isInitialized

@@ -58,50 +58,53 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
             ),
             child: Column(
               children: [
-                LJNAlphabet(
-                  title: l10n.remark,
-                  bgColor: theme.colorScheme.surfaceContainer,
-                ),
-                LJNFunctionList(children: [
-                  LJNFunctionItem(
-                    title: l10n.remarkName,
-                    link: '/set_notes_and_labels',
-                    showStyle: "马化腾",
-                    underline: true,
+                LJNFunctionList(
+                  title: LJNAlphabet(
+                    title: l10n.remark,
+                    bgColor: theme.colorScheme.surfaceContainer,
                   ),
-                  LJNFunctionItem(
-                    title: l10n.tags,
-                    link: '/set_friend_tags',
-                    showStyle: l10n.relation_classmate_or_friend,
-                    underline: true,
-                  ),
-                  LJNFunctionItem(
-                    title: l10n.phone,
-                    link: '/set_notes_and_labels',
-                    showStyle: "+86 18718988850",
-                    underline: true,
-                  ),
-                  LJNFunctionItem(
-                    title: l10n.description,
-                    link: '/set_notes_and_labels',
-                    showStyle: "-",
-                    underline: false,
-                  ),
-                ]),
-                LJNAlphabet(
-                  title: l10n.moreInfo,
-                  bgColor: theme.colorScheme.surfaceContainer,
+                  children: [
+                    LJNFunctionItem(
+                      title: l10n.remarkName,
+                      link: '/set_notes_and_labels',
+                      showStyle: "马化腾",
+                      underline: true,
+                    ),
+                    LJNFunctionItem(
+                      title: l10n.tags,
+                      link: '/set_friend_tags',
+                      showStyle: l10n.relation_classmate_or_friend,
+                      underline: true,
+                    ),
+                    LJNFunctionItem(
+                      title: l10n.phone,
+                      link: '/set_notes_and_labels',
+                      showStyle: "+86 18718988850",
+                      underline: true,
+                    ),
+                    LJNFunctionItem(
+                      title: l10n.description,
+                      link: '/set_notes_and_labels',
+                      showStyle: "-",
+                      underline: false,
+                    ),
+                  ],
                 ),
 
                 // 我们的共同群聊
-                LJNFunctionList(children: [
-                  LJNFunctionItem(
-                    title: l10n.ourMutualGroups,
-                    link: '',
-                    showStyle: l10n.personCount(4),
-                    underline: false,
+                LJNFunctionList(
+                  title: LJNAlphabet(
+                    title: l10n.moreInfo,
                   ),
-                ]),
+                  children: [
+                    LJNFunctionItem(
+                      title: l10n.ourMutualGroups,
+                      link: '',
+                      showStyle: l10n.personCount(4),
+                      underline: false,
+                    ),
+                  ],
+                ),
 
                 // 签名、来源、添加时间
                 LJNFunctionList(

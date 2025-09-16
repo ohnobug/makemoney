@@ -54,25 +54,9 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
               ),
               child: Column(
                 children: [
-                  // 设置朋友权限
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    height: 64.w,
-                    padding:
-                        const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
-                            .w,
-                    child: Text(
-                      l10n.setFriendPermissions,
-                      style: TextStyle(
-                        fontSize: 25.w,
-                        height: 1.08,
-                        color: AppColors.neutralGrey76,
-                      ),
-                    ),
-                  ),
-
                   // 聊天、朋友圈、微信运动等
                   LJNFunctionList(
+                    title: LJNAlphabet(title: l10n.setFriendPermissions),
                     children: [
                       // 微信运动
                       LJNFunctionItem(
@@ -148,17 +132,15 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                   if (chatOnly)
                     LJNAlphabet(
                       title: l10n.privacyRestrictionFull,
-                      color: AppColors.neutralGrey76,
                     ),
 
                   // 不让他看我
                   if (chatOnly == false) ...[
-                    LJNAlphabet(
-                      title: l10n.momentsAndStatus,
-                      color: AppColors.neutralGrey76,
-                    ),
                     // 隐藏我的朋友圈、状态
                     LJNFunctionList(
+                      title: LJNAlphabet(
+                        title: l10n.momentsAndStatus,
+                      ),
                       children: [
                         LJNFunctionItem(
                           title: l10n.hideMyPosts,

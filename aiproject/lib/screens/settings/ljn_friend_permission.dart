@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/widgets/ljn_alphabet.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_special_function_item.dart';
@@ -115,60 +116,46 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                       ],
                     ),
 
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      height: 64.w,
-                      padding: const EdgeInsets.only(
-                        left: 30.0,
-                        right: 0.0,
-                        top: 16,
-                      ).w,
-                      child: Text(
-                        l10n.friendPermissions,
-                        style: TextStyle(
-                          fontSize: 25.w,
-                          height: 1.08,
-                        ),
-                      ),
-                    ),
-
                     // 只聊天、朋友圈、频道、看一看、微信运动、通讯录黑名单
-                    LJNFunctionList(children: [
-                      // 只聊天
-                      LJNFunctionItem(
-                        title: l10n.chatOnly,
-                        link: '',
-                        underline: true,
-                      ),
+                    LJNFunctionList(
+                      title: LJNAlphabet(title: l10n.friendPermissions),
+                      children: [
+                        // 只聊天
+                        LJNFunctionItem(
+                          title: l10n.chatOnly,
+                          link: '',
+                          underline: true,
+                        ),
 
-                      // 朋友圈
-                      LJNFunctionItem(
-                        title: l10n.moments,
-                        link: '',
-                        underline: true,
-                      ),
+                        // 朋友圈
+                        LJNFunctionItem(
+                          title: l10n.moments,
+                          link: '',
+                          underline: true,
+                        ),
 
-                      // 频道
-                      LJNFunctionItem(
-                        title: l10n.channels,
-                        link: '',
-                        underline: true,
-                      ),
+                        // 频道
+                        LJNFunctionItem(
+                          title: l10n.channels,
+                          link: '',
+                          underline: true,
+                        ),
 
-                      // 看一看
-                      LJNFunctionItem(
-                        title: l10n.look,
-                        link: '',
-                        underline: true,
-                      ),
+                        // 看一看
+                        LJNFunctionItem(
+                          title: l10n.look,
+                          link: '',
+                          underline: true,
+                        ),
 
-                      // 微信运动
-                      LJNFunctionItem(
-                        title: l10n.weRun,
-                        link: '',
-                        underline: false,
-                      ),
-                    ]),
+                        // 微信运动
+                        LJNFunctionItem(
+                          title: l10n.weRun,
+                          link: '',
+                          underline: false,
+                        ),
+                      ],
+                    ),
 
                     // 通讯录黑名单
                     LJNFunctionList(

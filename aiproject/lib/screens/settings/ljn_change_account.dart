@@ -54,7 +54,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                     parent: BouncingScrollPhysics(),
                   ),
                   child: Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: 750.w,
                     padding: EdgeInsets.only(left: 70.w, right: 70.w),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -93,12 +93,12 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                             border: Border(
                               top: BorderSide(
                                 color: theme.dividerColor,
-                                width: 1.5.w,
+                                width: 1.0.w,
                                 style: BorderStyle.solid,
                               ),
                               bottom: BorderSide(
                                 color: theme.dividerColor,
-                                width: 1.5.w,
+                                width: 1.0.w,
                                 style: BorderStyle.solid,
                               ),
                             ),
