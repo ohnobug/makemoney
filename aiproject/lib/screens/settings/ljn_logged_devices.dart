@@ -80,8 +80,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                     Container(
                       margin: EdgeInsets.symmetric(horizontal: 30.w),
                       child: Text(
-                        AppLocalizations.of(context)!
-                            .manageLoginDevicesDescriptionFull,
+                        l10n.manageLoginDevicesDescriptionFull,
                         style: TextStyle(
                           fontSize: 27.w,
                           color: AppColors.neutralGrey60,
@@ -276,6 +275,8 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                         ),
                       ],
                     ),
+
+                    SizedBox(height: 100.w)
                   ],
                 ),
               ),

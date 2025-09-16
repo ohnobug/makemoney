@@ -23,7 +23,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
   void initState() {
     super.initState();
 
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
 
     // 1. 你的 DateTime 对象，来自数据模型
     final DateTime creationTimestamp = DateTime(2025, 5, 16, 15, 39);

@@ -64,7 +64,7 @@ class _LJNBillDetails extends State<LJNBillDetails>
     // Get theme and l10n at the top for easy access
     ThemeData theme = Theme.of(context);
 
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     final colorScheme = theme.colorScheme;
 
     return BlocBuilder<LJNSystemCubit, SystemState>(

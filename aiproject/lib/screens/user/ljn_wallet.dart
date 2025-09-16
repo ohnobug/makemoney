@@ -146,8 +146,7 @@ class _LJNWallet extends State<LJNWallet> {
                                 TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: AppLocalizations.of(context)!
-                                          .label_yield("1.64%"),
+                                      text: l10n.label_yield("1.64%"),
                                       style: TextStyle(
                                         height: 1.08,
                                         fontSize: fontSizeScale(23.w),
@@ -238,6 +237,8 @@ class _LJNWallet extends State<LJNWallet> {
                     ),
                   ],
                 ),
+
+                SizedBox(height: 100.w)
               ],
             ),
           ),

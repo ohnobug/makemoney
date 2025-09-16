@@ -8,8 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
-import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
-import '../../widgets/ljn_function_item.dart';
+import 'package:vigaviga/widgets/ljn_function_item.dart';
 
 class LJNFriendMoreInfo extends StatefulWidget {
   const LJNFriendMoreInfo({
@@ -71,6 +70,7 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                 // 个人签名、来源、添加时间
                 LJNFunctionList(
                   children: [
+                    // 个人签名
                     LJNFunctionItem(
                       height: 135.w,
                       title: l10n.personalSignature,
@@ -92,6 +92,8 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                       ),
                       underline: true,
                     ),
+
+                    // 来源
                     LJNFunctionItem(
                       height: 135.w,
                       title: l10n.source,
@@ -101,8 +103,7 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                         margin: EdgeInsets.only(right: 40.w),
                         width: 345.w,
                         child: Text(
-                          AppLocalizations.of(context)!
-                              .source_added_from_group_chat("深圳腾讯公司董事会"),
+                          l10n.source_added_from_group_chat("深圳腾讯公司董事会"),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -114,6 +115,8 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                       ),
                       underline: true,
                     ),
+
+                    // 添加时间
                     LJNFunctionItem(
                       title: l10n.addedTime,
                       // link: '',
@@ -122,8 +125,7 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                           margin: EdgeInsets.only(right: 40.w),
                           alignment: Alignment.centerRight,
                           child: Text(
-                            AppLocalizations.of(context)!
-                                .yearAndMonth(DateTime(2023, 12)),
+                            l10n.yearAndMonth(DateTime(2023, 12)),
                             style: TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(32.0.w),
@@ -139,6 +141,8 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                     ),
                   ],
                 ),
+
+                SizedBox(height: 100.w)
               ],
             ),
           ),

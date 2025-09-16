@@ -185,6 +185,8 @@ class _LJNUserinfo extends State<LJNUserinfo> {
                     ),
                   ],
                 ),
+
+                SizedBox(height: 100.w)
               ],
             ),
           ),

@@ -35,7 +35,7 @@ class _LJNDotLoadingTextState extends State<LJNDotLoadingText> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
 
     return Text(
       l10n.waitingForAcceptance + '.' * dotCount,

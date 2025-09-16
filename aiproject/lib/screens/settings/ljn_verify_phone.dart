@@ -85,10 +85,12 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                       children: [
                         Container(
                           padding: EdgeInsets.only(
-                              top: 70.w, left: 40.w, right: 40.w),
+                            top: 70.w,
+                            left: 40.w,
+                            right: 40.w,
+                          ),
                           child: Text(
-                            AppLocalizations.of(context)!
-                                .phoneNumberBindingDescriptionFull,
+                            l10n.phoneNumberBindingDescriptionFull,
                             style: TextStyle(
                               fontSize: 26.0.w,
                               fontFamily: "AlibabaPuHuiTi",
@@ -100,7 +102,10 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                           height: 45.w,
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 50.w, right: 50.w),
+                          padding: EdgeInsets.only(
+                            left: 50.w,
+                            right: 50.w,
+                          ),
                           height: 95.w,
                           width: MediaQuery.of(context).size.width,
                           child: Row(
@@ -130,8 +135,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                       ),
                                     ),
                                     Text(
-                                      AppLocalizations.of(context)!
-                                          .mainlandChina,
+                                      l10n.mainlandChina,
                                       style: TextStyle(
                                         fontSize: 15.w,
                                         color: theme.colorScheme.onSurface,
@@ -156,8 +160,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                     FocusScope.of(context).unfocus();
                                   },
                                   decoration: InputDecoration(
-                                    hintText: AppLocalizations.of(context)!
-                                        .yourPhoneNumber,
+                                    hintText: l10n.yourPhoneNumber,
                                     hintStyle: TextStyle(
                                       fontSize: 30.w,
                                       color: AppColors.neutralGrey61,

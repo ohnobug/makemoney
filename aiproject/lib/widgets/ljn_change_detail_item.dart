@@ -40,7 +40,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
   Widget build(BuildContext context) {
     // 核心修正：在 build 方法内部获取所有依赖于外部环境（如 Theme）的值。
     ThemeData theme = Theme.of(context);
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
 
     // 1. 定义不同状态下的背景颜色
     final Color normalColor = theme.listTileTheme.tileColor!;

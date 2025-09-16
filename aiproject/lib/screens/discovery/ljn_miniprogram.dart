@@ -943,8 +943,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           size: 45.w,
                         ),
                       ),
-                      title: AppLocalizations.of(context)!
-                          .growthGuardianAntiAddiction,
+                      title: l10n.growthGuardianAntiAddiction,
                       onPressed: () {},
                     ),
                   ],

@@ -114,7 +114,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     ThemeData theme = Theme.of(context);
 
     return BlocBuilder<LJNSystemCubit, SystemState>(

@@ -9,8 +9,7 @@ import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
-import '../../widgets/ljn_function_item.dart';
+import 'package:vigaviga/widgets/ljn_function_item.dart';
 
 class LJNFriendPermission extends StatefulWidget {
   const LJNFriendPermission({super.key});
@@ -91,8 +90,7 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                           height: null,
                           // link: '',
                           subTitle: Text(
-                            AppLocalizations.of(context)!
-                                .recommendContactsMessageFull,
+                            l10n.recommendContactsMessageFull,
                             maxLines: 3,
                             style: TextStyle(
                               color: AppColors.neutralGrey35,
@@ -120,51 +118,61 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                     Container(
                       alignment: Alignment.centerLeft,
                       height: 64.w,
-                      padding:
-                          const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
-                              .w,
+                      padding: const EdgeInsets.only(
+                        left: 30.0,
+                        right: 0.0,
+                        top: 16,
+                      ).w,
                       child: Text(
                         l10n.friendPermissions,
-                        style: TextStyle(fontSize: 25.w, height: 1.08),
+                        style: TextStyle(
+                          fontSize: 25.w,
+                          height: 1.08,
+                        ),
                       ),
                     ),
 
                     // 只聊天、朋友圈、频道、看一看、微信运动、通讯录黑名单
+                    LJNFunctionList(children: [
+                      // 只聊天
+                      LJNFunctionItem(
+                        title: l10n.chatOnly,
+                        link: '',
+                        underline: true,
+                      ),
+
+                      // 朋友圈
+                      LJNFunctionItem(
+                        title: l10n.moments,
+                        link: '',
+                        underline: true,
+                      ),
+
+                      // 频道
+                      LJNFunctionItem(
+                        title: l10n.channels,
+                        link: '',
+                        underline: true,
+                      ),
+
+                      // 看一看
+                      LJNFunctionItem(
+                        title: l10n.look,
+                        link: '',
+                        underline: true,
+                      ),
+
+                      // 微信运动
+                      LJNFunctionItem(
+                        title: l10n.weRun,
+                        link: '',
+                        underline: false,
+                      ),
+                    ]),
+
+                    // 通讯录黑名单
                     LJNFunctionList(
                       children: [
-                        // 只聊天
-                        LJNFunctionItem(
-                          title: l10n.chatOnly,
-                          link: '',
-                          underline: true,
-                        ),
-                        // 朋友圈
-                        LJNFunctionItem(
-                          title: l10n.moments,
-                          link: '',
-                          underline: true,
-                        ),
-                        // 频道
-                        LJNFunctionItem(
-                          title: l10n.channels,
-                          link: '',
-                          underline: true,
-                        ),
-                        // 看一看
-                        LJNFunctionItem(
-                          title: l10n.look,
-                          link: '',
-                          underline: true,
-                        ),
-                        // 微信运动
-                        LJNFunctionItem(
-                          title: l10n.weRun,
-                          link: '',
-                          underline: true,
-                        ),
-                        LJNVerticalGap(
-                          height: 16.w,
-                        ),
                         // 通讯录黑名单
                         LJNFunctionItem(
                           title: l10n.contactsBlocklist,
@@ -173,6 +181,8 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                         ),
                       ],
                     ),
+
+                    SizedBox(height: 100.w)
                   ],
                 ),
               ),

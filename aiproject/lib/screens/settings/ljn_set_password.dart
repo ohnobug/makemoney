@@ -34,7 +34,7 @@ class _LJNSetPasswordState extends State<LJNSetPassword> {
   @override
   Widget build(BuildContext context) {
     // 使用 aotolocations 的 context extension，让代码更简洁
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     final userState = context.read<LJNUserCubit>().state;
     final systemState = context.read<LJNSystemCubit>().state;
 

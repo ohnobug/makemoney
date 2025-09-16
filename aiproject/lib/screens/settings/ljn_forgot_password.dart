@@ -51,7 +51,10 @@ class _LJNForgotPassword extends State<LJNForgotPassword> {
                   ),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(left: 70.w, right: 70.w),
+                    padding: EdgeInsets.only(
+                      left: 70.w,
+                      right: 70.w,
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,8 +95,7 @@ class _LJNForgotPassword extends State<LJNForgotPassword> {
                         ),
 
                         Text(
-                          AppLocalizations.of(context)!
-                              .navigateToResetPasswordGuidanceFull,
+                          l10n.navigateToResetPasswordGuidanceFull,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 30.0.w,

@@ -7,8 +7,7 @@ import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
-import '../../widgets/ljn_function_item.dart';
+import 'package:vigaviga/widgets/ljn_function_item.dart';
 
 class LJNDeviceDetail extends StatefulWidget {
   const LJNDeviceDetail({super.key});
@@ -114,8 +113,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                         child: Container(
                           margin: EdgeInsets.only(right: 30.w),
                           child: Text(
-                            AppLocalizations.of(context)!
-                                .monthDayTime(theTimestamp),
+                            l10n.monthDayTime(theTimestamp),
                             textAlign: TextAlign.right,
                             style: TextStyle(
                               fontSize: 32.w,
@@ -130,10 +128,13 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
 
                   Container(
                     margin: EdgeInsets.only(
-                        left: 30.w, right: 30.w, top: 22.w, bottom: 22.w),
+                      left: 30,
+                      right: 30,
+                      top: 22,
+                      bottom: 22,
+                    ).w,
                     child: Text(
-                      AppLocalizations.of(context)!
-                          .device_management_auto_extend_login_info_friendly,
+                      l10n.device_management_auto_extend_login_info_friendly,
                       style: TextStyle(
                         fontSize: 27.w,
                         color: AppColors.neutralGrey60,
@@ -153,7 +154,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                     ],
                   ),
 
-                  SizedBox(height: 106.w),
+                  SizedBox(height: 100.w),
                 ]),
               ),
             ),

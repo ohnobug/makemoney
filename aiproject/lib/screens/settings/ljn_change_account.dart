@@ -76,8 +76,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                           height: 30.w,
                         ),
                         Text(
-                          AppLocalizations.of(context)!
-                              .verifyIdentityWithPasswordFull,
+                          l10n.verifyIdentityWithPasswordFull,
                           style: TextStyle(
                               fontSize: 30.w, fontFamily: "AlibabaPuHuiTi"),
                         ),
@@ -110,7 +109,10 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                             children: [
                               Text(
                                 l10n.enterPassword,
-                                style: TextStyle(fontSize: 30.w, height: 1.08),
+                                style: TextStyle(
+                                  fontSize: 30.w,
+                                  height: 1.08,
+                                ),
                               ),
                               SizedBox(
                                 width: 50.w,
@@ -126,8 +128,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                                     FocusScope.of(context).unfocus();
                                   },
                                   decoration: InputDecoration(
-                                    hintText: AppLocalizations.of(context)!
-                                        .pleaseEnterPassword,
+                                    hintText: l10n.pleaseEnterPassword,
                                     labelText: '',
                                     isDense: true,
                                     border: const OutlineInputBorder(

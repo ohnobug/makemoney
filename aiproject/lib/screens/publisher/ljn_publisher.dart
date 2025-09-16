@@ -9,11 +9,12 @@ class LJNPublisher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: LJNAppBar(
-        title: AppLocalizations.of(context)?.tabbar_label_publisher,
+        title: l10n.tabbar_label_publisher,
       ),
       body: SafeArea(
         child: Padding(

@@ -95,8 +95,7 @@ class _LJNCareMode extends State<LJNCareMode> {
                         alignment: Alignment.topLeft,
                         margin: EdgeInsets.only(left: 70.w, right: 70.w),
                         child: Text(
-                          AppLocalizations.of(context)!
-                              .careModeFeatureAccessibility,
+                          l10n.careModeFeatureAccessibility,
                           style: TextStyle(
                             fontSize: 30.w,
                             color: AppColors.neutralDarkGrey12,
@@ -110,8 +109,7 @@ class _LJNCareMode extends State<LJNCareMode> {
                         alignment: Alignment.topLeft,
                         margin: EdgeInsets.only(left: 70.w, right: 70.w),
                         child: Text(
-                          AppLocalizations.of(context)!
-                              .careModeFeatureReadMessages,
+                          l10n.careModeFeatureReadMessages,
                           style: TextStyle(
                             fontSize: 30.w,
                             color: AppColors.neutralDarkGrey12,
@@ -125,8 +123,7 @@ class _LJNCareMode extends State<LJNCareMode> {
                         alignment: Alignment.topLeft,
                         padding: EdgeInsets.only(left: 70.w, right: 70.w),
                         child: Text(
-                          AppLocalizations.of(context)!
-                              .careModeFeatureQuietMode,
+                          l10n.careModeFeatureQuietMode,
                           style: TextStyle(
                             fontSize: 30.w,
                             color: AppColors.neutralDarkGrey12,

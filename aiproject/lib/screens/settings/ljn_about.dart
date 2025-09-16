@@ -128,8 +128,7 @@ class _LJNAbout extends State<LJNAbout> {
                             LJNFunctionList(
                               children: [
                                 LJNFunctionItem(
-                                  title: AppLocalizations.of(context)!
-                                      .featureIntroduction,
+                                  title: l10n.featureIntroduction,
                                   link: '',
                                   backgroundColor: AppColors.neutralWhite,
                                   underline: true,
@@ -147,7 +146,8 @@ class _LJNAbout extends State<LJNAbout> {
                                   underline: false,
                                 )
                               ],
-                            )
+                            ),
+                            SizedBox(height: 100.w)
                           ],
                         ),
                       )

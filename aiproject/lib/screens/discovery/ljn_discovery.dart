@@ -236,7 +236,9 @@ class _LJNDiscovery extends State<LJNDiscovery> {
                     underline: false,
                   ),
                 ],
-              )
+              ),
+
+              SizedBox(height: 100.w)
             ],
           ),
         ),

@@ -136,18 +136,22 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                 ),
 
                 // 聊天记录迁移备份
-                LJNFunctionList(children: [
-                  LJNFunctionItem(
-                    title: l10n.chatHistoryMigrationBackup,
-                    link: '',
-                    underline: true,
-                  ),
-                  LJNFunctionItem(
-                    title: l10n.clearChatHistory,
-                    link: '',
-                    underline: false,
-                  ),
-                ]),
+                LJNFunctionList(
+                  children: [
+                    LJNFunctionItem(
+                      title: l10n.chatHistoryMigrationBackup,
+                      link: '',
+                      underline: true,
+                    ),
+                    LJNFunctionItem(
+                      title: l10n.clearChatHistory,
+                      link: '',
+                      underline: false,
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: 100.w)
               ]),
             ),
           ),

@@ -116,8 +116,7 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
                           margin: EdgeInsets.only(right: 40.w),
                           alignment: Alignment.centerRight,
                           child: Text(
-                            AppLocalizations.of(context)!
-                                .yearAndMonth(DateTime(2023, 12)),
+                            l10n.yearAndMonth(DateTime(2023, 12)),
                             style: TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(32.0.w),
@@ -132,7 +131,8 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
                       underline: false,
                     ),
                   ],
-                )
+                ),
+                SizedBox(height: 100.w)
               ],
             ),
           ),

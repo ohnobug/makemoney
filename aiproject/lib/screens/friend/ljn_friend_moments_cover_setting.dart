@@ -74,7 +74,8 @@ class _LJNFriendMomentsCoverSetting
                           underline: false,
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(height: 100.w)
                   ],
                 ),
               ),

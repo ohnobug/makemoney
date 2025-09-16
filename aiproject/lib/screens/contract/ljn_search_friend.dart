@@ -89,8 +89,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
                           minWidth: 70.w, // 控制图标与文字的最小宽度
                           // minHeight: 36.w,
                         ),
-                        hintText: AppLocalizations.of(context)!
-                            .searchHintAccountOrPhone,
+                        hintText: l10n.searchHintAccountOrPhone,
                         hintStyle: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 30.w,

@@ -198,6 +198,8 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                         ),
                       ],
                     ),
+
+                    SizedBox(height: 100.w)
                   ],
                 ],
               ),

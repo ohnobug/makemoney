@@ -97,8 +97,7 @@ class _LJNPersonalinfoAndPermission
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          AppLocalizations.of(context)!
-                              .privacyPolicySummaryTitle,
+                          l10n.privacyPolicySummaryTitle,
                           style: TextStyle(
                             fontSize: 26.w,
                             height: 1.08,

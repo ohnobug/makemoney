@@ -90,8 +90,7 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
                                   FocusScope.of(context).unfocus();
                                 },
                                 decoration: InputDecoration(
-                                  hintText: AppLocalizations.of(context)!
-                                      .yourPhoneNumber,
+                                  hintText: l10n.yourPhoneNumber,
                                   hintStyle: TextStyle(
                                     fontSize: 30.w,
                                     color: AppColors.neutralGrey61,

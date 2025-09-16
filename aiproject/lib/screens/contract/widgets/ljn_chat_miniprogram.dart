@@ -201,8 +201,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
 
                             // 最近使用的小程序
                             FunctionButtonsSection(
-                              title: AppLocalizations.of(context)!
-                                  .recentMiniPrograms,
+                              title: l10n.recentMiniPrograms,
                               rightWidget: GestureDetector(
                                 onTap: () {
                                   Navigator.of(context)

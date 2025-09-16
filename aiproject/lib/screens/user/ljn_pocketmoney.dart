@@ -135,8 +135,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                   height: 30.w,
                 ),
                 Text(
-                  AppLocalizations.of(context)!
-                      .cta_transfer_to_balance_plus_single_line,
+                  l10n.cta_transfer_to_balance_plus_single_line,
                   style: TextStyle(
                     height: 1.08,
                     color: AppColors.accentOrange,
@@ -212,8 +211,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                   height: 26.w,
                 ),
                 Text(
-                  AppLocalizations.of(context)!
-                      .serviceProvidedByTenpayAndWeBank,
+                  l10n.serviceProvidedByTenpayAndWeBank,
                   style: TextStyle(
                     height: 1.08,
                     color: AppColors.neutralGrey46,
@@ -315,7 +313,7 @@ class _LJNChargeButtonState extends State<LJNChargeButton> {
         width: 345.w,
         decoration: BoxDecoration(
           color: containerColor,
-          borderRadius: BorderRadius.circular(12.w), // 设置圆角为 12.w
+          borderRadius: BorderRadius.circular(12.w),
         ),
         alignment: Alignment.center,
         child: Text(

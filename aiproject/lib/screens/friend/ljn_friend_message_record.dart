@@ -235,6 +235,8 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                     ),
                   ],
                 ),
+
+                SizedBox(height: 100.w)
               ],
             ),
           ),

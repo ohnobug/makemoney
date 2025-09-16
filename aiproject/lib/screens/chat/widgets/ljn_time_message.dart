@@ -12,7 +12,7 @@ class LJNTimeMessage extends StatefulWidget {
 class _LJNTimeMessage extends State<LJNTimeMessage> {
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
 
     // 1. 你的 DateTime 对象，这应该从你的 API 或数据库中获取
     final DateTime theTimestamp = DateTime(2024, 9, 29, 0, 48, 46);

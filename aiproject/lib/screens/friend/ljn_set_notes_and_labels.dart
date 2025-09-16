@@ -212,8 +212,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: AppLocalizations.of(context)!
-                                    .info_name_in_phone_contacts("邓桥香"),
+                                text: l10n.info_name_in_phone_contacts("邓桥香"),
                                 style: TextStyle(
                                   fontSize: 25.w,
                                   color: AppColors.neutralGrey78,
@@ -416,8 +415,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                       width: 25.w,
                                     ),
                                     Text(
-                                      AppLocalizations.of(context)!
-                                          .addPhoneNumber,
+                                      l10n.addPhoneNumber,
                                       style: TextStyle(
                                         fontSize: 30.w,
                                         height: 1.08,

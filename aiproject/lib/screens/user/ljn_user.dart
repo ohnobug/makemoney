@@ -9,7 +9,6 @@ import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
-import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
 
 class LJNUser extends StatefulWidget {
@@ -172,9 +171,8 @@ class _LJNUserState extends State<LJNUser> {
                                                 LJNUserState>(
                                               builder: (context, state) {
                                                 return Text(
-                                                  AppLocalizations.of(context)!
-                                                      .wechatIdDisplay(state
-                                                          .userinfoAccount!),
+                                                  l10n.wechatIdDisplay(
+                                                      state.userinfoAccount!),
                                                   style: TextStyle(
                                                     height: 1.08,
                                                     fontSize:
@@ -315,8 +313,8 @@ class _LJNUserState extends State<LJNUser> {
                                                   child: ClipRRect(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                                100)
-                                                            .w,
+                                                      100,
+                                                    ).w,
                                                     child: Image.asset(
                                                       'assets/images/avatar_webp/chat_6.webp',
                                                       width: 30.w,
@@ -331,8 +329,7 @@ class _LJNUserState extends State<LJNUser> {
                                         ),
                                         SizedBox(width: 10.w),
                                         Text(
-                                          AppLocalizations.of(context)!
-                                              .andXMoreFriends(8),
+                                          l10n.andXMoreFriends(8),
                                           style: TextStyle(
                                             height: 1.08,
                                             fontSize: 24.w,
@@ -419,6 +416,8 @@ class _LJNUserState extends State<LJNUser> {
                       )
                     ],
                   ),
+
+                  SizedBox(height: 100.w)
                 ],
               ),
             ),

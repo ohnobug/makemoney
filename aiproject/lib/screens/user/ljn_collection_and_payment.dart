@@ -51,8 +51,11 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                   child: Column(
                     children: [
                       Container(
-                        margin:
-                            EdgeInsets.only(top: 15.w, left: 15.w, right: 15.w),
+                        margin: EdgeInsets.only(
+                          top: 15.w,
+                          left: 15.w,
+                          right: 15.w,
+                        ),
                         padding: EdgeInsets.all(30.w),
                         decoration: BoxDecoration(
                           color: AppColors.neutralWhite,
@@ -92,8 +95,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                         width: 10.w,
                                       ),
                                       Text(
-                                        AppLocalizations.of(context)!
-                                            .paymentCode,
+                                        l10n.paymentCode,
                                         style: TextStyle(
                                           fontSize: 32.w,
                                           height: 1.08,
@@ -127,8 +129,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                               height: 40.w,
                             ),
                             Text(
-                              AppLocalizations.of(context)!
-                                  .prioritizeBalancePayment,
+                              l10n.prioritizeBalancePayment,
                               style: TextStyle(
                                 fontSize: 25.w,
                                 color: AppColors.neutralGrey54,
@@ -181,8 +182,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        AppLocalizations.of(context)!
-                                            .priorityPaymentMethod,
+                                        l10n.priorityPaymentMethod,
                                         style: TextStyle(
                                           fontSize: 25.w,
                                           height: 1.08,
@@ -193,8 +193,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                         direction: Axis.horizontal,
                                         children: [
                                           Text(
-                                            AppLocalizations.of(context)!
-                                                .change,
+                                            l10n.change,
                                             style: TextStyle(
                                               fontSize: 25.w,
                                               height: 1.08,
@@ -255,8 +254,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                             width: 10.w,
                                           ),
                                           Text(
-                                            AppLocalizations.of(context)!
-                                                .balance,
+                                            l10n.balance,
                                             style: TextStyle(
                                               fontSize: 25.w,
                                               height: 1.08,
@@ -304,8 +302,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                         child: Column(
                           children: [
                             LJNCAPFunctionItem(
-                              title: AppLocalizations.of(context)!
-                                  .digitalRMBPayment,
+                              title: l10n.digitalRMBPayment,
                               icon: const IconData(
                                 0xe6f5,
                                 fontFamily: 'Iconfont',
@@ -337,8 +334,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                         child: Column(
                           children: [
                             LJNCAPFunctionItem(
-                              title: AppLocalizations.of(context)!
-                                  .qrCodeCollection,
+                              title: l10n.qrCodeCollection,
                               icon: const IconData(
                                 0xe623,
                                 fontFamily: "Iconfont",
@@ -368,8 +364,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                               underline: true,
                             ),
                             LJNCAPFunctionItem(
-                              title: AppLocalizations.of(context)!
-                                  .faceToFaceRedPacket,
+                              title: l10n.faceToFaceRedPacket,
                               icon: const IconData(
                                 0xe625,
                                 fontFamily: "Iconfont",
@@ -379,8 +374,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                               underline: true,
                             ),
                             LJNCAPFunctionItem(
-                              title: AppLocalizations.of(context)!
-                                  .transferToBankCardOrPhone,
+                              title: l10n.transferToBankCardOrPhone,
                               icon: const IconData(
                                 0xe661,
                                 fontFamily: "Iconfont",

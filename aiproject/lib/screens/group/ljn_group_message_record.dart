@@ -8,13 +8,10 @@ import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
-import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
-
-import '../../widgets/ljn_function_item.dart';
+import 'package:vigaviga/widgets/ljn_function_item.dart';
 
 class LJNGroupMessageRecord extends StatefulWidget {
   const LJNGroupMessageRecord({
@@ -428,10 +425,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                       ),
                     ]),
 
-                    Container(
-                      color: theme.colorScheme.surfaceContainer,
-                      height: 50.w,
-                    ),
+                    SizedBox(height: 100.w)
                   ],
                 ),
               ),

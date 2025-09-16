@@ -163,7 +163,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
   // --- UI 构建方法 ---
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     ThemeData theme = Theme.of(context);
 
     // 根据当前主题计算导航栏的背景色和标题颜色，以适配深色/浅色模式

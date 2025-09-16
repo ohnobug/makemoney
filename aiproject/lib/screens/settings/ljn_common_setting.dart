@@ -112,8 +112,7 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
 
                       // 自动下载微信安装包
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!
-                            .autoDownloadWeChatInstaller,
+                        title: l10n.autoDownloadWeChatInstaller,
                         link: '',
                         underline: true,
                         tapEffect: true,
@@ -141,12 +140,17 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                     Container(
                       alignment: Alignment.centerLeft,
                       height: 64.w,
-                      padding:
-                          const EdgeInsets.only(left: 30.0, right: 0.0, top: 16)
-                              .w,
+                      padding: const EdgeInsets.only(
+                        left: 30.0,
+                        right: 0.0,
+                        top: 16,
+                      ).w,
                       child: Text(
                         l10n.other,
-                        style: TextStyle(fontSize: 25.w, height: 1.08),
+                        style: TextStyle(
+                          fontSize: 25.w,
+                          height: 1.08,
+                        ),
                       ),
                     ),
 
@@ -191,6 +195,8 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
                         ),
                       ],
                     ),
+
+                    SizedBox(height: 100.w)
                   ],
                 ),
               ),

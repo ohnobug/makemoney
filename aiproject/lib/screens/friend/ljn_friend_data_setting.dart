@@ -11,8 +11,7 @@ import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
-import '../../widgets/ljn_function_item.dart';
+import 'package:vigaviga/widgets/ljn_function_item.dart';
 
 class LJNFriendDataSetting extends StatefulWidget {
   const LJNFriendDataSetting({
@@ -151,13 +150,17 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                       ),
 
                       // 删除好友
-                      LJNFunctionList(children: [
-                        LJNMaxWidthButton(
-                          title: l10n.delete,
-                          color: AppColors.accentRedPure,
-                          underline: false,
-                        ),
-                      ])
+                      LJNFunctionList(
+                        children: [
+                          LJNMaxWidthButton(
+                            title: l10n.delete,
+                            color: AppColors.accentRedPure,
+                            underline: false,
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(height: 100.w)
                     ],
                   ),
                 ),

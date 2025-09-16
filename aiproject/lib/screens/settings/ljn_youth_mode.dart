@@ -85,8 +85,7 @@ class _LJNYouthMode extends State<LJNYouthMode> {
                           right: 70.w,
                         ),
                         child: Text(
-                          AppLocalizations.of(context)!
-                              .youthModeFullDescription,
+                          l10n.youthModeFullDescription,
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 32.w),
                         ),
@@ -102,7 +101,9 @@ class _LJNYouthMode extends State<LJNYouthMode> {
                         child: Text.rich(
                           TextSpan(
                             style: TextStyle(
-                                fontSize: 22.w, height: 1.08), // 全局文本样式
+                              fontSize: 22.w,
+                              height: 1.08,
+                            ),
                             children: [
                               WidgetSpan(
                                 alignment: PlaceholderAlignment
@@ -138,15 +139,13 @@ class _LJNYouthMode extends State<LJNYouthMode> {
                                 ),
                               ),
                               TextSpan(
-                                text: AppLocalizations.of(context)!
-                                    .iHaveReadAndAgree,
+                                text: l10n.iHaveReadAndAgree,
                                 style: const TextStyle(
                                   color: AppColors.neutralGrey78,
                                 ),
                               ),
                               TextSpan(
-                                text: AppLocalizations.of(context)!
-                                    .youthModeTermsOfServiceTitle,
+                                text: l10n.youthModeTermsOfServiceTitle,
                                 style: const TextStyle(
                                   color: AppColors.brandBlueDark7,
                                 ),

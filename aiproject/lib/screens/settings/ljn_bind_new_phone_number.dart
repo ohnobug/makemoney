@@ -81,8 +81,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                                 FocusScope.of(context).unfocus();
                               },
                               decoration: InputDecoration(
-                                hintText: AppLocalizations.of(context)!
-                                    .pleaseEnterVerificationCode,
+                                hintText: l10n.pleaseEnterVerificationCode,
                                 hintStyle: TextStyle(
                                   fontSize: 30.w,
                                   color: AppColors.neutralGrey61,
@@ -127,8 +126,7 @@ class _LJNBindNewPhoneNumber extends State<LJNBindNewPhoneNumber> {
                                   return AlertDialog(
                                     title: Text(l10n.prompt),
                                     content: Text(
-                                      AppLocalizations.of(context)!
-                                          .pleaseEnterCorrectVerificationCode,
+                                      l10n.pleaseEnterCorrectVerificationCode,
                                     ),
                                     actions: [
                                       TextButton(

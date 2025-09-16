@@ -8,8 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
-import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
-import '../../widgets/ljn_function_item.dart';
+import 'package:vigaviga/widgets/ljn_function_item.dart';
 
 class LJNFriendInformation extends StatefulWidget {
   const LJNFriendInformation({
@@ -73,8 +72,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                   LJNFunctionItem(
                     title: l10n.tags,
                     link: '/set_friend_tags',
-                    showStyle: AppLocalizations.of(context)!
-                        .relation_classmate_or_friend,
+                    showStyle: l10n.relation_classmate_or_friend,
                     underline: true,
                   ),
                   LJNFunctionItem(
@@ -143,8 +141,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                         margin: EdgeInsets.only(right: 40.w),
                         width: 345.w,
                         child: Text(
-                          AppLocalizations.of(context)!
-                              .source_added_from_group_chat("Shenzhen Tencent"),
+                          l10n.source_added_from_group_chat("Shenzhen Tencent"),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -167,8 +164,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                           margin: EdgeInsets.only(right: 40.w),
                           alignment: Alignment.centerRight,
                           child: Text(
-                            AppLocalizations.of(context)!
-                                .yearAndMonth(DateTime(2024, 10)),
+                            l10n.yearAndMonth(DateTime(2024, 10)),
                             style: TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(32.0.w),
@@ -183,6 +179,8 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                     )
                   ],
                 ),
+
+                SizedBox(height: 100.w)
               ],
             ),
           ),

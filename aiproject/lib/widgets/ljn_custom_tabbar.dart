@@ -175,7 +175,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
   // 辅助方法，用于在 build 方法中获取动态标题列表
   List<String> _getTabTitles(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     return [
       l10n.tabbar_label_arts,
       l10n.tabbar_label_discover,

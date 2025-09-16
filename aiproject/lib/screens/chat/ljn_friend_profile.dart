@@ -12,7 +12,6 @@ import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/widgets/ljn_text_spans.dart';
-import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 
 class LJNFriendProfile extends StatefulWidget {
   const LJNFriendProfile({
@@ -185,9 +184,8 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
 
                                         // 昵称
                                         LJNTextSpans(
-                                          text: AppLocalizations.of(context)!
-                                              .nicknameDisplay(
-                                                  widget.nickname!),
+                                          text: l10n.nicknameDisplay(
+                                              widget.nickname!),
                                           style: TextStyle(
                                             height: 1.08,
                                             fontSize: fontSizeScale(27.w),
@@ -226,9 +224,8 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                             );
                                           },
                                           child: Text(
-                                            AppLocalizations.of(context)!
-                                                .wechatIdDisplay(
-                                                    widget.account!),
+                                            l10n.wechatIdDisplay(
+                                                widget.account!),
                                             style: TextStyle(
                                               height: 1.08,
                                               fontSize: fontSizeScale(27.w),
@@ -569,6 +566,8 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                             ),
                           ],
                         ),
+
+                        SizedBox(height: 100.w)
                       ],
                     ),
                   ),

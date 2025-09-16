@@ -2065,7 +2065,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {

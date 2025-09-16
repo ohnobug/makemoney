@@ -158,8 +158,7 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                     LJNFunctionList(children: [
                       // 新消息系统通知
                       LJNFunctionItem(
-                        title: AppLocalizations.of(context)!
-                            .newMessageSystemNotification,
+                        title: l10n.newMessageSystemNotification,
                         link: '',
                         underline: true,
                         showStyle: l10n.goToSystemSettings,
@@ -230,6 +229,8 @@ class _LJNNewMessageNotification extends State<LJNNewMessageNotification> {
                         ),
                       ],
                     ),
+
+                    SizedBox(height: 100.w)
                   ],
                 ),
               ),

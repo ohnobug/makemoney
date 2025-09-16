@@ -216,7 +216,7 @@ class _LJNSearch extends State<LJNSearch> {
       }
 
       // 关键改动 4: 在 build 方法内部获取最新的 l10n 实例
-      final l10n = AppLocalizations.of(context)!;
+      AppLocalizations l10n = AppLocalizations.of(context)!;
       ThemeData theme = Theme.of(context);
 
       return Scaffold(
@@ -507,7 +507,7 @@ class _LJNSearch extends State<LJNSearch> {
     final double number = 12012000;
     final compactFormatter = NumberFormat.compact(locale: locale);
     final formattedNumber = compactFormatter.format(number);
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
 
     return Container(
       width: MediaQuery.of(context).size.width,

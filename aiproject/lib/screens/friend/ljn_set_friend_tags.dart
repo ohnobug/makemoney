@@ -83,7 +83,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
   Widget _buildPage(BuildContext context, SystemState systemState) {
     // Core Refactor: Get theme and l10n instance once at the top of the build method
     ThemeData theme = Theme.of(context);
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
@@ -452,7 +452,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
 void _showNewTagPopup(
     BuildContext context, SystemState systemState, Function(String) callback) {
   final TextEditingController inputController2 = TextEditingController();
-  final l10n = AppLocalizations.of(context)!;
+  AppLocalizations l10n = AppLocalizations.of(context)!;
   ThemeData theme = Theme.of(context);
   final colorScheme = theme.colorScheme;
 

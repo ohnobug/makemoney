@@ -74,8 +74,7 @@ class _LJNPopupState extends State<LJNPopup> {
                       height: 126.w,
                       padding: EdgeInsets.only(left: 60.w, right: 60.w),
                       child: Text(
-                        AppLocalizations.of(context)!
-                            .shortcutPermissionGuidanceFull,
+                        l10n.shortcutPermissionGuidanceFull,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: "AlibabaPuHuiTi",

@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
-import 'package:vigaviga/widgets/ljn_vertical_gap.dart';
 import '../../widgets/ljn_function_item.dart';
 import '../../widgets/ljn_max_width_button.dart';
 
@@ -110,10 +109,16 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     Container(
                       alignment: Alignment.centerLeft,
                       height: 64.w,
-                      padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
+                      padding: const EdgeInsets.only(
+                        left: 30.0,
+                        right: 0.0,
+                      ).w,
                       child: Text(
                         l10n.privacy,
-                        style: TextStyle(fontSize: 25.w, height: 1.08),
+                        style: TextStyle(
+                          fontSize: 25.w,
+                          height: 1.08,
+                        ),
                       ),
                     ),
 
@@ -126,20 +131,17 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                           underline: true,
                         ),
                         LJNFunctionItem(
-                          title: AppLocalizations.of(context)!
-                              .personalInfoAndPermissions,
+                          title: l10n.personalInfoAndPermissions,
                           link: '/personinfo_and_permission',
                           underline: true,
                         ),
                         LJNFunctionItem(
-                          title: AppLocalizations.of(context)!
-                              .personalInfoCollectionList,
+                          title: l10n.personalInfoCollectionList,
                           link: '/personalinfo_collection_checklist',
                           underline: true,
                         ),
                         LJNFunctionItem(
-                          title: AppLocalizations.of(context)!
-                              .thirdPartyInfoSharingList,
+                          title: l10n.thirdPartyInfoSharingList,
                           link:
                               "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing')}",
                           underline: false,
@@ -177,8 +179,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                             ],
                           ),
                           link: '',
-                          showStyle: AppLocalizations.of(context)!
-                              .wechatKeyboardFeatureAskAI,
+                          showStyle: l10n.wechatKeyboardFeatureAskAI,
                           underline: false,
                         )
                       ],
@@ -219,6 +220,8 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                         ),
                       ],
                     ),
+
+                    SizedBox(height: 100.w)
                   ],
                 ),
               ),

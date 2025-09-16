@@ -728,6 +728,8 @@ class _LJNChat extends State<LJNChat>
       _scrollToEnd();
     });
 
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
@@ -1078,8 +1080,7 @@ class _LJNChat extends State<LJNChat>
                                               ),
                                               alignment: Alignment.center,
                                               child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .holdToTalk,
+                                                l10n.holdToTalk,
                                                 style: TextStyle(
                                                   fontSize: 31.w,
                                                   height: 1.08,
@@ -1295,9 +1296,7 @@ class _LJNChat extends State<LJNChat>
                                                     113.w
                                                 ? Center(
                                                     child: Text(
-                                                      AppLocalizations.of(
-                                                              context)!
-                                                          .send,
+                                                      l10n.send,
                                                       style: TextStyle(
                                                         height: 1.08,
                                                         fontSize:

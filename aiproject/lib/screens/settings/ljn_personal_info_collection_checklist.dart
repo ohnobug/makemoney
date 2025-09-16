@@ -64,8 +64,7 @@ class _LJPpersonalInfoCollectionChecklist
                       margin: EdgeInsets.only(left: 68.w, right: 68.w),
                       child: Text(
                         textAlign: TextAlign.center,
-                        AppLocalizations.of(context)!
-                            .personalInfoCollectionFullDescription,
+                        l10n.personalInfoCollectionFullDescription,
                         style: TextStyle(fontSize: 32.w),
                       ),
                     ),
@@ -131,8 +130,7 @@ class _LJPpersonalInfoCollectionChecklist
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: AppLocalizations.of(context)!
-                                .personalSignatureTitle,
+                            title: l10n.personalSignatureTitle,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -250,8 +248,7 @@ class _LJPpersonalInfoCollectionChecklist
                               ),
                             ),
                             child: Text(
-                              AppLocalizations.of(context)!
-                                  .socialAndContentInfo,
+                              l10n.socialAndContentInfo,
                               style: TextStyle(
                                 fontSize: 25.w,
                                 color: AppColors.neutralDarkGrey13,
@@ -459,7 +456,10 @@ class _LJNPCCFunctionItemState extends State<LJNPCCFunctionItem> {
       },
       child: Container(
         height: widget.height ?? 105.0.w,
-        padding: const EdgeInsets.only(left: 30.0, right: 0.0).w,
+        padding: const EdgeInsets.only(
+          left: 30.0,
+          right: 0.0,
+        ).w,
         decoration: BoxDecoration(
           color: containerColor,
           borderRadius: BorderRadius.all(
@@ -522,9 +522,10 @@ class _LJNPCCFunctionItemState extends State<LJNPCCFunctionItem> {
                       widget.showStyle is String
                           ? Expanded(
                               child: Container(
-                                padding:
-                                    const EdgeInsets.only(right: 10, left: 10)
-                                        .w,
+                                padding: const EdgeInsets.only(
+                                  right: 10,
+                                  left: 10,
+                                ).w,
                                 // color: AppColors.accentRedPure,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,

@@ -1190,8 +1190,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                           ),
                                           alignment: Alignment.center,
                                           child: Text(
-                                            AppLocalizations.of(context)!
-                                                .holdToTalk,
+                                            l10n.holdToTalk,
                                             style: TextStyle(
                                               fontSize: 31.w,
                                               height: 1.08,
@@ -1382,8 +1381,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                         child: _widthAnimation.value >= 113.w
                                             ? Center(
                                                 child: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .send,
+                                                  l10n.send,
                                                   style: TextStyle(
                                                       height: 1.08,
                                                       fontSize:
@@ -1643,8 +1641,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                         height: 30.w,
                                         alignment: Alignment.center,
                                         child: Text(
-                                          AppLocalizations.of(context)!
-                                              .releaseToCancel,
+                                          l10n.releaseToCancel,
                                           style: TextStyle(
                                             decoration: TextDecoration.none,
                                             fontFamily: "AlibabaPuHuiTi",
@@ -1736,8 +1733,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                         height: 30.w,
                                         alignment: Alignment.center,
                                         child: Text(
-                                          AppLocalizations.of(context)!
-                                              .convertToText,
+                                          l10n.convertToText,
                                           style: TextStyle(
                                             decoration: TextDecoration.none,
                                             fontFamily: "AlibabaPuHuiTi",

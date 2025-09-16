@@ -29,7 +29,7 @@ class _LJNContactTagsState extends State<LJNContactTags> {
   }
 
   Widget _buildPage(SystemState systemState) {
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     ThemeData theme = Theme.of(context);
 
     return Scaffold(

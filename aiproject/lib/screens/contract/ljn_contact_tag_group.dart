@@ -162,7 +162,7 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroup> {
     ThemeData theme = Theme.of(context);
 
     // 关键改动 4: 在 build 方法内部获取最新的 l10n 实例
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
 
     // 辅助函数，用于根据静态数据构建列表项 Widget
     Widget buildListItem(dynamic itemData) {

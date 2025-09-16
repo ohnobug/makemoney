@@ -23,7 +23,7 @@ class _LJNPopupMenuState extends State<LJNPopupMenu> {
     // Core Refactor: Get theme and l10n instance once at the top.
     ThemeData theme = Theme.of(context);
 
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
 
     // Define theme-aware colors to ensure consistency.
     final Color popupBackgroundColor = theme.colorScheme.surfaceContainer;

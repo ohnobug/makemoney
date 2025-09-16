@@ -76,6 +76,8 @@ class _LJNAaccountAndSecure extends State<LJNMoreSecureSetting> {
                         underline: false,
                       ),
                     ]),
+
+                    SizedBox(height: 100.w)
                   ],
                 ),
               ),

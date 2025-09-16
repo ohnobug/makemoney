@@ -26,7 +26,7 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
 
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {

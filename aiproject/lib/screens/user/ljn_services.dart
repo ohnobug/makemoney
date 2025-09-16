@@ -238,8 +238,7 @@ class _LJNServices extends State<LJNServices>
                       ),
                       FunctionButton(
                         icon: "images/icon/server_icon16.png",
-                        title: AppLocalizations.of(context)!
-                            .movieTicketsAndEntertainment,
+                        title: l10n.movieTicketsAndEntertainment,
                         onPressed: () {
                           logger.info('点击了电影演出玩乐按钮~~');
                         },
@@ -327,8 +326,7 @@ class _LJNServices extends State<LJNServices>
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: AppLocalizations.of(context)!
-                                    .serviceManagement,
+                                text: l10n.serviceManagement,
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: 30.w,

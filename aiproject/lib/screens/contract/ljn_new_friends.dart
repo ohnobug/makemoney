@@ -229,7 +229,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
 
   Widget _buildPage(SystemState systemState) {
     // 关键改动 4: 在 build 方法内部获取最新的 l10n 实例
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     ThemeData theme = Theme.of(context);
 
     return Scaffold(

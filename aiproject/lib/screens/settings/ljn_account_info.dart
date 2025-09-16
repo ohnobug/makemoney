@@ -82,8 +82,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                     BlocBuilder<LJNUserCubit, LJNUserState>(
                       builder: (context, userState) {
                         return Text(
-                          AppLocalizations.of(context)!
-                              .wechatIdDisplay(userState.userinfoAccount!),
+                          l10n.wechatIdDisplay(userState.userinfoAccount!),
                           style: TextStyle(
                               fontSize: 40.w,
                               fontWeight: FontWeight.bold,
@@ -96,8 +95,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                       height: 45.w,
                     ),
                     Text(
-                      AppLocalizations.of(context)!
-                          .wechatIdModificationRuleFull,
+                      l10n.wechatIdModificationRuleFull,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 30.w, fontFamily: "AlibabaPuHuiTi"),

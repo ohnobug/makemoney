@@ -80,10 +80,11 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context)!
-                                      .boundPhoneNumberDisplay,
-                                  strutStyle:
-                                      StrutStyle(fontSize: 37.w, height: 1.08),
+                                  l10n.boundPhoneNumberDisplay,
+                                  strutStyle: StrutStyle(
+                                    fontSize: 37.w,
+                                    height: 1.08,
+                                  ),
                                   style: TextStyle(
                                     height: 1.08,
                                     fontSize: 37.w,
@@ -94,8 +95,10 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                                 // 手机号
                                 Text(
                                   phone,
-                                  strutStyle:
-                                      StrutStyle(fontSize: 37.w, height: 1.08),
+                                  strutStyle: StrutStyle(
+                                    fontSize: 37.w,
+                                    height: 1.08,
+                                  ),
                                   style: TextStyle(
                                     height: 1.08,
                                     fontSize: 37.w,
@@ -111,11 +114,11 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                                     });
                                   },
                                   child: Text(
-                                    isHide
-                                        ? l10n.hide
-                                        : l10n.show,
+                                    isHide ? l10n.hide : l10n.show,
                                     strutStyle: StrutStyle(
-                                        fontSize: 37.w, height: 1.08),
+                                      fontSize: 37.w,
+                                      height: 1.08,
+                                    ),
                                     style: TextStyle(
                                       height: 1.08,
                                       fontSize: 25.w,
@@ -130,14 +133,17 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                               height: 30.w,
                             ),
                             Container(
-                              padding: EdgeInsets.only(left: 70.w, right: 70.w),
+                              padding: EdgeInsets.only(
+                                left: 70.w,
+                                right: 70.w,
+                              ),
                               child: Text(
-                                AppLocalizations.of(context)!
-                                    .phoneBoundAndDiscoverPrompt,
+                                l10n.phoneBoundAndDiscoverPrompt,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 27.0.w,
-                                    fontFamily: "AlibabaPuHuiTi"),
+                                  fontSize: 27.0.w,
+                                  fontFamily: "AlibabaPuHuiTi",
+                                ),
                               ),
                             ),
                             SizedBox(
@@ -147,8 +153,7 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
 
                             // 查看电话联系人
                             LJNChangeAccountButton(
-                              title: AppLocalizations.of(context)!
-                                  .viewPhoneContacts,
+                              title: l10n.viewPhoneContacts,
                               color: AppColors.neutralWhite,
                               backgroundColor: AppColors.brandGreenVibrant5,
                               link: "/phone_contact",
@@ -160,8 +165,7 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
 
                             // 修改电话毫秒
                             LJNChangeAccountButton(
-                              title: AppLocalizations.of(context)!
-                                  .changePhoneNumber,
+                              title: l10n.changePhoneNumber,
                               // color: AppColors.neutralWhite,
                               // backgroundColor: AppColors.brandGreenVibrant5,
                               link: "/verify_phone",
