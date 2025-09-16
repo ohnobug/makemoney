@@ -100,7 +100,7 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
                           style: TextStyle(
                             // height: 1.25,
                             fontSize: 32.w,
-                            color: AppColors.neutralDarkGrey4,
+                            color: theme.colorScheme.onSurface.withAlpha(123),
                           ),
                         ),
                       ),

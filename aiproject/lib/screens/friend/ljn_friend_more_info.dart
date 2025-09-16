@@ -47,9 +47,10 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: Container(
           constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height -
-                  90.w -
-                  systemState.statusHeight),
+            minHeight: MediaQuery.of(context).size.height -
+                90.w -
+                systemState.statusHeight,
+          ),
           color: theme.colorScheme.surfaceContainer,
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(
@@ -82,11 +83,12 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                         child: Text(
                           "为者常成，行者常至。",
                           maxLines: 2,
+                          textAlign: TextAlign.end,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             // height: 1.25,
                             fontSize: 32.w,
-                            color: AppColors.neutralDarkGrey4,
+                            color: theme.colorScheme.onSurface.withAlpha(123),
                           ),
                         ),
                       ),
@@ -106,10 +108,11 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                           l10n.source_added_from_group_chat("深圳腾讯公司董事会"),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.end,
                           style: TextStyle(
                             // height: 1.25,
                             fontSize: 32.w,
-                            color: AppColors.neutralDarkGrey4,
+                            color: theme.colorScheme.onSurface.withAlpha(123),
                           ),
                         ),
                       ),

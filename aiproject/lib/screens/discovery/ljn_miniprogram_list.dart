@@ -388,7 +388,7 @@ class FunctionButtonState extends State<FunctionButton> {
                 style: TextStyle(
                   height: 1.08,
                   decoration: TextDecoration.none,
-                  color: AppColors.neutralDarkGrey4,
+                  color: theme.colorScheme.onSurface.withAlpha(123),
                   fontSize: fontSizeScale(25.0.w),
                   overflow: TextOverflow.ellipsis,
                 ),

@@ -123,10 +123,11 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                           "A journey of a thousand miles begins with a single step.",
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.end,
                           style: TextStyle(
                             // height: 1.25,
                             fontSize: 32.w,
-                            color: AppColors.neutralDarkGrey4,
+                            color: theme.colorScheme.onSurface.withAlpha(123),
                           ),
                         ),
                       ),
@@ -145,12 +146,13 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                         width: 345.w,
                         child: Text(
                           l10n.source_added_from_group_chat("Shenzhen Tencent"),
+                          textAlign: TextAlign.end,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             // height: 1.25,
                             fontSize: 32.w,
-                            color: AppColors.neutralDarkGrey4,
+                            color: theme.colorScheme.onSurface.withAlpha(123),
                           ),
                         ),
                       ),

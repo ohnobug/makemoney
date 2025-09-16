@@ -20,11 +20,11 @@ class LJNAlphabet extends StatelessWidget {
     ThemeData theme = Theme.of(context);
 
     return Container(
-      height: 60.w,
+      height: 64.w,
       color: bgColor ?? theme.colorScheme.surfaceContainer,
       padding: EdgeInsets.only(
-        left: 30.w,
-        top: 8.w,
+        left: 15.w,
+        top: 16.w,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -81,7 +81,10 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                 Container(
                   height: 202.w,
                   width: 750.w,
-                  padding: EdgeInsets.only(left: 25.w, right: 25.w),
+                  padding: EdgeInsets.only(
+                    left: 25.w,
+                    right: 25.w,
+                  ),
                   color: theme.colorScheme.surface,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
