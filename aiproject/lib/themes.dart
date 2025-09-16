@@ -257,6 +257,7 @@ ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   fontFamily: "AlibabaPuHuiTi",
   fontFamilyFallback: const ['Noto Sans SC'],
+  dividerColor: AppColors.brandGreenLightest,
   colorScheme: ColorScheme.fromSeed(
     seedColor: AppColors.brandGreenVibrant5,
     brightness: Brightness.light,
@@ -352,7 +353,7 @@ ThemeData lightTheme = ThemeData(
       // 设置边框颜色和宽度
       side: WidgetStateProperty.all<BorderSide>(
         const BorderSide(
-          color: AppColors.neutralGrey16, // 亮色模式下的边框颜色
+          color: AppColors.brandGreenLightest, // 亮色模式下的边框颜色
           width: 1.0,
         ),
       ),
@@ -424,6 +425,7 @@ ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   fontFamily: "AlibabaPuHuiTi",
   fontFamilyFallback: const ['Noto Sans SC'],
+  dividerColor: AppColors.brandGreenDarker1,
   colorScheme: ColorScheme.fromSeed(
     seedColor: AppColors.brandGreenVibrant4,
     brightness: Brightness.dark,
@@ -479,7 +481,7 @@ ThemeData darkTheme = ThemeData(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0.w),
           side: BorderSide(
-            color: AppColors.brandGreenDarker3,
+            color: AppColors.brandGreenDarker1,
             width: 1.5.w,
             style: BorderStyle.solid,
           ),
@@ -518,9 +520,9 @@ ThemeData darkTheme = ThemeData(
       ),
       // 设置边框颜色和宽度
       side: WidgetStateProperty.all<BorderSide>(
-        const BorderSide(
+        BorderSide(
           color: AppColors.neutralDarkGrey15, // 暗色模式下的边框颜色
-          width: 1.0,
+          width: 1.0.w,
         ),
       ),
       // **核心**：处理不同状态下的颜色
@@ -550,7 +552,7 @@ ThemeData darkTheme = ThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12.0),
       side: BorderSide(
-        color: AppColors.brandGreenDarker3,
+        color: AppColors.brandGreenDarker1,
         width: 1.5.w,
         style: BorderStyle.solid,
       ),
@@ -559,7 +561,7 @@ ThemeData darkTheme = ThemeData(
   listTileTheme: ListTileThemeData(
     shape: RoundedRectangleBorder(
       side: BorderSide(
-        color: AppColors.brandGreenDarker3,
+        color: AppColors.brandGreenDarker1,
         width: 1.5.w,
         style: BorderStyle.solid,
       ),

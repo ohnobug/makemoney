@@ -134,8 +134,6 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-
     // 二维码的位置
     final overlays = <Widget>[
       if (_barcodeCapture != null && _barcodeCapture!.barcodes.isNotEmpty)

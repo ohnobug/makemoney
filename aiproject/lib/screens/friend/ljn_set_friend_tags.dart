@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
 class LJNSetFriendTags extends StatefulWidget {
@@ -247,7 +245,8 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
       bool isSelected = selectedTag.contains(value);
       final Color tagColor = isSelected
           ? theme.colorScheme.primaryContainer
-          : theme.chipTheme.backgroundColor ?? theme.colorScheme.surfaceVariant;
+          : theme.chipTheme.backgroundColor ??
+              theme.colorScheme.surfaceContainerHighest;
       final Color textColor = isSelected
           ? theme.colorScheme.onPrimaryContainer
           : theme.chipTheme.labelStyle?.color ??
@@ -323,7 +322,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTags> {
         padding: EdgeInsets.symmetric(horizontal: 20.w),
         decoration: BoxDecoration(
           color: theme.chipTheme.backgroundColor ??
-              theme.colorScheme.surfaceVariant,
+              theme.colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.all(Radius.circular(30.w)),
         ),
         child: Row(
@@ -468,7 +467,7 @@ void _showNewTagPopup(
           final Color confirmButtonColor =
               isInputEmpty ? theme.disabledColor : colorScheme.primary;
           final Color confirmTextColor = isInputEmpty
-              ? colorScheme.onSurface.withOpacity(0.38)
+              ? colorScheme.onSurface.withAlpha(97)
               : colorScheme.onPrimary;
 
           return Padding(

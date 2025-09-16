@@ -127,7 +127,7 @@ class _LJNPopupState extends State<LJNPopup> {
                         border: Border(
                           top: BorderSide(
                             width: 1.w,
-                            color: AppColors.neutralGrey5,
+                            color: theme.dividerColor,
                           ),
                         ),
                       ),

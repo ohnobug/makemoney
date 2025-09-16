@@ -285,11 +285,12 @@ class _LJNChargeButtonState extends State<LJNChargeButton> {
         });
       },
       onTapCancel: () {
-        setState(() {
-          containerColor = originContainerColor;
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            containerColor = originContainerColor;
+          });
+          logger.info("取消点击");
         });
-
-        logger.info("取消点击");
       },
       onTapUp: (tapDownDetails) {
         if (widget.readonly == true) return;
@@ -306,9 +307,8 @@ class _LJNChargeButtonState extends State<LJNChargeButton> {
               Navigator.pushNamed(context, widget.link!);
             }
           }
+          logger.info("弹起");
         });
-
-        logger.info("弹起");
       },
       child: Container(
         height: 95.w,

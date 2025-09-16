@@ -394,11 +394,12 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                               ],
                             ),
 
-                            // Container(
-                            //   color: Colors.blue,
-                            //   width: 750.w,
-                            //   height: 500.w,
-                            // )
+                            // 占位
+                            Container(
+                              color: Colors.transparent,
+                              width: 750.w,
+                              height: 500.h,
+                            )
                           ],
                         ),
                       ),
@@ -430,7 +431,12 @@ class FunctionButtonsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 0.w, bottom: 0.w, left: 18.w, right: 18.w),
+      margin: EdgeInsets.only(
+        top: 0,
+        bottom: 0,
+        left: 18,
+        right: 18,
+      ).w,
       // decoration: BoxDecoration(
       //   color: AppColors.neutralWhite,
       //   borderRadius: BorderRadius.circular(16.0).w,
@@ -443,7 +449,11 @@ class FunctionButtonsSection extends StatelessWidget {
           // 标题
           Container(
             height: 50.w,
-            margin: EdgeInsets.only(top: 33.w, left: 45.w, right: 45.w),
+            margin: EdgeInsets.only(
+              top: 33,
+              left: 45,
+              right: 45,
+            ).w,
             // color: Colors.yellow,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -470,22 +480,26 @@ class FunctionButtonsSection extends StatelessWidget {
           Container(
             // color: AppColors.brandTealVibrant,
             margin: const EdgeInsets.all(0),
-            padding: EdgeInsets.only(bottom: 16.w, left: 16.0.w, right: 16.w),
+            padding: EdgeInsets.only(
+              bottom: 16,
+              left: 16.0,
+              right: 16,
+            ).w,
             child: GridView.builder(
               primary: false,
               padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(), // 禁用滚动
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4, // 每行显示4个子组件
-                crossAxisSpacing: 16.w, // 列间距
-                mainAxisSpacing: 10.w, // 行间距
+                crossAxisCount: 4,
+                crossAxisSpacing: 16.w,
+                mainAxisSpacing: 10.w,
                 childAspectRatio: 1,
               ),
               itemCount: buttons.length,
               itemBuilder: (context, index) {
                 return buttons[index];
               },
-              shrinkWrap: true, // 根据内容调整 GridView 大小
+              shrinkWrap: true,
             ),
           ),
         ],
@@ -523,14 +537,14 @@ class FunctionButtonState extends State<FunctionButton> {
           _isPressed = true;
         });
       },
-      onTapUp: (_) {
+      onTapCancel: () {
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
             _isPressed = false;
           });
         });
       },
-      onTapCancel: () {
+      onTapUp: (_) {
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
             _isPressed = false;
@@ -571,7 +585,7 @@ class FunctionButtonState extends State<FunctionButton> {
                   color: AppColors.neutralWhite,
                   fontSize: fontSizeScale(26.0.w),
                   overflow: TextOverflow.ellipsis,
-                ), // 标题颜色
+                ),
               ),
             ],
           ),

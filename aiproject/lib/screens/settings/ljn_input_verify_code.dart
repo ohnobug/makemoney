@@ -101,27 +101,25 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
                                   border: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       width: 1.5.w,
-                                      color:
-                                          AppColors.brandGreenSlightlyLighter,
+                                      color: theme.dividerColor,
                                     ),
                                   ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       width: 1.5.w,
-                                      color:
-                                          AppColors.brandGreenSlightlyLighter,
+                                      color: theme.dividerColor,
                                     ),
                                   ),
                                   // 获取焦点时的底线样式
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                       width: 1.5.w,
-                                      color:
-                                          AppColors.brandGreenSlightlyLighter,
+                                      color: theme.dividerColor,
                                     ),
                                   ),
-                                  contentPadding:
-                                      EdgeInsets.only(bottom: 20.w), // 也可调小内边距
+                                  contentPadding: EdgeInsets.only(
+                                    bottom: 20.w,
+                                  ),
                                 ),
                               ),
                             ),

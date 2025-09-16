@@ -163,13 +163,14 @@ class _InfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Container(
       height: 100.w,
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
             width: 1.w,
-            color: const Color.fromARGB(255, 223, 223, 223),
+            color: theme.dividerColor,
           ),
         ),
       ),
@@ -254,16 +255,22 @@ class _FormInputRow extends StatelessWidget {
                 isDense: true,
                 border: UnderlineInputBorder(
                   // 统一样式
-                  borderSide:
-                      BorderSide(width: 1.5.w, color: AppColors.neutralGrey21),
+                  borderSide: BorderSide(
+                    width: 1.5.w,
+                    color: theme.dividerColor,
+                  ),
                 ),
                 enabledBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(width: 1.5.w, color: AppColors.neutralGrey21),
+                  borderSide: BorderSide(
+                    width: 1.5.w,
+                    color: theme.dividerColor,
+                  ),
                 ),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                      width: 1.5.w, color: AppColors.brandGreenSlightlyLighter),
+                    width: 1.5.w,
+                    color: theme.dividerColor,
+                  ),
                 ),
                 // 调整 contentPadding 使文本和下划线对齐更佳
                 contentPadding: EdgeInsets.only(bottom: 15.w),

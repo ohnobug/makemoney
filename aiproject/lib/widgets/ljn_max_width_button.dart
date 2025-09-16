@@ -52,19 +52,20 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
             });
           },
           onTapCancel: () {
-            setState(() {
-              _isPressed = false;
+            Future.delayed(const Duration(milliseconds: 50), () {
+              setState(() {
+                _isPressed = false;
+              });
+              logger.info("取消点击");
             });
-            logger.info("取消点击");
           },
           onTapUp: (tapDownDetails) {
-            // 先恢复状态，再执行操作
-            setState(() {
-              _isPressed = false;
-            });
-
             // 延迟一点点时间，让用户能看到颜色恢复的效果
             Future.delayed(const Duration(milliseconds: 50), () {
+              setState(() {
+                _isPressed = false;
+              });
+
               if (context.mounted) {
                 if (widget.link != null) {
                   Navigator.pushNamed(context, widget.link!);
@@ -74,9 +75,8 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
                   widget.onPressed!();
                 }
               }
+              logger.info("弹起");
             });
-
-            logger.info("弹起");
           },
           child: Container(
             height: widget.height ?? 105.0.w,

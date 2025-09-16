@@ -33,9 +33,6 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
     // 1. 定义不同状态下的颜色
     Color normalColor = theme.listTileTheme.tileColor!;
     Color pressedColor = theme.listTileTheme.selectedTileColor!;
-    Color textColor =
-        theme.colorScheme.primary; // Use primary color for actionable text
-    Color dividerColor = theme.dividerColor; // Use divider color for borders
 
     // 2. 根据内部状态 _isPressed，动态地计算出当前应该显示的背景颜色。
     Color currentColor = _isPressed ? pressedColor : normalColor;
@@ -50,16 +47,26 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
       // onTapCancel 只负责更新内部状态
       onTapCancel: () {
         if (widget.link == null) return;
-        setState(() => _isPressed = false);
+
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
+        });
       },
       // onTapUp 负责恢复状态并执行操作
       onTapUp: (_) {
         if (widget.link == null) return;
+
         // 1. 立即恢复视觉状态
-        setState(() => _isPressed = false);
         // 2. 延迟执行导航
         Future.delayed(const Duration(milliseconds: 50), () {
-          if (mounted && widget.link != null) {
+          setState(() {
+            _isPressed = false;
+          });
+
+          if (context.mounted && widget.link != null) {
+            // ignore: use_build_context_synchronously
             Navigator.pushNamed(context, widget.link!);
           }
         });
@@ -72,14 +79,20 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
           color: currentColor,
           border: Border(
             bottom: widget.underline
-                ? BorderSide(color: dividerColor, width: 1.5.w)
+                ? BorderSide(
+                    color: theme.dividerColor,
+                    width: 1.5.w,
+                  )
                 : BorderSide.none,
           ),
         ),
         child: Center(
           child: RichText(
-            strutStyle:
-                StrutStyle(fontSize: 35.w, forceStrutHeight: true, height: 1),
+            strutStyle: StrutStyle(
+              fontSize: 35.w,
+              forceStrutHeight: true,
+              height: 1.w,
+            ),
             text: TextSpan(children: [
               if (widget.icon != null)
                 WidgetSpan(
@@ -87,7 +100,7 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
                   child: Icon(
                     widget.icon!.icon,
                     // 确保图标颜色也跟随主题
-                    color: textColor,
+                    color: theme.colorScheme.primary,
                     size: 35.w,
                   ),
                 ),
@@ -101,7 +114,7 @@ class _LJNFunctionItemButtonState extends State<LJNFunctionItemButton> {
                   height: 1.08,
                   fontSize: fontSizeScale(30.w),
                   // 使用主题感知的文本颜色
-                  color: textColor,
+                  color: theme.colorScheme.primary,
                 ),
               )
             ]),

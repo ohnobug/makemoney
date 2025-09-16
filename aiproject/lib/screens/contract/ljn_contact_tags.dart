@@ -117,7 +117,7 @@ class _LJNContactTagsState extends State<LJNContactTags> {
                     color: AppColors.neutralGrey2,
                     border: Border(
                       top: BorderSide(
-                        color: AppColors.neutralGrey20,
+                        color: theme.dividerColor,
                         width: 1.5.w,
                         style: BorderStyle.solid,
                       ),
@@ -186,22 +186,29 @@ class _TagInformationState extends State<TagInformation> {
       behavior: HitTestBehavior.opaque,
       onTapDown: (tapDownDetails) {
         if (widget.onPressed == null) return;
-        setState(() => _isPressed = true);
+        setState(() {
+          _isPressed = true;
+        });
       },
       onTapCancel: () {
         if (widget.onPressed == null) return;
-        setState(() => _isPressed = false);
+
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
+        });
       },
       onTapUp: (tapDownDetails) {
         if (widget.onPressed == null) return;
-
-        // 1. 立即恢复视觉状态
-        setState(() => _isPressed = false);
 
         // 2. 延迟执行回调
         Future.delayed(
           const Duration(milliseconds: 50),
           () {
+            setState(() {
+              _isPressed = false;
+            });
             if (mounted) {
               widget.onPressed?.call();
             }

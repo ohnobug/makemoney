@@ -186,9 +186,13 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                             //     AppColors.neutralGrey2,
                             isCollapsed: true,
                             contentPadding: EdgeInsets.symmetric(
-                                horizontal: 32.w, vertical: 30.w),
+                              horizontal: 32.w,
+                              vertical: 30.w,
+                            ),
                             border: const OutlineInputBorder(
-                                gapPadding: 0, borderSide: BorderSide.none),
+                              gapPadding: 0,
+                              borderSide: BorderSide.none,
+                            ),
                             // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
                             // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
                             // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
@@ -333,7 +337,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                       border: Border(
                                         bottom: BorderSide(
                                           width: 1.w,
-                                          color: AppColors.neutralGrey15,
+                                          color: theme.dividerColor,
                                         ),
                                       ),
                                     ),

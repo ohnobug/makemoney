@@ -74,19 +74,22 @@ class _ContactInformationState extends State<ContactInformation> {
         setState(() => _isPressed = true);
       },
       onTapCancel: () {
-        setState(() => _isPressed = false);
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
+        });
       },
       onTapUp: (tapDownDetails) {
-        // 先恢复视觉状态
-        setState(() => _isPressed = false);
-
-        // 延迟执行后续操作
         Future.delayed(const Duration(milliseconds: 50), () {
-          if (!mounted) return;
+          setState(() {
+            _isPressed = false;
+          });
 
           if (widget.onPressed != null) {
             widget.onPressed!();
           } else if (widget.link.isNotEmpty) {
+            // ignore: use_build_context_synchronously
             Navigator.pushNamed(context, widget.link);
           }
         });

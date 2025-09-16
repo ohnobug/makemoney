@@ -69,7 +69,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                 border: Border(
                                   bottom: BorderSide(
                                     width: 1.w,
-                                    color: AppColors.neutralGrey5,
+                                    color: theme.dividerColor,
                                   ),
                                 ),
                               ),
@@ -155,7 +155,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                 border: Border(
                                   bottom: BorderSide(
                                     width: 1.w,
-                                    color: AppColors.neutralGrey5,
+                                    color: theme.dividerColor,
                                   ),
                                 ),
                               ),
@@ -467,27 +467,21 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
       },
       onTapCancel: () {
         if (tapEffect == false) return;
-        setState(() {
-          backgroundColor = originBackgroundColor;
-        });
 
-        logger.info("取消点击");
-      },
-      onTapUp: (tapDownDetails) {
-        if (tapEffect == false) return;
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
             backgroundColor = originBackgroundColor;
           });
-
-          // if (mounted) {
-          //   if (widget.link != null) {
-          //     Navigator.pushNamed(context, widget.link!);
-          //   }
-          // }
         });
+      },
+      onTapUp: (tapDownDetails) {
+        if (tapEffect == false) return;
 
-        logger.info("弹起");
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            backgroundColor = originBackgroundColor;
+          });
+        });
       },
       child: Container(
         height: widget.height ?? 125.0.w,

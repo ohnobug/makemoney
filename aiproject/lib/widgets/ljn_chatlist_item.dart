@@ -56,28 +56,25 @@ class _ChatListItem extends State<ChatListItem> {
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return GestureDetector(
-          // onTapDown 只负责更新内部状态
           onTapDown: (_) {
             setState(() {
               _isPressed = true;
             });
           },
-          // onTapCancel 只负责更新内部状态
           onTapCancel: () {
-            setState(() {
-              _isPressed = false;
-            });
-            logger.info("取消点击");
-          },
-          // onTapUp 负责恢复状态并执行操作
-          onTapUp: (tapDownDetails) {
-            // 1. 立即恢复视觉状态，让UI响应更及时
-            setState(() {
-              _isPressed = false;
-            });
-
-            // 2. 延迟一小段时间再执行回调，让用户能看到颜色恢复的动画效果
             Future.delayed(const Duration(milliseconds: 50), () {
+              setState(() {
+                _isPressed = false;
+              });
+              logger.info("取消点击");
+            });
+          },
+          onTapUp: (tapDownDetails) {
+            // 延迟一小段时间再执行回调，让用户能看到颜色恢复的动画效果
+            Future.delayed(const Duration(milliseconds: 50), () {
+              setState(() {
+                _isPressed = false;
+              });
               // 检查 widget 是否还在树上，并且 onPressed 回调不为空
               if (mounted && widget.onPressed != null) {
                 widget.onPressed!();

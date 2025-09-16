@@ -9,7 +9,6 @@ import 'package:vigaviga/screens/contract/ljn_friends_who_only_chat.dart';
 import 'package:vigaviga/screens/contract/ljn_new_friends.dart';
 import 'package:vigaviga/screens/contract/ljn_official_accounts.dart';
 import 'package:vigaviga/screens/contract/ljn_search_friend.dart';
-import 'package:vigaviga/screens/contract/widgets/ljn_chat_miniprogram.dart';
 import 'package:vigaviga/screens/discovery/ljn_ins.dart';
 import 'package:vigaviga/screens/discovery/ljn_miniprogram.dart';
 import 'package:vigaviga/screens/discovery/ljn_miniprogram_list.dart';

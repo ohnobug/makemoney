@@ -79,7 +79,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                           border: Border(
                             bottom: BorderSide(
                               width: 1.5.w,
-                              color: AppColors.neutralGrey7,
+                              color: theme.dividerColor,
                             ),
                           ),
                         ),
@@ -91,8 +91,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title:
-                            l10n.creditCardRepayment,
+                        title: l10n.creditCardRepayment,
                         icon: "images/icon/server_icon1.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -169,7 +168,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                           border: Border(
                             bottom: BorderSide(
                               width: 1.5.w,
-                              color: AppColors.neutralGrey7,
+                              color: theme.dividerColor,
                             ),
                           ),
                         ),
@@ -198,8 +197,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title:
-                            l10n.trainAndFlightTickets,
+                        title: l10n.trainAndFlightTickets,
                         icon: "images/icon/server_icon11.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -259,7 +257,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                           border: Border(
                             bottom: BorderSide(
                               width: 1.5.w,
-                              color: AppColors.neutralGrey7,
+                              color: theme.dividerColor,
                             ),
                           ),
                         ),
@@ -340,8 +338,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title:
-                            l10n.meituanSpecialOffers,
+                        title: l10n.meituanSpecialOffers,
                         icon: "images/icon/server_icon15.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),
@@ -392,8 +389,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                         ),
                       ),
                       LJNFunctionItem(
-                        title:
-                            l10n.zhuanzhuanUsedGoods,
+                        title: l10n.zhuanzhuanUsedGoods,
                         icon: "images/icon/server_icon20.png",
                         link: '/qrcode_scanner',
                         margin: const EdgeInsets.all(0),

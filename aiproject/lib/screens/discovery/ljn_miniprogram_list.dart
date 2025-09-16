@@ -343,13 +343,25 @@ class FunctionButtonState extends State<FunctionButton> {
 
     return GestureDetector(
       onTap: widget.onPressed,
-      onTapDown: (_) => setState(() => _isPressed = true),
-      onTapUp: (_) => Future.delayed(const Duration(milliseconds: 50), () {
-        if (mounted) setState(() => _isPressed = false);
-      }),
-      onTapCancel: () => Future.delayed(const Duration(milliseconds: 50), () {
-        if (mounted) setState(() => _isPressed = false);
-      }),
+      onTapDown: (_) {
+        setState(() {
+          _isPressed = true;
+        });
+      },
+      onTapUp: (_) {
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
+        });
+      },
+      onTapCancel: () {
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
+        });
+      },
       child: Container(
         height: double.infinity,
         width: double.infinity,
@@ -490,12 +502,24 @@ class _ChatListItemState extends State<ChatListItem> {
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTapDown: (_) => setState(() => _isPressed = true),
-      onTapCancel: () => setState(() => _isPressed = false),
-      onTapUp: (_) {
-        setState(() => _isPressed = false);
+      onTap: widget.onPressed,
+      onTapDown: (_) {
+        setState(() {
+          _isPressed = true;
+        });
+      },
+      onTapCancel: () {
         Future.delayed(const Duration(milliseconds: 50), () {
-          if (mounted) widget.onPressed?.call();
+          setState(() {
+            _isPressed = false;
+          });
+        });
+      },
+      onTapUp: (_) {
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
         });
       },
       child: Container(

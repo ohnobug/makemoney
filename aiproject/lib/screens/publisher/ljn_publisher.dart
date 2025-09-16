@@ -76,7 +76,7 @@ class LJNPublisher extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
         decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+          color: theme.colorScheme.surfaceContainerHighest.withAlpha(128),
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
             color: theme.dividerColor,
@@ -107,7 +107,7 @@ class LJNPublisher extends StatelessWidget {
                     description,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
-                      height: 1.4,
+                      height: 1.4.w,
                     ),
                   ),
                 ],
@@ -143,15 +143,15 @@ class LJNPublisher extends StatelessWidget {
           const TextSpan(text: '。\n'),
           TextSpan(
             text: '（若选择AI创作，需额外支付 ',
-            style: regularStyle?.copyWith(fontSize: 10.sp),
+            style: regularStyle?.copyWith(fontSize: 12.w),
           ),
           TextSpan(
             text: '3 钻石',
-            style: boldStyle?.copyWith(fontSize: 10.sp),
+            style: boldStyle?.copyWith(fontSize: 12.w),
           ),
           TextSpan(
             text: ' 的AI生成服务费）',
-            style: regularStyle?.copyWith(fontSize: 10.sp),
+            style: regularStyle?.copyWith(fontSize: 12.w),
           ),
         ],
       ),

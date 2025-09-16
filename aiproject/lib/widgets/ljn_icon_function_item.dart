@@ -39,7 +39,6 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
     Color pressedColor = theme.listTileTheme.selectedTileColor!;
     Color subtitleColor = theme.textTheme.bodySmall?.color ?? theme.hintColor;
     Color iconColor = theme.hintColor;
-    Color dividerColor = theme.dividerColor;
 
     // 2. 根据内部状态 _isPressed，动态地计算出当前应该显示的背景颜色。
     Color currentColor = _isPressed ? pressedColor : normalColor;
@@ -50,24 +49,30 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
       // onTapDown 只负责更新内部状态
       onTapDown: (_) {
         if (!isTappable) return;
+
         setState(() => _isPressed = true);
       },
       // onTapCancel 只负责更新内部状态
       onTapCancel: () {
         if (!isTappable) return;
-        setState(() => _isPressed = false);
+
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
+        });
       },
       // onTapUp 负责恢复状态并执行操作
       onTapUp: (_) {
         if (!isTappable) return;
-        // 1. 立即恢复视觉状态
-        setState(() => _isPressed = false);
-        // 2. 延迟执行回调
+
         Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() => _isPressed = false);
           if (mounted) {
             // 安全地调用 onPressed
             widget.onPressed?.call();
             if (widget.link != null) {
+              // ignore: use_build_context_synchronously
               Navigator.pushNamed(context, widget.link!);
             }
           }
@@ -100,7 +105,10 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: widget.underline
-                        ? BorderSide(color: dividerColor, width: 1.5.w)
+                        ? BorderSide(
+                            color: theme.dividerColor,
+                            width: 1.5.w,
+                          )
                         : BorderSide.none,
                   ),
                 ),
@@ -139,7 +147,10 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                     ),
                     if (widget.link != null)
                       Container(
-                        padding: EdgeInsets.only(left: 10.w, right: 32.w),
+                        padding: EdgeInsets.only(
+                          left: 10.w,
+                          right: 32.w,
+                        ),
                         child: Icon(
                           const IconData(0xed9d, fontFamily: 'Iconfont'),
                           size: 30.0.w,

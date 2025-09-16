@@ -275,7 +275,7 @@ class _LJNSearch extends State<LJNSearch> {
                         filled: true,
                         fillColor: AppColors.neutralGrey14,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(30).w,
                           borderSide: BorderSide.none,
                         ),
                         contentPadding: EdgeInsets.symmetric(
@@ -391,24 +391,42 @@ class _LJNSearch extends State<LJNSearch> {
 
   // Helper widget for History and Suggestions sections
   Widget buildSection(
-      String title, List<_SearchItemData> data, AppLocalizations l10n) {
+    String title,
+    List<_SearchItemData> data,
+    AppLocalizations l10n,
+  ) {
+    ThemeData theme = Theme.of(context);
+
     return Container(
       decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(color: AppColors.neutralGrey8, width: 1.0.w))),
+        border: Border(
+          bottom: BorderSide(
+            color: theme.dividerColor,
+            width: 1.0.w,
+          ),
+        ),
+      ),
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.fromLTRB(30.w, 10.w, 30.w, 10.w),
+      padding: EdgeInsets.fromLTRB(
+        30.w,
+        10.w,
+        30.w,
+        10.w,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(title,
-                  style: TextStyle(
-                      height: 1.08,
-                      fontSize: 28.w,
-                      color: AppColors.neutralDarkGrey16)),
+              Text(
+                title,
+                style: TextStyle(
+                  height: 1.08,
+                  fontSize: 28.w,
+                  color: AppColors.neutralDarkGrey16,
+                ),
+              ),
               SizedBox(
                 width: 270.w,
                 height: 70.w,
@@ -421,20 +439,30 @@ class _LJNSearch extends State<LJNSearch> {
                         Icon(const IconData(0xe641, fontFamily: 'Iconfont'),
                             color: AppColors.neutralDarkGrey16, size: 28.w),
                         SizedBox(width: 5.w),
-                        Text(l10n.changeBatch,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: AppColors.neutralDarkGrey16,
-                                fontSize: 28.w,
-                                height: 1.08)),
+                        Text(
+                          l10n.changeBatch,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: AppColors.neutralDarkGrey16,
+                            fontSize: 28.w,
+                            height: 1.08,
+                          ),
+                        ),
                       ],
                     ),
                     Container(
-                        color: AppColors.neutralGrey23,
-                        height: 24.w,
-                        width: 2.w),
-                    Icon(const IconData(0xe657, fontFamily: 'Iconfont'),
-                        color: AppColors.neutralDarkGrey16, size: 28.w),
+                      color: AppColors.neutralGrey23,
+                      height: 24.w,
+                      width: 2.w,
+                    ),
+                    Icon(
+                      const IconData(
+                        0xe657,
+                        fontFamily: 'Iconfont',
+                      ),
+                      color: AppColors.neutralDarkGrey16,
+                      size: 28.w,
+                    ),
                   ],
                 ),
               )
@@ -516,8 +544,14 @@ class _LJNSearch extends State<LJNSearch> {
                         alignment: Alignment.center,
                         children: [
                           if (e.key < 3)
-                            Icon(const IconData(0xe649, fontFamily: 'Iconfont'),
-                                color: AppColors.accentYellowDark2, size: 37.w),
+                            Icon(
+                              const IconData(
+                                0xe649,
+                                fontFamily: 'Iconfont',
+                              ),
+                              color: AppColors.accentYellowDark2,
+                              size: 37.w,
+                            ),
                           Text(
                             (e.key + 1).toString(),
                             style: TextStyle(
@@ -541,18 +575,24 @@ class _LJNSearch extends State<LJNSearch> {
                           ? Text.rich(
                               TextSpan(children: [
                                 TextSpan(
-                                    text: item.text,
-                                    style: TextStyle(
-                                        fontSize: 32.w, height: 1.08)),
+                                  text: item.text,
+                                  style: TextStyle(
+                                    fontSize: 32.w,
+                                    height: 1.08,
+                                  ),
+                                ),
                                 WidgetSpan(
                                   alignment: PlaceholderAlignment.middle,
                                   child: Padding(
                                     padding: EdgeInsets.only(left: 4.w),
                                     child: Icon(
-                                        const IconData(0xe71e,
-                                            fontFamily: 'Iconfont'),
-                                        color: AppColors.accentRedPure,
-                                        size: 30.w),
+                                      const IconData(
+                                        0xe71e,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      color: AppColors.accentRedPure,
+                                      size: 30.w,
+                                    ),
                                   ),
                                 ),
                               ]),
@@ -561,14 +601,21 @@ class _LJNSearch extends State<LJNSearch> {
                             )
                           : Text(
                               item.text,
-                              style: TextStyle(fontSize: 32.w, height: 1.08),
+                              style: TextStyle(
+                                fontSize: 32.w,
+                                height: 1.08,
+                              ),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
                     ),
-                    Text(formattedNumber,
-                        style: TextStyle(
-                            fontSize: 25.w, color: AppColors.neutralGrey56)),
+                    Text(
+                      formattedNumber,
+                      style: TextStyle(
+                        fontSize: 25.w,
+                        color: AppColors.neutralGrey56,
+                      ),
+                    ),
                   ],
                 ),
               );
@@ -580,7 +627,9 @@ class _LJNSearch extends State<LJNSearch> {
             child: Center(
               child: Text(
                 l10n.viewFullList,
-                style: TextStyle(color: AppColors.accentRedPure),
+                style: TextStyle(
+                  color: AppColors.accentRedPure,
+                ),
               ),
             ),
           )

@@ -235,8 +235,14 @@ class _LJNBillDetails extends State<LJNBillDetails>
       decoration: BoxDecoration(
         color: theme.cardColor, // Use cardColor for a slight elevation feel
         border: Border(
-          top: BorderSide(color: theme.dividerColor, width: 2.w),
-          bottom: BorderSide(color: theme.dividerColor, width: 2.w),
+          top: BorderSide(
+            color: theme.dividerColor,
+            width: 2.w,
+          ),
+          bottom: BorderSide(
+            color: theme.dividerColor,
+            width: 2.w,
+          ),
         ),
       ),
       child: Row(
@@ -248,8 +254,8 @@ class _LJNBillDetails extends State<LJNBillDetails>
               padding: EdgeInsets.symmetric(horizontal: 25.w),
               height: 70.w,
               decoration: BoxDecoration(
-                color:
-                    theme.colorScheme.surfaceVariant, // Theme-aware background
+                color: theme.colorScheme
+                    .surfaceContainerHighest, // Theme-aware background
                 borderRadius: BorderRadius.circular(70.w),
               ),
               child: Row(
@@ -263,7 +269,10 @@ class _LJNBillDetails extends State<LJNBillDetails>
           ),
           Row(
             children: [
-              Text(l10n.statistics, style: TextStyle(fontSize: 30.w)),
+              Text(
+                l10n.statistics,
+                style: TextStyle(fontSize: 30.w),
+              ),
               SizedBox(width: 8.w),
               Icon(Icons.arrow_forward_ios, size: 30.w),
             ],
@@ -284,8 +293,10 @@ class _LJNBillDetails extends State<LJNBillDetails>
         children: [
           Text(
             l10n.yearAndMonth(DateTime(2023, 12)),
-            style:
-                TextStyle(fontSize: 30.w, color: theme.colorScheme.onSurface),
+            style: TextStyle(
+              fontSize: 30.w,
+              color: theme.colorScheme.onSurface,
+            ),
           ),
           SizedBox(width: 8.w),
           Icon(Icons.calendar_today,
@@ -312,10 +323,12 @@ class _LJNBillDetails extends State<LJNBillDetails>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-                height: 47.w,
-                child: Center(
-                    child: Text(l10n.selectFilter,
-                        style: theme.textTheme.titleMedium))),
+              height: 47.w,
+              child: Center(
+                child:
+                    Text(l10n.selectFilter, style: theme.textTheme.titleMedium),
+              ),
+            ),
             SizedBox(height: 50.w),
             Text(l10n.incomeExpenseType, style: theme.textTheme.titleSmall),
             SizedBox(height: 20.w),
@@ -400,7 +413,8 @@ class _LJNBillDetails extends State<LJNBillDetails>
                   child: TextButton(
                     onPressed: _closeFilter,
                     style: TextButton.styleFrom(
-                      backgroundColor: theme.colorScheme.surfaceVariant,
+                      backgroundColor:
+                          theme.colorScheme.surfaceContainerHighest,
                       foregroundColor: theme.colorScheme.onSurfaceVariant,
                       padding: EdgeInsets.symmetric(vertical: 25.w),
                     ),
@@ -416,7 +430,12 @@ class _LJNBillDetails extends State<LJNBillDetails>
                       foregroundColor: theme.colorScheme.onPrimary,
                       padding: EdgeInsets.symmetric(vertical: 25.w),
                     ),
-                    child: Text(l10n.confirm, style: TextStyle(fontSize: 30.w)),
+                    child: Text(
+                      l10n.confirm,
+                      style: TextStyle(
+                        fontSize: 30.w,
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -450,7 +469,8 @@ class LJNFilterButton extends StatelessWidget {
     // Determine colors based on selection state and theme
     final Color backgroundColor = selected
         ? (chipTheme.selectedColor ?? theme.colorScheme.primaryContainer)
-        : (chipTheme.backgroundColor ?? theme.colorScheme.surfaceVariant);
+        : (chipTheme.backgroundColor ??
+            theme.colorScheme.surfaceContainerHighest);
     final Color textColor = selected
         ? (chipTheme.secondaryLabelStyle?.color ??
             theme.colorScheme.onPrimaryContainer)

@@ -10,11 +10,12 @@ import 'package:lottie/lottie.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
 class LJNTestMessage extends StatefulWidget {
-  const LJNTestMessage(
-      {super.key,
-      required this.message,
-      required this.showName,
-      required this.name});
+  const LJNTestMessage({
+    super.key,
+    required this.message,
+    required this.showName,
+    required this.name,
+  });
 
   final String name;
   final bool showName;

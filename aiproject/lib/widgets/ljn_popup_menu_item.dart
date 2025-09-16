@@ -44,21 +44,21 @@ class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
       },
       // onTapCancel 只负责更新内部状态
       onTapCancel: () {
-        setState(() {
-          _isPressed = false;
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
         });
       },
       // onTapUp 负责恢复状态并执行操作
       onTapUp: (_) {
-        // 1. 立即恢复视觉状态
-        setState(() {
-          _isPressed = false;
-        });
-
-        // 2. 延迟执行回调，让用户能看到颜色恢复的动画效果
+        // 延迟执行回调，让用户能看到颜色恢复的动画效果
         Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
           // 检查 widget 是否还在树上
-          if (mounted) {
+          if (context.mounted) {
             widget.onTap?.call();
           }
         });

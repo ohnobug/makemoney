@@ -971,7 +971,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                             color: AppColors.neutralGrey2,
                             border: Border(
                               top: BorderSide(
-                                color: AppColors.neutralGrey16,
+                                color: theme.dividerColor,
                                 width: 1.5.w,
                                 style: BorderStyle.solid,
                               ),
@@ -1283,8 +1283,9 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                                           horizontal: 16)
                                                       .w,
                                               border: const OutlineInputBorder(
-                                                  gapPadding: 0,
-                                                  borderSide: BorderSide.none),
+                                                gapPadding: 0,
+                                                borderSide: BorderSide.none,
+                                              ),
                                               // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
                                               // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
                                               // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),

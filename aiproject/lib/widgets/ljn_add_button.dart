@@ -34,8 +34,7 @@ class _LJNAddButtonState extends State<LJNAddButton> {
     super.initState();
 
     // 判断是否有 backgroundColor，若没有，则使用默认颜色
-    originContainerColor =
-        widget.backgroundColor ?? AppColors.neutralGrey6;
+    originContainerColor = widget.backgroundColor ?? AppColors.neutralGrey6;
 
     setState(() {
       containerColor = originContainerColor;
@@ -58,8 +57,10 @@ class _LJNAddButtonState extends State<LJNAddButton> {
         });
       },
       onTapCancel: () {
-        setState(() {
-          containerColor = originContainerColor;
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            containerColor = originContainerColor;
+          });
         });
 
         logger.info("取消点击");

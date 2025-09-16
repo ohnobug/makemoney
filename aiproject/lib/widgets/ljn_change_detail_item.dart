@@ -63,21 +63,32 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
       // onTapDown 只负责更新内部状态
       onTapDown: (_) {
         if (widget.onPressed == null) return;
-        setState(() => _isPressed = true);
+
+        setState(() {
+          _isPressed = true;
+        });
       },
       // onTapCancel 只负责更新内部状态
       onTapCancel: () {
         if (widget.onPressed == null) return;
-        setState(() => _isPressed = false);
+
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
+        });
       },
       // onTapUp 负责恢复状态并执行操作
       onTapUp: (_) {
         if (widget.onPressed == null) return;
-        // 1. 立即恢复视觉状态
-        setState(() => _isPressed = false);
-        // 2. 延迟执行回调
+
+        // 延迟执行回调
         Future.delayed(const Duration(milliseconds: 50), () {
-          if (mounted) {
+          setState(() {
+            _isPressed = false;
+          });
+
+          if (context.mounted) {
             widget.onPressed!();
           }
         });

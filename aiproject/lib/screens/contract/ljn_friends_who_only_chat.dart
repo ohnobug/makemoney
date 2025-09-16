@@ -205,7 +205,7 @@ class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChat> {
                     color: AppColors.neutralGrey2,
                     border: Border(
                       top: BorderSide(
-                        color: AppColors.neutralGrey20,
+                        color: theme.dividerColor,
                         width: 1.5.w,
                         style: BorderStyle.solid,
                       ),

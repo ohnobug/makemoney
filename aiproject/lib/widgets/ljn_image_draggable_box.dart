@@ -8,6 +8,7 @@ import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:image_size_getter/image_size_getter.dart' as imagegetter;
+import "package:vector_math/vector_math_64.dart";
 
 // 可拖动和缩放的图片框状态组件。
 class LJNImaeDraggableBox extends StatefulWidget {
@@ -308,8 +309,10 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
   // 根据当前缩放比例和偏移量构建变换矩阵。
   Matrix4 _buildTransformMatrix() {
     return Matrix4.identity()
-      ..translate(_offsetAnimation.value.dx, _offsetAnimation.value.dy)
-      ..scale(_scaleAnimation.value);
+      ..translateByVector3(
+          Vector3(_offsetAnimation.value.dx, _offsetAnimation.value.dy, 0))
+      ..scaleByVector3(Vector3(
+          _scaleAnimation.value, _scaleAnimation.value, _scaleAnimation.value));
     // ..translate(-focalX, -focalY);
   }
 

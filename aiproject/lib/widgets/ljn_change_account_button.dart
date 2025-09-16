@@ -69,8 +69,10 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
         });
       },
       onTapCancel: () {
-        setState(() {
-          containerColor = originContainerColor;
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            containerColor = originContainerColor;
+          });
         });
 
         logger.info("取消点击");

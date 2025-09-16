@@ -839,7 +839,7 @@ class _LJNChat extends State<LJNChat>
                                 color: AppColors.neutralGrey2,
                                 border: Border(
                                   top: BorderSide(
-                                    color: AppColors.neutralGrey16,
+                                    color: theme.dividerColor,
                                     width: 1.5.w,
                                     style: BorderStyle.solid,
                                   ),
@@ -883,7 +883,9 @@ class _LJNChat extends State<LJNChat>
                                       width: 97.w,
                                       height: 107.w,
                                       padding: EdgeInsets.only(
-                                          left: 20.w, right: 20.w),
+                                        left: 20.w,
+                                        right: 20.w,
+                                      ),
                                       child: Icon(
                                         const IconData(
                                           0xe66c,
@@ -1174,15 +1176,15 @@ class _LJNChat extends State<LJNChat>
                                                   isCollapsed: true,
                                                   contentPadding:
                                                       const EdgeInsets
-                                                              .symmetric(
-                                                              vertical: 19,
-                                                              horizontal: 16)
-                                                          .w,
+                                                          .symmetric(
+                                                    vertical: 19,
+                                                    horizontal: 16,
+                                                  ).w,
                                                   border:
                                                       const OutlineInputBorder(
-                                                          gapPadding: 0,
-                                                          borderSide:
-                                                              BorderSide.none),
+                                                    gapPadding: 0,
+                                                    borderSide: BorderSide.none,
+                                                  ),
                                                   // focusedBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
                                                   // enabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
                                                   // disabledBorder: OutlineInputBorder(gapPadding: 0, borderSide: BorderSide.none),
@@ -1289,23 +1291,23 @@ class _LJNChat extends State<LJNChat>
                                                 Radius.circular(10.w),
                                               ),
                                             ),
-                                            child:
-                                                _widthAnimation.value >= 113.w
-                                                    ? Center(
-                                                        child: Text(
-                                                          AppLocalizations.of(
-                                                                  context)!
-                                                              .send,
-                                                          style: TextStyle(
-                                                              height: 1.08,
-                                                              fontSize:
-                                                                  fontSizeScale(
-                                                                      27.w),
-                                                              color: AppColors
-                                                                  .neutralWhite),
-                                                        ),
-                                                      )
-                                                    : null,
+                                            child: _widthAnimation.value >=
+                                                    113.w
+                                                ? Center(
+                                                    child: Text(
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .send,
+                                                      style: TextStyle(
+                                                        height: 1.08,
+                                                        fontSize:
+                                                            fontSizeScale(27.w),
+                                                        color: AppColors
+                                                            .neutralWhite,
+                                                      ),
+                                                    ),
+                                                  )
+                                                : null,
                                           ),
                                         ),
                                       );
@@ -1319,34 +1321,39 @@ class _LJNChat extends State<LJNChat>
                                       onTap: () {
                                         if (pannelType == PannelType.none) {
                                           _showFunctionSelector(
-                                              _emojiSelectorAnimationContentController
-                                                      .isAnimating
-                                                  ? _emojiSelectorAnimationContentController
-                                                      .value
-                                                  : 0);
+                                            _emojiSelectorAnimationContentController
+                                                    .isAnimating
+                                                ? _emojiSelectorAnimationContentController
+                                                    .value
+                                                : 0,
+                                          );
                                         } else if (pannelType ==
                                             PannelType.voiceButton) {
                                           _showFunctionSelector(
-                                              _emojiSelectorAnimationContentController
-                                                      .isAnimating
-                                                  ? _emojiSelectorAnimationContentController
-                                                      .value
-                                                  : 0);
+                                            _emojiSelectorAnimationContentController
+                                                    .isAnimating
+                                                ? _emojiSelectorAnimationContentController
+                                                    .value
+                                                : 0,
+                                          );
                                         } else if (pannelType ==
                                             PannelType.keyboard) {
                                           _switchFunctionSelector(
-                                              begin: _maxInsets.bottom,
-                                              end: _functionSelectorHeight);
+                                            begin: _maxInsets.bottom,
+                                            end: _functionSelectorHeight,
+                                          );
                                         } else if (pannelType ==
                                             PannelType.emojiSelector) {
                                           _switchFunctionSelector(
-                                              begin: _emojiSelectorHeight,
-                                              end: _functionSelectorHeight);
+                                            begin: _emojiSelectorHeight,
+                                            end: _functionSelectorHeight,
+                                          );
                                         } else if (pannelType ==
                                             PannelType.functionSelector) {
                                           _switchKeyboradFunc(
-                                              begin: _functionSelectorHeight,
-                                              end: _maxInsets.bottom);
+                                            begin: _functionSelectorHeight,
+                                            end: _maxInsets.bottom,
+                                          );
                                         }
                                       },
                                       child: Container(
@@ -1377,17 +1384,17 @@ class _LJNChat extends State<LJNChat>
                               return Expanded(
                                 flex: 0,
                                 child: SizedBox(
-                                    width: systemState.screenSize.width,
-                                    height: _keyboradAnimation.value,
-                                    // color: AppColors.accentRedPure,
-                                    child:
-                                        pannelType == PannelType.emojiSelector
-                                            ? const LJNChatEmojiSelector()
-                                            : pannelType ==
-                                                    PannelType.functionSelector
-                                                ? _buildChatFunctionSelector(
-                                                    systemState)
-                                                : null),
+                                  width: systemState.screenSize.width,
+                                  height: _keyboradAnimation.value,
+                                  // color: AppColors.accentRedPure,
+                                  child: pannelType == PannelType.emojiSelector
+                                      ? const LJNChatEmojiSelector()
+                                      : pannelType ==
+                                              PannelType.functionSelector
+                                          ? _buildChatFunctionSelector(
+                                              systemState)
+                                          : null,
+                                ),
                               );
                             },
                           ),
@@ -1410,6 +1417,7 @@ class _LJNChat extends State<LJNChat>
   // 功能选择器组件
   Widget _buildChatFunctionSelector(SystemState systemState) {
     AppLocalizations l10n = AppLocalizations.of(context)!;
+    ThemeData theme = Theme.of(context);
 
     return Container(
       width: systemState.screenSize.width,
@@ -1418,7 +1426,7 @@ class _LJNChat extends State<LJNChat>
         color: AppColors.neutralGrey2,
         border: Border(
           top: BorderSide(
-            color: AppColors.neutralGrey16,
+            color: theme.dividerColor,
             width: 1.5.w,
             style: BorderStyle.solid,
           ),
@@ -1538,19 +1546,20 @@ class _LJNChat extends State<LJNChat>
             },
           ),
           LJNFunctionSelectorButton(
-              systemState: systemState,
-              title: l10n.voiceInput,
-              icon: Icon(
-                const IconData(
-                  0xe632,
-                  fontFamily: 'Iconfont',
-                ),
-                color: AppColors.neutralNearBlack1,
-                size: 52.w,
+            systemState: systemState,
+            title: l10n.voiceInput,
+            icon: Icon(
+              const IconData(
+                0xe632,
+                fontFamily: 'Iconfont',
               ),
-              onTap: () {
-                logger.info("语音输入");
-              })
+              color: AppColors.neutralNearBlack1,
+              size: 52.w,
+            ),
+            onTap: () {
+              logger.info("语音输入");
+            },
+          )
         ],
       ),
     );
@@ -1631,12 +1640,13 @@ class _LJNChat extends State<LJNChat>
                               width: _voiceTextBoxWidthAnimation.value,
                               height: _voiceTextBoxHeightAnimation.value,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(24.w),
-                                  ),
-                                  color: leftRight == 2
-                                      ? AppColors.brandGreenLightest
-                                      : AppColors.accentRedPure),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(24.w),
+                                ),
+                                color: leftRight == 2
+                                    ? AppColors.brandGreenLightest
+                                    : AppColors.accentRedPure,
+                              ),
                               alignment: leftRight == 1
                                   ? Alignment.center
                                   : Alignment.topLeft,
@@ -1662,17 +1672,17 @@ class _LJNChat extends State<LJNChat>
 
                                         // 语音图标
                                         Positioned(
-                                            right: 38.w,
-                                            bottom: 38.w,
-                                            child: Icon(
-                                              const IconData(
-                                                0xe85e,
-                                                fontFamily: 'Iconfont',
-                                              ),
-                                              color:
-                                                  AppColors.neutralDarkGrey17,
-                                              size: 45.w,
-                                            ))
+                                          right: 38.w,
+                                          bottom: 38.w,
+                                          child: Icon(
+                                            const IconData(
+                                              0xe85e,
+                                              fontFamily: 'Iconfont',
+                                            ),
+                                            color: AppColors.neutralDarkGrey17,
+                                            size: 45.w,
+                                          ),
+                                        )
                                       ],
                                     )
                                   : Icon(
@@ -1707,7 +1717,8 @@ class _LJNChat extends State<LJNChat>
                             )
                           ],
                         ),
-                      ))
+                      ),
+                    )
                   : SizedBox(),
 
               // 关闭按钮上面的文字
@@ -1729,7 +1740,8 @@ class _LJNChat extends State<LJNChat>
                             color: AppColors.neutralGrey52,
                           ),
                         ),
-                      ))
+                      ),
+                    )
                   : SizedBox(),
 
               // 左边关闭按钮

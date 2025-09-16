@@ -217,7 +217,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                     color: theme.colorScheme.surfaceContainer,
                     border: Border(
                       top: BorderSide(
-                        color: theme.tabBarTheme.dividerColor!,
+                        color: theme.dividerColor,
                         width: 1.5.w,
                       ),
                     ),

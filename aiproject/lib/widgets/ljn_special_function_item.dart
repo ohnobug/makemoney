@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
 class LJNSpecialFunctionItem extends StatefulWidget {
@@ -45,8 +44,6 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
     // 1. 定义不同状态下的颜色
     final Color normalColor = theme.listTileTheme.tileColor!;
     final Color pressedColor = theme.listTileTheme.selectedTileColor!;
-    final Color iconColor = theme.hintColor;
-    final Color dividerColor = theme.dividerColor;
 
     // 2. 根据内部状态 _isPressed，动态地计算出当前应该显示的背景颜色。
     final Color currentColor =
@@ -57,21 +54,30 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
       // onTapDown 只负责更新内部状态
       onTapDown: (_) {
         if (!isTappable) return;
+
         setState(() => _isPressed = true);
       },
       // onTapCancel 只负责更新内部状态
       onTapCancel: () {
         if (!isTappable) return;
-        setState(() => _isPressed = false);
+
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
+        });
       },
       // onTapUp 负责恢复状态并执行操作
       onTapUp: (_) {
         if (!isTappable) return;
-        // 1. 立即恢复视觉状态
-        setState(() => _isPressed = false);
-        // 2. 延迟执行导航
+
         Future.delayed(const Duration(milliseconds: 50), () {
-          if (mounted && widget.link != null) {
+          setState(() {
+            _isPressed = false;
+          });
+
+          if (context.mounted && widget.link != null) {
+            // ignore: use_build_context_synchronously
             Navigator.pushNamed(context, widget.link!);
           }
         });
@@ -84,7 +90,10 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
           color: currentColor,
           border: Border(
             bottom: widget.underline
-                ? BorderSide(color: dividerColor, width: 1.5.w)
+                ? BorderSide(
+                    color: theme.dividerColor,
+                    width: 1.5.w,
+                  )
                 : BorderSide.none,
           ),
         ),
@@ -125,7 +134,7 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
                   const IconData(0xed9d, fontFamily: 'Iconfont'),
                   size: 30.0.w,
                   // 使用主题感知的图标颜色
-                  color: iconColor,
+                  color: theme.hintColor,
                 ),
               )
           ],

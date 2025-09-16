@@ -61,7 +61,7 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
                 color: theme.colorScheme.surfaceContainer,
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.grey.withAlpha(128),
+                    color: theme.dividerColor,
                     width: 1.w,
                   ),
                 ),
@@ -99,11 +99,13 @@ class _LJNSearchFriend extends State<LJNSearchFriend> {
                         filled: true,
                         fillColor: AppColors.neutralWhite,
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.w),
+                          borderRadius: BorderRadius.circular(20).w,
                           borderSide: BorderSide.none,
                         ),
                         contentPadding: EdgeInsets.symmetric(
-                            vertical: 8.0.w, horizontal: 20.0.w),
+                          vertical: 8.0,
+                          horizontal: 20.0,
+                        ).w,
                       ),
                     ),
                   ),

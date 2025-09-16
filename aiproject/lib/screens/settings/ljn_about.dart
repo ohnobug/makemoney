@@ -111,12 +111,12 @@ class _LJNAbout extends State<LJNAbout> {
                           //     BorderRadius.all(Radius.circular(12.w),),
                           border: Border(
                             top: BorderSide(
-                              color: theme.listTileTheme.selectedTileColor!,
+                              color: theme.dividerColor,
                               width: 1.5.w,
                               style: BorderStyle.solid,
                             ),
                             bottom: BorderSide(
-                              color: theme.listTileTheme.selectedTileColor!,
+                              color: theme.dividerColor,
                               width: 1.5.w,
                               style: BorderStyle.solid,
                             ),

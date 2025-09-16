@@ -124,7 +124,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                             color: AppColors.neutralWhite,
                             border: Border(
                               bottom: BorderSide(
-                                color: theme.listTileTheme.selectedTileColor!,
+                                color: theme.dividerColor,
                                 width: 1.5.w,
                                 style: BorderStyle.solid,
                               ),

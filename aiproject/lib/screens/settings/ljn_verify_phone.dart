@@ -112,7 +112,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                 decoration: BoxDecoration(
                                   border: Border(
                                     bottom: BorderSide(
-                                      color: AppColors.neutralGrey26,
+                                      color: theme.dividerColor,
                                       width: 1.5.w,
                                       style: BorderStyle.solid,
                                     ),
@@ -125,15 +125,17 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                     Text(
                                       "+86",
                                       style: TextStyle(
-                                          fontSize: 24.w,
-                                          color: theme.colorScheme.onSurface),
+                                        fontSize: 24.w,
+                                        color: theme.colorScheme.onSurface,
+                                      ),
                                     ),
                                     Text(
                                       AppLocalizations.of(context)!
                                           .mainlandChina,
                                       style: TextStyle(
-                                          fontSize: 15.w,
-                                          color: theme.colorScheme.onSurface),
+                                        fontSize: 15.w,
+                                        color: theme.colorScheme.onSurface,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -165,27 +167,25 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                                     border: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                         width: 1.5.w,
-                                        color:
-                                            AppColors.brandGreenSlightlyLighter,
+                                        color: theme.dividerColor,
                                       ),
                                     ),
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                         width: 1.5.w,
-                                        color:
-                                            AppColors.brandGreenSlightlyLighter,
+                                        color: theme.dividerColor,
                                       ),
                                     ),
                                     // 获取焦点时的底线样式
                                     focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                         width: 1.5.w,
-                                        color:
-                                            AppColors.brandGreenSlightlyLighter,
+                                        color: theme.dividerColor,
                                       ),
                                     ),
                                     contentPadding: EdgeInsets.only(
-                                        bottom: 20.w), // 也可调小内边距
+                                      bottom: 20.w,
+                                    ), // 也可调小内边距
                                   ),
                                 ),
                               )

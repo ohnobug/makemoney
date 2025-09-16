@@ -668,9 +668,10 @@ class _LJNIns extends State<LJNIns> {
                                     ),
                                     hintText: l10n.search,
                                     hintStyle: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 30.w,
-                                        color: AppColors.neutralDarkGrey14),
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 30.w,
+                                      color: AppColors.neutralDarkGrey14,
+                                    ),
                                     filled: true,
                                     fillColor: AppColors.neutralGrey29,
                                     border: OutlineInputBorder(
@@ -678,9 +679,9 @@ class _LJNIns extends State<LJNIns> {
                                       borderSide: BorderSide.none,
                                     ),
                                     contentPadding: EdgeInsets.symmetric(
-                                      vertical: 8.0.w,
-                                      horizontal: 20.0.w,
-                                    ),
+                                      vertical: 8.0,
+                                      horizontal: 20.0,
+                                    ).w,
                                   ),
                                 ),
                               ),

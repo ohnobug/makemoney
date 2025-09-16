@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -37,10 +38,10 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
 
     _initLotties();
 
-    if (Platform.isWindows) {
-      _initWindowsWebviewController();
-    } else {
+    if (kIsWeb) {
       _initWebViewController();
+    } else {
+      _initWindowsWebviewController();
     }
   }
 
@@ -188,12 +189,13 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
         body: Stack(
           children: [
             // 页面本身
-            if (Platform.isWindows)
-              Webview(
-                _windowsWebViewController,
-              )
-            else
-              WebViewWidget(controller: webViewController),
+            if (!kIsWeb)
+              if (Platform.isWindows)
+                Webview(
+                  _windowsWebViewController,
+                )
+              else
+                WebViewWidget(controller: webViewController),
 
             // 加载动画
             Visibility(
@@ -300,6 +302,7 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
 
 void _showPopup(BuildContext context, SystemState systemState) {
   AppLocalizations l10n = AppLocalizations.of(context)!;
+  ThemeData theme = Theme.of(context);
   double widthHeightRatio =
       MediaQuery.of(context).size.width / MediaQuery.of(context).size.height;
 
@@ -616,7 +619,7 @@ void _showPopup(BuildContext context, SystemState systemState) {
           color: AppColors.neutralGrey2,
           border: Border(
             top: BorderSide(
-              color: AppColors.neutralGrey16,
+              color: theme.dividerColor,
               width: 1.0.w,
               style: BorderStyle.solid,
             ),
@@ -1034,6 +1037,8 @@ class _LJNPopupButtonMaxWidthButtonState
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return GestureDetector(
@@ -1081,7 +1086,7 @@ class _LJNPopupButtonMaxWidthButtonState
               border: Border(
                 top: BorderSide(
                   width: 1.0.w,
-                  color: AppColors.neutralGrey19,
+                  color: theme.dividerColor,
                 ),
               ),
             ),

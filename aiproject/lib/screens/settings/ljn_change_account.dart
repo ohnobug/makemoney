@@ -93,12 +93,12 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
                             // color: AppColors.accentRedPure,
                             border: Border(
                               top: BorderSide(
-                                color: AppColors.neutralGrey18,
+                                color: theme.dividerColor,
                                 width: 1.5.w,
                                 style: BorderStyle.solid,
                               ),
                               bottom: BorderSide(
-                                color: AppColors.neutralGrey18,
+                                color: theme.dividerColor,
                                 width: 1.5.w,
                                 style: BorderStyle.solid,
                               ),

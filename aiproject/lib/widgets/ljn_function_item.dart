@@ -75,10 +75,14 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
       // onTapCancel 只负责更新内部状态
       onTapCancel: () {
         if (!tapEffect) return;
-        setState(() {
-          _isPressed = false;
+
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
+
+          logger.info("取消点击");
         });
-        logger.info("取消点击");
       },
       // onTapUp 负责恢复状态并执行操作
       onTapUp: (tapDownDetails) {
@@ -93,14 +97,12 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
           return;
         }
 
-        // 如果有点击效果：
-        // 1. 立即恢复视觉状态，让UI响应更及时
-        setState(() {
-          _isPressed = false;
-        });
-
-        // 2. 延迟一小段时间再执行回调，让用户能看到颜色恢复的动画效果
+        // 延迟一小段时间再执行回调，让用户能看到颜色恢复的动画效果
         Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            _isPressed = false;
+          });
+
           // 检查 widget 是否还在树上
           if (context.mounted) {
             if (widget.link != null) {
@@ -159,13 +161,14 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                               padding: widget.icon == null
                                   ? widget.padding ??
                                       const EdgeInsets.only(
-                                              left: 30.0, right: 0.0)
-                                          .w
+                                        left: 30.0,
+                                        right: 0.0,
+                                      ).w
                                   : const EdgeInsets.all(0),
                               child: Text(
                                 widget.title as String,
                                 style: TextStyle(
-                                  height: 1.08,
+                                  height: 1.08.w,
                                   fontSize: fontSizeScale(32.0.w),
                                   fontFamily: "AlibabaPuHuiTi",
                                 ),

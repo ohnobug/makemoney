@@ -85,7 +85,7 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: theme.listTileTheme.selectedTileColor!,
+                                  color: theme.dividerColor,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
@@ -95,7 +95,8 @@ class _LJPpersonalInfoCollectionChecklist
                               l10n.basicInfo,
                               style: TextStyle(
                                 fontSize: 25.w,
-                                color: AppColors.neutralDarkGrey13,
+                                color:
+                                    theme.listTileTheme.titleTextStyle!.color,
                               ),
                             ),
                           ),
@@ -160,7 +161,7 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: theme.listTileTheme.selectedTileColor!,
+                                  color: theme.dividerColor,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
@@ -175,8 +176,7 @@ class _LJPpersonalInfoCollectionChecklist
                             ),
                           ),
                           LJNPCCFunctionItem(
-                            title:
-                                l10n.loggedInDevices,
+                            title: l10n.loggedInDevices,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -199,7 +199,7 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: theme.listTileTheme.selectedTileColor!,
+                                  color: theme.dividerColor,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
@@ -220,8 +220,7 @@ class _LJPpersonalInfoCollectionChecklist
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title:
-                                l10n.imagesAndVideos,
+                            title: l10n.imagesAndVideos,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -244,7 +243,7 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: theme.listTileTheme.selectedTileColor!,
+                                  color: theme.dividerColor,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
@@ -300,8 +299,7 @@ class _LJPpersonalInfoCollectionChecklist
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title:
-                                l10n.officialAccounts,
+                            title: l10n.officialAccounts,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -342,7 +340,7 @@ class _LJPpersonalInfoCollectionChecklist
                             decoration: BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
-                                  color: theme.listTileTheme.selectedTileColor!,
+                                  color: theme.dividerColor,
                                   width: 1.5.w,
                                   style: BorderStyle.solid,
                                 ),
@@ -436,14 +434,17 @@ class _LJNPCCFunctionItemState extends State<LJNPCCFunctionItem> {
       },
       onTapCancel: () {
         if (tapEffect == false) return;
-        setState(() {
-          containerColor = originContainerColor;
-        });
 
-        logger.info("取消点击");
+        Future.delayed(const Duration(milliseconds: 50), () {
+          setState(() {
+            containerColor = originContainerColor;
+          });
+          logger.info("取消点击");
+        });
       },
       onTapUp: (tapDownDetails) {
         if (tapEffect == false) return;
+
         Future.delayed(const Duration(milliseconds: 50), () {
           setState(() {
             containerColor = originContainerColor;
@@ -452,9 +453,9 @@ class _LJNPCCFunctionItemState extends State<LJNPCCFunctionItem> {
           if (context.mounted && widget.link != null) {
             Navigator.pushNamed(context, widget.link!);
           }
-        });
 
-        logger.info("弹起");
+          logger.info("弹起");
+        });
       },
       child: Container(
         height: widget.height ?? 105.0.w,

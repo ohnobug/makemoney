@@ -124,7 +124,7 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: theme.listTileTheme.selectedTileColor!,
+                          color: theme.dividerColor,
                           width: 2.w,
                           style: BorderStyle.solid,
                         ),
