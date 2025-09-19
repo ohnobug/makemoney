@@ -73,7 +73,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                           ],
                         ),
 
-                        // 微信密码
+                        // Vigaviga密码
                         LJNFunctionList(
                           children: [
                             LJNFunctionItem(
@@ -113,7 +113,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                           ],
                         ),
 
-                        // 微信安全中心
+                        // Vigaviga安全中心
                         LJNFunctionList(children: [
                           LJNSpecialFunctionItem(
                             title: l10n.wechatSecurityCenter,

@@ -77,15 +77,16 @@ class _LJNUserState extends State<LJNUser> {
                 children: [
                   // 顶部功能区域
                   Container(
-                    color: theme.colorScheme.surface,
+                    color: Colors.amber,
                     padding: EdgeInsets.only(
-                      top: 120.0.w + systemState.statusHeight,
+                      top: 50.0.w,
                       left: 32.w,
                       bottom: 50.w,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // 头像
                         GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, '/userinfo');
@@ -127,7 +128,7 @@ class _LJNUserState extends State<LJNUser> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // 用户名与微信号
+                              // 用户名与Vigaviga号
                               GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(context, '/userinfo');
@@ -160,7 +161,7 @@ class _LJNUserState extends State<LJNUser> {
 
                                       SizedBox(height: 20.w),
 
-                                      // 微信号
+                                      // Vigaviga号
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -221,11 +222,12 @@ class _LJNUserState extends State<LJNUser> {
                                 ),
                               ),
 
-                              SizedBox(height: 40.w),
+                              SizedBox(height: 20.w),
 
                               // 状态
                               Row(
                                 children: [
+                                  // 状态
                                   LJNStatusButton(
                                     text: l10n.addStatus,
                                     onPressed: () {
@@ -233,6 +235,7 @@ class _LJNUserState extends State<LJNUser> {
                                     },
                                   ),
                                   SizedBox(width: 14.w),
+                                  // 朋友状态
                                   LJNStatusButton(
                                     child: Row(
                                       children: [

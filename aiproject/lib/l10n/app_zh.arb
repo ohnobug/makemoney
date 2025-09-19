@@ -1,19 +1,19 @@
 {
   "@@locale": "zh",
-  "wechat": "微信",
-  "wechatID": "微信号",
-  "wechatPassword": "微信密码",
-  "wechatSecurityCenter": "微信安全中心",
-  "changeWechatID": "修改微信号",
-  "wechatBeans": "微信豆",
-  "wechatGames": "微信游戏",
-  "aboutWeChat": "关于微信",
-  "weRun": "微信运动",
-  "personalInfoCollectionFullDescription": "    你可以查阅微信对你的个人信息的收集情况。以下只统计i0S 8.0.17、Android 8.0.18及之后版本微信所收集的信息。你使用旧版本微信期间的信息收集情况，微信无法完整统计到。",
-  "privacy_setting_description": "你们将互相看不到对方的朋友圈、状态、微信运动、看一看以及第三方登录授权分享的内容。",
-  "copySuccessWithWechatId": "复制成功!微信号:{account}",
+  "wechat": "Vigaviga",
+  "wechatID": "Vigaviga号",
+  "wechatPassword": "Vigaviga密码",
+  "wechatSecurityCenter": "Vigaviga安全中心",
+  "changeWechatID": "修改Vigaviga号",
+  "wechatBeans": "Vigaviga豆",
+  "wechatGames": "Vigaviga游戏",
+  "aboutWeChat": "关于Vigaviga",
+  "weRun": "Vigaviga运动",
+  "personalInfoCollectionFullDescription": "    你可以查阅Vigaviga对你的个人信息的收集情况。以下只统计i0S 8.0.17、Android 8.0.18及之后版本Vigaviga所收集的信息。你使用旧版本Vigaviga期间的信息收集情况，Vigaviga无法完整统计到。",
+  "privacy_setting_description": "你们将互相看不到对方的朋友圈、状态、Vigaviga运动、看一看以及第三方登录授权分享的内容。",
+  "copySuccessWithWechatId": "复制成功!Vigaviga号:{account}",
   "@copySuccessWithWechatId": {
-    "description": "复制微信号成功后显示的提示信息",
+    "description": "复制Vigaviga号成功后显示的提示信息",
     "placeholders": {
       "account": {
         "type": "String",
@@ -21,44 +21,44 @@
       }
     }
   },
-  "verifyIdentityWithPasswordFull": "填写当前微信登录密码，验证本人身份。",
-  "autoDownloadWeChatInstaller": "自动下载微信安装包",
-  "wechatIdModificationRuleFull": "微信号是账号的唯一凭证，一年只能修改一次。",
-  "device_management_auto_extend_login_info_friendly": "登录微信后，当设备处于安全状态时，微信会自动延长登录时间以保持朋友消息的及时收发，此时会更新最近活跃时间。",
-  "loginWithVoiceprint": "用声音锁登录微信",
-  "wechatBeanCount": "{count}个微信豆",
+  "verifyIdentityWithPasswordFull": "填写当前Vigaviga登录密码，验证本人身份。",
+  "autoDownloadWeChatInstaller": "自动下载Vigaviga安装包",
+  "wechatIdModificationRuleFull": "Vigaviga号是账号的唯一凭证，一年只能修改一次。",
+  "device_management_auto_extend_login_info_friendly": "登录Vigaviga后，当设备处于安全状态时，Vigaviga会自动延长登录时间以保持朋友消息的及时收发，此时会更新最近活跃时间。",
+  "loginWithVoiceprint": "用声音锁登录Vigaviga",
+  "wechatBeanCount": "{count}个Vigaviga豆",
   "@wechatBeanCount": {
-    "description": "显示微信豆的数量",
+    "description": "显示Vigaviga豆的数量",
     "placeholders": {
       "count": {
         "type": "int"
       }
     }
   },
-  "wechatKeyboardFeatureAskAI": "微信输入法可以【问AI】了",
-  "setWechatPasswordDescription": "请设置微信密码。你可以用微信绑定的账号+微信密码登录，比如使用手机号+微信密码登录微信，更快捷。",
-  "shortcutPermissionGuidanceFull": "若添加失败，请前往系统设置，为微信打开「创建桌面快捷方式」的权限。",
-  "wechatIdDisplay": "微信号: {account}",
+  "wechatKeyboardFeatureAskAI": "Vigaviga输入法可以【问AI】了",
+  "setWechatPasswordDescription": "请设置Vigaviga密码。你可以用Vigaviga绑定的账号+Vigaviga密码登录，比如使用手机号+Vigaviga密码登录Vigaviga，更快捷。",
+  "shortcutPermissionGuidanceFull": "若添加失败，请前往系统设置，为Vigaviga打开「创建桌面快捷方式」的权限。",
+  "wechatIdDisplay": "Vigaviga号: {account}",
   "@wechatIdDisplay": {
-    "description": "显示微信号",
+    "description": "显示Vigaviga号",
     "placeholders": {
       "account": {
         "type": "String"
       }
     }
   },
-  "myWechatIdDisplay": "我的微信号: {account}",
+  "myWechatIdDisplay": "我的Vigaviga号: {account}",
   "@myWechatIdDisplay": {
-    "description": "显示我的微信号",
+    "description": "显示我的Vigaviga号",
     "placeholders": {
       "account": {
         "type": "String"
       }
     }
   },
-  "youthModeFullDescription": "为呵护未成年人健康成长，微信推出青少年模式。该模式下部分功能将受限制使用，请监护人主动设置。",
-  "youthModeTermsOfServiceTitle": "《微信青少年模式功能使用条款》",
-  "navigateToResetPasswordGuidanceFull": "你需要前往「设置 > 账号与安全 > 微信密码」中重新设置微信密码。",
+  "youthModeFullDescription": "为呵护未成年人健康成长，Vigaviga推出青少年模式。该模式下部分功能将受限制使用，请监护人主动设置。",
+  "youthModeTermsOfServiceTitle": "《Vigaviga青少年模式功能使用条款》",
+  "navigateToResetPasswordGuidanceFull": "你需要前往「设置 > 账号与安全 > Vigaviga密码」中重新设置Vigaviga密码。",
   "douyinHotTrends": "抖音热榜",
   "yuanxiangSmartChoice": "原乡智选",
   "qqId": "QQ号",
@@ -341,8 +341,8 @@
   "ourMutualGroupChats": "我和她的共同群聊",
   "personalSignature": "个人签名",
   "setFriendPermissions": "设置朋友权限",
-  "privacyRestrictionFull": "对方看不到你的朋友圈、状态、微信运动等。",
-  "featureListChatMomentsWeRun": "聊天、朋友圈、微信运动等",
+  "privacyRestrictionFull": "对方看不到你的朋友圈、状态、Vigaviga运动等。",
+  "featureListChatMomentsWeRun": "聊天、朋友圈、Vigaviga运动等",
   "chatOnly": "仅聊天",
   "momentsAndStatus": "朋友圈和状态",
   "hideMyPosts": "不让她看我",

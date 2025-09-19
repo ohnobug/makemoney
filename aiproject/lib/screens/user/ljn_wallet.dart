@@ -130,68 +130,69 @@ class _LJNWallet extends State<LJNWallet> {
                       underline: true,
                     ),
 
-                    // 视频号、直播
+                    // 余额宝
                     LJNFunctionItem(
                       title: l10n.balancePlus,
                       icon: "images/icon/discovery_icon2.png",
                       link: '',
                       showStyle: SizedBox(
-                        width: 480.w,
+                        width: 380.w,
                         // color: AppColors.accentRedPure,
                         child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: l10n.label_yield("1.64%"),
-                                      style: TextStyle(
-                                        height: 1.08,
-                                        fontSize: fontSizeScale(23.w),
-                                        color: AppColors.accentOrangeDark,
-                                      ),
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: l10n.label_yield("1.64%"),
+                                    style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(23.w),
+                                      color: AppColors.accentOrangeDark,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    WidgetSpan(
-                                      child: SizedBox(
-                                        width: 22.w,
-                                        child: Icon(
-                                          const IconData(
-                                            0xe90d,
-                                            fontFamily: 'Iconfont',
-                                          ),
-                                          size: 25.w, // 图标大小
+                            ),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  WidgetSpan(
+                                    child: SizedBox(
+                                      width: 22.w,
+                                      child: Icon(
+                                        const IconData(
+                                          0xe90d,
+                                          fontFamily: 'Iconfont',
                                         ),
-                                      ),
-                                      alignment: PlaceholderAlignment
-                                          .middle, // 使图标与文本垂直居中对齐
-                                    ),
-                                    TextSpan(
-                                      text: context
-                                          .read<LJNUserCubit>()
-                                          .state
-                                          .walletFoundationBalance
-                                          .toString(),
-                                      style: TextStyle(
-                                        height: 1.08,
-                                        fontSize: fontSizeScale(29.w),
-                                        color: theme.colorScheme.onSurface,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: "LJNFont",
+                                        size: 25.w, // 图标大小
                                       ),
                                     ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.center,
-                              )
-                            ]),
+                                    alignment: PlaceholderAlignment
+                                        .middle, // 使图标与文本垂直居中对齐
+                                  ),
+                                  TextSpan(
+                                    text: context
+                                        .read<LJNUserCubit>()
+                                        .state
+                                        .walletFoundationBalance
+                                        .toString(),
+                                    style: TextStyle(
+                                      height: 1.08,
+                                      fontSize: fontSizeScale(29.w),
+                                      color: theme.colorScheme.onSurface,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "LJNFont",
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          ],
+                        ),
                       ),
                       underline: true,
                     ),

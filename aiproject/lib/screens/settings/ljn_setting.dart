@@ -172,7 +172,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       ],
                     ),
 
-                    // 关于微信 与 帮助与反馈
+                    // 关于Vigaviga 与 帮助与反馈
                     LJNFunctionList(
                       children: [
                         LJNFunctionItem(

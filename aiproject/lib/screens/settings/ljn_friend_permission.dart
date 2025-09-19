@@ -116,7 +116,7 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                       ],
                     ),
 
-                    // 只聊天、朋友圈、频道、看一看、微信运动、通讯录黑名单
+                    // 只聊天、朋友圈、频道、看一看、Vigaviga运动、通讯录黑名单
                     LJNFunctionList(
                       title: LJNAlphabet(title: l10n.friendPermissions),
                       children: [
@@ -148,7 +148,7 @@ class _LJNFriendPermission extends State<LJNFriendPermission> {
                           underline: true,
                         ),
 
-                        // 微信运动
+                        // Vigaviga运动
                         LJNFunctionItem(
                           title: l10n.weRun,
                           link: '',

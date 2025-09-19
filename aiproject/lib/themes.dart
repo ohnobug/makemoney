@@ -521,7 +521,7 @@ ThemeData darkTheme = ThemeData(
       // 设置边框颜色和宽度
       side: WidgetStateProperty.all<BorderSide>(
         BorderSide(
-          color: AppColors.neutralDarkGrey15, // 暗色模式下的边框颜色
+          color: AppColors.brandGreenDarker1, // 暗色模式下的边框颜色
           width: 1.0.w,
         ),
       ),
@@ -550,7 +550,7 @@ ThemeData darkTheme = ThemeData(
     elevation: 1,
     color: AppColors.brandGreenDarkest,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12.0),
+      borderRadius: BorderRadius.circular(12.0.w),
       side: BorderSide(
         color: AppColors.brandGreenDarker1,
         width: 1.0.w,

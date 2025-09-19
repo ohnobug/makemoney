@@ -53,7 +53,7 @@ class LJNPublisher extends StatelessWidget {
               ),
               // 底部成本说明 (文案、价格已更新)
               _buildCostDisclaimer(context),
-              SizedBox(height: 24.h),
+              SizedBox(height: 50.h),
             ],
           ),
         ),
@@ -113,7 +113,7 @@ class LJNPublisher extends StatelessWidget {
                     description,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
-                      height: 1.4.w,
+                      height: 2.1.w,
                     ),
                   ),
                 ],
@@ -131,6 +131,7 @@ class LJNPublisher extends StatelessWidget {
 
     final regularStyle = theme.textTheme.bodySmall
         ?.copyWith(color: theme.colorScheme.onSurfaceVariant);
+
     final boldStyle = regularStyle?.copyWith(
       fontWeight: FontWeight.bold,
       color: theme.colorScheme.primary,
@@ -149,15 +150,15 @@ class LJNPublisher extends StatelessWidget {
           const TextSpan(text: '。\n'),
           TextSpan(
             text: '（若选择AI创作，需额外支付 ',
-            style: regularStyle?.copyWith(fontSize: 12.w),
+            style: regularStyle?.copyWith(fontSize: 20.w),
           ),
           TextSpan(
             text: '3 钻石',
-            style: boldStyle?.copyWith(fontSize: 12.w),
+            style: boldStyle?.copyWith(fontSize: 20.w),
           ),
           TextSpan(
             text: ' 的AI生成服务费）',
-            style: regularStyle?.copyWith(fontSize: 12.w),
+            style: regularStyle?.copyWith(fontSize: 20.w),
           ),
         ],
       ),

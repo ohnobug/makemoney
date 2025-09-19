@@ -43,13 +43,12 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
 
   // “点赞/评论”弹出框的状态
   Offset lastedMoreButtonPosition =
-      const Offset(-1000, -1000); // 记录上次点击"..."按钮的位置，-1000是为了在屏幕外初始化
+      const Offset(-1000, -1000); // 记录上次点击"..."按钮的位置
   bool likeBoxVisible = false; // “点赞/评论”框是否可见
   bool _isScrolling = false; // 标记当前是否正在滚动
 
-  // “点赞/评论”弹出框的动画控制器和动画
-  late AnimationController _likeController; // “点赞/评论”框的动画控制器
-  late Animation<double> _likeAnimation; // “点赞/评论”框的动画（控制其水平位置，实现滑出效果）
+  // “点赞/评论”弹出框的动画控制器
+  late AnimationController _likeController;
 
   // --- 生命周期函数 ---
 
@@ -69,8 +68,8 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
 
     // 初始化“点赞/评论”框的动画控制器
     _likeController = AnimationController(
-      duration: const Duration(milliseconds: 300), // 出现动画时长
-      reverseDuration: const Duration(milliseconds: 100), // 消失动画时长
+      duration: const Duration(milliseconds: 250), // 出现动画时长
+      reverseDuration: const Duration(milliseconds: 200), // 消失动画时长
       vsync: this,
     );
 
@@ -80,13 +79,6 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
       reverseDuration: const Duration(milliseconds: 100),
       vsync: this,
     );
-
-    // 定义“点赞/评论”框的动画：从左侧 360.w 的位置滑动到 0
-    _likeAnimation =
-        Tween<double>(begin: 360.w, end: 0.w).animate(CurvedAnimation(
-      parent: _likeController,
-      curve: Curves.easeInOut, // 使用缓动曲线，效果更自然
-    ));
 
     // 初始化朋友圈的模拟数据
     _initializeTweetData();
@@ -129,11 +121,12 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
   // 显示“点赞/评论”框的方法
   void showLikeBox(Offset position) {
     if (!mounted) return;
+    _likeController.reset();
     setState(() {
       lastedMoreButtonPosition = position; // 更新位置
       likeBoxVisible = true; // 设为可见
-      _likeController.forward(); // 播放出现动画
     });
+    _likeController.forward(); // 播放出现动画
   }
 
   // 隐藏“点赞/评论”框的方法
@@ -141,7 +134,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
     if (!mounted || !likeBoxVisible) return; // 如果组件已销毁或框已隐藏，则不执行
     if (quick) {
       // 快速隐藏：直接重置状态，不播放动画
-      _likeController.value = 0; // 直接把动画重置到初始状态
+      _likeController.reset(); // 直接把动画重置到初始状态
       setState(() {
         lastedMoreButtonPosition = const Offset(-1000, -1000); // 移出屏幕
         likeBoxVisible = false; // 设为不可见
@@ -209,7 +202,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                   context: context,
                   removeTop: true, // 移除顶部的安全区域 padding，因为我们自己处理
                   child: GestureDetector(
-                    onTap: () => hideLikeBox(quick: true), // 点击列表空白处，隐藏点赞框
+                    onTap: () => hideLikeBox(quick: false), // 点击列表空白处，隐藏点赞框
                     child: NotificationListener<ScrollNotification>(
                       onNotification: (notification) {
                         // 监听滚动开始和结束的通知
@@ -251,9 +244,15 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                                 moreOnPress: (Offset position) {
                                   // "..." 按钮的回调函数
                                   if (_isScrolling) return; // 滚动时不响应
-                                  likeBoxVisible
-                                      ? hideLikeBox(quick: false) // 如果已显示，则隐藏
-                                      : showLikeBox(position); // 如果已隐藏，则显示
+
+                                  // 如果当前显示的弹出框就是这个按钮的，则隐藏它
+                                  // 否则，就显示新的
+                                  if (likeBoxVisible &&
+                                      lastedMoreButtonPosition == position) {
+                                    hideLikeBox(quick: false);
+                                  } else {
+                                    showLikeBox(position);
+                                  }
                                 },
                               );
                             }
@@ -509,6 +508,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
     );
   }
 
+  // ==================== [MODIFIED] ====================
   // 构建“点赞/评论”弹出框的私有方法
   Widget _buildLikeBox() {
     ThemeData theme = Theme.of(context);
@@ -520,43 +520,46 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
     final Color dividerColor = textColor.withAlpha(128);
 
     return Positioned(
-      // 使用 `Positioned` 定位弹出框
+      // 使用 right 进行定位，锚定弹出框的右边缘
+      right: lastedMoreButtonPosition.dx,
       top: lastedMoreButtonPosition.dy,
-      left: lastedMoreButtonPosition.dx - _likeAnimation.value, // left 值由动画驱动
-      child: AnimatedBuilder(
-        animation: _likeAnimation,
-        builder: (context, child) {
-          return Opacity(
-            // 使用 Opacity 实现渐变效果
-            opacity: _likeController.value,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 40.w),
-              width: 360.w,
-              height: 75.w,
-              decoration: BoxDecoration(
-                color: boxColor,
-                borderRadius: BorderRadius.all(Radius.circular(10.w)),
+      child: SizeTransition(
+        sizeFactor: CurvedAnimation(
+          parent: _likeController,
+          curve: Curves.easeInOut,
+        ),
+        axis: Axis.horizontal,
+        // axisAlignment: 1.0 表示从右向左展开
+        axisAlignment: 1.0,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 30.w),
+          width: 380.w,
+          height: 75.w,
+          decoration: BoxDecoration(
+            color: boxColor,
+            borderRadius: BorderRadius.all(Radius.circular(10.w)),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _LikeCommentButton(
+                icon: const IconData(0xe682, fontFamily: 'Iconfont'),
+                text: l10n.like,
+                color: textColor,
               ),
-              child: child, // child 是下面的 Row，这样可以避免重复构建
-            ),
-          );
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _LikeCommentButton(
-              icon: const IconData(0xe682, fontFamily: 'Iconfont'),
-              text: l10n.like,
-              color: textColor,
-            ),
-            Container(height: 45.w, width: 2.w, color: dividerColor),
-            _LikeCommentButton(
-              icon: const IconData(0xe605, fontFamily: 'Iconfont'),
-              text: l10n.comment,
-              color: textColor,
-            ),
-          ],
+              Container(
+                height: 30.w,
+                width: 2.w,
+                color: dividerColor,
+              ),
+              _LikeCommentButton(
+                icon: const IconData(0xe605, fontFamily: 'Iconfont'),
+                text: l10n.comment,
+                color: textColor,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -758,21 +761,36 @@ class _TweetWidgetState extends State<TweetWidget> {
                           color: AppColors.neutralGrey57,
                         ),
                       ),
+                      // ==================== [MODIFIED] ====================
                       GestureDetector(
                         onTap: () {
                           // 点击 "..." 按钮
-                          // 通过 GlobalKey 获取按钮的 RenderBox 对象
                           final RenderBox? renderBox = _moreKey.currentContext
                               ?.findRenderObject() as RenderBox?;
                           if (renderBox != null) {
-                            // 将按钮的局部坐标转换为全局坐标
-                            final Offset position = renderBox.localToGlobal(
-                                Offset(
-                                    -350.w, // X 轴偏移，让弹出框出现在按钮左边
-                                    (renderBox.size.height - 75.w) /
-                                        2)); // Y 轴居中
-                            // 调用父组件的回调函数，并传递计算好的位置
-                            widget.moreOnPress(position);
+                            // 获取屏幕宽度
+                            final screenWidth =
+                                MediaQuery.of(context).size.width;
+                            // 获取按钮左上角的全局坐标
+                            final Offset buttonTopLeft =
+                                renderBox.localToGlobal(Offset.zero);
+
+                            // 定义与按钮的间隙
+                            double gap = 5.w;
+
+                            // 计算 Positioned 所需的 right 值
+                            // right = 屏幕宽度 - 按钮左侧的x坐标 + 间隙
+                            final double rightPosition =
+                                screenWidth - (buttonTopLeft.dx - gap.w);
+
+                            // 计算 Positioned 所需的 top 值 (保持垂直居中)
+                            final double topPosition = buttonTopLeft.dy +
+                                (renderBox.size.height - 75.w) / 2;
+
+                            // 将 right 和 top 值通过 Offset 传递给父组件
+                            // 我们约定 Offset.dx 存储 right 值，Offset.dy 存储 top 值
+                            widget.moreOnPress(
+                                Offset(rightPosition, topPosition));
                           }
                         },
                         child: Container(

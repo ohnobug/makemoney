@@ -32,7 +32,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "熊丽丽",
         underline: true,
-        message: "微信:fastgrowing",
+        message: "Vigaviga:fastgrowing",
         avatar: "images/avatar_webp/chat_1.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -46,7 +46,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "李伯侨",
         underline: true,
-        message: "微信:unanticipated",
+        message: "Vigaviga:unanticipated",
         avatar: "images/avatar_webp/chat_4.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -61,7 +61,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "刘航平",
         underline: true,
-        message: "微信:extracurricular",
+        message: "Vigaviga:extracurricular",
         avatar: "images/avatar_webp/chat_5.webp",
         alreadyFriends: true,
         onPressed: () {
@@ -75,7 +75,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "叶招娣",
         underline: true,
-        message: "微信:nonpolitical",
+        message: "Vigaviga:nonpolitical",
         avatar: "images/avatar_webp/chat_6.webp",
         alreadyFriends: true,
         onPressed: () {
@@ -89,7 +89,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "赵炬",
         underline: true,
-        message: "微信:accursed",
+        message: "Vigaviga:accursed",
         avatar: "images/avatar_webp/chat_7.webp",
         alreadyFriends: true,
         onPressed: () {
@@ -103,7 +103,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "张如强",
         underline: true,
-        message: "微信:undistinguished",
+        message: "Vigaviga:undistinguished",
         avatar: "images/avatar_webp/chat_8.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -117,7 +117,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "易卫清",
         underline: true,
-        message: "微信:burdensome",
+        message: "Vigaviga:burdensome",
         avatar: "images/avatar_webp/chat_9.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -131,7 +131,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "张金芬",
         underline: true,
-        message: "微信:brawnyundefined",
+        message: "Vigaviga:brawnyundefined",
         avatar: "images/avatar_webp/chat_10.webp",
         alreadyFriends: true,
         onPressed: () {
@@ -146,7 +146,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "张观福",
         underline: true,
-        message: "微信:mashed",
+        message: "Vigaviga:mashed",
         avatar: "images/avatar_webp/chat_11.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -160,7 +160,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "窦红莉",
         underline: true,
-        message: "微信:nutty",
+        message: "Vigaviga:nutty",
         avatar: "images/avatar_webp/chat_12.webp",
         alreadyFriends: true,
         onPressed: () {
@@ -174,7 +174,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "周剑桥",
         underline: true,
-        message: "微信:acrimonious",
+        message: "Vigaviga:acrimonious",
         avatar: "images/avatar_webp/chat_13.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -188,7 +188,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "尹洪友",
         underline: true,
-        message: "微信:substandard",
+        message: "Vigaviga:substandard",
         avatar: "images/avatar_webp/chat_14.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -202,7 +202,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "周桑",
         underline: true,
-        message: "微信:receiving",
+        message: "Vigaviga:receiving",
         avatar: "images/avatar_webp/chat_15.webp",
         alreadyFriends: true,
         onPressed: () {
@@ -216,7 +216,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "李程",
         underline: true,
-        message: "微信:selfindulgent",
+        message: "Vigaviga:selfindulgent",
         avatar: "images/avatar_webp/chat_16.webp",
         alreadyFriends: true,
         onPressed: () {
@@ -230,7 +230,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "王庆营",
         underline: true,
-        message: "微信:extraneous",
+        message: "Vigaviga:extraneous",
         avatar: "images/avatar_webp/chat_17.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -245,7 +245,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "朱金照",
         underline: true,
-        message: "微信:inexhaustible",
+        message: "Vigaviga:inexhaustible",
         avatar: "images/avatar_webp/chat_18.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -259,7 +259,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "周秀全",
         underline: true,
-        message: "微信:kneeling",
+        message: "Vigaviga:kneeling",
         avatar: "images/avatar_webp/chat_19.webp",
         alreadyFriends: true,
         onPressed: () {
@@ -273,7 +273,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "朱景龙",
         underline: true,
-        message: "微信:indefatigable",
+        message: "Vigaviga:indefatigable",
         avatar: "images/avatar_webp/chat_20.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -287,7 +287,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "俞金金",
         underline: true,
-        message: "微信:appellate",
+        message: "Vigaviga:appellate",
         avatar: "images/avatar_webp/chat_21.webp",
         alreadyFriends: true,
         onPressed: () {
@@ -302,7 +302,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "赵美静",
         underline: true,
-        message: "微信:wellintentioned",
+        message: "Vigaviga:wellintentioned",
         avatar: "images/avatar_webp/chat_22.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -316,7 +316,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "张莉青",
         underline: true,
-        message: "微信:abused",
+        message: "Vigaviga:abused",
         avatar: "images/avatar_webp/chat_23.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -330,7 +330,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "郭文才",
         underline: true,
-        message: "微信:illadvised",
+        message: "Vigaviga:illadvised",
         avatar: "images/avatar_webp/chat_24.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -344,7 +344,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "余光勇",
         underline: true,
-        message: "微信:unsettling",
+        message: "Vigaviga:unsettling",
         avatar: "images/avatar_webp/chat_25.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -358,7 +358,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "张礼中",
         underline: true,
-        message: "微信:inactive",
+        message: "Vigaviga:inactive",
         avatar: "images/avatar_webp/chat_26.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -372,7 +372,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "伊静",
         underline: true,
-        message: "微信:packaged",
+        message: "Vigaviga:packaged",
         avatar: "images/avatar_webp/chat_27.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -386,7 +386,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "智涛",
         underline: true,
-        message: "微信:fussy",
+        message: "Vigaviga:fussy",
         avatar: "images/avatar_webp/chat_28.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -400,7 +400,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "邹纪平",
         underline: true,
-        message: "微信:ineffable",
+        message: "Vigaviga:ineffable",
         avatar: "images/avatar_webp/chat_29.webp",
         alreadyFriends: false,
         onPressed: () {
@@ -415,7 +415,7 @@ class _LJNPhoneContact extends State<LJNPhoneContact> {
       ContactListItem(
         friendName: "马自学",
         underline: false,
-        message: "微信:reigning",
+        message: "Vigaviga:reigning",
         avatar: "images/avatar_webp/chat_30.webp",
         alreadyFriends: false,
         onPressed: () {

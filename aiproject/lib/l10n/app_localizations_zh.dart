@@ -9,97 +9,97 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get wechat => '微信';
+  String get wechat => 'Vigaviga';
 
   @override
-  String get wechatID => '微信号';
+  String get wechatID => 'Vigaviga号';
 
   @override
-  String get wechatPassword => '微信密码';
+  String get wechatPassword => 'Vigaviga密码';
 
   @override
-  String get wechatSecurityCenter => '微信安全中心';
+  String get wechatSecurityCenter => 'Vigaviga安全中心';
 
   @override
-  String get changeWechatID => '修改微信号';
+  String get changeWechatID => '修改Vigaviga号';
 
   @override
-  String get wechatBeans => '微信豆';
+  String get wechatBeans => 'Vigaviga豆';
 
   @override
-  String get wechatGames => '微信游戏';
+  String get wechatGames => 'Vigaviga游戏';
 
   @override
-  String get aboutWeChat => '关于微信';
+  String get aboutWeChat => '关于Vigaviga';
 
   @override
-  String get weRun => '微信运动';
+  String get weRun => 'Vigaviga运动';
 
   @override
   String get personalInfoCollectionFullDescription =>
-      '    你可以查阅微信对你的个人信息的收集情况。以下只统计i0S 8.0.17、Android 8.0.18及之后版本微信所收集的信息。你使用旧版本微信期间的信息收集情况，微信无法完整统计到。';
+      '    你可以查阅Vigaviga对你的个人信息的收集情况。以下只统计i0S 8.0.17、Android 8.0.18及之后版本Vigaviga所收集的信息。你使用旧版本Vigaviga期间的信息收集情况，Vigaviga无法完整统计到。';
 
   @override
   String get privacy_setting_description =>
-      '你们将互相看不到对方的朋友圈、状态、微信运动、看一看以及第三方登录授权分享的内容。';
+      '你们将互相看不到对方的朋友圈、状态、Vigaviga运动、看一看以及第三方登录授权分享的内容。';
 
   @override
   String copySuccessWithWechatId(String account) {
-    return '复制成功!微信号:$account';
+    return '复制成功!Vigaviga号:$account';
   }
 
   @override
-  String get verifyIdentityWithPasswordFull => '填写当前微信登录密码，验证本人身份。';
+  String get verifyIdentityWithPasswordFull => '填写当前Vigaviga登录密码，验证本人身份。';
 
   @override
-  String get autoDownloadWeChatInstaller => '自动下载微信安装包';
+  String get autoDownloadWeChatInstaller => '自动下载Vigaviga安装包';
 
   @override
-  String get wechatIdModificationRuleFull => '微信号是账号的唯一凭证，一年只能修改一次。';
+  String get wechatIdModificationRuleFull => 'Vigaviga号是账号的唯一凭证，一年只能修改一次。';
 
   @override
   String get device_management_auto_extend_login_info_friendly =>
-      '登录微信后，当设备处于安全状态时，微信会自动延长登录时间以保持朋友消息的及时收发，此时会更新最近活跃时间。';
+      '登录Vigaviga后，当设备处于安全状态时，Vigaviga会自动延长登录时间以保持朋友消息的及时收发，此时会更新最近活跃时间。';
 
   @override
-  String get loginWithVoiceprint => '用声音锁登录微信';
+  String get loginWithVoiceprint => '用声音锁登录Vigaviga';
 
   @override
   String wechatBeanCount(int count) {
-    return '$count个微信豆';
+    return '$count个Vigaviga豆';
   }
 
   @override
-  String get wechatKeyboardFeatureAskAI => '微信输入法可以【问AI】了';
+  String get wechatKeyboardFeatureAskAI => 'Vigaviga输入法可以【问AI】了';
 
   @override
   String get setWechatPasswordDescription =>
-      '请设置微信密码。你可以用微信绑定的账号+微信密码登录，比如使用手机号+微信密码登录微信，更快捷。';
+      '请设置Vigaviga密码。你可以用Vigaviga绑定的账号+Vigaviga密码登录，比如使用手机号+Vigaviga密码登录Vigaviga，更快捷。';
 
   @override
   String get shortcutPermissionGuidanceFull =>
-      '若添加失败，请前往系统设置，为微信打开「创建桌面快捷方式」的权限。';
+      '若添加失败，请前往系统设置，为Vigaviga打开「创建桌面快捷方式」的权限。';
 
   @override
   String wechatIdDisplay(String account) {
-    return '微信号: $account';
+    return 'Vigaviga号: $account';
   }
 
   @override
   String myWechatIdDisplay(String account) {
-    return '我的微信号: $account';
+    return '我的Vigaviga号: $account';
   }
 
   @override
   String get youthModeFullDescription =>
-      '为呵护未成年人健康成长，微信推出青少年模式。该模式下部分功能将受限制使用，请监护人主动设置。';
+      '为呵护未成年人健康成长，Vigaviga推出青少年模式。该模式下部分功能将受限制使用，请监护人主动设置。';
 
   @override
-  String get youthModeTermsOfServiceTitle => '《微信青少年模式功能使用条款》';
+  String get youthModeTermsOfServiceTitle => '《Vigaviga青少年模式功能使用条款》';
 
   @override
   String get navigateToResetPasswordGuidanceFull =>
-      '你需要前往「设置 > 账号与安全 > 微信密码」中重新设置微信密码。';
+      '你需要前往「设置 > 账号与安全 > Vigaviga密码」中重新设置Vigaviga密码。';
 
   @override
   String get douyinHotTrends => '抖音热榜';
@@ -771,10 +771,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get setFriendPermissions => '设置朋友权限';
 
   @override
-  String get privacyRestrictionFull => '对方看不到你的朋友圈、状态、微信运动等。';
+  String get privacyRestrictionFull => '对方看不到你的朋友圈、状态、Vigaviga运动等。';
 
   @override
-  String get featureListChatMomentsWeRun => '聊天、朋友圈、微信运动等';
+  String get featureListChatMomentsWeRun => '聊天、朋友圈、Vigaviga运动等';
 
   @override
   String get chatOnly => '仅聊天';

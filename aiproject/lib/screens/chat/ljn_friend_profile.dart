@@ -202,7 +202,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                           height: 20.w,
                                         ),
 
-                                        // 微信号
+                                        // Vigaviga号
                                         GestureDetector(
                                           onTap: () {
                                             Clipboard.setData(ClipboardData(

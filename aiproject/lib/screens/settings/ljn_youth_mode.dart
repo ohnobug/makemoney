@@ -152,7 +152,7 @@ class _LJNYouthMode extends State<LJNYouthMode> {
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
                                     // 点击条款时的事件处理
-                                    logger.info("点击了《微信青少年模式功能使用条款》");
+                                    logger.info("点击了《Vigaviga青少年模式功能使用条款》");
                                   },
                               ),
                             ],
@@ -163,6 +163,8 @@ class _LJNYouthMode extends State<LJNYouthMode> {
                       SizedBox(
                         height: 43.w,
                       ),
+                      
+                      // 按钮
                       selectedValue
                           ? LJNChangeAccountButton(
                               title: l10n.enable,

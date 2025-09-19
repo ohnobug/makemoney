@@ -54,11 +54,11 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
               ),
               child: Column(
                 children: [
-                  // 聊天、朋友圈、微信运动等
+                  // 聊天、朋友圈、Vigaviga运动等
                   LJNFunctionList(
                     title: LJNAlphabet(title: l10n.setFriendPermissions),
                     children: [
-                      // 微信运动
+                      // Vigaviga运动
                       LJNFunctionItem(
                         title: l10n.featureListChatMomentsWeRun,
                         onPress: () {

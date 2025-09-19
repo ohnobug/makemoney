@@ -115,83 +115,96 @@ class _LJNBillDetails extends State<LJNBillDetails>
                             // Your list of LJNChangeDetailItem
                             children: [
                               LJNChangeDetailItem(
-                                  title: "原乡智选",
-                                  change: -32,
-                                  icon: "images/avatar/01.png",
-                                  link: '',
-                                  underline: true),
+                                title: "原乡智选",
+                                change: -32,
+                                icon: "images/avatar/01.png",
+                                link: '',
+                                underline: true,
+                              ),
                               LJNChangeDetailItem(
-                                  title: "原乡智选",
-                                  change: -56,
-                                  icon: "images/avatar/01.png",
-                                  link: '',
-                                  underline: true),
+                                title: "原乡智选",
+                                change: -56,
+                                icon: "images/avatar/01.png",
+                                link: '',
+                                underline: true,
+                              ),
                               LJNChangeDetailItem(
-                                  title: "原乡智选",
-                                  change: -14,
-                                  icon: "images/avatar/01.png",
-                                  link: '',
-                                  underline: true),
+                                title: "原乡智选",
+                                change: -14,
+                                icon: "images/avatar/01.png",
+                                link: '',
+                                underline: true,
+                              ),
                               LJNChangeDetailItem(
-                                  title: "原乡智选",
-                                  change: 200,
-                                  icon: "images/avatar/01.png",
-                                  link: '',
-                                  underline: true),
+                                title: "原乡智选",
+                                change: 200,
+                                icon: "images/avatar/01.png",
+                                link: '',
+                                underline: true,
+                              ),
                               LJNChangeDetailItem(
-                                  title: "原乡智选",
-                                  change: -49,
-                                  icon: "images/avatar/01.png",
-                                  link: '',
-                                  underline: true),
+                                title: "原乡智选",
+                                change: -49,
+                                icon: "images/avatar/01.png",
+                                link: '',
+                                underline: true,
+                              ),
                               LJNChangeDetailItem(
-                                  title: "原乡智选",
-                                  change: -18,
-                                  icon: "images/avatar/01.png",
-                                  link: '',
-                                  underline: true),
+                                title: "原乡智选",
+                                change: -18,
+                                icon: "images/avatar/01.png",
+                                link: '',
+                                underline: true,
+                              ),
                               LJNChangeDetailItem(
-                                  title: "原乡智选",
-                                  change: -21,
-                                  icon: "images/avatar/01.png",
-                                  link: '',
-                                  underline: true),
+                                title: "原乡智选",
+                                change: -21,
+                                icon: "images/avatar/01.png",
+                                link: '',
+                                underline: true,
+                              ),
                               LJNChangeDetailItem(
-                                  title: "原乡智选",
-                                  change: -29,
-                                  icon: "images/avatar/01.png",
-                                  link: '',
-                                  underline: true),
+                                title: "原乡智选",
+                                change: -29,
+                                icon: "images/avatar/01.png",
+                                link: '',
+                                underline: true,
+                              ),
                               LJNChangeDetailItem(
-                                  title: "原乡智选",
-                                  change: -91,
-                                  icon: "images/avatar/01.png",
-                                  link: '',
-                                  underline: true),
+                                title: "原乡智选",
+                                change: -91,
+                                icon: "images/avatar/01.png",
+                                link: '',
+                                underline: true,
+                              ),
                               LJNChangeDetailItem(
-                                  title: "原乡智选",
-                                  change: -5,
-                                  icon: "images/avatar/01.png",
-                                  link: '',
-                                  underline: true),
+                                title: "原乡智选",
+                                change: -5,
+                                icon: "images/avatar/01.png",
+                                link: '',
+                                underline: true,
+                              ),
                               LJNChangeDetailItem(
-                                  title: "原乡智选",
-                                  change: -73,
-                                  icon: "images/avatar/01.png",
-                                  link: '',
-                                  underline: true),
+                                title: "原乡智选",
+                                change: -73,
+                                icon: "images/avatar/01.png",
+                                link: '',
+                                underline: true,
+                              ),
                               LJNChangeDetailItem(
-                                  title: "原乡智选",
-                                  change: -47,
-                                  icon: "images/avatar/01.png",
-                                  link: '',
-                                  underline: true),
+                                title: "原乡智选",
+                                change: -47,
+                                icon: "images/avatar/01.png",
+                                link: '',
+                                underline: true,
+                              ),
                               LJNChangeDetailItem(
-                                  title: "原乡智选",
-                                  change: -15,
-                                  icon: "images/avatar/01.png",
-                                  link: '',
-                                  underline: true),
+                                title: "原乡智选",
+                                change: -15,
+                                icon: "images/avatar/01.png",
+                                link: '',
+                                underline: true,
+                              ),
                             ],
                           ),
                         ),
@@ -260,9 +273,17 @@ class _LJNBillDetails extends State<LJNBillDetails>
               ),
               child: Row(
                 children: [
-                  Text(l10n.allBills, style: TextStyle(fontSize: 30.w)),
+                  Text(
+                    l10n.allBills,
+                    style: TextStyle(
+                      fontSize: 30.w,
+                    ),
+                  ),
                   SizedBox(width: 8.w),
-                  Icon(Icons.arrow_drop_down, size: 25.w),
+                  Icon(
+                    Icons.arrow_drop_down,
+                    size: 25.w,
+                  ),
                 ],
               ),
             ),
@@ -271,10 +292,15 @@ class _LJNBillDetails extends State<LJNBillDetails>
             children: [
               Text(
                 l10n.statistics,
-                style: TextStyle(fontSize: 30.w),
+                style: TextStyle(
+                  fontSize: 30.w,
+                ),
               ),
               SizedBox(width: 8.w),
-              Icon(Icons.arrow_forward_ios, size: 30.w),
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 30.w,
+              ),
             ],
           ),
         ],
@@ -286,21 +312,31 @@ class _LJNBillDetails extends State<LJNBillDetails>
   Widget _buildDateSelector(ThemeData theme, AppLocalizations l10n) {
     return Container(
       height: 107.w,
-      padding: EdgeInsets.only(left: 42.w),
+      padding: EdgeInsets.only(
+        left: 42.w,
+      ),
       alignment: Alignment.centerLeft,
       color: theme.colorScheme.surface,
       child: Row(
         children: [
           Text(
-            l10n.yearAndMonth(DateTime(2023, 12)),
+            l10n.yearAndMonth(
+              DateTime(
+                2023,
+                12,
+              ),
+            ),
             style: TextStyle(
               fontSize: 30.w,
               color: theme.colorScheme.onSurface,
             ),
           ),
           SizedBox(width: 8.w),
-          Icon(Icons.calendar_today,
-              size: 30.w, color: theme.colorScheme.onSurface),
+          Icon(
+            Icons.calendar_today,
+            size: 30.w,
+            color: theme.colorScheme.onSurface,
+          ),
         ],
       ),
     );
@@ -314,10 +350,16 @@ class _LJNBillDetails extends State<LJNBillDetails>
       alignment: Alignment.bottomCenter,
       child: Container(
         height: 1030.w,
-        padding: EdgeInsets.symmetric(horizontal: 45.w),
+        padding: EdgeInsets.symmetric(
+          horizontal: 45.w,
+        ),
         decoration: BoxDecoration(
           color: theme.cardColor,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(18.w)),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(
+              18.w,
+            ),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,84 +367,118 @@ class _LJNBillDetails extends State<LJNBillDetails>
             SizedBox(
               height: 47.w,
               child: Center(
-                child:
-                    Text(l10n.selectFilter, style: theme.textTheme.titleMedium),
+                child: Text(
+                  l10n.selectFilter,
+                  style: theme.textTheme.titleMedium,
+                ),
               ),
             ),
             SizedBox(height: 50.w),
-            Text(l10n.incomeExpenseType, style: theme.textTheme.titleSmall),
+            Text(
+              l10n.incomeExpenseType,
+              style: theme.textTheme.titleSmall,
+            ),
             SizedBox(height: 20.w),
             Wrap(
               spacing: 22.w,
               runSpacing: 20.w,
               children: [
                 LJNFilterButton(
-                    title: l10n.all,
-                    selected: _incomeAndExpenditureType == "all",
-                    onTap: () =>
-                        setState(() => _incomeAndExpenditureType = "all")),
+                  title: l10n.all,
+                  selected: _incomeAndExpenditureType == "all",
+                  onTap: () => setState(
+                    () => _incomeAndExpenditureType = "all",
+                  ),
+                ),
                 LJNFilterButton(
-                    title: l10n.expense,
-                    selected: _incomeAndExpenditureType == "expenditure",
-                    onTap: () => setState(
-                        () => _incomeAndExpenditureType = "expenditure")),
+                  title: l10n.expense,
+                  selected: _incomeAndExpenditureType == "expenditure",
+                  onTap: () => setState(
+                    () => _incomeAndExpenditureType = "expenditure",
+                  ),
+                ),
                 LJNFilterButton(
-                    title: l10n.income,
-                    selected: _incomeAndExpenditureType == "income",
-                    onTap: () =>
-                        setState(() => _incomeAndExpenditureType = "income")),
+                  title: l10n.income,
+                  selected: _incomeAndExpenditureType == "income",
+                  onTap: () => setState(
+                    () => _incomeAndExpenditureType = "income",
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 52.w),
-            Text(l10n.transactionType, style: theme.textTheme.titleSmall),
+            Text(
+              l10n.transactionType,
+              style: theme.textTheme.titleSmall,
+            ),
             SizedBox(height: 20.w),
             Wrap(
               spacing: 22.w,
               runSpacing: 20.w,
               children: [
                 LJNFilterButton(
-                    title: l10n.all,
-                    selected: _transactionType == "all",
-                    onTap: () => setState(() => _transactionType = "all")),
+                  title: l10n.all,
+                  selected: _transactionType == "all",
+                  onTap: () => setState(
+                    () => _transactionType = "all",
+                  ),
+                ),
                 LJNFilterButton(
-                    title: l10n.redPacket,
-                    selected: _transactionType == "redpack",
-                    onTap: () => setState(() => _transactionType = "redpack")),
+                  title: l10n.redPacket,
+                  selected: _transactionType == "redpack",
+                  onTap: () => setState(
+                    () => _transactionType = "redpack",
+                  ),
+                ),
                 LJNFilterButton(
-                    title: l10n.transfer,
-                    selected: _transactionType == "transaction",
-                    onTap: () =>
-                        setState(() => _transactionType = "transaction")),
+                  title: l10n.transfer,
+                  selected: _transactionType == "transaction",
+                  onTap: () => setState(
+                    () => _transactionType = "transaction",
+                  ),
+                ),
                 LJNFilterButton(
-                    title: l10n.groupSplitBill,
-                    selected: _transactionType == "group_collection",
-                    onTap: () =>
-                        setState(() => _transactionType = "group_collection")),
+                  title: l10n.groupSplitBill,
+                  selected: _transactionType == "group_collection",
+                  onTap: () => setState(
+                    () => _transactionType = "group_collection",
+                  ),
+                ),
                 LJNFilterButton(
-                    title: l10n.qrCodePayment,
-                    selected: _transactionType == "qr_code_payment_and_receipt",
-                    onTap: () => setState(() =>
-                        _transactionType = "qr_code_payment_and_receipt")),
+                  title: l10n.qrCodePayment,
+                  selected: _transactionType == "qr_code_payment_and_receipt",
+                  onTap: () => setState(
+                    () => _transactionType = "qr_code_payment_and_receipt",
+                  ),
+                ),
                 LJNFilterButton(
-                    title: l10n.merchantPayment,
-                    selected: _transactionType == "merchant_consumption",
-                    onTap: () => setState(
-                        () => _transactionType = "merchant_consumption")),
+                  title: l10n.merchantPayment,
+                  selected: _transactionType == "merchant_consumption",
+                  onTap: () => setState(
+                    () => _transactionType = "merchant_consumption",
+                  ),
+                ),
                 LJNFilterButton(
-                    title: l10n.topUpAndWithdrawal,
-                    selected: _transactionType == "recharge_and_withdrawal",
-                    onTap: () => setState(
-                        () => _transactionType = "recharge_and_withdrawal")),
+                  title: l10n.topUpAndWithdrawal,
+                  selected: _transactionType == "recharge_and_withdrawal",
+                  onTap: () => setState(
+                    () => _transactionType = "recharge_and_withdrawal",
+                  ),
+                ),
                 LJNFilterButton(
-                    title: l10n.creditCardRepayment,
-                    selected: _transactionType == "credit_card_payment",
-                    onTap: () => setState(
-                        () => _transactionType = "credit_card_payment")),
+                  title: l10n.creditCardRepayment,
+                  selected: _transactionType == "credit_card_payment",
+                  onTap: () => setState(
+                    () => _transactionType = "credit_card_payment",
+                  ),
+                ),
                 LJNFilterButton(
-                    title: l10n.withRefund,
-                    selected: _transactionType == "there_is_a_refund_available",
-                    onTap: () => setState(() =>
-                        _transactionType = "there_is_a_refund_available")),
+                  title: l10n.withRefund,
+                  selected: _transactionType == "there_is_a_refund_available",
+                  onTap: () => setState(
+                    () => _transactionType = "there_is_a_refund_available",
+                  ),
+                ),
               ],
             ),
             const Spacer(),
@@ -418,14 +494,19 @@ class _LJNBillDetails extends State<LJNBillDetails>
                       foregroundColor: theme.colorScheme.onSurfaceVariant,
                       padding: EdgeInsets.symmetric(vertical: 25.w),
                     ),
-                    child: Text(l10n.cancel, style: TextStyle(fontSize: 30.w)),
+                    child: Text(
+                      l10n.cancel,
+                      style: TextStyle(
+                        fontSize: 30.w,
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(width: 30.w),
                 Expanded(
-                  child: ElevatedButton(
+                  child: TextButton(
                     onPressed: _closeFilter,
-                    style: ElevatedButton.styleFrom(
+                    style: TextButton.styleFrom(
                       backgroundColor: theme.colorScheme.primary,
                       foregroundColor: theme.colorScheme.onPrimary,
                       padding: EdgeInsets.symmetric(vertical: 25.w),
@@ -488,13 +569,19 @@ class LJNFilterButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor,
           border: Border.fromBorderSide(border),
-          borderRadius: BorderRadius.all(Radius.circular(10.w)),
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+              10.w,
+            ),
+          ),
         ),
         child: Text(
           title,
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 26.w,
             color: textColor,
+            height: 2.2.w,
           ),
         ),
       ),

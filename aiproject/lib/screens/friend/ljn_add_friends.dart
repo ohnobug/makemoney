@@ -64,7 +64,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                   height: 44.w,
                 ),
 
-                // 我的微信号
+                // 我的Vigaviga号
                 Container(
                   height: 37.w,
                   width: 750.w,

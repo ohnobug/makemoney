@@ -104,7 +104,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
                     underline: true,
                   ),
 
-                  // 微信号
+                  // Vigaviga号
                   LJNFunctionItem(
                     title: l10n.wechatID,
                     link: '/accountinfo',
@@ -156,9 +156,9 @@ class _LJNUserinfo extends State<LJNUserinfo> {
                   ),
                 ]),
 
-                // 微信豆
+                // Vigaviga豆
                 LJNFunctionList(children: [
-                  // 微信豆
+                  // Vigaviga豆
                   LJNFunctionItem(
                     title: l10n.wechatBeans,
                     link: '',

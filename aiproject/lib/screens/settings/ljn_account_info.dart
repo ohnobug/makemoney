@@ -106,7 +106,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                       child: null,
                     ),
 
-                    // 修改微信号
+                    // 修改Vigaviga号
                     Container(
                       padding: EdgeInsets.only(bottom: 180.w),
                       child: LJNChangeAccountButton(
