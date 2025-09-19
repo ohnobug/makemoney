@@ -79,7 +79,7 @@ class _LJNUserState extends State<LJNUser> {
                   Container(
                     color: Theme.of(context).cardTheme.color,
                     padding: EdgeInsets.only(
-                      top: 50.0.w,
+                      top: 50.0.w + systemState.statusHeight,
                       left: 32.w,
                       bottom: 50.w,
                     ),
