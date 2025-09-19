@@ -679,7 +679,7 @@ List<Widget> mockMessages(BuildContext context, String icon, String title) {
         context.read<LJNPopupCubit>().updateVideoPopup(
               openBoxSize: size,
               openPosition: position,
-              sourcePath: 'images/ins/video2.mp4',
+              sourcePath: 'images/ins/test.mp4',
               showFullScreenVideo: true,
             );
       },

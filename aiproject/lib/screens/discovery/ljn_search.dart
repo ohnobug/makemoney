@@ -374,9 +374,10 @@ class _LJNSearch extends State<LJNSearch> {
                         },
                         // 关键改动 6: 动态构建标题
                         child: hotListTitleBuild(
-                            hotListTitlesKeys[e.key]!,
-                            _getHotTitleFromKey(l10n, e.value),
-                            hotListCurrentPage == e.key),
+                          hotListTitlesKeys[e.key]!,
+                          _getHotTitleFromKey(l10n, e.value),
+                          hotListCurrentPage == e.key,
+                        ),
                       );
                     }).toList(),
                   ),
