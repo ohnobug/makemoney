@@ -77,7 +77,7 @@ class _LJNUserState extends State<LJNUser> {
                 children: [
                   // 顶部功能区域
                   Container(
-                    color: Colors.amber,
+                    color: Theme.of(context).cardTheme.color,
                     padding: EdgeInsets.only(
                       top: 50.0.w,
                       left: 32.w,
@@ -172,7 +172,7 @@ class _LJNUserState extends State<LJNUser> {
                                                 LJNUserState>(
                                               builder: (context, state) {
                                                 return Text(
-                                                  l10n.wechatIdDisplay(
+                                                  l10n.vigavigaIdDisplay(
                                                       state.userinfoAccount!),
                                                   style: TextStyle(
                                                     height: 1.08,

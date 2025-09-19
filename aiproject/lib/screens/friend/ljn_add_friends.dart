@@ -74,7 +74,7 @@ class _LJNAddFriends extends State<LJNAddFriends> {
                     TextSpan(
                       children: [
                         TextSpan(
-                          text: l10n.myWechatIdDisplay(context
+                          text: l10n.myVigavigaIdDisplay(context
                               .read<LJNUserCubit>()
                               .state
                               .userinfoAccount!),

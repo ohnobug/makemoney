@@ -268,7 +268,7 @@ class _LJPpersonalInfoCollectionChecklist
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: l10n.wechatBeans,
+                            title: l10n.vigavigaBeans,
                             link: '',
                             underline: true,
                             tapEffect: true,
@@ -314,7 +314,7 @@ class _LJPpersonalInfoCollectionChecklist
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: l10n.wechatGames,
+                            title: l10n.vigavigaGames,
                             link: '',
                             underline: true,
                             tapEffect: true,

@@ -215,7 +215,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                                     textAlign: TextAlign.center,
                                                     AppLocalizations.of(
                                                             context)!
-                                                        .copySuccessWithWechatId(
+                                                        .copySuccessWithVigavigaId(
                                                             widget.account!)),
                                                 duration: Duration(
                                                   seconds: 3,
@@ -224,7 +224,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                                             );
                                           },
                                           child: Text(
-                                            l10n.wechatIdDisplay(
+                                            l10n.vigavigaIdDisplay(
                                                 widget.account!),
                                             style: TextStyle(
                                               height: 1.08,

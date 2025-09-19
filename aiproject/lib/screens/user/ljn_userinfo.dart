@@ -106,7 +106,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
 
                   // Vigaviga号
                   LJNFunctionItem(
-                    title: l10n.wechatID,
+                    title: l10n.vigavigaID,
                     link: '/accountinfo',
                     showStyle:
                         context.read<LJNUserCubit>().state.userinfoAccount,
@@ -160,9 +160,9 @@ class _LJNUserinfo extends State<LJNUserinfo> {
                 LJNFunctionList(children: [
                   // Vigaviga豆
                   LJNFunctionItem(
-                    title: l10n.wechatBeans,
+                    title: l10n.vigavigaBeans,
                     link: '',
-                    showStyle: l10n.wechatBeanCount(3),
+                    showStyle: l10n.vigavigaBeanCount(3),
                     underline: false,
                   ),
                 ]),

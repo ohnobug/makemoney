@@ -9,25 +9,25 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get wechat => 'WeChat';
+  String get vigaviga => 'WeChat';
 
   @override
-  String get wechatID => 'WeChat ID';
+  String get vigavigaID => 'WeChat ID';
 
   @override
-  String get wechatPassword => 'WeChat Password';
+  String get vigavigaPassword => 'WeChat Password';
 
   @override
-  String get wechatSecurityCenter => 'WeChat Security Center';
+  String get vigavigaSecurityCenter => 'WeChat Security Center';
 
   @override
-  String get changeWechatID => 'Change WeChat ID';
+  String get changeVigavigaID => 'Change WeChat ID';
 
   @override
-  String get wechatBeans => 'WeChat Beans';
+  String get vigavigaBeans => 'WeChat Beans';
 
   @override
-  String get wechatGames => 'WeChat Games';
+  String get vigavigaGames => 'WeChat Games';
 
   @override
   String get aboutWeChat => 'About WeChat';
@@ -44,7 +44,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'You will not be able to see each other\'s Moments, Status, WeRun, Top Stories, or content shared from third-party app authorizations.';
 
   @override
-  String copySuccessWithWechatId(String account) {
+  String copySuccessWithVigavigaId(String account) {
     return 'Copied successfully! WeChat ID: $account';
   }
 
@@ -57,7 +57,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Automatically download WeChat installer';
 
   @override
-  String get wechatIdModificationRuleFull =>
+  String get vigavigaIdModificationRuleFull =>
       'Your WeChat ID is the unique identifier for your account and can only be changed once a year.';
 
   @override
@@ -68,15 +68,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loginWithVoiceprint => 'Log in with Voiceprint';
 
   @override
-  String wechatBeanCount(int count) {
+  String vigavigaBeanCount(int count) {
     return '$count WeChat Beans';
   }
 
   @override
-  String get wechatKeyboardFeatureAskAI => 'WeChat Keyboard can now [Ask AI]';
+  String get vigavigaKeyboardFeatureAskAI => 'WeChat Keyboard can now [Ask AI]';
 
   @override
-  String get setWechatPasswordDescription =>
+  String get setVigavigaPasswordDescription =>
       'Please set a WeChat password. You can log in with your bound account + WeChat password, for example, using your phone number + WeChat password for a faster login experience.';
 
   @override
@@ -84,12 +84,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'If adding the shortcut fails, please go to System Settings and grant WeChat the permission to \'Create home screen shortcuts\'.';
 
   @override
-  String wechatIdDisplay(String account) {
+  String vigavigaIdDisplay(String account) {
     return 'WeChat ID: $account';
   }
 
   @override
-  String myWechatIdDisplay(String account) {
+  String myVigavigaIdDisplay(String account) {
     return 'My WeChat ID: $account';
   }
 

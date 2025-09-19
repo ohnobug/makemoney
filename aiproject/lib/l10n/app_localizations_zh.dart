@@ -9,25 +9,25 @@ class AppLocalizationsZh extends AppLocalizations {
   AppLocalizationsZh([String locale = 'zh']) : super(locale);
 
   @override
-  String get wechat => 'Vigaviga';
+  String get vigaviga => 'Vigaviga';
 
   @override
-  String get wechatID => 'Vigaviga号';
+  String get vigavigaID => 'Vigaviga号';
 
   @override
-  String get wechatPassword => 'Vigaviga密码';
+  String get vigavigaPassword => 'Vigaviga密码';
 
   @override
-  String get wechatSecurityCenter => 'Vigaviga安全中心';
+  String get vigavigaSecurityCenter => 'Vigaviga安全中心';
 
   @override
-  String get changeWechatID => '修改Vigaviga号';
+  String get changeVigavigaID => '修改Vigaviga号';
 
   @override
-  String get wechatBeans => 'Vigaviga豆';
+  String get vigavigaBeans => 'Vigaviga豆';
 
   @override
-  String get wechatGames => 'Vigaviga游戏';
+  String get vigavigaGames => 'Vigaviga游戏';
 
   @override
   String get aboutWeChat => '关于Vigaviga';
@@ -44,7 +44,7 @@ class AppLocalizationsZh extends AppLocalizations {
       '你们将互相看不到对方的朋友圈、状态、Vigaviga运动、看一看以及第三方登录授权分享的内容。';
 
   @override
-  String copySuccessWithWechatId(String account) {
+  String copySuccessWithVigavigaId(String account) {
     return '复制成功!Vigaviga号:$account';
   }
 
@@ -55,7 +55,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get autoDownloadWeChatInstaller => '自动下载Vigaviga安装包';
 
   @override
-  String get wechatIdModificationRuleFull => 'Vigaviga号是账号的唯一凭证，一年只能修改一次。';
+  String get vigavigaIdModificationRuleFull => 'Vigaviga号是账号的唯一凭证，一年只能修改一次。';
 
   @override
   String get device_management_auto_extend_login_info_friendly =>
@@ -65,15 +65,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get loginWithVoiceprint => '用声音锁登录Vigaviga';
 
   @override
-  String wechatBeanCount(int count) {
+  String vigavigaBeanCount(int count) {
     return '$count个Vigaviga豆';
   }
 
   @override
-  String get wechatKeyboardFeatureAskAI => 'Vigaviga输入法可以【问AI】了';
+  String get vigavigaKeyboardFeatureAskAI => 'Vigaviga输入法可以【问AI】了';
 
   @override
-  String get setWechatPasswordDescription =>
+  String get setVigavigaPasswordDescription =>
       '请设置Vigaviga密码。你可以用Vigaviga绑定的账号+Vigaviga密码登录，比如使用手机号+Vigaviga密码登录Vigaviga，更快捷。';
 
   @override
@@ -81,12 +81,12 @@ class AppLocalizationsZh extends AppLocalizations {
       '若添加失败，请前往系统设置，为Vigaviga打开「创建桌面快捷方式」的权限。';
 
   @override
-  String wechatIdDisplay(String account) {
+  String vigavigaIdDisplay(String account) {
     return 'Vigaviga号: $account';
   }
 
   @override
-  String myWechatIdDisplay(String account) {
+  String myVigavigaIdDisplay(String account) {
     return '我的Vigaviga号: $account';
   }
 

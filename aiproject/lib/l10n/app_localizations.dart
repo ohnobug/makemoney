@@ -98,47 +98,47 @@ abstract class AppLocalizations {
     Locale('zh')
   ];
 
-  /// No description provided for @wechat.
+  /// No description provided for @vigaviga.
   ///
   /// In en, this message translates to:
   /// **'WeChat'**
-  String get wechat;
+  String get vigaviga;
 
-  /// No description provided for @wechatID.
+  /// No description provided for @vigavigaID.
   ///
   /// In en, this message translates to:
   /// **'WeChat ID'**
-  String get wechatID;
+  String get vigavigaID;
 
-  /// No description provided for @wechatPassword.
+  /// No description provided for @vigavigaPassword.
   ///
   /// In en, this message translates to:
   /// **'WeChat Password'**
-  String get wechatPassword;
+  String get vigavigaPassword;
 
-  /// No description provided for @wechatSecurityCenter.
+  /// No description provided for @vigavigaSecurityCenter.
   ///
   /// In en, this message translates to:
   /// **'WeChat Security Center'**
-  String get wechatSecurityCenter;
+  String get vigavigaSecurityCenter;
 
-  /// No description provided for @changeWechatID.
+  /// No description provided for @changeVigavigaID.
   ///
   /// In en, this message translates to:
   /// **'Change WeChat ID'**
-  String get changeWechatID;
+  String get changeVigavigaID;
 
-  /// No description provided for @wechatBeans.
+  /// No description provided for @vigavigaBeans.
   ///
   /// In en, this message translates to:
   /// **'WeChat Beans'**
-  String get wechatBeans;
+  String get vigavigaBeans;
 
-  /// No description provided for @wechatGames.
+  /// No description provided for @vigavigaGames.
   ///
   /// In en, this message translates to:
   /// **'WeChat Games'**
-  String get wechatGames;
+  String get vigavigaGames;
 
   /// No description provided for @aboutWeChat.
   ///
@@ -168,7 +168,7 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'Copied successfully! WeChat ID: {account}'**
-  String copySuccessWithWechatId(String account);
+  String copySuccessWithVigavigaId(String account);
 
   /// No description provided for @verifyIdentityWithPasswordFull.
   ///
@@ -182,11 +182,11 @@ abstract class AppLocalizations {
   /// **'Automatically download WeChat installer'**
   String get autoDownloadWeChatInstaller;
 
-  /// No description provided for @wechatIdModificationRuleFull.
+  /// No description provided for @vigavigaIdModificationRuleFull.
   ///
   /// In en, this message translates to:
   /// **'Your WeChat ID is the unique identifier for your account and can only be changed once a year.'**
-  String get wechatIdModificationRuleFull;
+  String get vigavigaIdModificationRuleFull;
 
   /// No description provided for @device_management_auto_extend_login_info_friendly.
   ///
@@ -204,19 +204,19 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'{count} WeChat Beans'**
-  String wechatBeanCount(int count);
+  String vigavigaBeanCount(int count);
 
-  /// No description provided for @wechatKeyboardFeatureAskAI.
+  /// No description provided for @vigavigaKeyboardFeatureAskAI.
   ///
   /// In en, this message translates to:
   /// **'WeChat Keyboard can now [Ask AI]'**
-  String get wechatKeyboardFeatureAskAI;
+  String get vigavigaKeyboardFeatureAskAI;
 
-  /// No description provided for @setWechatPasswordDescription.
+  /// No description provided for @setVigavigaPasswordDescription.
   ///
   /// In en, this message translates to:
   /// **'Please set a WeChat password. You can log in with your bound account + WeChat password, for example, using your phone number + WeChat password for a faster login experience.'**
-  String get setWechatPasswordDescription;
+  String get setVigavigaPasswordDescription;
 
   /// No description provided for @shortcutPermissionGuidanceFull.
   ///
@@ -228,13 +228,13 @@ abstract class AppLocalizations {
   ///
   /// In en, this message translates to:
   /// **'WeChat ID: {account}'**
-  String wechatIdDisplay(String account);
+  String vigavigaIdDisplay(String account);
 
   /// Displays my WeChat ID
   ///
   /// In en, this message translates to:
   /// **'My WeChat ID: {account}'**
-  String myWechatIdDisplay(String account);
+  String myVigavigaIdDisplay(String account);
 
   /// No description provided for @youthModeFullDescription.
   ///

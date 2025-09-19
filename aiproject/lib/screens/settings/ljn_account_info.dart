@@ -82,7 +82,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                     BlocBuilder<LJNUserCubit, LJNUserState>(
                       builder: (context, userState) {
                         return Text(
-                          l10n.wechatIdDisplay(userState.userinfoAccount!),
+                          l10n.vigavigaIdDisplay(userState.userinfoAccount!),
                           style: TextStyle(
                               fontSize: 40.w,
                               fontWeight: FontWeight.bold,
@@ -95,7 +95,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                       height: 45.w,
                     ),
                     Text(
-                      l10n.wechatIdModificationRuleFull,
+                      l10n.vigavigaIdModificationRuleFull,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 30.w, fontFamily: "AlibabaPuHuiTi"),
@@ -110,7 +110,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
                     Container(
                       padding: EdgeInsets.only(bottom: 180.w),
                       child: LJNChangeAccountButton(
-                        title: l10n.changeWechatID,
+                        title: l10n.changeVigavigaID,
                         link: "/change_account",
                       ),
                     )

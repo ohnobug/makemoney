@@ -90,7 +90,7 @@ class _LJNSetPasswordState extends State<LJNSetPassword> {
           padding: EdgeInsets.all(30.w),
           children: [
             Text(
-              l10n.setWechatPasswordDescription,
+              l10n.setVigavigaPasswordDescription,
               style: TextStyle(
                 fontSize: 27.w,
                 color: AppColors.neutralGrey60,
@@ -100,7 +100,7 @@ class _LJNSetPasswordState extends State<LJNSetPassword> {
 
             // --- 使用提取的公共组件 ---
             _InfoRow(
-              label: l10n.wechatID,
+              label: l10n.vigavigaID,
               value: userState.userinfoAccount ?? '', // 使用 ?? '' 避免null错误
             ),
             SizedBox(height: 20.w),

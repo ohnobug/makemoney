@@ -57,7 +57,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                         LJNFunctionList(
                           children: [
                             LJNFunctionItem(
-                              title: l10n.wechatID,
+                              title: l10n.vigavigaID,
                               link: '/accountinfo',
                               showStyle: userState.userinfoAccount,
                               underline: true,
@@ -77,7 +77,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                         LJNFunctionList(
                           children: [
                             LJNFunctionItem(
-                              title: l10n.wechatPassword,
+                              title: l10n.vigavigaPassword,
                               link: '/set_password',
                               underline: true,
                             ),
@@ -116,7 +116,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                         // Vigaviga安全中心
                         LJNFunctionList(children: [
                           LJNSpecialFunctionItem(
-                            title: l10n.wechatSecurityCenter,
+                            title: l10n.vigavigaSecurityCenter,
                             height: null,
                             link: '',
                             subTitle: Text(

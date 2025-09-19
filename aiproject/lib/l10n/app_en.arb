@@ -1,18 +1,18 @@
 {
   "@@locale": "en",
-  "wechat": "WeChat",
-  "wechatID": "WeChat ID",
-  "wechatPassword": "WeChat Password",
-  "wechatSecurityCenter": "WeChat Security Center",
-  "changeWechatID": "Change WeChat ID",
-  "wechatBeans": "WeChat Beans",
-  "wechatGames": "WeChat Games",
+  "vigaviga": "WeChat",
+  "vigavigaID": "WeChat ID",
+  "vigavigaPassword": "WeChat Password",
+  "vigavigaSecurityCenter": "WeChat Security Center",
+  "changeVigavigaID": "Change WeChat ID",
+  "vigavigaBeans": "WeChat Beans",
+  "vigavigaGames": "WeChat Games",
   "aboutWeChat": "About WeChat",
   "weRun": "WeRun",
   "personalInfoCollectionFullDescription": "    You can review the personal information collected by WeChat. The following statistics only include information collected by iOS 8.0.17, Android 8.0.18, and later versions of WeChat. WeChat cannot fully account for information collected while you were using older versions.",
   "privacy_setting_description": "You will not be able to see each other's Moments, Status, WeRun, Top Stories, or content shared from third-party app authorizations.",
-  "copySuccessWithWechatId": "Copied successfully! WeChat ID: {account}",
-  "@copySuccessWithWechatId": {
+  "copySuccessWithVigavigaId": "Copied successfully! WeChat ID: {account}",
+  "@copySuccessWithVigavigaId": {
     "description": "Toast message shown after successfully copying a WeChat ID",
     "placeholders": {
       "account": {
@@ -23,11 +23,11 @@
   },
   "verifyIdentityWithPasswordFull": "Enter your current WeChat login password to verify your identity.",
   "autoDownloadWeChatInstaller": "Automatically download WeChat installer",
-  "wechatIdModificationRuleFull": "Your WeChat ID is the unique identifier for your account and can only be changed once a year.",
+  "vigavigaIdModificationRuleFull": "Your WeChat ID is the unique identifier for your account and can only be changed once a year.",
   "device_management_auto_extend_login_info_friendly": "After logging into WeChat, when the device is in a secure state, WeChat will automatically extend the login session to ensure timely message delivery. The last active time will be updated accordingly.",
   "loginWithVoiceprint": "Log in with Voiceprint",
-  "wechatBeanCount": "{count} WeChat Beans",
-  "@wechatBeanCount": {
+  "vigavigaBeanCount": "{count} WeChat Beans",
+  "@vigavigaBeanCount": {
     "description": "Displays the number of WeChat Beans",
     "placeholders": {
       "count": {
@@ -35,11 +35,11 @@
       }
     }
   },
-  "wechatKeyboardFeatureAskAI": "WeChat Keyboard can now [Ask AI]",
-  "setWechatPasswordDescription": "Please set a WeChat password. You can log in with your bound account + WeChat password, for example, using your phone number + WeChat password for a faster login experience.",
+  "vigavigaKeyboardFeatureAskAI": "WeChat Keyboard can now [Ask AI]",
+  "setVigavigaPasswordDescription": "Please set a WeChat password. You can log in with your bound account + WeChat password, for example, using your phone number + WeChat password for a faster login experience.",
   "shortcutPermissionGuidanceFull": "If adding the shortcut fails, please go to System Settings and grant WeChat the permission to 'Create home screen shortcuts'.",
-  "wechatIdDisplay": "WeChat ID: {account}",
-  "@wechatIdDisplay": {
+  "vigavigaIdDisplay": "WeChat ID: {account}",
+  "@vigavigaIdDisplay": {
     "description": "Displays the WeChat ID",
     "placeholders": {
       "account": {
@@ -47,8 +47,8 @@
       }
     }
   },
-  "myWechatIdDisplay": "My WeChat ID: {account}",
-  "@myWechatIdDisplay": {
+  "myVigavigaIdDisplay": "My WeChat ID: {account}",
+  "@myVigavigaIdDisplay": {
     "description": "Displays my WeChat ID",
     "placeholders": {
       "account": {

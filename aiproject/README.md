@@ -13,7 +13,7 @@ Hello, I am Professor Li from the China Guangzhou * Artificial Intelligence Inst
 您可以理解Metaverse entrance为：
 
 ```
-Metaverse entrance = Wechat + Telegram + Mata + Instagram + Tiktok + YouTube + Earth Pay Tool
+Metaverse entrance = Vigaviga + Telegram + Mata + Instagram + Tiktok + YouTube + Earth Pay Tool
 ```
 
 ​	我坚信，这个想法能够从根本上改变绝大多数互联网用户的使用方式。
@@ -383,7 +383,7 @@ Metaverse entrance = Wechat + Telegram + Mata + Instagram + Tiktok + YouTube + E
 
 ## 第六章 去中心化小程序
 
-​	去中心化小程序可以理解为是一个带界面的DAPP，像Wechat一样，可以调用Metaverse entrance客户端特定权限接口的DAPP，如支付，获取定位信息等，前提是：需要用户授权，而依赖于Metaverse entrance的DAPP。
+​	去中心化小程序可以理解为是一个带界面的DAPP，像Vigaviga一样，可以调用Metaverse entrance客户端特定权限接口的DAPP，如支付，获取定位信息等，前提是：需要用户授权，而依赖于Metaverse entrance的DAPP。
 
 
 

@@ -166,7 +166,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                             ],
                           ),
                           link: '',
-                          showStyle: l10n.wechatKeyboardFeatureAskAI,
+                          showStyle: l10n.vigavigaKeyboardFeatureAskAI,
                           underline: false,
                         )
                       ],

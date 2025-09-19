@@ -1,18 +1,18 @@
 {
   "@@locale": "zh",
-  "wechat": "Vigaviga",
-  "wechatID": "Vigaviga号",
-  "wechatPassword": "Vigaviga密码",
-  "wechatSecurityCenter": "Vigaviga安全中心",
-  "changeWechatID": "修改Vigaviga号",
-  "wechatBeans": "Vigaviga豆",
-  "wechatGames": "Vigaviga游戏",
+  "vigaviga": "Vigaviga",
+  "vigavigaID": "Vigaviga号",
+  "vigavigaPassword": "Vigaviga密码",
+  "vigavigaSecurityCenter": "Vigaviga安全中心",
+  "changeVigavigaID": "修改Vigaviga号",
+  "vigavigaBeans": "Vigaviga豆",
+  "vigavigaGames": "Vigaviga游戏",
   "aboutWeChat": "关于Vigaviga",
   "weRun": "Vigaviga运动",
   "personalInfoCollectionFullDescription": "    你可以查阅Vigaviga对你的个人信息的收集情况。以下只统计i0S 8.0.17、Android 8.0.18及之后版本Vigaviga所收集的信息。你使用旧版本Vigaviga期间的信息收集情况，Vigaviga无法完整统计到。",
   "privacy_setting_description": "你们将互相看不到对方的朋友圈、状态、Vigaviga运动、看一看以及第三方登录授权分享的内容。",
-  "copySuccessWithWechatId": "复制成功!Vigaviga号:{account}",
-  "@copySuccessWithWechatId": {
+  "copySuccessWithVigavigaId": "复制成功!Vigaviga号:{account}",
+  "@copySuccessWithVigavigaId": {
     "description": "复制Vigaviga号成功后显示的提示信息",
     "placeholders": {
       "account": {
@@ -23,11 +23,11 @@
   },
   "verifyIdentityWithPasswordFull": "填写当前Vigaviga登录密码，验证本人身份。",
   "autoDownloadWeChatInstaller": "自动下载Vigaviga安装包",
-  "wechatIdModificationRuleFull": "Vigaviga号是账号的唯一凭证，一年只能修改一次。",
+  "vigavigaIdModificationRuleFull": "Vigaviga号是账号的唯一凭证，一年只能修改一次。",
   "device_management_auto_extend_login_info_friendly": "登录Vigaviga后，当设备处于安全状态时，Vigaviga会自动延长登录时间以保持朋友消息的及时收发，此时会更新最近活跃时间。",
   "loginWithVoiceprint": "用声音锁登录Vigaviga",
-  "wechatBeanCount": "{count}个Vigaviga豆",
-  "@wechatBeanCount": {
+  "vigavigaBeanCount": "{count}个Vigaviga豆",
+  "@vigavigaBeanCount": {
     "description": "显示Vigaviga豆的数量",
     "placeholders": {
       "count": {
@@ -35,11 +35,11 @@
       }
     }
   },
-  "wechatKeyboardFeatureAskAI": "Vigaviga输入法可以【问AI】了",
-  "setWechatPasswordDescription": "请设置Vigaviga密码。你可以用Vigaviga绑定的账号+Vigaviga密码登录，比如使用手机号+Vigaviga密码登录Vigaviga，更快捷。",
+  "vigavigaKeyboardFeatureAskAI": "Vigaviga输入法可以【问AI】了",
+  "setVigavigaPasswordDescription": "请设置Vigaviga密码。你可以用Vigaviga绑定的账号+Vigaviga密码登录，比如使用手机号+Vigaviga密码登录Vigaviga，更快捷。",
   "shortcutPermissionGuidanceFull": "若添加失败，请前往系统设置，为Vigaviga打开「创建桌面快捷方式」的权限。",
-  "wechatIdDisplay": "Vigaviga号: {account}",
-  "@wechatIdDisplay": {
+  "vigavigaIdDisplay": "Vigaviga号: {account}",
+  "@vigavigaIdDisplay": {
     "description": "显示Vigaviga号",
     "placeholders": {
       "account": {
@@ -47,8 +47,8 @@
       }
     }
   },
-  "myWechatIdDisplay": "我的Vigaviga号: {account}",
-  "@myWechatIdDisplay": {
+  "myVigavigaIdDisplay": "我的Vigaviga号: {account}",
+  "@myVigavigaIdDisplay": {
     "description": "显示我的Vigaviga号",
     "placeholders": {
       "account": {

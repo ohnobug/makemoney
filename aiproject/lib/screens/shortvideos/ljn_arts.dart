@@ -373,10 +373,8 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   // 视频播放控制器，用于控制视频的播放、暂停、进度等
   late VideoPlayerController? _videoController;
 
-  // 控制播放/暂停按钮、进度条等UI是否可见
-  bool _controlsVisible = false;
-  // 用于自动隐藏控制UI的计时器
-  Timer? _hideControlsTimer;
+  // [MODIFIED] - 现在这个变量只在暂停时为 true
+  bool _showPauseIcon = false;
 
   // 监听父组件的 `canPlay` 属性变化
   @override
@@ -389,12 +387,18 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
       if (_videoController != null && _videoController!.value.isInitialized) {
         // 如果 `canPlay` 变为 true，则播放视频
         if (widget.canPlay == true) {
+          _videoController!.play();
+          // [MODIFIED] - 新页面开始播放时，确保暂停图标是隐藏的
           setState(() {
-            _videoController!.play();
+            _showPauseIcon = false;
           });
         } else {
           // 如果 `canPlay` 变为 false，则暂停视频
           _videoController!.pause();
+          // [MODIFIED] - 切换到别的页面时，强制显示播放按钮
+          setState(() {
+            _showPauseIcon = true;
+          });
         }
       }
     }
@@ -436,40 +440,32 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
           // 如果当前页面可见，则自动播放
           if (widget.canPlay == true) {
             _videoController!.play();
+            _showPauseIcon = false; // 初始播放时，图标不显示
+          } else {
+            _showPauseIcon = true; // 如果初始不可见，则显示播放图标
           }
         });
       }
     });
   }
 
-  // [MODIFIED] - 切换播放和暂停状态，现在由单击屏幕触发
+  // [MODIFIED] - 全新的播放/暂停切换逻辑
   void _togglePlaying() {
     if (!mounted) return;
 
-    // 切换播放状态
     setState(() {
-      if (_videoController!.value.isPlaying) {
+      // 判断当前是否正在播放
+      final isPlaying = _videoController!.value.isPlaying;
+      if (isPlaying) {
+        // 如果正在播放 -> 暂停视频
         _videoController!.pause();
-        _hideControlsTimer?.cancel(); // 暂停时，取消隐藏计时器，让UI保持可见
+        // 将状态设为显示图标
+        _showPauseIcon = true;
       } else {
+        // 如果已暂停 -> 播放视频
         _videoController!.play();
-        _startHideControlsTimer(); // 播放时，启动隐藏计时器
-      }
-      // 无论播放还是暂停，都让控制UI可见
-      _controlsVisible = true;
-    });
-  }
-
-  // 启动一个3秒后隐藏控制UI的计时器
-  void _startHideControlsTimer() {
-    // 如果已有计时器，先取消
-    _hideControlsTimer?.cancel();
-    // 创建一个新的计时器
-    _hideControlsTimer = Timer(const Duration(seconds: 3), () {
-      if (mounted) {
-        setState(() {
-          _controlsVisible = false; // 3秒后将UI设为不可见
-        });
+        // 将状态设为不显示图标
+        _showPauseIcon = false;
       }
     });
   }
@@ -477,7 +473,6 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
   @override
   void dispose() {
     logger.info("视频播放器已销毁！！！");
-    _hideControlsTimer?.cancel(); // 销毁计时器
     _videoController?.dispose(); // 销毁视频控制器，释放资源
     super.dispose();
   }
@@ -491,77 +486,72 @@ class _CustomVideoPlayerState extends State<CustomVideoPlayer> {
         return SizedBox(
           width: 750.w,
           height: MediaQuery.of(context).size.height - 106.w,
-          child: _videoController != null &&
-                  _videoController!.value.isInitialized
-              ? Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    // --- 视频画面 ---
-                    // [MODIFIED] - 使用 FittedBox 和 BoxFit.cover 实现真正的全屏铺满效果。
-                    // 这是实现无黑边视频播放的最佳实践。
-                    // 它会等比缩放视频，直到完全填满容器，然后裁剪超出部分。
-                    SizedBox.expand(
-                      // 让 FittedBox 充满整个 Stack
-                      child: FittedBox(
-                        fit: BoxFit.cover,
-                        child: SizedBox(
-                          width: _videoController!.value.size.width,
-                          height: _videoController!.value.size.height,
-                          child: VideoPlayer(_videoController!),
+          child:
+              _videoController != null && _videoController!.value.isInitialized
+                  ? Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        // --- 视频画面 ---
+                        SizedBox.expand(
+                          child: FittedBox(
+                            fit: BoxFit.cover,
+                            child: SizedBox(
+                              width: _videoController!.value.size.width,
+                              height: _videoController!.value.size.height,
+                              child: VideoPlayer(_videoController!),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
 
-                    // --- 覆盖层：用于手势检测和显示控制UI ---
-                    // [MODIFIED] - GestureDetector 现在直接控制播放/暂停
-                    GestureDetector(
-                      onTap: _togglePlaying, // 单击屏幕任意位置即可播放/暂停
-                      child: AnimatedOpacity(
-                        opacity: _controlsVisible ? 1.0 : 0.0,
-                        duration: const Duration(milliseconds: 200),
-                        child: Container(
-                          color: Colors.black.withAlpha(77),
+                        // --- 覆盖层：现在只用于手势检测 ---
+                        GestureDetector(
+                          onTap: _togglePlaying, // 单击屏幕任意位置即可播放/暂停
+                          // [MODIFIED] - 让背景完全透明，因为它只负责接收点击事件
+                          child: Container(
+                            color: Colors.transparent,
+                          ),
+                        ),
+
+                        // --- 播放图标的覆盖层 ---
+                        // [MODIFIED] - 使用 AnimatedOpacity 包裹图标，而不是整个遮罩
+                        // Opacity 的值现在由 `_showPauseIcon` 直接控制
+                        AnimatedOpacity(
+                          opacity: _showPauseIcon ? 1.0 : 0.0,
+                          duration: const Duration(milliseconds: 200),
                           child: Center(
-                            // --- 播放/暂停按钮 ---
-                            // 这个按钮现在只是一个视觉指示，实际的点击事件由外层 GestureDetector 处理
                             child: Icon(
-                              _videoController!.value.isPlaying
-                                  ? Icons
-                                      .pause_circle_outline // 使用 outline 图标，视觉上更轻
-                                  : Icons.play_circle_outline, // 使用 outline 图标
+                              Icons.play_circle_outline, // 只会是播放图标
                               color: Colors.white.withAlpha(204),
                               size: 120.w,
                             ),
                           ),
                         ),
-                      ),
-                    ),
 
-                    // --- 底部视频进度条 ---
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: VideoProgressIndicator(
-                        _videoController!,
-                        allowScrubbing: true,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 25.w, vertical: 10.w),
-                        colors: VideoProgressColors(
-                          playedColor: AppColors.accentRedPure,
-                          bufferedColor: Colors.white.withAlpha(77),
-                          backgroundColor: Colors.white.withAlpha(26),
+                        // --- 底部视频进度条 ---
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: VideoProgressIndicator(
+                            _videoController!,
+                            allowScrubbing: true,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 25.w, vertical: 10.w),
+                            colors: VideoProgressColors(
+                              playedColor: AppColors.accentRedPure,
+                              bufferedColor: Colors.white.withAlpha(77),
+                              backgroundColor: Colors.white.withAlpha(26),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
+                    )
+                  // 如果视频还未初始化，则显示一个深色背景
+                  : Container(
+                      width: 750.w,
+                      height: MediaQuery.of(context).size.height - 106.w,
+                      color: theme.colorScheme.onSurface,
                     ),
-                  ],
-                )
-              // 如果视频还未初始化，则显示一个深色背景
-              : Container(
-                  width: 750.w,
-                  height: MediaQuery.of(context).size.height - 106.w,
-                  color: theme.colorScheme.onSurface,
-                ),
         );
       },
     );
