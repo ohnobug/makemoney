@@ -1,39 +1,60 @@
+// /lib/screens/user/ljn_user.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_button.dart';
-import 'package:vigaviga/widgets/ljn_function_buttons_section.dart';
-import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
-import 'package:vigaviga/widgets/ljn_function_item.dart';
 
 class LJNUser extends StatefulWidget {
   const LJNUser({super.key});
-
   @override
   State<LJNUser> createState() => _LJNUserState();
 }
 
-class _LJNUserState extends State<LJNUser> {
+class _LJNUserState extends State<LJNUser>
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin<LJNUser> {
+  @override
+  bool get wantKeepAlive => true;
+
+  bool _isBalanceVisible = true;
+  late TabController _tabController;
+
+  final List<String> _works =
+      List.generate(25, (i) => 'https://picsum.photos/300/400?random=$i');
+  final List<String> _collections = [];
+  final List<String> _praised = List.generate(
+      3, (i) => 'https://picsum.photos/300/400?random=${i + 100}');
+
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 3, vsync: this);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<LJNSystemCubit>().updateHomescrollpixels(0);
-      context.read<LJNSystemCubit>().updateShowMiniProgramDrawer(false);
-      context.read<LJNSystemCubit>().updateMainpage4isload(true);
+      if (mounted) {
+        context.read<LJNSystemCubit>().updateHomescrollpixels(0);
+        context.read<LJNSystemCubit>().updateShowMiniProgramDrawer(false);
+        context.read<LJNSystemCubit>().updateMainpage4isload(true);
+      }
     });
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
       return systemState.mainpage4isload!
@@ -44,520 +65,413 @@ class _LJNUserState extends State<LJNUser> {
 
   Widget _buildPage(SystemState systemState) {
     ThemeData theme = Theme.of(context);
-    AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return Stack(
-      children: [
-        Container(
-          constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height - 106.w),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainer,
-            // gradient: LinearGradient(
-            //   colors: [
-            //     theme.cardTheme.color!,
-            //     theme.colorScheme.surfaceContainer
-            //   ],
-            //   stops: [0.3, 0.5],
-            //   begin: Alignment.topCenter,
-            //   end: Alignment.bottomCenter,
-            // ),
-          ),
-        ),
-        SizedBox(
-          width: 750.w,
-          height: MediaQuery.of(context).size.height,
-          // color: theme.colorScheme.surface,
-          child: ScrollConfiguration(
-            behavior:
-                ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics(),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  // 顶部功能区域
-                  Container(
-                    color: Theme.of(context).cardTheme.color,
-                    padding: EdgeInsets.only(
-                      top: 120.0.w + systemState.statusHeight,
-                      left: 32.w,
-                      bottom: 30.w,
+    return Scaffold(
+      backgroundColor: theme.colorScheme.surfaceContainer,
+      body: Stack(
+        children: [
+          SafeArea(
+            child: NestedScrollView(
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                return <Widget>[
+                  SliverToBoxAdapter(
+                    child: _buildUserInfoSection(systemState, theme),
+                  ),
+                  SliverPersistentHeader(
+                    delegate: _SliverTabBarDelegate(
+                      TabBar(
+                        controller: _tabController,
+                        labelColor: theme.textTheme.bodyLarge?.color,
+                        unselectedLabelColor: theme.hintColor,
+                        indicatorColor: theme.colorScheme.primary,
+                        indicatorWeight: 2.5,
+                        indicatorSize: TabBarIndicatorSize.label,
+                        isScrollable: true,
+                        tabAlignment: TabAlignment.start,
+                        labelPadding: EdgeInsets.symmetric(horizontal: 40.w),
+                        labelStyle: TextStyle(
+                            fontSize: 30.w, fontWeight: FontWeight.bold),
+                        unselectedLabelStyle: TextStyle(
+                            fontSize: 30.w, fontWeight: FontWeight.normal),
+                        tabs: [
+                          Tab(child: Text("笔记 ${_works.length}")),
+                          Tab(child: Text("收藏 ${_collections.length}")),
+                          Tab(child: Text("赞过 ${_praised.length}")),
+                        ],
+                      ),
+                      color: theme.cardColor,
                     ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // 头像
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/userinfo');
-                          },
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10).w,
-                            child: BlocBuilder<LJNUserCubit, LJNUserState>(
-                              builder: (context, state) {
-                                if (state.userinfoAvatar == null ||
-                                    state.userinfoAvatar!.isEmpty) {
-                                  return Image.asset(
-                                    assetPath('images/avatar/default.png'),
-                                    cacheWidth: 240.w.toInt(),
-                                    cacheHeight: 240.w.toInt(),
-                                    width: 120.w,
-                                    height: 120.w,
-                                    fit: BoxFit.cover,
-                                  );
-                                } else {
-                                  return Image.asset(
-                                    assetPath(state.userinfoAvatar!),
-                                    cacheWidth: 240.w.toInt(),
-                                    cacheHeight: 240.w.toInt(),
-                                    width: 120.w,
-                                    height: 120.w,
-                                    fit: BoxFit.cover,
-                                  );
-                                }
-                              },
-                            ),
-                          ),
-                        ),
-
-                        SizedBox(width: 30.w),
-
-                        // 用户信息区域
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // 用户名与Vigaviga号
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(context, '/userinfo');
-                                },
-                                child: Container(
-                                  color: Colors.transparent,
-                                  padding: EdgeInsets.only(right: 40.w),
-                                  child: Column(
-                                    children: [
-                                      // 用户名
-                                      Container(
-                                        width: double.infinity,
-                                        color: Colors.transparent,
-                                        child: BlocBuilder<LJNUserCubit,
-                                            LJNUserState>(
-                                          builder: (context, state) {
-                                            return Text(
-                                              state.userinfoName!,
-                                              style: TextStyle(
-                                                height: 1.5,
-                                                fontSize: fontSizeScale(42.w),
-                                                fontWeight: FontWeight.w600,
-                                                color:
-                                                    theme.colorScheme.onSurface,
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-
-                                      SizedBox(height: 20.w),
-
-                                      // Vigaviga号
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          // 使用 Expanded 包裹 BlocBuilder，让文本自动填充可用空间
-                                          Expanded(
-                                            child: BlocBuilder<LJNUserCubit,
-                                                LJNUserState>(
-                                              builder: (context, state) {
-                                                return Text(
-                                                  l10n.vigavigaIdDisplay(
-                                                      state.userinfoAccount!),
-                                                  style: TextStyle(
-                                                    height: 1.08,
-                                                    fontSize:
-                                                        fontSizeScale(28.w),
-                                                    color:
-                                                        AppColors.neutralGrey71,
-                                                  ),
-                                                  // 可选: 如果文本太长，可以设置如何显示，比如用省略号
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 1,
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                          // 二维码图标（这部分保持不变）
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                const IconData(
-                                                  0xe74b,
-                                                  fontFamily: 'Iconfont',
-                                                ),
-                                                size: 23.w,
-                                                color: theme
-                                                    .colorScheme.onSurface
-                                                    .withAlpha(100),
-                                              ),
-                                              SizedBox(width: 43.w),
-                                              Icon(
-                                                const IconData(
-                                                  0xed9d,
-                                                  fontFamily: 'Iconfont',
-                                                ),
-                                                size: 28.w,
-                                                color: theme
-                                                    .colorScheme.onSurface
-                                                    .withAlpha(100),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-                              SizedBox(height: 20.w),
-
-                              // 状态
-                              Row(
-                                children: [
-                                  // 状态
-                                  LJNStatusButton(
-                                    text: l10n.addStatus,
-                                    onPressed: () {
-                                      logger.info('点击状态');
-                                    },
-                                  ),
-                                  SizedBox(width: 14.w),
-                                  // 朋友状态
-                                  LJNStatusButton(
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          height: 30.w,
-                                          width: 85.w,
-                                          child: Stack(
-                                            children: <Widget>[
-                                              Positioned(
-                                                // top: 6.w,
-                                                left: 0.w,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: AppColors
-                                                          .neutralWhite,
-                                                      width: 2.0.w,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      200,
-                                                    ).w,
-                                                  ),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      1000,
-                                                    ).w,
-                                                    child: Image.asset(
-                                                      'assets/images/avatar_webp/chat_4.webp',
-                                                      width: 30.w,
-                                                      height: 30.w,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Positioned(
-                                                // top: 6.w,
-                                                left: 25.w,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: AppColors
-                                                          .neutralWhite,
-                                                      width: 2.0.w,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      200,
-                                                    ).w,
-                                                  ),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      1000,
-                                                    ).w,
-                                                    child: Image.asset(
-                                                      'assets/images/avatar_webp/chat_5.webp',
-                                                      width: 30.w,
-                                                      height: 30.w,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Positioned(
-                                                // top: 6.w,
-                                                left: 50.w,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: AppColors
-                                                          .neutralWhite,
-                                                      width: 2.0.w,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      200,
-                                                    ).w,
-                                                  ),
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      100,
-                                                    ).w,
-                                                    child: Image.asset(
-                                                      'assets/images/avatar_webp/chat_6.webp',
-                                                      width: 30.w,
-                                                      height: 30.w,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(width: 10.w),
-                                        Text(
-                                          l10n.andXMoreFriends(8),
-                                          style: TextStyle(
-                                            height: 1.08,
-                                            fontSize: 24.w,
-                                            color: theme.colorScheme.onSurface,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    onPressed: () {
-                                      logger.info('等四个朋友');
-                                    },
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    pinned: true,
                   ),
-
-                  // 金融理财
-                  LJNFunctionButtonsSection(
-                    title: l10n.financialServices,
-                    buttons: [
-                      // 服务
-                      LJNFunctionButton(
-                        icon: "images/icon/server_icon1.png",
-                        title: l10n.services,
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/services');
-                        },
-                      ),
-                      // 朋友圈
-                      LJNFunctionButton(
-                        icon: "images/icon/server_icon2.png",
-                        title: l10n.moments,
-                        onPressed: () {
-                          logger.info('点击了理财通按钮~~');
-                        },
-                      ),
-                      // 设置
-                      LJNFunctionButton(
-                        icon: "images/icon/server_icon3.png",
-                        title: l10n.settings,
-                        onPressed: () {
-                          // logger.info('点击了保险服务按钮~~');
-                          Navigator.pushNamed(context, '/setting');
-                        },
-                      ),
-                    ],
-                  ),
-
-                  // 生活服务
-                  LJNFunctionButtonsSection(
-                    title: l10n.lifeServices,
-                    buttons: [
-                      LJNFunctionButton(
-                        icon: "images/icon/server_icon4.png",
-                        title: l10n.mobileTopUp,
-                        onPressed: () {
-                          logger.info('点击了手机充值按钮~~');
-                        },
-                      ),
-                      LJNFunctionButton(
-                        icon: "images/icon/server_icon5.png",
-                        title: l10n.utilityPayments,
-                        onPressed: () {
-                          logger.info('点击了生活缴费按钮~~');
-                        },
-                      ),
-                      LJNFunctionButton(
-                        icon: "images/icon/server_icon6.png",
-                        title: l10n.qCoinTopUp,
-                        onPressed: () {
-                          logger.info('点击了Q币充值按钮~~');
-                        },
-                      ),
-                      LJNFunctionButton(
-                        icon: "images/icon/server_icon7.png",
-                        title: l10n.cityServices,
-                        onPressed: () {
-                          logger.info('点击了城市服务按钮~~');
-                        },
-                      ),
-                      LJNFunctionButton(
-                        icon: "images/icon/server_icon8.png",
-                        title: l10n.tencentCharity,
-                        onPressed: () {
-                          logger.info('点击了腾讯公益按钮~~');
-                        },
-                      ),
-                      LJNFunctionButton(
-                        icon: "images/icon/server_icon9.png",
-                        title: l10n.healthCare,
-                        onPressed: () {
-                          logger.info('点击了医疗健康按钮~~');
-                        },
-                      ),
-                    ],
-                  ),
-
-                  // LJNVerticalGap(
-                  //   height: 8.w,
-                  // ),
-
-                  // // 服务
-                  // LJNFunctionList(
-                  //   children: [
-                  //     LJNFunctionItem(
-                  //       title: l10n.services,
-                  //       icon: "images/icon/icon1.png",
-                  //       link: '/services',
-                  //       underline: false,
-                  //     )
-                  //   ],
-                  // ),
-
-                  // // 功能列表
-                  // LJNFunctionList(
-                  //   children: [
-                  //     // LJNFunctionItem(
-                  //     //   title: l10n.favorite,
-                  //     //   icon: "images/icon/icon2.png",
-                  //     //   link:
-                  //     //       "/open_miniprogram?link=${Uri.encodeComponent('https://baidu.com')}",
-                  //     //   underline: true,
-                  //     // ),
-                  //     LJNFunctionItem(
-                  //       title: l10n.moments,
-                  //       icon: "images/icon/icon3.png",
-                  //       link: '/friendmoments',
-                  //       underline: false,
-                  //     ),
-                  //     // LJNFunctionItem(
-                  //     //   title: l10n.channels,
-                  //     //   icon: "images/icon/icon4.png",
-                  //     //   link: '/video_player',
-                  //     //   underline: true,
-                  //     // ),
-                  //     // LJNFunctionItem(
-                  //     //   title: l10n.storeOrdersAndCardPack,
-                  //     //   icon: "images/icon/icon5.png",
-                  //     //   link: '/test',
-                  //     //   underline: true,
-                  //     // ),
-                  //     // LJNFunctionItem(
-                  //     //   title: l10n.stickers,
-                  //     //   icon: "images/icon/icon6.png",
-                  //     //   link:
-                  //     //       "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/code.html')}",
-                  //     //   underline: false,
-                  //     // ),
-                  //   ],
-                  // ),
-
-                  // // 设置
-                  // LJNFunctionList(
-                  //   children: [
-                  //     LJNFunctionItem(
-                  //       title: l10n.settings,
-                  //       icon: "images/icon/icon7.png",
-                  //       link: '/setting',
-                  //       underline: false,
-                  //     )
-                  //   ],
-                  // ),
-
-                  SizedBox(height: 100.w)
-                ],
+                ];
+              },
+              body: Container(
+                color: theme.cardColor,
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    _UserWorksGrid(
+                        key: const PageStorageKey('works_grid'),
+                        items: _works,
+                        emptyMessage: '保持热爱奔赴山河',
+                        buttonText: '去发布',
+                        onButtonPressed: () {}),
+                    _UserWorksGrid(
+                        key: const PageStorageKey('collections_grid'),
+                        items: _collections,
+                        emptyMessage: '还没有收藏',
+                        buttonText: '去看看',
+                        onButtonPressed: () {}),
+                    _UserWorksGrid(
+                        key: const PageStorageKey('praised_grid'),
+                        items: _praised,
+                        emptyMessage: '还没有赞过',
+                        buttonText: '去看看',
+                        onButtonPressed: () {}),
+                  ],
+                ),
               ),
             ),
           ),
-        )
+
+          // 浮动在右上角的按钮
+          Positioned(
+            top: systemState.statusHeight + 40.w, // 调整垂直位置以对齐
+            right: 0,
+            child: Row(
+              children: [
+                _buildFloatingIconButton(
+                  icon: Icons.settings_outlined,
+                  onTap: () => Navigator.pushNamed(context, '/setting'),
+                ),
+                _buildFloatingIconButton(
+                  icon: Icons.share_outlined,
+                  onTap: () {
+                    logger.info("分享按钮被点击");
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 构建浮动按钮的辅助方法
+  Widget _buildFloatingIconButton(
+      {required IconData icon, required VoidCallback onTap}) {
+    return IconButton(
+      onPressed: onTap,
+      icon: Icon(icon,
+          color: Theme.of(context).textTheme.bodyLarge?.color, size: 44.w),
+      padding: EdgeInsets.all(24.w),
+    );
+  }
+
+  // 构建用户信息区的 Widget (包含功能按钮)
+  Widget _buildUserInfoSection(SystemState systemState, ThemeData theme) {
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
+    // 功能按钮列表数据
+    final List<LJNFunctionButton> serviceButtons = [
+      LJNFunctionButton(
+          icon: "images/icon/server_icon11.png", title: "充值", onPressed: () {}),
+      LJNFunctionButton(
+          icon: "images/icon/server_icon12.png", title: "提现", onPressed: () {}),
+      LJNFunctionButton(
+          icon: "images/icon/server_icon13.png",
+          title: "账单明细",
+          onPressed: () {}),
+      LJNFunctionButton(
+          icon: "images/icon/server_icon14.png",
+          title: "创作报表",
+          onPressed: () {}),
+    ];
+
+    return Container(
+      color: theme.cardColor,
+      padding: EdgeInsets.fromLTRB(
+          32.w, 40.w + systemState.statusHeight, 32.w, 40.w),
+      margin: EdgeInsets.only(bottom: 20.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 顶部：头像、昵称
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.pushNamed(context, '/userinfo'),
+                child: ClipOval(
+                  child: BlocBuilder<LJNUserCubit, LJNUserState>(
+                    builder: (context, state) {
+                      final avatar = state.userinfoAvatar;
+                      return Image.asset(
+                        (avatar == null || avatar.isEmpty)
+                            ? assetPath('images/avatar/default.png')
+                            : assetPath(avatar),
+                        width: 140.w,
+                        height: 140.w,
+                        fit: BoxFit.cover,
+                      );
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(width: 30.w),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BlocBuilder<LJNUserCubit, LJNUserState>(
+                      builder: (context, state) => Text(
+                        state.userinfoName ?? '用户名',
+                        style: TextStyle(
+                            fontSize: 42.w,
+                            fontWeight: FontWeight.bold,
+                            color: theme.colorScheme.onSurface),
+                      ),
+                    ),
+                    SizedBox(height: 12.w),
+                    // [修复] ID 和二维码图标的 Row
+                    GestureDetector(
+                      onTap: () {/* 跳转到二维码页面 */},
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min, // 让Row包裹内容
+                        children: [
+                          Text(
+                            l10n.vigavigaIdDisplay('TheMonsterClub'),
+                            style: TextStyle(
+                                fontSize: 26.w, color: theme.hintColor),
+                          ),
+                          SizedBox(width: 10.w),
+                          Icon(Icons.qr_code_2_outlined,
+                              size: 28.w, color: theme.hintColor),
+                          SizedBox(width: 10.w),
+                          Icon(Icons.chevron_right,
+                              size: 32.w, color: theme.hintColor),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 40.w),
+          // 社交数据
+          Row(
+            children: [
+              _buildStatsItem("25", "关注"),
+              SizedBox(width: 60.w),
+              _buildStatsItem("1.2M", "粉丝"),
+              SizedBox(width: 60.w),
+              _buildStatsItem("8.9M", "获赞"),
+            ],
+          ),
+          SizedBox(height: 30.w),
+          // 余额
+          Row(
+            children: [
+              Text(
+                "余额：",
+                style: TextStyle(
+                    fontSize: 30.w,
+                    color: theme.colorScheme.onSurface.withOpacity(0.8)),
+              ),
+              Text(
+                _isBalanceVisible ? "\$1,234.56" : "****",
+                style: TextStyle(
+                    fontSize: 30.w,
+                    color: theme.colorScheme.onSurface,
+                    fontFamily: 'DMMono',
+                    fontWeight: FontWeight.w600),
+              ),
+              SizedBox(width: 16.w),
+              InkWell(
+                borderRadius: BorderRadius.circular(20.w),
+                onTap: () =>
+                    setState(() => _isBalanceVisible = !_isBalanceVisible),
+                child: Padding(
+                  padding: EdgeInsets.all(8.w),
+                  child: Icon(
+                    _isBalanceVisible
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
+                    size: 32.w,
+                    color: theme.hintColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          // 分割线
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 30.w),
+            child: Divider(height: 1.w, color: theme.dividerColor),
+          ),
+          // [关键改动] 功能按钮 GridView
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: serviceButtons.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              childAspectRatio: 1.1,
+            ),
+            itemBuilder: (context, index) {
+              return serviceButtons[index];
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 构建社交数据项的小组件
+  Widget _buildStatsItem(String count, String label) {
+    final theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(count,
+            style: TextStyle(
+                fontSize: 30.w,
+                fontWeight: FontWeight.bold,
+                color: theme.textTheme.bodyLarge?.color)),
+        SizedBox(height: 8.w),
+        Text(label, style: TextStyle(fontSize: 26.w, color: theme.hintColor)),
       ],
     );
   }
 }
 
-class LJNStatusButton extends StatelessWidget {
-  /// 当按钮中只显示文本时使用此属性。
-  final String? text;
+// =======================================================================
+// [辅助类] 用于创建固定在顶部的 TabBar
+// =======================================================================
+class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverTabBarDelegate(this.tabBar, {required this.color});
 
-  /// 当按钮中需要显示复杂的子组件（如图标+文本）时使用此属性。
-  /// 如果 `text` 不为 null，`child` 将被忽略。
-  final Widget? child;
+  final TabBar tabBar;
+  final Color color;
 
-  /// 按钮的点击回调函数。
-  final VoidCallback onPressed;
+  @override
+  double get minExtent => tabBar.preferredSize.height;
+  @override
+  double get maxExtent => tabBar.preferredSize.height;
 
-  const LJNStatusButton({
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: color,
+      child: tabBar,
+    );
+  }
+
+  @override
+  bool shouldRebuild(_SliverTabBarDelegate oldDelegate) {
+    return color != oldDelegate.color;
+  }
+}
+
+// =======================================================================
+// [辅助 Widget] 用于显示作品网格或空状态
+// =======================================================================
+class _UserWorksGrid extends StatelessWidget {
+  final List<String> items;
+  final String emptyMessage;
+  final String buttonText;
+  final VoidCallback onButtonPressed;
+
+  const _UserWorksGrid({
     super.key,
-    this.text,
-    this.child,
-    required this.onPressed,
+    required this.items,
+    required this.emptyMessage,
+    required this.buttonText,
+    required this.onButtonPressed,
   });
 
   @override
   Widget build(BuildContext context) {
-    // 使用 Flutter 内置的 OutlinedButton
-    return OutlinedButton(
-      // 将 onPressed 回调直接传递给 OutlinedButton
-      onPressed: onPressed,
+    if (items.isEmpty) {
+      return _buildEmptyState(context);
+    } else {
+      return _buildGridContent(context);
+    }
+  }
 
-      // 根据传入的属性决定按钮的内容
-      // 如果 text 不为空，则显示文本
-      // 否则，显示 child
-      child: text != null
-          ? Text(
-              text!,
-              style: TextStyle(
-                // 文本样式可以从主题中继承，也可以在这里覆盖
-                // 注意：颜色通常由主题的 `foregroundColor` 控制，这里可以不写
-                height: 1.08,
-                fontSize: fontSizeScale(24.w),
+  Widget _buildEmptyState(BuildContext context) {
+    return Container(
+      color: Theme.of(context).colorScheme.surfaceContainer,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(assetPath('images/imgs/no-content.webp'),
+                width: 200.w, height: 200.w, color: Colors.grey.shade400),
+            SizedBox(height: 30.w),
+            Text(
+              emptyMessage,
+              style: TextStyle(fontSize: 28.w, color: Colors.grey.shade600),
+            ),
+            SizedBox(height: 40.w),
+            ElevatedButton(
+              onPressed: onButtonPressed,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.accentRedVibrant1,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.w),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 60.w, vertical: 20.w),
+                elevation: 0,
               ),
-            )
-          : child!,
+              child: Text(buttonText,
+                  style:
+                      TextStyle(fontSize: 28.w, fontWeight: FontWeight.bold)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGridContent(BuildContext context) {
+    return Container(
+      color: Theme.of(context).colorScheme.surfaceContainer,
+      child: GridView.builder(
+        key: PageStorageKey<String>(emptyMessage),
+        padding: EdgeInsets.all(4.w),
+        itemCount: items.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 4.w,
+          mainAxisSpacing: 4.w,
+          childAspectRatio: 9 / 16,
+        ),
+        itemBuilder: (context, index) {
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(8.w),
+            child: Image.network(
+              items[index],
+              fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Container(color: Colors.grey.shade200);
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey.shade200,
+                  child: Icon(Icons.broken_image, color: Colors.grey.shade400),
+                );
+              },
+            ),
+          );
+        },
+      ),
     );
   }
 }

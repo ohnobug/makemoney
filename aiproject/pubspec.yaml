@@ -55,6 +55,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/imgs/
     - assets/images/avatar/
     - assets/images/avatar_webp/
     - assets/images/icon_webp/

@@ -1,4 +1,4 @@
-package com.example.vigaviga
+package com.vigaviga.app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -276,6 +276,7 @@ ThemeData lightTheme = ThemeData(
     error: AppColors.accentRedDark1,
     onError: AppColors.neutralWhite,
   ),
+  scaffoldBackgroundColor: AppColors.neutralGrey11,
   appBarTheme: AppBarTheme(
     scrolledUnderElevation: 0,
     centerTitle: true,
@@ -444,6 +445,7 @@ ThemeData darkTheme = ThemeData(
     error: AppColors.accentRedVibrant1,
     onError: AppColors.neutralWhite,
   ),
+  scaffoldBackgroundColor: AppColors.brandGreenDarkest,
   appBarTheme: AppBarTheme(
     scrolledUnderElevation: 0,
     centerTitle: true,

@@ -3,24 +3,25 @@
 // 小程序按钮项组
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_button.dart';
 
 class LJNFunctionButtonsSection extends StatelessWidget {
-  final String title;
+  final String? title;
   final List<LJNFunctionButton> buttons;
   final Widget? rightWidget;
 
   const LJNFunctionButtonsSection({
     super.key,
-    required this.title,
     required this.buttons,
+    this.title,
     this.rightWidget,
   });
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return Container(
       margin: EdgeInsets.only(
         top: 16,
@@ -29,7 +30,7 @@ class LJNFunctionButtonsSection extends StatelessWidget {
         right: 18,
       ).w,
       decoration: BoxDecoration(
-        color: AppColors.neutralWhite,
+        color: theme.cardTheme.color,
         borderRadius: BorderRadius.circular(16.0).w,
       ),
       padding: const EdgeInsets.only(bottom: 0).w,
@@ -38,34 +39,33 @@ class LJNFunctionButtonsSection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           // 标题
-          Container(
-            height: 30.w,
-            margin: EdgeInsets.only(
-              top: 15,
-              left: 20,
-              bottom: 5
-            ).w,
-            // color: Colors.yellow,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    height: 1.08,
-                    fontSize: fontSizeScale(26.w),
-                    color: Theme.of(context).colorScheme.onSurface.withAlpha(200),
+          if (title != null)
+            Container(
+              height: 30.w,
+              margin: EdgeInsets.only(
+                top: 25,
+                left: 20,
+                bottom: 25,
+              ).w,
+              // color: Colors.yellow,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    title!,
+                    style: TextStyle(
+                      height: 1.08,
+                      fontSize: fontSizeScale(26.w),
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ),
-                ),
-                if (rightWidget != null) rightWidget!,
-              ],
-            ),
-          ),
-
-          SizedBox(
-            height: 15.w,
-          ),
+                  if (rightWidget != null) rightWidget!,
+                ],
+              ),
+            )
+          else
+            SizedBox(height: 20.w),
 
           // 使用 SizedBox 控制 GridView 的大小
           Container(

@@ -88,7 +88,7 @@ class LJNFunctionButtonState extends State<LJNFunctionButton> {
                 fit: BoxFit.cover, // 让图片完全填满圆形区域
               ),
             ),
-            SizedBox(height: 10.w), // 图标和标题之间的间距
+            SizedBox(height: 12.w), // 图标和标题之间的间距
             Container(
               height: twoLinesTextHeight, // 关键：为文本区域提供一个固定的、能容纳两行的高度
               alignment: Alignment.topCenter, // 使单行文本也能顶部对齐

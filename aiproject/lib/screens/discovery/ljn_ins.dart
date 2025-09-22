@@ -1317,21 +1317,22 @@ class _SmallImageBox extends State<SmallImageBox> {
       child: Stack(
         children: [
           Container(
-              width: (750.w - 2.w) / 3,
-              height: (500.w - 1.w) / 2,
-              color: AppColors.neutralGrey2,
-              child: show
-                  ? Image.asset(
-                      width: (750.w - 2.w) / 3,
-                      height: (500.w - 1.w) / 2,
-                      // cacheWidth:
-                      //     (((750.w - 2.w) / 3) * 2)
-                      //         .toInt(),
-                      cacheHeight: (500.w - 1.w).toInt(),
-                      assetPath(widget.image),
-                      fit: BoxFit.cover,
-                    )
-                  : const LJNPageLoading()),
+            width: (750.w - 2.w) / 3,
+            height: (500.w - 1.w) / 2,
+            color: AppColors.neutralGrey2,
+            child: show
+                ? Image.asset(
+                    width: (750.w - 2.w) / 3,
+                    height: (500.w - 1.w) / 2,
+                    // cacheWidth:
+                    //     (((750.w - 2.w) / 3) * 2)
+                    //         .toInt(),
+                    cacheHeight: (500.w - 1.w).toInt(),
+                    assetPath(widget.image),
+                    fit: BoxFit.cover,
+                  )
+                : const LJNPageLoading(),
+          ),
           Positioned(
             top: 15.w,
             left: 200.w,
@@ -1399,7 +1400,9 @@ class _VideoBox2 extends State<VideoBox2> {
         _controller = VideoPlayerController.asset(
           assetPath(widget.videoPath),
           videoPlayerOptions: VideoPlayerOptions(
-              mixWithOthers: true, allowBackgroundPlayback: false),
+            mixWithOthers: true,
+            allowBackgroundPlayback: false,
+          ),
         )..initialize().then((_) {
             setState(() {
               _controller?.setVolume(0);
@@ -1776,59 +1779,3 @@ class MyGestureDetector extends StatelessWidget {
     );
   }
 }
-
-// class VideoControllerProvider with ChangeNotifier {
-//   final List<VideoPlayerController> _freeControllers = [];
-//   int _controllerCount = 0;
-
-//   VideoPlayerController? obtainController(String videoPath) {
-//     if (videoPath == "") return null;
-
-//     if (_freeControllers.isNotEmpty) {
-//       final controller = _freeControllers.removeAt(0);
-//       if (!controller.value.isInitialized) {
-//         controller.initialize().then((_) {
-//           notifyListeners();
-//         });
-//       }
-//       return controller;
-//     } else if (_controllerCount < 3) {
-//       final controller = VideoPlayerController.asset(
-//         videoPath,
-//         videoPlayerOptions: VideoPlayerOptions(
-//             mixWithOthers: true, allowBackgroundPlayback: false),
-//       )..initialize().then((_) {
-//           notifyListeners();
-//         });
-
-//       _controllerCount++;
-//       return controller;
-//     } else {
-//       // No free controllers and reached max limit
-//       return null;
-//     }
-//   }
-
-//   void releaseController(VideoPlayerController controller) {
-//     if (!_freeControllers.contains(controller)) {
-//       _freeControllers.add(controller);
-//     }
-//     _controllerCount--;
-//     notifyListeners();
-//   }
-
-//   void removeAllControllers() {
-//     for (final controller in _freeControllers) {
-//       controller.dispose();
-//     }
-//     _freeControllers.clear();
-//     _controllerCount = 0;
-//     notifyListeners();
-//   }
-
-//   @override
-//   void dispose() {
-//     removeAllControllers();
-//     super.dispose();
-//   }
-// }
