@@ -11,9 +11,9 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 30
 # --- Database Configuration ---
 # 请替换成你自己的数据库信息
 DB_USER = os.getenv("DB_USER", "root")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "136404838Zz")
-DB_PORT = os.getenv("DB_PORT", 3308)
-DB_HOST = os.getenv("DB_HOST", "localhost")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "Vigaviga2026")
+DB_PORT = os.getenv("DB_PORT", 3306)
+DB_HOST = os.getenv("DB_HOST", "156.236.75.52")
 DB_NAME = os.getenv("DB_NAME", "viga")
 DATABASE_URL = f"mysql+aiomysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
