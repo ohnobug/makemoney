@@ -34,15 +34,15 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
           appBar: LJNAppBar(
             title: "",
             // leading: Container(),
-            // color: AppColors.transparent,
-            // bgColor: AppColors.transparent,
+            // color: Colors.transparent,
+            // bgColor: Colors.transparent,
             actions: [
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/change_details');
                 },
                 child: Container(
-                  color: AppColors.transparent,
+                  color: Colors.transparent,
                   height: 90.w,
                   padding: EdgeInsets.only(right: 40.w),
                   alignment: Alignment.center,

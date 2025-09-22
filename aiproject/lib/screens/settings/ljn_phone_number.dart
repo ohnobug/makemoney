@@ -44,7 +44,7 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
             return Theme(
               data: theme.copyWith(
                 appBarTheme: theme.appBarTheme.copyWith(
-                  backgroundColor: AppColors.transparent,
+                  backgroundColor: Colors.transparent,
                 ),
               ),
               child: Scaffold(

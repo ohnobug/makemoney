@@ -117,7 +117,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
 
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: AppColors.transparent, // 设置状态栏透明
+        statusBarColor: Colors.transparent, // 设置状态栏透明
         statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
       ),
     );
@@ -907,7 +907,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                         },
                         child: Container(
                           height: 90.w,
-                          color: AppColors.transparent,
+                          color: Colors.transparent,
                           alignment: Alignment.center,
                           padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
                           child: Icon(
@@ -1000,7 +1000,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                   }
                                 },
                                 child: Container(
-                                  color: AppColors.transparent,
+                                  color: Colors.transparent,
                                   width: 97.w,
                                   height: 107.w,
                                   padding:
@@ -1319,7 +1319,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                   }
                                 },
                                 child: Container(
-                                  color: AppColors.transparent,
+                                  color: Colors.transparent,
                                   width: 102.w,
                                   height: 107.w,
                                   padding:
@@ -1405,7 +1405,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                     logger.info("加号被点击"); // 点击事件
                                   },
                                   child: Container(
-                                    color: AppColors.transparent,
+                                    color: Colors.transparent,
                                     width: 87.w,
                                     height: 107.w,
                                     padding: EdgeInsets.only(right: 20.w),

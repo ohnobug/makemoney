@@ -74,7 +74,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                   },
                   child: Container(
                     height: 90.w,
-                    color: AppColors.transparent,
+                    color: Colors.transparent,
                     padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
                     alignment: Alignment.center,
                     child: Icon(

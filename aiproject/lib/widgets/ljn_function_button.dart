@@ -70,7 +70,7 @@ class LJNFunctionButtonState extends State<LJNFunctionButton> {
         decoration: BoxDecoration(
           color: _isPressed
               ? AppColors.greyTransparent33
-              : AppColors.transparent, // 按下时背景色
+              : Colors.transparent, // 按下时背景色
           borderRadius: BorderRadius.circular(10.0).w, // 圆角半径
         ),
         child: Column(
@@ -89,10 +89,10 @@ class LJNFunctionButtonState extends State<LJNFunctionButton> {
               ),
             ),
             SizedBox(height: 10.w), // 图标和标题之间的间距
-            // 使用Container包裹Text，并给予固定高度，确保布局稳定
             Container(
               height: twoLinesTextHeight, // 关键：为文本区域提供一个固定的、能容纳两行的高度
               alignment: Alignment.topCenter, // 使单行文本也能顶部对齐
+              padding: EdgeInsets.symmetric(horizontal: 5.w),
               child: Text(
                 widget.title,
                 maxLines: 2,

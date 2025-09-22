@@ -398,7 +398,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
                             );
                           },
                           child: Container(
-                            color: AppColors.transparent,
+                            color: Colors.transparent,
                             height: 90.w,
                             padding: EdgeInsets.only(right: 33.w),
                             alignment: Alignment.center,
@@ -415,7 +415,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
 
                         // 添加联系人按钮
                         Container(
-                          color: AppColors.transparent,
+                          color: Colors.transparent,
                           height: 90.w,
                           padding: EdgeInsets.only(right: 33.w),
                           alignment: Alignment.center,
@@ -435,7 +435,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
                         )
                       ],
                       leading: Container(
-                        color: AppColors.transparent,
+                        color: Colors.transparent,
                         height: 90.w,
                         padding: EdgeInsets.only(left: 33.w),
                         child: Icon(

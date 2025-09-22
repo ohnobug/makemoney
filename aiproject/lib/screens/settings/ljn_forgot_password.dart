@@ -30,7 +30,7 @@ class _LJNForgotPassword extends State<LJNForgotPassword> {
         return Theme(
           data: theme.copyWith(
             appBarTheme: theme.appBarTheme.copyWith(
-              backgroundColor: AppColors.transparent,
+              backgroundColor: Colors.transparent,
             ),
           ),
           child: Scaffold(

@@ -43,6 +43,7 @@ class LJNFunctionButtonsSection extends StatelessWidget {
             margin: EdgeInsets.only(
               top: 15,
               left: 20,
+              bottom: 5
             ).w,
             // color: Colors.yellow,
             child: Row(
@@ -54,7 +55,7 @@ class LJNFunctionButtonsSection extends StatelessWidget {
                   style: TextStyle(
                     height: 1.08,
                     fontSize: fontSizeScale(26.w),
-                    color: AppColors.neutralGrey42,
+                    color: Theme.of(context).colorScheme.onSurface.withAlpha(200),
                   ),
                 ),
                 if (rightWidget != null) rightWidget!,

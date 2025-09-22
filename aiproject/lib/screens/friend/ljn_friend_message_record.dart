@@ -273,7 +273,7 @@ class IconBox extends StatelessWidget {
           width: 105.0.w, // 设置宽度
           height: 105.0.w, // 设置高度
           // decoration: BoxDecoration(
-          //   color: AppColors.transparent, // 背景透明
+          //   color: Colors.transparent, // 背景透明
           //   borderRadius: BorderRadius.circular(8.0.w), // 圆角 8
           //   border: Border.all(
           //     color: AppColors.neutralGrey47, // 边框颜色

@@ -267,7 +267,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
                       child: Container(
                         width: _sizedAnimation.value.width,
                         height: _sizedAnimation.value.height,
-                        color: AppColors.transparent,
+                        color: Colors.transparent,
                         child: AspectRatio(
                           aspectRatio: _videoController!.value.aspectRatio,
                           child: VideoPlayer(_videoController!),

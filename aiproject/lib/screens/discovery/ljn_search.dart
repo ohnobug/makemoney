@@ -236,7 +236,7 @@ class _LJNSearch extends State<LJNSearch> {
                 GestureDetector(
                   onTap: () => Navigator.of(context).pop(),
                   child: Container(
-                    color: AppColors.transparent,
+                    color: Colors.transparent,
                     child: Icon(
                       const IconData(
                         0xe628,

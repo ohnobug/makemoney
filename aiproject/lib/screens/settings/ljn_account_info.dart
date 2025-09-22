@@ -37,7 +37,7 @@ class _LJNAccountInfo extends State<LJNAccountInfo> {
     return Theme(
       data: theme.copyWith(
         appBarTheme: theme.appBarTheme.copyWith(
-          backgroundColor: AppColors.transparent,
+          backgroundColor: Colors.transparent,
         ),
       ),
       child: Scaffold(

@@ -247,7 +247,7 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
                           },
                           child: Container(
                             // 加盒子是为了扩大点击区域
-                            color: AppColors.transparent,
+                            color: Colors.transparent,
                             child: Icon(
                               const IconData(
                                 0xe620,
@@ -271,7 +271,7 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
                           onTap: () => Navigator.of(context).pop(), // 点击事件
                           child: Container(
                             // 加盒子是为了扩大点击区域
-                            color: AppColors.transparent,
+                            color: Colors.transparent,
                             child: Icon(
                               const IconData(
                                 0xe617,
@@ -1163,7 +1163,7 @@ class LJNPopupFunctionButtonState extends State<LJNPopupFunctionButton> {
         decoration: BoxDecoration(
           // color: Colors.orange,
           color:
-              _isPressed ? Colors.grey[200] : AppColors.transparent, // 按下时背景色
+              _isPressed ? Colors.grey[200] : Colors.transparent, // 按下时背景色
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

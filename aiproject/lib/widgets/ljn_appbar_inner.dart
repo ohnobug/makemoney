@@ -19,7 +19,7 @@ AppBar LJNAppBarInner({
             // wallet
           }, // 点击事件
           child: Container(
-            color: AppColors.transparent,
+            color: Colors.transparent,
             height: 90.w,
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 35.w),

@@ -51,7 +51,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                       Navigator.pushNamed(context, '/bind_new_phone_number');
                     },
                     child: Container(
-                      color: AppColors.transparent,
+                      color: Colors.transparent,
                       height: 90.w,
                       padding: EdgeInsets.only(right: 40.w),
                       alignment: Alignment.center,

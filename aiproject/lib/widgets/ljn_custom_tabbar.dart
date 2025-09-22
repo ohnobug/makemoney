@@ -1,3 +1,5 @@
+// ./lib/widgets/ljn_custom_tabbar.dart
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +8,6 @@ import 'package:vigaviga/screens/publisher/ljn_publisher.dart';
 import 'package:vigaviga/screens/shortvideos/ljn_arts.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/widgets/ljn_appbar_inner.dart';
 import 'package:vigaviga/widgets/ljn_custom_physics.dart';
 import 'package:vigaviga/screens/discovery/ljn_discovery.dart';
@@ -40,31 +41,55 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   late final TabController _tabController;
 
   final List<_TabInfo> _tabs = [
-    // 短视频
     _TabInfo(
-        icon: const IconData(0xe7b3, fontFamily: "Iconfont"),
-        selectedIcon: const IconData(0xe676, fontFamily: "Iconfont"),
-        iconSize: 90.0.w),
-    // 发现
+      icon: const IconData(0xe7b3, fontFamily: "Iconfont"),
+      selectedIcon: const IconData(0xe676, fontFamily: "Iconfont"),
+      iconSize: 90.0.w,
+    ),
     _TabInfo(
-        icon: const IconData(0xe61c, fontFamily: "Iconfont"),
-        selectedIcon: const IconData(0xe638, fontFamily: "Iconfont"),
-        iconSize: 86.0.w),
-    // 发布
+      icon: const IconData(
+        0xe61c,
+        fontFamily: "Iconfont",
+      ),
+      selectedIcon: const IconData(
+        0xe638,
+        fontFamily: "Iconfont",
+      ),
+      iconSize: 86.0.w,
+    ),
     _TabInfo(
-        icon: const IconData(0xe67c, fontFamily: "Iconfont"),
-        selectedIcon: const IconData(0xe642, fontFamily: "Iconfont"),
-        iconSize: 96.0.w),
-    // 聊天
+      icon: const IconData(
+        0xe67c,
+        fontFamily: "Iconfont",
+      ),
+      selectedIcon: const IconData(
+        0xe642,
+        fontFamily: "Iconfont",
+      ),
+      iconSize: 96.0.w,
+    ),
     _TabInfo(
-        icon: const IconData(0xe7b3, fontFamily: "Iconfont"),
-        selectedIcon: const IconData(0xe676, fontFamily: "Iconfont"),
-        iconSize: 90.0.w),
-    // 我的
+      icon: const IconData(
+        0xe7b3,
+        fontFamily: "Iconfont",
+      ),
+      selectedIcon: const IconData(
+        0xe676,
+        fontFamily: "Iconfont",
+      ),
+      iconSize: 90.0.w,
+    ),
     _TabInfo(
-        icon: const IconData(0xe63f, fontFamily: "Iconfont"),
-        selectedIcon: const IconData(0xe62b, fontFamily: "Iconfont"),
-        iconSize: 96.0.w),
+      icon: const IconData(
+        0xe63f,
+        fontFamily: "Iconfont",
+      ),
+      selectedIcon: const IconData(
+        0xe62b,
+        fontFamily: "Iconfont",
+      ),
+      iconSize: 96.0.w,
+    ),
   ];
 
   int _tabbarIndex = 0;
@@ -74,38 +99,105 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   bool _setStatusHeight = false;
   bool _showPopup = false;
 
+  // 用于存储动态计算的颜色
+  Color? _tabBarBackgroundColor;
+  Color? _selectedItemColor;
+  Color? _unselectedItemColor;
+  Color? _borderColor;
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(
       length: _tabs.length,
       vsync: this,
-      animationDuration: Duration.zero,
     );
 
-    _tabController.addListener(() {
-      final newIndex = _tabController.index;
-      if (_tabbarIndex != newIndex) {
-        setState(() {
-          _tabbarIndex = newIndex;
-          _appbarNameIndex = newIndex;
-        });
+    _tabController.addListener(_handleTabSelection);
+    _tabController.animation?.addListener(_handleTabAnimation);
 
-        // 当切换到非视频 Tab 时，主动隐藏进度条
-        if (newIndex != 0) {
-          context.read<LJNSystemCubit>().updateVideoProgress(show: false);
-        } else {
-          // 当切换回视频 Tab 时，让 LJNArts 自己决定是否显示
-          // 为了确保切换回来时能立即看到进度条，可以主动调用 show: true
-          context.read<LJNSystemCubit>().updateVideoProgress(show: true);
-        }
-      }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<LJNSystemCubit>().updateVideoProgress(show: true);
     });
-
-    _tabController.animation?.addListener(_handleAnimation);
   }
 
-  void _handleAnimation() {
+  void _handleTabSelection() {
+    if (_tabController.indexIsChanging) return;
+
+    if (_tabbarIndex != _tabController.index) {
+      setState(() {
+        _tabbarIndex = _tabController.index;
+        _appbarNameIndex = _tabController.index;
+      });
+
+      if (_tabController.index != 0) {
+        context.read<LJNSystemCubit>().updateVideoProgress(show: false);
+      } else {
+        context.read<LJNSystemCubit>().updateVideoProgress(show: true);
+      }
+    }
+  }
+
+  void _handleTabAnimation() {
+    final theme = Theme.of(context);
+    final animationValue = _tabController.animation!.value;
+
+    // 定义视频页(index=0)的颜色
+    final Color videoTabBackgroundColor =
+        Colors.black.withAlpha(64); // 约等于 withOpacity(0.25)
+    const Color videoTabForegroundColor = Colors.white;
+    final Color videoTabUnselectedColor =
+        Colors.white.withAlpha(153); // 约等于 withOpacity(0.6)
+    final Color videoTabBorderColor =
+        Colors.white.withAlpha(38); // 约等于 withOpacity(0.15)
+
+    // 定义其他页的颜色
+    final Color otherTabBackgroundColor =
+        theme.bottomAppBarTheme.color ?? theme.scaffoldBackgroundColor;
+    final Color otherTabForegroundColor =
+        theme.tabBarTheme.labelColor ?? theme.colorScheme.primary;
+    final Color otherTabUnselectedColor =
+        theme.tabBarTheme.unselectedLabelColor ?? Colors.grey;
+    final Color otherTabBorderColor = theme.dividerColor;
+
+    if (animationValue >= 0 && animationValue <= 1) {
+      setState(() {
+        _tabBarBackgroundColor = Color.lerp(
+          videoTabBackgroundColor,
+          otherTabBackgroundColor,
+          animationValue,
+        );
+        _selectedItemColor = Color.lerp(
+          videoTabForegroundColor,
+          otherTabForegroundColor,
+          animationValue,
+        );
+        _unselectedItemColor = Color.lerp(
+          videoTabUnselectedColor,
+          otherTabUnselectedColor,
+          animationValue,
+        );
+        _borderColor = Color.lerp(
+          videoTabBorderColor,
+          otherTabBorderColor,
+          animationValue,
+        );
+      });
+    } else {
+      if (_tabBarBackgroundColor != otherTabBackgroundColor) {
+        setState(() {
+          _tabBarBackgroundColor = otherTabBackgroundColor;
+          _selectedItemColor = otherTabForegroundColor;
+          _unselectedItemColor = otherTabUnselectedColor;
+          _borderColor = otherTabBorderColor;
+        });
+      }
+    }
+
+    _handleAppBarAnimation();
+  }
+
+  void _handleAppBarAnimation() {
     if (_tabController.animation == null) return;
     final animationValue = _tabController.animation!.value;
 
@@ -135,7 +227,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
   @override
   void dispose() {
-    _tabController.animation?.removeListener(_handleAnimation);
+    _tabController.animation?.removeListener(_handleTabAnimation);
+    _tabController.removeListener(_handleTabSelection);
     _tabController.dispose();
     super.dispose();
   }
@@ -156,16 +249,13 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     ThemeData theme = Theme.of(context);
     final tabTitles = _getTabTitles(context);
 
+    // 初始化颜色状态变量
+    _tabBarBackgroundColor ??= Colors.black.withAlpha(64);
+    _selectedItemColor ??= Colors.white;
+    _unselectedItemColor ??= Colors.white.withAlpha(153);
+    _borderColor ??= Colors.white.withAlpha(38);
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
-      // 优化：仅在关心的状态变化时才重建此 Widget
-      buildWhen: (previous, current) {
-        return previous.showMiniProgramDrawer !=
-                current.showMiniProgramDrawer ||
-            previous.homescrollpixels != current.homescrollpixels ||
-            previous.statusHeight != current.statusHeight ||
-            previous.showVideoProgress != current.showVideoProgress ||
-            previous.videoProgress != current.videoProgress;
-      },
       builder: (context, systemState) {
         if (!_setStatusHeight) {
           final topPadding = kIsWeb ? 0.0 : MediaQuery.of(context).padding.top;
@@ -180,28 +270,30 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
           children: [
             Scaffold(
               primary: false,
+              backgroundColor: _tabbarIndex == 0
+                  ? Colors.black
+                  : theme.scaffoldBackgroundColor,
               bottomNavigationBar: Visibility(
                 visible: !systemState.showMiniProgramDrawer,
                 child: Container(
                   height: 106.w,
                   decoration: BoxDecoration(
-                    color: theme.appBarTheme.backgroundColor,
+                    color: _tabBarBackgroundColor,
                     border: Border(
                       top: BorderSide(
-                        color: theme.dividerColor,
+                        color: _borderColor!,
                         width: 1.0.w,
                       ),
                     ),
                   ),
                   child: TabBar(
-                    dividerColor: theme.appBarTheme.backgroundColor,
-                    labelColor: theme.tabBarTheme.labelColor,
+                    dividerColor: Colors.transparent,
+                    labelColor: _selectedItemColor,
                     labelStyle: theme.tabBarTheme.labelStyle,
-                    unselectedLabelColor:
-                        theme.tabBarTheme.unselectedLabelColor,
+                    unselectedLabelColor: _unselectedItemColor,
                     indicator: const BoxDecoration(),
                     controller: _tabController,
-                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                    overlayColor: WidgetStateProperty.all(Colors.transparent),
                     tabs: List.generate(
                       _tabs.length,
                       (index) {
@@ -216,7 +308,11 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                             height: 50.w,
                             width: 50.w,
                             child: Center(
-                                child: Icon(icon, size: tabInfo.iconSize.w)),
+                              child: Icon(
+                                icon,
+                                size: tabInfo.iconSize.w,
+                              ),
+                            ),
                           ),
                           text: tabTitles[index],
                         );
@@ -230,7 +326,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 physics: systemState.showMiniProgramDrawer
                     ? const NeverScrollableScrollPhysics()
                     : CustomTabBarViewScrollPhysics(
-                        parent: const ClampingScrollPhysics()),
+                        parent: const ClampingScrollPhysics(),
+                      ),
                 controller: _tabController,
                 children: const <Widget>[
                   LJNArts(),
@@ -241,7 +338,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 ],
               ),
             ),
-
             Visibility(
               visible: !_hiddenAppbar &&
                   ((systemState.homescrollpixels + systemState.statusHeight) <=
@@ -254,7 +350,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                   height: systemState.statusHeight + 90.w,
                   color: systemState.homescrollpixels == 0
                       ? theme.appBarTheme.backgroundColor
-                      : AppColors.transparent,
+                      : Colors.transparent,
                   child: Listener(
                     onPointerUp: (_) => context
                         .read<LJNSystemCubit>()
@@ -268,18 +364,24 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                           actions: [
                             if (_tabbarIndex == 3)
                               GestureDetector(
-                                onTap: () =>
-                                    Navigator.pushNamed(context, '/contact'),
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/contact',
+                                  );
+                                },
                                 child: Container(
-                                  color: AppColors.transparent,
+                                  color: Colors.transparent,
                                   height: 90.w,
                                   padding: EdgeInsets.only(right: 33.w),
                                   alignment: Alignment.center,
                                   child: Icon(
                                     color:
                                         theme.appBarTheme.titleTextStyle!.color,
-                                    const IconData(0xe608,
-                                        fontFamily: 'Iconfont'),
+                                    const IconData(
+                                      0xe608,
+                                      fontFamily: 'Iconfont',
+                                    ),
                                     size: 42.w,
                                   ),
                                 ),
@@ -291,33 +393,39 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                                 }
                               },
                               child: Container(
-                                color: AppColors.transparent,
+                                color: Colors.transparent,
                                 height: 90.w,
                                 padding: EdgeInsets.only(right: 33.w),
                                 alignment: Alignment.center,
                                 child: Icon(
                                   color:
                                       theme.appBarTheme.titleTextStyle!.color,
-                                  const IconData(0xe726,
-                                      fontFamily: 'Iconfont'),
+                                  const IconData(
+                                    0xe726,
+                                    fontFamily: 'Iconfont',
+                                  ),
                                   size: 42.w,
                                 ),
                               ),
                             ),
-                            SizedBox(width: 7.w)
+                            SizedBox(
+                              width: 7.w,
+                            )
                           ],
                           leading: _tabbarIndex == 3
                               ? GestureDetector(
                                   onTap: () {},
                                   child: Container(
-                                    color: AppColors.transparent,
+                                    color: Colors.transparent,
                                     height: 90.w,
                                     padding: EdgeInsets.only(left: 33.w),
                                     child: Icon(
                                       color: theme
                                           .appBarTheme.titleTextStyle!.color,
-                                      const IconData(0xe612,
-                                          fontFamily: 'Iconfont'),
+                                      const IconData(
+                                        0xe612,
+                                        fontFamily: 'Iconfont',
+                                      ),
                                       size: 40.w,
                                     ),
                                   ),
@@ -330,14 +438,13 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 ),
               ),
             ),
-
             if (_showPopup) ...[
               GestureDetector(
                 onTapDown: (_) => setState(() => _showPopup = false),
                 child: Container(
                   width: 750.w,
                   height: MediaQuery.of(context).size.height,
-                  color: AppColors.transparent,
+                  color: Colors.transparent,
                 ),
               ),
               Positioned(
@@ -355,20 +462,20 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
               )
             ],
 
-            // [最终代码] 添加全局视频进度条
+            // 播放进度条
             Positioned(
-              bottom: 105.w, // TabBar 的高度
+              bottom: 106.w, // TabBar Height
               left: 0,
               right: 0,
               child: Visibility(
-                // 只有当 Cubit 说要显示，并且当前 Tab 是视频 Tab (index 0) 时才可见
-                visible: systemState.showVideoProgress && _tabbarIndex == 0,
+                visible: systemState.showVideoProgress &&
+                    _tabController.animation!.value == 0,
                 child: LinearProgressIndicator(
                   value: systemState.videoProgress,
-                  minHeight: 3.w, // 细
-                  backgroundColor: Colors.black.withAlpha(200), // 灰色背景
+                  minHeight: 1.5,
+                  backgroundColor: Colors.grey.withAlpha(77), // ~30%
                   valueColor: AlwaysStoppedAnimation<Color>(
-                    Colors.grey.withAlpha(100), // 灰色进度
+                    Colors.grey.withAlpha(179), // ~70%
                   ),
                 ),
               ),

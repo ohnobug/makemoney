@@ -91,7 +91,7 @@ class _LJNIns extends State<LJNIns> {
     _scrollController.removeListener(_scrollListener);
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: AppColors.transparent, // 使用白色背景确保图标变为黑色
+      statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
       statusBarIconBrightness: Brightness.dark, // 确保图标颜色为黑色
     ));
 
@@ -539,43 +539,64 @@ class _LJNIns extends State<LJNIns> {
       statusWidget = Text(
         l10n.playbackSpeed(2),
         textAlign: TextAlign.right,
-        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+        style: TextStyle(
+          fontSize: 26.w,
+          color: AppColors.neutralWhite,
+        ),
       );
     } else if (isInsideX3Btn) {
       statusWidget = Text(
         l10n.playbackSpeed(3),
         textAlign: TextAlign.right,
-        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+        style: TextStyle(
+          fontSize: 26.w,
+          color: AppColors.neutralWhite,
+        ),
       );
     } else if (isInsideLikeBtn) {
       statusWidget = Text(
         l10n.like,
         textAlign: TextAlign.right,
-        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+        style: TextStyle(
+          fontSize: 26.w,
+          color: AppColors.neutralWhite,
+        ),
       );
     } else if (isInsideCollectBtn) {
       statusWidget = Text(
         l10n.favorite,
         textAlign: TextAlign.right,
-        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+        style: TextStyle(
+          fontSize: 26.w,
+          color: AppColors.neutralWhite,
+        ),
       );
     } else if (isInsideDownloadBtn) {
       statusWidget = Text(
         l10n.download,
         textAlign: TextAlign.right,
-        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+        style: TextStyle(
+          fontSize: 26.w,
+          color: AppColors.neutralWhite,
+        ),
       );
     } else if (isInsideShareBtn) {
       statusWidget = Text(
         l10n.share,
         textAlign: TextAlign.right,
-        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+        style: TextStyle(
+          fontSize: 26.w,
+          color: AppColors.neutralWhite,
+        ),
       );
     } else if (isInsideHomeBtn) {
       statusWidget = Text(
         l10n.viewHomepage,
         textAlign: TextAlign.right,
-        style: TextStyle(fontSize: 26.w, color: AppColors.neutralWhite),
+        style: TextStyle(
+          fontSize: 26.w,
+          color: AppColors.neutralWhite,
+        ),
       );
     }
 
@@ -603,7 +624,7 @@ class _LJNIns extends State<LJNIns> {
                   automaticallyImplyLeading: false,
                   expandedHeight: systemState.statusHeight + 90.0.w,
                   systemOverlayStyle: SystemUiOverlayStyle(
-                    statusBarColor: AppColors.transparent, // 设置状态栏透明
+                    statusBarColor: Colors.transparent, // 设置状态栏透明
                     statusBarIconBrightness:
                         setStatusLight ? Brightness.light : Brightness.dark,
                   ),
@@ -629,7 +650,7 @@ class _LJNIns extends State<LJNIns> {
                               onTap: () => Navigator.of(context).pop(), // 点击事件
                               child: Container(
                                 // 加盒子是为了扩大点击区域
-                                color: AppColors.transparent,
+                                color: Colors.transparent,
                                 child: Icon(
                                   const IconData(
                                     0xed9e,

@@ -142,7 +142,7 @@ class _LJNPopupState extends State<LJNPopup> {
                               },
                               child: Container(
                                 height: 106.w,
-                                color: AppColors.transparent,
+                                color: Colors.transparent,
                                 alignment: Alignment.center,
                                 child: Text(
                                   l10n.back,
@@ -171,7 +171,7 @@ class _LJNPopupState extends State<LJNPopup> {
                               },
                               child: Container(
                                 height: 106.w,
-                                color: AppColors.transparent,
+                                color: Colors.transparent,
                                 alignment: Alignment.center,
                                 child: Text(
                                   l10n.learnMore,

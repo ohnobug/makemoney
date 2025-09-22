@@ -50,7 +50,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
 
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: AppColors.transparent, // 设置状态栏透明
+        statusBarColor: Colors.transparent, // 设置状态栏透明
         statusBarIconBrightness: Brightness.light, // 设置状态栏图标颜色
       ),
     );
@@ -122,7 +122,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
     // 退出全屏
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: AppColors.transparent, // 设置状态栏透明
+        statusBarColor: Colors.transparent, // 设置状态栏透明
         statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
       ),
     );
@@ -378,7 +378,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                 children: [
                   // 关闭按钮
                   Container(
-                    color: AppColors.transparent,
+                    color: Colors.transparent,
                     margin: EdgeInsets.only(left: 39.w),
                     width: 50.w,
                     height: 50.w,
@@ -397,7 +397,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
 
                   // 更多按钮
                   Container(
-                    color: AppColors.transparent,
+                    color: Colors.transparent,
                     margin: EdgeInsets.only(right: 39.w),
                     width: 50.w,
                     height: 50.w,
@@ -471,7 +471,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                           width: 100.w,
                           height: 100.w,
                           decoration: const BoxDecoration(
-                              // color: AppColors.transparent, // 容器背景颜色
+                              // color: Colors.transparent, // 容器背景颜色
                               // color: AppColors.accentRedPure, // 容器背景颜色
                               ),
                           child: Center(
@@ -610,7 +610,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                             ),
                             SizedBox(width: 15.w),
                             Container(
-                                color: AppColors.transparent,
+                                color: Colors.transparent,
                                 width: 21.w,
                                 // margin: const EdgeInsets.only(right: 15).w,
                                 child: Icon(

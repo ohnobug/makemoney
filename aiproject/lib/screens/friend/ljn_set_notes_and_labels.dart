@@ -46,9 +46,9 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                 Navigator.of(context).pop();
               },
               child: Container(
-                // color: AppColors.transparent,
+                // color: Colors.transparent,
                 height: 90.w,
-                color: AppColors.transparent,
+                color: Colors.transparent,
                 // color: Colors.amber,
                 alignment: Alignment.center,
                 padding: EdgeInsets.only(left: 0.w),
@@ -372,7 +372,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                               child: Container(
                                                 width: 50.w,
                                                 height: 50.w,
-                                                color: AppColors.transparent,
+                                                color: Colors.transparent,
                                                 alignment: Alignment.center,
                                                 child: Icon(
                                                   const IconData(
@@ -428,7 +428,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
                                     Container(
                                       width: 50.w,
                                       height: 50.w,
-                                      color: AppColors.transparent,
+                                      color: Colors.transparent,
                                       alignment: Alignment.center,
                                       child: Icon(
                                         const IconData(

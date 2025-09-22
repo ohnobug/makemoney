@@ -137,14 +137,14 @@ class _LJNUserState extends State<LJNUser> {
                                   Navigator.pushNamed(context, '/userinfo');
                                 },
                                 child: Container(
-                                  color: AppColors.transparent,
+                                  color: Colors.transparent,
                                   padding: EdgeInsets.only(right: 40.w),
                                   child: Column(
                                     children: [
                                       // 用户名
                                       Container(
                                         width: double.infinity,
-                                        color: AppColors.transparent,
+                                        color: Colors.transparent,
                                         child: BlocBuilder<LJNUserCubit,
                                             LJNUserState>(
                                           builder: (context, state) {

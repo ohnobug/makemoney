@@ -70,7 +70,7 @@ class _LJNServices extends State<LJNServices>
                 },
                 child: Container(
                   height: 90.w,
-                  color: AppColors.transparent,
+                  color: Colors.transparent,
                   padding: EdgeInsets.only(right: 33.w),
                   alignment: Alignment.center,
                   child: Icon(
@@ -309,7 +309,7 @@ class _LJNServices extends State<LJNServices>
               width: 750.w,
               height: 225.w,
               child: Scaffold(
-                backgroundColor: AppColors.transparent,
+                backgroundColor: Colors.transparent,
                 primary: false,
                 body: Container(
                   width: 750.w,

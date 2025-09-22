@@ -127,7 +127,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
               GestureDetector(
                 onTap: () {},
                 child: Container(
-                  color: AppColors.transparent,
+                  color: Colors.transparent,
                   height: 90.w,
                   padding: EdgeInsets.only(right: 33.w),
                   alignment: Alignment.center,
@@ -140,7 +140,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
               GestureDetector(
                 onTap: () {},
                 child: Container(
-                  color: AppColors.transparent,
+                  color: Colors.transparent,
                   height: 90.w,
                   padding: EdgeInsets.only(right: 40.w),
                   alignment: Alignment.center,
@@ -281,7 +281,7 @@ class FunctionButtonsSection extends StatelessWidget {
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(context, moreUrl),
                     child: Container(
-                      color: AppColors.transparent,
+                      color: Colors.transparent,
                       padding: EdgeInsets.only(right: 33.w),
                       child: Icon(
                         const IconData(0xe659, fontFamily: 'Iconfont'),
@@ -446,7 +446,7 @@ class FunctionListSection extends StatelessWidget {
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(context, moreUrl),
                     child: Container(
-                      color: AppColors.transparent,
+                      color: Colors.transparent,
                       padding: EdgeInsets.only(right: 33.w),
                       child: Icon(
                         const IconData(0xe659, fontFamily: 'Iconfont'),

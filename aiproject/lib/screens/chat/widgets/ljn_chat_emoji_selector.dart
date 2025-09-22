@@ -2093,7 +2093,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                               height: 80.w,
                               margin: EdgeInsets.only(bottom: 0.w),
                               decoration: BoxDecoration(
-                                color: AppColors.transparent,
+                                color: Colors.transparent,
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(13.w),
                                 ),
@@ -2132,7 +2132,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                               height: 80.w,
                               margin: EdgeInsets.only(bottom: 0.w),
                               decoration: BoxDecoration(
-                                color: AppColors.transparent,
+                                color: Colors.transparent,
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(13.w),
                                 ),
@@ -2153,7 +2153,7 @@ class _LJNChatEmojiSelector extends State<LJNChatEmojiSelector> {
                                 margin: EdgeInsets.only(bottom: 0.w),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  color: AppColors.transparent,
+                                  color: Colors.transparent,
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(13.w),
                                   ),

@@ -241,7 +241,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
             onTap: () => Navigator.pushNamed(context, '/add_friends'),
             child: Container(
               height: 90.w,
-              color: AppColors.transparent,
+              color: Colors.transparent,
               alignment: Alignment.center,
               padding: EdgeInsets.only(right: 33.w),
               child: Text(

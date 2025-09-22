@@ -46,7 +46,7 @@ class _LJNWallet extends State<LJNWallet> {
               Navigator.pushNamed(context, '/bill_details');
             },
             child: Container(
-              color: AppColors.transparent,
+              color: Colors.transparent,
               padding: EdgeInsets.only(right: 40.w),
               alignment: Alignment.center,
               child: Text(

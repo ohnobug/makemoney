@@ -24,6 +24,9 @@ class _LJNArts extends State<LJNArts> {
   int _currentPage = 0;
   late final Map<int, VideoPlayerController> _videoControllers;
 
+  // [FIX 1] Declare a member variable to hold a reference to the Cubit.
+  late final LJNSystemCubit _systemCubit;
+
   VideoPlayerController? get _currentVideoController =>
       _videoControllers.containsKey(_currentPage)
           ? _videoControllers[_currentPage]
@@ -32,11 +35,15 @@ class _LJNArts extends State<LJNArts> {
   @override
   void initState() {
     super.initState();
+
+    // [FIX 2] Get the Cubit instance here, when the context is valid, and store it.
+    _systemCubit = context.read<LJNSystemCubit>();
+
     _videoControllers = {};
 
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: AppColors.transparent,
+        statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
     );
@@ -56,7 +63,8 @@ class _LJNArts extends State<LJNArts> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        context.read<LJNSystemCubit>().updateVideoProgress(show: true);
+        // You can use the local variable here too for consistency
+        _systemCubit.updateVideoProgress(show: true);
       }
     });
   }
@@ -65,7 +73,7 @@ class _LJNArts extends State<LJNArts> {
     if (!mounted ||
         _currentVideoController == null ||
         !_currentVideoController!.value.isInitialized) {
-      context.read<LJNSystemCubit>().updateVideoProgress(progress: 0.0);
+      _systemCubit.updateVideoProgress(progress: 0.0);
       return;
     }
 
@@ -76,9 +84,7 @@ class _LJNArts extends State<LJNArts> {
       progressValue = position.inMilliseconds / duration.inMilliseconds;
     }
 
-    context
-        .read<LJNSystemCubit>()
-        .updateVideoProgress(progress: progressValue, show: true);
+    _systemCubit.updateVideoProgress(progress: progressValue, show: true);
   }
 
   VideoPlayerController _createVideoControllerForIndex(int index) {
@@ -117,11 +123,9 @@ class _LJNArts extends State<LJNArts> {
       controller.dispose();
     });
 
-    if (mounted) {
-      context
-          .read<LJNSystemCubit>()
-          .updateVideoProgress(progress: 0.0, show: false);
-    }
+    // [FIX 3] Use the saved member variable '_systemCubit' instead of 'context.read'.
+    // This is now safe because we are not using the deactivated context.
+    _systemCubit.updateVideoProgress(progress: 0.0, show: false);
 
     super.dispose();
   }
@@ -187,36 +191,31 @@ class _LJNArts extends State<LJNArts> {
                         left: 0,
                         bottom: 0,
                         child: _VideoInfoSection(
+                          // 为了演示，这里使用了一些假数据和长文本
                           avatarUrl: 'images/avatar_webp/chat_10.webp',
                           userName: '牛马的home',
                           description:
-                              '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活... 这里省略了很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多-/+--+-+-+--+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+--',
+                              '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活... 这里省略了很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多-/+--+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+--+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--',
                         ),
                       ),
 
-                      // --- [关键改动] 右侧的点赞、评论等操作按钮 (已移除头像和关注图标) ---
+                      // --- 右侧的点赞、评论等操作按钮 ---
                       Positioned(
                         bottom: 0,
                         right: 10.w,
-                        child: SizedBox(
-                          width: 100.w,
-                          height: 650.w, // 高度可以适当调整
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              // 点赞
-                              _buildActionButton(0xe61e, "1050"),
-                              SizedBox(height: 25.w),
-                              // 评论
-                              _buildActionButton(0xe665, "241"),
-                              SizedBox(height: 25.w),
-                              // 收藏
-                              _buildActionButton(0xe602, "421"),
-                              SizedBox(height: 25.w),
-                              // 转发
-                              _buildActionButton(0xe6c7, "934"),
-                            ],
-                          ),
+                        width: 100.w,
+                        height: 600.w,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            _buildActionButton(0xe61e, "1050"),
+                            SizedBox(height: 30.w),
+                            _buildActionButton(0xe665, "241"),
+                            SizedBox(height: 30.w),
+                            _buildActionButton(0xe602, "421"),
+                            SizedBox(height: 30.w),
+                            _buildActionButton(0xe6c7, "934"),
+                          ],
                         ),
                       ),
                     ],
@@ -254,7 +253,7 @@ class _LJNArts extends State<LJNArts> {
 }
 
 // =======================================================================
-//  用户信息和可展开描述的独立组件
+// [新增] 封装了用户信息和可展开描述的独立组件
 // =======================================================================
 class _VideoInfoSection extends StatefulWidget {
   final String userName;
@@ -274,7 +273,7 @@ class _VideoInfoSection extends StatefulWidget {
 class _VideoInfoSectionState extends State<_VideoInfoSection>
     with SingleTickerProviderStateMixin {
   bool _isExpanded = false;
-  final int _descriptionThreshold = 50; // 用来判断是否显示“更多”按钮的文本长度阈值
+  final int _descriptionThreshold = 50;
 
   @override
   Widget build(BuildContext context) {
@@ -294,7 +293,6 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          // 第一行：头像、昵称、关注按钮
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -320,10 +318,12 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
               GestureDetector(
                 onTap: () => logger.info("点击了关注按钮"),
                 child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.w),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 24.w,
+                    vertical: 8.w,
+                  ),
                   decoration: BoxDecoration(
-                    color: AppColors.accentRedVibrant1.withOpacity(0.9),
+                    color: AppColors.accentRedVibrant1.withAlpha(230),
                     borderRadius: BorderRadius.circular(8.w),
                   ),
                   child: Text(
@@ -339,8 +339,6 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
             ],
           ),
           SizedBox(height: 20.w),
-
-          // 第二行：可展开/收起的描述
           AnimatedSize(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
@@ -376,7 +374,7 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
             TextSpan(
               text: "... 更多",
               style: descriptionStyle.copyWith(
-                color: Colors.white.withOpacity(0.7),
+                color: Colors.white.withAlpha(180),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -385,17 +383,17 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
     );
   }
 
-  // [关键改动] 构建展开状态的描述，使用 Stack
+  // [关键改动] _buildExpandedDescription 方法已更新
   Widget _buildExpandedDescription(TextStyle descriptionStyle) {
     ThemeData theme = Theme.of(context);
 
     return Container(
-      // 使用 ClipRRect 来确保子组件不会超出圆角范围
-      clipBehavior: Clip.antiAlias,
+      clipBehavior: Clip.antiAlias, // 确保内容不会溢出圆角
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.3),
+        color: Colors.black.withAlpha(102), // 背景色稍微加深以突显
         borderRadius: BorderRadius.circular(12.w),
       ),
+      // 使用 Stack 来实现分层布局
       child: Stack(
         children: [
           // 可滚动的文本区域
@@ -403,15 +401,19 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
             constraints: BoxConstraints(
               maxHeight: 350.w, // 展开后的最大高度
             ),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(
-                  20.w,
-                  20.w,
-                  20.w,
-                  60.w,
+            // 使用一个内层Padding来防止文本紧贴边缘，并为“收起”按钮留出空间
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                20,
+                20,
+                20,
+                20,
+              ).w,
+              child: SingleChildScrollView(
+                child: Text(
+                  widget.description,
+                  style: descriptionStyle,
                 ),
-                child: Text(widget.description, style: descriptionStyle),
               ),
             ),
           ),

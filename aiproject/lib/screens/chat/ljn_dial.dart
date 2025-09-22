@@ -67,7 +67,7 @@ class _LJNDial extends State<LJNDial> {
 
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: AppColors.transparent, // 使用白色背景确保图标变为黑色
+        statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
         statusBarIconBrightness: Brightness.light, // 确保图标颜色为黑色
       ),
     );
@@ -77,7 +77,7 @@ class _LJNDial extends State<LJNDial> {
   void dispose() {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: AppColors.transparent, // 使用白色背景确保图标变为黑色
+        statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
         statusBarIconBrightness: Brightness.dark, // 确保图标颜色为黑色
       ),
     );
@@ -107,7 +107,7 @@ class _LJNDial extends State<LJNDial> {
               Theme(
                 data: theme.copyWith(
                   appBarTheme: theme.appBarTheme.copyWith(
-                    backgroundColor: AppColors.transparent,
+                    backgroundColor: Colors.transparent,
                   ),
                 ),
                 child: LJNAppBar(
@@ -136,7 +136,7 @@ class _LJNDial extends State<LJNDial> {
                       // _enablePip(context);
                     },
                     child: Container(
-                      color: AppColors.transparent,
+                      color: Colors.transparent,
                       child: Icon(
                         const IconData(0xe68f, fontFamily: 'Iconfont'),
                         color: AppColors.neutralWhite,

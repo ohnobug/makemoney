@@ -114,7 +114,7 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
                                     },
                                     child: Container(
                                       height: 90.w,
-                                      color: AppColors.transparent,
+                                      color: Colors.transparent,
                                       child: Icon(
                                         color: AppColors.neutralGrey38,
                                         const IconData(
@@ -512,7 +512,7 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                     bottom: BorderSide(
                       color: widget.underline
                           ? AppColors.brandTealDark1
-                          : AppColors.transparent,
+                          : Colors.transparent,
                       width: 2.w,
                       style: BorderStyle.solid,
                     ),

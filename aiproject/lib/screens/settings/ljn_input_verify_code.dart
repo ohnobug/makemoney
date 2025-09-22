@@ -47,7 +47,7 @@ class _LJNInputVerifyCode extends State<LJNInputVerifyCode> {
             return Theme(
               data: theme.copyWith(
                 appBarTheme: theme.appBarTheme.copyWith(
-                  backgroundColor: AppColors.transparent,
+                  backgroundColor: Colors.transparent,
                 ),
               ),
               child: Scaffold(

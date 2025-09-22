@@ -489,7 +489,7 @@ class ContactListItem extends StatefulWidget {
 }
 
 class _ContactListItem extends State<ContactListItem> {
-  // Color containerColor = AppColors.transparent;
+  // Color containerColor = Colors.transparent;
 
   @override
   Widget build(BuildContext context) {
@@ -619,7 +619,7 @@ class _ContactListItem extends State<ContactListItem> {
                     LJNAddButton(
                       title: l10n.added,
                       // readonly: true,
-                      backgroundColor: AppColors.transparent,
+                      backgroundColor: Colors.transparent,
                       color: AppColors.neutralDarkGrey3,
                     ),
                   SizedBox(

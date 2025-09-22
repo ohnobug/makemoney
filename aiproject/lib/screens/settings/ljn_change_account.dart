@@ -33,7 +33,7 @@ class _LJNChangeAccount extends State<LJNChangeAccount> {
         return Theme(
           data: theme.copyWith(
             appBarTheme: theme.appBarTheme.copyWith(
-              backgroundColor: AppColors.transparent,
+              backgroundColor: Colors.transparent,
             ),
           ),
           child: Scaffold(
