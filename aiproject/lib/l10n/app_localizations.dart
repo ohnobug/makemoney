@@ -101,50 +101,50 @@ abstract class AppLocalizations {
   /// No description provided for @vigaviga.
   ///
   /// In en, this message translates to:
-  /// **'WeChat'**
+  /// **'Vigaviga'**
   String get vigaviga;
 
   /// No description provided for @vigavigaID.
   ///
   /// In en, this message translates to:
-  /// **'WeChat ID'**
+  /// **'Vigaviga ID'**
   String get vigavigaID;
 
   /// No description provided for @vigavigaPassword.
   ///
   /// In en, this message translates to:
-  /// **'WeChat Password'**
+  /// **'Vigaviga Password'**
   String get vigavigaPassword;
 
   /// No description provided for @vigavigaSecurityCenter.
   ///
   /// In en, this message translates to:
-  /// **'WeChat Security Center'**
+  /// **'Vigaviga Security Center'**
   String get vigavigaSecurityCenter;
 
   /// No description provided for @changeVigavigaID.
   ///
   /// In en, this message translates to:
-  /// **'Change WeChat ID'**
+  /// **'Change Vigaviga ID'**
   String get changeVigavigaID;
 
   /// No description provided for @vigavigaBeans.
   ///
   /// In en, this message translates to:
-  /// **'WeChat Beans'**
+  /// **'Vigaviga Beans'**
   String get vigavigaBeans;
 
   /// No description provided for @vigavigaGames.
   ///
   /// In en, this message translates to:
-  /// **'WeChat Games'**
+  /// **'Vigaviga Games'**
   String get vigavigaGames;
 
-  /// No description provided for @aboutWeChat.
+  /// No description provided for @aboutVigaviga.
   ///
   /// In en, this message translates to:
-  /// **'About WeChat'**
-  String get aboutWeChat;
+  /// **'About Vigaviga'**
+  String get aboutVigaviga;
 
   /// No description provided for @weRun.
   ///
@@ -155,7 +155,7 @@ abstract class AppLocalizations {
   /// No description provided for @personalInfoCollectionFullDescription.
   ///
   /// In en, this message translates to:
-  /// **'    You can review the personal information collected by WeChat. The following statistics only include information collected by iOS 8.0.17, Android 8.0.18, and later versions of WeChat. WeChat cannot fully account for information collected while you were using older versions.'**
+  /// **'    You can review the personal information collected by Vigaviga. The following statistics only include information collected by iOS 8.0.17, Android 8.0.18, and later versions of Vigaviga. Vigaviga cannot fully account for information collected while you were using older versions.'**
   String get personalInfoCollectionFullDescription;
 
   /// No description provided for @privacy_setting_description.
@@ -164,34 +164,34 @@ abstract class AppLocalizations {
   /// **'You will not be able to see each other\'s Moments, Status, WeRun, Top Stories, or content shared from third-party app authorizations.'**
   String get privacy_setting_description;
 
-  /// Toast message shown after successfully copying a WeChat ID
+  /// Toast message shown after successfully copying a Vigaviga ID
   ///
   /// In en, this message translates to:
-  /// **'Copied successfully! WeChat ID: {account}'**
+  /// **'Copied successfully! Vigaviga ID: {account}'**
   String copySuccessWithVigavigaId(String account);
 
   /// No description provided for @verifyIdentityWithPasswordFull.
   ///
   /// In en, this message translates to:
-  /// **'Enter your current WeChat login password to verify your identity.'**
+  /// **'Enter your current Vigaviga login password to verify your identity.'**
   String get verifyIdentityWithPasswordFull;
 
-  /// No description provided for @autoDownloadWeChatInstaller.
+  /// No description provided for @autoDownloadVigavigaInstaller.
   ///
   /// In en, this message translates to:
-  /// **'Automatically download WeChat installer'**
-  String get autoDownloadWeChatInstaller;
+  /// **'Automatically download Vigaviga installer'**
+  String get autoDownloadVigavigaInstaller;
 
   /// No description provided for @vigavigaIdModificationRuleFull.
   ///
   /// In en, this message translates to:
-  /// **'Your WeChat ID is the unique identifier for your account and can only be changed once a year.'**
+  /// **'Your Vigaviga ID is the unique identifier for your account and can only be changed once a year.'**
   String get vigavigaIdModificationRuleFull;
 
   /// No description provided for @device_management_auto_extend_login_info_friendly.
   ///
   /// In en, this message translates to:
-  /// **'After logging into WeChat, when the device is in a secure state, WeChat will automatically extend the login session to ensure timely message delivery. The last active time will be updated accordingly.'**
+  /// **'After logging into Vigaviga, when the device is in a secure state, Vigaviga will automatically extend the login session to ensure timely message delivery. The last active time will be updated accordingly.'**
   String get device_management_auto_extend_login_info_friendly;
 
   /// No description provided for @loginWithVoiceprint.
@@ -200,58 +200,58 @@ abstract class AppLocalizations {
   /// **'Log in with Voiceprint'**
   String get loginWithVoiceprint;
 
-  /// Displays the number of WeChat Beans
+  /// Displays the number of Vigaviga Beans
   ///
   /// In en, this message translates to:
-  /// **'{count} WeChat Beans'**
+  /// **'{count} Vigaviga Beans'**
   String vigavigaBeanCount(int count);
 
   /// No description provided for @vigavigaKeyboardFeatureAskAI.
   ///
   /// In en, this message translates to:
-  /// **'WeChat Keyboard can now [Ask AI]'**
+  /// **'Vigaviga Keyboard can now [Ask AI]'**
   String get vigavigaKeyboardFeatureAskAI;
 
   /// No description provided for @setVigavigaPasswordDescription.
   ///
   /// In en, this message translates to:
-  /// **'Please set a WeChat password. You can log in with your bound account + WeChat password, for example, using your phone number + WeChat password for a faster login experience.'**
+  /// **'Please set a Vigaviga password. You can log in with your bound account + Vigaviga password, for example, using your phone number + Vigaviga password for a faster login experience.'**
   String get setVigavigaPasswordDescription;
 
   /// No description provided for @shortcutPermissionGuidanceFull.
   ///
   /// In en, this message translates to:
-  /// **'If adding the shortcut fails, please go to System Settings and grant WeChat the permission to \'Create home screen shortcuts\'.'**
+  /// **'If adding the shortcut fails, please go to System Settings and grant Vigaviga the permission to \'Create home screen shortcuts\'.'**
   String get shortcutPermissionGuidanceFull;
 
-  /// Displays the WeChat ID
+  /// Displays the Vigaviga ID
   ///
   /// In en, this message translates to:
-  /// **'WeChat ID: {account}'**
+  /// **'Vigaviga ID: {account}'**
   String vigavigaIdDisplay(String account);
 
-  /// Displays my WeChat ID
+  /// Displays my Vigaviga ID
   ///
   /// In en, this message translates to:
-  /// **'My WeChat ID: {account}'**
+  /// **'My Vigaviga ID: {account}'**
   String myVigavigaIdDisplay(String account);
 
   /// No description provided for @youthModeFullDescription.
   ///
   /// In en, this message translates to:
-  /// **'To protect the healthy growth of minors, WeChat has introduced Youth Mode. Some features will be restricted in this mode. Guardians are requested to set it up proactively.'**
+  /// **'To protect the healthy growth of minors, Vigaviga has introduced Youth Mode. Some features will be restricted in this mode. Guardians are requested to set it up proactively.'**
   String get youthModeFullDescription;
 
   /// No description provided for @youthModeTermsOfServiceTitle.
   ///
   /// In en, this message translates to:
-  /// **'《WeChat Youth Mode Terms of Service》'**
+  /// **'《Vigaviga Youth Mode Terms of Service》'**
   String get youthModeTermsOfServiceTitle;
 
   /// No description provided for @navigateToResetPasswordGuidanceFull.
   ///
   /// In en, this message translates to:
-  /// **'You need to go to \'Settings > Account & Security > WeChat Password\' to reset your WeChat password.'**
+  /// **'You need to go to \'Settings > Account & Security > Vigaviga Password\' to reset your Vigaviga password.'**
   String get navigateToResetPasswordGuidanceFull;
 
   /// No description provided for @douyinHotTrends.
@@ -353,7 +353,7 @@ abstract class AppLocalizations {
   /// No description provided for @app_name.
   ///
   /// In en, this message translates to:
-  /// **'SpecialChat'**
+  /// **'Vigaviga'**
   String get app_name;
 
   /// No description provided for @tabbar_label_arts.

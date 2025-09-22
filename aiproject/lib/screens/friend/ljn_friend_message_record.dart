@@ -206,16 +206,16 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                   ],
                 ),
 
-                // 设置聊天背景
-                LJNFunctionList(
-                  children: [
-                    LJNFunctionItem(
-                      title: l10n.setChatBackground,
-                      link: '',
-                      underline: false,
-                    ),
-                  ],
-                ),
+                // // 设置聊天背景
+                // LJNFunctionList(
+                //   children: [
+                //     LJNFunctionItem(
+                //       title: l10n.setChatBackground,
+                //       link: '',
+                //       underline: false,
+                //     ),
+                //   ],
+                // ),
 
                 // 清除聊天记录
                 LJNFunctionList(

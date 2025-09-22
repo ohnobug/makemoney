@@ -30,7 +30,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get vigavigaGames => 'Vigaviga游戏';
 
   @override
-  String get aboutWeChat => '关于Vigaviga';
+  String get aboutVigaviga => '关于Vigaviga';
 
   @override
   String get weRun => 'Vigaviga运动';
@@ -52,7 +52,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get verifyIdentityWithPasswordFull => '填写当前Vigaviga登录密码，验证本人身份。';
 
   @override
-  String get autoDownloadWeChatInstaller => '自动下载Vigaviga安装包';
+  String get autoDownloadVigavigaInstaller => '自动下载Vigaviga安装包';
 
   @override
   String get vigavigaIdModificationRuleFull => 'Vigaviga号是账号的唯一凭证，一年只能修改一次。';

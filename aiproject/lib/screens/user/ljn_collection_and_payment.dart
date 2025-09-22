@@ -32,6 +32,9 @@ class _LJNCollectionAndPaymentState extends State<LJNCollectionAndPayment> {
           data: theme.copyWith(
             appBarTheme: theme.appBarTheme.copyWith(
               backgroundColor: AppColors.brandTealDark3,
+              titleTextStyle: theme.appBarTheme.titleTextStyle!.copyWith(
+                color: Colors.white,
+              ),
             ),
           ),
           child: Scaffold(

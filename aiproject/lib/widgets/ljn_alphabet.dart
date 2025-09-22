@@ -23,7 +23,7 @@ class LJNAlphabet extends StatelessWidget {
       height: 64.w,
       color: bgColor ?? theme.colorScheme.surfaceContainer,
       padding: EdgeInsets.only(
-        left: 15.w,
+        left: 25.w,
         top: 16.w,
       ),
       child: Row(

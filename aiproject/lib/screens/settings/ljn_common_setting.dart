@@ -105,7 +105,7 @@ class _LJNCommonSetting extends State<LJNCommonSetting> {
 
                         // 自动下载Vigaviga安装包
                         LJNFunctionItem(
-                          title: l10n.autoDownloadWeChatInstaller,
+                          title: l10n.autoDownloadVigavigaInstaller,
                           link: '',
                           underline: true,
                           tapEffect: true,

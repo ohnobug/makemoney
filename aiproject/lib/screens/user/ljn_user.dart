@@ -7,6 +7,8 @@ import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
+import 'package:vigaviga/widgets/ljn_function_button.dart';
+import 'package:vigaviga/widgets/ljn_function_buttons_section.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
@@ -65,6 +67,7 @@ class _LJNUserState extends State<LJNUser> {
         SizedBox(
           width: 750.w,
           height: MediaQuery.of(context).size.height,
+          // color: theme.colorScheme.surface,
           child: ScrollConfiguration(
             behavior:
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -79,9 +82,9 @@ class _LJNUserState extends State<LJNUser> {
                   Container(
                     color: Theme.of(context).cardTheme.color,
                     padding: EdgeInsets.only(
-                      top: 50.0.w + systemState.statusHeight,
+                      top: 120.0.w + systemState.statusHeight,
                       left: 32.w,
-                      bottom: 50.w,
+                      bottom: 30.w,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -358,71 +361,152 @@ class _LJNUserState extends State<LJNUser> {
                     ),
                   ),
 
+                  // 金融理财
+                  LJNFunctionButtonsSection(
+                    title: l10n.financialServices,
+                    buttons: [
+                      // 服务
+                      LJNFunctionButton(
+                        icon: "images/icon/server_icon1.png",
+                        title: l10n.services,
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/services');
+                        },
+                      ),
+                      // 朋友圈
+                      LJNFunctionButton(
+                        icon: "images/icon/server_icon2.png",
+                        title: l10n.moments,
+                        onPressed: () {
+                          logger.info('点击了理财通按钮~~');
+                        },
+                      ),
+                      // 设置
+                      LJNFunctionButton(
+                        icon: "images/icon/server_icon3.png",
+                        title: l10n.settings,
+                        onPressed: () {
+                          // logger.info('点击了保险服务按钮~~');
+                          Navigator.pushNamed(context, '/setting');
+                        },
+                      ),
+                    ],
+                  ),
+
+                  // 生活服务
+                  LJNFunctionButtonsSection(
+                    title: l10n.lifeServices,
+                    buttons: [
+                      LJNFunctionButton(
+                        icon: "images/icon/server_icon4.png",
+                        title: l10n.mobileTopUp,
+                        onPressed: () {
+                          logger.info('点击了手机充值按钮~~');
+                        },
+                      ),
+                      LJNFunctionButton(
+                        icon: "images/icon/server_icon5.png",
+                        title: l10n.utilityPayments,
+                        onPressed: () {
+                          logger.info('点击了生活缴费按钮~~');
+                        },
+                      ),
+                      LJNFunctionButton(
+                        icon: "images/icon/server_icon6.png",
+                        title: l10n.qCoinTopUp,
+                        onPressed: () {
+                          logger.info('点击了Q币充值按钮~~');
+                        },
+                      ),
+                      LJNFunctionButton(
+                        icon: "images/icon/server_icon7.png",
+                        title: l10n.cityServices,
+                        onPressed: () {
+                          logger.info('点击了城市服务按钮~~');
+                        },
+                      ),
+                      LJNFunctionButton(
+                        icon: "images/icon/server_icon8.png",
+                        title: l10n.tencentCharity,
+                        onPressed: () {
+                          logger.info('点击了腾讯公益按钮~~');
+                        },
+                      ),
+                      LJNFunctionButton(
+                        icon: "images/icon/server_icon9.png",
+                        title: l10n.healthCare,
+                        onPressed: () {
+                          logger.info('点击了医疗健康按钮~~');
+                        },
+                      ),
+                    ],
+                  ),
+
                   // LJNVerticalGap(
                   //   height: 8.w,
                   // ),
 
-                  // 服务
-                  LJNFunctionList(
-                    children: [
-                      LJNFunctionItem(
-                        title: l10n.services,
-                        icon: "images/icon/icon1.png",
-                        link: '/services',
-                        underline: false,
-                      )
-                    ],
-                  ),
+                  // // 服务
+                  // LJNFunctionList(
+                  //   children: [
+                  //     LJNFunctionItem(
+                  //       title: l10n.services,
+                  //       icon: "images/icon/icon1.png",
+                  //       link: '/services',
+                  //       underline: false,
+                  //     )
+                  //   ],
+                  // ),
 
-                  // 功能列表
-                  LJNFunctionList(
-                    children: [
-                      LJNFunctionItem(
-                        title: l10n.favorite,
-                        icon: "images/icon/icon2.png",
-                        link:
-                            "/open_miniprogram?link=${Uri.encodeComponent('https://baidu.com')}",
-                        underline: true,
-                      ),
-                      LJNFunctionItem(
-                        title: l10n.moments,
-                        icon: "images/icon/icon3.png",
-                        link: '/friendmoments',
-                        underline: true,
-                      ),
-                      LJNFunctionItem(
-                        title: l10n.channels,
-                        icon: "images/icon/icon4.png",
-                        link: '/video_player',
-                        underline: true,
-                      ),
-                      LJNFunctionItem(
-                        title: l10n.storeOrdersAndCardPack,
-                        icon: "images/icon/icon5.png",
-                        link: '/test',
-                        underline: true,
-                      ),
-                      LJNFunctionItem(
-                        title: l10n.stickers,
-                        icon: "images/icon/icon6.png",
-                        link:
-                            "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/code.html')}",
-                        underline: false,
-                      ),
-                    ],
-                  ),
+                  // // 功能列表
+                  // LJNFunctionList(
+                  //   children: [
+                  //     // LJNFunctionItem(
+                  //     //   title: l10n.favorite,
+                  //     //   icon: "images/icon/icon2.png",
+                  //     //   link:
+                  //     //       "/open_miniprogram?link=${Uri.encodeComponent('https://baidu.com')}",
+                  //     //   underline: true,
+                  //     // ),
+                  //     LJNFunctionItem(
+                  //       title: l10n.moments,
+                  //       icon: "images/icon/icon3.png",
+                  //       link: '/friendmoments',
+                  //       underline: false,
+                  //     ),
+                  //     // LJNFunctionItem(
+                  //     //   title: l10n.channels,
+                  //     //   icon: "images/icon/icon4.png",
+                  //     //   link: '/video_player',
+                  //     //   underline: true,
+                  //     // ),
+                  //     // LJNFunctionItem(
+                  //     //   title: l10n.storeOrdersAndCardPack,
+                  //     //   icon: "images/icon/icon5.png",
+                  //     //   link: '/test',
+                  //     //   underline: true,
+                  //     // ),
+                  //     // LJNFunctionItem(
+                  //     //   title: l10n.stickers,
+                  //     //   icon: "images/icon/icon6.png",
+                  //     //   link:
+                  //     //       "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/code.html')}",
+                  //     //   underline: false,
+                  //     // ),
+                  //   ],
+                  // ),
 
-                  // 设置
-                  LJNFunctionList(
-                    children: [
-                      LJNFunctionItem(
-                        title: l10n.settings,
-                        icon: "images/icon/icon7.png",
-                        link: '/setting',
-                        underline: false,
-                      )
-                    ],
-                  ),
+                  // // 设置
+                  // LJNFunctionList(
+                  //   children: [
+                  //     LJNFunctionItem(
+                  //       title: l10n.settings,
+                  //       icon: "images/icon/icon7.png",
+                  //       link: '/setting',
+                  //       underline: false,
+                  //     )
+                  //   ],
+                  // ),
 
                   SizedBox(height: 100.w)
                 ],

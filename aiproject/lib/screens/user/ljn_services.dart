@@ -3,17 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_function_button.dart';
+import 'package:vigaviga/widgets/ljn_function_buttons_section.dart';
 import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../tools/ljn_logger.dart';
-
-// --- UI优化常量 ---
-const double kCardBorderRadius = 16.0;
-const double kHorizontalPadding = 16.0;
-const double kVerticalCardMargin = 18.0;
 
 class LJNServices extends StatefulWidget {
   const LJNServices({super.key});
@@ -93,36 +90,41 @@ class _LJNServices extends State<LJNServices>
                 ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: kHorizontalPadding.w)
-                  .copyWith(top: 16.w, bottom: 32.w),
+              // padding: EdgeInsets.symmetric(horizontal: kHorizontalPadding.w)
+              //     .copyWith(top: 16.w, bottom: 32.w),
               child: Column(
                 children: [
                   // --- 顶部核心功能卡片 (已修复对齐问题) ---
                   _buildHeaderCard(context),
 
-                  SizedBox(height: kVerticalCardMargin.w),
+                  // SizedBox(height: 10.w),
 
                   // --- 服务分区 ---
-                  FunctionButtonsSection(
+
+                  // 金融理财
+                  LJNFunctionButtonsSection(
                     title: l10n.financialServices,
                     buttons: [
-                      FunctionButton(
+                      // 服务
+                      LJNFunctionButton(
                         icon: "images/icon/server_icon1.png",
-                        title: l10n.creditCardRepayment,
+                        title: l10n.services,
                         onPressed: () {
                           logger.info('点击了信用卡还款按钮~~');
                         },
                       ),
-                      FunctionButton(
+                      // 朋友圈
+                      LJNFunctionButton(
                         icon: "images/icon/server_icon2.png",
-                        title: l10n.licaitong,
+                        title: l10n.moments,
                         onPressed: () {
                           logger.info('点击了理财通按钮~~');
                         },
                       ),
-                      FunctionButton(
+                      // 设置
+                      LJNFunctionButton(
                         icon: "images/icon/server_icon3.png",
-                        title: l10n.insuranceService,
+                        title: l10n.settings,
                         onPressed: () {
                           logger.info('点击了保险服务按钮~~');
                         },
@@ -130,45 +132,46 @@ class _LJNServices extends State<LJNServices>
                     ],
                   ),
 
-                  FunctionButtonsSection(
+                  // 生活服务
+                  LJNFunctionButtonsSection(
                     title: l10n.lifeServices,
                     buttons: [
-                      FunctionButton(
+                      LJNFunctionButton(
                         icon: "images/icon/server_icon4.png",
                         title: l10n.mobileTopUp,
                         onPressed: () {
                           logger.info('点击了手机充值按钮~~');
                         },
                       ),
-                      FunctionButton(
+                      LJNFunctionButton(
                         icon: "images/icon/server_icon5.png",
                         title: l10n.utilityPayments,
                         onPressed: () {
                           logger.info('点击了生活缴费按钮~~');
                         },
                       ),
-                      FunctionButton(
+                      LJNFunctionButton(
                         icon: "images/icon/server_icon6.png",
                         title: l10n.qCoinTopUp,
                         onPressed: () {
                           logger.info('点击了Q币充值按钮~~');
                         },
                       ),
-                      FunctionButton(
+                      LJNFunctionButton(
                         icon: "images/icon/server_icon7.png",
                         title: l10n.cityServices,
                         onPressed: () {
                           logger.info('点击了城市服务按钮~~');
                         },
                       ),
-                      FunctionButton(
+                      LJNFunctionButton(
                         icon: "images/icon/server_icon8.png",
                         title: l10n.tencentCharity,
                         onPressed: () {
                           logger.info('点击了腾讯公益按钮~~');
                         },
                       ),
-                      FunctionButton(
+                      LJNFunctionButton(
                         icon: "images/icon/server_icon9.png",
                         title: l10n.healthCare,
                         onPressed: () {
@@ -178,101 +181,103 @@ class _LJNServices extends State<LJNServices>
                     ],
                   ),
 
-                  FunctionButtonsSection(
-                    title: l10n.transportation,
-                    buttons: [
-                      FunctionButton(
-                        icon: "images/icon/server_icon10.png",
-                        title: l10n.transportServices,
-                        onPressed: () {
-                          logger.info('点击了出行服务按钮~~');
-                        },
-                      ),
-                      FunctionButton(
-                        icon: "images/icon/server_icon11.png",
-                        title: l10n.trainAndFlightTickets,
-                        onPressed: () {
-                          logger.info('点击了火车票机票按钮~~');
-                        },
-                      ),
-                      FunctionButton(
-                        icon: "images/icon/server_icon12.png",
-                        title: l10n.didiRideHailing,
-                        onPressed: () {
-                          logger.info('点击了滴滴出行按钮~~');
-                        },
-                      ),
-                      FunctionButton(
-                        icon: "images/icon/server_icon122.png",
-                        title: l10n.hotel,
-                        onPressed: () {
-                          logger.info('点击了酒店按钮~~');
-                        },
-                      ),
-                    ],
-                  ),
+                  // // 交通出行
+                  // LJNFunctionButtonsSection(
+                  //   title: l10n.transportation,
+                  //   buttons: [
+                  //     LJNFunctionButton(
+                  //       icon: "images/icon/server_icon10.png",
+                  //       title: l10n.transportServices,
+                  //       onPressed: () {
+                  //         logger.info('点击了出行服务按钮~~');
+                  //       },
+                  //     ),
+                  //     LJNFunctionButton(
+                  //       icon: "images/icon/server_icon11.png",
+                  //       title: l10n.trainAndFlightTickets,
+                  //       onPressed: () {
+                  //         logger.info('点击了火车票机票按钮~~');
+                  //       },
+                  //     ),
+                  //     LJNFunctionButton(
+                  //       icon: "images/icon/server_icon12.png",
+                  //       title: l10n.didiRideHailing,
+                  //       onPressed: () {
+                  //         logger.info('点击了滴滴出行按钮~~');
+                  //       },
+                  //     ),
+                  //     LJNFunctionButton(
+                  //       icon: "images/icon/server_icon122.png",
+                  //       title: l10n.hotel,
+                  //       onPressed: () {
+                  //         logger.info('点击了酒店按钮~~');
+                  //       },
+                  //     ),
+                  //   ],
+                  // ),
 
-                  FunctionButtonsSection(
-                    title: l10n.shoppingAndConsumption,
-                    buttons: [
-                      FunctionButton(
-                        icon: "images/icon/server_icon13.png",
-                        title: l10n.brandDiscovery,
-                        onPressed: () {
-                          logger.info('点击了品牌发现按钮~~');
-                        },
-                      ),
-                      FunctionButton(
-                        icon: "images/icon/server_icon14.png",
-                        title: l10n.jdShopping,
-                        onPressed: () {
-                          logger.info('点击了京东购物按钮~~');
-                        },
-                      ),
-                      FunctionButton(
-                        icon: "images/icon/server_icon15.png",
-                        title: l10n.meituanWaimai,
-                        onPressed: () {
-                          logger.info('点击了美团外卖按钮~~');
-                        },
-                      ),
-                      FunctionButton(
-                        icon: "images/icon/server_icon16.png",
-                        title: l10n.movieTicketsAndEntertainment,
-                        onPressed: () {
-                          logger.info('点击了电影演出玩乐按钮~~');
-                        },
-                      ),
-                      FunctionButton(
-                        icon: "images/icon/server_icon17.png",
-                        title: l10n.meituanSpecialOffers,
-                        onPressed: () {
-                          logger.info('点击了美团特价按钮~~');
-                        },
-                      ),
-                      FunctionButton(
-                        icon: "images/icon/server_icon18.png",
-                        title: l10n.pinduoduo,
-                        onPressed: () {
-                          logger.info('点击了拼多多按钮~~');
-                        },
-                      ),
-                      FunctionButton(
-                        icon: "images/icon/server_icon19.png",
-                        title: l10n.vipshop,
-                        onPressed: () {
-                          logger.info('点击了唯品会特卖按钮~~');
-                        },
-                      ),
-                      FunctionButton(
-                        icon: "images/icon/server_icon20.png",
-                        title: l10n.zhuanzhuanUsedGoods,
-                        onPressed: () {
-                          logger.info('点击了转转二手按钮~~');
-                        },
-                      ),
-                    ],
-                  ),
+                  // // 购物与消费
+                  // LJNFunctionButtonsSection(
+                  //   title: l10n.shoppingAndConsumption,
+                  //   buttons: [
+                  //     LJNFunctionButton(
+                  //       icon: "images/icon/server_icon13.png",
+                  //       title: l10n.brandDiscovery,
+                  //       onPressed: () {
+                  //         logger.info('点击了品牌发现按钮~~');
+                  //       },
+                  //     ),
+                  //     LJNFunctionButton(
+                  //       icon: "images/icon/server_icon14.png",
+                  //       title: l10n.jdShopping,
+                  //       onPressed: () {
+                  //         logger.info('点击了京东购物按钮~~');
+                  //       },
+                  //     ),
+                  //     LJNFunctionButton(
+                  //       icon: "images/icon/server_icon15.png",
+                  //       title: l10n.meituanWaimai,
+                  //       onPressed: () {
+                  //         logger.info('点击了美团外卖按钮~~');
+                  //       },
+                  //     ),
+                  //     LJNFunctionButton(
+                  //       icon: "images/icon/server_icon16.png",
+                  //       title: l10n.movieTicketsAndEntertainment,
+                  //       onPressed: () {
+                  //         logger.info('点击了电影演出玩乐按钮~~');
+                  //       },
+                  //     ),
+                  //     LJNFunctionButton(
+                  //       icon: "images/icon/server_icon17.png",
+                  //       title: l10n.meituanSpecialOffers,
+                  //       onPressed: () {
+                  //         logger.info('点击了美团特价按钮~~');
+                  //       },
+                  //     ),
+                  //     LJNFunctionButton(
+                  //       icon: "images/icon/server_icon18.png",
+                  //       title: l10n.pinduoduo,
+                  //       onPressed: () {
+                  //         logger.info('点击了拼多多按钮~~');
+                  //       },
+                  //     ),
+                  //     LJNFunctionButton(
+                  //       icon: "images/icon/server_icon19.png",
+                  //       title: l10n.vipshop,
+                  //       onPressed: () {
+                  //         logger.info('点击了唯品会特卖按钮~~');
+                  //       },
+                  //     ),
+                  //     LJNFunctionButton(
+                  //       icon: "images/icon/server_icon20.png",
+                  //       title: l10n.zhuanzhuanUsedGoods,
+                  //       onPressed: () {
+                  //         logger.info('点击了转转二手按钮~~');
+                  //       },
+                  //     ),
+                  //   ],
+                  // ),
                 ],
               ),
             ),
@@ -392,6 +397,7 @@ class _LJNServices extends State<LJNServices>
 
     return Container(
       height: 272.w,
+      margin: EdgeInsets.symmetric(horizontal: 16.w).copyWith(top: 16.w),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
@@ -401,7 +407,7 @@ class _LJNServices extends State<LJNServices>
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(kCardBorderRadius).w,
+        borderRadius: BorderRadius.circular(16.0).w,
         boxShadow: [
           BoxShadow(
             color: AppColors.brandGreenDarkest.withAlpha(50),
@@ -416,14 +422,14 @@ class _LJNServices extends State<LJNServices>
           Expanded(
             child: CollectionAndPayment(
               icon: Icon(
-                  const IconData(
-                    0xe658,
-                    fontFamily: 'Iconfont',
-                  ),
-                  size: 72.w,
-                  color: AppColors.neutralWhite),
+                const IconData(
+                  0xe658,
+                  fontFamily: 'Iconfont',
+                ),
+                size: 72.w,
+                color: AppColors.neutralWhite,
+              ),
               title: l10n.payment,
-              // 优化点：传入一个隐形的占位符，其样式与余额完全相同
               subTitle: Text('', style: balanceTextStyle),
               onPressed: () {
                 Navigator.pushNamed(context, '/collection_and_payment');
@@ -439,12 +445,13 @@ class _LJNServices extends State<LJNServices>
           Expanded(
             child: CollectionAndPayment(
               icon: Icon(
-                  const IconData(
-                    0xe6e4,
-                    fontFamily: 'Iconfont',
-                  ),
-                  size: 72.w,
-                  color: AppColors.neutralWhite),
+                const IconData(
+                  0xe6e4,
+                  fontFamily: 'Iconfont',
+                ),
+                size: 72.w,
+                color: AppColors.neutralWhite,
+              ),
               title: l10n.wallet,
               // 正常传入余额组件
               subTitle: Text.rich(
@@ -461,7 +468,11 @@ class _LJNServices extends State<LJNServices>
                       ),
                       alignment: PlaceholderAlignment.middle,
                     ),
-                    const WidgetSpan(child: SizedBox(width: 4)),
+                    WidgetSpan(
+                      child: SizedBox(
+                        width: 4.w,
+                      ),
+                    ),
                     TextSpan(
                       text: context
                           .read<LJNUserCubit>()
@@ -505,7 +516,7 @@ class CollectionAndPayment extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        borderRadius: BorderRadius.circular(kCardBorderRadius).w,
+        borderRadius: BorderRadius.circular(16.0).w,
         onTap: onPressed,
         child: Center(
           child: Column(
@@ -514,7 +525,9 @@ class CollectionAndPayment extends StatelessWidget {
               SizedBox(
                 width: 90.w,
                 height: 90.w,
-                child: Center(child: icon),
+                child: Center(
+                  child: icon,
+                ),
               ),
               SizedBox(height: 10.w),
               Text(
@@ -534,121 +547,6 @@ class CollectionAndPayment extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-/// 网格功能按钮 (保持对齐修复后的版本)
-class FunctionButton extends StatelessWidget {
-  final String icon;
-  final String title;
-  final VoidCallback onPressed;
-
-  const FunctionButton({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final double fontHeight = fontSizeScale(25.0.w);
-    final double lineHeight = 1.2;
-    final double textContainerHeight = fontHeight * lineHeight * 2 + 4.w;
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10.0).w,
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onPressed,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                assetPath(icon),
-                width: 57.w,
-                height: 57.w,
-              ),
-              SizedBox(height: 16.w),
-              Container(
-                height: textContainerHeight,
-                alignment: Alignment.topCenter,
-                child: Text(
-                  title,
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    height: lineHeight,
-                    decoration: TextDecoration.none,
-                    color: AppColors.neutralDarkGrey20,
-                    fontSize: fontHeight,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// 功能分区组件 (保持优化后的版本)
-class FunctionButtonsSection extends StatelessWidget {
-  final String title;
-  final List<FunctionButton> buttons;
-
-  const FunctionButtonsSection({
-    super.key,
-    required this.title,
-    required this.buttons,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: kVerticalCardMargin.w),
-      decoration: BoxDecoration(
-        color: AppColors.neutralWhite,
-        borderRadius: BorderRadius.circular(kCardBorderRadius).w,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-                top: 33.w, left: 30.w, right: 30.w, bottom: 16.w),
-            child: Text(
-              title,
-              style: TextStyle(
-                height: 1.1,
-                fontSize: fontSizeScale(29.w),
-                fontWeight: FontWeight.w600,
-                color: AppColors.neutralDarkGrey5,
-              ),
-            ),
-          ),
-          GridView.builder(
-            padding:
-                EdgeInsets.symmetric(horizontal: 16.w).copyWith(bottom: 24.w),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              crossAxisSpacing: 16.w,
-              mainAxisSpacing: 12.w,
-              childAspectRatio: 0.85,
-            ),
-            itemCount: buttons.length,
-            itemBuilder: (context, index) {
-              return buttons[index];
-            },
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-          ),
-        ],
       ),
     );
   }

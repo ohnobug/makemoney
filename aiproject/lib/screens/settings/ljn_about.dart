@@ -111,16 +111,16 @@ class _LJNAbout extends State<LJNAbout> {
                           // borderRadius:
                           //     BorderRadius.all(Radius.circular(12.w),),
                           border: Border(
-                            top: BorderSide(
-                              color: theme.dividerColor,
-                              width: 1.0.w,
-                              style: BorderStyle.solid,
-                            ),
-                            bottom: BorderSide(
-                              color: theme.dividerColor,
-                              width: 1.0.w,
-                              style: BorderStyle.solid,
-                            ),
+                            // top: BorderSide(
+                            //   color: theme.dividerColor,
+                            //   width: 1.0.w,
+                            //   style: BorderStyle.solid,
+                            // ),
+                            // bottom: BorderSide(
+                            //   color: theme.dividerColor,
+                            //   width: 1.0.w,
+                            //   style: BorderStyle.solid,
+                            // ),
                           ),
                         ),
                         child: Column(

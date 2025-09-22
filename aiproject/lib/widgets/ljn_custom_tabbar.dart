@@ -15,7 +15,6 @@ import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/screens/user/ljn_user.dart';
 import 'package:vigaviga/widgets/ljn_popup_menu.dart';
 
-// 关键改动 1: _TabInfo 不再需要 title 属性。它只存储不依赖 context 的静态信息。
 class _TabInfo {
   final IconData icon;
   final IconData selectedIcon;
@@ -40,68 +39,32 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     with TickerProviderStateMixin {
   late final TabController _tabController;
 
-  // 关键改动 2: _tabs 列表现在是 final，并且只包含静态的图标信息。
   final List<_TabInfo> _tabs = [
     // 短视频
     _TabInfo(
-      icon: const IconData(
-        0xe7b3,
-        fontFamily: "Iconfont",
-      ),
-      selectedIcon: const IconData(
-        0xe676,
-        fontFamily: "Iconfont",
-      ),
-      iconSize: 90.0.w,
-    ),
+        icon: const IconData(0xe7b3, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe676, fontFamily: "Iconfont"),
+        iconSize: 90.0.w),
     // 发现
     _TabInfo(
-      icon: const IconData(
-        0xe61c,
-        fontFamily: "Iconfont",
-      ),
-      selectedIcon: const IconData(
-        0xe638,
-        fontFamily: "Iconfont",
-      ),
-      iconSize: 86.0.w,
-    ),
+        icon: const IconData(0xe61c, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe638, fontFamily: "Iconfont"),
+        iconSize: 86.0.w),
     // 发布
     _TabInfo(
-      icon: const IconData(
-        0xe67c,
-        fontFamily: "Iconfont",
-      ),
-      selectedIcon: const IconData(
-        0xe642,
-        fontFamily: "Iconfont",
-      ),
-      iconSize: 96.0.w,
-    ),
+        icon: const IconData(0xe67c, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe642, fontFamily: "Iconfont"),
+        iconSize: 96.0.w),
     // 聊天
     _TabInfo(
-      icon: const IconData(
-        0xe7b3,
-        fontFamily: "Iconfont",
-      ),
-      selectedIcon: const IconData(
-        0xe676,
-        fontFamily: "Iconfont",
-      ),
-      iconSize: 90.0.w,
-    ),
+        icon: const IconData(0xe7b3, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe676, fontFamily: "Iconfont"),
+        iconSize: 90.0.w),
     // 我的
     _TabInfo(
-      icon: const IconData(
-        0xe63f,
-        fontFamily: "Iconfont",
-      ),
-      selectedIcon: const IconData(
-        0xe62b,
-        fontFamily: "Iconfont",
-      ),
-      iconSize: 96.0.w,
-    ),
+        icon: const IconData(0xe63f, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe62b, fontFamily: "Iconfont"),
+        iconSize: 96.0.w),
   ];
 
   int _tabbarIndex = 0;
@@ -114,7 +77,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   @override
   void initState() {
     super.initState();
-    // 关键改动 3: TabController 可以在 initState 中安全地初始化，因为它不再依赖 context。
     _tabController = TabController(
       length: _tabs.length,
       vsync: this,
@@ -122,43 +84,48 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     );
 
     _tabController.addListener(() {
-      setState(() {
-        _tabbarIndex = _tabController.index;
-        _appbarNameIndex = _tabbarIndex;
-      });
+      final newIndex = _tabController.index;
+      if (_tabbarIndex != newIndex) {
+        setState(() {
+          _tabbarIndex = newIndex;
+          _appbarNameIndex = newIndex;
+        });
+
+        // 当切换到非视频 Tab 时，主动隐藏进度条
+        if (newIndex != 0) {
+          context.read<LJNSystemCubit>().updateVideoProgress(show: false);
+        } else {
+          // 当切换回视频 Tab 时，让 LJNArts 自己决定是否显示
+          // 为了确保切换回来时能立即看到进度条，可以主动调用 show: true
+          context.read<LJNSystemCubit>().updateVideoProgress(show: true);
+        }
+      }
     });
 
     _tabController.animation?.addListener(_handleAnimation);
   }
 
   void _handleAnimation() {
-    logger.info("bbbbbbbbbbbbbbbbb：${_tabController.animation!.value}");
+    if (_tabController.animation == null) return;
+    final animationValue = _tabController.animation!.value;
 
-    if (_tabController.animation!.value < 1) {
-      // 首页的tabbar隐藏
+    if (animationValue < 1) {
       setState(() {
-        _appbarLeft = (1 - _tabController.animation!.value) * 750.w;
+        _appbarLeft = (1 - animationValue) * 750.w;
         _hiddenAppbar = false;
         _appbarNameIndex = 1;
       });
-    } else if (_tabController.animation!.value > 3 &&
-        _tabController.animation!.value < 4) {
-      // 第四个切换到第五个的情况：个人中心的tabbar隐藏
+    } else if (animationValue > 3 && animationValue < 4) {
       setState(() {
-        _appbarLeft = (_tabController.animation!.value.floor() -
-                _tabController.animation!.value) *
-            750.w;
+        _appbarLeft = (animationValue.floor() - animationValue) * 750.w;
         _hiddenAppbar = false;
         _appbarNameIndex = 3;
       });
-    } else if (_tabController.animation!.value == 0 ||
-        _tabController.animation!.value == 4) {
-      // 第一个 和 第五个 tabbar 隐藏 appbar
+    } else if (animationValue == 0 || animationValue == 4) {
       setState(() {
         _hiddenAppbar = true;
       });
     } else {
-      // 正常情况
       setState(() {
         _appbarLeft = 0;
         _hiddenAppbar = false;
@@ -173,7 +140,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     super.dispose();
   }
 
-  // 辅助方法，用于在 build 方法中获取动态标题列表
   List<String> _getTabTitles(BuildContext context) {
     AppLocalizations l10n = AppLocalizations.of(context)!;
     return [
@@ -188,12 +154,18 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-
-    // 关键改动 5: 在 build 方法中获取最新的标题。
-    // 这样每次语言切换导致重建时，标题都会被刷新。
     final tabTitles = _getTabTitles(context);
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
+      // 优化：仅在关心的状态变化时才重建此 Widget
+      buildWhen: (previous, current) {
+        return previous.showMiniProgramDrawer !=
+                current.showMiniProgramDrawer ||
+            previous.homescrollpixels != current.homescrollpixels ||
+            previous.statusHeight != current.statusHeight ||
+            previous.showVideoProgress != current.showVideoProgress ||
+            previous.videoProgress != current.videoProgress;
+      },
       builder: (context, systemState) {
         if (!_setStatusHeight) {
           final topPadding = kIsWeb ? 0.0 : MediaQuery.of(context).padding.top;
@@ -201,7 +173,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
           _setStatusHeight = true;
         }
 
-        // 使用从 build 方法中动态获取的标题
         final appBarTitle = tabTitles[_appbarNameIndex];
         final percent75Position = MediaQuery.of(context).size.height * 0.25;
 
@@ -230,7 +201,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                         theme.tabBarTheme.unselectedLabelColor,
                     indicator: const BoxDecoration(),
                     controller: _tabController,
-                    overlayColor: WidgetStateProperty.all(Colors.transparent),
+                    overlayColor: MaterialStateProperty.all(Colors.transparent),
                     tabs: List.generate(
                       _tabs.length,
                       (index) {
@@ -238,7 +209,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                         final icon = index == _tabbarIndex
                             ? tabInfo.selectedIcon
                             : tabInfo.icon;
-
                         return Tab(
                           height: 105.w,
                           iconMargin: EdgeInsets.only(bottom: 8.w),
@@ -246,13 +216,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                             height: 50.w,
                             width: 50.w,
                             child: Center(
-                              child: Icon(
-                                icon,
-                                size: tabInfo.iconSize.w,
-                              ),
-                            ),
+                                child: Icon(icon, size: tabInfo.iconSize.w)),
                           ),
-                          // 关键改动 6: 直接从动态标题列表中获取 text
                           text: tabTitles[index],
                         );
                       },
@@ -265,9 +230,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 physics: systemState.showMiniProgramDrawer
                     ? const NeverScrollableScrollPhysics()
                     : CustomTabBarViewScrollPhysics(
-                        // 这里使用了自定义的 LJNCustomTabBarViewScrollPhysics
-                        parent: const ClampingScrollPhysics(),
-                      ),
+                        parent: const ClampingScrollPhysics()),
                 controller: _tabController,
                 children: const <Widget>[
                   LJNArts(),
@@ -279,8 +242,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
               ),
             ),
 
-            // 顶部Appbar
-            // 关于visible说明：如果在聊天界面下拉则隐藏顶部Appbar、如果在Tab1和Tab5（个人中心）则隐藏
             Visibility(
               visible: !_hiddenAppbar &&
                   ((systemState.homescrollpixels + systemState.statusHeight) <=
@@ -305,15 +266,10 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                           context: context,
                           title: appBarTitle,
                           actions: [
-                            // 联系列表按钮
                             if (_tabbarIndex == 3)
                               GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    '/contact',
-                                  );
-                                },
+                                onTap: () =>
+                                    Navigator.pushNamed(context, '/contact'),
                                 child: Container(
                                   color: AppColors.transparent,
                                   height: 90.w,
@@ -322,16 +278,12 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                                   child: Icon(
                                     color:
                                         theme.appBarTheme.titleTextStyle!.color,
-                                    const IconData(
-                                      0xe608,
-                                      fontFamily: 'Iconfont',
-                                    ),
+                                    const IconData(0xe608,
+                                        fontFamily: 'Iconfont'),
                                     size: 42.w,
                                   ),
                                 ),
                               ),
-
-                            // 添加联系人按钮
                             GestureDetector(
                               onTap: () {
                                 if (systemState.homescrollpixels == 0) {
@@ -346,24 +298,16 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                                 child: Icon(
                                   color:
                                       theme.appBarTheme.titleTextStyle!.color,
-                                  const IconData(
-                                    0xe726,
-                                    fontFamily: 'Iconfont',
-                                  ),
+                                  const IconData(0xe726,
+                                      fontFamily: 'Iconfont'),
                                   size: 42.w,
                                 ),
                               ),
                             ),
-
-                            // 占位
-                            SizedBox(
-                              width: 7.w,
-                            )
+                            SizedBox(width: 7.w)
                           ],
                           leading: _tabbarIndex == 3
-                              ?
-                              // 搜索按钮
-                              GestureDetector(
+                              ? GestureDetector(
                                   onTap: () {},
                                   child: Container(
                                     color: AppColors.transparent,
@@ -372,15 +316,13 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                                     child: Icon(
                                       color: theme
                                           .appBarTheme.titleTextStyle!.color,
-                                      const IconData(
-                                        0xe612,
-                                        fontFamily: 'Iconfont',
-                                      ),
+                                      const IconData(0xe612,
+                                          fontFamily: 'Iconfont'),
                                       size: 40.w,
                                     ),
                                   ),
                                 )
-                              : SizedBox(),
+                              : const SizedBox(),
                         )
                       ],
                     ),
@@ -389,7 +331,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
               ),
             ),
 
-            // 弹框
             if (_showPopup) ...[
               GestureDetector(
                 onTapDown: (_) => setState(() => _showPopup = false),
@@ -407,12 +348,31 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                   child: LJNPopupMenu(
                     showPopup: _showPopup,
                     setShowPopup: (bool value) {
-                      _showPopup = !_showPopup;
+                      setState(() => _showPopup = value);
                     },
                   ),
                 ),
               )
             ],
+
+            // [最终代码] 添加全局视频进度条
+            Positioned(
+              bottom: 105.w, // TabBar 的高度
+              left: 0,
+              right: 0,
+              child: Visibility(
+                // 只有当 Cubit 说要显示，并且当前 Tab 是视频 Tab (index 0) 时才可见
+                visible: systemState.showVideoProgress && _tabbarIndex == 0,
+                child: LinearProgressIndicator(
+                  value: systemState.videoProgress,
+                  minHeight: 3.w, // 细
+                  backgroundColor: Colors.black.withAlpha(200), // 灰色背景
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    Colors.grey.withAlpha(100), // 灰色进度
+                  ),
+                ),
+              ),
+            ),
           ],
         );
       },

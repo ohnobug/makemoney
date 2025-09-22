@@ -60,19 +60,19 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       ),
                     ]),
 
-                    // 青少年模式 与 关怀模式
-                    LJNFunctionList(children: [
-                      LJNFunctionItem(
-                        title: l10n.youthMode,
-                        link: '/teenage_mode',
-                        underline: true,
-                      ),
-                      LJNFunctionItem(
-                        title: l10n.caringMode,
-                        link: '/care_mode',
-                        underline: false,
-                      ),
-                    ]),
+                    // // 青少年模式 与 关怀模式
+                    // LJNFunctionList(children: [
+                    //   LJNFunctionItem(
+                    //     title: l10n.youthMode,
+                    //     link: '/teenage_mode',
+                    //     underline: true,
+                    //   ),
+                    //   LJNFunctionItem(
+                    //     title: l10n.caringMode,
+                    //     link: '/care_mode',
+                    //     underline: false,
+                    //   ),
+                    // ]),
 
                     // 语言设置
                     LJNFunctionList(children: [
@@ -136,47 +136,47 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       ],
                     ),
 
-                    // 插件
-                    LJNFunctionList(
-                      children: [
-                        LJNFunctionItem(
-                          title: Row(
-                            children: [
-                              SizedBox(
-                                width: 30.w,
-                              ),
-                              Text(
-                                l10n.plugins,
-                                style: TextStyle(
-                                  height: 1.08,
-                                  fontSize: fontSizeScale(32.0.w),
-                                  fontFamily: "AlibabaPuHuiTi",
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.visible,
-                              ),
-                              Icon(
-                                const IconData(
-                                  0xe610,
-                                  fontFamily: 'Iconfont',
-                                ), // 使用的图标
-                                color: theme.colorScheme.onSurface, // 图标颜色
-                                size: 36.w, // 图标大小
-                              )
-                            ],
-                          ),
-                          link: '',
-                          showStyle: l10n.vigavigaKeyboardFeatureAskAI,
-                          underline: false,
-                        )
-                      ],
-                    ),
+                    // // 插件
+                    // LJNFunctionList(
+                    //   children: [
+                    //     LJNFunctionItem(
+                    //       title: Row(
+                    //         children: [
+                    //           SizedBox(
+                    //             width: 30.w,
+                    //           ),
+                    //           Text(
+                    //             l10n.plugins,
+                    //             style: TextStyle(
+                    //               height: 1.08,
+                    //               fontSize: fontSizeScale(32.0.w),
+                    //               fontFamily: "AlibabaPuHuiTi",
+                    //             ),
+                    //             maxLines: 1,
+                    //             overflow: TextOverflow.visible,
+                    //           ),
+                    //           Icon(
+                    //             const IconData(
+                    //               0xe610,
+                    //               fontFamily: 'Iconfont',
+                    //             ), // 使用的图标
+                    //             color: theme.colorScheme.onSurface, // 图标颜色
+                    //             size: 36.w, // 图标大小
+                    //           )
+                    //         ],
+                    //       ),
+                    //       link: '',
+                    //       showStyle: l10n.vigavigaKeyboardFeatureAskAI,
+                    //       underline: false,
+                    //     )
+                    //   ],
+                    // ),
 
                     // 关于Vigaviga 与 帮助与反馈
                     LJNFunctionList(
                       children: [
                         LJNFunctionItem(
-                          title: l10n.aboutWeChat,
+                          title: l10n.aboutVigaviga,
                           link: '/about',
                           underline: true,
                         ),

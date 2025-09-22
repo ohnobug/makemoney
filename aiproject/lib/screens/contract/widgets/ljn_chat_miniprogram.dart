@@ -8,6 +8,8 @@ import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_function_button.dart';
+import 'package:vigaviga/widgets/ljn_function_buttons_section.dart';
 
 class LJNChatMiniProgram extends StatefulWidget {
   final Function reverse;
@@ -176,10 +178,10 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                         child: Column(
                           children: [
                             // 听一听
-                            FunctionButtonsSection(
+                            LJNFunctionButtonsSection(
                               title: l10n.listen,
                               buttons: [
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon: "images/miniprogram_icon/duitang.jpg",
                                   title: "堆糖",
                                   onPressed: () {
@@ -187,7 +189,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon:
                                       "images/miniprogram_icon/tiankongyueduqi.jpg",
                                   title: "天空阅读器",
@@ -200,7 +202,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                             ),
 
                             // 最近使用的小程序
-                            FunctionButtonsSection(
+                            LJNFunctionButtonsSection(
                               title: l10n.recentMiniPrograms,
                               rightWidget: GestureDetector(
                                 onTap: () {
@@ -245,7 +247,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                 ),
                               ),
                               buttons: [
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon: "images/miniprogram_icon/duitang.jpg",
                                   title: "堆糖",
                                   onPressed: () {
@@ -253,7 +255,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon:
                                       "images/miniprogram_icon/tiankongyueduqi.jpg",
                                   title: "天空阅读器",
@@ -262,7 +264,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon: "images/miniprogram_icon/qishuwang.jpg",
                                   title: "奇书网",
                                   onPressed: () {
@@ -270,7 +272,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon:
                                       "images/miniprogram_icon/xueyouyoujiao.jpg",
                                   title: "学有优教",
@@ -279,7 +281,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon: "images/miniprogram_icon/haiziwang.jpg",
                                   title: "孩子王",
                                   onPressed: () {
@@ -287,7 +289,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon:
                                       "images/miniprogram_icon/qianbixiaoshuo.jpg",
                                   title: "铅笔小说",
@@ -296,7 +298,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon:
                                       "images/miniprogram_icon/chengquanshipin.jpg",
                                   title: "成全视频",
@@ -305,7 +307,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon:
                                       "images/miniprogram_icon/xiaomishangcheng.jpg",
                                   title: "小米商城",
@@ -318,10 +320,10 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                             ),
 
                             // 我的常用小程序
-                            FunctionButtonsSection(
+                            LJNFunctionButtonsSection(
                               title: l10n.myMiniPrograms,
                               buttons: [
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon: "images/miniprogram_icon/duitang.jpg",
                                   title: "堆糖",
                                   onPressed: () {
@@ -329,7 +331,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon:
                                       "images/miniprogram_icon/tiankongyueduqi.jpg",
                                   title: "天空阅读器",
@@ -338,7 +340,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon: "images/miniprogram_icon/qishuwang.jpg",
                                   title: "奇书网",
                                   onPressed: () {
@@ -346,7 +348,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon:
                                       "images/miniprogram_icon/xueyouyoujiao.jpg",
                                   title: "学有优教",
@@ -355,7 +357,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon:
                                       "images/miniprogram_icon/chengquanshipin.jpg",
                                   title: "成全视频",
@@ -364,7 +366,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon:
                                       "images/miniprogram_icon/xiaomishangcheng.jpg",
                                   title: "小米商城",
@@ -373,7 +375,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon:
                                       "images/miniprogram_icon/meituxiuxiu.jpg",
                                   title: "美图秀秀",
@@ -382,7 +384,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                         "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
                                   },
                                 ),
-                                FunctionButton(
+                                LJNFunctionButton(
                                   icon:
                                       "images/miniprogram_icon/luobokuaipao.jpg",
                                   title: "萝卜快跑",
@@ -411,186 +413,6 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
           ),
         );
       },
-    );
-  }
-}
-
-// 小程序按钮项组
-class FunctionButtonsSection extends StatelessWidget {
-  final String title;
-  final List<FunctionButton> buttons;
-  final Widget? rightWidget;
-
-  const FunctionButtonsSection({
-    super.key,
-    required this.title,
-    required this.buttons,
-    this.rightWidget,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(
-        top: 0,
-        bottom: 0,
-        left: 18,
-        right: 18,
-      ).w,
-      // decoration: BoxDecoration(
-      //   color: AppColors.neutralWhite,
-      //   borderRadius: BorderRadius.circular(16.0).w,
-      // ),
-      padding: const EdgeInsets.only(bottom: 0).w,
-      // color: AppColors.accentRedPure,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          // 标题
-          Container(
-            height: 50.w,
-            margin: EdgeInsets.only(
-              top: 33,
-              left: 45,
-              right: 45,
-            ).w,
-            // color: Colors.yellow,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    height: 1.08,
-                    fontSize: fontSizeScale(26.w),
-                    color: AppColors.neutralGrey42,
-                  ),
-                ),
-                if (rightWidget != null) rightWidget!,
-              ],
-            ),
-          ),
-
-          SizedBox(
-            height: 15.w,
-          ),
-
-          // 使用 SizedBox 控制 GridView 的大小
-          Container(
-            // color: AppColors.brandTealVibrant,
-            margin: const EdgeInsets.all(0),
-            padding: EdgeInsets.only(
-              bottom: 16,
-              left: 16.0,
-              right: 16,
-            ).w,
-            child: GridView.builder(
-              primary: false,
-              padding: EdgeInsets.zero,
-              physics: const NeverScrollableScrollPhysics(), // 禁用滚动
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: 16.w,
-                mainAxisSpacing: 10.w,
-                childAspectRatio: 1,
-              ),
-              itemCount: buttons.length,
-              itemBuilder: (context, index) {
-                return buttons[index];
-              },
-              shrinkWrap: true,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// 小程序按钮
-class FunctionButton extends StatefulWidget {
-  final String icon;
-  final String title;
-  final VoidCallback onPressed;
-
-  const FunctionButton({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.onPressed,
-  });
-
-  @override
-  FunctionButtonState createState() => FunctionButtonState();
-}
-
-class FunctionButtonState extends State<FunctionButton> {
-  bool _isPressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onPressed,
-      onTapDown: (_) {
-        setState(() {
-          _isPressed = true;
-        });
-      },
-      onTapCancel: () {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
-      onTapUp: (_) {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
-      child: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          // color: Colors.orange,
-          color: _isPressed
-              ? AppColors.greyTransparent33
-              : AppColors.transparent, // 按下时背景色
-          borderRadius: BorderRadius.circular(10.0).w, // 圆角半径
-        ),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min, // 使按钮大小适应内容
-            children: [
-              ClipOval(
-                child: Image.asset(
-                  assetPath(widget.icon),
-                  width: 92.w,
-                  height: 92.w,
-                  cacheHeight: 180.w.toInt(),
-                  cacheWidth: 180.w.toInt(),
-                  fit: BoxFit.cover, // 让图片完全填满圆形区域
-                ),
-              ),
-              SizedBox(height: 15.w), // 图标和标题之间的间距
-              Text(
-                widget.title,
-                maxLines: 1,
-                style: TextStyle(
-                  height: 1.08,
-                  decoration: TextDecoration.none,
-                  color: AppColors.neutralWhite,
-                  fontSize: fontSizeScale(26.0.w),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

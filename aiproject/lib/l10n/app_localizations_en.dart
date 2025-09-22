@@ -9,35 +9,35 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get vigaviga => 'WeChat';
+  String get vigaviga => 'Vigaviga';
 
   @override
-  String get vigavigaID => 'WeChat ID';
+  String get vigavigaID => 'Vigaviga ID';
 
   @override
-  String get vigavigaPassword => 'WeChat Password';
+  String get vigavigaPassword => 'Vigaviga Password';
 
   @override
-  String get vigavigaSecurityCenter => 'WeChat Security Center';
+  String get vigavigaSecurityCenter => 'Vigaviga Security Center';
 
   @override
-  String get changeVigavigaID => 'Change WeChat ID';
+  String get changeVigavigaID => 'Change Vigaviga ID';
 
   @override
-  String get vigavigaBeans => 'WeChat Beans';
+  String get vigavigaBeans => 'Vigaviga Beans';
 
   @override
-  String get vigavigaGames => 'WeChat Games';
+  String get vigavigaGames => 'Vigaviga Games';
 
   @override
-  String get aboutWeChat => 'About WeChat';
+  String get aboutVigaviga => 'About Vigaviga';
 
   @override
   String get weRun => 'WeRun';
 
   @override
   String get personalInfoCollectionFullDescription =>
-      '    You can review the personal information collected by WeChat. The following statistics only include information collected by iOS 8.0.17, Android 8.0.18, and later versions of WeChat. WeChat cannot fully account for information collected while you were using older versions.';
+      '    You can review the personal information collected by Vigaviga. The following statistics only include information collected by iOS 8.0.17, Android 8.0.18, and later versions of Vigaviga. Vigaviga cannot fully account for information collected while you were using older versions.';
 
   @override
   String get privacy_setting_description =>
@@ -45,65 +45,66 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String copySuccessWithVigavigaId(String account) {
-    return 'Copied successfully! WeChat ID: $account';
+    return 'Copied successfully! Vigaviga ID: $account';
   }
 
   @override
   String get verifyIdentityWithPasswordFull =>
-      'Enter your current WeChat login password to verify your identity.';
+      'Enter your current Vigaviga login password to verify your identity.';
 
   @override
-  String get autoDownloadWeChatInstaller =>
-      'Automatically download WeChat installer';
+  String get autoDownloadVigavigaInstaller =>
+      'Automatically download Vigaviga installer';
 
   @override
   String get vigavigaIdModificationRuleFull =>
-      'Your WeChat ID is the unique identifier for your account and can only be changed once a year.';
+      'Your Vigaviga ID is the unique identifier for your account and can only be changed once a year.';
 
   @override
   String get device_management_auto_extend_login_info_friendly =>
-      'After logging into WeChat, when the device is in a secure state, WeChat will automatically extend the login session to ensure timely message delivery. The last active time will be updated accordingly.';
+      'After logging into Vigaviga, when the device is in a secure state, Vigaviga will automatically extend the login session to ensure timely message delivery. The last active time will be updated accordingly.';
 
   @override
   String get loginWithVoiceprint => 'Log in with Voiceprint';
 
   @override
   String vigavigaBeanCount(int count) {
-    return '$count WeChat Beans';
+    return '$count Vigaviga Beans';
   }
 
   @override
-  String get vigavigaKeyboardFeatureAskAI => 'WeChat Keyboard can now [Ask AI]';
+  String get vigavigaKeyboardFeatureAskAI =>
+      'Vigaviga Keyboard can now [Ask AI]';
 
   @override
   String get setVigavigaPasswordDescription =>
-      'Please set a WeChat password. You can log in with your bound account + WeChat password, for example, using your phone number + WeChat password for a faster login experience.';
+      'Please set a Vigaviga password. You can log in with your bound account + Vigaviga password, for example, using your phone number + Vigaviga password for a faster login experience.';
 
   @override
   String get shortcutPermissionGuidanceFull =>
-      'If adding the shortcut fails, please go to System Settings and grant WeChat the permission to \'Create home screen shortcuts\'.';
+      'If adding the shortcut fails, please go to System Settings and grant Vigaviga the permission to \'Create home screen shortcuts\'.';
 
   @override
   String vigavigaIdDisplay(String account) {
-    return 'WeChat ID: $account';
+    return 'Vigaviga ID: $account';
   }
 
   @override
   String myVigavigaIdDisplay(String account) {
-    return 'My WeChat ID: $account';
+    return 'My Vigaviga ID: $account';
   }
 
   @override
   String get youthModeFullDescription =>
-      'To protect the healthy growth of minors, WeChat has introduced Youth Mode. Some features will be restricted in this mode. Guardians are requested to set it up proactively.';
+      'To protect the healthy growth of minors, Vigaviga has introduced Youth Mode. Some features will be restricted in this mode. Guardians are requested to set it up proactively.';
 
   @override
   String get youthModeTermsOfServiceTitle =>
-      '《WeChat Youth Mode Terms of Service》';
+      '《Vigaviga Youth Mode Terms of Service》';
 
   @override
   String get navigateToResetPasswordGuidanceFull =>
-      'You need to go to \'Settings > Account & Security > WeChat Password\' to reset your WeChat password.';
+      'You need to go to \'Settings > Account & Security > Vigaviga Password\' to reset your Vigaviga password.';
 
   @override
   String get douyinHotTrends => 'Douyin Hot Trends';
@@ -155,7 +156,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get qCoinTopUp => 'Q Coin Top-up';
 
   @override
-  String get app_name => 'SpecialChat';
+  String get app_name => 'Vigaviga';
 
   @override
   String get tabbar_label_arts => 'Arts';

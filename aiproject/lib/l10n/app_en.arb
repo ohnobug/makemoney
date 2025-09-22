@@ -1,19 +1,19 @@
 {
   "@@locale": "en",
-  "vigaviga": "WeChat",
-  "vigavigaID": "WeChat ID",
-  "vigavigaPassword": "WeChat Password",
-  "vigavigaSecurityCenter": "WeChat Security Center",
-  "changeVigavigaID": "Change WeChat ID",
-  "vigavigaBeans": "WeChat Beans",
-  "vigavigaGames": "WeChat Games",
-  "aboutWeChat": "About WeChat",
+  "vigaviga": "Vigaviga",
+  "vigavigaID": "Vigaviga ID",
+  "vigavigaPassword": "Vigaviga Password",
+  "vigavigaSecurityCenter": "Vigaviga Security Center",
+  "changeVigavigaID": "Change Vigaviga ID",
+  "vigavigaBeans": "Vigaviga Beans",
+  "vigavigaGames": "Vigaviga Games",
+  "aboutVigaviga": "About Vigaviga",
   "weRun": "WeRun",
-  "personalInfoCollectionFullDescription": "    You can review the personal information collected by WeChat. The following statistics only include information collected by iOS 8.0.17, Android 8.0.18, and later versions of WeChat. WeChat cannot fully account for information collected while you were using older versions.",
+  "personalInfoCollectionFullDescription": "    You can review the personal information collected by Vigaviga. The following statistics only include information collected by iOS 8.0.17, Android 8.0.18, and later versions of Vigaviga. Vigaviga cannot fully account for information collected while you were using older versions.",
   "privacy_setting_description": "You will not be able to see each other's Moments, Status, WeRun, Top Stories, or content shared from third-party app authorizations.",
-  "copySuccessWithVigavigaId": "Copied successfully! WeChat ID: {account}",
+  "copySuccessWithVigavigaId": "Copied successfully! Vigaviga ID: {account}",
   "@copySuccessWithVigavigaId": {
-    "description": "Toast message shown after successfully copying a WeChat ID",
+    "description": "Toast message shown after successfully copying a Vigaviga ID",
     "placeholders": {
       "account": {
         "type": "String",
@@ -21,44 +21,44 @@
       }
     }
   },
-  "verifyIdentityWithPasswordFull": "Enter your current WeChat login password to verify your identity.",
-  "autoDownloadWeChatInstaller": "Automatically download WeChat installer",
-  "vigavigaIdModificationRuleFull": "Your WeChat ID is the unique identifier for your account and can only be changed once a year.",
-  "device_management_auto_extend_login_info_friendly": "After logging into WeChat, when the device is in a secure state, WeChat will automatically extend the login session to ensure timely message delivery. The last active time will be updated accordingly.",
+  "verifyIdentityWithPasswordFull": "Enter your current Vigaviga login password to verify your identity.",
+  "autoDownloadVigavigaInstaller": "Automatically download Vigaviga installer",
+  "vigavigaIdModificationRuleFull": "Your Vigaviga ID is the unique identifier for your account and can only be changed once a year.",
+  "device_management_auto_extend_login_info_friendly": "After logging into Vigaviga, when the device is in a secure state, Vigaviga will automatically extend the login session to ensure timely message delivery. The last active time will be updated accordingly.",
   "loginWithVoiceprint": "Log in with Voiceprint",
-  "vigavigaBeanCount": "{count} WeChat Beans",
+  "vigavigaBeanCount": "{count} Vigaviga Beans",
   "@vigavigaBeanCount": {
-    "description": "Displays the number of WeChat Beans",
+    "description": "Displays the number of Vigaviga Beans",
     "placeholders": {
       "count": {
         "type": "int"
       }
     }
   },
-  "vigavigaKeyboardFeatureAskAI": "WeChat Keyboard can now [Ask AI]",
-  "setVigavigaPasswordDescription": "Please set a WeChat password. You can log in with your bound account + WeChat password, for example, using your phone number + WeChat password for a faster login experience.",
-  "shortcutPermissionGuidanceFull": "If adding the shortcut fails, please go to System Settings and grant WeChat the permission to 'Create home screen shortcuts'.",
-  "vigavigaIdDisplay": "WeChat ID: {account}",
+  "vigavigaKeyboardFeatureAskAI": "Vigaviga Keyboard can now [Ask AI]",
+  "setVigavigaPasswordDescription": "Please set a Vigaviga password. You can log in with your bound account + Vigaviga password, for example, using your phone number + Vigaviga password for a faster login experience.",
+  "shortcutPermissionGuidanceFull": "If adding the shortcut fails, please go to System Settings and grant Vigaviga the permission to 'Create home screen shortcuts'.",
+  "vigavigaIdDisplay": "Vigaviga ID: {account}",
   "@vigavigaIdDisplay": {
-    "description": "Displays the WeChat ID",
+    "description": "Displays the Vigaviga ID",
     "placeholders": {
       "account": {
         "type": "String"
       }
     }
   },
-  "myVigavigaIdDisplay": "My WeChat ID: {account}",
+  "myVigavigaIdDisplay": "My Vigaviga ID: {account}",
   "@myVigavigaIdDisplay": {
-    "description": "Displays my WeChat ID",
+    "description": "Displays my Vigaviga ID",
     "placeholders": {
       "account": {
         "type": "String"
       }
     }
   },
-  "youthModeFullDescription": "To protect the healthy growth of minors, WeChat has introduced Youth Mode. Some features will be restricted in this mode. Guardians are requested to set it up proactively.",
-  "youthModeTermsOfServiceTitle": "《WeChat Youth Mode Terms of Service》",
-  "navigateToResetPasswordGuidanceFull": "You need to go to 'Settings > Account & Security > WeChat Password' to reset your WeChat password.",
+  "youthModeFullDescription": "To protect the healthy growth of minors, Vigaviga has introduced Youth Mode. Some features will be restricted in this mode. Guardians are requested to set it up proactively.",
+  "youthModeTermsOfServiceTitle": "《Vigaviga Youth Mode Terms of Service》",
+  "navigateToResetPasswordGuidanceFull": "You need to go to 'Settings > Account & Security > Vigaviga Password' to reset your Vigaviga password.",
   "douyinHotTrends": "Douyin Hot Trends",
   "yuanxiangSmartChoice": "Yuanxiang Smart Choice",
   "qqId": "QQ ID",
@@ -75,7 +75,7 @@
   "zhuanzhuanUsedGoods": "Zhuan Zhuan",
   "meituanGroupBuy": "Meituan Group Buy",
   "qCoinTopUp": "Q Coin Top-up",
-  "app_name": "SpecialChat",
+  "app_name": "Vigaviga",
   "tabbar_label_arts": "Arts",
   "tabbar_label_chat": "Chats",
   "tabbar_label_contacts": "Contacts",

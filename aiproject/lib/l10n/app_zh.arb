@@ -7,7 +7,7 @@
   "changeVigavigaID": "修改Vigaviga号",
   "vigavigaBeans": "Vigaviga豆",
   "vigavigaGames": "Vigaviga游戏",
-  "aboutWeChat": "关于Vigaviga",
+  "aboutVigaviga": "关于Vigaviga",
   "weRun": "Vigaviga运动",
   "personalInfoCollectionFullDescription": "    你可以查阅Vigaviga对你的个人信息的收集情况。以下只统计i0S 8.0.17、Android 8.0.18及之后版本Vigaviga所收集的信息。你使用旧版本Vigaviga期间的信息收集情况，Vigaviga无法完整统计到。",
   "privacy_setting_description": "你们将互相看不到对方的朋友圈、状态、Vigaviga运动、看一看以及第三方登录授权分享的内容。",
@@ -22,7 +22,7 @@
     }
   },
   "verifyIdentityWithPasswordFull": "填写当前Vigaviga登录密码，验证本人身份。",
-  "autoDownloadWeChatInstaller": "自动下载Vigaviga安装包",
+  "autoDownloadVigavigaInstaller": "自动下载Vigaviga安装包",
   "vigavigaIdModificationRuleFull": "Vigaviga号是账号的唯一凭证，一年只能修改一次。",
   "device_management_auto_extend_login_info_friendly": "登录Vigaviga后，当设备处于安全状态时，Vigaviga会自动延长登录时间以保持朋友消息的及时收发，此时会更新最近活跃时间。",
   "loginWithVoiceprint": "用声音锁登录Vigaviga",
