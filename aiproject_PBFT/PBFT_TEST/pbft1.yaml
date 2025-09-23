@@ -1,8 +1,0 @@
-listen:
-    host: 127.0.0.1
-    port: 30000
-    information: "this is very good server 1"
-nodes:
-    - id: e10adc3949ba59abbe56e057f20f883e
-      host: 127.0.0.1
-      port: 30001

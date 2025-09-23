@@ -1,0 +1,72 @@
+services:
+  # 数据库服务
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Vigaviga2026
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - vigaviga_network
+
+  # 消息队列
+  rabbitmq:
+    image: rabbitmq:4.1.4-management
+    environment:
+      - RABBITMQ_MANAGEMENT_ALLOW_WEB_ACCESS=true
+      - RABBITMQ_DEFAULT_USER=vigaviga
+      - RABBITMQ_DEFAULT_PASS=Vigaviga2026
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - vigaviga_network
+
+  # web服务
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/wwwroot:/usr/share/nginx/html
+      - ./nginx/vigaviga.com.conf:/etc/nginx/conf.d/default.conf
+      - /root/.acme.sh/vigaviga.com_ecc/vigaviga.com.key:/home/vigaviga.com.key
+      - /root/.acme.sh/vigaviga.com_ecc/fullchain.cer:/home/fullchain.cer
+    networks:
+      - vigaviga_network
+
+  # Web接口服务
+  python_api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - SECRET_KEY=633e12a9aa515859095e85020109175e7424157ab9bc31fed2fff540faf8b91b
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=Vigaviga2026
+      - DB_NAME=viga
+      - RABBITMQ_USER=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=vigaviga
+      - RABBITMQ_PASS=Vigaviga2026
+    ports:
+      - "9001:9001"
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - vigaviga_network
+
+networks:
+  vigaviga_network:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local
