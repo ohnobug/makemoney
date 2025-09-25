@@ -117,6 +117,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<LJNSystemCubit>().updateVideoProgress(show: true);
+      // 初始化时，将当前 Tab 索引同步到 Cubit
+      context.read<LJNSystemCubit>().updateMainTabIndex(_tabController.index);
     });
   }
 
@@ -128,6 +130,9 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
         _tabbarIndex = _tabController.index;
         _appbarNameIndex = _tabController.index;
       });
+
+      // [核心改动] 将最新的 Tab 索引同步到 LJNSystemCubit
+      context.read<LJNSystemCubit>().updateMainTabIndex(_tabController.index);
 
       if (_tabController.index != 0) {
         context.read<LJNSystemCubit>().updateVideoProgress(show: false);
@@ -254,120 +259,156 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     _unselectedItemColor ??= Colors.white.withAlpha(153);
     _borderColor ??= Colors.white.withAlpha(38);
 
-    return BlocBuilder<LJNSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        if (!_setStatusHeight) {
-          final topPadding = kIsWeb ? 0.0 : MediaQuery.of(context).padding.top;
-          context.read<LJNSystemCubit>().updateStatusHeight(topPadding);
-          _setStatusHeight = true;
-        }
+    // [核心改动] 使用 BlocListener 监听来自 Cubit 的切换命令
+    return BlocListener<LJNSystemCubit, SystemState>(
+      // 优化：仅在 `changeMainTabTo` 字段有有效变化时才触发 listener
+      listenWhen: (previous, current) =>
+          previous.changeMainTabTo != current.changeMainTabTo &&
+          current.changeMainTabTo != null,
+      listener: (context, state) {
+        // 执行切换 Tab 的动画
+        _tabController.animateTo(state.changeMainTabTo!);
+        // 命令执行后，立即调用 cubit 方法将其重置，防止重复执行
+        context.read<LJNSystemCubit>().mainTabChangeHandled();
+      },
+      child: BlocBuilder<LJNSystemCubit, SystemState>(
+        builder: (context, systemState) {
+          if (!_setStatusHeight) {
+            final topPadding =
+                kIsWeb ? 0.0 : MediaQuery.of(context).padding.top;
+            context.read<LJNSystemCubit>().updateStatusHeight(topPadding);
+            _setStatusHeight = true;
+          }
 
-        final appBarTitle = tabTitles[_appbarNameIndex];
-        final percent75Position = MediaQuery.of(context).size.height * 0.25;
+          final appBarTitle = tabTitles[_appbarNameIndex];
+          final percent75Position = MediaQuery.of(context).size.height * 0.25;
 
-        return Stack(
-          children: [
-            Scaffold(
-              primary: false,
-              backgroundColor: _tabbarIndex == 0
-                  ? Colors.black
-                  : theme.scaffoldBackgroundColor,
-              bottomNavigationBar: Visibility(
-                visible: !systemState.showMiniProgramDrawer,
-                child: Container(
-                  height: 106.w,
-                  decoration: BoxDecoration(
-                    color: _tabBarBackgroundColor,
-                    border: Border(
-                      top: BorderSide(
-                        color: _borderColor!,
-                        width: 1.0.w,
+          return Stack(
+            children: [
+              Scaffold(
+                primary: false,
+                backgroundColor: _tabbarIndex == 0
+                    ? Colors.black
+                    : theme.scaffoldBackgroundColor,
+                bottomNavigationBar: Visibility(
+                  visible: !systemState.showMiniProgramDrawer,
+                  child: Container(
+                    height: 106.w,
+                    decoration: BoxDecoration(
+                      color: _tabBarBackgroundColor,
+                      border: Border(
+                        top: BorderSide(
+                          color: _borderColor!,
+                          width: 1.0.w,
+                        ),
                       ),
                     ),
-                  ),
-                  child: TabBar(
-                    dividerColor: Colors.transparent,
-                    labelColor: _selectedItemColor,
-                    labelStyle: theme.tabBarTheme.labelStyle,
-                    unselectedLabelColor: _unselectedItemColor,
-                    indicator: const BoxDecoration(),
-                    controller: _tabController,
-                    overlayColor: WidgetStateProperty.all(Colors.transparent),
-                    tabs: List.generate(
-                      _tabs.length,
-                      (index) {
-                        final tabInfo = _tabs[index];
-                        final icon = index == _tabbarIndex
-                            ? tabInfo.selectedIcon
-                            : tabInfo.icon;
-                        return Tab(
-                          height: 105.w,
-                          iconMargin: EdgeInsets.only(bottom: 8.w),
-                          icon: SizedBox(
-                            height: 50.w,
-                            width: 50.w,
-                            child: Center(
-                              child: Icon(
-                                icon,
-                                size: tabInfo.iconSize.w,
+                    child: TabBar(
+                      dividerColor: Colors.transparent,
+                      labelColor: _selectedItemColor,
+                      labelStyle: theme.tabBarTheme.labelStyle,
+                      unselectedLabelColor: _unselectedItemColor,
+                      indicator: const BoxDecoration(),
+                      controller: _tabController,
+                      overlayColor: WidgetStateProperty.all(Colors.transparent),
+                      tabs: List.generate(
+                        _tabs.length,
+                        (index) {
+                          final tabInfo = _tabs[index];
+                          final icon = index == _tabbarIndex
+                              ? tabInfo.selectedIcon
+                              : tabInfo.icon;
+                          return Tab(
+                            height: 105.w,
+                            iconMargin: EdgeInsets.only(bottom: 8.w),
+                            icon: SizedBox(
+                              height: 50.w,
+                              width: 50.w,
+                              child: Center(
+                                child: Icon(
+                                  icon,
+                                  size: tabInfo.iconSize.w,
+                                ),
                               ),
                             ),
-                          ),
-                          text: tabTitles[index],
-                        );
-                      },
+                            text: tabTitles[index],
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
+                appBar: null,
+                body: TabBarView(
+                  physics: systemState.showMiniProgramDrawer
+                      ? const NeverScrollableScrollPhysics()
+                      : CustomTabBarViewScrollPhysics(
+                          parent: const ClampingScrollPhysics(),
+                        ),
+                  controller: _tabController,
+                  children: const <Widget>[
+                    LJNArts(),
+                    LJNDiscovery(),
+                    LJNPublisher(),
+                    LJNRecentChatsList(),
+                    LJNUser(),
+                  ],
+                ),
               ),
-              appBar: null,
-              body: TabBarView(
-                physics: systemState.showMiniProgramDrawer
-                    ? const NeverScrollableScrollPhysics()
-                    : CustomTabBarViewScrollPhysics(
-                        parent: const ClampingScrollPhysics(),
-                      ),
-                controller: _tabController,
-                children: const <Widget>[
-                  LJNArts(),
-                  LJNDiscovery(),
-                  LJNPublisher(),
-                  LJNRecentChatsList(),
-                  LJNUser(),
-                ],
-              ),
-            ),
-            Visibility(
-              visible: !_hiddenAppbar &&
-                  ((systemState.homescrollpixels + systemState.statusHeight) <=
-                      percent75Position),
-              child: Positioned(
-                top: systemState.homescrollpixels,
-                left: _appbarLeft,
-                child: Container(
-                  width: 750.0.w,
-                  height: systemState.statusHeight + 90.w,
-                  color: systemState.homescrollpixels == 0
-                      ? theme.appBarTheme.backgroundColor
-                      : Colors.transparent,
-                  child: Listener(
-                    onPointerUp: (_) => context
-                        .read<LJNSystemCubit>()
-                        .updateShowMiniProgramDrawer(false),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        LJNAppBarInner(
-                          context: context,
-                          title: appBarTitle,
-                          actions: [
-                            if (_tabbarIndex == 3)
+              Visibility(
+                visible: !_hiddenAppbar &&
+                    ((systemState.homescrollpixels +
+                            systemState.statusHeight) <=
+                        percent75Position),
+                child: Positioned(
+                  top: systemState.homescrollpixels,
+                  left: _appbarLeft,
+                  child: Container(
+                    width: 750.0.w,
+                    height: systemState.statusHeight + 90.w,
+                    color: systemState.homescrollpixels == 0
+                        ? theme.appBarTheme.backgroundColor
+                        : Colors.transparent,
+                    child: Listener(
+                      onPointerUp: (_) => context
+                          .read<LJNSystemCubit>()
+                          .updateShowMiniProgramDrawer(false),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          LJNAppBarInner(
+                            context: context,
+                            title: appBarTitle,
+                            actions: [
+                              if (_tabbarIndex == 3)
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/contact',
+                                    );
+                                  },
+                                  child: Container(
+                                    color: Colors.transparent,
+                                    height: 90.w,
+                                    padding: EdgeInsets.only(right: 33.w),
+                                    alignment: Alignment.center,
+                                    child: Icon(
+                                      color: theme
+                                          .appBarTheme.titleTextStyle!.color,
+                                      const IconData(
+                                        0xe608,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      size: 42.w,
+                                    ),
+                                  ),
+                                ),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    '/contact',
-                                  );
+                                  if (systemState.homescrollpixels == 0) {
+                                    setState(() => _showPopup = !_showPopup);
+                                  }
                                 },
                                 child: Container(
                                   color: Colors.transparent,
@@ -378,110 +419,89 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                                     color:
                                         theme.appBarTheme.titleTextStyle!.color,
                                     const IconData(
-                                      0xe608,
+                                      0xe726,
                                       fontFamily: 'Iconfont',
                                     ),
                                     size: 42.w,
                                   ),
                                 ),
                               ),
-                            GestureDetector(
-                              onTap: () {
-                                if (systemState.homescrollpixels == 0) {
-                                  setState(() => _showPopup = !_showPopup);
-                                }
-                              },
-                              child: Container(
-                                color: Colors.transparent,
-                                height: 90.w,
-                                padding: EdgeInsets.only(right: 33.w),
-                                alignment: Alignment.center,
-                                child: Icon(
-                                  color:
-                                      theme.appBarTheme.titleTextStyle!.color,
-                                  const IconData(
-                                    0xe726,
-                                    fontFamily: 'Iconfont',
-                                  ),
-                                  size: 42.w,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 7.w,
-                            )
-                          ],
-                          leading: _tabbarIndex == 3
-                              ? GestureDetector(
-                                  onTap: () {},
-                                  child: Container(
-                                    color: Colors.transparent,
-                                    height: 90.w,
-                                    padding: EdgeInsets.only(left: 33.w),
-                                    child: Icon(
-                                      color: theme
-                                          .appBarTheme.titleTextStyle!.color,
-                                      const IconData(
-                                        0xe612,
-                                        fontFamily: 'Iconfont',
+                              SizedBox(
+                                width: 7.w,
+                              )
+                            ],
+                            leading: _tabbarIndex == 3
+                                ? GestureDetector(
+                                    onTap: () {},
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      height: 90.w,
+                                      padding: EdgeInsets.only(left: 33.w),
+                                      child: Icon(
+                                        color: theme
+                                            .appBarTheme.titleTextStyle!.color,
+                                        const IconData(
+                                          0xe612,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        size: 40.w,
                                       ),
-                                      size: 40.w,
                                     ),
-                                  ),
-                                )
-                              : const SizedBox(),
-                        )
-                      ],
+                                  )
+                                : const SizedBox(),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            if (_showPopup) ...[
-              GestureDetector(
-                onTapDown: (_) => setState(() => _showPopup = false),
-                child: Container(
-                  width: 750.w,
-                  height: MediaQuery.of(context).size.height,
-                  color: Colors.transparent,
-                ),
-              ),
-              Positioned(
-                right: 15.w,
-                top: systemState.statusHeight + 80.w,
-                child: SizedBox(
-                  width: 320.w,
-                  child: LJNPopupMenu(
-                    showPopup: _showPopup,
-                    setShowPopup: (bool value) {
-                      setState(() => _showPopup = value);
-                    },
+              if (_showPopup) ...[
+                GestureDetector(
+                  onTapDown: (_) => setState(() => _showPopup = false),
+                  child: Container(
+                    width: 750.w,
+                    height: MediaQuery.of(context).size.height,
+                    color: Colors.transparent,
                   ),
                 ),
-              )
-            ],
+                Positioned(
+                  right: 15.w,
+                  top: systemState.statusHeight + 80.w,
+                  child: SizedBox(
+                    width: 320.w,
+                    child: LJNPopupMenu(
+                      showPopup: _showPopup,
+                      setShowPopup: (bool value) {
+                        setState(() => _showPopup = value);
+                      },
+                    ),
+                  ),
+                )
+              ],
 
-            // 播放进度条
-            Positioned(
-              bottom: 106.w, // TabBar Height
-              left: 0,
-              right: 0,
-              child: Visibility(
-                visible: systemState.showVideoProgress &&
-                    _tabController.animation!.value == 0,
-                child: LinearProgressIndicator(
-                  value: systemState.videoProgress,
-                  minHeight: 1.5,
-                  backgroundColor: Colors.grey.withAlpha(77), // ~30%
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    Colors.grey.withAlpha(179), // ~70%
+              // 播放进度条
+              Positioned(
+                bottom: 106.w, // TabBar Height
+                left: 0,
+                right: 0,
+                child: Visibility(
+                  visible: systemState.showVideoProgress &&
+                      _tabController.animation!.value == 0,
+                  child: LinearProgressIndicator(
+                    value: systemState.videoProgress,
+                    minHeight: 1.5,
+                    backgroundColor: Colors.grey.withAlpha(77), // ~30%
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Colors.grey.withAlpha(179), // ~70%
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 }

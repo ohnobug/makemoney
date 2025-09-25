@@ -2,7 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:equatable/equatable.dart'; // 1. 引入 equatable 包
+import 'package:equatable/equatable.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 
 // 系统的 Cubit
@@ -14,7 +14,33 @@ class LJNSystemCubit extends Cubit<SystemState> {
           ),
         );
 
-  // 更新各种状态的方法 (这些方法保持不变，写得很好)
+  // =======================================================================
+  // [新增] 用于控制主 TabBar 切换的方法
+  // =======================================================================
+
+  /// 更新当前主 TabBar 的索引到状态中
+  void updateMainTabIndex(int index) {
+    emit(state.copyWith(mainTabIndex: index));
+  }
+
+  /// 发出切换到上一个主 Tab 的命令
+  void switchToPreviousMainTab() {
+    // 只有在当前不是第一个 Tab 时才执行
+    if (state.mainTabIndex > 0) {
+      emit(state.copyWith(changeMainTabTo: state.mainTabIndex - 1));
+    }
+  }
+
+  /// 在主 Tab 切换命令被处理后，重置该命令，防止重复触发
+  void mainTabChangeHandled() {
+    // 使用一个特殊的技巧来确保 copyWith 能够将值设为 null
+    emit(state.copyWith(clearChangeMainTabTo: true));
+  }
+
+  // =======================================================================
+  // 其他状态更新方法 (保持不变)
+  // =======================================================================
+
   void updateHomescrollpixels(double homescrollpixels) {
     emit(state.copyWith(homescrollpixels: homescrollpixels));
   }
@@ -64,13 +90,12 @@ class LJNSystemCubit extends Cubit<SystemState> {
     emit(state.copyWith(currentLocale: Locale(language)));
   }
 
-  // 更新视频进度状态的方法
   void updateVideoProgress({double? progress, bool? show}) {
     emit(state.copyWith(videoProgress: progress, showVideoProgress: show));
   }
 }
 
-// 2. 让 SystemState 继承自 Equatable
+// 系统的 State
 class SystemState extends Equatable {
   final double homescrollpixels;
   final bool contactazshow;
@@ -87,8 +112,11 @@ class SystemState extends Equatable {
   final double videoProgress;
   final bool showVideoProgress;
 
+  // [新增] 用于控制主 TabBar 的状态
+  final int mainTabIndex; // 当前主 TabBar 的索引
+  final int? changeMainTabTo; // 一个命令式的事件，用于请求改变主 TabBar 的索引
+
   const SystemState({
-    // 构造函数改为 const，因为 Equatable 推荐 state 是不可变的
     this.homescrollpixels = 0,
     this.contactazshow = false,
     this.mainpage1isload = false,
@@ -103,6 +131,9 @@ class SystemState extends Equatable {
     required this.navigatorKey,
     this.videoProgress = 0.0,
     this.showVideoProgress = false,
+    // [新增] 初始化新字段
+    this.mainTabIndex = 0,
+    this.changeMainTabTo,
   });
 
   SystemState copyWith({
@@ -120,6 +151,11 @@ class SystemState extends Equatable {
     GlobalKey<NavigatorState>? navigatorKey,
     double? videoProgress,
     bool? showVideoProgress,
+    // [新增] 添加新字段到 copyWith 方法
+    int? mainTabIndex,
+    int? changeMainTabTo,
+    // [新增] 一个特殊标志，用于将 changeMainTabTo 清空为 null
+    bool clearChangeMainTabTo = false,
   }) {
     return SystemState(
       homescrollpixels: homescrollpixels ?? this.homescrollpixels,
@@ -137,11 +173,14 @@ class SystemState extends Equatable {
       currentLocale: currentLocale ?? this.currentLocale,
       videoProgress: videoProgress ?? this.videoProgress,
       showVideoProgress: showVideoProgress ?? this.showVideoProgress,
+      // [新增] 处理新字段的复制逻辑
+      mainTabIndex: mainTabIndex ?? this.mainTabIndex,
+      // 如果 clearChangeMainTabTo 为 true，则将 changeMainTabTo 设为 null，否则使用提供的值或旧值
+      changeMainTabTo:
+          clearChangeMainTabTo ? null : changeMainTabTo ?? this.changeMainTabTo,
     );
   }
 
-  // 3. 实现 Equatable 的关键：重写 props getter
-  // 把所有需要在比较时考虑的字段都放进这个列表里。
   @override
   List<Object?> get props => [
         homescrollpixels,
@@ -158,5 +197,8 @@ class SystemState extends Equatable {
         currentLocale,
         videoProgress,
         showVideoProgress,
+        // [新增] 添加新字段到 props 列表
+        mainTabIndex,
+        changeMainTabTo,
       ];
 }

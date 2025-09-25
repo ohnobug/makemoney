@@ -114,35 +114,34 @@ class _LJNUserState extends State<LJNUser>
             ];
           },
           // ===================================================================
-          // [关键改动] 从这里开始
+          // [最终改动]
           // ===================================================================
           body: GestureDetector(
+            behavior: HitTestBehavior.translucent,
             onHorizontalDragEnd: (details) {
-              // `details.primaryVelocity` 用于判断滑动的方向和速度
-              // velocity < 0 是向左滑 (从右到左)
-              // velocity > 0 是向右滑 (从左到右)
-              // 设定一个速度阈值，防止轻微的抖动被误判为滑动
               double velocity = details.primaryVelocity ?? 0;
 
-              // 向左滑动，切换到下一个 Tab
-              if (velocity < -100 && _tabController.index < _tabController.length - 1) {
+              // 向左滑动 (切换到下一个内部 Tab)
+              if (velocity < -100 &&
+                  _tabController.index < _tabController.length - 1) {
                 _tabController.animateTo(_tabController.index + 1);
               }
               // 向右滑动
               else if (velocity > 100) {
-                // [核心逻辑] 只有在不是第一个 Tab 时，才响应向右滑动，切换到上一个 Tab
+                // 如果在内部 Tab 中可以向右切换，则切换
                 if (_tabController.index > 0) {
                   _tabController.animateTo(_tabController.index - 1);
                 }
-                // 如果当前是第一个 Tab (index == 0)，则此处不执行任何操作。
-                // 这就实现了“向左锁定”，并将手势传递给上层处理。
+                // [核心逻辑] 如果已经是第一个内部 Tab，则触发外部主 TabBar 的切换
+                else {
+                  context.read<LJNSystemCubit>().switchToPreviousMainTab();
+                }
               }
             },
             child: Container(
               color: theme.cardColor,
               child: TabBarView(
                 controller: _tabController,
-                // [核心逻辑] 禁用 TabBarView 的内置滑动功能，完全交由我们自己的 GestureDetector 处理
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   _UserWorksGrid(
@@ -170,9 +169,6 @@ class _LJNUserState extends State<LJNUser>
               ),
             ),
           ),
-          // ===================================================================
-          // [关键改动] 到这里结束
-          // ===================================================================
         ),
       ),
     );
@@ -199,24 +195,32 @@ class _LJNUserState extends State<LJNUser>
     // 功能按钮列表数据
     final List<LJNFunctionButton> serviceButtons = [
       LJNFunctionButton(
-          icon: "images/icon/server_icon11.png", title: "充值", onPressed: () {}),
+        icon: "images/icon/server_icon11.png",
+        title: "充值",
+        onPressed: () {},
+      ),
       LJNFunctionButton(
-          icon: "images/icon/server_icon12.png", title: "提现", onPressed: () {}),
+        icon: "images/icon/server_icon12.png",
+        title: "提现",
+        onPressed: () {},
+      ),
       LJNFunctionButton(
-          icon: "images/icon/server_icon13.png",
-          title: "账单明细",
-          onPressed: () {}),
+        icon: "images/icon/server_icon13.png",
+        title: "账单明细",
+        onPressed: () {},
+      ),
       LJNFunctionButton(
-          icon: "images/icon/server_icon14.png",
-          title: "创作报表",
-          onPressed: () {}),
+        icon: "images/icon/server_icon14.png",
+        title: "创作报表",
+        onPressed: () {},
+      ),
     ];
 
     return Container(
       color: theme.cardColor,
       padding: EdgeInsets.fromLTRB(
         32.w,
-        40.w + systemState.statusHeight,
+        20.w + systemState.statusHeight,
         32.w,
         40.w,
       ),
@@ -369,10 +373,8 @@ class _LJNUserState extends State<LJNUser>
               ),
             ],
           ),
-
-          // 浮动在右上角的按钮
           Positioned(
-            top: systemState.statusHeight + 0.w, // 调整垂直位置以对齐
+            top: 0.w,
             right: 0,
             child: Row(
               children: [
@@ -388,7 +390,7 @@ class _LJNUserState extends State<LJNUser>
                 ),
               ],
             ),
-          ),
+          )
         ],
       ),
     );
@@ -488,12 +490,19 @@ class _UserWorksGrid extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(height: 120.w),
-            Image.asset(assetPath('images/imgs/no-content.webp'),
-                width: 200.w, height: 200.w, color: Colors.grey.shade400),
+            Image.asset(
+              assetPath('images/imgs/no-content.webp'),
+              width: 200.w,
+              height: 200.w,
+              color: Colors.grey.shade400,
+            ),
             SizedBox(height: 30.w),
             Text(
               emptyMessage,
-              style: TextStyle(fontSize: 28.w, color: Colors.grey.shade600),
+              style: TextStyle(
+                fontSize: 28.w,
+                color: Colors.grey.shade600,
+              ),
             ),
             SizedBox(height: 40.w),
             ElevatedButton(
@@ -552,7 +561,10 @@ class _UserWorksGrid extends StatelessWidget {
               errorBuilder: (context, error, stackTrace) {
                 return Container(
                   color: Colors.grey.shade200,
-                  child: Icon(Icons.broken_image, color: Colors.grey.shade400),
+                  child: Icon(
+                    Icons.broken_image,
+                    color: Colors.grey.shade400,
+                  ),
                 );
               },
             ),
