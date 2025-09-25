@@ -68,93 +68,81 @@ class _LJNUserState extends State<LJNUser>
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surfaceContainer,
-      body: Stack(
-        children: [
-          SafeArea(
-            child: NestedScrollView(
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  SliverToBoxAdapter(
-                    child: _buildUserInfoSection(systemState, theme),
-                  ),
-                  SliverPersistentHeader(
-                    delegate: _SliverTabBarDelegate(
-                      TabBar(
-                        controller: _tabController,
-                        labelColor: theme.textTheme.bodyLarge?.color,
-                        unselectedLabelColor: theme.hintColor,
-                        indicatorColor: theme.colorScheme.primary,
-                        indicatorWeight: 2.5,
-                        indicatorSize: TabBarIndicatorSize.label,
-                        isScrollable: true,
-                        tabAlignment: TabAlignment.start,
-                        labelPadding: EdgeInsets.symmetric(horizontal: 40.w),
-                        labelStyle: TextStyle(
-                            fontSize: 30.w, fontWeight: FontWeight.bold),
-                        unselectedLabelStyle: TextStyle(
-                            fontSize: 30.w, fontWeight: FontWeight.normal),
-                        tabs: [
-                          Tab(child: Text("笔记 ${_works.length}")),
-                          Tab(child: Text("收藏 ${_collections.length}")),
-                          Tab(child: Text("赞过 ${_praised.length}")),
-                        ],
-                      ),
-                      color: theme.cardColor,
-                    ),
-                    pinned: true,
-                  ),
-                ];
-              },
-              body: Container(
-                color: theme.cardColor,
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    _UserWorksGrid(
-                        key: const PageStorageKey('works_grid'),
-                        items: _works,
-                        emptyMessage: '保持热爱奔赴山河',
-                        buttonText: '去发布',
-                        onButtonPressed: () {}),
-                    _UserWorksGrid(
-                        key: const PageStorageKey('collections_grid'),
-                        items: _collections,
-                        emptyMessage: '还没有收藏',
-                        buttonText: '去看看',
-                        onButtonPressed: () {}),
-                    _UserWorksGrid(
-                        key: const PageStorageKey('praised_grid'),
-                        items: _praised,
-                        emptyMessage: '还没有赞过',
-                        buttonText: '去看看',
-                        onButtonPressed: () {}),
-                  ],
-                ),
+      body: SafeArea(
+        child: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverToBoxAdapter(
+                child: _buildUserInfoSection(systemState, theme),
               ),
-            ),
-          ),
-
-          // 浮动在右上角的按钮
-          Positioned(
-            top: systemState.statusHeight + 40.w, // 调整垂直位置以对齐
-            right: 0,
-            child: Row(
-              children: [
-                _buildFloatingIconButton(
-                  icon: Icons.settings_outlined,
-                  onTap: () => Navigator.pushNamed(context, '/setting'),
+              SliverPersistentHeader(
+                delegate: _SliverTabBarDelegate(
+                  TabBar(
+                    controller: _tabController,
+                    labelColor: theme.textTheme.bodyLarge?.color,
+                    unselectedLabelColor: theme.hintColor,
+                    indicatorColor: theme.colorScheme.primary,
+                    indicatorWeight: 2.5,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    isScrollable: true,
+                    tabAlignment: TabAlignment.start,
+                    labelPadding: EdgeInsets.symmetric(horizontal: 40.w),
+                    labelStyle: TextStyle(
+                      fontSize: 30.w,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    unselectedLabelStyle: TextStyle(
+                      fontSize: 30.w,
+                      fontWeight: FontWeight.normal,
+                    ),
+                    tabs: [
+                      Tab(
+                        child: Text("笔记 ${_works.length}"),
+                      ),
+                      Tab(
+                        child: Text("收藏 ${_collections.length}"),
+                      ),
+                      Tab(
+                        child: Text("赞过 ${_praised.length}"),
+                      ),
+                    ],
+                  ),
+                  color: theme.cardColor,
                 ),
-                _buildFloatingIconButton(
-                  icon: Icons.share_outlined,
-                  onTap: () {
-                    logger.info("分享按钮被点击");
-                  },
+                pinned: true,
+              ),
+            ];
+          },
+          body: Container(
+            color: theme.cardColor,
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                _UserWorksGrid(
+                  key: const PageStorageKey('works_grid'),
+                  items: _works,
+                  emptyMessage: '保持热爱奔赴山河',
+                  buttonText: '去发布',
+                  onButtonPressed: () {},
+                ),
+                _UserWorksGrid(
+                  key: const PageStorageKey('collections_grid'),
+                  items: _collections,
+                  emptyMessage: '还没有收藏',
+                  buttonText: '去看看',
+                  onButtonPressed: () {},
+                ),
+                _UserWorksGrid(
+                  key: const PageStorageKey('praised_grid'),
+                  items: _praised,
+                  emptyMessage: '还没有赞过',
+                  buttonText: '去看看',
+                  onButtonPressed: () {},
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -164,8 +152,11 @@ class _LJNUserState extends State<LJNUser>
       {required IconData icon, required VoidCallback onTap}) {
     return IconButton(
       onPressed: onTap,
-      icon: Icon(icon,
-          color: Theme.of(context).textTheme.bodyLarge?.color, size: 44.w),
+      icon: Icon(
+        icon,
+        color: Theme.of(context).textTheme.bodyLarge?.color,
+        size: 44.w,
+      ),
       padding: EdgeInsets.all(24.w),
     );
   }
@@ -193,137 +184,179 @@ class _LJNUserState extends State<LJNUser>
     return Container(
       color: theme.cardColor,
       padding: EdgeInsets.fromLTRB(
-          32.w, 40.w + systemState.statusHeight, 32.w, 40.w),
+        32.w,
+        40.w + systemState.statusHeight,
+        32.w,
+        40.w,
+      ),
       margin: EdgeInsets.only(bottom: 20.w),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          // 顶部：头像、昵称
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: () => Navigator.pushNamed(context, '/userinfo'),
-                child: ClipOval(
-                  child: BlocBuilder<LJNUserCubit, LJNUserState>(
-                    builder: (context, state) {
-                      final avatar = state.userinfoAvatar;
-                      return Image.asset(
-                        (avatar == null || avatar.isEmpty)
-                            ? assetPath('images/avatar/default.png')
-                            : assetPath(avatar),
-                        width: 140.w,
-                        height: 140.w,
-                        fit: BoxFit.cover,
-                      );
-                    },
-                  ),
-                ),
-              ),
-              SizedBox(width: 30.w),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BlocBuilder<LJNUserCubit, LJNUserState>(
-                      builder: (context, state) => Text(
-                        state.userinfoName ?? '用户名',
-                        style: TextStyle(
-                            fontSize: 42.w,
-                            fontWeight: FontWeight.bold,
-                            color: theme.colorScheme.onSurface),
+              // 顶部：头像、昵称
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/userinfo'),
+                    child: ClipOval(
+                      child: BlocBuilder<LJNUserCubit, LJNUserState>(
+                        builder: (context, state) {
+                          final avatar = state.userinfoAvatar;
+                          return Image.asset(
+                            (avatar == null || avatar.isEmpty)
+                                ? assetPath('images/avatar/default.png')
+                                : assetPath(avatar),
+                            width: 140.w,
+                            height: 140.w,
+                            fit: BoxFit.cover,
+                          );
+                        },
                       ),
                     ),
-                    SizedBox(height: 12.w),
-                    // [修复] ID 和二维码图标的 Row
-                    GestureDetector(
-                      onTap: () {/* 跳转到二维码页面 */},
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min, // 让Row包裹内容
-                        children: [
-                          Text(
-                            l10n.vigavigaIdDisplay('TheMonsterClub'),
+                  ),
+                  SizedBox(width: 30.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BlocBuilder<LJNUserCubit, LJNUserState>(
+                          builder: (context, state) => Text(
+                            state.userinfoName ?? '用户名',
                             style: TextStyle(
-                                fontSize: 26.w, color: theme.hintColor),
+                              fontSize: 42.w,
+                              fontWeight: FontWeight.bold,
+                              color: theme.colorScheme.onSurface,
+                            ),
                           ),
-                          SizedBox(width: 10.w),
-                          Icon(Icons.qr_code_2_outlined,
-                              size: 28.w, color: theme.hintColor),
-                          SizedBox(width: 10.w),
-                          Icon(Icons.chevron_right,
-                              size: 32.w, color: theme.hintColor),
-                        ],
+                        ),
+                        SizedBox(height: 12.w),
+                        // [修复] ID 和二维码图标的 Row
+                        GestureDetector(
+                          onTap: () {/* 跳转到二维码页面 */},
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min, // 让Row包裹内容
+                            children: [
+                              Text(
+                                l10n.vigavigaIdDisplay('TheMonsterClub'),
+                                style: TextStyle(
+                                  fontSize: 26.w,
+                                  color: theme.hintColor,
+                                ),
+                              ),
+                              SizedBox(width: 10.w),
+                              Icon(
+                                Icons.qr_code_2_outlined,
+                                size: 28.w,
+                                color: theme.hintColor,
+                              ),
+                              SizedBox(width: 10.w),
+                              Icon(
+                                Icons.chevron_right,
+                                size: 32.w,
+                                color: theme.hintColor,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 40.w),
+              // 社交数据
+              Row(
+                children: [
+                  _buildStatsItem("25", "关注"),
+                  SizedBox(width: 60.w),
+                  _buildStatsItem("1.2M", "粉丝"),
+                  SizedBox(width: 60.w),
+                  _buildStatsItem("8.9M", "获赞"),
+                ],
+              ),
+              SizedBox(height: 30.w),
+              // 余额
+              Row(
+                children: [
+                  Text(
+                    "余额：",
+                    style: TextStyle(
+                        fontSize: 30.w,
+                        color: theme.colorScheme.onSurface.withOpacity(0.8)),
+                  ),
+                  Text(
+                    _isBalanceVisible ? "\$1,234.56" : "****",
+                    style: TextStyle(
+                        fontSize: 30.w,
+                        color: theme.colorScheme.onSurface,
+                        fontFamily: 'DMMono',
+                        fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(width: 16.w),
+                  InkWell(
+                    borderRadius: BorderRadius.circular(20.w),
+                    onTap: () =>
+                        setState(() => _isBalanceVisible = !_isBalanceVisible),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.w),
+                      child: Icon(
+                        _isBalanceVisible
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        size: 32.w,
+                        color: theme.hintColor,
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 40.w),
-          // 社交数据
-          Row(
-            children: [
-              _buildStatsItem("25", "关注"),
-              SizedBox(width: 60.w),
-              _buildStatsItem("1.2M", "粉丝"),
-              SizedBox(width: 60.w),
-              _buildStatsItem("8.9M", "获赞"),
-            ],
-          ),
-          SizedBox(height: 30.w),
-          // 余额
-          Row(
-            children: [
-              Text(
-                "余额：",
-                style: TextStyle(
-                    fontSize: 30.w,
-                    color: theme.colorScheme.onSurface.withOpacity(0.8)),
-              ),
-              Text(
-                _isBalanceVisible ? "\$1,234.56" : "****",
-                style: TextStyle(
-                    fontSize: 30.w,
-                    color: theme.colorScheme.onSurface,
-                    fontFamily: 'DMMono',
-                    fontWeight: FontWeight.w600),
-              ),
-              SizedBox(width: 16.w),
-              InkWell(
-                borderRadius: BorderRadius.circular(20.w),
-                onTap: () =>
-                    setState(() => _isBalanceVisible = !_isBalanceVisible),
-                child: Padding(
-                  padding: EdgeInsets.all(8.w),
-                  child: Icon(
-                    _isBalanceVisible
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                    size: 32.w,
-                    color: theme.hintColor,
                   ),
+                ],
+              ),
+              // 分割线
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 30.w,
                 ),
+                child: Divider(
+                  height: 1.w,
+                  color: theme.dividerColor,
+                ),
+              ),
+              // [关键改动] 功能按钮 GridView
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: serviceButtons.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  childAspectRatio: 1.1,
+                ),
+                itemBuilder: (context, index) {
+                  return serviceButtons[index];
+                },
               ),
             ],
           ),
-          // 分割线
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 30.w),
-            child: Divider(height: 1.w, color: theme.dividerColor),
-          ),
-          // [关键改动] 功能按钮 GridView
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: serviceButtons.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              childAspectRatio: 1.1,
+
+          // 浮动在右上角的按钮
+          Positioned(
+            top: systemState.statusHeight + 0.w, // 调整垂直位置以对齐
+            right: 0,
+            child: Row(
+              children: [
+                _buildFloatingIconButton(
+                  icon: Icons.settings_outlined,
+                  onTap: () => Navigator.pushNamed(context, '/setting'),
+                ),
+                _buildFloatingIconButton(
+                  icon: Icons.share_outlined,
+                  onTap: () {
+                    logger.info("分享按钮被点击");
+                  },
+                ),
+              ],
             ),
-            itemBuilder: (context, index) {
-              return serviceButtons[index];
-            },
           ),
         ],
       ),
@@ -387,7 +420,7 @@ class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
 }
 
 // =======================================================================
-// [辅助 Widget] 用于显示作品网格或空状态
+// [辅助 Widget] 用于显示作品网格或空状态 (已修复溢出问题)
 // =======================================================================
 class _UserWorksGrid extends StatelessWidget {
   final List<String> items;
@@ -412,13 +445,18 @@ class _UserWorksGrid extends StatelessWidget {
     }
   }
 
+  // [关键修改] 在这里修复布局溢出问题
   Widget _buildEmptyState(BuildContext context) {
     return Container(
       color: Theme.of(context).colorScheme.surfaceContainer,
-      child: Center(
+      alignment: Alignment.topCenter,
+      // 👇 [改动] 使用 SingleChildScrollView 包裹 Column
+      // 这样当内容超出可用高度时，就会自动启用滚动，从而避免溢出错误。
+      child: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(height: 120.w),
             Image.asset(assetPath('images/imgs/no-content.webp'),
                 width: 200.w, height: 200.w, color: Colors.grey.shade400),
             SizedBox(height: 30.w),
@@ -449,6 +487,8 @@ class _UserWorksGrid extends StatelessWidget {
                 ),
               ),
             ),
+            // 可以额外加一个底部的 padding，防止滚动到底部时按钮紧贴边缘
+            SizedBox(height: 40.w),
           ],
         ),
       ),
