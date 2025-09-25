@@ -39,10 +39,10 @@ services:
     networks:
       - vigaviga_network
 
-  # Web接口服务
-  python_api:
+  # 用户接口服务
+  user_api:
     build:
-      context: ./backend
+      context: ./backend/user_api
       dockerfile: Dockerfile
     environment:
       - SECRET_KEY=633e12a9aa515859095e85020109175e7424157ab9bc31fed2fff540faf8b91b
@@ -51,6 +51,30 @@ services:
       - DB_USER=root
       - DB_PASSWORD=Vigaviga2026
       - DB_NAME=viga
+      - RABBITMQ_USER=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=vigaviga
+      - RABBITMQ_PASS=Vigaviga2026
+    ports:
+      - "9001:9001"
+    depends_on:
+      - db
+      - rabbitmq
+    networks:
+      - vigaviga_network
+
+  # 模式接口服务
+  mode_api:
+    build:
+      context: ./backend/mode_api
+      dockerfile: Dockerfile
+    environment:
+      - SECRET_KEY=633e12a9aa515859095e85020109175e7424157ab9bc31fed2fff540faf8b91b
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=Vigaviga2026
+      - DB_NAME=reward
       - RABBITMQ_USER=rabbitmq
       - RABBITMQ_PORT=5672
       - RABBITMQ_USER=vigaviga

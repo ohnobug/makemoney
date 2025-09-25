@@ -57,7 +57,7 @@ class _LJNUserState extends State<LJNUser>
     super.build(context);
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
-      return systemState.mainpage4isload!
+      return systemState.mainpage4isload
           ? _buildPage(systemState)
           : const LJNPageLoading();
     });
@@ -336,13 +336,22 @@ class _LJNUserState extends State<LJNUser>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(count,
-            style: TextStyle(
-                fontSize: 30.w,
-                fontWeight: FontWeight.bold,
-                color: theme.textTheme.bodyLarge?.color)),
+        Text(
+          count,
+          style: TextStyle(
+            fontSize: 30.w,
+            fontWeight: FontWeight.bold,
+            color: theme.textTheme.bodyLarge?.color,
+          ),
+        ),
         SizedBox(height: 8.w),
-        Text(label, style: TextStyle(fontSize: 26.w, color: theme.hintColor)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 26.w,
+            color: theme.hintColor,
+          ),
+        ),
       ],
     );
   }
@@ -426,12 +435,19 @@ class _UserWorksGrid extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40.w),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 60.w, vertical: 20.w),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 60.w,
+                  vertical: 20.w,
+                ),
                 elevation: 0,
               ),
-              child: Text(buttonText,
-                  style:
-                      TextStyle(fontSize: 28.w, fontWeight: FontWeight.bold)),
+              child: Text(
+                buttonText,
+                style: TextStyle(
+                  fontSize: 28.w,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ],
         ),

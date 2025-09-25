@@ -1,7 +1,7 @@
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from .database import Base, engine, AsyncSessionLocal, create_db_and_tables, VigaUsers, TurChatSessions, TurChatHistory, VigaVerifyCodes
+from db.database import engine, AsyncSessionLocal, create_db_and_tables, VigaUsers, VigaVerifyCodes
 
 @pytest.fixture
 def async_session():

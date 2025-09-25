@@ -1,5 +1,4 @@
 import hashlib
-import json
 # 导入 JWT 和时间处理所需模块
 from datetime import datetime, timedelta, timezone
 
@@ -12,8 +11,8 @@ from sqlalchemy import select, update
 # 从您的配置中导入 JWT 相关设置
 from config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
-import schemas.database as database
-from schemas.database import VigaUsers, VigaVerifyCodes
+import backend.user_api.db.database as database
+from backend.user_api.db.database import VigaUsers, VigaVerifyCodes
 import random
 from fastapi import HTTPException
 import schemas

@@ -1,15 +1,11 @@
-import sys
-
 import uvicorn
-# __import__('pysqlite3')
-# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-
-import schemas.database as database
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.concurrency import asynccontextmanager
 from fastapi.responses import JSONResponse
 from fastapi import HTTPException
+import db.models
+import db.database as database
 from routers import users
 
 @asynccontextmanager

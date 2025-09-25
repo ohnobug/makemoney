@@ -61,7 +61,7 @@ class _LJNContactState extends State<LJNContact> {
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
-      return systemState.mainpage2isload!
+      return systemState.mainpage2isload
           ? _buildPage(context, systemState)
           : const LJNPageLoading();
     });

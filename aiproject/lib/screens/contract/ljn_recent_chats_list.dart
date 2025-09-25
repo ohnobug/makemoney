@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/api_manager/api.dart';
 import 'package:vigaviga/screens/contract/widgets/ljn_chat_miniprogram.dart';
-import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_chatlist_item.dart';
 import 'package:vigaviga/widgets/ljn_custom_physics.dart';
@@ -142,7 +141,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
         });
       }
 
-      return systemState.mainpage1isload!
+      return systemState.mainpage1isload
           ? _buildPage(systemState)
           : const LJNPageLoading();
     });
