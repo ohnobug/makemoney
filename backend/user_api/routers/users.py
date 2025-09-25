@@ -19,10 +19,10 @@ from db.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
 
 # 创建一个 APIRouter 实例
-router = APIRouter()
+router = APIRouter(prefix="/api/user")
 
 # 登录
-@router.post("/api/login", response_model=UserLoginRequestOut)
+@router.post("/login", response_model=UserLoginRequestOut)
 async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db)):
     """
     用户登录
@@ -47,7 +47,7 @@ async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db))
         raise HTTPException(status_code=401, detail="用户密码错误")
 
 # 注册
-@router.post("/api/register", response_model=UserRegisterRequestOut, summary="用户注册")
+@router.post("/register", response_model=UserRegisterRequestOut, summary="用户注册")
 async def register(request: UserRegisterRequestIn, db: AsyncSession = Depends(get_db)):
     """
     用户注册
@@ -80,7 +80,7 @@ async def register(request: UserRegisterRequestIn, db: AsyncSession = Depends(ge
     )
 
 # 重置密码
-@router.post("/api/reset_password", response_model=UserResetPasswordRequestOut, summary="重置密码")
+@router.post("/reset_password", response_model=UserResetPasswordRequestOut, summary="重置密码")
 async def reset_password(request: UserResetPasswordRequestIn, db: AsyncSession = Depends(get_db)):
     """
     重置密码
@@ -111,7 +111,7 @@ async def reset_password(request: UserResetPasswordRequestIn, db: AsyncSession =
     )
 
 # 获取手机验证码
-@router.post("/api/get_verify_code", response_model=UserGetVerifyCodeRequestOut, summary="获取验证码")
+@router.post("/get_verify_code", response_model=UserGetVerifyCodeRequestOut, summary="获取验证码")
 async def get_verify_code(request: UserGetVerifyCodeRequestIn, db: AsyncSession = Depends(get_db)):
     # ------------------------------------------------------------------------
     # 60秒内同一手机号不能重复获取验证码
@@ -163,7 +163,7 @@ async def get_verify_code(request: UserGetVerifyCodeRequestIn, db: AsyncSession 
     )
 
 # 获取手机验证码列表(测试用)
-@router.get("/api/msgs", response_class=HTMLResponse, summary="获取验证码列表")
+@router.get("/msgs", response_class=HTMLResponse, summary="获取验证码列表")
 async def get_verify_code_list(db: AsyncSession = Depends(get_db)):
     select_stmt = select(VigaVerifyCodes).order_by(VigaVerifyCodes.id.desc())
     data = (await db.scalars(select_stmt)).all()
@@ -173,7 +173,7 @@ async def get_verify_code_list(db: AsyncSession = Depends(get_db)):
     script = """
 <script>
 function clearVerifyCodeList() {
-    fetch("/api/clear_verify_code_list", {
+    fetch("/api/user/clear_verify_code_list", {
         method: "POST"
     }).then(res => {
         if (res.status == 200) {
@@ -224,7 +224,7 @@ function clearVerifyCodeList() {
     return content
 
 # 清空手机验证码列表(测试用)
-@router.post("/api/clear_verify_code_list", response_model=BaseResponse, summary="清空验证码列表")
+@router.post("/clear_verify_code_list", response_model=BaseResponse, summary="清空验证码列表")
 async def clear_verify_code_list(db: AsyncSession = Depends(get_db)):
     delete_stmt = delete(VigaVerifyCodes)
     data = await db.execute(delete_stmt)
@@ -234,7 +234,7 @@ async def clear_verify_code_list(db: AsyncSession = Depends(get_db)):
     return BaseResponse(code=200, message="清空成功")
 
 # 获取用户信息
-@router.post("/api/userinfo", response_model=UserInfoRequestOut)
+@router.post("/userinfo", response_model=UserInfoRequestOut)
 async def userinfo(token: str = Depends(oauth2_scheme)):
     try:
         userinfo = get_userInfo_from_token(token)
