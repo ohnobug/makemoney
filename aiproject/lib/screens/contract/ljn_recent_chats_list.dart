@@ -141,7 +141,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
         });
       }
 
-      return systemState.mainpage1isload
+      return systemState.mainpage1isload!
           ? _buildPage(systemState)
           : const LJNPageLoading();
     });

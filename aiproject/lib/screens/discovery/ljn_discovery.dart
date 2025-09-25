@@ -32,10 +32,21 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
         title: "#夏日Vlog",
         views: "1.2亿次播放",
         icon: Icons.local_fire_department_rounded),
-    TrendItem(title: "#美食探店", views: "8876万次播放", icon: Icons.fastfood_rounded),
-    TrendItem(title: "#萌宠日常", views: "5432万次播放", icon: Icons.pets_rounded),
     TrendItem(
-        title: "#旅行攻略", views: "4888万次播放", icon: Icons.flight_takeoff_rounded),
+      title: "#美食探店",
+      views: "8876万次播放",
+      icon: Icons.fastfood_rounded,
+    ),
+    TrendItem(
+      title: "#萌宠日常",
+      views: "5432万次播放",
+      icon: Icons.pets_rounded,
+    ),
+    TrendItem(
+      title: "#旅行攻略",
+      views: "4888万次播放",
+      icon: Icons.flight_takeoff_rounded,
+    ),
   ];
 
   @override
@@ -67,11 +78,16 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
   // 构建搜索栏 (自带边距)
   Widget _buildSearchBar(ThemeData theme) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(30.w, 20.w, 30.w, 0),
+      padding: EdgeInsets.fromLTRB(
+        30.w,
+        20.w,
+        30.w,
+        0,
+      ),
       child: Container(
         height: 70.w,
         decoration: BoxDecoration(
-          color: theme.dividerColor.withOpacity(0.5),
+          color: theme.dividerColor.withAlpha(128),
           borderRadius: BorderRadius.circular(35.w),
         ),
         child: Row(
@@ -144,7 +160,10 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
   // 构建轮播横幅 (自带边距)
   Widget _buildBanner() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 40.w),
+      padding: EdgeInsets.symmetric(
+        horizontal: 30.w,
+        vertical: 40.w,
+      ),
       child: AspectRatio(
         aspectRatio: 16 / 7,
         child: ClipRRect(
@@ -185,7 +204,12 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
   // 构建热门趋势区块 (自带边距)
   Widget _buildTrendingSection(ThemeData theme) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(30.w, 0, 30.w, 0),
+      padding: EdgeInsets.fromLTRB(
+        30.w,
+        0,
+        30.w,
+        0,
+      ),
       child: Column(
         children: [
           _buildSectionHeader("热门趋势", theme),
@@ -199,15 +223,19 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
               children: trendingTopics.map((item) {
                 return ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: theme.dividerColor.withOpacity(0.8),
+                    backgroundColor: theme.dividerColor.withAlpha(204),
                     child: Icon(
                       item.icon,
                       color: theme.colorScheme.primary,
                       size: 40.w,
                     ),
                   ),
-                  title: Text(item.title,
-                      style: const TextStyle(fontWeight: FontWeight.w500)),
+                  title: Text(
+                    item.title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                   subtitle: Text(
                     item.views,
                     style: TextStyle(
@@ -215,7 +243,10 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
                       fontSize: 24.w,
                     ),
                   ),
-                  trailing: Icon(Icons.chevron_right, color: theme.hintColor),
+                  trailing: Icon(
+                    Icons.chevron_right,
+                    color: theme.hintColor,
+                  ),
                   onTap: () {},
                 );
               }).toList(),

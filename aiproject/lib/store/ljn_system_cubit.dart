@@ -2,7 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:equatable/equatable.dart';
+import 'package:equatable/equatable.dart'; // 1. 引入 equatable 包
 import 'package:vigaviga/tools/ljn_logger.dart';
 
 // 系统的 Cubit
@@ -14,7 +14,7 @@ class LJNSystemCubit extends Cubit<SystemState> {
           ),
         );
 
-  // 更新各种状态的方法
+  // 更新各种状态的方法 (这些方法保持不变，写得很好)
   void updateHomescrollpixels(double homescrollpixels) {
     emit(state.copyWith(homescrollpixels: homescrollpixels));
   }
@@ -70,13 +70,14 @@ class LJNSystemCubit extends Cubit<SystemState> {
   }
 }
 
+// 2. 让 SystemState 继承自 Equatable
 class SystemState extends Equatable {
   final double homescrollpixels;
   final bool contactazshow;
-  final bool mainpage1isload;
-  final bool mainpage2isload;
-  final bool mainpage3isload;
-  final bool mainpage4isload;
+  final bool? mainpage1isload;
+  final bool? mainpage2isload;
+  final bool? mainpage3isload;
+  final bool? mainpage4isload;
   final GlobalKey<NavigatorState> navigatorKey;
   final Size screenSize;
   final double statusHeight;
@@ -87,6 +88,7 @@ class SystemState extends Equatable {
   final bool showVideoProgress;
 
   const SystemState({
+    // 构造函数改为 const，因为 Equatable 推荐 state 是不可变的
     this.homescrollpixels = 0,
     this.contactazshow = false,
     this.mainpage1isload = false,
@@ -138,6 +140,8 @@ class SystemState extends Equatable {
     );
   }
 
+  // 3. 实现 Equatable 的关键：重写 props getter
+  // 把所有需要在比较时考虑的字段都放进这个列表里。
   @override
   List<Object?> get props => [
         homescrollpixels,

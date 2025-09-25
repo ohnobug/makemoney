@@ -57,7 +57,7 @@ class _LJNUserState extends State<LJNUser>
     super.build(context);
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
-      return systemState.mainpage4isload
+      return systemState.mainpage4isload!
           ? _buildPage(systemState)
           : const LJNPageLoading();
     });
@@ -113,35 +113,66 @@ class _LJNUserState extends State<LJNUser>
               ),
             ];
           },
-          body: Container(
-            color: theme.cardColor,
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _UserWorksGrid(
-                  key: const PageStorageKey('works_grid'),
-                  items: _works,
-                  emptyMessage: '保持热爱奔赴山河',
-                  buttonText: '去发布',
-                  onButtonPressed: () {},
-                ),
-                _UserWorksGrid(
-                  key: const PageStorageKey('collections_grid'),
-                  items: _collections,
-                  emptyMessage: '还没有收藏',
-                  buttonText: '去看看',
-                  onButtonPressed: () {},
-                ),
-                _UserWorksGrid(
-                  key: const PageStorageKey('praised_grid'),
-                  items: _praised,
-                  emptyMessage: '还没有赞过',
-                  buttonText: '去看看',
-                  onButtonPressed: () {},
-                ),
-              ],
+          // ===================================================================
+          // [关键改动] 从这里开始
+          // ===================================================================
+          body: GestureDetector(
+            onHorizontalDragEnd: (details) {
+              // `details.primaryVelocity` 用于判断滑动的方向和速度
+              // velocity < 0 是向左滑 (从右到左)
+              // velocity > 0 是向右滑 (从左到右)
+              // 设定一个速度阈值，防止轻微的抖动被误判为滑动
+              double velocity = details.primaryVelocity ?? 0;
+
+              // 向左滑动，切换到下一个 Tab
+              if (velocity < -100 && _tabController.index < _tabController.length - 1) {
+                _tabController.animateTo(_tabController.index + 1);
+              }
+              // 向右滑动
+              else if (velocity > 100) {
+                // [核心逻辑] 只有在不是第一个 Tab 时，才响应向右滑动，切换到上一个 Tab
+                if (_tabController.index > 0) {
+                  _tabController.animateTo(_tabController.index - 1);
+                }
+                // 如果当前是第一个 Tab (index == 0)，则此处不执行任何操作。
+                // 这就实现了“向左锁定”，并将手势传递给上层处理。
+              }
+            },
+            child: Container(
+              color: theme.cardColor,
+              child: TabBarView(
+                controller: _tabController,
+                // [核心逻辑] 禁用 TabBarView 的内置滑动功能，完全交由我们自己的 GestureDetector 处理
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  _UserWorksGrid(
+                    key: const PageStorageKey('works_grid'),
+                    items: _works,
+                    emptyMessage: '保持热爱奔赴山河',
+                    buttonText: '去发布',
+                    onButtonPressed: () {},
+                  ),
+                  _UserWorksGrid(
+                    key: const PageStorageKey('collections_grid'),
+                    items: _collections,
+                    emptyMessage: '还没有收藏',
+                    buttonText: '去看看',
+                    onButtonPressed: () {},
+                  ),
+                  _UserWorksGrid(
+                    key: const PageStorageKey('praised_grid'),
+                    items: _praised,
+                    emptyMessage: '还没有赞过',
+                    buttonText: '去看看',
+                    onButtonPressed: () {},
+                  ),
+                ],
+              ),
             ),
           ),
+          // ===================================================================
+          // [关键改动] 到这里结束
+          // ===================================================================
         ),
       ),
     );
