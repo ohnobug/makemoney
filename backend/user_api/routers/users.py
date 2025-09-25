@@ -4,19 +4,26 @@ from fastapi import Depends
 from fastapi.responses import HTMLResponse
 from fastapi import APIRouter, HTTPException
 from sqlalchemy import delete, insert, select, update
+from schemas.base_response import BaseResponse
+from schemas.user_getverifycode import UserGetVerifyCodePurposeEnum, UserGetVerifyCodeRequestIn, UserGetVerifyCodeRequestOut
+from schemas.user_resetpassword import UserResetPasswordRequestIn, UserResetPasswordRequestOut
+from schemas.userinfo import UserInfo, UserInfoRequestOut
+from schemas.user_register import UserRegisterRequestIn, UserRegisterRequestOut
+from schemas.user_login import UserLoginRequestIn, UserLoginRequestOut, UserLoginToken
 from routers.oauth2_scheme import oauth2_scheme
 from sms import BAIDUSMS
 from utils.utils import check_verify_code, generate_numeric_code_randint, get_token, get_userInfo_from_token, password_hash
-import schemas
-from db.database import VigaUsers, VigaVerifyCodes, get_db
+
+from db.models import VigaUsers, VigaVerifyCodes
+from db.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
 
 # 创建一个 APIRouter 实例
 router = APIRouter()
 
 # 登录
-@router.post("/api/login", response_model=schemas.UserLoginRequestOut)
-async def login(request: schemas.UserLoginRequestIn, db: AsyncSession = Depends(get_db)):
+@router.post("/api/login", response_model=UserLoginRequestOut)
+async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db)):
     """
     用户登录
     """
@@ -31,17 +38,17 @@ async def login(request: schemas.UserLoginRequestIn, db: AsyncSession = Depends(
     if (checkPassword == userinfo.password_hash):
         token = get_token(userinfo)
         
-        return schemas.UserLoginRequestOut(
+        return UserLoginRequestOut(
             code=200,
             message="success",
-            data=schemas.UserLoginToken(token=token)
+            data=UserLoginToken(token=token)
         )
     else:
         raise HTTPException(status_code=401, detail="用户密码错误")
 
 # 注册
-@router.post("/api/register", response_model=schemas.UserRegisterRequestOut, summary="用户注册")
-async def register(request: schemas.UserRegisterRequestIn, db: AsyncSession = Depends(get_db)):
+@router.post("/api/register", response_model=UserRegisterRequestOut, summary="用户注册")
+async def register(request: UserRegisterRequestIn, db: AsyncSession = Depends(get_db)):
     """
     用户注册
     """
@@ -54,7 +61,7 @@ async def register(request: schemas.UserRegisterRequestIn, db: AsyncSession = De
         raise HTTPException(status_code=409, detail="手机号已被注册")
 
     # 检测验证码
-    await check_verify_code(db, request.phone_number, request.verify_code, schemas.UserGetVerifyCodePurposeEnum.REGISTER)
+    await check_verify_code(db, request.phone_number, request.verify_code, UserGetVerifyCodePurposeEnum.REGISTER)
 
     # 注册用户
     passwordh = password_hash(request.password)
@@ -67,14 +74,14 @@ async def register(request: schemas.UserRegisterRequestIn, db: AsyncSession = De
     # result.inserted_primary_key[0]
     await db.commit()
 
-    return schemas.UserRegisterRequestOut(
+    return UserRegisterRequestOut(
         code=200,
         message="注册成功"
     )
 
 # 重置密码
-@router.post("/api/reset_password", response_model=schemas.UserResetPasswordRequestOut, summary="重置密码")
-async def reset_password(request: schemas.UserResetPasswordRequestIn, db: AsyncSession = Depends(get_db)):
+@router.post("/api/reset_password", response_model=UserResetPasswordRequestOut, summary="重置密码")
+async def reset_password(request: UserResetPasswordRequestIn, db: AsyncSession = Depends(get_db)):
     """
     重置密码
     """
@@ -86,7 +93,7 @@ async def reset_password(request: schemas.UserResetPasswordRequestIn, db: AsyncS
         raise HTTPException(status_code=404, detail="手机号未注册")
 
     # 检测验证码
-    await check_verify_code(db, request.phone_number, request.verify_code, schemas.UserGetVerifyCodePurposeEnum.FORGOT_PASSWORD)
+    await check_verify_code(db, request.phone_number, request.verify_code, UserGetVerifyCodePurposeEnum.FORGOT_PASSWORD)
 
     # 重置密码
     update_stmt = update(VigaUsers).where(
@@ -98,14 +105,14 @@ async def reset_password(request: schemas.UserResetPasswordRequestIn, db: AsyncS
     result = await db.execute(update_stmt)
     await db.commit()
 
-    return schemas.UserResetPasswordRequestOut(
+    return UserResetPasswordRequestOut(
         code=200,
         message="重置密码成功"
     )
 
 # 获取手机验证码
-@router.post("/api/get_verify_code", response_model=schemas.UserGetVerifyCodeRequestOut, summary="获取验证码")
-async def get_verify_code(request: schemas.UserGetVerifyCodeRequestIn, db: AsyncSession = Depends(get_db)):
+@router.post("/api/get_verify_code", response_model=UserGetVerifyCodeRequestOut, summary="获取验证码")
+async def get_verify_code(request: UserGetVerifyCodeRequestIn, db: AsyncSession = Depends(get_db)):
     # ------------------------------------------------------------------------
     # 60秒内同一手机号不能重复获取验证码
     select_stmt = select(
@@ -123,7 +130,7 @@ async def get_verify_code(request: schemas.UserGetVerifyCodeRequestIn, db: Async
     # ------------------------------------------------------------------------
 
     # 查看是否注册
-    if request.purpose == schemas.UserGetVerifyCodePurposeEnum.REGISTER:
+    if request.purpose == UserGetVerifyCodePurposeEnum.REGISTER:
         query_stmt = select(VigaUsers).where(VigaUsers.phone_number == request.phone_number)
         userinfo = await db.scalar(query_stmt)
         if userinfo is not None:
@@ -133,10 +140,10 @@ async def get_verify_code(request: schemas.UserGetVerifyCodeRequestIn, db: Async
     code = str(generate_numeric_code_randint())
 
     # 调用接口发送验证码
-    if request.purpose == schemas.UserGetVerifyCodePurposeEnum.REGISTER:
+    if request.purpose == UserGetVerifyCodePurposeEnum.REGISTER:
         # BAIDUSMS.send_register_verify_code(request.phone_number, code)
         pass
-    elif request.purpose == schemas.UserGetVerifyCodePurposeEnum.FORGOT_PASSWORD:
+    elif request.purpose == UserGetVerifyCodePurposeEnum.FORGOT_PASSWORD:
         # BAIDUSMS.send_reset_password_verify_code(request.phone_number, code)
         pass
 
@@ -150,7 +157,7 @@ async def get_verify_code(request: schemas.UserGetVerifyCodeRequestIn, db: Async
     await db.execute(insert_stmt)
     await db.commit()
 
-    return schemas.UserGetVerifyCodeRequestOut(
+    return UserGetVerifyCodeRequestOut(
         code=200,
         message="获取验证码成功"
     )
@@ -217,27 +224,27 @@ function clearVerifyCodeList() {
     return content
 
 # 清空手机验证码列表(测试用)
-@router.post("/api/clear_verify_code_list", response_model=schemas.BaseResponse, summary="清空验证码列表")
+@router.post("/api/clear_verify_code_list", response_model=BaseResponse, summary="清空验证码列表")
 async def clear_verify_code_list(db: AsyncSession = Depends(get_db)):
     delete_stmt = delete(VigaVerifyCodes)
     data = await db.execute(delete_stmt)
 
     await db.commit()
 
-    return schemas.BaseResponse(code=200, message="清空成功")
+    return BaseResponse(code=200, message="清空成功")
 
 # 获取用户信息
-@router.post("/api/userinfo", response_model=schemas.UserInfoRequestOut)
+@router.post("/api/userinfo", response_model=UserInfoRequestOut)
 async def userinfo(token: str = Depends(oauth2_scheme)):
     try:
         userinfo = get_userInfo_from_token(token)
     except:
         raise HTTPException(status_code=401, detail="token解析错误")
 
-    return schemas.UserInfoRequestOut(
+    return UserInfoRequestOut(
         code=200,
         message="success",
-        data=schemas.UserInfo(
+        data=UserInfo(
             phone_number=userinfo['phone_number']
         )
     )

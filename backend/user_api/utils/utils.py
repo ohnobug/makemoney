@@ -9,13 +9,13 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy import select, update
 
 # 从您的配置中导入 JWT 相关设置
+from schemas.user_getverifycode import UserGetVerifyCodePurposeEnum
 from config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
-import backend.user_api.db.database as database
-from backend.user_api.db.database import VigaUsers, VigaVerifyCodes
+import db as database
+from db.models import VigaUsers, VigaVerifyCodes
 import random
 from fastapi import HTTPException
-import schemas
 
 # Passlib 上下文，用于安全的密码哈希（推荐使用）
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -130,7 +130,7 @@ def p(stri: str):
     print("\n" * 2)
 
 
-async def check_verify_code(db, phone_number: str, code: str, purpose: schemas.UserGetVerifyCodePurposeEnum):
+async def check_verify_code(db, phone_number: str, code: str, purpose: UserGetVerifyCodePurposeEnum):
     """
     检查手机验证码是否正确、有效且未被使用。
     """
