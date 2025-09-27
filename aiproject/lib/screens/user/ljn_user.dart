@@ -27,7 +27,8 @@ class _LJNUserState extends State<LJNUser>
   late TabController _tabController;
   late PageController _pageController;
 
-  bool _isDraggingParent = false;
+  // 用于手势仲裁的状态
+  bool? _isDraggingParent; // 使用可空类型来表示初始“未定”状态
 
   final List<String> _works =
       List.generate(25, (i) => 'https://picsum.photos/300/400?random=$i');
@@ -128,34 +129,60 @@ class _LJNUserState extends State<LJNUser>
               ),
             ];
           },
-          // [最终修正] 使用 NotificationListener 方案，稳定可靠
-          body: NotificationListener<ScrollNotification>(
-            onNotification: (ScrollNotification notification) {
-              if (notification is ScrollUpdateNotification &&
-                  notification.dragDetails != null) {
-                if (notification.metrics.pixels <= 0 &&
-                    notification.dragDetails!.delta.dx > 0) {
-                  if (!_isDraggingParent) {
-                    _isDraggingParent = true;
-                    systemCubit.onParentDragStart();
-                  }
-                  systemCubit
-                      .onParentDragUpdate(notification.dragDetails!.delta.dx);
-                  return true; // 消费通知，阻止 overscroll 效果
-                }
-              }
-              if (notification is ScrollEndNotification) {
-                if (_isDraggingParent) {
+          // [最终修正] 使用 GestureDetector 手动控制 PageView
+          body: GestureDetector(
+            onHorizontalDragStart: (details) {
+              // 在开始时不决定方向，只重置状态
+              _isDraggingParent = null;
+            },
+            onHorizontalDragUpdate: (details) {
+              // 在第一次 update 时才做决定
+              if (_isDraggingParent == null) {
+                // 如果在第一页，并且是向右滑
+                if (_pageController.page! < 0.5 && details.delta.dx > 0) {
+                  _isDraggingParent = true;
+                  systemCubit.onParentDragStart();
+                } else {
+                  // 否则，是拖拽自己
                   _isDraggingParent = false;
-                  systemCubit.onParentDragEnd(
-                      notification.dragDetails?.primaryVelocity ?? 0);
                 }
               }
-              return false; // 不消费通知，让 PageView 正常滚动
+
+              if (_isDraggingParent == true) {
+                systemCubit.onParentDragUpdate(details.delta.dx);
+              } else {
+                _pageController.position
+                    .jumpTo(_pageController.position.pixels - details.delta.dx);
+              }
+            },
+            onHorizontalDragEnd: (details) {
+              if (_isDraggingParent == true) {
+                systemCubit.onParentDragEnd(details.primaryVelocity ?? 0);
+              } else {
+                final velocity = details.primaryVelocity ?? 0;
+                final currentPage = _pageController.page!;
+                int targetPage;
+
+                if (velocity.abs() > 600) {
+                  targetPage =
+                      velocity < 0 ? currentPage.ceil() : currentPage.floor();
+                } else {
+                  targetPage = currentPage.round();
+                }
+
+                _pageController.animateToPage(
+                  targetPage.clamp(0, 2),
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeOut,
+                );
+              }
+              // 重置状态
+              _isDraggingParent = null;
             },
             child: PageView(
               controller: _pageController,
-              physics: const ClampingScrollPhysics(),
+              // [核心] 禁用 PageView 自己的手势
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 _UserWorksGrid(
                     key: const PageStorageKey('works_grid'),

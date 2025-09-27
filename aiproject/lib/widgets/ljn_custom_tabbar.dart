@@ -64,6 +64,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   int _appbarNameIndex = 0;
   double _appbarLeft = 0;
   bool _hiddenAppbar = true;
+  bool _setStatusHeight = false;
   bool _showPopup = false;
 
   Color? _tabBarBackgroundColor;
@@ -95,8 +96,11 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     final int newIndex = page.round();
 
     if (_tabController.index != newIndex) {
-      _tabController.index = newIndex;
+      setState(() {
+        _tabController.index = newIndex;
+      });
     }
+
     _tabController.offset = page - newIndex;
 
     // 延迟到下一帧更新UI，避免 build 期间调用 setState
