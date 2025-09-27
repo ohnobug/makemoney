@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 
+// 定义父级 TabBar 拖拽状态的枚举
+enum ParentDragState { idle, dragging, animating }
+
 // 系统的 Cubit
 class LJNSystemCubit extends Cubit<SystemState> {
   LJNSystemCubit()
@@ -15,31 +18,55 @@ class LJNSystemCubit extends Cubit<SystemState> {
         );
 
   // =======================================================================
-  // [新增] 用于控制主 TabBar 切换的方法
+  // 用于代理子页面拖拽事件的方法
   // =======================================================================
 
-  /// 更新当前主 TabBar 的索引到状态中
-  void updateMainTabIndex(int index) {
-    emit(state.copyWith(mainTabIndex: index));
-  }
-
-  /// 发出切换到上一个主 Tab 的命令
-  void switchToPreviousMainTab() {
-    // 只有在当前不是第一个 Tab 时才执行
-    if (state.mainTabIndex > 0) {
-      emit(state.copyWith(changeMainTabTo: state.mainTabIndex - 1));
+  /// 当子页面决定要代理拖拽给父级时，调用此方法开始
+  void onParentDragStart() {
+    // 只有在空闲状态下才能开始新的拖拽
+    if (state.parentDragState == ParentDragState.idle) {
+      emit(state.copyWith(
+        parentDragState: ParentDragState.dragging,
+        parentDragOffset: 0.0,
+      ));
     }
   }
 
-  /// 在主 Tab 切换命令被处理后，重置该命令，防止重复触发
-  void mainTabChangeHandled() {
-    // 使用一个特殊的技巧来确保 copyWith 能够将值设为 null
-    emit(state.copyWith(clearChangeMainTabTo: true));
+  /// 实时更新被代理的拖拽偏移
+  void onParentDragUpdate(double dragDelta) {
+    if (state.parentDragState == ParentDragState.dragging) {
+      emit(state.copyWith(
+        parentDragOffset: state.parentDragOffset + dragDelta,
+      ));
+    }
+  }
+
+  /// 当子页面结束代理拖拽时调用
+  void onParentDragEnd(double velocity) {
+    if (state.parentDragState == ParentDragState.dragging) {
+      emit(state.copyWith(
+        parentDragState: ParentDragState.animating,
+        parentDragEndVelocity: velocity,
+      ));
+    }
+  }
+
+  /// 当父级 TabBar 的动画处理完毕后，重置状态
+  void onParentDragHandled() {
+    emit(state.copyWith(
+      parentDragState: ParentDragState.idle,
+      parentDragOffset: 0.0,
+      clearParentDragEndVelocity: true,
+    ));
   }
 
   // =======================================================================
-  // 其他状态更新方法 (保持不变)
+  // 其他状态管理方法
   // =======================================================================
+
+  void updateMainTabIndex(int index) {
+    emit(state.copyWith(mainTabIndex: index));
+  }
 
   void updateHomescrollpixels(double homescrollpixels) {
     emit(state.copyWith(homescrollpixels: homescrollpixels));
@@ -111,10 +138,11 @@ class SystemState extends Equatable {
   final Locale currentLocale;
   final double videoProgress;
   final bool showVideoProgress;
+  final int mainTabIndex;
 
-  // [新增] 用于控制主 TabBar 的状态
-  final int mainTabIndex; // 当前主 TabBar 的索引
-  final int? changeMainTabTo; // 一个命令式的事件，用于请求改变主 TabBar 的索引
+  final ParentDragState parentDragState;
+  final double parentDragOffset;
+  final double? parentDragEndVelocity;
 
   const SystemState({
     this.homescrollpixels = 0,
@@ -131,9 +159,10 @@ class SystemState extends Equatable {
     required this.navigatorKey,
     this.videoProgress = 0.0,
     this.showVideoProgress = false,
-    // [新增] 初始化新字段
     this.mainTabIndex = 0,
-    this.changeMainTabTo,
+    this.parentDragState = ParentDragState.idle,
+    this.parentDragOffset = 0.0,
+    this.parentDragEndVelocity,
   });
 
   SystemState copyWith({
@@ -151,11 +180,11 @@ class SystemState extends Equatable {
     GlobalKey<NavigatorState>? navigatorKey,
     double? videoProgress,
     bool? showVideoProgress,
-    // [新增] 添加新字段到 copyWith 方法
     int? mainTabIndex,
-    int? changeMainTabTo,
-    // [新增] 一个特殊标志，用于将 changeMainTabTo 清空为 null
-    bool clearChangeMainTabTo = false,
+    ParentDragState? parentDragState,
+    double? parentDragOffset,
+    double? parentDragEndVelocity,
+    bool clearParentDragEndVelocity = false,
   }) {
     return SystemState(
       homescrollpixels: homescrollpixels ?? this.homescrollpixels,
@@ -173,11 +202,12 @@ class SystemState extends Equatable {
       currentLocale: currentLocale ?? this.currentLocale,
       videoProgress: videoProgress ?? this.videoProgress,
       showVideoProgress: showVideoProgress ?? this.showVideoProgress,
-      // [新增] 处理新字段的复制逻辑
       mainTabIndex: mainTabIndex ?? this.mainTabIndex,
-      // 如果 clearChangeMainTabTo 为 true，则将 changeMainTabTo 设为 null，否则使用提供的值或旧值
-      changeMainTabTo:
-          clearChangeMainTabTo ? null : changeMainTabTo ?? this.changeMainTabTo,
+      parentDragState: parentDragState ?? this.parentDragState,
+      parentDragOffset: parentDragOffset ?? this.parentDragOffset,
+      parentDragEndVelocity: clearParentDragEndVelocity
+          ? null
+          : parentDragEndVelocity ?? this.parentDragEndVelocity,
     );
   }
 
@@ -197,8 +227,9 @@ class SystemState extends Equatable {
         currentLocale,
         videoProgress,
         showVideoProgress,
-        // [新增] 添加新字段到 props 列表
         mainTabIndex,
-        changeMainTabTo,
+        parentDragState,
+        parentDragOffset,
+        parentDragEndVelocity,
       ];
 }

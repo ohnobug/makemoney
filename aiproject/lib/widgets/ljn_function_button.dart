@@ -81,21 +81,22 @@ class LJNFunctionButtonState extends State<LJNFunctionButton> {
             ClipOval(
               child: Image.asset(
                 assetPath(widget.icon),
-                width: 60.w,
-                height: 60.w,
+                width: 68.w,
+                height: 68.w,
                 cacheHeight: 180.w.toInt(),
                 cacheWidth: 180.w.toInt(),
                 fit: BoxFit.cover, // 让图片完全填满圆形区域
               ),
             ),
-            SizedBox(height: 12.w), // 图标和标题之间的间距
+            SizedBox(height: 15.w), // 图标和标题之间的间距
             Container(
               height: twoLinesTextHeight, // 关键：为文本区域提供一个固定的、能容纳两行的高度
               alignment: Alignment.topCenter, // 使单行文本也能顶部对齐
               padding: EdgeInsets.symmetric(horizontal: 5.w),
               child: Text(
                 widget.title,
-                maxLines: 2,
+                maxLines: 1,
+                overflow: TextOverflow.fade,
                 textAlign: TextAlign.center,
                 style: textStyle,
               ),

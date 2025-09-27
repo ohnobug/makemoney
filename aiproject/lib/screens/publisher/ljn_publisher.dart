@@ -93,10 +93,10 @@ class LJNPublisher extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 48.w,
+              size: 100.w,
               color: theme.colorScheme.primary,
             ),
-            SizedBox(width: 16.w),
+            SizedBox(width: 30.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,12 +108,12 @@ class LJNPublisher extends StatelessWidget {
                       color: theme.colorScheme.onSurface,
                     ),
                   ),
-                  SizedBox(height: 4.h),
+                  SizedBox(height: 5.h),
                   Text(
                     description,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
-                      height: 2.1.w,
+                      height: 2.6.w,
                     ),
                   ),
                 ],

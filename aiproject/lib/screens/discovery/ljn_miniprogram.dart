@@ -129,11 +129,15 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
       final response = await http.get(uri,
           headers: {'Host': '127.0.0.1', 'Content-Type': 'text/html'});
       if (response.statusCode == 200) {
-        webViewController.loadHtmlString(response.body, baseUrl: requestUrl);
+        webViewController.loadHtmlString(
+          response.body,
+          baseUrl: requestUrl,
+        );
       } else {
         webViewController.loadHtmlString(
-            "<h1 style='margin-top: 100px'>页面挂了</h1><a href='/qq'>qqq</a>",
-            baseUrl: requestUrl);
+          "<h1 style='margin-top: 100px'>页面挂了</h1><a href='/qq'>qqq</a>",
+          baseUrl: requestUrl,
+        );
       }
     } else {
       webViewController.loadRequest(
@@ -1162,8 +1166,7 @@ class LJNPopupFunctionButtonState extends State<LJNPopupFunctionButton> {
         margin: EdgeInsets.only(right: 25.w),
         decoration: BoxDecoration(
           // color: Colors.orange,
-          color:
-              _isPressed ? Colors.grey[200] : Colors.transparent, // 按下时背景色
+          color: _isPressed ? Colors.grey[200] : Colors.transparent, // 按下时背景色
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
