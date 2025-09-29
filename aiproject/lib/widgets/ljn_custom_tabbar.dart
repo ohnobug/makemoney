@@ -89,16 +89,13 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
   void _updateUiForPage(double page) {
     if (!mounted) return;
-
-    // [MODIFIED] 添加保护判断，防止在 TabController 忙时设置 offset
     if (_tabController.indexIsChanging) return;
 
-    // [MODIFIED] 恢复 offset 的设置，确保 TabBar 指示器平滑滚动
     _tabController.offset = (page - _tabController.index).clamp(-1.0, 1.0);
 
     final theme = Theme.of(context);
 
-    // Color interpolation logic for the TabBar
+    // 定义两种状态的颜色
     final Color videoTabBackgroundColor = Colors.black.withAlpha(64);
     const Color videoTabForegroundColor = Colors.white;
     final Color videoTabUnselectedColor = Colors.white.withAlpha(153);
@@ -111,7 +108,10 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
         theme.tabBarTheme.unselectedLabelColor ?? Colors.grey;
     final Color otherTabBorderColor = theme.dividerColor;
 
+    // 计算渐变进度 t
     final double t = page.clamp(0.0, 1.0);
+
+    // 使用 lerp 计算当前帧的颜色
     final newTabBarBackgroundColor =
         Color.lerp(videoTabBackgroundColor, otherTabBackgroundColor, t)!;
     final newSelectedItemColor =
@@ -121,7 +121,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     final newBorderColor =
         Color.lerp(videoTabBorderColor, otherTabBorderColor, t)!;
 
-    // AppBar sliding animation logic
+    // AppBar 滑动动画逻辑
     double newAppbarLeft = 0;
     int newAppbarNameIndex = page.round();
 
@@ -135,6 +135,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
     final bool newHiddenAppbar = (page.round() == 0 || page >= 4);
 
+    // 通过 setState 应用所有计算出的新状态
     setState(() {
       _tabBarBackgroundColor = newTabBarBackgroundColor;
       _selectedItemColor = newSelectedItemColor;
@@ -193,22 +194,16 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
       listenWhen: (prev, current) =>
           prev.parentDragState != current.parentDragState ||
           (current.parentDragState == ParentDragState.dragging &&
-              prev.parentDragDelta !=
-                  current.parentDragDelta), // [MODIFIED] 监听增量变化
+              prev.parentDragDelta != current.parentDragDelta),
       listener: (context, state) {
-        // SCENE 1: Child page is actively dragging
         if (state.parentDragState == ParentDragState.dragging) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (_pageController.hasClients) {
-              // [MODIFIED] 关键修改：从绝对定位改为相对定位
-              // 在当前滚动位置的基础上，减去刚刚发生的增量
               _pageController.position.jumpTo(
                   _pageController.position.pixels - state.parentDragDelta);
             }
           });
-        }
-        // SCENE 2: Child page has finished dragging
-        else if (state.parentDragState == ParentDragState.animating) {
+        } else if (state.parentDragState == ParentDragState.animating) {
           final velocity = state.parentDragEndVelocity!;
           final offset = state.parentDragOffset;
 
@@ -248,24 +243,16 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 child: TabBar(
                   controller: _tabController,
                   onTap: (index) {
-                    // if (_tabController.index != index) {
-                    // 1. [可选但推荐] 立即更新 TabController 的 index 并触发重建，
-                    //    这能让图标和标签颜色在点击瞬间就变化，响应最快。
-                    setState(() {
-                      _tabController.index = index;
-                    });
-
-                    // 2. [关键修复] 立即调用 UI 更新函数，并传入目标页面的整数值。
-                    //    这会立刻计算并设置 AppBar 到它在目标页面的最终状态。
+                    // [MODIFIED] 最终的、最稳健的 onTap 逻辑
+                    // 1. 立即将 UI "跃迁" 到目标页面的最终状态
                     _updateUiForPage(index.toDouble());
 
-                    // 3. 最后，命令 PageController 播放动画，平滑地滚动到目标页面。
+                    // 2. 启动 PageView 的内容滚动动画
                     _pageController.animateToPage(
                       index,
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.ease,
                     );
-                    // }
                   },
                   dividerColor: Colors.transparent,
                   labelColor: _selectedItemColor,
