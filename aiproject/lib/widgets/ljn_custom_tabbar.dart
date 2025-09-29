@@ -70,6 +70,9 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   Color _unselectedItemColor = Colors.white.withAlpha(153);
   Color _borderColor = Colors.white.withAlpha(38);
 
+  // [MODIFIED] 新增一个“点击锁”
+  bool _isTapAnimating = false;
+
   @override
   void initState() {
     super.initState();
@@ -89,13 +92,14 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
   void _updateUiForPage(double page) {
     if (!mounted) return;
-    if (_tabController.indexIsChanging) return;
+    if (_tabController.indexIsChanging && !_isTapAnimating) return;
 
-    _tabController.offset = (page - _tabController.index).clamp(-1.0, 1.0);
+    // 在非点击动画期间，同步 offset
+    if (!_isTapAnimating) {
+      _tabController.offset = (page - _tabController.index).clamp(-1.0, 1.0);
+    }
 
     final theme = Theme.of(context);
-
-    // 定义两种状态的颜色
     final Color videoTabBackgroundColor = Colors.black.withAlpha(64);
     const Color videoTabForegroundColor = Colors.white;
     final Color videoTabUnselectedColor = Colors.white.withAlpha(153);
@@ -108,10 +112,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
         theme.tabBarTheme.unselectedLabelColor ?? Colors.grey;
     final Color otherTabBorderColor = theme.dividerColor;
 
-    // 计算渐变进度 t
     final double t = page.clamp(0.0, 1.0);
-
-    // 使用 lerp 计算当前帧的颜色
     final newTabBarBackgroundColor =
         Color.lerp(videoTabBackgroundColor, otherTabBackgroundColor, t)!;
     final newSelectedItemColor =
@@ -121,10 +122,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     final newBorderColor =
         Color.lerp(videoTabBorderColor, otherTabBorderColor, t)!;
 
-    // AppBar 滑动动画逻辑
     double newAppbarLeft = 0;
     int newAppbarNameIndex = page.round();
-
     if (page >= 0 && page < 1) {
       newAppbarLeft = (1 - page) * 750.w;
       newAppbarNameIndex = 1;
@@ -132,16 +131,13 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
       newAppbarLeft = ((page - 3) * 750.w) * -1;
       newAppbarNameIndex = 3;
     }
-
     final bool newHiddenAppbar = (page.round() == 0 || page >= 4);
 
-    // 通过 setState 应用所有计算出的新状态
     setState(() {
       _tabBarBackgroundColor = newTabBarBackgroundColor;
       _selectedItemColor = newSelectedItemColor;
       _unselectedItemColor = newUnselectedItemColor;
       _borderColor = newBorderColor;
-
       _appbarLeft = newAppbarLeft;
       _appbarNameIndex = newAppbarNameIndex;
       _hiddenAppbar = newHiddenAppbar;
@@ -150,6 +146,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
   void _handlePageScroll() {
     if (!_pageController.hasClients) return;
+    // [MODIFIED] 如果正在进行点击动画，则忽略滚动监听器的调用
+    if (_isTapAnimating) return;
     _updateUiForPage(_pageController.page!);
   }
 
@@ -206,7 +204,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
         } else if (state.parentDragState == ParentDragState.animating) {
           final velocity = state.parentDragEndVelocity!;
           final offset = state.parentDragOffset;
-
           if (offset > screenWidth / 3 || velocity > 800) {
             _pageController.animateToPage(_tabController.index - 1,
                 duration: const Duration(milliseconds: 250),
@@ -216,7 +213,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 duration: const Duration(milliseconds: 250),
                 curve: Curves.easeOut);
           }
-
           systemCubit.onParentDragHandled();
         }
       },
@@ -243,16 +239,31 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 child: TabBar(
                   controller: _tabController,
                   onTap: (index) {
-                    // [MODIFIED] 最终的、最稳健的 onTap 逻辑
-                    // 1. 立即将 UI "跃迁" 到目标页面的最终状态
-                    _updateUiForPage(index.toDouble());
+                    // if (_tabController.index == index) return;
 
-                    // 2. 启动 PageView 的内容滚动动画
-                    _pageController.animateToPage(
+                    // [MODIFIED] 终极修复方案
+                    setState(() {
+                      _isTapAnimating = true;
+                    });
+
+                    _updateUiForPage(index.toDouble());
+                    _tabController.index = index; // 立即同步 index
+
+                    _pageController
+                        .animateToPage(
                       index,
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.ease,
-                    );
+                    )
+                        .then((_) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        if (mounted) {
+                          setState(() {
+                            _isTapAnimating = false;
+                          });
+                        }
+                      });
+                    });
                   },
                   dividerColor: Colors.transparent,
                   labelColor: _selectedItemColor,
@@ -267,7 +278,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                       final icon = _tabController.index == index
                           ? tabInfo.selectedIcon
                           : tabInfo.icon;
-
                       return Tab(
                         height: 105.w,
                         iconMargin: EdgeInsets.only(bottom: 8.w),

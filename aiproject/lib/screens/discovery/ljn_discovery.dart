@@ -91,7 +91,10 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
-      body: SafeArea(
+      primary: false,
+      appBar: null,
+      body: Padding(
+        padding: EdgeInsetsGeometry.only(top: 90.w + systemState.statusHeight),
         child: ListView(
           children: [
             _buildSearchBar(theme),
