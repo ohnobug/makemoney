@@ -1,21 +1,19 @@
-import 'package:flutter/foundation.dart';
+// ./lib/widgets/ljn_custom_tabbar.dart
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
+import 'package:vigaviga/widgets/ljn_popup_menu.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/screens/publisher/ljn_publisher.dart';
 import 'package:vigaviga/screens/shortvideos/ljn_arts.dart';
-import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/widgets/ljn_appbar_inner.dart';
-import 'package:vigaviga/widgets/ljn_custom_physics.dart';
 import 'package:vigaviga/screens/discovery/ljn_discovery.dart';
 import 'package:vigaviga/screens/contract/ljn_recent_chats_list.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/screens/user/ljn_user.dart';
-import 'package:vigaviga/widgets/ljn_popup_menu.dart';
 
-// 关键改动 1: _TabInfo 不再需要 title 属性。它只存储不依赖 context 的静态信息。
 class _TabInfo {
   final IconData icon;
   final IconData selectedIcon;
@@ -28,7 +26,6 @@ class _TabInfo {
   });
 }
 
-/// 自定义Tabbar
 class LJNCustomTabbar extends StatefulWidget {
   const LJNCustomTabbar({super.key});
 
@@ -39,103 +36,149 @@ class LJNCustomTabbar extends StatefulWidget {
 class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     with TickerProviderStateMixin {
   late final TabController _tabController;
+  late final PageController _pageController;
 
-  // 关键改动 2: _tabs 列表现在是 final，并且只包含静态的图标信息。
   final List<_TabInfo> _tabs = [
     _TabInfo(
-        icon: IconData(0xe7b3, fontFamily: "Iconfont"),
-        selectedIcon: IconData(0xe676, fontFamily: 'Iconfont'),
-        iconSize: 90.0.w), // 短视频
+        icon: const IconData(0xe7b3, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe676, fontFamily: "Iconfont"),
+        iconSize: 90.0.w),
     _TabInfo(
-        icon: IconData(0xe61c, fontFamily: "Iconfont"),
-        selectedIcon: IconData(0xe638, fontFamily: 'Iconfont'),
-        iconSize: 86.0.w), // 发现
+        icon: const IconData(0xe61c, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe638, fontFamily: "Iconfont"),
+        iconSize: 86.0.w),
     _TabInfo(
-        icon: IconData(0xe67c, fontFamily: "Iconfont"),
-        selectedIcon: IconData(0xe642, fontFamily: 'Iconfont'),
-        iconSize: 96.0.w), // 发布
+        icon: const IconData(0xe67c, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe642, fontFamily: "Iconfont"),
+        iconSize: 96.0.w),
     _TabInfo(
-        icon: IconData(0xe7b3, fontFamily: "Iconfont"),
-        selectedIcon: IconData(0xe676, fontFamily: 'Iconfont'),
-        iconSize: 90.0.w), // 聊天
+        icon: const IconData(0xe7b3, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe676, fontFamily: "Iconfont"),
+        iconSize: 90.0.w),
     _TabInfo(
-        icon: IconData(0xe63f, fontFamily: "Iconfont"),
-        selectedIcon: IconData(0xe62b, fontFamily: 'Iconfont'),
-        iconSize: 96.0.w), // 我的
+        icon: const IconData(0xe63f, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe62b, fontFamily: "Iconfont"),
+        iconSize: 96.0.w),
   ];
 
-  int _tabbarIndex = 0;
   int _appbarNameIndex = 0;
   double _appbarLeft = 0;
   bool _hiddenAppbar = true;
-  bool _setStatusHeight = false;
   bool _showPopup = false;
+
+  Color _tabBarBackgroundColor = Colors.black.withAlpha(64);
+  Color _selectedItemColor = Colors.white;
+  Color _unselectedItemColor = Colors.white.withAlpha(153);
+  Color _borderColor = Colors.white.withAlpha(38);
 
   @override
   void initState() {
     super.initState();
-    // 关键改动 3: TabController 可以在 initState 中安全地初始化，因为它不再依赖 context。
-    _tabController = TabController(
-      length: _tabs.length,
-      vsync: this,
-      animationDuration: Duration.zero,
-    );
+    _tabController = TabController(length: _tabs.length, vsync: this);
+    _pageController = PageController();
 
-    _tabController.addListener(() {
-      setState(() {
-        _tabbarIndex = _tabController.index;
-        _appbarNameIndex = _tabbarIndex;
-      });
+    // The PageController listener is the main engine for driving UI animations
+    _pageController.addListener(_handlePageScroll);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _updateUiForPage(0.0); // Initialize UI state
+        context.read<LJNSystemCubit>().updateVideoProgress(show: true);
+        context.read<LJNSystemCubit>().updateMainTabIndex(_tabController.index);
+      }
     });
-
-    _tabController.animation?.addListener(_handleAnimation);
   }
 
-  void _handleAnimation() {
-    logger.info("bbbbbbbbbbbbbbbbb：${_tabController.animation!.value}");
+  // This method is called on every scroll frame to update the visual animations
+  void _updateUiForPage(double page) {
+    if (!mounted) return;
 
-    if (_tabController.animation!.value < 1) {
-      // 首页的tabbar隐藏
+    // This is the magic line that syncs the TabBar indicator with the PageView scroll
+    // _tabController.offset = (page - _tabController.index).clamp(-1.0, 1.0);
+
+    final theme = Theme.of(context);
+
+    // Color interpolation logic for the TabBar
+    final Color videoTabBackgroundColor = Colors.black.withAlpha(64);
+    const Color videoTabForegroundColor = Colors.white;
+    final Color videoTabUnselectedColor = Colors.white.withAlpha(153);
+    final Color videoTabBorderColor = Colors.white.withAlpha(38);
+    final Color otherTabBackgroundColor =
+        theme.bottomAppBarTheme.color ?? theme.scaffoldBackgroundColor;
+    final Color otherTabForegroundColor =
+        theme.tabBarTheme.labelColor ?? theme.colorScheme.primary;
+    final Color otherTabUnselectedColor =
+        theme.tabBarTheme.unselectedLabelColor ?? Colors.grey;
+    final Color otherTabBorderColor = theme.dividerColor;
+
+    // The 't' value determines the progress of the transition (0.0 to 1.0)
+    final double t = page.clamp(0.0, 1.0);
+    final newTabBarBackgroundColor =
+        Color.lerp(videoTabBackgroundColor, otherTabBackgroundColor, t)!;
+    final newSelectedItemColor =
+        Color.lerp(videoTabForegroundColor, otherTabForegroundColor, t)!;
+    final newUnselectedItemColor =
+        Color.lerp(videoTabUnselectedColor, otherTabUnselectedColor, t)!;
+    final newBorderColor =
+        Color.lerp(videoTabBorderColor, otherTabBorderColor, t)!;
+
+    // AppBar sliding animation logic
+    double newAppbarLeft = 0;
+    int newAppbarNameIndex = page.round();
+
+    if (page >= 0 && page < 1) {
+      newAppbarLeft = (1 - page) * 750.w;
+      newAppbarNameIndex = 1;
+    } else if (page > 3 && page <= 4) {
+      newAppbarLeft = ((page - 3) * 750.w) * -1;
+      newAppbarNameIndex = 3;
+    }
+
+    final bool newHiddenAppbar = (page.round() == 0 || page >= 4);
+
+    // Update the state to rebuild the UI with new values
+    setState(() {
+      _tabBarBackgroundColor = newTabBarBackgroundColor;
+      _selectedItemColor = newSelectedItemColor;
+      _unselectedItemColor = newUnselectedItemColor;
+      _borderColor = newBorderColor;
+
+      _appbarLeft = newAppbarLeft;
+      _appbarNameIndex = newAppbarNameIndex;
+      _hiddenAppbar = newHiddenAppbar;
+    });
+  }
+
+  void _handlePageScroll() {
+    if (!_pageController.hasClients) return;
+    _updateUiForPage(_pageController.page!);
+  }
+
+  // This method is called ONLY when a page change is complete
+  void _onPageChanged(int index) {
+    // Sync TabController's index and trigger a rebuild for icon styles
+    if (_tabController.index != index) {
       setState(() {
-        _appbarLeft = (1 - _tabController.animation!.value) * 750.w;
-        _hiddenAppbar = false;
-        _appbarNameIndex = 1;
-      });
-    } else if (_tabController.animation!.value > 3 &&
-        _tabController.animation!.value < 4) {
-      // 第四个切换到第五个的情况：个人中心的tabbar隐藏
-      setState(() {
-        _appbarLeft = (_tabController.animation!.value.floor() -
-                _tabController.animation!.value) *
-            750.w;
-        _hiddenAppbar = false;
-        _appbarNameIndex = 3;
-      });
-    } else if (_tabController.animation!.value == 0 ||
-        _tabController.animation!.value == 4) {
-      // 第一个 和 第五个 tabbar 隐藏 appbar
-      setState(() {
-        _hiddenAppbar = true;
-      });
-    } else {
-      // 正常情况
-      setState(() {
-        _appbarLeft = 0;
-        _hiddenAppbar = false;
+        _tabController.index = index;
       });
     }
+
+    // Update business logic in Cubit after the page has settled
+    context.read<LJNSystemCubit>().updateMainTabIndex(index);
+    context.read<LJNSystemCubit>().updateVideoProgress(show: index == 0);
+    context.read<LJNSystemCubit>().updateHomescrollpixels(0);
   }
 
   @override
   void dispose() {
-    _tabController.animation?.removeListener(_handleAnimation);
+    _pageController.removeListener(_handlePageScroll);
     _tabController.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
-  // 辅助方法，用于在 build 方法中获取动态标题列表
   List<String> _getTabTitles(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     return [
       l10n.tabbar_label_arts,
       l10n.tabbar_label_discover,
@@ -147,238 +190,265 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
   @override
   Widget build(BuildContext context) {
-    // 关键改动 5: 在 build 方法中获取最新的标题。
-    // 这样每次语言切换导致重建时，标题都会被刷新。
+    ThemeData theme = Theme.of(context);
     final tabTitles = _getTabTitles(context);
+    final systemCubit = context.read<LJNSystemCubit>();
+    final screenWidth = MediaQuery.of(context).size.width;
 
-    return BlocBuilder<LJNSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        if (!_setStatusHeight) {
-          final topPadding = kIsWeb ? 0.0 : MediaQuery.of(context).padding.top;
-          context.read<LJNSystemCubit>().updateStatusHeight(topPadding);
-          _setStatusHeight = true;
+    // This BlocListener is the "ear" that listens for signals from child pages
+    return BlocListener<LJNSystemCubit, SystemState>(
+      // Optimization: Only listen when drag-related state changes
+      listenWhen: (prev, current) =>
+          prev.parentDragState != current.parentDragState ||
+          (current.parentDragState == ParentDragState.dragging &&
+              prev.parentDragOffset != current.parentDragOffset),
+
+      // The action block that responds to signals
+      listener: (context, state) {
+        // SCENE 1: Child page is actively dragging and has handed off control
+        if (state.parentDragState == ParentDragState.dragging) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (_pageController.hasClients) {
+              // Calculate the base position of the current page
+              final currentPagePixels = (_tabController.index * screenWidth);
+              // Apply the offset from the child to manually scroll the PageView
+              _pageController
+                  .jumpTo(currentPagePixels - state.parentDragOffset);
+            }
+          });
         }
+        // SCENE 2: Child page has finished dragging (finger lifted)
+        else if (state.parentDragState == ParentDragState.animating) {
+          final velocity = state.parentDragEndVelocity!;
+          final offset = state.parentDragOffset;
 
-        // 使用从 build 方法中动态获取的标题
-        final appBarTitle = tabTitles[_appbarNameIndex];
-        final percent75Position = MediaQuery.of(context).size.height * 0.25;
+          // Decide whether to animate to the previous page or snap back
+          if (offset > screenWidth / 3 || velocity > 800) {
+            _pageController.animateToPage(_tabController.index - 1,
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeOut);
+          } else {
+            _pageController.animateToPage(_tabController.index,
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeOut);
+          }
 
-        return Stack(
-          children: [
-            Scaffold(
-              primary: false,
-              bottomNavigationBar: Visibility(
-                visible: !systemState.showMiniProgramDrawer,
-                child: Container(
-                  height: 106.w,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surfaceContainer,
-                    border: Border(
-                      top: BorderSide(
-                        color: Theme.of(context).tabBarTheme.dividerColor!,
-                        width: 1.5.w,
-                      ),
-                    ),
-                  ),
-                  child: TabBar(
-                    dividerColor:
-                        Theme.of(context).colorScheme.surfaceContainer,
-                    labelColor: Theme.of(context).tabBarTheme.labelColor,
-                    labelStyle: Theme.of(context).tabBarTheme.labelStyle,
-                    unselectedLabelColor:
-                        Theme.of(context).tabBarTheme.unselectedLabelColor,
-                    indicator: null,
-                    controller: _tabController,
-                    overlayColor: WidgetStateProperty.all(Colors.transparent),
-                    tabs: List.generate(
-                      _tabs.length,
-                      (index) {
-                        final tabInfo = _tabs[index];
-                        return Tab(
-                          height: 105.w,
-                          iconMargin: EdgeInsets.only(bottom: 8.w),
-                          icon: SizedBox(
-                            height: 50.w,
-                            width: 50.w,
-                            child: Center(
-                              child: Icon(
-                                index == _tabbarIndex
-                                    ? tabInfo.selectedIcon
-                                    : tabInfo.icon,
-                                size: tabInfo.iconSize.w,
-                              ),
-                            ),
-                          ),
-                          // 关键改动 6: 直接从动态标题列表中获取 text
-                          text: tabTitles[index],
-                        );
-                      },
+          // IMPORTANT: Reset the state in the cubit so it's ready for the next gesture
+          systemCubit.onParentDragHandled();
+        }
+      },
+      child: Stack(
+        children: [
+          Scaffold(
+            primary: false,
+            backgroundColor: _tabController.index == 0
+                ? Colors.black
+                : theme.scaffoldBackgroundColor,
+            bottomNavigationBar: Visibility(
+              visible: !systemCubit.state.showMiniProgramDrawer,
+              child: Container(
+                height: 106.w,
+                decoration: BoxDecoration(
+                  color: _tabBarBackgroundColor,
+                  border: Border(
+                    top: BorderSide(
+                      color: _borderColor,
+                      width: 1.0.w,
                     ),
                   ),
                 ),
-              ),
-              appBar: null,
-              body: TabBarView(
-                physics: systemState.showMiniProgramDrawer
-                    ? const NeverScrollableScrollPhysics()
-                    : CustomTabBarViewScrollPhysics(
-                        // 这里使用了自定义的 LJNCustomTabBarViewScrollPhysics
-                        parent: const ClampingScrollPhysics(),
-                      ),
-                controller: _tabController,
-                children: const <Widget>[
-                  LJNArts(),
-                  LJNDiscovery(),
-                  LJNPublisher(),
-                  LJNRecentChatsList(),
-                  LJNUser(),
-                ],
+                child: TabBar(
+                  controller: _tabController,
+                  onTap: (index) {
+                    logger.info("bbbbbbbbbbbbbbbbbbbbbbbbbb $index");
+                    // Clicking a tab simply tells the PageController to animate
+                    // if (_tabController.index != index) {
+                      _pageController.animateToPage(
+                        index,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
+                    // }
+                  },
+                  dividerColor: Colors.transparent,
+                  labelColor: _selectedItemColor,
+                  labelStyle: theme.tabBarTheme.labelStyle,
+                  unselectedLabelColor: _unselectedItemColor,
+                  indicator: const BoxDecoration(),
+                  overlayColor: WidgetStateProperty.all(Colors.transparent),
+                  tabs: List.generate(
+                    _tabs.length,
+                    (index) {
+                      final tabInfo = _tabs[index];
+                      // The icon style is determined by the TabController's final index
+                      final icon = _tabController.index == index
+                          ? tabInfo.selectedIcon
+                          : tabInfo.icon;
+                      return Tab(
+                        height: 105.w,
+                        iconMargin: EdgeInsets.only(bottom: 8.w),
+                        icon: SizedBox(
+                          height: 50.w,
+                          width: 50.w,
+                          child: Center(
+                              child: Icon(icon, size: tabInfo.iconSize.w)),
+                        ),
+                        text: tabTitles[index],
+                      );
+                    },
+                  ),
+                ),
               ),
             ),
-
-            // 顶部Appbar
-            // 关于visible说明：如果在聊天界面下拉则隐藏顶部Appbar、如果在Tab1和Tab5（个人中心）则隐藏
-            Visibility(
-              visible: !_hiddenAppbar &&
-                  ((systemState.homescrollpixels + systemState.statusHeight) <=
-                      percent75Position),
-              child: Positioned(
-                top: systemState.homescrollpixels,
-                left: _appbarLeft,
-                child: Container(
-                  width: 750.0.w,
-                  height: systemState.statusHeight + 90.w,
-                  color: systemState.homescrollpixels == 0
-                      ? Theme.of(context).appBarTheme.backgroundColor
-                      : AppColors.transparent,
-                  child: Listener(
-                    onPointerUp: (_) => context
-                        .read<LJNSystemCubit>()
-                        .updateShowMiniProgramDrawer(false),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        LJNAppBarInner(
-                          context: context,
-                          title: appBarTitle,
-                          actions: [
-                            // 联系列表按钮
-                            if (_tabbarIndex == 3)
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    '/contact',
-                                  );
-                                },
-                                child: Container(
-                                  color: AppColors.transparent,
-                                  height: 90.w,
-                                  padding: EdgeInsets.only(right: 33.w),
-                                  alignment: Alignment.center,
-                                  child: Icon(
-                                    color: Theme.of(context)
-                                        .appBarTheme
-                                        .titleTextStyle!
-                                        .color,
-                                    const IconData(
-                                      0xe608,
-                                      fontFamily: 'Iconfont',
-                                    ),
-                                    size: 42.w,
-                                  ),
-                                ),
-                              ),
-
-                            // 添加联系人按钮
+            appBar: null,
+            body: PageView(
+              controller: _pageController,
+              onPageChanged: _onPageChanged,
+              // Disable default physics if we are handing off a gesture from a child
+              physics: systemCubit.state.parentDragState != ParentDragState.idle
+                  ? const NeverScrollableScrollPhysics()
+                  : (systemCubit.state.showMiniProgramDrawer
+                      ? const NeverScrollableScrollPhysics()
+                      : const ClampingScrollPhysics()),
+              children: const <Widget>[
+                LJNArts(),
+                LJNDiscovery(),
+                LJNPublisher(),
+                LJNRecentChatsList(),
+                LJNUser(),
+              ],
+            ),
+          ),
+          // Your existing overlay widgets (AppBar, Popup, Progress Indicator)
+          // remain largely the same, using the state variables updated in _updateUiForPage
+          Visibility(
+            visible: !_hiddenAppbar &&
+                ((systemCubit.state.homescrollpixels +
+                        systemCubit.state.statusHeight) <=
+                    (MediaQuery.of(context).size.height * 0.25)),
+            child: Positioned(
+              top: systemCubit.state.homescrollpixels,
+              left: _appbarLeft,
+              child: Container(
+                width: 750.0.w,
+                height: systemCubit.state.statusHeight + 90.w,
+                color: systemCubit.state.homescrollpixels == 0
+                    ? theme.appBarTheme.backgroundColor
+                    : Colors.transparent,
+                child: Listener(
+                  onPointerUp: (_) =>
+                      systemCubit.updateShowMiniProgramDrawer(false),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      LJNAppBarInner(
+                        context: context,
+                        title: tabTitles[_appbarNameIndex],
+                        actions: [
+                          if (_tabController.index == 3)
                             GestureDetector(
-                              onTap: () {
-                                if (systemState.homescrollpixels == 0) {
-                                  setState(() => _showPopup = !_showPopup);
-                                }
-                              },
+                              onTap: () =>
+                                  Navigator.pushNamed(context, '/contact'),
                               child: Container(
-                                color: AppColors.transparent,
+                                color: Colors.transparent,
                                 height: 90.w,
                                 padding: EdgeInsets.only(right: 33.w),
                                 alignment: Alignment.center,
                                 child: Icon(
-                                  color: Theme.of(context)
-                                      .appBarTheme
-                                      .titleTextStyle!
-                                      .color,
-                                  const IconData(
-                                    0xe726,
-                                    fontFamily: 'Iconfont',
-                                  ),
+                                  color:
+                                      theme.appBarTheme.titleTextStyle!.color,
+                                  const IconData(0xe608,
+                                      fontFamily: 'Iconfont'),
                                   size: 42.w,
                                 ),
                               ),
                             ),
-
-                            // 占位
-                            SizedBox(
-                              width: 7.w,
-                            )
-                          ],
-                          leading: _tabbarIndex == 3
-                              ?
-                              // 搜索按钮
-                              GestureDetector(
-                                  onTap: () {},
-                                  child: Container(
-                                    color: AppColors.transparent,
-                                    height: 90.w,
-                                    padding: EdgeInsets.only(left: 33.w),
-                                    child: Icon(
-                                      color: Theme.of(context)
-                                          .appBarTheme
-                                          .titleTextStyle!
-                                          .color,
-                                      const IconData(
-                                        0xe612,
-                                        fontFamily: 'Iconfont',
-                                      ),
-                                      size: 40.w,
+                          GestureDetector(
+                            onTap: () {
+                              if (systemCubit.state.homescrollpixels == 0) {
+                                setState(() => _showPopup = !_showPopup);
+                              }
+                            },
+                            child: Container(
+                              color: Colors.transparent,
+                              height: 90.w,
+                              padding: EdgeInsets.only(right: 33.w),
+                              alignment: Alignment.center,
+                              child: Icon(
+                                color: theme.appBarTheme.titleTextStyle!.color,
+                                const IconData(0xe726, fontFamily: 'Iconfont'),
+                                size: 42.w,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 7.w)
+                        ],
+                        leading: _tabController.index == 3
+                            ? GestureDetector(
+                                onTap: () {},
+                                child: Container(
+                                  color: Colors.transparent,
+                                  height: 90.w,
+                                  padding: EdgeInsets.only(left: 33.w),
+                                  child: Icon(
+                                    color:
+                                        theme.appBarTheme.titleTextStyle!.color,
+                                    const IconData(
+                                      0xe612,
+                                      fontFamily: 'Iconfont',
                                     ),
+                                    size: 40.w,
                                   ),
-                                )
-                              : SizedBox(),
-                        )
-                      ],
-                    ),
+                                ),
+                              )
+                            : const SizedBox(),
+                      )
+                    ],
                   ),
                 ),
               ),
             ),
-
-            // 弹框
-            if (_showPopup) ...[
-              GestureDetector(
-                onTapDown: (_) => setState(() => _showPopup = false),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  color: AppColors.transparent,
+          ),
+          if (_showPopup) ...[
+            GestureDetector(
+              onTapDown: (_) => setState(() => _showPopup = false),
+              child: Container(
+                width: 750.w,
+                height: MediaQuery.of(context).size.height,
+                color: Colors.transparent,
+              ),
+            ),
+            Positioned(
+              right: 15.w,
+              top: systemCubit.state.statusHeight + 80.w,
+              child: SizedBox(
+                width: 320.w,
+                child: LJNPopupMenu(
+                  showPopup: _showPopup,
+                  setShowPopup: (bool value) =>
+                      setState(() => _showPopup = value),
                 ),
               ),
-              Positioned(
-                right: 15.w,
-                top: systemState.statusHeight + 80.w,
-                child: SizedBox(
-                  width: 320.w,
-                  child: LJNPopupMenu(
-                    showPopup: _showPopup,
-                    setShowPopup: (bool value) {
-                      _showPopup = !_showPopup;
-                    },
-                  ),
-                ),
-              )
-            ],
+            )
           ],
-        );
-      },
+          Positioned(
+            bottom: 106.w,
+            left: 0,
+            right: 0,
+            child: Visibility(
+              visible: systemCubit.state.showVideoProgress &&
+                  _tabController.index == 0,
+              child: LinearProgressIndicator(
+                value: systemCubit.state.videoProgress,
+                minHeight: 1.5,
+                backgroundColor: Colors.grey.withAlpha(77),
+                valueColor:
+                    AlwaysStoppedAnimation<Color>(Colors.grey.withAlpha(179)),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
