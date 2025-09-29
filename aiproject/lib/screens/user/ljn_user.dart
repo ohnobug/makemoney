@@ -1,3 +1,5 @@
+// /lib/screens/user/ljn_user.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -166,26 +168,34 @@ class _LJNUserState extends State<LJNUser>
               _initialDragDelta += details.delta.dx;
               const double decisionThreshold = 8.0;
 
-              // 为保证手感，向左滑时让内部PageView先动
-              if (_initialDragDelta < 0) {
-                _pageController.position
-                    .jumpTo(_pageController.position.pixels - details.delta.dx);
-              }
+              // [MODIFIED] 移除了在仲裁期间对子PageView的预操作，让决策更纯粹
+              // if (_initialDragDelta < 0) { ... }
 
-              // 检查是否达到决策阈值
-              if (_initialDragDelta.abs() > decisionThreshold) {
+              // 检查是否达到决策阈值，并且仲裁尚未决定
+              if (_isDraggingParent == null &&
+                  _initialDragDelta.abs() > decisionThreshold) {
                 // 如果是向右滑，则判定为拖动父级
                 if (_initialDragDelta > 0) {
                   _isDraggingParent = true;
                   systemCubit.onParentDragStart();
-                  // 把累计的错误位移交给父级
-                  systemCubit.onParentDragUpdate(_initialDragDelta);
-                  // 重置内部PageView的位置
-                  _pageController.position.jumpTo(0);
+                  // [MODIFIED] 关键修改：不再传递累积的位移，
+                  // 而是传递当前帧的增量，以启动父级的相对滚动。
+                  systemCubit.onParentDragUpdate(details.delta.dx);
+                  // [MODIFIED] 移除对子PageView的重置，因为它从未被移动过
+                  // _pageController.position.jumpTo(0);
                 } else {
                   // 如果是向左滑，则判定为拖动自己
                   _isDraggingParent = false;
+                  // [MODIFIED] 新增：将仲裁期间累积的向左位移一次性应用给子PageView
+                  // _initialDragDelta 此时是负数，所以减去一个负数等于加上一个正数
+                  _pageController.position.jumpTo(
+                      _pageController.position.pixels - _initialDragDelta);
                 }
+              }
+              // [MODIFIED] 新增一个分支：如果仲裁结果是拖动自己，就继续拖动自己
+              else if (_isDraggingParent == false) {
+                _pageController.position
+                    .jumpTo(_pageController.position.pixels - details.delta.dx);
               }
             },
             onHorizontalDragEnd: (details) {

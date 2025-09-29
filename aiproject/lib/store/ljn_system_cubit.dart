@@ -28,15 +28,19 @@ class LJNSystemCubit extends Cubit<SystemState> {
       emit(state.copyWith(
         parentDragState: ParentDragState.dragging,
         parentDragOffset: 0.0,
+        parentDragDelta: 0.0, // [MODIFIED] 重置增量
       ));
     }
   }
 
-  /// 实时更新被代理的拖拽偏移
+  /// [MODIFIED] 实时更新被代理的拖拽总偏移和当前帧增量
   void onParentDragUpdate(double dragDelta) {
     if (state.parentDragState == ParentDragState.dragging) {
       emit(state.copyWith(
+        // parentDragOffset 仍然累加，用于拖动结束时的判断
         parentDragOffset: state.parentDragOffset + dragDelta,
+        // parentDragDelta 直接存储当前帧的增量，用于父级的相对滚动
+        parentDragDelta: dragDelta,
       ));
     }
   }
@@ -56,6 +60,7 @@ class LJNSystemCubit extends Cubit<SystemState> {
     emit(state.copyWith(
       parentDragState: ParentDragState.idle,
       parentDragOffset: 0.0,
+      parentDragDelta: 0.0, // [MODIFIED] 重置增量
       clearParentDragEndVelocity: true,
     ));
   }
@@ -148,6 +153,7 @@ class SystemState extends Equatable {
   final ParentDragState parentDragState;
   final double parentDragOffset;
   final double? parentDragEndVelocity;
+  final double parentDragDelta; // [MODIFIED] 新增属性，用于存储每一帧的拖动增量
 
   const SystemState({
     this.homescrollpixels = 0,
@@ -169,6 +175,7 @@ class SystemState extends Equatable {
     this.parentDragState = ParentDragState.idle,
     this.parentDragOffset = 0.0,
     this.parentDragEndVelocity,
+    this.parentDragDelta = 0.0, // [MODIFIED] 添加默认值
   });
 
   SystemState copyWith({
@@ -192,6 +199,7 @@ class SystemState extends Equatable {
     double? parentDragOffset,
     double? parentDragEndVelocity,
     bool clearParentDragEndVelocity = false,
+    double? parentDragDelta, // [MODIFIED] 添加 copyWith 参数
   }) {
     return SystemState(
       homescrollpixels: homescrollpixels ?? this.homescrollpixels,
@@ -216,6 +224,8 @@ class SystemState extends Equatable {
       parentDragEndVelocity: clearParentDragEndVelocity
           ? null
           : parentDragEndVelocity ?? this.parentDragEndVelocity,
+      parentDragDelta:
+          parentDragDelta ?? this.parentDragDelta, // [MODIFIED] 添加赋值
     );
   }
 
@@ -240,5 +250,6 @@ class SystemState extends Equatable {
         parentDragState,
         parentDragOffset,
         parentDragEndVelocity,
+        parentDragDelta, // [MODIFIED] 添加到 props
       ];
 }

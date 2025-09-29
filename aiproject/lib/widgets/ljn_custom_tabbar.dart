@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/widgets/ljn_popup_menu.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/screens/publisher/ljn_publisher.dart';
@@ -77,24 +76,25 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     _tabController = TabController(length: _tabs.length, vsync: this);
     _pageController = PageController();
 
-    // The PageController listener is the main engine for driving UI animations
     _pageController.addListener(_handlePageScroll);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        _updateUiForPage(0.0); // Initialize UI state
+        _updateUiForPage(0.0);
         context.read<LJNSystemCubit>().updateVideoProgress(show: true);
         context.read<LJNSystemCubit>().updateMainTabIndex(_tabController.index);
       }
     });
   }
 
-  // This method is called on every scroll frame to update the visual animations
   void _updateUiForPage(double page) {
     if (!mounted) return;
 
-    // This is the magic line that syncs the TabBar indicator with the PageView scroll
-    // _tabController.offset = (page - _tabController.index).clamp(-1.0, 1.0);
+    // [MODIFIED] 添加保护判断，防止在 TabController 忙时设置 offset
+    if (_tabController.indexIsChanging) return;
+
+    // [MODIFIED] 恢复 offset 的设置，确保 TabBar 指示器平滑滚动
+    _tabController.offset = (page - _tabController.index).clamp(-1.0, 1.0);
 
     final theme = Theme.of(context);
 
@@ -111,7 +111,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
         theme.tabBarTheme.unselectedLabelColor ?? Colors.grey;
     final Color otherTabBorderColor = theme.dividerColor;
 
-    // The 't' value determines the progress of the transition (0.0 to 1.0)
     final double t = page.clamp(0.0, 1.0);
     final newTabBarBackgroundColor =
         Color.lerp(videoTabBackgroundColor, otherTabBackgroundColor, t)!;
@@ -136,7 +135,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
     final bool newHiddenAppbar = (page.round() == 0 || page >= 4);
 
-    // Update the state to rebuild the UI with new values
     setState(() {
       _tabBarBackgroundColor = newTabBarBackgroundColor;
       _selectedItemColor = newSelectedItemColor;
@@ -154,16 +152,12 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     _updateUiForPage(_pageController.page!);
   }
 
-  // This method is called ONLY when a page change is complete
   void _onPageChanged(int index) {
-    // Sync TabController's index and trigger a rebuild for icon styles
     if (_tabController.index != index) {
       setState(() {
         _tabController.index = index;
       });
     }
-
-    // Update business logic in Cubit after the page has settled
     context.read<LJNSystemCubit>().updateMainTabIndex(index);
     context.read<LJNSystemCubit>().updateVideoProgress(show: index == 0);
     context.read<LJNSystemCubit>().updateHomescrollpixels(0);
@@ -195,34 +189,29 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     final systemCubit = context.read<LJNSystemCubit>();
     final screenWidth = MediaQuery.of(context).size.width;
 
-    // This BlocListener is the "ear" that listens for signals from child pages
     return BlocListener<LJNSystemCubit, SystemState>(
-      // Optimization: Only listen when drag-related state changes
       listenWhen: (prev, current) =>
           prev.parentDragState != current.parentDragState ||
           (current.parentDragState == ParentDragState.dragging &&
-              prev.parentDragOffset != current.parentDragOffset),
-
-      // The action block that responds to signals
+              prev.parentDragDelta !=
+                  current.parentDragDelta), // [MODIFIED] 监听增量变化
       listener: (context, state) {
-        // SCENE 1: Child page is actively dragging and has handed off control
+        // SCENE 1: Child page is actively dragging
         if (state.parentDragState == ParentDragState.dragging) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             if (_pageController.hasClients) {
-              // Calculate the base position of the current page
-              final currentPagePixels = (_tabController.index * screenWidth);
-              // Apply the offset from the child to manually scroll the PageView
-              _pageController
-                  .jumpTo(currentPagePixels - state.parentDragOffset);
+              // [MODIFIED] 关键修改：从绝对定位改为相对定位
+              // 在当前滚动位置的基础上，减去刚刚发生的增量
+              _pageController.position.jumpTo(
+                  _pageController.position.pixels - state.parentDragDelta);
             }
           });
         }
-        // SCENE 2: Child page has finished dragging (finger lifted)
+        // SCENE 2: Child page has finished dragging
         else if (state.parentDragState == ParentDragState.animating) {
           final velocity = state.parentDragEndVelocity!;
           final offset = state.parentDragOffset;
 
-          // Decide whether to animate to the previous page or snap back
           if (offset > screenWidth / 3 || velocity > 800) {
             _pageController.animateToPage(_tabController.index - 1,
                 duration: const Duration(milliseconds: 250),
@@ -233,7 +222,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 curve: Curves.easeOut);
           }
 
-          // IMPORTANT: Reset the state in the cubit so it's ready for the next gesture
           systemCubit.onParentDragHandled();
         }
       },
@@ -260,14 +248,23 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 child: TabBar(
                   controller: _tabController,
                   onTap: (index) {
-                    logger.info("bbbbbbbbbbbbbbbbbbbbbbbbbb $index");
-                    // Clicking a tab simply tells the PageController to animate
                     // if (_tabController.index != index) {
-                      _pageController.animateToPage(
-                        index,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.ease,
-                      );
+                    // 1. [可选但推荐] 立即更新 TabController 的 index 并触发重建，
+                    //    这能让图标和标签颜色在点击瞬间就变化，响应最快。
+                    setState(() {
+                      _tabController.index = index;
+                    });
+
+                    // 2. [关键修复] 立即调用 UI 更新函数，并传入目标页面的整数值。
+                    //    这会立刻计算并设置 AppBar 到它在目标页面的最终状态。
+                    _updateUiForPage(index.toDouble());
+
+                    // 3. 最后，命令 PageController 播放动画，平滑地滚动到目标页面。
+                    _pageController.animateToPage(
+                      index,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.ease,
+                    );
                     // }
                   },
                   dividerColor: Colors.transparent,
@@ -280,10 +277,10 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                     _tabs.length,
                     (index) {
                       final tabInfo = _tabs[index];
-                      // The icon style is determined by the TabController's final index
                       final icon = _tabController.index == index
                           ? tabInfo.selectedIcon
                           : tabInfo.icon;
+
                       return Tab(
                         height: 105.w,
                         iconMargin: EdgeInsets.only(bottom: 8.w),
@@ -304,7 +301,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
             body: PageView(
               controller: _pageController,
               onPageChanged: _onPageChanged,
-              // Disable default physics if we are handing off a gesture from a child
               physics: systemCubit.state.parentDragState != ParentDragState.idle
                   ? const NeverScrollableScrollPhysics()
                   : (systemCubit.state.showMiniProgramDrawer
@@ -319,8 +315,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
               ],
             ),
           ),
-          // Your existing overlay widgets (AppBar, Popup, Progress Indicator)
-          // remain largely the same, using the state variables updated in _updateUiForPage
           Visibility(
             visible: !_hiddenAppbar &&
                 ((systemCubit.state.homescrollpixels +
