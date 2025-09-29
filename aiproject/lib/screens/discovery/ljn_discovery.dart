@@ -109,12 +109,11 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
   }
 
   // --- 以下是 UI 构建辅助方法，无需修改 ---
-
   Widget _buildSearchBar(ThemeData theme) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
         30.w,
-        20.w,
+        0,
         30.w,
         0,
       ),
