@@ -1,5 +1,6 @@
 // /lib/widgets/ljn_arts.dart
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,17 +37,16 @@ class _LJNArts extends State<LJNArts> {
   void initState() {
     super.initState();
 
-    // [FIX 2] Get the Cubit instance here, when the context is valid, and store it.
-    _systemCubit = context.read<LJNSystemCubit>();
-
-    _videoControllers = {};
-
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
     );
+
+    _systemCubit = context.read<LJNSystemCubit>();
+
+    _videoControllers = {};
 
     _pageController.addListener(() {
       if (!_pageController.hasClients || _pageController.page == null) return;
@@ -63,7 +63,12 @@ class _LJNArts extends State<LJNArts> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        // You can use the local variable here too for consistency
+        if (kIsWeb) {
+          _systemCubit.updateStatusHeight(0);
+        } else {
+          _systemCubit.updateStatusHeight(MediaQuery.of(context).padding.top);
+        }
+
         _systemCubit.updateVideoProgress(show: true);
       }
     });

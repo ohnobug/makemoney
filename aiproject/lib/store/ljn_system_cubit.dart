@@ -92,6 +92,10 @@ class LJNSystemCubit extends Cubit<SystemState> {
     emit(state.copyWith(mainpage4isload: mainpage4isload));
   }
 
+  void updateMainpage5isload(bool mainpage1isload) {
+    emit(state.copyWith(mainpage5isload: mainpage1isload));
+  }
+
   void updateScreenSize(Size screenSize) {
     emit(state.copyWith(screenSize: screenSize));
   }
@@ -130,6 +134,7 @@ class SystemState extends Equatable {
   final bool? mainpage2isload;
   final bool? mainpage3isload;
   final bool? mainpage4isload;
+  final bool? mainpage5isload;
   final GlobalKey<NavigatorState> navigatorKey;
   final Size screenSize;
   final double statusHeight;
@@ -151,6 +156,7 @@ class SystemState extends Equatable {
     this.mainpage2isload = false,
     this.mainpage3isload = false,
     this.mainpage4isload = false,
+    this.mainpage5isload = false,
     this.screenSize = const Size(0, 0),
     this.statusHeight = 0,
     this.showMiniProgramDrawer = false,
@@ -172,6 +178,7 @@ class SystemState extends Equatable {
     bool? mainpage2isload,
     bool? mainpage3isload,
     bool? mainpage4isload,
+    bool? mainpage5isload,
     Size? screenSize,
     double? statusHeight,
     bool? showMiniProgramDrawer,
@@ -193,6 +200,7 @@ class SystemState extends Equatable {
       mainpage2isload: mainpage2isload ?? this.mainpage2isload,
       mainpage3isload: mainpage3isload ?? this.mainpage3isload,
       mainpage4isload: mainpage4isload ?? this.mainpage4isload,
+      mainpage5isload: mainpage4isload ?? this.mainpage5isload,
       screenSize: screenSize ?? this.screenSize,
       statusHeight: statusHeight ?? this.statusHeight,
       showMiniProgramDrawer:
@@ -219,6 +227,7 @@ class SystemState extends Equatable {
         mainpage2isload,
         mainpage3isload,
         mainpage4isload,
+        mainpage5isload,
         navigatorKey,
         screenSize,
         statusHeight,

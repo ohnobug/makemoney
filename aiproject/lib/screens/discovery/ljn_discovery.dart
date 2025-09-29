@@ -8,6 +8,7 @@ import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
+import 'package:vigaviga/widgets/ljn_page_loading.dart'; // 确保 LJNPageLoading 的路径正确
 
 // Data model for trend items
 class TrendItem {
@@ -15,7 +16,11 @@ class TrendItem {
   final String views;
   final IconData icon;
 
-  TrendItem({required this.title, required this.views, required this.icon});
+  TrendItem({
+    required this.title,
+    required this.views,
+    required this.icon,
+  });
 }
 
 class LJNDiscovery extends StatefulWidget {
@@ -50,32 +55,58 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
   ];
 
   @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-    AppLocalizations l10n = AppLocalizations.of(context)!;
+  void initState() {
+    super.initState();
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        context.read<LJNSystemCubit>().updateMainpage2isload(true);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
+      // 性能优化：仅在 mainpage2isload 变化时才重建
+      buildWhen: (previous, current) =>
+          previous.mainpage2isload != current.mainpage2isload,
       builder: (context, systemState) {
-        return Scaffold(
-          backgroundColor: theme.scaffoldBackgroundColor,
-          body: SafeArea(
-            child: ListView(
-              // 页面结构现在非常清晰
-              children: [
-                _buildSearchBar(theme),
-                _buildServicesSection(theme, l10n, systemState), // 新的服务功能区
-                _buildBanner(),
-                _buildTrendingSection(theme),
-                _buildRecommendedSection(theme),
-              ],
-            ),
-          ),
-        );
+        // [核心修复] 添加加载状态判断
+        if (systemState.mainpage2isload!) {
+          // 如果已加载，则构建页面内容
+          return _buildPageContent(context, systemState);
+        } else {
+          // 如果未加载，则显示加载动画
+          return const LJNPageLoading();
+        }
       },
     );
   }
 
-  // 构建搜索栏 (自带边距)
+  // 将页面内容构建逻辑提取到一个单独的方法中，使代码更清晰
+  Widget _buildPageContent(BuildContext context, SystemState systemState) {
+    ThemeData theme = Theme.of(context);
+    AppLocalizations l10n = AppLocalizations.of(context)!;
+
+    return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
+      body: SafeArea(
+        child: ListView(
+          children: [
+            _buildSearchBar(theme),
+            _buildServicesSection(theme, l10n, systemState),
+            _buildBanner(),
+            _buildTrendingSection(theme),
+            _buildRecommendedSection(theme),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // --- 以下是 UI 构建辅助方法，无需修改 ---
+
   Widget _buildSearchBar(ThemeData theme) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
@@ -113,13 +144,11 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
     );
   }
 
-  // [新增] 构建服务与功能区块
   Widget _buildServicesSection(
       ThemeData theme, AppLocalizations l10n, SystemState systemState) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // 使用了更合适的标题
         Padding(
           padding: EdgeInsets.fromLTRB(
             30.w,
@@ -130,17 +159,16 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
           child: _buildSectionHeader("服务与功能", theme),
         ),
         SizedBox(height: 20.w),
-        // LJNFunctionList 不再需要自己的 title 属性
         LJNFunctionList(
           children: [
             LJNFunctionItem(
               title: l10n.moments,
               icon: "images/icon/discovery_icon1.png",
               link: '/friendmoments',
-              underline: true, // 添加下划线以分隔
+              underline: true,
             ),
             LJNFunctionItem(
-              title: "看看", // 修改为你想要的标题
+              title: "看看",
               icon: "images/icon/discovery_icon2.png",
               link: '/ins',
               underline: true,
@@ -157,7 +185,6 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
     );
   }
 
-  // 构建轮播横幅 (自带边距)
   Widget _buildBanner() {
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -177,7 +204,6 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
     );
   }
 
-  // 可复用的区块标题
   Widget _buildSectionHeader(String title, ThemeData theme) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -201,7 +227,6 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
     );
   }
 
-  // 构建热门趋势区块 (自带边距)
   Widget _buildTrendingSection(ThemeData theme) {
     return Padding(
       padding: EdgeInsets.fromLTRB(
@@ -257,7 +282,6 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
     );
   }
 
-  // 构建为你推荐区块 (自带边距)
   Widget _buildRecommendedSection(ThemeData theme) {
     return Padding(
       padding: EdgeInsets.fromLTRB(30.w, 50.w, 30.w, 30.w),
@@ -298,7 +322,7 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
                               begin: Alignment.bottomCenter,
                               end: Alignment.topCenter,
                               colors: [
-                                Colors.black.withOpacity(0.6),
+                                Colors.black.withAlpha(153),
                                 Colors.transparent
                               ],
                             ),
@@ -310,8 +334,11 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
                             children: [
                               Row(
                                 children: [
-                                  Icon(Icons.favorite_border,
-                                      color: Colors.white, size: 28.w),
+                                  Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.white,
+                                    size: 28.w,
+                                  ),
                                   SizedBox(width: 8.w),
                                   Text(
                                     '${(index * 1.2 * 100).toInt()}k',

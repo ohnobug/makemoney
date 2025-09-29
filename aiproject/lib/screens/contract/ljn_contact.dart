@@ -6,7 +6,6 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_alphabet.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_contact_item.dart';
-import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
@@ -59,16 +58,6 @@ class _LJNContactState extends State<LJNContact> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LJNSystemCubit, SystemState>(
-        builder: (context, systemState) {
-      return systemState.mainpage2isload!
-          ? _buildPage(context, systemState)
-          : const LJNPageLoading();
-    });
-  }
-
-  Widget _buildPage(BuildContext context, SystemState systemState) {
-    // 关键改动 4: 在 build 方法内部获取最新的 l10n 实例
     AppLocalizations l10n = AppLocalizations.of(context)!;
     ThemeData theme = Theme.of(context);
 

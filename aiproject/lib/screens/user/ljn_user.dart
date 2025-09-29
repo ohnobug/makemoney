@@ -59,7 +59,7 @@ class _LJNUserState extends State<LJNUser>
       if (mounted) {
         context.read<LJNSystemCubit>().updateHomescrollpixels(0);
         context.read<LJNSystemCubit>().updateShowMiniProgramDrawer(false);
-        context.read<LJNSystemCubit>().updateMainpage4isload(true);
+        context.read<LJNSystemCubit>().updateMainpage5isload(true);
       }
     });
   }
@@ -76,7 +76,7 @@ class _LJNUserState extends State<LJNUser>
     super.build(context);
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
-      return systemState.mainpage4isload!
+      return systemState.mainpage5isload!
           ? _buildPage(systemState)
           : const LJNPageLoading();
     });
