@@ -208,13 +208,25 @@ class _LJNArts extends State<LJNArts> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            _buildActionButton(0xe61e, "1050"),
+                            _buildActionButton(
+                              const IconData(0xe61e, fontFamily: 'Iconfont'),
+                              "1050",
+                            ),
                             SizedBox(height: 30.w),
-                            _buildActionButton(0xe665, "241"),
+                            _buildActionButton(
+                              const IconData(0xe665, fontFamily: 'Iconfont'),
+                              "241",
+                            ),
                             SizedBox(height: 30.w),
-                            _buildActionButton(0xe602, "421"),
+                            _buildActionButton(
+                              const IconData(0xe602, fontFamily: 'Iconfont'),
+                              "421",
+                            ),
                             SizedBox(height: 30.w),
-                            _buildActionButton(0xe6c7, "934"),
+                            _buildActionButton(
+                              const IconData(0xe6c7, fontFamily: 'Iconfont'),
+                              "934",
+                            ),
                           ],
                         ),
                       ),
@@ -229,12 +241,12 @@ class _LJNArts extends State<LJNArts> {
     );
   }
 
-  Widget _buildActionButton(int iconCode, String count) {
+  Widget _buildActionButton(IconData icondata, String count) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Icon(
-          IconData(iconCode, fontFamily: 'Iconfont'),
+          icondata,
           color: AppColors.neutralWhite,
           size: 63.w,
         ),

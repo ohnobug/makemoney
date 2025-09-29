@@ -19,7 +19,7 @@ double fontSizeScale(double size) {
 // 图片路径修正
 String assetPath(String path) {
   if (kIsWeb) {
-    return path;
+    return 'assets/$path';
   } else {
     return 'assets/$path';
   }

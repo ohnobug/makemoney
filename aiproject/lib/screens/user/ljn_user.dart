@@ -1,5 +1,3 @@
-// /lib/screens/user/ljn_user.dart
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,7 +26,8 @@ class _LJNUserState extends State<LJNUser>
   late PageController _pageController;
 
   // 用于手势仲裁的状态
-  bool? _isDraggingParent; // 使用可空类型来表示初始“未定”状态
+  bool? _isDraggingParent; // null: 待定, true: 拖动父级, false: 拖动自己
+  double _initialDragDelta = 0.0;
 
   final List<String> _works =
       List.generate(25, (i) => 'https://picsum.photos/300/400?random=$i');
@@ -43,8 +42,7 @@ class _LJNUserState extends State<LJNUser>
     _pageController = PageController();
 
     _pageController.addListener(() {
-      if (_tabController.indexIsChanging) return;
-      if (!_pageController.hasClients) return;
+      if (!_pageController.hasClients || _tabController.indexIsChanging) return;
 
       final double page = _pageController.page!;
       final int newIndex = page.round();
@@ -101,9 +99,11 @@ class _LJNUserState extends State<LJNUser>
                   TabBar(
                     controller: _tabController,
                     onTap: (index) {
-                      _pageController.animateToPage(index,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.ease);
+                      _pageController.animateToPage(
+                        index,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
                     },
                     labelColor: theme.textTheme.bodyLarge?.color,
                     unselectedLabelColor: theme.hintColor,
@@ -113,10 +113,14 @@ class _LJNUserState extends State<LJNUser>
                     isScrollable: true,
                     tabAlignment: TabAlignment.start,
                     labelPadding: EdgeInsets.symmetric(horizontal: 40.w),
-                    labelStyle:
-                        TextStyle(fontSize: 30.w, fontWeight: FontWeight.bold),
+                    labelStyle: TextStyle(
+                      fontSize: 30.w,
+                      fontWeight: FontWeight.bold,
+                    ),
                     unselectedLabelStyle: TextStyle(
-                        fontSize: 30.w, fontWeight: FontWeight.normal),
+                      fontSize: 30.w,
+                      fontWeight: FontWeight.normal,
+                    ),
                     tabs: [
                       Tab(child: Text("作品 ${_works.length}")),
                       Tab(child: Text("收藏 ${_collections.length}")),
@@ -129,36 +133,65 @@ class _LJNUserState extends State<LJNUser>
               ),
             ];
           },
-          // [最终修正] 使用 GestureDetector 手动控制 PageView
           body: GestureDetector(
+            behavior: HitTestBehavior.opaque,
             onHorizontalDragStart: (details) {
-              // 在开始时不决定方向，只重置状态
-              _isDraggingParent = null;
+              _initialDragDelta = 0.0;
+              // 意图预测：使用整数索引进行最可靠的判断
+              final bool isAtFirstPage = _tabController.index == 0;
+
+              if (isAtFirstPage) {
+                // 只有在第一页时，才需要进入复杂的仲裁流程
+                _isDraggingParent = null;
+              } else {
+                // 如果不在第一页，那么 100% 是拖动自己，无需仲裁
+                _isDraggingParent = false;
+              }
             },
             onHorizontalDragUpdate: (details) {
-              // 在第一次 update 时才做决定
-              if (_isDraggingParent == null) {
-                // 如果在第一页，并且是向右滑
-                if (_pageController.page! < 0.5 && details.delta.dx > 0) {
-                  _isDraggingParent = true;
-                  systemCubit.onParentDragStart();
-                } else {
-                  // 否则，是拖拽自己
-                  _isDraggingParent = false;
-                }
-              }
-
-              if (_isDraggingParent == true) {
-                systemCubit.onParentDragUpdate(details.delta.dx);
-              } else {
+              // 如果已确定是拖动自己
+              if (_isDraggingParent == false) {
                 _pageController.position
                     .jumpTo(_pageController.position.pixels - details.delta.dx);
+                return;
+              }
+
+              // 如果已确定是拖动父级
+              if (_isDraggingParent == true) {
+                systemCubit.onParentDragUpdate(details.delta.dx);
+                return;
+              }
+
+              // --- 仲裁阶段 (仅当 _isDraggingParent is null 时) ---
+              _initialDragDelta += details.delta.dx;
+              const double decisionThreshold = 8.0;
+
+              // 为保证手感，向左滑时让内部PageView先动
+              if (_initialDragDelta < 0) {
+                _pageController.position
+                    .jumpTo(_pageController.position.pixels - details.delta.dx);
+              }
+
+              // 检查是否达到决策阈值
+              if (_initialDragDelta.abs() > decisionThreshold) {
+                // 如果是向右滑，则判定为拖动父级
+                if (_initialDragDelta > 0) {
+                  _isDraggingParent = true;
+                  systemCubit.onParentDragStart();
+                  // 把累计的错误位移交给父级
+                  systemCubit.onParentDragUpdate(_initialDragDelta);
+                  // 重置内部PageView的位置
+                  _pageController.position.jumpTo(0);
+                } else {
+                  // 如果是向左滑，则判定为拖动自己
+                  _isDraggingParent = false;
+                }
               }
             },
             onHorizontalDragEnd: (details) {
               if (_isDraggingParent == true) {
                 systemCubit.onParentDragEnd(details.primaryVelocity ?? 0);
-              } else {
+              } else if (_isDraggingParent == false) {
                 final velocity = details.primaryVelocity ?? 0;
                 final currentPage = _pageController.page!;
                 int targetPage;
@@ -176,32 +209,35 @@ class _LJNUserState extends State<LJNUser>
                   curve: Curves.easeOut,
                 );
               }
-              // 重置状态
+              // 重置所有状态，为下一次手势做准备
               _isDraggingParent = null;
+              _initialDragDelta = 0.0;
             },
             child: PageView(
               controller: _pageController,
-              // [核心] 禁用 PageView 自己的手势
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 _UserWorksGrid(
-                    key: const PageStorageKey('works_grid'),
-                    items: _works,
-                    emptyMessage: '保持热爱奔赴山河',
-                    buttonText: '去发布',
-                    onButtonPressed: () {}),
+                  key: const PageStorageKey('works_grid'),
+                  items: _works,
+                  emptyMessage: '保持热爱奔赴山河',
+                  buttonText: '去发布',
+                  onButtonPressed: () {},
+                ),
                 _UserWorksGrid(
-                    key: const PageStorageKey('collections_grid'),
-                    items: _collections,
-                    emptyMessage: '还没有收藏',
-                    buttonText: '去看看',
-                    onButtonPressed: () {}),
+                  key: const PageStorageKey('collections_grid'),
+                  items: _collections,
+                  emptyMessage: '还没有收藏',
+                  buttonText: '去看看',
+                  onButtonPressed: () {},
+                ),
                 _UserWorksGrid(
-                    key: const PageStorageKey('praised_grid'),
-                    items: _praised,
-                    emptyMessage: '还没有赞过',
-                    buttonText: '去看看',
-                    onButtonPressed: () {}),
+                  key: const PageStorageKey('praised_grid'),
+                  items: _praised,
+                  emptyMessage: '还没有赞过',
+                  buttonText: '去看看',
+                  onButtonPressed: () {},
+                ),
               ],
             ),
           ),
@@ -210,14 +246,15 @@ class _LJNUserState extends State<LJNUser>
     );
   }
 
-  // ... (其他所有辅助 Widget 和方法 _buildFloatingIconButton, _buildUserInfoSection 等保持不变)
-
   Widget _buildFloatingIconButton(
       {required IconData icon, required VoidCallback onTap}) {
     return IconButton(
       onPressed: onTap,
-      icon: Icon(icon,
-          color: Theme.of(context).textTheme.bodyLarge?.color, size: 44.w),
+      icon: Icon(
+        icon,
+        color: Theme.of(context).textTheme.bodyLarge?.color,
+        size: 44.w,
+      ),
       padding: EdgeInsets.all(24.w),
     );
   }
@@ -226,17 +263,25 @@ class _LJNUserState extends State<LJNUser>
     AppLocalizations l10n = AppLocalizations.of(context)!;
     final List<LJNFunctionButton> serviceButtons = [
       LJNFunctionButton(
-          icon: "images/icon/server_icon11.png", title: "充值", onPressed: () {}),
+        icon: "images/icon/server_icon11.png",
+        title: "充值",
+        onPressed: () {},
+      ),
       LJNFunctionButton(
-          icon: "images/icon/server_icon12.png", title: "提现", onPressed: () {}),
+        icon: "images/icon/server_icon12.png",
+        title: "提现",
+        onPressed: () {},
+      ),
       LJNFunctionButton(
-          icon: "images/icon/server_icon13.png",
-          title: "账单明细",
-          onPressed: () {}),
+        icon: "images/icon/server_icon13.png",
+        title: "账单明细",
+        onPressed: () {},
+      ),
       LJNFunctionButton(
-          icon: "images/icon/server_icon14.png",
-          title: "创作报表",
-          onPressed: () {}),
+        icon: "images/icon/server_icon14.png",
+        title: "创作报表",
+        onPressed: () {},
+      ),
     ];
     return Container(
       color: theme.cardColor,
@@ -245,7 +290,11 @@ class _LJNUserState extends State<LJNUser>
         children: [
           Padding(
             padding: EdgeInsets.fromLTRB(
-                32.w, 20.w + systemState.statusHeight, 32.w, 20.w),
+              32.w,
+              20.w + systemState.statusHeight,
+              32.w,
+              20.w,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -282,9 +331,10 @@ class _LJNUserState extends State<LJNUser>
                               builder: (context, state) => Text(
                                 state.userinfoName ?? '用户名',
                                 style: TextStyle(
-                                    fontSize: 42.w,
-                                    fontWeight: FontWeight.bold,
-                                    color: theme.colorScheme.onSurface),
+                                  fontSize: 42.w,
+                                  fontWeight: FontWeight.bold,
+                                  color: theme.colorScheme.onSurface,
+                                ),
                               ),
                             ),
                           ),
@@ -295,16 +345,25 @@ class _LJNUserState extends State<LJNUser>
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text(l10n.vigavigaIdDisplay('TheMonsterClub'),
-                                    style: TextStyle(
-                                        fontSize: 26.w,
-                                        color: theme.hintColor)),
+                                Text(
+                                  l10n.vigavigaIdDisplay('TheMonsterClub'),
+                                  style: TextStyle(
+                                    fontSize: 26.w,
+                                    color: theme.hintColor,
+                                  ),
+                                ),
                                 SizedBox(width: 10.w),
-                                Icon(Icons.qr_code_2_outlined,
-                                    size: 28.w, color: theme.hintColor),
+                                Icon(
+                                  Icons.qr_code_2_outlined,
+                                  size: 28.w,
+                                  color: theme.hintColor,
+                                ),
                                 SizedBox(width: 10.w),
-                                Icon(Icons.chevron_right,
-                                    size: 32.w, color: theme.hintColor),
+                                Icon(
+                                  Icons.chevron_right,
+                                  size: 32.w,
+                                  color: theme.hintColor,
+                                ),
                               ],
                             ),
                           ),
@@ -326,17 +385,21 @@ class _LJNUserState extends State<LJNUser>
                 SizedBox(height: 30.w),
                 Row(
                   children: [
-                    Text("余额：",
-                        style: TextStyle(
-                            fontSize: 30.w,
-                            color: theme.colorScheme.onSurface.withAlpha(200))),
+                    Text(
+                      "余额：",
+                      style: TextStyle(
+                        fontSize: 30.w,
+                        color: theme.colorScheme.onSurface.withAlpha(200),
+                      ),
+                    ),
                     Text(
                       _isBalanceVisible ? "\$1,234.56" : "****",
                       style: TextStyle(
-                          fontSize: 30.w,
-                          color: theme.colorScheme.onSurface,
-                          fontFamily: 'DMMono',
-                          fontWeight: FontWeight.w600),
+                        fontSize: 30.w,
+                        color: theme.colorScheme.onSurface,
+                        fontFamily: 'DMMono',
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     SizedBox(width: 16.w),
                     InkWell(
@@ -346,18 +409,23 @@ class _LJNUserState extends State<LJNUser>
                       child: Padding(
                         padding: EdgeInsets.all(8.w),
                         child: Icon(
-                            _isBalanceVisible
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                            size: 32.w,
-                            color: theme.hintColor),
+                          _isBalanceVisible
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          size: 32.w,
+                          color: theme.hintColor,
+                        ),
                       ),
                     ),
                   ],
                 ),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 30.w),
-                    child: Divider(height: 1.w, color: theme.dividerColor)),
+                  padding: EdgeInsets.symmetric(vertical: 30.w),
+                  child: Divider(
+                    height: 1.w,
+                    color: theme.dividerColor,
+                  ),
+                ),
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -375,11 +443,13 @@ class _LJNUserState extends State<LJNUser>
             child: Row(
               children: [
                 _buildFloatingIconButton(
-                    icon: Icons.settings_outlined,
-                    onTap: () => Navigator.pushNamed(context, '/setting')),
+                  icon: Icons.settings_outlined,
+                  onTap: () => Navigator.pushNamed(context, '/setting'),
+                ),
                 _buildFloatingIconButton(
-                    icon: Icons.share_outlined,
-                    onTap: () => logger.info("分享按钮被点击")),
+                  icon: Icons.share_outlined,
+                  onTap: () => logger.info("分享按钮被点击"),
+                ),
               ],
             ),
           )
@@ -393,13 +463,22 @@ class _LJNUserState extends State<LJNUser>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(count,
-            style: TextStyle(
-                fontSize: 30.w,
-                fontWeight: FontWeight.bold,
-                color: theme.textTheme.bodyLarge?.color)),
+        Text(
+          count,
+          style: TextStyle(
+            fontSize: 30.w,
+            fontWeight: FontWeight.bold,
+            color: theme.textTheme.bodyLarge?.color,
+          ),
+        ),
         SizedBox(height: 8.w),
-        Text(label, style: TextStyle(fontSize: 26.w, color: theme.hintColor)),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 26.w,
+            color: theme.hintColor,
+          ),
+        ),
       ],
     );
   }
@@ -430,12 +509,13 @@ class _UserWorksGrid extends StatelessWidget {
   final String buttonText;
   final VoidCallback onButtonPressed;
 
-  const _UserWorksGrid(
-      {super.key,
-      required this.items,
-      required this.emptyMessage,
-      required this.buttonText,
-      required this.onButtonPressed});
+  const _UserWorksGrid({
+    super.key,
+    required this.items,
+    required this.emptyMessage,
+    required this.buttonText,
+    required this.onButtonPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -453,11 +533,20 @@ class _UserWorksGrid extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(height: 120.w),
-            Image.asset(assetPath('images/imgs/no-content.webp'),
-                width: 200.w, height: 200.w, color: Colors.grey.shade400),
+            Image.asset(
+              assetPath('images/imgs/no-content.webp'),
+              width: 200.w,
+              height: 200.w,
+              color: Colors.grey.shade400,
+            ),
             SizedBox(height: 30.w),
-            Text(emptyMessage,
-                style: TextStyle(fontSize: 28.w, color: Colors.grey.shade600)),
+            Text(
+              emptyMessage,
+              style: TextStyle(
+                fontSize: 28.w,
+                color: Colors.grey.shade600,
+              ),
+            ),
             SizedBox(height: 40.w),
             ElevatedButton(
               onPressed: onButtonPressed,
@@ -465,13 +554,21 @@ class _UserWorksGrid extends StatelessWidget {
                 backgroundColor: AppColors.accentRedVibrant1,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40.w)),
-                padding: EdgeInsets.symmetric(horizontal: 60.w, vertical: 20.w),
+                  borderRadius: BorderRadius.circular(40.w),
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 60.w,
+                  vertical: 20.w,
+                ),
                 elevation: 0,
               ),
-              child: Text(buttonText,
-                  style:
-                      TextStyle(fontSize: 28.w, fontWeight: FontWeight.bold)),
+              child: Text(
+                buttonText,
+                style: TextStyle(
+                  fontSize: 28.w,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             SizedBox(height: 40.w),
           ],
@@ -505,9 +602,12 @@ class _UserWorksGrid extends StatelessWidget {
               },
               errorBuilder: (context, error, stackTrace) {
                 return Container(
-                    color: Colors.grey.shade200,
-                    child:
-                        Icon(Icons.broken_image, color: Colors.grey.shade400));
+                  color: Colors.grey.shade200,
+                  child: Icon(
+                    Icons.broken_image,
+                    color: Colors.grey.shade400,
+                  ),
+                );
               },
             ),
           );

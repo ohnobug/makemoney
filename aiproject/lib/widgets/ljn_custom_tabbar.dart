@@ -64,7 +64,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   int _appbarNameIndex = 0;
   double _appbarLeft = 0;
   bool _hiddenAppbar = true;
-  bool _setStatusHeight = false;
   bool _showPopup = false;
 
   Color? _tabBarBackgroundColor;
@@ -172,21 +171,31 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   }
 
   void _handleAppBarAnimation(double animationValue) {
-    if (animationValue < 1) {
+    // 页面在 0 和 1 之间滑动时
+    if (animationValue >= 0 && animationValue < 1) {
       setState(() {
         _appbarLeft = (1 - animationValue) * 750.w;
-        _hiddenAppbar = false;
+        // 当 value 接近 0 时，我们希望 AppBar 隐藏
+        // 当 value 接近 1 时，我们希望 AppBar 完全显示
+        // 所以 _hiddenAppbar 的状态应该在滑动过程中改变
+        _hiddenAppbar = animationValue < 0.5; // 例如，可以简单以 0.5 为界
         _appbarNameIndex = 1;
       });
-    } else if (animationValue > 3 && animationValue < 4) {
+    }
+    // 页面在 3 和 4 之间滑动时
+    else if (animationValue > 3 && animationValue <= 4) {
       setState(() {
         _appbarLeft = (animationValue.floor() - animationValue) * 750.w;
-        _hiddenAppbar = false;
+        _hiddenAppbar = animationValue > 3.5; // 同样以 3.5 为界
         _appbarNameIndex = 3;
       });
-    } else if (animationValue == 0 || animationValue == 4) {
+    }
+    // 页面完全停在 0 或 4
+    else if (animationValue == 0 || animationValue == 4) {
       setState(() => _hiddenAppbar = true);
-    } else {
+    }
+    // 其他页面（1, 2, 3）
+    else {
       setState(() {
         _appbarLeft = 0;
         _hiddenAppbar = false;
@@ -269,15 +278,21 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 decoration: BoxDecoration(
                   color: _tabBarBackgroundColor,
                   border: Border(
-                      top: BorderSide(color: _borderColor!, width: 1.0.w)),
+                    top: BorderSide(
+                      color: _borderColor!,
+                      width: 1.0.w,
+                    ),
+                  ),
                 ),
                 child: TabBar(
                   controller: _tabController,
                   onTap: (index) {
                     if (_tabbarIndex != index) {
-                      _pageController.animateToPage(index,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.ease);
+                      _pageController.animateToPage(
+                        index,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
                     }
                   },
                   dividerColor: Colors.transparent,
@@ -286,23 +301,26 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                   unselectedLabelColor: _unselectedItemColor,
                   indicator: const BoxDecoration(),
                   overlayColor: WidgetStateProperty.all(Colors.transparent),
-                  tabs: List.generate(_tabs.length, (index) {
-                    final tabInfo = _tabs[index];
-                    final icon = _tabController.index == index
-                        ? tabInfo.selectedIcon
-                        : tabInfo.icon;
-                    return Tab(
-                      height: 105.w,
-                      iconMargin: EdgeInsets.only(bottom: 8.w),
-                      icon: SizedBox(
-                        height: 50.w,
-                        width: 50.w,
-                        child:
-                            Center(child: Icon(icon, size: tabInfo.iconSize.w)),
-                      ),
-                      text: tabTitles[index],
-                    );
-                  }),
+                  tabs: List.generate(
+                    _tabs.length,
+                    (index) {
+                      final tabInfo = _tabs[index];
+                      final icon = _tabController.index == index
+                          ? tabInfo.selectedIcon
+                          : tabInfo.icon;
+                      return Tab(
+                        height: 105.w,
+                        iconMargin: EdgeInsets.only(bottom: 8.w),
+                        icon: SizedBox(
+                          height: 50.w,
+                          width: 50.w,
+                          child: Center(
+                              child: Icon(icon, size: tabInfo.iconSize.w)),
+                        ),
+                        text: tabTitles[index],
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -393,8 +411,10 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                                   child: Icon(
                                     color:
                                         theme.appBarTheme.titleTextStyle!.color,
-                                    const IconData(0xe612,
-                                        fontFamily: 'Iconfont'),
+                                    const IconData(
+                                      0xe612,
+                                      fontFamily: 'Iconfont',
+                                    ),
                                     size: 40.w,
                                   ),
                                 ),

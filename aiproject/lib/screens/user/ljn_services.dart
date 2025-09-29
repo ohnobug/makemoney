@@ -392,7 +392,7 @@ class _LJNServices extends State<LJNServices>
       height: 1.1,
       fontSize: fontSizeScale(30.w),
       color: AppColors.accentYellow,
-      fontFamily: "LJNFont",
+      fontFamily: "Roboto",
     );
 
     return Container(

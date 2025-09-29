@@ -124,7 +124,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
                           height: 1.08,
                           fontSize: fontSizeScale(85.w),
                           fontWeight: FontWeight.bold,
-                          fontFamily: "LJNFont",
+                          fontFamily: "Roboto",
                           color: AppColors.neutralNearBlack4,
                         ),
                       ),
