@@ -21,31 +21,19 @@ class LJNSystemCubit extends Cubit<SystemState> {
   // 用于代理子页面拖拽事件的方法
   // =======================================================================
 
-  /// 当子页面决定要代理拖拽给父级时，调用此方法开始
+  /// 当子页面决定将手势移交给父级时调用此方法。
+  /// 这只是一个状态标记，通知父级手势已开始。
   void onParentDragStart() {
-    // 只有在空闲状态下才能开始新的拖拽
     if (state.parentDragState == ParentDragState.idle) {
       emit(state.copyWith(
         parentDragState: ParentDragState.dragging,
-        parentDragOffset: 0.0,
-        parentDragDelta: 0.0, // [MODIFIED] 重置增量
       ));
     }
   }
 
-  /// [MODIFIED] 实时更新被代理的拖拽总偏移和当前帧增量
-  void onParentDragUpdate(double dragDelta) {
-    if (state.parentDragState == ParentDragState.dragging) {
-      emit(state.copyWith(
-        // parentDragOffset 仍然累加，用于拖动结束时的判断
-        parentDragOffset: state.parentDragOffset + dragDelta,
-        // parentDragDelta 直接存储当前帧的增量，用于父级的相对滚动
-        parentDragDelta: dragDelta,
-      ));
-    }
-  }
+  // [REMOVED] onParentDragUpdate 方法已不再需要。
 
-  /// 当子页面结束代理拖拽时调用
+  /// 当子页面检测到手势结束时调用。
   void onParentDragEnd(double velocity) {
     if (state.parentDragState == ParentDragState.dragging) {
       emit(state.copyWith(
@@ -55,14 +43,20 @@ class LJNSystemCubit extends Cubit<SystemState> {
     }
   }
 
-  /// 当父级 TabBar 的动画处理完毕后，重置状态
+  /// 当父级 TabBar 的动画处理完毕后，重置状态。
   void onParentDragHandled() {
     emit(state.copyWith(
       parentDragState: ParentDragState.idle,
-      parentDragOffset: 0.0,
-      parentDragDelta: 0.0, // [MODIFIED] 重置增量
       clearParentDragEndVelocity: true,
     ));
+  }
+
+  /// 当子页面开始自己处理手势时，调用 lock(true) 来锁定父级滚动。
+  /// 手势结束后，调用 lock(false) 来解锁。
+  void lockParentPageView(bool lock) {
+    if (state.isParentPageViewLocked != lock) {
+      emit(state.copyWith(isParentPageViewLocked: lock));
+    }
   }
 
   // =======================================================================
@@ -150,10 +144,12 @@ class SystemState extends Equatable {
   final bool showVideoProgress;
   final int mainTabIndex;
 
+  // 拖拽代理状态
   final ParentDragState parentDragState;
-  final double parentDragOffset;
   final double? parentDragEndVelocity;
-  final double parentDragDelta; // [MODIFIED] 新增属性，用于存储每一帧的拖动增量
+
+  // 父级 PageView 滚动锁
+  final bool isParentPageViewLocked;
 
   const SystemState({
     this.homescrollpixels = 0,
@@ -173,9 +169,8 @@ class SystemState extends Equatable {
     this.showVideoProgress = false,
     this.mainTabIndex = 0,
     this.parentDragState = ParentDragState.idle,
-    this.parentDragOffset = 0.0,
     this.parentDragEndVelocity,
-    this.parentDragDelta = 0.0, // [MODIFIED] 添加默认值
+    this.isParentPageViewLocked = false,
   });
 
   SystemState copyWith({
@@ -196,10 +191,9 @@ class SystemState extends Equatable {
     bool? showVideoProgress,
     int? mainTabIndex,
     ParentDragState? parentDragState,
-    double? parentDragOffset,
     double? parentDragEndVelocity,
     bool clearParentDragEndVelocity = false,
-    double? parentDragDelta, // [MODIFIED] 添加 copyWith 参数
+    bool? isParentPageViewLocked,
   }) {
     return SystemState(
       homescrollpixels: homescrollpixels ?? this.homescrollpixels,
@@ -208,7 +202,7 @@ class SystemState extends Equatable {
       mainpage2isload: mainpage2isload ?? this.mainpage2isload,
       mainpage3isload: mainpage3isload ?? this.mainpage3isload,
       mainpage4isload: mainpage4isload ?? this.mainpage4isload,
-      mainpage5isload: mainpage4isload ?? this.mainpage5isload,
+      mainpage5isload: mainpage5isload ?? this.mainpage5isload,
       screenSize: screenSize ?? this.screenSize,
       statusHeight: statusHeight ?? this.statusHeight,
       showMiniProgramDrawer:
@@ -220,12 +214,11 @@ class SystemState extends Equatable {
       showVideoProgress: showVideoProgress ?? this.showVideoProgress,
       mainTabIndex: mainTabIndex ?? this.mainTabIndex,
       parentDragState: parentDragState ?? this.parentDragState,
-      parentDragOffset: parentDragOffset ?? this.parentDragOffset,
       parentDragEndVelocity: clearParentDragEndVelocity
           ? null
           : parentDragEndVelocity ?? this.parentDragEndVelocity,
-      parentDragDelta:
-          parentDragDelta ?? this.parentDragDelta, // [MODIFIED] 添加赋值
+      isParentPageViewLocked:
+          isParentPageViewLocked ?? this.isParentPageViewLocked,
     );
   }
 
@@ -248,8 +241,7 @@ class SystemState extends Equatable {
         showVideoProgress,
         mainTabIndex,
         parentDragState,
-        parentDragOffset,
         parentDragEndVelocity,
-        parentDragDelta, // [MODIFIED] 添加到 props
+        isParentPageViewLocked,
       ];
 }

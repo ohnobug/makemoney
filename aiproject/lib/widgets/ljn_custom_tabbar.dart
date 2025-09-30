@@ -70,7 +70,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   Color _unselectedItemColor = Colors.white.withAlpha(153);
   Color _borderColor = Colors.white.withAlpha(38);
 
-  // [MODIFIED] 新增一个“点击锁”
   bool _isTapAnimating = false;
 
   @override
@@ -94,7 +93,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     if (!mounted) return;
     if (_tabController.indexIsChanging && !_isTapAnimating) return;
 
-    // 在非点击动画期间，同步 offset
     if (!_isTapAnimating) {
       _tabController.offset = (page - _tabController.index).clamp(-1.0, 1.0);
     }
@@ -146,7 +144,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
   void _handlePageScroll() {
     if (!_pageController.hasClients) return;
-    // [MODIFIED] 如果正在进行点击动画，则忽略滚动监听器的调用
     if (_isTapAnimating) return;
     _updateUiForPage(_pageController.page!);
   }
@@ -186,33 +183,31 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     ThemeData theme = Theme.of(context);
     final tabTitles = _getTabTitles(context);
     final systemCubit = context.read<LJNSystemCubit>();
-    final screenWidth = MediaQuery.of(context).size.width;
 
     return BlocListener<LJNSystemCubit, SystemState>(
+      // [MODIFIED] 只监听状态机的变化，不再需要监听 delta
       listenWhen: (prev, current) =>
-          prev.parentDragState != current.parentDragState ||
-          (current.parentDragState == ParentDragState.dragging &&
-              prev.parentDragDelta != current.parentDragDelta),
+          prev.parentDragState != current.parentDragState,
       listener: (context, state) {
-        if (state.parentDragState == ParentDragState.dragging) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (_pageController.hasClients) {
-              _pageController.position.jumpTo(
-                  _pageController.position.pixels - state.parentDragDelta);
-            }
-          });
-        } else if (state.parentDragState == ParentDragState.animating) {
-          final velocity = state.parentDragEndVelocity!;
-          final offset = state.parentDragOffset;
-          if (offset > screenWidth / 3 || velocity > 800) {
+        // [REMOVED] dragging 状态的 listener 已不再需要
+        if (state.parentDragState == ParentDragState.animating) {
+          final velocity = state.parentDragEndVelocity ?? 0.0;
+
+          // 根据松手速度判断，如果速度大于一定阈值，则切换页面
+          // 如果速度不大，PageView自身的 physics 会处理回弹，我们这里做一个补充判断
+          // 这里可以根据实际体验调整阈值
+          if (velocity > 800) {
             _pageController.animateToPage(_tabController.index - 1,
                 duration: const Duration(milliseconds: 250),
                 curve: Curves.easeOut);
-          } else {
-            _pageController.animateToPage(_tabController.index,
+          } else if (_pageController.page! > (_tabController.index - 0.5)) {
+            // 如果拖动超过了一半，也进行翻页
+            _pageController.animateToPage(_tabController.index - 1,
                 duration: const Duration(milliseconds: 250),
                 curve: Curves.easeOut);
           }
+          // 其他情况，PageView 的 physics 会自动处理弹回，我们只需重置状态
+
           systemCubit.onParentDragHandled();
         }
       },
@@ -239,15 +234,12 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 child: TabBar(
                   controller: _tabController,
                   onTap: (index) {
-                    // if (_tabController.index == index) return;
-
-                    // [MODIFIED] 终极修复方案
                     setState(() {
                       _isTapAnimating = true;
                     });
 
                     _updateUiForPage(index.toDouble());
-                    _tabController.index = index; // 立即同步 index
+                    _tabController.index = index;
 
                     _pageController
                         .animateToPage(
@@ -295,21 +287,28 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
               ),
             ),
             appBar: null,
-            body: PageView(
-              controller: _pageController,
-              onPageChanged: _onPageChanged,
-              physics: systemCubit.state.parentDragState != ParentDragState.idle
-                  ? const NeverScrollableScrollPhysics()
-                  : (systemCubit.state.showMiniProgramDrawer
-                      ? const NeverScrollableScrollPhysics()
-                      : const ClampingScrollPhysics()),
-              children: const <Widget>[
-                LJNArts(),
-                LJNDiscovery(),
-                LJNPublisher(),
-                LJNRecentChatsList(),
-                LJNUser(),
-              ],
+            body: BlocBuilder<LJNSystemCubit, SystemState>(
+              buildWhen: (prev, current) =>
+                  prev.isParentPageViewLocked != current.isParentPageViewLocked,
+              builder: (context, state) {
+                return PageView(
+                  controller: _pageController,
+                  onPageChanged: _onPageChanged,
+                  // [MODIFIED] 最终正确的 physics 逻辑
+                  physics: state.isParentPageViewLocked
+                      ? const NeverScrollableScrollPhysics() // 优先级1：被子级锁定
+                      : (state.showMiniProgramDrawer
+                          ? const NeverScrollableScrollPhysics() // 优先级2：被抽屉锁定
+                          : const ClampingScrollPhysics()), // 默认情况：自由滚动
+                  children: const <Widget>[
+                    LJNArts(),
+                    LJNDiscovery(),
+                    LJNPublisher(),
+                    LJNRecentChatsList(),
+                    LJNUser(),
+                  ],
+                );
+              },
             ),
           ),
           Visibility(
