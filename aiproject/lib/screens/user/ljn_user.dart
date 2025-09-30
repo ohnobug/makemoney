@@ -189,13 +189,22 @@ class _LJNUserState extends State<LJNUser>
     ThemeData theme = Theme.of(context);
 
     return Scaffold(
+      primary: false,
+      appBar: PreferredSize(
+          preferredSize: Size(750.w, systemState.statusHeight),
+          child: Container(
+            color: theme.cardColor,
+          )),
       backgroundColor: theme.colorScheme.surfaceContainer,
       body: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverToBoxAdapter(
-                  child: _buildUserInfoSection(systemState, theme)),
+                // 用户信息
+                child: _buildUserInfoSection(systemState, theme),
+              ),
+              // Tabbar标题
               SliverPersistentHeader(
                 delegate: _SliverTabBarDelegate(
                   TabBar(
@@ -236,6 +245,7 @@ class _LJNUserState extends State<LJNUser>
               ),
             ];
           },
+          // Tabbar内容
           body: Listener(
             onPointerDown: _handleDragDown,
             onPointerMove: _handleDragUpdate,
@@ -315,178 +325,181 @@ class _LJNUserState extends State<LJNUser>
         onPressed: () {},
       ),
     ];
-    return Container(
-      color: theme.cardColor,
-      margin: EdgeInsets.only(bottom: 20.w),
-      child: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(
-              32.w,
-              20.w + systemState.statusHeight,
-              32.w,
-              20.w,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, '/userinfo'),
-                      child: ClipOval(
-                        child: BlocBuilder<LJNUserCubit, LJNUserState>(
-                          builder: (context, state) {
-                            final avatar = state.userinfoAvatar;
-                            return Image.asset(
-                              (avatar == null || avatar.isEmpty)
-                                  ? assetPath('images/avatar/default.png')
-                                  : assetPath(avatar),
-                              width: 140.w,
-                              height: 140.w,
-                              fit: BoxFit.cover,
-                            );
-                          },
-                        ),
+    return Stack(
+      children: [
+        Container(
+          color: theme.cardColor,
+          margin: EdgeInsets.only(bottom: 20.w),
+          padding: EdgeInsets.fromLTRB(
+            32.w,
+            40.w,
+            32.w,
+            20.w,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/userinfo'),
+                    child: ClipOval(
+                      child: BlocBuilder<LJNUserCubit, LJNUserState>(
+                        builder: (context, state) {
+                          final avatar = state.userinfoAvatar;
+                          return Image.asset(
+                            (avatar == null || avatar.isEmpty)
+                                ? assetPath('images/avatar/default.png')
+                                : assetPath(avatar),
+                            width: 140.w,
+                            height: 140.w,
+                            fit: BoxFit.cover,
+                          );
+                        },
                       ),
                     ),
-                    SizedBox(width: 30.w),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                            onTap: () =>
-                                Navigator.pushNamed(context, '/userinfo'),
-                            child: BlocBuilder<LJNUserCubit, LJNUserState>(
-                              builder: (context, state) => Text(
-                                state.userinfoName ?? '用户名',
-                                style: TextStyle(
-                                  fontSize: 42.w,
-                                  fontWeight: FontWeight.bold,
-                                  color: theme.colorScheme.onSurface,
-                                ),
+                  ),
+                  SizedBox(width: 30.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/userinfo'),
+                          child: BlocBuilder<LJNUserCubit, LJNUserState>(
+                            builder: (context, state) => Text(
+                              state.userinfoName ?? '用户名',
+                              style: TextStyle(
+                                fontSize: 42.w,
+                                fontWeight: FontWeight.bold,
+                                color: theme.colorScheme.onSurface,
                               ),
                             ),
                           ),
-                          SizedBox(height: 12.w),
-                          GestureDetector(
-                            onTap: () =>
-                                Navigator.pushNamed(context, '/userinfo'),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  l10n.vigavigaIdDisplay('TheMonsterClub'),
-                                  style: TextStyle(
-                                    fontSize: 26.w,
-                                    color: theme.hintColor,
-                                  ),
-                                ),
-                                SizedBox(width: 10.w),
-                                Icon(
-                                  Icons.qr_code_2_outlined,
-                                  size: 28.w,
-                                  color: theme.hintColor,
-                                ),
-                                SizedBox(width: 10.w),
-                                Icon(
-                                  Icons.chevron_right,
-                                  size: 32.w,
-                                  color: theme.hintColor,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 40.w),
-                Row(
-                  children: [
-                    _buildStatsItem("25", "关注"),
-                    SizedBox(width: 60.w),
-                    _buildStatsItem("1.2M", "粉丝"),
-                    SizedBox(width: 60.w),
-                    _buildStatsItem("8.9M", "获赞"),
-                  ],
-                ),
-                SizedBox(height: 30.w),
-                Row(
-                  children: [
-                    Text(
-                      "余额：",
-                      style: TextStyle(
-                        fontSize: 30.w,
-                        color: theme.colorScheme.onSurface.withAlpha(200),
-                      ),
-                    ),
-                    Text(
-                      _isBalanceVisible ? "\$1,234.56" : "****",
-                      style: TextStyle(
-                        fontSize: 30.w,
-                        color: theme.colorScheme.onSurface,
-                        fontFamily: 'DMMono',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(width: 16.w),
-                    InkWell(
-                      borderRadius: BorderRadius.circular(20.w),
-                      onTap: () => setState(
-                          () => _isBalanceVisible = !_isBalanceVisible),
-                      child: Padding(
-                        padding: EdgeInsets.all(8.w),
-                        child: Icon(
-                          _isBalanceVisible
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
-                          size: 32.w,
-                          color: theme.hintColor,
                         ),
+                        SizedBox(height: 12.w),
+                        GestureDetector(
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/userinfo'),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                l10n.vigavigaIdDisplay('TheMonsterClub'),
+                                style: TextStyle(
+                                  fontSize: 26.w,
+                                  color: theme.hintColor,
+                                ),
+                              ),
+                              SizedBox(width: 10.w),
+                              Icon(
+                                Icons.qr_code_2_outlined,
+                                size: 28.w,
+                                color: theme.hintColor,
+                              ),
+                              SizedBox(width: 10.w),
+                              Icon(
+                                Icons.chevron_right,
+                                size: 32.w,
+                                color: theme.hintColor,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 40.w),
+              Row(
+                children: [
+                  _buildStatsItem("25", "关注"),
+                  SizedBox(width: 60.w),
+                  _buildStatsItem("1.2M", "粉丝"),
+                  SizedBox(width: 60.w),
+                  _buildStatsItem("8.9M", "获赞"),
+                ],
+              ),
+              SizedBox(height: 30.w),
+              Row(
+                children: [
+                  Text(
+                    "余额：",
+                    style: TextStyle(
+                      fontSize: 30.w,
+                      color: theme.colorScheme.onSurface.withAlpha(200),
+                    ),
+                  ),
+                  Text(
+                    _isBalanceVisible ? "\$1,234.56" : "****",
+                    style: TextStyle(
+                      fontSize: 30.w,
+                      color: theme.colorScheme.onSurface,
+                      fontFamily: 'DMMono',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(width: 16.w),
+                  InkWell(
+                    borderRadius: BorderRadius.circular(20.w),
+                    onTap: () =>
+                        setState(() => _isBalanceVisible = !_isBalanceVisible),
+                    child: Padding(
+                      padding: EdgeInsets.all(8.w),
+                      child: Icon(
+                        _isBalanceVisible
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        size: 32.w,
+                        color: theme.hintColor,
                       ),
                     ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 30.w),
-                  child: Divider(
-                    height: 1.w,
-                    color: theme.dividerColor,
                   ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 30.w, bottom: 20.w),
+                child: Divider(
+                  height: 1.w,
+                  color: theme.dividerColor,
                 ),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: serviceButtons.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4, childAspectRatio: 1.1),
-                  itemBuilder: (context, index) => serviceButtons[index],
+              ),
+              // 功能区域
+              GridView.builder(
+                padding: EdgeInsets.only(top: 0),
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: serviceButtons.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  childAspectRatio: 1.1,
                 ),
-              ],
-            ),
+                itemBuilder: (context, index) => serviceButtons[index],
+              ),
+            ],
           ),
-          Positioned(
-            top: 0.w,
-            right: 0,
-            child: Row(
-              children: [
-                _buildFloatingIconButton(
-                  icon: Icons.settings_outlined,
-                  onTap: () => Navigator.pushNamed(context, '/setting'),
-                ),
-                _buildFloatingIconButton(
-                  icon: Icons.share_outlined,
-                  onTap: () => logger.info("分享按钮被点击"),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+        ),
+        // 设置
+        Positioned(
+          top: 0.w,
+          right: 0,
+          child: Row(
+            children: [
+              _buildFloatingIconButton(
+                icon: Icons.settings_outlined,
+                onTap: () => Navigator.pushNamed(context, '/setting'),
+              ),
+              _buildFloatingIconButton(
+                icon: Icons.share_outlined,
+                onTap: () => logger.info("分享按钮被点击"),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 

@@ -94,7 +94,7 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
       primary: false,
       appBar: null,
       body: Padding(
-        padding: EdgeInsetsGeometry.only(top: 90.w + systemState.statusHeight),
+        padding: EdgeInsetsGeometry.only(top: 120.w + systemState.statusHeight),
         child: ListView(
           children: [
             _buildSearchBar(theme),
@@ -110,38 +110,31 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
 
   // --- 以下是 UI 构建辅助方法，无需修改 ---
   Widget _buildSearchBar(ThemeData theme) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(
-        30.w,
-        0,
-        30.w,
-        0,
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 30.w),
+      height: 70.w,
+      decoration: BoxDecoration(
+        color: theme.dividerColor.withAlpha(128),
+        borderRadius: BorderRadius.circular(35.w),
       ),
-      child: Container(
-        height: 70.w,
-        decoration: BoxDecoration(
-          color: theme.dividerColor.withAlpha(128),
-          borderRadius: BorderRadius.circular(35.w),
-        ),
-        child: Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Icon(
-                const IconData(0xe612, fontFamily: 'Iconfont'),
-                color: theme.hintColor,
-                size: 36.w,
-              ),
+      child: Row(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Icon(
+              const IconData(0xe612, fontFamily: 'Iconfont'),
+              color: theme.hintColor,
+              size: 36.w,
             ),
-            Text(
-              "搜索你感兴趣的内容",
-              style: TextStyle(
-                fontSize: 28.w,
-                color: theme.hintColor,
-              ),
+          ),
+          Text(
+            "搜索你感兴趣的内容",
+            style: TextStyle(
+              fontSize: 28.w,
+              color: theme.hintColor,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
