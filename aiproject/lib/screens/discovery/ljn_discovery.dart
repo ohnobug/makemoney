@@ -180,8 +180,14 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
               title: "扫二维码",
               icon: "images/icon/discovery_icon4.png",
               link: '/qrcode_scanner',
+              underline: true,
+            ),
+            LJNFunctionItem(
+              title: "小程序",
+              icon: "images/icon/discovery_icon5.png",
+              link: '/miniprogram_list',
               underline: false,
-            )
+            ),
           ],
         ),
       ],

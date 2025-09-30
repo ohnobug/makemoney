@@ -67,6 +67,7 @@ import 'package:vigaviga/screens/user/ljn_services_manager.dart';
 import 'package:vigaviga/screens/user/ljn_user_more_info.dart';
 import 'package:vigaviga/screens/user/ljn_userinfo.dart';
 import 'package:vigaviga/screens/user/ljn_wallet.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/videoplayer.dart';
 import 'package:vigaviga/widgets/ljn_custom_tabbar.dart';
 
@@ -77,6 +78,9 @@ class AppRouter {
         settings.name!.startsWith('/open_miniprogram')) {
       final uri = Uri.parse(settings.name!);
       final linkValue = uri.queryParameters['link'] ?? "";
+
+      logger.info("bbbbbbbbbbbb: " + linkValue);
+
       return _pageRouteBuilderAnimation(LJNMiniProgram(link: linkValue));
     }
 

@@ -90,6 +90,7 @@ class _LJNSoundLock extends State<LJNSoundLock> {
                           LJNFunctionList(children: [
                             // 语音锁
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: l10n.loginWithVoiceprint,
                               tapEffect: false,
                               underline: true,
@@ -110,6 +111,7 @@ class _LJNSoundLock extends State<LJNSoundLock> {
 
                             // 重置并移除
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: l10n.resetAndRemove,
                               link: '',
                               // backgroundColor: AppColors.neutralGrey2,
@@ -118,6 +120,7 @@ class _LJNSoundLock extends State<LJNSoundLock> {
 
                             // 尝试验证我的声音
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: l10n.tryToVerifyMyVoice,
                               link: '',
                               // backgroundColor: AppColors.neutralGrey2,

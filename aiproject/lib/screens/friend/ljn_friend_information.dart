@@ -65,24 +65,28 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                   ),
                   children: [
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.remarkName,
                       link: '/set_notes_and_labels',
                       showStyle: "马化腾",
                       underline: true,
                     ),
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.tags,
                       link: '/set_friend_tags',
                       showStyle: l10n.relation_classmate_or_friend,
                       underline: true,
                     ),
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.phone,
                       link: '/set_notes_and_labels',
                       showStyle: "+86 18718988850",
                       underline: true,
                     ),
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.description,
                       link: '/set_notes_and_labels',
                       showStyle: "-",
@@ -98,6 +102,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                   ),
                   children: [
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.ourMutualGroups,
                       link: '',
                       showStyle: l10n.personCount(4),
@@ -111,6 +116,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
                   children: [
                     // 签名
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       height: 135.w,
                       title: l10n.signature,
                       underline: true,
@@ -135,6 +141,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
 
                     // 来源
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       height: 135.w,
                       title: l10n.source,
                       underline: true,
@@ -160,6 +167,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
 
                     // 添加时间
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.addedTime,
                       // link: '',
                       link: null,

@@ -54,6 +54,7 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                   children: [
                     // 使用听筒播放语音
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.useEarpieceToPlayVoice,
                       // link: '',
                       underline: true,
@@ -90,7 +91,7 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                       showStyle: Expanded(
                         flex: 0,
                         child: Container(
-                          margin: const EdgeInsets.only(right: 32).w,
+                          margin: const EdgeInsets.only(right: 0).w,
                           child: LJNSwitch(
                             initialValue: false,
                             onChanged: (value) {
@@ -104,6 +105,7 @@ class _LJNChatSetting extends State<LJNChatSetting> {
 
                     // 聊天背景
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.chatBackground,
                       link: '',
                       underline: true,
@@ -111,6 +113,7 @@ class _LJNChatSetting extends State<LJNChatSetting> {
 
                     // 表情管理
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.stickerManagement,
                       link: '',
                       underline: false,
@@ -123,11 +126,13 @@ class _LJNChatSetting extends State<LJNChatSetting> {
                   title: LJNAlphabet(title: l10n.chatHistory),
                   children: [
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.chatHistoryMigrationBackup,
                       link: '',
                       underline: true,
                     ),
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.clearChatHistory,
                       link: '',
                       underline: false,

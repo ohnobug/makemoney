@@ -62,6 +62,7 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
                 LJNFunctionList(children: [
                   // 性别
                   LJNFunctionItem(
+                    icon: "images/avatar/02.png",
                     title: l10n.gender,
                     link: '',
                     showStyle: l10n.male,
@@ -73,6 +74,7 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
                 LJNFunctionList(children: [
                   // 地区
                   LJNFunctionItem(
+                    icon: "images/avatar/02.png",
                     title: l10n.region,
                     link: '',
                     showStyle: l10n.guangdongGuangzhou,
@@ -85,6 +87,7 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
                   children: [
                     // 个人签名
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       height: 135.w,
                       title: l10n.personalSignature,
                       // link: '',
@@ -109,6 +112,7 @@ class _LJNUserMoreInfo extends State<LJNUserMoreInfo> {
 
                     // 注册时间
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.registrationTime,
                       // link: '',
                       showStyle: Expanded(
