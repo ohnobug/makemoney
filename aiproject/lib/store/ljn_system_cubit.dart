@@ -31,8 +31,6 @@ class LJNSystemCubit extends Cubit<SystemState> {
     }
   }
 
-  // [REMOVED] onParentDragUpdate 方法已不再需要。
-
   /// 当子页面检测到手势结束时调用。
   void onParentDragEnd(double velocity) {
     if (state.parentDragState == ParentDragState.dragging) {
@@ -123,6 +121,10 @@ class LJNSystemCubit extends Cubit<SystemState> {
   void updateVideoProgress({double? progress, bool? show}) {
     emit(state.copyWith(videoProgress: progress, showVideoProgress: show));
   }
+
+  void updateTabbarHeight(double tabbarHeight) {
+    emit(state.copyWith(tabbarHeight: tabbarHeight));
+  }
 }
 
 // 系统的 State
@@ -143,6 +145,7 @@ class SystemState extends Equatable {
   final double videoProgress;
   final bool showVideoProgress;
   final int mainTabIndex;
+  final double tabbarHeight;
 
   // 拖拽代理状态
   final ParentDragState parentDragState;
@@ -171,6 +174,7 @@ class SystemState extends Equatable {
     this.parentDragState = ParentDragState.idle,
     this.parentDragEndVelocity,
     this.isParentPageViewLocked = false,
+    this.tabbarHeight = 100,
   });
 
   SystemState copyWith({
@@ -194,6 +198,7 @@ class SystemState extends Equatable {
     double? parentDragEndVelocity,
     bool clearParentDragEndVelocity = false,
     bool? isParentPageViewLocked,
+    double? tabbarHeight,
   }) {
     return SystemState(
       homescrollpixels: homescrollpixels ?? this.homescrollpixels,
@@ -219,6 +224,7 @@ class SystemState extends Equatable {
           : parentDragEndVelocity ?? this.parentDragEndVelocity,
       isParentPageViewLocked:
           isParentPageViewLocked ?? this.isParentPageViewLocked,
+      tabbarHeight: tabbarHeight ?? this.tabbarHeight,
     );
   }
 
@@ -243,5 +249,6 @@ class SystemState extends Equatable {
         parentDragState,
         parentDragEndVelocity,
         isParentPageViewLocked,
+        statusHeight
       ];
 }

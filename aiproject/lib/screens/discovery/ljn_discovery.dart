@@ -94,7 +94,7 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
       primary: false,
       appBar: null,
       body: Padding(
-        padding: EdgeInsetsGeometry.only(top: 120.w + systemState.statusHeight),
+        padding: EdgeInsetsGeometry.only(top: 90.w),
         child: ListView(
           children: [
             _buildSearchBar(theme),
@@ -111,31 +111,39 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
   // --- 以下是 UI 构建辅助方法，无需修改 ---
   Widget _buildSearchBar(ThemeData theme) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 30.w),
+      margin: EdgeInsets.only(
+        left: 20.w,
+        right: 20.w,
+        top: 20.w,
+      ),
       height: 70.w,
       decoration: BoxDecoration(
         color: theme.dividerColor.withAlpha(128),
         borderRadius: BorderRadius.circular(35.w),
       ),
-      child: Row(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Icon(
-              const IconData(0xe612, fontFamily: 'Iconfont'),
-              color: theme.hintColor,
-              size: 36.w,
-            ),
-          ),
-          Text(
-            "搜索你感兴趣的内容",
-            style: TextStyle(
-              fontSize: 28.w,
-              color: theme.hintColor,
-            ),
-          ),
-        ],
-      ),
+      child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/search');
+          },
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Icon(
+                  const IconData(0xe612, fontFamily: 'Iconfont'),
+                  color: theme.hintColor,
+                  size: 36.w,
+                ),
+              ),
+              Text(
+                "搜索你感兴趣的内容",
+                style: TextStyle(
+                  fontSize: 28.w,
+                  color: theme.hintColor,
+                ),
+              ),
+            ],
+          )),
     );
   }
 
@@ -157,19 +165,19 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
         LJNFunctionList(
           children: [
             LJNFunctionItem(
-              title: l10n.moments,
+              title: "心情时刻",
               icon: "images/icon/discovery_icon1.png",
               link: '/friendmoments',
               underline: true,
             ),
             LJNFunctionItem(
-              title: "看看",
+              title: "图片墙",
               icon: "images/icon/discovery_icon2.png",
               link: '/ins',
               underline: true,
             ),
             LJNFunctionItem(
-              title: l10n.scan,
+              title: "扫二维码",
               icon: "images/icon/discovery_icon4.png",
               link: '/qrcode_scanner',
               underline: false,
@@ -211,12 +219,31 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
             color: theme.textTheme.bodyLarge?.color,
           ),
         ),
-        Text(
-          "查看全部 >",
-          style: TextStyle(
-            fontSize: 26.w,
-            color: theme.hintColor,
-          ),
+        Text.rich(
+          TextSpan(children: [
+            TextSpan(
+              text: "查看全部",
+              style: TextStyle(
+                fontSize: 24.w,
+                color: theme.hintColor,
+              ),
+            ),
+            WidgetSpan(
+                child: SizedBox(
+              width: 10.w,
+            )),
+            WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: Icon(
+                const IconData(
+                  0xed9d,
+                  fontFamily: 'Iconfont',
+                ),
+                size: 20.0.w,
+                color: theme.colorScheme.onSurface.withAlpha(100),
+              ),
+            ),
+          ]),
         ),
       ],
     );

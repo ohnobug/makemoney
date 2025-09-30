@@ -1,6 +1,5 @@
 // /lib/widgets/ljn_arts.dart
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,18 +59,6 @@ class _LJNArts extends State<LJNArts> {
         });
       }
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        if (kIsWeb) {
-          _systemCubit.updateStatusHeight(0);
-        } else {
-          _systemCubit.updateStatusHeight(MediaQuery.of(context).padding.top);
-        }
-
-        _systemCubit.updateVideoProgress(show: true);
-      }
-    });
   }
 
   void _onVideoChange() {
@@ -128,8 +115,6 @@ class _LJNArts extends State<LJNArts> {
       controller.dispose();
     });
 
-    // [FIX 3] Use the saved member variable '_systemCubit' instead of 'context.read'.
-    // This is now safe because we are not using the deactivated context.
     _systemCubit.updateVideoProgress(progress: 0.0, show: false);
 
     super.dispose();
@@ -141,7 +126,8 @@ class _LJNArts extends State<LJNArts> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
-        final videoHeight = MediaQuery.of(context).size.height - 106.w;
+        final videoHeight =
+            MediaQuery.of(context).size.height - systemState.tabbarHeight;
 
         return Scaffold(
           primary: false,
@@ -173,7 +159,7 @@ class _LJNArts extends State<LJNArts> {
 
                       // --- 顶部的搜索按钮 ---
                       Positioned(
-                        top: 30.w + systemState.statusHeight,
+                        top: 0.w + systemState.statusHeight,
                         right: 28.w,
                         child: GestureDetector(
                           onTap: () {

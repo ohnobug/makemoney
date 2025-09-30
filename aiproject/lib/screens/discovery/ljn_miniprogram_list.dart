@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/widgets/ljn_text_spans.dart';
+import 'package:vigaviga/widgets/ljn_function_button.dart';
+import 'package:vigaviga/widgets/ljn_function_buttons_section.dart';
+import 'package:vigaviga/widgets/ljn_function_list_section.dart';
 
 // --- Data Models for clean data/UI separation ---
 class _FunctionButtonData {
@@ -19,8 +19,11 @@ class _ChatListItemData {
   final String avatar;
   final String friendName;
   final String message;
-  const _ChatListItemData(
-      {required this.avatar, required this.friendName, required this.message});
+  const _ChatListItemData({
+    required this.avatar,
+    required this.friendName,
+    required this.message,
+  });
 }
 
 class LJNMiniProgramList extends StatefulWidget {
@@ -163,16 +166,17 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
                 ),
                 child: Container(
                   constraints: BoxConstraints(
-                      minHeight: MediaQuery.of(context).size.height - 205.w),
+                    minHeight: MediaQuery.of(context).size.height - 205.w,
+                  ),
                   color: theme.colorScheme.surfaceContainer,
                   child: Column(
                     children: [
                       // 最近使用
-                      FunctionButtonsSection(
+                      LJNFunctionButtonsSection(
                         title: l10n.recent,
                         moreUrl: "/",
                         buttons: recentUseData
-                            .map((data) => FunctionButton(
+                            .map((data) => LJNFunctionButton(
                                   icon: data.icon,
                                   title: data.title,
                                   onPressed: () =>
@@ -181,11 +185,11 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
                             .toList(),
                       ),
                       // 我的常用
-                      FunctionButtonsSection(
+                      LJNFunctionButtonsSection(
                         title: l10n.myFavorites,
                         moreUrl: "",
                         buttons: myFavoritesData
-                            .map((data) => FunctionButton(
+                            .map((data) => LJNFunctionButton(
                                   icon: data.icon,
                                   title: data.title,
                                   onPressed: () =>
@@ -194,11 +198,11 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
                             .toList(),
                       ),
                       // 交通出行
-                      FunctionListSection(
+                      LJNFunctionListSection(
                         title: "交通出行", // Assuming this is not in l10n
                         moreUrl: '/',
                         chatItems: transportData
-                            .map((data) => ChatListItem(
+                            .map((data) => LJNChatListItem(
                                   avatar: data.avatar,
                                   friendName: data.friendName,
                                   message: data.message,
@@ -208,11 +212,11 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
                             .toList(),
                       ),
                       // 附近小程序
-                      FunctionListSection(
+                      LJNFunctionListSection(
                         title: l10n.nearbyMiniPrograms,
                         moreUrl: '/',
                         chatItems: nearbyData
-                            .map((data) => ChatListItem(
+                            .map((data) => LJNChatListItem(
                                   avatar: data.avatar,
                                   friendName: data.friendName,
                                   message: data.message,
@@ -229,357 +233,6 @@ class _LJNMiniProgramList extends State<LJNMiniProgramList> {
           ),
         );
       },
-    );
-  }
-}
-
-// =========================================================================
-// ====================       以下是页面使用的子组件        ====================
-// =========================================================================
-
-// --- 小程序按钮项组 ---
-class FunctionButtonsSection extends StatelessWidget {
-  final String title;
-  final List<FunctionButton> buttons;
-  final String moreUrl;
-
-  const FunctionButtonsSection(
-      {super.key,
-      required this.title,
-      required this.buttons,
-      required this.moreUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 18, left: 18, right: 18).w,
-      decoration: BoxDecoration(
-        color: AppColors.neutralWhite,
-        borderRadius: BorderRadius.circular(16.0).w,
-      ),
-      padding: const EdgeInsets.only(bottom: 16).w,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 33.w, bottom: 16.w, left: 30.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    height: 1.08,
-                    fontSize: fontSizeScale(28.w),
-                    color: theme.colorScheme.onSurface,
-                  ),
-                ),
-                if (moreUrl.isNotEmpty)
-                  GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, moreUrl),
-                    child: Container(
-                      color: Colors.transparent,
-                      padding: EdgeInsets.only(right: 33.w),
-                      child: Icon(
-                        const IconData(0xe659, fontFamily: 'Iconfont'),
-                        size: 37.w,
-                      ),
-                    ),
-                  )
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(16.0).w,
-            child: GridView.builder(
-              padding: EdgeInsets.zero,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
-                crossAxisSpacing: 16.w,
-                mainAxisSpacing: 30.w,
-                childAspectRatio: 1.0,
-              ),
-              itemCount: buttons.length,
-              itemBuilder: (context, index) => Center(child: buttons[index]),
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// --- 小程序按钮 (已修正) ---
-class FunctionButton extends StatefulWidget {
-  final String icon;
-  final String title;
-  final VoidCallback onPressed;
-
-  const FunctionButton({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.onPressed,
-  });
-
-  @override
-  FunctionButtonState createState() => FunctionButtonState();
-}
-
-class FunctionButtonState extends State<FunctionButton> {
-  bool _isPressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-
-    // 修正：从当前主题获取颜色，而不是硬编码
-    final Color pressedColor = theme.highlightColor;
-
-    return GestureDetector(
-      onTap: widget.onPressed,
-      onTapDown: (_) {
-        setState(() {
-          _isPressed = true;
-        });
-      },
-      onTapUp: (_) {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
-      onTapCancel: () {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
-      child: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: _isPressed ? pressedColor : Colors.transparent,
-          borderRadius: BorderRadius.circular(10.0).w,
-        ),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ClipOval(
-                child: Image.asset(
-                  assetPath(widget.icon),
-                  width: 95.w,
-                  height: 95.w,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SizedBox(height: 22.w),
-              Text(
-                widget.title,
-                maxLines: 1,
-                style: TextStyle(
-                  height: 1.08,
-                  decoration: TextDecoration.none,
-                  color: theme.colorScheme.onSurface.withAlpha(123),
-                  fontSize: fontSizeScale(25.0.w),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// --- 小程序列表项组 ---
-class FunctionListSection extends StatelessWidget {
-  final String title;
-  final String moreUrl;
-  final List<ChatListItem> chatItems;
-
-  const FunctionListSection({
-    super.key,
-    required this.title,
-    required this.chatItems,
-    required this.moreUrl,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 18, left: 18, right: 18).w,
-      decoration: BoxDecoration(
-        color: AppColors.neutralWhite,
-        borderRadius: BorderRadius.circular(16.0).w,
-      ),
-      padding: const EdgeInsets.only(bottom: 16).w,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 33.w, bottom: 16.w, left: 30.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    height: 1.08,
-                    fontSize: fontSizeScale(28.w),
-                    color: theme.colorScheme.onSurface,
-                  ),
-                ),
-                if (moreUrl.isNotEmpty)
-                  GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, moreUrl),
-                    child: Container(
-                      color: Colors.transparent,
-                      padding: EdgeInsets.only(right: 33.w),
-                      child: Icon(
-                        const IconData(0xe659, fontFamily: 'Iconfont'),
-                        size: 37.w,
-                      ),
-                    ),
-                  )
-              ],
-            ),
-          ),
-          ListView.builder(
-            primary: false,
-            itemCount: chatItems.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) => chatItems[index],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// --- 小程序列表项 (已修正) ---
-class ChatListItem extends StatefulWidget {
-  final String avatar;
-  final String friendName;
-  final String message;
-  final Function()? onPressed;
-
-  const ChatListItem({
-    super.key,
-    required this.avatar,
-    required this.friendName,
-    required this.message,
-    this.onPressed,
-  });
-
-  @override
-  State<ChatListItem> createState() => _ChatListItemState();
-}
-
-class _ChatListItemState extends State<ChatListItem> {
-  bool _isPressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-
-    final Color normalColor = theme.listTileTheme.tileColor!;
-    final Color pressedColor = theme.listTileTheme.selectedTileColor!;
-    final Color currentColor = _isPressed ? pressedColor : normalColor;
-
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: widget.onPressed,
-      onTapDown: (_) {
-        setState(() {
-          _isPressed = true;
-        });
-      },
-      onTapCancel: () {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
-      onTapUp: (_) {
-        Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-        });
-      },
-      child: Container(
-        color: currentColor,
-        height: 135.0.w,
-        padding: const EdgeInsets.only(left: 30.0).w,
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(95).w,
-              child: Image.asset(
-                assetPath(widget.avatar),
-                cacheWidth: 190.w.toInt(),
-                cacheHeight: 190.w.toInt(),
-                width: 95.w,
-                height: 95.w,
-                fit: BoxFit.cover,
-              ),
-            ),
-            SizedBox(width: 23.w),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(width: 12.w),
-                  LJNTextSpans(
-                    text: widget.friendName,
-                    style: TextStyle(
-                      height: 1.08,
-                      fontSize: fontSizeScale(28.0.w),
-                      color: theme.colorScheme.onSurface,
-                      fontFamily: "AlibabaPuHuiTi",
-                    ),
-                    emojiStyle: TextStyle(
-                      height: 1.08,
-                      fontSize: fontSizeScale(28.w),
-                      fontFamily: "NotoColorEmoji-Regular",
-                    ),
-                  ),
-                  SizedBox(height: 10.w),
-                  LJNTextSpans(
-                    text: widget.message,
-                    style: TextStyle(
-                      height: 1.08,
-                      fontSize: fontSizeScale(25.w),
-                      color: AppColors.neutralGrey45,
-                    ),
-                    emojiStyle: TextStyle(
-                      height: 1.08,
-                      fontSize: fontSizeScale(25.w),
-                      color: AppColors.neutralGrey45,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

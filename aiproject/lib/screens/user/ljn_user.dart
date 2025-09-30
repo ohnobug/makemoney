@@ -1,6 +1,5 @@
 // /lib/screens/user/ljn_user.dart
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +11,8 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_button.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
+// [ADDED] 导入 cached_network_image 库
+import 'package:cached_network_image/cached_network_image.dart';
 
 class LJNUser extends StatefulWidget {
   const LJNUser({super.key});
@@ -28,11 +29,6 @@ class _LJNUserState extends State<LJNUser>
   late TabController _tabController;
   late PageController _pageController;
 
-  VelocityTracker? _velocityTracker;
-
-  bool _isDragging = false;
-  bool? _isDraggingParent;
-
   final List<String> _works =
       List.generate(25, (i) => 'https://picsum.photos/300/400?random=$i');
   final List<String> _collections = [];
@@ -45,27 +41,6 @@ class _LJNUserState extends State<LJNUser>
     _tabController = TabController(length: 3, vsync: this);
     _pageController = PageController();
 
-    _tabController.addListener(() {
-      if (mounted &&
-          (_tabController.indexIsChanging || !_tabController.indexIsChanging)) {
-        setState(() {});
-      }
-    });
-
-    _pageController.addListener(() {
-      if (!_pageController.hasClients || _tabController.indexIsChanging) return;
-
-      final double page = _pageController.page!;
-      final int newIndex = page.round();
-
-      if (_tabController.index != newIndex) {
-        setState(() {
-          _tabController.index = newIndex;
-        });
-      }
-      _tabController.offset = page - newIndex;
-    });
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         context.read<LJNSystemCubit>().updateHomescrollpixels(0);
@@ -77,10 +52,6 @@ class _LJNUserState extends State<LJNUser>
 
   @override
   void dispose() {
-    final systemCubit = context.read<LJNSystemCubit>();
-    if (systemCubit.state.isParentPageViewLocked) {
-      systemCubit.lockParentPageView(false);
-    }
     _tabController.dispose();
     _pageController.dispose();
     super.dispose();
@@ -95,94 +66,6 @@ class _LJNUserState extends State<LJNUser>
           ? _buildPage(systemState)
           : const LJNPageLoading();
     });
-  }
-
-  // --- 手势处理方法 (最终正确版) ---
-  void _handleDragDown(PointerDownEvent details) {
-    _isDragging = true;
-    _isDraggingParent = null;
-    _velocityTracker = VelocityTracker.withKind(PointerDeviceKind.touch);
-    _velocityTracker?.addPosition(details.timeStamp, details.position);
-  }
-
-  void _handleDragUpdate(PointerMoveEvent details) {
-    if (!_isDragging) return;
-
-    _velocityTracker?.addPosition(details.timeStamp, details.position);
-
-    // --- 仲裁阶段 (只在做出决定前运行一次) ---
-    if (_isDraggingParent == null) {
-      final double dx = details.delta.dx;
-      // 仅当手势主要是水平方向时才进行仲裁
-      if (dx.abs() > details.delta.dy.abs()) {
-        final systemCubit = context.read<LJNSystemCubit>();
-
-        if (_tabController.index == 0 && dx > 0) {
-          // 决策：父级处理。
-          // 我们通知父级开始，然后就撒手不管，让父级自己的 physics 接管。
-          _isDraggingParent = true;
-          systemCubit.onParentDragStart();
-        } else {
-          // 决策：子级处理。
-          _isDraggingParent = false;
-          systemCubit.lockParentPageView(true);
-        }
-      }
-    }
-
-    // --- 执行阶段 ---
-    // 如果决策是让子级处理，我们就手动滚动子 PageView。
-    if (_isDraggingParent == false) {
-      _pageController.position
-          .jumpTo(_pageController.position.pixels - details.delta.dx);
-    }
-    // 如果 _isDraggingParent 是 true，我们在这里什么都不做，让父级的 physics 自己处理拖动。
-  }
-
-  void _onDragEndOrCancel() {
-    if (!_isDragging) return;
-
-    final systemCubit = context.read<LJNSystemCubit>();
-    final velocity = _velocityTracker?.getVelocity().pixelsPerSecond.dx ?? 0.0;
-
-    if (_isDraggingParent == true) {
-      // 通知父级手势结束了，让它可以处理收尾动画和状态重置
-      systemCubit.onParentDragEnd(velocity);
-    } else if (_isDraggingParent == false) {
-      // 如果是子级在处理，解锁父级并动画子级
-      systemCubit.lockParentPageView(false);
-
-      final page = _pageController.page!;
-      int targetPage;
-      const double flingVelocityThreshold = 800.0;
-      const double dragOffsetThreshold = 0.25;
-
-      if (velocity.abs() > flingVelocityThreshold) {
-        targetPage = (velocity < 0) ? page.ceil() : page.floor();
-      } else {
-        final offset = page - page.floor();
-        if (offset > dragOffsetThreshold &&
-            _pageController.page! > page.floor()) {
-          targetPage = page.ceil();
-        } else if (offset < (1 - dragOffsetThreshold) &&
-            _pageController.page! < page.ceil()) {
-          targetPage = page.floor();
-        } else {
-          targetPage = page.round();
-        }
-      }
-
-      _pageController.animateToPage(
-        targetPage.clamp(0, 2),
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
-    }
-
-    // 重置所有状态
-    _isDragging = false;
-    _isDraggingParent = null;
-    _velocityTracker = null;
   }
 
   Widget _buildPage(SystemState systemState) {
@@ -210,12 +93,13 @@ class _LJNUserState extends State<LJNUser>
                   TabBar(
                     controller: _tabController,
                     onTap: (index) {
-                      setState(() {});
-                      _pageController.animateToPage(
-                        index,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.ease,
-                      );
+                      if (!_tabController.indexIsChanging) {
+                        _pageController.animateToPage(
+                          index,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.ease,
+                        );
+                      }
                     },
                     labelColor: theme.textTheme.bodyLarge?.color,
                     unselectedLabelColor: theme.hintColor,
@@ -245,43 +129,40 @@ class _LJNUserState extends State<LJNUser>
               ),
             ];
           },
-          // Tabbar内容
-          body: Listener(
-            onPointerDown: _handleDragDown,
-            onPointerMove: _handleDragUpdate,
-            onPointerUp: (_) => _onDragEndOrCancel(),
-            onPointerCancel: (_) => _onDragEndOrCancel(),
-            behavior: HitTestBehavior.opaque,
-            child: PageView(
-              controller: _pageController,
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                _UserWorksGrid(
-                  key: const PageStorageKey('works_grid'),
-                  items: _works,
-                  emptyMessage: '保持热爱奔赴山河',
-                  buttonText: '去发布',
-                  onButtonPressed: () {},
-                  isActive: _tabController.index == 0,
-                ),
-                _UserWorksGrid(
-                  key: const PageStorageKey('collections_grid'),
-                  items: _collections,
-                  emptyMessage: '还没有收藏',
-                  buttonText: '去看看',
-                  onButtonPressed: () {},
-                  isActive: _tabController.index == 1,
-                ),
-                _UserWorksGrid(
-                  key: const PageStorageKey('praised_grid'),
-                  items: _praised,
-                  emptyMessage: '还没有赞过',
-                  buttonText: '去看看',
-                  onButtonPressed: () {},
-                  isActive: _tabController.index == 2,
-                ),
-              ],
-            ),
+          body: PageView(
+            controller: _pageController,
+            physics: const ClampingScrollPhysics(),
+            onPageChanged: (index) {
+              if (_tabController.index != index) {
+                _tabController.animateTo(index);
+              }
+            },
+            children: [
+              _UserWorksGrid(
+                key: const PageStorageKey('works_grid'),
+                items: _works,
+                emptyMessage: '保持热爱奔赴山河',
+                buttonText: '去发布',
+                onButtonPressed: () {},
+                isActive: _tabController.index == 0,
+              ),
+              _UserWorksGrid(
+                key: const PageStorageKey('collections_grid'),
+                items: _collections,
+                emptyMessage: '还没有收藏',
+                buttonText: '去看看',
+                onButtonPressed: () {},
+                isActive: _tabController.index == 1,
+              ),
+              _UserWorksGrid(
+                key: const PageStorageKey('praised_grid'),
+                items: _praised,
+                emptyMessage: '还没有赞过',
+                buttonText: '去看看',
+                onButtonPressed: () {},
+                isActive: _tabController.index == 2,
+              ),
+            ],
           ),
         ),
       ),
@@ -306,22 +187,22 @@ class _LJNUserState extends State<LJNUser>
     final List<LJNFunctionButton> serviceButtons = [
       LJNFunctionButton(
         icon: "images/icon/server_icon11.png",
-        title: "充值",
+        title: "钱包",
         onPressed: () {},
       ),
       LJNFunctionButton(
         icon: "images/icon/server_icon12.png",
-        title: "提现",
+        title: "交易",
         onPressed: () {},
       ),
       LJNFunctionButton(
         icon: "images/icon/server_icon13.png",
-        title: "账单明细",
+        title: "创作",
         onPressed: () {},
       ),
       LJNFunctionButton(
         icon: "images/icon/server_icon14.png",
-        title: "创作报表",
+        title: "报表",
         onPressed: () {},
       ),
     ];
@@ -642,22 +523,28 @@ class _UserWorksGrid extends StatelessWidget {
         itemBuilder: (context, index) {
           return ClipRRect(
             borderRadius: BorderRadius.circular(0.w),
-            child: Image.network(
-              items[index],
+            // [MODIFIED] 使用 CachedNetworkImage 替换 Image.network
+            child: CachedNetworkImage(
+              imageUrl: items[index],
               fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(color: Colors.grey.shade200);
-              },
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: Colors.grey.shade200,
-                  child: Icon(
-                    Icons.broken_image,
+              // 加载中的占位符：一个灰底带转圈圈的动画
+              placeholder: (context, url) => Container(
+                color: Colors.grey.shade200,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.0,
                     color: Colors.grey.shade400,
                   ),
-                );
-              },
+                ),
+              ),
+              // 加载失败时显示的 Widget
+              errorWidget: (context, url, error) => Container(
+                color: Colors.grey.shade200,
+                child: Icon(
+                  Icons.broken_image,
+                  color: Colors.grey.shade400,
+                ),
+              ),
             ),
           );
         },
