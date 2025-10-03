@@ -11,6 +11,7 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_button.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class LJNUser extends StatefulWidget {
   const LJNUser({super.key});
@@ -25,6 +26,7 @@ class _LJNUserState extends State<LJNUser>
 
   bool _isBalanceVisible = true;
   late TabController _tabController;
+  late PageController _pageController;
 
   final List<String> _works =
       List.generate(25, (i) => 'https://picsum.photos/300/400?random=$i');
@@ -36,12 +38,13 @@ class _LJNUserState extends State<LJNUser>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    _pageController = PageController();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         context.read<LJNSystemCubit>().updateHomescrollpixels(0);
         context.read<LJNSystemCubit>().updateShowMiniProgramDrawer(false);
-        context.read<LJNSystemCubit>().updateMainpage4isload(true);
+        context.read<LJNSystemCubit>().updateMainpage5isload(true);
       }
     });
   }
@@ -49,6 +52,7 @@ class _LJNUserState extends State<LJNUser>
   @override
   void dispose() {
     _tabController.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -57,7 +61,7 @@ class _LJNUserState extends State<LJNUser>
     super.build(context);
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
-      return systemState.mainpage4isload!
+      return systemState.mainpage5isload!
           ? _buildPage(systemState)
           : const LJNPageLoading();
     });
@@ -67,18 +71,34 @@ class _LJNUserState extends State<LJNUser>
     ThemeData theme = Theme.of(context);
 
     return Scaffold(
+      primary: false,
+      appBar: PreferredSize(
+          preferredSize: Size(750.w, systemState.statusHeight),
+          child: Container(
+            color: theme.cardColor,
+          )),
       backgroundColor: theme.colorScheme.surfaceContainer,
       body: SafeArea(
         child: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverToBoxAdapter(
+                // 用户信息
                 child: _buildUserInfoSection(systemState, theme),
               ),
+              // Tabbar标题
               SliverPersistentHeader(
                 delegate: _SliverTabBarDelegate(
                   TabBar(
                     controller: _tabController,
+                    // [FIXED] 移除了错误的 if 判断
+                    onTap: (index) {
+                      _pageController.animateToPage(
+                        index,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
+                    },
                     labelColor: theme.textTheme.bodyLarge?.color,
                     unselectedLabelColor: theme.hintColor,
                     indicatorColor: theme.colorScheme.primary,
@@ -96,15 +116,9 @@ class _LJNUserState extends State<LJNUser>
                       fontWeight: FontWeight.normal,
                     ),
                     tabs: [
-                      Tab(
-                        child: Text("笔记 ${_works.length}"),
-                      ),
-                      Tab(
-                        child: Text("收藏 ${_collections.length}"),
-                      ),
-                      Tab(
-                        child: Text("赞过 ${_praised.length}"),
-                      ),
+                      Tab(child: Text("作品 ${_works.length}")),
+                      Tab(child: Text("收藏 ${_collections.length}")),
+                      Tab(child: Text("赞过 ${_praised.length}")),
                     ],
                   ),
                   color: theme.cardColor,
@@ -113,68 +127,46 @@ class _LJNUserState extends State<LJNUser>
               ),
             ];
           },
-          // ===================================================================
-          // [最终改动]
-          // ===================================================================
-          body: GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onHorizontalDragEnd: (details) {
-              double velocity = details.primaryVelocity ?? 0;
-
-              // 向左滑动 (切换到下一个内部 Tab)
-              if (velocity < -100 &&
-                  _tabController.index < _tabController.length - 1) {
-                _tabController.animateTo(_tabController.index + 1);
-              }
-              // 向右滑动
-              else if (velocity > 100) {
-                // 如果在内部 Tab 中可以向右切换，则切换
-                if (_tabController.index > 0) {
-                  _tabController.animateTo(_tabController.index - 1);
-                }
-                // [核心逻辑] 如果已经是第一个内部 Tab，则触发外部主 TabBar 的切换
-                else {
-                  context.read<LJNSystemCubit>().switchToPreviousMainTab();
-                }
+          body: PageView(
+            controller: _pageController,
+            physics: const ClampingScrollPhysics(),
+            onPageChanged: (index) {
+              if (_tabController.index != index) {
+                _tabController.animateTo(index);
               }
             },
-            child: Container(
-              color: theme.cardColor,
-              child: TabBarView(
-                controller: _tabController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  _UserWorksGrid(
-                    key: const PageStorageKey('works_grid'),
-                    items: _works,
-                    emptyMessage: '保持热爱奔赴山河',
-                    buttonText: '去发布',
-                    onButtonPressed: () {},
-                  ),
-                  _UserWorksGrid(
-                    key: const PageStorageKey('collections_grid'),
-                    items: _collections,
-                    emptyMessage: '还没有收藏',
-                    buttonText: '去看看',
-                    onButtonPressed: () {},
-                  ),
-                  _UserWorksGrid(
-                    key: const PageStorageKey('praised_grid'),
-                    items: _praised,
-                    emptyMessage: '还没有赞过',
-                    buttonText: '去看看',
-                    onButtonPressed: () {},
-                  ),
-                ],
+            children: [
+              _UserWorksGrid(
+                key: const PageStorageKey('works_grid'),
+                items: _works,
+                emptyMessage: '保持热爱奔赴山河',
+                buttonText: '去发布',
+                onButtonPressed: () {},
+                isActive: _tabController.index == 0,
               ),
-            ),
+              _UserWorksGrid(
+                key: const PageStorageKey('collections_grid'),
+                items: _collections,
+                emptyMessage: '还没有收藏',
+                buttonText: '去看看',
+                onButtonPressed: () {},
+                isActive: _tabController.index == 1,
+              ),
+              _UserWorksGrid(
+                key: const PageStorageKey('praised_grid'),
+                items: _praised,
+                emptyMessage: '还没有赞过',
+                buttonText: '去看看',
+                onButtonPressed: () {},
+                isActive: _tabController.index == 2,
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  // 构建浮动按钮的辅助方法
   Widget _buildFloatingIconButton(
       {required IconData icon, required VoidCallback onTap}) {
     return IconButton(
@@ -188,49 +180,44 @@ class _LJNUserState extends State<LJNUser>
     );
   }
 
-  // 构建用户信息区的 Widget (包含功能按钮)
   Widget _buildUserInfoSection(SystemState systemState, ThemeData theme) {
     AppLocalizations l10n = AppLocalizations.of(context)!;
-
-    // 功能按钮列表数据
     final List<LJNFunctionButton> serviceButtons = [
       LJNFunctionButton(
         icon: "images/icon/server_icon11.png",
-        title: "充值",
+        title: "钱包",
         onPressed: () {},
       ),
       LJNFunctionButton(
         icon: "images/icon/server_icon12.png",
-        title: "提现",
+        title: "交易",
         onPressed: () {},
       ),
       LJNFunctionButton(
         icon: "images/icon/server_icon13.png",
-        title: "账单明细",
+        title: "创作",
         onPressed: () {},
       ),
       LJNFunctionButton(
         icon: "images/icon/server_icon14.png",
-        title: "创作报表",
+        title: "报表",
         onPressed: () {},
       ),
     ];
-
-    return Container(
-      color: theme.cardColor,
-      padding: EdgeInsets.fromLTRB(
-        32.w,
-        20.w + systemState.statusHeight,
-        32.w,
-        40.w,
-      ),
-      margin: EdgeInsets.only(bottom: 20.w),
-      child: Stack(
-        children: [
-          Column(
+    return Stack(
+      children: [
+        Container(
+          color: theme.cardColor,
+          margin: EdgeInsets.only(bottom: 20.w),
+          padding: EdgeInsets.fromLTRB(
+            32.w,
+            40.w,
+            32.w,
+            20.w,
+          ),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 顶部：头像、昵称
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -257,22 +244,26 @@ class _LJNUserState extends State<LJNUser>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        BlocBuilder<LJNUserCubit, LJNUserState>(
-                          builder: (context, state) => Text(
-                            state.userinfoName ?? '用户名',
-                            style: TextStyle(
-                              fontSize: 42.w,
-                              fontWeight: FontWeight.bold,
-                              color: theme.colorScheme.onSurface,
+                        GestureDetector(
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/userinfo'),
+                          child: BlocBuilder<LJNUserCubit, LJNUserState>(
+                            builder: (context, state) => Text(
+                              state.userinfoName ?? '用户名',
+                              style: TextStyle(
+                                fontSize: 42.w,
+                                fontWeight: FontWeight.bold,
+                                color: theme.colorScheme.onSurface,
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(height: 12.w),
-                        // [修复] ID 和二维码图标的 Row
                         GestureDetector(
-                          onTap: () {/* 跳转到二维码页面 */},
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/userinfo'),
                           child: Row(
-                            mainAxisSize: MainAxisSize.min, // 让Row包裹内容
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
                                 l10n.vigavigaIdDisplay('TheMonsterClub'),
@@ -302,7 +293,6 @@ class _LJNUserState extends State<LJNUser>
                 ],
               ),
               SizedBox(height: 40.w),
-              // 社交数据
               Row(
                 children: [
                   _buildStatsItem("25", "关注"),
@@ -313,22 +303,23 @@ class _LJNUserState extends State<LJNUser>
                 ],
               ),
               SizedBox(height: 30.w),
-              // 余额
               Row(
                 children: [
                   Text(
                     "余额：",
                     style: TextStyle(
-                        fontSize: 30.w,
-                        color: theme.colorScheme.onSurface.withOpacity(0.8)),
+                      fontSize: 30.w,
+                      color: theme.colorScheme.onSurface.withAlpha(200),
+                    ),
                   ),
                   Text(
                     _isBalanceVisible ? "\$1,234.56" : "****",
                     style: TextStyle(
-                        fontSize: 30.w,
-                        color: theme.colorScheme.onSurface,
-                        fontFamily: 'DMMono',
-                        fontWeight: FontWeight.w600),
+                      fontSize: 30.w,
+                      color: theme.colorScheme.onSurface,
+                      fontFamily: 'DMMono',
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   SizedBox(width: 16.w),
                   InkWell(
@@ -348,18 +339,16 @@ class _LJNUserState extends State<LJNUser>
                   ),
                 ],
               ),
-              // 分割线
               Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 30.w,
-                ),
+                padding: EdgeInsets.only(top: 30.w, bottom: 20.w),
                 child: Divider(
                   height: 1.w,
                   color: theme.dividerColor,
                 ),
               ),
-              // [关键改动] 功能按钮 GridView
+              // 功能区域
               GridView.builder(
+                padding: EdgeInsets.only(top: 0),
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: serviceButtons.length,
@@ -367,36 +356,32 @@ class _LJNUserState extends State<LJNUser>
                   crossAxisCount: 4,
                   childAspectRatio: 1.1,
                 ),
-                itemBuilder: (context, index) {
-                  return serviceButtons[index];
-                },
+                itemBuilder: (context, index) => serviceButtons[index],
               ),
             ],
           ),
-          Positioned(
-            top: 0.w,
-            right: 0,
-            child: Row(
-              children: [
-                _buildFloatingIconButton(
-                  icon: Icons.settings_outlined,
-                  onTap: () => Navigator.pushNamed(context, '/setting'),
-                ),
-                _buildFloatingIconButton(
-                  icon: Icons.share_outlined,
-                  onTap: () {
-                    logger.info("分享按钮被点击");
-                  },
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
+        ),
+        // 设置
+        Positioned(
+          top: 0.w,
+          right: 0,
+          child: Row(
+            children: [
+              _buildFloatingIconButton(
+                icon: Icons.settings_outlined,
+                onTap: () => Navigator.pushNamed(context, '/setting'),
+              ),
+              _buildFloatingIconButton(
+                icon: Icons.share_outlined,
+                onTap: () => logger.info("分享按钮被点击"),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 
-  // 构建社交数据项的小组件
   Widget _buildStatsItem(String count, String label) {
     final theme = Theme.of(context);
     return Column(
@@ -423,43 +408,31 @@ class _LJNUserState extends State<LJNUser>
   }
 }
 
-// =======================================================================
-// [辅助类] 用于创建固定在顶部的 TabBar
-// =======================================================================
 class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
   _SliverTabBarDelegate(this.tabBar, {required this.color});
-
   final TabBar tabBar;
   final Color color;
-
   @override
   double get minExtent => tabBar.preferredSize.height;
   @override
   double get maxExtent => tabBar.preferredSize.height;
-
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: color,
-      child: tabBar,
-    );
+    return Container(color: color, child: tabBar);
   }
 
   @override
-  bool shouldRebuild(_SliverTabBarDelegate oldDelegate) {
-    return color != oldDelegate.color;
-  }
+  bool shouldRebuild(_SliverTabBarDelegate oldDelegate) =>
+      color != oldDelegate.color;
 }
 
-// =======================================================================
-// [辅助 Widget] 用于显示作品网格或空状态 (已修复溢出问题)
-// =======================================================================
 class _UserWorksGrid extends StatelessWidget {
   final List<String> items;
   final String emptyMessage;
   final String buttonText;
   final VoidCallback onButtonPressed;
+  final bool isActive;
 
   const _UserWorksGrid({
     super.key,
@@ -467,25 +440,22 @@ class _UserWorksGrid extends StatelessWidget {
     required this.emptyMessage,
     required this.buttonText,
     required this.onButtonPressed,
+    required this.isActive,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (items.isEmpty) {
-      return _buildEmptyState(context);
-    } else {
-      return _buildGridContent(context);
-    }
+    return items.isEmpty
+        ? _buildEmptyState(context)
+        : _buildGridContent(context);
   }
 
-  // [关键修改] 在这里修复布局溢出问题
   Widget _buildEmptyState(BuildContext context) {
     return Container(
       color: Theme.of(context).colorScheme.surfaceContainer,
       alignment: Alignment.topCenter,
-      // 👇 [改动] 使用 SingleChildScrollView 包裹 Column
-      // 这样当内容超出可用高度时，就会自动启用滚动，从而避免溢出错误。
       child: SingleChildScrollView(
+        primary: isActive,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -527,7 +497,6 @@ class _UserWorksGrid extends StatelessWidget {
                 ),
               ),
             ),
-            // 可以额外加一个底部的 padding，防止滚动到底部时按钮紧贴边缘
             SizedBox(height: 40.w),
           ],
         ),
@@ -539,34 +508,35 @@ class _UserWorksGrid extends StatelessWidget {
     return Container(
       color: Theme.of(context).colorScheme.surfaceContainer,
       child: GridView.builder(
+        primary: isActive,
         key: PageStorageKey<String>(emptyMessage),
         padding: EdgeInsets.all(4.w),
         itemCount: items.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          crossAxisSpacing: 4.w,
-          mainAxisSpacing: 4.w,
-          childAspectRatio: 9 / 16,
+          crossAxisSpacing: 2.w,
+          mainAxisSpacing: 2.w,
+          childAspectRatio: 9 / 14,
         ),
         itemBuilder: (context, index) {
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(8.w),
-            child: Image.network(
-              items[index],
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(color: Colors.grey.shade200);
-              },
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: Colors.grey.shade200,
-                  child: Icon(
-                    Icons.broken_image,
-                    color: Colors.grey.shade400,
-                  ),
-                );
-              },
+          return CachedNetworkImage(
+            imageUrl: items[index],
+            fit: BoxFit.cover,
+            placeholder: (context, url) => Container(
+              color: Colors.grey.shade200,
+              child: Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.0,
+                  color: Colors.grey.shade400,
+                ),
+              ),
+            ),
+            errorWidget: (context, url, error) => Container(
+              color: Colors.grey.shade200,
+              child: Icon(
+                Icons.broken_image,
+                color: Colors.grey.shade400,
+              ),
             ),
           );
         },

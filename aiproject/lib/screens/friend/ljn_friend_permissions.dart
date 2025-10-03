@@ -60,6 +60,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                     children: [
                       // Vigaviga运动
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.featureListChatMomentsWeRun,
                         onPress: () {
                           setState(() {
@@ -94,6 +95,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
 
                       // 仅聊天
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.chatOnly,
                         // link: '',
                         underline: false,
@@ -143,6 +145,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                       ),
                       children: [
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.hideMyPosts,
                           // link: '',
                           underline: true,
@@ -161,6 +164,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissions> {
                           ),
                         ),
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.hideTheirPosts,
                           // link: '',
                           underline: false,

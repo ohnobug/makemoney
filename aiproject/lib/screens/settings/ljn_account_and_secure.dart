@@ -57,6 +57,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                         LJNFunctionList(
                           children: [
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: l10n.vigavigaID,
                               link: '/accountinfo',
                               showStyle: userState.userinfoAccount,
@@ -65,6 +66,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
 
                             // 手机号
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: l10n.phoneNumber,
                               link: '/phone_number',
                               showStyle: userState.userinfoPhone,
@@ -77,12 +79,14 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                         LJNFunctionList(
                           children: [
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: l10n.vigavigaPassword,
                               link: '/set_password',
                               underline: true,
                             ),
                             // 声音锁
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: l10n.voiceprint,
                               link: '/sound_lock',
                               underline: false,
@@ -94,18 +98,21 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
                         LJNFunctionList(
                           children: [
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: l10n.emergencyContacts,
                               link: '/emergency_contact',
                               underline: true,
                             ),
                             // 登录过的设备
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: l10n.loggedInDevices,
                               link: '/logged_devices',
                               underline: true,
                             ),
                             // 更多安全设置
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: l10n.moreSecuritySettings,
                               link: '/more_secure_setting',
                               underline: false,

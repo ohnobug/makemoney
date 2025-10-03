@@ -236,6 +236,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                     LJNFunctionList(children: [
                       // 群聊名称
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.groupChatName,
                         link: '',
                         showStyle: "请说英语",
@@ -243,6 +244,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                       ),
                       // 群二维码
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.groupQRCode,
                         link: '',
                         showStyle: Expanded(
@@ -266,6 +268,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                       ),
                       // 群公告
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.groupAnnouncement,
                         link: '',
                         showStyle: "",
@@ -273,6 +276,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                       ),
                       // 群备注
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.remark,
                         link: '',
                         showStyle: "",
@@ -285,6 +289,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                       children: [
                         // 查找聊天记录
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.findChatHistory,
                           link: '',
                           showStyle: "",
@@ -298,6 +303,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                       children: [
                         // 消息免打扰
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.muteNotifications,
                           // link: '',
                           underline: true,
@@ -318,6 +324,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
 
                         // 置顶聊天
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.pinToTop,
                           // link: '',
                           underline: true,
@@ -338,6 +345,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
 
                         // 保存到通讯录
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.saveToContacts,
                           // link: '',
                           underline: false,
@@ -363,6 +371,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                       children: [
                         // 我的群昵称
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.myNicknameInGroup,
                           link: '',
                           showStyle: "李俊杰",
@@ -371,6 +380,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
 
                         // 显示群成员昵称
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.showGroupMemberNicknames,
                           // link: '',
                           underline: false,
@@ -395,6 +405,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
                     LJNFunctionList(children: [
                       // 设置聊天背景
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.setChatBackground,
                         link: '',
                         underline: true,
@@ -402,6 +413,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
 
                       // 清空聊天记录
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.clearChatHistory,
                         link: '',
                         underline: true,
@@ -409,6 +421,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecord> {
 
                       // 投诉
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.complain,
                         link: '',
                         underline: false,

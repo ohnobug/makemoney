@@ -253,7 +253,7 @@ class _ChatListItem extends State<ChatListItem> {
                           fontSize: fontSizeScale(20.w),
                           color: AppColors.neutralWhite,
                           fontWeight: FontWeight.w600,
-                          fontFamily: "LJNFont",
+                          fontFamily: "Roboto",
                         ),
                       ),
                     ),

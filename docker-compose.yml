@@ -80,7 +80,7 @@ services:
       - RABBITMQ_USER=vigaviga
       - RABBITMQ_PASS=Vigaviga2026
     ports:
-      - "9001:9001"
+      - "9002:9001"
     depends_on:
       - db
       - rabbitmq

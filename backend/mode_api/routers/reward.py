@@ -10,7 +10,7 @@ from db.database import get_db
 from sqlalchemy.orm import selectinload
 
 router = APIRouter(
-    prefix="/api/reward",
+    prefix="/api/mode",
     tags=["Reward System - Artwork Configs"]
 )
 

@@ -1,13 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/widgets/ljn_appbar.dart'; // 假设你的 AppBar 在这里
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/widgets/ljn_page_loading.dart';
 
-class LJNPublisher extends StatelessWidget {
+// [修复点 1] 将 LJNPublisher 转换为 StatefulWidget
+class LJNPublisher extends StatefulWidget {
   const LJNPublisher({super.key});
 
   @override
+  State<LJNPublisher> createState() => _LJNPublisherState();
+}
+
+// [修复点 2] 创建对应的 State 类
+class _LJNPublisherState extends State<LJNPublisher> {
+  @override
+  void initState() {
+    super.initState();
+
+    // 在 initState 中不能直接使用 context.read，需要延迟到第一帧绘制后
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // mounted 检查是好习惯，确保 Widget 仍在树中
+      if (mounted) {
+        // [修复点 3] 统一使用 mainpage3isload
+        context.read<LJNSystemCubit>().updateMainpage3isload(true);
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    return BlocBuilder<LJNSystemCubit, SystemState>(
+      buildWhen: (previous, current) =>
+          previous.mainpage3isload != current.mainpage3isload,
+      builder: (context, systemState) {
+        return systemState.mainpage3isload!
+            ? _buildPage(context)
+            : const LJNPageLoading();
+      },
+    );
+  }
+
+  Widget _buildPage(BuildContext context) {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
@@ -26,7 +62,7 @@ class LJNPublisher extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // 上半部分: AI 创作入口 (文案、价格已更新)
+                    // 上半部分: AI 创作入口
                     _buildFlatOption(
                       context: context,
                       icon: Icons.auto_awesome, // 建议替换为你的 Iconfont
@@ -38,7 +74,7 @@ class LJNPublisher extends StatelessWidget {
                       },
                     ),
                     SizedBox(height: 20.h),
-                    // 下半部分: 用户上传入口 (文案、价格已更新)
+                    // 下半部分: 用户上传入口
                     _buildFlatOption(
                       context: context,
                       icon: Icons.upload_file, // 建议替换为你的 Iconfont
@@ -51,7 +87,7 @@ class LJNPublisher extends StatelessWidget {
                   ],
                 ),
               ),
-              // 底部成本说明 (文案、价格已更新)
+              // 底部成本说明
               _buildCostDisclaimer(context),
               SizedBox(height: 50.h),
             ],
@@ -61,7 +97,6 @@ class LJNPublisher extends StatelessWidget {
     );
   }
 
-  /// 构建一个扁平化的选项按钮 (无需修改结构)
   Widget _buildFlatOption({
     required BuildContext context,
     required IconData icon,
@@ -93,10 +128,10 @@ class LJNPublisher extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: 48.w,
+              size: 100.w,
               color: theme.colorScheme.primary,
             ),
-            SizedBox(width: 16.w),
+            SizedBox(width: 30.w),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,12 +143,12 @@ class LJNPublisher extends StatelessWidget {
                       color: theme.colorScheme.onSurface,
                     ),
                   ),
-                  SizedBox(height: 4.h),
+                  SizedBox(height: 5.h),
                   Text(
                     description,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
-                      height: 2.1.w,
+                      height: 1.6, // 使用相对行高而不是固定值
                     ),
                   ),
                 ],
@@ -125,7 +160,6 @@ class LJNPublisher extends StatelessWidget {
     );
   }
 
-  /// 构建底部的成本说明文字 (文案、价格已更新)
   Widget _buildCostDisclaimer(BuildContext context) {
     ThemeData theme = Theme.of(context);
 

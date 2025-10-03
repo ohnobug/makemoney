@@ -94,6 +94,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
                       title: LJNAlphabet(title: l10n.currentlyLoggedInDevices),
                       children: [
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           // height: 150.w,
                           title: "HONOR-RNA-AN100",
                           link: '/device_detail',
