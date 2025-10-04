@@ -111,13 +111,14 @@ async def get_art_list(
         arts = result.scalars().all()
         
         # 转换为 Pydantic 模型
-        art_items = [ArtItem(art) for art in arts]
+        art_items = ArtListData(
+            list=[ArtItem(art) for art in arts],
             total=total,
             page=page,
             page_size=page_size
         )
         return ArtListResponse(
-          data=data
+          data=art_items
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"获取艺术作品列表失败: {str(e)}")
