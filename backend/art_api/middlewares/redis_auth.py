@@ -2,16 +2,9 @@ import json
 from fastapi import Request, status
 from fastapi.responses import JSONResponse
 import redis.asyncio as redis
-from ..redis.redsi import get_redis_connection
+from utils.redis import get_redis_connection
 
 # --- 定义在 /api 路径下，但不需要登录鉴权的公开API路由 ---
-# 这些是需要鉴权的 /api 组中的例外
-PUBLIC_API_PATHS = [
-    "/api/user/login",
-    "/api/user/register",
-    "/api/user/get_verify_code",
-    "/api/user/reset_password",
-]
 
 async def redis_auth_middleware(request: Request, call_next):
     """
@@ -21,10 +14,6 @@ async def redis_auth_middleware(request: Request, call_next):
     2. 如果以 /api 开头，再检查路径是否在公开API列表 PUBLIC_API_PATHS 中。如果是，也直接放行。
     3. 对于其他所有 /api 路径，执行 Token 验证。
     """
-    # 如果请求路径不是以 /api 开头，或者在公开API列表中，则直接放行
-    if not request.url.path.startswith("/api") or request.url.path in PUBLIC_API_PATHS:
-        response = await call_next(request)
-        return response
 
     # --- 以下是针对需要鉴权的 /api 路由的逻辑 ---
 

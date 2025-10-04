@@ -1,7 +1,7 @@
 import datetime
 from io import StringIO
 import json
-from fastapi import Depends,Query
+from fastapi import Depends,Query,Request
 from typing import List, Optional
 from fastapi.responses import HTMLResponse
 from fastapi import APIRouter, HTTPException
@@ -19,16 +19,90 @@ from middlewares.redis_auth import redis_auth_middleware
 from db.art_model import ArtItem, VigaArt, ArtInDBBase
 from db.like_model import VigaLike
 from schemas.like import LikeResponse
+from db.collect_model import VigaCollect
+from schemas.collect import CollectResponse
 
 # 创建一个 APIRouter 实例
 router = APIRouter(prefix="/api/art")
 router.middleware("http")(redis_auth_middleware)
 
+@router.post("/collect", response_model=CollectResponse, summary="收藏艺术作品")
+async def collect_art(
+    request: Request,
+    art_id: int,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    收藏艺术作品
+    
+    Args:
+        request: FastAPI请求对象，用于从Redis认证中间件获取用户信息
+        art_id: 艺术作品ID
+        db: 数据库会话
+        
+    Returns:
+        CollectResponse: 收藏结果响应
+    """
+    try:
+        # 从Redis认证中间件获取用户信息
+        user_info = request.state.user
+        user_id = user_info.get("id") if isinstance(user_info, dict) else None
+        
+        if not user_id:
+            raise HTTPException(status_code=401, detail="无法获取用户信息")
+        
+        # 检查作品是否存在
+        art_query = select(VigaArt).where(VigaArt.id == art_id)
+        art_result = await db.execute(art_query)
+        art = art_result.scalar_one_or_none()
+        
+        if not art:
+            raise HTTPException(status_code=404, detail="艺术作品不存在")
+        
+        # 检查是否已经收藏
+        collect_query = select(VigaCollect).where(
+            VigaCollect.art_id == art_id,
+            VigaCollect.user_id == user_id
+        )
+        collect_result = await db.execute(collect_query)
+        existing_collect = collect_result.scalar_one_or_none()
+        
+        if existing_collect:
+            # 如果已收藏，则取消收藏（删除记录）
+            delete_stmt = delete(VigaCollect).where(
+                VigaCollect.art_id == art_id,
+                VigaCollect.user_id == user_id
+            )
+            await db.execute(delete_stmt)
+            await db.commit()
+            return CollectResponse(code=200, message="已取消收藏", data="")
+        else:
+            # 如果未收藏，则添加收藏记录
+            # 获取作品作者ID
+            author_id = art.user_id or 0
+            
+            # 创建收藏记录
+            new_collect = VigaCollect(
+                author_id=author_id,
+                user_id=user_id,
+                art_id=art_id
+            )
+            db.add(new_collect)
+            await db.commit()
+            await db.refresh(new_collect)
+            
+            return CollectResponse(code=200, message="收藏成功", data="")
+            
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        await db.rollback()
+        raise HTTPException(status_code=500, detail=f"收藏操作失败: {str(e)}")
 
 @router.post("/like", response_model=LikeResponse, summary="点赞艺术作品")
 async def like_art(
+    request: Request,
     art_id: int,
-    user_id: int,
     db: AsyncSession = Depends(get_db)
 ):
     """
@@ -43,6 +117,14 @@ async def like_art(
         LikeResponse: 点赞结果响应
     """
     try:
+
+        # 从Redis认证中间件获取用户信息
+        user_info = request.state.user
+        user_id = user_info.get("id") if isinstance(user_info, dict) else None
+        
+        if not user_id:
+            raise HTTPException(status_code=401, detail="无法获取用户信息")
+        
         # 检查作品是否存在
         art_query = select(VigaArt).where(VigaArt.id == art_id)
         art_result = await db.execute(art_query)
