@@ -141,7 +141,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                   ),
                 ),
               ),
-              SizedBox(width: 25.w)
+              SizedBox(width: 15.w)
             ],
             Expanded(
               child: Container(

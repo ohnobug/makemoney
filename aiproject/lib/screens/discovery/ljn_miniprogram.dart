@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -9,13 +7,16 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:webview_windows/webview_windows.dart';
+// import 'package:webview_windows/webview_windows.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 
 class LJNMiniProgram extends StatefulWidget {
   final String link;
-  const LJNMiniProgram({super.key, required this.link});
+  const LJNMiniProgram({
+    super.key,
+    required this.link,
+  });
 
   @override
   State<LJNMiniProgram> createState() => _LJNMiniProgramState();
@@ -24,7 +25,7 @@ class LJNMiniProgram extends StatefulWidget {
 class _LJNMiniProgramState extends State<LJNMiniProgram>
     with SingleTickerProviderStateMixin {
   late WebViewController webViewController;
-  late WebviewController _windowsWebViewController;
+  // late WebviewController _windowsWebViewController;
 
   late final AnimationController _lottieController;
 
@@ -34,15 +35,11 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
   void initState() {
     super.initState();
 
-    logger.info("link:${widget.link}");
+    logger.info("bbbbbbbbbbbb link:${widget.link}");
 
     _initLotties();
 
-    if (kIsWeb) {
-      _initWebViewController();
-    } else {
-      _initWindowsWebviewController();
-    }
+    _initWebViewController();
   }
 
   void _initLotties() {
@@ -120,6 +117,8 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
   }
 
   void loadPage(String requestUrl) async {
+    logger.info("bbbbbbbbbbbbbbbbbbbbbbbbbbbb::: $requestUrl");
+
     if (requestUrl.startsWith('http://inner')) {
       Uri uri = Uri.parse(requestUrl);
 
@@ -146,44 +145,6 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
     }
   }
 
-  Future<void> _initWindowsWebviewController() async {
-    _windowsWebViewController = WebviewController();
-    await _windowsWebViewController.initialize();
-    await _windowsWebViewController.setBackgroundColor(Colors.transparent);
-    await _windowsWebViewController
-        .setPopupWindowPolicy(WebviewPopupWindowPolicy.deny);
-
-    _windowsWebViewController.loadingState.listen((state) {
-      if (state == LoadingState.navigationCompleted) {
-        _lottieController.reset();
-        _lottieController
-          ..duration = const Duration(milliseconds: 1000)
-          ..forward();
-      }
-    });
-
-    final requestUrl = widget.link;
-    if (requestUrl.startsWith('http://inner')) {
-      Uri uri = Uri.parse(requestUrl);
-
-      uri.replace(host: 'http://127.0.0.1:9413');
-
-      // 请求页面
-      final response = await http
-          .get(uri, headers: {'Host': uri.host, 'Content-Type': 'text/html'});
-
-      if (response.statusCode == 200) {
-        _windowsWebViewController.loadStringContent(response.body);
-      } else {
-        _windowsWebViewController.loadStringContent(
-          "<h1 style='margin-top: 100px'>页面挂了</h1><a href='/qq'>qqq</a>",
-        );
-      }
-    } else {
-      _windowsWebViewController.loadUrl(requestUrl);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
@@ -193,13 +154,7 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
           body: Stack(
             children: [
               // 页面本身
-              if (!kIsWeb)
-                if (Platform.isWindows)
-                  Webview(
-                    _windowsWebViewController,
-                  )
-                else
-                  WebViewWidget(controller: webViewController),
+              WebViewWidget(controller: webViewController),
 
               // 加载动画
               Visibility(

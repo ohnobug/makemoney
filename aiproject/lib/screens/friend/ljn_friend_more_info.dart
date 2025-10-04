@@ -61,6 +61,7 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                 // 我们的共同群聊
                 LJNFunctionList(children: [
                   LJNFunctionItem(
+                    icon: "images/avatar/02.png",
                     title: l10n.ourMutualGroupChats,
                     link: '',
                     showStyle: l10n.groupCount(4),
@@ -73,6 +74,7 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
                   children: [
                     // 个人签名
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       height: 135.w,
                       title: l10n.personalSignature,
                       // link: '',
@@ -97,6 +99,7 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
 
                     // 来源
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       height: 135.w,
                       title: l10n.source,
                       // link: '',
@@ -121,6 +124,7 @@ class _LJNFriendMoreInfo extends State<LJNFriendMoreInfo> {
 
                     // 添加时间
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.addedTime,
                       // link: '',
                       showStyle: Expanded(

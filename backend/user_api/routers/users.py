@@ -1,5 +1,6 @@
 import datetime
 from io import StringIO
+import json
 from fastapi import Depends
 from fastapi.responses import HTMLResponse
 from fastapi import APIRouter, HTTPException
@@ -17,17 +18,19 @@ from utils.utils import check_verify_code, generate_numeric_code_randint, get_to
 from db.models import VigaUsers, VigaVerifyCodes
 from db.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
+from utils.redis import get_redis_connection, get_data, set_data
+import redis.asyncio as redis
 
 # 创建一个 APIRouter 实例
 router = APIRouter(prefix="/api/user")
 
 # 登录
 @router.post("/login", response_model=UserLoginRequestOut)
-async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db)):
+async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db),redis_conn: redis.Redis = Depends(get_redis_connection)):
     """
     用户登录
     """
-    query_stmt = select(VigaUsers).where(VigaUsers.phone_number == request.phone_number)
+    query_stmt: VigaUsers = select(VigaUsers).where(VigaUsers.phone_number == request.phone_number)
     result = await db.execute(query_stmt)
     userinfo = result.scalar_one_or_none()
 
@@ -37,6 +40,15 @@ async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db))
     checkPassword = password_hash(request.password)
     if (checkPassword == userinfo.password_hash):
         token = get_token(userinfo)
+         # 将用户信息序列化为字典，然后转为 JSON 字符串
+        userinfo_data = {
+            "id": userinfo.id,
+            "phone_number": userinfo.phone_number,
+        }
+        userinfo_json = json.dumps(userinfo_data)
+
+        # 将 token 和对应的用户信息存入 Redis，设置过期时间（例如1小时）
+        await set_data(redis_conn, token, userinfo_json, expire_seconds=3600)
         
         return UserLoginRequestOut(
             code=200,

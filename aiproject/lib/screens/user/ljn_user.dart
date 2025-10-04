@@ -11,7 +11,6 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_button.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
-// [ADDED] 导入 cached_network_image 库
 import 'package:cached_network_image/cached_network_image.dart';
 
 class LJNUser extends StatefulWidget {
@@ -92,14 +91,13 @@ class _LJNUserState extends State<LJNUser>
                 delegate: _SliverTabBarDelegate(
                   TabBar(
                     controller: _tabController,
+                    // [FIXED] 移除了错误的 if 判断
                     onTap: (index) {
-                      if (!_tabController.indexIsChanging) {
-                        _pageController.animateToPage(
-                          index,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.ease,
-                        );
-                      }
+                      _pageController.animateToPage(
+                        index,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
                     },
                     labelColor: theme.textTheme.bodyLarge?.color,
                     unselectedLabelColor: theme.hintColor,
@@ -521,29 +519,23 @@ class _UserWorksGrid extends StatelessWidget {
           childAspectRatio: 9 / 14,
         ),
         itemBuilder: (context, index) {
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(0.w),
-            // [MODIFIED] 使用 CachedNetworkImage 替换 Image.network
-            child: CachedNetworkImage(
-              imageUrl: items[index],
-              fit: BoxFit.cover,
-              // 加载中的占位符：一个灰底带转圈圈的动画
-              placeholder: (context, url) => Container(
-                color: Colors.grey.shade200,
-                child: Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.0,
-                    color: Colors.grey.shade400,
-                  ),
-                ),
-              ),
-              // 加载失败时显示的 Widget
-              errorWidget: (context, url, error) => Container(
-                color: Colors.grey.shade200,
-                child: Icon(
-                  Icons.broken_image,
+          return CachedNetworkImage(
+            imageUrl: items[index],
+            fit: BoxFit.cover,
+            placeholder: (context, url) => Container(
+              color: Colors.grey.shade200,
+              child: Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.0,
                   color: Colors.grey.shade400,
                 ),
+              ),
+            ),
+            errorWidget: (context, url, error) => Container(
+              color: Colors.grey.shade200,
+              child: Icon(
+                Icons.broken_image,
+                color: Colors.grey.shade400,
               ),
             ),
           );

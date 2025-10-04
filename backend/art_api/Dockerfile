@@ -1,0 +1,21 @@
+# FROM docker.io/library/masteroftubase
+FROM python:3.10-slim-bullseye
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONIOENCODING=utf-8
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple && \
+    pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+COPY . .
+
+ENV WORKERS=1
+RUN chmod +x /app/entrypoint.sh
+
+EXPOSE 8000
+
+ENTRYPOINT ["/app/entrypoint.sh"]

@@ -247,6 +247,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
                           children: [
                             // 朋友资料
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: l10n.friendProfile,
                               link: '/friend_information',
                               underline: true,
@@ -254,6 +255,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
 
                             // 朋友权限
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: l10n.friendPermissions,
                               link: '/friend_permissions',
                               underline: true,
@@ -261,6 +263,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
 
                             // 朋友圈
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: Container(
                                 width: 190.w,
                                 padding: EdgeInsets.only(left: 30.w),
@@ -343,6 +346,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
 
                             // 视频号
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: Container(
                                 width: 190.w,
                                 padding: EdgeInsets.only(
@@ -479,6 +483,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
 
                             // 更多信息
                             LJNFunctionItem(
+                              icon: "images/avatar/02.png",
                               title: l10n.moreInfo,
                               link: '/friend_more_info',
                               underline: false,

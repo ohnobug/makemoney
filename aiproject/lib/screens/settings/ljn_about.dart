@@ -111,35 +111,38 @@ class _LJNAbout extends State<LJNAbout> {
                           // borderRadius:
                           //     BorderRadius.all(Radius.circular(12.w),),
                           border: Border(
-                            // top: BorderSide(
-                            //   color: theme.dividerColor,
-                            //   width: 1.0.w,
-                            //   style: BorderStyle.solid,
-                            // ),
-                            // bottom: BorderSide(
-                            //   color: theme.dividerColor,
-                            //   width: 1.0.w,
-                            //   style: BorderStyle.solid,
-                            // ),
-                          ),
+                              // top: BorderSide(
+                              //   color: theme.dividerColor,
+                              //   width: 1.0.w,
+                              //   style: BorderStyle.solid,
+                              // ),
+                              // bottom: BorderSide(
+                              //   color: theme.dividerColor,
+                              //   width: 1.0.w,
+                              //   style: BorderStyle.solid,
+                              // ),
+                              ),
                         ),
                         child: Column(
                           children: [
                             LJNFunctionList(
                               children: [
                                 LJNFunctionItem(
+                                  icon: "images/avatar/02.png",
                                   title: l10n.featureIntroduction,
                                   link: '',
                                   backgroundColor: AppColors.neutralWhite,
                                   underline: true,
                                 ),
                                 LJNFunctionItem(
+                                  icon: "images/avatar/02.png",
                                   title: l10n.complain,
                                   link: '',
                                   backgroundColor: AppColors.neutralWhite,
                                   underline: true,
                                 ),
                                 LJNFunctionItem(
+                                  icon: "images/avatar/02.png",
                                   title: l10n.checkNewVersion,
                                   link: '',
                                   backgroundColor: AppColors.neutralWhite,
