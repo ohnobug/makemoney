@@ -47,8 +47,8 @@ async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db),
         }
         userinfo_json = json.dumps(userinfo_data)
 
-        # 将 token 和对应的用户信息存入 Redis，设置过期时间（例如1小时）
-        await set_data(redis_conn, token, userinfo_json, expire_seconds=3600)
+        # 将 token 和对应的用户信息存入 Redis，设置过期时间（例如24小时）
+        await set_data(redis_conn, token, userinfo_json, expire_seconds=3600*24)
         
         return UserLoginRequestOut(
             code=200,

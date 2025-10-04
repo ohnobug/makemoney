@@ -1,10 +1,4 @@
-'''
-Author: xuxinjiang
-Date: 2025-10-02 20:41:42
-LastEditors: your name
-LastEditTime: 2025-10-04 16:54:07
-Description: file content
-'''
+
 import redis.asyncio as redis
 import os
 import asyncio

@@ -9,11 +9,11 @@ from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy import select, update
 
 # 从您的配置中导入 JWT 相关设置
-from schemas.user_getverifycode import UserGetVerifyCodePurposeEnum
+from jiaoyisuo.backend.art_api.schemas.art_list import UserGetVerifyCodePurposeEnum
 from config import SECRET_KEY, ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES
 
 import db as database
-from db.models import VigaUsers, VigaVerifyCodes
+from db.art_model import VigaUsers, VigaVerifyCodes
 import random
 from fastapi import HTTPException
 
