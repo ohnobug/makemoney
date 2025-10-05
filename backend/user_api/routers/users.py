@@ -44,6 +44,7 @@ async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db),
         userinfo_data = {
             "id": userinfo.id,
             "phone_number": userinfo.phone_number,
+            "username": userinfo.username,
         }
         userinfo_json = json.dumps(userinfo_data)
 
