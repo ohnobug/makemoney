@@ -1,26 +1,18 @@
-import datetime
-from io import StringIO
-import json
 from fastapi import Depends,Query,Request
-from typing import List, Optional
-from fastapi.responses import HTMLResponse
 from fastapi import APIRouter, HTTPException
-from sqlalchemy import delete, insert, select, update
-from schemas.base_response import BaseResponse
-from jiaoyisuo.backend.art_api.schemas.art_list import UserGetVerifyCodePurposeEnum, UserGetVerifyCodeRequestIn, UserGetVerifyCodeRequestOut
-from sms import BAIDUSMS
-from utils.utils import check_verify_code, generate_numeric_code_randint, get_token, get_userInfo_from_token, password_hash
+from sqlalchemy import delete, select
 
-from jiaoyisuo.backend.art_api.db.art_model import VigaUsers, VigaVerifyCodes
 from db.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
 from schemas.art_list import ArtListData, ArtListResponse
 from middlewares.redis_auth import redis_auth_middleware
-from db.art_model import ArtItem, VigaArt, ArtInDBBase
+from db.art_model import ArtItem, VigaArt
 from db.like_model import VigaLike
 from schemas.like import LikeResponse
 from db.collect_model import VigaCollect
 from schemas.collect import CollectResponse
+from db.share_model import VigaShare
+from schemas.share import ShareResponse
 
 # 创建一个 APIRouter 实例
 router = APIRouter(prefix="/api/art")
@@ -204,3 +196,72 @@ async def get_art_list(
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"获取艺术作品列表失败: {str(e)}")
+
+
+@router.post("/share", response_model=ShareResponse, summary="分享艺术作品")
+async def share_art(
+    request: Request,
+    art_id: int,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    分享艺术作品
+    
+    Args:
+        request: FastAPI请求对象，用于从Redis认证中间件获取用户信息
+        art_id: 艺术作品ID
+        db: 数据库会话
+        
+    Returns:
+        ShareResponse: 分享结果响应
+    """
+    try:
+        # 从Redis认证中间件获取用户信息
+        user_info = request.state.user
+        user_id = user_info.get("id") if isinstance(user_info, dict) else None
+        
+        if not user_id:
+            raise HTTPException(status_code=401, detail="无法获取用户信息")
+        
+        # 检查作品是否存在
+        art_query = select(VigaArt).where(VigaArt.id == art_id)
+        art_result = await db.execute(art_query)
+        art = art_result.scalar_one_or_none()
+        
+        if not art:
+            raise HTTPException(status_code=404, detail="艺术作品不存在")
+        
+        # 检查是否已经分享过（可选：允许重复分享）
+        share_query = select(VigaShare).where(
+            VigaShare.art_id == art_id,
+            VigaShare.user_id == user_id
+        )
+        share_result = await db.execute(share_query)
+        
+        # todo 检查是否已分享过该作品
+        # existing_share = share_result.scalar_one_or_none()
+        
+        # 可以选择是否允许重复分享，这里我们允许重复分享
+        # if existing_share:
+        #     return ShareResponse(code=200, message="已分享过该作品", data="")
+        
+        # 获取作品作者ID
+        author_id = art.user_id or 0
+        
+        # 创建分享记录
+        new_share = VigaShare(
+            author_id=author_id,
+            user_id=user_id,
+            art_id=art_id
+        )
+        db.add(new_share)
+        await db.commit()
+        await db.refresh(new_share)
+        
+        return ShareResponse(code=200, message="分享成功", data="")
+            
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        await db.rollback()
+        raise HTTPException(status_code=500, detail=f"分享操作失败: {str(e)}")
