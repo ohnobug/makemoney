@@ -5,7 +5,7 @@ import 'dart:async';
 import 'user_model.dart';
 
 class FollowingListPage extends StatefulWidget {
-  const FollowingListPage({Key? key}) : super(key: key);
+  const FollowingListPage({super.key});
 
   @override
   _FollowingListPageState createState() => _FollowingListPageState();
@@ -91,10 +91,12 @@ class _FollowingListPageState extends State<FollowingListPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('我的关注 (474人)', style: TextStyle(color: Colors.grey[600], fontSize: 13)),
+              Text('我的关注 (474人)',
+                  style: TextStyle(color: Colors.grey[600], fontSize: 13)),
               Row(
                 children: [
-                  Text('综合排序', style: TextStyle(color: Colors.grey[600], fontSize: 13)),
+                  Text('综合排序',
+                      style: TextStyle(color: Colors.grey[600], fontSize: 13)),
                   Icon(Icons.unfold_more, size: 16, color: Colors.grey[600]),
                 ],
               ),
@@ -120,7 +122,8 @@ class _FollowingListPageState extends State<FollowingListPage> {
               decoration: InputDecoration(
                 hintText: '搜索用户备注或名字',
                 hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
-                prefixIcon: Icon(Icons.search, color: Colors.grey[500], size: 20),
+                prefixIcon:
+                    Icon(Icons.search, color: Colors.grey[500], size: 20),
                 filled: true,
                 fillColor: Colors.grey[200],
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
@@ -142,7 +145,8 @@ class _FollowingListPageState extends State<FollowingListPage> {
               if (index == _following.length) {
                 return const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Center(child: CircularProgressIndicator(strokeWidth: 2.0)),
+                  child: Center(
+                      child: CircularProgressIndicator(strokeWidth: 2.0)),
                 );
               }
               final user = _following[index];
@@ -172,16 +176,20 @@ class _FollowingListPageState extends State<FollowingListPage> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Row(
         children: [
-          CircleAvatar(radius: 24, backgroundImage: NetworkImage(user.avatarUrl)),
+          CircleAvatar(
+              radius: 24, backgroundImage: NetworkImage(user.avatarUrl)),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(user.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                Text(user.name,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15)),
                 if (user.extraInfo != null && user.extraInfo!.isNotEmpty) ...[
                   const SizedBox(height: 2),
-                  Text(user.extraInfo!, style: TextStyle(color: Colors.grey[600], fontSize: 13)),
+                  Text(user.extraInfo!,
+                      style: TextStyle(color: Colors.grey[600], fontSize: 13)),
                 ],
               ],
             ),
@@ -200,9 +208,11 @@ class _FollowingListPageState extends State<FollowingListPage> {
           onPressed: () {},
           style: OutlinedButton.styleFrom(
             side: BorderSide(color: Colors.grey[300]!),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           ),
-          child: Text('互相关注', style: TextStyle(color: Colors.grey[600], fontSize: 13)),
+          child: Text('互相关注',
+              style: TextStyle(color: Colors.grey[600], fontSize: 13)),
         );
         break;
       case FollowStatus.following:
@@ -212,7 +222,8 @@ class _FollowingListPageState extends State<FollowingListPage> {
             backgroundColor: Colors.grey[200],
             foregroundColor: Colors.grey[800],
             elevation: 0,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           ),
           child: const Text('已关注', style: TextStyle(fontSize: 13)),
         );
@@ -224,9 +235,11 @@ class _FollowingListPageState extends State<FollowingListPage> {
             backgroundColor: const Color(0xFFFE2C55),
             foregroundColor: Colors.white,
             elevation: 0,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           ),
-          child: const Text('关注', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+          child: const Text('关注',
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
         );
         break;
       default:

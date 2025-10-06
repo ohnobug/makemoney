@@ -85,7 +85,7 @@ class AppRouter {
       final uri = Uri.parse(settings.name!);
       final linkValue = uri.queryParameters['link'] ?? "";
 
-      logger.info("bbbbbbbbbbbb: " + linkValue);
+      logger.info("bbbbbbbbbbbb: $linkValue");
 
       return _pageRouteBuilderAnimation(LJNMiniProgram(link: linkValue));
     }

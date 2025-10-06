@@ -53,10 +53,10 @@ services:
     networks:
       - vigaviga_network
 
-  # 用户接口服务
-  user_api:
+  # 用户服务
+  user_service:
     build:
-      context: ./backend/user_api
+      context: ./backend/user_service
       dockerfile: Dockerfile
     environment:
       - SECRET_KEY=633e12a9aa515859095e85020109175e7424157ab9bc31fed2fff540faf8b91b
@@ -80,10 +80,10 @@ services:
     networks:
       - vigaviga_network
 
-  # 模式接口服务
-  mode_api:
+  # 奖励模式服务
+  reward_mode_service:
     build:
-      context: ./backend/mode_api
+      context: ./backend/reward_mode_service
       dockerfile: Dockerfile
     environment:
       - SECRET_KEY=633e12a9aa515859095e85020109175e7424157ab9bc31fed2fff540faf8b91b
@@ -107,10 +107,10 @@ services:
     networks:
       - vigaviga_network
 
-  # 用户接口服务
-  art_api:
+  # 艺术品服务
+  art_service:
     build:
-      context: ./backend/art_api
+      context: ./backend/art_service
       dockerfile: Dockerfile
     environment:
       - SECRET_KEY=633e12a9aa515859095e85020109175e7424157ab9bc31fed2fff540faf8b91b

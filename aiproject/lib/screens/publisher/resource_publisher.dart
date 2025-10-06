@@ -28,7 +28,7 @@ class _ModelSearchPageState extends State<ResourceSearchPage> {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _searchController = TextEditingController();
 
-  List<ModelItem> _modelItems = [];
+  final List<ModelItem> _modelItems = [];
   bool _isLoading = false;
   bool _hasMore = true;
   int _currentPage = 1;
@@ -71,7 +71,7 @@ class _ModelSearchPageState extends State<ResourceSearchPage> {
         authorAvatarUrl: 'https://i.pravatar.cc/50?u=$id',
       );
     });
-    
+
     if (_currentPage >= 5) {
       newItems = [];
     }
@@ -88,29 +88,33 @@ class _ModelSearchPageState extends State<ResourceSearchPage> {
       _isLoading = false;
     });
   }
-  
+
   String _getMockTitle(int index) {
     const titles = [
-      'Nano-Banana_爆款手办一键...', 'F.1版nano-banana手办爆款...',
-      'krea-童趣/白色团子/治愈系插画', 'Flux-设计草图',
-      '电商美妆kv医美科研风', '超_Flux.1 商业摄影大模型1.1_...',
-      '国风水墨画模型', '赛博朋克城市夜景'
+      'Nano-Banana_爆款手办一键...',
+      'F.1版nano-banana手办爆款...',
+      'krea-童趣/白色团子/治愈系插画',
+      'Flux-设计草图',
+      '电商美妆kv医美科研风',
+      '超_Flux.1 商业摄影大模型1.1_...',
+      '国风水墨画模型',
+      '赛博朋克城市夜景'
     ];
     return titles[index % titles.length];
   }
 
   Future<void> _performSearch(String query) async {
     if (query.isEmpty) return;
-    
+
     setState(() {
       _modelItems.clear();
       _currentPage = 1;
       _hasMore = true;
-      _isLoading = false; 
+      _isLoading = false;
     });
 
     if (_scrollController.hasClients) {
-        _scrollController.jumpTo(0);
+      _scrollController.jumpTo(0);
     }
     await _fetchModels(query: query);
   }
@@ -123,10 +127,12 @@ class _ModelSearchPageState extends State<ResourceSearchPage> {
         backgroundColor: Colors.white,
         elevation: 0.5,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black54, size: 20),
+          icon: const Icon(Icons.arrow_back_ios_new,
+              color: Colors.black54, size: 20),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('模型', style: TextStyle(color: Colors.black, fontSize: 18)),
+        title: const Text('模型',
+            style: TextStyle(color: Colors.black, fontSize: 18)),
         centerTitle: true,
       ),
       body: Column(
@@ -167,7 +173,7 @@ class _ModelSearchPageState extends State<ResourceSearchPage> {
       ),
     );
   }
-  
+
   Widget _buildContentBody() {
     if (_modelItems.isEmpty) {
       if (_isLoading) {
@@ -178,12 +184,11 @@ class _ModelSearchPageState extends State<ResourceSearchPage> {
             child: CircularProgressIndicator(),
           ),
         );
-      }
-      else {
+      } else {
         return const Center(child: Text("没有找到相关模型"));
       }
     }
-    
+
     return Column(
       children: [
         Expanded(
@@ -230,8 +235,10 @@ class _ModelSearchPageState extends State<ResourceSearchPage> {
                     imageUrl: item.imageUrl,
                     fit: BoxFit.cover,
                     fadeInDuration: const Duration(milliseconds: 500),
-                    placeholder: (context, url) => Container(color: Colors.grey[200]),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                    placeholder: (context, url) =>
+                        Container(color: Colors.grey[200]),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
                 Positioned(
@@ -254,7 +261,8 @@ class _ModelSearchPageState extends State<ResourceSearchPage> {
           Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
             child: Text(item.title,
-                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                style:
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis),
           ),
@@ -274,7 +282,8 @@ class _ModelSearchPageState extends State<ResourceSearchPage> {
                       Expanded(
                         child: Text(
                           item.author,
-                          style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                          style:
+                              TextStyle(fontSize: 12, color: Colors.grey[600]),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),

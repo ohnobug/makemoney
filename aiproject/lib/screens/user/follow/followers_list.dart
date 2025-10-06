@@ -5,7 +5,7 @@ import 'dart:async';
 import 'user_model.dart';
 
 class FollowersListPage extends StatefulWidget {
-  const FollowersListPage({Key? key}) : super(key: key);
+  const FollowersListPage({super.key});
 
   @override
   _FollowersListPageState createState() => _FollowersListPageState();
@@ -77,7 +77,8 @@ class _FollowersListPageState extends State<FollowersListPage> {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
-          child: Text('我的粉丝 (4人)', style: TextStyle(color: Colors.grey[600], fontSize: 13)),
+          child: Text('我的粉丝 (4人)',
+              style: TextStyle(color: Colors.grey[600], fontSize: 13)),
         ),
         // 【改动点 2】调整搜索框样式
         Padding(
@@ -88,7 +89,8 @@ class _FollowersListPageState extends State<FollowersListPage> {
               decoration: InputDecoration(
                 hintText: '搜索用户备注或名字',
                 hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
-                prefixIcon: Icon(Icons.search, color: Colors.grey[500], size: 20),
+                prefixIcon:
+                    Icon(Icons.search, color: Colors.grey[500], size: 20),
                 filled: true,
                 fillColor: Colors.grey[200],
                 // 调整 contentPadding 使内容垂直居中
@@ -111,7 +113,8 @@ class _FollowersListPageState extends State<FollowersListPage> {
               if (index == _followers.length) {
                 return const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Center(child: CircularProgressIndicator(strokeWidth: 2.0)),
+                  child: Center(
+                      child: CircularProgressIndicator(strokeWidth: 2.0)),
                 );
               }
               final user = _followers[index];
@@ -128,13 +131,16 @@ class _FollowersListPageState extends State<FollowersListPage> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Row(
         children: [
-          CircleAvatar(radius: 24, backgroundImage: NetworkImage(user.avatarUrl)),
+          CircleAvatar(
+              radius: 24, backgroundImage: NetworkImage(user.avatarUrl)),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(user.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                Text(user.name,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15)),
                 if (user.description != null) ...[
                   const SizedBox(height: 2),
                   Text(
@@ -163,9 +169,11 @@ class _FollowersListPageState extends State<FollowersListPage> {
             onPressed: () => _onFollowButtonPressed(user),
             style: OutlinedButton.styleFrom(
               side: BorderSide(color: Colors.grey[300]!),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4)),
             ),
-            child: Text('互相关注', style: TextStyle(color: Colors.grey[600], fontSize: 13)),
+            child: Text('互相关注',
+                style: TextStyle(color: Colors.grey[600], fontSize: 13)),
           ),
         );
       case FollowStatus.followedBy:
@@ -179,9 +187,11 @@ class _FollowersListPageState extends State<FollowersListPage> {
               backgroundColor: const Color(0xFFFE2C55),
               foregroundColor: Colors.white,
               elevation: 0,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4)),
             ),
-            child: const Text('回关', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+            child: const Text('回关',
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
           ),
         );
       default:
