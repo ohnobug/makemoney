@@ -1,15 +1,26 @@
+'''
+description:  
+@author chenchangfu 
+Copyright (c) 2019, AUTHOR. All rights reserved.
+AUTHOR PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+'''
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.concurrency import asynccontextmanager
 from fastapi.responses import JSONResponse
 from fastapi import HTTPException
+import os
 import db.models
 import db.database as database
+
+
 from routers import users
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+
+
     # 启动阶段 (在 yield 之前)
     print("Application startup...")
     

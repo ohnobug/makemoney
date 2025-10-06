@@ -1,25 +1,41 @@
 import datetime
 from io import StringIO
+import os
 from fastapi import Depends
 from fastapi.responses import HTMLResponse
 from fastapi import APIRouter, HTTPException
 from sqlalchemy import delete, insert, select, update
 from schemas.base_response import BaseResponse
 from schemas.user_getverifycode import UserGetVerifyCodePurposeEnum, UserGetVerifyCodeRequestIn, UserGetVerifyCodeRequestOut
+from schemas.user_getverifycode_email import UserGetVerifyCodeRequest,UserGetVerifyEmailCodeRequestOut
 from schemas.user_resetpassword import UserResetPasswordRequestIn, UserResetPasswordRequestOut
 from schemas.userinfo import UserInfo, UserInfoRequestOut
 from schemas.user_register import UserRegisterRequestIn, UserRegisterRequestOut
+from schemas.user_register_email import UserRegisterRequestEmailIn, UserRegisterRequestEmailOut
 from schemas.user_login import UserLoginRequestIn, UserLoginRequestOut, UserLoginToken
 from routers.oauth2_scheme import oauth2_scheme
 from sms import BAIDUSMS
-from utils.utils import check_verify_code, generate_numeric_code_randint, get_token, get_userInfo_from_token, password_hash
-
+from utils.utils import check_verify_code, generate_numeric_code_randint, get_token, get_userInfo_from_token, password_hash,is_email,is_phone_number
 from db.models import VigaUsers, VigaVerifyCodes
 from db.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
+from services.email import generate_verification_code, send_verification_email,check_verify_code_email
+from db.redis import get_redis
+from redis.asyncio import Redis
+
+
+
 
 # 创建一个 APIRouter 实例
 router = APIRouter(prefix="/api/user")
+
+# # 依赖项定义
+# async def get_db():
+#     async with AsyncSessionLocal() as session:
+#         yield session
+
+
+
 
 # 登录
 @router.post("/login", response_model=UserLoginRequestOut)
@@ -27,7 +43,23 @@ async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db))
     """
     用户登录
     """
-    query_stmt = select(VigaUsers).where(VigaUsers.phone_number == request.phone_number)
+
+    # query_stmt = select(VigaUsers).where(VigaUsers.phone_number == request.name)
+    if not request.name:
+        raise HTTPException(status_code=400, detail="请输入手机号或邮箱")
+    
+    # 判断输入类型
+    if is_email(request.name):
+        query_stmt = select(VigaUsers).where(VigaUsers.email == request.name)
+        identifier_type = "邮箱"
+    elif is_phone_number(request.name):
+        query_stmt = select(VigaUsers).where(VigaUsers.phone_number == request.name)
+        identifier_type = "手机号"
+    else:
+        raise HTTPException(status_code=400, detail="请输入有效的手机号或邮箱")
+    
+
+
     result = await db.execute(query_stmt)
     userinfo = result.scalar_one_or_none()
 
@@ -35,16 +67,19 @@ async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db))
         raise HTTPException(status_code=401, detail="手机号未注册")
 
     checkPassword = password_hash(request.password)
-    if (checkPassword == userinfo.password_hash):
-        token = get_token(userinfo)
-        
-        return UserLoginRequestOut(
-            code=200,
-            message="success",
-            data=UserLoginToken(token=token)
-        )
-    else:
-        raise HTTPException(status_code=401, detail="用户密码错误")
+
+    # 验证密码
+    check_password = password_hash(request.password)
+    if check_password != userinfo.password_hash:
+        raise HTTPException(status_code=401, detail="密码错误")
+
+    # 生成 token 并返回
+    token = get_token(userinfo)
+    return UserLoginRequestOut(
+        code=200,
+        message="success",
+        data=UserLoginToken(token=token)
+    )
 
 # 注册
 @router.post("/register", response_model=UserRegisterRequestOut, summary="用户注册")
@@ -162,6 +197,8 @@ async def get_verify_code(request: UserGetVerifyCodeRequestIn, db: AsyncSession 
         message="获取验证码成功"
     )
 
+
+
 # 获取手机验证码列表(测试用)
 @router.get("/msgs", response_class=HTMLResponse, summary="获取验证码列表")
 async def get_verify_code_list(db: AsyncSession = Depends(get_db)):
@@ -248,4 +285,116 @@ async def userinfo(token: str = Depends(oauth2_scheme)):
             phone_number=userinfo['phone_number']
         )
     )
+
+#邮箱注册
+
+@router.post('/register_email',response_model=UserRegisterRequestEmailOut,summary="邮箱注册")
+async def register_email(request:UserRegisterRequestEmailIn,db:AsyncSession = Depends(get_db),redis_manager:Redis = Depends(get_redis)):
+
+    email = request.email
+    password = request.password
+    confirm_password = request.confirm_password
+    verify_code = request.verify_code
+
+  # 检测用户是否注册
+    query_stmt = select(VigaUsers).where(
+        VigaUsers.email == request.email
+    )
+    result = await db.scalar(query_stmt)
+    if result is not None:
+        raise HTTPException(status_code=409, detail="邮箱已被注册")
+
+    # 检测验证码
+    verify_status = await check_verify_code_email(request.email,request.verify_code, redis_manager)
+
+    # if verify_status == False :
+    #   raise HTTPException(status_code=409, detail="邮箱已被注册")
+    print("用户密码验证")
+    if str(password).strip() != str(confirm_password).strip():
+      raise HTTPException(status_code=409, detail="密码与确认密码不一致！")
+
+    # 注册用户
+    if str(password).strip() == str(confirm_password).strip():
+      passwordh = password_hash(request.password)
+      insert_stmt = insert(VigaUsers).values(
+          email=request.email,
+          password_hash=passwordh
+      )
+
+      result = await db.execute(insert_stmt)
+      # result.inserted_primary_key[0]
+      await db.commit()
+
+      return UserRegisterRequestOut(
+          code=200,
+          message="注册成功"
+      )
+    else:
+      return UserRegisterRequestOut(
+          code=500,
+          message="服务异常，请重试！"
+      )
+      
+
+
+    
+  
+
+
+# 邮箱发送验证码
+@router.post('/get_verify_code_email', response_model=UserGetVerifyEmailCodeRequestOut, summary="获取验证码")
+async def get_verify_code_email(request: UserGetVerifyCodeRequest, db: AsyncSession = Depends(get_db),redis_manager: Redis = Depends(get_redis)  ):
+
+   
+  #  """发送QQ邮箱验证码"""
+  # # if request.email 
+  # # verify_email_flow()
+
+  #  try:
+  #       # 存储到Redis (5分钟过期)
+  #       await redis.setex(f"verify:{email}", 300, code)
+        
+  #       # 发送邮件
+  #       await send_qq_email(email, code)
+        
+  #       return {
+  #           "email": email,
+  #           "message": "验证码已发送"
+  #       }
+  #   except Exception as e:
+  #       raise HTTPException(500, detail=f"发送失败: {str(e)}")
+
+      # 1. 检查邮箱状态
+    email = request.email
+
+    user = await db.execute(
+        select(VigaUsers).where(VigaUsers.email == email)
+    )
+    # print("验证获取参数：",email,user,REDIS_URL)
+
+    if user.scalar():
+        raise HTTPException(400, "邮箱已存在")
+
+    # 2. 生成并存储验证码
+    code = generate_verification_code()
+    print("codecodecode:",code)
+
+    async with redis_manager as redis:  # 获取 Redis 客户端
+        # await redis.setex(f"verify:{email}", 300, code)
+      await redis.setex(f"verify:{email}",300,code)
+
+      await send_verification_email(email, code)
+
+      return { "email":email,"message": "验证码已发送"}
+
+    # 3. 记录发送日志
+    # log = EmailLog(email=email, action="send_verify_code")
+    # db.add(log)
+    # await db.commit()
+
+    # 4. 发送邮件
+
+
+
+
 
