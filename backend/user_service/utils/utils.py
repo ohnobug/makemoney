@@ -80,24 +80,12 @@ def get_token(userInfo: VigaUsers):
     access_token = create_access_token(
         data={
             "user_id": str(userInfo.id), 
-            "phone_number": str(userInfo.phone_number)
+            "username": str(userInfo.username),
+            "avatar_url": str(userInfo.avatar_url)
         },
         expires_delta=access_token_expires
     )
     return access_token
-
-
-def get_userInfo_from_token(token: str):
-    """
-    从 JWT Token 字符串中解码出 payload。
-    主要用于不需要强制验证（即不抛出 HTTP 异常）的场景。
-    """
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload
-    except JWTError:
-        # 如果解码失败，可以选择返回 None 或抛出自定义异常
-        return None
 
 
 def password_hash(password: str):

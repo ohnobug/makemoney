@@ -1,7 +1,7 @@
 import datetime
 from io import StringIO
 import json
-from fastapi import Depends
+from fastapi import Depends, Request
 from fastapi.responses import HTMLResponse
 from fastapi import APIRouter, HTTPException
 from sqlalchemy import delete, insert, select, update
@@ -18,15 +18,15 @@ from utils.utils import check_verify_code, generate_numeric_code_randint, get_to
 from db.models import VigaUsers, VigaVerifyCodes
 from db.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.redis import get_redis_connection, get_data, set_data
 import redis.asyncio as redis
+from middlewares.token_auth import token_auth_middleware
 
 # 创建一个 APIRouter 实例
 router = APIRouter(prefix="/api/user")
 
 # 登录
 @router.post("/login", response_model=UserLoginRequestOut)
-async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db),redis_conn: redis.Redis = Depends(get_redis_connection)):
+async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db)):
     """
     用户登录
     """
@@ -40,17 +40,7 @@ async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db),
     checkPassword = password_hash(request.password)
     if (checkPassword == userinfo.password_hash):
         token = get_token(userinfo)
-         # 将用户信息序列化为字典，然后转为 JSON 字符串
-        userinfo_data = {
-            "id": userinfo.id,
-            "phone_number": userinfo.phone_number,
-            "username": userinfo.username,
-        }
-        userinfo_json = json.dumps(userinfo_data)
 
-        # 将 token 和对应的用户信息存入 Redis，设置过期时间（例如24小时）
-        await set_data(redis_conn, token, userinfo_json, expire_seconds=3600*24)
-        
         return UserLoginRequestOut(
             code=200,
             message="success",
@@ -247,10 +237,11 @@ async def clear_verify_code_list(db: AsyncSession = Depends(get_db)):
     return BaseResponse(code=200, message="清空成功")
 
 # 获取用户信息
+@router.middleware_stack("http")(token_auth_middleware)  # 应用中间件
 @router.post("/userinfo", response_model=UserInfoRequestOut)
-async def userinfo(token: str = Depends(oauth2_scheme)):
+async def userinfo(request: Request):
     try:
-        userinfo = get_userInfo_from_token(token)
+        userinfo = request.state.user
     except:
         raise HTTPException(status_code=401, detail="token解析错误")
 
