@@ -1,7 +1,5 @@
-'''
-Author: xuxinjiang
-Date: 2025-10-02 23:11:18
-LastEditors: your name
-LastEditTime: 2025-10-02 23:11:40
-Description: file content
-'''
+from .token_auth import token_auth_middleware, DecodeTokenUserData
+from .header_user_parser import HeaderUserParserMiddleware
+
+# 创建中间件实例
+header_user_parser_middleware = HeaderUserParserMiddleware()
