@@ -11,7 +11,7 @@ class VigaArtTemp(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True, comment='Primary Key')
     create_time = Column(DateTime, server_default=func.now(), comment='Create Time')
-    name = Column(String(255), nullable=True, comment='作品名称')
+    name = Column(String(255), nullable=True, comment='作品名称', index=True)
     update_time = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment='更新时间')
     status = Column(Integer, default=0, comment='审核状态 0 待审核，1 审核成功，2审核失败')
     url = Column(String(255), nullable=True, comment='资源url')
