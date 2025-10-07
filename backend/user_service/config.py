@@ -9,8 +9,9 @@ env = os.getenv("ENV", "dev")  # 如果没有 ENV，默认是 dev
 if env == "prod":
     load_dotenv(".env.prod")  # 生产环境
 else:
-    load_dotenv(".env")  # 开发环境
-# load_dotenv()
+    # load_dotenv(".env")  
+    load_dotenv() # 开发环境
+    # load_dotenv()
 
 # --- Security Configuration ---
 SECRET_KEY = os.getenv("SECRET_KEY", "a_very_secret_key_change_this_in_production")
@@ -31,7 +32,19 @@ RD_USER = os.getenv("RD_USER", "")
 RD_PASSWORD = os.getenv("RD_PASSWORD", "Vigaviga2026")
 RD_PORT = os.getenv("RD_PORT", 6379)
 RD_HOST = os.getenv("RD_HOST", "156.236.75.52")
-# RD_URL = f"mysql+aiomysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+REDIS_DB: int = int(os.getenv("REDIS_DB", 0))
+REDIS_VERIFICATION_CODE_EXPIRE: int = 300  # 验证码过期时间（秒）
+REDIS_URL = f"redis://:{RD_PASSWORD}@{RD_HOST}:{RD_PORT}/0"
+
+
+
+# --- 发送邮箱配置 ---
+SMTP_SERVER = os.getenv('SMTP_SERVER','smtp.qq.com')
+SMTP_PORT = os.getenv('SMTP_PORT','465')
+SMTP_USERNAME = os.getenv('SMTP_USERNAME','943909673@qq.com')
+SMTP_PASSWORD=  os.getenv('SMTP_PASSWORD','tzwompitrrhtbegd')
+EMAIL_FROM = os.getenv('EMAIL_FROM','943909673@qq.com')
+
 
 # --- SMS Configuration ---
 # 需求 1: 每个号码发送限制 (常量)

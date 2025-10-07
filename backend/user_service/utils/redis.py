@@ -1,19 +1,27 @@
+'''
+description:  
+@author chenchangfu 
+Copyright (c) 2019, AUTHOR. All rights reserved.
+AUTHOR PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+'''
 
 import redis.asyncio as redis
 import os
 import asyncio
 from typing import Optional
+from config import REDIS_URL,RD_HOST,RD_PORT,DB_PASSWORD
 
 # --- 1. 初始化 Redis 连接 ---
 
 # 从环境变量获取 Redis 配置，如果获取不到则使用默认值
 # 这与您 docker-compose.yml 中的配置相对应
-REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
-REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
+REDIS_HOST = RD_HOST
+REDIS_PORT = RD_PORT
+REDIS_PASSWORD = DB_PASSWORD
 
 # 创建一个异步 Redis 连接池
 # decode_responses=True 会将从 Redis 获取的二进制数据自动解码为 utf-8 字符串，方便处理
-redis_pool = redis.ConnectionPool(host=REDIS_HOST, port=REDIS_PORT, db=0, decode_responses=True)
+redis_pool = redis.ConnectionPool(host=REDIS_HOST, port=REDIS_PORT,password=REDIS_PASSWORD, db=0, decode_responses=True)
 
 def get_redis_connection() -> redis.Redis:
     """

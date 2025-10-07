@@ -17,6 +17,8 @@ from db.models import VigaUsers, VigaVerifyCodes
 import random
 from fastapi import HTTPException
 
+import re
+
 # Passlib 上下文，用于安全的密码哈希（推荐使用）
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -117,6 +119,16 @@ def p(stri: str):
     print("❤️" * 30)
     print("\n" * 2)
 
+def is_email(input_str: str) -> bool:
+      """判断输入是否是邮箱"""
+      email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+      return re.match(email_regex, input_str) is not None
+
+def is_phone_number(input_str: str) -> bool:
+      """判断输入是否是手机号"""
+    # 简单的手机号验证（可根据需求调整）
+      return input_str.isdigit() and len(input_str) >= 11
+
 
 async def check_verify_code(db, phone_number: str, code: str, purpose: UserGetVerifyCodePurposeEnum):
     """
@@ -149,6 +161,5 @@ async def check_verify_code(db, phone_number: str, code: str, purpose: UserGetVe
         used_at=datetime.now(),
         is_used=True
     )
-
     await db.execute(update_stmt)
     await db.commit()
