@@ -295,11 +295,11 @@ class _LJNUserState extends State<LJNUser>
               SizedBox(height: 40.w),
               Row(
                 children: [
-                  _buildStatsItem("25", "关注"),
+                  _buildStatsItem("25", "关注", ''),
                   SizedBox(width: 60.w),
-                  _buildStatsItem("1.2M", "粉丝"),
+                  _buildStatsItem("1.2M", "粉丝", ''),
                   SizedBox(width: 60.w),
-                  _buildStatsItem("8.9M", "获赞"),
+                  _buildStatsItem("8.9M", "获赞", 'like'),
                 ],
               ),
               SizedBox(height: 30.w),
@@ -382,9 +382,15 @@ class _LJNUserState extends State<LJNUser>
     );
   }
 
-  Widget _buildStatsItem(String count, String label) {
+  Widget _buildStatsItem(String count, String label, String? type) {
     final theme = Theme.of(context);
-    return Column(
+    return InkWell(onTap: () {
+      if (type == 'like') {
+        Navigator.pushNamed(context, '/ljn_like');
+      } else {
+        Navigator.pushNamed(context, '/follow_and_fans');
+      }
+    }, child:  Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -404,7 +410,7 @@ class _LJNUserState extends State<LJNUser>
           ),
         ),
       ],
-    );
+    ));
   }
 }
 

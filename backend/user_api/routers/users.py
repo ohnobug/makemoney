@@ -1,6 +1,7 @@
 import datetime
 from io import StringIO
 import os
+import json
 from fastapi import Depends
 from fastapi.responses import HTMLResponse
 from fastapi import APIRouter, HTTPException
@@ -23,8 +24,7 @@ from services.email import generate_verification_code, send_verification_email,c
 from db.redis import get_redis
 from redis.asyncio import Redis
 
-
-
+from utils.redis import get_redis_connection, get_data, set_data
 
 # 创建一个 APIRouter 实例
 router = APIRouter(prefix="/api/user")
@@ -39,7 +39,7 @@ router = APIRouter(prefix="/api/user")
 
 # 登录
 @router.post("/login", response_model=UserLoginRequestOut)
-async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db)):
+async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db),redis_conn: Redis = Depends(get_redis_connection)):
     """
     用户登录
     """
@@ -66,20 +66,53 @@ async def login(request: UserLoginRequestIn, db: AsyncSession = Depends(get_db))
     if userinfo is None:
         raise HTTPException(status_code=401, detail="手机号未注册")
 
-    checkPassword = password_hash(request.password)
+    # checkPassword = password_hash(request.password)
 
     # 验证密码
     check_password = password_hash(request.password)
     if check_password != userinfo.password_hash:
-        raise HTTPException(status_code=401, detail="密码错误")
-
+        raise HTTPException(status_code=401, detail="用户名或密码错误")
+    else:
     # 生成 token 并返回
-    token = get_token(userinfo)
-    return UserLoginRequestOut(
-        code=200,
-        message="success",
-        data=UserLoginToken(token=token)
-    )
+        token = get_token(userinfo)
+
+        userinfo_data = {
+            "id": userinfo.id,
+            "phone_number": userinfo.phone_number,
+            "email":userinfo.email,
+            "username": userinfo.username,
+        }
+        userinfo_json = json.dumps(userinfo_data)
+
+        # 将 token 和对应的用户信息存入 Redis，设置过期时间（例如24小时）
+        await set_data(redis_conn, token, userinfo_json, expire_seconds=3600*24)
+        
+        return UserLoginRequestOut(
+            code=200,
+            message="success",
+            data=UserLoginToken(token=token)
+        )
+      
+    # if (checkPassword == userinfo.password_hash):
+    #     token = get_token(userinfo)
+    #      # 将用户信息序列化为字典，然后转为 JSON 字符串
+    #     userinfo_data = {
+    #         "id": userinfo.id,
+    #         "phone_number": userinfo.phone_number,
+    #         "username": userinfo.username,
+    #     }
+    #     userinfo_json = json.dumps(userinfo_data)
+
+    #     # 将 token 和对应的用户信息存入 Redis，设置过期时间（例如24小时）
+    #     await set_data(redis_conn, token, userinfo_json, expire_seconds=3600*24)
+        
+    #     return UserLoginRequestOut(
+    #         code=200,
+    #         message="success",
+    #         data=UserLoginToken(token=token)
+    #     )
+    # else:
+    #     raise HTTPException(status_code=401, detail="用户密码错误")
 
 # 注册
 @router.post("/register", response_model=UserRegisterRequestOut, summary="用户注册")
@@ -346,24 +379,6 @@ async def register_email(request:UserRegisterRequestEmailIn,db:AsyncSession = De
 async def get_verify_code_email(request: UserGetVerifyCodeRequest, db: AsyncSession = Depends(get_db),redis_manager: Redis = Depends(get_redis)  ):
 
    
-  #  """发送QQ邮箱验证码"""
-  # # if request.email 
-  # # verify_email_flow()
-
-  #  try:
-  #       # 存储到Redis (5分钟过期)
-  #       await redis.setex(f"verify:{email}", 300, code)
-        
-  #       # 发送邮件
-  #       await send_qq_email(email, code)
-        
-  #       return {
-  #           "email": email,
-  #           "message": "验证码已发送"
-  #       }
-  #   except Exception as e:
-  #       raise HTTPException(500, detail=f"发送失败: {str(e)}")
-
       # 1. 检查邮箱状态
     email = request.email
 

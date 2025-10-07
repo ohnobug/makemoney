@@ -70,6 +70,12 @@ import 'package:vigaviga/screens/user/ljn_wallet.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/videoplayer.dart';
 import 'package:vigaviga/widgets/ljn_custom_tabbar.dart';
+import 'package:vigaviga/screens/publisher/publish_work.dart';
+import 'package:vigaviga/screens/publisher/geolocator.dart';
+import 'package:vigaviga/screens/publisher/ai_publisher.dart';
+import 'package:vigaviga/screens/publisher/resource_publisher.dart';
+import 'package:vigaviga/screens/user/follow/follow_page.dart';
+import 'package:vigaviga/screens/user/ljn_like.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -87,6 +93,18 @@ class AppRouter {
     switch (settings.name) {
       case '/':
         return _pageRouteBuilderNotAnimation(const LJNCustomTabbar());
+      case '/publish_work':
+        return _pageRouteBuilderNotAnimation(const VideoPublishPageState());
+      case '/locationPage':
+        return _pageRouteBuilderNotAnimation(const AddLocationPage());
+      case '/ai_publisher':
+        return _pageRouteBuilderNotAnimation(const LoRASettingsPage());
+      case '/resource_publisher':
+        return _pageRouteBuilderNotAnimation(const ResourceSearchPage());
+      case '/ljn_like':
+        return _pageRouteBuilderNotAnimation(const LikedVideosPage());
+      case '/follow_and_fans':
+        return _pageRouteBuilderAnimation(const FollowPage());
       case '/miniprogram_list':
         return _pageRouteBuilderAnimation(const LJNMiniProgramList());
       case '/services':

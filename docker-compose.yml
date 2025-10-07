@@ -4,7 +4,10 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: Vigaviga2026
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: viga
+      # 创建一个名为 viga_user 的用户
+      MYSQL_USER: user
     ports:
       - "3306:3306"
     volumes:
@@ -22,6 +25,17 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - vigaviga_network
+
+  # Redis 缓存服务
+  redis:
+    image: redis:alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
     networks:
       - vigaviga_network
 
@@ -55,11 +69,14 @@ services:
       - RABBITMQ_PORT=5672
       - RABBITMQ_USER=vigaviga
       - RABBITMQ_PASS=Vigaviga2026
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     ports:
       - "9001:9001"
     depends_on:
       - db
       - rabbitmq
+      - redis
     networks:
       - vigaviga_network
 
@@ -79,11 +96,41 @@ services:
       - RABBITMQ_PORT=5672
       - RABBITMQ_USER=vigaviga
       - RABBITMQ_PASS=Vigaviga2026
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     ports:
       - "9002:9001"
     depends_on:
       - db
       - rabbitmq
+      - redis
+    networks:
+      - vigaviga_network
+
+  # 用户接口服务
+  art_api:
+    build:
+      context: ./backend/art_api
+      dockerfile: Dockerfile
+    environment:
+      - SECRET_KEY=633e12a9aa515859095e85020109175e7424157ab9bc31fed2fff540faf8b91b
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=Vigaviga2026
+      - DB_NAME=viga
+      - RABBITMQ_USER=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=vigaviga
+      - RABBITMQ_PASS=Vigaviga2026
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    ports:
+      - "9003:9001"
+    depends_on:
+      - db
+      - rabbitmq
+      - redis
     networks:
       - vigaviga_network
 
@@ -93,4 +140,6 @@ networks:
 
 volumes:
   db_data:
+    driver: local
+  redis_data:
     driver: local

@@ -5,6 +5,7 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
+import 'package:image_picker/image_picker.dart';
 
 // [修复点 1] 将 LJNPublisher 转换为 StatefulWidget
 class LJNPublisher extends StatefulWidget {
@@ -70,6 +71,7 @@ class _LJNPublisherState extends State<LJNPublisher> {
                       description:
                           'AI将为你生成独特的NFT艺术品。费用包含AI生成服务及链上铸造，发布后即可赚取打赏。',
                       onTap: () {
+                        Navigator.pushNamed(context, '/ai_publisher');
                         // print('即将进入 AI 创作流程...');
                       },
                     ),
@@ -80,7 +82,15 @@ class _LJNPublisherState extends State<LJNPublisher> {
                       icon: Icons.upload_file, // 建议替换为你的 Iconfont
                       title: '上传原创作品 (仅需 2 钻石)',
                       description: '将你的原创作品铸为NFT。仅需支付链上铸造费用，发布后即可通过社区打赏获得回报。',
-                      onTap: () {
+                      onTap: () async {
+                        final ImagePicker _picker = ImagePicker();
+                        final XFile? image = await _picker.pickImage(
+                            source: ImageSource.gallery);
+                        if (image != null) {
+                           Navigator.pushNamed(context, '/publish_work');
+                          // 显示图片或进行其他操作
+                          print(image.path); // 输出图片路径
+                        }
                         // print('即将打开文件选择器...');
                       },
                     ),
