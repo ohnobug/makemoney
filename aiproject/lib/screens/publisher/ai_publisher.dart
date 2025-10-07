@@ -93,7 +93,7 @@ class _LoRASettingsPageState extends State<LoRASettingsPage> {
                         primaryColor: primaryBlue,
                       ),
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
             ),
@@ -231,10 +231,10 @@ class _LoRASettingsPageState extends State<LoRASettingsPage> {
             style: TextStyle(
                 fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
           ),
-         /*  const SizedBox(width: 8),
+          /*  const SizedBox(width: 8),
           const Icon(Icons.flash_on, color: Colors.yellow, size: 20),
           const SizedBox(width: 4), */
-         /*  Text(
+          /*  Text(
             '11',
             style:
                 TextStyle(fontSize: 16, color: Colors.white.withOpacity(0.8)),

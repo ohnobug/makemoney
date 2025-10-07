@@ -5,7 +5,7 @@ import 'followers_list.dart';
 import 'following_list.dart';
 
 class FollowPage extends StatefulWidget {
-  const FollowPage({Key? key}) : super(key: key);
+  const FollowPage({super.key});
 
   @override
   State<FollowPage> createState() => _FollowPageState();
