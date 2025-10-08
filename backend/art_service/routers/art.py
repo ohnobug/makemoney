@@ -5,7 +5,7 @@ from sqlalchemy import delete, select
 from db.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
 from schemas.art_list import ArtListData, ArtListResponse
-from middlewares.redis_auth import redis_auth_middleware
+from middlewares.token_auth import token_auth_middleware
 from db.art_model import ArtItem, VigaArt
 from db.like_model import VigaLike
 from schemas.like import LikeResponse
@@ -16,7 +16,8 @@ from schemas.share import ShareResponse
 
 # 创建一个 APIRouter 实例
 router = APIRouter(prefix="/api/art")
-router.middleware("http")(redis_auth_middleware)
+router.middleware("http")(token_auth_middleware)
+
 
 @router.post("/collect", response_model=CollectResponse, summary="收藏艺术作品")
 async def collect_art(

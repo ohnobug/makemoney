@@ -7,11 +7,11 @@ from db.database import get_db
 from db.comment_model import VigaComment
 from db.user_model import VigaUsers  # 导入用户模型
 from schemas.comment import CommentCreate, CommentUpdate, CommentItem, CommentResponse, CommentListResponse
-from middlewares.redis_auth import redis_auth_middleware
+from middlewares.token_auth import token_auth_middleware
 
 # 创建一个 APIRouter 实例
 router = APIRouter(prefix="/api/art")
-router.middleware("http")(redis_auth_middleware)
+router.middleware("http")(token_auth_middleware)
 
 @router.post("/comments", response_model=CommentResponse, summary="创建评论")
 async def create_comment(comment: CommentCreate, db: AsyncSession = Depends(get_db)):
