@@ -1,26 +1,15 @@
 from fastapi import APIRouter, HTTPException
 import boto3
 from botocore.exceptions import ClientError
-import os
 from datetime import datetime
-
-# 加载环境变量（生产环境建议用更安全的方式）
-from dotenv import load_dotenv
 
 from schemas.upload_file import UploadFileRequest, UploadFileResponse
 from middlewares.token_auth import token_auth_middleware
 from config import R2_ACCESS_KEY, R2_SECRET_KEY, R2_BUCKET, R2_ACCOUNT_ID
 
-load_dotenv()
 
 router = APIRouter(prefix="/api/art")
 router.middleware("http")(token_auth_middleware)
-
-# R2 配置
-R2_ACCESS_KEY = os.getenv("R2_ACCESS_KEY_ID")
-R2_SECRET_KEY = os.getenv("R2_SECRET_ACCESS_KEY")
-R2_BUCKET = os.getenv("R2_BUCKET_NAME")
-R2_ACCOUNT_ID = os.getenv("R2_ACCOUNT_ID")
 
 # 创建 S3 兼容客户端
 s3_client = boto3.client(
