@@ -83,15 +83,14 @@ class _LJNPublisherState extends State<LJNPublisher> {
                       title: '上传原创作品 (仅需 2 钻石)',
                       description: '将你的原创作品铸为NFT。仅需支付链上铸造费用，发布后即可通过社区打赏获得回报。',
                       onTap: () async {
-                        final ImagePicker _picker = ImagePicker();
-                        final XFile? image = await _picker.pickImage(
-                            source: ImageSource.gallery);
+                        final ImagePicker picker = ImagePicker();
+                        final XFile? image =
+                            await picker.pickImage(source: ImageSource.gallery);
                         if (image != null) {
-                           Navigator.pushNamed(context, '/publish_work');
-                          // 显示图片或进行其他操作
-                          print(image.path); // 输出图片路径
+                          if (context.mounted) {
+                            Navigator.pushNamed(context, '/publish_work');
+                          }
                         }
-                        // print('即将打开文件选择器...');
                       },
                     ),
                   ],

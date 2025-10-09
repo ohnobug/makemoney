@@ -248,8 +248,8 @@ class _Thumbnail extends StatelessWidget {
           ),
           Icon(
             Icons.play_circle_outline,
-            color: Colors.white.withOpacity(0.9),
-            size: 32,
+            color: Colors.white.withAlpha(230),
+            size: 32, // Slightly reduced play icon size to fit smaller thumbnail
             shadows: const [
               Shadow(
                 blurRadius: 10.0,
@@ -264,7 +264,7 @@ class _Thumbnail extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.6),
+                color: Colors.black.withAlpha(153),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: Text(duration, style: const TextStyle(color: Colors.white, fontSize: 10)),

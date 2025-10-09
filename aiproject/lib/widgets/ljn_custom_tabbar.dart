@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/widgets/ljn_popup_menu.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/screens/publisher/ljn_publisher.dart';
-import 'package:vigaviga/screens/shortvideos/ljn_arts.dart';
+import 'package:vigaviga/screens/arts/ljn_arts.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar_inner.dart';
 import 'package:vigaviga/screens/discovery/ljn_discovery.dart';
