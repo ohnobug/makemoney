@@ -1,8 +1,7 @@
-// lib/follow/followers_list.dart
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'user_model.dart';
+import 'package:vigaviga/widgets/loading.dart';
 
 class FollowersListPage extends StatefulWidget {
   const FollowersListPage({Key? key}) : super(key: key);
@@ -79,11 +78,10 @@ class _FollowersListPageState extends State<FollowersListPage> {
           padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
           child: Text('我的粉丝 (4人)', style: TextStyle(color: Colors.grey[600], fontSize: 13)),
         ),
-        // 【改动点 2】调整搜索框样式
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: SizedBox(
-            height: 36, // 给一个固定的高度
+            height: 36,
             child: TextField(
               decoration: InputDecoration(
                 hintText: '搜索用户备注或名字',
@@ -91,7 +89,6 @@ class _FollowersListPageState extends State<FollowersListPage> {
                 prefixIcon: Icon(Icons.search, color: Colors.grey[500], size: 20),
                 filled: true,
                 fillColor: Colors.grey[200],
-                // 调整 contentPadding 使内容垂直居中
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(6.0),
@@ -103,21 +100,24 @@ class _FollowersListPageState extends State<FollowersListPage> {
         ),
         const SizedBox(height: 10),
         Expanded(
-          child: ListView.builder(
-            controller: _scrollController,
-            padding: const EdgeInsets.only(top: 0), // 移除 ListView 默认的顶部 padding
-            itemCount: _followers.length + (_isLoading ? 1 : 0),
-            itemBuilder: (context, index) {
-              if (index == _followers.length) {
-                return const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Center(child: CircularProgressIndicator(strokeWidth: 2.0)),
-                );
-              }
-              final user = _followers[index];
-              return _buildUserTile(user);
-            },
-          ),
+          // 【关键改动】在这里处理首次加载的居中状态
+          child: _isLoading && _followers.isEmpty
+              ? const Center(child: VigaLoadingIndicator())
+              : ListView.builder(
+                  controller: _scrollController,
+                  padding: const EdgeInsets.only(top: 0),
+                  itemCount: _followers.length + (_isLoading ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (index == _followers.length) {
+                      return const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Center(child: VigaLoadingIndicator()),
+                      );
+                    }
+                    final user = _followers[index];
+                    return _buildUserTile(user);
+                  },
+                ),
         ),
       ],
     );
@@ -156,7 +156,6 @@ class _FollowersListPageState extends State<FollowersListPage> {
     switch (user.status) {
       case FollowStatus.mutual:
         return SizedBox(
-          // 【改动点 1】加宽 SizedBox
           width: 92,
           height: 30,
           child: OutlinedButton(
@@ -170,7 +169,6 @@ class _FollowersListPageState extends State<FollowersListPage> {
         );
       case FollowStatus.followedBy:
         return SizedBox(
-          // 【改动点 1】加宽 SizedBox
           width: 92,
           height: 30,
           child: ElevatedButton(

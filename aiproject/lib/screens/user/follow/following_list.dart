@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'user_model.dart';
+import 'package:vigaviga/widgets/loading.dart';
 
 class FollowingListPage extends StatefulWidget {
   const FollowingListPage({Key? key}) : super(key: key);
@@ -101,17 +102,6 @@ class _FollowingListPageState extends State<FollowingListPage> {
             ],
           ),
         ),
-        /* Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            children: [
-              _buildFilterChip('全部', isSelected: true),
-              _buildFilterChip('互相关注'),
-              _buildFilterChip('店铺/橱窗'),
-            ],
-          ),
-        ), */
-        // 【改动点 4】新增和粉丝列表一样的搜索框
         Padding(
           padding: const EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 0),
           child: SizedBox(
@@ -134,38 +124,30 @@ class _FollowingListPageState extends State<FollowingListPage> {
         ),
         const SizedBox(height: 10),
         Expanded(
-          child: ListView.builder(
-            controller: _scrollController,
-            padding: const EdgeInsets.only(top: 0),
-            itemCount: _following.length + (_isLoading ? 1 : 0),
-            itemBuilder: (context, index) {
-              if (index == _following.length) {
-                return const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Center(child: CircularProgressIndicator(strokeWidth: 2.0)),
-                );
-              }
-              final user = _following[index];
-              return _buildUserTile(user);
-            },
-          ),
+          // 【关键改动】在这里处理首次加载的居中状态
+          child: _isLoading && _following.isEmpty
+              ? const Center(child: VigaLoadingIndicator())
+              : ListView.builder(
+                  controller: _scrollController,
+                  padding: const EdgeInsets.only(top: 0),
+                  // 当列表有内容时，才在末尾添加加载指示器
+                  itemCount: _following.length + (_isLoading ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (index == _following.length) {
+                      // 这个是加载更多时的指示器
+                      return const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Center(child: VigaLoadingIndicator()),
+                      );
+                    }
+                    final user = _following[index];
+                    return _buildUserTile(user);
+                  },
+                ),
         ),
       ],
     );
   }
-
-  /* Widget _buildFilterChip(String label, {bool isSelected = false}) {
-    return Container(
-      margin: const EdgeInsets.only(right: 8.0),
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-      decoration: BoxDecoration(
-        color: isSelected ? Colors.grey[200] : Colors.transparent,
-        borderRadius: BorderRadius.circular(20),
-        border: isSelected ? null : Border.all(color: Colors.grey[300]!),
-      ),
-      child: Text(label, style: TextStyle(color: isSelected ? Colors.black : Colors.grey[600], fontSize: 13)),
-    );
-  } */
 
   Widget _buildUserTile(User user) {
     return Padding(
@@ -232,7 +214,6 @@ class _FollowingListPageState extends State<FollowingListPage> {
       default:
         button = const SizedBox.shrink();
     }
-    // 【改动点 1】加宽 SizedBox 防止 "已关注" 文字换行
     return SizedBox(width: 92, height: 30, child: button);
   }
 }
