@@ -350,7 +350,7 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
                     // 半透明黑色遮罩
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.35), // 调整透明度
+                        color: Colors.black.withAlpha(90), // 调整透明度
                       ),
                     ),
                     // 居中的分类标题
