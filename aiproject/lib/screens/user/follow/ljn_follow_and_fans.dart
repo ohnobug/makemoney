@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'follow_page.dart';
+import 'ljn_follow_page.dart';
 
 /* void main() {
   runApp(const MyApp());
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.black),
         ),
       ),
-      home: const FollowPage(),
+      home: const LJNFollowPage(),
     );
   }
 }

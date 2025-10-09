@@ -184,15 +184,7 @@ class _LikedVideosPageState extends State<LikedVideosPage> {
         title: Text('我的点赞', style: theme.textTheme.bodyLarge?.copyWith(fontSize: 20)),
         centerTitle: true,
         actions: [
-         /*  TextButton(
-            onPressed: () {
-              // TODO: Implement edit functionality.
-            },
-            child: Text(
-              '编辑',
-              style: theme.textTheme.bodyLarge?.copyWith(fontSize: 16),
-            ),
-          ), */
+
         ],
       ),
       body: ListView.builder(
@@ -329,7 +321,7 @@ class _Thumbnail extends StatelessWidget {
           // Layer 2: The Play Icon in the center
           Icon(
             Icons.play_circle_outline,
-            color: Colors.white.withOpacity(0.9),
+            color: Colors.white.withAlpha(230),
             size: 32, // Slightly reduced play icon size to fit smaller thumbnail
             shadows: const [
               Shadow(
@@ -347,7 +339,7 @@ class _Thumbnail extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.6),
+                color: Colors.black.withAlpha(153),
                 borderRadius: BorderRadius.circular(4.0),
               ),
               child: Text(duration, style: const TextStyle(color: Colors.white, fontSize: 10)),

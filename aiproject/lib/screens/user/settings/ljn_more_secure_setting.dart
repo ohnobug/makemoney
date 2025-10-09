@@ -5,18 +5,16 @@ import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
-import '../../widgets/ljn_function_item.dart';
+import 'package:vigaviga/widgets/ljn_function_item.dart';
 
-class LJNFriendMomentsCoverSetting extends StatefulWidget {
-  const LJNFriendMomentsCoverSetting({super.key});
+class LJNMoreSecureSetting extends StatefulWidget {
+  const LJNMoreSecureSetting({super.key});
 
   @override
-  State<LJNFriendMomentsCoverSetting> createState() =>
-      _LJNFriendMomentsCoverSetting();
+  State<LJNMoreSecureSetting> createState() => _LJNAaccountAndSecure();
 }
 
-class _LJNFriendMomentsCoverSetting
-    extends State<LJNFriendMomentsCoverSetting> {
+class _LJNAaccountAndSecure extends State<LJNMoreSecureSetting> {
   @override
   void initState() {
     super.initState();
@@ -32,7 +30,7 @@ class _LJNFriendMomentsCoverSetting
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
-            title: l10n.changeAlbumCover,
+            title: l10n.moreSecuritySettings,
           ),
           body: ScrollConfiguration(
             behavior:
@@ -49,36 +47,39 @@ class _LJNFriendMomentsCoverSetting
                 ),
                 child: Column(
                   children: [
-                    // 功能列表
+                    // QQ号、邮箱地址
                     LJNFunctionList(
                       children: [
+                        // QQ号
                         LJNFunctionItem(
                           icon: "images/avatar/02.png",
-                          title: l10n.selectFromPhoneAlbum,
-                          link: '',
+                          title: l10n.qqId,
+                          link: '/',
+                          showStyle: "2281551151",
                           underline: true,
                         ),
+                        // 邮箱地址
                         LJNFunctionItem(
                           icon: "images/avatar/02.png",
-                          title: l10n.selectFromChannels,
-                          link: '',
-                          underline: true,
-                        ),
-                        LJNFunctionItem(
-                          icon: "images/avatar/02.png",
-                          title: l10n.takeOne,
-                          link: '',
-                          underline: false,
-                        ),
-                        SizedBox(height: 62.w),
-                        LJNFunctionItem(
-                          icon: "images/avatar/02.png",
-                          title: l10n.photographerWorks,
-                          link: '',
+                          title: l10n.emailAddress,
+                          link: '/',
+                          showStyle: l10n.notBound,
                           underline: false,
                         ),
                       ],
                     ),
+
+                    // 手机安全保护
+                    LJNFunctionList(children: [
+                      // 手机安全保护
+                      LJNFunctionItem(
+                        icon: "images/avatar/02.png",
+                        title: l10n.mobileSecurityProtection,
+                        link: '/',
+                        underline: false,
+                      ),
+                    ]),
+
                     SizedBox(height: 100.w)
                   ],
                 ),

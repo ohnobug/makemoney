@@ -6,7 +6,7 @@ import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_change_account_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import '../../tools/ljn_logger.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 
 class LJNChangeAccount extends StatefulWidget {
   const LJNChangeAccount({super.key});

@@ -130,9 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildComplexOption(BuildContext context, String title, IconData? trailingIcon) {
     return InkWell(
       onTap: () {
-        // 在这里处理“部分可见”或“不给谁看”的逻辑，可能导航到新页面或打开新的弹窗
-        print('点击了 $title');
-        // Navigator.pop(context); // 如果需要，点击后关闭弹窗
+
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),

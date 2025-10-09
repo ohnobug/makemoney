@@ -248,7 +248,7 @@ class _ModelSearchPageState extends State<ResourceSearchPage> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.5),
+                      color: Colors.black.withAlpha(128),
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: const Text('LORA',
@@ -295,7 +295,7 @@ class _ModelSearchPageState extends State<ResourceSearchPage> {
                   child: TextButton(
                     onPressed: () {},
                     style: TextButton.styleFrom(
-                      backgroundColor: Colors.blue.withOpacity(0.1),
+                      backgroundColor: Colors.blue.withAlpha(25),
                       foregroundColor: Colors.blue[700],
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14)),

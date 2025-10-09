@@ -190,45 +190,6 @@ class _AddLocationPageState extends State<AddLocationPage> {
     );
   }
 
-  // 构建顶部 Footprint Bar
-  Widget _buildFootprintBar() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFFF7E6), // 浅黄色背景
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.location_on_outlined,
-                  color: Color(0xFFFFCC00), size: 18),
-              const SizedBox(width: 4),
-              RichText(
-                text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text: '足迹地图',
-                      style: TextStyle(color: Color(0xFFFFA500), fontSize: 13),
-                    ),
-                    TextSpan(
-                      text: ' | 带定位发视频 记录足迹领20元',
-                      style: TextStyle(color: Colors.black54, fontSize: 13),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const Icon(Icons.arrow_forward_ios, color: Colors.black54, size: 14),
-        ],
-      ),
-    );
-  }
-
   // 构建城市/标签选择区
   Widget _buildCityTabs() {
     return Container(
@@ -257,13 +218,13 @@ class _AddLocationPageState extends State<AddLocationPage> {
 
           return Tab(
             child: Text(
-                city,
-                style: TextStyle(
-                  color: isSelected ? Colors.black : Colors.grey[600],
-                  fontSize: 18,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                ),
+              city,
+              style: TextStyle(
+                color: isSelected ? Colors.black : Colors.grey[600],
+                fontSize: 18,
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
               ),
+            ),
           );
         }).toList(),
       ),

@@ -12,7 +12,7 @@ import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_spans.dart';
 import 'package:vigaviga/widgets/ljn_text_spans.dart';
-import '../../tools/ljn_logger.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 
 // 将背景动画控制器提升为全局变量，以便子组件在需要时可以访问。
 // 注意：虽然这样做可以解决问题，但在大型应用中通常建议通过更优雅的状态管理方式（如Provider或Bloc）来传递控制器。

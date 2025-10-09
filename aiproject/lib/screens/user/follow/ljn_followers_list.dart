@@ -2,16 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'user_model.dart';
+import 'ljn_user_model.dart';
 
-class FollowersListPage extends StatefulWidget {
-  const FollowersListPage({super.key});
+class LJNFollowersListPage extends StatefulWidget {
+  const LJNFollowersListPage({super.key});
 
   @override
-  _FollowersListPageState createState() => _FollowersListPageState();
+  State<LJNFollowersListPage> createState() => _LJNFollowersListPageState();
 }
 
-class _FollowersListPageState extends State<FollowersListPage> {
+class _LJNFollowersListPageState extends State<LJNFollowersListPage> {
   final List<User> _followers = [];
   final ScrollController _scrollController = ScrollController();
   bool _isLoading = false;

@@ -10,20 +10,20 @@ import 'package:vigaviga/api_manager/api.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
-import 'package:vigaviga/screens/chat/widgets/ljn_chat_function_selector_button.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/ljn_chat_function_selector_button.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
-import 'package:vigaviga/screens/chat/widgets/ljn_my_voice_message.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/ljn_my_voice_message.dart';
 import 'package:vigaviga/widgets/ljn_show_call_popup.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/screens/chat/widgets/ljn_chat_emoji_selector.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/ljn_chat_emoji_selector.dart';
 import 'package:vigaviga/store/ljn_popup_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vibration/vibration.dart';
 import 'widgets/ljn_my_message.dart';
-import '../../store/ljn_system_cubit.dart';
-import '../../tools/ljn_tools.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 
 enum PannelType {
   none,

@@ -1,4 +1,4 @@
-// /lib/screens/user/ljn_user.dart
+// 文件路径: /lib/screens/user/ljn_user.dart
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +28,7 @@ class _LJNUserState extends State<LJNUser>
   late TabController _tabController;
   late PageController _pageController;
 
+  // 在真实应用中，这里应该是数据模型列表，例如 List<WorkModel>
   final List<String> _works =
       List.generate(25, (i) => 'https://picsum.photos/300/400?random=$i');
   final List<String> _collections = [];
@@ -83,15 +84,12 @@ class _LJNUserState extends State<LJNUser>
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverToBoxAdapter(
-                // 用户信息
                 child: _buildUserInfoSection(systemState, theme),
               ),
-              // Tabbar标题
               SliverPersistentHeader(
                 delegate: _SliverTabBarDelegate(
                   TabBar(
                     controller: _tabController,
-                    // [FIXED] 移除了错误的 if 判断
                     onTap: (index) {
                       _pageController.animateToPage(
                         index,
@@ -186,7 +184,9 @@ class _LJNUserState extends State<LJNUser>
       LJNFunctionButton(
         icon: "images/icon/server_icon11.png",
         title: "钱包",
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/services');
+        },
       ),
       LJNFunctionButton(
         icon: "images/icon/server_icon12.png",
@@ -346,7 +346,6 @@ class _LJNUserState extends State<LJNUser>
                   color: theme.dividerColor,
                 ),
               ),
-              // 功能区域
               GridView.builder(
                 padding: EdgeInsets.only(top: 0),
                 shrinkWrap: true,
@@ -361,7 +360,6 @@ class _LJNUserState extends State<LJNUser>
             ],
           ),
         ),
-        // 设置
         Positioned(
           top: 0.w,
           right: 0,
@@ -384,33 +382,35 @@ class _LJNUserState extends State<LJNUser>
 
   Widget _buildStatsItem(String count, String label, String? type) {
     final theme = Theme.of(context);
-    return InkWell(onTap: () {
-      if (type == 'like') {
-        Navigator.pushNamed(context, '/ljn_like');
-      } else {
-        Navigator.pushNamed(context, '/follow_and_fans');
-      }
-    }, child:  Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          count,
-          style: TextStyle(
-            fontSize: 30.w,
-            fontWeight: FontWeight.bold,
-            color: theme.textTheme.bodyLarge?.color,
-          ),
-        ),
-        SizedBox(height: 8.w),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 26.w,
-            color: theme.hintColor,
-          ),
-        ),
-      ],
-    ));
+    return InkWell(
+        onTap: () {
+          if (type == 'like') {
+            Navigator.pushNamed(context, '/ljn_like');
+          } else {
+            Navigator.pushNamed(context, '/follow_and_fans');
+          }
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              count,
+              style: TextStyle(
+                fontSize: 30.w,
+                fontWeight: FontWeight.bold,
+                color: theme.textTheme.bodyLarge?.color,
+              ),
+            ),
+            SizedBox(height: 8.w),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 26.w,
+                color: theme.hintColor,
+              ),
+            ),
+          ],
+        ));
   }
 }
 
@@ -525,25 +525,86 @@ class _UserWorksGrid extends StatelessWidget {
           childAspectRatio: 9 / 14,
         ),
         itemBuilder: (context, index) {
-          return CachedNetworkImage(
-            imageUrl: items[index],
-            fit: BoxFit.cover,
-            placeholder: (context, url) => Container(
-              color: Colors.grey.shade200,
-              child: Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2.0,
-                  color: Colors.grey.shade400,
+          // --- 【核心改动】 ---
+          // 使用 Stack 布局来堆叠图片和观看数量
+          return Stack(
+            fit: StackFit.expand, // 让子组件填满整个 Stack 空间
+            children: [
+              // 图片作为背景，放在最底层
+              CachedNetworkImage(
+                imageUrl: items[index],
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Container(
+                  color: Colors.grey.shade200,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2.0,
+                      color: Colors.grey.shade400,
+                    ),
+                  ),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  color: Colors.grey.shade200,
+                  child: Icon(
+                    Icons.broken_image,
+                    color: Colors.grey.shade400,
+                  ),
                 ),
               ),
-            ),
-            errorWidget: (context, url, error) => Container(
-              color: Colors.grey.shade200,
-              child: Icon(
-                Icons.broken_image,
-                color: Colors.grey.shade400,
+
+              // 使用 Positioned 将观看数量定位到右下角
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  // 添加一个从下到上的黑色半透明渐变，让白色文字更清晰
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [
+                        Colors.black.withAlpha(156),
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
+                  padding: EdgeInsets.fromLTRB(
+                    10.w,
+                    20.w,
+                    10.w,
+                    8.w,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end, // 靠右对齐
+                    children: [
+                      Icon(
+                        Icons.play_arrow, // 使用播放图标
+                        color: Colors.white,
+                        size: 24.w,
+                      ),
+                      SizedBox(width: 4.w),
+                      Text(
+                        // 这里我们用一个假的观看数量，真实场景下您会从数据模型中获取
+                        '${(index * 1.2 * 1000).toInt()}',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22.w,
+                            fontWeight: FontWeight.bold,
+                            shadows: [
+                              // 添加一点阴影，让文字更立体
+                              Shadow(
+                                blurRadius: 4.0,
+                                color: Colors.black.withAlpha(128),
+                                offset: const Offset(0, 1),
+                              ),
+                            ]),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
+            ],
           );
         },
       ),

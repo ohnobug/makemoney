@@ -333,7 +333,7 @@ class _LoRAItemState extends State<LoRAItem> {
                       height: double.infinity,
                     ),
                     Container(
-                      color: Colors.black.withOpacity(0.7),
+                      color: Colors.black.withAlpha(178),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -354,7 +354,7 @@ class _LoRAItemState extends State<LoRAItem> {
                               Text(
                                 'F.1 | ${widget.lora.version}',
                                 style: TextStyle(
-                                    color: Colors.white.withOpacity(0.8),
+                                    color: Colors.white.withAlpha(204),
                                     fontSize: 12),
                               ),
                             ],
@@ -407,7 +407,7 @@ class _LoRAItemState extends State<LoRAItem> {
                   thumbColor: widget.primaryColor,
                   activeTrackColor: widget.primaryColor,
                   inactiveTrackColor: Colors.grey.shade300,
-                  overlayColor: widget.primaryColor.withOpacity(0.2),
+                  overlayColor: widget.primaryColor.withAlpha(51),
                   trackHeight: 4.0,
                   thumbShape:
                       const RoundSliderThumbShape(enabledThumbRadius: 6.0),

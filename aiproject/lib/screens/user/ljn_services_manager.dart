@@ -72,12 +72,17 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                             ),
 
                             // 管理服务描述
-                            Text(
-                              textAlign: TextAlign.center,
-                              l10n.manageServicesDescription,
-                              style: TextStyle(
-                                fontSize: 31.w,
-                                color: theme.colorScheme.onSurface,
+                            Padding(
+                              padding: EdgeInsetsGeometry.symmetric(
+                                horizontal: 30.w,
+                              ),
+                              child: Text(
+                                textAlign: TextAlign.start,
+                                l10n.manageServicesDescription,
+                                style: TextStyle(
+                                  fontSize: 31.w,
+                                  color: theme.colorScheme.onSurface,
+                                ),
                               ),
                             ),
                             SizedBox(
@@ -90,7 +95,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
                       // 功能列表
                       Container(
                         color: theme.colorScheme.surfaceContainer,
-                        padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                        // padding: EdgeInsets.only(left: 10.w, right: 10.w),
                         child: Column(
                           children: [
                             _buildFirstTitle(l10n.financialServices),
@@ -562,7 +567,7 @@ class _LJNServicesManagerState extends State<LJNServicesManager> {
 
     return Container(
       height: 30.w,
-      margin: EdgeInsets.only(left: 15.w, top: 35.w),
+      margin: EdgeInsets.only(left: 25.w, top: 35.w),
       alignment: Alignment.centerLeft,
       child: Text(
         title,

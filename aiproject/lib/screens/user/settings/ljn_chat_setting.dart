@@ -5,12 +5,12 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_alphabet.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
+import 'package:vigaviga/widgets/ljn_function_item.dart';
 import 'package:vigaviga/widgets/ljn_special_function_item.dart';
 import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import '../../widgets/ljn_function_item.dart';
 
 class LJNChatSetting extends StatefulWidget {
   const LJNChatSetting({super.key});

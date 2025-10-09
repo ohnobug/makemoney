@@ -87,11 +87,10 @@ class _LJNPublisherState extends State<LJNPublisher> {
                         final XFile? image =
                             await picker.pickImage(source: ImageSource.gallery);
                         if (image != null) {
-                          Navigator.pushNamed(context, '/publish_work');
-                          // 显示图片或进行其他操作
-                          print(image.path); // 输出图片路径
+                          if (context.mounted) {
+                            Navigator.pushNamed(context, '/publish_work');
+                          }
                         }
-                        // print('即将打开文件选择器...');
                       },
                     ),
                   ],

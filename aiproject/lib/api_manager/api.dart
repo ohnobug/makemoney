@@ -7,10 +7,10 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_chatlist_item.dart';
 import 'package:vigaviga/widgets/ljn_contact_item.dart';
-import 'package:vigaviga/screens/chat/widgets/ljn_my_message.dart';
-import 'package:vigaviga/screens/chat/widgets/ljn_receive_message.dart';
-import 'package:vigaviga/screens/chat/widgets/ljn_receive_video_message.dart';
-import 'package:vigaviga/screens/chat/widgets/ljn_video_message.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/ljn_my_message.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/ljn_receive_message.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/ljn_receive_video_message.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/ljn_video_message.dart';
 
 // 得到最近聊天的列表
 List<ChatListItem> getChatItems(BuildContext context) {

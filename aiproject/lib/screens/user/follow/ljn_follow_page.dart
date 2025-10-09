@@ -1,17 +1,17 @@
 // lib/follow/follow_page.dart
 
 import 'package:flutter/material.dart';
-import 'followers_list.dart';
-import 'following_list.dart';
+import 'ljn_followers_list.dart';
+import 'ljn_following_list.dart';
 
-class FollowPage extends StatefulWidget {
-  const FollowPage({super.key});
+class LJNFollowPage extends StatefulWidget {
+  const LJNFollowPage({super.key});
 
   @override
-  State<FollowPage> createState() => _FollowPageState();
+  State<LJNFollowPage> createState() => _LJNFollowPageState();
 }
 
-class _FollowPageState extends State<FollowPage> with TickerProviderStateMixin {
+class _LJNFollowPageState extends State<LJNFollowPage> with TickerProviderStateMixin {
   late final TabController _tabController;
 
   @override
@@ -87,8 +87,8 @@ class _FollowPageState extends State<FollowPage> with TickerProviderStateMixin {
             child: TabBarView(
               controller: _tabController,
               children: const [
-                FollowingListPage(),
-                FollowersListPage(),
+                LJNFollowingListPage(),
+                LJNFollowersListPage(),
               ],
             ),
           ),
