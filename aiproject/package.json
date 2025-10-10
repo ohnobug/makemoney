@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "build:apk-uat": "flutter build apk --dart-define=APP_ENV=uat",
+    "build:apk-prod": "flutter build apk --dart-define=APP_ENV=prod",
+    "build:web-uat": "flutter build web --dart-define=APP_ENV=uat --web-renderer html",
+    "build:web-prod": "flutter build web --dart-define=APP_ENV=prod --web-renderer html"
+  },
   "dependencies": {
     "uuid": "^11.0.5"
   }
