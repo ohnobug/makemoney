@@ -14,16 +14,16 @@ from schemas.userinfo import UserInfo, UserInfoRequestOut
 from schemas.user_register import UserRegisterRequestIn, UserRegisterRequestOut
 from schemas.user_register_email import UserRegisterRequestEmailIn, UserRegisterRequestEmailOut
 from schemas.user_login import UserLoginRequestIn, UserLoginRequestOut, UserLoginToken
-from routers.oauth2_scheme import oauth2_scheme
+# from routers.oauth2_scheme import oauth2_scheme
 from sms import BAIDUSMS
-from utils.utils import check_verify_code, generate_numeric_code_randint, get_token, get_userInfo_from_token, password_hash,is_email,is_phone_number
+from utils.utils import check_verify_code, generate_numeric_code_randint, get_token, password_hash,is_email,is_phone_number
 from db.models import VigaUsers, VigaVerifyCodes
 from db.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
 from services.email import generate_verification_code, send_verification_email,check_verify_code_email
 from db.redis import get_redis
 from redis.asyncio import Redis
-
+# from middlewares.token_auth import token_auth_middleware
 from utils.redis import get_redis_connection, get_data, set_data
 
 # 创建一个 APIRouter 实例
@@ -271,7 +271,7 @@ async def clear_verify_code_list(db: AsyncSession = Depends(get_db)):
     return BaseResponse(code=200, message="清空成功")
 
 # 获取用户信息
-@router.middleware_stack("http")(token_auth_middleware)  # 应用中间件
+# @router.middleware_stack("http")(token_auth_middleware)  # 应用中间件
 @router.post("/userinfo", response_model=UserInfoRequestOut)
 async def userinfo(request: Request):
     try:
