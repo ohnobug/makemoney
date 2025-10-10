@@ -375,8 +375,6 @@ async def get_verify_code_email(request: UserGetVerifyCodeRequest, db: AsyncSess
     # db.add(log)
     # await db.commit()
 
-    # 4. 发送邮件
-
 
 
 
