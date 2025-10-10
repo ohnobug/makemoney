@@ -33,7 +33,7 @@ class LJNFunctionList extends StatelessWidget {
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
             borderRadius: BorderRadius.all(
-              Radius.circular(26.w),
+              Radius.circular(10.w),
             ),
           ),
           child: Column(

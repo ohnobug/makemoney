@@ -1,4 +1,4 @@
-// 文件路径: lib/widgets/ljn_action_sheet.dart
+// lib/widgets/ljn_action_sheet.dart
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

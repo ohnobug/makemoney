@@ -195,20 +195,23 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
         LJNFunctionList(
           children: [
             LJNFunctionItem(
-                title: "心情时刻",
-                icon: "images/icon/discovery_icon1.png",
-                link: '/friendmoments',
-                underline: true),
+              title: "心情时刻",
+              icon: "images/icon/discovery_icon1.png",
+              link: '/friendmoments',
+              underline: true,
+            ),
             LJNFunctionItem(
-                title: "图片墙",
-                icon: "images/icon/discovery_icon2.png",
-                link: '/ins',
-                underline: true),
+              title: "图片墙",
+              icon: "images/icon/discovery_icon2.png",
+              link: '/ins',
+              underline: true,
+            ),
             LJNFunctionItem(
-                title: "小程序",
-                icon: "images/icon/discovery_icon5.png",
-                link: '/miniprogram_list',
-                underline: false),
+              title: "小程序",
+              icon: "images/icon/discovery_icon5.png",
+              link: '/miniprogram_list',
+              underline: false,
+            ),
           ],
         ),
       ],
@@ -217,10 +220,7 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
 
   Widget _buildBanner() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30.w).copyWith(
-        top: 20.w,
-        bottom: 20.w,
-      ),
+      padding: EdgeInsets.all(20.w),
       child: AspectRatio(
         aspectRatio: 16 / 7,
         child: ClipRRect(
@@ -344,8 +344,9 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
                       placeholder: (context, url) =>
                           Container(color: Colors.grey.shade300),
                       errorWidget: (context, url, error) => Container(
-                          color: Colors.grey.shade300,
-                          child: Icon(Icons.error)),
+                        color: Colors.grey.shade300,
+                        child: Icon(Icons.error),
+                      ),
                     ),
                     // 半透明黑色遮罩
                     Container(

@@ -120,6 +120,93 @@ class _LJNArts extends State<LJNArts> {
     super.dispose();
   }
 
+  // 更多作品信息
+  void _showArtInfoModalSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        // builder 返回的就是你想在 BottomSheet 中显示的任意 Widget
+        return Container(
+          height: 250, // 可以指定高度
+          color: Colors.white,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Text('更多作品信息'),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  child: const Text('关闭'),
+                  onPressed: () => Navigator.pop(context), // 点击按钮关闭
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // 转发
+  void _showArtShareModalSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        // builder 返回的就是你想在 BottomSheet 中显示的任意 Widget
+        return Container(
+          height: 250, // 可以指定高度
+          color: Colors.white,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Text('转发作品'),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  child: const Text('关闭'),
+                  onPressed: () => Navigator.pop(context), // 点击按钮关闭
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // 评论
+  void _showArtCommentModalSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        // builder 返回的就是你想在 BottomSheet 中显示的任意 Widget
+        return Container(
+          height: 250, // 可以指定高度
+          color: Colors.white,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Text('评论作品'),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  child: const Text('关闭'),
+                  onPressed: () => Navigator.pop(context), // 点击按钮关闭
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  bool liked = false;
+  bool collected = false;
+
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
@@ -195,29 +282,76 @@ class _LJNArts extends State<LJNArts> {
                         bottom: 0,
                         right: 10.w,
                         width: 100.w,
-                        height: 600.w,
+                        height: 700.w,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            // 点赞
                             _buildActionButton(
                               const IconData(0xe61e, fontFamily: 'Iconfont'),
-                              "1050",
+                              color: liked
+                                  ? const Color.fromARGB(255, 247, 21, 5)
+                                  : Colors.white,
+                              count: "1050",
+                              onTap: () {
+                                logger.info("点赞");
+                                setState(() {
+                                  liked = !liked;
+                                });
+                              },
                             ),
-                            SizedBox(height: 30.w),
+                            SizedBox(height: 35.w),
+                            // 评论
                             _buildActionButton(
                               const IconData(0xe665, fontFamily: 'Iconfont'),
-                              "241",
+                              count: "241",
+                              onTap: () {
+                                logger.info("评论");
+                                _showArtCommentModalSheet(context);
+                              },
                             ),
-                            SizedBox(height: 30.w),
+                            SizedBox(height: 35.w),
+                            // 收藏
                             _buildActionButton(
                               const IconData(0xe602, fontFamily: 'Iconfont'),
-                              "421",
+                              color: collected
+                                  ? const Color.fromARGB(255, 209, 15, 1)
+                                  : Colors.white,
+                              count: "421",
+                              onTap: () {
+                                logger.info("收藏");
+                                setState(() {
+                                  collected = !collected;
+                                });
+                              },
                             ),
-                            SizedBox(height: 30.w),
+                            SizedBox(height: 35.w),
+                            // 转发
                             _buildActionButton(
                               const IconData(0xe6c7, fontFamily: 'Iconfont'),
-                              "934",
+                              count: "934",
+                              onTap: () {
+                                logger.info("转发");
+                                _showArtShareModalSheet(context);
+                              },
                             ),
+                            SizedBox(height: 35.w),
+                            // 更多
+                            GestureDetector(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    IconData(0xe6e6, fontFamily: 'Iconfont'),
+                                    color: AppColors.neutralWhite,
+                                    size: 63.w,
+                                  ),
+                                ],
+                              ),
+                              onTap: () {
+                                _showArtInfoModalSheet(context);
+                              },
+                            )
                           ],
                         ),
                       ),
@@ -232,25 +366,33 @@ class _LJNArts extends State<LJNArts> {
     );
   }
 
-  Widget _buildActionButton(IconData icondata, String count) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(
-          icondata,
-          color: AppColors.neutralWhite,
-          size: 63.w,
-        ),
-        SizedBox(height: 10.w),
-        Text(
-          count,
-          style: TextStyle(
-            fontSize: 22.w,
-            color: AppColors.neutralWhite,
-            fontWeight: FontWeight.bold,
+  Widget _buildActionButton(
+    IconData icondata, {
+    String count = "0",
+    Color color = AppColors.neutralWhite,
+    GestureTapCallback? onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(
+            icondata,
+            color: color,
+            size: 63.w,
           ),
-        ),
-      ],
+          SizedBox(height: 10.w),
+          Text(
+            count,
+            style: TextStyle(
+              fontSize: 22.w,
+              color: AppColors.neutralWhite,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
