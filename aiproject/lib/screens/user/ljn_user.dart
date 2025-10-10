@@ -70,31 +70,48 @@ class _LJNUserState extends State<LJNUser>
     });
   }
 
+  // [核心修改] 使用 SliverAppBar 重构页面布局
   Widget _buildPage(SystemState systemState) {
     ThemeData theme = Theme.of(context);
-
     double customkToolbarHeight = 95.w;
+    double expandedHeight = 700.w;
 
     return Scaffold(
-      primary: false,
-      extendBodyBehindAppBar: true,
-      appBar: PreferredSize(
-        preferredSize: Size(750.w, systemState.statusHeight),
-        child: Container(color: Colors.transparent),
-      ),
       backgroundColor: theme.colorScheme.surfaceContainer,
-      body: SafeArea(
-        top: false,
-        child: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverToBoxAdapter(
-                child: _buildUserInfoSection(systemState, theme),
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            // 使用 SliverAppBar 来实现折叠头部的效果
+            SliverAppBar(
+              // primary: true 会自动处理状态栏的高度和间距
+              primary: true,
+              // 不显示标题
+              title: null,
+              // 自动隐藏返回按钮
+              automaticallyImplyLeading: false,
+              // 将 TabBar 固定在顶部
+              pinned: true,
+              // 当用户开始向下滚动时，SliverAppBar 是否立即出现
+              floating: false,
+              toolbarHeight: 0,
+              // SliverAppBar 完全展开时的高度
+              expandedHeight: expandedHeight,
+              // 设置背景为透明，以便 flexibleSpace 的内容能够显示
+              backgroundColor: theme.cardColor,
+
+              // 可折叠的区域，通常放置背景图、用户信息等
+              flexibleSpace: FlexibleSpaceBar(
+                // 折叠模式设置为 parallax，可以产生视差滚动效果
+                collapseMode: CollapseMode.parallax,
+                // 背景内容就是你的用户信息部分
+                background: _buildUserInfoSection(systemState, theme),
               ),
-              SliverPersistentHeader(
-                delegate: _SliverTabBarDelegate(
-                  // TabBar 的标准高度
-                  height: customkToolbarHeight,
+
+              // SliverAppBar 的底部区域，通常放置 TabBar
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(customkToolbarHeight + 2.5.w),
+                child: Container(
+                  // 背景色确保 TabBar 在固定时有不透明的背景
                   color: theme.cardColor,
                   child: Row(
                     children: [
@@ -168,45 +185,44 @@ class _LJNUserState extends State<LJNUser>
                     ],
                   ),
                 ),
-                pinned: true,
               ),
-            ];
+            ),
+          ];
+        },
+        body: PageView(
+          controller: _pageController,
+          physics: const ClampingScrollPhysics(),
+          onPageChanged: (index) {
+            if (_tabController.index != index) {
+              _tabController.animateTo(index);
+            }
           },
-          body: PageView(
-            controller: _pageController,
-            physics: const ClampingScrollPhysics(),
-            onPageChanged: (index) {
-              if (_tabController.index != index) {
-                _tabController.animateTo(index);
-              }
-            },
-            children: [
-              _UserWorksGrid(
-                key: const PageStorageKey('works_grid'),
-                items: _works,
-                emptyMessage: '用作品表达自己吧！',
-                buttonText: '发布作品',
-                onButtonPressed: () => logger.info("发布作品按钮被点击"),
-                isActive: _tabController.index == 0,
-              ),
-              _UserWorksGrid(
-                key: const PageStorageKey('collections_grid'),
-                items: _collections,
-                emptyMessage: '还没有收藏',
-                buttonText: '去看看',
-                onButtonPressed: () {},
-                isActive: _tabController.index == 1,
-              ),
-              _UserWorksGrid(
-                key: const PageStorageKey('praised_grid'),
-                items: _praised,
-                emptyMessage: '还没有赞过',
-                buttonText: '去看看',
-                onButtonPressed: () {},
-                isActive: _tabController.index == 2,
-              ),
-            ],
-          ),
+          children: [
+            _UserWorksGrid(
+              key: const PageStorageKey('works_grid'),
+              items: _works,
+              emptyMessage: '用作品表达自己吧！',
+              buttonText: '发布作品',
+              onButtonPressed: () => logger.info("发布作品按钮被点击"),
+              isActive: _tabController.index == 0,
+            ),
+            _UserWorksGrid(
+              key: const PageStorageKey('collections_grid'),
+              items: _collections,
+              emptyMessage: '还没有收藏',
+              buttonText: '去看看',
+              onButtonPressed: () {},
+              isActive: _tabController.index == 1,
+            ),
+            _UserWorksGrid(
+              key: const PageStorageKey('praised_grid'),
+              items: _praised,
+              emptyMessage: '还没有赞过',
+              buttonText: '去看看',
+              onButtonPressed: () {},
+              isActive: _tabController.index == 2,
+            ),
+          ],
         ),
       ),
     );
@@ -256,7 +272,7 @@ class _LJNUserState extends State<LJNUser>
     const String accountId = 'TheMonsterClub';
 
     return SizedBox(
-      height: 570.w,
+      height: 700.w,
       child: Stack(
         children: [
           Positioned.fill(
@@ -278,7 +294,8 @@ class _LJNUserState extends State<LJNUser>
           ),
           // 设置 与 扫码按钮
           Positioned(
-            top: 0,
+            // 使用 SafeArea 来确保按钮不会与状态栏或刘海屏重叠
+            top: systemState.statusHeight,
             right: 15.w,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -450,7 +467,7 @@ class _LJNUserState extends State<LJNUser>
                 ).w,
                 child: Divider(
                   height: 1.w,
-                  color: theme.dividerColor,
+                  color: theme.dividerColor.withAlpha(80),
                 ),
               ),
               GridView.builder(
@@ -501,41 +518,7 @@ class _LJNUserState extends State<LJNUser>
   }
 }
 
-// ==================== 核心修复点在这里 ====================
-class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverTabBarDelegate({
-    required this.child,
-    required this.color,
-    required this.height,
-  });
-
-  final Widget child;
-  final Color color;
-  final double height;
-
-  @override
-  double get minExtent => height;
-  @override
-  double get maxExtent => height;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return SizedBox.expand(
-      child: Container(
-        color: color,
-        child: child,
-      ),
-    );
-  }
-
-  @override
-  bool shouldRebuild(_SliverTabBarDelegate oldDelegate) {
-    return color != oldDelegate.color ||
-        child != oldDelegate.child ||
-        height != oldDelegate.height;
-  }
-}
+// [已删除] _SliverTabBarDelegate 类在这里被删除了，因为它不再被需要。
 
 class _UserWorksGrid extends StatelessWidget {
   final List<String> items;
