@@ -362,6 +362,8 @@ class _LJNUserState extends State<LJNUser>
                                   Fluttertoast.showToast(
                                     msg: "复制成功",
                                     gravity: ToastGravity.CENTER,
+                                    webBgColor: "black",
+                                    webPosition: "center",
                                   );
                                 },
                                 child: Row(

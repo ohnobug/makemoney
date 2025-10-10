@@ -220,10 +220,7 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
 
   Widget _buildBanner() {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30.w).copyWith(
-        top: 20.w,
-        bottom: 20.w,
-      ),
+      padding: EdgeInsets.all(20.w),
       child: AspectRatio(
         aspectRatio: 16 / 7,
         child: ClipRRect(

@@ -54,19 +54,17 @@ class VideoPublishPage extends State<VideoPublishPageState> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Container(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.45,
-                                height:
-                                    MediaQuery.of(context).size.width * 0.8,
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                height: MediaQuery.of(context).size.width * 0.8,
                                 color: Colors.grey[300],
                                 child: _selectedThumbnail.isNotEmpty
-                                ? Image.asset(
-                                  _selectedThumbnail,
-                                  width: 40,
-                                  height: 40,
-                                  fit: BoxFit.cover,
-                                )
-                                : const Center(child: Text('没有素材了')),
+                                    ? Image.asset(
+                                        _selectedThumbnail,
+                                        width: 40,
+                                        height: 40,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : const Center(child: Text('没有素材了')),
                               ),
                             ),
                           ],
@@ -75,13 +73,12 @@ class VideoPublishPage extends State<VideoPublishPageState> {
                       const SizedBox(height: 16),
                       Center(
                         child: SingleChildScrollView(
-                           scrollDirection: Axis.horizontal,
-                           child: Row(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              ..._thumbnailImages
-                                  .map((path) => _buildDraggableThumbnail(path))
-                                  .toList(),
+                              ..._thumbnailImages.map(
+                                  (path) => _buildDraggableThumbnail(path)),
                               const SizedBox(width: 8),
                               Container(
                                 width: 40,
@@ -94,7 +91,7 @@ class VideoPublishPage extends State<VideoPublishPageState> {
                                     const Icon(Icons.add, color: Colors.grey),
                               ),
                             ],
-                           ),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 24),
@@ -107,12 +104,14 @@ class VideoPublishPage extends State<VideoPublishPageState> {
                               fontWeight: FontWeight.bold),
                           border: InputBorder.none,
                         ),
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       const TextField(
                         decoration: InputDecoration(
                           hintText: '添加作品描述...',
-                          hintStyle: TextStyle(color: Colors.grey, fontSize: 16),
+                          hintStyle:
+                              TextStyle(color: Colors.grey, fontSize: 16),
                           border: InputBorder.none,
                         ),
                         style: TextStyle(fontSize: 16),
@@ -122,9 +121,10 @@ class VideoPublishPage extends State<VideoPublishPageState> {
                       ListTile(
                         contentPadding: EdgeInsets.zero,
                         shape: RoundedRectangleBorder(),
-                        leading:
-                            const Icon(Icons.location_on, color: Colors.black54),
-                        title: Text(_selectedLocation, style: const TextStyle(fontSize: 16)),
+                        leading: const Icon(Icons.location_on,
+                            color: Colors.black54),
+                        title: Text(_selectedLocation,
+                            style: const TextStyle(fontSize: 16)),
                         trailing: const Icon(Icons.arrow_forward_ios,
                             color: Colors.grey, size: 16),
                         onTap: () {
@@ -149,7 +149,8 @@ class VideoPublishPage extends State<VideoPublishPageState> {
                       ListTile(
                         contentPadding: EdgeInsets.zero,
                         shape: RoundedRectangleBorder(),
-                        leading: const Icon(Icons.public, color: Colors.black54),
+                        leading:
+                            const Icon(Icons.public, color: Colors.black54),
                         title: Text(
                           _selectedVisibility.replaceFirst(': ', ' · '),
                           style: const TextStyle(fontSize: 16),
@@ -217,7 +218,8 @@ class VideoPublishPage extends State<VideoPublishPageState> {
     bool isSelected = (_selectedThumbnail == imagePath);
     return Draggable<String>(
       data: imagePath,
-      feedback: _buildThumbnailImage(imagePath, isDragging: true, isSelected: isSelected),
+      feedback: _buildThumbnailImage(imagePath,
+          isDragging: true, isSelected: isSelected),
       childWhenDragging: Container(
         margin: const EdgeInsets.only(right: 8.0),
         width: 40,
@@ -254,7 +256,7 @@ class VideoPublishPage extends State<VideoPublishPageState> {
 
   Widget _buildDeleteTarget() {
     return DragTarget<String>(
-      onWillAccept: (data) {
+      onWillAcceptWithDetails: (data) {
         setState(() {
           _isDeleting = true;
         });
@@ -265,7 +267,7 @@ class VideoPublishPage extends State<VideoPublishPageState> {
           _isDeleting = false;
         });
       },
-      onAccept: (imagePath) {
+      onAcceptWithDetails: (imagePath) {
         if (_thumbnailImages.length > 1) {
           setState(() {
             if (_selectedThumbnail == imagePath) {
@@ -293,7 +295,9 @@ class VideoPublishPage extends State<VideoPublishPageState> {
           width: 80,
           height: 80,
           decoration: BoxDecoration(
-            color: _isDeleting ? Colors.red.withOpacity(0.8) : Colors.black.withOpacity(0.6),
+            color: _isDeleting
+                ? Colors.red.withOpacity(0.8)
+                : Colors.black.withOpacity(0.6),
             shape: BoxShape.circle,
           ),
           child: const Icon(
@@ -359,15 +363,14 @@ class VideoPublishPage extends State<VideoPublishPageState> {
         decoration: BoxDecoration(
           color: isSelected ? Colors.red.withOpacity(0.1) : Colors.grey[200],
           borderRadius: BorderRadius.circular(20),
-           border: isSelected ? Border.all(color: Colors.red, width: 1.0) : null,
+          border: isSelected ? Border.all(color: Colors.red, width: 1.0) : null,
         ),
         child: Text(text,
-            style:
-                TextStyle(color: isSelected ? Colors.red : Colors.black54)),
+            style: TextStyle(color: isSelected ? Colors.red : Colors.black54)),
       ),
     );
   }
-  
+
   void _showVisibilityBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -447,9 +450,8 @@ class VideoPublishPage extends State<VideoPublishPageState> {
                 title,
                 style: TextStyle(
                   fontSize: 16,
-                  color: _selectedVisibility == title
-                      ? Colors.red
-                      : Colors.black,
+                  color:
+                      _selectedVisibility == title ? Colors.red : Colors.black,
                 ),
               ),
             ),
