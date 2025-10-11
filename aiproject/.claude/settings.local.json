@@ -3,7 +3,19 @@
     "allow": [
       "Bash(flutter pub get)",
       "Bash(flutter analyze)",
-      "Bash(flutter build apk --debug)"
+      "Bash(flutter build apk --debug)",
+      "Bash(ren photo_grid_page.dart ljn_photo_grid_page.dart)",
+      "Bash(ren photo_viewer_page.dart ljn_photo_viewer_page.dart)",
+      "Bash(python rename_pages.py)",
+      "Bash(python3 rename_pages.py)",
+      "Bash(ren libscreensuserljn_userinfo.dart ljn_userinfo_page.dart)",
+      "Bash(bash rename_files.sh)",
+      "Bash(bash rename_pages_final.sh)",
+      "Bash(python update_class_names.py)",
+      "Bash(bash update_router_classes.sh)",
+      "Bash(bash update_router_imports.sh)",
+      "Bash(bash global_class_replace.sh)",
+      "Bash(timeout 300 bash global_class_replace.sh)"
     ],
     "deny": [],
     "ask": []

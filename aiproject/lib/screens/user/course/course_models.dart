@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// --- Model for LJNCourseList ---
+// --- Model for LJNCourseListPage ---
 class Course {
   final String id;
   final String universityLogoUrl;
@@ -19,7 +19,7 @@ class Course {
   });
 }
 
-// --- Models for LJNCourseDetail & LJNLessonContent ---
+// --- Models for LJNCourseDetailPage & LJNLessonContentPage ---
 
 enum LessonType {
   video,
