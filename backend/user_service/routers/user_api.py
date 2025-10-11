@@ -1,5 +1,4 @@
-from fastapi import Depends,Query,Request
-from fastapi import APIRouter, HTTPException
+from fastapi import Depends,Query,Request,APIRouter, HTTPException
 from sqlalchemy import delete, select
 
 from db.models import VigaUsers
@@ -13,7 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 # 创建一个 APIRouter 实例
 router = APIRouter(prefix="/api/users")
-router.middleware("http")(token_auth_middleware)
+# router.middleware("http")(token_auth_middleware)
 # 获取用户信息
 @router.post("/userinfo", response_model=UserInfoRequestOut)
 async def userinfo(request: Request, db: AsyncSession = Depends(get_db)):

@@ -13,9 +13,15 @@ from fastapi import HTTPException
 import os
 import db.models
 import db.database as database
+from middlewares.token_auth import token_auth_middleware
+# from middlewares.token_auth import token_auth_middleware
 
 
-from routers import users
+
+from routers import users,user_api,internal_api
+
+
+# router.middleware("http")(token_auth_middleware)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -37,6 +43,9 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="FastAPI新接口", lifespan=lifespan)
+
+# app.middleware("http")(token_auth_middleware)
+
 
 class UnicornException(Exception):
     def __init__(self, message: str, code: int = 400):
@@ -92,6 +101,8 @@ app.add_middleware(
 
 # 用户路由
 app.include_router(users.router)
+app.include_router(user_api.router)
+app.include_router(internal_api.router)
 
 
 if __name__ == "__main__":
