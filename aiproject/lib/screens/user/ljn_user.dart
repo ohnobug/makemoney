@@ -248,7 +248,7 @@ class _LJNUserState extends State<LJNUser>
       LJNUserFunctionButton(
         icon: "images/icon/server_icon11.png",
         title: "钱包",
-        onPressed: () => Navigator.pushNamed(context, '/services'),
+        onPressed: () => Navigator.pushNamed(context, '/user/services'),
       ),
       LJNUserFunctionButton(
         icon: "images/icon/server_icon12.png",
@@ -269,7 +269,7 @@ class _LJNUserState extends State<LJNUser>
         icon: "images/icon/server_icon14.png",
         title: "学院",
         onPressed: () {
-          Navigator.pushNamed(context, '/course_list');
+          Navigator.pushNamed(context, '/user/course_list');
         },
       ),
     ];
@@ -309,7 +309,7 @@ class _LJNUserState extends State<LJNUser>
                     0xe63d,
                     fontFamily: 'Iconfont',
                   ),
-                  onTap: () => Navigator.pushNamed(context, '/setting'),
+                  onTap: () => Navigator.pushNamed(context, '/settings'),
                 ),
                 _buildFloatingIconButton(
                   icon: const IconData(
@@ -333,7 +333,7 @@ class _LJNUserState extends State<LJNUser>
                       children: [
                         GestureDetector(
                           onTap: () =>
-                              Navigator.pushNamed(context, '/userinfo'),
+                              Navigator.pushNamed(context, '/user/info'),
                           child: ClipOval(
                             child: BlocBuilder<LJNUserCubit, LJNUserState>(
                               builder: (context, state) {
@@ -418,25 +418,25 @@ class _LJNUserState extends State<LJNUser>
                           "25",
                           "关注",
                           () =>
-                              Navigator.pushNamed(context, '/follow_and_fans'),
+                              Navigator.pushNamed(context, '/user/follow_and_fans'),
                         ),
                         SizedBox(width: 60.w),
                         _buildStatsItem(
                           "1.2M",
                           "粉丝",
                           () =>
-                              Navigator.pushNamed(context, '/follow_and_fans'),
+                              Navigator.pushNamed(context, '/user/follow_and_fans'),
                         ),
                         SizedBox(width: 60.w),
                         _buildStatsItem(
                           "8.9M",
                           "获赞",
-                          () => Navigator.pushNamed(context, '/ljn_like'),
+                          () => Navigator.pushNamed(context, '/user/like'),
                         ),
                         const Spacer(),
                         ElevatedButton(
                           onPressed: () =>
-                              Navigator.pushNamed(context, '/userinfo'),
+                              Navigator.pushNamed(context, '/user/info'),
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             backgroundColor: theme.dividerColor,

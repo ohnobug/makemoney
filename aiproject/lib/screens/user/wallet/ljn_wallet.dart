@@ -7,8 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
-import '../../widgets/ljn_function_item.dart';
-import '../../tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_function_item.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 
 class LJNWallet extends StatefulWidget {
   const LJNWallet({super.key});
@@ -43,7 +43,7 @@ class _LJNWallet extends State<LJNWallet> {
         actions: [
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/bill_details');
+              Navigator.pushNamed(context, '/user/wallet/bill_details');
             },
             child: Container(
               color: Colors.transparent,

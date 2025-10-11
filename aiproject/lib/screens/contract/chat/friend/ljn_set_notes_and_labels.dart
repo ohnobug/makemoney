@@ -66,7 +66,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
             actions: [
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/bind_new_phone_number');
+                  Navigator.pushNamed(context, '/settings/security/bind_phone');
                 },
                 child: Container(
                   height: 60.w,
@@ -262,7 +262,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabels> {
 
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/set_friend_tags');
+                          Navigator.pushNamed(context, '/chat/friend/set_tags');
                         },
                         child: Container(
                           height: 105.w,

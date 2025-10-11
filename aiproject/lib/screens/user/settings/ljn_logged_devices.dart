@@ -45,7 +45,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
           appBar: LJNAppBar(title: l10n.loggedInDevices, actions: [
             GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/bind_new_phone_number');
+                Navigator.pushNamed(context, '/settings/security/bind_phone');
               },
               child: Container(
                 // color: theme.colorScheme.onSurface,

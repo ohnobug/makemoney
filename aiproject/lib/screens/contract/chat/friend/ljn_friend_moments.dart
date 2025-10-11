@@ -425,7 +425,7 @@ class _LJNFriendmoments extends State<LJNFriendmoments>
                   // 放大时，头像和名字渐变消失
                   opacity: 1 - _bgController.value,
                   child: GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/userinfo'),
+                    onTap: () => Navigator.pushNamed(context, '/user/info'),
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 35.w),
                       width: 750.w,

@@ -43,7 +43,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "天空飘来五个字那都不是事",
                 'nickname': "天空飘来五个字那都不是事",
@@ -60,7 +60,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "本因",
                 'nickname': "本因",
@@ -77,7 +77,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "赵洵",
                 'nickname': "赵洵",
@@ -94,7 +94,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "定静师太",
                 'nickname': "定静师太",
@@ -111,7 +111,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "李秋水",
                 'nickname': "李秋水",
@@ -128,7 +128,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "谭婆",
                 'nickname': "谭婆",
@@ -145,7 +145,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "李傀儡",
                 'nickname': "李傀儡",
@@ -162,7 +162,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "貂禅",
                 'nickname': "貂禅",
@@ -179,7 +179,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "何三七",
                 'nickname': "何三七",
@@ -196,7 +196,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "孔融",
                 'nickname': "孔融",
@@ -213,7 +213,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "齐堂主",
                 'nickname': "齐堂主",
@@ -230,7 +230,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "博尔术",
                 'nickname': "博尔术",
@@ -247,7 +247,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "王语嫣",
                 'nickname': "王语嫣",
@@ -264,7 +264,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "秦红棉",
                 'nickname': "秦红棉",
@@ -292,7 +292,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "段延庆",
                 'nickname': "段延庆",
@@ -309,7 +309,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "令狐冲",
                 'nickname': "令狐冲",
@@ -326,7 +326,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "英白罗",
                 'nickname': "英白罗",
@@ -343,7 +343,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "黄药师",
                 'nickname': "黄药师",
@@ -360,7 +360,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "李煜",
                 'nickname': "李煜",
@@ -377,7 +377,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "云中鹤",
                 'nickname': "云中鹤",
@@ -394,7 +394,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "劳德诺",
                 'nickname': "劳德诺",
@@ -411,7 +411,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "包惜弱",
                 'nickname': "包惜弱",
@@ -428,7 +428,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "游驹",
                 'nickname': "游驹",
@@ -445,7 +445,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "钟万仇",
                 'nickname': "钟万仇",
@@ -462,7 +462,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "渔人",
                 'nickname': "渔人",
@@ -479,7 +479,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "单叔山",
                 'nickname': "单叔山",
@@ -496,7 +496,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "段誉",
                 'nickname': "段誉",
@@ -513,7 +513,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "林震南",
                 'nickname': "林震南",
@@ -530,7 +530,7 @@ class _LJNContactGroupState extends State<LJNContactGroup> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/friendprofile',
+          Navigator.pushNamed(context, '/chat/friend/profile',
               arguments: <String, String>{
                 'name': "商鞅",
                 'nickname': "商鞅",

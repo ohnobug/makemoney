@@ -238,7 +238,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
         title: l10n.newFriends,
         actions: [
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, '/add_friends'),
+            onTap: () => Navigator.pushNamed(context, '/contact/add_friends'),
             child: Container(
               height: 90.w,
               color: Colors.transparent,
@@ -363,7 +363,7 @@ class _LJNNewFriendsState extends State<LJNNewFriends> {
                         onPressed: () {
                           Navigator.pushNamed(
                             context,
-                            '/friendprofile',
+                            '/chat/friend/profile',
                             arguments: <String, String>{
                               'name': itemData.name,
                               'nickname': itemData.name,

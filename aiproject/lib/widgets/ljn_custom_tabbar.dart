@@ -225,6 +225,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
       },
       child: BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
+
+          
           return Stack(
             children: [
               // 页面内容

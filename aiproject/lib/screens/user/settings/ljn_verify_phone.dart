@@ -48,7 +48,7 @@ class _LJNVerifyPhone extends State<LJNVerifyPhone> {
                 actions: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/bind_new_phone_number');
+                      Navigator.pushNamed(context, '/settings/security/bind_phone');
                     },
                     child: Container(
                       color: Colors.transparent,

@@ -111,7 +111,7 @@ class _LJNContactState extends State<LJNContact> {
                             underline: itemData.underline,
                             onPressed: itemData.link.isEmpty
                                 ? () => Navigator.pushNamed(
-                                    context, '/new_friends') // 特殊处理
+                                    context, '/contact/new_friends') // 特殊处理
                                 : null,
                           );
                         }

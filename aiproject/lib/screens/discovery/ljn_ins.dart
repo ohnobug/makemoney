@@ -435,7 +435,7 @@ class _LJNIns extends State<LJNIns> {
 
       // 用户触发了去首页
       if (context.mounted && isInsideHomeBtn) {
-        Navigator.pushNamed(context, '/friendmoments');
+        Navigator.pushNamed(context, '/discovery/ins');
       }
 
       // 用户触发了分享
@@ -670,7 +670,7 @@ class _LJNIns extends State<LJNIns> {
                                 child: TextField(
                                   readOnly: true,
                                   onTap: () {
-                                    Navigator.pushNamed(context, '/search');
+                                    Navigator.pushNamed(context, '/discovery/search');
                                   },
                                   onTapOutside: (event) {
                                     FocusScope.of(context).unfocus();

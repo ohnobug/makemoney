@@ -174,7 +174,7 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
       padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.w),
       child: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/search');
+          Navigator.pushNamed(context, '/discovery/search');
         },
         child: Container(
           height: 70.w,
@@ -218,19 +218,19 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
             LJNFunctionItem(
               title: "心情时刻",
               icon: "images/icon/discovery_icon1.png",
-              link: '/friendmoments',
+              link: '/discovery/friendmoments',
               underline: true,
             ),
             LJNFunctionItem(
               title: "图片墙",
               icon: "images/icon/discovery_icon2.png",
-              link: '/ins',
+              link: '/discovery/ins',
               underline: true,
             ),
             LJNFunctionItem(
               title: "小程序",
               icon: "images/icon/discovery_icon5.png",
-              link: '/miniprogram_list',
+              link: '/discovery/miniprogram_list',
               underline: false,
             ),
           ],

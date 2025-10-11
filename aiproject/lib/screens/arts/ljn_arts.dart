@@ -250,7 +250,7 @@ class _LJNArts extends State<LJNArts> {
                         right: 28.w,
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/search');
+                            Navigator.pushNamed(context, '/discovery/search');
                           },
                           child: Container(
                             color: Colors.transparent,

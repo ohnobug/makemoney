@@ -296,8 +296,8 @@ class VideoPublishPage extends State<VideoPublishPageState> {
           height: 80,
           decoration: BoxDecoration(
             color: _isDeleting
-                ? Colors.red.withOpacity(0.8)
-                : Colors.black.withOpacity(0.6),
+                ? Colors.red.withAlpha((0.8 * 255).toInt())
+                : Colors.black.withAlpha((0.6 * 255).toInt()),
             shape: BoxShape.circle,
           ),
           child: const Icon(
@@ -361,7 +361,7 @@ class VideoPublishPage extends State<VideoPublishPageState> {
         margin: const EdgeInsets.only(right: 8),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.red.withOpacity(0.1) : Colors.grey[200],
+          color: isSelected ? Colors.red.withAlpha((0.1 * 255).toInt()) : Colors.grey[200],
           borderRadius: BorderRadius.circular(20),
           border: isSelected ? Border.all(color: Colors.red, width: 1.0) : null,
         ),

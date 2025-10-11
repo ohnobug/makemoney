@@ -39,7 +39,7 @@ class _LJNPocketMoney extends State<LJNPocketMoney> {
             actions: [
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/change_details');
+                  Navigator.pushNamed(context, '/user/wallet/change_details');
                 },
                 child: Container(
                   color: Colors.transparent,

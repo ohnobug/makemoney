@@ -35,7 +35,7 @@ class _LJEemergencyContact extends State<LJNEmergencyContact> {
         appBar: LJNAppBar(title: l10n.emergencyContacts, actions: [
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/bind_new_phone_number');
+              Navigator.pushNamed(context, '/settings/security/bind_phone');
             },
             child: Container(
               height: 60.w,

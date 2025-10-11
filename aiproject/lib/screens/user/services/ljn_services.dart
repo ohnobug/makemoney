@@ -40,7 +40,7 @@ class LJNServices extends StatelessWidget {
                   LJNActionSheetAction(
                     text: l10n.serviceManagement,
                     onPressed: () {
-                      Navigator.pushNamed(context, '/services_manager');
+                      Navigator.pushNamed(context, '/user/services_manager');
                     },
                   ),
                 ],
@@ -169,7 +169,7 @@ class LJNServices extends StatelessWidget {
               title: l10n.payment,
               subTitle: Text('', style: balanceTextStyle),
               onPressed: () {
-                Navigator.pushNamed(context, '/collection_and_payment');
+                Navigator.pushNamed(context, '/user/collection_and_payment');
                 logger.info('点击了收付款还款按钮~~');
               },
             ),
@@ -208,7 +208,7 @@ class LJNServices extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               onPressed: () {
-                Navigator.pushNamed(context, '/wallet');
+                Navigator.pushNamed(context, '/user/wallet');
               },
             ),
           ),
