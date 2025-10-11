@@ -56,7 +56,15 @@ class _LJNLoginPage extends State<LJNLoginPage> {
     );
 
     logger.info("登录成功");
+
+    // 跳转到主页并切换到用户中心页面（第5个tab）
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+
+    // 延迟切换到用户中心页面，确保状态已更新
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final systemCubit = context.read<LJNSystemCubit>();
+      systemCubit.updateMainTabIndex(4); // 切换到第5个tab（用户中心）
+    });
   }
 
   @override
@@ -91,7 +99,7 @@ class _LJNLoginPage extends State<LJNLoginPage> {
                   ),
                   child: Container(
                     width: 750.w,
-                    padding: EdgeInsets.only(left: 70.w, right: 70.w),
+                    padding: EdgeInsets.only(left: 20.w, right: 20.w),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,

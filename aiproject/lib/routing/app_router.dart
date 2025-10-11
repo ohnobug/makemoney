@@ -166,11 +166,11 @@ class AppRouter {
 
       // 用户认证相关路由
       case '/user/auth/login':
-        return _pageRouteBuilderAnimation(const LJNLoginPage()); // 用户登录页面
+        return _pageRouteBuilderNotAnimation(const LJNLoginPage()); // 用户登录页面
       case '/user/auth/register':
-        return _pageRouteBuilderAnimation(const LJNRegisterPage()); // 用户注册页面
+        return _pageRouteBuilderNotAnimation(const LJNRegisterPage()); // 用户注册页面
       case '/user/auth/forgot_password':
-        return _pageRouteBuilderAnimation(
+        return _pageRouteBuilderNotAnimation(
             const LJNForgotPasswordPage()); // 忘记密码页面
 
       // 设置相关路由

@@ -3,18 +3,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/screens/arts/ljn_arts_page.dart';
+import 'package:vigaviga/screens/contract/ljn_recent_chats_list_page.dart';
+import 'package:vigaviga/screens/discovery/ljn_discovery_page.dart';
+import 'package:vigaviga/screens/publisher/ljn_publisher_page.dart';
+import 'package:vigaviga/screens/user/ljn_user_page.dart';
 import 'package:vigaviga/widgets/ljn_popup_menu.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vigaviga/screens/publisher/ljn_publisher_page.dart';
-import 'package:vigaviga/screens/arts/ljn_arts_page.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar_inner.dart';
-import 'package:vigaviga/screens/discovery/ljn_discovery_page.dart';
-import 'package:vigaviga/screens/contract/ljn_recent_chats_list_page.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/store/ljn_user_cubit.dart';
-import 'package:vigaviga/screens/user/ljn_user_page.dart';
-import 'package:vigaviga/screens/user/auth/ljn_login_page.dart';
 
 class _TabInfo {
   final IconData icon;
@@ -115,29 +113,16 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     }
 
     final theme = Theme.of(context);
-    final systemState = context.read<LJNSystemCubit>().state;
-
-    // 根据当前主题模式动态计算颜色
-    final bool isDarkTheme = systemState.themeMode == ThemeMode.dark ||
-        (systemState.themeMode == ThemeMode.system &&
-            MediaQuery.of(context).platformBrightness == Brightness.dark);
-
-    // 视频页面的颜色（保持原有设计）
     final Color videoTabBackgroundColor = Colors.black.withAlpha(64);
     const Color videoTabForegroundColor = Colors.white;
     final Color videoTabUnselectedColor = Colors.white.withAlpha(153);
     final Color videoTabBorderColor = Colors.white.withAlpha(38);
-
-    // 其他页面的颜色 - 使用主题颜色
-    final Color otherTabBackgroundColor = isDarkTheme
-        ? theme.colorScheme.surface
-        : theme.bottomAppBarTheme.color ?? theme.scaffoldBackgroundColor;
-    final Color otherTabForegroundColor = isDarkTheme
-        ? theme.colorScheme.onSurface
-        : theme.tabBarTheme.labelColor ?? theme.colorScheme.primary;
-    final Color otherTabUnselectedColor = isDarkTheme
-        ? theme.colorScheme.onSurface.withAlpha(128)
-        : theme.tabBarTheme.unselectedLabelColor ?? Colors.grey;
+    final Color otherTabBackgroundColor =
+        theme.bottomAppBarTheme.color ?? theme.scaffoldBackgroundColor;
+    final Color otherTabForegroundColor =
+        theme.tabBarTheme.labelColor ?? theme.colorScheme.primary;
+    final Color otherTabUnselectedColor =
+        theme.tabBarTheme.unselectedLabelColor ?? Colors.grey;
     final Color otherTabBorderColor = theme.dividerColor;
 
     final double t = page.clamp(0.0, 1.0);
@@ -200,30 +185,13 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
   List<String> _getTabTitles(BuildContext context) {
     AppLocalizations l10n = AppLocalizations.of(context)!;
-    final userCubit = context.read<LJNUserCubit>();
-
     return [
       l10n.tabbar_label_arts,
       l10n.tabbar_label_discover,
       l10n.tabbar_label_publisher,
       l10n.tabbar_label_chat,
-      userCubit.isLoggedIn ? l10n.tabbar_label_me : "登录",
+      l10n.tabbar_label_me,
     ];
-  }
-
-  String _getAppBarTitle(BuildContext context, int index) {
-    AppLocalizations l10n = AppLocalizations.of(context)!;
-    final userCubit = context.read<LJNUserCubit>();
-
-    final tabTitles = [
-      l10n.tabbar_label_arts,
-      l10n.tabbar_label_discover,
-      l10n.tabbar_label_publisher,
-      l10n.tabbar_label_chat,
-      userCubit.isLoggedIn ? l10n.tabbar_label_me : "登录",
-    ];
-
-    return tabTitles[index];
   }
 
   @override
@@ -234,8 +202,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
     return BlocListener<LJNSystemCubit, SystemState>(
       listenWhen: (prev, current) =>
-          prev.parentDragState != current.parentDragState ||
-          prev.themeMode != current.themeMode,
+          prev.parentDragState != current.parentDragState,
       listener: (context, state) {
         if (state.parentDragState == ParentDragState.animating) {
           final velocity = state.parentDragEndVelocity ?? 0.0;
@@ -255,10 +222,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
           }
           systemCubit.onParentDragHandled();
         }
-
-        // 当主题变化时，重新计算TabBar颜色
-        _updateUiForPage(
-            _pageController.page ?? _tabController.index.toDouble());
       },
       child: BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
@@ -310,7 +273,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                         });
                       },
                       dividerColor: Colors.transparent,
-                      indicatorColor: Colors.transparent,
                       labelColor: _selectedItemColor,
                       labelStyle: theme.tabBarTheme.labelStyle,
                       unselectedLabelColor: _unselectedItemColor,
@@ -323,20 +285,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                           final icon = _tabController.index == index
                               ? tabInfo.selectedIcon
                               : tabInfo.icon;
-
-                          // 最后一个tab：如果用户未登录，使用登录图标
-                          IconData finalIcon = icon;
-                          if (index == 4) {
-                            final userCubit = context.read<LJNUserCubit>();
-                            if (!userCubit.isLoggedIn) {
-                              finalIcon = _tabController.index == index
-                                  ? const IconData(0xe6b3,
-                                      fontFamily: "Iconfont") // 登录选中图标
-                                  : const IconData(0xe6b2,
-                                      fontFamily: "Iconfont"); // 登录未选中图标
-                            }
-                          }
-
                           return Tab(
                             // height: systemState.tabbarHeight,
                             iconMargin: EdgeInsets.only(bottom: 6.w),
@@ -345,7 +293,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                               width: 50.w,
                               child: Center(
                                 child: Icon(
-                                  finalIcon,
+                                  icon,
                                   size: tabInfo.iconSize.w,
                                 ),
                               ),
@@ -365,19 +313,12 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                   // 将 physics 设置为 NeverScrollableScrollPhysics，
                   // 这会禁止用户通过手势滑动页面，但依然允许通过点击 TabBar 来切换。
                   physics: const NeverScrollableScrollPhysics(),
-                  children: <Widget>[
-                    const LJNArtsPage(),
-                    const LJNDiscoveryPage(),
-                    const LJNPublisherPage(),
-                    const LJNRecentChatsListPage(),
-                    // 最后一个tab：如果用户已登录显示用户中心，未登录显示登录页面
-                    BlocBuilder<LJNUserCubit, LJNUserState>(
-                      builder: (context, userState) {
-                        return userState.isLoggedIn
-                            ? const LJNUser()
-                            : const LJNLoginPage();
-                      },
-                    ),
+                  children: const <Widget>[
+                    LJNArtsPage(),
+                    LJNDiscoveryPage(),
+                    LJNPublisherPage(),
+                    LJNRecentChatsListPage(),
+                    LJNUserPage(),
                   ],
                 ),
               ),
@@ -405,7 +346,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                         children: [
                           LJNAppBarInner(
                             context: context,
-                            title: _getAppBarTitle(context, _appbarNameIndex),
+                            title: tabTitles[_appbarNameIndex],
                             actions: [
                               if (_tabController.index == 3)
                                 GestureDetector(

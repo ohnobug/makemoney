@@ -1,7 +1,6 @@
 // 文件路径: /lib/screens/user/ljn_user.dart
 
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // 用于剪贴板功能
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,14 +16,14 @@ import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class LJNUser extends StatefulWidget {
-  const LJNUser({super.key});
+class LJNUserPage extends StatefulWidget {
+  const LJNUserPage({super.key});
   @override
-  State<LJNUser> createState() => _LJNUserState();
+  State<LJNUserPage> createState() => _LJNUserPageState();
 }
 
-class _LJNUserState extends State<LJNUser>
-    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin<LJNUser> {
+class _LJNUserPageState extends State<LJNUserPage>
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin<LJNUserPage> {
   @override
   bool get wantKeepAlive => true;
 
@@ -72,7 +71,6 @@ class _LJNUserState extends State<LJNUser>
     });
   }
 
-  // [核心修改] 使用 SliverAppBar 重构页面布局
   Widget _buildPage(SystemState systemState) {
     ThemeData theme = Theme.of(context);
     double customkToolbarHeight = 95.w;
@@ -83,37 +81,34 @@ class _LJNUserState extends State<LJNUser>
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            // 使用 SliverAppBar 来实现折叠头部的效果
             SliverAppBar(
-              // primary: true 会自动处理状态栏的高度和间距
               primary: true,
-              // 不显示标题
               title: null,
-              // 自动隐藏返回按钮
               automaticallyImplyLeading: false,
-              // 将 TabBar 固定在顶部
               pinned: true,
-              // 当用户开始向下滚动时，SliverAppBar 是否立即出现
               floating: false,
               toolbarHeight: 0,
-              // SliverAppBar 完全展开时的高度
               expandedHeight: expandedHeight,
-              // 设置背景为透明，以便 flexibleSpace 的内容能够显示
               backgroundColor: theme.cardColor,
-
-              // 可折叠的区域，通常放置背景图、用户信息等
               flexibleSpace: FlexibleSpaceBar(
-                // 折叠模式设置为 parallax，可以产生视差滚动效果
                 collapseMode: CollapseMode.parallax,
-                // 背景内容就是你的用户信息部分
-                background: _buildUserInfoSection(systemState, theme),
+                // [核心修改] 使用 BlocBuilder 来根据登录状态切换UI
+                background: BlocBuilder<LJNUserCubit, LJNUserState>(
+                  builder: (context, userState) {
+                    if (userState.isLoggedIn) {
+                      return _buildUserInfoSection(systemState, theme);
+                    } else {
+                      return _buildUnauthenticatedUserInfoSection(
+                        systemState,
+                        theme,
+                      );
+                    }
+                  },
+                ),
               ),
-
-              // SliverAppBar 的底部区域，通常放置 TabBar
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(customkToolbarHeight + 2.5.w),
                 child: Container(
-                  // 背景色确保 TabBar 在固定时有不透明的背景
                   color: theme.cardColor,
                   child: Row(
                     children: [
@@ -242,6 +237,7 @@ class _LJNUserState extends State<LJNUser>
     );
   }
 
+  // [已有方法] 已登录状态的UI
   Widget _buildUserInfoSection(SystemState systemState, ThemeData theme) {
     AppLocalizations l10n = AppLocalizations.of(context)!;
     final List<LJNUserFunctionButton> serviceButtons = [
@@ -288,7 +284,7 @@ class _LJNUserState extends State<LJNUser>
               placeholder: (context, url) =>
                   Container(color: Colors.grey.shade300),
               errorWidget: (context, url, error) => Container(
-                  color: Colors.grey.shade300, child: Icon(Icons.error)),
+                  color: Colors.grey.shade300, child: const Icon(Icons.error)),
             ),
           ),
           Positioned.fill(
@@ -298,9 +294,7 @@ class _LJNUserState extends State<LJNUser>
               ),
             ),
           ),
-          // 设置 与 扫码按钮
           Positioned(
-            // 使用 SafeArea 来确保按钮不会与状态栏或刘海屏重叠
             top: systemState.statusHeight,
             right: 15.w,
             child: Row(
@@ -419,15 +413,15 @@ class _LJNUserState extends State<LJNUser>
                         _buildStatsItem(
                           "25",
                           "关注",
-                          () =>
-                              Navigator.pushNamed(context, '/user/follow_and_fans'),
+                          () => Navigator.pushNamed(
+                              context, '/user/follow_and_fans'),
                         ),
                         SizedBox(width: 60.w),
                         _buildStatsItem(
                           "1.2M",
                           "粉丝",
-                          () =>
-                              Navigator.pushNamed(context, '/user/follow_and_fans'),
+                          () => Navigator.pushNamed(
+                              context, '/user/follow_and_fans'),
                         ),
                         SizedBox(width: 60.w),
                         _buildStatsItem(
@@ -448,7 +442,6 @@ class _LJNUserState extends State<LJNUser>
                             ),
                             padding: EdgeInsets.symmetric(
                               horizontal: 30.w,
-                              // vertical: 10.w,
                             ),
                             minimumSize: Size(0, 60.w),
                           ),
@@ -491,6 +484,112 @@ class _LJNUserState extends State<LJNUser>
                 itemBuilder: (context, index) => serviceButtons[index],
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // [新方法] 为未登录用户设计的用户信息区域
+  Widget _buildUnauthenticatedUserInfoSection(
+      SystemState systemState, ThemeData theme) {
+    return SizedBox(
+      height: 700.w,
+      child: Stack(
+        children: [
+          // --- 背景图和遮罩 (与登录状态完全相同，保持一致性) ---
+          Positioned.fill(
+            child: CachedNetworkImage(
+              imageUrl: "https://picsum.photos/750/750?random=497",
+              fit: BoxFit.cover,
+              placeholder: (context, url) =>
+                  Container(color: Colors.grey.shade300),
+              errorWidget: (context, url, error) => Container(
+                  color: Colors.grey.shade300, child: const Icon(Icons.error)),
+            ),
+          ),
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black.withAlpha(150),
+              ),
+            ),
+          ),
+          // --- 设置 与 扫码按钮 (保留通用功能) ---
+          Positioned(
+            top: systemState.statusHeight,
+            right: 15.w,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                _buildFloatingIconButton(
+                  icon: const IconData(
+                    0xe63d,
+                    fontFamily: 'Iconfont',
+                  ),
+                  onTap: () => Navigator.pushNamed(context, '/settings'),
+                ),
+                _buildFloatingIconButton(
+                  icon: const IconData(
+                    0xe635,
+                    fontFamily: 'Iconfont',
+                  ),
+                  onTap: () => Navigator.pushNamed(context, '/qrcode_scanner'),
+                ),
+              ],
+            ),
+          ),
+
+          // --- 核心内容：引导登录 ---
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // 可以使用一个通用头像或图标
+                Icon(
+                  Icons.account_circle_outlined,
+                  size: 140.w,
+                  color: Colors.white.withAlpha(204),
+                ),
+                SizedBox(height: 30.w),
+                // 引导文案
+                Text(
+                  "登录后体验更多精彩",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 36.w,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 50.w),
+                // 登录/注册按钮
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/user/auth/login');
+                    logger.info("跳转到登录注册页");
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.accentRedVibrant1, // 使用醒目的颜色
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40.w),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 100.w,
+                      vertical: 24.w,
+                    ),
+                    elevation: 0,
+                  ),
+                  child: Text(
+                    "登录 / 注册",
+                    style: TextStyle(
+                      fontSize: 30.w,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
