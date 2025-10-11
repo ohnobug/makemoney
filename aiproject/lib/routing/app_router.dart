@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vigaviga/screens/user/course/ljn_course_detail.dart';
+import 'package:vigaviga/screens/user/course/ljn_course_list.dart';
+import 'package:vigaviga/screens/user/course/ljn_lesson_content.dart';
 import 'package:vigaviga/test.dart';
 import 'package:vigaviga/screens/contract/chat/ljn_chat.dart';
 import 'package:vigaviga/screens/contract/ljn_contact.dart';
@@ -252,6 +255,18 @@ class AppRouter {
         return _pageRouteBuilderAnimation(const LJNLanguageSetting());
       case '/theme_setting':
         return _pageRouteBuilderAnimation(const LJNThemeSetting());
+      case '/course_list':
+        return _pageRouteBuilderAnimation(const LJNCourseList());
+      case '/course_detail':
+        final args = settings.arguments as Map<String, String>? ?? {};
+        return _pageRouteBuilderAnimation(LJNCourseDetail(
+          courseId: args['course_id'] ?? "",
+        ));
+      case '/lesson_content':
+        final args = settings.arguments as Map<String, String>? ?? {};
+        return _pageRouteBuilderAnimation(LJNLessonContent(
+          lessonId: args['lesson_id'] ?? "",
+        ));
 
       default:
         // 可以返回一个统一的404页面

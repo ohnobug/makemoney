@@ -48,7 +48,7 @@ class _LJNFriendInformation extends State<LJNFriendInformation> {
         child: Container(
           constraints: BoxConstraints(
             minHeight: MediaQuery.of(context).size.height -
-                90.w -
+                systemState.appbarHeight -
                 systemState.statusHeight,
           ),
           color: theme.colorScheme.surfaceContainer,

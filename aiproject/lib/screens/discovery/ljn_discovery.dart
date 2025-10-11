@@ -70,21 +70,37 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
   // 【新增】为“热门分类”创建新的模拟数据
   final List<HotCategory> hotCategories = [
     HotCategory(
-        title: "科技", imageUrl: "https://picsum.photos/300/400?random=201"),
+      title: "科技",
+      imageUrl: "https://picsum.photos/300/400?random=201",
+    ),
     HotCategory(
-        title: "时事", imageUrl: "https://picsum.photos/300/400?random=202"),
+      title: "时事",
+      imageUrl: "https://picsum.photos/300/400?random=202",
+    ),
     HotCategory(
-        title: "军事", imageUrl: "https://picsum.photos/300/400?random=203"),
+      title: "军事",
+      imageUrl: "https://picsum.photos/300/400?random=203",
+    ),
     HotCategory(
-        title: "游戏", imageUrl: "https://picsum.photos/300/400?random=204"),
+      title: "游戏",
+      imageUrl: "https://picsum.photos/300/400?random=204",
+    ),
     HotCategory(
-        title: "旅行", imageUrl: "https://picsum.photos/300/400?random=205"),
+      title: "旅行",
+      imageUrl: "https://picsum.photos/300/400?random=205",
+    ),
     HotCategory(
-        title: "美食", imageUrl: "https://picsum.photos/300/400?random=206"),
+      title: "美食",
+      imageUrl: "https://picsum.photos/300/400?random=206",
+    ),
     HotCategory(
-        title: "穿搭", imageUrl: "https://picsum.photos/300/400?random=207"),
+      title: "穿搭",
+      imageUrl: "https://picsum.photos/300/400?random=207",
+    ),
     HotCategory(
-        title: "影视", imageUrl: "https://picsum.photos/300/400?random=208"),
+      title: "影视",
+      imageUrl: "https://picsum.photos/300/400?random=208",
+    ),
   ];
 
   @override
@@ -124,12 +140,17 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
       body: SafeArea(
         // 使用 ListView 来组织页面内容
         child: ListView(
-          padding: EdgeInsets.only(bottom: 50.w), // 底部留出一些空间
+          padding: EdgeInsets.only(
+            top: systemState.appbarHeight,
+            bottom: 50.w,
+          ),
           children: [
             // 搜索框
             _buildSearchBar(theme),
             // Banner
             _buildBanner(),
+            // 【间距调整】
+            SizedBox(height: 50.w),
             // 服务与功能
             _buildServicesSection(theme, l10n, systemState),
             // 【间距调整】
@@ -190,8 +211,8 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildSectionHeader("服务与功能", theme),
         // SizedBox(height: 20.w), // 标题和内容之间的间距
+        _buildSectionHeader("服务与功能", theme),
         LJNFunctionList(
           children: [
             LJNFunctionItem(
@@ -220,7 +241,12 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
 
   Widget _buildBanner() {
     return Padding(
-      padding: EdgeInsets.all(20.w),
+      padding: EdgeInsets.only(
+        top: 20.w,
+        left: 20.w,
+        right: 20.w,
+        bottom: 0,
+      ),
       child: AspectRatio(
         aspectRatio: 16 / 7,
         child: ClipRRect(
@@ -280,11 +306,11 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
         _buildSectionHeader("热门趋势", theme),
         SizedBox(height: 20.w),
         Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: 30.w),
+          padding: EdgeInsetsGeometry.symmetric(horizontal: 20.w),
           child: Container(
             decoration: BoxDecoration(
               color: theme.cardColor,
-              borderRadius: BorderRadius.circular(16.w),
+              borderRadius: BorderRadius.circular(10.w),
             ),
             child: Column(
               children: trendingTopics.map((item) {
@@ -318,21 +344,21 @@ class _LJNDiscoveryState extends State<LJNDiscovery> {
         _buildSectionHeader("热门分类", theme, showMore: false),
         SizedBox(height: 20.w),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30.w),
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: hotCategories.length, // 使用新的数据源
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 20.w,
-              mainAxisSpacing: 20.w,
-              childAspectRatio: 16 / 9, // 调整宽高比以适应标题
+              crossAxisSpacing: 15.w,
+              mainAxisSpacing: 15.w,
+              childAspectRatio: 15 / 9, // 调整宽高比以适应标题
             ),
             itemBuilder: (context, index) {
               final category = hotCategories[index];
               return ClipRRect(
-                borderRadius: BorderRadius.circular(12.w),
+                borderRadius: BorderRadius.circular(10.w),
                 // 使用 Stack 来堆叠图片、遮罩和文字
                 child: Stack(
                   fit: StackFit.expand,

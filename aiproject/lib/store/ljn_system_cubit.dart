@@ -101,6 +101,14 @@ class LJNSystemCubit extends Cubit<SystemState> {
     emit(state.copyWith(statusHeight: statusHeight));
   }
 
+  void updateTabbarHeight(double tabbarHeight) {
+    emit(state.copyWith(tabbarHeight: tabbarHeight));
+  }
+
+  void updateAppbarHeight(double appbarHeight) {
+    emit(state.copyWith(appbarHeight: appbarHeight));
+  }
+
   void updateShowMiniProgramDrawer(bool showMiniProgramDrawer) {
     emit(state.copyWith(showMiniProgramDrawer: showMiniProgramDrawer));
   }
@@ -121,10 +129,6 @@ class LJNSystemCubit extends Cubit<SystemState> {
   void updateVideoProgress({double? progress, bool? show}) {
     emit(state.copyWith(videoProgress: progress, showVideoProgress: show));
   }
-
-  void updateTabbarHeight(double tabbarHeight) {
-    emit(state.copyWith(tabbarHeight: tabbarHeight));
-  }
 }
 
 // 系统的 State
@@ -138,14 +142,15 @@ class SystemState extends Equatable {
   final bool? mainpage5isload;
   final GlobalKey<NavigatorState> navigatorKey;
   final Size screenSize;
+  final double appbarHeight;
   final double statusHeight;
+  final double tabbarHeight;
   final bool showMiniProgramDrawer;
   final ThemeMode themeMode;
   final Locale currentLocale;
   final double videoProgress;
   final bool showVideoProgress;
   final int mainTabIndex;
-  final double tabbarHeight;
 
   // 拖拽代理状态
   final ParentDragState parentDragState;
@@ -163,7 +168,9 @@ class SystemState extends Equatable {
     this.mainpage4isload = false,
     this.mainpage5isload = false,
     this.screenSize = const Size(0, 0),
+    this.appbarHeight = 0,
     this.statusHeight = 0,
+    this.tabbarHeight = 100,
     this.showMiniProgramDrawer = false,
     this.currentLocale = const Locale('en'),
     this.themeMode = ThemeMode.system,
@@ -174,7 +181,6 @@ class SystemState extends Equatable {
     this.parentDragState = ParentDragState.idle,
     this.parentDragEndVelocity,
     this.isParentPageViewLocked = false,
-    this.tabbarHeight = 100,
   });
 
   SystemState copyWith({
@@ -187,6 +193,8 @@ class SystemState extends Equatable {
     bool? mainpage5isload,
     Size? screenSize,
     double? statusHeight,
+    double? tabbarHeight,
+    double? appbarHeight,
     bool? showMiniProgramDrawer,
     ThemeMode? themeMode,
     Locale? currentLocale,
@@ -198,7 +206,6 @@ class SystemState extends Equatable {
     double? parentDragEndVelocity,
     bool clearParentDragEndVelocity = false,
     bool? isParentPageViewLocked,
-    double? tabbarHeight,
   }) {
     return SystemState(
       homescrollpixels: homescrollpixels ?? this.homescrollpixels,
@@ -210,6 +217,8 @@ class SystemState extends Equatable {
       mainpage5isload: mainpage5isload ?? this.mainpage5isload,
       screenSize: screenSize ?? this.screenSize,
       statusHeight: statusHeight ?? this.statusHeight,
+      tabbarHeight: tabbarHeight ?? this.tabbarHeight,
+      appbarHeight: appbarHeight ?? this.appbarHeight,
       showMiniProgramDrawer:
           showMiniProgramDrawer ?? this.showMiniProgramDrawer,
       themeMode: themeMode ?? this.themeMode,
@@ -224,7 +233,6 @@ class SystemState extends Equatable {
           : parentDragEndVelocity ?? this.parentDragEndVelocity,
       isParentPageViewLocked:
           isParentPageViewLocked ?? this.isParentPageViewLocked,
-      tabbarHeight: tabbarHeight ?? this.tabbarHeight,
     );
   }
 
@@ -240,6 +248,8 @@ class SystemState extends Equatable {
         navigatorKey,
         screenSize,
         statusHeight,
+        appbarHeight,
+        tabbarHeight,
         showMiniProgramDrawer,
         themeMode,
         currentLocale,
@@ -249,6 +259,5 @@ class SystemState extends Equatable {
         parentDragState,
         parentDragEndVelocity,
         isParentPageViewLocked,
-        statusHeight
       ];
 }

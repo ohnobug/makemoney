@@ -1,5 +1,7 @@
 // 文件路径: /lib/screens/user/ljn_user.dart
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // 用于剪贴板功能
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -266,7 +268,9 @@ class _LJNUserState extends State<LJNUser>
       LJNUserFunctionButton(
         icon: "images/icon/server_icon14.png",
         title: "学院",
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/course_list');
+        },
       ),
     ];
     const String accountId = 'TheMonsterClub';
@@ -438,12 +442,13 @@ class _LJNUserState extends State<LJNUser>
                             backgroundColor: theme.dividerColor,
                             foregroundColor: theme.textTheme.bodyLarge?.color,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.w),
+                              borderRadius: BorderRadius.circular(8.w),
                             ),
                             padding: EdgeInsets.symmetric(
                               horizontal: 30.w,
-                              vertical: 10.w,
+                              // vertical: 10.w,
                             ),
+                            minimumSize: Size(0, 60.w),
                           ),
                           child: Text(
                             "个人资料",
@@ -517,8 +522,6 @@ class _LJNUserState extends State<LJNUser>
     );
   }
 }
-
-// [已删除] _SliverTabBarDelegate 类在这里被删除了，因为它不再被需要。
 
 class _UserWorksGrid extends StatelessWidget {
   final List<String> items;
@@ -717,11 +720,11 @@ class _UserWorksGrid extends StatelessWidget {
                           fontFamily: 'Iconfont',
                         ),
                         color: Colors.white,
-                        size: 24.w,
+                        size: 32.w,
                       ),
                       SizedBox(width: 4.w),
                       Text(
-                        '${(index * 1.2 * 1000).toInt()}',
+                        '${(Random().nextInt(10) * 1.2 * 1000).toInt()}',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 22.w,

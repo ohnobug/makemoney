@@ -58,7 +58,7 @@ class _LJNPhoneNumber extends State<LJNPhoneNumber> {
                   child: Container(
                     constraints: BoxConstraints(
                         minHeight: MediaQuery.of(context).size.height -
-                            90.w -
+                            systemState.appbarHeight -
                             systemState.statusHeight),
                     color: AppColors.neutralWhite,
                     child: SingleChildScrollView(

@@ -69,7 +69,7 @@ class _LJNLoggedDevices extends State<LJNLoggedDevices> {
             child: Container(
               constraints: BoxConstraints(
                   minHeight: MediaQuery.of(context).size.height -
-                      90.w -
+                      systemState.appbarHeight -
                       systemState.statusHeight),
               color: theme.colorScheme.surfaceContainer,
               child: SingleChildScrollView(

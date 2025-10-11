@@ -121,7 +121,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
           lowerBound: 0,
           // 这里到底部是新appbar的高度 + 原本的statusHeight, 因为一个控制器, 既给新的用, 也给旧的用
           upperBound: screenSize.height -
-              (statusHeight + 90.w + initialCoverLayerHeight),
+              (statusHeight + systemState.appbarHeight + initialCoverLayerHeight),
           duration: const Duration(milliseconds: 350), // 动画持续时间
         );
 
@@ -142,7 +142,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    double newAppbarHeight = 90.w + initialCoverLayerHeight;
+    double newAppbarHeight = systemState.appbarHeight + initialCoverLayerHeight;
 
     // 新appbar透明度
     double percent25Position = screenSize.height * 0.25;
@@ -218,10 +218,10 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
         Visibility(
           visible: systemState.homescrollpixels > 0,
           child: Positioned(
-            top: 90.w + statusHeight + systemState.homescrollpixels,
+            top: systemState.appbarHeight + statusHeight + systemState.homescrollpixels,
             left: 0,
             // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
-            height: screenSize.height - (90.w + statusHeight),
+            height: screenSize.height - (systemState.appbarHeight + statusHeight),
             width: screenSize.width,
             child: Container(
               color: theme.colorScheme.surfaceContainer,
@@ -232,10 +232,10 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
         // 列表
         Positioned(
           // 不能使用systemState.homescrollpixels, 需要用_animationController!.value
-          top: 90.w + statusHeight + _animationController!.value,
+          top: systemState.appbarHeight + statusHeight + _animationController!.value,
           left: 0,
           width: screenSize.width,
-          height: screenSize.height - (90.w + statusHeight),
+          height: screenSize.height - (systemState.appbarHeight + statusHeight),
           child: Listener(
             onPointerUp: (event) {
               logger.info(
@@ -293,11 +293,11 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
             child: Container(
               color: theme.colorScheme.surfaceContainer,
               width: screenSize.width,
-              height: systemState.homescrollpixels + (90.w + statusHeight),
+              height: systemState.homescrollpixels + (systemState.appbarHeight + statusHeight),
               child: Lottie.asset(
                 assetPath('lotties/homeminiprogramdarwing.json'),
                 width: screenSize.width,
-                height: systemState.homescrollpixels + statusHeight + 90.w,
+                height: systemState.homescrollpixels + statusHeight + systemState.appbarHeight,
                 fit: BoxFit.contain,
                 renderCache: RenderCache.drawingCommands,
                 controller: _lottieController,
@@ -316,9 +316,9 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
           visible:
               (systemState.homescrollpixels + statusHeight) > percent25Position,
           child: Positioned(
-            height: 90.w +
+            height: systemState.appbarHeight +
                 (screenSize.height -
-                    (systemState.homescrollpixels + statusHeight + 90.w)),
+                    (systemState.homescrollpixels + statusHeight + systemState.appbarHeight)),
             width: 750.w,
             top: systemState.homescrollpixels + statusHeight,
             child: Listener(
@@ -446,7 +446,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
                     opacity: coverOpacity,
                     child: Container(
                       height: screenSize.height -
-                          (systemState.homescrollpixels + statusHeight + 90.w),
+                          (systemState.homescrollpixels + statusHeight + systemState.appbarHeight),
                       child: null,
                       color: theme.listTileTheme.tileColor!,
                     ),

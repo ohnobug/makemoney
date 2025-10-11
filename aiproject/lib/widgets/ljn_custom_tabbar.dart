@@ -89,6 +89,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     var systemCubit = context.read<LJNSystemCubit>();
 
     systemCubit.updateTabbarHeight(100.w);
+    systemCubit.updateAppbarHeight(90.w);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
@@ -333,7 +334,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                   left: _appbarLeft,
                   child: Container(
                     width: 750.0.w,
-                    height: systemState.statusHeight + 90.w,
+                    height: systemState.statusHeight + systemState.appbarHeight,
                     color: systemState.homescrollpixels == 0
                         ? theme.appBarTheme.backgroundColor
                         : Colors.transparent,

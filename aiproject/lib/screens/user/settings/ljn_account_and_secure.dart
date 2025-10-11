@@ -41,7 +41,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecure> {
             child: Container(
               constraints: BoxConstraints(
                 minHeight: MediaQuery.of(context).size.height -
-                    90.w -
+                    systemState.appbarHeight -
                     systemState.statusHeight,
               ),
               color: theme.colorScheme.surfaceContainer,

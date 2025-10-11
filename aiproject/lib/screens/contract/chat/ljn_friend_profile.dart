@@ -89,7 +89,7 @@ class _LJNFriendProfile extends State<LJNFriendProfile>
               ],
             ),
             Positioned(
-              top: 90.w + systemState.statusHeight,
+              top: systemState.appbarHeight + systemState.statusHeight,
               left: 0,
               right: 0,
               child: ScrollConfiguration(

@@ -58,7 +58,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
         child: Container(
           constraints: BoxConstraints(
               minHeight: MediaQuery.of(context).size.height -
-                  90.w -
+                  systemState.appbarHeight -
                   systemState.statusHeight),
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceContainer,
