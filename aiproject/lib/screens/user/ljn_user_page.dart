@@ -71,10 +71,11 @@ class _LJNUserPageState extends State<LJNUserPage>
     });
   }
 
+  double customkToolbarHeight = 95.w;
+  double expandedHeight = 680.w;
+
   Widget _buildPage(SystemState systemState) {
     ThemeData theme = Theme.of(context);
-    double customkToolbarHeight = 95.w;
-    double expandedHeight = 700.w;
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surfaceContainer,
@@ -259,7 +260,7 @@ class _LJNUserPageState extends State<LJNUserPage>
         },
       ),
       LJNUserFunctionButton(
-        icon: "images/icon/server_icon13.png",
+        icon: "images/icon/server_icon16.png",
         title: "浏览历史",
         onPressed: () {},
       ),
@@ -274,23 +275,26 @@ class _LJNUserPageState extends State<LJNUserPage>
     const String accountId = 'TheMonsterClub';
 
     return SizedBox(
-      height: 700.w,
+      height: expandedHeight,
       child: Stack(
         children: [
           Positioned.fill(
             child: CachedNetworkImage(
               imageUrl: "https://picsum.photos/750/750?random=497",
               fit: BoxFit.cover,
-              placeholder: (context, url) =>
-                  Container(color: Colors.grey.shade300),
+              placeholder: (context, url) => Container(
+                color: Colors.grey.shade300,
+              ),
               errorWidget: (context, url, error) => Container(
-                  color: Colors.grey.shade300, child: const Icon(Icons.error)),
+                color: Colors.grey.shade300,
+                child: const Icon(Icons.error),
+              ),
             ),
           ),
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.black.withAlpha(150),
+                color: Colors.black.withAlpha(200),
               ),
             ),
           ),
@@ -357,16 +361,23 @@ class _LJNUserPageState extends State<LJNUserPage>
                                     builder: (context, state) => Text(
                                       state.userinfoName ?? '用户名',
                                       style: TextStyle(
-                                          fontSize: 42.w,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
+                                        fontSize: 42.w,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                   const Spacer(),
-                                  Icon(
-                                    Icons.qr_code_2_outlined,
-                                    size: 50.w,
-                                    color: Colors.white,
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context,
+                                          '/user/collection_and_payment');
+                                    },
+                                    child: Icon(
+                                      Icons.qr_code_2_outlined,
+                                      size: 50.w,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -443,13 +454,14 @@ class _LJNUserPageState extends State<LJNUserPage>
                             padding: EdgeInsets.symmetric(
                               horizontal: 30.w,
                             ),
-                            minimumSize: Size(0, 60.w),
+                            minimumSize: Size(0, 80.w),
                           ),
                           child: Text(
                             "个人资料",
                             style: TextStyle(
                               fontSize: 26.w,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: "AlibabaPuHuiTi-Medium"
                             ),
                           ),
                         )
@@ -461,13 +473,13 @@ class _LJNUserPageState extends State<LJNUserPage>
               Padding(
                 padding: EdgeInsets.only(
                   top: 30,
-                  bottom: 20,
+                  bottom: 25,
                   left: 32,
                   right: 32,
                 ).w,
                 child: Divider(
                   height: 1.w,
-                  color: theme.dividerColor.withAlpha(80),
+                  color: theme.dividerColor.withAlpha(40),
                 ),
               ),
               GridView.builder(
@@ -494,7 +506,7 @@ class _LJNUserPageState extends State<LJNUserPage>
   Widget _buildUnauthenticatedUserInfoSection(
       SystemState systemState, ThemeData theme) {
     return SizedBox(
-      height: 700.w,
+      height: expandedHeight,
       child: Stack(
         children: [
           // --- 背景图和遮罩 (与登录状态完全相同，保持一致性) ---

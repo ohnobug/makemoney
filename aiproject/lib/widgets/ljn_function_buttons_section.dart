@@ -84,8 +84,8 @@ class LJNFunctionButtonsSection extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(), // 禁用滚动
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
-                crossAxisSpacing: 16.w,
-                mainAxisSpacing: 10.w,
+                crossAxisSpacing: 5.w,
+                mainAxisSpacing: 5.w,
                 childAspectRatio: 1, // 保持宽高比为1，如果觉得太挤可以调整为例如 0.9
               ),
               itemCount: buttons.length,

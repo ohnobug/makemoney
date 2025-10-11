@@ -146,8 +146,9 @@ class AppRouter {
       case '/user/camera':
         return _pageRouteBuilderAnimation(const LJNCameraViewPage()); // 相机页面
       case '/user/collection_and_payment':
-        return _pageRouteBuilderAnimation(
-            const LJNCollectionAndPaymentPage()); // 收藏和支付页面
+        return _pageRouteBuilderNotAnimation(
+          const LJNCollectionAndPaymentPage(),
+        ); // 收藏和支付页面
       case '/user/more_info':
         return _pageRouteBuilderAnimation(
             const LJNUserMoreInfoPage()); // 用户更多信息页面
@@ -168,9 +169,9 @@ class AppRouter {
       case '/user/auth/login':
         return _pageRouteBuilderNotAnimation(const LJNLoginPage()); // 用户登录页面
       case '/user/auth/register':
-        return _pageRouteBuilderNotAnimation(const LJNRegisterPage()); // 用户注册页面
+        return _pageRouteBuilderAnimation(const LJNRegisterPage()); // 用户注册页面
       case '/user/auth/forgot_password':
-        return _pageRouteBuilderNotAnimation(
+        return _pageRouteBuilderAnimation(
             const LJNForgotPasswordPage()); // 忘记密码页面
 
       // 设置相关路由

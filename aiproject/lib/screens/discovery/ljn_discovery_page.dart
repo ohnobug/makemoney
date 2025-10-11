@@ -171,7 +171,7 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
 
   Widget _buildSearchBar(ThemeData theme) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
       child: GestureDetector(
         onTap: () {
           Navigator.pushNamed(context, '/discovery/search');

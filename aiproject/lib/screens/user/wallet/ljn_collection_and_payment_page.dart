@@ -15,7 +15,8 @@ class LJNCollectionAndPaymentPage extends StatefulWidget {
       _LJNCollectionAndPaymentPageState();
 }
 
-class _LJNCollectionAndPaymentPageState extends State<LJNCollectionAndPaymentPage> {
+class _LJNCollectionAndPaymentPageState
+    extends State<LJNCollectionAndPaymentPage> {
   @override
   void initState() {
     super.initState();
@@ -41,6 +42,26 @@ class _LJNCollectionAndPaymentPageState extends State<LJNCollectionAndPaymentPag
             primary: false,
             appBar: LJNAppBar(
               title: l10n.payment,
+              leading: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                  // wallet
+                }, // 点击事件
+                child: Container(
+                  color: Colors.transparent,
+                  height: 90.w,
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 35.w),
+                  child: Icon(
+                    const IconData(
+                      0xe628,
+                      fontFamily: 'Iconfont',
+                    ), // 使用的图标
+                    color: Colors.white, // 图标颜色
+                    size: 36.w, // 图标大小
+                  ),
+                ),
+              ),
             ),
             body: ColoredBox(
               color: AppColors.brandTealDark3,
@@ -59,46 +80,46 @@ class _LJNCollectionAndPaymentPageState extends State<LJNCollectionAndPaymentPag
                           left: 15.w,
                           right: 15.w,
                         ),
-                        padding: EdgeInsets.all(30.w),
+                        padding: EdgeInsets.only(
+                          left: 30.w,
+                          right: 30.w,
+                          top: 0,
+                          bottom: 30.w,
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.neutralWhite,
                           borderRadius: BorderRadius.all(
-                            Radius.circular(10.w),
+                            Radius.circular(15.w),
                           ),
                         ),
                         child: Column(
                           children: [
-                            Container(
-                              height: 110.w,
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    width: 1.w,
-                                    color: theme.dividerColor,
-                                  ),
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
+                            // 标题
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                // 支付码
+                                Text.rich(
+                                  TextSpan(
                                     children: [
-                                      Icon(
-                                        const IconData(
-                                          0xe611,
-                                          fontFamily: 'Iconfont',
-                                        ), // 使用的图标
-                                        color: AppColors
-                                            .brandGreenVibrantDeep1, // 图标颜色
-                                        size: 35.w, // 图标大小
+                                      WidgetSpan(
+                                        child: Icon(
+                                          const IconData(
+                                            0xe611,
+                                            fontFamily: 'Iconfont',
+                                          ), // 使用的图标
+                                          color: AppColors
+                                              .brandGreenVibrantDeep1, // 图标颜色
+                                          size: 35.w, // 图标大小
+                                        ),
                                       ),
-                                      SizedBox(
+                                      WidgetSpan(
+                                          child: SizedBox(
                                         width: 10.w,
-                                      ),
-                                      Text(
-                                        l10n.paymentCode,
+                                      )),
+                                      TextSpan(
+                                        text: l10n.paymentCode,
                                         style: TextStyle(
                                           fontSize: 32.w,
                                           height: 1.08,
@@ -108,29 +129,43 @@ class _LJNCollectionAndPaymentPageState extends State<LJNCollectionAndPaymentPag
                                       )
                                     ],
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      // 点击事件
-                                    },
-                                    child: Container(
-                                      height: 90.w,
-                                      color: Colors.transparent,
-                                      child: Icon(
-                                        color: AppColors.neutralGrey38,
-                                        const IconData(
-                                          0xe659,
-                                          fontFamily: 'Iconfont',
-                                        ),
-                                        size: 43.w, // 图标大小
+                                ),
+
+                                // 三个点
+                                GestureDetector(
+                                  onTap: () {
+                                    // 点击事件
+                                  },
+                                  child: Container(
+                                    height: 90.w,
+                                    color: Colors.transparent,
+                                    child: Icon(
+                                      color: AppColors.neutralGrey38,
+                                      const IconData(
+                                        0xe659,
+                                        fontFamily: 'Iconfont',
                                       ),
+                                      size: 43.w, // 图标大小
                                     ),
-                                  )
-                                ],
+                                  ),
+                                )
+                              ],
+                            ),
+                            // 分割线
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 0,
+                                bottom: 30,
+                                left: 0,
+                                right: 0,
+                              ).w,
+                              child: Divider(
+                                height: 1.w,
+                                color: theme.dividerColor,
                               ),
                             ),
-                            SizedBox(
-                              height: 40.w,
-                            ),
+
+                            // 优先使用零钱
                             Text(
                               l10n.prioritizeBalancePayment,
                               style: TextStyle(
@@ -139,45 +174,46 @@ class _LJNCollectionAndPaymentPageState extends State<LJNCollectionAndPaymentPag
                               ),
                             ),
                             SizedBox(
-                              height: 10.w,
+                              height: 20.w,
                             ),
                             Image.asset(
                               assetPath("images/avatar/linecode.png"),
                               width: 630.0.w,
-                              height: 195.0.w,
+                              height: 90.0.w,
                               fit: BoxFit.fill,
                             ),
                             SizedBox(
-                              height: 55.w,
+                              height: 35.w,
                             ),
                             Container(
-                              padding: EdgeInsets.only(bottom: 60.w),
-                              height: 320.w,
+                              height: 400.w,
                               width: 750.w,
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    width: 1.w,
-                                    color: theme.dividerColor,
-                                  ),
-                                ),
-                              ),
                               child: Image.asset(
                                 assetPath("images/avatar/qrcode.png"),
-                                width: 320.0.w,
-                                height: 320.0.w,
+                                width: 400.0.w,
+                                height: 400.0.w,
                                 fit: BoxFit.contain,
                               ),
                             ),
-                            SizedBox(
-                              height: 33.w,
+                            // 分割线
+                            Padding(
+                              padding: EdgeInsets.only(
+                                top: 40,
+                                bottom: 40,
+                                left: 0,
+                                right: 0,
+                              ).w,
+                              child: Divider(
+                                height: 1.w,
+                                color: theme.dividerColor,
+                              ),
                             ),
                             Column(
                               children: [
                                 // 优先付款方式
                                 SizedBox(
                                   width: 750.w,
-                                  height: 25.w,
+                                  height: 30.w,
                                   child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
@@ -231,7 +267,7 @@ class _LJNCollectionAndPaymentPageState extends State<LJNCollectionAndPaymentPag
                                   padding:
                                       EdgeInsets.symmetric(horizontal: 33.w),
                                   decoration: BoxDecoration(
-                                    color: AppColors.neutralOffWhiteYellow,
+                                    color: AppColors.neutralGrey5,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(10.w),
                                     ),
@@ -241,30 +277,34 @@ class _LJNCollectionAndPaymentPageState extends State<LJNCollectionAndPaymentPag
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       // 零钱
-                                      Flex(
-                                        direction: Axis.horizontal,
-                                        children: [
-                                          Icon(
-                                            const IconData(
-                                              0xe6cc,
-                                              fontFamily: 'Iconfont',
-                                            ), // 使用的图标
-                                            color:
-                                                AppColors.accentYellow, // 图标颜色
-                                            size: 38.w, // 图标大小
-                                          ),
-                                          SizedBox(
-                                            width: 10.w,
-                                          ),
-                                          Text(
-                                            l10n.balance,
-                                            style: TextStyle(
-                                              fontSize: 25.w,
-                                              height: 1.08,
-                                              color: AppColors.neutralGrey74,
+                                      Text.rich(
+                                        TextSpan(
+                                          children: [
+                                            WidgetSpan(
+                                                child: Icon(
+                                              const IconData(
+                                                0xe6cc,
+                                                fontFamily: 'Iconfont',
+                                              ), // 使用的图标
+                                              color: AppColors
+                                                  .accentYellow, // 图标颜色
+                                              size: 38.w, // 图标大小
+                                            )),
+                                            WidgetSpan(
+                                              child: SizedBox(
+                                                width: 10.w,
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                            TextSpan(
+                                              text: l10n.balance,
+                                              style: TextStyle(
+                                                fontSize: 25.w,
+                                                height: 1.08,
+                                                color: AppColors.neutralGrey74,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
 
                                       // 打勾
@@ -312,7 +352,7 @@ class _LJNCollectionAndPaymentPageState extends State<LJNCollectionAndPaymentPag
                               ),
                               iconColor: AppColors.accentRedPure,
                               link: '',
-                              color: theme.colorScheme.onSurface,
+                              color: AppColors.blackTransparent64,
                               backgroundColor: AppColors.neutralWhite,
                               underline: false,
                             ),
@@ -343,7 +383,7 @@ class _LJNCollectionAndPaymentPageState extends State<LJNCollectionAndPaymentPag
                                 fontFamily: "Iconfont",
                               ),
                               link: '',
-                              backgroundColor: AppColors.brandTealDark2,
+                              backgroundColor: AppColors.brandTealMedium,
                               underline: true,
                             ),
                             LJNCAPFunctionItem(
@@ -353,7 +393,7 @@ class _LJNCollectionAndPaymentPageState extends State<LJNCollectionAndPaymentPag
                                 fontFamily: "Iconfont",
                               ),
                               link: '',
-                              backgroundColor: AppColors.brandTealDark2,
+                              backgroundColor: AppColors.brandTealMedium,
                               underline: true,
                             ),
                             LJNCAPFunctionItem(
@@ -363,7 +403,7 @@ class _LJNCollectionAndPaymentPageState extends State<LJNCollectionAndPaymentPag
                                 fontFamily: "Iconfont",
                               ),
                               link: '',
-                              backgroundColor: AppColors.brandTealDark2,
+                              backgroundColor: AppColors.brandTealMedium,
                               underline: true,
                             ),
                             LJNCAPFunctionItem(
@@ -373,7 +413,7 @@ class _LJNCollectionAndPaymentPageState extends State<LJNCollectionAndPaymentPag
                                 fontFamily: "Iconfont",
                               ),
                               link: '',
-                              backgroundColor: AppColors.brandTealDark2,
+                              backgroundColor: AppColors.brandTealMedium,
                               underline: true,
                             ),
                             LJNCAPFunctionItem(
@@ -383,7 +423,7 @@ class _LJNCollectionAndPaymentPageState extends State<LJNCollectionAndPaymentPag
                                 fontFamily: "Iconfont",
                               ),
                               link: '',
-                              backgroundColor: AppColors.brandTealDark2,
+                              backgroundColor: AppColors.brandTealMedium,
                               underline: false,
                             ),
                           ],
@@ -487,7 +527,7 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
         padding: EdgeInsets.symmetric(horizontal: 30.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (widget.icon != null) ...[
               // 头像
@@ -497,10 +537,10 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                 child: Icon(
                   widget.icon!, // 使用的图标
                   color: widget.iconColor ?? AppColors.neutralWhite, // 图标颜色
-                  size: 35.w, // 图标大小
+                  size: 40.w, // 图标大小
                 ),
               ),
-              SizedBox(width: 10.w)
+              SizedBox(width: 20.w)
             ],
             Expanded(
               child: Container(
@@ -522,16 +562,18 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // 标题
-                    Expanded(
-                      flex: 0,
-                      // width: 100.w,
+                    Container(
+                      // flex: 0,
+                      // color: Colors.red,
+                      width: 550.w,
                       child: Text(
                         widget.title,
                         style: TextStyle(
-                            height: 1.08,
-                            fontSize: fontSizeScale(32.0.w),
-                            fontFamily: "AlibabaPuHuiTi",
-                            color: widget.color ?? AppColors.neutralWhite),
+                          height: 1.08,
+                          fontSize: fontSizeScale(32.0.w),
+                          fontFamily: "AlibabaPuHuiTi",
+                          color: widget.color ?? AppColors.neutralWhite,
+                        ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -571,7 +613,7 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                             fontFamily: 'Iconfont',
                           ),
                           size: 30.0.w,
-                          color: theme.colorScheme.onSurface.withAlpha(100),
+                          color: theme.listTileTheme.tileColor!,
                         ),
                       )
                   ],
