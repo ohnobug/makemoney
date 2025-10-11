@@ -57,14 +57,11 @@ class _LJNLoginPage extends State<LJNLoginPage> {
 
     logger.info("登录成功");
 
-    // 跳转到主页并切换到用户中心页面（第5个tab）
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-
-    // 延迟切换到用户中心页面，确保状态已更新
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final systemCubit = context.read<LJNSystemCubit>();
-      systemCubit.updateMainTabIndex(4); // 切换到第5个tab（用户中心）
-    });
+    // 关闭页面
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      '/', // 假设你的主应用页面路由名是 '/home' 或其他
+      (Route<dynamic> route) => false, // 这个 predicate 返回 false 会移除所有旧路由
+    );
   }
 
   @override
@@ -142,7 +139,7 @@ class _LJNLoginPage extends State<LJNLoginPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                l10n.phoneNumber,
+                                "手机号",
                                 style: TextStyle(
                                   fontSize: 30.w,
                                   height: 1.08,
@@ -168,8 +165,7 @@ class _LJNLoginPage extends State<LJNLoginPage> {
                                     border: const OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                     ),
-                                    contentPadding:
-                                        const EdgeInsets.all(0),
+                                    contentPadding: const EdgeInsets.all(0),
                                   ),
                                 ),
                               ),
@@ -221,8 +217,7 @@ class _LJNLoginPage extends State<LJNLoginPage> {
                                     border: const OutlineInputBorder(
                                       borderSide: BorderSide.none,
                                     ),
-                                    contentPadding:
-                                        const EdgeInsets.all(0),
+                                    contentPadding: const EdgeInsets.all(0),
                                   ),
                                 ),
                               ),
@@ -242,10 +237,11 @@ class _LJNLoginPage extends State<LJNLoginPage> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/user/auth/forgot_password');
+                                  Navigator.pushNamed(
+                                      context, '/user/auth/forgot_password');
                                 },
                                 child: Text(
-                                  l10n.forgotPassword,
+                                  "忘记密码",
                                   style: TextStyle(
                                     fontSize: 24.w,
                                     color: AppColors.brandPurpleDark3,
@@ -254,7 +250,8 @@ class _LJNLoginPage extends State<LJNLoginPage> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  Navigator.pushNamed(context, '/user/auth/register');
+                                  Navigator.pushNamed(
+                                      context, '/user/auth/register');
                                 },
                                 child: Text(
                                   "注册",
