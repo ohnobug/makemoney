@@ -1,4 +1,3 @@
-import json
 from fastapi import Request, status
 from fastapi.responses import JSONResponse
 import redis.asyncio as redis
@@ -8,11 +7,11 @@ from jose import JWTError, jwt
 from pydantic import BaseModel
 
 
-
 class DecodeTokenUserData(BaseModel):
     user_id: int
     username: str
     avatar_url: str
+
 
 def get_user_info_from_token(token: str):
     """
@@ -26,7 +25,9 @@ def get_user_info_from_token(token: str):
         # 如果解码失败，可以选择返回 None 或抛出自定义异常
         return None
 
+
 # --- 定义在 /api 路径下，但不需要登录鉴权的公开API路由 ---
+
 
 async def token_auth_middleware(request: Request, call_next):
 
@@ -48,7 +49,7 @@ async def token_auth_middleware(request: Request, call_next):
             headers={"WWW-Authenticate": "Bearer"},
         )
     try:
-        
+
         # (可选) 将用户信息附加到请求 state，方便路由函数直接使用
         request.state.user = DecodeTokenUserData(**user_info)
 
@@ -62,4 +63,3 @@ async def token_auth_middleware(request: Request, call_next):
     # 验证通过，继续处理请求
     response = await call_next(request)
     return response
-
