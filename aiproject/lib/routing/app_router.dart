@@ -76,6 +76,7 @@ import 'package:vigaviga/screens/publisher/ai_publisher.dart';
 import 'package:vigaviga/screens/publisher/resource_publisher.dart';
 import 'package:vigaviga/screens/user/follow/ljn_follow_page.dart';
 import 'package:vigaviga/screens/user/ljn_like.dart';
+import 'package:vigaviga/screens/user/settings/ljn_help and_feedback.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -103,6 +104,8 @@ class AppRouter {
         return _pageRouteBuilderNotAnimation(const ResourceSearchPage());
       case '/ljn_like':
         return _pageRouteBuilderNotAnimation(const LikedVideosPage());
+      case '/ljn_help and_feedback':
+        return _pageRouteBuilderNotAnimation(const HelpAndFeedbackPage());
       case '/follow_and_fans':
         return _pageRouteBuilderAnimation(const LJNFollowPage());
       case '/miniprogram_list':
