@@ -77,7 +77,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     // 语言设置
                     LJNFunctionList(children: [
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "images/avatar/01.png",
                         title: l10n.languageSetting,
                         link: '/settings/language_setting',
                         underline: true,
@@ -94,19 +94,19 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     // 新消息通知 与 聊天 和 通用
                     LJNFunctionList(children: [
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "images/avatar/03.png",
                         title: l10n.newMessageNotifications,
                         link: '/settings/new_message_notification',
                         underline: true,
                       ),
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "images/avatar/04.png",
                         title: l10n.chat,
                         link: '/settings/chat_setting',
                         underline: true,
                       ),
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "images/avatar/05.png",
                         title: l10n.general,
                         link: '/settings/common_setting',
                         underline: false,
@@ -193,7 +193,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                         LJNFunctionItem(
                           icon: "images/avatar/02.png",
                           title: l10n.helpAndFeedback,
-                          link: '',
+                          link: '/ljn_help and_feedback',
                           underline: false,
                         ),
                       ],
