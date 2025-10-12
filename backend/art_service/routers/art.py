@@ -8,7 +8,7 @@ from schemas.art_list import ArtListData, ArtListResponse
 from db.art_model import ArtItem, VigaArt
 
 # 创建一个 APIRouter 实例  无限登陆路由
-router = APIRouter(prefix="/api/art")
+router = APIRouter()
 
 
 @router.get("/list", response_model=ArtListResponse, summary="分页获取艺术作品列表")

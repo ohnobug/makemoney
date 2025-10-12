@@ -14,7 +14,7 @@ from db.share_model import VigaShare
 from schemas.share import ShareResponse
 
 # 创建一个 APIRouter 实例 需要登陆路由
-router = APIRouter(prefix="/api/arts")
+router = APIRouter()
 
 
 @router.post("/collect", response_model=CollectResponse, summary="收藏艺术作品")

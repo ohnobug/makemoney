@@ -13,7 +13,7 @@ from fastapi.responses import JSONResponse
 from fastapi import HTTPException
 from routers import users, users_api
 import db.database as database
-from dependencies.request_auth import get_current_user
+from dependencies.request_auth import request_auth
 from dependencies.header_user_parser import header_user_parser
 
 from routers import internal_api
@@ -135,7 +135,7 @@ app.include_router(users.router, prefix="/api/user")
 app.include_router(
     users_api.router,
     prefix="/api/user",
-    dependencies=[Depends(get_current_user)],
+    dependencies=[Depends(request_auth)],
     tags=["用户信息"],
 )
 

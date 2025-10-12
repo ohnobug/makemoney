@@ -1,13 +1,11 @@
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.concurrency import asynccontextmanager
 from fastapi.responses import JSONResponse
 from fastapi import HTTPException
-from backend.art_service.middlewares.header_user_parser import (
-    header_user_parser_middleware,
-)
-from backend.art_service.middlewares.token_auth import token_auth_middleware
+from dependencies.request_auth import request_auth
+
 import db.art_model
 import db.database as database
 from routers import art, comment, upload, arts
@@ -31,15 +29,6 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="FastAPI新接口", lifespan=lifespan)
-
-# 创建需要登陆子应用
-api_app = FastAPI()
-# 创建内部调用子应用
-internal_app = FastAPI()
-
-# 为子应用添加中间件
-api_app.middleware("http")(token_auth_middleware)
-internal_app.middleware("http")(header_user_parser_middleware)
 
 
 class UnicornException(Exception):
@@ -91,16 +80,27 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 用户路由
-app.include_router(art.router)
-app.mount("/api/arts", api_app)
-# app.mount("/internal_api/users", internal_app)
-
-# 在子应用中包含路由
-api_app.include_router(arts.router)
-api_app.include_router(comment.router)
-api_app.include_router(upload.router)
-# internal_app.include_router(internal_api.router)
+# 无需登陆路由
+app.include_router(art.router, prefix="/api/art")
+# 需要登陆接口的路由
+app.include_router(
+    arts.router,
+    prefix="/api/art",
+    dependencies=[Depends(request_auth)],
+    tags=["艺术作品"],
+)
+app.include_router(
+    comment.router,
+    prefix="/api/art",
+    dependencies=[Depends(request_auth)],
+    tags=["评论"],
+)
+app.include_router(
+    upload.router,
+    prefix="/api/art",
+    dependencies=[Depends(request_auth)],
+    tags=["上传作品"],
+)
 
 
 if __name__ == "__main__":

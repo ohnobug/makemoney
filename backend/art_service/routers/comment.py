@@ -15,7 +15,7 @@ from schemas.comment import (
 )
 
 # 创建一个 APIRouter 实例
-router = APIRouter(prefix="/api/arts")
+router = APIRouter()
 
 
 @router.post("/comments", response_model=CommentResponse, summary="创建评论")
