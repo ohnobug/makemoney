@@ -132,6 +132,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                       right: 0.0,
                     ).w,
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25.0), 
                   shape: BoxShape.rectangle,
                   image: DecorationImage(
                     image: AssetImage(
