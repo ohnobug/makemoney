@@ -7,8 +7,8 @@ from schemas.userinfo import UserInfo, UserInfoRequestOut
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
-# 创建一个 APIRouter 实例
-router = APIRouter(prefix="/api/users")
+# 创建一个 APIRouter 实例 需要登陆
+router = APIRouter()
 
 
 # 获取用户信息

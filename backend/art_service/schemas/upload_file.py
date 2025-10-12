@@ -8,11 +8,14 @@ class UploadFileRequest(BaseModel):
     filename: str
     filetype: str  # 如 "image/jpeg", "video/mp4" 等
 
-class UploadFileResponse(BaseModel):
+
+class UploadFileData(BaseModel):
     url: str
     key: str
 
+
 class UploadFileResponse(BaseResponse):
-    data:UploadFileResponse
+    data: UploadFileData
+
 
 # 评论列表响应模型 - 支持分页

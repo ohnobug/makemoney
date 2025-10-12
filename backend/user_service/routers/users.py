@@ -51,8 +51,8 @@ from redis.asyncio import Redis
 
 from utils.redis import get_redis_connection, get_data, set_data
 
-# 创建一个 APIRouter 实例
-router = APIRouter(prefix="/api/user")
+# 创建一个 APIRouter 实例 无限登陆
+router = APIRouter()
 
 
 # 登录
@@ -322,22 +322,6 @@ async def clear_verify_code_list(db: AsyncSession = Depends(get_db)):
     await db.commit()
 
     return BaseResponse(code=200, message="清空成功")
-
-
-# 获取用户信息
-# @router.middleware_stack("http")(token_auth_middleware)  # 应用中间件
-@router.post("/userinfo", response_model=UserInfoRequestOut)
-async def userinfo(request: Request):
-    try:
-        userinfo = request.state.user
-    except:
-        raise HTTPException(status_code=401, detail="token解析错误")
-
-    return UserInfoRequestOut(
-        code=200,
-        message="success",
-        data=UserInfo(phone_number=userinfo["phone_number"]),
-    )
 
 
 # 邮箱注册

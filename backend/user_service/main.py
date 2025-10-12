@@ -6,18 +6,17 @@ AUTHOR PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
 """
 
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.concurrency import asynccontextmanager
 from fastapi.responses import JSONResponse
 from fastapi import HTTPException
-import os
-import db.models
+from routers import users, users_api
 import db.database as database
-from middlewares.token_auth import token_auth_middleware
-from middlewares.header_user_parser import header_user_parser_middleware
+from dependencies.request_auth import request_auth
+from dependencies.header_user_parser import header_user_parser
 
-from routers import users, user_api, internal_api
+from routers import internal_api
 
 
 @asynccontextmanager
@@ -37,16 +36,48 @@ async def lifespan(app: FastAPI):
     print("Database engine disposed")
 
 
-app = FastAPI(title="FastAPI新接口", lifespan=lifespan)
-
-# 创建需要登陆子应用
-api_app = FastAPI()
-# 创建内部调用子应用
-internal_app = FastAPI()
-
-# 为子应用添加中间件
-api_app.middleware("http")(token_auth_middleware)
-internal_app.middleware("http")(header_user_parser_middleware)
+# 优化 FastAPI 配置，增强文档显示效果
+app = FastAPI(
+    title="用户服务 API",
+    description="""
+    ## 接口分组
+    
+    - **公开接口**: `/api/user/*` - 无需认证
+    - **用户接口**: `/api/user/*` - 需要 JWT 认证  
+    - **内部接口**: `/internal_api/user/*` - 需要 X-User-Info 头部
+    """,
+    version="1.0.0",
+    lifespan=lifespan,
+    # 配置安全方案，这样文档会显示认证按钮
+    openapi_security=[{"Bearer": []}],
+    # 配置安全方案定义和标签
+    openapi_extra={
+        "components": {
+            "securitySchemes": {
+                "Bearer": {
+                    "type": "http",
+                    "scheme": "bearer",
+                    "bearerFormat": "JWT",
+                    "description": """
+                    JWT Bearer Token 认证。
+                    
+                    请在下方输入您的 JWT Token (不包含 'Bearer '前缀)。
+                    
+                    💡 **测试示例 Token (开发环境):**
+                    ```
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjMsInVzZXJuYW1lIjoiZGV2X3VzZXIifQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6y
+                    ```
+                    """,
+                }
+            }
+        },
+        "tags": [
+            {"name": "用户认证", "description": "用户登录、注册等相关接口"},
+            {"name": "用户信息", "description": "获取和操作用户信息的接口"},
+            {"name": "内部接口", "description": "内部服务调用的接口"},
+        ],
+    },
+)
 
 
 class UnicornException(Exception):
@@ -99,13 +130,22 @@ app.add_middleware(
 )
 
 # 挂载子应用
-app.include_router(users.router)
-app.mount("/api/users", api_app)
-app.mount("/internal_api/users", internal_app)
+app.include_router(users.router, prefix="/api/user")
+# 需要登陆接口的路由
+app.include_router(
+    users_api.router,
+    prefix="/api/user",
+    dependencies=[Depends(request_auth)],
+    tags=["用户信息"],
+)
 
-# 在子应用中包含路由
-api_app.include_router(user_api.router)
-internal_app.include_router(internal_api.router)
+# 3. 内部接口 (internal_api.router)
+app.include_router(
+    internal_api.router,
+    prefix="/internal_api/user",
+    dependencies=[Depends(header_user_parser)],
+    tags=["内部接口"],
+)
 
 
 if __name__ == "__main__":

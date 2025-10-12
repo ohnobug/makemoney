@@ -3,13 +3,11 @@ import boto3
 from botocore.exceptions import ClientError
 from datetime import datetime
 
-from schemas.upload_file import UploadFileRequest, UploadFileResponse
-from middlewares.token_auth import token_auth_middleware
+from schemas.upload_file import UploadFileData, UploadFileRequest, UploadFileResponse
 from config import R2_ACCESS_KEY, R2_SECRET_KEY, R2_BUCKET, R2_ACCOUNT_ID
 
 
-router = APIRouter(prefix="/api/art")
-router.middleware("http")(token_auth_middleware)
+router = APIRouter()
 
 # 创建 S3 兼容客户端
 s3_client = boto3.client(
@@ -47,8 +45,9 @@ def get_presigned_url(request: UploadFileRequest):
             ExpiresIn=480,  # 8 分钟
             HttpMethod="PUT",
         )
+        data = UploadFileData(url=presigned_url, key=key)
 
-        return UploadFileResponse(url=presigned_url, key=key)
+        return UploadFileResponse(data=data)
 
     except ClientError as e:
         print(f"R2 Client Error: {e}")
