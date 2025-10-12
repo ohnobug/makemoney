@@ -20,8 +20,8 @@ from schemas.userinfo import (
 from services.user_service import get_users_by_ids
 
 
-# 创建一个 APIRouter 实例
-router = APIRouter(prefix="/internal_api/users")
+# 创建一个 APIRouter 实例 内部接口
+router = APIRouter()
 
 
 # 获取用户信息

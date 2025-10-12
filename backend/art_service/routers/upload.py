@@ -4,12 +4,10 @@ from botocore.exceptions import ClientError
 from datetime import datetime
 
 from schemas.upload_file import UploadFileRequest, UploadFileResponse
-from middlewares.token_auth import token_auth_middleware
 from config import R2_ACCESS_KEY, R2_SECRET_KEY, R2_BUCKET, R2_ACCOUNT_ID
 
 
-router = APIRouter(prefix="/api/art")
-router.middleware("http")(token_auth_middleware)
+router = APIRouter(prefix="/api/arts")
 
 # 创建 S3 兼容客户端
 s3_client = boto3.client(
