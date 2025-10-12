@@ -67,7 +67,7 @@ class _LJNPopupMenuState extends State<LJNPopupMenu> {
                     icon: const IconData(0xe61f, fontFamily: "iconfont"),
                     onTap: () {
                       widget.setShowPopup?.call(false);
-                      Navigator.pushNamed(context, '/add_friends');
+                      Navigator.pushNamed(context, '/contact/add_friends');
                     },
                   ),
                   // Scan QR Code
@@ -85,7 +85,7 @@ class _LJNPopupMenuState extends State<LJNPopupMenu> {
                     icon: const IconData(0xe611, fontFamily: "iconfont"),
                     onTap: () {
                       widget.setShowPopup?.call(false);
-                      Navigator.pushNamed(context, '/collection_and_payment');
+                      Navigator.pushNamed(context, '/user/collection_and_payment');
                     },
                   ),
                 ],

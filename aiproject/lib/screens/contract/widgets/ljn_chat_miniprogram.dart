@@ -75,7 +75,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
-        double newAppbarHeight = 90.w + 17.w;
+        double newAppbarHeight = systemState.appbarHeight + 17.w;
 
         double miniprogramboxScale = 0.8 +
             (0.2 *
@@ -94,7 +94,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
         return Container(
           width: 750.w,
           height: systemState.homescrollpixels +
-              (90.w + systemState.statusHeight + 200.w),
+              (systemState.appbarHeight + systemState.statusHeight + 200.w),
           color: Color.fromARGB(
             (255 * 0.8).toInt(),
             50,

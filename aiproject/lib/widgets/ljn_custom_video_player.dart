@@ -104,14 +104,17 @@ class _LJNCustomVideoPlayerState extends State<LJNCustomVideoPlayer> {
                   behavior: HitTestBehavior.opaque,
                   child: Container(color: Colors.transparent),
                 ),
-                AnimatedOpacity(
-                  opacity: _showPlayIcon ? 1.0 : 0.0,
-                  duration: const Duration(milliseconds: 250),
-                  child: Center(
-                    child: Icon(
-                      Icons.play_arrow_rounded,
-                      color: Colors.white.withAlpha(200),
-                      size: 140.w,
+                GestureDetector(
+                  onTap: _togglePlaying,
+                  child: AnimatedOpacity(
+                    opacity: _showPlayIcon ? 1.0 : 0.0,
+                    duration: const Duration(milliseconds: 250),
+                    child: Center(
+                      child: Icon(
+                        Icons.play_arrow_rounded,
+                        color: Colors.white.withAlpha(200),
+                        size: 140.w,
+                      ),
                     ),
                   ),
                 ),

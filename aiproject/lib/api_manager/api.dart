@@ -479,27 +479,27 @@ List<dynamic> getContactDataList() {
     FunctionItemData(
         titleKey: 'newFriends',
         icon: "images/avatar/01.png",
-        link: '/new_friends',
+        link: '/contact/new_friends',
         underline: true),
     FunctionItemData(
         titleKey: 'chatOnlyFriends',
         icon: "images/avatar/02.png",
-        link: '/friends_who_only_chat',
+        link: '/contact/friends_who_only_chat',
         underline: true),
     FunctionItemData(
         titleKey: 'groupChats',
         icon: "images/avatar/03.png",
-        link: '/contact_group',
+        link: '/contact/group',
         underline: true),
     FunctionItemData(
         titleKey: 'tags',
         icon: "images/avatar/04.png",
-        link: '/contact_tags',
+        link: '/contact/tags',
         underline: true),
     FunctionItemData(
         titleKey: 'officialAccounts',
         icon: "images/avatar/05.png",
-        link: '/official_accounts',
+        link: '/contact/official_accounts',
         underline: false),
     'A', // 字母
     ContactItemData(

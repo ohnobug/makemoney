@@ -10,15 +10,16 @@ class LJNChangeAccountButton extends StatefulWidget {
   final Color? backgroundColor;
   final String? link;
   final bool? readonly;
+  final Function? ontap;
 
-  const LJNChangeAccountButton({
-    super.key,
-    required this.title,
-    this.color,
-    this.backgroundColor,
-    this.readonly,
-    this.link,
-  });
+  const LJNChangeAccountButton(
+      {super.key,
+      required this.title,
+      this.color,
+      this.backgroundColor,
+      this.readonly,
+      this.link,
+      this.ontap});
 
   @override
   State<LJNChangeAccountButton> createState() => _LJNChangeAccountButtonState();
@@ -86,10 +87,14 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
           });
 
           if (context.mounted) {
-            if (widget.link == 'back') {
-              Navigator.of(context).pop();
-            } else if (widget.link != null) {
-              Navigator.pushNamed(context, widget.link!);
+            if (widget.ontap != null) {
+              widget.ontap!();
+            } else {
+              if (widget.link == 'back') {
+                Navigator.of(context).pop();
+              } else if (widget.link != null) {
+                Navigator.pushNamed(context, widget.link!);
+              }
             }
           }
         });

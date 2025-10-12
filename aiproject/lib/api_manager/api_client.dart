@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:vigaviga/config/app_config.dart';
+import 'package:vigaviga/tools/ljn_logger.dart';
 
 class ApiClient {
   late Dio _dio;
@@ -22,21 +23,21 @@ class ApiClient {
           // if (token != null) {
           //   options.headers["Authorization"] = "Bearer $token";
           // }
-          print("[DIO] 请求发送: ${options.method} ${options.path}");
-          print("[DIO] 请求头: ${options.headers}");
-          print("[DIO] 请求数据: ${options.data}");
+          logger.info("[DIO] 请求发送: ${options.method} ${options.path}");
+          logger.info("[DIO] 请求头: ${options.headers}");
+          logger.info("[DIO] 请求数据: ${options.data}");
           return handler.next(options); // 继续发送请求
         },
         onResponse: (response, handler) {
-          print(
+          logger.info(
               "[DIO] 响应接收: ${response.statusCode} ${response.requestOptions.path}");
-          print("[DIO] 响应数据: ${response.data}");
+          logger.info("[DIO] 响应数据: ${response.data}");
           return handler.next(response); // 继续处理响应
         },
         onError: (DioException e, handler) {
-          print(
+          logger.info(
               "[DIO] 请求错误: ${e.response?.statusCode} ${e.requestOptions.path}");
-          print("[DIO] 错误信息: ${e.message}");
+          logger.info("[DIO] 错误信息: ${e.message}");
           // 可以在这里处理各种错误，例如：
           // - 401 未授权：跳转到登录页
           // - 网络错误：显示网络不可用提示
@@ -104,7 +105,7 @@ class ApiClient {
     if (error.response != null) {
       // 服务器返回的错误信息
       errorMessage = error.response!.data?["message"] ?? "服务器错误";
-      print("API Error (Status: ${error.response!.statusCode}): $errorMessage");
+      logger.info("API Error (Status: ${error.response!.statusCode}): $errorMessage");
     } else {
       // 网络错误或其他
       if (error.type == DioExceptionType.connectionTimeout) {
@@ -126,7 +127,7 @@ class ApiClient {
       } else {
         errorMessage = "未知错误: ${error.message}"; // 捕获其他未明确处理的错误
       }
-      print("Network Error: $errorMessage");
+      logger.info("Network Error: $errorMessage");
     }
     throw Exception(errorMessage); // 抛出自定义异常，方便上层捕获和处理
   }

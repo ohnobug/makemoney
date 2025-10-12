@@ -45,7 +45,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                 widget.onFriendAvatarTap!();
               }
 
-              Navigator.pushNamed(context, '/friendprofile',
+              Navigator.pushNamed(context, '/chat/friend/profile',
                   arguments: <String, String>{
                     'name': widget.name,
                     'avatar': widget.friendAvatar,

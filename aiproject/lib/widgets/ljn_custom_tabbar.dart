@@ -1,18 +1,16 @@
-// ./lib/widgets/ljn_custom_tabbar.dart
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/screens/arts/ljn_arts_page.dart';
+import 'package:vigaviga/screens/contract/ljn_recent_chats_list_page.dart';
+import 'package:vigaviga/screens/discovery/ljn_discovery_page.dart';
+import 'package:vigaviga/screens/publisher/ljn_publisher_page.dart';
+import 'package:vigaviga/screens/user/ljn_user_page.dart';
 import 'package:vigaviga/widgets/ljn_popup_menu.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vigaviga/screens/publisher/ljn_publisher.dart';
-import 'package:vigaviga/screens/arts/ljn_arts.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar_inner.dart';
-import 'package:vigaviga/screens/discovery/ljn_discovery.dart';
-import 'package:vigaviga/screens/contract/ljn_recent_chats_list.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/screens/user/ljn_user.dart';
 
 class _TabInfo {
   final IconData icon;
@@ -42,27 +40,27 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     _TabInfo(
       icon: const IconData(0xe63c, fontFamily: "Iconfont"),
       selectedIcon: const IconData(0xe63b, fontFamily: "Iconfont"),
-      iconSize: 80.0.w,
+      iconSize: 75.0.w,
     ),
     _TabInfo(
       icon: const IconData(0xe61c, fontFamily: "Iconfont"),
       selectedIcon: const IconData(0xe638, fontFamily: "Iconfont"),
-      iconSize: 76.0.w,
+      iconSize: 71.0.w,
     ),
     _TabInfo(
       icon: const IconData(0xe67c, fontFamily: "Iconfont"),
       selectedIcon: const IconData(0xe642, fontFamily: "Iconfont"),
-      iconSize: 82.0.w,
+      iconSize: 77.0.w,
     ),
     _TabInfo(
       icon: const IconData(0xe7b3, fontFamily: "Iconfont"),
       selectedIcon: const IconData(0xe676, fontFamily: "Iconfont"),
-      iconSize: 80.0.w,
+      iconSize: 75.0.w,
     ),
     _TabInfo(
       icon: const IconData(0xe63f, fontFamily: "Iconfont"),
       selectedIcon: const IconData(0xe62b, fontFamily: "Iconfont"),
-      iconSize: 86.0.w,
+      iconSize: 81.0.w,
     ),
   ];
 
@@ -70,13 +68,13 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   double _appbarLeft = 0;
   bool _hiddenAppbar = true;
   bool _showPopup = false;
-
-  Color _tabBarBackgroundColor = Colors.black.withAlpha(64);
-  Color _selectedItemColor = Colors.white;
-  Color _unselectedItemColor = Colors.white.withAlpha(153);
-  Color _borderColor = Colors.white.withAlpha(38);
-
   bool _isTapAnimating = false;
+
+  // [主要改动 1] 移除所有颜色相关的状态变量
+  // Color _tabBarBackgroundColor = ... (移除)
+  // Color _selectedItemColor = ... (移除)
+  // Color _unselectedItemColor = ... (移除)
+  // Color _borderColor = ... (移除)
 
   @override
   void initState() {
@@ -84,15 +82,24 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     _tabController = TabController(length: _tabs.length, vsync: this);
     _pageController = PageController();
 
+    // [主要改动 2] 现在页面滚动时只更新非颜色相关的UI状态
     _pageController.addListener(_handlePageScroll);
+    // 同时，我们需要监听 TabController 的动画，以便在 build 方法中获取精确的滚动值
+    _tabController.animation?.addListener(() {
+      // 仅在手动滑动时触发UI重绘，避免与点击动画冲突
+      if (!_isTapAnimating && !_tabController.indexIsChanging) {
+        setState(() {});
+      }
+    });
 
     var systemCubit = context.read<LJNSystemCubit>();
-
-    systemCubit.updateTabbarHeight(100.w);
+    systemCubit.updateTabbarHeight(95.w);
+    systemCubit.updateAppbarHeight(90.w);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        _updateUiForPage(0.0);
+        // [主要改动 3] initState 中不再需要调用 _updateUiForPage 来设置颜色
+        _updateNonColorUI(0.0);
 
         if (kIsWeb) {
           systemCubit.updateStatusHeight(0);
@@ -103,36 +110,9 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     });
   }
 
-  void _updateUiForPage(double page) {
+  // [主要改动 4] 将 _updateUiForPage 重命名并简化，只处理非颜色的UI状态
+  void _updateNonColorUI(double page) {
     if (!mounted) return;
-    if (_tabController.indexIsChanging && !_isTapAnimating) return;
-
-    if (!_isTapAnimating) {
-      _tabController.offset = (page - _tabController.index).clamp(-1.0, 1.0);
-    }
-
-    final theme = Theme.of(context);
-    final Color videoTabBackgroundColor = Colors.black.withAlpha(64);
-    const Color videoTabForegroundColor = Colors.white;
-    final Color videoTabUnselectedColor = Colors.white.withAlpha(153);
-    final Color videoTabBorderColor = Colors.white.withAlpha(38);
-    final Color otherTabBackgroundColor =
-        theme.bottomAppBarTheme.color ?? theme.scaffoldBackgroundColor;
-    final Color otherTabForegroundColor =
-        theme.tabBarTheme.labelColor ?? theme.colorScheme.primary;
-    final Color otherTabUnselectedColor =
-        theme.tabBarTheme.unselectedLabelColor ?? Colors.grey;
-    final Color otherTabBorderColor = theme.dividerColor;
-
-    final double t = page.clamp(0.0, 1.0);
-    final newTabBarBackgroundColor =
-        Color.lerp(videoTabBackgroundColor, otherTabBackgroundColor, t)!;
-    final newSelectedItemColor =
-        Color.lerp(videoTabForegroundColor, otherTabForegroundColor, t)!;
-    final newUnselectedItemColor =
-        Color.lerp(videoTabUnselectedColor, otherTabUnselectedColor, t)!;
-    final newBorderColor =
-        Color.lerp(videoTabBorderColor, otherTabBorderColor, t)!;
 
     double newAppbarLeft = 0;
     int newAppbarNameIndex = page.round();
@@ -146,10 +126,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     final bool newHiddenAppbar = (page.round() == 0 || page >= 4);
 
     setState(() {
-      _tabBarBackgroundColor = newTabBarBackgroundColor;
-      _selectedItemColor = newSelectedItemColor;
-      _unselectedItemColor = newUnselectedItemColor;
-      _borderColor = newBorderColor;
       _appbarLeft = newAppbarLeft;
       _appbarNameIndex = newAppbarNameIndex;
       _hiddenAppbar = newHiddenAppbar;
@@ -159,7 +135,9 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   void _handlePageScroll() {
     if (!_pageController.hasClients) return;
     if (_isTapAnimating) return;
-    _updateUiForPage(_pageController.page!);
+    // 页面滚动时，同时触发颜色重计算（通过setState）和非颜色UI更新
+    setState(() {});
+    _updateNonColorUI(_pageController.page!);
   }
 
   void _onPageChanged(int index) {
@@ -177,6 +155,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   @override
   void dispose() {
     _pageController.removeListener(_handlePageScroll);
+    _tabController.animation?.removeListener(() {});
     _tabController.dispose();
     _pageController.dispose();
     super.dispose();
@@ -199,6 +178,46 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     final tabTitles = _getTabTitles(context);
     final systemCubit = context.read<LJNSystemCubit>();
 
+    // [主要改动 5] 在 build 方法中动态计算所有颜色
+    // 这样，每当主题变化或页面滚动时，颜色都会被重新正确计算
+
+    // 1. 定义两种状态的颜色
+    // 视频页（第0页）的样式
+    final Color videoTabBackgroundColor = Colors.black.withAlpha(64);
+    const Color videoTabForegroundColor = Colors.white;
+    final Color videoTabUnselectedColor = Colors.white.withAlpha(153);
+    final Color videoTabBorderColor = Colors.white.withAlpha(38);
+
+    // 其他页面的样式，直接从当前主题获取
+    final Color otherTabBackgroundColor =
+        theme.bottomAppBarTheme.color ?? theme.scaffoldBackgroundColor;
+    final Color otherTabForegroundColor =
+        theme.tabBarTheme.labelColor ?? theme.colorScheme.primary;
+    final Color otherTabUnselectedColor =
+        theme.tabBarTheme.unselectedLabelColor ?? Colors.grey;
+    final Color otherTabBorderColor = theme.dividerColor;
+
+    // 2. 计算插值因子 t
+    // 获取当前精确的页面位置，优先使用 PageController
+    double page =
+        _pageController.hasClients && _pageController.position.haveDimensions
+            ? _pageController.page!
+            : _tabController.index.toDouble();
+
+    // t 只在 0.0 到 1.0 之间有效，用于实现第一页到第二页的过渡动画
+    final double t = page.clamp(0.0, 1.0);
+
+    // 3. 使用 Color.lerp 计算出最终的颜色
+    final Color finalTabBarBackgroundColor =
+        Color.lerp(videoTabBackgroundColor, otherTabBackgroundColor, t)!;
+    final Color finalSelectedItemColor =
+        Color.lerp(videoTabForegroundColor, otherTabForegroundColor, t)!;
+    final Color finalUnselectedItemColor =
+        Color.lerp(videoTabUnselectedColor, otherTabUnselectedColor, t)!;
+    final Color finalBorderColor =
+        Color.lerp(videoTabBorderColor, otherTabBorderColor, t)!;
+
+    // 不再需要 BlocListener 来更新颜色，BlocBuilder 会在主题变化时自动触发重建
     return BlocListener<LJNSystemCubit, SystemState>(
       listenWhen: (prev, current) =>
           prev.parentDragState != current.parentDragState,
@@ -226,10 +245,9 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
         builder: (context, systemState) {
           return Stack(
             children: [
-              // 页面内容
               Scaffold(
                 primary: false,
-                backgroundColor: _tabController.index == 0
+                backgroundColor: t < 0.5 // 背景色也需要动态计算
                     ? Colors.black
                     : theme.scaffoldBackgroundColor,
                 bottomNavigationBar: Visibility(
@@ -237,10 +255,11 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                   child: Container(
                     height: systemState.tabbarHeight + 1.0.w,
                     decoration: BoxDecoration(
-                      color: _tabBarBackgroundColor,
+                      // [主要改动 6] 使用在 build 方法中计算好的最终颜色
+                      color: finalTabBarBackgroundColor,
                       border: Border(
                         top: BorderSide(
-                          color: _borderColor,
+                          color: finalBorderColor,
                           width: 1.0.w,
                         ),
                       ),
@@ -252,8 +271,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                           _isTapAnimating = true;
                         });
 
-                        _updateUiForPage(index.toDouble());
-                        _tabController.index = index;
+                        _updateNonColorUI(index.toDouble());
 
                         _pageController
                             .animateToPage(
@@ -262,31 +280,30 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                           curve: Curves.ease,
                         )
                             .then((_) {
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            if (mounted) {
-                              setState(() {
-                                _isTapAnimating = false;
-                              });
-                            }
-                          });
+                          if (mounted) {
+                            setState(() {
+                              _isTapAnimating = false;
+                            });
+                          }
                         });
                       },
                       dividerColor: Colors.transparent,
-                      labelColor: _selectedItemColor,
+                      // [主要改动 6] 使用在 build 方法中计算好的最终颜色
+                      labelColor: finalSelectedItemColor,
                       labelStyle: theme.tabBarTheme.labelStyle,
-                      unselectedLabelColor: _unselectedItemColor,
+                      unselectedLabelColor: finalUnselectedItemColor,
                       indicator: const BoxDecoration(),
                       overlayColor: WidgetStateProperty.all(Colors.transparent),
                       tabs: List.generate(
                         _tabs.length,
                         (index) {
                           final tabInfo = _tabs[index];
+                          // 图标的选择逻辑保持不变
                           final icon = _tabController.index == index
                               ? tabInfo.selectedIcon
                               : tabInfo.icon;
                           return Tab(
-                            // height: systemState.tabbarHeight,
-                            iconMargin: EdgeInsets.only(bottom: 6.w),
+                            iconMargin: EdgeInsets.only(bottom: 3.w),
                             icon: SizedBox(
                               height: 50.w,
                               width: 50.w,
@@ -308,20 +325,17 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                 body: PageView(
                   controller: _pageController,
                   onPageChanged: _onPageChanged,
-                  // [MODIFIED] 这是唯一的修改。
-                  // 将 physics 设置为 NeverScrollableScrollPhysics，
-                  // 这会禁止用户通过手势滑动页面，但依然允许通过点击 TabBar 来切换。
                   physics: const NeverScrollableScrollPhysics(),
                   children: const <Widget>[
-                    LJNArts(),
-                    LJNDiscovery(),
-                    LJNPublisher(),
-                    LJNRecentChatsList(),
-                    LJNUser(),
+                    LJNArtsPage(),
+                    LJNDiscoveryPage(),
+                    LJNPublisherPage(),
+                    LJNRecentChatsListPage(),
+                    LJNUserPage(),
                   ],
                 ),
               ),
-
+              // ... 其他UI部分保持不变 ...
               // Appbar
               Visibility(
                 visible: !_hiddenAppbar &&
@@ -333,7 +347,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                   left: _appbarLeft,
                   child: Container(
                     width: 750.0.w,
-                    height: systemState.statusHeight + 90.w,
+                    height: systemState.statusHeight + systemState.appbarHeight,
                     color: systemState.homescrollpixels == 0
                         ? theme.appBarTheme.backgroundColor
                         : Colors.transparent,
@@ -449,8 +463,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                     value: systemState.videoProgress,
                     minHeight: 2,
                     backgroundColor: theme.colorScheme.primary.withAlpha(77),
-                    // minHeight: 5,
-                    // backgroundColor: theme.colorScheme.primary,
                     valueColor: AlwaysStoppedAnimation<Color>(
                       theme.colorScheme.primary.withAlpha(179),
                     ),
