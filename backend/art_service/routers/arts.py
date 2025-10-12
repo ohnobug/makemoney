@@ -1,7 +1,15 @@
+from asyncio import log
 from fastapi import Depends, Query, Request
 from fastapi import APIRouter, HTTPException
 from sqlalchemy import delete, select
 
+from db.art_temp import VigaArtTemp
+from schemas.art import (
+    ArtCreateRequest,
+    ArtCreateResponse,
+    ArtTempCreateRequest,
+    ArtTempCreateResponse,
+)
 from db.database import get_db
 from sqlalchemy.ext.asyncio import AsyncSession
 from schemas.art_list import ArtListData, ArtListResponse
@@ -178,3 +186,122 @@ async def share_art(request: Request, art_id: int, db: AsyncSession = Depends(ge
     except Exception as e:
         await db.rollback()
         raise HTTPException(status_code=500, detail=f"分享操作失败: {str(e)}")
+
+
+# 添加待审核艺术作品
+@router.post(
+    "/create_temp", response_model=ArtTempCreateResponse, summary="创建待审核艺术作品"
+)
+async def create_temp_art(
+    request: Request, art_data: ArtTempCreateRequest, db: AsyncSession = Depends(get_db)
+):
+    """
+    创建待审核艺术作品
+
+    Args:
+        request: FastAPI请求对象，用于从Redis认证中间件获取用户信息
+        art_data: 待审核艺术作品数据
+        db: 数据库会话
+
+    Returns:
+        ArtTempCreateResponse: 创建结果响应
+    """
+    try:
+        # 从Redis认证中间件获取用户信息
+        user_info = request.state.user
+        user_id = user_info.get("id") if isinstance(user_info, dict) else None
+
+        if not user_id:
+            raise HTTPException(status_code=401, detail="无法获取用户信息")
+
+        # 创建待审核艺术作品
+        new_art_temp = VigaArtTemp(
+            name=art_data.name,
+            url=art_data.url,
+            user_id=user_id,
+            status=0,  # 默认状态为待审核
+        )
+
+        db.add(new_art_temp)
+        await db.commit()
+        await db.refresh(new_art_temp)
+
+        # 返回创建结果
+        return ArtTempCreateResponse(
+            code=200,
+            message="作品提交成功，等待审核",
+            data={
+                "id": new_art_temp.id,
+                "name": new_art_temp.name,
+                "url": new_art_temp.url,
+                "user_id": new_art_temp.user_id,
+                "status": new_art_temp.status,
+                "create_time": new_art_temp.create_time.isoformat(),
+            },
+        )
+
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        await db.rollback()
+        raise HTTPException(status_code=500, detail=f"提交作品失败: {str(e)}")
+
+
+@router.post("/like", response_model=LikeResponse, summary="点赞艺术作品")
+async def like_art(request: Request, art_id: int, db: AsyncSession = Depends(get_db)):
+    """
+    点赞艺术作品
+
+    Args:
+        request: FastAPI请求对象，用于从Redis认证中间件获取用户信息
+        art_id: 艺术作品ID
+        db: 数据库会话
+
+    Returns:
+        LikeResponse: 点赞结果响应
+    """
+    try:
+        # 从Redis认证中间件获取用户信息
+        user_info = request.state.user
+        user_id = user_info.get("id") if isinstance(user_info, dict) else None
+
+        if not user_id:
+            raise HTTPException(status_code=401, detail="无法获取用户信息")
+
+        # 检查作品是否存在
+        art_query = select(VigaArt).where(VigaArt.id == art_id)
+        art_result = await db.execute(art_query)
+        art = art_result.scalar_one_or_none()
+
+        if not art:
+            raise HTTPException(status_code=404, detail="艺术作品不存在")
+
+        # 检查是否已经点赞
+        like_query = select(VigaLike).where(
+            VigaLike.art_id == art_id, VigaLike.user_id == user_id
+        )
+        like_result = await db.execute(like_query)
+        existing_like = like_result.scalar_one_or_none()
+
+        if existing_like:
+            # 如果已点赞
+            # todo 是否重复点赞
+            log.info(f"用户 {user_id} 已点赞作品 {art_id}")
+        else:
+            # 如果未点赞，则添加点赞记录
+            # 获取作品作者ID
+            author_id = art.user_id or 0
+
+            # 创建点赞记录
+            new_like = VigaLike(author_id=author_id, user_id=user_id, art_id=art_id)
+            db.add(new_like)
+            await db.commit()
+            await db.refresh(new_like)
+
+            return LikeResponse(code=200, message="点赞成功", data="")
+
+    except HTTPException as he:
+        raise he
+    except Exception as e:
+        await db.rollback()
+        raise HTTPException(status_code=500, detail=f"点赞操作失败: {str(e)}")
