@@ -185,7 +185,7 @@ class _LJNCollectionAndPaymentPageState
                             SizedBox(
                               height: 35.w,
                             ),
-                            Container(
+                            SizedBox(
                               height: 400.w,
                               width: 750.w,
                               child: Image.asset(
@@ -562,7 +562,7 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // 标题
-                    Container(
+                    SizedBox(
                       // flex: 0,
                       // color: Colors.red,
                       width: 550.w,

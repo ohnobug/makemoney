@@ -454,7 +454,7 @@ class _LJNUserPageState extends State<LJNUserPage>
                             padding: EdgeInsets.symmetric(
                               horizontal: 30.w,
                             ),
-                            minimumSize: Size(0, 80.w),
+                            minimumSize: Size(0, 70.w),
                           ),
                           child: Text(
                             "个人资料",
@@ -588,7 +588,7 @@ class _LJNUserPageState extends State<LJNUserPage>
                     ),
                     padding: EdgeInsets.symmetric(
                       horizontal: 100.w,
-                      vertical: 24.w,
+                      vertical: 20.w,
                     ),
                     elevation: 0,
                   ),
