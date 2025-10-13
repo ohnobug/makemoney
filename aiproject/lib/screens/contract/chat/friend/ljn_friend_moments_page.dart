@@ -472,7 +472,7 @@ class _LJNFriendmoments extends State<LJNFriendmomentsPage>
                   right: 30.w,
                   child: GestureDetector(
                     onTap: () => Navigator.pushNamed(
-                        context, "/friend_moments_cover_setting"),
+                        context, "/chat/friend_moments_cover_setting"),
                     child: Column(
                       children: [
                         Icon(

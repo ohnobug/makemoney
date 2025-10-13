@@ -763,7 +763,7 @@ class _LJNChat extends State<LJNChat>
                             // 点击事件
                             Navigator.pushNamed(
                               context,
-                              '/friend_message_record',
+                              '/chat/friend_message_record',
                             );
                           },
                           child: Container(
@@ -1464,7 +1464,7 @@ class _LJNChat extends State<LJNChat>
               logger.info("拍摄");
               Navigator.pushNamed(
                 context,
-                '/camera',
+                '/user/camera',
               );
             },
           ),

@@ -69,7 +69,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                     // 点击事件
                     Navigator.pushNamed(
                       context,
-                      '/friend_data_setting',
+                      '/chat/friend_data_setting',
                     );
                   },
                   child: Container(

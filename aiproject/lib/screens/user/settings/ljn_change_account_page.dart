@@ -154,7 +154,7 @@ class _LJNChangeAccountPage extends State<LJNChangeAccountPage> {
                               // forgot_password
                               logger.info("忘记密码被点击");
                               Navigator.pushNamed(
-                                  context, '/settings/account/forgot_password');
+                                  context, '/user/auth/forgot_password');
                             },
                             child: Text(
                               l10n.forgotPassword,

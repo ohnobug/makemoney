@@ -262,7 +262,7 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabelsPage> {
 
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/chat/friend/set_tags');
+                          Navigator.pushNamed(context, '/chat/set_friend_tags');
                         },
                         child: Container(
                           height: 105.w,

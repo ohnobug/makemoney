@@ -66,7 +66,7 @@ class _LJNCourseListPageState extends State<LJNCourseListPage> {
           // 适配您的路由逻辑
           Navigator.pushNamed(
             context,
-            '/course_detail',
+            '/user/course_detail',
             arguments: {'course_id': course.id},
           );
         },
@@ -120,7 +120,7 @@ class _LJNCourseListPageState extends State<LJNCourseListPage> {
                 onPressed: () {
                   Navigator.pushNamed(
                     context,
-                    '/course_detail',
+                    '/user/course_detail',
                     arguments: {'course_id': course.id},
                   );
                 },

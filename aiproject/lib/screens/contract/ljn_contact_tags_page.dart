@@ -76,7 +76,7 @@ class _LJNContactTagsState extends State<LJNContactTagsPage> {
                             onPressed: () {
                               Navigator.pushNamed(
                                 context,
-                                '/contact_tag_group',
+                                '/contact/tag_group',
                                 arguments: <String, String>{
                                   'title': tagData.title,
                                   'icon': tagData.icon,

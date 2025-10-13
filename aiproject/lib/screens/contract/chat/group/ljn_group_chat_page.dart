@@ -901,7 +901,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                           // 点击事件
                           Navigator.pushNamed(
                             context,
-                            '/group_message_record',
+                            '/chat/group_message_record',
                           );
                         },
                         child: Container(

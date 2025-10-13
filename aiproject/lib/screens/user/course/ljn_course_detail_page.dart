@@ -225,7 +225,7 @@ class _LJNCourseDetailPageState extends State<LJNCourseDetailPage>
                 // 适配您的路由逻辑
                 Navigator.pushNamed(
                   context,
-                  '/lesson_content',
+                  '/user/lesson_content',
                   arguments: {'lesson_id': lesson.id},
                 );
               },

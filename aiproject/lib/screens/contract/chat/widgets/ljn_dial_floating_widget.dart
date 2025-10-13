@@ -99,7 +99,7 @@ class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
           child: ElevatedButton(
             onPressed: () {
               PictureInPicture.stopPiP();
-              widget.systemState.navigatorKey.currentState!.pushNamed('/dial');
+              widget.systemState.navigatorKey.currentState!.pushNamed('/chat/dial');
             },
             child: Text("close"),
           ),

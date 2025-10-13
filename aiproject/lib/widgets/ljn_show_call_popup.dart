@@ -79,7 +79,6 @@ void showCallPopup(BuildContext context, SystemState systemState) {
                 ),
               ),
               underline: true,
-              // link: '/dial',
               onPressed: () {
                 Navigator.pushReplacementNamed(
                   context,
@@ -128,7 +127,7 @@ void showCallPopup(BuildContext context, SystemState systemState) {
               onPressed: () {
                 Navigator.pushReplacementNamed(
                   context,
-                  '/dial',
+                  '/chat/dial',
                 );
               },
             ),

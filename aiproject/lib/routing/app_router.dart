@@ -114,14 +114,6 @@ class AppRouter {
         return _pageRouteBuilderNotAnimation(const LikedVideosPage()); // 用户喜欢页面
       case '/user/follow_and_fans':
         return _pageRouteBuilderAnimation(const LJNFollowPage()); // 用户关注和粉丝页面
-      case '/chat':
-        final args = settings.arguments as Map<String, String>;
-        return _pageRouteBuilderAnimation(
-            LJNChat(title: args['title']!, icon: args['icon']!)); // 聊天页面
-      case '/group_chat':
-        final args = settings.arguments as Map<String, String>;
-        return _pageRouteBuilderAnimation(
-            LJNGroupChat(title: args['title']!, icon: args['icon']!)); // 群聊页面
       case '/qrcode_scanner':
         return _pageRouteBuilderNotAnimation(
             const LJNQRCodeScanner()); // 二维码扫描页面
@@ -191,7 +183,7 @@ class AppRouter {
             const LJNPhoneContactPage()); // 手机联系人页面
       case '/settings/verify_phone':
         return _pageRouteBuilderAnimation(const LJNVerifyPhonePage()); // 验证手机页面
-      case '/settings/bind_new_phone_number':
+      case '/settings/security/bind_phone':
         return _pageRouteBuilderAnimation(
             const LJNBindNewPhoneNumberPage()); // 绑定新手机号码页面
       case '/settings/input_verify_code':
@@ -273,6 +265,14 @@ class AppRouter {
         return _pageRouteBuilderAnimation(const LJNAddFriendsPage()); // 添加朋友页面
 
       // 聊天相关路由
+      case '/chat':
+        final args = settings.arguments as Map<String, String>;
+        return _pageRouteBuilderAnimation(
+            LJNChat(title: args['title']!, icon: args['icon']!)); // 聊天页面
+      case '/group_chat':
+        final args = settings.arguments as Map<String, String>;
+        return _pageRouteBuilderAnimation(
+            LJNGroupChat(title: args['title']!, icon: args['icon']!)); // 群聊页面
       case '/chat/friend_profile':
         final args = settings.arguments as Map<String, String>? ?? {};
         return _pageRouteBuilderAnimation(LJNFriendProfilePage(

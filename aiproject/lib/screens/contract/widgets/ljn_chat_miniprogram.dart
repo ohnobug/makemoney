@@ -220,7 +220,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                 rightWidget: GestureDetector(
                                   onTap: () {
                                     Navigator.of(context)
-                                        .pushNamed("/miniprogram_list");
+                                        .pushNamed("/discovery/miniprogram_list");
                                   },
                                   child: Text.rich(
                                     TextSpan(
