@@ -150,7 +150,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get qCoinTopUp => 'Q币充值';
 
   @override
-  String get app_name => '特聊';
+  String get app_name => 'Vigaviga';
 
   @override
   String get tabbar_label_arts => '艺术';

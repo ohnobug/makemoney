@@ -65,8 +65,8 @@ class _LJNAbout extends State<LJNAboutPage> {
                         children: [
                           CachedNetworkImage(
                             imageUrl: "${systemState.cdnBase}/icon/logo.jpeg",
-                            width: 122.0.w,
-                            height: 122.0.w,
+                            width: 150.0.w,
+                            height: 150.0.w,
                             fit: BoxFit.contain,
                           ),
                           SizedBox(

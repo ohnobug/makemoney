@@ -61,9 +61,6 @@ flutter:
     - assets/lotties/
     - assets/web/
   fonts:
-    # - family: Roboto
-    #   fonts:
-    #     - asset: ./assets/fonts/Roboto.ttf
     # - family: AlibabaPuHuiTi
     #   fonts:
     #     - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.woff2
@@ -73,6 +70,11 @@ flutter:
     # - family: NotoColorEmoji-Regular
     #   fonts:
     #     - asset: ./assets/fonts/NotoColorEmoji-Regular.woff2
+
+    # - family: Roboto
+    #   fonts:
+    #     - asset: ./assets/fonts/Roboto.ttf
+
     - family: Roboto
       fonts:
         - asset: assets/fonts/google_fonts/Roboto-Regular.ttf
