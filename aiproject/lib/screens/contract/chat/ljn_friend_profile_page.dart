@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vigaviga/themes.dart';
@@ -52,6 +53,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
   Widget _buildPage(SystemState systemState) {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
+    String cdnBase = systemState.cdnBase;
 
     return Scaffold(
       primary: false,
@@ -145,12 +147,10 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                   ),
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10.w),
-                                    child: Image.asset(
-                                      assetPath(widget.avatar!),
+                                    child: CachedNetworkImage(
+                                      imageUrl: widget.avatar!,
                                       width: 120.w,
                                       height: 120.w,
-                                      cacheWidth: 240.w.toInt(),
-                                      cacheHeight: 240.w.toInt(),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -247,7 +247,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                           children: [
                             // 朋友资料
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.friendProfile,
                               link: '/chat/friend_information',
                               underline: true,
@@ -255,7 +255,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
 
                             // 朋友权限
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.friendPermissions,
                               link: '/chat/friend_permissions',
                               underline: true,
@@ -263,7 +263,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
 
                             // 朋友圈
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: Container(
                                 width: 190.w,
                                 padding: EdgeInsets.only(left: 30.w),
@@ -292,11 +292,9 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Image.asset(
-                                        assetPath(
-                                            'images/avatar/chat_81.jpg'),
-                                        cacheWidth: 180.w.toInt(),
-                                        cacheHeight: 180.w.toInt(),
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            '${systemState.cdnBase}/avatar/chat_81.jpg',
                                         width: 90.w,
                                         height: 90.w,
                                         fit: BoxFit.cover,
@@ -304,11 +302,9 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                       SizedBox(
                                         width: 15.w,
                                       ),
-                                      Image.asset(
-                                        assetPath(
-                                            'images/avatar/chat_92.jpg'),
-                                        cacheWidth: 180.w.toInt(),
-                                        cacheHeight: 180.w.toInt(),
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            '${systemState.cdnBase}/avatar/chat_92.jpg',
                                         width: 90.w,
                                         height: 90.w,
                                         fit: BoxFit.cover,
@@ -316,11 +312,9 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                       SizedBox(
                                         width: 15.w,
                                       ),
-                                      Image.asset(
-                                        assetPath(
-                                            'images/avatar/chat_93.jpg'),
-                                        cacheWidth: 180.w.toInt(),
-                                        cacheHeight: 180.w.toInt(),
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            '${systemState.cdnBase}/avatar/chat_93.jpg',
                                         width: 90.w,
                                         height: 90.w,
                                         fit: BoxFit.cover,
@@ -328,11 +322,9 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                       SizedBox(
                                         width: 15.w,
                                       ),
-                                      Image.asset(
-                                        assetPath(
-                                            'images/avatar/chat_86.jpg'),
-                                        cacheWidth: 180.w.toInt(),
-                                        cacheHeight: 180.w.toInt(),
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            '${systemState.cdnBase}/avatar/chat_86.jpg',
                                         width: 90.w,
                                         height: 90.w,
                                         fit: BoxFit.cover,
@@ -346,7 +338,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
 
                             // 视频号
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "${systemState.cdnBase}/avatar/02.png",
                               title: Container(
                                 width: 190.w,
                                 padding: EdgeInsets.only(
@@ -408,11 +400,9 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Image.asset(
-                                              assetPath(
-                                                  'images/avatar/chat_55.jpg'),
-                                              cacheWidth: 180.w.toInt(),
-                                              cacheHeight: 180.w.toInt(),
+                                            CachedNetworkImage(
+                                              imageUrl:
+                                                  '${systemState.cdnBase}/avatar/chat_55.jpg',
                                               width: 90.w,
                                               height: 90.w,
                                               fit: BoxFit.cover,
@@ -420,11 +410,9 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                             SizedBox(
                                               width: 15.w,
                                             ),
-                                            Image.asset(
-                                              assetPath(
-                                                  'images/avatar/chat_43.jpg'),
-                                              cacheWidth: 180.w.toInt(),
-                                              cacheHeight: 180.w.toInt(),
+                                            CachedNetworkImage(
+                                              imageUrl:
+                                                  '${systemState.cdnBase}/avatar/chat_43.jpg',
                                               width: 90.w,
                                               height: 90.w,
                                               fit: BoxFit.cover,
@@ -432,11 +420,9 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                             SizedBox(
                                               width: 15.w,
                                             ),
-                                            Image.asset(
-                                              assetPath(
-                                                  'images/avatar/chat_96.jpg'),
-                                              cacheWidth: 180.w.toInt(),
-                                              cacheHeight: 180.w.toInt(),
+                                            CachedNetworkImage(
+                                              imageUrl:
+                                                  '${systemState.cdnBase}/avatar/chat_96.jpg',
                                               width: 90.w,
                                               height: 90.w,
                                               fit: BoxFit.cover,
@@ -444,11 +430,9 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                             SizedBox(
                                               width: 15.w,
                                             ),
-                                            Image.asset(
-                                              assetPath(
-                                                  'images/avatar/chat_97.jpg'),
-                                              cacheWidth: 180.w.toInt(),
-                                              cacheHeight: 180.w.toInt(),
+                                            CachedNetworkImage(
+                                              imageUrl:
+                                                  '${systemState.cdnBase}/avatar/chat_97.jpg',
                                               width: 90.w,
                                               height: 90.w,
                                               fit: BoxFit.cover,
@@ -483,7 +467,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
 
                             // 更多信息
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.moreInfo,
                               link: '/chat/friend_more_info',
                               underline: false,
@@ -529,7 +513,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                 Navigator.pushNamed(context, '/chat',
                                     arguments: <String, String>{
                                       'title': "何三七",
-                                      'icon': "images/avatar/chat_17.jpg",
+                                      'icon': "$cdnBase/avatar/chat_17.jpg",
                                     });
                               },
                             ),

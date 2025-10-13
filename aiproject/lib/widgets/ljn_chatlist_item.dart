@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -97,12 +98,10 @@ class _ChatListItem extends State<ChatListItem> {
                     ClipRRect(
                       borderRadius:
                           BorderRadius.circular(widget.avatarRadius ?? 8.0.w),
-                      child: Image.asset(
-                        assetPath(widget.avatar),
+                      child: CachedNetworkImage(
+                        imageUrl: widget.avatar,
                         width: 90.0.w,
                         height: 90.0.w,
-                        cacheHeight: 180.w.toInt(),
-                        cacheWidth: 180.w.toInt(),
                         fit: BoxFit.cover,
                       ),
                     ),

@@ -1,4 +1,5 @@
 // 功能列表
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
@@ -131,17 +132,17 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                       left: 30.0,
                       right: 0.0,
                     ).w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.0.w),
-                  shape: BoxShape.rectangle,
-                  image: DecorationImage(
-                    image: AssetImage(
-                      assetPath(widget.icon!),
-                    ),
+                child: ClipRRect(
+                  borderRadius: BorderRadiusGeometry.circular(25.w),
+                  child: CachedNetworkImage(
+                    imageUrl: widget.icon!,
+                    width: 50.w,
+                    height: 50.w,
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
+
               SizedBox(width: 15.w)
             ],
             Expanded(

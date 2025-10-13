@@ -18,7 +18,8 @@ class LJNNewMessageNotificationPage extends StatefulWidget {
       _LJNNewMessageNotificationPage();
 }
 
-class _LJNNewMessageNotificationPage extends State<LJNNewMessageNotificationPage> {
+class _LJNNewMessageNotificationPage
+    extends State<LJNNewMessageNotificationPage> {
   @override
   void initState() {
     super.initState();
@@ -31,6 +32,8 @@ class _LJNNewMessageNotificationPage extends State<LJNNewMessageNotificationPage
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
+        String cdnBase = systemState.cdnBase;
+
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
@@ -57,7 +60,7 @@ class _LJNNewMessageNotificationPage extends State<LJNNewMessageNotificationPage
                       children: [
                         // 新消息通知
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.receiveNewMessageNotifications,
                           // link: '',
                           underline: true,
@@ -78,7 +81,7 @@ class _LJNNewMessageNotificationPage extends State<LJNNewMessageNotificationPage
 
                         // 接收语音视频通话邀请
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.receiveVoiceVideoCallInvites,
                           // link: '',
                           underline: false,
@@ -104,7 +107,7 @@ class _LJNNewMessageNotificationPage extends State<LJNNewMessageNotificationPage
                       children: [
                         // 显示消息详情
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.notificationShowMessageDetails,
                           // link: '',
                           underline: false,
@@ -131,7 +134,7 @@ class _LJNNewMessageNotificationPage extends State<LJNNewMessageNotificationPage
                       children: [
                         // 新消息系统通知
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.newMessageSystemNotification,
                           link: '',
                           underline: true,
@@ -139,7 +142,7 @@ class _LJNNewMessageNotificationPage extends State<LJNNewMessageNotificationPage
                         ),
                         // 语音视频通话提醒
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.voiceVideoCallAlerts,
                           link: '',
                           underline: false,
@@ -154,7 +157,7 @@ class _LJNNewMessageNotificationPage extends State<LJNNewMessageNotificationPage
                       children: [
                         // 消息铃声
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.messageTone,
                           link: '',
                           underline: true,
@@ -163,7 +166,7 @@ class _LJNNewMessageNotificationPage extends State<LJNNewMessageNotificationPage
 
                         // 通话铃声
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.callRingtone,
                           link: '',
                           underline: true,
@@ -172,7 +175,7 @@ class _LJNNewMessageNotificationPage extends State<LJNNewMessageNotificationPage
 
                         // 好友能听到我的铃声
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.friendCanHearMyRingtone,
                           // link: '',
                           underline: false,

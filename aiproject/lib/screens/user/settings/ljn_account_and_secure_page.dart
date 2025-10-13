@@ -30,6 +30,8 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecurePage> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
+        String cdnBase = systemState.cdnBase;
+
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
@@ -57,7 +59,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecurePage> {
                         LJNFunctionList(
                           children: [
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.vigavigaID,
                               link: '/settings/account_info',
                               showStyle: userState.userinfoAccount,
@@ -66,7 +68,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecurePage> {
 
                             // 手机号
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.phoneNumber,
                               link: '/settings/phone_number',
                               showStyle: userState.userinfoPhone,
@@ -79,14 +81,14 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecurePage> {
                         LJNFunctionList(
                           children: [
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.vigavigaPassword,
                               link: '/settings/set_password',
                               underline: true,
                             ),
                             // 声音锁
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.voiceprint,
                               link: '/settings/sound_lock',
                               underline: false,
@@ -98,21 +100,21 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecurePage> {
                         LJNFunctionList(
                           children: [
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.emergencyContacts,
                               link: '/settings/emergency_contact',
                               underline: true,
                             ),
                             // 登录过的设备
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.loggedInDevices,
                               link: '/settings/logged_devices',
                               underline: true,
                             ),
                             // 更多安全设置
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.moreSecuritySettings,
                               link: '/settings/more_secure_setting',
                               underline: false,

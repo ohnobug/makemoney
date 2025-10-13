@@ -32,6 +32,8 @@ class _LJNFriendPermissionPage extends State<LJNFriendPermissionPage> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
+        String cdnBase = systemState.cdnBase;
+
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
@@ -56,7 +58,7 @@ class _LJNFriendPermissionPage extends State<LJNFriendPermissionPage> {
                     LJNFunctionList(children: [
                       // 添加好友时需要验证
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "$cdnBase/avatar/02.png",
                         title: l10n.requireVerificationWhenAdded,
                         // link: '',
                         underline: false,
@@ -80,7 +82,7 @@ class _LJNFriendPermissionPage extends State<LJNFriendPermissionPage> {
                       children: [
                         // 加我的方式
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.waysToAddMe,
                           link: '',
                           underline: true,
@@ -118,7 +120,7 @@ class _LJNFriendPermissionPage extends State<LJNFriendPermissionPage> {
                       children: [
                         // 只聊天
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.chatOnly,
                           link: '',
                           underline: true,
@@ -126,7 +128,7 @@ class _LJNFriendPermissionPage extends State<LJNFriendPermissionPage> {
 
                         // 朋友圈
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.moments,
                           link: '',
                           underline: true,
@@ -134,7 +136,7 @@ class _LJNFriendPermissionPage extends State<LJNFriendPermissionPage> {
 
                         // 频道
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.channels,
                           link: '',
                           underline: true,
@@ -142,7 +144,7 @@ class _LJNFriendPermissionPage extends State<LJNFriendPermissionPage> {
 
                         // 看一看
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.look,
                           link: '',
                           underline: true,
@@ -150,7 +152,7 @@ class _LJNFriendPermissionPage extends State<LJNFriendPermissionPage> {
 
                         // Vigaviga运动
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.weRun,
                           link: '',
                           underline: false,
@@ -163,7 +165,7 @@ class _LJNFriendPermissionPage extends State<LJNFriendPermissionPage> {
                       children: [
                         // 通讯录黑名单
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.contactsBlocklist,
                           link: '',
                           underline: false,

@@ -218,7 +218,7 @@ class _LJPpersonalInfoCollectionChecklist
                             tapEffect: true,
                           ),
                           LJNPCCFunctionItem(
-                            title: l10n.imagesAndVideos,
+                            title: "图片与视频",
                             link: '',
                             underline: true,
                             tapEffect: true,

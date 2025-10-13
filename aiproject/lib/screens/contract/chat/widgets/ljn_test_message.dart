@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -127,8 +128,8 @@ class _LJNTestMessage extends State<LJNTestMessage>
                         // 箭头
                         Container(
                           padding: const EdgeInsets.only(top: 32, right: 10).w,
-                          child: Image.asset(
-                            assetPath("images/icon/right.png"),
+                          child: CachedNetworkImage(
+                            imageUrl: "${systemState.cdnBase}/icon/right.png",
                             width: 10.w,
                             fit: BoxFit.fitWidth,
                             // fit: BoxFit.fill,
@@ -157,10 +158,8 @@ class _LJNTestMessage extends State<LJNTestMessage>
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8).w,
-                      child: Image.asset(
-                        assetPath(userState.userinfoAvatar!),
-                        cacheWidth: 156.w.toInt(),
-                        cacheHeight: 156.w.toInt(),
+                      child: CachedNetworkImage(
+                        imageUrl: userState.userinfoAvatar!,
                         width: 78.w,
                         height: 78.w,
                         fit: BoxFit.cover,

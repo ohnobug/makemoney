@@ -1,4 +1,5 @@
 // 功能列表
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
@@ -110,12 +111,10 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
             // 头像
             ClipRRect(
               borderRadius: BorderRadius.circular(85.0.w),
-              child: Image.asset(
-                assetPath(widget.icon),
+              child: CachedNetworkImage(
+                imageUrl: widget.icon,
                 width: 86.0.w,
                 height: 86.0.w,
-                cacheHeight: 170.w.toInt(),
-                cacheWidth: 170.w.toInt(),
                 fit: BoxFit.cover,
               ),
             ),

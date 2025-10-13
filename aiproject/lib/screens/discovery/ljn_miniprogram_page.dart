@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -7,7 +8,6 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-// import 'package:webview_windows/webview_windows.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 
@@ -267,6 +267,9 @@ void _showPopup(BuildContext context, SystemState systemState) {
   ThemeData theme = Theme.of(context);
   double widthHeightRatio = 750.w / MediaQuery.of(context).size.height;
 
+  // [改动] 提取CDN基础路径，方便复用
+  final cdnBase = systemState.cdnBase;
+
   Widget popupWidget = Column(
     children: [
       // 小程序信息
@@ -281,11 +284,13 @@ void _showPopup(BuildContext context, SystemState systemState) {
         ),
         child: Row(
           children: [
-            Image.asset(
-              assetPath("images/miniprogram_icon/chengzixiaoshuodaziban.jpg"),
+            CachedNetworkImage(
+              imageUrl: "$cdnBase/miniprogram_icon/chengzixiaoshuodaziban.jpg",
               width: 90.0.w,
               height: 90.0.w,
               fit: BoxFit.fill,
+              placeholder: (context, url) => Container(color: Colors.grey[300]),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
             SizedBox(
               width: 10.w,
@@ -407,15 +412,15 @@ void _showPopup(BuildContext context, SystemState systemState) {
                         borderRadius: BorderRadius.circular(18.w),
                       ),
                       alignment: Alignment.center,
-                      child: Image.asset(
-                        assetPath(
-                          "images/miniprogram_icon/uitartuna.jpg",
-                        ),
+                      child: CachedNetworkImage(
+                        imageUrl: "$cdnBase/miniprogram_icon/uitartuna.jpg",
                         width: 112.w,
                         height: 112.w,
-                        cacheHeight: 224.w.toInt(),
-                        cacheWidth: 224.w.toInt(),
-                        fit: BoxFit.cover, // 让图片完全填满圆形区域
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            Container(color: Colors.grey[300]),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                     title: "随身尺子",
@@ -431,15 +436,15 @@ void _showPopup(BuildContext context, SystemState systemState) {
                         borderRadius: BorderRadius.circular(18.w),
                       ),
                       alignment: Alignment.center,
-                      child: Image.asset(
-                        assetPath(
-                          "images/miniprogram_icon/chuangzuomao.jpg",
-                        ),
+                      child: CachedNetworkImage(
+                        imageUrl: "$cdnBase/miniprogram_icon/chuangzuomao.jpg",
                         width: 112.w,
                         height: 112.w,
-                        cacheHeight: 224.w.toInt(),
-                        cacheWidth: 224.w.toInt(),
-                        fit: BoxFit.cover, // 让图片完全填满圆形区域
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            Container(color: Colors.grey[300]),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                     title: "文件传输助手",
@@ -455,15 +460,15 @@ void _showPopup(BuildContext context, SystemState systemState) {
                         borderRadius: BorderRadius.circular(18.w),
                       ),
                       alignment: Alignment.center,
-                      child: Image.asset(
-                        assetPath(
-                          "images/miniprogram_icon/upaotui.jpg",
-                        ),
+                      child: CachedNetworkImage(
+                        imageUrl: "$cdnBase/miniprogram_icon/upaotui.jpg",
                         width: 112.w,
                         height: 112.w,
-                        cacheHeight: 224.w.toInt(),
-                        cacheWidth: 224.w.toInt(),
-                        fit: BoxFit.cover, // 让图片完全填满圆形区域
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            Container(color: Colors.grey[300]),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                     title: "飞常准查航班",
@@ -479,15 +484,16 @@ void _showPopup(BuildContext context, SystemState systemState) {
                         borderRadius: BorderRadius.circular(18.w),
                       ),
                       alignment: Alignment.center,
-                      child: Image.asset(
-                        assetPath(
-                          "images/miniprogram_icon/wangwangshangliao.jpg",
-                        ),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            "$cdnBase/miniprogram_icon/wangwangshangliao.jpg",
                         width: 112.w,
                         height: 112.w,
-                        cacheHeight: 224.w.toInt(),
-                        cacheWidth: 224.w.toInt(),
-                        fit: BoxFit.cover, // 让图片完全填满圆形区域
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            Container(color: Colors.grey[300]),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                     title: "花式昵称",
@@ -503,15 +509,16 @@ void _showPopup(BuildContext context, SystemState systemState) {
                         borderRadius: BorderRadius.circular(18.w),
                       ),
                       alignment: Alignment.center,
-                      child: Image.asset(
-                        assetPath(
-                          "images/miniprogram_icon/wangwangshangliao.jpg",
-                        ),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            "$cdnBase/miniprogram_icon/wangwangshangliao.jpg",
                         width: 112.w,
                         height: 112.w,
-                        cacheHeight: 224.w.toInt(),
-                        cacheWidth: 224.w.toInt(),
-                        fit: BoxFit.cover, // 让图片完全填满圆形区域
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            Container(color: Colors.grey[300]),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                     title: "腾讯体育+",
@@ -527,15 +534,16 @@ void _showPopup(BuildContext context, SystemState systemState) {
                         borderRadius: BorderRadius.circular(18.w),
                       ),
                       alignment: Alignment.center,
-                      child: Image.asset(
-                        assetPath(
-                          "images/miniprogram_icon/daimengPS2moniqi.jpg",
-                        ),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            "$cdnBase/miniprogram_icon/daimengPS2moniqi.jpg",
                         width: 112.w,
                         height: 112.w,
-                        cacheHeight: 224.w.toInt(),
-                        cacheWidth: 224.w.toInt(),
-                        fit: BoxFit.cover, // 让图片完全填满圆形区域
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            Container(color: Colors.grey[300]),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                     title: "邮政信使",
@@ -551,15 +559,16 @@ void _showPopup(BuildContext context, SystemState systemState) {
                         borderRadius: BorderRadius.circular(18.w),
                       ),
                       alignment: Alignment.center,
-                      child: Image.asset(
-                        assetPath(
-                          "images/miniprogram_icon/wangyiyunyinyue.jpg",
-                        ),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            "$cdnBase/miniprogram_icon/wangyiyunyinyue.jpg",
                         width: 112.w,
                         height: 112.w,
-                        cacheHeight: 224.w.toInt(),
-                        cacheWidth: 224.w.toInt(),
-                        fit: BoxFit.cover, // 让图片完全填满圆形区域
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) =>
+                            Container(color: Colors.grey[300]),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                     ),
                     title: "壁纸精选",
@@ -609,13 +618,15 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           borderRadius: BorderRadius.circular(18.w),
                         ),
                         alignment: Alignment.center,
-                        child: Image.asset(
-                          assetPath("images/icon/popup_forward.png"),
+                        child: CachedNetworkImage(
+                          imageUrl: "$cdnBase/icon/popup_forward.png",
                           width: 55.w,
                           height: 55.w,
-                          cacheHeight: 110.w.toInt(),
-                          cacheWidth: 110.w.toInt(),
-                          fit: BoxFit.cover, // 让图片完全填满圆形区域
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              Container(color: Colors.grey[300]),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
                       ),
                       title: l10n.forwardToFriend,
@@ -631,13 +642,15 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           borderRadius: BorderRadius.circular(18.w),
                         ),
                         alignment: Alignment.center,
-                        child: Image.asset(
-                          assetPath("images/icon/popup_circle_of_friends.png"),
+                        child: CachedNetworkImage(
+                          imageUrl: "$cdnBase/icon/popup_circle_of_friends.png",
                           width: 55.w,
                           height: 55.w,
-                          cacheHeight: 110.w.toInt(),
-                          cacheWidth: 110.w.toInt(),
-                          fit: BoxFit.cover, // 让图片完全填满圆形区域
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              Container(color: Colors.grey[300]),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
                       ),
                       title: l10n.shareToMoments,
@@ -653,13 +666,15 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           borderRadius: BorderRadius.circular(18.w),
                         ),
                         alignment: Alignment.center,
-                        child: Image.asset(
-                          assetPath("images/icon/popup_collection.png"),
+                        child: CachedNetworkImage(
+                          imageUrl: "$cdnBase/icon/popup_collection.png",
                           width: 55.w,
                           height: 55.w,
-                          cacheHeight: 110.w.toInt(),
-                          cacheWidth: 110.w.toInt(),
-                          fit: BoxFit.cover, // 让图片完全填满圆形区域
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              Container(color: Colors.grey[300]),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
                       ),
                       title: l10n.favorite,
@@ -675,15 +690,16 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           borderRadius: BorderRadius.circular(18.w),
                         ),
                         alignment: Alignment.center,
-                        child: Image.asset(
-                          assetPath(
-                            "images/icon/popup_add_to_mini_Program.png",
-                          ),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              "$cdnBase/icon/popup_add_to_mini_Program.png",
                           width: 55.w,
                           height: 55.w,
-                          cacheHeight: 110.w.toInt(),
-                          cacheWidth: 110.w.toInt(),
-                          fit: BoxFit.cover, // 让图片完全填满圆形区域
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              Container(color: Colors.grey[300]),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
                       ),
                       title: l10n.addToMyMiniPrograms,
@@ -699,15 +715,15 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           borderRadius: BorderRadius.circular(18.w),
                         ),
                         alignment: Alignment.center,
-                        child: Image.asset(
-                          assetPath(
-                            "images/icon/popup_add_to_desktop.png",
-                          ),
+                        child: CachedNetworkImage(
+                          imageUrl: "$cdnBase/icon/popup_add_to_desktop.png",
                           width: 55.w,
                           height: 55.w,
-                          cacheHeight: 110.w.toInt(),
-                          cacheWidth: 110.w.toInt(),
-                          fit: BoxFit.cover, // 让图片完全填满圆形区域
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              Container(color: Colors.grey[300]),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
                       ),
                       title: l10n.addToDesktop,
@@ -723,15 +739,15 @@ void _showPopup(BuildContext context, SystemState systemState) {
                           borderRadius: BorderRadius.circular(18.w),
                         ),
                         alignment: Alignment.center,
-                        child: Image.asset(
-                          assetPath(
-                            "images/icon/popup_open_on_computer.png",
-                          ),
+                        child: CachedNetworkImage(
+                          imageUrl: "$cdnBase/icon/popup_open_on_computer.png",
                           width: 55.w,
                           height: 55.w,
-                          cacheHeight: 110.w.toInt(),
-                          cacheWidth: 110.w.toInt(),
-                          fit: BoxFit.cover, // 让图片完全填满圆形区域
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              Container(color: Colors.grey[300]),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
                       ),
                       title: l10n.openOnComputer,

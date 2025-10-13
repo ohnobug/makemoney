@@ -1214,7 +1214,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userInfoDuringUse => 'User Info During Use';
 
   @override
-  String get imagesAndVideos => 'Images & Videos';
+  String get $cdnBaseAndVideos => '\$cdnBase & Videos';
 
   @override
   String get socialAndContentInfo => 'Social & Content Info';

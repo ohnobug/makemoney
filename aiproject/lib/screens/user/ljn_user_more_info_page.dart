@@ -37,6 +37,7 @@ class _LJNUserMoreInfoPage extends State<LJNUserMoreInfoPage> {
   Widget _buildPage(SystemState systemState) {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
+    String cdnBase = systemState.cdnBase;
 
     return Scaffold(
       primary: false,
@@ -62,7 +63,7 @@ class _LJNUserMoreInfoPage extends State<LJNUserMoreInfoPage> {
                 LJNFunctionList(children: [
                   // 性别
                   LJNFunctionItem(
-                    icon: "images/avatar/02.png",
+                    icon: "$cdnBase/avatar/02.png",
                     title: l10n.gender,
                     link: '',
                     showStyle: l10n.male,
@@ -74,7 +75,7 @@ class _LJNUserMoreInfoPage extends State<LJNUserMoreInfoPage> {
                 LJNFunctionList(children: [
                   // 地区
                   LJNFunctionItem(
-                    icon: "images/avatar/02.png",
+                    icon: "$cdnBase/avatar/02.png",
                     title: l10n.region,
                     link: '',
                     showStyle: l10n.guangdongGuangzhou,
@@ -87,7 +88,7 @@ class _LJNUserMoreInfoPage extends State<LJNUserMoreInfoPage> {
                   children: [
                     // 个人签名
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       height: 135.w,
                       title: l10n.personalSignature,
                       // link: '',
@@ -112,7 +113,7 @@ class _LJNUserMoreInfoPage extends State<LJNUserMoreInfoPage> {
 
                     // 注册时间
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.registrationTime,
                       // link: '',
                       showStyle: Expanded(

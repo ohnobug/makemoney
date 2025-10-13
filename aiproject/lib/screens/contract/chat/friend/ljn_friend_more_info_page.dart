@@ -37,6 +37,7 @@ class _LJNFriendMoreInfoPage extends State<LJNFriendMoreInfoPage> {
   Widget _buildPage(SystemState systemState) {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
+    String cdnBase = systemState.cdnBase;
 
     return Scaffold(
       primary: false,
@@ -61,7 +62,7 @@ class _LJNFriendMoreInfoPage extends State<LJNFriendMoreInfoPage> {
                 // 我们的共同群聊
                 LJNFunctionList(children: [
                   LJNFunctionItem(
-                    icon: "images/avatar/02.png",
+                    icon: "$cdnBase/avatar/02.png",
                     title: l10n.ourMutualGroupChats,
                     link: '',
                     showStyle: l10n.groupCount(4),
@@ -74,7 +75,7 @@ class _LJNFriendMoreInfoPage extends State<LJNFriendMoreInfoPage> {
                   children: [
                     // 个人签名
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       height: 135.w,
                       title: l10n.personalSignature,
                       // link: '',
@@ -99,7 +100,7 @@ class _LJNFriendMoreInfoPage extends State<LJNFriendMoreInfoPage> {
 
                     // 来源
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       height: 135.w,
                       title: l10n.source,
                       // link: '',
@@ -124,7 +125,7 @@ class _LJNFriendMoreInfoPage extends State<LJNFriendMoreInfoPage> {
 
                     // 添加时间
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.addedTime,
                       // link: '',
                       showStyle: Expanded(

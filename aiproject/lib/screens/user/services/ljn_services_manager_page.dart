@@ -29,6 +29,8 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
+        String cdnBase = systemState.cdnBase;
+
         return Scaffold(
           primary: false,
           appBar: const LJNAppBar(
@@ -105,7 +107,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               // 信用卡还款
                               LJNFunctionItem(
                                 title: l10n.creditCardRepayment,
-                                icon: "images/icon/server_icon1.png",
+                                icon: "$cdnBase/icon/server_icon1.png",
                                 link: '/discovery/qrcode_scanner',
                                 // margin: EdgeInsets.symmetric(horizontal: 5.w),
                                 underline: true,
@@ -131,7 +133,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               // 微粒贷
                               LJNFunctionItem(
                                 title: l10n.weilidaiLoan,
-                                icon: "images/icon/discovery_icon4.png",
+                                icon: "$cdnBase/icon/discovery_icon4.png",
                                 link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: true,
@@ -157,7 +159,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               // 理财通
                               LJNFunctionItem(
                                 title: l10n.licaitong,
-                                icon: "images/icon/server_icon2.png",
+                                icon: "$cdnBase/icon/server_icon2.png",
                                 link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: true,
@@ -183,7 +185,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               // 保险服务
                               LJNFunctionItem(
                                 title: l10n.insuranceService,
-                                icon: "images/icon/server_icon3.png",
+                                icon: "$cdnBase/icon/server_icon3.png",
                                 link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: false,
@@ -214,7 +216,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               // 交通出行
                               LJNFunctionItem(
                                 title: l10n.transportServices,
-                                icon: "images/icon/server_icon10.png",
+                                icon: "$cdnBase/icon/server_icon10.png",
                                 link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: true,
@@ -240,7 +242,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               // 火车机票
                               LJNFunctionItem(
                                 title: l10n.trainAndFlightTickets,
-                                icon: "images/icon/server_icon11.png",
+                                icon: "$cdnBase/icon/server_icon11.png",
                                 link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: true,
@@ -266,7 +268,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               // 滴滴打车
                               LJNFunctionItem(
                                 title: l10n.didiRideHailing,
-                                icon: "images/icon/server_icon12.png",
+                                icon: "$cdnBase/icon/server_icon12.png",
                                 link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: true,
@@ -292,7 +294,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               // 酒店及民宿
                               LJNFunctionItem(
                                 title: l10n.hotelAndBAndB,
-                                icon: "images/icon/server_icon122.png",
+                                icon: "$cdnBase/icon/server_icon122.png",
                                 link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: false,
@@ -324,7 +326,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 // 品牌发现
                                 LJNFunctionItem(
                                   title: l10n.brandDiscovery,
-                                  icon: "images/icon/server_icon13.png",
+                                  icon: "$cdnBase/icon/server_icon13.png",
                                   link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
@@ -350,7 +352,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 // 京东购物
                                 LJNFunctionItem(
                                   title: l10n.jdShopping,
-                                  icon: "images/icon/server_icon14.png",
+                                  icon: "$cdnBase/icon/server_icon14.png",
                                   link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
@@ -376,7 +378,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 // 美团外卖
                                 LJNFunctionItem(
                                   title: l10n.meituanWaimai,
-                                  icon: "images/icon/server_icon15.png",
+                                  icon: "$cdnBase/icon/server_icon15.png",
                                   link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
@@ -402,7 +404,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 // 电影票及娱乐
                                 LJNFunctionItem(
                                   title: l10n.movieTicketsAndEntertainment,
-                                  icon: "images/icon/server_icon16.png",
+                                  icon: "$cdnBase/icon/server_icon16.png",
                                   link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
@@ -428,7 +430,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 // 美团特惠
                                 LJNFunctionItem(
                                   title: l10n.meituanSpecialOffers,
-                                  icon: "images/icon/server_icon15.png",
+                                  icon: "$cdnBase/icon/server_icon15.png",
                                   link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
@@ -454,7 +456,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 // 拼多多
                                 LJNFunctionItem(
                                   title: l10n.pinduoduo,
-                                  icon: "images/icon/server_icon18.png",
+                                  icon: "$cdnBase/icon/server_icon18.png",
                                   link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
@@ -480,7 +482,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 // 唯品会
                                 LJNFunctionItem(
                                   title: l10n.vipshop,
-                                  icon: "images/icon/server_icon19.png",
+                                  icon: "$cdnBase/icon/server_icon19.png",
                                   link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
@@ -506,7 +508,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 // 转转二手
                                 LJNFunctionItem(
                                   title: l10n.zhuanzhuanUsedGoods,
-                                  icon: "images/icon/server_icon20.png",
+                                  icon: "$cdnBase/icon/server_icon20.png",
                                   link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: false,

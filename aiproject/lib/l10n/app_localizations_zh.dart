@@ -1197,7 +1197,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get userInfoDuringUse => '用户使用过程信息';
 
   @override
-  String get imagesAndVideos => '图片与视频';
+  String get $cdnBaseAndVideos => '图片与视频';
 
   @override
   String get socialAndContentInfo => '社交与内容信息';

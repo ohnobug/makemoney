@@ -506,7 +506,7 @@
   "address": "地址",
   "deviceInfo": "设备信息",
   "userInfoDuringUse": "用户使用过程信息",
-  "imagesAndVideos": "图片与视频",
+  "$cdnBaseAndVideos": "图片与视频",
   "socialAndContentInfo": "社交与内容信息",
   "status": "状态",
   "contactInfo": "联系人信息",

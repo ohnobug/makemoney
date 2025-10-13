@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -176,8 +177,9 @@ class _LJNCollectionAndPaymentPageState
                             SizedBox(
                               height: 20.w,
                             ),
-                            Image.asset(
-                              assetPath("images/avatar/linecode.png"),
+                            CachedNetworkImage(
+                              imageUrl:
+                                  "${systemState.cdnBase}/avatar/linecode.png",
                               width: 630.0.w,
                               height: 90.0.w,
                               fit: BoxFit.fill,
@@ -188,8 +190,9 @@ class _LJNCollectionAndPaymentPageState
                             SizedBox(
                               height: 400.w,
                               width: 750.w,
-                              child: Image.asset(
-                                assetPath("images/avatar/qrcode.png"),
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    "${systemState.cdnBase}/avatar/qrcode.png",
                                 width: 400.0.w,
                                 height: 400.0.w,
                                 fit: BoxFit.contain,

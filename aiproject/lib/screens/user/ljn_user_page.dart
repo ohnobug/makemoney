@@ -12,7 +12,6 @@ import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -241,31 +240,33 @@ class _LJNUserPageState extends State<LJNUserPage>
   // [已有方法] 已登录状态的UI
   Widget _buildUserInfoSection(SystemState systemState, ThemeData theme) {
     AppLocalizations l10n = AppLocalizations.of(context)!;
+    String cdnBase = systemState.cdnBase;
+
     final List<LJNUserFunctionButton> serviceButtons = [
       LJNUserFunctionButton(
-        icon: "images/icon/server_icon11.png",
+        icon: "$cdnBase/icon/server_icon11.png",
         title: "钱包",
         onPressed: () => Navigator.pushNamed(context, '/user/services'),
       ),
       LJNUserFunctionButton(
-        icon: "images/icon/server_icon12.png",
+        icon: "$cdnBase/icon/server_icon12.png",
         title: "交易",
         onPressed: () {},
       ),
       LJNUserFunctionButton(
-        icon: "images/icon/server_icon13.png",
+        icon: "$cdnBase/icon/server_icon13.png",
         title: "创作中心",
         onPressed: () {
           Navigator.pushNamed(context, '/user/photo_viewer');
         },
       ),
       LJNUserFunctionButton(
-        icon: "images/icon/server_icon16.png",
+        icon: "$cdnBase/icon/server_icon16.png",
         title: "浏览历史",
         onPressed: () {},
       ),
       LJNUserFunctionButton(
-        icon: "images/icon/server_icon14.png",
+        icon: "$cdnBase/icon/server_icon14.png",
         title: "学院",
         onPressed: () {
           Navigator.pushNamed(context, '/user/course_list');
@@ -341,10 +342,10 @@ class _LJNUserPageState extends State<LJNUserPage>
                             child: BlocBuilder<LJNUserCubit, LJNUserState>(
                               builder: (context, state) {
                                 final avatar = state.userinfoAvatar;
-                                return Image.asset(
-                                  (avatar == null || avatar.isEmpty)
-                                      ? assetPath('images/avatar/default.png')
-                                      : assetPath(avatar),
+                                return CachedNetworkImage(
+                                  imageUrl: (avatar == null || avatar.isEmpty)
+                                      ? "${systemState.cdnBase}/avatar/default.png"
+                                      : avatar,
                                   width: 140.w,
                                   height: 140.w,
                                   fit: BoxFit.cover,
@@ -661,12 +662,15 @@ class _UserWorksGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return items.isEmpty
-        ? _buildEmptyState(context)
-        : _buildGridContent(context);
+    return BlocBuilder<LJNSystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return items.isEmpty
+          ? _buildEmptyState(context, systemState)
+          : _buildGridContent(context, systemState);
+    });
   }
 
-  Widget _buildEmptyState(BuildContext context) {
+  Widget _buildEmptyState(BuildContext context, SystemState systemState) {
     if (buttonText == '发布作品') {
       return Container(
         color: Theme.of(context).colorScheme.surfaceContainer,
@@ -729,8 +733,8 @@ class _UserWorksGrid extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(height: 120.w),
-            Image.asset(
-              assetPath('images/imgs/no-content.webp'),
+            CachedNetworkImage(
+              imageUrl: '${systemState.cdnBase}/imgs/no-content.webp',
               width: 200.w,
               height: 200.w,
               color: Colors.grey.shade400,
@@ -775,7 +779,7 @@ class _UserWorksGrid extends StatelessWidget {
     );
   }
 
-  Widget _buildGridContent(BuildContext context) {
+  Widget _buildGridContent(BuildContext context, SystemState systemState) {
     return Container(
       color: Theme.of(context).colorScheme.surfaceContainer,
       child: GridView.builder(

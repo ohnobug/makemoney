@@ -6,12 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:vigaviga/widgets/ljn_section_header.dart'; // 使用 CachedNetworkImage 提升体验
+import 'package:vigaviga/widgets/ljn_section_header.dart';
 
 // Data model for trend items
 class TrendItem {
@@ -209,6 +208,8 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
 
   Widget _buildServicesSection(
       ThemeData theme, AppLocalizations l10n, SystemState systemState) {
+    String cdnBase = systemState.cdnBase;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -217,19 +218,19 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
           children: [
             LJNFunctionItem(
               title: "心情时刻",
-              icon: "images/icon/discovery_icon1.png",
+              icon: "$cdnBase/icon/discovery_icon1.png",
               link: '/chat/friend_moments',
               underline: true,
             ),
             LJNFunctionItem(
               title: "图片墙",
-              icon: "images/icon/discovery_icon2.png",
+              icon: "$cdnBase/icon/discovery_icon2.png",
               link: '/discovery/ins',
               underline: true,
             ),
             LJNFunctionItem(
               title: "小程序",
-              icon: "images/icon/discovery_icon5.png",
+              icon: "$cdnBase/icon/discovery_icon5.png",
               link: '/discovery/miniprogram_list',
               underline: false,
             ),
@@ -240,24 +241,27 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
   }
 
   Widget _buildBanner() {
-    return Padding(
-      padding: EdgeInsets.only(
-        top: 20.w,
-        left: 20.w,
-        right: 20.w,
-        bottom: 0,
-      ),
-      child: AspectRatio(
-        aspectRatio: 16 / 7,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16.w),
-          child: Image.asset(
-            assetPath('images/imgs/i.webp'),
-            fit: BoxFit.cover,
+    return BlocBuilder<LJNSystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return Padding(
+        padding: EdgeInsets.only(
+          top: 20.w,
+          left: 20.w,
+          right: 20.w,
+          bottom: 0,
+        ),
+        child: AspectRatio(
+          aspectRatio: 16 / 7,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16.w),
+            child: CachedNetworkImage(
+              imageUrl: '${systemState.cdnBase}/imgs/i.webp',
+              fit: BoxFit.cover,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget _buildTrendingSection(ThemeData theme) {

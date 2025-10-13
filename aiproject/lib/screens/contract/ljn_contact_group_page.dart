@@ -31,13 +31,16 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
     // 2. 直接调用模板，只需传入 DateTime 对象
     final String displayText = l10n.creationTimeDisplay(creationTimestamp);
 
+    var systemCubit = context.read<LJNSystemCubit>();
+    String cdnBase = systemCubit.state.cdnBase;
+
     contactList = [
       LJNAlphabet(
         title: l10n.groupChats,
       ),
       ChatListItem(
         friendName: "天空飘来五个字那都不是事",
-        avatar: "images/avatar/chat_1.jpg",
+        avatar: "$cdnBase/avatar/chat_1.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -48,13 +51,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "天空飘来五个字那都不是事",
                 'nickname': "天空飘来五个字那都不是事",
                 'account': "天空飘来五个字那都不是事",
-                'avatar': "images/avatar/chat_1.jpg",
+                'avatar': "$cdnBase/avatar/chat_1.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "本因",
-        avatar: "images/avatar/chat_10.jpg",
+        avatar: "$cdnBase/avatar/chat_10.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -65,13 +68,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "本因",
                 'nickname': "本因",
                 'account': "本因",
-                'avatar': "images/avatar/chat_10.jpg",
+                'avatar': "$cdnBase/avatar/chat_10.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "赵洵",
-        avatar: "images/avatar/chat_11.jpg",
+        avatar: "$cdnBase/avatar/chat_11.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -82,13 +85,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "赵洵",
                 'nickname': "赵洵",
                 'account': "赵洵",
-                'avatar': "images/avatar/chat_11.jpg",
+                'avatar': "$cdnBase/avatar/chat_11.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "定静师太",
-        avatar: "images/avatar/chat_12.jpg",
+        avatar: "$cdnBase/avatar/chat_12.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -99,13 +102,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "定静师太",
                 'nickname': "定静师太",
                 'account': "定静师太",
-                'avatar': "images/avatar/chat_12.jpg",
+                'avatar': "$cdnBase/avatar/chat_12.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "李秋水",
-        avatar: "images/avatar/chat_13.jpg",
+        avatar: "$cdnBase/avatar/chat_13.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -116,13 +119,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "李秋水",
                 'nickname': "李秋水",
                 'account': "李秋水",
-                'avatar': "images/avatar/chat_13.jpg",
+                'avatar': "$cdnBase/avatar/chat_13.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "谭婆",
-        avatar: "images/avatar/chat_14.jpg",
+        avatar: "$cdnBase/avatar/chat_14.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -133,13 +136,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "谭婆",
                 'nickname': "谭婆",
                 'account': "谭婆",
-                'avatar': "images/avatar/chat_14.jpg",
+                'avatar': "$cdnBase/avatar/chat_14.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "李傀儡",
-        avatar: "images/avatar/chat_15.jpg",
+        avatar: "$cdnBase/avatar/chat_15.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -150,13 +153,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "李傀儡",
                 'nickname': "李傀儡",
                 'account': "李傀儡",
-                'avatar': "images/avatar/chat_15.jpg",
+                'avatar': "$cdnBase/avatar/chat_15.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "貂禅",
-        avatar: "images/avatar/chat_16.jpg",
+        avatar: "$cdnBase/avatar/chat_16.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -167,13 +170,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "貂禅",
                 'nickname': "貂禅",
                 'account': "貂禅",
-                'avatar': "images/avatar/chat_16.jpg",
+                'avatar': "$cdnBase/avatar/chat_16.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "何三七",
-        avatar: "images/avatar/chat_17.jpg",
+        avatar: "$cdnBase/avatar/chat_17.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -184,13 +187,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "何三七",
                 'nickname': "何三七",
                 'account': "何三七",
-                'avatar': "images/avatar/chat_17.jpg",
+                'avatar': "$cdnBase/avatar/chat_17.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "孔融",
-        avatar: "images/avatar/chat_18.jpg",
+        avatar: "$cdnBase/avatar/chat_18.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -201,13 +204,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "孔融",
                 'nickname': "孔融",
                 'account': "孔融",
-                'avatar': "images/avatar/chat_18.jpg",
+                'avatar': "$cdnBase/avatar/chat_18.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "齐堂主",
-        avatar: "images/avatar/chat_19.jpg",
+        avatar: "$cdnBase/avatar/chat_19.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -218,13 +221,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "齐堂主",
                 'nickname': "齐堂主",
                 'account': "齐堂主",
-                'avatar': "images/avatar/chat_19.jpg",
+                'avatar': "$cdnBase/avatar/chat_19.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "博尔术",
-        avatar: "images/avatar/chat_20.jpg",
+        avatar: "$cdnBase/avatar/chat_20.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -235,13 +238,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "博尔术",
                 'nickname': "博尔术",
                 'account': "博尔术",
-                'avatar': "images/avatar/chat_20.jpg",
+                'avatar': "$cdnBase/avatar/chat_20.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "王语嫣",
-        avatar: "images/avatar/chat_21.jpg",
+        avatar: "$cdnBase/avatar/chat_21.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -252,13 +255,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "王语嫣",
                 'nickname': "王语嫣",
                 'account': "王语嫣",
-                'avatar': "images/avatar/chat_21.jpg",
+                'avatar': "$cdnBase/avatar/chat_21.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "秦红棉",
-        avatar: "images/avatar/chat_22.jpg",
+        avatar: "$cdnBase/avatar/chat_22.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -269,13 +272,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "秦红棉",
                 'nickname': "秦红棉",
                 'account': "秦红棉",
-                'avatar': "images/avatar/chat_22.jpg",
+                'avatar': "$cdnBase/avatar/chat_22.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "天竺僧人",
-        avatar: "images/avatar/chat_23.jpg",
+        avatar: "$cdnBase/avatar/chat_23.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -286,7 +289,7 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
       ),
       ChatListItem(
         friendName: "段延庆",
-        avatar: "images/avatar/chat_33.jpg",
+        avatar: "$cdnBase/avatar/chat_33.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -297,13 +300,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "段延庆",
                 'nickname': "段延庆",
                 'account': "段延庆",
-                'avatar': "images/avatar/chat_33.jpg",
+                'avatar': "$cdnBase/avatar/chat_33.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "令狐冲",
-        avatar: "images/avatar/chat_34.jpg",
+        avatar: "$cdnBase/avatar/chat_34.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -314,13 +317,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "令狐冲",
                 'nickname': "令狐冲",
                 'account': "令狐冲",
-                'avatar': "images/avatar/chat_34.jpg",
+                'avatar': "$cdnBase/avatar/chat_34.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "英白罗",
-        avatar: "images/avatar/chat_35.jpg",
+        avatar: "$cdnBase/avatar/chat_35.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -331,13 +334,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "英白罗",
                 'nickname': "英白罗",
                 'account': "英白罗",
-                'avatar': "images/avatar/chat_35.jpg",
+                'avatar': "$cdnBase/avatar/chat_35.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "黄药师",
-        avatar: "images/avatar/chat_36.jpg",
+        avatar: "$cdnBase/avatar/chat_36.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -348,13 +351,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "黄药师",
                 'nickname': "黄药师",
                 'account': "黄药师",
-                'avatar': "images/avatar/chat_36.jpg",
+                'avatar': "$cdnBase/avatar/chat_36.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "李煜",
-        avatar: "images/avatar/chat_37.jpg",
+        avatar: "$cdnBase/avatar/chat_37.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -365,13 +368,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "李煜",
                 'nickname': "李煜",
                 'account': "李煜",
-                'avatar': "images/avatar/chat_37.jpg",
+                'avatar': "$cdnBase/avatar/chat_37.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "云中鹤",
-        avatar: "images/avatar/chat_38.jpg",
+        avatar: "$cdnBase/avatar/chat_38.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -382,13 +385,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "云中鹤",
                 'nickname': "云中鹤",
                 'account': "云中鹤",
-                'avatar': "images/avatar/chat_38.jpg",
+                'avatar': "$cdnBase/avatar/chat_38.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "劳德诺",
-        avatar: "images/avatar/chat_39.jpg",
+        avatar: "$cdnBase/avatar/chat_39.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -399,13 +402,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "劳德诺",
                 'nickname': "劳德诺",
                 'account': "劳德诺",
-                'avatar': "images/avatar/chat_39.jpg",
+                'avatar': "$cdnBase/avatar/chat_39.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "包惜弱",
-        avatar: "images/avatar/chat_40.jpg",
+        avatar: "$cdnBase/avatar/chat_40.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -416,13 +419,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "包惜弱",
                 'nickname': "包惜弱",
                 'account': "包惜弱",
-                'avatar': "images/avatar/chat_40.jpg",
+                'avatar': "$cdnBase/avatar/chat_40.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "游驹",
-        avatar: "images/avatar/chat_41.jpg",
+        avatar: "$cdnBase/avatar/chat_41.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -433,13 +436,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "游驹",
                 'nickname': "游驹",
                 'account': "游驹",
-                'avatar': "images/avatar/chat_41.jpg",
+                'avatar': "$cdnBase/avatar/chat_41.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "钟万仇",
-        avatar: "images/avatar/chat_42.jpg",
+        avatar: "$cdnBase/avatar/chat_42.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -450,13 +453,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "钟万仇",
                 'nickname': "钟万仇",
                 'account': "钟万仇",
-                'avatar': "images/avatar/chat_42.jpg",
+                'avatar': "$cdnBase/avatar/chat_42.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "渔人",
-        avatar: "images/avatar/chat_43.jpg",
+        avatar: "$cdnBase/avatar/chat_43.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -467,13 +470,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "渔人",
                 'nickname': "渔人",
                 'account': "渔人",
-                'avatar': "images/avatar/chat_43.jpg",
+                'avatar': "$cdnBase/avatar/chat_43.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "单叔山",
-        avatar: "images/avatar/chat_44.jpg",
+        avatar: "$cdnBase/avatar/chat_44.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -484,13 +487,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "单叔山",
                 'nickname': "单叔山",
                 'account': "单叔山",
-                'avatar': "images/avatar/chat_44.jpg",
+                'avatar': "$cdnBase/avatar/chat_44.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "段誉",
-        avatar: "images/avatar/chat_45.jpg",
+        avatar: "$cdnBase/avatar/chat_45.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -501,13 +504,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "段誉",
                 'nickname': "段誉",
                 'account': "段誉",
-                'avatar': "images/avatar/chat_45.jpg",
+                'avatar': "$cdnBase/avatar/chat_45.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "林震南",
-        avatar: "images/avatar/chat_46.jpg",
+        avatar: "$cdnBase/avatar/chat_46.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -518,13 +521,13 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "林震南",
                 'nickname': "林震南",
                 'account': "林震南",
-                'avatar': "images/avatar/chat_46.jpg",
+                'avatar': "$cdnBase/avatar/chat_46.jpg",
               });
         },
       ),
       ChatListItem(
         friendName: "商鞅",
-        avatar: "images/avatar/chat_47.jpg",
+        avatar: "$cdnBase/avatar/chat_47.jpg",
         message: displayText,
         notice: false,
         lastedTime: "",
@@ -535,7 +538,7 @@ class _LJNContactGroupState extends State<LJNContactGroupPage> {
                 'name': "商鞅",
                 'nickname': "商鞅",
                 'account': "商鞅",
-                'avatar': "images/avatar/chat_47.jpg",
+                'avatar': "$cdnBase/avatar/chat_47.jpg",
               });
         },
       ),

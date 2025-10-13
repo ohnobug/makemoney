@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:floating/floating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -158,12 +159,10 @@ class _LJNDial extends State<LJNDialPage> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(
                           16.0.w), // Adjust the radius as needed
-                      child: Image.asset(
-                        assetPath("images/avatar/chat_55.jpg"),
+                      child: CachedNetworkImage(
+                        imageUrl: "${systemState.cdnBase}/avatar/chat_55.jpg",
                         width: 183.0.w,
                         height: 183.0.w,
-                        cacheWidth: 360.w.toInt(),
-                        cacheHeight: 360.w.toInt(),
                         fit: BoxFit.contain,
                       ),
                     ),

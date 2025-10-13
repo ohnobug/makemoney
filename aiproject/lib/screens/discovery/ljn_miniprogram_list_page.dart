@@ -7,8 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/widgets/ljn_function_button.dart';
 import 'package:vigaviga/widgets/ljn_function_buttons_section.dart';
 import 'package:vigaviga/widgets/ljn_function_list_section.dart';
+import 'package:vigaviga/widgets/ljn_miniprogram_button.dart';
+import 'package:vigaviga/widgets/ljn_miniprogram_buttons_section.dart';
 
-// --- Data Models for clean data/UI separation ---
 class _FunctionButtonData {
   final String icon;
   final String title;
@@ -38,77 +39,91 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
   static const String _dummyLink =
       "http://inner_list_of_third_party_information_sharing/";
 
-  final List<_FunctionButtonData> recentUseData = const [
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/zhihuixiangji.jpg", title: "智慧相机"),
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/haimianbaobao.jpg", title: "海绵宝宝"),
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/taowuyou.jpg", title: "淘无忧"),
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/wangzheyingdi.jpg", title: "王者营地"),
-  ];
+  List<_FunctionButtonData> recentUseData = [];
+  List<_FunctionButtonData> myFavoritesData = [];
+  List<_ChatListItemData> transportData = [];
+  List<_ChatListItemData> nearbyData = [];
 
-  final List<_FunctionButtonData> myFavoritesData = const [
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/duitang.jpg", title: "堆糖"),
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/tiankongyueduqi.jpg", title: "天空阅读器"),
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/qishuwang.jpg", title: "奇书网"),
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/xueyouyoujiao.jpg", title: "学有优教"),
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/haiziwang.jpg", title: "孩子王"),
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/qianbixiaoshuo.jpg", title: "铅笔小说"),
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/chengquanshipin.jpg", title: "成全视频"),
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/xiaomishangcheng.jpg", title: "小米商城"),
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/meituxiuxiu.jpg", title: "美图秀秀"),
-    _FunctionButtonData(
-        icon: "images/miniprogram_icon/luobokuaipao.jpg", title: "萝卜快跑"),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    var systemCubit = context.read<LJNSystemCubit>();
+    String cdnBase = systemCubit.state.cdnBase;
 
-  final List<_ChatListItemData> transportData = const [
-    _ChatListItemData(
-        friendName: "粤童年",
-        message: "今天天气真好，阳光明媚，让人心情愉悦。",
-        avatar: "images/miniprogram_icon/yuetongnianruanjian.jpg"),
-    _ChatListItemData(
-        friendName: '起点中文',
-        message: "[图片]",
-        avatar: "images/miniprogram_icon/qidianzhongwen.jpg"),
-    _ChatListItemData(
-        friendName: "野花香电视剧",
-        message: "这个怎么样调试?",
-        avatar: "images/miniprogram_icon/yehuaxiangdianshiju.jpg"),
-    _ChatListItemData(
-        friendName: "韵镖侠",
-        message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
-        avatar: "images/miniprogram_icon/yunbiaoxia.jpg"),
-  ];
+    recentUseData = [
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/zhihuixiangji.jpg", title: "智慧相机"),
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/haimianbaobao.jpg", title: "海绵宝宝"),
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/taowuyou.jpg", title: "淘无忧"),
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/wangzheyingdi.jpg", title: "王者营地"),
+    ];
 
-  final List<_ChatListItemData> nearbyData = const [
-    _ChatListItemData(
-        friendName: "蘑菇云游",
-        message: "今天天气真好，阳光明媚，让人心情愉悦。",
-        avatar: "images/miniprogram_icon/moguyunyou.jpg"),
-    _ChatListItemData(
-        friendName: '美图秀秀',
-        message: "[图片]",
-        avatar: "images/miniprogram_icon/meituxiuxiu.jpg"),
-    _ChatListItemData(
-        friendName: "百度翻译",
-        message: "这个怎么样调试?",
-        avatar: "images/miniprogram_icon/baidufanyi.jpg"),
-    _ChatListItemData(
-        friendName: "淘无忧",
-        message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
-        avatar: "images/miniprogram_icon/taowuyou.jpg"),
-  ];
+    myFavoritesData = [
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/duitang.jpg", title: "堆糖"),
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
+          title: "天空阅读器"),
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/qishuwang.jpg", title: "奇书网"),
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/xueyouyoujiao.jpg", title: "学有优教"),
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/haiziwang.jpg", title: "孩子王"),
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/qianbixiaoshuo.jpg", title: "铅笔小说"),
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/chengquanshipin.jpg", title: "成全视频"),
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/xiaomishangcheng.jpg",
+          title: "小米商城"),
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/meituxiuxiu.jpg", title: "美图秀秀"),
+      _FunctionButtonData(
+          icon: "$cdnBase/miniprogram_icon/luobokuaipao.jpg", title: "萝卜快跑"),
+    ];
+
+    transportData = [
+      _ChatListItemData(
+          friendName: "粤童年",
+          message: "今天天气真好，阳光明媚，让人心情愉悦。",
+          avatar: "$cdnBase/miniprogram_icon/yuetongnianruanjian.jpg"),
+      _ChatListItemData(
+          friendName: '起点中文',
+          message: "[图片]",
+          avatar: "$cdnBase/miniprogram_icon/qidianzhongwen.jpg"),
+      _ChatListItemData(
+          friendName: "野花香电视剧",
+          message: "这个怎么样调试?",
+          avatar: "$cdnBase/miniprogram_icon/yehuaxiangdianshiju.jpg"),
+      _ChatListItemData(
+          friendName: "韵镖侠",
+          message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
+          avatar: "$cdnBase/miniprogram_icon/yunbiaoxia.jpg"),
+    ];
+
+    nearbyData = [
+      _ChatListItemData(
+          friendName: "蘑菇云游",
+          message: "今天天气真好，阳光明媚，让人心情愉悦。",
+          avatar: "$cdnBase/miniprogram_icon/moguyunyou.jpg"),
+      _ChatListItemData(
+          friendName: '美图秀秀',
+          message: "[图片]",
+          avatar: "$cdnBase/miniprogram_icon/meituxiuxiu.jpg"),
+      _ChatListItemData(
+          friendName: "百度翻译",
+          message: "这个怎么样调试?",
+          avatar: "$cdnBase/miniprogram_icon/baidufanyi.jpg"),
+      _ChatListItemData(
+          friendName: "淘无忧",
+          message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
+          avatar: "$cdnBase/miniprogram_icon/taowuyou.jpg"),
+    ];
+  }
 
   void _navigateToMiniProgram(BuildContext context) {
     Navigator.of(context)
@@ -172,11 +187,11 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
                   child: Column(
                     children: [
                       // 最近使用
-                      LJNFunctionButtonsSection(
+                      LJNMiniprogramButtonsSection(
                         title: l10n.recent,
                         moreUrl: "/",
                         buttons: recentUseData
-                            .map((data) => LJNFunctionButton(
+                            .map((data) => LJNMiniprogramButton(
                                   icon: data.icon,
                                   title: data.title,
                                   onPressed: () =>
@@ -185,11 +200,11 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
                             .toList(),
                       ),
                       // 我的常用
-                      LJNFunctionButtonsSection(
+                      LJNMiniprogramButtonsSection(
                         title: l10n.myFavorites,
                         moreUrl: "",
                         buttons: myFavoritesData
-                            .map((data) => LJNFunctionButton(
+                            .map((data) => LJNMiniprogramButton(
                                   icon: data.icon,
                                   title: data.title,
                                   onPressed: () =>

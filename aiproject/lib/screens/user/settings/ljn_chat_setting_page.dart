@@ -32,6 +32,8 @@ class _LJNChatSettingPage extends State<LJNChatSettingPage> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
+      String cdnBase = systemState.cdnBase;
+
       return Scaffold(
         primary: false,
         appBar: LJNAppBar(
@@ -54,7 +56,7 @@ class _LJNChatSettingPage extends State<LJNChatSettingPage> {
                   children: [
                     // 使用听筒播放语音
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.useEarpieceToPlayVoice,
                       // link: '',
                       underline: true,
@@ -105,7 +107,7 @@ class _LJNChatSettingPage extends State<LJNChatSettingPage> {
 
                     // 聊天背景
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.chatBackground,
                       link: '',
                       underline: true,
@@ -113,7 +115,7 @@ class _LJNChatSettingPage extends State<LJNChatSettingPage> {
 
                     // 表情管理
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.stickerManagement,
                       link: '',
                       underline: false,
@@ -126,13 +128,13 @@ class _LJNChatSettingPage extends State<LJNChatSettingPage> {
                   title: LJNAlphabet(title: l10n.chatHistory),
                   children: [
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.chatHistoryMigrationBackup,
                       link: '',
                       underline: true,
                     ),
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.clearChatHistory,
                       link: '',
                       underline: false,

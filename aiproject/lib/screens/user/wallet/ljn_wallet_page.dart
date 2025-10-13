@@ -35,6 +35,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
   Widget _buildPage(SystemState systemState) {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
+    String cdnBase = systemState.cdnBase;
 
     return Scaffold(
       primary: false,
@@ -82,7 +83,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                     // 余额
                     LJNFunctionItem(
                       title: l10n.balance,
-                      icon: "images/icon/discovery_icon1.png",
+                      icon: "$cdnBase/icon/discovery_icon1.png",
                       link: '/user/pocketmoney',
                       showStyle: Expanded(
                         child: Row(
@@ -133,7 +134,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                     // 余额宝
                     LJNFunctionItem(
                       title: l10n.balancePlus,
-                      icon: "images/icon/discovery_icon2.png",
+                      icon: "$cdnBase/icon/discovery_icon2.png",
                       link: '',
                       showStyle: SizedBox(
                         width: 380.w,
@@ -200,7 +201,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                     // 银行卡
                     LJNFunctionItem(
                       title: l10n.bankCards,
-                      icon: "images/icon/discovery_icon3.png",
+                      icon: "$cdnBase/icon/discovery_icon3.png",
                       link: '',
                       underline: true,
                     ),
@@ -208,7 +209,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                     // 扫一扫、听一听
                     LJNFunctionItem(
                       title: l10n.familyCard,
-                      icon: "images/icon/discovery_icon4.png",
+                      icon: "$cdnBase/icon/discovery_icon4.png",
                       link: '',
                       underline: false,
                     ),
@@ -220,7 +221,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                   children: [
                     LJNFunctionItem(
                       title: l10n.paymentScore,
-                      icon: "images/icon/discovery_icon5.png",
+                      icon: "$cdnBase/icon/discovery_icon5.png",
                       link: '',
                       underline: false,
                     ),
@@ -232,7 +233,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                   children: [
                     LJNFunctionItem(
                       title: l10n.consumerProtection,
-                      icon: "images/icon/discovery_icon6.png",
+                      icon: "$cdnBase/icon/discovery_icon6.png",
                       link: '',
                       underline: false,
                     ),

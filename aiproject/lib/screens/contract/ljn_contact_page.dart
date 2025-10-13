@@ -19,7 +19,7 @@ class LJNContactPage extends StatefulWidget {
 }
 
 class _LJNContactState extends State<LJNContactPage> {
-  // 关键改动 2: contactDataList 只存储不依赖 context 的静态数据模型
+  // contactDataList 只存储不依赖 context 的静态数据模型
   late List<dynamic> contactDataList = [];
 
   @override
@@ -27,7 +27,7 @@ class _LJNContactState extends State<LJNContactPage> {
     super.initState();
     logger.info('contact...............');
 
-    contactDataList = getContactDataList();
+    contactDataList = getContactDataList(context);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<LJNSystemCubit>().updateHomescrollpixels(0);
@@ -36,7 +36,7 @@ class _LJNContactState extends State<LJNContactPage> {
     });
   }
 
-  // 关键改动 3: 移除整个 didChangeDependencies 方法
+  // 移除整个 didChangeDependencies 方法
 
   // 辅助方法，用于根据 titleKey 获取本地化字符串
   String _getTitleFromKey(AppLocalizations l10n, String key) {
@@ -92,9 +92,8 @@ class _LJNContactState extends State<LJNContactPage> {
                     physics: const AlwaysScrollableScrollPhysics(
                       parent: BouncingScrollPhysics(),
                     ),
-                    itemCount: contactDataList.length + 1, // +1 for the footer
+                    itemCount: contactDataList.length + 1,
                     itemBuilder: (context, index) {
-                      // 关键改动 5: 在 itemBuilder 中动态构建 UI
                       if (index < contactDataList.length) {
                         final itemData = contactDataList[index];
 

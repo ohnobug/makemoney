@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,6 @@ import 'package:vigaviga/widgets/ljn_switch.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
 
 class LJNGroupMessageRecordPage extends StatefulWidget {
@@ -44,6 +44,8 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
+        String cdnBase = systemState.cdnBase;
+
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(title: l10n.chatMessages),
@@ -89,11 +91,10 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8).w,
-                                  child: Image.asset(
-                                    assetPath(
-                                        'images/avatar/chat_20.jpg'),
-                                    cacheWidth: 210.w.toInt(),
-                                    cacheHeight: 210.w.toInt(),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        '${systemState.cdnBase}/avatar/chat_20.jpg'
+                                            .toString(),
                                     width: 105.w,
                                     height: 105.w,
                                     fit: BoxFit.cover,
@@ -126,11 +127,9 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8).w,
-                                  child: Image.asset(
-                                    assetPath(
-                                        'images/avatar/chat_21.jpg'),
-                                    cacheWidth: 210.w.toInt(),
-                                    cacheHeight: 210.w.toInt(),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        '${systemState.cdnBase}/avatar/chat_21.jpg',
                                     width: 105.w,
                                     height: 105.w,
                                     fit: BoxFit.cover,
@@ -163,11 +162,9 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8).w,
-                                  child: Image.asset(
-                                    assetPath(
-                                        'images/avatar/chat_25.jpg'),
-                                    cacheWidth: 210.w.toInt(),
-                                    cacheHeight: 210.w.toInt(),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        '${systemState.cdnBase}/avatar/chat_25.jpg',
                                     width: 105.w,
                                     height: 105.w,
                                     fit: BoxFit.cover,
@@ -200,11 +197,9 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8).w,
-                                  child: Image.asset(
-                                    assetPath(
-                                        'images/avatar/chat_28.jpg'),
-                                    cacheWidth: 210.w.toInt(),
-                                    cacheHeight: 210.w.toInt(),
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        "${systemState.cdnBase}/avatar/chat_28.jpg",
                                     width: 105.w,
                                     height: 105.w,
                                     fit: BoxFit.cover,
@@ -236,7 +231,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                     LJNFunctionList(children: [
                       // 群聊名称
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "$cdnBase/avatar/02.png",
                         title: l10n.groupChatName,
                         link: '',
                         showStyle: "请说英语",
@@ -244,7 +239,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                       ),
                       // 群二维码
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "$cdnBase/avatar/02.png",
                         title: l10n.groupQRCode,
                         link: '',
                         showStyle: Expanded(
@@ -268,7 +263,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                       ),
                       // 群公告
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "$cdnBase/avatar/02.png",
                         title: l10n.groupAnnouncement,
                         link: '',
                         showStyle: "",
@@ -276,7 +271,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                       ),
                       // 群备注
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "$cdnBase/avatar/02.png",
                         title: l10n.remark,
                         link: '',
                         showStyle: "",
@@ -289,7 +284,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                       children: [
                         // 查找聊天记录
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.findChatHistory,
                           link: '',
                           showStyle: "",
@@ -303,7 +298,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                       children: [
                         // 消息免打扰
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.muteNotifications,
                           // link: '',
                           underline: true,
@@ -324,7 +319,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
 
                         // 置顶聊天
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.pinToTop,
                           // link: '',
                           underline: true,
@@ -345,7 +340,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
 
                         // 保存到通讯录
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.saveToContacts,
                           // link: '',
                           underline: false,
@@ -371,7 +366,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                       children: [
                         // 我的群昵称
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.myNicknameInGroup,
                           link: '',
                           showStyle: "李俊杰",
@@ -380,7 +375,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
 
                         // 显示群成员昵称
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.showGroupMemberNicknames,
                           // link: '',
                           underline: false,
@@ -405,7 +400,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                     LJNFunctionList(children: [
                       // 设置聊天背景
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "$cdnBase/avatar/02.png",
                         title: l10n.setChatBackground,
                         link: '',
                         underline: true,
@@ -413,7 +408,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
 
                       // 清空聊天记录
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "$cdnBase/avatar/02.png",
                         title: l10n.clearChatHistory,
                         link: '',
                         underline: true,
@@ -421,7 +416,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
 
                       // 投诉
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "$cdnBase/avatar/02.png",
                         title: l10n.complain,
                         link: '',
                         underline: false,

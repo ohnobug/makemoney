@@ -27,6 +27,7 @@ class _AppState extends State<App> {
     super.initState();
 
     var systemCubit = context.read<LJNSystemCubit>();
+
     systemCubit
         .updateCdnBase('https://pub-b6f4234779aa4f20a82c28fe1fbdf089.r2.dev');
 
@@ -36,7 +37,8 @@ class _AppState extends State<App> {
     userCubit.updatePhone('+8618825130917');
     userCubit.updateWalletBalance(2056.98);
     userCubit.updateWalletFoundationBalance(100.85);
-    userCubit.updateAvatar("images/avatar/my.jpg");
+    userCubit.updateAvatar(
+        "https://pub-b6f4234779aa4f20a82c28fe1fbdf089.r2.dev/avatar/my.jpg");
   }
 
   @override

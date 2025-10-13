@@ -1,4 +1,5 @@
 // --- 小程序列表项组 ---
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
@@ -141,10 +142,8 @@ class _ChatListItemState extends State<LJNChatListItem> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(95).w,
-              child: Image.asset(
-                assetPath(widget.avatar),
-                cacheWidth: 190.w.toInt(),
-                cacheHeight: 190.w.toInt(),
+              child: CachedNetworkImage(
+                imageUrl: widget.avatar,
                 width: 95.w,
                 height: 95.w,
                 fit: BoxFit.cover,

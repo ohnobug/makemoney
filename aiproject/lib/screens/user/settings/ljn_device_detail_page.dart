@@ -31,6 +31,8 @@ class _LJNDeviceDetailPage extends State<LJNDeviceDetailPage> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
+        String cdnBase = systemState.cdnBase;
+
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
@@ -54,7 +56,7 @@ class _LJNDeviceDetailPage extends State<LJNDeviceDetailPage> {
                   LJNFunctionList(children: [
                     // 设备名称
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       // height: 150.w,
                       title: l10n.deviceName,
                       link: '',
@@ -76,7 +78,7 @@ class _LJNDeviceDetailPage extends State<LJNDeviceDetailPage> {
 
                     // 设备类型
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       // height: 150.w,
                       title: l10n.deviceType,
                       // link: '',
@@ -105,7 +107,7 @@ class _LJNDeviceDetailPage extends State<LJNDeviceDetailPage> {
                   LJNFunctionList(children: [
                     // 最后活跃时间
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       // height: 150.w,
                       title: l10n.lastActiveTime,
                       // link: '',

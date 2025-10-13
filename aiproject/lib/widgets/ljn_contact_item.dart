@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
@@ -103,12 +104,10 @@ class _ContactInformationState extends State<ContactInformation> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(7.0.w),
-              child: Image.asset(
-                assetPath(widget.icon),
+              child: CachedNetworkImage(
+                imageUrl: widget.icon,
                 width: 75.0.w,
                 height: 75.0.w,
-                cacheHeight: 150,
-                cacheWidth: 150,
                 fit: BoxFit.cover,
               ),
             ),

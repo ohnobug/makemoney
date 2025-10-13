@@ -407,7 +407,6 @@ class _LJNArtsPage extends State<LJNArtsPage> {
   }
 }
 
-// ... _VideoInfoSection 和 _VideoInfoSectionState 保持不变 ...
 class _VideoInfoSection extends StatefulWidget {
   final String userName;
   final Uri avatarUrl;

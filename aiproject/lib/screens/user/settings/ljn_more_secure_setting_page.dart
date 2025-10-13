@@ -27,6 +27,8 @@ class _LJNAaccountAndSecure extends State<LJNMoreSecureSettingPage> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
+        String cdnBase = systemState.cdnBase;
+
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
@@ -52,7 +54,7 @@ class _LJNAaccountAndSecure extends State<LJNMoreSecureSettingPage> {
                       children: [
                         // QQ号
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.qqId,
                           link: '/',
                           showStyle: "2281551151",
@@ -60,7 +62,7 @@ class _LJNAaccountAndSecure extends State<LJNMoreSecureSettingPage> {
                         ),
                         // 邮箱地址
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.emailAddress,
                           link: '/',
                           showStyle: l10n.notBound,
@@ -73,7 +75,7 @@ class _LJNAaccountAndSecure extends State<LJNMoreSecureSettingPage> {
                     LJNFunctionList(children: [
                       // 手机安全保护
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "$cdnBase/avatar/02.png",
                         title: l10n.mobileSecurityProtection,
                         link: '/',
                         underline: false,

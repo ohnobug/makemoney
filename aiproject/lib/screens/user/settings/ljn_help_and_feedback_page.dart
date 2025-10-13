@@ -78,6 +78,8 @@ class _LJNHelpAndFeedbackPageState extends State<LJNHelpAndFeedbackPage>
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
+      String cdnBase = systemState.cdnBase;
+
       return Scaffold(
         backgroundColor: const Color(0xFFF8F8F8), // 统一页面背景色
         primary: false,
@@ -106,42 +108,42 @@ class _LJNHelpAndFeedbackPageState extends State<LJNHelpAndFeedbackPage>
                   LJNFunctionButtonsSection(
                     buttons: [
                       LJNFunctionButton(
-                        icon: "images/miniprogram_icon/tiankongyueduqi.jpg",
+                        icon: "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
                         title: '账号检测',
                         onPressed: () {},
                       ),
                       LJNFunctionButton(
-                        icon: "images/miniprogram_icon/tiankongyueduqi.jpg",
+                        icon: "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
                         title: '笔记申诉',
                         onPressed: () {},
                       ),
                       LJNFunctionButton(
-                        icon: "images/miniprogram_icon/tiankongyueduqi.jpg",
+                        icon: "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
                         title: '开通店铺',
                         onPressed: () {},
                       ),
                       LJNFunctionButton(
-                        icon: "images/miniprogram_icon/tiankongyueduqi.jpg",
+                        icon: "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
                         title: '售后退款',
                         onPressed: () {},
                       ),
                       LJNFunctionButton(
-                        icon: "images/miniprogram_icon/tiankongyueduqi.jpg",
+                        icon: "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
                         title: '券和福利',
                         onPressed: () {},
                       ),
                       LJNFunctionButton(
-                        icon: "images/miniprogram_icon/tiankongyueduqi.jpg",
+                        icon: "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
                         title: '找回账号',
                         onPressed: () {},
                       ),
                       LJNFunctionButton(
-                        icon: "images/miniprogram_icon/tiankongyueduqi.jpg",
+                        icon: "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
                         title: '账号与安全',
                         onPressed: () {},
                       ),
                       LJNFunctionButton(
-                        icon: "images/miniprogram_icon/tiankongyueduqi.jpg",
+                        icon: "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
                         title: '查看物流',
                         onPressed: () {},
                       ),

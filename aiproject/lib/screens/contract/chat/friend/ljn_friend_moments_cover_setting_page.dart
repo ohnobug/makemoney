@@ -29,6 +29,8 @@ class _LJNFriendMomentsCoverSetting
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
+        String cdnBase = systemState.cdnBase;
+
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
@@ -53,26 +55,26 @@ class _LJNFriendMomentsCoverSetting
                     LJNFunctionList(
                       children: [
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.selectFromPhoneAlbum,
                           link: '',
                           underline: true,
                         ),
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.selectFromChannels,
                           link: '',
                           underline: true,
                         ),
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.takeOne,
                           link: '',
                           underline: false,
                         ),
                         SizedBox(height: 62.w),
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.photographerWorks,
                           link: '',
                           underline: false,

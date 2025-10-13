@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -393,13 +394,9 @@ class _LJNFriendmoments extends State<LJNFriendmomentsPage>
                   child: AnimatedBuilder(
                     animation: _bgController,
                     builder: (context, child) {
-                      return Image.asset(
-                        assetPath('images/avatar/fj.jpg'),
-                        cacheWidth: 1500.w.toInt(),
-                        cacheHeight:
-                            (systemState.statusHeight + 1260.w).toInt(),
+                      return CachedNetworkImage(
+                        imageUrl: '${systemState.cdnBase}/avatar/fj.jpg',
                         width: 750.w,
-                        // 动态计算图片高度
                         height: _bgController.isCompleted
                             ? (systemState.statusHeight + 630.w) +
                                 (600.w * _bgController.value)
@@ -447,13 +444,11 @@ class _LJNFriendmoments extends State<LJNFriendmomentsPage>
                           ),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10).w,
-                            child: Image.asset(
-                              assetPath(context
+                            child: CachedNetworkImage(
+                              imageUrl: context
                                   .read<LJNUserCubit>()
                                   .state
-                                  .userinfoAvatar!),
-                              cacheWidth: 240.w.toInt(),
-                              cacheHeight: 240.w.toInt(),
+                                  .userinfoAvatar!,
                               width: 120.w,
                               height: 120.w,
                               fit: BoxFit.cover,
@@ -567,7 +562,7 @@ class _LJNFriendmoments extends State<LJNFriendmomentsPage>
 
   // 初始化朋友圈数据的私有方法
   void _initializeTweetData() {
-    tweetList = getTweetList(); // 从某个地方获取模拟数据
+    tweetList = getTweetList(context); // 从某个地方获取模拟数据
   }
 }
 
@@ -681,8 +676,8 @@ class _TweetWidgetState extends State<TweetWidget> {
             // 头像
             ClipRRect(
               borderRadius: BorderRadius.circular(10).w,
-              child: Image.asset(
-                assetPath(widget.avatarUrl),
+              child: CachedNetworkImage(
+                imageUrl: widget.avatarUrl,
                 width: 77.w,
                 height: 77.w,
                 fit: BoxFit.cover,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class LJNVideoPublishPageState extends StatefulWidget {
@@ -58,8 +59,8 @@ class LJNVideoPublishPage extends State<LJNVideoPublishPageState> {
                                 height: MediaQuery.of(context).size.width * 0.8,
                                 color: Colors.grey[300],
                                 child: _selectedThumbnail.isNotEmpty
-                                    ? Image.asset(
-                                        _selectedThumbnail,
+                                    ? CachedNetworkImage(
+                                        imageUrl: _selectedThumbnail,
                                         width: 40,
                                         height: 40,
                                         fit: BoxFit.cover,
@@ -322,8 +323,8 @@ class LJNVideoPublishPage extends State<LJNVideoPublishPageState> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
-              child: Image.asset(
-                imagePath,
+              child: CachedNetworkImage(
+                imageUrl: imagePath,
                 fit: BoxFit.cover,
               ),
             ),
@@ -361,7 +362,9 @@ class LJNVideoPublishPage extends State<LJNVideoPublishPageState> {
         margin: const EdgeInsets.only(right: 8),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.red.withAlpha((0.1 * 255).toInt()) : Colors.grey[200],
+          color: isSelected
+              ? Colors.red.withAlpha((0.1 * 255).toInt())
+              : Colors.grey[200],
           borderRadius: BorderRadius.circular(20),
           border: isSelected ? Border.all(color: Colors.red, width: 1.0) : null,
         ),

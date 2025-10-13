@@ -1,6 +1,7 @@
 // /lib/screens/user/widgets/ljn_user_function_button.dart
 
 // 用户中心专用
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
@@ -79,13 +80,11 @@ class LJNUserFunctionButtonState extends State<LJNUserFunctionButton> {
           children: [
             SizedBox(height: 15.w),
             // 图标
-            Image.asset(
-              assetPath(widget.icon),
+            CachedNetworkImage(
+              imageUrl: widget.icon,
               width: 65.w,
               height: 65.w,
-              cacheHeight: 130.w.toInt(),
-              cacheWidth: 130.w.toInt(),
-              fit: BoxFit.cover, // 让图片完全填满圆形区域
+              fit: BoxFit.cover,
             ),
             SizedBox(height: 15.w), // 图标和标题之间的间距
             // 标题

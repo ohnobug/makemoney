@@ -31,6 +31,8 @@ class _LJNSoundLockPage extends State<LJNSoundLockPage> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
+        String cdnBase = systemState.cdnBase;
+
         return Scaffold(
           primary: false,
           appBar: const LJNAppBar(),
@@ -90,7 +92,7 @@ class _LJNSoundLockPage extends State<LJNSoundLockPage> {
                           LJNFunctionList(children: [
                             // 语音锁
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.loginWithVoiceprint,
                               tapEffect: false,
                               underline: true,
@@ -111,7 +113,7 @@ class _LJNSoundLockPage extends State<LJNSoundLockPage> {
 
                             // 重置并移除
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.resetAndRemove,
                               link: '',
                               // backgroundColor: AppColors.neutralGrey2,
@@ -120,7 +122,7 @@ class _LJNSoundLockPage extends State<LJNSoundLockPage> {
 
                             // 尝试验证我的声音
                             LJNFunctionItem(
-                              icon: "images/avatar/02.png",
+                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.tryToVerifyMyVoice,
                               link: '',
                               // backgroundColor: AppColors.neutralGrey2,

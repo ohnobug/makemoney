@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
@@ -6,7 +7,6 @@ import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
 import '../../widgets/ljn_function_item.dart';
 
@@ -35,6 +35,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
   Widget _buildPage(SystemState systemState) {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
+    String cdnBase = systemState.cdnBase;
 
     return Scaffold(
       primary: false,
@@ -59,7 +60,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                 LJNFunctionList(children: [
                   // 头像
                   LJNFunctionItem(
-                    icon: "images/avatar/02.png",
+                    icon: "$cdnBase/avatar/02.png",
                     title: l10n.avatar,
                     height: 150.w,
                     link: '',
@@ -71,13 +72,11 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10).w,
-                            child: Image.asset(
-                              assetPath(context
+                            child: CachedNetworkImage(
+                              imageUrl: (context
                                   .read<LJNUserCubit>()
                                   .state
                                   .userinfoAvatar!),
-                              cacheWidth: 240.w.toInt(),
-                              cacheHeight: 240.w.toInt(),
                               width: 120.w,
                               height: 120.w,
                               fit: BoxFit.cover,
@@ -91,9 +90,9 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
                   // 姓名
                   LJNFunctionItem(
-                    icon: "images/avatar/02.png",
+                    icon: "$cdnBase/avatar/02.png",
                     title: l10n.nickName,
-                    // icon: "images/icon/discovery_icon2.png",
+                    // icon: "$cdnBase/icon/discovery_icon2.png",
                     link: '',
                     showStyle: context.read<LJNUserCubit>().state.userinfoName!,
                     underline: true,
@@ -101,7 +100,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
                   // 拍一拍
                   LJNFunctionItem(
-                    icon: "images/avatar/02.png",
+                    icon: "$cdnBase/avatar/02.png",
                     title: l10n.pat,
                     link: '',
                     underline: true,
@@ -109,7 +108,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
                   // Vigaviga号
                   LJNFunctionItem(
-                    icon: "images/avatar/02.png",
+                    icon: "$cdnBase/avatar/02.png",
                     title: l10n.vigavigaID,
                     link: '/settings/account_info',
                     showStyle:
@@ -119,7 +118,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
                   // 二维码名片
                   LJNFunctionItem(
-                    icon: "images/avatar/02.png",
+                    icon: "$cdnBase/avatar/02.png",
                     title: l10n.qrCodeCard,
                     link: '',
                     showStyle: Expanded(
@@ -144,7 +143,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
                   // 更多信息
                   LJNFunctionItem(
-                    icon: "images/avatar/02.png",
+                    icon: "$cdnBase/avatar/02.png",
                     title: l10n.moreInfo,
                     link: '/user/more_info',
                     underline: false,
@@ -155,7 +154,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                 LJNFunctionList(children: [
                   // 来电铃声
                   LJNFunctionItem(
-                    icon: "images/avatar/02.png",
+                    icon: "$cdnBase/avatar/02.png",
                     title: l10n.callRingtone,
                     link: '',
                     showStyle: 'SISTER  - JAVA',
@@ -167,7 +166,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                 LJNFunctionList(children: [
                   // Vigaviga豆
                   LJNFunctionItem(
-                    icon: "images/avatar/02.png",
+                    icon: "$cdnBase/avatar/02.png",
                     title: l10n.vigavigaBeans,
                     link: '',
                     showStyle: l10n.vigavigaBeanCount(3),
@@ -180,7 +179,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                   children: [
                     // 我的地址
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.myAddresses,
                       link: '',
                       underline: true,
@@ -188,7 +187,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
 
                     // 我的发票抬头
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.myInvoiceTitles,
                       link: '',
                       underline: false,

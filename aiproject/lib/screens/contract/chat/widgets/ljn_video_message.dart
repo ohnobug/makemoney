@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -218,8 +219,8 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8).w,
-                  child: Image.asset(
-                    assetPath(userState.userinfoAvatar!),
+                  child: CachedNetworkImage(
+                    imageUrl: userState.userinfoAvatar!,
                     width: 78.w,
                     height: 78.w,
                     fit: BoxFit.cover,

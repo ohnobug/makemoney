@@ -33,6 +33,8 @@ class _LJNFriendPermissions extends State<LJNFriendPermissionsPage> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
+      String cdnBase = systemState.cdnBase;
+
       return Scaffold(
         primary: false,
         appBar: LJNAppBar(
@@ -59,7 +61,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissionsPage> {
                     children: [
                       // Vigaviga运动
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "$cdnBase/avatar/02.png",
                         title: l10n.featureListChatMomentsWeRun,
                         onPress: () {
                           setState(() {
@@ -94,7 +96,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissionsPage> {
 
                       // 仅聊天
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "$cdnBase/avatar/02.png",
                         title: l10n.chatOnly,
                         // link: '',
                         underline: false,
@@ -144,7 +146,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissionsPage> {
                       ),
                       children: [
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.hideMyPosts,
                           // link: '',
                           underline: true,
@@ -163,7 +165,7 @@ class _LJNFriendPermissions extends State<LJNFriendPermissionsPage> {
                           ),
                         ),
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.hideTheirPosts,
                           // link: '',
                           underline: false,

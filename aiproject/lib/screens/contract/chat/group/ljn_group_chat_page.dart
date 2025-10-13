@@ -270,6 +270,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
 
   void mock() {
     var systemCubit = context.read<LJNSystemCubit>();
+    String cdnBase = systemCubit.state.cdnBase;
 
     messageList.add(
       const LJNMyMessage(
@@ -279,10 +280,10 @@ class _LJNGroupChat extends State<LJNGroupChat>
     );
 
     messageList.add(
-      const LJNReceiveMessage(
+      LJNReceiveMessage(
         message: '嗯，准备好了。虽然有点紧张，但我知道我们已经决定了。',
         showName: true,
-        friendAvatar: "images/avatar/chat_31.jpg",
+        friendAvatar: "$cdnBase/avatar/chat_31.jpg",
         name: "武则天",
       ),
     );
@@ -294,10 +295,10 @@ class _LJNGroupChat extends State<LJNGroupChat>
     );
 
     messageList.add(
-      const LJNReceiveMessage(
+      LJNReceiveMessage(
         message: '我也是。突然想到，万一不能顺利怀上怎么办？',
         showName: true,
-        friendAvatar: "images/avatar/chat_30.jpg",
+        friendAvatar: "$cdnBase/avatar/chat_30.jpg",
         name: "彭长老",
       ),
     );
@@ -309,10 +310,10 @@ class _LJNGroupChat extends State<LJNGroupChat>
     );
 
     messageList.add(
-      const LJNReceiveMessage(
+      LJNReceiveMessage(
         message: '你说得对，我只是怕自己压力太大，万一做不到怎么办。',
         showName: true,
-        friendAvatar: "images/avatar/chat_32.jpg",
+        friendAvatar: "$cdnBase/avatar/chat_32.jpg",
         name: "方人智",
       ),
     );
@@ -324,10 +325,10 @@ class _LJNGroupChat extends State<LJNGroupChat>
     );
 
     messageList.add(
-      const LJNReceiveMessage(
+      LJNReceiveMessage(
         message: '嗯，我知道。你也知道，我的身体不是那么好，可能会有点麻烦。',
         showName: true,
-        friendAvatar: "images/avatar/chat_33.jpg",
+        friendAvatar: "$cdnBase/avatar/chat_33.jpg",
         name: "全金发",
       ),
     );
@@ -339,10 +340,10 @@ class _LJNGroupChat extends State<LJNGroupChat>
     );
 
     messageList.add(
-      const LJNReceiveMessage(
+      LJNReceiveMessage(
         message: '有你在我身边，我就不怕了。你觉得，如果不顺利，我们也不应该急对吧？',
         showName: true,
-        friendAvatar: "images/avatar/chat_34.jpg",
+        friendAvatar: "$cdnBase/avatar/chat_34.jpg",
         name: "段正明",
       ),
     );
@@ -354,18 +355,18 @@ class _LJNGroupChat extends State<LJNGroupChat>
     );
 
     messageList.add(
-      const LJNReceiveMessage(
+      LJNReceiveMessage(
         message: '嗯，既然你这么说，我也放心了。',
         showName: true,
-        friendAvatar: "images/avatar/chat_35.jpg",
+        friendAvatar: "$cdnBase/avatar/chat_35.jpg",
         name: "万大平",
       ),
     );
     messageList.add(
-      const LJNReceiveMessage(
+      LJNReceiveMessage(
         message: '其实，我一直很期待有个孩子，能有一个属于我们的家庭。',
         showName: true,
-        friendAvatar: "images/avatar/chat_36.jpg",
+        friendAvatar: "$cdnBase/avatar/chat_36.jpg",
         name: "慧真",
       ),
     );
@@ -377,10 +378,10 @@ class _LJNGroupChat extends State<LJNGroupChat>
     );
 
     messageList.add(
-      const LJNReceiveMessage(
+      LJNReceiveMessage(
         message: '你觉得我们的孩子会是什么样的？像你，还是像我？',
         showName: true,
-        friendAvatar: "images/avatar/chat_37.jpg",
+        friendAvatar: "$cdnBase/avatar/chat_37.jpg",
         name: "李世民",
       ),
     );
@@ -399,10 +400,10 @@ class _LJNGroupChat extends State<LJNGroupChat>
     );
 
     messageList.add(
-      const LJNReceiveMessage(
+      LJNReceiveMessage(
         message: '那也太完美了吧。希望他能继承我们的优点，少一些缺点。',
         showName: true,
-        friendAvatar: "images/avatar/chat_38.jpg",
+        friendAvatar: "$cdnBase/avatar/chat_38.jpg",
         name: "施戴子",
       ),
     );
@@ -421,10 +422,10 @@ class _LJNGroupChat extends State<LJNGroupChat>
     );
 
     messageList.add(
-      const LJNReceiveMessage(
+      LJNReceiveMessage(
         message: '是的，今晚开始。未来的路我们一起走。',
         showName: true,
-        friendAvatar: "images/avatar/chat_39.jpg",
+        friendAvatar: "$cdnBase/avatar/chat_39.jpg",
         name: "者勒米",
       ),
     );
@@ -436,18 +437,18 @@ class _LJNGroupChat extends State<LJNGroupChat>
     );
 
     messageList.add(
-      const LJNReceiveMessage(
+      LJNReceiveMessage(
         message: '嗯，今晚我们就开始，未来的一切，交给时间。',
         showName: true,
-        friendAvatar: "images/avatar/chat_40.jpg",
+        friendAvatar: "$cdnBase/avatar/chat_40.jpg",
         name: "甘宝宝",
       ),
     );
     messageList.add(
-      const LJNReceiveMessage(
+      LJNReceiveMessage(
         message: '你准备好了吗？',
         showName: true,
-        friendAvatar: "images/avatar/chat_41.jpg",
+        friendAvatar: "$cdnBase/avatar/chat_41.jpg",
         name: "李萍",
       ),
     );
@@ -461,7 +462,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
     messageList.add(
       LJNVideoMessage(
         video: Uri.parse(
-          '${systemCubit.state.cdnBase}/ins/test.mp4',
+          '$cdnBase/ins/test.mp4',
         ),
         width: 768,
         height: 576,
@@ -475,7 +476,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
             logger.info("openPosition: $openPosition");
             openBoxSize = size;
             videoPath = Uri.parse(
-              '${systemCubit.state.cdnBase}/ins/test.mp4',
+              '$cdnBase/ins/test.mp4',
             );
 
             showFullScreenVideo = true;
@@ -487,7 +488,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
     messageList.add(
       LJNVideoMessage(
         video: Uri.parse(
-          '${systemCubit.state.cdnBase}/ins/video2.mp4',
+          '$cdnBase/ins/video2.mp4',
         ),
         width: 576,
         height: 1024,
@@ -501,7 +502,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
             logger.info("openPosition: $openPosition");
             openBoxSize = size;
             videoPath = Uri.parse(
-              '${systemCubit.state.cdnBase}/ins/video2.mp4',
+              '$cdnBase/ins/video2.mp4',
             );
 
             showFullScreenVideo = true;

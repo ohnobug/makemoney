@@ -336,7 +336,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                   ],
                 ),
               ),
-              // ... 其他UI部分保持不变 ...
+
               // Appbar
               Visibility(
                 visible: !_hiddenAppbar &&

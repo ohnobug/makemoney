@@ -37,6 +37,7 @@ class _LJNAddFriends extends State<LJNAddFriendsPage> {
   Widget _buildPage(SystemState systemState) {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
+    String cdnBase = systemState.cdnBase;
 
     return Scaffold(
       primary: false,
@@ -112,7 +113,7 @@ class _LJNAddFriends extends State<LJNAddFriendsPage> {
                   title: l10n.radarAddFriends,
                   link: '',
                   underline: true,
-                  avatar: "images/icon/add_friend_icon1.png",
+                  avatar: "$cdnBase/icon/add_friend_icon1.png",
                   message: l10n.addNearbyFriends,
                 ),
 
@@ -120,7 +121,7 @@ class _LJNAddFriends extends State<LJNAddFriendsPage> {
                   title: l10n.faceToFaceGroup,
                   link: '',
                   underline: true,
-                  avatar: "images/icon/add_friend_icon2.png",
+                  avatar: "$cdnBase/icon/add_friend_icon2.png",
                   message: l10n.joinGroupWithNearbyFriends,
                 ),
 
@@ -128,7 +129,7 @@ class _LJNAddFriends extends State<LJNAddFriendsPage> {
                   title: l10n.scan,
                   link: '/discovery/qrcode_scanner',
                   underline: true,
-                  avatar: "images/icon/add_friend_icon3.png",
+                  avatar: "$cdnBase/icon/add_friend_icon3.png",
                   message: l10n.scanQRCode,
                 ),
 
@@ -136,7 +137,7 @@ class _LJNAddFriends extends State<LJNAddFriendsPage> {
                   title: l10n.phoneContacts,
                   link: '/settings/phone_contact',
                   underline: true,
-                  avatar: "images/icon/add_friend_icon4.png",
+                  avatar: "$cdnBase/icon/add_friend_icon4.png",
                   message: l10n.addOrInviteContacts,
                 ),
 
@@ -144,7 +145,7 @@ class _LJNAddFriends extends State<LJNAddFriendsPage> {
                   title: l10n.officialAccounts,
                   link: '',
                   underline: true,
-                  avatar: "images/icon/add_friend_icon5.png",
+                  avatar: "$cdnBase/icon/add_friend_icon5.png",
                   message: l10n.getMoreInfoAndServices,
                 ),
               ],

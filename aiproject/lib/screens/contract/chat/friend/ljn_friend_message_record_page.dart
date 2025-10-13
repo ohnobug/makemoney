@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,7 +11,6 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
 
 class LJNFriendMessageRecordPage extends StatefulWidget {
@@ -49,6 +49,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecordPage> {
   Widget _buildPage(SystemState systemState) {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
+    String cdnBase = systemState.cdnBase;
 
     return Scaffold(
       primary: false,
@@ -108,13 +109,11 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecordPage> {
                             // 头像
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8).w,
-                              child: Image.asset(
-                                assetPath(context
+                              child: CachedNetworkImage(
+                                imageUrl: context
                                     .read<LJNUserCubit>()
                                     .state
-                                    .userinfoAvatar!),
-                                cacheWidth: 210.w.toInt(),
-                                cacheHeight: 210.w.toInt(),
+                                    .userinfoAvatar!,
                                 width: 105.w,
                                 height: 105.w,
                                 fit: BoxFit.cover,
@@ -147,7 +146,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecordPage> {
                 LJNFunctionList(
                   children: [
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.findChatHistory,
                       link: '',
                       underline: false,
@@ -160,7 +159,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecordPage> {
                   children: [
                     // 静音
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.muteNotifications,
                       // link: '',
                       underline: true,
@@ -180,7 +179,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecordPage> {
                     ),
                     // 置顶
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.pinToTop,
                       // link: '',
                       underline: true,
@@ -201,7 +200,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecordPage> {
 
                     // 消息提醒
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.alert,
                       // link: '',
                       underline: false,
@@ -226,7 +225,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecordPage> {
                 LJNFunctionList(
                   children: [
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.clearChatHistory,
                       link: '',
                       underline: false,
@@ -238,7 +237,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecordPage> {
                 LJNFunctionList(
                   children: [
                     LJNFunctionItem(
-                      icon: "images/avatar/02.png",
+                      icon: "$cdnBase/avatar/02.png",
                       title: l10n.complain,
                       link: '',
                       underline: false,

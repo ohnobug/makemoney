@@ -40,6 +40,8 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
+        String cdnBase = systemState.cdnBase;
+
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(title: l10n.loggedInDevices, actions: [
@@ -94,7 +96,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                       title: LJNAlphabet(title: l10n.currentlyLoggedInDevices),
                       children: [
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           // height: 150.w,
                           title: "HONOR-RNA-AN100",
                           link: '/settings/device_detail',

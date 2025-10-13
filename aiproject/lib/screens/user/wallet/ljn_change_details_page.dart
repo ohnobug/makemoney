@@ -28,6 +28,8 @@ class _LJNChangeDetailsPage extends State<LJNChangeDetailsPage> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
+        String cdnBase = systemState.cdnBase;
+
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
@@ -84,94 +86,94 @@ class _LJNChangeDetailsPage extends State<LJNChangeDetailsPage> {
                         ),
                       ),
                     ),
-                    const LJNChangeDetailItem(
+                    LJNChangeDetailItem(
                       title: "原乡智选",
                       change: -32,
-                      icon: "images/avatar/01.png",
+                      icon: "$cdnBase/avatar/01.png",
                       link: '',
                       underline: true,
                     ),
-                    const LJNChangeDetailItem(
+                    LJNChangeDetailItem(
                       title: "原乡智选",
                       change: -56,
-                      icon: "images/avatar/01.png",
+                      icon: "$cdnBase/avatar/01.png",
                       link: '',
                       underline: true,
                     ),
-                    const LJNChangeDetailItem(
+                    LJNChangeDetailItem(
                       title: "原乡智选",
                       change: -14,
-                      icon: "images/avatar/01.png",
+                      icon: "$cdnBase/avatar/01.png",
                       link: '',
                       underline: true,
                     ),
-                    const LJNChangeDetailItem(
+                    LJNChangeDetailItem(
                       title: "原乡智选",
                       change: 200,
-                      icon: "images/avatar/01.png",
+                      icon: "$cdnBase/avatar/01.png",
                       link: '',
                       underline: true,
                     ),
-                    const LJNChangeDetailItem(
+                    LJNChangeDetailItem(
                       title: "原乡智选",
                       change: -49,
-                      icon: "images/avatar/01.png",
+                      icon: "$cdnBase/avatar/01.png",
                       link: '',
                       underline: true,
                     ),
-                    const LJNChangeDetailItem(
+                    LJNChangeDetailItem(
                       title: "原乡智选",
                       change: -18,
-                      icon: "images/avatar/01.png",
+                      icon: "$cdnBase/avatar/01.png",
                       link: '',
                       underline: true,
                     ),
-                    const LJNChangeDetailItem(
+                    LJNChangeDetailItem(
                       title: "原乡智选",
                       change: -21,
-                      icon: "images/avatar/01.png",
+                      icon: "$cdnBase/avatar/01.png",
                       link: '',
                       underline: true,
                     ),
-                    const LJNChangeDetailItem(
+                    LJNChangeDetailItem(
                       title: "原乡智选",
                       change: -29,
-                      icon: "images/avatar/01.png",
+                      icon: "$cdnBase/avatar/01.png",
                       link: '',
                       underline: true,
                     ),
-                    const LJNChangeDetailItem(
+                    LJNChangeDetailItem(
                       title: "原乡智选",
                       change: -91,
-                      icon: "images/avatar/01.png",
+                      icon: "$cdnBase/avatar/01.png",
                       link: '',
                       underline: true,
                     ),
-                    const LJNChangeDetailItem(
+                    LJNChangeDetailItem(
                       title: "原乡智选",
                       change: -5,
-                      icon: "images/avatar/01.png",
+                      icon: "$cdnBase/avatar/01.png",
                       link: '',
                       underline: true,
                     ),
-                    const LJNChangeDetailItem(
+                    LJNChangeDetailItem(
                       title: "原乡智选",
                       change: -73,
-                      icon: "images/avatar/01.png",
+                      icon: "$cdnBase/avatar/01.png",
                       link: '',
                       underline: true,
                     ),
-                    const LJNChangeDetailItem(
+                    LJNChangeDetailItem(
                       title: "原乡智选",
                       change: -47,
-                      icon: "images/avatar/01.png",
+                      icon: "$cdnBase/avatar/01.png",
                       link: '',
                       underline: true,
                     ),
-                    const LJNChangeDetailItem(
+                    LJNChangeDetailItem(
                       title: "原乡智选",
                       change: -15,
-                      icon: "images/avatar/01.png",
+                      icon: "$cdnBase/avatar/01.png",
                       link: '',
                       underline: true,
                     ),

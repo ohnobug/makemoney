@@ -26,10 +26,11 @@ class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
 
     // if (!Platform.isWindows) {
     var systemCubit = context.read<LJNSystemCubit>();
+    String cdnBase = systemCubit.state.cdnBase;
 
     _videoController = VideoPlayerController.networkUrl(
       Uri.parse(
-        '${systemCubit.state.cdnBase}/ins/test.mp4',
+        '$cdnBase/ins/test.mp4',
       ),
     )..initialize().then((_) {
         setState(() {

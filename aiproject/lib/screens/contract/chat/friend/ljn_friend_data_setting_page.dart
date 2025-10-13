@@ -43,6 +43,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSettingPage> {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
+    String cdnBase = systemState.cdnBase;
     return Stack(
       children: [
         Positioned(
@@ -68,14 +69,14 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSettingPage> {
                     children: [
                       LJNFunctionList(children: [
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.setRemarkAndTags,
                           link: '/chat/set_notes_and_labels',
                           showStyle: "邓子乔",
                           underline: true,
                         ),
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.friendPermissions,
                           link: '/chat/friend_permissions',
                           underline: false,
@@ -85,13 +86,13 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSettingPage> {
 // 推荐、 添加到桌面
                       LJNFunctionList(children: [
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.recommendToFriend,
                           link: '',
                           underline: true,
                         ),
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.addToDesktop,
                           // link: '',
                           underline: false,
@@ -106,7 +107,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSettingPage> {
                       // 设置星标朋友
                       LJNFunctionList(children: [
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.setAsStarFriend,
                           // link: '',
                           underline: false,
@@ -130,7 +131,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSettingPage> {
                       LJNFunctionList(
                         children: [
                           LJNFunctionItem(
-                            icon: "images/avatar/02.png",
+                            icon: "$cdnBase/avatar/02.png",
                             title: l10n.addToBlocklist,
                             tapEffect: false,
                             underline: true,
@@ -148,7 +149,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSettingPage> {
                             ),
                           ),
                           LJNFunctionItem(
-                            icon: "images/avatar/02.png",
+                            icon: "$cdnBase/avatar/02.png",
                             title: l10n.complain,
                             link: '',
                             underline: false,

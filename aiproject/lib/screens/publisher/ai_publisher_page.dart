@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 // --- Data Model for LoRA ---
@@ -309,8 +310,8 @@ class _LoRAItemState extends State<LoRAItem> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: Image.asset(
-                  widget.lora.imagePath,
+                child: CachedNetworkImage(
+                  imageUrl: widget.lora.imagePath,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -326,8 +327,8 @@ class _LoRAItemState extends State<LoRAItem> {
                 ),
                 child: Stack(
                   children: [
-                    Image.asset(
-                      widget.lora.imagePath,
+                    CachedNetworkImage(
+                      imageUrl: widget.lora.imagePath,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,

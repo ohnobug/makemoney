@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +12,6 @@ import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:video_player/video_player.dart';
 
 class LJNInsPage extends StatefulWidget {
@@ -71,9 +71,10 @@ class _LJNIns extends State<LJNInsPage> {
     _scrollController.addListener(_scrollListener);
     var systemCubit = context.read<LJNSystemCubit>();
 
+    String cdnBase = systemCubit.state.cdnBase;
     _bigimgcontroller = VideoPlayerController.networkUrl(
       Uri.parse(
-        '${systemCubit.state.cdnBase}/ins/video.mp4',
+        '$cdnBase/ins/video.mp4',
       ),
       videoPlayerOptions: VideoPlayerOptions(
         mixWithOthers: false,
@@ -807,8 +808,8 @@ class _LJNIns extends State<LJNInsPage> {
                                         borderRadius:
                                             BorderRadius.circular(20.w), // 圆角图片
                                         child: bigImgInfo?.isPics == true
-                                            ? Image.asset(
-                                                assetPath(bigImgInfo!.source),
+                                            ? CachedNetworkImage(
+                                                imageUrl: bigImgInfo!.source,
                                                 fit: BoxFit.cover,
                                               )
                                             : (_bigimgcontroller
@@ -1207,15 +1208,11 @@ class _BigImageBox extends State<BigImageBox> {
             height: 500.w,
             color: AppColors.neutralGrey2,
             child: show
-                ? Image.asset(
+                ? CachedNetworkImage(
                     width: (750.w - 2.w) / 3,
                     height: 500.w,
-                    // cacheWidth:
-                    //     (((750.w - 2.w) / 3) * 2)
-                    //         .toInt(),
-                    cacheHeight: (500.w * 2).toInt(),
                     fit: BoxFit.cover,
-                    assetPath(widget.image),
+                    imageUrl: widget.image,
                   )
                 : const LJNPageLoading(),
           ),
@@ -1325,14 +1322,10 @@ class _SmallImageBox extends State<SmallImageBox> {
             height: (500.w - 1.w) / 2,
             color: AppColors.neutralGrey2,
             child: show
-                ? Image.asset(
+                ? CachedNetworkImage(
                     width: (750.w - 2.w) / 3,
                     height: (500.w - 1.w) / 2,
-                    // cacheWidth:
-                    //     (((750.w - 2.w) / 3) * 2)
-                    //         .toInt(),
-                    cacheHeight: (500.w - 1.w).toInt(),
-                    assetPath(widget.image),
+                    imageUrl: widget.image,
                     fit: BoxFit.cover,
                   )
                 : const LJNPageLoading(),
@@ -1591,6 +1584,7 @@ class _LJNInsStyle extends State<LJNInsStyle> {
     //   child: Text("key:$_containerKey  position:$myPosition canplay: $canPlay"),
     // );
     var systemCubit = context.read<LJNSystemCubit>();
+    String cdnBase = systemCubit.state.cdnBase;
 
     // 大图
     var a = widget.imageList[0].isPics
@@ -1610,7 +1604,7 @@ class _LJNInsStyle extends State<LJNInsStyle> {
           )
         : VideoBox2(
             videoPath: Uri.parse(
-              '${systemCubit.state.cdnBase}/ins/video.mp4',
+              '$cdnBase/ins/video.mp4',
             ),
             canPlay: canPlay,
             onLongPress: () {

@@ -14,60 +14,62 @@ class LJNFriendsWhoOnlyChatPage extends StatefulWidget {
   const LJNFriendsWhoOnlyChatPage({super.key});
 
   @override
-  State<LJNFriendsWhoOnlyChatPage> createState() => _LJNFriendsWhoOnlyChatState();
+  State<LJNFriendsWhoOnlyChatPage> createState() =>
+      _LJNFriendsWhoOnlyChatState();
 }
 
 class _LJNFriendsWhoOnlyChatState extends State<LJNFriendsWhoOnlyChatPage> {
   // 关键改动 2: staticDataList 只存储不依赖 context 的静态数据模型
   // 它是一个 final 列表，包含了所有原始数据
-  final List<dynamic> staticDataList = const [
-    'A', // 字母可以直接用 String
-    ContactItemData(
-      title: "天空飘来五个字那都不是事",
-      icon: "images/avatar/chat_1.jpg",
-    ),
-    ContactItemData(title: "本因", icon: "images/avatar/chat_10.jpg"),
-    ContactItemData(title: "赵洵", icon: "images/avatar/chat_11.jpg"),
-    ContactItemData(title: "定静师太", icon: "images/avatar/chat_12.jpg"),
-    ContactItemData(title: "李秋水", icon: "images/avatar/chat_13.jpg"),
-    ContactItemData(title: "谭婆", icon: "images/avatar/chat_14.jpg"),
-    ContactItemData(title: "李傀儡", icon: "images/avatar/chat_15.jpg"),
-    ContactItemData(title: "貂禅", icon: "images/avatar/chat_16.jpg"),
-    ContactItemData(title: "何三七", icon: "images/avatar/chat_17.jpg"),
-    ContactItemData(title: "孔融", icon: "images/avatar/chat_18.jpg"),
-    ContactItemData(title: "齐堂主", icon: "images/avatar/chat_19.jpg"),
-    ContactItemData(title: "博尔术", icon: "images/avatar/chat_20.jpg"),
-    ContactItemData(title: "王语嫣", icon: "images/avatar/chat_21.jpg"),
-    ContactItemData(title: "秦红棉", icon: "images/avatar/chat_22.jpg"),
-    ContactItemData(
-      title: "天竺僧人",
-      icon: "images/avatar/chat_23.jpg",
-      underline: false,
-    ),
-    'B',
-    ContactItemData(title: "段延庆", icon: "images/avatar/chat_33.jpg"),
-    ContactItemData(title: "令狐冲", icon: "images/avatar/chat_34.jpg"),
-    ContactItemData(title: "英白罗", icon: "images/avatar/chat_35.jpg"),
-    ContactItemData(title: "黄药师", icon: "images/avatar/chat_36.jpg"),
-    ContactItemData(title: "李煜", icon: "images/avatar/chat_37.jpg"),
-    ContactItemData(title: "云中鹤", icon: "images/avatar/chat_38.jpg"),
-    ContactItemData(title: "劳德诺", icon: "images/avatar/chat_39.jpg"),
-    ContactItemData(title: "包惜弱", icon: "images/avatar/chat_40.jpg"),
-    ContactItemData(title: "游驹", icon: "images/avatar/chat_41.jpg"),
-    ContactItemData(title: "钟万仇", icon: "images/avatar/chat_42.jpg"),
-    ContactItemData(title: "渔人", icon: "images/avatar/chat_43.jpg"),
-    ContactItemData(title: "单叔山", icon: "images/avatar/chat_44.jpg"),
-    ContactItemData(title: "段誉", icon: "images/avatar/chat_45.jpg"),
-    ContactItemData(title: "林震南", icon: "images/avatar/chat_46.jpg"),
-    ContactItemData(title: "商鞅", icon: "images/avatar/chat_47.jpg"),
-  ];
-
+  List<dynamic> staticDataList = [];
   @override
   void initState() {
     super.initState();
-  }
+    var systemCubit = context.read<LJNSystemCubit>();
+    String cdnBase = systemCubit.state.cdnBase;
 
-  // 关键改动 3: 移除整个 didChangeDependencies 方法
+    staticDataList = [
+      'A', // 字母可以直接用 String
+      ContactItemData(
+        title: "天空飘来五个字那都不是事",
+        icon: "$cdnBase/avatar/chat_1.jpg",
+      ),
+      ContactItemData(title: "本因", icon: "$cdnBase/avatar/chat_10.jpg"),
+      ContactItemData(title: "赵洵", icon: "$cdnBase/avatar/chat_11.jpg"),
+      ContactItemData(title: "定静师太", icon: "$cdnBase/avatar/chat_12.jpg"),
+      ContactItemData(title: "李秋水", icon: "$cdnBase/avatar/chat_13.jpg"),
+      ContactItemData(title: "谭婆", icon: "$cdnBase/avatar/chat_14.jpg"),
+      ContactItemData(title: "李傀儡", icon: "$cdnBase/avatar/chat_15.jpg"),
+      ContactItemData(title: "貂禅", icon: "$cdnBase/avatar/chat_16.jpg"),
+      ContactItemData(title: "何三七", icon: "$cdnBase/avatar/chat_17.jpg"),
+      ContactItemData(title: "孔融", icon: "$cdnBase/avatar/chat_18.jpg"),
+      ContactItemData(title: "齐堂主", icon: "$cdnBase/avatar/chat_19.jpg"),
+      ContactItemData(title: "博尔术", icon: "$cdnBase/avatar/chat_20.jpg"),
+      ContactItemData(title: "王语嫣", icon: "$cdnBase/avatar/chat_21.jpg"),
+      ContactItemData(title: "秦红棉", icon: "$cdnBase/avatar/chat_22.jpg"),
+      ContactItemData(
+        title: "天竺僧人",
+        icon: "$cdnBase/avatar/chat_23.jpg",
+        underline: false,
+      ),
+      'B',
+      ContactItemData(title: "段延庆", icon: "$cdnBase/avatar/chat_33.jpg"),
+      ContactItemData(title: "令狐冲", icon: "$cdnBase/avatar/chat_34.jpg"),
+      ContactItemData(title: "英白罗", icon: "$cdnBase/avatar/chat_35.jpg"),
+      ContactItemData(title: "黄药师", icon: "$cdnBase/avatar/chat_36.jpg"),
+      ContactItemData(title: "李煜", icon: "$cdnBase/avatar/chat_37.jpg"),
+      ContactItemData(title: "云中鹤", icon: "$cdnBase/avatar/chat_38.jpg"),
+      ContactItemData(title: "劳德诺", icon: "$cdnBase/avatar/chat_39.jpg"),
+      ContactItemData(title: "包惜弱", icon: "$cdnBase/avatar/chat_40.jpg"),
+      ContactItemData(title: "游驹", icon: "$cdnBase/avatar/chat_41.jpg"),
+      ContactItemData(title: "钟万仇", icon: "$cdnBase/avatar/chat_42.jpg"),
+      ContactItemData(title: "渔人", icon: "$cdnBase/avatar/chat_43.jpg"),
+      ContactItemData(title: "单叔山", icon: "$cdnBase/avatar/chat_44.jpg"),
+      ContactItemData(title: "段誉", icon: "$cdnBase/avatar/chat_45.jpg"),
+      ContactItemData(title: "林震南", icon: "$cdnBase/avatar/chat_46.jpg"),
+      ContactItemData(title: "商鞅", icon: "$cdnBase/avatar/chat_47.jpg"),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {

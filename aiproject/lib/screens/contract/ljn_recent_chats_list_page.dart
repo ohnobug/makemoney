@@ -121,7 +121,9 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
           lowerBound: 0,
           // 这里到底部是新appbar的高度 + 原本的statusHeight, 因为一个控制器, 既给新的用, 也给旧的用
           upperBound: screenSize.height -
-              (statusHeight + systemState.appbarHeight + initialCoverLayerHeight),
+              (statusHeight +
+                  systemState.appbarHeight +
+                  initialCoverLayerHeight),
           duration: const Duration(milliseconds: 350), // 动画持续时间
         );
 
@@ -218,10 +220,13 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
         Visibility(
           visible: systemState.homescrollpixels > 0,
           child: Positioned(
-            top: systemState.appbarHeight + statusHeight + systemState.homescrollpixels,
+            top: systemState.appbarHeight +
+                statusHeight +
+                systemState.homescrollpixels,
             left: 0,
             // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
-            height: screenSize.height - (systemState.appbarHeight + statusHeight),
+            height:
+                screenSize.height - (systemState.appbarHeight + statusHeight),
             width: screenSize.width,
             child: Container(
               color: theme.colorScheme.surfaceContainer,
@@ -232,7 +237,9 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
         // 列表
         Positioned(
           // 不能使用systemState.homescrollpixels, 需要用_animationController!.value
-          top: systemState.appbarHeight + statusHeight + _animationController!.value,
+          top: systemState.appbarHeight +
+              statusHeight +
+              _animationController!.value,
           left: 0,
           width: screenSize.width,
           height: screenSize.height - (systemState.appbarHeight + statusHeight),
@@ -293,11 +300,14 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
             child: Container(
               color: theme.colorScheme.surfaceContainer,
               width: screenSize.width,
-              height: systemState.homescrollpixels + (systemState.appbarHeight + statusHeight),
+              height: systemState.homescrollpixels +
+                  (systemState.appbarHeight + statusHeight),
               child: Lottie.asset(
                 assetPath('lotties/homeminiprogramdarwing.json'),
                 width: screenSize.width,
-                height: systemState.homescrollpixels + statusHeight + systemState.appbarHeight,
+                height: systemState.homescrollpixels +
+                    statusHeight +
+                    systemState.appbarHeight,
                 fit: BoxFit.contain,
                 renderCache: RenderCache.drawingCommands,
                 controller: _lottieController,
@@ -318,7 +328,9 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
           child: Positioned(
             height: systemState.appbarHeight +
                 (screenSize.height -
-                    (systemState.homescrollpixels + statusHeight + systemState.appbarHeight)),
+                    (systemState.homescrollpixels +
+                        statusHeight +
+                        systemState.appbarHeight)),
             width: 750.w,
             top: systemState.homescrollpixels + statusHeight,
             child: Listener(
@@ -446,7 +458,9 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
                     opacity: coverOpacity,
                     child: Container(
                       height: screenSize.height -
-                          (systemState.homescrollpixels + statusHeight + systemState.appbarHeight),
+                          (systemState.homescrollpixels +
+                              statusHeight +
+                              systemState.appbarHeight),
                       child: null,
                       color: theme.listTileTheme.tileColor!,
                     ),

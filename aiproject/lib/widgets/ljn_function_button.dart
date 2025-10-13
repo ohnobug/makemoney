@@ -1,6 +1,7 @@
 // /lib/widgets/ljn_function_button.dart
 
 // 小程序按钮
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
@@ -78,12 +79,10 @@ class LJNFunctionButtonState extends State<LJNFunctionButton> {
           crossAxisAlignment: CrossAxisAlignment.center, // 水平居中
           children: [
             SizedBox(height: 20.w), // 可以增加一个顶部的内边距，让图标和按钮顶部有一点距离
-            Image.asset(
-              assetPath(widget.icon),
+            CachedNetworkImage(
+              imageUrl: widget.icon,
               width: 68.w,
               height: 68.w,
-              cacheHeight: 180.w.toInt(),
-              cacheWidth: 180.w.toInt(),
               fit: BoxFit.cover, // 让图片完全填满圆形区域
             ),
             SizedBox(height: 15.w), // 图标和标题之间的间距

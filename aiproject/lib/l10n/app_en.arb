@@ -506,7 +506,7 @@
   "address": "Address",
   "deviceInfo": "Device Info",
   "userInfoDuringUse": "User Info During Use",
-  "imagesAndVideos": "Images & Videos",
+  "$cdnBaseAndVideos": "$cdnBase & Videos",
   "socialAndContentInfo": "Social & Content Info",
   "status": "Status",
   "contactInfo": "Contact Info",

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
@@ -88,12 +89,10 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
             // 头像
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0.w),
-              child: Image.asset(
-                assetPath(widget.avatar),
+              child: CachedNetworkImage(
+                imageUrl: widget.avatar,
                 width: 75.0.w,
                 height: 75.0.w,
-                cacheHeight: 150.w.toInt(),
-                cacheWidth: 150.w.toInt(),
                 fit: BoxFit.cover,
               ),
             ),

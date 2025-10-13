@@ -18,7 +18,13 @@ class LJNContactTagsPage extends StatefulWidget {
 
 class _LJNContactTagsState extends State<LJNContactTagsPage> {
   // 列表包含了所有原始数据
-  final List<TagInfoData> tagDataList = getTagInfoData();
+  List<TagInfoData> tagDataList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    tagDataList = getTagInfoData(context);
+  }
 
   @override
   Widget build(BuildContext context) {

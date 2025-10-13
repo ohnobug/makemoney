@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
@@ -100,8 +101,8 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                         // 箭头
                         Container(
                           padding: const EdgeInsets.only(top: 32, right: 10).w,
-                          child: Image.asset(
-                            assetPath("images/icon/right.png"),
+                          child: CachedNetworkImage(
+                            imageUrl: "${systemState.cdnBase}/icon/right.png",
                             width: 10.w,
                             fit: BoxFit.fitWidth,
                           ),
@@ -129,11 +130,9 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8).w,
-                  child: Image.asset(
-                    assetPath(
-                        context.read<LJNUserCubit>().state.userinfoAvatar!),
-                    cacheWidth: 156.w.toInt(),
-                    cacheHeight: 156.w.toInt(),
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        context.read<LJNUserCubit>().state.userinfoAvatar!,
                     width: 78.w,
                     height: 78.w,
                     fit: BoxFit.cover,

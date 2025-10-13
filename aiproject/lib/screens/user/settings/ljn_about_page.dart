@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
@@ -5,7 +6,6 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
 
@@ -31,6 +31,8 @@ class _LJNAbout extends State<LJNAboutPage> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
+        String cdnBase = systemState.cdnBase;
+
         return Theme(
           data: theme.copyWith(
             appBarTheme: theme.appBarTheme.copyWith(
@@ -61,8 +63,8 @@ class _LJNAbout extends State<LJNAboutPage> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Image.asset(
-                            assetPath("images/icon/logo.jpeg"),
+                          CachedNetworkImage(
+                            imageUrl: "${systemState.cdnBase}/icon/logo.jpeg",
                             width: 122.0.w,
                             height: 122.0.w,
                             fit: BoxFit.contain,
@@ -96,21 +98,21 @@ class _LJNAbout extends State<LJNAboutPage> {
                       LJNFunctionList(
                         children: [
                           LJNFunctionItem(
-                            icon: "images/avatar/02.png",
+                            icon: "$cdnBase/avatar/02.png",
                             title: l10n.featureIntroduction,
                             link: '',
                             backgroundColor: AppColors.neutralWhite,
                             underline: true,
                           ),
                           LJNFunctionItem(
-                            icon: "images/avatar/02.png",
+                            icon: "$cdnBase/avatar/02.png",
                             title: l10n.complain,
                             link: '',
                             backgroundColor: AppColors.neutralWhite,
                             underline: true,
                           ),
                           LJNFunctionItem(
-                            icon: "images/avatar/02.png",
+                            icon: "$cdnBase/avatar/02.png",
                             title: l10n.checkNewVersion,
                             link: '',
                             backgroundColor: AppColors.neutralWhite,

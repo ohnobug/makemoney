@@ -30,6 +30,8 @@ class _LJNPersonalinfoAndPermissionPage
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
+        String cdnBase = systemState.cdnBase;
+
         return Scaffold(
           primary: false,
           appBar: LJNAppBar(
@@ -54,7 +56,7 @@ class _LJNPersonalinfoAndPermissionPage
                       children: [
                         // 系统权限管理
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.systemPermissionManagement,
                           link: '',
                           underline: true,
@@ -62,7 +64,7 @@ class _LJNPersonalinfoAndPermissionPage
                         ),
                         // 授权管理
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.authorizationManagement,
                           link: '',
                           underline: false,
@@ -75,7 +77,7 @@ class _LJNPersonalinfoAndPermissionPage
                     LJNFunctionList(children: [
                       // 个性化广告管理
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "$cdnBase/avatar/02.png",
                         title: l10n.personalizedAdManagement,
                         link: '',
                         underline: false,
@@ -87,7 +89,7 @@ class _LJNPersonalinfoAndPermissionPage
                     LJNFunctionList(children: [
                       // 浏览和导出个人信息
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "$cdnBase/avatar/02.png",
                         title: l10n.browseAndExportPersonalInfo,
                         link: '',
                         underline: false,
