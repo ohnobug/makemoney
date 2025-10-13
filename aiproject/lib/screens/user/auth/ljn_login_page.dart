@@ -66,154 +66,166 @@ class _LJNLoginPageState extends State<LJNLoginPage> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations l10n = AppLocalizations.of(context)!;
+
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
       String cdnBase = systemState.cdnBase;
+      ThemeData theme = Theme.of(context);
+
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: null,
-        body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(height: 40.w),
-              Text(
-                "Sign In",
-                style: TextStyle(
-                  fontSize: 32.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              SizedBox(height: 40.w),
-              _buildTextField(
-                controller: _emailController,
-                labelText: "Email",
-              ),
-              SizedBox(height: 20.w),
-              _buildTextField(
-                controller: _passwordController,
-                labelText: "Password",
-                obscureText: !_isPasswordVisible,
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    _isPasswordVisible
-                        ? Icons.visibility
-                        : Icons.visibility_off,
-                    color: Colors.grey,
+        body: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+          child: Container(
+            color: theme.colorScheme.surfaceContainer,
+            constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height -
+                    90.w -
+                    systemState.statusHeight),
+            alignment: Alignment.topLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 40.w),
+                Text(
+                  "Sign In",
+                  style: TextStyle(
+                    fontSize: 32.w,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
-                  onPressed: () {
-                    setState(() {
-                      _isPasswordVisible = !_isPasswordVisible;
-                    });
-                  },
                 ),
-              ),
-              SizedBox(height: 20.w),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: _rememberMe,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _rememberMe = value ?? false;
-                          });
-                        },
-                        activeColor: Colors.blueAccent,
-                      ),
-                      Text(
-                        "Remember me",
-                        style:
-                            TextStyle(fontSize: 14.sp, color: Colors.black54),
-                      ),
-                    ],
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      // Navigate to forgot password screen
-                    },
-                    child: Text(
-                      "Forgot password?",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.blueAccent,
-                        fontWeight: FontWeight.bold,
-                      ),
+                SizedBox(height: 40.w),
+                _buildTextField(
+                  controller: _emailController,
+                  labelText: "Email",
+                ),
+                SizedBox(height: 20.w),
+                _buildTextField(
+                  controller: _passwordController,
+                  labelText: "Password",
+                  obscureText: !_isPasswordVisible,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      color: Colors.grey,
                     ),
+                    onPressed: () {
+                      setState(() {
+                        _isPasswordVisible = !_isPasswordVisible;
+                      });
+                    },
                   ),
-                ],
-              ),
-              SizedBox(height: 30.w),
-              _isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : ElevatedButton(
-                      onPressed: _handleLogin,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        padding: EdgeInsets.symmetric(vertical: 16.w),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.r),
+                ),
+                SizedBox(height: 20.w),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: _rememberMe,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              _rememberMe = value ?? false;
+                            });
+                          },
+                          activeColor: Colors.blueAccent,
+                        ),
+                        Text(
+                          "Remember me",
+                          style:
+                              TextStyle(fontSize: 28.w, color: Colors.black54),
+                        ),
+                      ],
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        // Navigate to forgot password screen
+                      },
+                      child: Text(
+                        "Forgot password?",
+                        style: TextStyle(
+                          fontSize: 28.w,
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      child: Text(
-                        "Sign In",
-                        style: TextStyle(
-                            fontSize: 16.sp,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30.w),
+                _isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : ElevatedButton(
+                        onPressed: _handleLogin,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          padding: EdgeInsets.symmetric(vertical: 16.w),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                        ),
+                        child: Text(
+                          "Sign In",
+                          style: TextStyle(
+                            fontSize: 32.w,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                SizedBox(height: 40.w),
+                Row(
+                  children: [
+                    const Expanded(child: Divider()),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Text(
+                        "Or Sign In with",
+                        style: TextStyle(fontSize: 28.w, color: Colors.grey),
                       ),
                     ),
-              SizedBox(height: 40.w),
-              Row(
-                children: [
-                  const Expanded(child: Divider()),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: Text(
-                      "Or Sign In with",
-                      style: TextStyle(fontSize: 14.sp, color: Colors.grey),
+                    const Expanded(child: Divider()),
+                  ],
+                ),
+                SizedBox(height: 30.w),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildSocialButton('/images/logo.jpeg'),
+                    SizedBox(width: 20.w),
+                    _buildSocialButton('/images/logo.jpeg'),
+                  ],
+                ),
+                SizedBox(height: 50.w),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have an account? ",
+                      style: TextStyle(fontSize: 28.w, color: Colors.black54),
                     ),
-                  ),
-                  const Expanded(child: Divider()),
-                ],
-              ),
-              SizedBox(height: 30.w),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildSocialButton('/images/logo.jpeg'),
-                  SizedBox(width: 20.w),
-                  _buildSocialButton('/images/logo.jpeg'),
-                ],
-              ),
-              SizedBox(height: 50.w),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Don't have an account? ",
-                    style: TextStyle(fontSize: 14.sp, color: Colors.black54),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      // Navigate to sign up screen
-                    },
-                    child: Text(
-                      "Sign Up",
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.blueAccent,
-                        fontWeight: FontWeight.bold,
+                    TextButton(
+                      onPressed: () {
+                        // Navigate to sign up screen
+                      },
+                      child: Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          fontSize: 28.w,
+                          color: Colors.blueAccent,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       );
@@ -272,8 +284,8 @@ class _LJNLoginPageState extends State<LJNLoginPage> {
       ),
       child: Image.asset(
         assetPath(assetName),
-        height: 50.w,
-        width: 50.w,
+        height: 80.w,
+        width: 80.w,
       ),
     );
   }
