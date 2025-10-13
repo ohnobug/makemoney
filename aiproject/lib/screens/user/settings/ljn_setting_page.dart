@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/widgets/ljn_alphabet.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -215,8 +216,13 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       children: [
                         LJNMaxWidthButton(
                           title: l10n.logout,
-                          link: '',
+                          link: null,
                           underline: false,
+                          onPressed: () {
+                            context.read<LJNUserCubit>().logout();
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, '/', (route) => false);
+                          },
                         ),
                       ],
                     ),

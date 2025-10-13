@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vigaviga/themes.dart';
-import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
@@ -65,17 +62,14 @@ class _LJNLoginPageState extends State<LJNLoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations l10n = AppLocalizations.of(context)!;
-
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
-      String cdnBase = systemState.cdnBase;
       ThemeData theme = Theme.of(context);
 
       return Scaffold(
         primary: false,
         appBar: LJNAppBar(
-          title: l10n.changeAlbumCover,
+          title: "登录",
         ),
         body: ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
@@ -86,15 +80,17 @@ class _LJNLoginPageState extends State<LJNLoginPage> {
                     systemState.statusHeight),
             color: theme.colorScheme.surfaceContainer,
             child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
-                ),
+              physics: const AlwaysScrollableScrollPhysics(
+                parent: BouncingScrollPhysics(),
+              ),
+              child: Padding(
+                padding: EdgeInsetsGeometry.all(30.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    SizedBox(height: 40.w),
+                    SizedBox(height: 20.w),
                     Text(
-                      "Sign In",
+                      "登入",
                       style: TextStyle(
                         fontSize: 32.w,
                         fontWeight: FontWeight.bold,
@@ -104,15 +100,16 @@ class _LJNLoginPageState extends State<LJNLoginPage> {
                     SizedBox(height: 40.w),
                     _buildTextField(
                       controller: _emailController,
-                      labelText: "Email",
+                      labelText: "电话号码、邮箱、账号",
                     ),
                     SizedBox(height: 20.w),
                     _buildTextField(
                       controller: _passwordController,
-                      labelText: "Password",
+                      labelText: "密码",
                       obscureText: !_isPasswordVisible,
                       suffixIcon: IconButton(
                         icon: Icon(
+                          size: 35.w,
                           _isPasswordVisible
                               ? Icons.visibility
                               : Icons.visibility_off,
@@ -129,30 +126,46 @@ class _LJNLoginPageState extends State<LJNLoginPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _rememberMe,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  _rememberMe = value ?? false;
-                                });
-                              },
-                              activeColor: Colors.blueAccent,
-                            ),
-                            Text(
-                              "Remember me",
-                              style: TextStyle(
-                                  fontSize: 28.w, color: Colors.black54),
-                            ),
-                          ],
+                        // 【核心改动】 使用 GestureDetector 包裹 Row，实现整体点击效果
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _rememberMe = !_rememberMe;
+                            });
+                          },
+                          // 使用 Row 来组织 Checkbox 和 Text
+                          child: Row(
+                            children: [
+                              Checkbox(
+                                value: _rememberMe,
+                                // 【核心改动】 减小 Checkbox 的内边距
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                                visualDensity: VisualDensity.compact,
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _rememberMe = value ?? false;
+                                  });
+                                },
+                                activeColor: Colors.blueAccent,
+                              ),
+                              Text(
+                                "记住我",
+                                style: TextStyle(
+                                  fontSize: 28.w,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         TextButton(
                           onPressed: () {
-                            // Navigate to forgot password screen
+                            Navigator.pushNamed(
+                                context, '/user/auth/forgot_password');
                           },
                           child: Text(
-                            "Forgot password?",
+                            "忘记密码?",
                             style: TextStyle(
                               fontSize: 28.w,
                               color: Colors.blueAccent,
@@ -175,7 +188,7 @@ class _LJNLoginPageState extends State<LJNLoginPage> {
                               ),
                             ),
                             child: Text(
-                              "Sign In",
+                              "登录",
                               style: TextStyle(
                                 fontSize: 32.w,
                                 fontWeight: FontWeight.bold,
@@ -183,45 +196,23 @@ class _LJNLoginPageState extends State<LJNLoginPage> {
                               ),
                             ),
                           ),
-                    SizedBox(height: 40.w),
-                    Row(
-                      children: [
-                        const Expanded(child: Divider()),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16.w),
-                          child: Text(
-                            "Or Sign In with",
-                            style:
-                                TextStyle(fontSize: 28.w, color: Colors.grey),
-                          ),
-                        ),
-                        const Expanded(child: Divider()),
-                      ],
-                    ),
-                    SizedBox(height: 30.w),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _buildSocialButton('/assets/images/logo.jpeg'),
-                        SizedBox(width: 20.w),
-                        _buildSocialButton('/assets/images/logo.jpeg'),
-                      ],
-                    ),
-                    SizedBox(height: 50.w),
+                    SizedBox(height: 90.w),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Don't have an account? ",
-                          style:
-                              TextStyle(fontSize: 28.w, color: Colors.black54),
+                          "没有注册? ",
+                          style: TextStyle(
+                            fontSize: 28.w,
+                            color: Colors.black54,
+                          ),
                         ),
                         TextButton(
                           onPressed: () {
-                            // Navigate to sign up screen
+                            Navigator.pushNamed(context, '/user/auth/register');
                           },
                           child: Text(
-                            "Sign Up",
+                            "前往注册",
                             style: TextStyle(
                               fontSize: 28.w,
                               color: Colors.blueAccent,
@@ -232,7 +223,9 @@ class _LJNLoginPageState extends State<LJNLoginPage> {
                       ],
                     ),
                   ],
-                )),
+                ),
+              ),
+            ),
           ),
         ),
       );
@@ -251,7 +244,7 @@ class _LJNLoginPageState extends State<LJNLoginPage> {
         Text(
           labelText,
           style: TextStyle(
-            fontSize: 25.w,
+            fontSize: 28.w,
             fontWeight: FontWeight.w500,
             color: Colors.black87,
           ),
@@ -279,21 +272,6 @@ class _LJNLoginPageState extends State<LJNLoginPage> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildSocialButton(String assetName) {
-    return Container(
-      padding: EdgeInsets.all(12.r),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: Image.asset(
-        assetPath(assetName),
-        height: 80.w,
-        width: 80.w,
-      ),
     );
   }
 }

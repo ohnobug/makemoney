@@ -4,8 +4,6 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/widgets/ljn_function_button.dart';
-import 'package:vigaviga/widgets/ljn_function_buttons_section.dart';
 import 'package:vigaviga/widgets/ljn_function_list_section.dart';
 import 'package:vigaviga/widgets/ljn_miniprogram_button.dart';
 import 'package:vigaviga/widgets/ljn_miniprogram_buttons_section.dart';
@@ -239,6 +237,9 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
                                       _navigateToMiniProgram(context),
                                 ))
                             .toList(),
+                      ),
+                      SizedBox(
+                        height: 100.w,
                       )
                     ],
                   ),

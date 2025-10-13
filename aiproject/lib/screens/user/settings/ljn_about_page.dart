@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
@@ -65,9 +64,9 @@ class _LJNAbout extends State<LJNAboutPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
-                            assetPath("/icon/logo.jpeg"),
-                            width: 150.0.w,
-                            height: 150.0.w,
+                            assetPath("images/logo.jpeg"),
+                            width: 200.0.w,
+                            height: 200.0.w,
                             fit: BoxFit.contain,
                           ),
                           SizedBox(

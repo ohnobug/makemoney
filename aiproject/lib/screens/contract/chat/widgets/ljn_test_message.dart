@@ -129,7 +129,7 @@ class _LJNTestMessage extends State<LJNTestMessage>
                         Container(
                           padding: const EdgeInsets.only(top: 32, right: 10).w,
                           child: Image.asset(
-                            assetPath("/icon/right.png"),
+                            assetPath("images/right.png"),
                             width: 10.w,
                             fit: BoxFit.fitWidth,
                           ),

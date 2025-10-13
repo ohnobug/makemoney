@@ -105,7 +105,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                         Container(
                           padding: const EdgeInsets.only(top: 32, left: 10).w,
                           child: Image.asset(
-                            assetPath("/icon/left.png"),
+                            assetPath("images/left.png"),
                             width: 10.w,
                             fit: BoxFit.fitWidth,
                           ),

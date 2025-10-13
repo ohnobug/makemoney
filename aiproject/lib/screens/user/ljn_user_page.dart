@@ -362,7 +362,7 @@ class _LJNUserPageState extends State<LJNUserPage>
                               Row(
                                 children: [
                                   BlocBuilder<LJNUserCubit, LJNUserState>(
-                                    builder: (context, state) => Container(
+                                    builder: (context, state) => SizedBox(
                                       width: 400.w,
                                       child: Text(
                                         state.userinfoName ?? '用户名',

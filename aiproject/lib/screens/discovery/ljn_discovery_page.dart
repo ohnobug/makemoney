@@ -140,6 +140,7 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
       body: SafeArea(
         // 使用 ListView 来组织页面内容
         child: ListView(
+          physics: BouncingScrollPhysics(),
           padding: EdgeInsets.only(
             top: systemState.appbarHeight,
             bottom: 50.w,
