@@ -24,9 +24,14 @@ class _LJNLoginPage extends State<LJNLoginPage> {
   @override
   void initState() {
     super.initState();
+
+    _phoneController.text = "18825130917";
+    _passwordController.text = "123456";
   }
 
   void _handleLogin() async {
+    logger.info("qqqqqqqqqqqqq");
+
     if (_phoneController.text.isEmpty || _passwordController.text.isEmpty) {
       // 这里可以添加提示
       logger.info("手机号或密码不能为空");
@@ -52,16 +57,11 @@ class _LJNLoginPage extends State<LJNLoginPage> {
       userId: 'user_${_phoneController.text}', // 模拟用户ID
       authToken: 'token_${DateTime.now().millisecondsSinceEpoch}', // 模拟认证令牌
       phone: _phoneController.text,
-      name: '用户${_phoneController.text.substring(7)}', // 模拟用户名
+      name: '用户${_phoneController.text.trim()}', // 模拟用户名
     );
 
     logger.info("登录成功");
-
-    // 关闭页面
-    Navigator.of(context).pushNamedAndRemoveUntil(
-      '/', // 假设你的主应用页面路由名是 '/home' 或其他
-      (Route<dynamic> route) => false, // 这个 predicate 返回 false 会移除所有旧路由
-    );
+    Navigator.of(context).pop();
   }
 
   @override
@@ -266,8 +266,7 @@ class _LJNLoginPage extends State<LJNLoginPage> {
                         ),
 
                         SizedBox(
-                          height: 780.w,
-                          child: null,
+                          height: 100.w,
                         ),
 
                         // 登录按钮
@@ -282,13 +281,10 @@ class _LJNLoginPage extends State<LJNLoginPage> {
                                     color: AppColors.brandGreenDarker4,
                                   ),
                                 )
-                              : GestureDetector(
-                                  onTap: _handleLogin,
-                                  child: LJNChangeAccountButton(
-                                    title: "登录",
-                                    link: "",
-                                    readonly: false,
-                                  ),
+                              : LJNChangeAccountButton(
+                                  ontap: _handleLogin,
+                                  title: "登录",
+                                  readonly: false,
                                 ),
                         )
                       ],

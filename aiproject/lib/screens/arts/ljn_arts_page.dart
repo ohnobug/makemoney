@@ -246,7 +246,7 @@ class _LJNArtsPage extends State<LJNArtsPage> {
 
                       // --- 顶部的搜索按钮 ---
                       Positioned(
-                        top: 0.w + systemState.statusHeight,
+                        top: 15.w + systemState.statusHeight,
                         right: 28.w,
                         child: GestureDetector(
                           onTap: () {
@@ -258,7 +258,7 @@ class _LJNArtsPage extends State<LJNArtsPage> {
                             child: Icon(
                               const IconData(0xe612, fontFamily: 'Iconfont'),
                               color: AppColors.neutralWhite,
-                              size: 42.w,
+                              size: 48.w,
                             ),
                           ),
                         ),
@@ -431,7 +431,7 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
     );
 
     return Container(
-      width: 575.w,
+      width: 600.w,
       padding: EdgeInsets.all(25.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -535,7 +535,7 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
     return Container(
       clipBehavior: Clip.antiAlias, // 确保内容不会溢出圆角
       decoration: BoxDecoration(
-        color: Colors.black.withAlpha(102), // 背景色稍微加深以突显
+        color: Colors.black.withAlpha(200), // 背景色稍微加深以突显
         borderRadius: BorderRadius.circular(12.w),
       ),
       // 使用 Stack 来实现分层布局
@@ -564,17 +564,17 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
           ),
           // 固定在右下角的 "收起" 按钮
           Positioned(
-            bottom: 10.w,
-            right: 10.w,
+            bottom: 15.w,
+            right: 15.w,
             child: Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
-                borderRadius: BorderRadius.circular(20.w),
+                borderRadius: BorderRadius.circular(8.w),
               ),
               padding: EdgeInsets.only(
-                left: 10,
-                right: 10,
+                left: 15,
+                right: 15,
                 top: 5,
                 bottom: 5,
               ).w,

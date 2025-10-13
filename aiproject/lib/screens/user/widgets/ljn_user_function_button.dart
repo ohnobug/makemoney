@@ -77,18 +77,18 @@ class LJNUserFunctionButtonState extends State<LJNUserFunctionButton> {
           mainAxisAlignment: MainAxisAlignment.start, // 关键：使图标顶部对齐
           crossAxisAlignment: CrossAxisAlignment.center, // 水平居中
           children: [
-            SizedBox(height: 15.w), // 可以增加一个顶部的内边距，让图标和按钮顶部有一点距离
-            ClipOval(
-              child: Image.asset(
-                assetPath(widget.icon),
-                width: 65.w,
-                height: 65.w,
-                cacheHeight: 130.w.toInt(),
-                cacheWidth: 130.w.toInt(),
-                fit: BoxFit.cover, // 让图片完全填满圆形区域
-              ),
+            SizedBox(height: 15.w),
+            // 图标
+            Image.asset(
+              assetPath(widget.icon),
+              width: 65.w,
+              height: 65.w,
+              cacheHeight: 130.w.toInt(),
+              cacheWidth: 130.w.toInt(),
+              fit: BoxFit.cover, // 让图片完全填满圆形区域
             ),
-            SizedBox(height: 12.w), // 图标和标题之间的间距
+            SizedBox(height: 15.w), // 图标和标题之间的间距
+            // 标题
             Container(
               height: twoLinesTextHeight,
               alignment: Alignment.topCenter,

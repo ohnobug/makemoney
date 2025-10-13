@@ -53,7 +53,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     // 账户与安全
                     LJNFunctionList(children: [
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "images/icon/settings_03.png",
                         title: l10n.accountAndSecurityTitle,
                         link: '/settings/account_and_secure',
                         underline: false,
@@ -77,14 +77,14 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     // 语言设置
                     LJNFunctionList(children: [
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "images/icon/settings_01.png",
                         title: l10n.languageSetting,
                         link: '/settings/language_setting',
                         underline: true,
                       ),
                       // 主题设置
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "images/icon/settings_02.png",
                         title: l10n.themeSetting,
                         link: '/settings/theme_setting',
                         underline: false,
@@ -94,19 +94,19 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     // 新消息通知 与 聊天 和 通用
                     LJNFunctionList(children: [
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "images/icon/settings_10.png",
                         title: l10n.newMessageNotifications,
                         link: '/settings/new_message_notification',
                         underline: true,
                       ),
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "images/icon/settings_04.png",
                         title: l10n.chat,
                         link: '/settings/chat_setting',
                         underline: true,
                       ),
                       LJNFunctionItem(
-                        icon: "images/avatar/02.png",
+                        icon: "images/icon/settings_05.png",
                         title: l10n.general,
                         link: '/settings/common_setting',
                         underline: false,
@@ -118,25 +118,25 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       title: LJNAlphabet(title: l10n.privacy),
                       children: [
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "images/icon/settings_06.png",
                           title: l10n.friendPermissions,
                           link: '/settings/friend_permission',
                           underline: true,
                         ),
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "images/icon/settings_07.png",
                           title: l10n.personalInfoAndPermissions,
                           link: '/settings/personinfo_and_permission',
                           underline: true,
                         ),
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "images/icon/settings_11.png",
                           title: l10n.personalInfoCollectionList,
                           link: '/settings/personalinfo_collection_checklist',
                           underline: true,
                         ),
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "images/icon/settings_09.png",
                           title: l10n.thirdPartyInfoSharingList,
                           link:
                               "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing')}",
@@ -185,15 +185,15 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     LJNFunctionList(
                       children: [
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "images/icon/settings_13.png",
                           title: l10n.aboutVigaviga,
                           link: '/settings/about',
                           underline: true,
                         ),
                         LJNFunctionItem(
-                          icon: "images/avatar/02.png",
+                          icon: "images/icon/settings_12.png",
                           title: l10n.helpAndFeedback,
-                          link: '',
+                          link: '/ljn_help and_feedback',
                           underline: false,
                         ),
                       ],

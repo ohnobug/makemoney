@@ -80,6 +80,7 @@ import 'package:vigaviga/screens/user/auth/ljn_login_page.dart';
 import 'package:vigaviga/screens/user/auth/ljn_register_page.dart';
 import 'package:vigaviga/screens/user/auth/ljn_forgot_password_page.dart';
 import 'package:vigaviga/screens/user/photo_viewer/ljn_photo_grid_page.dart';
+import 'package:vigaviga/screens/user/settings/ljn_help and_feedback.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -112,6 +113,8 @@ class AppRouter {
             const LJNResourceSearchPage()); // 资源发布搜索页面
       case '/user/like':
         return _pageRouteBuilderNotAnimation(const LikedVideosPage()); // 用户喜欢页面
+      case '/ljn_help and_feedback':
+        return _pageRouteBuilderNotAnimation(const HelpAndFeedbackPage()); // 帮助与建议
       case '/user/follow_and_fans':
         return _pageRouteBuilderAnimation(const LJNFollowPage()); // 用户关注和粉丝页面
       case '/qrcode_scanner':
@@ -138,8 +141,9 @@ class AppRouter {
       case '/user/camera':
         return _pageRouteBuilderAnimation(const LJNCameraViewPage()); // 相机页面
       case '/user/collection_and_payment':
-        return _pageRouteBuilderAnimation(
-            const LJNCollectionAndPaymentPage()); // 收藏和支付页面
+        return _pageRouteBuilderNotAnimation(
+          const LJNCollectionAndPaymentPage(),
+        ); // 收藏和支付页面
       case '/user/more_info':
         return _pageRouteBuilderAnimation(
             const LJNUserMoreInfoPage()); // 用户更多信息页面
@@ -160,9 +164,9 @@ class AppRouter {
       case '/user/auth/login':
         return _pageRouteBuilderNotAnimation(const LJNLoginPage()); // 用户登录页面
       case '/user/auth/register':
-        return _pageRouteBuilderNotAnimation(const LJNRegisterPage()); // 用户注册页面
+        return _pageRouteBuilderAnimation(const LJNRegisterPage()); // 用户注册页面
       case '/user/auth/forgot_password':
-        return _pageRouteBuilderNotAnimation(
+        return _pageRouteBuilderAnimation(
             const LJNForgotPasswordPage()); // 忘记密码页面
 
       // 设置相关路由

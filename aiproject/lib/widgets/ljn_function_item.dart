@@ -124,14 +124,15 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
             if (widget.icon != null) ...[
               // 头像
               Container(
-                width: 40.0.w,
-                height: 40.0.w,
+                width: 50.0.w,
+                height: 50.0.w,
                 margin: widget.margin ??
                     const EdgeInsets.only(
                       left: 30.0,
                       right: 0.0,
                     ).w,
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25.0), 
                   shape: BoxShape.rectangle,
                   image: DecorationImage(
                     image: AssetImage(
