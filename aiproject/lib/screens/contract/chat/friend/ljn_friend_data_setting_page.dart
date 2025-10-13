@@ -70,14 +70,14 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSettingPage> {
                         LJNFunctionItem(
                           icon: "images/avatar/02.png",
                           title: l10n.setRemarkAndTags,
-                          link: '/set_notes_and_labels',
+                          link: '/chat/set_notes_and_labels',
                           showStyle: "邓子乔",
                           underline: true,
                         ),
                         LJNFunctionItem(
                           icon: "images/avatar/02.png",
                           title: l10n.friendPermissions,
-                          link: '/friend_permissions',
+                          link: '/chat/friend_permissions',
                           underline: false,
                         ),
                       ]),

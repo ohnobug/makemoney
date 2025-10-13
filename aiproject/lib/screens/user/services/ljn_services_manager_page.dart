@@ -106,7 +106,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               LJNFunctionItem(
                                 title: l10n.creditCardRepayment,
                                 icon: "images/icon/server_icon1.png",
-                                link: '/qrcode_scanner',
+                                link: '/discovery/qrcode_scanner',
                                 // margin: EdgeInsets.symmetric(horizontal: 5.w),
                                 underline: true,
                                 showLinkIcon: false,
@@ -132,7 +132,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               LJNFunctionItem(
                                 title: l10n.weilidaiLoan,
                                 icon: "images/icon/discovery_icon4.png",
-                                link: '/qrcode_scanner',
+                                link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: true,
                                 showLinkIcon: false,
@@ -158,7 +158,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               LJNFunctionItem(
                                 title: l10n.licaitong,
                                 icon: "images/icon/server_icon2.png",
-                                link: '/qrcode_scanner',
+                                link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: true,
                                 showLinkIcon: false,
@@ -184,7 +184,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               LJNFunctionItem(
                                 title: l10n.insuranceService,
                                 icon: "images/icon/server_icon3.png",
-                                link: '/qrcode_scanner',
+                                link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: false,
                                 showLinkIcon: false,
@@ -215,7 +215,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               LJNFunctionItem(
                                 title: l10n.transportServices,
                                 icon: "images/icon/server_icon10.png",
-                                link: '/qrcode_scanner',
+                                link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: true,
                                 showLinkIcon: false,
@@ -241,7 +241,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               LJNFunctionItem(
                                 title: l10n.trainAndFlightTickets,
                                 icon: "images/icon/server_icon11.png",
-                                link: '/qrcode_scanner',
+                                link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: true,
                                 showLinkIcon: false,
@@ -267,7 +267,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               LJNFunctionItem(
                                 title: l10n.didiRideHailing,
                                 icon: "images/icon/server_icon12.png",
-                                link: '/qrcode_scanner',
+                                link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: true,
                                 showLinkIcon: false,
@@ -293,7 +293,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                               LJNFunctionItem(
                                 title: l10n.hotelAndBAndB,
                                 icon: "images/icon/server_icon122.png",
-                                link: '/qrcode_scanner',
+                                link: '/discovery/qrcode_scanner',
                                 // margin: const EdgeInsets.all(0),
                                 underline: false,
                                 showLinkIcon: false,
@@ -325,7 +325,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 LJNFunctionItem(
                                   title: l10n.brandDiscovery,
                                   icon: "images/icon/server_icon13.png",
-                                  link: '/qrcode_scanner',
+                                  link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
                                   showLinkIcon: false,
@@ -351,7 +351,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 LJNFunctionItem(
                                   title: l10n.jdShopping,
                                   icon: "images/icon/server_icon14.png",
-                                  link: '/qrcode_scanner',
+                                  link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
                                   showLinkIcon: false,
@@ -377,7 +377,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 LJNFunctionItem(
                                   title: l10n.meituanWaimai,
                                   icon: "images/icon/server_icon15.png",
-                                  link: '/qrcode_scanner',
+                                  link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
                                   showLinkIcon: false,
@@ -403,7 +403,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 LJNFunctionItem(
                                   title: l10n.movieTicketsAndEntertainment,
                                   icon: "images/icon/server_icon16.png",
-                                  link: '/qrcode_scanner',
+                                  link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
                                   showLinkIcon: false,
@@ -429,7 +429,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 LJNFunctionItem(
                                   title: l10n.meituanSpecialOffers,
                                   icon: "images/icon/server_icon15.png",
-                                  link: '/qrcode_scanner',
+                                  link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
                                   showLinkIcon: false,
@@ -455,7 +455,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 LJNFunctionItem(
                                   title: l10n.pinduoduo,
                                   icon: "images/icon/server_icon18.png",
-                                  link: '/qrcode_scanner',
+                                  link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
                                   showLinkIcon: false,
@@ -481,7 +481,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 LJNFunctionItem(
                                   title: l10n.vipshop,
                                   icon: "images/icon/server_icon19.png",
-                                  link: '/qrcode_scanner',
+                                  link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
                                   showLinkIcon: false,
@@ -507,7 +507,7 @@ class _LJNServicesManagerPageState extends State<LJNServicesManagerPage> {
                                 LJNFunctionItem(
                                   title: l10n.zhuanzhuanUsedGoods,
                                   icon: "images/icon/server_icon20.png",
-                                  link: '/qrcode_scanner',
+                                  link: '/discovery/qrcode_scanner',
                                   // margin: const EdgeInsets.all(0),
                                   underline: false,
                                   showLinkIcon: false,

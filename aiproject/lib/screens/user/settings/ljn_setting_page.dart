@@ -64,12 +64,12 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     // LJNFunctionList(children: [
                     //   LJNFunctionItem(
                     //     title: l10n.youthMode,
-                    //     link: '/teenage_mode',
+                    //     link: '/settings/teenage_mode',
                     //     underline: true,
                     //   ),
                     //   LJNFunctionItem(
                     //     title: l10n.caringMode,
-                    //     link: '/care_mode',
+                    //     link: '/settting/care_mode',
                     //     underline: false,
                     //   ),
                     // ]),

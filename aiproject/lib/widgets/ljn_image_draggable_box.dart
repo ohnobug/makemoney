@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
-import 'package:image_size_getter/image_size_getter.dart' as imagegetter;
 import "package:vector_math/vector_math_64.dart";
 
 // 可拖动和缩放的图片框状态组件。
@@ -16,7 +13,7 @@ class LJNImaeDraggableBox extends StatefulWidget {
   final double maxScale; // 图片允许的最大缩放比例。
   final Size openBoxSize;
   final Offset openPosition;
-  final String imagePath;
+  final Uri imagePath;
   final VoidCallback? onClose;
 
   const LJNImaeDraggableBox({
@@ -51,20 +48,11 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
   Offset _gestureStartOffset = Offset.zero; // 手势开始时的偏移量。
   Offset _gestureStartFocalPoint = Offset.zero; // 手势开始时的焦点位置。
 
-  Future<void> getImageSize(String filename) async {
-    final buffer = await rootBundle.load(filename); // get the byte buffer
-    final memoryImageSizeResult = imagegetter.ImageSizeGetter.getSizeResult(
-        imagegetter.MemoryInput.byteBuffer(buffer.buffer));
-    final size = memoryImageSizeResult.size;
-    logger.info("qqqqqqqqqqqq: $size");
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
 
-    getImageSize(assetPath(widget.imagePath));
+    getNetworkImageSize(widget.imagePath);
 
     // 放大缩小
     _animationController = AnimationController(
@@ -225,8 +213,8 @@ class _LJNImaeDraggableBoxState extends State<LJNImaeDraggableBox>
                           child: AnimatedBuilder(
                             animation: _animationController,
                             builder: (context, child) {
-                              return Image.asset(
-                                assetPath(widget.imagePath),
+                              return Image.network(
+                                widget.imagePath.toString(),
                                 fit: BoxFit.contain,
                                 errorBuilder: (context, error, stackTrace) =>
                                     Center(

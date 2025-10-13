@@ -83,7 +83,7 @@ class _LJNWalletPage extends State<LJNWalletPage> {
                     LJNFunctionItem(
                       title: l10n.balance,
                       icon: "images/icon/discovery_icon1.png",
-                      link: '/pocketmoney',
+                      link: '/user/pocketmoney',
                       showStyle: Expanded(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,

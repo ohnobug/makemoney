@@ -62,7 +62,7 @@ class _LJNAbout extends State<LJNAboutPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
-                            assetPath("images/icon/logo.png"),
+                            assetPath("images/icon/logo.jpeg"),
                             width: 122.0.w,
                             height: 122.0.w,
                             fit: BoxFit.contain,

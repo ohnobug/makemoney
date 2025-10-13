@@ -26,59 +26,41 @@ class LJNSpecialFunctionItem extends StatefulWidget {
   State<LJNSpecialFunctionItem> createState() => _LJNSpecialFunctionItemState();
 }
 
-// =========================================================================
-// ====================    这里是完整的、修正后的 State 类    ====================
-// =========================================================================
 class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
-  // 唯一的内部状态：只记录该项是否被用户按下。
   bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
-    // 核心修正：在 build 方法内部获取所有依赖于外部环境（如 Theme 或 widget 属性）的值。
     ThemeData theme = Theme.of(context);
 
     final bool tapEffect = widget.tapEffect ?? true;
     final bool isTappable = widget.link != null && tapEffect;
 
-    // 1. 定义不同状态下的颜色
     final Color normalColor = theme.listTileTheme.tileColor!;
     final Color pressedColor = theme.listTileTheme.selectedTileColor!;
-
-    // 2. 根据内部状态 _isPressed，动态地计算出当前应该显示的背景颜色。
     final Color currentColor =
         (_isPressed && isTappable) ? pressedColor : normalColor;
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      // onTapDown 只负责更新内部状态
       onTapDown: (_) {
         if (!isTappable) return;
-
         setState(() => _isPressed = true);
       },
-      // onTapCancel 只负责更新内部状态
       onTapCancel: () {
         if (!isTappable) return;
-
         Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
+          if (mounted) setState(() => _isPressed = false);
         });
       },
-      // onTapUp 负责恢复状态并执行操作
       onTapUp: (_) {
         if (!isTappable) return;
-
         Future.delayed(const Duration(milliseconds: 50), () {
-          setState(() {
-            _isPressed = false;
-          });
-
-          if (context.mounted && widget.link != null) {
-            // ignore: use_build_context_synchronously
-            Navigator.pushNamed(context, widget.link!);
+          if (context.mounted) {
+            setState(() => _isPressed = false);
+            if (widget.link != null) {
+              Navigator.pushNamed(context, widget.link!);
+            }
           }
         });
       },
@@ -86,7 +68,6 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
         height: widget.height,
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0).w,
         decoration: BoxDecoration(
-          // 使用在 build 方法开头计算出的正确颜色
           color: currentColor,
           border: Border(
             bottom: widget.underline
@@ -97,8 +78,12 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
                 : BorderSide.none,
           ),
         ),
+        // ======================= 核心修改在这里 =======================
         child: Row(
           children: [
+            // 1. 【核心】将左侧的 Column 用 Expanded 包裹
+            //    这会给 Column 提供一个有限的垂直约束，解决无限高度问题。
+            //    同时，它也会让标题部分占据所有可用的水平空间，直到遇到 Spacer。
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -115,33 +100,32 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
                   ),
                   if (widget.subTitle != null) ...[
                     SizedBox(height: 14.w),
+                    // 副标题不需要再用 Flexible，因为 Column 已经有了有限高度
                     widget.subTitle!,
                   ]
                 ],
               ),
             ),
-            if (widget.showStyle != null)
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                child: widget.showStyle!,
-              ),
+
+            // 2. Spacer 保持不变，用于推开右侧组件
+            // const Spacer(), // 注意：当左侧使用 Expanded 时，我们不再需要 Spacer
+
+            // 3. 右侧的自定义组件（例如 Switch）
+            if (widget.showStyle != null) widget.showStyle!,
+
+            // 4. 右侧的箭头图标
             if (widget.link != null)
               Container(
-                width: 30.w,
-                margin:
-                    EdgeInsets.only(left: 10.w), // Add left margin for spacing
+                margin: EdgeInsets.only(left: 10.w),
                 child: Icon(
-                  const IconData(
-                    0xed9d,
-                    fontFamily: 'Iconfont',
-                  ),
+                  const IconData(0xed9d, fontFamily: 'Iconfont'),
                   size: 30.0.w,
-                  // 使用主题感知的图标颜色
                   color: theme.colorScheme.onSurface.withAlpha(100),
                 ),
               )
           ],
         ),
+        // ======================= 修改结束 =======================
       ),
     );
   }

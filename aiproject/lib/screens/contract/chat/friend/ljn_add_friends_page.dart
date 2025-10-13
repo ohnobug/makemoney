@@ -58,7 +58,10 @@ class _LJNAddFriends extends State<LJNAddFriendsPage> {
             child: Column(
               children: [
                 // 搜索框
-                LJNSearch(link: '/search_friend', title: l10n.accountOrPhone),
+                LJNSearch(
+                  link: '/contact/search_friend',
+                  title: l10n.accountOrPhone,
+                ),
 
                 SizedBox(
                   height: 44.w,
@@ -123,7 +126,7 @@ class _LJNAddFriends extends State<LJNAddFriendsPage> {
 
                 LJNIconFunctionItem(
                   title: l10n.scan,
-                  link: '/qrcode_scanner',
+                  link: '/discovery/qrcode_scanner',
                   underline: true,
                   avatar: "images/icon/add_friend_icon3.png",
                   message: l10n.scanQRCode,
@@ -131,7 +134,7 @@ class _LJNAddFriends extends State<LJNAddFriendsPage> {
 
                 LJNIconFunctionItem(
                   title: l10n.phoneContacts,
-                  link: '/phone_contact',
+                  link: '/settings/phone_contact',
                   underline: true,
                   avatar: "images/icon/add_friend_icon4.png",
                   message: l10n.addOrInviteContacts,

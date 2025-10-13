@@ -102,17 +102,11 @@ class _LJNFriendPermissionPage extends State<LJNFriendPermissionPage> {
                               fontFamily: "AlibabaPuHuiTi",
                             ),
                           ),
-                          showStyle: Expanded(
-                            flex: 0,
-                            child: Container(
-                              margin: const EdgeInsets.only(right: 32).w,
-                              child: LJNSwitch(
-                                initialValue: false,
-                                onChanged: (value) {
-                                  logger.info(value);
-                                },
-                              ),
-                            ),
+                          showStyle: LJNSwitch(
+                            initialValue: false,
+                            onChanged: (value) {
+                              logger.info(value);
+                            },
                           ),
                         ),
                       ],

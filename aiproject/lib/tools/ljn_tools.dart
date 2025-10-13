@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_thumbnail_video/index.dart';
 import 'package:get_thumbnail_video/video_thumbnail.dart';
-import 'package:path/path.dart' as path;
+import 'package:http/http.dart' as http;
+import 'package:image_size_getter/image_size_getter.dart' as imagegetter;
 import 'package:path_provider/path_provider.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 
@@ -50,9 +51,9 @@ Future<bool> isValidImage(File file) async {
 }
 
 // 获取视频首帧
-Future<String> getFirstFrame(String filepath) async {
+Future<String> getFirstFrame(String url) async {
   WidgetsFlutterBinding.ensureInitialized();
-  String filehash = await generateStringChunkHash(filepath);
+  String filehash = await generateStringChunkHash(url);
   String tempFile = filehash.substring(0, 16);
 
   final List<Directory>? tempDir = await getExternalCacheDirectories();
@@ -68,34 +69,61 @@ Future<String> getFirstFrame(String filepath) async {
       imageFile.deleteSync();
     }
 
-    // 获取应用的文档目录
-    final directory = await getApplicationDocumentsDirectory();
-    String filename = path.basename(filepath);
-
-    // 拼接本地存储的文件路径
-    final videoPath = '${directory.path}/$filename';
-    // =========================================================================
-    // 从 assets 加载视频文件
-    ByteData byteData = await rootBundle.load(filepath);
-    // logger.info('ByteData length: ${byteData.lengthInBytes}');
-
-    if (byteData.lengthInBytes == 0) {
-      throw Exception('Failed to load video file.');
-    }
-    List<int> bytes = byteData.buffer
-        .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes);
-    final file = File(videoPath);
-    await file.writeAsBytes(bytes);
-    // =========================================================================
-
     final fileName = await VideoThumbnail.thumbnailFile(
-      video: videoPath,
+      video: url,
       thumbnailPath: outputImagePath,
       imageFormat: ImageFormat.PNG,
       quality: 100,
     );
 
     return fileName.path;
+  }
+}
+
+Future<Size?> getLocalAssetImageSize(String assetPath) async {
+  try {
+    final buffer = await rootBundle.load(assetPath);
+
+    // 使用推荐的 getSizeResult 方法
+    final sizeResult = imagegetter.ImageSizeGetter.getSizeResult(
+        imagegetter.MemoryInput.byteBuffer(buffer.buffer));
+
+    final imageSize = sizeResult.size;
+
+    // logger.info("本地图片 '$assetPath' 尺寸获取成功: $imageSize");
+    // 返回 Flutter 的 Size 对象，确保尺寸是 double 类型
+    return Size(imageSize.width.toDouble(), imageSize.height.toDouble());
+  } catch (e) {
+    // 如果 asset 路径错误或文件不存在，rootBundle.load 会抛出异常
+    // logger.severe("获取本地图片 '$assetPath' 尺寸时发生异常: $e");
+    return null;
+  }
+}
+
+Future<Size?> getNetworkImageSize(Uri uri) async {
+  try {
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      final bytes = response.bodyBytes;
+
+      // 使用推荐的 getSizeResult 方法
+      final sizeResult = imagegetter.ImageSizeGetter.getSizeResult(
+          imagegetter.MemoryInput(bytes));
+
+      final imageSize = sizeResult.size;
+
+      // logger.info("网络图片尺寸获取成功: $imageSize");
+      // 返回 Flutter 的 Size 对象，确保尺寸是 double 类型
+      return Size(imageSize.width.toDouble(), imageSize.height.toDouble());
+    } else {
+      // logger.warning("获取网络图片失败，URL: $imageUrl, 状态码: ${response.statusCode}");
+      return null;
+    }
+  } catch (e) {
+    // 捕获任何可能发生的异常 (如网络中断、URL格式错误)
+    // logger.severe("获取网络图片 '$imageUrl' 尺寸时发生异常: $e");
+    return null;
   }
 }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:vigaviga/screens/user/course/course_models.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 
@@ -16,8 +15,6 @@ class _LJNCourseListPageState extends State<LJNCourseListPage> {
   final List<Course> courseList = [
     Course(
       id: "course_btc_princeton",
-      universityLogoUrl:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Princeton_University_seal.svg/1200px-Princeton_University_seal.svg.png",
       universityName: "Princeton University",
       courseTitle: "比特币和数字货币技术",
       statusText: "课程 • 截止日期已过",
@@ -25,8 +22,6 @@ class _LJNCourseListPageState extends State<LJNCourseListPage> {
     ),
     Course(
       id: "course_ml_stanford",
-      universityLogoUrl:
-          "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Stanford_University_seal_2003.svg/1200px-Stanford_University_seal_2003.svg.png",
       universityName: "Stanford University",
       courseTitle: "机器学习入门",
       statusText: "课程 • 正在进行中",
@@ -53,7 +48,10 @@ class _LJNCourseListPageState extends State<LJNCourseListPage> {
   }
 
   Widget _buildCourseCard(
-      BuildContext context, Course course, ThemeData theme) {
+    BuildContext context,
+    Course course,
+    ThemeData theme,
+  ) {
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
@@ -78,17 +76,13 @@ class _LJNCourseListPageState extends State<LJNCourseListPage> {
             children: [
               Row(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(8.w),
-                    child: CachedNetworkImage(
-                      imageUrl: course.universityLogoUrl,
-                      width: 48.w,
-                      height: 48.w,
-                      placeholder: (context, url) =>
-                          Container(color: Colors.grey.shade200),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.school),
-                    ),
+                  Icon(
+                    const IconData(
+                      0xe644,
+                      fontFamily: 'Iconfont',
+                    ), // 使用的图标
+                    color: theme.colorScheme.onSurface, // 图标颜色
+                    size: 30.w, // 图标大小
                   ),
                   SizedBox(width: 20.w),
                   Text(

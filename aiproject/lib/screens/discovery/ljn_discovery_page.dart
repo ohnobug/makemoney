@@ -218,7 +218,7 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
             LJNFunctionItem(
               title: "心情时刻",
               icon: "images/icon/discovery_icon1.png",
-              link: '/discovery/friendmoments',
+              link: '/chat/friend_moments',
               underline: true,
             ),
             LJNFunctionItem(
@@ -252,7 +252,7 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16.w),
           child: Image.asset(
-            assetPath('images/imgs/i.png'),
+            assetPath('images/imgs/i.webp'),
             fit: BoxFit.cover,
           ),
         ),

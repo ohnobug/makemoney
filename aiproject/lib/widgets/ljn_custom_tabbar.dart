@@ -79,6 +79,11 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   @override
   void initState() {
     super.initState();
+
+    var systemCubit = context.read<LJNSystemCubit>();
+    systemCubit.updateTabbarHeight(95.w);
+    systemCubit.updateAppbarHeight(90.w);
+
     _tabController = TabController(length: _tabs.length, vsync: this);
     _pageController = PageController();
 
@@ -91,10 +96,6 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
         setState(() {});
       }
     });
-
-    var systemCubit = context.read<LJNSystemCubit>();
-    systemCubit.updateTabbarHeight(95.w);
-    systemCubit.updateAppbarHeight(90.w);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {

@@ -33,12 +33,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "熊丽丽",
         underline: true,
         message: "Vigaviga:fastgrowing",
-        avatar: "images/avatar_webp/chat_1.webp",
+        avatar: "images/avatar/chat_1.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数",
-            'icon': "images/avatar_webp/chat_1.webp",
+            'icon': "images/avatar/chat_1.jpg",
           });
           logger.info('花重月数被点击~');
         },
@@ -47,12 +47,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "李伯侨",
         underline: true,
         message: "Vigaviga:unanticipated",
-        avatar: "images/avatar_webp/chat_4.webp",
+        avatar: "images/avatar/chat_4.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "邓子乔",
-            'icon': "images/avatar_webp/chat_4.webp",
+            'icon': "images/avatar/chat_4.jpg",
           });
           logger.info('绿逾初夏被点击~');
         },
@@ -62,12 +62,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "刘航平",
         underline: true,
         message: "Vigaviga:extracurricular",
-        avatar: "images/avatar_webp/chat_5.webp",
+        avatar: "images/avatar/chat_5.jpg",
         alreadyFriends: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "余笙南吟",
-            'icon': "images/avatar_webp/chat_5.webp",
+            'icon': "images/avatar/chat_5.jpg",
           });
           logger.info('余笙南吟被点击~');
         },
@@ -76,12 +76,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "叶招娣",
         underline: true,
         message: "Vigaviga:nonpolitical",
-        avatar: "images/avatar_webp/chat_6.webp",
+        avatar: "images/avatar/chat_6.jpg",
         alreadyFriends: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "陈情匿旧酒",
-            'icon': "images/avatar_webp/chat_6.webp",
+            'icon': "images/avatar/chat_6.jpg",
           });
           logger.info('陈情匿旧酒被点击~');
         },
@@ -90,12 +90,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "赵炬",
         underline: true,
         message: "Vigaviga:accursed",
-        avatar: "images/avatar_webp/chat_7.webp",
+        avatar: "images/avatar/chat_7.jpg",
         alreadyFriends: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "白桃乌龙",
-            'icon': "images/avatar_webp/chat_7.webp",
+            'icon': "images/avatar/chat_7.jpg",
           });
           logger.info('白桃乌龙被点击~');
         },
@@ -104,12 +104,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "张如强",
         underline: true,
         message: "Vigaviga:undistinguished",
-        avatar: "images/avatar_webp/chat_8.webp",
+        avatar: "images/avatar/chat_8.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "清浅ˋ旧时光",
-            'icon': "images/avatar_webp/chat_8.webp",
+            'icon': "images/avatar/chat_8.jpg",
           });
           logger.info('清浅ˋ旧时光被点击~');
         },
@@ -118,12 +118,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "易卫清",
         underline: true,
         message: "Vigaviga:burdensome",
-        avatar: "images/avatar_webp/chat_9.webp",
+        avatar: "images/avatar/chat_9.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "荒碎梦残",
-            'icon': "images/avatar_webp/chat_9.webp",
+            'icon': "images/avatar/chat_9.jpg",
           });
           logger.info('荒碎梦残被点击~');
         },
@@ -132,12 +132,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "张金芬",
         underline: true,
         message: "Vigaviga:brawnyundefined",
-        avatar: "images/avatar_webp/chat_10.webp",
+        avatar: "images/avatar/chat_10.jpg",
         alreadyFriends: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "无梦相赠",
-            'icon': "images/avatar_webp/chat_10.webp",
+            'icon': "images/avatar/chat_10.jpg",
           });
           logger.info('无梦相赠被点击~');
         },
@@ -147,12 +147,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "张观福",
         underline: true,
         message: "Vigaviga:mashed",
-        avatar: "images/avatar_webp/chat_11.webp",
+        avatar: "images/avatar/chat_11.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "离人泪",
-            'icon': "images/avatar_webp/chat_11.webp",
+            'icon': "images/avatar/chat_11.jpg",
           });
           logger.info('离人泪被点击~');
         },
@@ -161,12 +161,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "窦红莉",
         underline: true,
         message: "Vigaviga:nutty",
-        avatar: "images/avatar_webp/chat_12.webp",
+        avatar: "images/avatar/chat_12.jpg",
         alreadyFriends: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "伊人在水一方",
-            'icon': "images/avatar_webp/chat_12.webp",
+            'icon': "images/avatar/chat_12.jpg",
           });
           logger.info('伊人在水一方被点击~');
         },
@@ -175,12 +175,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "周剑桥",
         underline: true,
         message: "Vigaviga:acrimonious",
-        avatar: "images/avatar_webp/chat_13.webp",
+        avatar: "images/avatar/chat_13.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "与我共梦",
-            'icon': "images/avatar_webp/chat_13.webp",
+            'icon': "images/avatar/chat_13.jpg",
           });
           logger.info('与我共梦被点击~');
         },
@@ -189,12 +189,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "尹洪友",
         underline: true,
         message: "Vigaviga:substandard",
-        avatar: "images/avatar_webp/chat_14.webp",
+        avatar: "images/avatar/chat_14.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "挽弦暮笙",
-            'icon': "images/avatar_webp/chat_14.webp",
+            'icon': "images/avatar/chat_14.jpg",
           });
           logger.info('挽弦暮笙被点击~');
         },
@@ -203,12 +203,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "周桑",
         underline: true,
         message: "Vigaviga:receiving",
-        avatar: "images/avatar_webp/chat_15.webp",
+        avatar: "images/avatar/chat_15.jpg",
         alreadyFriends: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "开始厌倦",
-            'icon': "images/avatar_webp/chat_15.webp",
+            'icon': "images/avatar/chat_15.jpg",
           });
           logger.info('开始厌倦被点击~');
         },
@@ -217,12 +217,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "李程",
         underline: true,
         message: "Vigaviga:selfindulgent",
-        avatar: "images/avatar_webp/chat_16.webp",
+        avatar: "images/avatar/chat_16.jpg",
         alreadyFriends: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "仙女收纳盒",
-            'icon': "images/avatar_webp/chat_16.webp",
+            'icon': "images/avatar/chat_16.jpg",
           });
           logger.info('仙女收纳盒被点击~');
         },
@@ -231,12 +231,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "王庆营",
         underline: true,
         message: "Vigaviga:extraneous",
-        avatar: "images/avatar_webp/chat_17.webp",
+        avatar: "images/avatar/chat_17.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "華燈初上",
-            'icon': "images/avatar_webp/chat_17.webp",
+            'icon': "images/avatar/chat_17.jpg",
           });
           logger.info('華燈初上被点击~');
         },
@@ -246,12 +246,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "朱金照",
         underline: true,
         message: "Vigaviga:inexhaustible",
-        avatar: "images/avatar_webp/chat_18.webp",
+        avatar: "images/avatar/chat_18.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "袖手今生",
-            'icon': "images/avatar_webp/chat_18.webp",
+            'icon': "images/avatar/chat_18.jpg",
           });
           logger.info('袖手今生被点击~');
         },
@@ -260,12 +260,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "周秀全",
         underline: true,
         message: "Vigaviga:kneeling",
-        avatar: "images/avatar_webp/chat_19.webp",
+        avatar: "images/avatar/chat_19.jpg",
         alreadyFriends: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "ら道不清的忧伤",
-            'icon': "images/avatar_webp/chat_19.webp",
+            'icon': "images/avatar/chat_19.jpg",
           });
           logger.info('ら道不清的忧伤被点击~');
         },
@@ -274,12 +274,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "朱景龙",
         underline: true,
         message: "Vigaviga:indefatigable",
-        avatar: "images/avatar_webp/chat_20.webp",
+        avatar: "images/avatar/chat_20.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "凉生",
-            'icon': "images/avatar_webp/chat_20.webp",
+            'icon': "images/avatar/chat_20.jpg",
           });
           logger.info('凉生被点击~');
         },
@@ -288,12 +288,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "俞金金",
         underline: true,
         message: "Vigaviga:appellate",
-        avatar: "images/avatar_webp/chat_21.webp",
+        avatar: "images/avatar/chat_21.jpg",
         alreadyFriends: true,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "墨香九歌",
-            'icon': "images/avatar_webp/chat_21.webp",
+            'icon': "images/avatar/chat_21.jpg",
           });
           logger.info('墨香九歌被点击~');
         },
@@ -303,12 +303,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "赵美静",
         underline: true,
         message: "Vigaviga:wellintentioned",
-        avatar: "images/avatar_webp/chat_22.webp",
+        avatar: "images/avatar/chat_22.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "暖栀",
-            'icon': "images/avatar_webp/chat_22.webp",
+            'icon': "images/avatar/chat_22.jpg",
           });
           logger.info('暖栀被点击~');
         },
@@ -317,12 +317,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "张莉青",
         underline: true,
         message: "Vigaviga:abused",
-        avatar: "images/avatar_webp/chat_23.webp",
+        avatar: "images/avatar/chat_23.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "等待许了苍老",
-            'icon': "images/avatar_webp/chat_23.webp",
+            'icon': "images/avatar/chat_23.jpg",
           });
           logger.info('等待许了苍老被点击~');
         },
@@ -331,12 +331,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "郭文才",
         underline: true,
         message: "Vigaviga:illadvised",
-        avatar: "images/avatar_webp/chat_24.webp",
+        avatar: "images/avatar/chat_24.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "笙歌白云",
-            'icon': "images/avatar_webp/chat_24.webp",
+            'icon': "images/avatar/chat_24.jpg",
           });
           logger.info('笙歌白云被点击~');
         },
@@ -345,12 +345,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "余光勇",
         underline: true,
         message: "Vigaviga:unsettling",
-        avatar: "images/avatar_webp/chat_25.webp",
+        avatar: "images/avatar/chat_25.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "万幸得以相识",
-            'icon': "images/avatar_webp/chat_25.webp",
+            'icon': "images/avatar/chat_25.jpg",
           });
           logger.info('万幸得以相识被点击~');
         },
@@ -359,12 +359,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "张礼中",
         underline: true,
         message: "Vigaviga:inactive",
-        avatar: "images/avatar_webp/chat_26.webp",
+        avatar: "images/avatar/chat_26.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "凤鸣寂寥",
-            'icon': "images/avatar_webp/chat_26.webp",
+            'icon': "images/avatar/chat_26.jpg",
           });
           logger.info('凤鸣寂寥被点击~');
         },
@@ -373,12 +373,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "伊静",
         underline: true,
         message: "Vigaviga:packaged",
-        avatar: "images/avatar_webp/chat_27.webp",
+        avatar: "images/avatar/chat_27.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "余生不过一盏茶",
-            'icon': "images/avatar_webp/chat_27.webp",
+            'icon': "images/avatar/chat_27.jpg",
           });
           logger.info('余生不过一盏茶被点击~');
         },
@@ -387,12 +387,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "智涛",
         underline: true,
         message: "Vigaviga:fussy",
-        avatar: "images/avatar_webp/chat_28.webp",
+        avatar: "images/avatar/chat_28.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "丢了梦想的猎手",
-            'icon': "images/avatar_webp/chat_28.webp",
+            'icon': "images/avatar/chat_28.jpg",
           });
           logger.info('丢了梦想的猎手被点击~');
         },
@@ -401,12 +401,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "邹纪平",
         underline: true,
         message: "Vigaviga:ineffable",
-        avatar: "images/avatar_webp/chat_29.webp",
+        avatar: "images/avatar/chat_29.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "今朝有酒今朝醉",
-            'icon': "images/avatar_webp/chat_29.webp",
+            'icon': "images/avatar/chat_29.jpg",
           });
           logger.info('今朝有酒今朝醉被点击~');
         },
@@ -416,12 +416,12 @@ class _LJNPhoneContactPage extends State<LJNPhoneContactPage> {
         friendName: "马自学",
         underline: false,
         message: "Vigaviga:reigning",
-        avatar: "images/avatar_webp/chat_30.webp",
+        avatar: "images/avatar/chat_30.jpg",
         alreadyFriends: false,
         onPressed: () {
           Navigator.pushNamed(context, '/chat', arguments: <String, String>{
             'title': "旧事酒浓",
-            'icon': "images/avatar_webp/chat_30.webp",
+            'icon': "images/avatar/chat_30.jpg",
           });
         },
       ),

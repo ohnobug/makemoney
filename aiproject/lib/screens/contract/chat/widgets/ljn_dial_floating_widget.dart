@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player/video_player.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 
 class LJNDialFloatingWidget extends StatefulWidget {
   final SystemState systemState;
@@ -25,31 +25,35 @@ class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
     super.initState();
 
     // if (!Platform.isWindows) {
-    _videoController =
-        VideoPlayerController.asset(assetPath('images/ins/test.mp4'))
-          ..initialize().then((_) {
-            setState(() {
-              if (_videoController.value.aspectRatio > 1) {
-                // 宽大于高
-                _width = 350.w;
-                _height = _width / _videoController.value.aspectRatio;
-              } else {
-                _height = 622.w;
-                _width = _height * _videoController.value.aspectRatio;
-              }
-            });
+    var systemCubit = context.read<LJNSystemCubit>();
 
-            PictureInPicture.updatePiPParams(
-              pipParams: PiPParams(
-                pipWindowHeight: _height,
-                pipWindowWidth: _width,
-              ),
-            );
+    _videoController = VideoPlayerController.networkUrl(
+      Uri.parse(
+        '${systemCubit.state.cdnBase}/ins/test.mp4',
+      ),
+    )..initialize().then((_) {
+        setState(() {
+          if (_videoController.value.aspectRatio > 1) {
+            // 宽大于高
+            _width = 350.w;
+            _height = _width / _videoController.value.aspectRatio;
+          } else {
+            _height = 622.w;
+            _width = _height * _videoController.value.aspectRatio;
+          }
+        });
 
-            _videoController.setLooping(true);
-            // _videoController.setVolume(0.0);
-            _videoController.play();
-          });
+        PictureInPicture.updatePiPParams(
+          pipParams: PiPParams(
+            pipWindowHeight: _height,
+            pipWindowWidth: _width,
+          ),
+        );
+
+        _videoController.setLooping(true);
+        // _videoController.setVolume(0.0);
+        _videoController.play();
+      });
     // }
   }
 
@@ -99,7 +103,8 @@ class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
           child: ElevatedButton(
             onPressed: () {
               PictureInPicture.stopPiP();
-              widget.systemState.navigatorKey.currentState!.pushNamed('/chat/dial');
+              widget.systemState.navigatorKey.currentState!
+                  .pushNamed('/chat/dial');
             },
             child: Text("close"),
           ),

@@ -39,48 +39,55 @@ class _LJNCourseDetailPageState extends State<LJNCourseDetailPage>
       setState(() {
         _lessons = [
           LessonItem(
-              id: "btc_01",
-              title: "课程信息",
-              type: LessonType.reading,
-              status: LessonStatus.completed,
-              duration: "10 分钟"),
+            id: "btc_01",
+            title: "课程信息",
+            type: LessonType.reading,
+            status: LessonStatus.completed,
+            duration: "10 分钟",
+          ),
           LessonItem(
-              id: "btc_02",
-              title: "欢迎",
-              type: LessonType.video,
-              status: LessonStatus.completed,
-              duration: "2 分钟"),
+            id: "btc_02",
+            title: "欢迎",
+            type: LessonType.video,
+            status: LessonStatus.completed,
+            duration: "2 分钟",
+          ),
           LessonItem(
-              id: "btc_03",
-              title: "加密哈希函数",
-              type: LessonType.video,
-              status: LessonStatus.completed,
-              duration: "19 分钟"),
+            id: "btc_03",
+            title: "加密哈希函数",
+            type: LessonType.video,
+            status: LessonStatus.completed,
+            duration: "19 分钟",
+          ),
           LessonItem(
-              id: "btc_04",
-              title: "哈希指针和数据结构",
-              type: LessonType.video,
-              status: LessonStatus.pending,
-              duration: "9 分钟"),
+            id: "btc_04",
+            title: "哈希指针和数据结构",
+            type: LessonType.video,
+            status: LessonStatus.pending,
+            duration: "9 分钟",
+          ),
           LessonItem(
-              id: "btc_05",
-              title: "数字签名",
-              type: LessonType.video,
-              status: LessonStatus.pending,
-              duration: "10 分钟"),
+            id: "btc_05",
+            title: "数字签名",
+            type: LessonType.video,
+            status: LessonStatus.pending,
+            duration: "10 分钟",
+          ),
           LessonItem(
-              id: "btc_06",
-              title: "守财奴硬币",
-              type: LessonType.assignment,
-              status: LessonStatus.overdue,
-              duration: "3 小时",
-              dueDateInfo: "已于5月3日 逾期"),
+            id: "btc_06",
+            title: "守财奴硬币",
+            type: LessonType.assignment,
+            status: LessonStatus.overdue,
+            duration: "3 小时",
+            dueDateInfo: "已于5月3日 逾期",
+          ),
           LessonItem(
-              id: "btc_07",
-              title: "区块链基础",
-              type: LessonType.reading,
-              status: LessonStatus.locked,
-              duration: "25 分钟"),
+            id: "btc_07",
+            title: "区块链基础",
+            type: LessonType.reading,
+            status: LessonStatus.locked,
+            duration: "25 分钟",
+          ),
         ];
         _isLoading = false;
       });
@@ -107,6 +114,7 @@ class _LJNCourseDetailPageState extends State<LJNCourseDetailPage>
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
       return Scaffold(
+        primary: false,
         appBar: LJNAppBar(
           title: "课程详情",
         ),
@@ -116,9 +124,6 @@ class _LJNCourseDetailPageState extends State<LJNCourseDetailPage>
               SliverToBoxAdapter(
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: systemState.statusHeight,
-                    ),
                     PreferredSize(
                       preferredSize:
                           Size.fromHeight(customkToolbarHeight + 2.5.w),

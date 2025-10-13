@@ -156,7 +156,7 @@ class _LJNPhoneNumberPage extends State<LJNPhoneNumberPage> {
                               title: l10n.viewPhoneContacts,
                               color: AppColors.neutralWhite,
                               backgroundColor: AppColors.brandGreenVibrant5,
-                              link: "/phone_contact",
+                              link: "/settings/phone_contact",
                               readonly: false,
                             ),
                             SizedBox(

@@ -25,7 +25,7 @@ class LJNReceiveVideoMessage extends StatefulWidget {
   final Function(Offset, Size)? onTap;
   final String name;
   final bool showName;
-  final String video;
+  final Uri video;
   final double width;
   final double height;
   final String friendAvatar;
@@ -58,7 +58,7 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
     }
 
     if (kIsWeb) {
-      _controller = VideoPlayerController.asset(assetPath(widget.video))
+      _controller = VideoPlayerController.networkUrl(widget.video)
         ..initialize().then((_) {
           if (mounted) {
             setState(() {});
@@ -71,16 +71,14 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
 
   // 获取视频首帧
   Future<void> getVideoFirstFrame() async {
-    // 假设 getFirstFrame 是一个能返回视频首帧本地文件路径的函数
     var picPathTemp = await getFirstFrame(
-      assetPath(widget.video),
+      widget.video.toString(),
     );
 
     // 调用 setState 前检查组件是否还在树上，防止异步操作完成后组件已销毁而报错
     if (mounted) {
       setState(() {
         picPath = picPathTemp;
-        logger.info("aaaaaaaaaaaaaaaaaaa 获取视频首帧 {picPath: $picPath}");
       });
     }
   }

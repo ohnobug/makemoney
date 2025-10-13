@@ -1,15 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_popup_cubit.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-
 import 'package:vigaviga/tools/ljn_cancelable_delay.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:video_player/video_player.dart';
 
 class LJNVideoDraggableBox extends StatefulWidget {
@@ -17,7 +14,7 @@ class LJNVideoDraggableBox extends StatefulWidget {
 
   final Size openBoxSize;
   final Offset openPosition;
-  final String videoPath;
+  final Uri videoPath;
 
   const LJNVideoDraggableBox({
     super.key,
@@ -127,8 +124,8 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
       },
       child: BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
-          _videoController ??= VideoPlayerController.asset(
-            assetPath(widget.videoPath),
+          _videoController ??= VideoPlayerController.networkUrl(
+            widget.videoPath,
             videoPlayerOptions: VideoPlayerOptions(
               mixWithOthers: false,
               allowBackgroundPlayback: false,

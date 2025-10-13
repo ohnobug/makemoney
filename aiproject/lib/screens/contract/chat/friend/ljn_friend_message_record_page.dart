@@ -80,21 +80,32 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecordPage> {
               children: [
                 Container(
                   height: 202.w,
-                  width: 750.w,
+                  margin: EdgeInsets.only(
+                    left: 20.w,
+                    right: 20.w,
+                    top: 20.w,
+                    bottom: 0,
+                  ),
                   padding: EdgeInsets.only(
                     left: 25.w,
                     right: 25.w,
                   ),
-                  color: theme.colorScheme.surface,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surface,
+                    borderRadius: BorderRadius.circular(10.w),
+                  ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      // 第一个用户
                       SizedBox(
                         width: 105.w,
-                        height: 140.w,
+                        height: 145.w,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            // 头像
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8).w,
                               child: Image.asset(
@@ -110,8 +121,9 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecordPage> {
                               ),
                             ),
                             SizedBox(
-                              height: 13.w,
+                              height: 10.w,
                             ),
+                            // 名字
                             Text(
                               '邓子乔',
                               style: TextStyle(
@@ -250,7 +262,7 @@ class IconBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 140.w,
+      height: 145.w,
       width: 105.w,
       alignment: Alignment.topLeft,
       child: DottedBorder(

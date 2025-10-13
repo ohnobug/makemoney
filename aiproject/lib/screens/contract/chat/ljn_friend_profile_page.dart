@@ -249,7 +249,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                             LJNFunctionItem(
                               icon: "images/avatar/02.png",
                               title: l10n.friendProfile,
-                              link: '/friend_information',
+                              link: '/chat/friend_information',
                               underline: true,
                             ),
 
@@ -257,7 +257,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                             LJNFunctionItem(
                               icon: "images/avatar/02.png",
                               title: l10n.friendPermissions,
-                              link: '/friend_permissions',
+                              link: '/chat/friend_permissions',
                               underline: true,
                             ),
 
@@ -280,7 +280,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              link: '/friendmoments',
+                              link: '/chat/friend_moments',
                               height: 151.w,
                               showStyle: Expanded(
                                 child: SizedBox(
@@ -294,7 +294,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                     children: [
                                       Image.asset(
                                         assetPath(
-                                            'images/avatar_webp/chat_81.webp'),
+                                            'images/avatar/chat_81.jpg'),
                                         cacheWidth: 180.w.toInt(),
                                         cacheHeight: 180.w.toInt(),
                                         width: 90.w,
@@ -306,7 +306,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                       ),
                                       Image.asset(
                                         assetPath(
-                                            'images/avatar_webp/chat_92.webp'),
+                                            'images/avatar/chat_92.jpg'),
                                         cacheWidth: 180.w.toInt(),
                                         cacheHeight: 180.w.toInt(),
                                         width: 90.w,
@@ -318,7 +318,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                       ),
                                       Image.asset(
                                         assetPath(
-                                            'images/avatar_webp/chat_93.webp'),
+                                            'images/avatar/chat_93.jpg'),
                                         cacheWidth: 180.w.toInt(),
                                         cacheHeight: 180.w.toInt(),
                                         width: 90.w,
@@ -330,7 +330,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                       ),
                                       Image.asset(
                                         assetPath(
-                                            'images/avatar_webp/chat_86.webp'),
+                                            'images/avatar/chat_86.jpg'),
                                         cacheWidth: 180.w.toInt(),
                                         cacheHeight: 180.w.toInt(),
                                         width: 90.w,
@@ -410,7 +410,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                           children: [
                                             Image.asset(
                                               assetPath(
-                                                  'images/avatar_webp/chat_55.webp'),
+                                                  'images/avatar/chat_55.jpg'),
                                               cacheWidth: 180.w.toInt(),
                                               cacheHeight: 180.w.toInt(),
                                               width: 90.w,
@@ -422,7 +422,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                             ),
                                             Image.asset(
                                               assetPath(
-                                                  'images/avatar_webp/chat_43.webp'),
+                                                  'images/avatar/chat_43.jpg'),
                                               cacheWidth: 180.w.toInt(),
                                               cacheHeight: 180.w.toInt(),
                                               width: 90.w,
@@ -434,7 +434,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                             ),
                                             Image.asset(
                                               assetPath(
-                                                  'images/avatar_webp/chat_96.webp'),
+                                                  'images/avatar/chat_96.jpg'),
                                               cacheWidth: 180.w.toInt(),
                                               cacheHeight: 180.w.toInt(),
                                               width: 90.w,
@@ -446,7 +446,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                             ),
                                             Image.asset(
                                               assetPath(
-                                                  'images/avatar_webp/chat_97.webp'),
+                                                  'images/avatar/chat_97.jpg'),
                                               cacheWidth: 180.w.toInt(),
                                               cacheHeight: 180.w.toInt(),
                                               width: 90.w,
@@ -485,7 +485,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                             LJNFunctionItem(
                               icon: "images/avatar/02.png",
                               title: l10n.moreInfo,
-                              link: '/friend_more_info',
+                              link: '/chat/friend_more_info',
                               underline: false,
                             ),
                           ],
@@ -529,7 +529,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                 Navigator.pushNamed(context, '/chat',
                                     arguments: <String, String>{
                                       'title': "何三七",
-                                      'icon': "images/avatar_webp/chat_17.webp",
+                                      'icon': "images/avatar/chat_17.jpg",
                                     });
                               },
                             ),

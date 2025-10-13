@@ -129,6 +129,12 @@ class LJNSystemCubit extends Cubit<SystemState> {
   void updateVideoProgress({double? progress, bool? show}) {
     emit(state.copyWith(videoProgress: progress, showVideoProgress: show));
   }
+
+  void updateCdnBase(String s) {
+    emit(state.copyWith(
+      cdnBase: s,
+    ));
+  }
 }
 
 // 系统的 State
@@ -151,6 +157,7 @@ class SystemState extends Equatable {
   final double videoProgress;
   final bool showVideoProgress;
   final int mainTabIndex;
+  final String cdnBase;
 
   // 拖拽代理状态
   final ParentDragState parentDragState;
@@ -181,6 +188,7 @@ class SystemState extends Equatable {
     this.parentDragState = ParentDragState.idle,
     this.parentDragEndVelocity,
     this.isParentPageViewLocked = false,
+    this.cdnBase = "",
   });
 
   SystemState copyWith({
@@ -206,6 +214,7 @@ class SystemState extends Equatable {
     double? parentDragEndVelocity,
     bool clearParentDragEndVelocity = false,
     bool? isParentPageViewLocked,
+    String? cdnBase,
   }) {
     return SystemState(
       homescrollpixels: homescrollpixels ?? this.homescrollpixels,
@@ -233,6 +242,7 @@ class SystemState extends Equatable {
           : parentDragEndVelocity ?? this.parentDragEndVelocity,
       isParentPageViewLocked:
           isParentPageViewLocked ?? this.isParentPageViewLocked,
+      cdnBase: cdnBase ?? this.cdnBase,
     );
   }
 
@@ -259,5 +269,6 @@ class SystemState extends Equatable {
         parentDragState,
         parentDragEndVelocity,
         isParentPageViewLocked,
+        cdnBase
       ];
 }

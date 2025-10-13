@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 // --- Model for LJNCourseListPage ---
 class Course {
   final String id;
-  final String universityLogoUrl;
   final String universityName;
   final String courseTitle;
   final String statusText;
@@ -11,7 +10,6 @@ class Course {
 
   Course({
     required this.id,
-    required this.universityLogoUrl,
     required this.universityName,
     required this.courseTitle,
     required this.statusText,

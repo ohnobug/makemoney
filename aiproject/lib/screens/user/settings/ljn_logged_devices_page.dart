@@ -97,7 +97,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                           icon: "images/avatar/02.png",
                           // height: 150.w,
                           title: "HONOR-RNA-AN100",
-                          link: '/device_detail',
+                          link: '/settings/device_detail',
                           underline: true,
                           showStyle: Expanded(
                             flex: 0,
@@ -120,7 +120,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                         const LJNFunctionItem(
                           // height: 150.w,
                           title: "iphone20",
-                          link: '/device_detail',
+                          link: '/settings/device_detail',
                           underline: false,
                           // showStyle: "当前设备"
                         ),
@@ -134,7 +134,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                         LJNSpecialFunctionItem(
                           height: 150.w,
                           title: "HONOR-RNA-AN100",
-                          link: '/device_detail',
+                          link: '/settings/device_detail',
                           underline: true,
                           subTitle: Text(
                             formattedString,
@@ -151,7 +151,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                         LJNSpecialFunctionItem(
                           height: 150.w,
                           title: "HONOR-RNA-AN100",
-                          link: '/device_detail',
+                          link: '/settings/device_detail',
                           underline: true,
                           subTitle: Text(
                             formattedString,
@@ -168,7 +168,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                         LJNSpecialFunctionItem(
                           height: 150.w,
                           title: "HONOR-RNA-AN100",
-                          link: '/device_detail',
+                          link: '/settings/device_detail',
                           underline: true,
                           subTitle: Text(
                             formattedString,
@@ -185,7 +185,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                         LJNSpecialFunctionItem(
                           height: 150.w,
                           title: "HONOR-RNA-AN100",
-                          link: '/device_detail',
+                          link: '/settings/device_detail',
                           underline: true,
                           subTitle: Text(
                             formattedString,
@@ -202,7 +202,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                         LJNSpecialFunctionItem(
                           height: 150.w,
                           title: "HONOR-RNA-AN100",
-                          link: '/device_detail',
+                          link: '/settings/device_detail',
                           underline: true,
                           subTitle: Text(
                             formattedString,
@@ -219,7 +219,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                         LJNSpecialFunctionItem(
                           height: 150.w,
                           title: "HONOR-RNA-AN100",
-                          link: '/device_detail',
+                          link: '/settings/device_detail',
                           underline: true,
                           subTitle: Text(
                             formattedString,
@@ -236,7 +236,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                         LJNSpecialFunctionItem(
                           height: 150.w,
                           title: "HONOR-RNA-AN100",
-                          link: '/device_detail',
+                          link: '/settings/device_detail',
                           underline: true,
                           subTitle: Text(
                             formattedString,

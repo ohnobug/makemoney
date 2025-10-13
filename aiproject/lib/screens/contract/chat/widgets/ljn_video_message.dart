@@ -23,7 +23,7 @@ class LJNVideoMessage extends StatefulWidget {
   final Function(Offset, Size)? onTap;
   final String? name;
   final bool showName;
-  final String video;
+  final Uri video;
   final double width;
   final double height;
 
@@ -48,7 +48,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
 
     if (kIsWeb) {
       // 在Web端，我们仍然初始化播放器以显示第一帧
-      _controller = VideoPlayerController.asset(assetPath(widget.video))
+      _controller = VideoPlayerController.networkUrl(widget.video)
         ..initialize().then((_) {
           if (mounted) setState(() {});
         });
@@ -73,17 +73,13 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
   }
 
   Future<void> _getVideoFirstFrame() async {
-    var picPathTemp = await getFirstFrame(assetPath(widget.video));
+    var picPathTemp = await getFirstFrame(widget.video.toString());
     if (mounted) {
       setState(() {
         picPath = picPathTemp;
       });
     }
   }
-
-  // 【已移除】: 不再需要内部播放视频的方法
-  // Future<void> _playVideo() async { ... }
-  // void _videoPlaybackListener() { ... }
 
   @override
   void dispose() {

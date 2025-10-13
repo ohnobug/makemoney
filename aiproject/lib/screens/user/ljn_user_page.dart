@@ -316,7 +316,10 @@ class _LJNUserPageState extends State<LJNUserPage>
                     0xe635,
                     fontFamily: 'Iconfont',
                   ),
-                  onTap: () => Navigator.pushNamed(context, '/qrcode_scanner'),
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    '/discovery/qrcode_scanner',
+                  ),
                 ),
               ],
             ),
@@ -459,10 +462,9 @@ class _LJNUserPageState extends State<LJNUserPage>
                           child: Text(
                             "个人资料",
                             style: TextStyle(
-                              fontSize: 26.w,
-                              fontWeight: FontWeight.normal,
-                              fontFamily: "AlibabaPuHuiTi-Medium"
-                            ),
+                                fontSize: 26.w,
+                                fontWeight: FontWeight.normal,
+                                fontFamily: "AlibabaPuHuiTi-Medium"),
                           ),
                         )
                       ],
@@ -517,7 +519,9 @@ class _LJNUserPageState extends State<LJNUserPage>
               placeholder: (context, url) =>
                   Container(color: Colors.grey.shade300),
               errorWidget: (context, url, error) => Container(
-                  color: Colors.grey.shade300, child: const Icon(Icons.error)),
+                color: Colors.grey.shade300,
+                child: const Icon(Icons.error),
+              ),
             ),
           ),
           Positioned.fill(
@@ -546,7 +550,10 @@ class _LJNUserPageState extends State<LJNUserPage>
                     0xe635,
                     fontFamily: 'Iconfont',
                   ),
-                  onTap: () => Navigator.pushNamed(context, '/qrcode_scanner'),
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    '/discovery/qrcode_scanner',
+                  ),
                 ),
               ],
             ),

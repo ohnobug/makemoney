@@ -49,7 +49,7 @@ List<List<ImageInfo>> generateRandomImageList(int rows, int cols) {
       return ImageInfo(
         id: random.nextInt(1000),
         isPics: j == 0 ? false : true,
-        source: 'images/ins/${random.nextInt(52)}.jpg',
+        source: '/ins/${random.nextInt(52)}.jpg',
         url: '/insdetail',
       );
     });
@@ -69,9 +69,12 @@ class _LJNIns extends State<LJNInsPage> {
     super.initState();
     mylist = generateRandomImageList(1000, 5);
     _scrollController.addListener(_scrollListener);
+    var systemCubit = context.read<LJNSystemCubit>();
 
-    _bigimgcontroller = VideoPlayerController.asset(
-      assetPath('images/ins/video.mp4'),
+    _bigimgcontroller = VideoPlayerController.networkUrl(
+      Uri.parse(
+        '${systemCubit.state.cdnBase}/ins/video.mp4',
+      ),
       videoPlayerOptions: VideoPlayerOptions(
         mixWithOthers: false,
         allowBackgroundPlayback: false,
@@ -670,7 +673,8 @@ class _LJNIns extends State<LJNInsPage> {
                                 child: TextField(
                                   readOnly: true,
                                   onTap: () {
-                                    Navigator.pushNamed(context, '/discovery/search');
+                                    Navigator.pushNamed(
+                                        context, '/discovery/search');
                                   },
                                   onTapOutside: (event) {
                                     FocusScope.of(context).unfocus();
@@ -1353,7 +1357,7 @@ class _SmallImageBox extends State<SmallImageBox> {
 
 // 大视频
 class VideoBox2 extends StatefulWidget {
-  final String videoPath; // 图片路径
+  final Uri videoPath; // 图片路径
   final bool canPlay;
 
   final Function()? onTap;
@@ -1397,8 +1401,8 @@ class _VideoBox2 extends State<VideoBox2> {
     // Start the countdown timer
     _timer = Timer(const Duration(milliseconds: 500), () {
       if (mounted) {
-        _controller = VideoPlayerController.asset(
-          assetPath(widget.videoPath),
+        _controller = VideoPlayerController.networkUrl(
+          widget.videoPath,
           videoPlayerOptions: VideoPlayerOptions(
             mixWithOthers: true,
             allowBackgroundPlayback: false,
@@ -1586,6 +1590,7 @@ class _LJNInsStyle extends State<LJNInsStyle> {
     //   margin: EdgeInsets.only(bottom: 4.w),
     //   child: Text("key:$_containerKey  position:$myPosition canplay: $canPlay"),
     // );
+    var systemCubit = context.read<LJNSystemCubit>();
 
     // 大图
     var a = widget.imageList[0].isPics
@@ -1604,7 +1609,9 @@ class _LJNInsStyle extends State<LJNInsStyle> {
             },
           )
         : VideoBox2(
-            videoPath: 'images/ins/video.mp4',
+            videoPath: Uri.parse(
+              '${systemCubit.state.cdnBase}/ins/video.mp4',
+            ),
             canPlay: canPlay,
             onLongPress: () {
               widget.showBigImg(context, widget.imageList[0], true);

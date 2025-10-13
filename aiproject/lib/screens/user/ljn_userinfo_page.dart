@@ -111,7 +111,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                   LJNFunctionItem(
                     icon: "images/avatar/02.png",
                     title: l10n.vigavigaID,
-                    link: '/accountinfo',
+                    link: '/settings/account_info',
                     showStyle:
                         context.read<LJNUserCubit>().state.userinfoAccount,
                     underline: true,
@@ -146,7 +146,7 @@ class _LJNUserinfoPage extends State<LJNUserinfoPage> {
                   LJNFunctionItem(
                     icon: "images/avatar/02.png",
                     title: l10n.moreInfo,
-                    link: '/user_more_info',
+                    link: '/user/more_info',
                     underline: false,
                   ),
                 ]),

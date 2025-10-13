@@ -91,7 +91,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                                   borderRadius: BorderRadius.circular(8).w,
                                   child: Image.asset(
                                     assetPath(
-                                        'images/avatar_webp/chat_20.webp'),
+                                        'images/avatar/chat_20.jpg'),
                                     cacheWidth: 210.w.toInt(),
                                     cacheHeight: 210.w.toInt(),
                                     width: 105.w,
@@ -128,7 +128,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                                   borderRadius: BorderRadius.circular(8).w,
                                   child: Image.asset(
                                     assetPath(
-                                        'images/avatar_webp/chat_21.webp'),
+                                        'images/avatar/chat_21.jpg'),
                                     cacheWidth: 210.w.toInt(),
                                     cacheHeight: 210.w.toInt(),
                                     width: 105.w,
@@ -165,7 +165,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                                   borderRadius: BorderRadius.circular(8).w,
                                   child: Image.asset(
                                     assetPath(
-                                        'images/avatar_webp/chat_25.webp'),
+                                        'images/avatar/chat_25.jpg'),
                                     cacheWidth: 210.w.toInt(),
                                     cacheHeight: 210.w.toInt(),
                                     width: 105.w,
@@ -202,7 +202,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                                   borderRadius: BorderRadius.circular(8).w,
                                   child: Image.asset(
                                     assetPath(
-                                        'images/avatar_webp/chat_28.webp'),
+                                        'images/avatar/chat_28.jpg'),
                                     cacheWidth: 210.w.toInt(),
                                     cacheHeight: 210.w.toInt(),
                                     width: 105.w,

@@ -112,7 +112,7 @@ class AppRouter {
         return _pageRouteBuilderNotAnimation(
             const LJNResourceSearchPage()); // 资源发布搜索页面
 
-      case '/qrcode_scanner':
+      case '/discovery/qrcode_scanner':
         return _pageRouteBuilderNotAnimation(
             const LJNQRCodeScanner()); // 二维码扫描页面
       case '/video_player':

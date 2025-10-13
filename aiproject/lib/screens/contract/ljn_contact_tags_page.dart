@@ -53,7 +53,7 @@ class _LJNContactTagsState extends State<LJNContactTagsPage> {
             child: Column(
               children: [
                 LJNSearch(
-                  link: '/search_friend',
+                  link: '/contact/search_friend',
                   title: l10n.search,
                 ),
                 Expanded(

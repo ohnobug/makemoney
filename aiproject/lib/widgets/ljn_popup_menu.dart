@@ -76,7 +76,7 @@ class _LJNPopupMenuState extends State<LJNPopupMenu> {
                     icon: const IconData(0xe69a, fontFamily: "iconfont"),
                     onTap: () {
                       widget.setShowPopup?.call(false);
-                      Navigator.pushNamed(context, '/qrcode_scanner');
+                      Navigator.pushNamed(context, '/discovery/qrcode_scanner');
                     },
                   ),
                   // Payment

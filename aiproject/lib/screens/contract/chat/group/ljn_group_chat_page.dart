@@ -93,7 +93,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
 
   Offset openPosition = const Offset(0, 0);
   Size openBoxSize = const Size(0, 0);
-  String videoPath = "";
+  Uri? videoPath;
 
   // 显示语音按钮
   bool showVoiceButton = false;
@@ -269,6 +269,8 @@ class _LJNGroupChat extends State<LJNGroupChat>
   }
 
   void mock() {
+    var systemCubit = context.read<LJNSystemCubit>();
+
     messageList.add(
       const LJNMyMessage(
         message: '今晚，我们开始吧，准备好了吗？',
@@ -280,7 +282,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
       const LJNReceiveMessage(
         message: '嗯，准备好了。虽然有点紧张，但我知道我们已经决定了。',
         showName: true,
-        friendAvatar: "images/avatar_webp/chat_31.webp",
+        friendAvatar: "images/avatar/chat_31.jpg",
         name: "武则天",
       ),
     );
@@ -295,7 +297,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
       const LJNReceiveMessage(
         message: '我也是。突然想到，万一不能顺利怀上怎么办？',
         showName: true,
-        friendAvatar: "images/avatar_webp/chat_30.webp",
+        friendAvatar: "images/avatar/chat_30.jpg",
         name: "彭长老",
       ),
     );
@@ -310,7 +312,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
       const LJNReceiveMessage(
         message: '你说得对，我只是怕自己压力太大，万一做不到怎么办。',
         showName: true,
-        friendAvatar: "images/avatar_webp/chat_32.webp",
+        friendAvatar: "images/avatar/chat_32.jpg",
         name: "方人智",
       ),
     );
@@ -325,7 +327,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
       const LJNReceiveMessage(
         message: '嗯，我知道。你也知道，我的身体不是那么好，可能会有点麻烦。',
         showName: true,
-        friendAvatar: "images/avatar_webp/chat_33.webp",
+        friendAvatar: "images/avatar/chat_33.jpg",
         name: "全金发",
       ),
     );
@@ -340,7 +342,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
       const LJNReceiveMessage(
         message: '有你在我身边，我就不怕了。你觉得，如果不顺利，我们也不应该急对吧？',
         showName: true,
-        friendAvatar: "images/avatar_webp/chat_34.webp",
+        friendAvatar: "images/avatar/chat_34.jpg",
         name: "段正明",
       ),
     );
@@ -355,7 +357,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
       const LJNReceiveMessage(
         message: '嗯，既然你这么说，我也放心了。',
         showName: true,
-        friendAvatar: "images/avatar_webp/chat_35.webp",
+        friendAvatar: "images/avatar/chat_35.jpg",
         name: "万大平",
       ),
     );
@@ -363,7 +365,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
       const LJNReceiveMessage(
         message: '其实，我一直很期待有个孩子，能有一个属于我们的家庭。',
         showName: true,
-        friendAvatar: "images/avatar_webp/chat_36.webp",
+        friendAvatar: "images/avatar/chat_36.jpg",
         name: "慧真",
       ),
     );
@@ -378,7 +380,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
       const LJNReceiveMessage(
         message: '你觉得我们的孩子会是什么样的？像你，还是像我？',
         showName: true,
-        friendAvatar: "images/avatar_webp/chat_37.webp",
+        friendAvatar: "images/avatar/chat_37.jpg",
         name: "李世民",
       ),
     );
@@ -400,7 +402,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
       const LJNReceiveMessage(
         message: '那也太完美了吧。希望他能继承我们的优点，少一些缺点。',
         showName: true,
-        friendAvatar: "images/avatar_webp/chat_38.webp",
+        friendAvatar: "images/avatar/chat_38.jpg",
         name: "施戴子",
       ),
     );
@@ -422,7 +424,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
       const LJNReceiveMessage(
         message: '是的，今晚开始。未来的路我们一起走。',
         showName: true,
-        friendAvatar: "images/avatar_webp/chat_39.webp",
+        friendAvatar: "images/avatar/chat_39.jpg",
         name: "者勒米",
       ),
     );
@@ -437,7 +439,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
       const LJNReceiveMessage(
         message: '嗯，今晚我们就开始，未来的一切，交给时间。',
         showName: true,
-        friendAvatar: "images/avatar_webp/chat_40.webp",
+        friendAvatar: "images/avatar/chat_40.jpg",
         name: "甘宝宝",
       ),
     );
@@ -445,7 +447,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
       const LJNReceiveMessage(
         message: '你准备好了吗？',
         showName: true,
-        friendAvatar: "images/avatar_webp/chat_41.webp",
+        friendAvatar: "images/avatar/chat_41.jpg",
         name: "李萍",
       ),
     );
@@ -458,7 +460,9 @@ class _LJNGroupChat extends State<LJNGroupChat>
 
     messageList.add(
       LJNVideoMessage(
-        video: 'images/ins/test.mp4',
+        video: Uri.parse(
+          '${systemCubit.state.cdnBase}/ins/test.mp4',
+        ),
         width: 768,
         height: 576,
         showName: true,
@@ -470,7 +474,9 @@ class _LJNGroupChat extends State<LJNGroupChat>
             openPosition = position;
             logger.info("openPosition: $openPosition");
             openBoxSize = size;
-            videoPath = 'images/ins/test.mp4';
+            videoPath = Uri.parse(
+              '${systemCubit.state.cdnBase}/ins/test.mp4',
+            );
 
             showFullScreenVideo = true;
           });
@@ -480,7 +486,9 @@ class _LJNGroupChat extends State<LJNGroupChat>
 
     messageList.add(
       LJNVideoMessage(
-        video: 'images/ins/video2.mp4',
+        video: Uri.parse(
+          '${systemCubit.state.cdnBase}/ins/video2.mp4',
+        ),
         width: 576,
         height: 1024,
         showName: true,
@@ -492,7 +500,9 @@ class _LJNGroupChat extends State<LJNGroupChat>
             openPosition = position;
             logger.info("openPosition: $openPosition");
             openBoxSize = size;
-            videoPath = 'images/ins/video2.mp4';
+            videoPath = Uri.parse(
+              '${systemCubit.state.cdnBase}/ins/video2.mp4',
+            );
 
             showFullScreenVideo = true;
           });
@@ -1446,11 +1456,11 @@ class _LJNGroupChat extends State<LJNGroupChat>
               ),
 
               // 视频放大
-              showFullScreenVideo
+              showFullScreenVideo && videoPath!.path.isNotEmpty
                   ? LJNVideoDraggableBox(
                       openBoxSize: openBoxSize,
                       openPosition: openPosition,
-                      videoPath: videoPath,
+                      videoPath: videoPath!,
                       onClose: () {
                         setState(() {
                           showFullScreenVideo = false;
