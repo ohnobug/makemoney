@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vigaviga/screens/user/course/ljn_course_detail_page.dart';
-import 'package:vigaviga/screens/user/course/ljn_course_list_page.dart';
-import 'package:vigaviga/screens/user/course/ljn_lesson_content_page.dart';
 import 'package:vigaviga/screens/contract/chat/ljn_chat_page.dart';
 import 'package:vigaviga/screens/contract/ljn_contact_page.dart';
 import 'package:vigaviga/screens/contract/ljn_contact_group_page.dart';
@@ -29,6 +26,9 @@ import 'package:vigaviga/screens/contract/chat/friend/ljn_set_friend_tags_page.d
 import 'package:vigaviga/screens/contract/chat/friend/ljn_set_notes_and_labels_page.dart';
 import 'package:vigaviga/screens/contract/chat/group/ljn_group_chat_page.dart';
 import 'package:vigaviga/screens/contract/chat/group/ljn_group_message_record_page.dart';
+import 'package:vigaviga/screens/user/course/ljn_course_detail_page.dart';
+import 'package:vigaviga/screens/user/course/ljn_course_list_page.dart';
+import 'package:vigaviga/screens/user/course/ljn_lesson_content_page.dart';
 import 'package:vigaviga/screens/user/settings/ljn_about_page.dart';
 import 'package:vigaviga/screens/user/settings/ljn_account_and_secure_page.dart';
 import 'package:vigaviga/screens/user/settings/ljn_account_info_page.dart';
@@ -57,8 +57,6 @@ import 'package:vigaviga/screens/user/settings/ljn_youth_mode_page.dart';
 import 'package:vigaviga/screens/user/settings/ljn_verify_phone_page.dart';
 import 'package:vigaviga/screens/user/ljn_camera_view_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_collection_and_payment_page.dart';
-import 'package:vigaviga/screens/contract/chat/ljn_dial_page.dart';
-import 'package:vigaviga/screens/contract/chat/ljn_friend_profile_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_pocketmoney_page.dart';
 import 'package:vigaviga/screens/user/services/ljn_services_page.dart';
 import 'package:vigaviga/screens/user/services/ljn_services_manager_page.dart';
@@ -67,6 +65,15 @@ import 'package:vigaviga/screens/user/ljn_userinfo_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_wallet_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_bill_details_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_change_details_page.dart';
+import 'package:vigaviga/screens/user/follow/ljn_follow_page.dart';
+import 'package:vigaviga/screens/user/like/ljn_like_page.dart';
+import 'package:vigaviga/screens/user/auth/ljn_login_page.dart';
+import 'package:vigaviga/screens/user/auth/ljn_register_page.dart';
+import 'package:vigaviga/screens/user/auth/ljn_forgot_password_page.dart';
+import 'package:vigaviga/screens/user/photo_viewer/ljn_photo_grid_page.dart';
+import 'package:vigaviga/screens/user/settings/ljn_help_and_feedback_page.dart';
+import 'package:vigaviga/screens/contract/chat/ljn_dial_page.dart';
+import 'package:vigaviga/screens/contract/chat/ljn_friend_profile_page.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/videoplayer.dart';
 import 'package:vigaviga/widgets/ljn_custom_tabbar.dart';
@@ -74,13 +81,6 @@ import 'package:vigaviga/screens/publisher/ljn_publish_work_page.dart';
 import 'package:vigaviga/screens/publisher/geolocator_page.dart';
 import 'package:vigaviga/screens/publisher/ai_publisher_page.dart';
 import 'package:vigaviga/screens/publisher/ljn_resource_publisher_page.dart';
-import 'package:vigaviga/screens/user/follow/ljn_follow_page.dart';
-import 'package:vigaviga/screens/user/like/ljn_like_page.dart';
-import 'package:vigaviga/screens/user/auth/ljn_login_page.dart';
-import 'package:vigaviga/screens/user/auth/ljn_register_page.dart';
-import 'package:vigaviga/screens/user/auth/ljn_forgot_password_page.dart';
-import 'package:vigaviga/screens/user/photo_viewer/ljn_photo_grid_page.dart';
-import 'package:vigaviga/screens/user/settings/ljn_help and_feedback.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -111,63 +111,12 @@ class AppRouter {
       case '/resource_publisher':
         return _pageRouteBuilderNotAnimation(
             const LJNResourceSearchPage()); // 资源发布搜索页面
-      case '/user/like':
-        return _pageRouteBuilderNotAnimation(const LikedVideosPage()); // 用户喜欢页面
-      case '/ljn_help and_feedback':
-        return _pageRouteBuilderNotAnimation(const HelpAndFeedbackPage()); // 帮助与建议
-      case '/user/follow_and_fans':
-        return _pageRouteBuilderAnimation(const LJNFollowPage()); // 用户关注和粉丝页面
+
       case '/qrcode_scanner':
         return _pageRouteBuilderNotAnimation(
             const LJNQRCodeScanner()); // 二维码扫描页面
       case '/video_player':
         return _pageRouteBuilderAnimation(const LJNVideoPage()); // 视频播放页面
-
-      // 用户相关路由
-      case '/user/wallet':
-        return _pageRouteBuilderAnimation(const LJNWalletPage()); // 用户钱包页面
-      case '/user/info':
-        return _pageRouteBuilderAnimation(const LJNUserinfoPage()); // 用户信息页面
-      case '/user/photo_viewer':
-        return _pageRouteBuilderAnimation(
-            const LJNPhotoGridPage()); // 图片查看器测试页面
-      case '/user/pocketmoney':
-        return _pageRouteBuilderAnimation(const LJNPocketMoneyPage()); // 零钱页面
-      case '/user/services':
-        return _pageRouteBuilderAnimation(const LJNServicesPage()); // 用户服务页面
-      case '/user/services_manager':
-        return _pageRouteBuilderAnimation(
-            const LJNServicesManagerPage()); // 服务管理页面
-      case '/user/camera':
-        return _pageRouteBuilderAnimation(const LJNCameraViewPage()); // 相机页面
-      case '/user/collection_and_payment':
-        return _pageRouteBuilderNotAnimation(
-          const LJNCollectionAndPaymentPage(),
-        ); // 收藏和支付页面
-      case '/user/more_info':
-        return _pageRouteBuilderAnimation(
-            const LJNUserMoreInfoPage()); // 用户更多信息页面
-      case '/user/course_list':
-        return _pageRouteBuilderAnimation(const LJNCourseListPage()); // 课程列表页面
-      case '/user/course_detail':
-        final args = settings.arguments as Map<String, String>? ?? {};
-        return _pageRouteBuilderAnimation(LJNCourseDetailPage(
-          courseId: args['course_id'] ?? "",
-        )); // 课程详情页面
-      case '/user/lesson_content':
-        final args = settings.arguments as Map<String, String>? ?? {};
-        return _pageRouteBuilderAnimation(LJNLessonContentPage(
-          lessonId: args['lesson_id'] ?? "",
-        )); // 课程内容页面
-
-      // 用户认证相关路由
-      case '/user/auth/login':
-        return _pageRouteBuilderNotAnimation(const LJNLoginPage()); // 用户登录页面
-      case '/user/auth/register':
-        return _pageRouteBuilderAnimation(const LJNRegisterPage()); // 用户注册页面
-      case '/user/auth/forgot_password':
-        return _pageRouteBuilderAnimation(
-            const LJNForgotPasswordPage()); // 忘记密码页面
 
       // 设置相关路由
       case '/settings':
@@ -238,11 +187,9 @@ class AppRouter {
       case '/settings/theme_setting':
         return _pageRouteBuilderAnimation(
             const LJNThemeSettingPage()); // 主题设置页面
-      case '/user/wallet/change_details':
-        return _pageRouteBuilderAnimation(
-            const LJNChangeDetailsPage()); // 零钱明细页面
-      case '/user/wallet/bill_details':
-        return _pageRouteBuilderAnimation(const LJNBillDetailsPage()); // 账单详情页面
+      case '/settings/help and_feedback':
+        return _pageRouteBuilderNotAnimation(
+            const LJNHelpAndFeedbackPage()); // 帮助与建议
 
       // 通讯录相关路由
       case '/contact':
@@ -328,6 +275,61 @@ class AppRouter {
             const LJNMiniProgramListPage()); // 小程序列表页面
       case '/discovery/publisher':
         return _pageRouteBuilderAnimation(const LJNPublisherPage()); // 发布页面
+
+      // 用户相关路由
+      case '/user/like':
+        return _pageRouteBuilderNotAnimation(const LikedVideosPage()); // 用户喜欢页面
+      case '/user/follow_and_fans':
+        return _pageRouteBuilderAnimation(const LJNFollowPage()); // 用户关注和粉丝页面
+      case '/user/wallet':
+        return _pageRouteBuilderAnimation(const LJNWalletPage()); // 用户钱包页面
+      case '/user/info':
+        return _pageRouteBuilderAnimation(const LJNUserinfoPage()); // 用户信息页面
+      case '/user/photo_viewer':
+        return _pageRouteBuilderAnimation(
+            const LJNPhotoGridPage()); // 图片查看器测试页面
+      case '/user/pocketmoney':
+        return _pageRouteBuilderAnimation(const LJNPocketMoneyPage()); // 零钱页面
+      case '/user/services':
+        return _pageRouteBuilderAnimation(const LJNServicesPage()); // 用户服务页面
+      case '/user/services_manager':
+        return _pageRouteBuilderAnimation(
+            const LJNServicesManagerPage()); // 服务管理页面
+      case '/user/camera':
+        return _pageRouteBuilderAnimation(const LJNCameraViewPage()); // 相机页面
+      case '/user/collection_and_payment':
+        return _pageRouteBuilderNotAnimation(
+          const LJNCollectionAndPaymentPage(),
+        ); // 收藏和支付页面
+      case '/user/more_info':
+        return _pageRouteBuilderAnimation(
+            const LJNUserMoreInfoPage()); // 用户更多信息页面
+      case '/user/course_list':
+        return _pageRouteBuilderAnimation(const LJNCourseListPage()); // 课程列表页面
+      case '/user/course_detail':
+        final args = settings.arguments as Map<String, String>? ?? {};
+        return _pageRouteBuilderAnimation(LJNCourseDetailPage(
+          courseId: args['course_id'] ?? "",
+        )); // 课程详情页面
+      case '/user/lesson_content':
+        final args = settings.arguments as Map<String, String>? ?? {};
+        return _pageRouteBuilderAnimation(LJNLessonContentPage(
+          lessonId: args['lesson_id'] ?? "",
+        )); // 课程内容页面
+
+      // 用户认证相关路由
+      case '/user/auth/login':
+        return _pageRouteBuilderNotAnimation(const LJNLoginPage()); // 用户登录页面
+      case '/user/auth/register':
+        return _pageRouteBuilderAnimation(const LJNRegisterPage()); // 用户注册页面
+      case '/user/auth/forgot_password':
+        return _pageRouteBuilderAnimation(
+            const LJNForgotPasswordPage()); // 忘记密码页面
+      case '/user/wallet/change_details':
+        return _pageRouteBuilderAnimation(
+            const LJNChangeDetailsPage()); // 零钱明细页面
+      case '/user/wallet/bill_details':
+        return _pageRouteBuilderAnimation(const LJNBillDetailsPage()); // 账单详情页面
 
       default:
         // 可以返回一个统一的404页面

@@ -193,7 +193,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                         LJNFunctionItem(
                           icon: "images/icon/settings_12.png",
                           title: l10n.helpAndFeedback,
-                          link: '/ljn_help and_feedback',
+                          link: '/settings/help and_feedback',
                           underline: false,
                         ),
                       ],

@@ -10,7 +10,8 @@ import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
-import 'package:cached_network_image/cached_network_image.dart'; // 使用 CachedNetworkImage 提升体验
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vigaviga/widgets/ljn_section_header.dart'; // 使用 CachedNetworkImage 提升体验
 
 // Data model for trend items
 class TrendItem {
@@ -211,8 +212,7 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // SizedBox(height: 20.w), // 标题和内容之间的间距
-        _buildSectionHeader("服务与功能", theme),
+        LJNSectionHeader(title: "服务与功能"),
         LJNFunctionList(
           children: [
             LJNFunctionItem(
@@ -260,50 +260,10 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
     );
   }
 
-  Widget _buildSectionHeader(String title, ThemeData theme,
-      {bool showMore = true}) {
-    return Padding(
-      padding: EdgeInsetsGeometry.symmetric(horizontal: 30.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 32.w,
-              fontWeight: FontWeight.bold,
-              color: theme.textTheme.bodyLarge?.color,
-            ),
-          ),
-          if (showMore)
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: "查看全部",
-                    style: TextStyle(fontSize: 24.w, color: theme.hintColor),
-                  ),
-                  WidgetSpan(child: SizedBox(width: 10.w)),
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.middle,
-                    child: Icon(
-                      const IconData(0xed9d, fontFamily: 'Iconfont'),
-                      size: 20.0.w,
-                      color: theme.colorScheme.onSurface.withAlpha(100),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildTrendingSection(ThemeData theme) {
     return Column(
       children: [
-        _buildSectionHeader("热门趋势", theme),
+        LJNSectionHeader(title: "热门趋势"),
         SizedBox(height: 20.w),
         Padding(
           padding: EdgeInsetsGeometry.symmetric(horizontal: 20.w),
@@ -340,8 +300,10 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
   Widget _buildHotCategoriesSection(ThemeData theme) {
     return Column(
       children: [
-        // 1. 修改标题
-        _buildSectionHeader("热门分类", theme, showMore: false),
+        LJNSectionHeader(
+          title: "热门分类",
+          showMore: false,
+        ),
         SizedBox(height: 20.w),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
