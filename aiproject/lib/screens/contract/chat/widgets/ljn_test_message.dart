@@ -128,11 +128,10 @@ class _LJNTestMessage extends State<LJNTestMessage>
                         // 箭头
                         Container(
                           padding: const EdgeInsets.only(top: 32, right: 10).w,
-                          child: CachedNetworkImage(
-                            imageUrl: "${systemState.cdnBase}/icon/right.png",
+                          child: Image.asset(
+                            assetPath("/icon/right.png"),
                             width: 10.w,
                             fit: BoxFit.fitWidth,
-                            // fit: BoxFit.fill,
                           ),
                         ),
                       ],

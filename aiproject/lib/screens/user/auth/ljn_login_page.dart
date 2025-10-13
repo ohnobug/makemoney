@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
-import 'package:vigaviga/widgets/ljn_change_account_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
@@ -13,28 +13,27 @@ class LJNLoginPage extends StatefulWidget {
   const LJNLoginPage({super.key});
 
   @override
-  State<LJNLoginPage> createState() => _LJNLoginPage();
+  State<LJNLoginPage> createState() => _LJNLoginPageState();
 }
 
-class _LJNLoginPage extends State<LJNLoginPage> {
-  final TextEditingController _phoneController = TextEditingController();
+class _LJNLoginPageState extends State<LJNLoginPage> {
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
+  bool _isPasswordVisible = false;
+  bool _rememberMe = false;
 
   @override
   void initState() {
     super.initState();
-
-    _phoneController.text = "18825130917";
-    _passwordController.text = "123456";
+    _emailController.text = "serena88@gmail.com";
+    _passwordController.text = "************";
   }
 
   void _handleLogin() async {
-    logger.info("qqqqqqqqqqqqq");
-
-    if (_phoneController.text.isEmpty || _passwordController.text.isEmpty) {
-      // 这里可以添加提示
-      logger.info("手机号或密码不能为空");
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      logger.info("邮箱或密码不能为空");
+      // You can show a snackbar or dialog here to inform the user
       return;
     }
 
@@ -42,7 +41,7 @@ class _LJNLoginPage extends State<LJNLoginPage> {
       _isLoading = true;
     });
 
-    // 模拟登录请求
+    // Simulate login request
     await Future.delayed(const Duration(seconds: 2));
 
     if (!mounted) return;
@@ -51,13 +50,13 @@ class _LJNLoginPage extends State<LJNLoginPage> {
       _isLoading = false;
     });
 
-    // 登录成功，更新用户状态并跳转到主页
+    // On successful login, update user state and navigate
     final userCubit = context.read<LJNUserCubit>();
     userCubit.login(
-      userId: 'user_${_phoneController.text}', // 模拟用户ID
-      authToken: 'token_${DateTime.now().millisecondsSinceEpoch}', // 模拟认证令牌
-      phone: _phoneController.text,
-      name: '用户${_phoneController.text.trim()}', // 模拟用户名
+      userId: 'user_${_emailController.text}',
+      authToken: 'token_${DateTime.now().millisecondsSinceEpoch}',
+      phone: _emailController.text, // Assuming email is used as phone for now
+      name: '用户${_emailController.text.trim()}',
     );
 
     logger.info("登录成功");
@@ -66,236 +65,216 @@ class _LJNLoginPage extends State<LJNLoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
-
     return BlocBuilder<LJNSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        return Theme(
-          data: theme.copyWith(
-            appBarTheme: theme.appBarTheme.copyWith(
-              backgroundColor: Colors.transparent,
-            ),
-          ),
-          child: Scaffold(
-            primary: false,
-            resizeToAvoidBottomInset: false,
-            appBar: const LJNAppBar(),
-            body: ScrollConfiguration(
-              behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: Container(
-                constraints: BoxConstraints(
-                    minHeight: MediaQuery.of(context).size.height -
-                        systemState.appbarHeight -
-                        systemState.statusHeight),
-                color: AppColors.neutralWhite,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(
-                    parent: BouncingScrollPhysics(),
-                  ),
-                  child: Container(
-                    width: 750.w,
-                    padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 110.w,
-                          alignment: Alignment.bottomCenter,
-                          child: Text(
-                            "登录",
-                            style: TextStyle(
-                                fontSize: 42.w,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "AlibabaPuHuiTi"),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 60.w,
-                        ),
-
-                        // 手机号输入框
-                        Container(
-                          height: 110.w,
-                          width: 610.w,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              top: BorderSide(
-                                color: theme.dividerColor,
-                                width: 1.0.w,
-                                style: BorderStyle.solid,
-                              ),
-                              bottom: BorderSide(
-                                color: theme.dividerColor,
-                                width: 1.0.w,
-                                style: BorderStyle.solid,
-                              ),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "手机号",
-                                style: TextStyle(
-                                  fontSize: 30.w,
-                                  height: 1.08,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 50.w,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: TextField(
-                                  controller: _phoneController,
-                                  keyboardType: TextInputType.phone,
-                                  cursorColor: AppColors.brandGreenDarker4,
-                                  cursorWidth: 1.w,
-                                  onTapOutside: (event) {
-                                    FocusScope.of(context).unfocus();
-                                  },
-                                  decoration: InputDecoration(
-                                    hintText: "请输入手机号",
-                                    labelText: '',
-                                    isDense: true,
-                                    border: const OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                    ),
-                                    contentPadding: const EdgeInsets.all(0),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        // 密码输入框
-                        Container(
-                          height: 110.w,
-                          width: 610.w,
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: theme.dividerColor,
-                                width: 1.0.w,
-                                style: BorderStyle.solid,
-                              ),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "密码",
-                                style: TextStyle(
-                                  fontSize: 30.w,
-                                  height: 1.08,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 50.w,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: TextField(
-                                  controller: _passwordController,
-                                  obscureText: true,
-                                  cursorColor: AppColors.brandGreenDarker4,
-                                  cursorWidth: 1.w,
-                                  onTapOutside: (event) {
-                                    FocusScope.of(context).unfocus();
-                                  },
-                                  decoration: InputDecoration(
-                                    hintText: l10n.pleaseEnterPassword,
-                                    labelText: '',
-                                    isDense: true,
-                                    border: const OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                    ),
-                                    contentPadding: const EdgeInsets.all(0),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        SizedBox(
-                          height: 25.w,
-                        ),
-
-                        // 忘记密码和注册链接
-                        SizedBox(
-                          width: 610.w,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/user/auth/forgot_password');
-                                },
-                                child: Text(
-                                  "忘记密码",
-                                  style: TextStyle(
-                                    fontSize: 24.w,
-                                    color: AppColors.brandPurpleDark3,
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/user/auth/register');
-                                },
-                                child: Text(
-                                  "注册",
-                                  style: TextStyle(
-                                    fontSize: 24.w,
-                                    color: AppColors.brandPurpleDark3,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        SizedBox(
-                          height: 100.w,
-                        ),
-
-                        // 登录按钮
-                        Container(
-                          padding: EdgeInsets.only(bottom: 180.w),
-                          child: _isLoading
-                              ? Container(
-                                  width: 610.w,
-                                  height: 100.w,
-                                  alignment: Alignment.center,
-                                  child: CircularProgressIndicator(
-                                    color: AppColors.brandGreenDarker4,
-                                  ),
-                                )
-                              : LJNChangeAccountButton(
-                                  ontap: _handleLogin,
-                                  title: "登录",
-                                  readonly: false,
-                                ),
-                        )
-                      ],
-                    ),
-                  ),
+        builder: (context, systemState) {
+      String cdnBase = systemState.cdnBase;
+      return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: null,
+        body: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(height: 40.w),
+              Text(
+                "Sign In",
+                style: TextStyle(
+                  fontSize: 32.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
               ),
+              SizedBox(height: 40.w),
+              _buildTextField(
+                controller: _emailController,
+                labelText: "Email",
+              ),
+              SizedBox(height: 20.w),
+              _buildTextField(
+                controller: _passwordController,
+                labelText: "Password",
+                obscureText: !_isPasswordVisible,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _isPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(height: 20.w),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Checkbox(
+                        value: _rememberMe,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _rememberMe = value ?? false;
+                          });
+                        },
+                        activeColor: Colors.blueAccent,
+                      ),
+                      Text(
+                        "Remember me",
+                        style:
+                            TextStyle(fontSize: 14.sp, color: Colors.black54),
+                      ),
+                    ],
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // Navigate to forgot password screen
+                    },
+                    child: Text(
+                      "Forgot password?",
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Colors.blueAccent,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 30.w),
+              _isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : ElevatedButton(
+                      onPressed: _handleLogin,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        padding: EdgeInsets.symmetric(vertical: 16.w),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                      ),
+                      child: Text(
+                        "Sign In",
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ),
+              SizedBox(height: 40.w),
+              Row(
+                children: [
+                  const Expanded(child: Divider()),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Text(
+                      "Or Sign In with",
+                      style: TextStyle(fontSize: 14.sp, color: Colors.grey),
+                    ),
+                  ),
+                  const Expanded(child: Divider()),
+                ],
+              ),
+              SizedBox(height: 30.w),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildSocialButton('/images/logo.jpeg'),
+                  SizedBox(width: 20.w),
+                  _buildSocialButton('/images/logo.jpeg'),
+                ],
+              ),
+              SizedBox(height: 50.w),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account? ",
+                    style: TextStyle(fontSize: 14.sp, color: Colors.black54),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // Navigate to sign up screen
+                    },
+                    child: Text(
+                      "Sign Up",
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Colors.blueAccent,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String labelText,
+    bool obscureText = false,
+    Widget? suffixIcon,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          labelText,
+          style: TextStyle(
+            fontSize: 25.w,
+            fontWeight: FontWeight.w500,
+            color: Colors.black87,
+          ),
+        ),
+        SizedBox(height: 8.w),
+        TextField(
+          controller: controller,
+          obscureText: obscureText,
+          decoration: InputDecoration(
+            suffixIcon: suffixIcon,
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.w),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12.r),
+              borderSide: BorderSide(color: Colors.grey.shade300),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12.r),
+              borderSide: BorderSide(color: Colors.grey.shade300),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12.r),
+              borderSide: const BorderSide(color: Colors.blueAccent),
             ),
           ),
-        );
-      },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSocialButton(String assetName) {
+    return Container(
+      padding: EdgeInsets.all(12.r),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade300),
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Image.asset(
+        assetPath(assetName),
+        height: 50.w,
+        width: 50.w,
+      ),
     );
   }
 }

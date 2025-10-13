@@ -362,12 +362,17 @@ class _LJNUserPageState extends State<LJNUserPage>
                               Row(
                                 children: [
                                   BlocBuilder<LJNUserCubit, LJNUserState>(
-                                    builder: (context, state) => Text(
-                                      state.userinfoName ?? '用户名',
-                                      style: TextStyle(
-                                        fontSize: 42.w,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                    builder: (context, state) => Container(
+                                      width: 400.w,
+                                      child: Text(
+                                        state.userinfoName ?? '用户名',
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          fontSize: 35.w,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -404,7 +409,7 @@ class _LJNUserPageState extends State<LJNUserPage>
                                     Text(
                                       l10n.vigavigaIdDisplay(accountId),
                                       style: TextStyle(
-                                        fontSize: 28.w,
+                                        fontSize: 24.w,
                                         color: Colors.white,
                                       ),
                                     ),

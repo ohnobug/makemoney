@@ -104,9 +104,8 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                         // 箭头
                         Container(
                           padding: const EdgeInsets.only(top: 32, left: 10).w,
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                "${systemState.cdnBase}/icon/left.png",
+                          child: Image.asset(
+                            assetPath("/icon/left.png"),
                             width: 10.w,
                             fit: BoxFit.fitWidth,
                           ),
