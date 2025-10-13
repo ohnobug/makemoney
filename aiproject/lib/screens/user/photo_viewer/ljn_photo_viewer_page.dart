@@ -1,8 +1,6 @@
 // 文件路径: lib/ljn_photo_viewer_page.dart
 
 import 'package:flutter/material.dart';
-// 仅导入 PhotoView 核心库，以获取 PhotoView 组件和相关属性
-import 'package:photo_view/photo_view.dart';
 
 class LJNPhotoViewerPage extends StatefulWidget {
   final List<String> imageSources;
@@ -19,27 +17,43 @@ class LJNPhotoViewerPage extends StatefulWidget {
 }
 
 class _LJNPhotoViewerPageState extends State<LJNPhotoViewerPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late PageController _pageController;
   late AnimationController _animationController;
   late Animation<Offset> _offsetAnimation;
   late Animation<double> _scaleAnimation;
   late int _currentIndex;
 
+  // 1. 【核心】用于程序化控制 InteractiveViewer 的缩放/平移
+  late TransformationController _transformationController;
+
   // 拖拽关闭动画所需的状态变量
   Offset _dragOffset = Offset.zero;
   double _dragScale = 1.0;
   bool _isDragging = false;
 
-  // 【核心修正】: 我们将通过 `scaleStateChangedCallback` 来更新这个状态
-  PhotoViewScaleState _scaleState = PhotoViewScaleState.initial;
+  // 记录是否处于放大状态
+  bool _isZoomed = false;
 
   @override
   void initState() {
     super.initState();
     _currentIndex = widget.initialIndex;
     _pageController = PageController(initialPage: _currentIndex);
+    _transformationController = TransformationController();
 
+    // 监听变换，以判断是否处于缩放状态
+    _transformationController.addListener(() {
+      // Matrix4.identity() 是一个单位矩阵，代表没有变换（即未缩放）
+      final isZoomedNow = _transformationController.value != Matrix4.identity();
+      if (isZoomedNow != _isZoomed) {
+        setState(() {
+          _isZoomed = isZoomedNow;
+        });
+      }
+    });
+
+    // 拖拽归位动画的控制器
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 200),
@@ -57,23 +71,15 @@ class _LJNPhotoViewerPageState extends State<LJNPhotoViewerPage>
   void dispose() {
     _pageController.dispose();
     _animationController.dispose();
+    _transformationController.dispose();
     super.dispose();
   }
 
-  // 【核心修正】: 这是来自 PhotoView 的回调，用于更新缩放状态
-  void _onScaleStateChanged(PhotoViewScaleState state) {
-    if (mounted) {
-      setState(() {
-        _scaleState = state;
-      });
-    }
-  }
-
-  // --- 拖拽关闭手势逻辑 ---
+  // --- 手势处理 ---
 
   void _onVerticalDragStart(DragStartDetails details) {
-    // 仅当图片处于初始（未放大）状态时，才允许启动拖拽关闭
-    if (_scaleState == PhotoViewScaleState.initial) {
+    // 仅当图片未缩放时，才允许启动拖拽关闭
+    if (!_isZoomed) {
       setState(() {
         _isDragging = true;
       });
@@ -117,13 +123,38 @@ class _LJNPhotoViewerPageState extends State<LJNPhotoViewerPage>
     _animationController.forward();
   }
 
+  // 双击缩放处理
+  void _onDoubleTap() {
+    Matrix4 targetMatrix;
+    if (_isZoomed) {
+      // 如果已放大，则恢复原状
+      targetMatrix = Matrix4.identity();
+    } else {
+      // 如果未放大，则放大到2倍
+      targetMatrix = Matrix4.identity()..scale(2.0, 2.0);
+    }
+
+    // 使用动画平滑地过渡到目标变换
+    final animation = Matrix4Tween(
+      begin: _transformationController.value,
+      end: targetMatrix,
+    ).animate(
+        CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
+
+    animation.addListener(() {
+      _transformationController.value = animation.value;
+    });
+
+    _animationController.reset();
+    _animationController.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
     double backgroundOpacity = _isDragging ? _dragScale.clamp(0.0, 1.0) : 1.0;
 
     return Scaffold(
-      backgroundColor:
-          Colors.black.withAlpha((backgroundOpacity * 255).toInt()),
+      backgroundColor: Colors.black.withOpacity(backgroundOpacity),
       body: GestureDetector(
         onVerticalDragStart: _onVerticalDragStart,
         onVerticalDragUpdate: _onVerticalDragUpdate,
@@ -134,7 +165,7 @@ class _LJNPhotoViewerPageState extends State<LJNPhotoViewerPage>
             scale: _dragScale,
             child: Stack(
               children: [
-                _buildPhotoViewGallery(),
+                _buildGallery(),
                 _buildCloseButton(),
                 _buildIndicator(),
               ],
@@ -145,36 +176,30 @@ class _LJNPhotoViewerPageState extends State<LJNPhotoViewerPage>
     );
   }
 
-  // --- UI 构建辅助方法 ---
-
-  Widget _buildPhotoViewGallery() {
-    // 【核心修正】: 使用 PageView.builder 手动构建画廊
+  Widget _buildGallery() {
     return PageView.builder(
       controller: _pageController,
       itemCount: widget.imageSources.length,
       onPageChanged: (index) {
+        // 翻页时，重置缩放状态
+        _transformationController.value = Matrix4.identity();
         setState(() {
           _currentIndex = index;
-          // 翻页时，强制重置缩放状态为初始状态
-          _scaleState = PhotoViewScaleState.initial;
         });
       },
       itemBuilder: (context, index) {
-        // 每一页都是一个配置好的 PhotoView
-        return PhotoView(
-          imageProvider: NetworkImage(widget.imageSources[index]),
-          // 【核心修正】: 直接在这里使用 scaleStateChangedCallback
-          scaleStateChangedCallback: _onScaleStateChanged,
-          heroAttributes:
-              PhotoViewHeroAttributes(tag: widget.imageSources[index]),
-          minScale: PhotoViewComputedScale.contained * 0.8,
-          maxScale: PhotoViewComputedScale.covered * 2.5,
-          initialScale: PhotoViewComputedScale.contained,
-          loadingBuilder: (context, event) => const Center(
-            child: SizedBox(
-              width: 20.0,
-              height: 20.0,
-              child: CircularProgressIndicator(color: Colors.white),
+        return GestureDetector(
+          onDoubleTap: _onDoubleTap,
+          child: InteractiveViewer(
+            transformationController: _transformationController,
+            minScale: 0.8, // 允许缩小
+            maxScale: 2.5, // 允许放大
+            child: Hero(
+              tag: widget.imageSources[index],
+              child: Image.network(
+                widget.imageSources[index],
+                fit: BoxFit.contain, // 必须是 contain 才能正确缩放
+              ),
             ),
           ),
         );
@@ -182,9 +207,7 @@ class _LJNPhotoViewerPageState extends State<LJNPhotoViewerPage>
     );
   }
 
-  // 关闭/退出缩放按钮 (现在可以完美工作)
   Widget _buildCloseButton() {
-    bool isZoomed = _scaleState != PhotoViewScaleState.initial;
     return Positioned(
       top: MediaQuery.of(context).padding.top + 10,
       left: 10,
@@ -192,25 +215,22 @@ class _LJNPhotoViewerPageState extends State<LJNPhotoViewerPage>
         opacity: !_isDragging ? 1.0 : 0.0,
         duration: const Duration(milliseconds: 100),
         child: IconButton(
-          icon: Icon(isZoomed ? Icons.arrow_back : Icons.close,
+          icon: Icon(_isZoomed ? Icons.arrow_back : Icons.close,
               color: Colors.white, size: 30),
           onPressed: () {
-            if (isZoomed) {
-              // 这里我们无法像控制器那样直接命令它复位，
-              // 但双击图片本身就可以复位，这个按钮可以引导用户或直接关闭页面。
-              // 为了更好的体验，我们直接关闭页面。
-              Navigator.of(context).pop();
+            if (_isZoomed) {
+              // 如果已放大，则恢复
+              _transformationController.value = Matrix4.identity();
             } else {
               Navigator.of(context).pop();
             }
           },
-          tooltip: isZoomed ? '返回' : '关闭',
+          tooltip: _isZoomed ? '退出缩放' : '关闭',
         ),
       ),
     );
   }
 
-  // 页码指示器
   Widget _buildIndicator() {
     return Positioned(
       bottom: MediaQuery.of(context).padding.bottom + 20,
