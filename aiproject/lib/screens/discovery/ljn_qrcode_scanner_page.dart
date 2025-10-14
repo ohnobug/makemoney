@@ -102,13 +102,8 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
 
         if (barcodes.length == 1) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            // 300ms后再次打开页面
-            Future.delayed(Duration(milliseconds: 300), () {
-              if (mounted) {
-                Navigator.of(context).pushReplacementNamed(
-                    "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/#/page2')}");
-              }
-            });
+            openMiniprogram(
+                context, "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J");
           });
         }
       }

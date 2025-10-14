@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
+import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,22 +56,22 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/zhihuixiangji.jpg",
         title: "智慧相机",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/haimianbaobao.jpg",
         title: "海绵宝宝",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/taowuyou.jpg",
         title: "淘无忧",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/wangzheyingdi.jpg",
         title: "王者营地",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
     ];
 
@@ -78,52 +79,52 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/duitang.jpg",
         title: "堆糖",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
         title: "天空阅读器",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/qishuwang.jpg",
         title: "奇书网",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/xueyouyoujiao.jpg",
         title: "学有优教",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/haiziwang.jpg",
         title: "孩子王",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/qianbixiaoshuo.jpg",
         title: "铅笔小说",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/chengquanshipin.jpg",
         title: "成全视频",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/xiaomishangcheng.jpg",
         title: "小米商城",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/meituxiuxiu.jpg",
         title: "美图秀秀",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/luobokuaipao.jpg",
         title: "萝卜快跑",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
     ];
 
@@ -132,25 +133,25 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
         friendName: "粤童年",
         message: "今天天气真好，阳光明媚，让人心情愉悦。",
         avatar: "$cdnBase/miniprogram_icon/yuetongnianruanjian.jpg",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _ChatListItemData(
         friendName: '起点中文',
         message: "[图片]",
         avatar: "$cdnBase/miniprogram_icon/qidianzhongwen.jpg",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _ChatListItemData(
         friendName: "野花香电视剧",
         message: "这个怎么样调试?",
         avatar: "$cdnBase/miniprogram_icon/yehuaxiangdianshiju.jpg",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _ChatListItemData(
         friendName: "韵镖侠",
         message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
         avatar: "$cdnBase/miniprogram_icon/yunbiaoxia.jpg",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
     ];
 
@@ -159,32 +160,27 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
         friendName: "蘑菇云游",
         message: "今天天气真好，阳光明媚，让人心情愉悦。",
         avatar: "$cdnBase/miniprogram_icon/moguyunyou.jpg",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _ChatListItemData(
         friendName: '美图秀秀',
         message: "[图片]",
         avatar: "$cdnBase/miniprogram_icon/meituxiuxiu.jpg",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _ChatListItemData(
         friendName: "百度翻译",
         message: "这个怎么样调试?",
         avatar: "$cdnBase/miniprogram_icon/baidufanyi.jpg",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
       _ChatListItemData(
         friendName: "淘无忧",
         message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
         avatar: "$cdnBase/miniprogram_icon/taowuyou.jpg",
-        cid: "bafkreif3pa2y7kapunoiskml7x2ehf24empwyeqslfoeupadw5iyhucjpq",
+        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
       ),
     ];
-  }
-
-  void _openMiniprogram(BuildContext context, String cid) {
-    Navigator.of(context)
-        .pushNamed("/open_miniprogram?cid=${Uri.encodeComponent(cid)}");
   }
 
   @override
@@ -252,7 +248,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
                                   icon: data.icon,
                                   title: data.title,
                                   onPressed: () =>
-                                      _openMiniprogram(context, data.cid),
+                                      openMiniprogram(context, data.cid),
                                 ))
                             .toList(),
                       ),
@@ -265,7 +261,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
                                   icon: data.icon,
                                   title: data.title,
                                   onPressed: () =>
-                                      _openMiniprogram(context, data.cid),
+                                      openMiniprogram(context, data.cid),
                                 ))
                             .toList(),
                       ),
@@ -279,7 +275,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
                                   friendName: data.friendName,
                                   message: data.message,
                                   onPressed: () =>
-                                      _openMiniprogram(context, data.cid),
+                                      openMiniprogram(context, data.cid),
                                 ))
                             .toList(),
                       ),
@@ -293,7 +289,7 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
                                   friendName: data.friendName,
                                   message: data.message,
                                   onPressed: () =>
-                                      _openMiniprogram(context, data.cid),
+                                      openMiniprogram(context, data.cid),
                                 ))
                             .toList(),
                       ),
