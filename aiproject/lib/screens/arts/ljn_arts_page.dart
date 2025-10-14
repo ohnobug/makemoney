@@ -10,7 +10,6 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_custom_video_player.dart';
 
-// [新增] 用于承载每个视频独立数据的模型类
 class VideoData {
   final String videoPath;
   final String avatarPath;
@@ -104,15 +103,16 @@ class _LJNArtsPage extends State<LJNArtsPage> {
         videoPath: '/ins/video2.mp4', // 第一个视频
         avatarPath: '/avatar/chat_10.jpg',
         userName: '牛马的home',
-        description: '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏...',
+        description:
+            '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活... 这里省略了很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多很多-/+--+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+--+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+--',
         likeCount: 1050,
         commentCount: 241,
         collectionCount: 421,
         shareCount: 934,
       ),
       VideoData(
-        videoPath: '/ins/video2.mp4', // 第二个视频
-        avatarPath: '/avatar/chat_11.jpg',
+        videoPath: '${_systemCubit.state.cdnBase}/ins/video2.mp4', // 第二个视频
+        avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_11.jpg',
         userName: 'Flutter开发者',
         description: '用Flutter做出的短视频流，性能和体验都非常棒！#Flutter #App开发 #编程',
         likeCount: 2048,
@@ -122,8 +122,8 @@ class _LJNArtsPage extends State<LJNArtsPage> {
         isLiked: true,
       ),
       VideoData(
-        videoPath: '/ins/video2.mp4', // 第三个视频
-        avatarPath: '/avatar/chat_12.jpg',
+        videoPath: '${_systemCubit.state.cdnBase}/ins/video2.mp4', // 第三个视频
+        avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_12.jpg',
         userName: '旅行的风',
         description: '世界的尽头是什么样子？跟我一起来看看吧。#旅行 #风景 #Vlog',
         likeCount: 996,
@@ -159,11 +159,11 @@ class _LJNArtsPage extends State<LJNArtsPage> {
 
     // 从数据列表中获取对应index的视频路径
     final videoData = _videoDataList[index];
-    final cdnUrl = '${_systemCubit.state.cdnBase}${videoData.videoPath}';
-    // final cdnUrl = 'http://localhost/video2.mp4';
+    final videoUrl = videoData.videoPath;
+    // final videoUrl = 'http://localhost/video2.mp4';
 
     final controller = VideoPlayerController.networkUrl(
-      Uri.parse(cdnUrl),
+      Uri.parse(videoUrl),
       videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
     );
 
@@ -180,7 +180,7 @@ class _LJNArtsPage extends State<LJNArtsPage> {
       }
     }).catchError((error) {
       // 这里的日志非常重要，如果视频无法加载，请务必查看！
-      logger.warning("视频初始化失败 (URL: $cdnUrl): $error");
+      logger.warning("视频初始化失败 (URL: $videoUrl): $error");
     });
 
     _videoControllers[index] = controller;
@@ -198,9 +198,89 @@ class _LJNArtsPage extends State<LJNArtsPage> {
     super.dispose();
   }
 
-  void _showArtInfoModalSheet(BuildContext context) {}
-  void _showArtShareModalSheet(BuildContext context) {}
-  void _showArtCommentModalSheet(BuildContext context) {}
+  // 更多作品信息
+  void _showArtInfoModalSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        // builder 返回的就是你想在 BottomSheet 中显示的任意 Widget
+        return Container(
+          height: 250, // 可以指定高度
+          color: Colors.white,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Text('更多作品信息'),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  child: const Text('关闭'),
+                  onPressed: () => Navigator.pop(context), // 点击按钮关闭
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // 转发
+  void _showArtShareModalSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        // builder 返回的就是你想在 BottomSheet 中显示的任意 Widget
+        return Container(
+          height: 250, // 可以指定高度
+          color: Colors.white,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Text('转发作品'),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  child: const Text('关闭'),
+                  onPressed: () => Navigator.pop(context), // 点击按钮关闭
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  // 评论
+  void _showArtCommentModalSheet(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        // builder 返回的就是你想在 BottomSheet 中显示的任意 Widget
+        return Container(
+          height: 250, // 可以指定高度
+          color: Colors.white,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Text('评论作品'),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  child: const Text('关闭'),
+                  onPressed: () => Navigator.pop(context), // 点击按钮关闭
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -266,9 +346,7 @@ class _LJNArtsPage extends State<LJNArtsPage> {
                         bottom: 0,
                         // 传递当前视频的数据
                         child: _VideoInfoSection(
-                          avatarUrl: Uri.parse(
-                            '${systemState.cdnBase}${videoData.avatarPath}',
-                          ),
+                          avatarUrl: videoData.avatarPath,
                           userName: videoData.userName,
                           description: videoData.description,
                         ),
@@ -409,7 +487,7 @@ class _LJNArtsPage extends State<LJNArtsPage> {
 
 class _VideoInfoSection extends StatefulWidget {
   final String userName;
-  final Uri avatarUrl;
+  final String avatarUrl;
   final String description;
 
   const _VideoInfoSection({
@@ -450,7 +528,7 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
             children: [
               ClipOval(
                 child: CachedNetworkImage(
-                  imageUrl: widget.avatarUrl.toString(),
+                  imageUrl: widget.avatarUrl,
                   width: 64.w,
                   height: 64.w,
                   fit: BoxFit.cover,

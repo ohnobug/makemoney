@@ -8,7 +8,6 @@ import 'package:vigaviga/store/ljn_popup_cubit.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:vigaviga/app.dart';
-import 'package:vigaviga/tools/ljn_file_server.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
 
@@ -66,8 +65,6 @@ void main() async {
       statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
     ),
   );
-
-  startWebServer();
 
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (_) => LJNSystemCubit()),

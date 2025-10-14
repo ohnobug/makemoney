@@ -688,9 +688,7 @@ List<Widget> mockMessages(BuildContext context, String icon, String title) {
         context.read<LJNPopupCubit>().updateVideoPopup(
               openBoxSize: size,
               openPosition: position,
-              sourcePath: Uri.parse(
-                '$cdnBase/ins/test.mp4',
-              ),
+              sourcePath: '$cdnBase/ins/test.mp4',
               showFullScreenVideo: true,
             );
       },
@@ -708,9 +706,7 @@ List<Widget> mockMessages(BuildContext context, String icon, String title) {
         context.read<LJNPopupCubit>().updateVideoPopup(
               openBoxSize: size,
               openPosition: position,
-              sourcePath: Uri.parse(
-                '$cdnBase/ins/video2.mp4',
-              ),
+              sourcePath: '$cdnBase/ins/video2.mp4',
               showFullScreenVideo: true,
             );
       },
@@ -730,9 +726,7 @@ List<Widget> mockMessages(BuildContext context, String icon, String title) {
         context.read<LJNPopupCubit>().updateVideoPopup(
               openBoxSize: size,
               openPosition: position,
-              sourcePath: Uri.parse(
-                '$cdnBase/ins/test.mp4',
-              ),
+              sourcePath: '$cdnBase/ins/test.mp4',
               showFullScreenVideo: true,
             );
       },

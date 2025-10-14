@@ -14,7 +14,7 @@ class LJNVideoDraggableBox extends StatefulWidget {
 
   final Size openBoxSize;
   final Offset openPosition;
-  final Uri videoPath;
+  final String videoPath;
 
   const LJNVideoDraggableBox({
     super.key,
@@ -125,7 +125,7 @@ class _LJNVideoDraggableBoxState extends State<LJNVideoDraggableBox>
       child: BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
           _videoController ??= VideoPlayerController.networkUrl(
-            widget.videoPath,
+            Uri.parse(widget.videoPath),
             videoPlayerOptions: VideoPlayerOptions(
               mixWithOthers: false,
               allowBackgroundPlayback: false,

@@ -13,7 +13,7 @@ class LJNImaeDraggableBox extends StatefulWidget {
   final double maxScale; // 图片允许的最大缩放比例。
   final Size openBoxSize;
   final Offset openPosition;
-  final Uri imagePath;
+  final String imagePath;
   final VoidCallback? onClose;
 
   const LJNImaeDraggableBox({

@@ -88,11 +88,11 @@ class AppRouter {
     if (settings.name != null &&
         settings.name!.startsWith('/open_miniprogram')) {
       final uri = Uri.parse(settings.name!);
-      final linkValue = uri.queryParameters['link'] ?? "";
+      final cid = uri.queryParameters['cid'] ?? "";
 
-      logger.info("bbbbbbbbbbbb: $linkValue");
+      logger.info("bbbbbbbbbbbb: $cid");
 
-      return _pageRouteBuilderAnimation(LJNMiniProgram(link: linkValue));
+      return _pageRouteBuilderAnimation(LJNMiniProgram(cid: cid));
     }
 
     switch (settings.name) {

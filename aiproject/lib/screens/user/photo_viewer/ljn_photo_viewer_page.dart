@@ -1,6 +1,7 @@
 // 文件路径: lib/ljn_photo_viewer_page.dart
 
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math_64.dart' hide Colors;
 
 class LJNPhotoViewerPage extends StatefulWidget {
   final List<String> imageSources;
@@ -131,7 +132,7 @@ class _LJNPhotoViewerPageState extends State<LJNPhotoViewerPage>
       targetMatrix = Matrix4.identity();
     } else {
       // 如果未放大，则放大到2倍
-      targetMatrix = Matrix4.identity()..scale(2.0, 2.0);
+      targetMatrix = Matrix4.identity()..scaleByVector3(Vector3(2.0, 2.0, 0));
     }
 
     // 使用动画平滑地过渡到目标变换
@@ -154,7 +155,8 @@ class _LJNPhotoViewerPageState extends State<LJNPhotoViewerPage>
     double backgroundOpacity = _isDragging ? _dragScale.clamp(0.0, 1.0) : 1.0;
 
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(backgroundOpacity),
+      backgroundColor:
+          Colors.black.withAlpha((backgroundOpacity * 255).toInt()),
       body: GestureDetector(
         onVerticalDragStart: _onVerticalDragStart,
         onVerticalDragUpdate: _onVerticalDragUpdate,

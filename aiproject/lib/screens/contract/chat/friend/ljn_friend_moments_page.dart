@@ -606,7 +606,7 @@ class TweetWidget extends StatefulWidget {
   final String avatarUrl;
   final String name;
   final String tweetContent;
-  final List<Uri>? imageList;
+  final List<String>? imageList;
   final List<String>? likes;
   final Function(Offset) moreOnPress; // "..." 按钮的点击回调
 
@@ -726,7 +726,7 @@ class _TweetWidgetState extends State<TweetWidget> {
                               runSpacing: 6.w, // 垂直间距
                               children: widget.imageList!
                                   .map(
-                                    (path) => path.path.isEmpty
+                                    (path) => path.isEmpty
                                         ? const SizedBox.shrink()
                                         : LJNTweenImage(imagePath: path),
                                   )
@@ -892,8 +892,11 @@ class _TweetWidgetState extends State<TweetWidget> {
 
 // --- 九宫格中的单个图片组件 ---
 class LJNTweenImage extends StatelessWidget {
-  final Uri imagePath;
-  const LJNTweenImage({super.key, required this.imagePath});
+  final String imagePath;
+  const LJNTweenImage({
+    super.key,
+    required this.imagePath,
+  });
 
   @override
   Widget build(BuildContext context) {

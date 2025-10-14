@@ -93,7 +93,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
 
   Offset openPosition = const Offset(0, 0);
   Size openBoxSize = const Size(0, 0);
-  Uri? videoPath;
+  String? videoPath;
 
   // 显示语音按钮
   bool showVoiceButton = false;
@@ -475,10 +475,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
             openPosition = position;
             logger.info("openPosition: $openPosition");
             openBoxSize = size;
-            videoPath = Uri.parse(
-              '$cdnBase/ins/test.mp4',
-            );
-
+            videoPath = '$cdnBase/ins/test.mp4';
             showFullScreenVideo = true;
           });
         },
@@ -501,10 +498,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
             openPosition = position;
             logger.info("openPosition: $openPosition");
             openBoxSize = size;
-            videoPath = Uri.parse(
-              '$cdnBase/ins/video2.mp4',
-            );
-
+            videoPath = '$cdnBase/ins/video2.mp4';
             showFullScreenVideo = true;
           });
         },
@@ -1457,7 +1451,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
               ),
 
               // 视频放大
-              showFullScreenVideo && videoPath!.path.isNotEmpty
+              showFullScreenVideo && videoPath!.isNotEmpty
                   ? LJNVideoDraggableBox(
                       openBoxSize: openBoxSize,
                       openPosition: openPosition,

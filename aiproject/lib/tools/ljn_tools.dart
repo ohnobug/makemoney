@@ -100,9 +100,9 @@ Future<Size?> getLocalAssetImageSize(String assetPath) async {
   }
 }
 
-Future<Size?> getNetworkImageSize(Uri uri) async {
+Future<Size?> getNetworkImageSize(String uri) async {
   try {
-    final response = await http.get(uri);
+    final response = await http.get(Uri.parse(uri));
 
     if (response.statusCode == 200) {
       final bytes = response.bodyBytes;

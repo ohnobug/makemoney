@@ -203,7 +203,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "堆糖",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -212,7 +212,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "天空阅读器",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                 ],
@@ -270,7 +270,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "堆糖",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -279,7 +279,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "天空阅读器",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -288,7 +288,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "奇书网",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -297,7 +297,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "学有优教",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -306,7 +306,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "孩子王",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -315,7 +315,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "铅笔小说",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -324,7 +324,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "成全视频",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -333,7 +333,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "小米商城",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                 ],
@@ -349,7 +349,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "堆糖",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -358,7 +358,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "天空阅读器",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -367,7 +367,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "奇书网",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -376,7 +376,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "学有优教",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -385,7 +385,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "成全视频",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -394,7 +394,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "小米商城",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -403,7 +403,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "美图秀秀",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -412,7 +412,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "萝卜快跑",
                                     onPressed: () {
                                       Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                          "/open_miniprogram?link=${Uri.encodeComponent('http://vigavigaminiprogram/')}");
                                     },
                                   ),
                                 ],

@@ -29,7 +29,7 @@ class LJNPopupCubit extends Cubit<PopupState> {
   void updateImagePopup({
     required Size openBoxSize,
     required Offset openPosition,
-    required Uri imagePath,
+    required String imagePath,
     required bool showFullScreenimage,
   }) {
     emit(
@@ -55,7 +55,7 @@ class LJNPopupCubit extends Cubit<PopupState> {
   void updateVideoPopup({
     required Size openBoxSize,
     required Offset openPosition,
-    required Uri sourcePath,
+    required String sourcePath,
     required bool showFullScreenVideo,
   }) {
     emit(
@@ -73,7 +73,7 @@ class LJNPopupCubit extends Cubit<PopupState> {
 class PopupState {
   final Size openBoxSize;
   final Offset openPosition;
-  final Uri? sourcePath; // <--- 修改 1: 字段类型变为可空
+  final String? sourcePath; // <--- 修改 1: 字段类型变为可空
   final bool showFullScreenVideo;
   final bool showFullScreenImage;
   final bool returnButtonEvent;
@@ -92,7 +92,7 @@ class PopupState {
   PopupState copyWith({
     Size? openBoxSize,
     Offset? openPosition,
-    Uri? sourcePath, // <--- 修改 3: 这里的类型已经是 Uri?，保持一致即可
+    String? sourcePath, // <--- 修改 3: 这里的类型已经是 String?，保持一致即可
     bool? showFullScreenVideo,
     bool? showFullScreenImage,
     bool? returnButtonEvent,
