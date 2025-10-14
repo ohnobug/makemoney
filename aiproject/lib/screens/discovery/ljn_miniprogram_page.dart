@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:archive/archive.dart';
 import 'package:flutter/material.dart';
@@ -7,14 +8,19 @@ import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:shelf/shelf.dart' as shelf;
+import 'package:shelf/shelf_io.dart' as shelf_io;
+import 'package:shelf_static/shelf_static.dart' as shelf_static;
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
-// 定义IPFS网关。您可以替换成任何您信任的公共网关。
-const String ipfsGateway = 'https://amaranth-quiet-perch-930.mypinata.cloud/ipfs/';
+// 定义IPFS网关和本地服务器端口
+const String ipfsGateway =
+    'https://amaranth-quiet-perch-930.mypinata.cloud/ipfs/';
+const int serverPort = 9413; // 使用一个固定的、不常用的端口
 
 class LJNMiniProgram extends StatefulWidget {
   final String cid;
@@ -29,40 +35,36 @@ class LJNMiniProgram extends StatefulWidget {
 
 class _LJNMiniProgramState extends State<LJNMiniProgram>
     with SingleTickerProviderStateMixin {
-  // WebView 控制器
-  late WebViewController webViewController;
+  // 使用 shelf 包来管理 HttpServer
+  HttpServer? _server;
+  late final WebViewController _webViewController;
 
   // Lottie 动画控制器
   late final AnimationController _lottieController;
 
   // 状态管理
-  bool _isWebViewInitialized = false; // WebView是否已初始化
-  String? _errorMessage; // 用于显示错误信息
-  bool get _isLoading => !_lottieController.isCompleted; // 通过动画状态判断是否在加载
+  bool _isWebViewReady = false;
+  String? _errorMessage;
+  bool get _isLoading => !_lottieController.isCompleted;
+  int _flutterMessageCounter = 0;
 
   @override
   void initState() {
     super.initState();
-    // 1. 初始化Lottie动画控制器
     _initLotties();
-    // 2. 开始执行小程序加载流程
-    _initMiniProgram();
+    _initializeAndStartServer();
   }
 
   @override
   void dispose() {
     _lottieController.dispose();
+    _stopServer();
     super.dispose();
   }
 
   void _initLotties() {
     _lottieController = AnimationController(
-      vsync: this,
-      // 初始时长，后面在 onPageFinished 会被覆盖
-      duration: const Duration(milliseconds: 10000),
-    );
-
-    // 监听动画完成事件，用于控制UI元素的显示
+        vsync: this, duration: const Duration(milliseconds: 10000));
     _lottieController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         if (mounted) setState(() {});
@@ -70,37 +72,27 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
     });
   }
 
-  /// 主入口函数：负责调度整个加载流程
-  Future<void> _initMiniProgram() async {
+  /// 统一的初始化流程: 下载/准备文件 -> 启动服务器 -> 初始化WebView
+  Future<void> _initializeAndStartServer() async {
     try {
-      if (widget.cid.isEmpty) {
-        throw Exception("小程序链接不能为空");
-      }
+      if (widget.cid.isEmpty) throw Exception("小程序链接不能为空");
 
-      // 1. 从 "http://<CID>" 或 "ipfs://<CID>" 中解析出 CID
-      final cid = widget.cid;
-      logger.info('解析到的小程序 CID: $cid');
+      // 1. 准备小程序文件目录（下载或使用缓存）
+      final miniAppDir = await _prepareMiniAppDirectory(widget.cid);
 
-      // 2. 构建本地缓存路径
-      final appDir = await getApplicationDocumentsDirectory();
-      final miniAppDir = Directory(p.join(appDir.path, 'mini_programs', cid));
-      final entryFile = File(p.join(miniAppDir.path, 'index.html'));
+      // 2. 启动本地服务器，为准备好的文件提供服务
+      await _startServer(miniAppDir.path);
 
-      // 3. 检查本地缓存是否存在
-      if (await entryFile.exists()) {
-        logger.info('发现本地缓存，直接加载: ${entryFile.path}');
-        _loadFromLocalFile(entryFile);
-      } else {
-        logger.info('本地缓存不存在，准备从 IPFS 网关下载...');
-        final gatewayUrl = '$ipfsGateway$cid';
-        await _downloadAndUnzip(gatewayUrl, miniAppDir);
+      // 3. 初始化 WebView 控制器并设置通信桥梁
+      _initializeWebViewController();
 
-        if (await entryFile.exists()) {
-          logger.info('下载解压完成，加载小程序: ${entryFile.path}');
-          _loadFromLocalFile(entryFile);
-        } else {
-          throw Exception("资源包下载成功，但未找到入口文件 index.html");
-        }
+      // 4. 更新UI，让WebView加载服务器地址
+      if (mounted) {
+        setState(() {
+          _isWebViewReady = true;
+        });
+        _webViewController
+            .loadRequest(Uri.parse('http://localhost:$serverPort'));
       }
     } catch (e) {
       logger.severe('初始化小程序失败: $e');
@@ -112,12 +104,98 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
     }
   }
 
-  /// 下载并解压的逻辑
+  /// 准备小程序目录
+  Future<Directory> _prepareMiniAppDirectory(String cid) async {
+    final appDir = await getApplicationDocumentsDirectory();
+    final miniAppDir = Directory(p.join(appDir.path, 'mini_programs', cid));
+    final entryFile = File(p.join(miniAppDir.path, 'index.html'));
+
+    if (await entryFile.exists()) {
+      logger.info('发现本地缓存，直接使用: ${miniAppDir.path}');
+    } else {
+      logger.info('本地缓存不存在，准备从 IPFS 网关下载...');
+      final gatewayUrl = '$ipfsGateway$cid';
+      await _downloadAndUnzip(gatewayUrl, miniAppDir);
+      if (!await entryFile.exists()) {
+        throw Exception("资源包下载成功，但未找到入口文件 index.html");
+      }
+    }
+    return miniAppDir;
+  }
+
+  /// 启动 Shelf 静态文件服务器
+  Future<void> _startServer(String documentRoot) async {
+    await _stopServer(); // 先确保旧的服务器已关闭
+    final handler = shelf_static.createStaticHandler(
+      documentRoot,
+      defaultDocument: 'index.html',
+    );
+    final pipeline = const shelf.Pipeline().addHandler(handler);
+    _server = await shelf_io.serve(pipeline, 'localhost', serverPort);
+    logger.shout('Shelf server running on http://localhost:$serverPort');
+  }
+
+  /// 停止服务器
+  Future<void> _stopServer() async {
+    await _server?.close(force: true);
+    _server = null;
+    logger.info("Server stopped.");
+  }
+
+  /// 初始化 WebView 控制器，并设置双向通信
+  void _initializeWebViewController() {
+    _webViewController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      // 【通信】: 添加 JavaScriptChannel 用于 H5->Flutter
+      ..addJavaScriptChannel(
+        'AppBridge', // 这个名字必须和 H5 中的调用者一致
+        onMessageReceived: (JavaScriptMessage message) {
+          logger.info('成功接收到 H5 的信号: ${message.message}');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                content: Text("来自小程序的信号: ${message.message}"),
+                backgroundColor: Colors.green),
+          );
+
+          // 根据接收到的消息内容执行不同操作
+          if (message.message == 'close_miniprogram') {
+            Navigator.of(context).pop();
+          } else if (message.message == 'show_info') {
+            _showMiniprogramInfoModalSheet(context);
+          }
+        },
+      )
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            if (!_lottieController.isAnimating &&
+                !_lottieController.isCompleted) {
+              _lottieController.value = (progress / 100) * 0.8;
+            }
+          },
+          onPageFinished: (String url) {
+            logger.info("页面加载完成: $url");
+            _lottieController
+              ..duration = const Duration(milliseconds: 600)
+              ..forward();
+          },
+          onWebResourceError: (WebResourceError error) {
+            logger.severe("WebView 资源错误: ${error.description}");
+            if (mounted) {
+              setState(() {
+                _errorMessage = "资源加载失败: ${error.description}";
+              });
+            }
+          },
+        ),
+      );
+  }
+
+  /// 下载并解压的逻辑 (不变)
   Future<void> _downloadAndUnzip(String url, Directory targetDir) async {
     if (!await targetDir.exists()) {
       await targetDir.create(recursive: true);
     }
-
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final archive = ZipDecoder().decodeBytes(response.bodyBytes);
@@ -136,74 +214,39 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
     }
   }
 
-  /// 初始化 WebView 并从本地文件加载
-  void _loadFromLocalFile(File entryFile) {
-    webViewController = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            // 将网页加载进度映射到Lottie动画的前半部分
-            if (!_lottieController.isAnimating &&
-                !_lottieController.isCompleted) {
-              _lottieController.value = (progress / 100) * 0.8; // 让进度条感觉更灵敏
-            }
-          },
-          onPageStarted: (String url) {
-            logger.info("页面开始加载: $url");
-          },
-          onPageFinished: (String url) {
-            logger.info("页面加载完成: $url");
-            // 页面加载完, 播放Lottie动画的后半部分并结束
-            _lottieController
-              ..duration = const Duration(milliseconds: 600) // 设置一个较短的完成动画时长
-              ..forward(); // 从当前进度播放到结束
-          },
-          onWebResourceError: (WebResourceError error) {
-            logger.severe("WebView 资源错误: ${error.description}");
-            // 可以选择性地向用户展示错误
-            // setState(() {
-            //   _errorMessage = "资源加载失败: ${error.description}";
-            // });
-          },
-          // 保留您的跳转劫持逻辑
-          onNavigationRequest: (NavigationRequest request) {
-            logger.info("页面跳转请求: ${request.url}");
-            if (request.url.startsWith('http://helloworld.com')) {
-              webViewController.loadHtmlString(
-                  "<h1 style='margin-top: 100px'>你来到了被劫持的页面，哈哈哈</h1>");
-              return NavigationDecision.prevent;
-            }
-            return NavigationDecision.navigate;
-          },
-        ),
-      );
-
-    // 更新UI状态，准备显示WebView
-    if (mounted) {
-      setState(() {
-        _isWebViewInitialized = true;
-      });
-    }
-
-    // 使用 loadFile 加载本地 HTML 文件
-    webViewController.loadFile(entryFile.path);
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Scaffold(
           appBar: null,
-          backgroundColor: AppColors.neutralGrey40, // 设置背景色避免闪烁
+          backgroundColor: AppColors.neutralGrey40,
+          // 【通信】: 添加按钮用于演示 Flutter -> H5
+          floatingActionButton: !_isLoading && _errorMessage == null
+              ? FloatingActionButton.extended(
+                  onPressed: () {
+                    if (!_isWebViewReady) return;
+                    _flutterMessageCounter++;
+                    final messageData = {
+                      "from": "Flutter App",
+                      "count": _flutterMessageCounter,
+                      "timestamp": DateTime.now().toIso8601String()
+                    };
+                    final jsonString = jsonEncode(messageData);
+
+                    // 使用 runJavaScript 调用 H5 中的全局函数
+                    _webViewController.runJavaScript(
+                        'flutterToJsMessageReceiver($jsonString)');
+                    logger.info("已向 H5 发送消息: $jsonString");
+                  },
+                  icon: const Icon(Icons.send_to_mobile),
+                  label: const Text('发送信号给H5'),
+                )
+              : null,
           body: Stack(
             children: [
-              // 1. WebView 页面本身
-              if (_isWebViewInitialized && _errorMessage == null)
-                WebViewWidget(controller: webViewController),
-
-              // 2. 错误信息页面
+              if (_isWebViewReady && _errorMessage == null)
+                WebViewWidget(controller: _webViewController),
               if (_errorMessage != null)
                 Center(
                   child: Container(
@@ -216,8 +259,6 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
                     ),
                   ),
                 ),
-
-              // 3. 加载动画 (使用 _isLoading getter 控制)
               Visibility(
                 visible: _isLoading && _errorMessage == null,
                 child: Container(
@@ -235,8 +276,6 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
                   ),
                 ),
               ),
-
-              // 4. 关闭按钮等UI (仅在加载完成后显示)
               if (!_isLoading || _errorMessage != null)
                 Positioned(
                   right: 17.w,
@@ -299,7 +338,7 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
     );
   }
 
-  // 更多小程序信息 (您的代码)
+  /// 更多小程序信息 (您的代码)
   void _showMiniprogramInfoModalSheet(BuildContext context) {
     showModalBottomSheet<void>(
       context: context,
