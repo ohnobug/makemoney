@@ -18,12 +18,12 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
 // 定义IPFS网关和本地服务器端口
-const String ipfsGateway =
-    'https://amaranth-quiet-perch-930.mypinata.cloud/ipfs/';
+const String ipfsGateway = 'https://dweb.link/ipfs/';
 const int serverPort = 9413; // 使用一个固定的、不常用的端口
 
 class LJNMiniProgram extends StatefulWidget {
   final String cid;
+
   const LJNMiniProgram({
     super.key,
     required this.cid,
@@ -115,6 +115,7 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
     } else {
       logger.info('本地缓存不存在，准备从 IPFS 网关下载...');
       final gatewayUrl = '$ipfsGateway$cid';
+      logger.info("gatewayUrl: $gatewayUrl");
       await _downloadAndUnzip(gatewayUrl, miniAppDir);
       if (!await entryFile.exists()) {
         throw Exception("资源包下载成功，但未找到入口文件 index.html");
@@ -146,23 +147,12 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
   void _initializeWebViewController() {
     _webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      // 【通信】: 添加 JavaScriptChannel 用于 H5->Flutter
       ..addJavaScriptChannel(
-        'AppBridge', // 这个名字必须和 H5 中的调用者一致
+        'AppBridge',
         onMessageReceived: (JavaScriptMessage message) {
           logger.info('成功接收到 H5 的信号: ${message.message}');
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-                content: Text("来自小程序的信号: ${message.message}"),
-                backgroundColor: Colors.green),
-          );
-
-          // 根据接收到的消息内容执行不同操作
-          if (message.message == 'close_miniprogram') {
-            Navigator.of(context).pop();
-          } else if (message.message == 'show_info') {
-            _showMiniprogramInfoModalSheet(context);
-          }
+          // 【核心修改】将所有消息分发到中央处理器
+          _handleMessageFromJs(message.message);
         },
       )
       ..setNavigationDelegate(
@@ -190,6 +180,86 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
         ),
       );
   }
+
+  // ==========================================================
+  // START: 新增的核心消息处理逻辑
+  // ==========================================================
+  void _handleMessageFromJs(String message) {
+    // 首先展示一个 SnackBar 作为即时反馈
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+          content: Text("来自小程序的信号: $message"), backgroundColor: Colors.green),
+    );
+
+    try {
+      // 尝试将消息解析为 JSON 对象
+      final data = jsonDecode(message) as Map<String, dynamic>;
+      final action = data['action'];
+
+      // 判断 JSON 对象中的 action 字段
+      if (action == 'pay') {
+        final amount = data['amount'];
+        _handlePaymentRequest(amount);
+      } else {
+        // 可以处理其他基于JSON的复杂指令
+        logger.info('接收到未知的JSON指令: $action');
+      }
+    } catch (e) {
+      // 如果解析失败，说明是简单的字符串指令
+      if (message == 'close_miniprogram') {
+        Navigator.of(context).pop();
+      } else if (message == 'show_info') {
+        _showMiniprogramInfoModalSheet(context);
+      } else {
+        logger.warning('接收到未处理的字符串指令: $message');
+      }
+    }
+  }
+
+  /// 处理支付请求的函数
+  void _handlePaymentRequest(dynamic amount) {
+    logger.shout('接收到支付请求，金额: $amount');
+
+    // 弹出一个原生对话框，模拟支付确认流程
+    showDialog(
+      context: context,
+      barrierDismissible: false, // 用户必须点击按钮才能关闭
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('支付确认'),
+          content: Text('您确定要支付 ¥$amount 元吗？'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('取消'),
+              onPressed: () {
+                Navigator.of(context).pop(); // 关闭对话框
+                logger.info('用户取消了支付');
+                // 可选：通知H5支付已取消
+                _webViewController.runJavaScript('alert("支付已取消")');
+              },
+            ),
+            TextButton(
+              child: const Text('确认支付'),
+              onPressed: () {
+                Navigator.of(context).pop(); // 关闭对话框
+                // TODO: 在这里集成您真实的支付SDK
+                logger.shout('用户确认支付: $amount. 这里应该调用支付SDK...');
+
+                // 模拟支付成功后，通知H5
+                final result = {'status': 'success', 'amount': amount};
+                _webViewController.runJavaScript('alert("支付成功！金额: ¥$amount")');
+                _webViewController.runJavaScript(
+                    'flutterToJsMessageReceiver(${jsonEncode(result)})');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  // ==========================================================
+  // END: 新增的核心消息处理逻辑
+  // ==========================================================
 
   /// 下载并解压的逻辑 (不变)
   Future<void> _downloadAndUnzip(String url, Directory targetDir) async {

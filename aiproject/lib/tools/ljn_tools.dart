@@ -12,6 +12,10 @@ import 'package:image_size_getter/image_size_getter.dart' as imagegetter;
 import 'package:path_provider/path_provider.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 
+void openMiniprogram(BuildContext context, String cid) {
+  Navigator.of(context).pushNamed("/open_miniprogram?cid=$cid");
+}
+
 // 字体缩放
 double fontSizeScale(double size) {
   return size * 1.0;
