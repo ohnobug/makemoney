@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>双向通信小程序</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+          sans-serif;
+        padding: 15px;
+        line-height: 1.6;
+      }
+      button {
+        display: block;
+        width: 90%;
+        max-width: 400px;
+        padding: 12px;
+        margin-bottom: 10px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        background-color: #f0f0f0;
+        cursor: pointer;
+      }
+      button:active {
+        background-color: #ddd;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+      .message-box {
+        margin-top: 20px;
+        padding: 15px;
+        border: 2px solid blue;
+        border-radius: 8px;
+        background-color: #f0f8ff;
+      }
+      #flutterMessageContainer {
+        color: blue;
+        font-weight: bold;
+        white-space: pre-wrap; /* 保持 JSON 格式 */
+        word-break: break-all;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>你好, Flutter! 这是一个双向通信演示</h1>
+    <img style="width: 300px" src="1.jpg" />
+    <br />
+
+    <h3>H5 -> Flutter (发送信号给App)</h3>
+    <!-- 按钮 1: 发送简单文本消息 -->
+    <button onclick="sendSimpleMessage()">发送 "Hello" 信号</button>
+    <!-- 按钮 2: 发送一个 JSON 字符串，用于传递复杂数据 -->
+    <button onclick="sendJsonMessage()">发送用户数据 (JSON)</button>
+    <!-- 按钮 3: 发送关闭信号 -->
+    <button onclick="sendCloseSignal()">发送关闭指令</button>
+    <!-- 按钮 4: 发送显示信息的信号 -->
+    <button onclick="sendShowInfoSignal()">请求 App 显示更多信息</button>
+    <br />
+
+    <!-- START: 新增用于接收 Flutter 消息的区域 -->
+    <div class="message-box">
+      <h3>Flutter -> H5 (接收来自App的信号)</h3>
+      <!-- 这个 <p> 标签将用于显示 Flutter 发来的消息 -->
+      <p id="flutterMessageContainer">等待 App 发送消息...</p>
+    </div>
+    <!-- END: 新增区域 -->
+
+    <script>
+      // ==========================================================
+      // START: 新增一个全局函数，用于接收 Flutter 发来的消息
+      // ==========================================================
+      window.flutterToJsMessageReceiver = function (message) {
+        console.log("收到了来自 Flutter 的消息: ", message);
+        const container = document.getElementById("flutterMessageContainer");
+        if (container) {
+          try {
+            // 尝试解析 JSON，如果成功，就格式化显示
+            const jsonObj = JSON.parse(message);
+            container.textContent = JSON.stringify(jsonObj, null, 2);
+          } catch (e) {
+            // 如果不是 JSON，就直接显示原始字符串
+            container.textContent = message;
+          }
+        }
+      };
+      // ==========================================================
+      // END: 新增函数
+      // ==========================================================
+
+      // 以下是你已有的代码，用于 H5 -> Flutter 的通信
+      if (window.AppBridge) {
+        function sendSimpleMessage() {
+          window.AppBridge.postMessage("Hello from H5!");
+        }
+
+        function sendJsonMessage() {
+          const userData = {
+            userId: "12345",
+            name: "LJN",
+            isVip: true,
+          };
+          window.AppBridge.postMessage(JSON.stringify(userData));
+        }
+
+        function sendCloseSignal() {
+          window.AppBridge.postMessage("close_miniprogram");
+        }
+
+        function sendShowInfoSignal() {
+          window.AppBridge.postMessage("show_info");
+        }
+      } else {
+        console.log(
+          "AppBridge is not available. Running in a standard browser."
+        );
+        // 在普通浏览器中禁用按钮或提示用户
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach((button) => {
+          // button.disabled = true;
+        });
+      }
+    </script>
+  </body>
+</html>
