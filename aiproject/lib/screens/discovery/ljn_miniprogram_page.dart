@@ -18,7 +18,7 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
 // 定义IPFS网关和本地服务器端口
-const String ipfsGateway = 'https://dweb.link/ipfs/';
+const String ipfsGateway = 'https://yellow-capable-snipe-8.mypinata.cloud/ipfs/';
 const int serverPort = 9413; // 使用一个固定的、不常用的端口
 
 class LJNMiniProgram extends StatefulWidget {

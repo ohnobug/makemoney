@@ -149,11 +149,6 @@ final RegExp emojiRegex = RegExp(
   unicode: true,
 );
 
-// 打开小程序
-void openMiniprogram(BuildContext context, String cid) {
-  Navigator.of(context).pushNamed("/open_miniprogram?cid=$cid");
-}
-
 // 随机人名
 String mockName() {
   List<String> names = [

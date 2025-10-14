@@ -56,22 +56,22 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/zhihuixiangji.jpg",
         title: "智慧相机",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/haimianbaobao.jpg",
         title: "海绵宝宝",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/taowuyou.jpg",
         title: "淘无忧",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/wangzheyingdi.jpg",
         title: "王者营地",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
     ];
 
@@ -79,52 +79,52 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/duitang.jpg",
         title: "堆糖",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
         title: "天空阅读器",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/qishuwang.jpg",
         title: "奇书网",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/xueyouyoujiao.jpg",
         title: "学有优教",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/haiziwang.jpg",
         title: "孩子王",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/qianbixiaoshuo.jpg",
         title: "铅笔小说",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/chengquanshipin.jpg",
         title: "成全视频",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/xiaomishangcheng.jpg",
         title: "小米商城",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/meituxiuxiu.jpg",
         title: "美图秀秀",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _FunctionButtonData(
         icon: "$cdnBase/miniprogram_icon/luobokuaipao.jpg",
         title: "萝卜快跑",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
     ];
 
@@ -133,25 +133,25 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
         friendName: "粤童年",
         message: "今天天气真好，阳光明媚，让人心情愉悦。",
         avatar: "$cdnBase/miniprogram_icon/yuetongnianruanjian.jpg",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _ChatListItemData(
         friendName: '起点中文',
         message: "[图片]",
         avatar: "$cdnBase/miniprogram_icon/qidianzhongwen.jpg",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _ChatListItemData(
         friendName: "野花香电视剧",
         message: "这个怎么样调试?",
         avatar: "$cdnBase/miniprogram_icon/yehuaxiangdianshiju.jpg",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _ChatListItemData(
         friendName: "韵镖侠",
         message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
         avatar: "$cdnBase/miniprogram_icon/yunbiaoxia.jpg",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
     ];
 
@@ -160,25 +160,25 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
         friendName: "蘑菇云游",
         message: "今天天气真好，阳光明媚，让人心情愉悦。",
         avatar: "$cdnBase/miniprogram_icon/moguyunyou.jpg",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _ChatListItemData(
         friendName: '美图秀秀',
         message: "[图片]",
         avatar: "$cdnBase/miniprogram_icon/meituxiuxiu.jpg",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _ChatListItemData(
         friendName: "百度翻译",
         message: "这个怎么样调试?",
         avatar: "$cdnBase/miniprogram_icon/baidufanyi.jpg",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
       _ChatListItemData(
         friendName: "淘无忧",
         message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
         avatar: "$cdnBase/miniprogram_icon/taowuyou.jpg",
-        cid: "QmcZEcbSQ7Dtiaf1rYtgVgiguy4MeXkhzJ2ZjczsAoPC7J",
+        cid: "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
       ),
     ];
   }
