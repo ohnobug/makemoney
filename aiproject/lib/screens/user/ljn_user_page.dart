@@ -263,7 +263,9 @@ class _LJNUserPageState extends State<LJNUserPage>
       LJNUserFunctionButton(
         icon: "$cdnBase/icon/server_icon16.png",
         title: "浏览历史",
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/payment_demo');
+        },
       ),
       LJNUserFunctionButton(
         icon: "$cdnBase/icon/server_icon14.png",

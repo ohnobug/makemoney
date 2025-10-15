@@ -1,0 +1,88 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/store/ljn_payment_cubit.dart';
+import 'ljn_payment_primary_button.dart';
+
+class LJNSelectPaymentSheet extends StatelessWidget {
+  const LJNSelectPaymentSheet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return BlocBuilder<LJNPaymentCubit, LJNPaymentState>(
+      builder: (context, state) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 32.w),
+          decoration: BoxDecoration(
+            color: theme.cardColor,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: 24.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const SizedBox(width: 48),
+                  Text("选择支付方式", style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
+                  IconButton(icon: const Icon(Icons.close), onPressed: () => Navigator.pop(context)),
+                ],
+              ),
+              SizedBox(height: 40.h),
+              _buildMethodTile(
+                context,
+                icon: Icons.payment,
+                title: 'Vigaviga',
+                isSelected: state.selectedMethod == LJNPaymentMethod.alipay,
+                onTap: () => context.read<LJNPaymentCubit>().selectMethod(LJNPaymentMethod.alipay),
+              ),
+              Divider(height: 1.h, color: theme.dividerColor),
+              _buildMethodTile(
+                context,
+                icon: Icons.credit_card,
+                title: '花呗分期',
+                isSelected: state.selectedMethod == LJNPaymentMethod.huabei,
+                onTap: () => context.read<LJNPaymentCubit>().selectMethod(LJNPaymentMethod.huabei),
+              ),
+              SizedBox(height: 60.h),
+              LJNPaymentPrimaryButton(
+                text: '确认',
+                backgroundColor: const Color(0xFFE54335),
+                onPressed: () {
+                  context.read<LJNPaymentCubit>().moveToConfirm();
+                  Navigator.pop(context, true);
+                },
+              ),
+              SizedBox(height: MediaQuery.of(context).padding.bottom + 20.h),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildMethodTile(BuildContext context, {required IconData icon, required String title, required bool isSelected, required VoidCallback onTap}) {
+    final theme = Theme.of(context);
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 24.h),
+        child: Row(
+          children: [
+            Icon(icon, color: theme.primaryColor, size: 48.w),
+            SizedBox(width: 20.w),
+            Expanded(child: Text(title, style: theme.textTheme.bodyLarge)),
+            Icon(
+              isSelected ? Icons.check_circle : Icons.radio_button_unchecked,
+              color: isSelected ? theme.primaryColor : Colors.grey,
+              size: 40.w,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

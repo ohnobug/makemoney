@@ -15,7 +15,9 @@
       "Bash(bash update_router_classes.sh)",
       "Bash(bash update_router_imports.sh)",
       "Bash(bash global_class_replace.sh)",
-      "Bash(timeout 300 bash global_class_replace.sh)"
+      "Bash(timeout 300 bash global_class_replace.sh)",
+      "Bash(mkdir -p \"lib/features/payment/screens\" \"lib/features/payment/widgets\")",
+      "Bash(mkdir -p \"lib/features/payment/screens\" \"lib/features/payment/widgets\" \"lib/store\")"
     ],
     "deny": [],
     "ask": []

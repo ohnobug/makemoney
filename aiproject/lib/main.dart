@@ -8,6 +8,7 @@ import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/app.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_user_cubit.dart';
+import 'package:vigaviga/store/ljn_payment_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,5 +40,6 @@ void main() async {
     BlocProvider(create: (_) => LJNSystemCubit()),
     BlocProvider(create: (_) => LJNUserCubit()),
     BlocProvider(create: (_) => LJNPopupCubit()),
+    BlocProvider(create: (_) => LJNPaymentCubit()),
   ], child: const App()));
 }
