@@ -127,11 +127,7 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
 
   void _handleMessageFromJs(dynamic messageData) {
     logger.info('成功接收到 H5 的信号: $messageData');
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-          content: Text("来自小程序的信号: $messageData"),
-          backgroundColor: Colors.green),
-    );
+
     try {
       final data = messageData is String
           ? jsonDecode(messageData)
@@ -141,6 +137,12 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
         _handlePaymentRequest(data['amount']);
       } else {
         logger.info('接收到未知的JSON指令: $action');
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text("来自小程序的信号: $messageData"),
+              backgroundColor: Colors.green),
+        );
       }
     } catch (e) {
       final message = messageData.toString();
