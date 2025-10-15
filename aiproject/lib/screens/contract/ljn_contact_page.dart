@@ -32,7 +32,6 @@ class _LJNContactState extends State<LJNContactPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<LJNSystemCubit>().updateHomescrollpixels(0);
       context.read<LJNSystemCubit>().updateShowMiniProgramDrawer(false);
-      context.read<LJNSystemCubit>().updateMainpage2isload(true);
     });
   }
 

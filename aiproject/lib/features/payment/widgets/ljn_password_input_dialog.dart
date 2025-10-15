@@ -18,7 +18,8 @@ class _LJNPasswordInputDialogState extends State<LJNPasswordInputDialog> {
 
   void _onNumpadPress(String value) {
     if (value == 'del') {
-      if (_pin.isNotEmpty) setState(() => _pin = _pin.substring(0, _pin.length - 1));
+      if (_pin.isNotEmpty)
+        setState(() => _pin = _pin.substring(0, _pin.length - 1));
     } else if (_pin.length < 6) {
       setState(() => _pin += value);
       if (_pin.length == 6) {
@@ -45,6 +46,8 @@ class _LJNPasswordInputDialogState extends State<LJNPasswordInputDialog> {
       },
       builder: (context, state) {
         return Scaffold(
+          primary: false,
+          appBar: null,
           backgroundColor: Colors.black.withAlpha(128),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -54,7 +57,8 @@ class _LJNPasswordInputDialogState extends State<LJNPasswordInputDialog> {
                 padding: EdgeInsets.symmetric(vertical: 24.h),
                 decoration: BoxDecoration(
                   color: theme.cardColor,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(24.r)),
                 ),
                 child: Column(
                   children: [
@@ -62,7 +66,9 @@ class _LJNPasswordInputDialogState extends State<LJNPasswordInputDialog> {
                       padding: EdgeInsets.symmetric(horizontal: 24.w),
                       child: Row(
                         children: [
-                          IconButton(icon: const Icon(Icons.close), onPressed: () => Navigator.pop(context)),
+                          IconButton(
+                              icon: const Icon(Icons.close),
+                              onPressed: () => Navigator.pop(context)),
                           const Spacer(),
                           Text("请输入支付密码", style: theme.textTheme.titleMedium),
                           const Spacer(),
@@ -71,7 +77,8 @@ class _LJNPasswordInputDialogState extends State<LJNPasswordInputDialog> {
                       ),
                     ),
                     SizedBox(height: 20.h),
-                    Text("金额: ${state.paymentAmount.toStringAsFixed(2)}元", style: theme.textTheme.bodyMedium),
+                    Text("金额: ${state.paymentAmount.toStringAsFixed(2)}元",
+                        style: theme.textTheme.bodyMedium),
                     SizedBox(height: 40.h),
                     LJNPincodeField(
                       pin: _pin,
