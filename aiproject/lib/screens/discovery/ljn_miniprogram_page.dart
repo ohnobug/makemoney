@@ -14,6 +14,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
+import 'package:vigaviga/tools/ljn_payment_launcher.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
 const String ipfsGateway =
@@ -155,37 +156,10 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
 
   void _handlePaymentRequest(dynamic amount) {
     logger.shout('接收到支付请求，金额: $amount');
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('支付确认'),
-          content: Text('您确定要支付 ¥$amount 元吗？'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('取消'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                final result = {'status': 'cancelled'};
-                _webViewController?.evaluateJavascript(
-                    source:
-                        'window.dispatchEvent(new CustomEvent("paymentResult", { detail: ${jsonEncode(result)} }));');
-              },
-            ),
-            TextButton(
-              child: const Text('确认支付'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                final result = {'status': 'success', 'amount': amount};
-                _webViewController?.evaluateJavascript(
-                    source:
-                        'window.dispatchEvent(new CustomEvent("paymentResult", { detail: ${jsonEncode(result)} }));');
-              },
-            ),
-          ],
-        );
-      },
+    LJNPaymentLauncher.startPaymentFlow(
+      context,
+      amount: amount,
+      merchantName: '高级会员服务',
     );
   }
 
