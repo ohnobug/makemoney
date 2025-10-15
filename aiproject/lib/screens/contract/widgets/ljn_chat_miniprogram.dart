@@ -203,7 +203,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "堆糖",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -212,7 +212,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "天空阅读器",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                 ],
@@ -224,7 +224,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                 rightWidget: GestureDetector(
                                   onTap: () {
                                     openMiniprogram(context,
-                                        "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                        "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                   },
                                   child: Text.rich(
                                     TextSpan(
@@ -270,7 +270,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "堆糖",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -279,7 +279,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "天空阅读器",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -288,7 +288,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "奇书网",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -297,7 +297,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "学有优教",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -306,7 +306,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "孩子王",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -315,7 +315,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "铅笔小说",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -324,7 +324,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "成全视频",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -333,7 +333,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "小米商城",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                 ],
@@ -349,7 +349,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "堆糖",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -358,7 +358,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "天空阅读器",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -367,7 +367,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "奇书网",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -376,7 +376,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "学有优教",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -385,7 +385,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "成全视频",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -394,7 +394,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "小米商城",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -403,7 +403,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "美图秀秀",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                   LJNMiniprogramButton(
@@ -412,7 +412,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                     title: "萝卜快跑",
                                     onPressed: () {
                                       openMiniprogram(context,
-                                          "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                 ],

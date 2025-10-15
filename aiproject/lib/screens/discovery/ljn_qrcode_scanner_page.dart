@@ -103,7 +103,7 @@ class _LJNQRCodeScannerState extends State<LJNQRCodeScanner> {
         if (barcodes.length == 1) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             openMiniprogram(
-                context, "bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy");
+                context, "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
           });
         }
       }

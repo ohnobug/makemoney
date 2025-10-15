@@ -1,33 +1,28 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
+import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-import 'package:shelf/shelf.dart' as shelf;
-import 'package:shelf/shelf_io.dart' as shelf_io;
-import 'package:shelf_static/shelf_static.dart' as shelf_static;
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 
-// 定义IPFS网关和本地服务器端口
-const String ipfsGateway = 'https://yellow-capable-snipe-8.mypinata.cloud/ipfs/';
-const int serverPort = 9413; // 使用一个固定的、不常用的端口
+const String ipfsGateway =
+    'https://amaranth-quiet-perch-930.mypinata.cloud/ipfs/';
+const String miniAppVirtualDomain = 'mp.vigaviga.com';
 
 class LJNMiniProgram extends StatefulWidget {
   final String cid;
-
-  const LJNMiniProgram({
-    super.key,
-    required this.cid,
-  });
+  const LJNMiniProgram({super.key, required this.cid});
 
   @override
   State<LJNMiniProgram> createState() => _LJNMiniProgramState();
@@ -35,15 +30,12 @@ class LJNMiniProgram extends StatefulWidget {
 
 class _LJNMiniProgramState extends State<LJNMiniProgram>
     with SingleTickerProviderStateMixin {
-  // 使用 shelf 包来管理 HttpServer
-  HttpServer? _server;
-  late final WebViewController _webViewController;
-
-  // Lottie 动画控制器
+  InAppWebViewController? _webViewController;
+  Directory? _miniAppDirectory;
+  late final String _virtualDomainForThisApp;
   late final AnimationController _lottieController;
 
-  // 状态管理
-  bool _isWebViewReady = false;
+  bool _isResourcesReady = false;
   String? _errorMessage;
   bool get _isLoading => !_lottieController.isCompleted;
   int _flutterMessageCounter = 0;
@@ -51,14 +43,14 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
   @override
   void initState() {
     super.initState();
+    _virtualDomainForThisApp = 'https://${widget.cid}.$miniAppVirtualDomain';
     _initLotties();
-    _initializeAndStartServer();
+    _prepareMiniAppResources();
   }
 
   @override
   void dispose() {
     _lottieController.dispose();
-    _stopServer();
     super.dispose();
   }
 
@@ -72,27 +64,14 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
     });
   }
 
-  /// 统一的初始化流程: 下载/准备文件 -> 启动服务器 -> 初始化WebView
-  Future<void> _initializeAndStartServer() async {
+  Future<void> _prepareMiniAppResources() async {
     try {
       if (widget.cid.isEmpty) throw Exception("小程序链接不能为空");
-
-      // 1. 准备小程序文件目录（下载或使用缓存）
-      final miniAppDir = await _prepareMiniAppDirectory(widget.cid);
-
-      // 2. 启动本地服务器，为准备好的文件提供服务
-      await _startServer(miniAppDir.path);
-
-      // 3. 初始化 WebView 控制器并设置通信桥梁
-      _initializeWebViewController();
-
-      // 4. 更新UI，让WebView加载服务器地址
+      _miniAppDirectory = await _prepareMiniAppDirectory(widget.cid);
       if (mounted) {
         setState(() {
-          _isWebViewReady = true;
+          _isResourcesReady = true;
         });
-        _webViewController
-            .loadRequest(Uri.parse('http://localhost:$serverPort'));
       }
     } catch (e) {
       logger.severe('初始化小程序失败: $e');
@@ -104,7 +83,6 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
     }
   }
 
-  /// 准备小程序目录
   Future<Directory> _prepareMiniAppDirectory(String cid) async {
     final appDir = await getApplicationDocumentsDirectory();
     final miniAppDir = Directory(p.join(appDir.path, 'mini_programs', cid));
@@ -124,144 +102,6 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
     return miniAppDir;
   }
 
-  /// 启动 Shelf 静态文件服务器
-  Future<void> _startServer(String documentRoot) async {
-    await _stopServer(); // 先确保旧的服务器已关闭
-    final handler = shelf_static.createStaticHandler(
-      documentRoot,
-      defaultDocument: 'index.html',
-    );
-    final pipeline = const shelf.Pipeline().addHandler(handler);
-    _server = await shelf_io.serve(pipeline, 'localhost', serverPort);
-    logger.shout('Shelf server running on http://localhost:$serverPort');
-  }
-
-  /// 停止服务器
-  Future<void> _stopServer() async {
-    await _server?.close(force: true);
-    _server = null;
-    logger.info("Server stopped.");
-  }
-
-  /// 初始化 WebView 控制器，并设置双向通信
-  void _initializeWebViewController() {
-    _webViewController = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..addJavaScriptChannel(
-        'AppBridge',
-        onMessageReceived: (JavaScriptMessage message) {
-          logger.info('成功接收到 H5 的信号: ${message.message}');
-          // 【核心修改】将所有消息分发到中央处理器
-          _handleMessageFromJs(message.message);
-        },
-      )
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            if (!_lottieController.isAnimating &&
-                !_lottieController.isCompleted) {
-              _lottieController.value = (progress / 100) * 0.8;
-            }
-          },
-          onPageFinished: (String url) {
-            logger.info("页面加载完成: $url");
-            _lottieController
-              ..duration = const Duration(milliseconds: 600)
-              ..forward();
-          },
-          onWebResourceError: (WebResourceError error) {
-            logger.severe("WebView 资源错误: ${error.description}");
-            if (mounted) {
-              setState(() {
-                _errorMessage = "资源加载失败: ${error.description}";
-              });
-            }
-          },
-        ),
-      );
-  }
-
-  // ==========================================================
-  // START: 新增的核心消息处理逻辑
-  // ==========================================================
-  void _handleMessageFromJs(String message) {
-    // 首先展示一个 SnackBar 作为即时反馈
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-          content: Text("来自小程序的信号: $message"), backgroundColor: Colors.green),
-    );
-
-    try {
-      // 尝试将消息解析为 JSON 对象
-      final data = jsonDecode(message) as Map<String, dynamic>;
-      final action = data['action'];
-
-      // 判断 JSON 对象中的 action 字段
-      if (action == 'pay') {
-        final amount = data['amount'];
-        _handlePaymentRequest(amount);
-      } else {
-        // 可以处理其他基于JSON的复杂指令
-        logger.info('接收到未知的JSON指令: $action');
-      }
-    } catch (e) {
-      // 如果解析失败，说明是简单的字符串指令
-      if (message == 'close_miniprogram') {
-        Navigator.of(context).pop();
-      } else if (message == 'show_info') {
-        _showMiniprogramInfoModalSheet(context);
-      } else {
-        logger.warning('接收到未处理的字符串指令: $message');
-      }
-    }
-  }
-
-  /// 处理支付请求的函数
-  void _handlePaymentRequest(dynamic amount) {
-    logger.shout('接收到支付请求，金额: $amount');
-
-    // 弹出一个原生对话框，模拟支付确认流程
-    showDialog(
-      context: context,
-      barrierDismissible: false, // 用户必须点击按钮才能关闭
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('支付确认'),
-          content: Text('您确定要支付 ¥$amount 元吗？'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('取消'),
-              onPressed: () {
-                Navigator.of(context).pop(); // 关闭对话框
-                logger.info('用户取消了支付');
-                // 可选：通知H5支付已取消
-                _webViewController.runJavaScript('alert("支付已取消")');
-              },
-            ),
-            TextButton(
-              child: const Text('确认支付'),
-              onPressed: () {
-                Navigator.of(context).pop(); // 关闭对话框
-                // TODO: 在这里集成您真实的支付SDK
-                logger.shout('用户确认支付: $amount. 这里应该调用支付SDK...');
-
-                // 模拟支付成功后，通知H5
-                final result = {'status': 'success', 'amount': amount};
-                _webViewController.runJavaScript('alert("支付成功！金额: ¥$amount")');
-                _webViewController.runJavaScript(
-                    'flutterToJsMessageReceiver(${jsonEncode(result)})');
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  // ==========================================================
-  // END: 新增的核心消息处理逻辑
-  // ==========================================================
-
-  /// 下载并解压的逻辑 (不变)
   Future<void> _downloadAndUnzip(String url, Directory targetDir) async {
     if (!await targetDir.exists()) {
       await targetDir.create(recursive: true);
@@ -284,6 +124,71 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
     }
   }
 
+  void _handleMessageFromJs(dynamic messageData) {
+    logger.info('成功接收到 H5 的信号: $messageData');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+          content: Text("来自小程序的信号: $messageData"),
+          backgroundColor: Colors.green),
+    );
+    try {
+      final data = messageData is String
+          ? jsonDecode(messageData)
+          : Map<String, dynamic>.from(messageData);
+      final action = data['action'];
+      if (action == 'pay') {
+        _handlePaymentRequest(data['amount']);
+      } else {
+        logger.info('接收到未知的JSON指令: $action');
+      }
+    } catch (e) {
+      final message = messageData.toString();
+      if (message == 'close_miniprogram') {
+        Navigator.of(context).pop();
+      } else if (message == 'show_info') {
+        _showMiniprogramInfoModalSheet(context);
+      } else {
+        logger.warning('接收到未处理的字符串指令: $message');
+      }
+    }
+  }
+
+  void _handlePaymentRequest(dynamic amount) {
+    logger.shout('接收到支付请求，金额: $amount');
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('支付确认'),
+          content: Text('您确定要支付 ¥$amount 元吗？'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('取消'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                final result = {'status': 'cancelled'};
+                _webViewController?.evaluateJavascript(
+                    source:
+                        'window.dispatchEvent(new CustomEvent("paymentResult", { detail: ${jsonEncode(result)} }));');
+              },
+            ),
+            TextButton(
+              child: const Text('确认支付'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                final result = {'status': 'success', 'amount': amount};
+                _webViewController?.evaluateJavascript(
+                    source:
+                        'window.dispatchEvent(new CustomEvent("paymentResult", { detail: ${jsonEncode(result)} }));');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
@@ -291,11 +196,12 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
         return Scaffold(
           appBar: null,
           backgroundColor: AppColors.neutralGrey40,
-          // 【通信】: 添加按钮用于演示 Flutter -> H5
           floatingActionButton: !_isLoading && _errorMessage == null
               ? FloatingActionButton.extended(
                   onPressed: () {
-                    if (!_isWebViewReady) return;
+                    if (!_isResourcesReady || _webViewController == null) {
+                      return;
+                    }
                     _flutterMessageCounter++;
                     final messageData = {
                       "from": "Flutter App",
@@ -303,10 +209,8 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
                       "timestamp": DateTime.now().toIso8601String()
                     };
                     final jsonString = jsonEncode(messageData);
-
-                    // 使用 runJavaScript 调用 H5 中的全局函数
-                    _webViewController.runJavaScript(
-                        'flutterToJsMessageReceiver($jsonString)');
+                    _webViewController!.evaluateJavascript(
+                        source: 'flutterToJsMessageReceiver($jsonString)');
                     logger.info("已向 H5 发送消息: $jsonString");
                   },
                   icon: const Icon(Icons.send_to_mobile),
@@ -315,8 +219,91 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
               : null,
           body: Stack(
             children: [
-              if (_isWebViewReady && _errorMessage == null)
-                WebViewWidget(controller: _webViewController),
+              if (_isResourcesReady &&
+                  _errorMessage == null &&
+                  _miniAppDirectory != null)
+                InAppWebView(
+                  initialUrlRequest: URLRequest(
+                    url: WebUri(_virtualDomainForThisApp),
+                  ),
+                  initialSettings: InAppWebViewSettings(
+                    isInspectable: true,
+                    allowUniversalAccessFromFileURLs: true,
+                    allowFileAccessFromFileURLs: true,
+                    cacheEnabled: false,
+                    builtInZoomControls: false,
+                    displayZoomControls: false,
+                    horizontalScrollBarEnabled: false,
+                    verticalScrollBarEnabled: false,
+                  ),
+                  onWebViewCreated: (controller) {
+                    _webViewController = controller;
+                    controller.addJavaScriptHandler(
+                      handlerName: 'AppBridge',
+                      callback: (args) {
+                        if (args.isNotEmpty) {
+                          _handleMessageFromJs(args.first);
+                        }
+                      },
+                    );
+                  },
+                  onProgressChanged: (controller, progress) {
+                    if (!_lottieController.isAnimating &&
+                        !_lottieController.isCompleted) {
+                      _lottieController.value = (progress / 100) * 0.8;
+                    }
+                  },
+                  onLoadStop: (controller, url) {
+                    logger.info("页面加载完成: $url");
+                    _lottieController
+                      ..duration = const Duration(milliseconds: 600)
+                      ..forward();
+                  },
+                  shouldInterceptRequest: (controller, request) async {
+                    final Uri url = request.url;
+                    final Uri virtualDomainUri =
+                        Uri.parse(_virtualDomainForThisApp);
+                    if (url.host != virtualDomainUri.host ||
+                        url.scheme != 'https') {
+                      return null;
+                    }
+                    String requestPath = url.path;
+                    if (requestPath.isEmpty || requestPath == '/') {
+                      requestPath = '/index.html';
+                    }
+                    final localFilePath = p.join(
+                        _miniAppDirectory!.path, requestPath.substring(1));
+                    final file = File(localFilePath);
+                    if (await file.exists()) {
+                      final Uint8List data = await file.readAsBytes();
+                      final String mimeType = lookupMimeType(localFilePath) ??
+                          'application/octet-stream';
+                      logger.info(
+                          '拦截: ${url.toString()} -> 映射到本地: $localFilePath ($mimeType)');
+                      return WebResourceResponse(
+                        data: data,
+                        contentType: mimeType,
+                        contentEncoding: 'utf-8',
+                        headers: {'Access-Control-Allow-Origin': '*'},
+                      );
+                    } else {
+                      logger.severe('请求的文件未在本地找到: $localFilePath');
+                      return WebResourceResponse(
+                          statusCode: 404, reasonPhrase: 'Not Found');
+                    }
+                  },
+                  onReceivedError: (controller, request, error) {
+                    logger.severe("WebView 资源错误: ${error.description}");
+                    // =======================================================
+                    // 【FIX】The fix is applied here
+                    // =======================================================
+                    if (mounted && request.isForMainFrame == true) {
+                      setState(() {
+                        _errorMessage = "资源加载失败: ${error.description}";
+                      });
+                    }
+                  },
+                ),
               if (_errorMessage != null)
                 Center(
                   child: Container(
@@ -408,7 +395,6 @@ class _LJNMiniProgramState extends State<LJNMiniProgram>
     );
   }
 
-  /// 更多小程序信息 (您的代码)
   void _showMiniprogramInfoModalSheet(BuildContext context) {
     showModalBottomSheet<void>(
       context: context,

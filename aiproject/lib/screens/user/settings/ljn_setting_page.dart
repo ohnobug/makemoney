@@ -142,7 +142,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                           icon: "$cdnBase/icon/settings_09.png",
                           title: l10n.thirdPartyInfoSharingList,
                           link:
-                              "/open_miniprogram?cid=bafkreieukyqxqmv6v7uw3f5ygk7l34pgdthnngo72hqk6x5t7skqji4ecy",
+                              "/open_miniprogram?cid=bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi",
                           underline: false,
                         ),
                       ],
