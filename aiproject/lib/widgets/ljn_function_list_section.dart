@@ -1,10 +1,10 @@
 // --- 小程序列表项组 ---
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_text_spans.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 class LJNFunctionListSection extends StatelessWidget {
   final String title;
@@ -142,7 +142,7 @@ class _ChatListItemState extends State<LJNChatListItem> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(95).w,
-              child: CachedNetworkImage(
+              child: LJNAppNetworkImage(
                 imageUrl: widget.avatar,
                 width: 95.w,
                 height: 95.w,
@@ -162,7 +162,6 @@ class _ChatListItemState extends State<LJNChatListItem> {
                       height: 1.08,
                       fontSize: fontSizeScale(28.0.w),
                       color: theme.colorScheme.onSurface,
-                      
                     ),
                     emojiStyle: TextStyle(
                       height: 1.08,

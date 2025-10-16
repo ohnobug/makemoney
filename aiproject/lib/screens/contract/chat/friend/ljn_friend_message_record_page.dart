@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -109,7 +109,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecordPage> {
                             // 头像
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8).w,
-                              child: CachedNetworkImage(
+                              child: LJNAppNetworkImage(
                                 imageUrl: context
                                     .read<LJNUserCubit>()
                                     .state

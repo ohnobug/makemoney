@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vigaviga/themes.dart';
@@ -147,7 +147,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                   ),
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10.w),
-                                    child: CachedNetworkImage(
+                                    child: LJNAppNetworkImage(
                                       imageUrl: widget.avatar!,
                                       width: 120.w,
                                       height: 120.w,
@@ -289,7 +289,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      CachedNetworkImage(
+                                      LJNAppNetworkImage(
                                         imageUrl:
                                             '${systemState.cdnBase}/avatar/chat_81.jpg',
                                         width: 90.w,
@@ -299,7 +299,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                       SizedBox(
                                         width: 15.w,
                                       ),
-                                      CachedNetworkImage(
+                                      LJNAppNetworkImage(
                                         imageUrl:
                                             '${systemState.cdnBase}/avatar/chat_92.jpg',
                                         width: 90.w,
@@ -309,7 +309,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                       SizedBox(
                                         width: 15.w,
                                       ),
-                                      CachedNetworkImage(
+                                      LJNAppNetworkImage(
                                         imageUrl:
                                             '${systemState.cdnBase}/avatar/chat_93.jpg',
                                         width: 90.w,
@@ -319,7 +319,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                       SizedBox(
                                         width: 15.w,
                                       ),
-                                      CachedNetworkImage(
+                                      LJNAppNetworkImage(
                                         imageUrl:
                                             '${systemState.cdnBase}/avatar/chat_86.jpg',
                                         width: 90.w,
@@ -395,7 +395,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            CachedNetworkImage(
+                                            LJNAppNetworkImage(
                                               imageUrl:
                                                   '${systemState.cdnBase}/avatar/chat_55.jpg',
                                               width: 90.w,
@@ -405,7 +405,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                             SizedBox(
                                               width: 15.w,
                                             ),
-                                            CachedNetworkImage(
+                                            LJNAppNetworkImage(
                                               imageUrl:
                                                   '${systemState.cdnBase}/avatar/chat_43.jpg',
                                               width: 90.w,
@@ -415,7 +415,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                             SizedBox(
                                               width: 15.w,
                                             ),
-                                            CachedNetworkImage(
+                                            LJNAppNetworkImage(
                                               imageUrl:
                                                   '${systemState.cdnBase}/avatar/chat_96.jpg',
                                               width: 90.w,
@@ -425,7 +425,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                             SizedBox(
                                               width: 15.w,
                                             ),
-                                            CachedNetworkImage(
+                                            LJNAppNetworkImage(
                                               imageUrl:
                                                   '${systemState.cdnBase}/avatar/chat_97.jpg',
                                               width: 90.w,

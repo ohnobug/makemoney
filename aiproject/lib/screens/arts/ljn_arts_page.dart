@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -512,7 +512,6 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
       height: 1.4,
       fontSize: fontSizeScale(28.w),
       color: AppColors.neutralWhite,
-      
     );
 
     return Container(
@@ -527,17 +526,11 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ClipOval(
-                child: CachedNetworkImage(
+                child: LJNAppNetworkImage(
                   imageUrl: widget.avatarUrl,
                   width: 64.w,
                   height: 64.w,
                   fit: BoxFit.cover,
-                  placeholder: (context, url) =>
-                      Container(color: Colors.grey.shade300),
-                  errorWidget: (context, url, error) => Container(
-                    color: Colors.grey.shade300,
-                    child: const Icon(Icons.error),
-                  ),
                 ),
               ),
               SizedBox(width: 12.w),

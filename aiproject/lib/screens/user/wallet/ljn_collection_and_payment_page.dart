@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +6,7 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 class LJNCollectionAndPaymentPage extends StatefulWidget {
   const LJNCollectionAndPaymentPage({super.key});
@@ -177,7 +177,7 @@ class _LJNCollectionAndPaymentPageState
                             SizedBox(
                               height: 20.w,
                             ),
-                            CachedNetworkImage(
+                            LJNAppNetworkImage(
                               imageUrl:
                                   "${systemState.cdnBase}/avatar/linecode.png",
                               width: 630.0.w,
@@ -190,7 +190,7 @@ class _LJNCollectionAndPaymentPageState
                             SizedBox(
                               height: 400.w,
                               width: 750.w,
-                              child: CachedNetworkImage(
+                              child: LJNAppNetworkImage(
                                 imageUrl:
                                     "${systemState.cdnBase}/avatar/qrcode.png",
                                 width: 400.0.w,
@@ -574,7 +574,6 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                         style: TextStyle(
                           height: 1.08,
                           fontSize: fontSizeScale(32.0.w),
-                          
                           color: widget.color ?? AppColors.neutralWhite,
                         ),
                         maxLines: 1,

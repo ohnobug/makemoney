@@ -2,10 +2,10 @@
 
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // 用于剪贴板功能
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart'; // 用于Toast提示
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/screens/user/widgets/ljn_user_function_button.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
@@ -13,7 +13,7 @@ import 'package:vigaviga/store/ljn_user_cubit.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 class LJNUserPage extends StatefulWidget {
   const LJNUserPage({super.key});
@@ -289,16 +289,9 @@ class _LJNUserPageState extends State<LJNUserPage>
       child: Stack(
         children: [
           Positioned.fill(
-            child: CachedNetworkImage(
+            child: LJNAppNetworkImage(
               imageUrl: "https://picsum.photos/750/750?random=497",
               fit: BoxFit.cover,
-              placeholder: (context, url) => Container(
-                color: Colors.grey.shade300,
-              ),
-              errorWidget: (context, url, error) => Container(
-                color: Colors.grey.shade300,
-                child: const Icon(Icons.error),
-              ),
             ),
           ),
           Positioned.fill(
@@ -351,7 +344,7 @@ class _LJNUserPageState extends State<LJNUserPage>
                             child: BlocBuilder<LJNUserCubit, UserState>(
                               builder: (context, state) {
                                 final avatar = state.userinfoAvatar;
-                                return CachedNetworkImage(
+                                return LJNAppNetworkImage(
                                   imageUrl: (avatar == null || avatar.isEmpty)
                                       ? "${systemState.cdnBase}/avatar/default.png"
                                       : avatar,
@@ -477,9 +470,9 @@ class _LJNUserPageState extends State<LJNUserPage>
                           child: Text(
                             "个人资料",
                             style: TextStyle(
-                                fontSize: 26.w,
-                                fontWeight: FontWeight.normal,
-                                ),
+                              fontSize: 26.w,
+                              fontWeight: FontWeight.normal,
+                            ),
                           ),
                         )
                       ],
@@ -528,15 +521,9 @@ class _LJNUserPageState extends State<LJNUserPage>
         children: [
           // --- 背景图和遮罩 (与登录状态完全相同，保持一致性) ---
           Positioned.fill(
-            child: CachedNetworkImage(
+            child: LJNAppNetworkImage(
               imageUrl: "https://picsum.photos/750/750?random=497",
               fit: BoxFit.cover,
-              placeholder: (context, url) =>
-                  Container(color: Colors.grey.shade300),
-              errorWidget: (context, url, error) => Container(
-                color: Colors.grey.shade300,
-                child: const Icon(Icons.error),
-              ),
             ),
           ),
           Positioned.fill(
@@ -747,11 +734,10 @@ class _UserWorksGrid extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(height: 120.w),
-            CachedNetworkImage(
+            LJNAppNetworkImage(
               imageUrl: '${systemState.cdnBase}/imgs/no-content.webp',
               width: 200.w,
               height: 200.w,
-              color: Colors.grey.shade400,
             ),
             SizedBox(height: 30.w),
             Text(
@@ -811,25 +797,9 @@ class _UserWorksGrid extends StatelessWidget {
           return Stack(
             fit: StackFit.expand,
             children: [
-              CachedNetworkImage(
+              LJNAppNetworkImage(
                 imageUrl: items[index],
                 fit: BoxFit.cover,
-                placeholder: (context, url) => Container(
-                  color: Colors.grey.shade200,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2.0,
-                      color: Colors.grey.shade400,
-                    ),
-                  ),
-                ),
-                errorWidget: (context, url, error) => Container(
-                  color: Colors.grey.shade200,
-                  child: Icon(
-                    Icons.broken_image,
-                    color: Colors.grey.shade400,
-                  ),
-                ),
               ),
               Positioned(
                 bottom: 0,
@@ -840,7 +810,10 @@ class _UserWorksGrid extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
-                      colors: [Colors.black.withAlpha(156), Colors.transparent],
+                      colors: [
+                        Colors.black.withAlpha(156),
+                        Colors.transparent,
+                      ],
                     ),
                   ),
                   padding: EdgeInsets.fromLTRB(

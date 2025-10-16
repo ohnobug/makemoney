@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +5,7 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:vigaviga/widgets/ljn_text_spans.dart';
 
 class ChatListItem extends StatefulWidget {
@@ -98,7 +98,7 @@ class _ChatListItem extends State<ChatListItem> {
                     ClipRRect(
                       borderRadius:
                           BorderRadius.circular(widget.avatarRadius ?? 8.0.w),
-                      child: CachedNetworkImage(
+                      child: LJNAppNetworkImage(
                         imageUrl: widget.avatar,
                         width: 90.0.w,
                         height: 90.0.w,
@@ -148,7 +148,6 @@ class _ChatListItem extends State<ChatListItem> {
                                     color: widget.notice
                                         ? AppColors.accentRedPure
                                         : theme.colorScheme.onSurface,
-                                    
                                   ),
                                   emojiStyle: TextStyle(
                                     height: 1.08,

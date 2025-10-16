@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
@@ -60,7 +60,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8).w,
-                  child: CachedNetworkImage(
+                  child: LJNAppNetworkImage(
                     imageUrl: widget.friendAvatar,
                     width: 78.w,
                     height: 78.w,
@@ -134,7 +134,6 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                                 height: 1.25,
                                 fontSize: fontSizeScale(31.w),
                                 color: theme.colorScheme.onSurface,
-                                
                               ),
                             ),
                           ),

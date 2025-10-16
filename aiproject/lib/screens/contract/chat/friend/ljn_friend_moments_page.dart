@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +13,7 @@ import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_spans.dart';
 import 'package:vigaviga/widgets/ljn_text_spans.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 // 将背景动画控制器提升为全局变量，以便子组件在需要时可以访问。
 // 注意：虽然这样做可以解决问题，但在大型应用中通常建议通过更优雅的状态管理方式（如Provider或Bloc）来传递控制器。
@@ -393,7 +393,7 @@ class _LJNFriendmoments extends State<LJNFriendmomentsPage>
                   child: AnimatedBuilder(
                     animation: _bgController,
                     builder: (context, child) {
-                      return CachedNetworkImage(
+                      return LJNAppNetworkImage(
                         imageUrl: '${systemState.cdnBase}/avatar/fj.jpg',
                         width: 750.w,
                         height: _bgController.isCompleted
@@ -443,7 +443,7 @@ class _LJNFriendmoments extends State<LJNFriendmomentsPage>
                           ),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10).w,
-                            child: CachedNetworkImage(
+                            child: LJNAppNetworkImage(
                               imageUrl: context
                                   .read<LJNUserCubit>()
                                   .state
@@ -675,7 +675,7 @@ class _TweetWidgetState extends State<TweetWidget> {
             // 头像
             ClipRRect(
               borderRadius: BorderRadius.circular(10).w,
-              child: CachedNetworkImage(
+              child: LJNAppNetworkImage(
                 imageUrl: widget.avatarUrl,
                 width: 77.w,
                 height: 77.w,

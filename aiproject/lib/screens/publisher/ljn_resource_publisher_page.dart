@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 // 数据模型
 class ModelItem {
@@ -231,14 +231,10 @@ class _ModelSearchPageState extends State<LJNResourceSearchPage> {
             child: Stack(
               children: [
                 SizedBox.expand(
-                  child: CachedNetworkImage(
+                  child: LJNAppNetworkImage(
                     imageUrl: item.imageUrl,
                     fit: BoxFit.cover,
                     fadeInDuration: const Duration(milliseconds: 500),
-                    placeholder: (context, url) =>
-                        Container(color: Colors.grey[200]),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
                   ),
                 ),
                 Positioned(

@@ -1,9 +1,9 @@
 // 功能列表
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 class LJNFunctionItem extends StatefulWidget {
   final String? icon;
@@ -134,7 +134,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                     ).w,
                 child: ClipRRect(
                   borderRadius: BorderRadiusGeometry.circular(25.w),
-                  child: CachedNetworkImage(
+                  child: LJNAppNetworkImage(
                     imageUrl: widget.icon!,
                     width: 50.w,
                     height: 50.w,
@@ -174,7 +174,6 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: fontSizeScale(32.0.w),
-                                  
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,

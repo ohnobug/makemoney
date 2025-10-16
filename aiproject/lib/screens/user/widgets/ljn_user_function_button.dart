@@ -1,11 +1,11 @@
 // /lib/screens/user/widgets/ljn_user_function_button.dart
 
 // 用户中心专用
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 class LJNUserFunctionButton extends StatefulWidget {
   final String icon;
@@ -80,7 +80,7 @@ class LJNUserFunctionButtonState extends State<LJNUserFunctionButton> {
           children: [
             SizedBox(height: 15.w),
             // 图标
-            CachedNetworkImage(
+            LJNAppNetworkImage(
               imageUrl: widget.icon,
               width: 65.w,
               height: 65.w,

@@ -1,10 +1,10 @@
 // 功能列表
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 class LJNChangeDetailItem extends StatefulWidget {
   final String icon;
@@ -111,7 +111,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
             // 头像
             ClipRRect(
               borderRadius: BorderRadius.circular(85.0.w),
-              child: CachedNetworkImage(
+              child: LJNAppNetworkImage(
                 imageUrl: widget.icon,
                 width: 86.0.w,
                 height: 86.0.w,

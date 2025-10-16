@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -91,7 +91,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8).w,
-                                  child: CachedNetworkImage(
+                                  child: LJNAppNetworkImage(
                                     imageUrl:
                                         '${systemState.cdnBase}/avatar/chat_20.jpg'
                                             .toString(),
@@ -127,7 +127,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8).w,
-                                  child: CachedNetworkImage(
+                                  child: LJNAppNetworkImage(
                                     imageUrl:
                                         '${systemState.cdnBase}/avatar/chat_21.jpg',
                                     width: 105.w,
@@ -162,7 +162,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8).w,
-                                  child: CachedNetworkImage(
+                                  child: LJNAppNetworkImage(
                                     imageUrl:
                                         '${systemState.cdnBase}/avatar/chat_25.jpg',
                                     width: 105.w,
@@ -197,7 +197,7 @@ class _LJNGroupMessageRecord extends State<LJNGroupMessageRecordPage> {
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8).w,
-                                  child: CachedNetworkImage(
+                                  child: LJNAppNetworkImage(
                                     imageUrl:
                                         "${systemState.cdnBase}/avatar/chat_28.jpg",
                                     width: 105.w,

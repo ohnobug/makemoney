@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:flutter/material.dart';
 
 // --- Data Model for LoRA ---
@@ -230,20 +230,11 @@ class _LoRASettingsPageState extends State<LoRASettingsPage> {
           const Text(
             '一键生成',
             style: TextStyle(
-                fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+              fontSize: 18,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          /*  const SizedBox(width: 8),
-          const Icon(Icons.flash_on, color: Colors.yellow, size: 20),
-          const SizedBox(width: 4), */
-          /*  Text(
-            '11',
-            style:
-                TextStyle(fontSize: 16, color: Colors.white.withOpacity(0.8)),
-          ), */
-          /* const Text(
-            ' 22',
-            style: TextStyle(fontSize: 16, color: Colors.grey.shade400),
-          ), */
         ],
       ),
     );
@@ -310,7 +301,7 @@ class _LoRAItemState extends State<LoRAItem> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: CachedNetworkImage(
+                child: LJNAppNetworkImage(
                   imageUrl: widget.lora.imagePath,
                   fit: BoxFit.cover,
                 ),
@@ -327,7 +318,7 @@ class _LoRAItemState extends State<LoRAItem> {
                 ),
                 child: Stack(
                   children: [
-                    CachedNetworkImage(
+                    LJNAppNetworkImage(
                       imageUrl: widget.lora.imagePath,
                       fit: BoxFit.cover,
                       width: double.infinity,

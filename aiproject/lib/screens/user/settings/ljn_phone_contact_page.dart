@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
@@ -12,6 +11,7 @@ import 'package:vigaviga/widgets/ljn_add_button.dart';
 import 'package:vigaviga/widgets/ljn_custom_physics.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/widgets/ljn_text_spans.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 class LJNPhoneContactPage extends StatefulWidget {
   const LJNPhoneContactPage({super.key});
@@ -509,7 +509,7 @@ class _ContactListItem extends State<ContactListItem> {
           // 头像
           ClipRRect(
             borderRadius: BorderRadius.circular(8).w,
-            child: CachedNetworkImage(
+            child: LJNAppNetworkImage(
               imageUrl: widget.avatar,
               width: 90.w,
               height: 90.w,
@@ -563,7 +563,6 @@ class _ContactListItem extends State<ContactListItem> {
                                   height: 1.08,
                                   fontSize: fontSizeScale(32.0.w),
                                   color: theme.colorScheme.onSurface,
-                                  
                                 ),
                                 emojiStyle: TextStyle(
                                   height: 1.08,

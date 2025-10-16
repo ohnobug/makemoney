@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:flutter/material.dart';
 
 class LJNVideoPublishPageState extends StatefulWidget {
@@ -59,7 +59,7 @@ class LJNVideoPublishPage extends State<LJNVideoPublishPageState> {
                                 height: MediaQuery.of(context).size.width * 0.8,
                                 color: Colors.grey[300],
                                 child: _selectedThumbnail.isNotEmpty
-                                    ? CachedNetworkImage(
+                                    ? LJNAppNetworkImage(
                                         imageUrl: _selectedThumbnail,
                                         width: 40,
                                         height: 40,
@@ -323,7 +323,7 @@ class LJNVideoPublishPage extends State<LJNVideoPublishPageState> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
-              child: CachedNetworkImage(
+              child: LJNAppNetworkImage(
                 imageUrl: imagePath,
                 fit: BoxFit.cover,
               ),

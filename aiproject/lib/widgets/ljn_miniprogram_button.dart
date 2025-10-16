@@ -1,11 +1,11 @@
 // /lib/widgets/ljn_miniprogram_button.dart
 
 // 小程序按钮
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 class LJNMiniprogramButton extends StatefulWidget {
   final String icon;
@@ -81,7 +81,7 @@ class LJNMiniprogramButtonState extends State<LJNMiniprogramButton> {
             SizedBox(height: 20.w), // 可以增加一个顶部的内边距，让图标和按钮顶部有一点距离
             ClipRRect(
                 borderRadius: BorderRadius.circular(10).w,
-                child: CachedNetworkImage(
+                child: LJNAppNetworkImage(
                   imageUrl: widget.icon,
                   width: 75.w,
                   height: 75.w,

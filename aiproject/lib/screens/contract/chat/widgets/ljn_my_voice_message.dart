@@ -1,6 +1,5 @@
 import 'dart:io';
-
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
@@ -215,7 +214,7 @@ class _LJNMyMessage extends State<LJNMyVoiceMessage>
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8).w,
-                  child: CachedNetworkImage(
+                  child: LJNAppNetworkImage(
                     imageUrl:
                         context.read<LJNUserCubit>().state.userinfoAvatar!,
                     width: 78.w,

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -42,14 +42,18 @@ class ImageInfo {
 }
 
 // 生成二维数组，每个数字都是1到64之间的随机数
-List<List<ImageInfo>> generateRandomImageList(int rows, int cols) {
+List<List<ImageInfo>> generateRandomImageList(
+  String cdnBase,
+  int rows,
+  int cols,
+) {
   final random = Random();
   return List.generate(rows, (i) {
     return List.generate(cols, (j) {
       return ImageInfo(
         id: random.nextInt(1000),
         isPics: j == 0 ? false : true,
-        source: '/ins/${random.nextInt(52)}.jpg',
+        source: '$cdnBase/ins/${random.nextInt(52)}.jpg',
         url: '/insdetail',
       );
     });
@@ -67,9 +71,11 @@ class _LJNIns extends State<LJNInsPage> {
   @override
   void initState() {
     super.initState();
-    mylist = generateRandomImageList(1000, 5);
-    _scrollController.addListener(_scrollListener);
+
     var systemCubit = context.read<LJNSystemCubit>();
+
+    mylist = generateRandomImageList(systemCubit.state.cdnBase, 1000, 5);
+    _scrollController.addListener(_scrollListener);
 
     String cdnBase = systemCubit.state.cdnBase;
     _bigimgcontroller = VideoPlayerController.networkUrl(
@@ -808,7 +814,7 @@ class _LJNIns extends State<LJNInsPage> {
                                         borderRadius:
                                             BorderRadius.circular(20.w), // 圆角图片
                                         child: bigImgInfo?.isPics == true
-                                            ? CachedNetworkImage(
+                                            ? LJNAppNetworkImage(
                                                 imageUrl: bigImgInfo!.source,
                                                 fit: BoxFit.cover,
                                               )
@@ -1205,7 +1211,7 @@ class _BigImageBox extends State<BigImageBox> {
             height: 500.w,
             color: AppColors.neutralGrey2,
             child: show
-                ? CachedNetworkImage(
+                ? LJNAppNetworkImage(
                     width: (750.w - 2.w) / 3,
                     height: 500.w,
                     fit: BoxFit.cover,
@@ -1319,7 +1325,7 @@ class _SmallImageBox extends State<SmallImageBox> {
             height: (500.w - 1.w) / 2,
             color: AppColors.neutralGrey2,
             child: show
-                ? CachedNetworkImage(
+                ? LJNAppNetworkImage(
                     width: (750.w - 2.w) / 3,
                     height: (500.w - 1.w) / 2,
                     imageUrl: widget.image,
@@ -1471,7 +1477,7 @@ class _VideoBox2 extends State<VideoBox2> {
                 ? (_controller != null && _controller!.value.isInitialized
                     ? FittedBox(
                         clipBehavior: Clip.hardEdge,
-                        fit: BoxFit.cover, // 居中裁剪
+                        fit: BoxFit.cover,
                         child: SizedBox(
                             width: _controller!.value.size.width,
                             height: _controller!.value.size.height,

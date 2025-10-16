@@ -9,7 +9,7 @@ import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:vigaviga/widgets/ljn_section_header.dart';
 
 // Data model for trend items
@@ -255,7 +255,7 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
           aspectRatio: 16 / 7,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16.w),
-            child: CachedNetworkImage(
+            child: LJNAppNetworkImage(
               imageUrl: '${systemState.cdnBase}/imgs/i.webp',
               fit: BoxFit.cover,
             ),
@@ -331,15 +331,9 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
                   fit: StackFit.expand,
                   children: [
                     // 背景图片
-                    CachedNetworkImage(
+                    LJNAppNetworkImage(
                       imageUrl: category.imageUrl,
                       fit: BoxFit.cover,
-                      placeholder: (context, url) =>
-                          Container(color: Colors.grey.shade300),
-                      errorWidget: (context, url, error) => Container(
-                        color: Colors.grey.shade300,
-                        child: Icon(Icons.error),
-                      ),
                     ),
                     // 半透明黑色遮罩
                     Container(

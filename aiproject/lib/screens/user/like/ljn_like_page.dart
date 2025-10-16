@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:vigaviga/widgets/loading.dart';
 
 class _LikedVideo {
@@ -282,14 +282,9 @@ class _Thumbnail extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
-            child: CachedNetworkImage(
+            child: LJNAppNetworkImage(
               imageUrl: imageUrl,
               fit: BoxFit.cover,
-              errorWidget: (context, url, error) => Container(
-                color: Colors.grey.shade200,
-                child: const Icon(Icons.broken_image_outlined,
-                    color: Colors.grey, size: 40),
-              ),
             ),
           ),
           Icon(
