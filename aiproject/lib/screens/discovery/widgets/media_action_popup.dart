@@ -1,6 +1,9 @@
+// G:\t\detection\aiproject\lib\screens\discovery\widgets\media_action_popup.dart
+
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'package:vigaviga/widgets/ljn_app_network_image.dart'; // 确保这个路径是正确的
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 // 枚举保持不变
 enum MediaAction { like, speed, favorite, download, share, viewHomepage, none }
@@ -116,28 +119,27 @@ class MediaActionPopupState extends State<MediaActionPopup> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    const horizontalPadding = 20.0;
-    final popupWidth = screenSize.width - (horizontalPadding * 2);
+    final horizontalPadding = 32.0.w;
+    final popupWidth = 750.w - (horizontalPadding * 2);
     final imageDisplayHeight = popupWidth / widget.aspectRatio;
     final maxHeight = screenSize.height * 0.75;
 
     return Material(
       type: MaterialType.transparency,
       child: Container(
-        color: Colors.black.withOpacity(0.4),
+        color: Colors.black.withAlpha(102),
         child: Stack(
           alignment: Alignment.center,
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: horizontalPadding),
+              padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
               child: ConstrainedBox(
                 constraints: BoxConstraints(maxHeight: maxHeight),
                 child: Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(16.r),
                       child: Container(
                         color: Colors.white,
                         child: Column(
@@ -146,7 +148,7 @@ class MediaActionPopupState extends State<MediaActionPopup> {
                             SizedBox(
                               width: popupWidth,
                               height: imageDisplayHeight > maxHeight
-                                  ? maxHeight - 66
+                                  ? maxHeight - 90.w
                                   : imageDisplayHeight,
                               child: widget.isVideo
                                   ? (_videoController?.value.isInitialized ??
@@ -160,11 +162,13 @@ class MediaActionPopupState extends State<MediaActionPopup> {
                                     ),
                             ),
                             Container(
+                              height: 90.w,
                               color: Colors.white,
-                              padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
+                              padding: EdgeInsets.all(5.w),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   _buildActionButton(
                                       MediaAction.like, Icons.favorite),
@@ -198,7 +202,7 @@ class MediaActionPopupState extends State<MediaActionPopup> {
   }
 
   Widget _buildSpeedMenuOverlay() {
-    const double itemHeight = 36.0;
+    final itemHeight = 70.0.w;
     return Positioned.fill(
       child: AnimatedOpacity(
         duration: const Duration(milliseconds: 150),
@@ -208,8 +212,9 @@ class MediaActionPopupState extends State<MediaActionPopup> {
           child: LayoutBuilder(
             builder: (context, constraints) {
               final speedBtnKey = _buttonKeys[MediaAction.speed];
-              if (speedBtnKey?.currentContext == null)
+              if (speedBtnKey?.currentContext == null) {
                 return const SizedBox.shrink();
+              }
               final renderBox =
                   speedBtnKey!.currentContext!.findRenderObject() as RenderBox;
               final position = renderBox.localToGlobal(Offset.zero,
@@ -217,14 +222,9 @@ class MediaActionPopupState extends State<MediaActionPopup> {
               return Stack(
                 children: [
                   Positioned(
-                    left:
-                        position.dx + (renderBox.size.width / 2) - 30, // 菜单宽度60
-                    // 【核心修复】计算 top 值，让 x1 与原图标重叠
-                    // 原图标的 top 是 position.dy
-                    // 菜单总高 3 * itemHeight，x1 在最下面
-                    // 我们需要把菜单向上移动 2 * itemHeight 的距离
+                    left: position.dx + (renderBox.size.width / 2) - 30.w,
                     top: position.dy - (itemHeight * 2),
-                    child: _buildSpeedSelector(),
+                    child: _buildSpeedSelector(itemHeight),
                   ),
                 ],
               );
@@ -238,51 +238,52 @@ class MediaActionPopupState extends State<MediaActionPopup> {
   Widget _buildActionButton(MediaAction action, IconData icon) {
     final bool isActive = _activeAction == action;
 
-    // 【核心修复】当是倍速按钮时，用 AnimatedOpacity 包裹
     if (action == MediaAction.speed) {
       return AnimatedOpacity(
         duration: const Duration(milliseconds: 150),
-        // 当二级菜单显示时，隐藏这个图标
         opacity: _showSpeedMenu ? 0.0 : 1.0,
         child: Container(
           key: _buttonKeys[action],
-          width: 44,
-          height: 44,
+          width: 70.w,
+          height: 70.w,
           decoration: BoxDecoration(
             color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(10.r),
           ),
-          child: Icon(icon,
-              color: isActive ? Colors.red : Colors.grey[800], size: 28),
+          child: Icon(
+            icon,
+            color: isActive ? Colors.red : Colors.grey[800],
+            size: 50.w,
+          ),
         ),
       );
     }
 
-    // 其他按钮保持不变
     return Container(
       key: _buttonKeys[action],
-      width: 44,
-      height: 44,
+      width: 70.w,
+      height: 70.w,
       decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
+        color: isActive ? Colors.red : Colors.grey[200],
+        borderRadius: BorderRadius.circular(10.r),
       ),
-      child:
-          Icon(icon, color: isActive ? Colors.red : Colors.grey[800], size: 28),
+      child: Icon(
+        icon,
+        color: isActive ? Colors.white : Colors.grey[800],
+        size: 50.w,
+      ),
     );
   }
 
-  Widget _buildSpeedSelector() {
-    const double itemHeight = 36.0;
+  Widget _buildSpeedSelector(double itemHeight) {
     return Container(
-      width: 60,
+      width: 70.w,
       decoration: BoxDecoration(
         color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        // 【UI 修复】将顺序反转，让 x1 在最下面
         children: [3.0, 2.0, 1.0].map((speed) {
           final bool isSelected = _activeSpeed == speed && _showSpeedMenu;
           return Container(
@@ -291,14 +292,15 @@ class MediaActionPopupState extends State<MediaActionPopup> {
             height: itemHeight,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-                color: isSelected ? Colors.red : Colors.transparent,
-                borderRadius: BorderRadius.circular(10)),
+              color: isSelected ? Colors.red : Colors.transparent,
+              borderRadius: BorderRadius.circular(10.r),
+            ),
             child: Text(
               "x${speed.toInt()}",
               style: TextStyle(
                 color: isSelected ? Colors.white : Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: 14,
+                fontSize: 32.w,
               ),
             ),
           );
