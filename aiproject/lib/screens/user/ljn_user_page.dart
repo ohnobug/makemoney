@@ -259,7 +259,7 @@ class _LJNUserPageState extends State<LJNUserPage>
       LJNUserFunctionButton(
         icon: "$cdnBase/icon/server_icon12.png",
         title: "交易",
-        onPressed: () => Navigator.pushNamed(context, '/cloud_animation'),
+        onPressed: () {},
       ),
       LJNUserFunctionButton(
         icon: "$cdnBase/icon/server_icon13.png",
@@ -479,7 +479,7 @@ class _LJNUserPageState extends State<LJNUserPage>
                             style: TextStyle(
                                 fontSize: 26.w,
                                 fontWeight: FontWeight.normal,
-                                fontFamily: "AlibabaPuHuiTi-Medium"),
+                                ),
                           ),
                         )
                       ],

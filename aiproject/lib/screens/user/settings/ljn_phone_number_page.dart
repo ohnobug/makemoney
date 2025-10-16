@@ -88,7 +88,6 @@ class _LJNPhoneNumberPage extends State<LJNPhoneNumberPage> {
                                   style: TextStyle(
                                     height: 1.08,
                                     fontSize: 37.w,
-                                    fontFamily: "AlibabaPuHuiTi-Medium",
                                   ),
                                 ),
 
@@ -102,7 +101,6 @@ class _LJNPhoneNumberPage extends State<LJNPhoneNumberPage> {
                                   style: TextStyle(
                                     height: 1.08,
                                     fontSize: 37.w,
-                                    fontFamily: "AlibabaPuHuiTi-Medium",
                                   ),
                                 ),
                                 SizedBox(width: 13.w), // 间隔
@@ -122,7 +120,6 @@ class _LJNPhoneNumberPage extends State<LJNPhoneNumberPage> {
                                     style: TextStyle(
                                       height: 1.08,
                                       fontSize: 25.w,
-                                      fontFamily: "AlibabaPuHuiTi",
                                       color: AppColors.brandPurpleDark3,
                                     ),
                                   ),
@@ -142,7 +139,6 @@ class _LJNPhoneNumberPage extends State<LJNPhoneNumberPage> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 27.0.w,
-                                  fontFamily: "AlibabaPuHuiTi",
                                 ),
                               ),
                             ),

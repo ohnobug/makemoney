@@ -1648,7 +1648,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                           l10n.releaseToCancel,
                                           style: TextStyle(
                                             decoration: TextDecoration.none,
-                                            fontFamily: "AlibabaPuHuiTi",
+                                            
                                             height: 1.08,
                                             fontSize: 29.w,
                                             color: AppColors.neutralGrey52,
@@ -1721,7 +1721,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                         height: 1.08,
                                         color: AppColors.neutralGrey43,
                                         fontSize: 30.w,
-                                        fontFamily: "AlibabaPuHuiTi",
+                                        
                                         decoration: TextDecoration.none),
                                   ),
                                 ),
@@ -1740,7 +1740,7 @@ class _LJNGroupChat extends State<LJNGroupChat>
                                           l10n.convertToText,
                                           style: TextStyle(
                                             decoration: TextDecoration.none,
-                                            fontFamily: "AlibabaPuHuiTi",
+                                            
                                             height: 1.08,
                                             fontSize: 29.w,
                                             color: AppColors.neutralGrey52,

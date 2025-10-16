@@ -170,7 +170,6 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                             height: 1.08,
                                             fontSize: fontSizeScale(40.w),
                                             color: theme.colorScheme.onSurface,
-                                            fontFamily: "AlibabaPuHuiTi-Medium",
                                           ),
                                           emojiStyle: TextStyle(
                                             height: 1.08,
@@ -190,7 +189,6 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                             height: 1.08,
                                             fontSize: fontSizeScale(27.w),
                                             color: AppColors.neutralDarkGrey1,
-                                            fontFamily: "AlibabaPuHuiTi-Medium",
                                           ),
                                           emojiStyle: TextStyle(
                                             height: 1.08,
@@ -274,7 +272,6 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                   style: TextStyle(
                                     height: 1.08,
                                     fontSize: fontSizeScale(32.0.w),
-                                    fontFamily: "AlibabaPuHuiTi",
                                   ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -352,7 +349,6 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                   style: TextStyle(
                                     height: 1.08,
                                     fontSize: fontSizeScale(32.0.w),
-                                    fontFamily: "AlibabaPuHuiTi",
                                   ),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
@@ -385,7 +381,6 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                           style: TextStyle(
                                             height: 1.08,
                                             fontSize: fontSizeScale(32.0.w),
-                                            fontFamily: "AlibabaPuHuiTi",
                                           ),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,

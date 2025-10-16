@@ -1055,7 +1055,6 @@ class _LJNIns extends State<LJNInsPage> {
                                       ? AppColors.neutralWhite
                                       : theme.colorScheme.onSurface,
                                   height: 1,
-                                  fontFamily: "AlibabaPuHuiTi-Medium",
                                   fontSize: 30.w,
                                 ),
                               ),
@@ -1078,7 +1077,6 @@ class _LJNIns extends State<LJNInsPage> {
                                       ? AppColors.neutralWhite
                                       : theme.colorScheme.onSurface,
                                   height: 1,
-                                  fontFamily: "AlibabaPuHuiTi-Medium",
                                   fontSize: 30.w,
                                 ),
                               ),
@@ -1101,7 +1099,6 @@ class _LJNIns extends State<LJNInsPage> {
                                       ? AppColors.neutralWhite
                                       : theme.colorScheme.onSurface,
                                   height: 1,
-                                  fontFamily: "AlibabaPuHuiTi-Medium",
                                   fontSize: 30.w,
                                 ),
                               ),

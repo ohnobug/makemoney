@@ -123,7 +123,7 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                             style: TextStyle(
                               fontSize: fontSizeScale(31.0.w),
                               color: theme.colorScheme.onSurface,
-                              fontFamily: "AlibabaPuHuiTi",
+                              
                             ),
                           ),
                           SizedBox(height: 10.w),

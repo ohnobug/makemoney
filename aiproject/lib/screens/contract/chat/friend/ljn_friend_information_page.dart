@@ -182,7 +182,7 @@ class _LJNFriendInformation extends State<LJNFriendInformationPage> {
                             style: TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(32.0.w),
-                              fontFamily: "AlibabaPuHuiTi",
+                              
                               color: AppColors.neutralDarkGrey7,
                             ),
                             maxLines: 1,

@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/api_manager/api.dart';
-import 'package:vigaviga/features/payment/screens/ljn_cloud_animation_page.dart';
+import 'package:vigaviga/widgets/ljn_cloud_animation.dart';
 import 'package:vigaviga/screens/contract/widgets/ljn_chat_miniprogram.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_chatlist_item.dart';
@@ -195,7 +195,7 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
         // 小程序背景
         Visibility(
           visible: systemState.homescrollpixels > 0,
-          child: LJNCloudAnimationPage(),
+          child: LJNCloudAnimation(),
         ),
 
         // 小程序列表, 需要现在在appbar下面

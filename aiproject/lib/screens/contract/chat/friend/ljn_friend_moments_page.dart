@@ -295,7 +295,6 @@ class _LJNFriendmoments extends State<LJNFriendmomentsPage>
                           height: 1.08,
                           fontSize: fontSizeScale(32.w),
                           color: currentTitleColor, // 应用渐变的标题颜色
-                          fontFamily: "AlibabaPuHuiTi-Medium",
                         ),
                         toolbarHeight: 90.w,
                         elevation: 0,
@@ -699,7 +698,6 @@ class _TweetWidgetState extends State<TweetWidget> {
                           text: widget.name,
                           style: TextStyle(
                             fontSize: fontSizeScale(32.w),
-                            fontFamily: "AlibabaPuHuiTi-Medium",
                             color: linkColor,
                           ),
                         ),
@@ -711,7 +709,6 @@ class _TweetWidgetState extends State<TweetWidget> {
                           style: TextStyle(
                             height: 1.4,
                             fontSize: fontSizeScale(32.w),
-                            fontFamily: "AlibabaPuHuiTi",
                           ),
                         ),
 

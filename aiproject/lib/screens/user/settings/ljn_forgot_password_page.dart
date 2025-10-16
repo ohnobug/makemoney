@@ -87,7 +87,7 @@ class _LJNForgotPassword extends State<LJNForgotPasswordPage> {
                           style: TextStyle(
                             fontSize: 42.w,
                             fontWeight: FontWeight.bold,
-                            fontFamily: "AlibabaPuHuiTi",
+                            
                           ),
                         ),
                         SizedBox(
@@ -99,7 +99,7 @@ class _LJNForgotPassword extends State<LJNForgotPasswordPage> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 30.0.w,
-                            fontFamily: "AlibabaPuHuiTi",
+                            
                           ),
                         ),
 

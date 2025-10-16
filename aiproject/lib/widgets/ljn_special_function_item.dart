@@ -93,7 +93,7 @@ class _LJNSpecialFunctionItemState extends State<LJNSpecialFunctionItem> {
                     widget.title,
                     style: TextStyle(
                       fontSize: fontSizeScale(32.0.w),
-                      fontFamily: "AlibabaPuHuiTi",
+                      
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

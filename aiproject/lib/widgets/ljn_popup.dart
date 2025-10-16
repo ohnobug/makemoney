@@ -61,7 +61,6 @@ class _LJNPopupState extends State<LJNPopup> {
                       child: Text(
                         l10n.addedToDesktopAttempt,
                         style: TextStyle(
-                          fontFamily: "AlibabaPuHuiTi",
                           fontSize: 30.w,
                           fontWeight: FontWeight.bold,
                           color: theme.colorScheme.onSurface,
@@ -77,7 +76,6 @@ class _LJNPopupState extends State<LJNPopup> {
                         l10n.shortcutPermissionGuidanceFull,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontFamily: "AlibabaPuHuiTi",
                           decoration: TextDecoration.none,
                           fontSize: 32.w,
                           color: AppColors.neutralGrey69,
@@ -108,7 +106,6 @@ class _LJNPopupState extends State<LJNPopup> {
                             l10n.doNotRemindAgain,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontFamily: "AlibabaPuHuiTi",
                               decoration: TextDecoration.none,
                               fontSize: 30.w,
                               color: theme.colorScheme.onSurface,
@@ -150,7 +147,6 @@ class _LJNPopupState extends State<LJNPopup> {
                                     decoration: TextDecoration.none,
                                     fontSize: 32.w,
                                     color: theme.colorScheme.onSurface,
-                                    fontFamily: "AlibabaPuHuiTi-Medium",
                                     height: 1.08,
                                   ),
                                 ),
@@ -179,7 +175,6 @@ class _LJNPopupState extends State<LJNPopup> {
                                     decoration: TextDecoration.none,
                                     fontSize: 32.w,
                                     color: AppColors.brandBlueDark2,
-                                    fontFamily: "AlibabaPuHuiTi-Medium",
                                     height: 1.08,
                                   ),
                                 ),

@@ -7,8 +7,6 @@ list(APPEND FLUTTER_PLUGIN_LIST
   flutter_inappwebview_windows
   permission_handler_windows
   record_windows
-  video_player_win
-  webview_windows
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

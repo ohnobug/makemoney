@@ -162,7 +162,7 @@ class _ChatListItemState extends State<LJNChatListItem> {
                       height: 1.08,
                       fontSize: fontSizeScale(28.0.w),
                       color: theme.colorScheme.onSurface,
-                      fontFamily: "AlibabaPuHuiTi",
+                      
                     ),
                     emojiStyle: TextStyle(
                       height: 1.08,

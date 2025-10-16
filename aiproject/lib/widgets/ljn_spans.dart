@@ -20,7 +20,7 @@ List<InlineSpan> LJNBuildspan(
     height: 1.08,
     color: theme.colorScheme.onSurface,
     fontSize: 30.sp, // 使用 sp 适配字体大小
-    fontFamily: "AlibabaPuHuiTi",
+    
   ).merge(fontTextStyle);
 
   TextStyle defaultIconTextStyle = TextStyle(

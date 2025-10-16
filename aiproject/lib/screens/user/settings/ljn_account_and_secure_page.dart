@@ -135,7 +135,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecurePage> {
                                 color: AppColors.neutralGrey35,
                                 fontSize: 24.w,
                                 overflow: TextOverflow.ellipsis,
-                                fontFamily: "AlibabaPuHuiTi",
+                                
                               ),
                             ),
                             underline: false,

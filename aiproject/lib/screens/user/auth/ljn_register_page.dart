@@ -109,7 +109,7 @@ class _LJNRegisterPage extends State<LJNRegisterPage> {
                             style: TextStyle(
                                 fontSize: 42.w,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: "AlibabaPuHuiTi"),
+                                ),
                           ),
                         ),
                         SizedBox(

@@ -1665,7 +1665,7 @@ class _LJNChat extends State<LJNChat>
                                             "你好吗？......",
                                             style: TextStyle(
                                                 fontSize: 30.w,
-                                                fontFamily: "AlibabaPuHuiTi"),
+                                                ),
                                           ),
                                         ),
 
@@ -1733,7 +1733,7 @@ class _LJNChat extends State<LJNChat>
                           l10n.releaseToCancel,
                           style: TextStyle(
                             decoration: TextDecoration.none,
-                            fontFamily: "AlibabaPuHuiTi",
+                            
                             height: 1.08,
                             fontSize: 29.w,
                             color: AppColors.neutralGrey52,
@@ -1793,7 +1793,7 @@ class _LJNChat extends State<LJNChat>
                       height: 1.08,
                       color: AppColors.neutralGrey43,
                       fontSize: 30.w,
-                      fontFamily: "AlibabaPuHuiTi",
+                      
                       decoration: TextDecoration.none,
                     ),
                   ),
@@ -1813,7 +1813,7 @@ class _LJNChat extends State<LJNChat>
                           l10n.convertToText,
                           style: TextStyle(
                             decoration: TextDecoration.none,
-                            fontFamily: "AlibabaPuHuiTi",
+                            
                             height: 1.08,
                             fontSize: 29.w,
                             color: AppColors.neutralGrey52,

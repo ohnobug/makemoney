@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 
-class LJNCloudAnimationPage extends StatefulWidget {
-  const LJNCloudAnimationPage({super.key});
+class LJNCloudAnimation extends StatefulWidget {
+  const LJNCloudAnimation({super.key});
 
   @override
-  State<LJNCloudAnimationPage> createState() => _LJNCloudAnimationPageState();
+  State<LJNCloudAnimation> createState() => _LJNCloudAnimationState();
 }
 
 class CloudModel {
@@ -28,12 +28,12 @@ class CloudModel {
   });
 }
 
-class _LJNCloudAnimationPageState extends State<LJNCloudAnimationPage>
+class _LJNCloudAnimationState extends State<LJNCloudAnimation>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   final List<CloudModel> _clouds = [];
   final Random _random = Random();
-  final int numberOfClouds = 10;
+  final int numberOfClouds = 30;
 
   @override
   void initState() {

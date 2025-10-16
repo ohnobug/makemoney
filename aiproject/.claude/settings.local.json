@@ -17,7 +17,11 @@
       "Bash(bash global_class_replace.sh)",
       "Bash(timeout 300 bash global_class_replace.sh)",
       "Bash(mkdir -p \"lib/features/payment/screens\" \"lib/features/payment/widgets\")",
-      "Bash(mkdir -p \"lib/features/payment/screens\" \"lib/features/payment/widgets\" \"lib/store\")"
+      "Bash(mkdir -p \"lib/features/payment/screens\" \"lib/features/payment/widgets\" \"lib/store\")",
+      "Bash(flutter pub deps --style=tree)",
+      "Bash(flutter build apk --analyze-size)",
+      "Bash(flutter build apk --target-platform android-arm64 --analyze-size)",
+      "Bash(./gradlew clean)"
     ],
     "deny": [],
     "ask": []

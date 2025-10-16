@@ -92,7 +92,7 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                                 height: 1.25,
                                 fontSize: fontSizeScale(31.w),
                                 color: theme.colorScheme.onSurface,
-                                fontFamily: "AlibabaPuHuiTi",
+                                
                               ),
                             ),
                           ),

@@ -73,7 +73,7 @@ class _LJNYouthModePage extends State<LJNYouthModePage> {
                           height: 1.08,
                           fontSize: 40.w,
                           fontWeight: FontWeight.bold,
-                          fontFamily: "AlibabaPuHuiTi",
+                          
                         ),
                       ),
                       SizedBox(

@@ -93,7 +93,7 @@ class _LJNVerifyPhonePage extends State<LJNVerifyPhonePage> {
                             l10n.phoneNumberBindingDescriptionFull,
                             style: TextStyle(
                               fontSize: 26.0.w,
-                              fontFamily: "AlibabaPuHuiTi",
+                              
                               color: AppColors.neutralGrey58,
                             ),
                           ),

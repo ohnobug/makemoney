@@ -148,7 +148,7 @@ class _ChatListItem extends State<ChatListItem> {
                                     color: widget.notice
                                         ? AppColors.accentRedPure
                                         : theme.colorScheme.onSurface,
-                                    fontFamily: "AlibabaPuHuiTi",
+                                    
                                   ),
                                   emojiStyle: TextStyle(
                                     height: 1.08,

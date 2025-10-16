@@ -563,7 +563,7 @@ class _ContactListItem extends State<ContactListItem> {
                                   height: 1.08,
                                   fontSize: fontSizeScale(32.0.w),
                                   color: theme.colorScheme.onSurface,
-                                  fontFamily: "AlibabaPuHuiTi",
+                                  
                                 ),
                                 emojiStyle: TextStyle(
                                   height: 1.08,

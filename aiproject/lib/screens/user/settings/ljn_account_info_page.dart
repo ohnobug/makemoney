@@ -86,7 +86,7 @@ class _LJNAccountInfoPage extends State<LJNAccountInfoPage> {
                           style: TextStyle(
                               fontSize: 40.w,
                               fontWeight: FontWeight.bold,
-                              fontFamily: "AlibabaPuHuiTi"),
+                              ),
                         );
                       },
                     ),
@@ -98,7 +98,7 @@ class _LJNAccountInfoPage extends State<LJNAccountInfoPage> {
                       l10n.vigavigaIdModificationRuleFull,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: 30.w, fontFamily: "AlibabaPuHuiTi"),
+                          fontSize: 30.w, ),
                     ),
 
                     SizedBox(

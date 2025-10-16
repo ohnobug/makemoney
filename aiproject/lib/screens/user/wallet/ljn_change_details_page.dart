@@ -67,7 +67,7 @@ class _LJNChangeDetailsPage extends State<LJNChangeDetailsPage> {
                                 fontSize: fontSizeScale(30.w),
                                 color: theme.colorScheme.onSurface,
                                 // fontWeight: FontWeight.bold,
-                                fontFamily: "AlibabaPuHuiTi",
+                                
                               ),
                             ),
                             WidgetSpan(

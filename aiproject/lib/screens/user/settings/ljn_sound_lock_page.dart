@@ -70,8 +70,6 @@ class _LJNSoundLockPage extends State<LJNSoundLockPage> {
                       style: TextStyle(
                         height: 1.08,
                         fontSize: 40.w,
-                        // fontWeight: FontWeight.bold,
-                        fontFamily: "AlibabaPuHuiTi-Medium",
                       ),
                     ),
                     SizedBox(

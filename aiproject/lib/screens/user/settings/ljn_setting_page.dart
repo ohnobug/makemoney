@@ -162,7 +162,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     //             style: TextStyle(
                     //               height: 1.08,
                     //               fontSize: fontSizeScale(32.0.w),
-                    //               fontFamily: "AlibabaPuHuiTi",
+                    //               
                     //             ),
                     //             maxLines: 1,
                     //             overflow: TextOverflow.visible,

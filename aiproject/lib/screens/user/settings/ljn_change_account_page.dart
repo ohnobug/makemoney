@@ -69,7 +69,7 @@ class _LJNChangeAccountPage extends State<LJNChangeAccountPage> {
                             style: TextStyle(
                                 fontSize: 42.w,
                                 // fontWeight: FontWeight.bold,
-                                fontFamily: "AlibabaPuHuiTi-Medium"),
+                                ),
                           ),
                         ),
                         SizedBox(
@@ -78,7 +78,7 @@ class _LJNChangeAccountPage extends State<LJNChangeAccountPage> {
                         Text(
                           l10n.verifyIdentityWithPasswordFull,
                           style: TextStyle(
-                              fontSize: 30.w, fontFamily: "AlibabaPuHuiTi"),
+                              fontSize: 30.w, ),
                         ),
                         SizedBox(
                           height: 60.w,

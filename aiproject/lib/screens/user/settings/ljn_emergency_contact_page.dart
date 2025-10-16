@@ -93,9 +93,6 @@ class _LJEemergencyContact extends State<LJNEmergencyContactPage> {
                     style: TextStyle(
                       height: 1.08,
                       fontSize: 40.w,
-                      // fontWeight: FontWeight.bold,
-                      // fontFamily: "AlibabaPuHuiTi"
-                      fontFamily: "AlibabaPuHuiTi-Medium",
                     ),
                   ),
                   SizedBox(
@@ -110,7 +107,6 @@ class _LJEemergencyContact extends State<LJNEmergencyContactPage> {
                         color: AppColors.neutralGrey51,
                         // height: 1.08,
                         fontSize: 25.w,
-                        fontFamily: "AlibabaPuHuiTi",
                       ),
                     ),
                   ),
@@ -139,7 +135,6 @@ class _LJEemergencyContact extends State<LJNEmergencyContactPage> {
                         height: 1.08,
                         color: AppColors.brandPurpleDark4,
                         fontSize: 25.w,
-                        fontFamily: "AlibabaPuHuiTi",
                       ),
                     ),
                   ),

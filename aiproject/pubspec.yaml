@@ -17,7 +17,6 @@ dependencies:
   vibration: ^3.1.2
   mobile_scanner: ^7.0.1
   lottie: ^3.1.2
-  video_player_win: ^3.1.1
   video_player: ^2.9.3
   dotted_border: ^3.1.0
   path_provider: ^2.1.5
@@ -31,10 +30,8 @@ dependencies:
   camera: ^0.11.0+2
   collection: ^1.19.0
   flutter_in_app_pip: ^1.7.4
-  webview_windows: ^0.4.0
   floating: ^6.0.0
   image_size_getter: ^2.4.1
-  webview_flutter: ^4.13.0
   permission_handler: ^12.0.1
   flutter_localizations:
     sdk: flutter
@@ -47,8 +44,8 @@ dependencies:
   archive: ^4.0.7
   shelf: ^1.4.2
   shelf_static: ^1.1.3
-  flutter_inappwebview: ^6.1.5
   mime: ^2.0.0
+  flutter_inappwebview: ^6.1.5
 
 dev_dependencies:
   bloc_test: ^10.0.0
@@ -66,28 +63,9 @@ flutter:
     - assets/lotties/
     - assets/web/
   fonts:
-    # - family: AlibabaPuHuiTi
-    #   fonts:
-    #     - asset: ./assets/fonts/AlibabaPuHuiTi-3-55-Regular.woff2
-    # - family: AlibabaPuHuiTi-Medium
-    #   fonts:
-    #     - asset: ./assets/fonts/AlibabaPuHuiTi-3-65-Medium.woff2
-    # - family: NotoColorEmoji-Regular
-    #   fonts:
-    #     - asset: ./assets/fonts/NotoColorEmoji-Regular.woff2
-
-    # - family: Roboto
-    #   fonts:
-    #     - asset: ./assets/fonts/Roboto.ttf
-
-    - family: Roboto
+    - family: NotoColorEmoji-Regular
       fonts:
-        - asset: assets/fonts/google_fonts/Roboto-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/google_fonts/Roboto-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/google_fonts/Roboto-Bold.ttf
-          weight: 700
+        - asset: ./assets/fonts/NotoColorEmoji-Regular.woff2
     - family: Iconfont
       fonts:
         - asset: ./assets/fonts/iconfont/iconfont.ttf
@@ -97,6 +75,6 @@ flutter_launcher_icons:
   ios: false
   web:
     generate: true
-    image_path: "assets/images/icon/1.jpeg"
+    image_path: "assets/images/logo.jpeg"
     background_color: "#0175C2"
     theme_color: "#0175C2"

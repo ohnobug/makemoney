@@ -88,7 +88,6 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                   style: TextStyle(
                     height: 1.08,
                     fontSize: fontSizeScale(32.w),
-                    fontFamily: "AlibabaPuHuiTi-Medium",
                     color: AppColors.neutralNearBlack4,
                   ),
                 ),
@@ -140,7 +139,6 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                     height: 1.08,
                     color: AppColors.accentOrange,
                     fontSize: fontSizeScale(30.w),
-                    fontFamily: "AlibabaPuHuiTi",
                   ),
                 ),
                 const Expanded(
@@ -174,7 +172,6 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                         height: 1.08,
                         color: AppColors.brandBlueDark4,
                         fontSize: fontSizeScale(25.w),
-                        fontFamily: "AlibabaPuHuiTi-Medium",
                       ),
                     ),
                     WidgetSpan(
@@ -188,7 +185,6 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                         height: 1.08,
                         color: AppColors.neutralGrey12,
                         fontSize: fontSizeScale(25.w),
-                        fontFamily: "AlibabaPuHuiTi-Medium",
                       ),
                     ),
                     WidgetSpan(
@@ -202,7 +198,6 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                         height: 1.08,
                         color: AppColors.brandBlueDark4,
                         fontSize: fontSizeScale(25.w),
-                        fontFamily: "AlibabaPuHuiTi-Medium",
                       ),
                     ),
                   ]),
@@ -216,7 +211,6 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
                     height: 1.08,
                     color: AppColors.neutralGrey46,
                     fontSize: fontSizeScale(23.w),
-                    fontFamily: "AlibabaPuHuiTi-Medium",
                   ),
                 ),
                 SizedBox(
@@ -323,7 +317,6 @@ class _LJNChargeButtonState extends State<LJNChargeButton> {
             color: fontColor,
             fontWeight: FontWeight.bold,
             fontSize: fontSizeScale(32.w),
-            fontFamily: "AlibabaPuHuiTi",
           ),
         ),
       ),

@@ -87,7 +87,7 @@ class _LJNChatSettingPage extends State<LJNChatSettingPage> {
                           color: AppColors.neutralGrey35,
                           fontSize: 24.w,
                           overflow: TextOverflow.ellipsis,
-                          fontFamily: "AlibabaPuHuiTi",
+                          
                         ),
                       ),
                       showStyle: Expanded(

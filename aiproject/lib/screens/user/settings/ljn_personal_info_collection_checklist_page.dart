@@ -55,7 +55,7 @@ class _LJPpersonalInfoCollectionChecklist
                     Text(
                       l10n.personalInfoCollectionList,
                       style: TextStyle(
-                          fontSize: 41.w, fontFamily: "AlibabaPuHuiTi-Medium"),
+                          fontSize: 41.w, ),
                     ),
                     SizedBox(
                       height: 45.w,
@@ -286,7 +286,7 @@ class _LJPpersonalInfoCollectionChecklist
                                 height: 1.08,
                                 fontWeight: FontWeight.bold,
                                 fontSize: fontSizeScale(32.0.w),
-                                fontFamily: "AlibabaPuHuiTi",
+                                
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.visible,
@@ -512,7 +512,7 @@ class _LJNPCCFunctionItemState extends State<LJNPCCFunctionItem> {
                             style: TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(32.0.w),
-                              fontFamily: "AlibabaPuHuiTi",
+                              
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.visible,

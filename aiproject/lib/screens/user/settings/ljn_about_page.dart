@@ -77,8 +77,6 @@ class _LJNAbout extends State<LJNAboutPage> {
                             style: TextStyle(
                               height: 1.08,
                               fontSize: 43.w,
-                              // fontWeight: FontWeight.bold,
-                              fontFamily: "AlibabaPuHuiTi-Medium",
                             ),
                           ),
                           SizedBox(
@@ -89,7 +87,6 @@ class _LJNAbout extends State<LJNAboutPage> {
                             style: TextStyle(
                               height: 1.08,
                               fontSize: 27.w,
-                              fontFamily: "AlibabaPuHuiTi",
                             ),
                           ),
                         ],

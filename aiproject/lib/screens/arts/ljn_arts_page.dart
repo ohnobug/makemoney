@@ -512,7 +512,7 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
       height: 1.4,
       fontSize: fontSizeScale(28.w),
       color: AppColors.neutralWhite,
-      fontFamily: "AlibabaPuHuiTi",
+      
     );
 
     return Container(

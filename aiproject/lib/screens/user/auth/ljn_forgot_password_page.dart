@@ -122,7 +122,7 @@ class _LJNForgotPasswordPage extends State<LJNForgotPasswordPage> {
             style: TextStyle(
                 fontSize: 42.w,
                 fontWeight: FontWeight.bold,
-                fontFamily: "AlibabaPuHuiTi"),
+                ),
           ),
         ),
         SizedBox(height: 30.w),
@@ -130,7 +130,7 @@ class _LJNForgotPasswordPage extends State<LJNForgotPasswordPage> {
           "请输入您的手机号以接收验证码",
           style: TextStyle(
             fontSize: 30.w,
-            fontFamily: "AlibabaPuHuiTi",
+            
           ),
         ),
         SizedBox(height: 60.w),
@@ -204,7 +204,7 @@ class _LJNForgotPasswordPage extends State<LJNForgotPasswordPage> {
             style: TextStyle(
                 fontSize: 42.w,
                 fontWeight: FontWeight.bold,
-                fontFamily: "AlibabaPuHuiTi"),
+                ),
           ),
         ),
         SizedBox(height: 30.w),
@@ -212,7 +212,7 @@ class _LJNForgotPasswordPage extends State<LJNForgotPasswordPage> {
           "请输入发送到 ${_phoneController.text} 的验证码",
           style: TextStyle(
             fontSize: 30.w,
-            fontFamily: "AlibabaPuHuiTi",
+            
           ),
         ),
         SizedBox(height: 60.w),
@@ -286,7 +286,7 @@ class _LJNForgotPasswordPage extends State<LJNForgotPasswordPage> {
             style: TextStyle(
                 fontSize: 42.w,
                 fontWeight: FontWeight.bold,
-                fontFamily: "AlibabaPuHuiTi"),
+                ),
           ),
         ),
         SizedBox(height: 30.w),
@@ -294,7 +294,7 @@ class _LJNForgotPasswordPage extends State<LJNForgotPasswordPage> {
           "请设置您的新密码",
           style: TextStyle(
             fontSize: 30.w,
-            fontFamily: "AlibabaPuHuiTi",
+            
           ),
         ),
         SizedBox(height: 60.w),

@@ -73,7 +73,7 @@ class _LJNCareModePage extends State<LJNCareModePage> {
                             height: 1.08,
                             fontSize: 40.w,
                             fontWeight: FontWeight.bold,
-                            fontFamily: "AlibabaPuHuiTi"),
+                            ),
                       ),
                       SizedBox(
                         height: 60.w,
@@ -85,7 +85,7 @@ class _LJNCareModePage extends State<LJNCareModePage> {
                           l10n.careModeIntro,
                           style: TextStyle(
                               fontSize: 32.w,
-                              fontFamily: "AlibabaPuHuiTi-Medium"),
+                              ),
                         ),
                       ),
                       SizedBox(

@@ -174,7 +174,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: fontSizeScale(32.0.w),
-                                  fontFamily: "AlibabaPuHuiTi",
+                                  
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,

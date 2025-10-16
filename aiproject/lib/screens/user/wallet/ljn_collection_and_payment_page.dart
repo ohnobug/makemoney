@@ -574,7 +574,7 @@ class _LJNCAPFunctionItemState extends State<LJNCAPFunctionItem> {
                         style: TextStyle(
                           height: 1.08,
                           fontSize: fontSizeScale(32.0.w),
-                          fontFamily: "AlibabaPuHuiTi",
+                          
                           color: widget.color ?? AppColors.neutralWhite,
                         ),
                         maxLines: 1,

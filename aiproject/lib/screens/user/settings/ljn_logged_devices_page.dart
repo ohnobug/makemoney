@@ -146,7 +146,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              fontFamily: "AlibabaPuHuiTi",
+                              
                             ),
                           ),
                         ),
@@ -163,7 +163,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              fontFamily: "AlibabaPuHuiTi",
+                              
                             ),
                           ),
                         ),
@@ -180,7 +180,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              fontFamily: "AlibabaPuHuiTi",
+                              
                             ),
                           ),
                         ),
@@ -197,7 +197,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              fontFamily: "AlibabaPuHuiTi",
+                              
                             ),
                           ),
                         ),
@@ -214,7 +214,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              fontFamily: "AlibabaPuHuiTi",
+                              
                             ),
                           ),
                         ),
@@ -231,7 +231,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              fontFamily: "AlibabaPuHuiTi",
+                              
                             ),
                           ),
                         ),
@@ -248,7 +248,7 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              fontFamily: "AlibabaPuHuiTi",
+                              
                             ),
                           ),
                         ),

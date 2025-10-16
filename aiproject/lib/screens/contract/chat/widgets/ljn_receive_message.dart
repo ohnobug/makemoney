@@ -134,7 +134,7 @@ class _LJNReceiveMessage extends State<LJNReceiveMessage> {
                                 height: 1.25,
                                 fontSize: fontSizeScale(31.w),
                                 color: theme.colorScheme.onSurface,
-                                fontFamily: "AlibabaPuHuiTi",
+                                
                               ),
                             ),
                           ),
