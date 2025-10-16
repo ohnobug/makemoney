@@ -79,7 +79,7 @@ class _LJNAccountInfoPage extends State<LJNAccountInfoPage> {
                       height: 50.w,
                     ),
 
-                    BlocBuilder<LJNUserCubit, LJNUserState>(
+                    BlocBuilder<LJNUserCubit, UserState>(
                       builder: (context, userState) {
                         return Text(
                           l10n.vigavigaIdDisplay(userState.userinfoAccount!),

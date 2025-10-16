@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-class LJNUserCubit extends Cubit<LJNUserState> {
+class LJNUserCubit extends Cubit<UserState> {
   LJNUserCubit()
       : super(
-          LJNUserState(),
+          UserState(),
         );
 
 // 更新昵称
@@ -105,7 +105,7 @@ class LJNUserCubit extends Cubit<LJNUserState> {
   String? get authToken => state.authToken;
 }
 
-class LJNUserState extends Equatable {
+class UserState extends Equatable {
   final String? userinfoName; // 昵称
   final String? userinfoAccount; // 账号
   final String? userinfoPhone; // 手机
@@ -117,7 +117,7 @@ class LJNUserState extends Equatable {
   final String? authToken; // 认证令牌
 
   // 构造函数
-  const LJNUserState({
+  const UserState({
     this.userinfoName = '', // 默认为空字符串
     this.userinfoAccount = '', // 默认为空字符串
     this.userinfoPhone = '', // 默认为空字符串
@@ -143,7 +143,7 @@ class LJNUserState extends Equatable {
       ];
 
   // 可以选择添加一个 `copyWith` 方法来创建新状态时修改某些字段
-  LJNUserState copyWith({
+  UserState copyWith({
     String? userinfoName,
     String? userinfoAccount,
     String? userinfoPhone,
@@ -154,7 +154,7 @@ class LJNUserState extends Equatable {
     String? userId,
     String? authToken,
   }) {
-    return LJNUserState(
+    return UserState(
       userinfoName: userinfoName ?? this.userinfoName,
       userinfoAccount: userinfoAccount ?? this.userinfoAccount,
       userinfoPhone: userinfoPhone ?? this.userinfoPhone,

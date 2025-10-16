@@ -140,7 +140,7 @@ class _LJNTestMessage extends State<LJNTestMessage>
                 ),
               ),
               // 头像
-              BlocBuilder<LJNUserCubit, LJNUserState>(
+              BlocBuilder<LJNUserCubit, UserState>(
                 builder: (context, userState) {
                   return GestureDetector(
                     onTap: () {

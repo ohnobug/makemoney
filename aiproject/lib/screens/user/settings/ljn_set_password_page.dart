@@ -75,7 +75,7 @@ class _LJNSetPasswordPageState extends State<LJNSetPasswordPage> {
   }
 
   Widget _buildPageBody(BuildContext context, AppLocalizations l10n,
-      LJNUserState userState, SystemState systemState) {
+      UserState userState, SystemState systemState) {
     ThemeData theme = Theme.of(context);
 
     return ScrollConfiguration(

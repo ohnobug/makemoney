@@ -65,7 +65,9 @@ class _LJNUserPageState extends State<LJNUserPage>
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
       return systemState.mainpage5isload!
-          ? _buildPage(systemState)
+          ? BlocBuilder<LJNUserCubit, UserState>(builder: (context, userState) {
+              return _buildPage(systemState, userState);
+            })
           : const LJNPageLoading();
     });
   }
@@ -73,7 +75,7 @@ class _LJNUserPageState extends State<LJNUserPage>
   double customkToolbarHeight = 95.w;
   double expandedHeight = 680.w;
 
-  Widget _buildPage(SystemState systemState) {
+  Widget _buildPage(SystemState systemState, UserState userState) {
     ThemeData theme = Theme.of(context);
 
     return Scaffold(
@@ -93,10 +95,11 @@ class _LJNUserPageState extends State<LJNUserPage>
               flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.parallax,
                 // [核心修改] 使用 BlocBuilder 来根据登录状态切换UI
-                background: BlocBuilder<LJNUserCubit, LJNUserState>(
+                background: BlocBuilder<LJNUserCubit, UserState>(
                   builder: (context, userState) {
                     if (userState.isLoggedIn) {
-                      return _buildUserInfoSection(systemState, theme);
+                      return _buildUserInfoSection(
+                          systemState, userState, theme);
                     } else {
                       return _buildUnauthenticatedUserInfoSection(
                         systemState,
@@ -238,9 +241,14 @@ class _LJNUserPageState extends State<LJNUserPage>
   }
 
   // [已有方法] 已登录状态的UI
-  Widget _buildUserInfoSection(SystemState systemState, ThemeData theme) {
+  Widget _buildUserInfoSection(
+    SystemState systemState,
+    UserState userState,
+    ThemeData theme,
+  ) {
     AppLocalizations l10n = AppLocalizations.of(context)!;
     String cdnBase = systemState.cdnBase;
+    String accountId = userState.userinfoName!;
 
     final List<LJNUserFunctionButton> serviceButtons = [
       LJNUserFunctionButton(
@@ -251,7 +259,7 @@ class _LJNUserPageState extends State<LJNUserPage>
       LJNUserFunctionButton(
         icon: "$cdnBase/icon/server_icon12.png",
         title: "交易",
-        onPressed: () {},
+        onPressed: () => Navigator.pushNamed(context, '/cloud_animation'),
       ),
       LJNUserFunctionButton(
         icon: "$cdnBase/icon/server_icon13.png",
@@ -275,7 +283,6 @@ class _LJNUserPageState extends State<LJNUserPage>
         },
       ),
     ];
-    const String accountId = 'TheMonsterClub';
 
     return SizedBox(
       height: expandedHeight,
@@ -341,7 +348,7 @@ class _LJNUserPageState extends State<LJNUserPage>
                           onTap: () =>
                               Navigator.pushNamed(context, '/user/info'),
                           child: ClipOval(
-                            child: BlocBuilder<LJNUserCubit, LJNUserState>(
+                            child: BlocBuilder<LJNUserCubit, UserState>(
                               builder: (context, state) {
                                 final avatar = state.userinfoAvatar;
                                 return CachedNetworkImage(
@@ -363,7 +370,7 @@ class _LJNUserPageState extends State<LJNUserPage>
                             children: [
                               Row(
                                 children: [
-                                  BlocBuilder<LJNUserCubit, LJNUserState>(
+                                  BlocBuilder<LJNUserCubit, UserState>(
                                     builder: (context, state) => SizedBox(
                                       width: 400.w,
                                       child: Text(
@@ -396,7 +403,7 @@ class _LJNUserPageState extends State<LJNUserPage>
                               GestureDetector(
                                 onTap: () {
                                   Clipboard.setData(
-                                    const ClipboardData(text: accountId),
+                                    ClipboardData(text: accountId),
                                   );
                                   Fluttertoast.showToast(
                                     msg: "复制成功",

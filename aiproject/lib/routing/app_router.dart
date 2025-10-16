@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vigaviga/features/payment/screens/ljn_merchant_success_page.dart';
+import 'package:vigaviga/features/payment/screens/ljn_cloud_animation_page.dart';
 import 'package:vigaviga/screens/contract/chat/ljn_chat_page.dart';
 import 'package:vigaviga/screens/contract/ljn_contact_page.dart';
 import 'package:vigaviga/screens/contract/ljn_contact_group_page.dart';
@@ -337,6 +338,8 @@ class AppRouter {
         return pageRouteBuilderAnimation(const LJNMerchantSuccessPage());
       case '/payment_demo':
         return pageRouteBuilderAnimation(const LJNPaymentDemoPage());
+      case '/cloud_animation':
+        return pageRouteBuilderAnimation(const LJNCloudAnimationPage());
 
       default:
         // 可以返回一个统一的404页面

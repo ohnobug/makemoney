@@ -18,8 +18,9 @@ class _LJNPasswordInputDialogState extends State<LJNPasswordInputDialog> {
 
   void _onNumpadPress(String value) {
     if (value == 'del') {
-      if (_pin.isNotEmpty)
+      if (_pin.isNotEmpty) {
         setState(() => _pin = _pin.substring(0, _pin.length - 1));
+      }
     } else if (_pin.length < 6) {
       setState(() => _pin += value);
       if (_pin.length == 6) {

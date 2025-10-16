@@ -79,12 +79,14 @@ class LJNMiniprogramButtonState extends State<LJNMiniprogramButton> {
           crossAxisAlignment: CrossAxisAlignment.center, // 水平居中
           children: [
             SizedBox(height: 20.w), // 可以增加一个顶部的内边距，让图标和按钮顶部有一点距离
-            CachedNetworkImage(
-              imageUrl: widget.icon,
-              width: 75.w,
-              height: 75.w,
-              fit: BoxFit.cover, // 让图片完全填满圆形区域
-            ),
+            ClipRRect(
+                borderRadius: BorderRadius.circular(10).w,
+                child: CachedNetworkImage(
+                  imageUrl: widget.icon,
+                  width: 75.w,
+                  height: 75.w,
+                  fit: BoxFit.cover, // 让图片完全填满圆形区域
+                )),
             SizedBox(height: 15.w), // 图标和标题之间的间距
             Container(
               height: twoLinesTextHeight, // 关键：为文本区域提供一个固定的、能容纳两行的高度

@@ -50,7 +50,7 @@ class _LJNMyMessage extends State<LJNMyMessage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            BlocBuilder<LJNUserCubit, LJNUserState>(
+                            BlocBuilder<LJNUserCubit, UserState>(
                               builder: (context, userState) {
                                 return Text(
                                   widget.name ?? userState.userinfoName!,

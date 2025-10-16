@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/api_manager/api.dart';
+import 'package:vigaviga/features/payment/screens/ljn_cloud_animation_page.dart';
 import 'package:vigaviga/screens/contract/widgets/ljn_chat_miniprogram.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_chatlist_item.dart';
@@ -194,15 +195,10 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
         // 小程序背景
         Visibility(
           visible: systemState.homescrollpixels > 0,
-          child: Image.asset(
-            assetPath("lotties/miniprogrambg.awebp"),
-            width: screenSize.width,
-            height: screenSize.height,
-            fit: BoxFit.cover,
-          ),
+          child: LJNCloudAnimationPage(),
         ),
 
-        // 小程序, 需要现在在appbar下面
+        // 小程序列表, 需要现在在appbar下面
         Visibility(
           visible: systemState.homescrollpixels > 0,
           child: Positioned(
@@ -216,23 +212,23 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
           ),
         ),
 
-        // 列表背景
-        Visibility(
-          visible: systemState.homescrollpixels > 0,
-          child: Positioned(
-            top: systemState.appbarHeight +
-                statusHeight +
-                systemState.homescrollpixels,
-            left: 0,
-            // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
-            height:
-                screenSize.height - (systemState.appbarHeight + statusHeight),
-            width: screenSize.width,
-            child: Container(
-              color: theme.colorScheme.surfaceContainer,
-            ),
-          ),
-        ),
+        // // 列表背景
+        // Visibility(
+        //   visible: systemState.homescrollpixels > 0,
+        //   child: Positioned(
+        //     top: systemState.appbarHeight +
+        //         statusHeight +
+        //         systemState.homescrollpixels,
+        //     left: 0,
+        //     // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
+        //     height:
+        //         screenSize.height - (systemState.appbarHeight + statusHeight),
+        //     width: screenSize.width,
+        //     child: Container(
+        //       color: Colors.red,
+        //     ),
+        //   ),
+        // ),
 
         // 列表
         Positioned(

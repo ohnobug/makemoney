@@ -99,7 +99,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
           height: systemState.homescrollpixels +
               (systemState.appbarHeight + systemState.statusHeight + 200.w),
           color: Color.fromARGB(
-            (255 * 0.8).toInt(),
+            (255 * 0.4).toInt(),
             50,
             48,
             70,
@@ -250,8 +250,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                                 0xed9d,
                                                 fontFamily: 'Iconfont',
                                               ),
-                                              color: theme.colorScheme.onSurface
-                                                  .withAlpha(100),
+                                              color: AppColors.neutralGrey42,
                                               size: 26.w,
                                             ),
                                           ),

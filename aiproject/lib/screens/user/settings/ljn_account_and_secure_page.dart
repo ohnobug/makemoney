@@ -51,7 +51,7 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecurePage> {
                 physics: const AlwaysScrollableScrollPhysics(
                   parent: BouncingScrollPhysics(),
                 ),
-                child: BlocBuilder<LJNUserCubit, LJNUserState>(
+                child: BlocBuilder<LJNUserCubit, UserState>(
                   builder: (context, userState) {
                     return Column(
                       children: [

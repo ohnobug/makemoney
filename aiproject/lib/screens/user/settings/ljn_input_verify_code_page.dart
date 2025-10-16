@@ -33,7 +33,7 @@ class _LJNInputVerifyCodePage extends State<LJNInputVerifyCodePage> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
-        return BlocBuilder<LJNUserCubit, LJNUserState>(
+        return BlocBuilder<LJNUserCubit, UserState>(
           builder: (context, userState) {
             String phone = userState.userinfoPhone is String
                 ? userState.userinfoPhone!
