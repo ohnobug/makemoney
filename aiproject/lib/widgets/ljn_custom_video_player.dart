@@ -10,6 +10,7 @@ class LJNCustomVideoPlayer extends StatefulWidget {
   final VideoPlayerController controller;
   final double? videoHeight; // 改为可选参数
   final bool enableTapToPlay; // 新增：是否启用点击播放/暂停
+  final bool isPanelOpen; // 新增：评论面板是否打开
 
   const LJNCustomVideoPlayer({
     super.key,
@@ -17,6 +18,7 @@ class LJNCustomVideoPlayer extends StatefulWidget {
     required this.controller,
     this.videoHeight, // 改为可选参数
     this.enableTapToPlay = true, // 默认启用点击播放/暂停
+    this.isPanelOpen = false, // 默认面板关闭
   });
 
   @override
@@ -46,7 +48,10 @@ class _LJNCustomVideoPlayerState extends State<LJNCustomVideoPlayer> {
           widget.controller.play();
         } else {
           // 旧视频滑出，暂停播放
-          widget.controller.pause();
+          // 注意：这里只处理切换视频的情况，评论面板打开时不应该暂停视频
+          if (!widget.isPanelOpen) {
+            widget.controller.pause();
+          }
         }
         // [核心逻辑] 无论滑入还是滑出，都确保图标是隐藏的，因为这不是用户主动暂停
         setState(() {

@@ -455,7 +455,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
 
               // 视频进度条
               Positioned(
-                bottom: systemState.tabbarHeight + 0.w,
+                bottom: systemState.tabbarHeight + systemState.videoProgressBottomOffset,
                 left: 0,
                 right: 0,
                 child: Visibility(

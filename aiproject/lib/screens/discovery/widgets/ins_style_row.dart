@@ -213,11 +213,30 @@ class _MediaTileState extends State<_MediaTile> {
         _popupKey.currentState?.getActiveAction() ?? MediaAction.none;
     _removeOverlay();
     if (selectedAction != MediaAction.none) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("执行了连贯手势操作: $selectedAction"),
-        duration: const Duration(seconds: 1),
-      ));
+      if (selectedAction == MediaAction.viewHomepage) {
+        // 导航到作者详情页面
+        _navigateToAuthorDetail();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("执行了连贯手势操作: $selectedAction"),
+          duration: const Duration(seconds: 1),
+        ));
+      }
     }
+  }
+
+  void _navigateToAuthorDetail() {
+    // 生成作者信息（这里使用模拟数据，实际应用中应该从数据源获取）
+    final authorId = 'author_${widget.item.thumbnailUrl.hashCode}';
+    final authorName = '作者${widget.item.thumbnailUrl.hashCode % 1000}';
+    final authorAvatar = 'https://picsum.photos/seed/author_${widget.item.thumbnailUrl.hashCode}/200/200';
+
+    // 导航到作者详情页面
+    Navigator.pushNamed(context, '/author/detail', arguments: {
+      'author_id': authorId,
+      'author_name': authorName,
+      'author_avatar': authorAvatar,
+    });
   }
 
   void _handleTap() {

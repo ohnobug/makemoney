@@ -64,6 +64,7 @@ import 'package:vigaviga/screens/user/services/ljn_services_page.dart';
 import 'package:vigaviga/screens/user/services/ljn_services_manager_page.dart';
 import 'package:vigaviga/screens/user/ljn_user_more_info_page.dart';
 import 'package:vigaviga/screens/user/ljn_userinfo_page.dart';
+import 'package:vigaviga/screens/author/ljn_author_detail_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_wallet_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_bill_details_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_change_details_page.dart';
@@ -320,6 +321,15 @@ class AppRouter {
         return pageRouteBuilderAnimation(LJNLessonContentPage(
           lessonId: args['lesson_id'] ?? "",
         )); // 课程内容页面
+
+      // 作者详情页面
+      case '/author/detail':
+        final args = settings.arguments as Map<String, String>? ?? {};
+        return pageRouteBuilderAnimation(LJNAuthorDetailPage(
+          authorId: args['author_id'] ?? "",
+          authorName: args['author_name'] ?? "",
+          authorAvatar: args['author_avatar'] ?? "",
+        )); // 作者详情页面
 
       // 用户认证相关路由
       case '/user/auth/login':

@@ -130,6 +130,10 @@ class LJNSystemCubit extends Cubit<SystemState> {
     emit(state.copyWith(videoProgress: progress, showVideoProgress: show));
   }
 
+  void updateVideoProgressBottomOffset(double offset) {
+    emit(state.copyWith(videoProgressBottomOffset: offset));
+  }
+
   void updateCdnBase(String s) {
     emit(state.copyWith(
       cdnBase: s,
@@ -156,6 +160,7 @@ class SystemState extends Equatable {
   final Locale currentLocale;
   final double videoProgress;
   final bool showVideoProgress;
+  final double videoProgressBottomOffset;
   final int mainTabIndex;
   final String cdnBase;
 
@@ -184,6 +189,7 @@ class SystemState extends Equatable {
     required this.navigatorKey,
     this.videoProgress = 0.0,
     this.showVideoProgress = false,
+    this.videoProgressBottomOffset = 0.0,
     this.mainTabIndex = 0,
     this.parentDragState = ParentDragState.idle,
     this.parentDragEndVelocity,
@@ -209,6 +215,7 @@ class SystemState extends Equatable {
     GlobalKey<NavigatorState>? navigatorKey,
     double? videoProgress,
     bool? showVideoProgress,
+    double? videoProgressBottomOffset,
     int? mainTabIndex,
     ParentDragState? parentDragState,
     double? parentDragEndVelocity,
@@ -235,6 +242,7 @@ class SystemState extends Equatable {
       currentLocale: currentLocale ?? this.currentLocale,
       videoProgress: videoProgress ?? this.videoProgress,
       showVideoProgress: showVideoProgress ?? this.showVideoProgress,
+      videoProgressBottomOffset: videoProgressBottomOffset ?? this.videoProgressBottomOffset,
       mainTabIndex: mainTabIndex ?? this.mainTabIndex,
       parentDragState: parentDragState ?? this.parentDragState,
       parentDragEndVelocity: clearParentDragEndVelocity
@@ -265,6 +273,7 @@ class SystemState extends Equatable {
         currentLocale,
         videoProgress,
         showVideoProgress,
+        videoProgressBottomOffset,
         mainTabIndex,
         parentDragState,
         parentDragEndVelocity,

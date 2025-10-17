@@ -59,6 +59,9 @@ class _LJNArtsPageState extends State<LJNArtsPage>
   late AnimationController _animationController;
   late Animation<double> _panelAnimation;
 
+  // 保存视频播放状态
+  bool _wasPlayingBeforePanel = false;
+
   final List<CommentData> _comments = [
     CommentData(
         username: '小红薯6514199C',
@@ -162,7 +165,7 @@ class _LJNArtsPageState extends State<LJNArtsPage>
     if (!mounted ||
         _currentVideoController == null ||
         !_currentVideoController!.value.isInitialized) {
-      _systemCubit.updateVideoProgress(progress: 0.0);
+      _systemCubit.updateVideoProgress(progress: 0.0, show: false);
       return;
     }
     final duration = _currentVideoController!.value.duration;
@@ -170,7 +173,9 @@ class _LJNArtsPageState extends State<LJNArtsPage>
     double progressValue = (duration.inMilliseconds > 0)
         ? position.inMilliseconds / duration.inMilliseconds
         : 0.0;
-    _systemCubit.updateVideoProgress(progress: progressValue, show: true);
+
+    // [修改] 现在，只要视频在播放，就更新进度。显示/隐藏由其他逻辑控制
+    _systemCubit.updateVideoProgress(progress: progressValue);
   }
 
   VideoPlayerController _createVideoControllerForIndex(int index) {
@@ -207,16 +212,33 @@ class _LJNArtsPageState extends State<LJNArtsPage>
       controller.removeListener(_onVideoChange);
       controller.dispose();
     });
+
+    // [新增] 确保退出页面时重置偏移量
+    _systemCubit.updateVideoProgressBottomOffset(0);
     _systemCubit.updateVideoProgress(progress: 0.0, show: false);
     super.dispose();
   }
 
   void _showCommentsPanel() {
+    // 保存当前视频的播放状态
+    if (_currentVideoController != null && _currentVideoController!.value.isInitialized) {
+      _wasPlayingBeforePanel = _currentVideoController!.value.isPlaying;
+    }
+
+    // 确保打开面板时，Cubit中的进度条是可见的
+    _systemCubit.updateVideoProgress(show: true);
     _animationController.forward();
   }
 
   void _hideCommentsPanel() {
-    _animationController.reverse();
+    _animationController.reverse().then((_) {
+      // 面板完全关闭后，根据之前保存的状态恢复视频播放
+      if (_wasPlayingBeforePanel && _currentVideoController != null &&
+          _currentVideoController!.value.isInitialized &&
+          !_currentVideoController!.value.isPlaying) {
+        _currentVideoController!.play();
+      }
+    });
   }
 
   void _showArtInfoModalSheet(BuildContext context) {
@@ -278,6 +300,10 @@ class _LJNArtsPageState extends State<LJNArtsPage>
                 final isPanelOpen =
                     _animationController.status != AnimationStatus.dismissed;
 
+                // [新增逻辑] 在动画的每一帧计算并更新进度条的底部偏移量
+                final double currentProgressBarOffset = panelProgress * commentPanelMaxHeight;
+                _systemCubit.updateVideoProgressBottomOffset(currentProgressBarOffset);
+
                 return Stack(
                   children: [
                     // --- 1. 背景视频 & 主界面 UI ---
@@ -300,9 +326,11 @@ class _LJNArtsPageState extends State<LJNArtsPage>
                                 return LJNCustomVideoPlayer(
                                   key: ValueKey('video_$index'),
                                   canPlay:
-                                      index == _currentPage && !isPanelOpen,
+                                      index == _currentPage,
                                   controller: controller,
                                   videoHeight: videoHeight,
+                                  enableTapToPlay: !isPanelOpen,
+                                  isPanelOpen: isPanelOpen,
                                 );
                               },
                             ),
@@ -510,18 +538,36 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
         children: [
           Row(
             children: [
-              ClipOval(
-                  child: LJNAppNetworkImage(
-                      imageUrl: widget.avatarUrl,
-                      width: 64.w,
-                      height: 64.w,
-                      fit: BoxFit.cover)),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/author/detail', arguments: {
+                    'author_id': widget.userName,
+                    'author_name': widget.userName,
+                    'author_avatar': widget.avatarUrl,
+                  });
+                },
+                child: ClipOval(
+                    child: LJNAppNetworkImage(
+                        imageUrl: widget.avatarUrl,
+                        width: 64.w,
+                        height: 64.w,
+                        fit: BoxFit.cover)),
+              ),
               SizedBox(width: 12.w),
-              Text(widget.userName,
-                  style: TextStyle(
-                      fontSize: fontSizeScale(30.w),
-                      color: AppColors.neutralWhite,
-                      fontWeight: FontWeight.bold)),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/author/detail', arguments: {
+                    'author_id': widget.userName,
+                    'author_name': widget.userName,
+                    'author_avatar': widget.avatarUrl,
+                  });
+                },
+                child: Text(widget.userName,
+                    style: TextStyle(
+                        fontSize: fontSizeScale(30.w),
+                        color: AppColors.neutralWhite,
+                        fontWeight: FontWeight.bold)),
+              ),
               SizedBox(width: 16.w),
               GestureDetector(
                   onTap: () => logger.info("点击了关注按钮"),
