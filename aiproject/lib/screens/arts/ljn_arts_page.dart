@@ -56,13 +56,8 @@ class _LJNArtsPageState extends State<LJNArtsPage>
   late final LJNSystemCubit _systemCubit;
   late final List<VideoData> _videoDataList;
 
-  // 使用 AnimationController 实现更流畅的动画
   late AnimationController _animationController;
   late Animation<double> _panelAnimation;
-
-  // [核心修复] 用于记录拖动开始时的信息
-  double _dragStartPositionY = 0.0;
-  double _dragStartAnimationValue = 0.0;
 
   final List<CommentData> _comments = [
     CommentData(
@@ -81,20 +76,15 @@ class _LJNArtsPageState extends State<LJNArtsPage>
         likes: 8,
         imageUrl:
             'https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
-    CommentData(
-        username: '烟熏威士忌',
-        avatarUrl: 'https://picsum.photos/seed/user4/100/100',
-        content: '朋友带我去的广州塔🙋‍♀️',
-        timestamp: '昨天 19:03',
-        location: '广东',
-        likes: 37),
-    CommentData(
-        username: 'momo',
-        avatarUrl: 'https://picsum.photos/seed/user5/100/100',
-        content: '我家庭年收入4-50w也只能看右边',
-        timestamp: '昨天 13:24',
-        location: '广东',
-        likes: 37),
+    // 添加更多评论数据以测试滚动
+    for (int i = 0; i < 20; i++)
+      CommentData(
+          username: '用户 $i',
+          avatarUrl: 'https://picsum.photos/seed/user$i/100/100',
+          content: '这是第 $i 条测试评论内容，用于填充列表。',
+          timestamp: '1小时前',
+          location: '网络',
+          likes: i * 5),
   ];
 
   VideoPlayerController? get _currentVideoController =>
@@ -221,7 +211,6 @@ class _LJNArtsPageState extends State<LJNArtsPage>
     super.dispose();
   }
 
-  // --- 评论面板控制 ---
   void _showCommentsPanel() {
     _animationController.forward();
   }
@@ -230,7 +219,6 @@ class _LJNArtsPageState extends State<LJNArtsPage>
     _animationController.reverse();
   }
 
-  // --- 各种UI构建方法 (无需改动) ---
   void _showArtInfoModalSheet(BuildContext context) {
     showModalBottomSheet<void>(
         isScrollControlled: true,
@@ -370,66 +358,51 @@ class _LJNArtsPageState extends State<LJNArtsPage>
                     ),
 
                     // --- 2. 评论面板覆盖层 ---
-                    // [核心修复] 将 GestureDetector 放在这里，它是一个静止的层
                     if (isPanelOpen)
-                      GestureDetector(
-                        onVerticalDragStart: (details) {
-                          _dragStartPositionY = details.globalPosition.dy;
-                          _dragStartAnimationValue = _animationController.value;
-                        },
-                        onVerticalDragUpdate: (details) {
-                          // 计算从拖动开始时的总位移
-                          double dragDistance =
-                              details.globalPosition.dy - _dragStartPositionY;
-                          // 将像素位移转换为动画控制器的值 (0-1)
-                          // 向下拖动 (dragDistance > 0) 应该减少动画值
-                          double dragFraction =
-                              dragDistance / commentPanelMaxHeight;
-
-                          // 更新动画值，并使用 clamp 限制在 0-1 之间
-                          _animationController.value =
-                              (_dragStartAnimationValue - dragFraction)
-                                  .clamp(0.0, 1.0);
-                        },
-                        onVerticalDragEnd: (details) {
-                          // 拖动结束时，根据当前位置和速度决定是打开还是关闭
-                          if (_animationController.value < 0.5 ||
-                              (details.primaryVelocity ?? 0) > 500) {
-                            _hideCommentsPanel();
-                          } else {
-                            _showCommentsPanel();
-                          }
-                        },
-                        // 这个 onTap 用于处理点击背景关闭面板的逻辑
-                        onTap: _hideCommentsPanel,
-                        child: Container(
-                          color: Colors.transparent, // 整个拖动层是透明的
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                height: commentPanelMaxHeight,
-                                child: SlideTransition(
-                                  position: Tween<Offset>(
-                                          begin: const Offset(0, 1),
-                                          end: Offset.zero)
-                                      .animate(_panelAnimation),
-                                  // [核心修复] 内部再用一个 GestureDetector 来“消费”事件
-                                  // 防止点击评论面板本身时，触发上层的 onTap 导致面板关闭
-                                  child: GestureDetector(
-                                    onTap: () {}, // 空实现，捕获点击事件
-                                    child: LJNCommentPanel(
-                                      comments: _comments,
-                                      onClose: _hideCommentsPanel,
-                                      panelHeight: commentPanelMaxHeight,
-                                      showInput: true,
+                      Positioned.fill(
+                        child: GestureDetector(
+                          onTap: _hideCommentsPanel,
+                          child: Container(
+                            color: Colors.transparent,
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  left: 0,
+                                  right: 0,
+                                  bottom: 0,
+                                  height: commentPanelMaxHeight,
+                                  child: SlideTransition(
+                                    position: Tween<Offset>(
+                                            begin: const Offset(0, 1),
+                                            end: Offset.zero)
+                                        .animate(_panelAnimation),
+                                    child: GestureDetector(
+                                      onTap: () {}, // 消费点击事件，防止点击面板关闭
+                                      child: LJNCommentPanel(
+                                        comments: _comments,
+                                        onClose: _hideCommentsPanel,
+                                        panelHeight: commentPanelMaxHeight,
+                                        showInput: true,
+                                        // [核心交互] 连接主页面和评论面板的滚动
+                                        onOverScroll: (delta) {
+                                          // scrollDelta 在向下拉时是负数
+                                          _animationController.value -=
+                                              delta / commentPanelMaxHeight;
+                                        },
+                                        onOverScrollEnd: () {
+                                          if (_animationController.value <
+                                              0.5) {
+                                            _hideCommentsPanel();
+                                          } else {
+                                            _showCommentsPanel();
+                                          }
+                                        },
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -443,7 +416,7 @@ class _LJNArtsPageState extends State<LJNArtsPage>
     );
   }
 
-  // --- 辅助构建方法 (提取出来使代码更整洁) ---
+  // --- 辅助构建方法 ---
   Widget _buildActionButtons(VideoData videoData) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
