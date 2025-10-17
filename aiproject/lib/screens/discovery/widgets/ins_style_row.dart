@@ -83,12 +83,12 @@ class InsStyleRow extends StatelessWidget {
 class _MediaTile extends StatefulWidget {
   final MediaItem item;
   final bool isBig;
-  final bool canPlay; // 【新增】
+  final bool canPlay;
 
   const _MediaTile({
     required this.item,
     this.isBig = false,
-    required this.canPlay, // 【新增】
+    required this.canPlay,
   });
   @override
   State<_MediaTile> createState() => _MediaTileState();

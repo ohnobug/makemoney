@@ -41,9 +41,6 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<LJNSystemCubit>().updateMainpage4isload(true);
-
-      final size = MediaQuery.of(context).size;
-      context.read<LJNSystemCubit>().updateScreenSize(size);
     });
 
     _lottieController = AnimationController(vsync: this);

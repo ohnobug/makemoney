@@ -30,6 +30,13 @@ class _AppState extends State<App> {
 
     systemCubit.updateCdnBase('https://cdn.vigaviga.com');
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        final size = MediaQuery.of(context).size;
+        systemCubit.updateScreenSize(size);
+      }
+    });
+
     var userCubit = context.read<LJNUserCubit>();
     userCubit.updateName('李俊杰');
     userCubit.updateAccount('TheMonsterClub');

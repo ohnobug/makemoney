@@ -1,8 +1,10 @@
 // G:\t\detection\aiproject\lib\screens\discovery\widgets\media_action_popup.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 // 枚举保持不变
@@ -118,87 +120,104 @@ class MediaActionPopupState extends State<MediaActionPopup> {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     final horizontalPadding = 32.0.w;
     final popupWidth = 750.w - (horizontalPadding * 2);
     final imageDisplayHeight = popupWidth / widget.aspectRatio;
-    final maxHeight = screenSize.height * 0.75;
 
-    return Material(
-      type: MaterialType.transparency,
-      child: Container(
-        color: Colors.black.withAlpha(102),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(maxHeight: maxHeight),
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16.r),
-                      child: Container(
-                        color: Colors.white,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(
-                              width: popupWidth,
-                              height: imageDisplayHeight > maxHeight
-                                  ? maxHeight - 90.w
-                                  : imageDisplayHeight,
-                              child: widget.isVideo
-                                  ? (_videoController?.value.isInitialized ??
-                                          false
-                                      ? VideoPlayer(_videoController!)
-                                      : const Center(
-                                          child: CircularProgressIndicator()))
-                                  : LJNAppNetworkImage(
-                                      imageUrl: widget.mediaUrl,
-                                      fit: BoxFit.cover,
-                                    ),
-                            ),
-                            Container(
-                              height: 90.w,
-                              color: Colors.white,
-                              padding: EdgeInsets.all(5.w),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  _buildActionButton(
-                                      MediaAction.like, Icons.favorite),
-                                  if (widget.isVideo)
-                                    _buildActionButton(
-                                        MediaAction.speed, Icons.fast_forward),
-                                  _buildActionButton(
-                                      MediaAction.favorite, Icons.star),
-                                  _buildActionButton(
-                                      MediaAction.download, Icons.download),
-                                  _buildActionButton(
-                                      MediaAction.share, Icons.reply),
-                                  _buildActionButton(
-                                      MediaAction.viewHomepage, Icons.person),
-                                ],
+    return BlocBuilder<LJNSystemCubit, SystemState>(
+        builder: (context, systemState) {
+      final maxHeight = systemState.screenSize.height -
+          systemState.appbarHeight -
+          systemState.statusHeight;
+
+      return Material(
+        type: MaterialType.transparency,
+        child: Container(
+          color: Colors.black.withAlpha(102),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(maxHeight: maxHeight),
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16.r),
+                        child: Container(
+                          color: Colors.white,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                width: popupWidth,
+                                height: imageDisplayHeight > maxHeight
+                                    ? maxHeight - 100.w
+                                    : imageDisplayHeight,
+                                child: widget.isVideo
+                                    ? (_videoController?.value.isInitialized ??
+                                            false
+                                        ? VideoPlayer(_videoController!)
+                                        : const Center(
+                                            child: CircularProgressIndicator(),
+                                          ))
+                                    : LJNAppNetworkImage(
+                                        imageUrl: widget.mediaUrl,
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
-                            ),
-                          ],
+                              Container(
+                                height: 100.w,
+                                color: Colors.white,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    _buildActionButton(
+                                      MediaAction.like,
+                                      Icons.favorite,
+                                    ),
+                                    if (widget.isVideo)
+                                      _buildActionButton(
+                                        MediaAction.speed,
+                                        Icons.fast_forward,
+                                      ),
+                                    _buildActionButton(
+                                      MediaAction.favorite,
+                                      Icons.star,
+                                    ),
+                                    _buildActionButton(
+                                      MediaAction.download,
+                                      Icons.download,
+                                    ),
+                                    _buildActionButton(
+                                      MediaAction.share,
+                                      Icons.reply,
+                                    ),
+                                    _buildActionButton(
+                                      MediaAction.viewHomepage,
+                                      Icons.person,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    if (widget.isVideo) _buildSpeedMenuOverlay(),
-                  ],
+                      if (widget.isVideo) _buildSpeedMenuOverlay(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget _buildSpeedMenuOverlay() {
