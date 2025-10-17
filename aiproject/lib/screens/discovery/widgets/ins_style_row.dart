@@ -27,12 +27,18 @@ class InsStyleRow extends StatelessWidget {
   final List<MediaItem> items;
   final RowLayoutType layoutType;
   final bool canPlay; // 【新增】
+  final ValueChanged<MediaItem>? onItemTap;
+  final ValueChanged<MediaItem>? onCommentTap;
+  final bool isCommentPanelOpen;
 
   const InsStyleRow({
     super.key,
     required this.items,
     required this.layoutType,
     required this.canPlay, // 【新增】
+    this.onItemTap,
+    this.onCommentTap,
+    this.isCommentPanelOpen = false,
   });
 
   @override
@@ -41,16 +47,42 @@ class InsStyleRow extends StatelessWidget {
       return SizedBox(height: 250.w, child: const Center(child: Text("数据错误")));
     }
     // 【修改】将 canPlay 传递给 _MediaTile
-    final bigItem = _MediaTile(item: items[0], isBig: true, canPlay: canPlay);
+    final bigItem = _MediaTile(
+      item: items[0],
+      isBig: true,
+      canPlay: canPlay,
+      onTap: () => onItemTap?.call(items[0]),
+      isCommentPanelOpen: isCommentPanelOpen,
+    );
     final smallItems1 = Column(children: [
-      Expanded(child: _MediaTile(item: items[1], canPlay: canPlay)),
+      Expanded(child: _MediaTile(
+        item: items[1],
+        canPlay: canPlay,
+        onTap: () => onItemTap?.call(items[1]),
+        isCommentPanelOpen: isCommentPanelOpen,
+      )),
       SizedBox(height: 2.w),
-      Expanded(child: _MediaTile(item: items[2], canPlay: canPlay)),
+      Expanded(child: _MediaTile(
+        item: items[2],
+        canPlay: canPlay,
+        onTap: () => onItemTap?.call(items[2]),
+        isCommentPanelOpen: isCommentPanelOpen,
+      )),
     ]);
     final smallItems2 = Column(children: [
-      Expanded(child: _MediaTile(item: items[3], canPlay: canPlay)),
+      Expanded(child: _MediaTile(
+        item: items[3],
+        canPlay: canPlay,
+        onTap: () => onItemTap?.call(items[3]),
+        isCommentPanelOpen: isCommentPanelOpen,
+      )),
       SizedBox(height: 2.w),
-      Expanded(child: _MediaTile(item: items[4], canPlay: canPlay)),
+      Expanded(child: _MediaTile(
+        item: items[4],
+        canPlay: canPlay,
+        onTap: () => onItemTap?.call(items[4]),
+        isCommentPanelOpen: isCommentPanelOpen,
+      )),
     ]);
     final List<Widget> widgets;
     switch (layoutType) {
@@ -84,11 +116,16 @@ class _MediaTile extends StatefulWidget {
   final MediaItem item;
   final bool isBig;
   final bool canPlay;
+  final VoidCallback? onTap;
+
+  final bool isCommentPanelOpen;
 
   const _MediaTile({
     required this.item,
     this.isBig = false,
     required this.canPlay,
+    this.onTap,
+    required this.isCommentPanelOpen,
   });
   @override
   State<_MediaTile> createState() => _MediaTileState();
@@ -102,7 +139,11 @@ class _MediaTileState extends State<_MediaTile> {
   @override
   void initState() {
     super.initState();
-    _fetchMediaInfo();
+    // 【修复】延迟执行所有异步操作，避免在初始化时阻塞微任务队列
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _fetchMediaInfo();
+      _preloadPopupData();
+    });
   }
 
   Future<void> _fetchMediaInfo() async {
@@ -179,6 +220,22 @@ class _MediaTileState extends State<_MediaTile> {
     }
   }
 
+  void _handleTap() {
+    widget.onTap?.call();
+  }
+
+  // 【优化】预加载弹出框数据
+  void _preloadPopupData() {
+    if (!widget.item.isVideo) {
+      // 对于图片，预加载到缓存中（忽略任何错误）
+      try {
+        DefaultCacheManager().getSingleFile(widget.item.mediaUrl);
+      } catch (_) {
+        // 忽略预加载错误
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return RawGestureDetector(
@@ -186,7 +243,7 @@ class _MediaTileState extends State<_MediaTile> {
         LongPressGestureRecognizer:
             GestureRecognizerFactoryWithHandlers<LongPressGestureRecognizer>(
           () => LongPressGestureRecognizer(
-              duration: const Duration(milliseconds: 300)),
+              duration: const Duration(milliseconds: 250)),
           (LongPressGestureRecognizer instance) {
             instance.onLongPressStart = (details) {
               final aspectRatioToShow = _realAspectRatio ?? 1.0;
@@ -207,7 +264,7 @@ class _MediaTileState extends State<_MediaTile> {
             GestureRecognizerFactoryWithHandlers<TapGestureRecognizer>(
           () => TapGestureRecognizer(),
           (TapGestureRecognizer instance) {
-            instance.onTap = () => logger.info("跳转到链接...");
+            instance.onTap = () => _handleTap();
           },
         ),
       },
@@ -216,10 +273,13 @@ class _MediaTileState extends State<_MediaTile> {
         children: [
           widget.item.isVideo
               ? _VideoTilePreview(
-                  videoUrl: widget.item.mediaUrl, canPlay: widget.canPlay)
+                  videoUrl: widget.item.mediaUrl,
+                  canPlay: widget.canPlay,
+                  isCommentPanelOpen: widget.isCommentPanelOpen,
+                )
               : LJNAppNetworkImage(
                   imageUrl: widget.item.thumbnailUrl,
-                  fit: BoxFit.cover,
+                  fit: widget.isCommentPanelOpen ? BoxFit.contain : BoxFit.cover,
                 )
         ],
       ),
@@ -230,8 +290,13 @@ class _MediaTileState extends State<_MediaTile> {
 class _VideoTilePreview extends StatefulWidget {
   final String videoUrl;
   final bool canPlay;
+  final bool isCommentPanelOpen;
 
-  const _VideoTilePreview({required this.videoUrl, required this.canPlay});
+  const _VideoTilePreview({
+    required this.videoUrl,
+    required this.canPlay,
+    required this.isCommentPanelOpen,
+  });
 
   @override
   State<_VideoTilePreview> createState() => _VideoTilePreviewState();
@@ -243,18 +308,23 @@ class _VideoTilePreviewState extends State<_VideoTilePreview> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
-      ..initialize().then((_) {
-        if (mounted) {
-          setState(() {
-            _controller?.setVolume(0);
-            _controller?.setLooping(true);
-            if (widget.canPlay) {
-              _controller?.play();
-            }
-          });
-        }
-      });
+    // 【修复】延迟执行视频控制器初始化，避免在初始化时阻塞微任务队列
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
+        ..initialize().then((_) {
+          if (mounted) {
+            setState(() {
+              _controller?.setVolume(0);
+              _controller?.setLooping(true);
+              if (widget.canPlay) {
+                _controller?.play();
+              }
+            });
+          }
+        }).catchError((error) {
+          logger.warning("视频初始化失败 (URL: ${widget.videoUrl}): $error");
+        });
+    });
   }
 
   @override
@@ -265,6 +335,13 @@ class _VideoTilePreviewState extends State<_VideoTilePreview> {
         _controller?.play();
       } else {
         _controller?.pause();
+      }
+    }
+    // 确保评论面板状态变化不会影响视频播放
+    if (oldWidget.isCommentPanelOpen != widget.isCommentPanelOpen) {
+      // 当评论面板状态改变时，只更新显示模式，不影响播放状态
+      if (mounted) {
+        setState(() {});
       }
     }
   }
@@ -279,7 +356,7 @@ class _VideoTilePreviewState extends State<_VideoTilePreview> {
   Widget build(BuildContext context) {
     if (_controller?.value.isInitialized ?? false) {
       return FittedBox(
-        fit: BoxFit.cover,
+        fit: widget.isCommentPanelOpen ? BoxFit.contain : BoxFit.cover,
         clipBehavior: Clip.hardEdge,
         child: SizedBox(
           width: _controller!.value.size.width,

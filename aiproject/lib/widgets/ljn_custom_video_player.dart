@@ -8,13 +8,15 @@ import 'package:video_player/video_player.dart';
 class LJNCustomVideoPlayer extends StatefulWidget {
   final bool? canPlay;
   final VideoPlayerController controller;
-  final double videoHeight;
+  final double? videoHeight; // 改为可选参数
+  final bool enableTapToPlay; // 新增：是否启用点击播放/暂停
 
   const LJNCustomVideoPlayer({
     super.key,
     this.canPlay,
     required this.controller,
-    required this.videoHeight,
+    this.videoHeight, // 改为可选参数
+    this.enableTapToPlay = true, // 默认启用点击播放/暂停
   });
 
   @override
@@ -58,7 +60,7 @@ class _LJNCustomVideoPlayerState extends State<LJNCustomVideoPlayer> {
 
   // _togglePlaying 现在是唯一能改变 _showPlayIcon 状态的地方
   void _togglePlaying() {
-    if (!mounted || !widget.controller.value.isInitialized) return;
+    if (!mounted || !widget.controller.value.isInitialized || !widget.enableTapToPlay) return;
 
     setState(() {
       if (widget.controller.value.isPlaying) {
@@ -81,24 +83,23 @@ class _LJNCustomVideoPlayerState extends State<LJNCustomVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 750.w,
-      height: widget.videoHeight,
-      child: widget.controller.value.isInitialized
-          ? Stack(
-              alignment: Alignment.center,
-              children: [
-                SizedBox.expand(
-                  child: FittedBox(
-                    fit: BoxFit.cover,
-                    clipBehavior: Clip.hardEdge,
-                    child: SizedBox(
-                      width: widget.controller.value.size.width,
-                      height: widget.controller.value.size.height,
-                      child: VideoPlayer(widget.controller),
-                    ),
+    // 如果提供了videoHeight，使用固定高度，否则使用自适应高度
+    final child = widget.controller.value.isInitialized
+        ? Stack(
+            alignment: Alignment.center,
+            children: [
+              SizedBox.expand(
+                child: FittedBox(
+                  fit: BoxFit.cover,
+                  clipBehavior: Clip.hardEdge,
+                  child: SizedBox(
+                    width: widget.controller.value.size.width,
+                    height: widget.controller.value.size.height,
+                    child: VideoPlayer(widget.controller),
                   ),
                 ),
+              ),
+              if (widget.enableTapToPlay) ...[
                 GestureDetector(
                   onTap: _togglePlaying,
                   behavior: HitTestBehavior.opaque,
@@ -119,18 +120,39 @@ class _LJNCustomVideoPlayerState extends State<LJNCustomVideoPlayer> {
                   ),
                 ),
               ],
-            )
-          : Container(
-              width: 750.w,
-              height: widget.videoHeight,
-              color: Colors.black,
-              child: const Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  color: Colors.white54,
-                ),
+            ],
+          )
+        : Container(
+            color: Colors.black,
+            child: const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: Colors.white54,
               ),
             ),
-    );
+          );
+
+    // 当 enableTapToPlay 为 false 时，使用 AbsorbPointer 完全禁用所有交互
+    final wrappedChild = widget.enableTapToPlay
+        ? child
+        : AbsorbPointer(
+            child: child,
+          );
+
+    // 根据是否提供videoHeight决定使用固定高度还是自适应
+    if (widget.videoHeight != null) {
+      return SizedBox(
+        width: 750.w,
+        height: widget.videoHeight,
+        child: wrappedChild,
+      );
+    } else {
+      return AspectRatio(
+        aspectRatio: widget.controller.value.isInitialized
+            ? widget.controller.value.aspectRatio
+            : 16 / 9,
+        child: wrappedChild,
+      );
+    }
   }
 }

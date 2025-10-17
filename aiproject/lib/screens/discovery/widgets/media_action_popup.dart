@@ -1,9 +1,11 @@
 // G:\t\detection\aiproject\lib\screens\discovery\widgets\media_action_popup.dart
 
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
@@ -31,6 +33,8 @@ class MediaActionPopupState extends State<MediaActionPopup> {
   MediaAction _activeAction = MediaAction.none;
   double _activeSpeed = 1.0;
   bool _showSpeedMenu = false;
+  File? _cachedImageFile;
+  bool _isImageLoading = false;
 
   final Map<MediaAction, GlobalKey> _buttonKeys = {
     MediaAction.like: GlobalKey(),
@@ -49,16 +53,57 @@ class MediaActionPopupState extends State<MediaActionPopup> {
   @override
   void initState() {
     super.initState();
-    if (widget.isVideo) {
-      _videoController =
-          VideoPlayerController.networkUrl(Uri.parse(widget.mediaUrl))
-            ..initialize().then((_) {
-              if (mounted) {
-                setState(() {});
-                _videoController?.setLooping(true);
-                _videoController?.play();
-              }
-            });
+    // 【修复】延迟执行所有初始化操作，避免在初始化时阻塞微任务队列
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.isVideo) {
+        _videoController =
+            VideoPlayerController.networkUrl(Uri.parse(widget.mediaUrl))
+              ..initialize().then((_) {
+                if (mounted) {
+                  setState(() {});
+                  _videoController?.setLooping(true);
+                  _videoController?.play();
+                }
+              });
+      } else {
+        // 【优化】从缓存获取图片文件，避免重新下载
+        _loadCachedImage();
+      }
+    });
+  }
+
+  Future<void> _loadCachedImage() async {
+    if (_isImageLoading) return;
+
+    setState(() {
+      _isImageLoading = true;
+    });
+
+    try {
+      final fileInfo = await DefaultCacheManager()
+          .getFileFromCache(widget.mediaUrl);
+
+      if (fileInfo != null && mounted) {
+        setState(() {
+          _cachedImageFile = fileInfo.file;
+          _isImageLoading = false;
+        });
+      } else {
+        // 如果缓存中没有，预下载到缓存
+        final file = await DefaultCacheManager().getSingleFile(widget.mediaUrl);
+        if (mounted) {
+          setState(() {
+            _cachedImageFile = file;
+            _isImageLoading = false;
+          });
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _isImageLoading = false;
+        });
+      }
     }
   }
 
@@ -106,9 +151,13 @@ class MediaActionPopupState extends State<MediaActionPopup> {
 
     final bool shouldShowSpeedMenu =
         newAction == MediaAction.speed || isOverSpeedMenu;
-    if (newAction != _activeAction ||
+
+    // 【修复】添加防抖逻辑，避免在长按移动时频繁调用 setState
+    final bool needsUpdate = newAction != _activeAction ||
         newSpeed != _activeSpeed ||
-        shouldShowSpeedMenu != _showSpeedMenu) {
+        shouldShowSpeedMenu != _showSpeedMenu;
+
+    if (needsUpdate && mounted) {
       setState(() {
         _activeAction = isOverSpeedMenu ? MediaAction.none : newAction;
         _activeSpeed = shouldShowSpeedMenu ? newSpeed : 1.0;
@@ -163,10 +212,7 @@ class MediaActionPopupState extends State<MediaActionPopup> {
                                         : const Center(
                                             child: CircularProgressIndicator(),
                                           ))
-                                    : LJNAppNetworkImage(
-                                        imageUrl: widget.mediaUrl,
-                                        fit: BoxFit.cover,
-                                      ),
+                                    : _buildImageContent(),
                               ),
                               Container(
                                 height: 100.w,
@@ -291,6 +337,36 @@ class MediaActionPopupState extends State<MediaActionPopup> {
         color: isActive ? Colors.white : Colors.grey[800],
         size: 50.w,
       ),
+    );
+  }
+
+  Widget _buildImageContent() {
+    // 【优化】优先使用缓存文件，避免重新下载
+    if (_cachedImageFile != null && _cachedImageFile!.existsSync()) {
+      return Image.file(
+        _cachedImageFile!,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          // 如果缓存文件有问题，回退到网络图片
+          return LJNAppNetworkImage(
+            imageUrl: widget.mediaUrl,
+            fit: BoxFit.cover,
+          );
+        },
+      );
+    }
+
+    // 如果还在加载中，显示加载指示器
+    if (_isImageLoading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    // 最后回退到网络图片
+    return LJNAppNetworkImage(
+      imageUrl: widget.mediaUrl,
+      fit: BoxFit.cover,
     );
   }
 

@@ -21,7 +21,8 @@
       "Bash(flutter pub deps --style=tree)",
       "Bash(flutter build apk --analyze-size)",
       "Bash(flutter build apk --target-platform android-arm64 --analyze-size)",
-      "Bash(./gradlew clean)"
+      "Bash(./gradlew clean)",
+      "Bash(flutter analyze lib/screens/arts/ljn_arts_page.dart)"
     ],
     "deny": [],
     "ask": []

@@ -12,6 +12,7 @@ import 'package:vigaviga/screens/contract/ljn_search_friend_page.dart';
 import 'package:vigaviga/screens/discovery/ljn_ins_page.dart';
 import 'package:vigaviga/screens/discovery/ljn_miniprogram_page.dart';
 import 'package:vigaviga/screens/discovery/ljn_miniprogram_list_page.dart';
+import 'package:vigaviga/screens/discovery/ljn_post_detail_page.dart';
 import 'package:vigaviga/screens/discovery/ljn_qrcode_scanner_page.dart';
 import 'package:vigaviga/screens/discovery/ljn_search_page.dart';
 import 'package:vigaviga/screens/publisher/ljn_publisher_page.dart';
@@ -275,6 +276,10 @@ class AppRouter {
             const LJNMiniProgramListPage()); // 小程序列表页面
       case '/discovery/publisher':
         return pageRouteBuilderAnimation(const LJNPublisherPage()); // 发布页面
+      case '/discovery/ins/post_detail_page':
+        final args = settings.arguments as PostDetailData?;
+        return pageRouteBuilderAnimation(
+            LJNPostDetailPage(postData: args ?? _createDefaultPostData())); // 帖子详情页面
 
       // 用户相关路由
       case '/user/like':
@@ -349,6 +354,27 @@ class AppRouter {
           ),
         );
     }
+  }
+
+  // 创建默认的帖子详情数据
+  static PostDetailData _createDefaultPostData() {
+    return PostDetailData(
+      id: 'default_post',
+      username: '默认用户',
+      avatarUrl: 'https://picsum.photos/seed/default/100/100',
+      imageUrls: [
+        'https://picsum.photos/seed/default1/600/800',
+        'https://picsum.photos/seed/default2/600/800',
+      ],
+      title: '这是一个默认的帖子标题',
+      tags: ['默认标签1', '默认标签2'],
+      timestamp: '刚刚',
+      location: '未知地点',
+      likes: 0,
+      favorites: 0,
+      comments: 0,
+      isFollowed: false,
+    );
   }
 }
 
