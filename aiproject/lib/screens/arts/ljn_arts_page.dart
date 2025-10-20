@@ -599,7 +599,7 @@ class _ArtInfoModalContent extends StatelessWidget {
                             '0x${currentVideoData.videoPath.hashCode.toRadixString(16)}'),
                       ],
                     ),
-                    SizedBox(height: 100.w), // 底部留白
+                    SizedBox(height: 200.w), // 底部留白
                   ],
                 ),
               ),
@@ -614,14 +614,8 @@ class _ArtInfoModalContent extends StatelessWidget {
             child: Container(
               // 添加一点模糊效果，使其与下方滚动内容区分
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.black.withOpacity(0.5),
-                  Colors.black.withOpacity(0.0),
-                ],
-              )),
+                color: const Color.fromARGB(255, 14, 14, 10),
+              ),
               child: Padding(
                 padding: EdgeInsets.only(
                   top: 20.w + systemState.statusHeight,
