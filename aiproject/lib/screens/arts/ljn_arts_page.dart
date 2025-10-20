@@ -495,45 +495,62 @@ class _LJNArtsPageState extends State<LJNArtsPage>
           });
         }),
         SizedBox(height: 35.w),
-        _buildActionButton(const IconData(0xe665, fontFamily: 'Iconfont'),
-            count: videoData.commentCount.toString(),
-            onTap: _showCommentsPanel),
+        _buildActionButton(
+          const IconData(0xe665, fontFamily: 'Iconfont'),
+          count: videoData.commentCount.toString(),
+          onTap: _showCommentsPanel,
+        ),
         SizedBox(height: 35.w),
-        _buildActionButton(const IconData(0xe602, fontFamily: 'Iconfont'),
-            color: videoData.isCollected ? Colors.yellow : Colors.white,
-            count: videoData.collectionCount.toString(), onTap: () {
-          setState(() {
-            videoData.isCollected = !videoData.isCollected;
-          });
-        }),
+        _buildActionButton(
+          const IconData(0xe602, fontFamily: 'Iconfont'),
+          color: videoData.isCollected ? Colors.yellow : Colors.white,
+          count: videoData.collectionCount.toString(),
+          onTap: () {
+            setState(() {
+              videoData.isCollected = !videoData.isCollected;
+            });
+          },
+        ),
         SizedBox(height: 35.w),
-        _buildActionButton(const IconData(0xe6c7, fontFamily: 'Iconfont'),
-            count: videoData.shareCount.toString(),
-            onTap: () => _showArtShareModalSheet(context)),
+        _buildActionButton(
+          const IconData(0xe6c7, fontFamily: 'Iconfont'),
+          count: videoData.shareCount.toString(),
+          onTap: () => _showArtShareModalSheet(context),
+        ),
         SizedBox(height: 35.w),
         GestureDetector(
-            child: Icon(const IconData(0xe6e6, fontFamily: 'Iconfont'),
-                color: AppColors.neutralWhite, size: 63.w),
-            onTap: () => _showArtInfoModalSheet(context)),
+          child: Icon(const IconData(0xe6e6, fontFamily: 'Iconfont'),
+              color: AppColors.neutralWhite, size: 63.w),
+          onTap: () => _showArtInfoModalSheet(context),
+        ),
       ],
     );
   }
 
-  Widget _buildActionButton(IconData icondata,
-      {String count = "0",
-      Color color = AppColors.neutralWhite,
-      GestureTapCallback? onTap}) {
+  Widget _buildActionButton(
+    IconData icondata, {
+    String count = "0",
+    Color color = AppColors.neutralWhite,
+    GestureTapCallback? onTap,
+  }) {
     return GestureDetector(
-        onTap: onTap,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      onTap: onTap,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
           Icon(icondata, color: color, size: 63.w),
           SizedBox(height: 10.w),
-          Text(count,
-              style: TextStyle(
-                  fontSize: 22.w,
-                  color: AppColors.neutralWhite,
-                  fontWeight: FontWeight.bold))
-        ]));
+          Text(
+            count,
+            style: TextStyle(
+              fontSize: 22.w,
+              color: AppColors.neutralWhite,
+              fontWeight: FontWeight.bold,
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 
@@ -550,6 +567,7 @@ class _ArtInfoModalContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 根Widget负责背景和圆角
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -562,52 +580,59 @@ class _ArtInfoModalContent extends StatelessWidget {
         ),
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(
-              top: 20.w,
-              bottom: 20.w,
-              left: 20.w,
-              right: 20.w,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '作品信息',
-                  style: TextStyle(
-                    fontSize: 36.w,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Container(
-                  width: 60.w,
-                  height: 60.w,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withAlpha(30),
-                    borderRadius: BorderRadius.circular(30.w),
-                  ),
-                  child: IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: Icon(
-                      Icons.close,
+      // 使用 ClipRRect 来确保子内容不会超出圆角范围
+      clipBehavior: Clip.antiAlias,
+      child: SingleChildScrollView(
+        controller: scrollController,
+        child: Column(
+          // 将所有内容都放入这个可滚动的 Column 中
+          children: [
+            // 1. 标题栏
+            Container(
+              padding: EdgeInsets.only(
+                // 手动为状态栏留出空间
+                top: 20.w + systemState.statusHeight,
+                bottom: 20.w,
+                left: 20.w,
+                right: 20.w,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '作品信息',
+                    style: TextStyle(
+                      fontSize: 36.w,
                       color: Colors.white,
-                      size: 32.w,
+                      fontWeight: FontWeight.bold,
                     ),
-                    padding: EdgeInsets.zero,
                   ),
-                ),
-              ],
+                  Container(
+                    width: 60.w,
+                    height: 60.w,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withAlpha(30),
+                      borderRadius: BorderRadius.circular(30.w),
+                    ),
+                    child: IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 32.w,
+                      ),
+                      padding: EdgeInsets.zero,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              controller: scrollController,
-              padding: EdgeInsets.all(20.w),
+
+            // 2. 信息卡片列表
+            Padding(
+              // 为卡片列表添加水平内边距
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildInfoCard(
                     icon: Icons.info_outline,
@@ -691,17 +716,19 @@ class _ArtInfoModalContent extends StatelessWidget {
                           '0x${currentVideoData.videoPath.hashCode.toRadixString(16)}'),
                     ],
                   ),
-                  SizedBox(height: 100.w),
                 ],
               ),
             ),
-          ),
-          SizedBox(height: 20.w),
-        ],
+
+            // 3. 底部安全间距
+            SizedBox(height: 100.w),
+          ],
+        ),
       ),
     );
   }
 
+  // ... (所有 _build... 辅助方法保持不变) ...
   Widget _buildInfoCard({
     required IconData icon,
     required String title,
