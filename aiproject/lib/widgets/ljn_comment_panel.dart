@@ -45,6 +45,10 @@ class LJNCommentPanel extends StatefulWidget {
 class _LJNCommentPanelState extends State<LJNCommentPanel> {
   final TextEditingController _commentController = TextEditingController();
 
+  // 估算一个固定的头部和底部高度，用于给 ListView 设置 padding
+  final double _headerHeight = 101.w; // 100 for container + 1 for divider
+  final double _footerHeight = 120.w; // 估算输入框的高度
+
   @override
   void dispose() {
     _commentController.dispose();
@@ -53,7 +57,6 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
 
   @override
   Widget build(BuildContext context) {
-    // 根 Widget 负责所有装饰效果 (背景、圆角)
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -63,26 +66,38 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
         ),
       ),
       clipBehavior: Clip.antiAlias,
-      child: Column(
+      child: Stack(
         children: [
-          // 1. 固定的头部
-          _buildHeader(),
-          const Divider(height: 1, color: Color(0xFFEFEFEF)),
-
-          // 2. 伸缩的列表区域
-          Expanded(
-            child: ListView.builder(
-              controller: widget.scrollController,
-              padding: EdgeInsets.zero,
-              itemCount: widget.comments.length,
-              itemBuilder: (context, index) {
-                return _buildCommentItem(widget.comments[index]);
-              },
+          // 1. 可滚动的评论列表
+          ListView.builder(
+            controller: widget.scrollController,
+            // 增加顶部和底部 padding，为悬浮的Header和Footer留出空间
+            padding: EdgeInsets.only(
+              top: _headerHeight,
+              bottom: widget.showInput ? _footerHeight : 0,
             ),
+            itemCount: widget.comments.length,
+            itemBuilder: (context, index) {
+              return _buildCommentItem(widget.comments[index]);
+            },
           ),
 
-          // 3. 固定的输入框
-          if (widget.showInput) _buildCommentInput(),
+          // 2. 悬浮在顶部的标题栏
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: _buildHeader(),
+          ),
+
+          // 3. 悬浮在底部的输入框
+          if (widget.showInput)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: _buildCommentInput(),
+            ),
         ],
       ),
     );
@@ -90,27 +105,37 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
 
   Widget _buildHeader() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 30.w),
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // 给头部一个背景色，防止滚动内容从下方透过来
+      color: Colors.white,
+      child: Column(
         children: [
-          const SizedBox(width: 48), // 占位
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.w),
-            child: Text(
-              '共 ${widget.comments.length} 条评论',
-              style: TextStyle(
-                fontSize: 30.w,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-              ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 30.w),
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(width: 48),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20.w),
+                  child: Text(
+                    '共 ${widget.comments.length} 条评论',
+                    style: TextStyle(
+                      fontSize: 30.w,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.close,
+                      size: 40.w, color: Colors.grey.shade600),
+                  onPressed: widget.onClose,
+                ),
+              ],
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.close, size: 40.w, color: Colors.grey.shade600),
-            onPressed: widget.onClose,
-          ),
+          const Divider(height: 1, color: Color(0xFFEFEFEF)),
         ],
       ),
     );

@@ -226,7 +226,6 @@ class _LJNArtsPageState extends State<LJNArtsPage> {
           snap: true,
           snapSizes: const [0.7],
           builder: (BuildContext context, ScrollController scrollController) {
-            // 直接返回 LJNCommentPanel，不再有 Container 包裹
             return LJNCommentPanel(
               comments: _comments,
               onClose: () => Navigator.pop(context),
@@ -243,7 +242,7 @@ class _LJNArtsPageState extends State<LJNArtsPage> {
 
       if (_wasPlayingBeforePanel &&
           _currentVideoController != null &&
-          _currentVideoController!.value.isInitialized &&
+          !_currentVideoController!.value.isInitialized &&
           !_currentVideoController!.value.isPlaying) {
         _currentVideoController!.play();
       }
@@ -475,6 +474,9 @@ class _LJNArtsPageState extends State<LJNArtsPage> {
   }
 }
 
+// ******************************************************
+// **     🚀 核心修改：使用 Stack + Positioned 布局 🚀     **
+// ******************************************************
 class _ArtInfoModalContent extends StatelessWidget {
   final ScrollController scrollController;
   final VideoData currentVideoData;
@@ -488,6 +490,9 @@ class _ArtInfoModalContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 估算一个固定的头部高度，用于给 ListView 设置 padding
+    final headerHeight = 120.w + systemState.statusHeight;
+
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -501,140 +506,163 @@ class _ArtInfoModalContent extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       clipBehavior: Clip.antiAlias,
-      child: SingleChildScrollView(
-        controller: scrollController,
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.only(
-                top: 20.w + systemState.statusHeight,
-                bottom: 20.w,
-                left: 20.w,
-                right: 20.w,
+      child: Stack(
+        children: [
+          // 1. 可滚动的内容区域
+          ListView(
+            controller: scrollController,
+            padding: EdgeInsets.only(top: headerHeight), // 为固定的头部留出空间
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Column(
+                  children: [
+                    _buildInfoCard(
+                      icon: Icons.info_outline,
+                      title: '基本信息',
+                      children: [
+                        _buildInfoItem('作品名称', currentVideoData.userName),
+                        _buildInfoItem('作者', currentVideoData.userName),
+                        _buildInfoItem('发布时间', '2024-10-20 15:30:00'),
+                        _buildInfoItem('地点', '中国·广州'),
+                      ],
+                    ),
+                    SizedBox(height: 16.w),
+                    _buildInfoCard(
+                      icon: Icons.description,
+                      title: '作品内容',
+                      children: [
+                        _buildDescriptionItem(
+                            '作品描述', currentVideoData.description),
+                        _buildTagsItem('作品标签', [
+                          '#懒人救星',
+                          '#居家办公',
+                          '#电竞',
+                          '#游戏',
+                          '#男生房间',
+                          '#INGREM',
+                          '#治愈',
+                          '#生活'
+                        ]),
+                      ],
+                    ),
+                    SizedBox(height: 16.w),
+                    _buildInfoCard(
+                      icon: Icons.storage,
+                      title: '技术信息',
+                      children: [
+                        _buildInfoItem('文件大小', '2.3 MB'),
+                        _buildInfoItem('文件格式', 'MP4'),
+                        _buildInfoItem('分辨率', '1080x1920'),
+                        _buildInfoItem('时长', '15秒'),
+                        _buildInfoItem('IPFS地址',
+                            'https://ipfs.io/ipfs/Qm${currentVideoData.videoPath.hashCode.toRadixString(16)}'),
+                      ],
+                    ),
+                    SizedBox(height: 16.w),
+                    _buildInfoCard(
+                      icon: Icons.analytics,
+                      title: '互动数据',
+                      children: [
+                        Wrap(
+                          spacing: 12.w,
+                          runSpacing: 12.w,
+                          children: [
+                            _buildStatsItem(
+                                '点赞',
+                                currentVideoData.likeCount.toString(),
+                                Icons.favorite),
+                            _buildStatsItem(
+                                '评论',
+                                currentVideoData.commentCount.toString(),
+                                Icons.comment),
+                            _buildStatsItem(
+                                '转发',
+                                currentVideoData.shareCount.toString(),
+                                Icons.share),
+                            _buildStatsItem(
+                                '收藏',
+                                currentVideoData.collectionCount.toString(),
+                                Icons.bookmark),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16.w),
+                    _buildInfoCard(
+                      icon: Icons.copyright,
+                      title: '版权信息',
+                      children: [
+                        _buildInfoItem('版权状态', '原创作品'),
+                        _buildInfoItem('授权方式', 'CC BY-NC 4.0'),
+                        _buildInfoItem('区块链哈希',
+                            '0x${currentVideoData.videoPath.hashCode.toRadixString(16)}'),
+                      ],
+                    ),
+                    SizedBox(height: 100.w), // 底部留白
+                  ],
+                ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '作品信息',
-                    style: TextStyle(
-                      fontSize: 36.w,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Container(
-                    width: 60.w,
-                    height: 60.w,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withAlpha(30),
-                      borderRadius: BorderRadius.circular(30.w),
-                    ),
-                    child: IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: Icon(
-                        Icons.close,
+            ],
+          ),
+
+          // 2. 固定的头部，悬浮在 ListView 之上
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              // 添加一点模糊效果，使其与下方滚动内容区分
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withOpacity(0.5),
+                  Colors.black.withOpacity(0.0),
+                ],
+              )),
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: 20.w + systemState.statusHeight,
+                  bottom: 20.w,
+                  left: 20.w,
+                  right: 20.w,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '作品信息',
+                      style: TextStyle(
+                        fontSize: 36.w,
                         color: Colors.white,
-                        size: 32.w,
+                        fontWeight: FontWeight.bold,
                       ),
-                      padding: EdgeInsets.zero,
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                children: [
-                  _buildInfoCard(
-                    icon: Icons.info_outline,
-                    title: '基本信息',
-                    children: [
-                      _buildInfoItem('作品名称', currentVideoData.userName),
-                      _buildInfoItem('作者', currentVideoData.userName),
-                      _buildInfoItem('发布时间', '2024-10-20 15:30:00'),
-                      _buildInfoItem('地点', '中国·广州'),
-                    ],
-                  ),
-                  SizedBox(height: 16.w),
-                  _buildInfoCard(
-                    icon: Icons.description,
-                    title: '作品内容',
-                    children: [
-                      _buildDescriptionItem(
-                          '作品描述', currentVideoData.description),
-                      _buildTagsItem('作品标签', [
-                        '#懒人救星',
-                        '#居家办公',
-                        '#电竞',
-                        '#游戏',
-                        '#男生房间',
-                        '#INGREM',
-                        '#治愈',
-                        '#生活'
-                      ]),
-                    ],
-                  ),
-                  SizedBox(height: 16.w),
-                  _buildInfoCard(
-                    icon: Icons.storage,
-                    title: '技术信息',
-                    children: [
-                      _buildInfoItem('文件大小', '2.3 MB'),
-                      _buildInfoItem('文件格式', 'MP4'),
-                      _buildInfoItem('分辨率', '1080x1920'),
-                      _buildInfoItem('时长', '15秒'),
-                      _buildInfoItem('IPFS地址',
-                          'https://ipfs.io/ipfs/Qm${currentVideoData.videoPath.hashCode.toRadixString(16)}'),
-                    ],
-                  ),
-                  SizedBox(height: 16.w),
-                  _buildInfoCard(
-                    icon: Icons.analytics,
-                    title: '互动数据',
-                    children: [
-                      Wrap(
-                        spacing: 12.w,
-                        runSpacing: 12.w,
-                        children: [
-                          _buildStatsItem(
-                              '点赞',
-                              currentVideoData.likeCount.toString(),
-                              Icons.favorite),
-                          _buildStatsItem(
-                              '评论',
-                              currentVideoData.commentCount.toString(),
-                              Icons.comment),
-                          _buildStatsItem(
-                              '转发',
-                              currentVideoData.shareCount.toString(),
-                              Icons.share),
-                          _buildStatsItem(
-                              '收藏',
-                              currentVideoData.collectionCount.toString(),
-                              Icons.bookmark),
-                        ],
+                    Container(
+                      width: 60.w,
+                      height: 60.w,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withAlpha(30),
+                        borderRadius: BorderRadius.circular(30.w),
                       ),
-                    ],
-                  ),
-                  SizedBox(height: 16.w),
-                  _buildInfoCard(
-                    icon: Icons.copyright,
-                    title: '版权信息',
-                    children: [
-                      _buildInfoItem('版权状态', '原创作品'),
-                      _buildInfoItem('授权方式', 'CC BY-NC 4.0'),
-                      _buildInfoItem('区块链哈希',
-                          '0x${currentVideoData.videoPath.hashCode.toRadixString(16)}'),
-                    ],
-                  ),
-                ],
+                      child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 32.w,
+                        ),
+                        padding: EdgeInsets.zero,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 100.w),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -649,7 +677,9 @@ class _ArtInfoModalContent extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withAlpha(25),
         borderRadius: BorderRadius.circular(16.w),
-        border: Border.all(color: Colors.white.withAlpha(51)),
+        border: Border.all(
+          color: Colors.white.withAlpha(51),
+        ),
       ),
       child: Padding(
         padding: EdgeInsets.all(20.w),
