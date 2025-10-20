@@ -12,6 +12,17 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
+// 作品数据模型
+class WorkItem {
+  final String imageUrl;
+  final int viewCount;
+
+  WorkItem({
+    required this.imageUrl,
+    required this.viewCount,
+  });
+}
+
 class LJNAuthorDetailPage extends StatefulWidget {
   final String authorId;
   final String authorName;
@@ -29,7 +40,9 @@ class LJNAuthorDetailPage extends StatefulWidget {
 }
 
 class _LJNAuthorDetailPageState extends State<LJNAuthorDetailPage>
-    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin<LJNAuthorDetailPage> {
+    with
+        TickerProviderStateMixin,
+        AutomaticKeepAliveClientMixin<LJNAuthorDetailPage> {
   @override
   bool get wantKeepAlive => true;
 
@@ -37,8 +50,7 @@ class _LJNAuthorDetailPageState extends State<LJNAuthorDetailPage>
   late PageController _pageController;
 
   // 作者作品数据
-  final List<String> _works = List.generate(
-      50, (i) => 'https://picsum.photos/300/400?random=${i + 1000}');
+  final List<WorkItem> _works = [];
 
   // 作者信息
   late String _authorName;
@@ -53,12 +65,21 @@ class _LJNAuthorDetailPageState extends State<LJNAuthorDetailPage>
     _pageController = PageController();
 
     // 初始化作者信息
-    _authorName = widget.authorName.isEmpty ? '作者${widget.authorId}' : widget.authorName;
+    _authorName =
+        widget.authorName.isEmpty ? '作者${widget.authorId}' : widget.authorName;
     _authorAvatar = widget.authorAvatar.isEmpty
         ? 'https://picsum.photos/200/200?random=${widget.authorId}'
         : widget.authorAvatar;
     _followersCount = Random().nextInt(10000) + 1000;
     _likesCount = Random().nextInt(1000000) + 10000;
+
+    // 初始化作品数据，包含固定的观看数量
+    _works.addAll(List.generate(
+        50,
+        (i) => WorkItem(
+              imageUrl: 'https://picsum.photos/300/400?random=${i + 1000}',
+              viewCount: (Random().nextInt(10) * 1.2 * 1000).toInt(),
+            )));
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
@@ -88,7 +109,7 @@ class _LJNAuthorDetailPageState extends State<LJNAuthorDetailPage>
   }
 
   double customkToolbarHeight = 95.w;
-  double expandedHeight = 680.w;
+  double expandedHeight = 550.w;
 
   Widget _buildPage(SystemState systemState) {
     ThemeData theme = Theme.of(context);
@@ -202,7 +223,8 @@ class _LJNAuthorDetailPageState extends State<LJNAuthorDetailPage>
         children: [
           Positioned.fill(
             child: LJNAppNetworkImage(
-              imageUrl: "https://picsum.photos/750/750?random=${widget.authorId}",
+              imageUrl:
+                  "https://picsum.photos/750/750?random=${widget.authorId}",
               fit: BoxFit.cover,
             ),
           ),
@@ -221,7 +243,7 @@ class _LJNAuthorDetailPageState extends State<LJNAuthorDetailPage>
               children: [
                 _buildFloatingIconButton(
                   icon: const IconData(
-                    0xe63d,
+                    0xe628,
                     fontFamily: 'Iconfont',
                   ),
                   onTap: () => Navigator.pop(context),
@@ -387,7 +409,7 @@ class _LJNAuthorDetailPageState extends State<LJNAuthorDetailPage>
 }
 
 class _AuthorWorksGrid extends StatelessWidget {
-  final List<String> items;
+  final List<WorkItem> items;
   final bool isActive;
 
   const _AuthorWorksGrid({
@@ -419,11 +441,12 @@ class _AuthorWorksGrid extends StatelessWidget {
           childAspectRatio: 9 / 14,
         ),
         itemBuilder: (context, index) {
+          final workItem = items[index];
           return Stack(
             fit: StackFit.expand,
             children: [
               LJNAppNetworkImage(
-                imageUrl: items[index],
+                imageUrl: workItem.imageUrl,
                 fit: BoxFit.cover,
               ),
               Positioned(
@@ -460,7 +483,7 @@ class _AuthorWorksGrid extends StatelessWidget {
                       ),
                       SizedBox(width: 4.w),
                       Text(
-                        '${(Random().nextInt(10) * 1.2 * 1000).toInt()}',
+                        '${workItem.viewCount}',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 22.w,

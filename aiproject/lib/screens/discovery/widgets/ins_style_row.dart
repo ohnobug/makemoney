@@ -293,6 +293,7 @@ class _MediaTileState extends State<_MediaTile> {
           widget.item.isVideo
               ? _VideoTilePreview(
                   videoUrl: widget.item.mediaUrl,
+                  thumbnailUrl: widget.item.thumbnailUrl,
                   canPlay: widget.canPlay,
                   isCommentPanelOpen: widget.isCommentPanelOpen,
                 )
@@ -308,11 +309,13 @@ class _MediaTileState extends State<_MediaTile> {
 
 class _VideoTilePreview extends StatefulWidget {
   final String videoUrl;
+  final String thumbnailUrl;
   final bool canPlay;
   final bool isCommentPanelOpen;
 
   const _VideoTilePreview({
     required this.videoUrl,
+    required this.thumbnailUrl,
     required this.canPlay,
     required this.isCommentPanelOpen,
   });
@@ -384,6 +387,10 @@ class _VideoTilePreviewState extends State<_VideoTilePreview> {
         ),
       );
     }
-    return Container(color: Colors.grey[200]);
+    // 视频未加载时显示封面图片
+    return LJNAppNetworkImage(
+      imageUrl: widget.thumbnailUrl,
+      fit: widget.isCommentPanelOpen ? BoxFit.contain : BoxFit.cover,
+    );
   }
 }

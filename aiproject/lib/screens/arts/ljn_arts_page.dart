@@ -134,7 +134,7 @@ class _LJNArtsPageState extends State<LJNArtsPage>
           avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_10.jpg',
           userName: '牛马的home',
           description:
-              '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...',
+              '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...',
           likeCount: 1050,
           commentCount: 241,
           collectionCount: 421,
@@ -221,7 +221,8 @@ class _LJNArtsPageState extends State<LJNArtsPage>
 
   void _showCommentsPanel() {
     // 保存当前视频的播放状态
-    if (_currentVideoController != null && _currentVideoController!.value.isInitialized) {
+    if (_currentVideoController != null &&
+        _currentVideoController!.value.isInitialized) {
       _wasPlayingBeforePanel = _currentVideoController!.value.isPlaying;
     }
 
@@ -233,7 +234,8 @@ class _LJNArtsPageState extends State<LJNArtsPage>
   void _hideCommentsPanel() {
     _animationController.reverse().then((_) {
       // 面板完全关闭后，根据之前保存的状态恢复视频播放
-      if (_wasPlayingBeforePanel && _currentVideoController != null &&
+      if (_wasPlayingBeforePanel &&
+          _currentVideoController != null &&
           _currentVideoController!.value.isInitialized &&
           !_currentVideoController!.value.isPlaying) {
         _currentVideoController!.play();
@@ -242,41 +244,44 @@ class _LJNArtsPageState extends State<LJNArtsPage>
   }
 
   void _showArtInfoModalSheet(BuildContext context) {
+    final currentVideoData = _videoDataList[_currentPage];
+
     showModalBottomSheet<void>(
-        isScrollControlled: true,
-        context: context,
-        builder: (BuildContext context) => Container(
-            height: 250,
-            color: Colors.white,
-            child: Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                  const Text('更多作品信息'),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                      child: const Text('关闭'),
-                      onPressed: () => Navigator.pop(context))
-                ]))));
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext context) => BlocBuilder<LJNSystemCubit, SystemState>(
+        builder: (context, systemState) {
+          return _ArtInfoModalContent(
+            currentVideoData: currentVideoData,
+            systemState: systemState,
+          );
+        },
+      ),
+    );
   }
 
   void _showArtShareModalSheet(BuildContext context) {
     showModalBottomSheet<void>(
-        isScrollControlled: true,
-        context: context,
-        builder: (BuildContext context) => Container(
-            height: 250,
-            color: Colors.white,
-            child: Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                  const Text('转发作品'),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                      child: const Text('关闭'),
-                      onPressed: () => Navigator.pop(context))
-                ]))));
+      isScrollControlled: true,
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 250,
+        color: Colors.white,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('转发作品'),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                  child: const Text('关闭'),
+                  onPressed: () => Navigator.pop(context))
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -301,8 +306,10 @@ class _LJNArtsPageState extends State<LJNArtsPage>
                     _animationController.status != AnimationStatus.dismissed;
 
                 // [新增逻辑] 在动画的每一帧计算并更新进度条的底部偏移量
-                final double currentProgressBarOffset = panelProgress * commentPanelMaxHeight;
-                _systemCubit.updateVideoProgressBottomOffset(currentProgressBarOffset);
+                final double currentProgressBarOffset =
+                    panelProgress * commentPanelMaxHeight;
+                _systemCubit
+                    .updateVideoProgressBottomOffset(currentProgressBarOffset);
 
                 return Stack(
                   children: [
@@ -323,14 +330,36 @@ class _LJNArtsPageState extends State<LJNArtsPage>
                               itemBuilder: (context, index) {
                                 final controller =
                                     _createVideoControllerForIndex(index);
-                                return LJNCustomVideoPlayer(
-                                  key: ValueKey('video_$index'),
-                                  canPlay:
-                                      index == _currentPage,
-                                  controller: controller,
-                                  videoHeight: videoHeight,
-                                  enableTapToPlay: !isPanelOpen,
-                                  isPanelOpen: isPanelOpen,
+                                final videoData = _videoDataList[index];
+                                return Stack(
+                                  children: [
+                                    LJNCustomVideoPlayer(
+                                      key: ValueKey('video_$index'),
+                                      canPlay: index == _currentPage,
+                                      controller: controller,
+                                      videoHeight: videoHeight,
+                                      enableTapToPlay: !isPanelOpen,
+                                      isPanelOpen: isPanelOpen,
+                                    ),
+                                    // 作者信息和作品简介 - 跟随视频滑动
+                                    Positioned(
+                                      left: 0,
+                                      bottom: 0,
+                                      child: _VideoInfoSection(
+                                        avatarUrl: videoData.avatarPath,
+                                        userName: videoData.userName,
+                                        description: videoData.description,
+                                      ),
+                                    ),
+                                    // 操作按钮 - 跟随视频滑动
+                                    Positioned(
+                                      bottom: 0,
+                                      right: 10.w,
+                                      width: 100.w,
+                                      height: 700.w,
+                                      child: _buildActionButtons(videoData),
+                                    ),
+                                  ],
                                 );
                               },
                             ),
@@ -356,26 +385,6 @@ class _LJNArtsPageState extends State<LJNArtsPage>
                                                     color:
                                                         AppColors.neutralWhite,
                                                     size: 48.w)))),
-                                    Positioned(
-                                        left: 0,
-                                        bottom: 0,
-                                        child: _VideoInfoSection(
-                                            avatarUrl:
-                                                _videoDataList[_currentPage]
-                                                    .avatarPath,
-                                            userName:
-                                                _videoDataList[_currentPage]
-                                                    .userName,
-                                            description:
-                                                _videoDataList[_currentPage]
-                                                    .description)),
-                                    Positioned(
-                                        bottom: 0,
-                                        right: 10.w,
-                                        width: 100.w,
-                                        height: 700.w,
-                                        child: _buildActionButtons(
-                                            _videoDataList[_currentPage])),
                                   ],
                                 ),
                               ),
@@ -505,6 +514,415 @@ class _LJNArtsPageState extends State<LJNArtsPage>
   }
 }
 
+// --- 作品信息弹框内容组件 (支持下拉拖拽关闭) ---
+class _ArtInfoModalContent extends StatefulWidget {
+  final VideoData currentVideoData;
+  final SystemState systemState;
+
+  const _ArtInfoModalContent({
+    required this.currentVideoData,
+    required this.systemState,
+  });
+
+  @override
+  State<_ArtInfoModalContent> createState() => _ArtInfoModalContentState();
+}
+
+class _ArtInfoModalContentState extends State<_ArtInfoModalContent> {
+  double _dragOffset = 0.0;
+  bool _isDragging = false;
+  final double _closeThreshold = 150.0; // 拖拽关闭阈值
+
+  void _handleDragUpdate(DragUpdateDetails details) {
+    if (!_isDragging && details.delta.dy > 0) {
+      // 开始向下拖拽
+      setState(() {
+        _isDragging = true;
+      });
+    }
+
+    if (_isDragging) {
+      setState(() {
+        _dragOffset += details.delta.dy;
+        // 限制最小偏移量
+        if (_dragOffset < 0) _dragOffset = 0;
+      });
+    }
+  }
+
+  void _handleDragEnd(DragEndDetails details) {
+    if (_isDragging) {
+      if (_dragOffset > _closeThreshold) {
+        // 超过阈值，关闭弹框
+        Navigator.of(context).pop();
+      } else {
+        // 未超过阈值，恢复原位
+        setState(() {
+          _dragOffset = 0.0;
+          _isDragging = false;
+        });
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final double opacity = 1.0 - (_dragOffset / _closeThreshold).clamp(0.0, 0.5);
+    final double scale = 1.0 - (_dragOffset / _closeThreshold * 0.1).clamp(0.0, 0.1);
+
+    return GestureDetector(
+      onVerticalDragUpdate: _handleDragUpdate,
+      onVerticalDragEnd: _handleDragEnd,
+      child: AnimatedContainer(
+        duration: _isDragging ? Duration.zero : const Duration(milliseconds: 300),
+        curve: _isDragging ? Curves.linear : Curves.easeOut,
+        transform: Matrix4.translationValues(0, _dragOffset, 0),
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.black.withAlpha((204 * opacity).toInt()), // 动态透明度
+              Colors.black.withAlpha((230 * opacity).toInt()), // 动态透明度
+            ],
+          ),
+        ),
+        child: Transform.scale(
+          scale: scale,
+          child: Column(
+            children: [
+              // 顶部关闭按钮
+              Container(
+                padding: EdgeInsets.only(
+                  top: widget.systemState.statusHeight + 20.w,
+                  bottom: 20.w,
+                  left: 20.w,
+                  right: 20.w,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '作品信息',
+                      style: TextStyle(
+                        fontSize: 36.w,
+                        color: Colors.white.withAlpha((255 * opacity).toInt()),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Container(
+                      width: 60.w,
+                      height: 60.w,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withAlpha((30 * opacity).toInt()),
+                        borderRadius: BorderRadius.circular(30.w),
+                      ),
+                      child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: Icon(
+                          Icons.close,
+                          color: Colors.white.withAlpha((255 * opacity).toInt()),
+                          size: 32.w,
+                        ),
+                        padding: EdgeInsets.zero,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // 作品信息卡片
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.all(20.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // 基本信息卡片
+                      _buildInfoCard(
+                        icon: Icons.info_outline,
+                        title: '基本信息',
+                        children: [
+                          _buildInfoItem('作品名称', widget.currentVideoData.userName),
+                          _buildInfoItem('作者', widget.currentVideoData.userName),
+                          _buildInfoItem('发布时间', '2024-10-20 15:30:00'),
+                          _buildInfoItem('地点', '中国·广州'),
+                        ],
+                      ),
+
+                      SizedBox(height: 16.w),
+
+                      // 作品内容卡片
+                      _buildInfoCard(
+                        icon: Icons.description,
+                        title: '作品内容',
+                        children: [
+                          _buildDescriptionItem('作品描述', widget.currentVideoData.description),
+                          _buildTagsItem('作品标签', ['#懒人救星', '#居家办公', '#电竞', '#游戏', '#男生房间', '#INGREM', '#治愈', '#生活']),
+                        ],
+                      ),
+
+                      SizedBox(height: 16.w),
+
+                      // 技术信息卡片
+                      _buildInfoCard(
+                        icon: Icons.storage,
+                        title: '技术信息',
+                        children: [
+                          _buildInfoItem('文件大小', '2.3 MB'),
+                          _buildInfoItem('文件格式', 'MP4'),
+                          _buildInfoItem('分辨率', '1080x1920'),
+                          _buildInfoItem('时长', '15秒'),
+                          _buildInfoItem('IPFS地址', 'https://ipfs.io/ipfs/Qm${widget.currentVideoData.videoPath.hashCode.toRadixString(16)}'),
+                        ],
+                      ),
+
+                      SizedBox(height: 16.w),
+
+                      // 互动数据卡片
+                      _buildInfoCard(
+                        icon: Icons.analytics,
+                        title: '互动数据',
+                        children: [
+                          Wrap(
+                            spacing: 12.w,
+                            runSpacing: 12.w,
+                            children: [
+                              _buildStatsItem('点赞', widget.currentVideoData.likeCount.toString(), Icons.favorite),
+                              _buildStatsItem('评论', widget.currentVideoData.commentCount.toString(), Icons.comment),
+                              _buildStatsItem('转发', widget.currentVideoData.shareCount.toString(), Icons.share),
+                              _buildStatsItem('收藏', widget.currentVideoData.collectionCount.toString(), Icons.bookmark),
+                            ],
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(height: 16.w),
+
+                      // 版权信息卡片
+                      _buildInfoCard(
+                        icon: Icons.copyright,
+                        title: '版权信息',
+                        children: [
+                          _buildInfoItem('版权状态', '原创作品'),
+                          _buildInfoItem('授权方式', 'CC BY-NC 4.0'),
+                          _buildInfoItem('区块链哈希', '0x${widget.currentVideoData.videoPath.hashCode.toRadixString(16)}'),
+                        ],
+                      ),
+
+                      // 底部额外空隙，便于滚动
+                      SizedBox(height: 100.w),
+                    ],
+                  ),
+                ),
+              ),
+
+              // 底部间距
+              SizedBox(height: 20.w),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // 构建方法需要从外部类复制过来，或者通过参数传递
+  Widget _buildInfoCard({
+    required IconData icon,
+    required String title,
+    required List<Widget> children,
+  }) {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white.withAlpha(25), // 0.1 opacity
+        borderRadius: BorderRadius.circular(16.w),
+        border: Border.all(color: Colors.white.withAlpha(51)), // 0.2 opacity
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(20.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 卡片标题
+            Row(
+              children: [
+                Icon(
+                  icon,
+                  color: Colors.white.withAlpha(204), // 0.8 opacity
+                  size: 32.w,
+                ),
+                SizedBox(width: 12.w),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 32.w,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16.w),
+            // 卡片内容
+            ...children,
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInfoItem(String label, String value) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.w),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 120.w,
+            child: Text(
+              '$label:',
+              style: TextStyle(
+                fontSize: 26.w,
+                color: Colors.white.withAlpha(204), // 0.8 opacity
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 26.w,
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDescriptionItem(String label, String value) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$label:',
+            style: TextStyle(
+              fontSize: 26.w,
+              color: Colors.white.withAlpha(204), // 0.8 opacity
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(height: 8.w),
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(12.w),
+            decoration: BoxDecoration(
+              color: Colors.black.withAlpha(100),
+              borderRadius: BorderRadius.circular(8.w),
+            ),
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 26.w,
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+              ),
+              maxLines: 4,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTagsItem(String label, List<String> tags) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$label:',
+            style: TextStyle(
+              fontSize: 26.w,
+              color: Colors.white.withAlpha(204), // 0.8 opacity
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(height: 8.w),
+          Wrap(
+            spacing: 8.w,
+            runSpacing: 8.w,
+            children: tags.map((tag) => Container(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.w),
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(30),
+                borderRadius: BorderRadius.circular(20.w),
+                border: Border.all(color: Colors.white.withAlpha(80)),
+              ),
+              child: Text(
+                tag,
+                style: TextStyle(
+                  fontSize: 22.w,
+                  color: Colors.white,
+                ),
+              ),
+            )).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatsItem(String label, String value, IconData icon) {
+    return Container(
+      width: 140.w,
+      padding: EdgeInsets.all(12.w),
+      decoration: BoxDecoration(
+        color: Colors.white.withAlpha(20),
+        borderRadius: BorderRadius.circular(12.w),
+      ),
+      child: Column(
+        children: [
+          Icon(
+            icon,
+            color: Colors.white,
+            size: 32.w,
+          ),
+          SizedBox(height: 8.w),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 24.w,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 4.w),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 20.w,
+              color: Colors.white.withAlpha(180),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 // --- 视频信息组件 (无需改动) ---
 class _VideoInfoSection extends StatefulWidget {
   final String userName;
@@ -536,53 +954,63 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/author/detail', arguments: {
-                    'author_id': widget.userName,
-                    'author_name': widget.userName,
-                    'author_avatar': widget.avatarUrl,
-                  });
-                },
-                child: ClipOval(
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/author/detail', arguments: {
+                'author_id': widget.userName,
+                'author_name': widget.userName,
+                'author_avatar': widget.avatarUrl,
+              });
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 8.w, horizontal: 12.w),
+              // decoration: BoxDecoration(
+              //   color: Colors.black.withAlpha(120),
+              //   borderRadius: BorderRadius.circular(32.w),
+              // ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ClipOval(
                     child: LJNAppNetworkImage(
-                        imageUrl: widget.avatarUrl,
-                        width: 64.w,
-                        height: 64.w,
-                        fit: BoxFit.cover)),
-              ),
-              SizedBox(width: 12.w),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/author/detail', arguments: {
-                    'author_id': widget.userName,
-                    'author_name': widget.userName,
-                    'author_avatar': widget.avatarUrl,
-                  });
-                },
-                child: Text(widget.userName,
+                      imageUrl: widget.avatarUrl,
+                      width: 64.w,
+                      height: 64.w,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(width: 12.w),
+                  Text(
+                    widget.userName,
                     style: TextStyle(
-                        fontSize: fontSizeScale(30.w),
-                        color: AppColors.neutralWhite,
-                        fontWeight: FontWeight.bold)),
-              ),
-              SizedBox(width: 16.w),
-              GestureDetector(
-                  onTap: () => logger.info("点击了关注按钮"),
-                  child: Container(
+                      fontSize: fontSizeScale(30.w),
+                      color: AppColors.neutralWhite,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(width: 16.w),
+                  GestureDetector(
+                    onTap: () => logger.info("点击了关注按钮"),
+                    child: Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.w),
                       decoration: BoxDecoration(
-                          color: AppColors.accentRedVibrant1.withAlpha(230),
-                          borderRadius: BorderRadius.circular(8.w)),
-                      child: Text("关注",
-                          style: TextStyle(
-                              color: AppColors.neutralWhite,
-                              fontSize: fontSizeScale(26.w),
-                              fontWeight: FontWeight.bold)))),
-            ],
+                        color: AppColors.accentRedVibrant1.withAlpha(230),
+                        borderRadius: BorderRadius.circular(8.w),
+                      ),
+                      child: Text(
+                        "关注",
+                        style: TextStyle(
+                          color: AppColors.neutralWhite,
+                          fontSize: fontSizeScale(26.w),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
           SizedBox(height: 20.w),
           AnimatedSize(
