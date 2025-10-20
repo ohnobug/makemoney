@@ -139,6 +139,10 @@ class LJNSystemCubit extends Cubit<SystemState> {
       cdnBase: s,
     ));
   }
+
+  void updateShowCommentsPanel(bool showCommentsPanel) {
+    emit(state.copyWith(showCommentsPanel: showCommentsPanel));
+  }
 }
 
 // 系统的 State
@@ -171,6 +175,9 @@ class SystemState extends Equatable {
   // 父级 PageView 滚动锁
   final bool isParentPageViewLocked;
 
+  // 评论面板显示状态
+  final bool showCommentsPanel;
+
   const SystemState({
     this.homescrollpixels = 0,
     this.contactazshow = false,
@@ -194,6 +201,7 @@ class SystemState extends Equatable {
     this.parentDragState = ParentDragState.idle,
     this.parentDragEndVelocity,
     this.isParentPageViewLocked = false,
+    this.showCommentsPanel = false,
     this.cdnBase = "",
   });
 
@@ -221,6 +229,7 @@ class SystemState extends Equatable {
     double? parentDragEndVelocity,
     bool clearParentDragEndVelocity = false,
     bool? isParentPageViewLocked,
+    bool? showCommentsPanel,
     String? cdnBase,
   }) {
     return SystemState(
@@ -250,6 +259,7 @@ class SystemState extends Equatable {
           : parentDragEndVelocity ?? this.parentDragEndVelocity,
       isParentPageViewLocked:
           isParentPageViewLocked ?? this.isParentPageViewLocked,
+      showCommentsPanel: showCommentsPanel ?? this.showCommentsPanel,
       cdnBase: cdnBase ?? this.cdnBase,
     );
   }
@@ -278,6 +288,7 @@ class SystemState extends Equatable {
         parentDragState,
         parentDragEndVelocity,
         isParentPageViewLocked,
+        showCommentsPanel,
         cdnBase
       ];
 }

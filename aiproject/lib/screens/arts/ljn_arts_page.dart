@@ -1,6 +1,5 @@
 // G:\t\detection\aiproject\lib\screens\arts\ljn_arts_page.dart
 
-import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,8 +9,9 @@ import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
-import 'package:vigaviga/widgets/ljn_custom_video_player.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:vigaviga/widgets/ljn_comment_panel.dart';
+import 'package:vigaviga/widgets/ljn_custom_video_player.dart';
 
 // --- 数据模型 (无需改动) ---
 class VideoData {
@@ -56,7 +56,10 @@ class _LJNArtsPageState extends State<LJNArtsPage> {
   late final List<VideoData> _videoDataList;
 
   bool _wasPlayingBeforePanel = false;
+  // 核心状态：控制评论面板的打开与关闭，并驱动动画
   bool _isPanelOpen = false;
+  // 区分不同类型的弹窗：true=评论面板（收缩视频），false=其他弹窗（不收缩视频）
+  bool _isCommentPanel = false;
 
   final List<CommentData> _comments = [
     CommentData(
@@ -199,9 +202,12 @@ class _LJNArtsPageState extends State<LJNArtsPage> {
       controller.dispose();
     });
     _systemCubit.updateVideoProgress(progress: 0.0, show: false);
+    _systemCubit.updateShowCommentsPanel(false);
     super.dispose();
   }
 
+  // --- 🚀【核心修改】: 打开评论面板的方法 ---
+  // 不再使用 showModalBottomSheet，而是直接改变状态
   void _showCommentsPanel() {
     if (_currentVideoController != null &&
         _currentVideoController!.value.isInitialized) {
@@ -209,45 +215,32 @@ class _LJNArtsPageState extends State<LJNArtsPage> {
     }
     _currentVideoController?.pause();
     _systemCubit.updateVideoProgress(show: false);
+    _systemCubit.updateShowCommentsPanel(true);
 
     setState(() {
       _isPanelOpen = true;
+      _isCommentPanel = true; // 标记为评论面板
     });
+  }
 
-    showModalBottomSheet<void>(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (BuildContext context) {
-        return DraggableScrollableSheet(
-          initialChildSize: 0.7,
-          minChildSize: 0.1,
-          maxChildSize: 0.7,
-          snap: true,
-          snapSizes: const [0.7],
-          builder: (BuildContext context, ScrollController scrollController) {
-            return LJNCommentPanel(
-              comments: _comments,
-              onClose: () => Navigator.pop(context),
-              showInput: true,
-              scrollController: scrollController,
-            );
-          },
-        );
-      },
-    ).then((_) {
-      setState(() {
-        _isPanelOpen = false;
-      });
-
-      if (_wasPlayingBeforePanel &&
-          _currentVideoController != null &&
-          !_currentVideoController!.value.isInitialized &&
-          !_currentVideoController!.value.isPlaying) {
-        _currentVideoController!.play();
-      }
-      _systemCubit.updateVideoProgress(show: true);
+  // --- 🚀【新增】: 关闭评论面板的方法 ---
+  void _hideCommentsPanel() {
+    setState(() {
+      _isPanelOpen = false;
+      _isCommentPanel = false; // 重置类型
     });
+    // 恢复之前的播放状态
+    if (_wasPlayingBeforePanel &&
+        _currentVideoController != null &&
+        _currentVideoController!.value.isInitialized &&
+        !_currentVideoController!.value.isPlaying) {
+      _currentVideoController!.play();
+    }
+    _systemCubit.updateVideoProgress(show: true);
+
+    // 延迟显示tabbar，等待动画完成
+    // 注意：这里不需要更新showCommentsPanel状态，因为关闭动画期间tabbar应该保持隐藏
+    // 动画完成后，_isPanelOpen=false会自动导致tabbar显示
   }
 
   void _showArtInfoModalSheet(BuildContext context) {
@@ -259,6 +252,7 @@ class _LJNArtsPageState extends State<LJNArtsPage> {
 
     setState(() {
       _isPanelOpen = true;
+      _isCommentPanel = false; // 标记为其他弹窗，不收缩视频
     });
 
     showModalBottomSheet<void>(
@@ -319,78 +313,148 @@ class _LJNArtsPageState extends State<LJNArtsPage> {
     );
   }
 
+  // --- 🚀【核心修改】: 重构 build 方法以使用 Stack 和 AnimatedPositioned ---
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
-        final screenHeight = MediaQuery.of(context).size.height;
-        final videoHeight = screenHeight - systemState.tabbarHeight;
+        final mediaQuery = MediaQuery.of(context);
+        final screenSize = mediaQuery.size;
+        final viewPadding = mediaQuery.padding;
+        final screenHeight = screenSize.height;
+        final screenWidth = screenSize.width;
+
+        // --- 定义动画参数 ---
+        const animationDuration = Duration(milliseconds: 300);
+        const animationCurve = Curves.easeInOutQuad;
+
+        // --- 计算视频缩小后的几何属性 ---
+        final shrunkVideoHeight = screenHeight * 0.35; // 缩小后的高度
+        final videoAspectRatio =
+            _currentVideoController?.value.isInitialized ?? false
+                ? _currentVideoController!.value.aspectRatio
+                : 9.0 / 16.0; // 获取视频宽高比，若无则默认9:16
+        final shrunkVideoWidth = shrunkVideoHeight * videoAspectRatio;
+        final shrunkVideoTopMargin = viewPadding.top + 20.h; // 距离顶部的安全距离
+
+        // --- 计算正常状态下的视频高度（减去tabbar高度） ---
+        final normalVideoHeight = screenHeight - systemState.tabbarHeight;
+
+        // --- 计算评论面板弹出后的顶部位置 ---
+        final panelTopPosition =
+            shrunkVideoTopMargin + shrunkVideoHeight + 20.h;
 
         return Scaffold(
           backgroundColor: Colors.black,
-          body: SizedBox(
-            height: screenHeight,
-            child: PageView.builder(
-              controller: _pageController,
-              scrollDirection: Axis.vertical,
-              physics: _isPanelOpen
-                  ? const NeverScrollableScrollPhysics()
-                  : const PageScrollPhysics(),
-              itemCount: _videoDataList.length,
-              itemBuilder: (context, index) {
-                final controller = _createVideoControllerForIndex(index);
-                final videoData = _videoDataList[index];
-                return Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    LJNCustomVideoPlayer(
-                      key: ValueKey('video_$index'),
-                      canPlay: index == _currentPage,
-                      controller: controller,
-                      videoHeight: videoHeight,
-                      enableTapToPlay: !_isPanelOpen,
-                      isPanelOpen: _isPanelOpen,
-                    ),
-                    if (!_isPanelOpen)
-                      Positioned(
-                        left: 0,
-                        bottom: 0,
-                        child: _VideoInfoSection(
-                          avatarUrl: videoData.avatarPath,
-                          userName: videoData.userName,
-                          description: videoData.description,
-                        ),
+          body: Stack(
+            // 使用Stack作为根布局
+            children: [
+              // 1. 视频播放器层
+              AnimatedPositioned(
+                duration: animationDuration,
+                curve: animationCurve,
+                // 根据 _isPanelOpen 和 _isCommentPanel 状态改变位置和大小
+                // 只有评论面板才收缩视频，其他弹窗不收缩
+                top: (_isPanelOpen && _isCommentPanel) ? shrunkVideoTopMargin : 0,
+                height: (_isPanelOpen && _isCommentPanel) ? shrunkVideoHeight : normalVideoHeight,
+                left: (_isPanelOpen && _isCommentPanel) ? (screenWidth - shrunkVideoWidth) / 2 : 0,
+                width: (_isPanelOpen && _isCommentPanel) ? shrunkVideoWidth : screenWidth,
+                child: PageView.builder(
+                  controller: _pageController,
+                  scrollDirection: Axis.vertical,
+                  // 面板打开时，禁止PageView滚动
+                  physics: _isPanelOpen
+                      ? const NeverScrollableScrollPhysics()
+                      : const PageScrollPhysics(),
+                  itemCount: _videoDataList.length,
+                  itemBuilder: (context, index) {
+                    final controller = _createVideoControllerForIndex(index);
+                    final videoData = _videoDataList[index];
+                    // 使用 ClipRRect 为缩小的视频添加圆角
+                    return AnimatedContainer(
+                      duration: animationDuration,
+                      curve: animationCurve,
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(_isPanelOpen ? 12.0 : 0.0),
+                        color: Colors.black,
                       ),
-                    if (!_isPanelOpen)
-                      Positioned(
-                        bottom: 0,
-                        right: 10.w,
-                        width: 100.w,
-                        height: 700.w,
-                        child: _buildActionButtons(videoData),
-                      ),
-                    if (!_isPanelOpen)
-                      Positioned(
-                        top: 15.w + systemState.statusHeight,
-                        right: 28.w,
-                        child: GestureDetector(
-                          onTap: () =>
-                              Navigator.pushNamed(context, '/discovery/search'),
-                          child: Container(
-                            color: Colors.transparent,
-                            height: 58.w,
-                            child: Icon(
-                              const IconData(0xe612, fontFamily: 'Iconfont'),
-                              color: AppColors.neutralWhite,
-                              size: 48.w,
-                            ),
+                      clipBehavior: Clip.hardEdge,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          LJNCustomVideoPlayer(
+                            key: ValueKey('video_$index'),
+                            canPlay: index == _currentPage,
+                            controller: controller,
+                            videoHeight: normalVideoHeight, // 使用减去tabbar高度的视频高度
+                            enableTapToPlay: !_isPanelOpen,
+                            isPanelOpen: _isPanelOpen,
                           ),
-                        ),
+                          // 以下UI元素在面板打开时自动隐藏 (已有逻辑)
+                          if (!_isPanelOpen)
+                            Positioned(
+                              left: 0,
+                              bottom: 0.w, // 上移tabbar高度
+                              child: _VideoInfoSection(
+                                avatarUrl: videoData.avatarPath,
+                                userName: videoData.userName,
+                                description: videoData.description,
+                              ),
+                            ),
+                          if (!_isPanelOpen)
+                            Positioned(
+                              bottom: 0.w, // 上移tabbar高度
+                              right: 10.w,
+                              width: 100.w,
+                              height: 680.w,
+                              child: _buildActionButtons(videoData),
+                            ),
+                          if (!_isPanelOpen)
+                            Positioned(
+                              top: 15.w + systemState.statusHeight,
+                              right: 28.w,
+                              child: GestureDetector(
+                                onTap: () => Navigator.pushNamed(
+                                    context, '/discovery/search'),
+                                child: Container(
+                                  color: Colors.transparent,
+                                  height: 58.w,
+                                  child: Icon(
+                                    const IconData(0xe612,
+                                        fontFamily: 'Iconfont'),
+                                    color: AppColors.neutralWhite,
+                                    size: 48.w,
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
-                  ],
-                );
-              },
-            ),
+                    );
+                  },
+                ),
+              ),
+
+              // 2. 评论面板层
+              AnimatedPositioned(
+                duration: animationDuration,
+                curve: animationCurve,
+                // 根据 _isPanelOpen 和 _isCommentPanel 状态改变位置，实现从下往上弹出的效果
+                // 只有评论面板才显示在收缩视频下方
+                top: (_isPanelOpen && _isCommentPanel) ? panelTopPosition : screenHeight,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                child: LJNCommentPanel(
+                  comments: _comments,
+                  onClose: _hideCommentsPanel, // 绑定关闭方法
+                  showInput: true,
+                  // 因为不再使用DraggableScrollableSheet，可以传递一个空的Controller
+                  scrollController: ScrollController(),
+                ),
+              ),
+            ],
           ),
         );
       },
@@ -418,7 +482,7 @@ class _LJNArtsPageState extends State<LJNArtsPage> {
         _buildActionButton(
           const IconData(0xe665, fontFamily: 'Iconfont'),
           count: videoData.commentCount.toString(),
-          onTap: _showCommentsPanel,
+          onTap: _showCommentsPanel, // 点击评论按钮，调用新的打开方法
         ),
         SizedBox(height: 35.w),
         _buildActionButton(
@@ -473,6 +537,9 @@ class _LJNArtsPageState extends State<LJNArtsPage> {
     );
   }
 }
+
+// _ArtInfoModalContent, _VideoInfoSection 等其他子组件保持不变
+// ... (粘贴原始代码中未修改的其他类)
 
 // ******************************************************
 // **     🚀 核心修改：使用 Stack + Positioned 布局 🚀     **
@@ -599,7 +666,7 @@ class _ArtInfoModalContent extends StatelessWidget {
                             '0x${currentVideoData.videoPath.hashCode.toRadixString(16)}'),
                       ],
                     ),
-                    SizedBox(height: 200.w), // 底部留白
+                    SizedBox(height: 100.w), // 底部留白
                   ],
                 ),
               ),
