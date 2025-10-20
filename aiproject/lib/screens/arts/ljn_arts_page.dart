@@ -173,8 +173,6 @@ class _LJNArtsPageState extends State<LJNArtsPage>
     double progressValue = (duration.inMilliseconds > 0)
         ? position.inMilliseconds / duration.inMilliseconds
         : 0.0;
-
-    // [修改] 现在，只要视频在播放，就更新进度。显示/隐藏由其他逻辑控制
     _systemCubit.updateVideoProgress(progress: progressValue);
   }
 
@@ -212,28 +210,22 @@ class _LJNArtsPageState extends State<LJNArtsPage>
       controller.removeListener(_onVideoChange);
       controller.dispose();
     });
-
-    // [新增] 确保退出页面时重置偏移量
     _systemCubit.updateVideoProgressBottomOffset(0);
     _systemCubit.updateVideoProgress(progress: 0.0, show: false);
     super.dispose();
   }
 
   void _showCommentsPanel() {
-    // 保存当前视频的播放状态
     if (_currentVideoController != null &&
         _currentVideoController!.value.isInitialized) {
       _wasPlayingBeforePanel = _currentVideoController!.value.isPlaying;
     }
-
-    // 确保打开面板时，Cubit中的进度条是可见的
-    _systemCubit.updateVideoProgress(show: true);
+    _systemCubit.updateVideoProgress(show: false);
     _animationController.forward();
   }
 
   void _hideCommentsPanel() {
     _animationController.reverse().then((_) {
-      // 面板完全关闭后，根据之前保存的状态恢复视频播放
       if (_wasPlayingBeforePanel &&
           _currentVideoController != null &&
           _currentVideoController!.value.isInitialized &&
@@ -245,20 +237,45 @@ class _LJNArtsPageState extends State<LJNArtsPage>
 
   void _showArtInfoModalSheet(BuildContext context) {
     final currentVideoData = _videoDataList[_currentPage];
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+    ));
 
     showModalBottomSheet<void>(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       context: context,
-      builder: (BuildContext context) => BlocBuilder<LJNSystemCubit, SystemState>(
-        builder: (context, systemState) {
-          return _ArtInfoModalContent(
-            currentVideoData: currentVideoData,
-            systemState: systemState,
-          );
-        },
-      ),
-    );
+      builder: (BuildContext context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 1,
+          minChildSize: 0.1,
+          maxChildSize: 1, // 与 initialChildSize 保持一致，禁止向上拖动
+
+          // 启用回弹/吸附效果
+          snap: true,
+          // 定义唯一的吸附点，即初始高度
+          snapSizes: const [1],
+
+          builder: (BuildContext context, ScrollController scrollController) {
+            return BlocBuilder<LJNSystemCubit, SystemState>(
+              builder: (context, systemState) {
+                return _ArtInfoModalContent(
+                  scrollController: scrollController,
+                  currentVideoData: currentVideoData,
+                  systemState: systemState,
+                );
+              },
+            );
+          },
+        );
+      },
+    ).then((_) {
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+      ));
+    });
   }
 
   void _showArtShareModalSheet(BuildContext context) {
@@ -295,157 +312,164 @@ class _LJNArtsPageState extends State<LJNArtsPage>
         return Scaffold(
           backgroundColor: Colors.black,
           body: SizedBox(
-            height: videoHeight,
-            child: AnimatedBuilder(
-              animation: _panelAnimation,
-              builder: (context, child) {
-                final panelProgress = _panelAnimation.value;
-                final videoScale = 1.0 - (panelProgress * 0.25);
-                final videoTopOffset = panelProgress * -(screenHeight * 0.1);
-                final isPanelOpen =
-                    _animationController.status != AnimationStatus.dismissed;
+            height: screenHeight,
+            child: Stack(
+              children: [
+                SizedBox(
+                  height: videoHeight,
+                  child: AnimatedBuilder(
+                    animation: _panelAnimation,
+                    builder: (context, child) {
+                      final panelProgress = _panelAnimation.value;
+                      final videoScale = 1.0 - (panelProgress * 0.25);
+                      final videoTopOffset =
+                          panelProgress * -(screenHeight * 0.1);
+                      final isPanelOpen = _animationController.status !=
+                          AnimationStatus.dismissed;
 
-                // [新增逻辑] 在动画的每一帧计算并更新进度条的底部偏移量
-                final double currentProgressBarOffset =
-                    panelProgress * commentPanelMaxHeight;
-                _systemCubit
-                    .updateVideoProgressBottomOffset(currentProgressBarOffset);
+                      final double currentProgressBarOffset =
+                          panelProgress * commentPanelMaxHeight;
+                      _systemCubit.updateVideoProgressBottomOffset(
+                          currentProgressBarOffset);
 
-                return Stack(
-                  children: [
-                    // --- 1. 背景视频 & 主界面 UI ---
-                    Transform.translate(
-                      offset: Offset(0, videoTopOffset),
-                      child: Transform.scale(
-                        scale: videoScale,
-                        child: Stack(
-                          children: [
-                            PageView.builder(
-                              controller: _pageController,
-                              scrollDirection: Axis.vertical,
-                              physics: isPanelOpen
-                                  ? const NeverScrollableScrollPhysics()
-                                  : const PageScrollPhysics(),
-                              itemCount: _videoDataList.length,
-                              itemBuilder: (context, index) {
-                                final controller =
-                                    _createVideoControllerForIndex(index);
-                                final videoData = _videoDataList[index];
-                                return Stack(
-                                  children: [
-                                    LJNCustomVideoPlayer(
-                                      key: ValueKey('video_$index'),
-                                      canPlay: index == _currentPage,
-                                      controller: controller,
-                                      videoHeight: videoHeight,
-                                      enableTapToPlay: !isPanelOpen,
-                                      isPanelOpen: isPanelOpen,
-                                    ),
-                                    // 作者信息和作品简介 - 跟随视频滑动
-                                    Positioned(
-                                      left: 0,
-                                      bottom: 0,
-                                      child: _VideoInfoSection(
-                                        avatarUrl: videoData.avatarPath,
-                                        userName: videoData.userName,
-                                        description: videoData.description,
+                      return Transform.translate(
+                        offset: Offset(0, videoTopOffset),
+                        child: Transform.scale(
+                          scale: videoScale,
+                          child: Stack(
+                            children: [
+                              PageView.builder(
+                                controller: _pageController,
+                                scrollDirection: Axis.vertical,
+                                physics: isPanelOpen
+                                    ? const NeverScrollableScrollPhysics()
+                                    : const PageScrollPhysics(),
+                                itemCount: _videoDataList.length,
+                                itemBuilder: (context, index) {
+                                  final controller =
+                                      _createVideoControllerForIndex(index);
+                                  final videoData = _videoDataList[index];
+                                  return Stack(
+                                    children: [
+                                      LJNCustomVideoPlayer(
+                                        key: ValueKey('video_$index'),
+                                        canPlay: index == _currentPage,
+                                        controller: controller,
+                                        videoHeight: videoHeight,
+                                        enableTapToPlay: !isPanelOpen,
+                                        isPanelOpen: isPanelOpen,
                                       ),
-                                    ),
-                                    // 操作按钮 - 跟随视频滑动
-                                    Positioned(
-                                      bottom: 0,
-                                      right: 10.w,
-                                      width: 100.w,
-                                      height: 700.w,
-                                      child: _buildActionButtons(videoData),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                            FadeTransition(
-                              opacity: Tween<double>(begin: 1.0, end: 0.0)
-                                  .animate(_panelAnimation),
-                              child: IgnorePointer(
-                                ignoring: isPanelOpen,
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                        top: 15.w + systemState.statusHeight,
-                                        right: 28.w,
-                                        child: GestureDetector(
-                                            onTap: () => Navigator.pushNamed(
-                                                context, '/discovery/search'),
-                                            child: Container(
-                                                color: Colors.transparent,
-                                                height: 58.w,
-                                                child: Icon(
-                                                    const IconData(0xe612,
-                                                        fontFamily: 'Iconfont'),
-                                                    color:
-                                                        AppColors.neutralWhite,
-                                                    size: 48.w)))),
-                                  ],
+                                      Positioned(
+                                        left: 0,
+                                        bottom: 0,
+                                        child: _VideoInfoSection(
+                                          avatarUrl: videoData.avatarPath,
+                                          userName: videoData.userName,
+                                          description: videoData.description,
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 0,
+                                        right: 10.w,
+                                        width: 100.w,
+                                        height: 700.w,
+                                        child: _buildActionButtons(videoData),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                              FadeTransition(
+                                opacity: Tween<double>(begin: 1.0, end: 0.0)
+                                    .animate(_panelAnimation),
+                                child: IgnorePointer(
+                                  ignoring: isPanelOpen,
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                          top: 15.w + systemState.statusHeight,
+                                          right: 28.w,
+                                          child: GestureDetector(
+                                              onTap: () => Navigator.pushNamed(
+                                                  context, '/discovery/search'),
+                                              child: Container(
+                                                  color: Colors.transparent,
+                                                  height: 58.w,
+                                                  child: Icon(
+                                                      const IconData(0xe612,
+                                                          fontFamily:
+                                                              'Iconfont'),
+                                                      color: AppColors
+                                                          .neutralWhite,
+                                                      size: 48.w)))),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
+                  ),
+                ),
+                AnimatedBuilder(
+                  animation: _panelAnimation,
+                  builder: (context, child) {
+                    final isPanelOpen = _animationController.status !=
+                        AnimationStatus.dismissed;
 
-                    // --- 2. 评论面板覆盖层 ---
-                    if (isPanelOpen)
-                      Positioned.fill(
-                        child: GestureDetector(
-                          onTap: _hideCommentsPanel,
-                          child: Container(
-                            color: Colors.transparent,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  left: 0,
-                                  right: 0,
-                                  bottom: 0,
-                                  height: commentPanelMaxHeight,
-                                  child: SlideTransition(
-                                    position: Tween<Offset>(
-                                            begin: const Offset(0, 1),
-                                            end: Offset.zero)
-                                        .animate(_panelAnimation),
-                                    child: GestureDetector(
-                                      onTap: () {}, // 消费点击事件，防止点击面板关闭
-                                      child: LJNCommentPanel(
-                                        comments: _comments,
-                                        onClose: _hideCommentsPanel,
-                                        panelHeight: commentPanelMaxHeight,
-                                        showInput: true,
-                                        // [核心交互] 连接主页面和评论面板的滚动
-                                        onOverScroll: (delta) {
-                                          // scrollDelta 在向下拉时是负数
-                                          _animationController.value -=
-                                              delta / commentPanelMaxHeight;
-                                        },
-                                        onOverScrollEnd: () {
-                                          if (_animationController.value <
-                                              0.5) {
-                                            _hideCommentsPanel();
-                                          } else {
-                                            _showCommentsPanel();
-                                          }
-                                        },
-                                      ),
+                    if (!isPanelOpen) {
+                      return const SizedBox.shrink();
+                    }
+
+                    return Positioned.fill(
+                      child: GestureDetector(
+                        onTap: _hideCommentsPanel,
+                        child: Container(
+                          color: Colors.transparent,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                height: commentPanelMaxHeight,
+                                child: SlideTransition(
+                                  position: Tween<Offset>(
+                                          begin: const Offset(0, 1),
+                                          end: Offset.zero)
+                                      .animate(_panelAnimation),
+                                  child: GestureDetector(
+                                    onTap: () {},
+                                    child: LJNCommentPanel(
+                                      comments: _comments,
+                                      onClose: _hideCommentsPanel,
+                                      panelHeight: commentPanelMaxHeight,
+                                      showInput: true,
+                                      onOverScroll: (delta) {
+                                        _animationController.value -=
+                                            delta / commentPanelMaxHeight;
+                                      },
+                                      onOverScrollEnd: () {
+                                        if (_animationController.value < 0.5) {
+                                          _hideCommentsPanel();
+                                        } else {
+                                          _showCommentsPanel();
+                                        }
+                                      },
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                  ],
-                );
-              },
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         );
@@ -453,7 +477,6 @@ class _LJNArtsPageState extends State<LJNArtsPage>
     );
   }
 
-  // --- 辅助构建方法 ---
   Widget _buildActionButtons(VideoData videoData) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -514,220 +537,171 @@ class _LJNArtsPageState extends State<LJNArtsPage>
   }
 }
 
-// --- 作品信息弹框内容组件 (支持下拉拖拽关闭) ---
-class _ArtInfoModalContent extends StatefulWidget {
+class _ArtInfoModalContent extends StatelessWidget {
+  final ScrollController scrollController;
   final VideoData currentVideoData;
   final SystemState systemState;
 
   const _ArtInfoModalContent({
+    required this.scrollController,
     required this.currentVideoData,
     required this.systemState,
   });
 
   @override
-  State<_ArtInfoModalContent> createState() => _ArtInfoModalContentState();
-}
-
-class _ArtInfoModalContentState extends State<_ArtInfoModalContent> {
-  double _dragOffset = 0.0;
-  bool _isDragging = false;
-  final double _closeThreshold = 150.0; // 拖拽关闭阈值
-
-  void _handleDragUpdate(DragUpdateDetails details) {
-    if (!_isDragging && details.delta.dy > 0) {
-      // 开始向下拖拽
-      setState(() {
-        _isDragging = true;
-      });
-    }
-
-    if (_isDragging) {
-      setState(() {
-        _dragOffset += details.delta.dy;
-        // 限制最小偏移量
-        if (_dragOffset < 0) _dragOffset = 0;
-      });
-    }
-  }
-
-  void _handleDragEnd(DragEndDetails details) {
-    if (_isDragging) {
-      if (_dragOffset > _closeThreshold) {
-        // 超过阈值，关闭弹框
-        Navigator.of(context).pop();
-      } else {
-        // 未超过阈值，恢复原位
-        setState(() {
-          _dragOffset = 0.0;
-          _isDragging = false;
-        });
-      }
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final double opacity = 1.0 - (_dragOffset / _closeThreshold).clamp(0.0, 0.5);
-    final double scale = 1.0 - (_dragOffset / _closeThreshold * 0.1).clamp(0.0, 0.1);
-
-    return GestureDetector(
-      onVerticalDragUpdate: _handleDragUpdate,
-      onVerticalDragEnd: _handleDragEnd,
-      child: AnimatedContainer(
-        duration: _isDragging ? Duration.zero : const Duration(milliseconds: 300),
-        curve: _isDragging ? Curves.linear : Curves.easeOut,
-        transform: Matrix4.translationValues(0, _dragOffset, 0),
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.black.withAlpha((204 * opacity).toInt()), // 动态透明度
-              Colors.black.withAlpha((230 * opacity).toInt()), // 动态透明度
-            ],
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xCC000000),
+            Color(0xE6000000),
+          ],
         ),
-        child: Transform.scale(
-          scale: scale,
-          child: Column(
-            children: [
-              // 顶部关闭按钮
-              Container(
-                padding: EdgeInsets.only(
-                  top: widget.systemState.statusHeight + 20.w,
-                  bottom: 20.w,
-                  left: 20.w,
-                  right: 20.w,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '作品信息',
-                      style: TextStyle(
-                        fontSize: 36.w,
-                        color: Colors.white.withAlpha((255 * opacity).toInt()),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Container(
-                      width: 60.w,
-                      height: 60.w,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withAlpha((30 * opacity).toInt()),
-                        borderRadius: BorderRadius.circular(30.w),
-                      ),
-                      child: IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: Icon(
-                          Icons.close,
-                          color: Colors.white.withAlpha((255 * opacity).toInt()),
-                          size: 32.w,
-                        ),
-                        padding: EdgeInsets.zero,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              // 作品信息卡片
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.all(20.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // 基本信息卡片
-                      _buildInfoCard(
-                        icon: Icons.info_outline,
-                        title: '基本信息',
-                        children: [
-                          _buildInfoItem('作品名称', widget.currentVideoData.userName),
-                          _buildInfoItem('作者', widget.currentVideoData.userName),
-                          _buildInfoItem('发布时间', '2024-10-20 15:30:00'),
-                          _buildInfoItem('地点', '中国·广州'),
-                        ],
-                      ),
-
-                      SizedBox(height: 16.w),
-
-                      // 作品内容卡片
-                      _buildInfoCard(
-                        icon: Icons.description,
-                        title: '作品内容',
-                        children: [
-                          _buildDescriptionItem('作品描述', widget.currentVideoData.description),
-                          _buildTagsItem('作品标签', ['#懒人救星', '#居家办公', '#电竞', '#游戏', '#男生房间', '#INGREM', '#治愈', '#生活']),
-                        ],
-                      ),
-
-                      SizedBox(height: 16.w),
-
-                      // 技术信息卡片
-                      _buildInfoCard(
-                        icon: Icons.storage,
-                        title: '技术信息',
-                        children: [
-                          _buildInfoItem('文件大小', '2.3 MB'),
-                          _buildInfoItem('文件格式', 'MP4'),
-                          _buildInfoItem('分辨率', '1080x1920'),
-                          _buildInfoItem('时长', '15秒'),
-                          _buildInfoItem('IPFS地址', 'https://ipfs.io/ipfs/Qm${widget.currentVideoData.videoPath.hashCode.toRadixString(16)}'),
-                        ],
-                      ),
-
-                      SizedBox(height: 16.w),
-
-                      // 互动数据卡片
-                      _buildInfoCard(
-                        icon: Icons.analytics,
-                        title: '互动数据',
-                        children: [
-                          Wrap(
-                            spacing: 12.w,
-                            runSpacing: 12.w,
-                            children: [
-                              _buildStatsItem('点赞', widget.currentVideoData.likeCount.toString(), Icons.favorite),
-                              _buildStatsItem('评论', widget.currentVideoData.commentCount.toString(), Icons.comment),
-                              _buildStatsItem('转发', widget.currentVideoData.shareCount.toString(), Icons.share),
-                              _buildStatsItem('收藏', widget.currentVideoData.collectionCount.toString(), Icons.bookmark),
-                            ],
-                          ),
-                        ],
-                      ),
-
-                      SizedBox(height: 16.w),
-
-                      // 版权信息卡片
-                      _buildInfoCard(
-                        icon: Icons.copyright,
-                        title: '版权信息',
-                        children: [
-                          _buildInfoItem('版权状态', '原创作品'),
-                          _buildInfoItem('授权方式', 'CC BY-NC 4.0'),
-                          _buildInfoItem('区块链哈希', '0x${widget.currentVideoData.videoPath.hashCode.toRadixString(16)}'),
-                        ],
-                      ),
-
-                      // 底部额外空隙，便于滚动
-                      SizedBox(height: 100.w),
-                    ],
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(
+              top: 20.w,
+              bottom: 20.w,
+              left: 20.w,
+              right: 20.w,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '作品信息',
+                  style: TextStyle(
+                    fontSize: 36.w,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-
-              // 底部间距
-              SizedBox(height: 20.w),
-            ],
+                Container(
+                  width: 60.w,
+                  height: 60.w,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withAlpha(30),
+                    borderRadius: BorderRadius.circular(30.w),
+                  ),
+                  child: IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 32.w,
+                    ),
+                    padding: EdgeInsets.zero,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+          Expanded(
+            child: SingleChildScrollView(
+              controller: scrollController,
+              padding: EdgeInsets.all(20.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildInfoCard(
+                    icon: Icons.info_outline,
+                    title: '基本信息',
+                    children: [
+                      _buildInfoItem('作品名称', currentVideoData.userName),
+                      _buildInfoItem('作者', currentVideoData.userName),
+                      _buildInfoItem('发布时间', '2024-10-20 15:30:00'),
+                      _buildInfoItem('地点', '中国·广州'),
+                    ],
+                  ),
+                  SizedBox(height: 16.w),
+                  _buildInfoCard(
+                    icon: Icons.description,
+                    title: '作品内容',
+                    children: [
+                      _buildDescriptionItem(
+                          '作品描述', currentVideoData.description),
+                      _buildTagsItem('作品标签', [
+                        '#懒人救星',
+                        '#居家办公',
+                        '#电竞',
+                        '#游戏',
+                        '#男生房间',
+                        '#INGREM',
+                        '#治愈',
+                        '#生活'
+                      ]),
+                    ],
+                  ),
+                  SizedBox(height: 16.w),
+                  _buildInfoCard(
+                    icon: Icons.storage,
+                    title: '技术信息',
+                    children: [
+                      _buildInfoItem('文件大小', '2.3 MB'),
+                      _buildInfoItem('文件格式', 'MP4'),
+                      _buildInfoItem('分辨率', '1080x1920'),
+                      _buildInfoItem('时长', '15秒'),
+                      _buildInfoItem('IPFS地址',
+                          'https://ipfs.io/ipfs/Qm${currentVideoData.videoPath.hashCode.toRadixString(16)}'),
+                    ],
+                  ),
+                  SizedBox(height: 16.w),
+                  _buildInfoCard(
+                    icon: Icons.analytics,
+                    title: '互动数据',
+                    children: [
+                      Wrap(
+                        spacing: 12.w,
+                        runSpacing: 12.w,
+                        children: [
+                          _buildStatsItem(
+                              '点赞',
+                              currentVideoData.likeCount.toString(),
+                              Icons.favorite),
+                          _buildStatsItem(
+                              '评论',
+                              currentVideoData.commentCount.toString(),
+                              Icons.comment),
+                          _buildStatsItem(
+                              '转发',
+                              currentVideoData.shareCount.toString(),
+                              Icons.share),
+                          _buildStatsItem(
+                              '收藏',
+                              currentVideoData.collectionCount.toString(),
+                              Icons.bookmark),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16.w),
+                  _buildInfoCard(
+                    icon: Icons.copyright,
+                    title: '版权信息',
+                    children: [
+                      _buildInfoItem('版权状态', '原创作品'),
+                      _buildInfoItem('授权方式', 'CC BY-NC 4.0'),
+                      _buildInfoItem('区块链哈希',
+                          '0x${currentVideoData.videoPath.hashCode.toRadixString(16)}'),
+                    ],
+                  ),
+                  SizedBox(height: 100.w),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 20.w),
+        ],
       ),
     );
   }
 
-  // 构建方法需要从外部类复制过来，或者通过参数传递
   Widget _buildInfoCard({
     required IconData icon,
     required String title,
@@ -736,21 +710,20 @@ class _ArtInfoModalContentState extends State<_ArtInfoModalContent> {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white.withAlpha(25), // 0.1 opacity
+        color: Colors.white.withAlpha(25),
         borderRadius: BorderRadius.circular(16.w),
-        border: Border.all(color: Colors.white.withAlpha(51)), // 0.2 opacity
+        border: Border.all(color: Colors.white.withAlpha(51)),
       ),
       child: Padding(
         padding: EdgeInsets.all(20.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 卡片标题
             Row(
               children: [
                 Icon(
                   icon,
-                  color: Colors.white.withAlpha(204), // 0.8 opacity
+                  color: Colors.white.withAlpha(204),
                   size: 32.w,
                 ),
                 SizedBox(width: 12.w),
@@ -765,7 +738,6 @@ class _ArtInfoModalContentState extends State<_ArtInfoModalContent> {
               ],
             ),
             SizedBox(height: 16.w),
-            // 卡片内容
             ...children,
           ],
         ),
@@ -785,7 +757,7 @@ class _ArtInfoModalContentState extends State<_ArtInfoModalContent> {
               '$label:',
               style: TextStyle(
                 fontSize: 26.w,
-                color: Colors.white.withAlpha(204), // 0.8 opacity
+                color: Colors.white.withAlpha(204),
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -818,7 +790,7 @@ class _ArtInfoModalContentState extends State<_ArtInfoModalContent> {
             '$label:',
             style: TextStyle(
               fontSize: 26.w,
-              color: Colors.white.withAlpha(204), // 0.8 opacity
+              color: Colors.white.withAlpha(204),
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -856,7 +828,7 @@ class _ArtInfoModalContentState extends State<_ArtInfoModalContent> {
             '$label:',
             style: TextStyle(
               fontSize: 26.w,
-              color: Colors.white.withAlpha(204), // 0.8 opacity
+              color: Colors.white.withAlpha(204),
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -864,21 +836,24 @@ class _ArtInfoModalContentState extends State<_ArtInfoModalContent> {
           Wrap(
             spacing: 8.w,
             runSpacing: 8.w,
-            children: tags.map((tag) => Container(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.w),
-              decoration: BoxDecoration(
-                color: Colors.white.withAlpha(30),
-                borderRadius: BorderRadius.circular(20.w),
-                border: Border.all(color: Colors.white.withAlpha(80)),
-              ),
-              child: Text(
-                tag,
-                style: TextStyle(
-                  fontSize: 22.w,
-                  color: Colors.white,
-                ),
-              ),
-            )).toList(),
+            children: tags
+                .map((tag) => Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.w),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withAlpha(30),
+                        borderRadius: BorderRadius.circular(20.w),
+                        border: Border.all(color: Colors.white.withAlpha(80)),
+                      ),
+                      child: Text(
+                        tag,
+                        style: TextStyle(
+                          fontSize: 22.w,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ))
+                .toList(),
           ),
         ],
       ),
@@ -923,7 +898,6 @@ class _ArtInfoModalContentState extends State<_ArtInfoModalContent> {
   }
 }
 
-// --- 视频信息组件 (无需改动) ---
 class _VideoInfoSection extends StatefulWidget {
   final String userName;
   final String avatarUrl;
@@ -964,10 +938,6 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
             },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 8.w, horizontal: 12.w),
-              // decoration: BoxDecoration(
-              //   color: Colors.black.withAlpha(120),
-              //   borderRadius: BorderRadius.circular(32.w),
-              // ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -1064,23 +1034,28 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
                     child: Text(widget.description, style: descriptionStyle))),
           ),
           Positioned(
-              bottom: 15.w,
-              right: 15.w,
-              child: GestureDetector(
-                  onTap: () => setState(() => _isExpanded = false),
-                  child: Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surface,
-                          borderRadius: BorderRadius.circular(8.w)),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.w),
-                      child: Text("收起",
-                          textAlign: TextAlign.center,
-                          style: descriptionStyle.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25.w))))),
+            bottom: 15.w,
+            right: 15.w,
+            child: GestureDetector(
+              onTap: () => setState(() => _isExpanded = false),
+              child: Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.surface,
+                    borderRadius: BorderRadius.circular(8.w)),
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.w),
+                child: Text(
+                  "收起",
+                  textAlign: TextAlign.center,
+                  style: descriptionStyle.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.w,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

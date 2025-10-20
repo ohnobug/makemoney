@@ -27,7 +27,8 @@
       "Bash(flutter analyze lib/screens/author/ljn_author_detail_page.dart)",
       "Bash(flutter analyze lib/screens/author/ljn_author_detail_page.dart --no-fatal-infos)",
       "Bash(flutter analyze lib/screens/discovery/widgets/ins_style_row.dart)",
-      "Bash(flutter analyze lib/screens/arts/ljn_arts_page.dart --no-fatal-infos)"
+      "Bash(flutter analyze lib/screens/arts/ljn_arts_page.dart --no-fatal-infos)",
+      "Bash(flutter analyze lib/screens/discovery/widgets/ins_style_row.dart --no-fatal-infos)"
     ],
     "deny": [],
     "ask": []
