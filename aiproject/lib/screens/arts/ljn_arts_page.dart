@@ -40,7 +40,7 @@ class VideoData {
   });
 }
 
-// --- 主页面 (已重构) ---
+// --- 主页面 ---
 class LJNArtsPage extends StatefulWidget {
   const LJNArtsPage({super.key});
 
@@ -48,19 +48,15 @@ class LJNArtsPage extends StatefulWidget {
   State<LJNArtsPage> createState() => _LJNArtsPageState();
 }
 
-class _LJNArtsPageState extends State<LJNArtsPage>
-    with SingleTickerProviderStateMixin {
+class _LJNArtsPageState extends State<LJNArtsPage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
   late final Map<int, VideoPlayerController> _videoControllers;
   late final LJNSystemCubit _systemCubit;
   late final List<VideoData> _videoDataList;
 
-  late AnimationController _animationController;
-  late Animation<double> _panelAnimation;
-
-  // 保存视频播放状态
   bool _wasPlayingBeforePanel = false;
+  bool _isPanelOpen = false;
 
   final List<CommentData> _comments = [
     CommentData(
@@ -79,7 +75,6 @@ class _LJNArtsPageState extends State<LJNArtsPage>
         likes: 8,
         imageUrl:
             'https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'),
-    // 添加更多评论数据以测试滚动
     for (int i = 0; i < 20; i++)
       CommentData(
           username: '用户 $i',
@@ -104,11 +99,6 @@ class _LJNArtsPageState extends State<LJNArtsPage>
     _videoControllers = {};
     _videoDataList = _createMockVideoData();
 
-    _animationController = AnimationController(
-        duration: const Duration(milliseconds: 350), vsync: this);
-    _panelAnimation =
-        CurvedAnimation(parent: _animationController, curve: Curves.easeInOut);
-
     _pageController.addListener(() {
       if (!_pageController.hasClients || _pageController.page == null) return;
       final newPage = _pageController.page!.round();
@@ -126,7 +116,6 @@ class _LJNArtsPageState extends State<LJNArtsPage>
     });
   }
 
-  // --- 数据和视频控制方法 (无需改动) ---
   List<VideoData> _createMockVideoData() {
     return [
       VideoData(
@@ -134,7 +123,7 @@ class _LJNArtsPageState extends State<LJNArtsPage>
           avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_10.jpg',
           userName: '牛马的home',
           description:
-              '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...',
+              '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...',
           likeCount: 1050,
           commentCount: 241,
           collectionCount: 421,
@@ -205,12 +194,10 @@ class _LJNArtsPageState extends State<LJNArtsPage>
   @override
   void dispose() {
     _pageController.dispose();
-    _animationController.dispose();
     _videoControllers.forEach((_, controller) {
       controller.removeListener(_onVideoChange);
       controller.dispose();
     });
-    _systemCubit.updateVideoProgressBottomOffset(0);
     _systemCubit.updateVideoProgress(progress: 0.0, show: false);
     super.dispose();
   }
@@ -220,18 +207,47 @@ class _LJNArtsPageState extends State<LJNArtsPage>
         _currentVideoController!.value.isInitialized) {
       _wasPlayingBeforePanel = _currentVideoController!.value.isPlaying;
     }
+    _currentVideoController?.pause();
     _systemCubit.updateVideoProgress(show: false);
-    _animationController.forward();
-  }
 
-  void _hideCommentsPanel() {
-    _animationController.reverse().then((_) {
+    setState(() {
+      _isPanelOpen = true;
+    });
+
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext context) {
+        return DraggableScrollableSheet(
+          initialChildSize: 0.7,
+          minChildSize: 0.1,
+          maxChildSize: 0.7,
+          snap: true,
+          snapSizes: const [0.7],
+          builder: (BuildContext context, ScrollController scrollController) {
+            // 直接返回 LJNCommentPanel，不再有 Container 包裹
+            return LJNCommentPanel(
+              comments: _comments,
+              onClose: () => Navigator.pop(context),
+              showInput: true,
+              scrollController: scrollController,
+            );
+          },
+        );
+      },
+    ).then((_) {
+      setState(() {
+        _isPanelOpen = false;
+      });
+
       if (_wasPlayingBeforePanel &&
           _currentVideoController != null &&
           _currentVideoController!.value.isInitialized &&
           !_currentVideoController!.value.isPlaying) {
         _currentVideoController!.play();
       }
+      _systemCubit.updateVideoProgress(show: true);
     });
   }
 
@@ -242,6 +258,10 @@ class _LJNArtsPageState extends State<LJNArtsPage>
       statusBarIconBrightness: Brightness.light,
     ));
 
+    setState(() {
+      _isPanelOpen = true;
+    });
+
     showModalBottomSheet<void>(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
@@ -250,13 +270,9 @@ class _LJNArtsPageState extends State<LJNArtsPage>
         return DraggableScrollableSheet(
           initialChildSize: 1,
           minChildSize: 0.1,
-          maxChildSize: 1, // 与 initialChildSize 保持一致，禁止向上拖动
-
-          // 启用回弹/吸附效果
+          maxChildSize: 1,
           snap: true,
-          // 定义唯一的吸附点，即初始高度
-          snapSizes: const [1],
-
+          snapSizes: const [1.0],
           builder: (BuildContext context, ScrollController scrollController) {
             return BlocBuilder<LJNSystemCubit, SystemState>(
               builder: (context, systemState) {
@@ -271,6 +287,9 @@ class _LJNArtsPageState extends State<LJNArtsPage>
         );
       },
     ).then((_) {
+      setState(() {
+        _isPanelOpen = false;
+      });
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
@@ -307,169 +326,71 @@ class _LJNArtsPageState extends State<LJNArtsPage>
       builder: (context, systemState) {
         final screenHeight = MediaQuery.of(context).size.height;
         final videoHeight = screenHeight - systemState.tabbarHeight;
-        final double commentPanelMaxHeight = screenHeight * 0.55;
 
         return Scaffold(
           backgroundColor: Colors.black,
           body: SizedBox(
             height: screenHeight,
-            child: Stack(
-              children: [
-                SizedBox(
-                  height: videoHeight,
-                  child: AnimatedBuilder(
-                    animation: _panelAnimation,
-                    builder: (context, child) {
-                      final panelProgress = _panelAnimation.value;
-                      final videoScale = 1.0 - (panelProgress * 0.25);
-                      final videoTopOffset =
-                          panelProgress * -(screenHeight * 0.1);
-                      final isPanelOpen = _animationController.status !=
-                          AnimationStatus.dismissed;
-
-                      final double currentProgressBarOffset =
-                          panelProgress * commentPanelMaxHeight;
-                      _systemCubit.updateVideoProgressBottomOffset(
-                          currentProgressBarOffset);
-
-                      return Transform.translate(
-                        offset: Offset(0, videoTopOffset),
-                        child: Transform.scale(
-                          scale: videoScale,
-                          child: Stack(
-                            children: [
-                              PageView.builder(
-                                controller: _pageController,
-                                scrollDirection: Axis.vertical,
-                                physics: isPanelOpen
-                                    ? const NeverScrollableScrollPhysics()
-                                    : const PageScrollPhysics(),
-                                itemCount: _videoDataList.length,
-                                itemBuilder: (context, index) {
-                                  final controller =
-                                      _createVideoControllerForIndex(index);
-                                  final videoData = _videoDataList[index];
-                                  return Stack(
-                                    children: [
-                                      LJNCustomVideoPlayer(
-                                        key: ValueKey('video_$index'),
-                                        canPlay: index == _currentPage,
-                                        controller: controller,
-                                        videoHeight: videoHeight,
-                                        enableTapToPlay: !isPanelOpen,
-                                        isPanelOpen: isPanelOpen,
-                                      ),
-                                      Positioned(
-                                        left: 0,
-                                        bottom: 0,
-                                        child: _VideoInfoSection(
-                                          avatarUrl: videoData.avatarPath,
-                                          userName: videoData.userName,
-                                          description: videoData.description,
-                                        ),
-                                      ),
-                                      Positioned(
-                                        bottom: 0,
-                                        right: 10.w,
-                                        width: 100.w,
-                                        height: 700.w,
-                                        child: _buildActionButtons(videoData),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                              FadeTransition(
-                                opacity: Tween<double>(begin: 1.0, end: 0.0)
-                                    .animate(_panelAnimation),
-                                child: IgnorePointer(
-                                  ignoring: isPanelOpen,
-                                  child: Stack(
-                                    children: [
-                                      Positioned(
-                                          top: 15.w + systemState.statusHeight,
-                                          right: 28.w,
-                                          child: GestureDetector(
-                                              onTap: () => Navigator.pushNamed(
-                                                  context, '/discovery/search'),
-                                              child: Container(
-                                                  color: Colors.transparent,
-                                                  height: 58.w,
-                                                  child: Icon(
-                                                      const IconData(0xe612,
-                                                          fontFamily:
-                                                              'Iconfont'),
-                                                      color: AppColors
-                                                          .neutralWhite,
-                                                      size: 48.w)))),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+            child: PageView.builder(
+              controller: _pageController,
+              scrollDirection: Axis.vertical,
+              physics: _isPanelOpen
+                  ? const NeverScrollableScrollPhysics()
+                  : const PageScrollPhysics(),
+              itemCount: _videoDataList.length,
+              itemBuilder: (context, index) {
+                final controller = _createVideoControllerForIndex(index);
+                final videoData = _videoDataList[index];
+                return Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    LJNCustomVideoPlayer(
+                      key: ValueKey('video_$index'),
+                      canPlay: index == _currentPage,
+                      controller: controller,
+                      videoHeight: videoHeight,
+                      enableTapToPlay: !_isPanelOpen,
+                      isPanelOpen: _isPanelOpen,
+                    ),
+                    if (!_isPanelOpen)
+                      Positioned(
+                        left: 0,
+                        bottom: 0,
+                        child: _VideoInfoSection(
+                          avatarUrl: videoData.avatarPath,
+                          userName: videoData.userName,
+                          description: videoData.description,
                         ),
-                      );
-                    },
-                  ),
-                ),
-                AnimatedBuilder(
-                  animation: _panelAnimation,
-                  builder: (context, child) {
-                    final isPanelOpen = _animationController.status !=
-                        AnimationStatus.dismissed;
-
-                    if (!isPanelOpen) {
-                      return const SizedBox.shrink();
-                    }
-
-                    return Positioned.fill(
-                      child: GestureDetector(
-                        onTap: _hideCommentsPanel,
-                        child: Container(
-                          color: Colors.transparent,
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                height: commentPanelMaxHeight,
-                                child: SlideTransition(
-                                  position: Tween<Offset>(
-                                          begin: const Offset(0, 1),
-                                          end: Offset.zero)
-                                      .animate(_panelAnimation),
-                                  child: GestureDetector(
-                                    onTap: () {},
-                                    child: LJNCommentPanel(
-                                      comments: _comments,
-                                      onClose: _hideCommentsPanel,
-                                      panelHeight: commentPanelMaxHeight,
-                                      showInput: true,
-                                      onOverScroll: (delta) {
-                                        _animationController.value -=
-                                            delta / commentPanelMaxHeight;
-                                      },
-                                      onOverScrollEnd: () {
-                                        if (_animationController.value < 0.5) {
-                                          _hideCommentsPanel();
-                                        } else {
-                                          _showCommentsPanel();
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                      ),
+                    if (!_isPanelOpen)
+                      Positioned(
+                        bottom: 0,
+                        right: 10.w,
+                        width: 100.w,
+                        height: 700.w,
+                        child: _buildActionButtons(videoData),
+                      ),
+                    if (!_isPanelOpen)
+                      Positioned(
+                        top: 15.w + systemState.statusHeight,
+                        right: 28.w,
+                        child: GestureDetector(
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/discovery/search'),
+                          child: Container(
+                            color: Colors.transparent,
+                            height: 58.w,
+                            child: Icon(
+                              const IconData(0xe612, fontFamily: 'Iconfont'),
+                              color: AppColors.neutralWhite,
+                              size: 48.w,
+                            ),
                           ),
                         ),
                       ),
-                    );
-                  },
-                ),
-              ],
+                  ],
+                );
+              },
             ),
           ),
         );
@@ -567,7 +488,6 @@ class _ArtInfoModalContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 根Widget负责背景和圆角
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -580,17 +500,13 @@ class _ArtInfoModalContent extends StatelessWidget {
         ),
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
-      // 使用 ClipRRect 来确保子内容不会超出圆角范围
       clipBehavior: Clip.antiAlias,
       child: SingleChildScrollView(
         controller: scrollController,
         child: Column(
-          // 将所有内容都放入这个可滚动的 Column 中
           children: [
-            // 1. 标题栏
             Container(
               padding: EdgeInsets.only(
-                // 手动为状态栏留出空间
                 top: 20.w + systemState.statusHeight,
                 bottom: 20.w,
                 left: 20.w,
@@ -627,10 +543,7 @@ class _ArtInfoModalContent extends StatelessWidget {
                 ],
               ),
             ),
-
-            // 2. 信息卡片列表
             Padding(
-              // 为卡片列表添加水平内边距
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: Column(
                 children: [
@@ -719,8 +632,6 @@ class _ArtInfoModalContent extends StatelessWidget {
                 ],
               ),
             ),
-
-            // 3. 底部安全间距
             SizedBox(height: 100.w),
           ],
         ),
@@ -728,7 +639,6 @@ class _ArtInfoModalContent extends StatelessWidget {
     );
   }
 
-  // ... (所有 _build... 辅助方法保持不变) ...
   Widget _buildInfoCard({
     required IconData icon,
     required String title,
@@ -1061,28 +971,23 @@ class _VideoInfoSectionState extends State<_VideoInfoSection>
                     child: Text(widget.description, style: descriptionStyle))),
           ),
           Positioned(
-            bottom: 15.w,
-            right: 15.w,
-            child: GestureDetector(
-              onTap: () => setState(() => _isExpanded = false),
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(8.w)),
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.w),
-                child: Text(
-                  "收起",
-                  textAlign: TextAlign.center,
-                  style: descriptionStyle.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.w,
-                  ),
-                ),
-              ),
-            ),
-          ),
+              bottom: 15.w,
+              right: 15.w,
+              child: GestureDetector(
+                  onTap: () => setState(() => _isExpanded = false),
+                  child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.surface,
+                          borderRadius: BorderRadius.circular(8.w)),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.w),
+                      child: Text("收起",
+                          textAlign: TextAlign.center,
+                          style: descriptionStyle.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25.w))))),
         ],
       ),
     );
