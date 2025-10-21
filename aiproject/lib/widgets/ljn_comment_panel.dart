@@ -45,10 +45,6 @@ class LJNCommentPanel extends StatefulWidget {
 class _LJNCommentPanelState extends State<LJNCommentPanel> {
   final TextEditingController _commentController = TextEditingController();
 
-  // 估算一个固定的头部和底部高度，用于给 ListView 设置 padding
-  final double _headerHeight = 101.w; // 100 for container + 1 for divider
-  final double _footerHeight = 120.w; // 估算输入框的高度
-
   @override
   void dispose() {
     _commentController.dispose();
@@ -57,68 +53,29 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20.w),
-          topRight: Radius.circular(20.w),
-        ),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: Stack(
-        children: [
-          // 1. 可滚动的评论列表
-          ListView.builder(
-            controller: widget.scrollController,
-            // 增加顶部和底部 padding，为悬浮的Header和Footer留出空间
-            padding: EdgeInsets.only(
-              top: _headerHeight,
-              bottom: widget.showInput ? _footerHeight : 0,
-            ),
-            itemCount: widget.comments.length,
-            itemBuilder: (context, index) {
-              return _buildCommentItem(widget.comments[index]);
-            },
-          ),
+    return Column(
+      children: [
+        Expanded(
+          child: ColoredBox(
+            color: Colors.white,
+            child: CustomScrollView(
+              controller: widget.scrollController,
+              slivers: [
+                // 🚀 [核心修正]: 使用 SliverAppBar 替代 SliverToBoxAdapter 来固定头部
+                SliverAppBar(
+                  // 关键属性：将 AppBar 固定在顶部
+                  pinned: true,
+                  // 移除 AppBar 左侧默认的返回按钮或空间
+                  automaticallyImplyLeading: false,
+                  backgroundColor: Colors.white,
+                  elevation: 0, // 移除默认阴影
+                  // 当内容滚动到 AppBar 下方时，显示一个细微的阴影，增加层次感
+                  scrolledUnderElevation: 0.5,
+                  shadowColor: Colors.grey.shade300,
+                  // titleSpacing: 0, // 如果需要完全自定义布局，可以移除默认间距
 
-          // 2. 悬浮在顶部的标题栏
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: _buildHeader(),
-          ),
-
-          // 3. 悬浮在底部的输入框
-          if (widget.showInput)
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: _buildCommentInput(),
-            ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader() {
-    return Container(
-      // 给头部一个背景色，防止滚动内容从下方透过来
-      color: Colors.white,
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 30.w),
-            alignment: Alignment.center,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const SizedBox(width: 48),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20.w),
-                  child: Text(
+                  // 将标题内容放入 title 属性
+                  title: Text(
                     '共 ${widget.comments.length} 条评论',
                     style: TextStyle(
                       fontSize: 30.w,
@@ -126,18 +83,47 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
                       color: Colors.black87,
                     ),
                   ),
+                  centerTitle: true, // 标题居中
+
+                  // 将关闭按钮放入 actions 列表
+                  actions: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.close,
+                        size: 40.w,
+                        color: Colors.grey.shade600,
+                      ),
+                      onPressed: widget.onClose,
+                    ),
+                  ],
+
+                  // 将分割线放入 bottom 属性，它也会被固定
+                  bottom: PreferredSize(
+                    preferredSize: const Size.fromHeight(1.0),
+                    child: Container(
+                      color: const Color(0xFFEFEFEF),
+                      height: 1.0,
+                    ),
+                  ),
                 ),
-                IconButton(
-                  icon: Icon(Icons.close,
-                      size: 40.w, color: Colors.grey.shade600),
-                  onPressed: widget.onClose,
+
+                // 评论列表部分保持不变
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return _buildCommentItem(widget.comments[index]);
+                    },
+                    childCount: widget.comments.length,
+                  ),
                 ),
               ],
             ),
           ),
-          const Divider(height: 1, color: Color(0xFFEFEFEF)),
-        ],
-      ),
+        ),
+
+        // 输入框保持不变
+        if (widget.showInput) _buildCommentInput(),
+      ],
     );
   }
 

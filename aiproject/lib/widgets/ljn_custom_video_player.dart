@@ -115,11 +115,21 @@ class _LJNCustomVideoPlayerState extends State<LJNCustomVideoPlayer> {
                   child: AnimatedOpacity(
                     opacity: _showPlayIcon ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 250),
-                    child: Center(
-                      child: Icon(
-                        Icons.play_arrow_rounded,
-                        color: Colors.white.withAlpha(200),
-                        size: 140.w,
+                    child: SizedBox.expand(
+                      child: Center(
+                        child: Container(
+                          width: 140.w,
+                          height: 140.w,
+                          decoration: BoxDecoration(
+                            color: const Color.fromRGBO(0, 0, 0, 0.5),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.play_arrow_rounded,
+                            color: Colors.white,
+                            size: 80.w,
+                          ),
+                        ),
                       ),
                     ),
                   ),
