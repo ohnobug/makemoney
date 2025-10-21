@@ -252,7 +252,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
                     ? Colors.black
                     : theme.scaffoldBackgroundColor,
                 bottomNavigationBar: Visibility(
-                  visible: !systemState.showMiniProgramDrawer,
+                  visible: !systemState.showMiniProgramDrawer && !systemState.showCommentsPanel,
                   child: Container(
                     height: systemState.tabbarHeight + 1.0.w,
                     decoration: BoxDecoration(

@@ -237,10 +237,7 @@ class _LJNArtsPageState extends State<LJNArtsPage> {
       _currentVideoController!.play();
     }
     _systemCubit.updateVideoProgress(show: true);
-
-    // 延迟显示tabbar，等待动画完成
-    // 注意：这里不需要更新showCommentsPanel状态，因为关闭动画期间tabbar应该保持隐藏
-    // 动画完成后，_isPanelOpen=false会自动导致tabbar显示
+    _systemCubit.updateShowCommentsPanel(false); // 更新系统状态，让tabbar重新显示
   }
 
   void _showArtInfoModalSheet(BuildContext context) {
