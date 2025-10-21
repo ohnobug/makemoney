@@ -1462,10 +1462,6 @@ class _LJNChat extends State<LJNChat>
             ),
             onTap: () {
               logger.info("拍摄");
-              Navigator.pushNamed(
-                context,
-                '/user/camera',
-              );
             },
           ),
           LJNFunctionSelectorButton(
@@ -1481,7 +1477,6 @@ class _LJNChat extends State<LJNChat>
             ),
             onTap: () {
               logger.info("视频通话");
-              showCallPopup(context, systemState);
             },
           ),
           LJNFunctionSelectorButton(
@@ -1664,8 +1659,8 @@ class _LJNChat extends State<LJNChat>
                                           child: Text(
                                             "你好吗？......",
                                             style: TextStyle(
-                                                fontSize: 30.w,
-                                                ),
+                                              fontSize: 30.w,
+                                            ),
                                           ),
                                         ),
 
@@ -1733,7 +1728,6 @@ class _LJNChat extends State<LJNChat>
                           l10n.releaseToCancel,
                           style: TextStyle(
                             decoration: TextDecoration.none,
-                            
                             height: 1.08,
                             fontSize: 29.w,
                             color: AppColors.neutralGrey52,
@@ -1793,7 +1787,6 @@ class _LJNChat extends State<LJNChat>
                       height: 1.08,
                       color: AppColors.neutralGrey43,
                       fontSize: 30.w,
-                      
                       decoration: TextDecoration.none,
                     ),
                   ),
@@ -1813,7 +1806,6 @@ class _LJNChat extends State<LJNChat>
                           l10n.convertToText,
                           style: TextStyle(
                             decoration: TextDecoration.none,
-                            
                             height: 1.08,
                             fontSize: 29.w,
                             color: AppColors.neutralGrey52,

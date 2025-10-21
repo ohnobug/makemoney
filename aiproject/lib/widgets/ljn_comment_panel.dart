@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'ljn_comment_input_page.dart';
 
 // 数据模型
 class CommentData {
@@ -29,6 +30,7 @@ class LJNCommentPanel extends StatefulWidget {
   final VoidCallback? onClose;
   final bool showInput;
   final ScrollController? scrollController;
+  final Function(String)? onCommentSubmitted;
 
   const LJNCommentPanel({
     super.key,
@@ -36,6 +38,7 @@ class LJNCommentPanel extends StatefulWidget {
     this.onClose,
     this.showInput = true,
     this.scrollController,
+    this.onCommentSubmitted,
   });
 
   @override
@@ -141,6 +144,24 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
     );
   }
 
+  void _showCommentInputPage() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      barrierColor: Colors.black.withAlpha(128),
+      builder: (BuildContext context) {
+        return LJNCommentInputPage(
+          initialText: _commentController.text,
+          onCommentSubmitted: (comment) {
+            _commentController.clear();
+            widget.onCommentSubmitted?.call(comment);
+          },
+        );
+      },
+    );
+  }
+
   Widget _buildCommentInput() {
     return Container(
       padding: EdgeInsets.fromLTRB(25.w, 15.w, 25.w, 25.w),
@@ -153,17 +174,32 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
         child: Row(
           children: [
             Expanded(
-              child: TextField(
-                controller: _commentController,
-                decoration: InputDecoration(
-                  hintText: '留下你的精彩评论...',
-                  filled: true,
-                  fillColor: Colors.grey.shade100,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.w),
-                  border: OutlineInputBorder(
+              child: GestureDetector(
+                onTap: _showCommentInputPage,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(40.w),
-                    borderSide: BorderSide.none,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.w),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          _commentController.text.isEmpty
+                              ? '留下你的精彩评论...'
+                              : _commentController.text,
+                          style: TextStyle(
+                            fontSize: 28.w,
+                            color: _commentController.text.isEmpty
+                                ? Colors.grey.shade600
+                                : Colors.black87,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

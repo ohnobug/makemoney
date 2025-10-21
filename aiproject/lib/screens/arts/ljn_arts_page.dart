@@ -266,6 +266,11 @@ class _LJNArtsPageState extends State<LJNArtsPage>
                   onClose: () => Navigator.pop(context),
                   showInput: true,
                   scrollController: scrollController,
+                  onCommentSubmitted: (comment) {
+                    // 这里可以处理评论提交逻辑
+                    print('用户提交评论: $comment');
+                    // 可以在这里添加评论到列表的逻辑
+                  },
                 );
               },
             ),
