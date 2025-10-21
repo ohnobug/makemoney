@@ -446,16 +446,26 @@ class _LJNArtsPageState extends State<LJNArtsPage>
                   clipBehavior: Clip.hardEdge,
                   child: Stack(
                     fit: StackFit.expand,
+                    alignment: Alignment.center,
                     children: [
                       if (controller.value.isInitialized)
-                        
-                        LJNCustomVideoPlayer(
-                          key: ValueKey('video_$index'),
-                          canPlay: index == _currentPage,
-                          controller: controller,
-                          videoHeight: normalVideoHeight,
-                          enableTapToPlay: !_isPanelOpen,
-                          isPanelOpen: _isPanelOpen,
+                        FittedBox(
+                          fit: controller.value.aspectRatio < 1.0
+                              ? BoxFit.cover
+                              : BoxFit.contain,
+                          clipBehavior: Clip.hardEdge,
+                          child: SizedBox(
+                            width: controller.value.size.width,
+                            height: controller.value.size.height,
+                            child: LJNCustomVideoPlayer(
+                              key: ValueKey('video_$index'),
+                              canPlay: index == _currentPage,
+                              controller: controller,
+                              videoHeight: normalVideoHeight,
+                              enableTapToPlay: !_isPanelOpen,
+                              isPanelOpen: _isPanelOpen,
+                            ),
+                          ),
                         ),
                       Opacity(
                         opacity: (_isPanelOpen && _isCommentPanel)
@@ -479,18 +489,24 @@ class _LJNArtsPageState extends State<LJNArtsPage>
                               height: 680.w,
                               child: _buildActionButtons(videoData),
                             ),
+
+                            // 右上角搜索按钮
                             Positioned(
                               top: 15.w + systemState.statusHeight,
                               right: 28.w,
                               child: GestureDetector(
                                 onTap: () => Navigator.pushNamed(
-                                    context, '/discovery/search'),
+                                  context,
+                                  '/discovery/search',
+                                ),
                                 child: Container(
                                   color: Colors.transparent,
                                   height: 58.w,
                                   child: Icon(
-                                    const IconData(0xe612,
-                                        fontFamily: 'Iconfont'),
+                                    const IconData(
+                                      0xe612,
+                                      fontFamily: 'Iconfont',
+                                    ),
                                     color: AppColors.neutralWhite,
                                     size: 48.w,
                                   ),

@@ -53,9 +53,10 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        Expanded(
+        Positioned.fill(
+            child: Expanded(
           child: ColoredBox(
             color: Colors.white,
             child: CustomScrollView(
@@ -111,18 +112,31 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      return _buildCommentItem(widget.comments[index]);
+                      // 最后加一个盒子
+                      if (widget.comments.length == index) {
+                        return SizedBox(
+                          height: 200.w,
+                        );
+                      } else {
+                        return _buildCommentItem(widget.comments[index]);
+                      }
                     },
-                    childCount: widget.comments.length,
+                    childCount: widget.comments.length + 1,
                   ),
                 ),
               ],
             ),
           ),
-        ),
+        )),
 
         // 输入框保持不变
-        if (widget.showInput) _buildCommentInput(),
+        if (widget.showInput)
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: _buildCommentInput(),
+          ),
       ],
     );
   }
