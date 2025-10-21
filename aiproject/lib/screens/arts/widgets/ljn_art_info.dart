@@ -1,41 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/screens/arts/widgets/ljn_video_data.dart';
 
-// --- 数据模型 (无需改动) ---
-class VideoData {
-  final String videoPath;
-  final String avatarPath;
-  final String userName;
-  final String description;
-  bool isLiked;
-  bool isCollected;
-  int likeCount;
-  int commentCount;
-  int collectionCount;
-  int shareCount;
-
-  VideoData({
-    required this.videoPath,
-    required this.avatarPath,
-    required this.userName,
-    required this.description,
-    this.isLiked = false,
-    this.isCollected = false,
-    required this.likeCount,
-    required this.commentCount,
-    required this.collectionCount,
-    required this.shareCount,
-  });
-}
-
-// LJNArtInfoModalContent, _VideoInfoSection 等其他子组件保持不变
+// 🚀 [RESTORED] LJNArtInfoModalContent and its helpers
 class LJNArtInfoModalContent extends StatelessWidget {
   final ScrollController scrollController;
   final VideoData currentVideoData;
   final SystemState systemState;
 
-  const LJNArtInfoModalContent({super.key, 
+  const LJNArtInfoModalContent({
+    super.key,
     required this.scrollController,
     required this.currentVideoData,
     required this.systemState,
@@ -43,154 +18,168 @@ class LJNArtInfoModalContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final headerHeight = 120.w + systemState.statusHeight;
-
-    return Expanded(
-        child: CustomScrollView(
-      controller: scrollController,
-      slivers: [
-        SliverAppBar(
-          // 关键属性：将 AppBar 固定在顶部
-          pinned: true,
-          // 移除 AppBar 左侧默认的返回按钮或空间
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.white,
-          elevation: 0, // 移除默认阴影
-          // 当内容滚动到 AppBar 下方时，显示一个细微的阴影，增加层次感
-          scrolledUnderElevation: 0.5,
-          shadowColor: Colors.grey.shade300,
-          // titleSpacing: 0, // 如果需要完全自定义布局，可以移除默认间距
-
-          // 将标题内容放入 title 属性
-          title: Text(
-            '作品信息',
-            style: TextStyle(
-              fontSize: 36.w,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          centerTitle: false, // 标题居中
-
-          // 将关闭按钮放入 actions 列表
-          actions: [
-            IconButton(
-              icon: Icon(
-                Icons.close,
-                size: 40.w,
-                color: Colors.grey.shade600,
-              ),
-              onPressed: () => Navigator.pop(context),
-            ),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xCC000000),
+            Color(0xE6000000),
           ],
-
-          // 将分割线放入 bottom 属性，它也会被固定
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(1.0),
+        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
+        children: [
+          ListView(
+            controller: scrollController,
+            padding: EdgeInsets.only(top: 120.w + systemState.statusHeight),
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Column(
+                  children: [
+                    _buildInfoCard(
+                      icon: Icons.info_outline,
+                      title: '基本信息',
+                      children: [
+                        _buildInfoItem('作品名称', currentVideoData.userName),
+                        _buildInfoItem('作者', currentVideoData.userName),
+                        _buildInfoItem('发布时间', '2024-10-20 15:30:00'),
+                        _buildInfoItem('地点', '中国·广州'),
+                      ],
+                    ),
+                    SizedBox(height: 16.w),
+                    _buildInfoCard(
+                      icon: Icons.description,
+                      title: '作品内容',
+                      children: [
+                        _buildDescriptionItem(
+                            '作品描述', currentVideoData.description),
+                        _buildTagsItem('作品标签', [
+                          '#懒人救星',
+                          '#居家办公',
+                          '#电竞',
+                          '#游戏',
+                          '#男生房间',
+                          '#INGREM',
+                          '#治愈',
+                          '#生活'
+                        ]),
+                      ],
+                    ),
+                    SizedBox(height: 16.w),
+                    _buildInfoCard(
+                      icon: Icons.storage,
+                      title: '技术信息',
+                      children: [
+                        _buildInfoItem('文件大小', '2.3 MB'),
+                        _buildInfoItem('文件格式', 'MP4'),
+                        _buildInfoItem('分辨率', '1080x1920'),
+                        _buildInfoItem('时长', '15秒'),
+                        _buildInfoItem('IPFS地址',
+                            'https://ipfs.io/ipfs/Qm${currentVideoData.videoPath.hashCode.toRadixString(16)}'),
+                      ],
+                    ),
+                    SizedBox(height: 16.w),
+                    _buildInfoCard(
+                      icon: Icons.analytics,
+                      title: '互动数据',
+                      children: [
+                        Wrap(
+                          spacing: 12.w,
+                          runSpacing: 12.w,
+                          children: [
+                            _buildStatsItem(
+                                '点赞',
+                                currentVideoData.likeCount.toString(),
+                                Icons.favorite),
+                            _buildStatsItem(
+                                '评论',
+                                currentVideoData.commentCount.toString(),
+                                Icons.comment),
+                            _buildStatsItem(
+                                '转发',
+                                currentVideoData.shareCount.toString(),
+                                Icons.share),
+                            _buildStatsItem(
+                                '收藏',
+                                currentVideoData.collectionCount.toString(),
+                                Icons.bookmark),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16.w),
+                    _buildInfoCard(
+                      icon: Icons.copyright,
+                      title: '版权信息',
+                      children: [
+                        _buildInfoItem('版权状态', '原创作品'),
+                        _buildInfoItem('授权方式', 'CC BY-NC 4.0'),
+                        _buildInfoItem('区块链哈希',
+                            '0x${currentVideoData.videoPath.hashCode.toRadixString(16)}'),
+                      ],
+                    ),
+                    SizedBox(height: 100.w),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
             child: Container(
-              color: const Color(0xFFEFEFEF),
-              height: 1.0,
-            ),
-          ),
-        ),
-        ListView(
-          controller: scrollController,
-          padding: EdgeInsets.only(top: headerHeight),
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                children: [
-                  _buildInfoCard(
-                    icon: Icons.info_outline,
-                    title: '基本信息',
-                    children: [
-                      _buildInfoItem('作品名称', currentVideoData.userName),
-                      _buildInfoItem('作者', currentVideoData.userName),
-                      _buildInfoItem('发布时间', '2024-10-20 15:30:00'),
-                      _buildInfoItem('地点', '中国·广州'),
-                    ],
-                  ),
-                  SizedBox(height: 16.w),
-                  _buildInfoCard(
-                    icon: Icons.description,
-                    title: '作品内容',
-                    children: [
-                      _buildDescriptionItem(
-                          '作品描述', currentVideoData.description),
-                      _buildTagsItem('作品标签', [
-                        '#懒人救星',
-                        '#居家办公',
-                        '#电竞',
-                        '#游戏',
-                        '#男生房间',
-                        '#INGREM',
-                        '#治愈',
-                        '#生活'
-                      ]),
-                    ],
-                  ),
-                  SizedBox(height: 16.w),
-                  _buildInfoCard(
-                    icon: Icons.storage,
-                    title: '技术信息',
-                    children: [
-                      _buildInfoItem('文件大小', '2.3 MB'),
-                      _buildInfoItem('文件格式', 'MP4'),
-                      _buildInfoItem('分辨率', '1080x1920'),
-                      _buildInfoItem('时长', '15秒'),
-                      _buildInfoItem('IPFS地址',
-                          'https://ipfs.io/ipfs/Qm${currentVideoData.videoPath.hashCode.toRadixString(16)}'),
-                    ],
-                  ),
-                  SizedBox(height: 16.w),
-                  _buildInfoCard(
-                    icon: Icons.analytics,
-                    title: '互动数据',
-                    children: [
-                      Wrap(
-                        spacing: 12.w,
-                        runSpacing: 12.w,
-                        children: [
-                          _buildStatsItem(
-                              '点赞',
-                              currentVideoData.likeCount.toString(),
-                              Icons.favorite),
-                          _buildStatsItem(
-                              '评论',
-                              currentVideoData.commentCount.toString(),
-                              Icons.comment),
-                          _buildStatsItem(
-                              '转发',
-                              currentVideoData.shareCount.toString(),
-                              Icons.share),
-                          _buildStatsItem(
-                              '收藏',
-                              currentVideoData.collectionCount.toString(),
-                              Icons.bookmark),
-                        ],
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 14, 14, 10),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: 20.w + systemState.statusHeight,
+                  bottom: 20.w,
+                  left: 20.w,
+                  right: 20.w,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '作品信息',
+                      style: TextStyle(
+                        fontSize: 36.w,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  ),
-                  SizedBox(height: 16.w),
-                  _buildInfoCard(
-                    icon: Icons.copyright,
-                    title: '版权信息',
-                    children: [
-                      _buildInfoItem('版权状态', '原创作品'),
-                      _buildInfoItem('授权方式', 'CC BY-NC 4.0'),
-                      _buildInfoItem('区块链哈希',
-                          '0x${currentVideoData.videoPath.hashCode.toRadixString(16)}'),
-                    ],
-                  ),
-                  SizedBox(height: 100.w),
-                ],
+                    ),
+                    Container(
+                      width: 60.w,
+                      height: 60.w,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withAlpha(30),
+                        borderRadius: BorderRadius.circular(30.w),
+                      ),
+                      child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: Icon(
+                          Icons.close,
+                          color: Colors.white,
+                          size: 32.w,
+                        ),
+                        padding: EdgeInsets.zero,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
-      ],
-    ));
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildInfoCard({

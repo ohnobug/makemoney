@@ -59,7 +59,6 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
     return Stack(
       children: [
         Positioned.fill(
-            child: Expanded(
           child: ColoredBox(
             color: Colors.white,
             child: CustomScrollView(
@@ -130,7 +129,7 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
               ],
             ),
           ),
-        )),
+        ),
 
         // 输入框保持不变
         if (widget.showInput)
@@ -167,7 +166,12 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
       padding: EdgeInsets.fromLTRB(25.w, 15.w, 25.w, 25.w),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border(top: BorderSide(color: Colors.grey.shade200, width: 1)),
+        border: Border(
+          top: BorderSide(
+            color: Colors.grey.shade200,
+            width: 1,
+          ),
+        ),
       ),
       child: SafeArea(
         top: false,
@@ -181,7 +185,8 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(40.w),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.w),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.w),
                   child: Row(
                     children: [
                       Expanded(

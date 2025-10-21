@@ -13,7 +13,6 @@ import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/screens/contract/chat/widgets/ljn_chat_function_selector_button.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/screens/contract/chat/widgets/ljn_my_voice_message.dart';
-import 'package:vigaviga/widgets/ljn_show_call_popup.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/screens/contract/chat/widgets/ljn_chat_emoji_selector.dart';
 import 'package:vigaviga/store/ljn_popup_cubit.dart';
