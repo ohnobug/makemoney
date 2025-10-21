@@ -95,7 +95,7 @@ class _LJNCustomVideoPlayerState extends State<LJNCustomVideoPlayer> {
             children: [
               SizedBox.expand(
                 child: FittedBox(
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   clipBehavior: Clip.hardEdge,
                   child: SizedBox(
                     width: widget.controller.value.size.width,

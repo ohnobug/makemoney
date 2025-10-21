@@ -30,7 +30,9 @@
       "Bash(flutter analyze lib/screens/arts/ljn_arts_page.dart --no-fatal-infos)",
       "Bash(flutter analyze lib/screens/discovery/widgets/ins_style_row.dart --no-fatal-infos)",
       "Bash(flutter analyze lib/store/ljn_system_cubit.dart)",
-      "Bash(flutter analyze lib/widgets/ljn_custom_tabbar.dart)"
+      "Bash(flutter analyze lib/widgets/ljn_custom_tabbar.dart)",
+      "Bash(flutter analyze lib/widgets/ljn_custom_tabbar.dart --no-fatal-infos)",
+      "Bash(flutter analyze lib/widgets/ljn_comment_panel.dart --no-fatal-infos)"
     ],
     "deny": [],
     "ask": []
