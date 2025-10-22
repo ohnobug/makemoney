@@ -109,7 +109,7 @@ class _LJNArtsPageState extends State<LJNArtsPage>
           avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_10.jpg',
           userName: '牛马的home',
           description:
-              '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活...',
+              '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间 #INGREM #治愈 #生活...',
           likeCount: 1050,
           commentCount: 241,
           collectionCount: 421,
@@ -343,8 +343,9 @@ class _LJNArtsPageState extends State<LJNArtsPage>
               const Text('转发作品'),
               const SizedBox(height: 20),
               ElevatedButton(
-                  child: const Text('关闭'),
-                  onPressed: () => Navigator.pop(context))
+                child: const Text('关闭'),
+                onPressed: () => Navigator.pop(context),
+              )
             ],
           ),
         ),
@@ -469,10 +470,10 @@ class _LJNArtsPageState extends State<LJNArtsPage>
                               ),
                             ),
                             Positioned(
-                              bottom: 0.w,
+                              bottom: 30.w,
                               right: 10.w,
                               width: 100.w,
-                              height: 680.w,
+                              // height: 750.w,
                               child: _buildActionButtons(videoData),
                             ),
 
@@ -529,13 +530,13 @@ class _LJNArtsPageState extends State<LJNArtsPage>
             }
           });
         }),
-        SizedBox(height: 35.w),
+        SizedBox(height: 20.w),
         _buildActionButton(
           const IconData(0xe665, fontFamily: 'Iconfont'),
           count: videoData.commentCount.toString(),
           onTap: _showCommentsPanel,
         ),
-        SizedBox(height: 35.w),
+        SizedBox(height: 20.w),
         _buildActionButton(
           const IconData(0xe602, fontFamily: 'Iconfont'),
           color: videoData.isCollected ? Colors.yellow : Colors.white,
@@ -546,16 +547,16 @@ class _LJNArtsPageState extends State<LJNArtsPage>
             });
           },
         ),
-        SizedBox(height: 35.w),
+        SizedBox(height: 20.w),
         _buildActionButton(
           const IconData(0xe6c7, fontFamily: 'Iconfont'),
           count: videoData.shareCount.toString(),
           onTap: () => _showArtShareModalSheet(context),
         ),
-        SizedBox(height: 35.w),
-        GestureDetector(
-          child: Icon(const IconData(0xe6e6, fontFamily: 'Iconfont'),
-              color: AppColors.neutralWhite, size: 63.w),
+        SizedBox(height: 20.w),
+        _buildActionButton(
+          const IconData(0xe6e6, fontFamily: 'Iconfont'),
+          count: '', // 更多按钮没有数字
           onTap: () => _showArtInfoModalSheet(context),
         ),
       ],
@@ -570,20 +571,28 @@ class _LJNArtsPageState extends State<LJNArtsPage>
   }) {
     return GestureDetector(
       onTap: onTap,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(icondata, color: color, size: 63.w),
-          SizedBox(height: 10.w),
-          Text(
-            count,
-            style: TextStyle(
-              fontSize: 22.w,
-              color: AppColors.neutralWhite,
-              fontWeight: FontWeight.bold,
-            ),
-          )
-        ],
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: 8.w,
+          horizontal: 12.w,
+        ), // 增加内边距扩大点击区域
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(icondata, color: color, size: 63.w),
+            SizedBox(height: 8.w),
+            Text(
+              count,
+              style: TextStyle(
+                fontSize: 22.w,
+                color: AppColors.neutralWhite,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

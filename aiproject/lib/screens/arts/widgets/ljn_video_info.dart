@@ -22,16 +22,17 @@ class LJNVideoInfoSection extends StatefulWidget {
 class LJNVideoInfoSectionState extends State<LJNVideoInfoSection>
     with SingleTickerProviderStateMixin {
   bool _isExpanded = false;
-  final int _descriptionThreshold = 50;
+  final int _descriptionThreshold = 60;
   @override
   Widget build(BuildContext context) {
     final bool isLongText = widget.description.length > _descriptionThreshold;
     final descriptionStyle = TextStyle(
-        height: 1.4,
-        fontSize: fontSizeScale(28.w),
-        color: AppColors.neutralWhite);
+      height: 1.4,
+      fontSize: fontSizeScale(28.w),
+      color: AppColors.neutralWhite,
+    );
     return Container(
-      width: 600.w,
+      width: 620.w,
       padding: EdgeInsets.all(25.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,31 +117,42 @@ class LJNVideoInfoSectionState extends State<LJNVideoInfoSection>
         ? widget.description.substring(0, _descriptionThreshold)
         : widget.description;
     return RichText(
-        text: TextSpan(style: descriptionStyle, children: [
-      TextSpan(text: displayedText),
-      if (isLongText)
-        TextSpan(
-            text: "... 更多",
-            style: descriptionStyle.copyWith(
+      maxLines: 3,
+      overflow: TextOverflow.ellipsis,
+      text: TextSpan(
+        style: descriptionStyle,
+        children: [
+          TextSpan(text: displayedText),
+          if (isLongText)
+            TextSpan(
+              text: "... 更多",
+              style: descriptionStyle.copyWith(
                 color: Colors.white.withAlpha(180),
-                fontWeight: FontWeight.bold))
-    ]));
+                fontWeight: FontWeight.bold,
+              ),
+            )
+        ],
+      ),
+    );
   }
 
   Widget _buildExpandedDescription(TextStyle descriptionStyle) {
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-          color: Colors.black.withAlpha(200),
-          borderRadius: BorderRadius.circular(12.w)),
+        color: Colors.black.withAlpha(200),
+        borderRadius: BorderRadius.circular(12.w),
+      ),
       child: Stack(
         children: [
           ConstrainedBox(
             constraints: BoxConstraints(maxHeight: 350.w),
             child: Padding(
-                padding: EdgeInsets.all(20.w),
-                child: SingleChildScrollView(
-                    child: Text(widget.description, style: descriptionStyle))),
+              padding: EdgeInsets.all(20.w),
+              child: SingleChildScrollView(
+                child: Text(widget.description, style: descriptionStyle),
+              ),
+            ),
           ),
           Positioned(
             bottom: 15.w,
@@ -152,7 +164,10 @@ class LJNVideoInfoSectionState extends State<LJNVideoInfoSection>
                 decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.surface,
                     borderRadius: BorderRadius.circular(8.w)),
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.w),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15.w,
+                  vertical: 5.w,
+                ),
                 child: Text(
                   "收起",
                   textAlign: TextAlign.center,

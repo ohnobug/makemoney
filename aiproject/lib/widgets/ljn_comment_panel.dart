@@ -101,6 +101,7 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
                   child: LJNAppBarInner(
                     context: context,
                     title: '共 ${widget.comments.length} 条评论',
+                    leading: SizedBox(),
                     actions: [
                       IconButton(
                         icon: Icon(
@@ -111,7 +112,6 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
                         onPressed: widget.onClose,
                       )
                     ],
-                    leading: null,
                   ),
                 ),
               )),

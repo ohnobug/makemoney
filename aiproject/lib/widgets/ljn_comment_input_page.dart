@@ -68,7 +68,7 @@ class _LJNCommentInputPageState extends State<LJNCommentInputPage> {
       if (MediaQuery.of(context).viewInsets.bottom > 0) {
         _focusNode.unfocus();
         // 等待键盘完全收起
-        await Future.delayed(const Duration(milliseconds: 250));
+        await Future.delayed(const Duration(milliseconds: 100));
       }
       setState(() {
         _isEmojiPanelVisible = true;
@@ -98,7 +98,7 @@ class _LJNCommentInputPageState extends State<LJNCommentInputPage> {
       },
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset: false,
         body: GestureDetector(
           onTap: () => Navigator.of(context).pop(),
           child: Container(
