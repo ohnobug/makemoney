@@ -200,6 +200,7 @@ class _LJNArtsPageState extends State<LJNArtsPage>
     });
 
     late Animation<double> transitionAnimation;
+    // 入场动画监听
     void entryAnimationListener() {
       _videoAnimationController.value = 1.0 - transitionAnimation.value;
     }
@@ -259,19 +260,23 @@ class _LJNArtsPageState extends State<LJNArtsPage>
     ).then((_) {
       _scrollableController.removeListener(_onPanelDrag);
       transitionAnimation.removeListener(entryAnimationListener);
+
       _hideCommentsPanel();
     });
   }
 
   void _hideCommentsPanel() {
     if (mounted && _isPanelOpen) {
-      setState(() {
-        _isPanelOpen = false;
-        _isCommentPanel = false;
+      _videoAnimationController
+          .animateTo(1.0, curve: Curves.easeOutQuart)
+          .then((_) {
+        setState(() {
+          _isPanelOpen = false;
+          _isCommentPanel = false;
+          _systemCubit.updateVideoProgress(show: true);
+          _systemCubit.updateShowCommentsPanel(false);
+        });
       });
-      _videoAnimationController.animateTo(1.0, curve: Curves.easeOutQuart);
-      _systemCubit.updateVideoProgress(show: true);
-      _systemCubit.updateShowCommentsPanel(false);
     }
   }
 
