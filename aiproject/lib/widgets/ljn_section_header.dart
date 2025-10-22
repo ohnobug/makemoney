@@ -37,7 +37,7 @@ class LJNSectionHeader extends StatelessWidget {
 
     return Padding(
       // 优先使用传入的 padding，否则使用默认值
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 30.w),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 20.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center, // 垂直居中对齐

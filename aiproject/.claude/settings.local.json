@@ -35,7 +35,20 @@
       "Bash(flutter analyze lib/widgets/ljn_comment_panel.dart --no-fatal-infos)",
       "Bash(flutter analyze lib/widgets/ljn_comment_panel.dart)",
       "Bash(flutter analyze lib/widgets/ljn_comment_input_page.dart --no-fatal-infos)",
-      "Bash(flutter analyze lib/widgets/ljn_comment_input_page.dart)"
+      "Bash(flutter analyze lib/widgets/ljn_comment_input_page.dart)",
+      "Bash(flutter analyze lib/routing/app_router.dart)",
+      "Bash(node --version)",
+      "Bash(npm --version)",
+      "Read(//g/t/detection/**)",
+      "Bash(npm init vue@latest mini_program_help_and_feedback)",
+      "Bash(npm init -y)",
+      "Bash(npm install vue@next @vitejs/plugin-vue vite)",
+      "Bash(npm install vue @vitejs/plugin-vue vite)",
+      "Bash(npm install vue-router@4)",
+      "Bash(npm run build)",
+      "Bash(flutter analyze lib/features/webview/ljn_webview_page.dart)",
+      "Bash(flutter analyze lib/screens/user/settings/ljn_setting_page.dart)",
+      "Bash(flutter analyze lib/features/webview/ljn_web_browser_page.dart)"
     ],
     "deny": [],
     "ask": []

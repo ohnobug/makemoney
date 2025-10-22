@@ -24,6 +24,38 @@ class _LJNAbout extends State<LJNAboutPage> {
     super.initState();
   }
 
+  void _checkNewVersion() {
+    ThemeData theme = Theme.of(context);
+
+    // 这里实现检查新版本的逻辑
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          '正在检查新版本...',
+          style: TextStyle(fontSize: 28.w),
+        ),
+        backgroundColor: theme.primaryColor,
+        duration: const Duration(seconds: 2),
+      ),
+    );
+
+    // 模拟检查版本的过程
+    Future.delayed(const Duration(seconds: 2), () {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              '当前已是最新版本',
+              style: TextStyle(fontSize: 28.w),
+            ),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
@@ -63,11 +95,15 @@ class _LJNAbout extends State<LJNAboutPage> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Image.asset(
-                            assetPath("images/logo.jpeg"),
-                            width: 200.0.w,
-                            height: 200.0.w,
-                            fit: BoxFit.contain,
+                          ClipRRect(
+                            clipBehavior: Clip.hardEdge,
+                            borderRadius: BorderRadiusGeometry.circular(20.w),
+                            child: Image.asset(
+                              assetPath("images/logo.jpeg"),
+                              width: 200.0.w,
+                              height: 200.0.w,
+                              fit: BoxFit.contain,
+                            ),
                           ),
                           SizedBox(
                             height: 20.w,
@@ -83,7 +119,7 @@ class _LJNAbout extends State<LJNAboutPage> {
                             height: 18.w,
                           ),
                           Text(
-                            "Version 8.0.53",
+                            "Version 1.0.0",
                             style: TextStyle(
                               height: 1.08,
                               fontSize: 27.w,
@@ -97,23 +133,24 @@ class _LJNAbout extends State<LJNAboutPage> {
                           LJNFunctionItem(
                             icon: "$cdnBase/avatar/02.png",
                             title: l10n.featureIntroduction,
-                            link: '',
+                            link: '/settings/feature_introduction',
                             backgroundColor: AppColors.neutralWhite,
                             underline: true,
                           ),
                           LJNFunctionItem(
                             icon: "$cdnBase/avatar/02.png",
                             title: l10n.complain,
-                            link: '',
+                            link: '/settings/complain',
                             backgroundColor: AppColors.neutralWhite,
                             underline: true,
                           ),
                           LJNFunctionItem(
                             icon: "$cdnBase/avatar/02.png",
                             title: l10n.checkNewVersion,
-                            link: '',
+                            link: null,
                             backgroundColor: AppColors.neutralWhite,
                             underline: false,
+                            onPress: _checkNewVersion,
                           )
                         ],
                       )

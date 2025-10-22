@@ -27,7 +27,7 @@ class LJNFunctionList extends StatelessWidget {
 
         Container(
           // height: 1.w,
-          width: 750.w,
+          width: 710.w,
           margin: EdgeInsets.symmetric(horizontal: 20.w),
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(

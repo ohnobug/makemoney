@@ -1,0 +1,166 @@
+// FAQ内容样式
+.faq-content {
+  max-width: 100%;
+  min-height: 100%;
+  line-height: 1.6;
+
+  p {
+    margin: 0 0 12px 0;
+    color: #333;
+  }
+
+  strong {
+    color: #007AFF;
+    font-weight: 600;
+  }
+
+  ul {
+    margin: 12px 0;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 6px;
+    color: #333;
+  }
+}
+
+// 步骤样式
+.faq-step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #007AFF;
+
+  .step-number {
+    background: #007AFF;
+    color: white;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 16px;
+    flex-shrink: 0;
+  }
+
+  .step-text {
+    flex: 1;
+    color: #333;
+    font-size: 14px;
+  }
+}
+
+// 重要提示样式
+.faq-important {
+  background: #FFF3CD;
+  border: 1px solid #FFEAA7;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px 0;
+
+  .important-title {
+    font-weight: bold;
+    color: #856404;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  p {
+    color: #856404;
+    margin: 0;
+  }
+}
+
+// 提示信息样式
+.faq-tip {
+  background: #E8F5E8;
+  border: 1px solid #C8E6C9;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 16px 0;
+
+  p {
+    color: #2E7D32;
+    margin: 0;
+    font-size: 14px;
+  }
+}
+
+// 紧急处理样式
+.faq-emergency {
+  background: #FFEBEE;
+  border: 1px solid #FFCDD2;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px 0;
+
+  .emergency-title {
+    font-weight: bold;
+    color: #C62828;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  p {
+    color: #C62828;
+    margin: 0;
+  }
+}
+
+// 安全建议样式
+.faq-security {
+  background: #E8F5E8;
+  border: 1px solid #C8E6C9;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 16px 0;
+
+  p {
+    color: #2E7D32;
+    margin: 0 0 8px 0;
+    font-size: 14px;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 4px;
+    color: #2E7D32;
+  }
+}
+
+// 预防措施样式
+.faq-prevention {
+  background: #FFF3CD;
+  border: 1px solid #FFEAA7;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px 0;
+
+  .prevention-title {
+    font-weight: bold;
+    color: #856404;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+
+  li {
+    margin-bottom: 4px;
+    color: #856404;
+  }
+}

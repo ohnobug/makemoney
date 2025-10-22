@@ -196,7 +196,16 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                         LJNFunctionItem(
                           icon: "$cdnBase/icon/settings_12.png",
                           title: l10n.helpAndFeedback,
-                          link: '/settings/help and_feedback',
+                          link: null,
+                          onPress: () {
+                            Navigator.of(context).pushNamed(
+                              '/webview',
+                              arguments: {
+                                'url': 'https://www.baidu.com', // Vue开发服务器地址
+                                'title': l10n.helpAndFeedback,
+                              },
+                            );
+                          },
                           underline: false,
                         ),
                       ],

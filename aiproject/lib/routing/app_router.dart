@@ -13,6 +13,7 @@ import 'package:vigaviga/screens/contract/ljn_search_friend_page.dart';
 import 'package:vigaviga/screens/discovery/ljn_ins_page.dart';
 import 'package:vigaviga/screens/discovery/ljn_miniprogram_page.dart';
 import 'package:vigaviga/screens/discovery/ljn_miniprogram_list_page.dart';
+import 'package:vigaviga/features/webview/ljn_webview_page.dart';
 import 'package:vigaviga/screens/discovery/ljn_post_detail_page.dart';
 import 'package:vigaviga/screens/discovery/ljn_qrcode_scanner_page.dart';
 import 'package:vigaviga/screens/discovery/ljn_search_page.dart';
@@ -33,6 +34,8 @@ import 'package:vigaviga/screens/user/course/ljn_course_detail_page.dart';
 import 'package:vigaviga/screens/user/course/ljn_course_list_page.dart';
 import 'package:vigaviga/screens/user/course/ljn_lesson_content_page.dart';
 import 'package:vigaviga/screens/user/settings/ljn_about_page.dart';
+import 'package:vigaviga/screens/user/settings/ljn_feature_introduction_page.dart';
+import 'package:vigaviga/screens/user/settings/ljn_complain_page.dart';
 import 'package:vigaviga/screens/user/settings/ljn_account_and_secure_page.dart';
 import 'package:vigaviga/screens/user/settings/ljn_account_info_page.dart';
 import 'package:vigaviga/screens/user/settings/ljn_bind_new_phone_number_page.dart';
@@ -75,7 +78,6 @@ import 'package:vigaviga/screens/user/auth/ljn_login_page.dart';
 import 'package:vigaviga/screens/user/auth/ljn_register_page.dart';
 import 'package:vigaviga/screens/user/auth/ljn_forgot_password_page.dart';
 import 'package:vigaviga/screens/user/photo_viewer/ljn_photo_grid_page.dart';
-import 'package:vigaviga/screens/user/settings/ljn_help_and_feedback_page.dart';
 import 'package:vigaviga/screens/contract/chat/ljn_dial_page.dart';
 import 'package:vigaviga/screens/contract/chat/ljn_friend_profile_page.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
@@ -183,6 +185,10 @@ class AppRouter {
             const LJNPersonalInfoCollectionChecklistPage()); // 个人信息收集清单页面
       case '/settings/about':
         return pageRouteBuilderAnimation(const LJNAboutPage()); // 关于页面
+      case '/settings/feature_introduction':
+        return pageRouteBuilderAnimation(const LJNFeatureIntroductionPage()); // 功能介绍页面
+      case '/settings/complain':
+        return pageRouteBuilderAnimation(const LJNComplainPage()); // 投诉反馈页面
       case '/settings/friend_permission':
         return pageRouteBuilderAnimation(
             const LJNFriendPermissionPage()); // 朋友权限页面
@@ -191,9 +197,6 @@ class AppRouter {
             const LJNLanguageSettingPage()); // 语言设置页面
       case '/settings/theme_setting':
         return pageRouteBuilderAnimation(const LJNThemeSettingPage()); // 主题设置页面
-      case '/settings/help and_feedback':
-        return pageRouteBuilderNotAnimation(
-            const LJNHelpAndFeedbackPage()); // 帮助与建议
 
       // 通讯录相关路由
       case '/contact':
@@ -276,6 +279,18 @@ class AppRouter {
       case '/discovery/miniprogram_list':
         return pageRouteBuilderAnimation(
             const LJNMiniProgramListPage()); // 小程序列表页面
+      case '/web_browser':
+        final args = settings.arguments as Map<String, String>? ?? {};
+        return pageRouteBuilderAnimation(LJNWebViewPage(
+          url: args['url'] ?? 'https://www.baidu.com',
+          title: args['title'] ?? '浏览器',
+        )); // 通用网页浏览器页面
+      case '/webview':
+        final args = settings.arguments as Map<String, String>? ?? {};
+        return pageRouteBuilderAnimation(LJNWebViewPage(
+          url: args['url'] ?? 'http://localhost:5173',
+          title: args['title'] ?? '网页',
+        )); // 通用WebView页面
       case '/discovery/publisher':
         return pageRouteBuilderAnimation(const LJNPublisherPage()); // 发布页面
       case '/discovery/ins/post_detail_page':
