@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install swiper vue-awesome-swiper)",
+      "Bash(npm run dev)",
+      "Bash(npm run build)",
+      "Bash(VITE_BASE_URL=/my-subdir/ npm run build)",
+      "Bash(npm install postcss-px2rem)",
+      "Bash(npm install postcss-px-to-viewport)",
+      "Bash(npm uninstall postcss-px2rem)",
+      "Bash(npm view postcss-px-to-viewport versions --json)",
+      "Bash(npm search postcss viewport)",
+      "Bash(npm search px-to-viewport)",
+      "Bash(npm uninstall postcss-px-to-viewport)",
+      "Bash(npm install @minko-fe/postcss-pxtoviewport)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

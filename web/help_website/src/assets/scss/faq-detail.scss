@@ -1,32 +1,8 @@
 // FAQ 详情页样式
 // 使用 SCSS 变量和嵌套语法
 
-// 颜色变量
-$primary-color: #007AFF;
-$text-primary: #333;
-$text-secondary: #666;
-$text-muted: #999;
-$background-primary: white;
-$background-secondary: #f8f8f8;
-$border-color: #e0e0e0;
-$border-light: #f0f0f0;
-$hover-background: #f5f5f5;
-
-// 阴影
-$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-$shadow-md: 0 2px 8px rgba(0, 0, 0, 0.15);
-
-// 圆角
-$radius-sm: 8px;
-$radius-md: 12px;
-$radius-lg: 16px;
-
-// 间距
-$spacing-xs: 4px;
-$spacing-sm: 8px;
-$spacing-md: 16px;
-$spacing-lg: 24px;
-$spacing-xl: 32px;
+// 使用全局变量
+@use 'variables' as *;
 
 // FAQ 详情页主容器
 .faq-detail-page {
@@ -39,7 +15,7 @@ $spacing-xl: 32px;
 // App Bar 样式
 .app-bar {
   background-color: $background-primary;
-  padding: 12px $spacing-md;
+  padding: $spacing-sm $spacing-md;
   border-bottom: 1px solid $border-color;
   position: sticky;
   top: 0;
@@ -54,7 +30,7 @@ $spacing-xl: 32px;
   .back-button {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: $font-2xl;
     cursor: pointer;
     padding: $spacing-xs $spacing-sm;
     color: $text-primary;
@@ -66,14 +42,14 @@ $spacing-xl: 32px;
   }
 
   .app-title {
-    font-size: 18px;
+    font-size: $font-lg;
     font-weight: 600;
     color: $text-primary;
     margin: 0;
   }
 
   .spacer {
-    width: 32px;
+    width: $spacing-xl;
   }
 }
 
@@ -92,23 +68,23 @@ $spacing-xl: 32px;
     align-items: center;
     background-color: rgba($primary-color, 0.1);
     border-radius: $radius-lg;
-    padding: 6px $spacing-sm;
+    padding: $spacing-xs $spacing-sm;
     margin-bottom: $spacing-sm;
 
     .category-icon {
       margin-right: $spacing-xs;
-      font-size: 14px;
+      font-size: $font-sm;
     }
 
     .category-text {
-      font-size: 12px;
+      font-size: $font-xs;
       color: $primary-color;
       font-weight: 500;
     }
   }
 
   .question-text {
-    font-size: 20px;
+    font-size: $font-2xl;
     font-weight: bold;
     color: $text-primary;
     margin: 0;
@@ -125,7 +101,7 @@ $spacing-xl: 32px;
   box-shadow: $shadow-sm;
 
   .answer-content {
-    font-size: 14px;
+    font-size: $font-md;
     line-height: 1.6;
     color: $text-primary;
   }
@@ -137,7 +113,7 @@ $spacing-xl: 32px;
   margin-bottom: $spacing-xl;
 
   .feedback-question {
-    font-size: 16px;
+    font-size: $font-lg;
     color: $text-primary;
     margin-bottom: $spacing-md;
   }
@@ -152,12 +128,12 @@ $spacing-xl: 32px;
     display: flex;
     align-items: center;
     gap: $spacing-sm;
-    padding: $spacing-sm 20px;
+    padding: $spacing-sm $spacing-lg;
     border: 1px solid $primary-color;
     border-radius: $radius-sm;
     background: none;
     cursor: pointer;
-    font-size: 14px;
+    font-size: $font-md;
     transition: all 0.2s;
 
     &.helpful {
@@ -178,7 +154,7 @@ $spacing-xl: 32px;
     }
 
     .button-icon {
-      font-size: 16px;
+      font-size: $font-lg;
     }
   }
 
@@ -189,11 +165,11 @@ $spacing-xl: 32px;
     gap: $spacing-sm;
 
     .thank-you-icon {
-      font-size: 24px;
+      font-size: $font-2xl;
     }
 
     .thank-you-text {
-      font-size: 16px;
+      font-size: $font-lg;
       color: $text-primary;
       margin: 0;
     }
@@ -211,7 +187,7 @@ $spacing-xl: 32px;
   box-shadow: $shadow-sm;
 
   .footer-title {
-    font-size: 16px;
+    font-size: $font-lg;
     color: $text-secondary;
     margin-bottom: $spacing-sm;
     padding: 0 $spacing-sm;
@@ -241,18 +217,18 @@ $spacing-xl: 32px;
 
       .action-icon {
         margin-right: $spacing-sm;
-        font-size: 18px;
+        font-size: $font-xl;
       }
 
       .action-text {
         flex: 1;
-        font-size: 14px;
+        font-size: $font-md;
         color: $text-primary;
       }
 
       .action-arrow {
         color: $text-muted;
-        font-size: 16px;
+        font-size: $font-lg;
         font-weight: bold;
       }
     }
@@ -277,7 +253,7 @@ $spacing-xl: 32px;
   }
 
   .question-text {
-    font-size: 18px;
+    font-size: $font-xl;
   }
 
   .button-group {
@@ -287,7 +263,7 @@ $spacing-xl: 32px;
 
   .feedback-button {
     width: 100%;
-    max-width: 200px;
+    max-width: 240px;
     justify-content: center;
   }
 }

@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@minko-fe/postcss-pxtoviewport": "^1.5.0",
     "swiper": "^8.4.7",
     "vue": "^3.5.22",
     "vue-awesome-swiper": "^5.0.1",

@@ -201,7 +201,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                             Navigator.of(context).pushNamed(
                               '/webview',
                               arguments: {
-                                'url': 'https://www.baidu.com', // Vue开发服务器地址
+                                'url': 'https://help.vigaviga.com', // Vue开发服务器地址
                                 'title': l10n.helpAndFeedback,
                               },
                             );

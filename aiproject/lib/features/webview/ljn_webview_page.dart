@@ -27,11 +27,42 @@ class _LJNWebViewPageState extends State<LJNWebViewPage> {
     // 检查URL是否为空
     if (widget.url.isEmpty) {
       return Scaffold(
-        appBar: LJNAppBar(
-          title: widget.title,
-        ),
-        body: _buildEmptyState(),
-      );
+          appBar: null,
+          body: Stack(
+            children: [
+              _buildEmptyState(),
+
+              // 右上角关闭按钮
+              if (!_isLoading && !_hasError)
+                Positioned(
+                  right: 17,
+                  top: 90,
+                  child: Container(
+                    width: 64,
+                    height: 64,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withAlpha(238), // 约等于 0.93 透明度
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: Colors.grey.shade300,
+                        width: 1,
+                      ),
+                    ),
+                    child: GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: Container(
+                        color: Colors.transparent,
+                        child: Icon(
+                          Icons.close,
+                          color: Theme.of(context).colorScheme.onSurface,
+                          size: 36,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ));
     }
 
     // 验证URL格式
@@ -40,17 +71,47 @@ class _LJNWebViewPageState extends State<LJNWebViewPage> {
         !uri.hasScheme ||
         (uri.scheme != 'http' && uri.scheme != 'https')) {
       return Scaffold(
-        appBar: LJNAppBar(
-          title: widget.title,
+        appBar: null,
+        body: Stack(
+          children: [
+            _buildInvalidUrlState(),
+
+            // 右上角关闭按钮
+            if (!_isLoading && !_hasError)
+              Positioned(
+                right: 17,
+                top: 90,
+                child: Container(
+                  width: 64,
+                  height: 64,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withAlpha(238), // 约等于 0.93 透明度
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: Colors.grey.shade300,
+                      width: 1,
+                    ),
+                  ),
+                  child: GestureDetector(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      color: Colors.transparent,
+                      child: Icon(
+                        Icons.close,
+                        color: Theme.of(context).colorScheme.onSurface,
+                        size: 36,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ],
         ),
-        body: _buildInvalidUrlState(),
       );
     }
 
     return Scaffold(
-      appBar: LJNAppBar(
-        title: widget.title,
-      ),
+      appBar: null,
       body: Stack(
         children: [
           // WebView
@@ -177,6 +238,36 @@ class _LJNWebViewPageState extends State<LJNWebViewPage> {
 
           // 错误提示
           if (_hasError) _buildErrorState(),
+
+          // 右上角关闭按钮
+          if (!_isLoading && !_hasError)
+            Positioned(
+              right: 17,
+              top: 90,
+              child: Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  color: Colors.white.withAlpha(238), // 约等于 0.93 透明度
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.grey.shade300,
+                    width: 1,
+                  ),
+                ),
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: Container(
+                    color: Colors.transparent,
+                    child: Icon(
+                      Icons.close,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      size: 36,
+                    ),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
