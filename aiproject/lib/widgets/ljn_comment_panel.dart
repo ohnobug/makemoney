@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/widgets/ljn_appbar_inner.dart';
 import 'ljn_comment_input_page.dart';
 
 // 数据模型
@@ -31,6 +33,7 @@ class LJNCommentPanel extends StatefulWidget {
   final bool showInput;
   final ScrollController? scrollController;
   final Function(String)? onCommentSubmitted;
+  final SystemState systemState;
 
   const LJNCommentPanel({
     super.key,
@@ -39,6 +42,7 @@ class LJNCommentPanel extends StatefulWidget {
     this.showInput = true,
     this.scrollController,
     this.onCommentSubmitted,
+    required this.systemState,
   });
 
   @override
@@ -56,90 +60,72 @@ class _LJNCommentPanelState extends State<LJNCommentPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: ColoredBox(
-            color: Colors.white,
-            child: CustomScrollView(
-              controller: widget.scrollController,
-              slivers: [
-                // 🚀 [核心修正]: 使用 SliverAppBar 替代 SliverToBoxAdapter 来固定头部
-                SliverAppBar(
-                  // 关键属性：将 AppBar 固定在顶部
-                  pinned: true,
-                  // 移除 AppBar 左侧默认的返回按钮或空间
-                  automaticallyImplyLeading: false,
-                  backgroundColor: Colors.white,
-                  elevation: 0, // 移除默认阴影
-                  // 当内容滚动到 AppBar 下方时，显示一个细微的阴影，增加层次感
-                  scrolledUnderElevation: 0.5,
-                  shadowColor: Colors.grey.shade300,
-                  // titleSpacing: 0, // 如果需要完全自定义布局，可以移除默认间距
+    final theme = Theme.of(context);
 
-                  // 将标题内容放入 title 属性
-                  title: Text(
-                    '共 ${widget.comments.length} 条评论',
-                    style: TextStyle(
-                      fontSize: 30.w,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  centerTitle: true, // 标题居中
-
-                  // 将关闭按钮放入 actions 列表
-                  actions: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.close,
-                        size: 40.w,
-                        color: Colors.grey.shade600,
-                      ),
-                      onPressed: widget.onClose,
-                    ),
-                  ],
-
-                  // 将分割线放入 bottom 属性，它也会被固定
-                  bottom: PreferredSize(
-                    preferredSize: const Size.fromHeight(1.0),
-                    child: Container(
-                      color: const Color(0xFFEFEFEF),
-                      height: 1.0,
-                    ),
-                  ),
-                ),
-
-                // 评论列表部分保持不变
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      // 最后加一个盒子
-                      if (widget.comments.length == index) {
-                        return SizedBox(
-                          height: 200.w,
-                        );
-                      } else {
-                        return _buildCommentItem(widget.comments[index]);
-                      }
-                    },
-                    childCount: widget.comments.length + 1,
-                  ),
-                ),
-              ],
-            ),
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(16.0),
         ),
-
-        // 输入框保持不变
-        if (widget.showInput)
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 0,
-            child: _buildCommentInput(),
+      ),
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
+        children: [
+          ListView.builder(
+            controller: widget.scrollController,
+            padding: EdgeInsets.only(
+              top: widget.systemState.appbarHeight,
+            ),
+            itemBuilder: (context, index) {
+              if (widget.comments.length == index) {
+                return SizedBox(
+                  height: 200.w,
+                );
+              } else {
+                return _buildCommentItem(widget.comments[index]);
+              }
+            },
+            itemCount: widget.comments.length + 1,
           ),
-      ],
+
+          Positioned(
+              left: 0,
+              right: 0,
+              top: 0,
+              child: PreferredSize(
+                preferredSize: Size.fromHeight(widget.systemState.appbarHeight),
+                child: Container(
+                  color: theme.appBarTheme.backgroundColor,
+                  height: widget.systemState.appbarHeight,
+                  child: LJNAppBarInner(
+                    context: context,
+                    title: '共 ${widget.comments.length} 条评论',
+                    actions: [
+                      IconButton(
+                        icon: Icon(
+                          Icons.close,
+                          size: 40.w,
+                          color: Colors.grey.shade600,
+                        ),
+                        onPressed: widget.onClose,
+                      )
+                    ],
+                    leading: null,
+                  ),
+                ),
+              )),
+
+          // 输入框保持不变
+          if (widget.showInput)
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: _buildCommentInput(),
+            ),
+        ],
+      ),
     );
   }
 

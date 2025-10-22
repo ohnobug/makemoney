@@ -236,26 +236,21 @@ class _LJNArtsPageState extends State<LJNArtsPage>
               controller: _scrollableController,
               builder:
                   (BuildContext context, ScrollController scrollController) {
-                return Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16.0),
-                      topRight: Radius.circular(16.0),
-                    ),
-                  ),
-                  child: LJNCommentPanel(
+                return BlocBuilder<LJNSystemCubit, SystemState>(
+                    builder: (context, systemState) {
+                  return LJNCommentPanel(
                     comments: _comments,
                     onClose: () => Navigator.pop(context),
                     showInput: true,
                     scrollController: scrollController,
+                    systemState: systemState,
                     onCommentSubmitted: (comment) {
                       // 这里可以处理评论提交逻辑
                       logger.info('用户提交评论: $comment');
                       // 可以在这里添加评论到列表的逻辑
                     },
-                  ),
-                );
+                  );
+                });
               },
             ),
           ],

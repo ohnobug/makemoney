@@ -3,7 +3,6 @@ import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/screens/arts/widgets/ljn_video_data.dart';
 
-// 🚀 [RESTORED] LJNArtInfoModalContent and its helpers
 class LJNArtInfoModalContent extends StatelessWidget {
   final ScrollController scrollController;
   final VideoData currentVideoData;
@@ -28,7 +27,9 @@ class LJNArtInfoModalContent extends StatelessWidget {
             Color(0xE6000000),
           ],
         ),
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(16.0),
+        ),
       ),
       clipBehavior: Clip.antiAlias,
       child: Stack(
