@@ -12,14 +12,15 @@ class LJNChangeAccountButton extends StatefulWidget {
   final bool? readonly;
   final Function? ontap;
 
-  const LJNChangeAccountButton(
-      {super.key,
-      required this.title,
-      this.color,
-      this.backgroundColor,
-      this.readonly,
-      this.link,
-      this.ontap});
+  const LJNChangeAccountButton({
+    super.key,
+    required this.title,
+    this.color,
+    this.backgroundColor,
+    this.readonly,
+    this.link,
+    this.ontap,
+  });
 
   @override
   State<LJNChangeAccountButton> createState() => _LJNChangeAccountButtonState();
@@ -109,7 +110,7 @@ class _LJNChangeAccountButtonState extends State<LJNChangeAccountButton> {
           ),
         ),
         alignment: Alignment.center,
-        width: 350.w,
+        width: 500.w,
         height: 90.w,
         child: Text(
           widget.title,

@@ -46,6 +46,7 @@ dependencies:
   flutter_cache_manager: ^3.4.1
   visibility_detector: ^0.4.0+2
   emoji_picker_flutter: ^4.3.0
+  keyboard_actions: ^4.2.0
 
 dev_dependencies:
   bloc_test: ^10.0.0

@@ -146,22 +146,6 @@ class _LJEemergencyContact extends State<LJNEmergencyContactPage> {
                     child: Row(
                       children: [
                         const IconBox(),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        const IconBox(),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        const IconBox(),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        const IconBox(),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        const IconBox(),
                       ],
                     ),
                   )
@@ -180,35 +164,38 @@ class IconBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DottedBorder(
-      options: RectDottedBorderOptions(
-        strokeCap: StrokeCap.round,
-        color: AppColors.neutralGrey47,
-        dashPattern: [16.w, 10.w],
-        strokeWidth: 3.w,
-        padding: EdgeInsets.all(16),
-      ),
-      child: SizedBox(
-        width: 55.0.w, // 设置宽度
-        height: 55.0.w, // 设置高度
-        // decoration: BoxDecoration(
-        //   color: Colors.transparent, // 背景透明
-        //   borderRadius: BorderRadius.circular(8.0.w), // 圆角 8
-        //   border: Border.all(
-        //     color: AppColors.neutralGrey47, // 边框颜色
-        //     width: 1.0.w,
-        //     style: BorderStyle.solid, // 边框样式
-        //   ),
-        //   shape: BoxShape.rectangle, // 矩形盒子
-        // ),
-        child: Center(
-          child: Icon(
-            const IconData(
-              0xe616,
-              fontFamily: 'Iconfont',
-            ), // 使用的图标
-            color: AppColors.neutralGrey47, // 图标颜色
-            size: 36.0.w, // 图标大小
+    return Container(
+      margin: EdgeInsets.only(right: 20.w),
+      child: DottedBorder(
+        options: RectDottedBorderOptions(
+          strokeCap: StrokeCap.round,
+          color: AppColors.neutralGrey47,
+          dashPattern: [16.w, 10.w],
+          strokeWidth: 3.w,
+          padding: EdgeInsets.all(16),
+        ),
+        child: SizedBox(
+          width: 55.0.w, // 设置宽度
+          height: 55.0.w, // 设置高度
+          // decoration: BoxDecoration(
+          //   color: Colors.transparent, // 背景透明
+          //   borderRadius: BorderRadius.circular(8.0.w), // 圆角 8
+          //   border: Border.all(
+          //     color: AppColors.neutralGrey47, // 边框颜色
+          //     width: 1.0.w,
+          //     style: BorderStyle.solid, // 边框样式
+          //   ),
+          //   shape: BoxShape.rectangle, // 矩形盒子
+          // ),
+          child: Center(
+            child: Icon(
+              const IconData(
+                0xe616,
+                fontFamily: 'Iconfont',
+              ), // 使用的图标
+              color: AppColors.neutralGrey47, // 图标颜色
+              size: 36.0.w, // 图标大小
+            ),
           ),
         ),
       ),

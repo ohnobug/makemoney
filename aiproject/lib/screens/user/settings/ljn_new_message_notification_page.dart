@@ -138,7 +138,7 @@ class _LJNNewMessageNotificationPage
                           title: l10n.newMessageSystemNotification,
                           link: '',
                           underline: true,
-                          showStyle: l10n.goToSystemSettings,
+                          // showStyle: l10n.goToSystemSettings,
                         ),
                         // 语音视频通话提醒
                         LJNFunctionItem(
@@ -146,7 +146,7 @@ class _LJNNewMessageNotificationPage
                           title: l10n.voiceVideoCallAlerts,
                           link: '',
                           underline: false,
-                          showStyle: l10n.goToSystemSettings,
+                          // showStyle: l10n.goToSystemSettings,
                         ),
                       ],
                     ),

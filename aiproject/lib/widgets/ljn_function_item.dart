@@ -175,7 +175,7 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                                   height: 1.08,
                                   fontSize: fontSizeScale(32.0.w),
                                 ),
-                                maxLines: 1,
+                                maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),

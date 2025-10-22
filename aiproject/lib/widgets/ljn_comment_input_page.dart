@@ -19,10 +19,22 @@ class LJNCommentInputPage extends StatefulWidget {
   State<LJNCommentInputPage> createState() => _LJNCommentInputPageState();
 }
 
-class _LJNCommentInputPageState extends State<LJNCommentInputPage> {
+class _LJNCommentInputPageState extends State<LJNCommentInputPage>
+    with TickerProviderStateMixin {
   final TextEditingController _commentController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   bool _isEmojiPanelVisible = false;
+
+  // 新增状态变量
+  late AnimationController _panelAnimationController;
+  double _currentBottomHeight = 0.0;
+  double _targetBottomHeight = 0.0;
+  bool _isAnimating = false;
+  bool _isKeyboardVisible = false;
+  double _maxKeyboardHeight = 0.0; // 记录历史键盘高度最大值
+
+  // 常量定义
+  static const double defaultEmojiPanelHeight = 500.0;
 
   @override
   void initState() {
@@ -31,11 +43,26 @@ class _LJNCommentInputPageState extends State<LJNCommentInputPage> {
       _commentController.text = widget.initialText!;
     }
 
-    // 当键盘弹出或收起时，如果此时表情面板是打开的，就关闭它
-    _focusNode.addListener(() {
-      if (_focusNode.hasFocus && _isEmojiPanelVisible) {
+    // 初始化动画控制器
+    _panelAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 450), // 调整为与键盘弹出时间匹配
+    );
+
+    // 监听动画控制器
+    _panelAnimationController.addListener(() {
+      if (!mounted) return;
+      setState(() {
+        // 使用插值计算当前高度
+        final progress = _panelAnimationController.value;
+        _currentBottomHeight = _targetBottomHeight * progress;
+      });
+    });
+
+    _panelAnimationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed || status == AnimationStatus.dismissed) {
         setState(() {
-          _isEmojiPanelVisible = false;
+          _isAnimating = false;
         });
       }
     });
@@ -49,30 +76,95 @@ class _LJNCommentInputPageState extends State<LJNCommentInputPage> {
   void dispose() {
     _commentController.dispose();
     _focusNode.dispose();
+    _panelAnimationController.dispose();
     super.dispose();
   }
 
-  /// ✨ [ADDED] 切换表情面板和键盘的核心逻辑
+  /// 核心切换逻辑 - 切换到表情面板
+  Future<void> _switchToEmojiPanel() async {
+    if (_isAnimating) return;
+
+    final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    // 使用历史键盘高度最大值作为起始高度
+    final startHeight = _maxKeyboardHeight > 0 ? _maxKeyboardHeight : (keyboardHeight > 0 ? keyboardHeight : 0.0);
+    final targetHeight = defaultEmojiPanelHeight.w;
+
+    setState(() {
+      _isAnimating = true;
+      _isEmojiPanelVisible = true;
+      _currentBottomHeight = startHeight;
+      _targetBottomHeight = targetHeight;
+      _isKeyboardVisible = false;
+    });
+
+    // 如果有键盘，收起键盘（与动画同步进行）
+    if (keyboardHeight > 0) {
+      _focusNode.unfocus();
+    }
+
+    // 开始动画 - 从历史最大键盘高度动画到表情面板高度
+    _panelAnimationController.forward(from: 0.0);
+  }
+
+  /// 核心切换逻辑 - 切换到键盘
+  Future<void> _switchToKeyboard() async {
+    if (_isAnimating) return;
+
+    // 使用历史键盘高度最大值作为目标高度
+    final targetHeight = _maxKeyboardHeight > 0 ? _maxKeyboardHeight : 350.0;
+    final startHeight = _currentBottomHeight;
+
+    setState(() {
+      _isAnimating = true;
+      _isEmojiPanelVisible = false;
+      _currentBottomHeight = startHeight;
+      _targetBottomHeight = targetHeight;
+      _isKeyboardVisible = true;
+    });
+
+    // 请求焦点显示键盘（与动画同步进行）
+    _focusNode.requestFocus();
+
+    // 开始动画
+    await _panelAnimationController.forward(from: 0.0);
+
+    if (!mounted) return;
+
+    setState(() {
+      _currentBottomHeight = 0.0;
+      _targetBottomHeight = 0.0;
+    });
+  }
+
+  /// 处理键盘高度变化
+  void _handleKeyboardHeightChange() {
+    final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+
+    // 更新键盘可见状态
+    if (keyboardHeight > 0) {
+      _isKeyboardVisible = true;
+      // 记录历史键盘高度最大值
+      if (keyboardHeight > _maxKeyboardHeight) {
+        _maxKeyboardHeight = keyboardHeight;
+      }
+    } else if (!_isAnimating) {
+      _isKeyboardVisible = false;
+    }
+
+    // 确保输入框始终有焦点
+    if (!_focusNode.hasFocus && !_isEmojiPanelVisible) {
+      _focusNode.requestFocus();
+    }
+  }
+
+  /// ✨ [MODIFIED] 切换表情面板和键盘的核心逻辑
   Future<void> _onEmojiIconTapped() async {
     if (_isEmojiPanelVisible) {
       // 当前是表情 -> 切换到键盘
-      setState(() {
-        _isEmojiPanelVisible = false;
-      });
-      // 延迟请求焦点以确保表情面板已收起
-      await Future.delayed(const Duration(milliseconds: 100));
-      _focusNode.requestFocus();
+      await _switchToKeyboard();
     } else {
       // 当前是键盘 -> 切换到表情
-      // 如果键盘已经打开，先收起它
-      if (MediaQuery.of(context).viewInsets.bottom > 0) {
-        _focusNode.unfocus();
-        // 等待键盘完全收起
-        await Future.delayed(const Duration(milliseconds: 100));
-      }
-      setState(() {
-        _isEmojiPanelVisible = true;
-      });
+      await _switchToEmojiPanel();
     }
   }
 
@@ -86,6 +178,24 @@ class _LJNCommentInputPageState extends State<LJNCommentInputPage> {
 
   @override
   Widget build(BuildContext context) {
+    // 获取键盘高度
+    final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+
+    // 处理键盘高度变化
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _handleKeyboardHeightChange();
+    });
+
+    // 计算当前底部高度
+    double currentBottomHeight = 0.0;
+    if (_isEmojiPanelVisible) {
+      currentBottomHeight = _currentBottomHeight;
+    } else if (keyboardHeight > 0) {
+      currentBottomHeight = keyboardHeight;
+    } else if (_isAnimating && _isKeyboardVisible) {
+      currentBottomHeight = _currentBottomHeight;
+    }
+
     // ✨ [MODIFIED] 使用 WillPopScope 优化返回逻辑
     return PopScope(
       onPopInvokedWithResult: (didPop, result) => {
@@ -106,13 +216,22 @@ class _LJNCommentInputPageState extends State<LJNCommentInputPage> {
             child: Column(
               children: [
                 Expanded(child: Container(color: Colors.transparent)),
-                // ✨ [MODIFIED] 将输入区域和表情面板包裹在一个Column中
-                Container(
-                  color: Colors.white, // 设置背景色以覆盖表情面板
+                // ✨ [MODIFIED] 输入区域
+                _buildInputArea(),
+                // ✨ [MODIFIED] 底部区域 - 统一处理键盘和表情面板
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 450), // 调整为与键盘弹出时间匹配
+                  height: currentBottomHeight,
                   child: Column(
                     children: [
-                      _buildInputArea(),
-                      _buildEmojiPanel(),
+                      // 表情面板
+                      if (_isEmojiPanelVisible) _buildEmojiPanel(),
+                      // 底部垫高
+                      Expanded(
+                        child: Container(
+                          color: _isEmojiPanelVisible ? Colors.white : Colors.transparent,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -203,39 +322,32 @@ class _LJNCommentInputPageState extends State<LJNCommentInputPage> {
     );
   }
 
-  /// ✨ [MODIFIED] 构建表情面板的方法，使用 Offstage 和最新的 EmojiPicker 配置
+  /// ✨ [MODIFIED] 构建表情面板的方法
   Widget _buildEmojiPanel() {
-    return Offstage(
-      offstage: !_isEmojiPanelVisible,
-      child: SizedBox(
-        height: 400.w, // 固定一个合适的高度
-        child: EmojiPicker(
-          textEditingController: _commentController, // ✨ 关键改动：直接关联控制器
-          config: Config(
-            height: 400.w,
-            checkPlatformCompatibility: true,
-            // ✨ 优化UI，使其更适合应用
-            emojiViewConfig: EmojiViewConfig(
-              emojiSizeMax: 28 *
-                  (foundation.defaultTargetPlatform == TargetPlatform.iOS
-                      ? 1.20
-                      : 1.0),
-              columns: 8,
-              backgroundColor: const Color(0xFFF2F2F2),
-            ),
-            categoryViewConfig: const CategoryViewConfig(
-              backgroundColor: Color(0xFFF2F2F2),
-              indicatorColor: Colors.blue,
-              iconColorSelected: Colors.blue,
-            ),
-            bottomActionBarConfig: const BottomActionBarConfig(
-              enabled: false, // 官方示例默认开启了底部栏，这里可以关闭
-            ),
-            searchViewConfig: SearchViewConfig(
-              backgroundColor: const Color(0xFFF2F2F2),
-              buttonIconColor: Colors.blue.shade100,
-            ),
-          ),
+    return EmojiPicker(
+      textEditingController: _commentController,
+      config: Config(
+        height: defaultEmojiPanelHeight.w,
+        checkPlatformCompatibility: true,
+        emojiViewConfig: EmojiViewConfig(
+          emojiSizeMax: 28 *
+              (foundation.defaultTargetPlatform == TargetPlatform.iOS
+                  ? 1.20
+                  : 1.0),
+          columns: 8,
+          backgroundColor: const Color(0xFFF2F2F2),
+        ),
+        categoryViewConfig: const CategoryViewConfig(
+          backgroundColor: Color(0xFFF2F2F2),
+          indicatorColor: Colors.blue,
+          iconColorSelected: Colors.blue,
+        ),
+        bottomActionBarConfig: const BottomActionBarConfig(
+          enabled: false,
+        ),
+        searchViewConfig: SearchViewConfig(
+          backgroundColor: const Color(0xFFF2F2F2),
+          buttonIconColor: Colors.blue.shade100,
         ),
       ),
     );

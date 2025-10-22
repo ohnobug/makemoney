@@ -75,61 +75,46 @@ class _LJNSoundLockPage extends State<LJNSoundLockPage> {
                     SizedBox(
                       height: 60.w,
                     ),
-                    Container(
-                      width: 630.w,
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        // color:
-                        //     AppColors.neutralGrey2,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12.w),
+                    LJNFunctionList(children: [
+                      // 语音锁
+                      LJNFunctionItem(
+                        icon: "$cdnBase/avatar/02.png",
+                        title: l10n.loginWithVoiceprint,
+                        tapEffect: false,
+                        underline: true,
+                        // backgroundColor: AppColors.neutralGrey2,
+                        showStyle: Expanded(
+                          flex: 0,
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 32).w,
+                            child: LJNSwitch(
+                              initialValue: false,
+                              onChanged: (value) {
+                                logger.info(value);
+                              },
+                            ),
+                          ),
                         ),
                       ),
-                      child: Column(
-                        children: [
-                          LJNFunctionList(children: [
-                            // 语音锁
-                            LJNFunctionItem(
-                              icon: "$cdnBase/avatar/02.png",
-                              title: l10n.loginWithVoiceprint,
-                              tapEffect: false,
-                              underline: true,
-                              // backgroundColor: AppColors.neutralGrey2,
-                              showStyle: Expanded(
-                                flex: 0,
-                                child: Container(
-                                  margin: const EdgeInsets.only(right: 32).w,
-                                  child: LJNSwitch(
-                                    initialValue: false,
-                                    onChanged: (value) {
-                                      logger.info(value);
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
 
-                            // 重置并移除
-                            LJNFunctionItem(
-                              icon: "$cdnBase/avatar/02.png",
-                              title: l10n.resetAndRemove,
-                              link: '',
-                              // backgroundColor: AppColors.neutralGrey2,
-                              underline: true,
-                            ),
-
-                            // 尝试验证我的声音
-                            LJNFunctionItem(
-                              icon: "$cdnBase/avatar/02.png",
-                              title: l10n.tryToVerifyMyVoice,
-                              link: '',
-                              // backgroundColor: AppColors.neutralGrey2,
-                              underline: false,
-                            ),
-                          ])
-                        ],
+                      // 重置并移除
+                      LJNFunctionItem(
+                        icon: "$cdnBase/avatar/02.png",
+                        title: l10n.resetAndRemove,
+                        link: '',
+                        // backgroundColor: AppColors.neutralGrey2,
+                        underline: true,
                       ),
-                    )
+
+                      // 尝试验证我的声音
+                      LJNFunctionItem(
+                        icon: "$cdnBase/avatar/02.png",
+                        title: l10n.tryToVerifyMyVoice,
+                        link: '',
+                        // backgroundColor: AppColors.neutralGrey2,
+                        underline: false,
+                      ),
+                    ])
                   ],
                 ),
               ),

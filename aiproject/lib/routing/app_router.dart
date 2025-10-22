@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vigaviga/features/payment/screens/ljn_merchant_success_page.dart';
+import 'package:vigaviga/ljn_test_page.dart';
 import 'package:vigaviga/screens/contract/chat/ljn_chat_page.dart';
 import 'package:vigaviga/screens/contract/ljn_contact_page.dart';
 import 'package:vigaviga/screens/contract/ljn_contact_group_page.dart';
@@ -279,8 +280,8 @@ class AppRouter {
         return pageRouteBuilderAnimation(const LJNPublisherPage()); // 发布页面
       case '/discovery/ins/post_detail_page':
         final args = settings.arguments as PostDetailData?;
-        return pageRouteBuilderAnimation(
-            LJNPostDetailPage(postData: args ?? _createDefaultPostData())); // 帖子详情页面
+        return pageRouteBuilderAnimation(LJNPostDetailPage(
+            postData: args ?? _createDefaultPostData())); // 帖子详情页面
 
       // 用户相关路由
       case '/user/like':
@@ -353,6 +354,8 @@ class AppRouter {
       case '/payment_demo':
         return pageRouteBuilderAnimation(const LJNPaymentDemoPage());
 
+      case '/test':
+        return pageRouteBuilderAnimation(const LJNTestPage());
 
       default:
         // 可以返回一个统一的404页面
