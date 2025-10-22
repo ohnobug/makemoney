@@ -10,12 +10,14 @@ class LJNFunctionButtonsSection extends StatelessWidget {
   final String? title;
   final List<LJNFunctionButton> buttons;
   final Widget? rightWidget;
+  final String? moreUrl;
 
   const LJNFunctionButtonsSection({
     super.key,
     required this.buttons,
     this.title,
     this.rightWidget,
+    this.moreUrl
   });
 
   @override

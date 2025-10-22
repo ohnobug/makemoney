@@ -135,6 +135,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                 LJNFunctionList(
                   children: [
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.findChatHistory,
                       link: '',
                       underline: false,
@@ -147,6 +148,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                   children: [
                     // 静音
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.muteNotifications,
                       // link: '',
                       underline: true,
@@ -166,6 +168,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                     ),
                     // 置顶
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.pinToTop,
                       // link: '',
                       underline: true,
@@ -186,6 +189,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
 
                     // 消息提醒
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.alert,
                       // link: '',
                       underline: false,
@@ -206,21 +210,11 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                   ],
                 ),
 
-                // // 设置聊天背景
-                // LJNFunctionList(
-                //   children: [
-                //     LJNFunctionItem(
-                //       title: l10n.setChatBackground,
-                //       link: '',
-                //       underline: false,
-                //     ),
-                //   ],
-                // ),
-
                 // 清除聊天记录
                 LJNFunctionList(
                   children: [
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.clearChatHistory,
                       link: '',
                       underline: false,
@@ -232,6 +226,7 @@ class _LJNFriendMessageRecord extends State<LJNFriendMessageRecord> {
                 LJNFunctionList(
                   children: [
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.complain,
                       link: '',
                       underline: false,

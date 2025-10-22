@@ -288,7 +288,8 @@ ThemeData lightTheme = ThemeData(
     titleTextStyle: TextStyle(
       height: 1.08,
       fontSize: fontSizeScale(32.w),
-      color: AppColors.neutralNearBlack1,
+      color: AppColors.neutralDarkGrey18,
+      fontWeight: FontWeight.bold,
       fontFamily: "AlibabaPuHuiTi-Medium",
     ),
   ),
@@ -299,7 +300,7 @@ ThemeData lightTheme = ThemeData(
     dividerColor: AppColors.neutralGrey25,
     labelStyle: TextStyle(
       height: 1.08,
-      fontSize: fontSizeScale(22.w),
+      fontSize: fontSizeScale(20.w),
     ),
   ),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
@@ -458,6 +459,7 @@ ThemeData darkTheme = ThemeData(
       height: 1.08,
       fontSize: fontSizeScale(32.w),
       color: AppColors.neutralGrey5,
+      fontWeight: FontWeight.bold,
       fontFamily: "AlibabaPuHuiTi-Medium",
     ),
   ),
@@ -468,7 +470,7 @@ ThemeData darkTheme = ThemeData(
     dividerColor: AppColors.neutralGrey75,
     labelStyle: TextStyle(
       height: 1.08,
-      fontSize: fontSizeScale(22.w),
+      fontSize: fontSizeScale(20.w),
     ),
   ),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(

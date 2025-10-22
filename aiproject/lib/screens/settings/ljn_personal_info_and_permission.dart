@@ -54,6 +54,7 @@ class _LJNPersonalinfoAndPermission
                       children: [
                         // 系统权限管理
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.systemPermissionManagement,
                           link: '',
                           underline: true,
@@ -61,6 +62,7 @@ class _LJNPersonalinfoAndPermission
                         ),
                         // 授权管理
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.authorizationManagement,
                           link: '',
                           underline: false,
@@ -73,6 +75,7 @@ class _LJNPersonalinfoAndPermission
                     LJNFunctionList(children: [
                       // 个性化广告管理
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.personalizedAdManagement,
                         link: '',
                         underline: false,
@@ -84,6 +87,7 @@ class _LJNPersonalinfoAndPermission
                     LJNFunctionList(children: [
                       // 浏览和导出个人信息
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.browseAndExportPersonalInfo,
                         link: '',
                         underline: false,

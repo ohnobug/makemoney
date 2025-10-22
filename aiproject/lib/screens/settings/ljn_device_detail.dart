@@ -54,6 +54,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                   LJNFunctionList(children: [
                     // 设备名称
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       // height: 150.w,
                       title: l10n.deviceName,
                       link: '',
@@ -75,6 +76,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
 
                     // 设备类型
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       // height: 150.w,
                       title: l10n.deviceType,
                       // link: '',
@@ -103,6 +105,7 @@ class _LJNDeviceDetail extends State<LJNDeviceDetail> {
                   LJNFunctionList(children: [
                     // 最后活跃时间
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       // height: 150.w,
                       title: l10n.lastActiveTime,
                       // link: '',

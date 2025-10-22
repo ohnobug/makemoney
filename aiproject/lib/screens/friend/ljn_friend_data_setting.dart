@@ -68,12 +68,14 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                     children: [
                       LJNFunctionList(children: [
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.setRemarkAndTags,
                           link: '/set_notes_and_labels',
                           showStyle: "邓子乔",
                           underline: true,
                         ),
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.friendPermissions,
                           link: '/friend_permissions',
                           underline: false,
@@ -83,11 +85,13 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
 // 推荐、 添加到桌面
                       LJNFunctionList(children: [
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.recommendToFriend,
                           link: '',
                           underline: true,
                         ),
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.addToDesktop,
                           // link: '',
                           underline: false,
@@ -102,6 +106,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                       // 设置星标朋友
                       LJNFunctionList(children: [
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.setAsStarFriend,
                           // link: '',
                           underline: false,
@@ -125,6 +130,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                       LJNFunctionList(
                         children: [
                           LJNFunctionItem(
+                            icon: "images/avatar/02.png",
                             title: l10n.addToBlocklist,
                             tapEffect: false,
                             underline: true,
@@ -142,6 +148,7 @@ class _LJNFriendDataSetting extends State<LJNFriendDataSetting> {
                             ),
                           ),
                           LJNFunctionItem(
+                            icon: "images/avatar/02.png",
                             title: l10n.complain,
                             link: '',
                             underline: false,

@@ -59,6 +59,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
                 LJNFunctionList(children: [
                   // 头像
                   LJNFunctionItem(
+                    icon: "images/avatar/02.png",
                     title: l10n.avatar,
                     height: 150.w,
                     link: '',
@@ -90,6 +91,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
 
                   // 姓名
                   LJNFunctionItem(
+                    icon: "images/avatar/02.png",
                     title: l10n.nickName,
                     // icon: "images/icon/discovery_icon2.png",
                     link: '',
@@ -99,6 +101,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
 
                   // 拍一拍
                   LJNFunctionItem(
+                    icon: "images/avatar/02.png",
                     title: l10n.pat,
                     link: '',
                     underline: true,
@@ -106,6 +109,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
 
                   // Vigaviga号
                   LJNFunctionItem(
+                    icon: "images/avatar/02.png",
                     title: l10n.vigavigaID,
                     link: '/accountinfo',
                     showStyle:
@@ -115,6 +119,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
 
                   // 二维码名片
                   LJNFunctionItem(
+                    icon: "images/avatar/02.png",
                     title: l10n.qrCodeCard,
                     link: '',
                     showStyle: Expanded(
@@ -139,6 +144,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
 
                   // 更多信息
                   LJNFunctionItem(
+                    icon: "images/avatar/02.png",
                     title: l10n.moreInfo,
                     link: '/user_more_info',
                     underline: false,
@@ -149,6 +155,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
                 LJNFunctionList(children: [
                   // 来电铃声
                   LJNFunctionItem(
+                    icon: "images/avatar/02.png",
                     title: l10n.callRingtone,
                     link: '',
                     showStyle: 'SISTER  - JAVA',
@@ -160,6 +167,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
                 LJNFunctionList(children: [
                   // Vigaviga豆
                   LJNFunctionItem(
+                    icon: "images/avatar/02.png",
                     title: l10n.vigavigaBeans,
                     link: '',
                     showStyle: l10n.vigavigaBeanCount(3),
@@ -172,6 +180,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
                   children: [
                     // 我的地址
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.myAddresses,
                       link: '',
                       underline: true,
@@ -179,6 +188,7 @@ class _LJNUserinfo extends State<LJNUserinfo> {
 
                     // 我的发票抬头
                     LJNFunctionItem(
+                      icon: "images/avatar/02.png",
                       title: l10n.myInvoiceTitles,
                       link: '',
                       underline: false,

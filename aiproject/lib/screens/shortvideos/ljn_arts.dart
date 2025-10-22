@@ -36,17 +36,16 @@ class _LJNArts extends State<LJNArts> {
   void initState() {
     super.initState();
 
-    // [FIX 2] Get the Cubit instance here, when the context is valid, and store it.
-    _systemCubit = context.read<LJNSystemCubit>();
-
-    _videoControllers = {};
-
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
     );
+
+    _systemCubit = context.read<LJNSystemCubit>();
+
+    _videoControllers = {};
 
     _pageController.addListener(() {
       if (!_pageController.hasClients || _pageController.page == null) return;
@@ -58,13 +57,6 @@ class _LJNArts extends State<LJNArts> {
           _currentVideoController?.addListener(_onVideoChange);
           _onVideoChange();
         });
-      }
-    });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-        // You can use the local variable here too for consistency
-        _systemCubit.updateVideoProgress(show: true);
       }
     });
   }
@@ -123,8 +115,6 @@ class _LJNArts extends State<LJNArts> {
       controller.dispose();
     });
 
-    // [FIX 3] Use the saved member variable '_systemCubit' instead of 'context.read'.
-    // This is now safe because we are not using the deactivated context.
     _systemCubit.updateVideoProgress(progress: 0.0, show: false);
 
     super.dispose();
@@ -136,7 +126,8 @@ class _LJNArts extends State<LJNArts> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
-        final videoHeight = MediaQuery.of(context).size.height - 106.w;
+        final videoHeight =
+            MediaQuery.of(context).size.height - systemState.tabbarHeight;
 
         return Scaffold(
           primary: false,
@@ -168,7 +159,7 @@ class _LJNArts extends State<LJNArts> {
 
                       // --- 顶部的搜索按钮 ---
                       Positioned(
-                        top: 30.w + systemState.statusHeight,
+                        top: 0.w + systemState.statusHeight,
                         right: 28.w,
                         child: GestureDetector(
                           onTap: () {
@@ -208,13 +199,25 @@ class _LJNArts extends State<LJNArts> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            _buildActionButton(0xe61e, "1050"),
+                            _buildActionButton(
+                              const IconData(0xe61e, fontFamily: 'Iconfont'),
+                              "1050",
+                            ),
                             SizedBox(height: 30.w),
-                            _buildActionButton(0xe665, "241"),
+                            _buildActionButton(
+                              const IconData(0xe665, fontFamily: 'Iconfont'),
+                              "241",
+                            ),
                             SizedBox(height: 30.w),
-                            _buildActionButton(0xe602, "421"),
+                            _buildActionButton(
+                              const IconData(0xe602, fontFamily: 'Iconfont'),
+                              "421",
+                            ),
                             SizedBox(height: 30.w),
-                            _buildActionButton(0xe6c7, "934"),
+                            _buildActionButton(
+                              const IconData(0xe6c7, fontFamily: 'Iconfont'),
+                              "934",
+                            ),
                           ],
                         ),
                       ),
@@ -229,12 +232,12 @@ class _LJNArts extends State<LJNArts> {
     );
   }
 
-  Widget _buildActionButton(int iconCode, String count) {
+  Widget _buildActionButton(IconData icondata, String count) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Icon(
-          IconData(iconCode, fontFamily: 'Iconfont'),
+          icondata,
           color: AppColors.neutralWhite,
           size: 63.w,
         ),

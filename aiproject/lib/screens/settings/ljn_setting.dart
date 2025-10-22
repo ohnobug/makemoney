@@ -5,7 +5,6 @@ import 'package:vigaviga/widgets/ljn_alphabet.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
 import '../../widgets/ljn_function_item.dart';
 import '../../widgets/ljn_max_width_button.dart';
@@ -54,6 +53,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     // 账户与安全
                     LJNFunctionList(children: [
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.accountAndSecurityTitle,
                         link: '/account_and_secure',
                         underline: false,
@@ -77,12 +77,14 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     // 语言设置
                     LJNFunctionList(children: [
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.languageSetting,
                         link: '/language_setting',
                         underline: true,
                       ),
                       // 主题设置
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.themeSetting,
                         link: '/theme_setting',
                         underline: false,
@@ -92,16 +94,19 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     // 新消息通知 与 聊天 和 通用
                     LJNFunctionList(children: [
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.newMessageNotifications,
                         link: '/new_message_notification',
                         underline: true,
                       ),
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.chat,
                         link: '/chat_setting',
                         underline: true,
                       ),
                       LJNFunctionItem(
+                        icon: "images/avatar/02.png",
                         title: l10n.general,
                         link: '/common_setting',
                         underline: false,
@@ -113,21 +118,25 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       title: LJNAlphabet(title: l10n.privacy),
                       children: [
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.friendPermissions,
                           link: '/friend_permission',
                           underline: true,
                         ),
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.personalInfoAndPermissions,
                           link: '/personinfo_and_permission',
                           underline: true,
                         ),
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.personalInfoCollectionList,
                           link: '/personalinfo_collection_checklist',
                           underline: true,
                         ),
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.thirdPartyInfoSharingList,
                           link:
                               "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing')}",
@@ -176,11 +185,13 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     LJNFunctionList(
                       children: [
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.aboutVigaviga,
                           link: '/about',
                           underline: true,
                         ),
                         LJNFunctionItem(
+                          icon: "images/avatar/02.png",
                           title: l10n.helpAndFeedback,
                           link: '',
                           underline: false,

@@ -1,3 +1,5 @@
+// ljn_search.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -6,10 +8,9 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 
-// 关键改动 1: 创建一个数据模型来存储静态数据
 class _SearchItemData {
   final String text;
-  final bool isHot; // For "suggestions" and "hot list" items
+  final bool isHot;
   const _SearchItemData({required this.text, this.isHot = false});
 }
 
@@ -20,8 +21,8 @@ class LJNSearch extends StatefulWidget {
   State<LJNSearch> createState() => _LJNSearch();
 }
 
-class _LJNSearch extends State<LJNSearch> {
-  // 关键改动 2: 将所有列表数据转换为不依赖 context 的静态数据模型
+// [MODIFIED] 添加 TickerProviderStateMixin
+class _LJNSearch extends State<LJNSearch> with TickerProviderStateMixin {
   final List<_SearchItemData> staticHistoryData = const [
     _SearchItemData(text: "俄公开恐怖分子被捕的画面"),
     _SearchItemData(text: "微软宣布将终止对Windows10的支持"),
@@ -84,48 +85,26 @@ class _LJNSearch extends State<LJNSearch> {
     _SearchItemData(text: "#2024美国大选那些事儿#"),
   ];
 
-  PageController pageController = PageController();
-  double pageControllerOffset = 0;
-
-  GlobalKey historyKey = GlobalKey();
-  double historyHeight = 0;
-
-  int lastedTapHotTitleKey = -1;
-
-  int hotListCurrentPage = 0;
-  PageController hotListController = PageController();
-  final Map<int, GlobalKey> hotListTitlesKeys = {};
-  GlobalKey hotTitleBoxKey = GlobalKey();
-  ScrollController hotTitleBoxController = ScrollController();
-
-  double hotTitleBoxTop = 0;
+  // [MODIFIED] 声明控制器
+  late PageController _pageController;
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-
-    pageController.addListener(() {
-      if (mounted) {
-        setState(() => pageControllerOffset = pageController.offset);
-      }
-    });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final historyKeyContext = historyKey.currentContext;
-      if (historyKeyContext != null) {
-        final renderBox = historyKeyContext.findRenderObject() as RenderBox?;
-        if (renderBox != null && mounted) {
-          setState(() => historyHeight = renderBox.size.height);
-        }
-      }
-    });
-
-    staticHotListTitleKeys.asMap().forEach((key, _) {
-      hotListTitlesKeys[key] = GlobalKey();
-    });
+    _pageController = PageController();
+    _tabController = TabController(
+      length: staticHotListTitleKeys.length,
+      vsync: this,
+    );
   }
 
-  // 关键改动 3: 移除整个 didChangeDependencies 方法
+  @override
+  void dispose() {
+    _pageController.dispose();
+    _tabController.dispose();
+    super.dispose();
+  }
 
   String _getHotTitleFromKey(AppLocalizations l10n, String key) {
     switch (key) {
@@ -170,58 +149,17 @@ class _LJNSearch extends State<LJNSearch> {
     }
   }
 
-  bool isItemVisibleAndMove(int index) {
-    // This logic remains the same as it deals with layout, not data.
-    final GlobalKey? itemKey = hotListTitlesKeys[index];
-    if (itemKey != null &&
-        itemKey.currentContext != null &&
-        hotTitleBoxKey.currentContext != null) {
-      final RenderBox? parentRenderBox =
-          hotTitleBoxKey.currentContext?.findRenderObject() as RenderBox?;
-      final RenderBox? childRenderBox =
-          itemKey.currentContext?.findRenderObject() as RenderBox?;
-      if (parentRenderBox != null && childRenderBox != null) {
-        final childOffset = childRenderBox.localToGlobal(Offset.zero,
-            ancestor: parentRenderBox);
-        final scrollOffset = hotTitleBoxController.offset;
-        final parentWidth = parentRenderBox.size.width;
-        final childWidth = childRenderBox.size.width;
-
-        final childLeft = childOffset.dx;
-        final childRight = childLeft + childWidth;
-
-        if (childLeft < scrollOffset) {
-          hotTitleBoxController.animateTo(childLeft,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.linear);
-        } else if (childRight > scrollOffset + parentWidth) {
-          hotTitleBoxController.animateTo(childRight - parentWidth,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.linear);
-        }
-      }
-    }
-    return false;
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LJNSystemCubit, SystemState>(
         builder: (context, systemState) {
-      double mytop = 0;
-      if (pageControllerOffset > historyHeight) {
-        mytop = -1.w;
-      } else {
-        mytop = historyHeight - pageControllerOffset;
-      }
-
-      // 关键改动 4: 在 build 方法内部获取最新的 l10n 实例
       AppLocalizations l10n = AppLocalizations.of(context)!;
       ThemeData theme = Theme.of(context);
 
       return Scaffold(
         primary: false,
         resizeToAvoidBottomInset: false,
+        backgroundColor: theme.colorScheme.surfaceContainer,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(90.0.w + systemState.statusHeight),
           child: Container(
@@ -238,17 +176,13 @@ class _LJNSearch extends State<LJNSearch> {
                   child: Container(
                     color: Colors.transparent,
                     child: Icon(
-                      const IconData(
-                        0xe628,
-                        fontFamily: 'Iconfont',
-                      ),
+                      const IconData(0xe628, fontFamily: 'Iconfont'),
                       color: AppColors.neutralDarkGrey1,
                       size: 36.w,
                     ),
                   ),
                 ),
                 Expanded(
-                  flex: 1,
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 15.w),
                     height: 65.w,
@@ -258,10 +192,7 @@ class _LJNSearch extends State<LJNSearch> {
                       cursorWidth: 3.w,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
-                          const IconData(
-                            0xe612,
-                            fontFamily: 'Iconfont',
-                          ),
+                          const IconData(0xe612, fontFamily: 'Iconfont'),
                           color: theme.colorScheme.onSurface,
                           size: 40.w,
                         ),
@@ -290,116 +221,87 @@ class _LJNSearch extends State<LJNSearch> {
             ),
           ),
         ),
-        body: Stack(
-          children: [
-            ScrollConfiguration(
-              behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: SingleChildScrollView(
-                primary: false,
-                controller: pageController,
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
-                ),
+        // [MODIFIED] 使用 NestedScrollView 来创建可滚动的 Sliver 头部和固定的 TabBar
+        body: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              // 第一部分：可滚动内容（历史和推荐）
+              SliverToBoxAdapter(
                 child: Column(
                   children: [
-                    Column(
-                      key: historyKey,
-                      children: [
-                        // History
-                        buildSection(
-                            l10n.searchHistory, staticHistoryData, l10n),
-                        // Suggestions for you
-                        buildSection(l10n.guessYouWantToSearch,
-                            staticSuggestionsData, l10n),
-                      ],
+                    buildSection(
+                      l10n.searchHistory,
+                      staticHistoryData,
+                      l10n,
                     ),
-                    SizedBox(height: 110.w),
-                    SizedBox(
-                      width: 750.w,
-                      height: (staticHotData.length * (72.w + 15.w) + 90.w),
-                      child: PageView(
-                        scrollDirection: Axis.horizontal,
-                        controller: hotListController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            hotListCurrentPage = index;
-                            if (lastedTapHotTitleKey == -1) {
-                              isItemVisibleAndMove(index);
-                            }
-                          });
-                        },
-                        // 关键改动 5: 动态构建 PageView 的 children
-                        children: staticHotListTitleKeys.map((_) {
-                          return hotListWidget(staticHotData);
-                        }).toList(),
-                      ),
+                    buildSection(
+                      l10n.guessYouWantToSearch,
+                      staticSuggestionsData,
+                      l10n,
                     ),
                   ],
                 ),
               ),
-            ),
-            Positioned(
-              left: 0,
-              top: mytop,
-              child: Container(
-                color: AppColors.neutralWhite,
-                key: hotTitleBoxKey,
-                alignment: Alignment.center,
-                height: 110.w,
-                width: 750.w,
-                child: SingleChildScrollView(
-                  controller: hotTitleBoxController,
-                  primary: false,
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: staticHotListTitleKeys.asMap().entries.map((e) {
-                      return GestureDetector(
-                        onTap: () {
-                          if (lastedTapHotTitleKey != -1) return;
-                          lastedTapHotTitleKey = e.key;
-                          hotListController
-                              .animateToPage(e.key,
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.linear)
-                              .then((_) {
-                            if (mounted) {
-                              setState(() {
-                                lastedTapHotTitleKey = -1;
-                                int pageIndex = hotListController.page!.round();
-                                isItemVisibleAndMove(pageIndex);
-                              });
-                            }
-                          });
-                        },
-                        // 关键改动 6: 动态构建标题
-                        child: hotListTitleBuild(
-                          hotListTitlesKeys[e.key]!,
-                          _getHotTitleFromKey(l10n, e.value),
-                          hotListCurrentPage == e.key,
-                        ),
+              // 第二部分：固定的 TabBar
+              SliverPersistentHeader(
+                pinned: true, // 这是让 TabBar 固定的关键
+                delegate: _SliverTabBarDelegate(
+                  TabBar(
+                    controller: _tabController,
+                    isScrollable: true, // 允许 TabBar 水平滚动
+                    indicatorColor: theme.colorScheme.primary,
+                    labelColor: theme.colorScheme.onSurface,
+                    unselectedLabelColor: Colors.grey.shade600,
+                    labelStyle: TextStyle(
+                      fontSize: 32.w,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    unselectedLabelStyle: TextStyle(fontSize: 30.w),
+                    tabAlignment: TabAlignment.start, // 左对齐
+                    // 点击 Tab 时，驱动 PageView 切换
+                    onTap: (index) {
+                      _pageController.animateToPage(
+                        index,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
+                    },
+                    // 动态生成所有 Tab
+                    tabs: staticHotListTitleKeys.map((key) {
+                      return Tab(
+                        text: _getHotTitleFromKey(l10n, key),
                       );
                     }).toList(),
                   ),
                 ),
               ),
-            ),
-          ],
+            ];
+          },
+          // 主体内容：PageView
+          body: PageView(
+            controller: _pageController,
+            // 滑动 PageView 时，驱动 TabBar 切换
+            onPageChanged: (index) {
+              _tabController.animateTo(index);
+            },
+            children: staticHotListTitleKeys.map((_) {
+              // 每一页都返回同样的热榜列表（根据你的原代码）
+              return hotListWidget(staticHotData, theme);
+            }).toList(),
+          ),
         ),
       );
     });
   }
 
-  // Helper widget for History and Suggestions sections
+  // ... [buildSection 和 hotListWidget 方法保持不变]
   Widget buildSection(
-    String title,
-    List<_SearchItemData> data,
-    AppLocalizations l10n,
-  ) {
+      String title, List<_SearchItemData> data, AppLocalizations l10n) {
     ThemeData theme = Theme.of(context);
 
     return Container(
       decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
         border: Border(
           bottom: BorderSide(
             color: theme.dividerColor,
@@ -503,156 +405,167 @@ class _LJNSearch extends State<LJNSearch> {
     );
   }
 
-  Widget hotListWidget(List<_SearchItemData> hotData) {
+  Widget hotListWidget(List<_SearchItemData> hotData, ThemeData theme) {
     final locale = Localizations.localeOf(context).toString();
     final double number = 12012000;
     final compactFormatter = NumberFormat.compact(locale: locale);
     final formattedNumber = compactFormatter.format(number);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return Container(
-      width: 750.w,
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Column(
-        children: [
-          ...hotData.asMap().entries.map(
-            (e) {
-              final item = e.value;
-              return Container(
-                height: 72.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10.w)),
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      e.key < 3
-                          ? AppColors.neutralOffWhitePink
-                          : AppColors.neutralGrey4,
-                      AppColors.neutralWhite
-                    ],
-                  ),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 24.w),
-                margin: EdgeInsets.only(bottom: 15.w),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 37.w,
-                      width: 37.w,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          if (e.key < 3)
-                            Icon(
-                              const IconData(
-                                0xe649,
-                                fontFamily: 'Iconfont',
-                              ),
-                              color: AppColors.accentYellowDark2,
-                              size: 37.w,
-                            ),
-                          Text(
-                            (e.key + 1).toString(),
-                            style: TextStyle(
-                              fontSize: e.key < 3 ? 24.w : 28.w,
-                              height: 1.08,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: e.key < 3
-                                  ? FontStyle.italic
-                                  : FontStyle.normal,
-                              color: e.key < 3
-                                  ? AppColors.neutralWhite
-                                  : AppColors.neutralGrey62,
-                            ),
-                          ),
-                        ],
-                      ),
+    // 为了让 PageView 里的列表可以独立滚动，我们用 SingleChildScrollView 包裹
+    return SingleChildScrollView(
+      child: Container(
+        width: 750.w,
+        padding: EdgeInsets.symmetric(
+          horizontal: 20.w,
+          vertical: 20.w,
+        ),
+        color: theme.colorScheme.surface,
+        child: Column(
+          children: [
+            ...hotData.asMap().entries.map(
+              (e) {
+                final item = e.value;
+                return Container(
+                  height: 72.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10.w)),
+                    gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        e.key < 3
+                            ? AppColors.redTransparent76
+                            : AppColors.neutralGrey4,
+                        AppColors.neutralWhite
+                      ],
                     ),
-                    SizedBox(width: 12.w),
-                    Expanded(
-                      child: item.isHot
-                          ? Text.rich(
-                              TextSpan(children: [
-                                TextSpan(
-                                  text: item.text,
-                                  style: TextStyle(
-                                    fontSize: 32.w,
-                                    height: 1.08,
-                                  ),
-                                ),
-                                WidgetSpan(
-                                  alignment: PlaceholderAlignment.middle,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 4.w),
-                                    child: Icon(
-                                      const IconData(
-                                        0xe71e,
-                                        fontFamily: 'Iconfont',
-                                      ),
-                                      color: AppColors.accentRedPure,
-                                      size: 30.w,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  margin: EdgeInsets.only(bottom: 15.w),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 37.w,
+                        width: 37.w,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            if (e.key < 3)
+                              Icon(
+                                const IconData(0xe649, fontFamily: 'Iconfont'),
+                                color: AppColors.accentYellowDark2,
+                                size: 37.w,
+                              ),
+                            Text(
+                              (e.key + 1).toString(),
+                              style: TextStyle(
+                                fontSize: e.key < 3 ? 24.w : 28.w,
+                                height: 1.08,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: e.key < 3
+                                    ? FontStyle.italic
+                                    : FontStyle.normal,
+                                color: e.key < 3
+                                    ? AppColors.neutralWhite
+                                    : AppColors.neutralGrey62,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: item.isHot
+                            ? Text.rich(
+                                TextSpan(children: [
+                                  TextSpan(
+                                    text: item.text,
+                                    style: TextStyle(
+                                      fontSize: 32.w,
+                                      height: 1.08,
                                     ),
                                   ),
+                                  WidgetSpan(
+                                    alignment: PlaceholderAlignment.middle,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 4.w),
+                                      child: Icon(
+                                        const IconData(0xe71e,
+                                            fontFamily: 'Iconfont'),
+                                        color: AppColors.accentRedPure,
+                                        size: 30.w,
+                                      ),
+                                    ),
+                                  ),
+                                ]),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              )
+                            : Text(
+                                item.text,
+                                style: TextStyle(
+                                  fontSize: 32.w,
+                                  height: 1.08,
                                 ),
-                              ]),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            )
-                          : Text(
-                              item.text,
-                              style: TextStyle(
-                                fontSize: 32.w,
-                                height: 1.08,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
                               ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                    ),
-                    Text(
-                      formattedNumber,
-                      style: TextStyle(
-                        fontSize: 25.w,
-                        color: AppColors.neutralGrey56,
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-          SizedBox(
-            width: 750.w,
-            height: 90.w,
-            child: Center(
-              child: Text(
-                l10n.viewFullList,
-                style: TextStyle(
-                  color: AppColors.accentRedPure,
+                      Text(
+                        formattedNumber,
+                        style: TextStyle(
+                          fontSize: 25.w,
+                          color: AppColors.neutralGrey56,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+            SizedBox(
+              width: 750.w,
+              height: 90.w,
+              child: Center(
+                child: Text(
+                  l10n.viewFullList,
+                  style: TextStyle(
+                    color: AppColors.accentRedPure,
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget hotListTitleBuild(GlobalKey key, String title, bool selected) {
-    return Container(
-      key: key,
-      alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Text(
-        title,
-        style: TextStyle(
-          height: 1.08,
-          fontSize: selected ? 32.w : 30.w,
-          fontFamily: "AlibabaPuHuiTi-Medium",
-          color: selected ? const Color(0xFF151515) : const Color(0xFF747474),
+            )
+          ],
         ),
       ),
     );
+  }
+}
+
+// [ADDED] 创建一个辅助类来 Delegate (委托) TabBar 的构建
+class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
+  _SliverTabBarDelegate(this.tabBar);
+
+  final TabBar tabBar;
+
+  @override
+  double get minExtent => tabBar.preferredSize.height;
+  @override
+  double get maxExtent => tabBar.preferredSize.height;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: Theme.of(context).colorScheme.surface, // 背景色
+      child: tabBar,
+    );
+  }
+
+  @override
+  bool shouldRebuild(_SliverTabBarDelegate oldDelegate) {
+    return false;
   }
 }

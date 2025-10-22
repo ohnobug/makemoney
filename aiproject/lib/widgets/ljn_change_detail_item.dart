@@ -146,7 +146,7 @@ class _LJNChangeDetailItemState extends State<LJNChangeDetailItem> {
                               ? positiveChangeColor
                               : negativeChangeColor,
                           fontWeight: FontWeight.bold,
-                          fontFamily: "LJNFont",
+                          fontFamily: "Roboto",
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

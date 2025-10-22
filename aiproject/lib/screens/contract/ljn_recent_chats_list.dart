@@ -1,10 +1,8 @@
 import 'dart:math';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/api_manager/api.dart';
 import 'package:vigaviga/screens/contract/widgets/ljn_chat_miniprogram.dart';
-import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/ljn_chatlist_item.dart';
 import 'package:vigaviga/widgets/ljn_custom_physics.dart';
@@ -41,18 +39,10 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<LJNSystemCubit>().updateMainpage1isload(true);
+      context.read<LJNSystemCubit>().updateMainpage4isload(true);
 
       final size = MediaQuery.of(context).size;
       context.read<LJNSystemCubit>().updateScreenSize(size);
-
-      if (kIsWeb) {
-        context.read<LJNSystemCubit>().updateStatusHeight(0);
-      } else {
-        context
-            .read<LJNSystemCubit>()
-            .updateStatusHeight(MediaQuery.of(context).padding.top);
-      }
     });
 
     _lottieController = AnimationController(vsync: this);
@@ -142,7 +132,7 @@ class _LJNRecentChatsList extends State<LJNRecentChatsList>
         });
       }
 
-      return systemState.mainpage1isload!
+      return systemState.mainpage4isload!
           ? _buildPage(systemState)
           : const LJNPageLoading();
     });
