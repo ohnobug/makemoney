@@ -83,7 +83,6 @@ class _LJNAuthorDetailPageState extends State<LJNAuthorDetailPage>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        context.read<LJNSystemCubit>().updateHomescrollpixels(0);
         context.read<LJNSystemCubit>().updateShowHomeTabbar(true);
         context.read<LJNSystemCubit>().updateMainpage5isload(true);
       }

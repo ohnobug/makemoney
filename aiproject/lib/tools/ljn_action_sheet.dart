@@ -5,13 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/widgets/ljn_max_width_button.dart';
 
-/// 一个数据类，用于封装 Action Sheet 中每个可点击选项的配置。
-///
-/// [text] 按钮上显示的文本。
-/// [onPressed] 点击按钮后（在关闭动画完成后）执行的回调。
-/// [hasUnderline] 是否在按钮下方显示分割线，默认为 true。
 class LJNActionSheetAction {
-  final String text;
+  final Text text;
   final VoidCallback onPressed;
   final bool hasUnderline;
 
@@ -22,11 +17,6 @@ class LJNActionSheetAction {
   });
 }
 
-/// 全局函数，用于显示一个高度可定制的底部操作表(Action Sheet)。
-///
-/// [context] 是调用处的 `BuildContext`。
-/// [actions] 是一个 `LJNActionSheetAction` 列表，定义了弹窗中的所有可点击选项。
-/// [cancelButtonText] 是可选的取消按钮文本，如果不提供，则不显示取消按钮。
 Future<void> showLJNActionSheet({
   required BuildContext context,
   required List<LJNActionSheetAction> actions,
@@ -35,7 +25,7 @@ Future<void> showLJNActionSheet({
   return showGeneralDialog(
     context: context,
     pageBuilder: (builderContext, animation, secondaryAnimation) {
-      return _LjnActionSheetWidget(
+      return _LJNActionSheetWidget(
         actions: actions,
         cancelButtonText: cancelButtonText,
       );
@@ -48,20 +38,20 @@ Future<void> showLJNActionSheet({
 }
 
 /// 内部私有组件，负责Action Sheet的UI渲染和动画控制。
-class _LjnActionSheetWidget extends StatefulWidget {
+class _LJNActionSheetWidget extends StatefulWidget {
   final List<LJNActionSheetAction> actions;
   final String? cancelButtonText;
 
-  const _LjnActionSheetWidget({
+  const _LJNActionSheetWidget({
     required this.actions,
     this.cancelButtonText,
   });
 
   @override
-  State<_LjnActionSheetWidget> createState() => __LjnActionSheetWidgetState();
+  State<_LJNActionSheetWidget> createState() => __LJNActionSheetWidgetState();
 }
 
-class __LjnActionSheetWidgetState extends State<_LjnActionSheetWidget>
+class __LJNActionSheetWidgetState extends State<_LJNActionSheetWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _slideAnimation;
@@ -148,19 +138,11 @@ class __LjnActionSheetWidgetState extends State<_LjnActionSheetWidget>
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          // 【核心改动】使用 map 动态构建操作按钮列表
                           ...widget.actions.map((action) {
                             return LJNMaxWidthButton(
-                              title: Text(
-                                action.text,
-                                style: TextStyle(
-                                  fontSize: 30.w,
-                                  color: theme.colorScheme.onSurface,
-                                ),
-                              ),
+                              title: action.text,
                               underline: action.hasUnderline,
                               onPressed: () {
-                                // 点击后，先执行关闭动画，动画结束后再执行按钮本身的操作
                                 _dismiss(action.onPressed);
                               },
                             );

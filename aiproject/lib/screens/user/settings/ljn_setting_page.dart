@@ -162,7 +162,7 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                     //             style: TextStyle(
                     //               height: 1.08,
                     //               fontSize: fontSizeScale(32.0.w),
-                    //               
+                    //
                     //             ),
                     //             maxLines: 1,
                     //             overflow: TextOverflow.visible,
@@ -201,7 +201,8 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                             Navigator.of(context).pushNamed(
                               '/webview',
                               arguments: {
-                                'url': 'https://help.vigaviga.com', // Vue开发服务器地址
+                                'url':
+                                    'https://help.vigaviga.com', // Vue开发服务器地址
                                 'title': l10n.helpAndFeedback,
                               },
                             );
@@ -229,6 +230,9 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                           underline: false,
                           onPressed: () {
                             context.read<LJNUserCubit>().logout();
+                            context
+                                .read<LJNSystemCubit>()
+                                .updateMainTabIndex(4);
                             Navigator.pushNamedAndRemoveUntil(
                                 context, '/', (route) => false);
                           },

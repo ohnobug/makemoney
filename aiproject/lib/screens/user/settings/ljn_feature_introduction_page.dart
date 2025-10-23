@@ -110,7 +110,7 @@ class _LJNFeatureIntroductionState extends State<LJNFeatureIntroductionPage> {
         borderRadius: BorderRadius.circular(20.w),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withAlpha(25),
             blurRadius: 10.w,
             offset: const Offset(0, 2),
           ),

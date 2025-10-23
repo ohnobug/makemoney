@@ -12,6 +12,7 @@ import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:vigaviga/widgets/ljn_section_header.dart';
+import 'package:vigaviga/tools/dialog/ljn_dialog_service.dart';
 
 // Data model for trend items
 class TrendItem {
@@ -137,9 +138,28 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
       backgroundColor: theme.scaffoldBackgroundColor,
       primary: false,
       appBar: LJNAppBar(
-        title: l10n.tabbar_label_discover,
-        leading: SizedBox(),
-      ),
+          title: l10n.tabbar_label_discover,
+          leading: SizedBox(),
+          actions: [
+            // 点击出来弹窗
+            GestureDetector(
+              onTap: () {
+                showPopupMenu(context);
+              },
+              child: Container(
+                color: Colors.transparent,
+                height: 90.w,
+                padding: EdgeInsets.only(right: 33.w),
+                alignment: Alignment.center,
+                child: Icon(
+                  color: theme.appBarTheme.titleTextStyle!.color,
+                  const IconData(0xe726, fontFamily: 'Iconfont'),
+                  size: 42.w,
+                ),
+              ),
+            ),
+            SizedBox(width: 7.w)
+          ]),
       // 使用 SafeArea 来确保内容不会被系统UI（如状态栏）遮挡
       body: ListView(
         physics: BouncingScrollPhysics(),

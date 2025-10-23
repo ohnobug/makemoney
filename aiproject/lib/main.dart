@@ -12,7 +12,7 @@ import 'package:vigaviga/store/ljn_payment_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   await ScreenUtil.ensureScreenSize();
 
   // 禁止横屏

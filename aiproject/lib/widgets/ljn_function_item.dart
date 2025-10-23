@@ -129,8 +129,8 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                 height: 50.0.w,
                 margin: widget.margin ??
                     const EdgeInsets.only(
-                      left: 30.0,
-                      right: 0.0,
+                      left: 25.0,
+                      right: 5.0,
                     ).w,
                 child: ClipRRect(
                   borderRadius: BorderRadiusGeometry.circular(25.w),

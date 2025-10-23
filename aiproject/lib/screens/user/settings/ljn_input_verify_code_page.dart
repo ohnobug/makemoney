@@ -20,10 +20,6 @@ class _LJNInputVerifyCodePage extends State<LJNInputVerifyCodePage> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<LJNSystemCubit>().updateHomescrollpixels(0);
-    });
   }
 
   @override

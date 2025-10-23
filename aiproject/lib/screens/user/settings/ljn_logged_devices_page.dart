@@ -22,10 +22,6 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<LJNSystemCubit>().updateHomescrollpixels(0);
-    });
   }
 
   @override
@@ -146,7 +142,6 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              
                             ),
                           ),
                         ),
@@ -163,7 +158,6 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              
                             ),
                           ),
                         ),
@@ -180,7 +174,6 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              
                             ),
                           ),
                         ),
@@ -197,7 +190,6 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              
                             ),
                           ),
                         ),
@@ -214,7 +206,6 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              
                             ),
                           ),
                         ),
@@ -231,7 +222,6 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              
                             ),
                           ),
                         ),
@@ -248,7 +238,6 @@ class _LJNLoggedDevicesPage extends State<LJNLoggedDevicesPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              
                             ),
                           ),
                         ),

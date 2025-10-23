@@ -1498,7 +1498,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelDelayedTask => 'Cancel Delayed Task';
 
   @override
-  String get startGroupChat => 'Start a Group Chat';
+  String get startGroupChat => 'New Group';
 
   @override
   String label_yield(String value) {

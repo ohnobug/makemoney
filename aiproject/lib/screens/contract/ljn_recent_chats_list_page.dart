@@ -13,6 +13,7 @@ import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+import 'package:vigaviga/tools/dialog/ljn_dialog_service.dart';
 
 class LJNRecentChatsListPage extends StatefulWidget {
   const LJNRecentChatsListPage({super.key});
@@ -321,9 +322,9 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
                     double newHomescrollpixels =
                         downHomescrollpixels - deltaY.abs();
 
-                    context
-                        .read<LJNSystemCubit>()
-                        .updateHomescrollpixels(newHomescrollpixels);
+                    setState(() {
+                      _homescrollpixels = newHomescrollpixels;
+                    });
 
                     _animationController!.value = newHomescrollpixels;
                   },
@@ -362,7 +363,7 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
                         GestureDetector(
                           onTap: () {
                             if (_homescrollpixels == 0) {
-                              // setState(() => _showPopup = !_showPopup);
+                              showPopupMenu(context);
                             }
                           },
                           child: Container(
