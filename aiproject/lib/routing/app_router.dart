@@ -61,6 +61,7 @@ import 'package:vigaviga/screens/user/settings/ljn_sound_lock_page.dart';
 import 'package:vigaviga/screens/user/settings/ljn_theme_setting_page.dart';
 import 'package:vigaviga/screens/user/settings/ljn_youth_mode_page.dart';
 import 'package:vigaviga/screens/user/settings/ljn_verify_phone_page.dart';
+import 'package:vigaviga/screens/user/settings/ljn_switch_account_page.dart';
 import 'package:vigaviga/screens/user/ljn_camera_view_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_collection_and_payment_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_pocketmoney_page.dart';
@@ -136,7 +137,10 @@ class AppRouter {
         return pageRouteBuilderAnimation(const LJNAccountInfoPage()); // 账号信息页面
       case '/settings/change_account':
         return pageRouteBuilderAnimation(
-            const LJNChangeAccountPage()); // 切换账号页面
+            const LJNChangeAccountPage()); // 切换账号验证页面
+      case '/user/auth/switch_account':
+        return pageRouteBuilderAnimation(
+            const LJNSwitchAccountPage()); // 切换账号列表页面
       case '/settings/phone_number':
         return pageRouteBuilderAnimation(const LJNPhoneNumberPage()); // 手机号码页面
       case '/settings/phone_contact':

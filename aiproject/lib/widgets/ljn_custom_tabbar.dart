@@ -81,7 +81,11 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     systemCubit.updateTabbarHeight(95.w);
     systemCubit.updateAppbarHeight(90.w);
 
-    _tabController = TabController(length: _tabs.length, vsync: this);
+    _tabController = TabController(
+      length: _tabs.length,
+      vsync: this,
+      initialIndex: systemCubit.state.mainTabIndex,
+    );
     _tabController.addListener(_onTabChanged);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {

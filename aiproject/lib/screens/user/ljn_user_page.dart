@@ -93,7 +93,6 @@ class _LJNUserPageState extends State<LJNUserPage>
               backgroundColor: theme.cardColor,
               flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.parallax,
-                // [核心修改] 使用 BlocBuilder 来根据登录状态切换UI
                 background: BlocBuilder<LJNUserCubit, UserState>(
                   builder: (context, userState) {
                     if (userState.isLoggedIn) {
