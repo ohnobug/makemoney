@@ -194,6 +194,19 @@ class _LJNWebViewPageState extends State<LJNWebViewPage> {
                     return {'success': true};
                   },
                 );
+
+                // 注册状态栏高度处理器
+                controller.addJavaScriptHandler(
+                  handlerName: 'getStatusBarHeight',
+                  callback: (args) {
+                    final systemCubit = context.read<LJNSystemCubit>();
+                    final statusBarHeight = systemCubit.state.statusHeight;
+                    return {
+                      'statusBarHeight': statusBarHeight,
+                      'statusBarHeightPx': statusBarHeight.toDouble(),
+                    };
+                  },
+                );
               },
               onLoadStart: (controller, url) {
                 setState(() {
@@ -226,8 +239,31 @@ class _LJNWebViewPageState extends State<LJNWebViewPage> {
                           arguments: arguments
                         }).then(resolve).catch(reject);
                       });
+                    },
+                    getStatusBarHeight: function() {
+                      return new Promise((resolve, reject) => {
+                        window.flutter_inappwebview.callHandler('getStatusBarHeight')
+                          .then(resolve).catch(reject);
+                      });
                     }
                   };
+
+                  // 自动获取并设置状态栏高度
+                  window.flutterChannel.getStatusBarHeight().then(function(result) {
+                    // 将状态栏高度保存到全局变量
+                    window.flutterStatusBarHeight = result.statusBarHeight;
+                    window.flutterStatusBarHeightPx = result.statusBarHeightPx;
+
+                    // 触发自定义事件，通知网页状态栏高度已就绪
+                    const event = new CustomEvent('flutterStatusBarHeightReady', {
+                      detail: result
+                    });
+                    window.dispatchEvent(event);
+
+                    console.log('Flutter Status Bar Height:', result.statusBarHeightPx + 'px');
+                  }).catch(function(error) {
+                    console.error('Failed to get status bar height:', error);
+                  });
                 ''');
               },
               onReceivedError: (controller, request, error) {

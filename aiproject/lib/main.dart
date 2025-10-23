@@ -33,7 +33,7 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, // 设置状态栏透明
-      statusBarIconBrightness: Brightness.dark, // 设置状态栏图标颜色
+      statusBarIconBrightness: Brightness.light, // 设置状态栏图标颜色
     ),
   );
 

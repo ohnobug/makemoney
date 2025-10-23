@@ -68,8 +68,8 @@ class _LJNDial extends State<LJNDialPage> {
 
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
-        statusBarIconBrightness: Brightness.light, // 确保图标颜色为黑色
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
       ),
     );
   }
@@ -78,14 +78,12 @@ class _LJNDial extends State<LJNDialPage> {
   void dispose() {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // 使用白色背景确保图标变为黑色
-        statusBarIconBrightness: Brightness.dark, // 确保图标颜色为黑色
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
       ),
     );
 
-    // if (!Platform.isWindows) {
     _voiceController.dispose();
-    // }
     super.dispose();
   }
 

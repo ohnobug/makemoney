@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/screens/arts/ljn_arts_page.dart';
 import 'package:vigaviga/screens/contract/ljn_recent_chats_list_page.dart';
@@ -77,6 +78,13 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
   void initState() {
     super.initState();
 
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
+
     var systemCubit = context.read<LJNSystemCubit>();
     systemCubit.updateTabbarHeight(95.w);
     systemCubit.updateAppbarHeight(90.w);
@@ -94,7 +102,8 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
           systemCubit.updateStatusHeight(0);
         } else {
           systemCubit.updateStatusHeight(MediaQuery.of(context).padding.top);
-          systemCubit.updateTabbarHeight(95.w + MediaQuery.of(context).padding.bottom);
+          systemCubit
+              .updateTabbarHeight(95.w + MediaQuery.of(context).padding.bottom);
         }
       }
     });
@@ -105,6 +114,23 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
     setState(() {});
     if (_tabController.indexIsChanging == false) {
       final index = _tabController.index;
+
+      if (index == 0 && index == 4) {
+        SystemChrome.setSystemUIOverlayStyle(
+          const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.light,
+          ),
+        );
+      } else {
+        SystemChrome.setSystemUIOverlayStyle(
+          const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.dark,
+          ),
+        );
+      }
+
       context.read<LJNSystemCubit>().updateMainTabIndex(index);
       context.read<LJNSystemCubit>().updateVideoProgress(show: index == 0);
     }

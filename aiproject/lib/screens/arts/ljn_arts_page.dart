@@ -79,13 +79,6 @@ class _LJNArtsPageState extends State<LJNArtsPage>
       value: 1.0,
     );
 
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light,
-      ),
-    );
-
     _systemCubit = context.read<LJNSystemCubit>();
     _videoControllers = {};
     _videoDataList = _createMockVideoData();
@@ -289,10 +282,6 @@ class _LJNArtsPageState extends State<LJNArtsPage>
   // 🚀 [RESTORED] _showArtInfoModalSheet
   void _showArtInfoModalSheet(BuildContext context) {
     final currentVideoData = _videoDataList[_currentPage];
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-    ));
 
     setState(() {
       _isPanelOpen = true;
@@ -327,10 +316,6 @@ class _LJNArtsPageState extends State<LJNArtsPage>
       setState(() {
         _isPanelOpen = false;
       });
-      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light,
-      ));
     });
   }
 
