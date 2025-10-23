@@ -43,30 +43,10 @@ class _LJNSetPasswordPageState extends State<LJNSetPasswordPage> {
       appBar: LJNAppBar(
         title: l10n.setPassword,
         actions: [
-          // 优化点：可以把这个按钮也提取成一个通用组件，比如 LJNAppBarActionButton
-          GestureDetector(
-            onTap: () {
-              // 在这里处理完成逻辑
-            },
-            child: Container(
-              height: 60.w,
-              constraints: BoxConstraints(minWidth: 98.w),
-              margin: EdgeInsets.only(right: 30.w),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: AppColors.brandGreenVibrant3,
-                borderRadius: BorderRadius.all(Radius.circular(8.w)),
-              ),
-              child: Text(
-                l10n.done,
-                style: TextStyle(
-                  color: AppColors.neutralWhite,
-                  fontSize: 25.w,
-                  fontWeight: FontWeight.w100,
-                ),
-              ),
-            ),
-          )
+          LJNAppBarActionTextButton(
+            onTap: () {},
+            title: l10n.done,
+          ),
         ],
       ),
       // 使用通用的页面布局，避免每次都写复杂的约束和滚动配置

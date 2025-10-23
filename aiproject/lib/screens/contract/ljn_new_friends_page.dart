@@ -270,23 +270,12 @@ class _LJNNewFriendsState extends State<LJNNewFriendsPage> {
       appBar: LJNAppBar(
         title: l10n.newFriends,
         actions: [
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(context, '/contact/add_friends'),
-            child: Container(
-              height: 90.w,
-              color: Colors.transparent,
-              alignment: Alignment.center,
-              padding: EdgeInsets.only(right: 33.w),
-              child: Text(
-                l10n.addFriend,
-                style: TextStyle(
-                  color: theme.colorScheme.onSurface,
-                  fontSize: fontSizeScale(32.w),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          )
+          LJNAppBarActionTextButton(
+            onTap: () {
+              Navigator.pushNamed(context, '/contact/add_friends');
+            },
+            title: l10n.addFriend,
+          ),
         ],
       ),
       body: Container(

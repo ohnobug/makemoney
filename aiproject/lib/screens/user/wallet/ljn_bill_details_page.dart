@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_change_detail_item.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,22 +75,9 @@ class _LJNBillDetailsPage extends State<LJNBillDetailsPage>
           appBar: LJNAppBar(
             title: l10n.bill,
             actions: [
-              GestureDetector(
+              LJNAppBarActionTextButton(
                 onTap: () {},
-                child: Container(
-                  color: Colors.transparent,
-                  height: 90.w,
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.only(right: 33.w),
-                  child: Text(
-                    l10n.faq,
-                    style: TextStyle(
-                      color: colorScheme.onSurface,
-                      fontSize: fontSizeScale(32.w),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
+                title: l10n.faq,
               ),
             ],
           ),

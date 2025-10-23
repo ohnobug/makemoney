@@ -14,6 +14,7 @@ import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vigaviga/tools/dialog/ljn_dialog_service.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
 
 class LJNRecentChatsListPage extends StatefulWidget {
   const LJNRecentChatsListPage({super.key});
@@ -341,43 +342,25 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
                       title: l10n.tabbar_label_chat,
                       actions: [
                         // 联系人
-                        GestureDetector(
+                        LJNAppBarActionIconButton(
+                          iconData: IconData(0xe608, fontFamily: 'Iconfont'),
                           onTap: () {
                             if (_homescrollpixels == 0) {
                               Navigator.pushNamed(context, '/contact');
                             }
                           },
-                          child: Container(
-                            color: Colors.transparent,
-                            height: 90.w,
-                            padding: EdgeInsets.only(right: 33.w),
-                            alignment: Alignment.center,
-                            child: Icon(
-                              color: theme.appBarTheme.titleTextStyle!.color,
-                              const IconData(0xe608, fontFamily: 'Iconfont'),
-                              size: 42.w,
-                            ),
-                          ),
                         ),
+
                         // 点击出来弹窗
-                        GestureDetector(
+                        LJNAppBarActionIconButton(
+                          iconData: IconData(0xe726, fontFamily: 'Iconfont'),
                           onTap: () {
                             if (_homescrollpixels == 0) {
                               showPopupMenu(context);
                             }
                           },
-                          child: Container(
-                            color: Colors.transparent,
-                            height: 90.w,
-                            padding: EdgeInsets.only(right: 33.w),
-                            alignment: Alignment.center,
-                            child: Icon(
-                              color: theme.appBarTheme.titleTextStyle!.color,
-                              const IconData(0xe726, fontFamily: 'Iconfont'),
-                              size: 42.w,
-                            ),
-                          ),
                         ),
+
                         SizedBox(width: 7.w)
                       ],
                       // 搜索

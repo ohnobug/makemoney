@@ -24,7 +24,6 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
@@ -37,23 +36,12 @@ class _LJNPocketMoneyPage extends State<LJNPocketMoneyPage> {
             // color: Colors.transparent,
             // bgColor: Colors.transparent,
             actions: [
-              GestureDetector(
+              LJNAppBarActionTextButton(
                 onTap: () {
                   Navigator.pushNamed(context, '/user/wallet/change_details');
                 },
-                child: Container(
-                  color: Colors.transparent,
-                  height: 90.w,
-                  padding: EdgeInsets.only(right: 40.w),
-                  alignment: Alignment.center,
-                  child: Text(
-                    l10n.balanceDetails,
-                    // textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: theme.colorScheme.onSurface, fontSize: 32.w),
-                  ),
-                ),
-              )
+                title: l10n.balanceDetails,
+              ),
             ],
           ),
           body: SizedBox(

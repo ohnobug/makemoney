@@ -84,7 +84,6 @@ class _LJNSetFriendTags extends State<LJNSetFriendTagsPage> {
     // Core Refactor: Get theme and l10n instance once at the top of the build method
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
-    final colorScheme = theme.colorScheme;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -92,32 +91,7 @@ class _LJNSetFriendTags extends State<LJNSetFriendTagsPage> {
       appBar: LJNAppBar(
         title: l10n.addFromAllTags,
         actions: [
-          // "Save" button
-          GestureDetector(
-            onTap: () {
-              // Your save logic here
-            },
-            child: Container(
-              height: 60.w,
-              constraints: BoxConstraints(minWidth: 98.w),
-              margin: EdgeInsets.only(right: 30.w),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                // Corrected: Use primary color from theme
-                color: colorScheme.primary,
-                borderRadius: BorderRadius.all(Radius.circular(8.w)),
-              ),
-              child: Text(
-                l10n.save,
-                style: TextStyle(
-                  // Corrected: Use onPrimary color for text on primary background
-                  color: colorScheme.onPrimary,
-                  fontSize: 25.w,
-                  fontWeight: FontWeight.w100,
-                ),
-              ),
-            ),
-          )
+          LJNAppBarActionTextButton(onTap: () {}, title: l10n.save),
         ],
       ),
       body: Container(

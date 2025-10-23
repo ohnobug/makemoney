@@ -51,22 +51,13 @@ class _LJNPublisherState extends State<LJNPublisherPage> {
           leading: SizedBox(),
           actions: [
             // 点击出来弹窗
-            GestureDetector(
+            LJNAppBarActionIconButton(
+              iconData: IconData(0xe726, fontFamily: 'Iconfont'),
               onTap: () {
                 showPopupMenu(context);
               },
-              child: Container(
-                color: Colors.transparent,
-                height: 90.w,
-                padding: EdgeInsets.only(right: 33.w),
-                alignment: Alignment.center,
-                child: Icon(
-                  color: theme.appBarTheme.titleTextStyle!.color,
-                  const IconData(0xe726, fontFamily: 'Iconfont'),
-                  size: 42.w,
-                ),
-              ),
             ),
+
             SizedBox(width: 7.w)
           ]),
       body: SafeArea(

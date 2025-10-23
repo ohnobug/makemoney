@@ -50,7 +50,7 @@ class _PopupMenuDialog extends StatelessWidget {
 
     return Material(
       type: MaterialType.transparency,
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Stack(
@@ -64,7 +64,7 @@ class _PopupMenuDialog extends StatelessWidget {
                   parent: animation,
                   curve: Curves.easeOutBack,
                 ),
-                child: Container(
+                child: SizedBox(
                   width: 320.w,
                   height: 500.w,
                   child: Stack(

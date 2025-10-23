@@ -66,28 +66,15 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
             LJNAppBar(
               title: "",
               actions: [
-                GestureDetector(
+                LJNAppBarActionIconButton(
+                  iconData: IconData(0xe659, fontFamily: 'Iconfont'),
                   onTap: () {
-                    // 点击事件
                     Navigator.pushNamed(
                       context,
                       '/chat/friend_data_setting',
                     );
                   },
-                  child: Container(
-                    height: 90.w,
-                    color: Colors.transparent,
-                    padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                    alignment: Alignment.center,
-                    child: Icon(
-                      const IconData(
-                        0xe659,
-                        fontFamily: 'Iconfont',
-                      ),
-                      size: 42.w, // 图标大小
-                    ),
-                  ),
-                )
+                ),
               ],
             ),
             Positioned(
