@@ -138,19 +138,18 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
       backgroundColor: theme.scaffoldBackgroundColor,
       primary: false,
       appBar: LJNAppBar(
-          title: l10n.tabbar_label_discover,
-          leading: SizedBox(),
-          actions: [
-            // 点击出来弹窗
-            LJNAppBarActionIconButton(
-              iconData: IconData(0xe726, fontFamily: 'Iconfont'),
-              onTap: () {
-                showPopupMenu(context);
-              },
-            ),
-
-            SizedBox(width: 7.w)
-          ]),
+        title: l10n.tabbar_label_discover,
+        leading: SizedBox(),
+        actions: [
+          // 点击出来弹窗
+          LJNAppBarActionIconButton(
+            iconData: const IconData(0xe726, fontFamily: 'Iconfont'),
+            onTap: () {
+              showPopupMenu(context);
+            },
+          ),
+        ],
+      ),
       // 使用 SafeArea 来确保内容不会被系统UI（如状态栏）遮挡
       body: ListView(
         physics: BouncingScrollPhysics(),

@@ -94,6 +94,7 @@ class _LJNCustomTabbarState extends State<LJNCustomTabbar>
           systemCubit.updateStatusHeight(0);
         } else {
           systemCubit.updateStatusHeight(MediaQuery.of(context).padding.top);
+          systemCubit.updateTabbarHeight(95.w + MediaQuery.of(context).padding.bottom);
         }
       }
     });

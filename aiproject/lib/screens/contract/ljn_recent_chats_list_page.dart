@@ -343,7 +343,7 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
                       actions: [
                         // 联系人
                         LJNAppBarActionIconButton(
-                          iconData: IconData(0xe608, fontFamily: 'Iconfont'),
+                          iconData: const IconData(0xe608, fontFamily: 'Iconfont'),
                           onTap: () {
                             if (_homescrollpixels == 0) {
                               Navigator.pushNamed(context, '/contact');
@@ -353,15 +353,13 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
 
                         // 点击出来弹窗
                         LJNAppBarActionIconButton(
-                          iconData: IconData(0xe726, fontFamily: 'Iconfont'),
+                          iconData: const IconData(0xe726, fontFamily: 'Iconfont'),
                           onTap: () {
                             if (_homescrollpixels == 0) {
                               showPopupMenu(context);
                             }
                           },
                         ),
-
-                        SizedBox(width: 7.w)
                       ],
                       // 搜索
                       leading: GestureDetector(

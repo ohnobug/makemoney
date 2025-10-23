@@ -52,13 +52,11 @@ class _LJNPublisherState extends State<LJNPublisherPage> {
           actions: [
             // 点击出来弹窗
             LJNAppBarActionIconButton(
-              iconData: IconData(0xe726, fontFamily: 'Iconfont'),
+              iconData: const IconData(0xe726, fontFamily: 'Iconfont'),
               onTap: () {
                 showPopupMenu(context);
               },
             ),
-
-            SizedBox(width: 7.w)
           ]),
       body: SafeArea(
         child: Padding(

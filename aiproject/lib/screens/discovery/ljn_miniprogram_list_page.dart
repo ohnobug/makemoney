@@ -196,14 +196,13 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
             title: l10n.miniPrograms,
             actions: [
               LJNAppBarActionIconButton(
-                iconData: IconData(0xe612, fontFamily: 'Iconfont'),
+                iconData: const IconData(0xe612, fontFamily: 'Iconfont'),
                 onTap: () {},
               ),
               LJNAppBarActionIconButton(
-                iconData: IconData(0xe726, fontFamily: 'Iconfont'),
+                iconData: const IconData(0xe726, fontFamily: 'Iconfont'),
                 onTap: () {},
               ),
-              SizedBox(width: 7.w)
             ],
           ),
           body: ColoredBox(

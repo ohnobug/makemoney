@@ -757,7 +757,7 @@ class _LJNChat extends State<LJNChat>
                       title: widget.title,
                       actions: [
                         LJNAppBarActionIconButton(
-                          iconData: IconData(0xe659, fontFamily: 'Iconfont'),
+                          iconData: const IconData(0xe659, fontFamily: 'Iconfont'),
                           onTap: () {
                             Navigator.pushNamed(
                               context,

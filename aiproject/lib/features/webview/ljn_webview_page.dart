@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LJNWebViewPage extends StatefulWidget {
   final String url;
@@ -119,11 +121,12 @@ class _LJNWebViewPageState extends State<LJNWebViewPage> {
     }
 
     final theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: null,
-      body: SafeArea(
-        child: Stack(
+    return BlocBuilder<LJNSystemCubit, SystemState>(
+        builder: (context, systemState) {
+      return Scaffold(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        appBar: null,
+        body: Stack(
           children: [
             // WebView
             InAppWebView(
@@ -254,7 +257,7 @@ class _LJNWebViewPageState extends State<LJNWebViewPage> {
             if (!_isLoading && !_hasError)
               Positioned(
                 right: 17.w,
-                top: 90.w,
+                top: 10.w + systemState.statusHeight,
                 child: Container(
                   width: 64.w,
                   height: 64.w,
@@ -281,8 +284,8 @@ class _LJNWebViewPageState extends State<LJNWebViewPage> {
               ),
           ],
         ),
-      ),
-    );
+      );
+    });
   }
 
   // 构建空状态
