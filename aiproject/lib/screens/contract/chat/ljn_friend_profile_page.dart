@@ -585,7 +585,7 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                                       ),
                                       onPressed: () {
                                         Navigator.pushNamed(
-                                            context, '/video_call');
+                                            context, '/video_player');
                                       },
                                     ),
                                     LJNActionSheetAction(

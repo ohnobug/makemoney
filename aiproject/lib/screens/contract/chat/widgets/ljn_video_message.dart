@@ -209,7 +209,7 @@ class _LJNVideoMessage extends State<LJNVideoMessage> {
               // 头像
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/chat/friend/profile',
+                  Navigator.pushNamed(context, '/chat/friend_profile',
                       arguments: <String, String>{
                         'name': userState.userinfoName!,
                         'avatar': userState.userinfoAvatar!,

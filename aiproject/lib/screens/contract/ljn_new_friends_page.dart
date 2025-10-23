@@ -387,7 +387,7 @@ class _LJNNewFriendsState extends State<LJNNewFriendsPage> {
                         onPressed: () {
                           Navigator.pushNamed(
                             context,
-                            '/chat/friend/profile',
+                            '/chat/friend_profile',
                             arguments: <String, String>{
                               'name': itemData.name,
                               'nickname': itemData.name,

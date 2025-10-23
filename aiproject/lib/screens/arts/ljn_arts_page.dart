@@ -32,6 +32,7 @@ class _LJNArtsPageState extends State<LJNArtsPage>
 
   bool _isPanelOpen = false;
   bool _isCommentPanel = false;
+  bool _hideVideoInfo = false;
 
   final List<CommentData> _comments = [
     CommentData(
@@ -200,6 +201,7 @@ class _LJNArtsPageState extends State<LJNArtsPage>
     setState(() {
       _isPanelOpen = true;
       _isCommentPanel = true;
+      _hideVideoInfo = true;
     });
 
     late Animation<double> transitionAnimation;
@@ -276,6 +278,7 @@ class _LJNArtsPageState extends State<LJNArtsPage>
         setState(() {
           _isPanelOpen = false;
           _isCommentPanel = false;
+          _hideVideoInfo = false;
           _systemCubit.updateVideoProgress(show: true);
           _systemCubit.updateShowHomeTabbar(true);
         });
@@ -460,7 +463,7 @@ class _LJNArtsPageState extends State<LJNArtsPage>
                             ),
                           ),
                         ),
-                      if (!(_isPanelOpen && _isCommentPanel))
+                      if (!_hideVideoInfo)
                         Stack(
                           children: [
                             Positioned(

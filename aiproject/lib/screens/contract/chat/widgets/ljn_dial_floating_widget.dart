@@ -97,7 +97,7 @@ class _LJNDialFloatingWidget extends State<LJNDialFloatingWidget> {
           ),
         ),
 
-        // 退出
+        // 拨号
         Positioned(
           bottom: 5.w,
           right: 5.w,
