@@ -109,8 +109,8 @@ class LJNSystemCubit extends Cubit<SystemState> {
     emit(state.copyWith(appbarHeight: appbarHeight));
   }
 
-  void updateShowMiniProgramDrawer(bool showMiniProgramDrawer) {
-    emit(state.copyWith(showMiniProgramDrawer: showMiniProgramDrawer));
+  void updateShowHomeTabbar(bool showHomeTabbar) {
+    emit(state.copyWith(showHomeTabbar: showHomeTabbar));
   }
 
   void updateThemeMode(ThemeMode themeMode) {
@@ -147,7 +147,6 @@ class LJNSystemCubit extends Cubit<SystemState> {
 
 // 系统的 State
 class SystemState extends Equatable {
-  final double homescrollpixels;
   final bool contactazshow;
   final bool? mainpage1isload;
   final bool? mainpage2isload;
@@ -159,7 +158,7 @@ class SystemState extends Equatable {
   final double appbarHeight;
   final double statusHeight;
   final double tabbarHeight;
-  final bool showMiniProgramDrawer;
+  final bool showHomeTabbar;
   final ThemeMode themeMode;
   final Locale currentLocale;
   final double videoProgress;
@@ -179,7 +178,6 @@ class SystemState extends Equatable {
   final bool showCommentsPanel;
 
   const SystemState({
-    this.homescrollpixels = 0,
     this.contactazshow = false,
     this.mainpage1isload = false,
     this.mainpage2isload = false,
@@ -190,7 +188,7 @@ class SystemState extends Equatable {
     this.appbarHeight = 0,
     this.statusHeight = 0,
     this.tabbarHeight = 100,
-    this.showMiniProgramDrawer = false,
+    this.showHomeTabbar = true,
     this.currentLocale = const Locale('en'),
     this.themeMode = ThemeMode.system,
     required this.navigatorKey,
@@ -217,7 +215,7 @@ class SystemState extends Equatable {
     double? statusHeight,
     double? tabbarHeight,
     double? appbarHeight,
-    bool? showMiniProgramDrawer,
+    bool? showHomeTabbar,
     ThemeMode? themeMode,
     Locale? currentLocale,
     GlobalKey<NavigatorState>? navigatorKey,
@@ -233,7 +231,6 @@ class SystemState extends Equatable {
     String? cdnBase,
   }) {
     return SystemState(
-      homescrollpixels: homescrollpixels ?? this.homescrollpixels,
       contactazshow: contactazshow ?? this.contactazshow,
       mainpage1isload: mainpage1isload ?? this.mainpage1isload,
       mainpage2isload: mainpage2isload ?? this.mainpage2isload,
@@ -244,14 +241,14 @@ class SystemState extends Equatable {
       statusHeight: statusHeight ?? this.statusHeight,
       tabbarHeight: tabbarHeight ?? this.tabbarHeight,
       appbarHeight: appbarHeight ?? this.appbarHeight,
-      showMiniProgramDrawer:
-          showMiniProgramDrawer ?? this.showMiniProgramDrawer,
+      showHomeTabbar: showHomeTabbar ?? this.showHomeTabbar,
       themeMode: themeMode ?? this.themeMode,
       navigatorKey: navigatorKey ?? this.navigatorKey,
       currentLocale: currentLocale ?? this.currentLocale,
       videoProgress: videoProgress ?? this.videoProgress,
       showVideoProgress: showVideoProgress ?? this.showVideoProgress,
-      videoProgressBottomOffset: videoProgressBottomOffset ?? this.videoProgressBottomOffset,
+      videoProgressBottomOffset:
+          videoProgressBottomOffset ?? this.videoProgressBottomOffset,
       mainTabIndex: mainTabIndex ?? this.mainTabIndex,
       parentDragState: parentDragState ?? this.parentDragState,
       parentDragEndVelocity: clearParentDragEndVelocity
@@ -266,7 +263,6 @@ class SystemState extends Equatable {
 
   @override
   List<Object?> get props => [
-        homescrollpixels,
         contactazshow,
         mainpage1isload,
         mainpage2isload,
@@ -278,7 +274,7 @@ class SystemState extends Equatable {
         statusHeight,
         appbarHeight,
         tabbarHeight,
-        showMiniProgramDrawer,
+        showHomeTabbar,
         themeMode,
         currentLocale,
         videoProgress,

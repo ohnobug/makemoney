@@ -68,7 +68,7 @@ import 'package:vigaviga/screens/user/services/ljn_services_page.dart';
 import 'package:vigaviga/screens/user/services/ljn_services_manager_page.dart';
 import 'package:vigaviga/screens/user/ljn_user_more_info_page.dart';
 import 'package:vigaviga/screens/user/ljn_userinfo_page.dart';
-import 'package:vigaviga/screens/author/ljn_author_detail_page.dart';
+import 'package:vigaviga/screens/arts/ljn_author_detail_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_wallet_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_bill_details_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_change_details_page.dart';
@@ -186,7 +186,8 @@ class AppRouter {
       case '/settings/about':
         return pageRouteBuilderAnimation(const LJNAboutPage()); // 关于页面
       case '/settings/feature_introduction':
-        return pageRouteBuilderAnimation(const LJNFeatureIntroductionPage()); // 功能介绍页面
+        return pageRouteBuilderAnimation(
+            const LJNFeatureIntroductionPage()); // 功能介绍页面
       case '/settings/complain':
         return pageRouteBuilderAnimation(const LJNComplainPage()); // 投诉反馈页面
       case '/settings/friend_permission':

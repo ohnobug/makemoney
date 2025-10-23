@@ -1,7 +1,7 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/api_manager/api.dart';
+import 'package:vigaviga/widgets/ljn_appbar_inner.dart';
 import 'package:vigaviga/widgets/ljn_cloud_animation.dart';
 import 'package:vigaviga/screens/contract/widgets/ljn_chat_miniprogram.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
@@ -61,17 +61,21 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
   void scrollListener() {
     // 下拉的时候
     if (_miniprogramScrollController.position.pixels <= 0) {
-      context.read<LJNSystemCubit>().updateHomescrollpixels(
-            _miniprogramScrollController.position.pixels.abs(),
-          );
+      setState(() {
+        _homescrollpixels = _miniprogramScrollController.position.pixels.abs();
+      });
     } else {
       // 上拉
-      double newValue = context.read<LJNSystemCubit>().state.homescrollpixels +
-          _miniprogramScrollController.position.pixels;
+      double newValue =
+          _homescrollpixels + _miniprogramScrollController.position.pixels;
       if (newValue < 0) {
-        context.read<LJNSystemCubit>().updateHomescrollpixels(newValue);
+        setState(() {
+          _homescrollpixels = newValue;
+        });
       } else {
-        context.read<LJNSystemCubit>().updateHomescrollpixels(0.0);
+        setState(() {
+          _homescrollpixels = 0;
+        });
       }
     }
   }
@@ -80,8 +84,7 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
   void reverse() {
     // 使开始位置变成下拉的位置
     _miniprogramScrollController.jumpTo(0);
-    _animationController!.value =
-        context.read<LJNSystemCubit>().state.homescrollpixels;
+    _animationController!.value = _homescrollpixels;
     _physics = const NeverScrollableScrollPhysics();
 
     _miniprogramScrollController.removeListener(scrollListener);
@@ -90,7 +93,7 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
       _physics = const MyBouncingScrollPhysics();
       _miniprogramScrollController.addListener(scrollListener);
 
-      context.read<LJNSystemCubit>().updateShowMiniProgramDrawer(false);
+      context.read<LJNSystemCubit>().updateShowHomeTabbar(true);
     });
   }
 
@@ -98,6 +101,7 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
 
   Size screenSize = Size(0, 0);
   double statusHeight = 0;
+  double _homescrollpixels = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -126,9 +130,9 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
         );
 
         _animationController!.addListener(() {
-          context
-              .read<LJNSystemCubit>()
-              .updateHomescrollpixels(_animationController!.value);
+          setState(() {
+            _homescrollpixels = _animationController!.value;
+          });
         });
       }
 
@@ -147,7 +151,7 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
     // 新appbar透明度
     double percent25Position = screenSize.height * 0.25;
     double coverOpacity =
-        ((systemState.homescrollpixels + statusHeight) - percent25Position) /
+        ((_homescrollpixels + statusHeight) - percent25Position) /
             (screenSize.height - newAppbarHeight - percent25Position);
     if (coverOpacity < 0) {
       coverOpacity = 0;
@@ -156,9 +160,9 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
     }
 
     double percent75TargetPosition = screenSize.height * 0.75;
-    double newAppbarOpacity = ((systemState.homescrollpixels + statusHeight) -
-            percent75TargetPosition) /
-        (screenSize.height - newAppbarHeight - percent75TargetPosition);
+    double newAppbarOpacity =
+        ((_homescrollpixels + statusHeight) - percent75TargetPosition) /
+            (screenSize.height - newAppbarHeight - percent75TargetPosition);
     if (newAppbarOpacity < 0) {
       newAppbarOpacity = 0;
     } else if (newAppbarOpacity > 1) {
@@ -166,8 +170,7 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
     }
 
     // 顶部动画控制器
-    _lottieController.value =
-        (systemState.homescrollpixels + statusHeight) / 600.w;
+    _lottieController.value = (_homescrollpixels + statusHeight) / 600.w;
     if (_lottieController.value < 0) {
       _lottieController.value = 0;
     } else if (_lottieController.value > 1) {
@@ -175,9 +178,8 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
     }
 
     // 顶部动画背景
-    double topLottieOpacity =
-        (systemState.homescrollpixels + statusHeight - 400.w) /
-            (screenSize.height - newAppbarHeight - 400.w);
+    double topLottieOpacity = (_homescrollpixels + statusHeight - 400.w) /
+        (screenSize.height - newAppbarHeight - 400.w);
     if (topLottieOpacity < 0) {
       topLottieOpacity = 0;
     } else if (topLottieOpacity > 1) {
@@ -185,51 +187,34 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
     }
 
     logger.info(
-        "topLottieOpacity: $topLottieOpacity   systemState.homescrollpixels: ${systemState.homescrollpixels}");
+        "topLottieOpacity: $topLottieOpacity   _homescrollpixels: $_homescrollpixels");
 
     return Stack(
       children: [
         // 小程序背景
         Visibility(
-          visible: systemState.homescrollpixels > 0,
+          visible: _homescrollpixels > 0,
           child: LJNCloudAnimation(),
         ),
 
         // 小程序列表, 需要现在在appbar下面
         Visibility(
-          visible: systemState.homescrollpixels > 0,
+          visible: _homescrollpixels > 0,
           child: Positioned(
             top: 0,
             left: 0,
             // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
-            height:
-                systemState.homescrollpixels + (90.w + statusHeight + 200.w),
+            height: _homescrollpixels + (90.w + statusHeight + 200.w),
             width: screenSize.width,
-            child: LJNChatMiniProgram(reverse: reverse),
+            child: LJNChatMiniProgram(
+              reverse: reverse,
+              homescrollpixels: _homescrollpixels,
+            ),
           ),
         ),
 
-        // // 列表背景
-        // Visibility(
-        //   visible: systemState.homescrollpixels > 0,
-        //   child: Positioned(
-        //     top: systemState.appbarHeight +
-        //         statusHeight +
-        //         systemState.homescrollpixels,
-        //     left: 0,
-        //     // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
-        //     height:
-        //         screenSize.height - (systemState.appbarHeight + statusHeight),
-        //     width: screenSize.width,
-        //     child: Container(
-        //       color: Colors.red,
-        //     ),
-        //   ),
-        // ),
-
         // 列表
         Positioned(
-          // 不能使用systemState.homescrollpixels, 需要用_animationController!.value
           top: systemState.appbarHeight +
               statusHeight +
               _animationController!.value,
@@ -240,19 +225,13 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
             onPointerUp: (event) {
               logger.info(
                   "释放那一刻 ${_miniprogramScrollController.position.pixels}");
-              if (_miniprogramScrollController.position.pixels < -100) {
-                // _forwarding = true;
-                logger.info(
-                    "this is systemState.homescrollpixels: ${systemState.homescrollpixels}");
 
-                // ???
-                _animationController!.value = systemState.homescrollpixels;
+              if (_miniprogramScrollController.position.pixels < -100) {
+                _animationController!.value = _homescrollpixels;
                 _miniprogramScrollController.jumpTo(0);
                 _physics = const NeverScrollableScrollPhysics();
 
-                context
-                    .read<LJNSystemCubit>()
-                    .updateShowMiniProgramDrawer(true);
+                context.read<LJNSystemCubit>().updateShowHomeTabbar(false);
 
                 _miniprogramScrollController.removeListener(scrollListener);
 
@@ -288,109 +267,84 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
         Visibility(
           visible: !_lottieController.isCompleted,
           child: Opacity(
-            opacity:
-                systemState.homescrollpixels > 0 ? 1 - topLottieOpacity : 0,
+            opacity: _homescrollpixels > 0 ? 1 - topLottieOpacity : 0,
             child: Container(
               color: theme.colorScheme.surfaceContainer,
               width: screenSize.width,
-              height: systemState.homescrollpixels +
-                  (systemState.appbarHeight + statusHeight),
+              height:
+                  _homescrollpixels + (systemState.appbarHeight + statusHeight),
               child: Lottie.asset(
                 assetPath('lotties/homeminiprogramdarwing.json'),
                 width: screenSize.width,
-                height: systemState.homescrollpixels +
-                    statusHeight +
-                    systemState.appbarHeight,
+                height:
+                    _homescrollpixels + statusHeight + systemState.appbarHeight,
                 fit: BoxFit.contain,
                 renderCache: RenderCache.drawingCommands,
                 controller: _lottieController,
-                onLoaded: (composition) {
-                  // _lottieController
-                  //   ..duration = const Duration(milliseconds: 600)
-                  //   ..forward();
-                },
               ),
             ),
           ),
         ),
 
-        // 下拉时候的新appbar
-        Visibility(
-          visible:
-              (systemState.homescrollpixels + statusHeight) > percent25Position,
-          child: Positioned(
-            height: systemState.appbarHeight +
-                (screenSize.height -
-                    (systemState.homescrollpixels +
-                        statusHeight +
-                        systemState.appbarHeight)),
-            width: 750.w,
-            top: systemState.homescrollpixels + statusHeight,
-            child: Listener(
-              onPointerDown: (event) {
-                // 记录手指按下时的 Y 轴位置
-                initialY = event.position.dy;
-                downHomescrollpixels = systemState.homescrollpixels;
-              },
-              onPointerMove: (event) {
-                logger.info('Y轴移动距离: $deltaY');
+        Positioned(
+          height: systemState.appbarHeight + statusHeight,
+          width: 750.w,
+          top: _homescrollpixels,
+          child: Stack(
+            children: [
+              Visibility(
+                visible: _homescrollpixels == 0,
+                child: Container(
+                  color: theme.appBarTheme.backgroundColor,
+                  height: statusHeight,
+                ),
+              ),
+              Positioned(
+                top: statusHeight,
+                child: Listener(
+                  onPointerDown: (event) {
+                    // 记录手指按下时的 Y 轴位置
+                    initialY = event.position.dy;
+                    downHomescrollpixels = _homescrollpixels;
+                  },
+                  onPointerMove: (event) {
+                    logger.info('Y轴移动距离: $deltaY');
 
-                // 不允许下拉, 只允许上拉
-                if (initialY < event.position.dy) {
-                  return;
-                }
+                    // 不允许下拉, 只允许上拉
+                    if (initialY < event.position.dy) {
+                      return;
+                    }
 
-                // 计算手指在Y轴上移动的距离
-                deltaY = event.position.dy - initialY;
+                    // 计算手指在Y轴上移动的距离
+                    deltaY = event.position.dy - initialY;
 
-                double newHomescrollpixels =
-                    downHomescrollpixels - deltaY.abs();
+                    double newHomescrollpixels =
+                        downHomescrollpixels - deltaY.abs();
 
-                context
-                    .read<LJNSystemCubit>()
-                    .updateHomescrollpixels(newHomescrollpixels);
+                    context
+                        .read<LJNSystemCubit>()
+                        .updateHomescrollpixels(newHomescrollpixels);
 
-                _animationController!.value = newHomescrollpixels;
-              },
-              onPointerUp: (event) {
-                // 恢复
-                reverse();
-              },
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // App标题栏（此App标题栏仅用作显示，无实际用途）
-                  ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12.w),
-                      topRight: Radius.circular(12.w),
-                    ),
-                    child: AppBar(
-                      primary: false,
-                      title: Text(l10n.tabbar_label_chat),
-                      centerTitle: true,
-                      titleTextStyle: theme.appBarTheme.titleTextStyle,
-                      toolbarHeight: theme.appBarTheme.toolbarHeight,
-                      elevation: theme.appBarTheme.elevation,
-                      scrolledUnderElevation:
-                          theme.appBarTheme.scrolledUnderElevation,
-                      backgroundColor:
-                          theme.appBarTheme.backgroundColor!.withAlpha(
-                        (min(newAppbarOpacity + 0.8, 1) * 255).toInt(),
-                      ),
-                      foregroundColor:
-                          theme.appBarTheme.foregroundColor!.withAlpha(
-                        (min(newAppbarOpacity + 0.8, 1) * 255).toInt(),
-                      ),
+                    _animationController!.value = newHomescrollpixels;
+                  },
+                  onPointerUp: (event) {
+                    // 恢复
+                    reverse();
+                  },
+                  child: Container(
+                    color: theme.appBarTheme.backgroundColor,
+                    width: 750.w,
+                    height: systemState.appbarHeight,
+                    child: LJNAppBarInner(
+                      context: context,
+                      title: l10n.tabbar_label_chat,
                       actions: [
-                        // 联系列表按钮
+                        // 联系人
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/contact',
-                            );
+                            if (_homescrollpixels == 0) {
+                              Navigator.pushNamed(context, '/contact');
+                            }
                           },
                           child: Container(
                             color: Colors.transparent,
@@ -399,70 +353,56 @@ class _LJNRecentChatsListPage extends State<LJNRecentChatsListPage>
                             alignment: Alignment.center,
                             child: Icon(
                               color: theme.appBarTheme.titleTextStyle!.color,
-                              const IconData(
-                                0xe608,
-                                fontFamily: 'Iconfont',
-                              ),
+                              const IconData(0xe608, fontFamily: 'Iconfont'),
                               size: 42.w,
                             ),
                           ),
                         ),
-
-                        // 添加联系人按钮
-                        Container(
+                        // 点击出来弹窗
+                        GestureDetector(
+                          onTap: () {
+                            if (_homescrollpixels == 0) {
+                              // setState(() => _showPopup = !_showPopup);
+                            }
+                          },
+                          child: Container(
+                            color: Colors.transparent,
+                            height: 90.w,
+                            padding: EdgeInsets.only(right: 33.w),
+                            alignment: Alignment.center,
+                            child: Icon(
+                              color: theme.appBarTheme.titleTextStyle!.color,
+                              const IconData(0xe726, fontFamily: 'Iconfont'),
+                              size: 42.w,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 7.w)
+                      ],
+                      // 搜索
+                      leading: GestureDetector(
+                        onTap: () {},
+                        child: Container(
                           color: Colors.transparent,
                           height: 90.w,
-                          padding: EdgeInsets.only(right: 33.w),
-                          alignment: Alignment.center,
+                          padding: EdgeInsets.only(left: 33.w),
                           child: Icon(
                             color: theme.appBarTheme.titleTextStyle!.color,
                             const IconData(
-                              0xe726,
+                              0xe612,
                               fontFamily: 'Iconfont',
                             ),
-                            size: 42.w,
+                            size: 40.w,
                           ),
-                        ),
-
-                        // 占位
-                        SizedBox(
-                          width: 7.w,
-                        )
-                      ],
-                      leading: Container(
-                        color: Colors.transparent,
-                        height: 90.w,
-                        padding: EdgeInsets.only(left: 33.w),
-                        child: Icon(
-                          color: theme.appBarTheme.titleTextStyle!.color,
-                          const IconData(
-                            0xe612,
-                            fontFamily: 'Iconfont',
-                          ),
-                          size: 40.w,
                         ),
                       ),
                     ),
                   ),
-
-                  // AppBar底部遮挡层
-                  Opacity(
-                    // opacity: 0.5,
-                    opacity: coverOpacity,
-                    child: Container(
-                      height: screenSize.height -
-                          (systemState.homescrollpixels +
-                              statusHeight +
-                              systemState.appbarHeight),
-                      child: null,
-                      color: theme.listTileTheme.tileColor!,
-                    ),
-                  )
-                ],
-              ),
-            ),
+                ),
+              )
+            ],
           ),
-        ),
+        )
       ],
     );
   }

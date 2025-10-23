@@ -51,8 +51,27 @@ class _LJNPublisherState extends State<LJNPublisherPage> {
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: LJNAppBar(
-        title: l10n.tabbar_label_publisher,
-      ),
+          title: l10n.tabbar_label_publisher,
+          leading: SizedBox(),
+          actions: [
+            GestureDetector(
+              onTap: () {
+                // setState(() => _showPopup = !_showPopup);
+              },
+              child: Container(
+                color: Colors.transparent,
+                height: 90.w,
+                padding: EdgeInsets.only(right: 33.w),
+                alignment: Alignment.center,
+                child: Icon(
+                  color: theme.appBarTheme.titleTextStyle!.color,
+                  const IconData(0xe726, fontFamily: 'Iconfont'),
+                  size: 42.w,
+                ),
+              ),
+            ),
+            SizedBox(width: 7.w)
+          ]),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
