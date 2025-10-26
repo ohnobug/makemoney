@@ -148,41 +148,6 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       ],
                     ),
 
-                    // // 插件
-                    // LJNFunctionList(
-                    //   children: [
-                    //     LJNFunctionItem(
-                    //       title: Row(
-                    //         children: [
-                    //           SizedBox(
-                    //             width: 30.w,
-                    //           ),
-                    //           Text(
-                    //             l10n.plugins,
-                    //             style: TextStyle(
-                    //               height: 1.08,
-                    //               fontSize: fontSizeScale(32.0.w),
-                    //               
-                    //             ),
-                    //             maxLines: 1,
-                    //             overflow: TextOverflow.visible,
-                    //           ),
-                    //           Icon(
-                    //             const IconData(
-                    //               0xe610,
-                    //               fontFamily: 'Iconfont',
-                    //             ), // 使用的图标
-                    //             color: theme.colorScheme.onSurface, // 图标颜色
-                    //             size: 36.w, // 图标大小
-                    //           )
-                    //         ],
-                    //       ),
-                    //       link: '',
-                    //       showStyle: l10n.vigavigaKeyboardFeatureAskAI,
-                    //       underline: false,
-                    //     )
-                    //   ],
-                    // ),
 
                     // 关于Vigaviga 与 帮助与反馈
                     LJNFunctionList(
@@ -201,7 +166,8 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                             Navigator.of(context).pushNamed(
                               '/webview',
                               arguments: {
-                                'url': 'https://help.vigaviga.com', // Vue开发服务器地址
+                                'url':
+                                    'https://help.vigaviga.com', // Vue开发服务器地址
                                 'title': l10n.helpAndFeedback,
                               },
                             );
@@ -211,29 +177,59 @@ class _LJNSettingPage extends State<LJNSettingPage> {
                       ],
                     ),
 
-                    // 切换账号
-                    LJNFunctionList(children: [
-                      LJNMaxWidthButton(
-                        title: l10n.switchAccount,
-                        link: '',
-                        underline: false,
-                      ),
-                    ]),
+                    // 根据登录状态显示不同的按钮
+                    BlocBuilder<LJNUserCubit, UserState>(
+                      builder: (context, userState) {
+                        if (userState.isLoggedIn) {
+                          // 已登录状态：显示切换账号和退出登录
+                          return Column(
+                            children: [
+                              // 切换账号
+                              LJNFunctionList(children: [
+                                LJNMaxWidthButton(
+                                  title: l10n.switchAccount,
+                                  link: '/user/auth/switch_account',
+                                  underline: false,
+                                ),
+                              ]),
 
-                    // 退出登录
-                    LJNFunctionList(
-                      children: [
-                        LJNMaxWidthButton(
-                          title: l10n.logout,
-                          link: null,
-                          underline: false,
-                          onPressed: () {
-                            context.read<LJNUserCubit>().logout();
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, '/', (route) => false);
-                          },
-                        ),
-                      ],
+                              // 退出登录
+                              LJNFunctionList(
+                                children: [
+                                  LJNMaxWidthButton(
+                                    title: l10n.logout,
+                                    link: null,
+                                    underline: false,
+                                    onPressed: () {
+                                      context.read<LJNUserCubit>().logout();
+                                      context
+                                          .read<LJNSystemCubit>()
+                                          .updateMainTabIndex(4);
+                                      Navigator.pushNamedAndRemoveUntil(
+                                          context, '/', (route) => false);
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        } else {
+                          // 未登录状态：显示登录按钮
+                          return LJNFunctionList(
+                            children: [
+                              LJNMaxWidthButton(
+                                title: '登录/注册',
+                                link: null,
+                                underline: false,
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, '/user/auth/login');
+                                },
+                              ),
+                            ],
+                          );
+                        }
+                      },
                     ),
 
                     SizedBox(height: 100.w)

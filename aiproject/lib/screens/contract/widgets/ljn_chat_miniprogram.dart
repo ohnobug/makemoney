@@ -12,8 +12,13 @@ import 'package:vigaviga/widgets/ljn_miniprogram_button.dart';
 
 class LJNChatMiniProgram extends StatefulWidget {
   final Function reverse;
+  final double homescrollpixels;
 
-  const LJNChatMiniProgram({super.key, required this.reverse});
+  const LJNChatMiniProgram({
+    super.key,
+    required this.reverse,
+    required this.homescrollpixels,
+  });
 
   @override
   State<LJNChatMiniProgram> createState() => _LJNChatMiniProgram();
@@ -52,7 +57,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
             //     _scrollController.jumpTo(0);
             //     context
             //         .read<LJNSystemCubit>()
-            //         .updateShowMiniProgramDrawer(false);
+            //         .updateshowHomeTabbar(false);
             //   });
             // });
           }
@@ -82,9 +87,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
 
         double miniprogramboxScale = 0.8 +
             (0.2 *
-                ((systemState.homescrollpixels +
-                        systemState.statusHeight -
-                        400.w) /
+                ((widget.homescrollpixels + systemState.statusHeight - 400.w) /
                     (MediaQuery.of(context).size.height -
                         newAppbarHeight -
                         400.w)));
@@ -96,7 +99,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
 
         return Container(
           width: 750.w,
-          height: systemState.homescrollpixels +
+          height: widget.homescrollpixels +
               (systemState.appbarHeight + systemState.statusHeight + 200.w),
           color: Color.fromARGB(
             (255 * 0.2).toInt(),

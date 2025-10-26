@@ -200,7 +200,7 @@ class _LJNMyMessage extends State<LJNMyVoiceMessage>
                 onTap: () {
                   Navigator.pushNamed(
                     context,
-                    '/friendprofile',
+                    '/chat/friend_profile',
                     arguments: <String, String>{
                       'name': context.read<LJNUserCubit>().state.userinfoName!,
                       'avatar':

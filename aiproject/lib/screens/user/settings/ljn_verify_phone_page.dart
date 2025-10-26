@@ -46,25 +46,13 @@ class _LJNVerifyPhonePage extends State<LJNVerifyPhonePage> {
               appBar: LJNAppBar(
                 title: l10n.verifyPhoneNumber,
                 actions: [
-                  GestureDetector(
+                  LJNAppBarActionTextButton(
                     onTap: () {
-                      Navigator.pushNamed(context, '/settings/security/bind_phone');
+                      Navigator.pushNamed(
+                          context, '/settings/security/bind_phone');
                     },
-                    child: Container(
-                      color: Colors.transparent,
-                      height: 90.w,
-                      padding: EdgeInsets.only(right: 40.w),
-                      alignment: Alignment.center,
-                      child: Text(
-                        l10n.nextStep,
-                        // textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: theme.colorScheme.onSurface,
-                          fontSize: 32.w,
-                        ),
-                      ),
-                    ),
-                  )
+                    title: l10n.nextStep,
+                  ),
                 ],
               ),
               body: ScrollConfiguration(
@@ -93,7 +81,6 @@ class _LJNVerifyPhonePage extends State<LJNVerifyPhonePage> {
                             l10n.phoneNumberBindingDescriptionFull,
                             style: TextStyle(
                               fontSize: 26.0.w,
-                              
                               color: AppColors.neutralGrey58,
                             ),
                           ),

@@ -23,16 +23,12 @@ class LJNAliPaySuccessPage extends StatelessWidget {
           title: "",
           leading: SizedBox(),
           actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                '完成',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30.w,
-                ),
-              ),
-            )
+            LJNAppBarActionTextButton(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              title: '完成',
+            ),
           ],
         ),
         body: ColoredBox(

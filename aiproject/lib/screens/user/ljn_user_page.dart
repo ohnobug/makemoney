@@ -45,8 +45,7 @@ class _LJNUserPageState extends State<LJNUserPage>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        context.read<LJNSystemCubit>().updateHomescrollpixels(0);
-        context.read<LJNSystemCubit>().updateShowMiniProgramDrawer(false);
+        context.read<LJNSystemCubit>().updateShowHomeTabbar(true);
         context.read<LJNSystemCubit>().updateMainpage5isload(true);
       }
     });
@@ -94,7 +93,6 @@ class _LJNUserPageState extends State<LJNUserPage>
               backgroundColor: theme.cardColor,
               flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.parallax,
-                // [核心修改] 使用 BlocBuilder 来根据登录状态切换UI
                 background: BlocBuilder<LJNUserCubit, UserState>(
                   builder: (context, userState) {
                     if (userState.isLoggedIn) {

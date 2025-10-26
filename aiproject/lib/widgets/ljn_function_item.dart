@@ -125,19 +125,19 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
             if (widget.icon != null) ...[
               // 头像
               Container(
-                width: 50.0.w,
-                height: 50.0.w,
+                width: 55.0.w,
+                height: 55.0.w,
                 margin: widget.margin ??
                     const EdgeInsets.only(
-                      left: 30.0,
-                      right: 0.0,
+                      left: 25.0,
+                      right: 5.0,
                     ).w,
                 child: ClipRRect(
                   borderRadius: BorderRadiusGeometry.circular(25.w),
                   child: LJNAppNetworkImage(
                     imageUrl: widget.icon!,
-                    width: 50.w,
-                    height: 50.w,
+                    width: 55.w,
+                    height: 55.w,
                     fit: BoxFit.cover,
                   ),
                 ),

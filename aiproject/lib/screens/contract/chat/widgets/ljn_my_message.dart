@@ -115,7 +115,7 @@ class _LJNMyMessage extends State<LJNMyMessage> {
               // 头像
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/chat/friend/profile',
+                  Navigator.pushNamed(context, '/chat/friend_profile',
                       arguments: <String, String>{
                         'name':
                             context.read<LJNUserCubit>().state.userinfoName!,

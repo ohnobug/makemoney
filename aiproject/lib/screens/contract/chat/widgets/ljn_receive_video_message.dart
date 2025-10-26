@@ -182,7 +182,7 @@ class _LJNReceiveVideoMessage extends State<LJNReceiveVideoMessage> {
                 onTap: () {
                   Navigator.pushNamed(
                     context,
-                    '/friendprofile',
+                    '/chat/friend_profile',
                     arguments: <String, String>{
                       'name': widget.name,
                       'avatar': widget.friendAvatar,

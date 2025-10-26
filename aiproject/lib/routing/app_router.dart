@@ -68,12 +68,13 @@ import 'package:vigaviga/screens/user/services/ljn_services_page.dart';
 import 'package:vigaviga/screens/user/services/ljn_services_manager_page.dart';
 import 'package:vigaviga/screens/user/ljn_user_more_info_page.dart';
 import 'package:vigaviga/screens/user/ljn_userinfo_page.dart';
-import 'package:vigaviga/screens/author/ljn_author_detail_page.dart';
+import 'package:vigaviga/screens/arts/ljn_author_detail_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_wallet_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_bill_details_page.dart';
 import 'package:vigaviga/screens/user/wallet/ljn_change_details_page.dart';
 import 'package:vigaviga/screens/user/follow/ljn_follow_page.dart';
 import 'package:vigaviga/screens/user/like/ljn_like_page.dart';
+import 'package:vigaviga/screens/user/auth/ljn_switch_account_page.dart';
 import 'package:vigaviga/screens/user/auth/ljn_login_page.dart';
 import 'package:vigaviga/screens/user/auth/ljn_register_page.dart';
 import 'package:vigaviga/screens/user/auth/ljn_forgot_password_page.dart';
@@ -151,7 +152,10 @@ class AppRouter {
         return pageRouteBuilderAnimation(const LJNAccountInfoPage()); // 账号信息页面
       case '/settings/change_account':
         return pageRouteBuilderAnimation(
-            const LJNChangeAccountPage()); // 切换账号页面
+            const LJNChangeAccountPage()); // 切换账号验证页面
+      case '/user/auth/switch_account':
+        return pageRouteBuilderAnimation(
+            const LJNSwitchAccountPage()); // 切换账号列表页面
       case '/settings/phone_number':
         return pageRouteBuilderAnimation(const LJNPhoneNumberPage()); // 手机号码页面
       case '/settings/phone_contact':
@@ -201,7 +205,8 @@ class AppRouter {
       case '/settings/about':
         return pageRouteBuilderAnimation(const LJNAboutPage()); // 关于页面
       case '/settings/feature_introduction':
-        return pageRouteBuilderAnimation(const LJNFeatureIntroductionPage()); // 功能介绍页面
+        return pageRouteBuilderAnimation(
+            const LJNFeatureIntroductionPage()); // 功能介绍页面
       case '/settings/complain':
         return pageRouteBuilderAnimation(const LJNComplainPage()); // 投诉反馈页面
       case '/settings/friend_permission':

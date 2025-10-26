@@ -2879,7 +2879,7 @@ abstract class AppLocalizations {
   /// No description provided for @startGroupChat.
   ///
   /// In en, this message translates to:
-  /// **'Start a Group Chat'**
+  /// **'New Group'**
   String get startGroupChat;
 
   /// Label for displaying a yield rate

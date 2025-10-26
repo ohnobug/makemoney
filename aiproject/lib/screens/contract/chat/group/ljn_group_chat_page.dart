@@ -901,28 +901,15 @@ class _LJNGroupChat extends State<LJNGroupChat>
                   LJNAppBar(
                     title: widget.title,
                     actions: [
-                      GestureDetector(
+                      LJNAppBarActionIconButton(
+                        iconData: const IconData(0xe659, fontFamily: 'Iconfont'),
                         onTap: () {
-                          // 点击事件
                           Navigator.pushNamed(
                             context,
                             '/chat/group_message_record',
                           );
                         },
-                        child: Container(
-                          height: 90.w,
-                          color: Colors.transparent,
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                          child: Icon(
-                            const IconData(
-                              0xe659,
-                              fontFamily: 'Iconfont',
-                            ),
-                            size: 37.w, // 图标大小
-                          ),
-                        ),
-                      )
+                      ),
                     ],
                   ),
 

@@ -238,7 +238,7 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroupPage> {
                     ),
                     SizedBox(width: 8.0.w),
                     Text(
-                      l10n.added, // <-- 从最新的 l10n 获取文本
+                      l10n.added,
                       style: TextStyle(
                         height: 1.08,
                         fontSize: fontSizeScale(25.0.w),
@@ -247,11 +247,11 @@ class _LJNContactTagGroupState extends State<LJNContactTagGroupPage> {
                     ),
                   ],
                 )
-              : l10n.expired, // <-- 从最新的 l10n 获取文本
+              : l10n.expired,
           onPressed: () {
             Navigator.pushNamed(
               context,
-              '/friendprofile',
+              '/chat/friend_profile',
               arguments: <String, String>{
                 'name': itemData.name,
                 'nickname': itemData.name,

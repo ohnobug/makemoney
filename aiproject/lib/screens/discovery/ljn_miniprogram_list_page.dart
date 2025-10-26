@@ -195,31 +195,13 @@ class _LJNMiniProgramList extends State<LJNMiniProgramListPage> {
           appBar: LJNAppBar(
             title: l10n.miniPrograms,
             actions: [
-              GestureDetector(
+              LJNAppBarActionIconButton(
+                iconData: const IconData(0xe612, fontFamily: 'Iconfont'),
                 onTap: () {},
-                child: Container(
-                  color: Colors.transparent,
-                  height: 90.w,
-                  padding: EdgeInsets.only(right: 33.w),
-                  alignment: Alignment.center,
-                  child: Icon(
-                    const IconData(0xe612, fontFamily: 'Iconfont'),
-                    size: 40.w,
-                  ),
-                ),
               ),
-              GestureDetector(
+              LJNAppBarActionIconButton(
+                iconData: const IconData(0xe726, fontFamily: 'Iconfont'),
                 onTap: () {},
-                child: Container(
-                  color: Colors.transparent,
-                  height: 90.w,
-                  padding: EdgeInsets.only(right: 40.w),
-                  alignment: Alignment.center,
-                  child: Icon(
-                    const IconData(0xe726, fontFamily: 'Iconfont'),
-                    size: 42.w,
-                  ),
-                ),
               ),
             ],
           ),

@@ -12,7 +12,7 @@ import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_function_button.dart';
 import 'package:vigaviga/widgets/ljn_function_buttons_section.dart';
-import 'package:vigaviga/widgets/ljn_action_sheet.dart';
+import 'package:vigaviga/tools/ljn_action_sheet.dart';
 
 ///
 /// 服务页面
@@ -43,7 +43,7 @@ class LJNServicesPage extends StatelessWidget {
                   // 传入一个操作列表
                   actions: [
                     LJNActionSheetAction(
-                      text: l10n.serviceManagement,
+                      text: Text(l10n.serviceManagement),
                       onPressed: () {
                         Navigator.pushNamed(context, '/user/services_manager');
                       },

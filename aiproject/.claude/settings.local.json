@@ -48,7 +48,12 @@
       "Bash(npm run build)",
       "Bash(flutter analyze lib/features/webview/ljn_webview_page.dart)",
       "Bash(flutter analyze lib/screens/user/settings/ljn_setting_page.dart)",
-      "Bash(flutter analyze lib/features/webview/ljn_web_browser_page.dart)"
+      "Bash(flutter analyze lib/features/webview/ljn_web_browser_page.dart)",
+      "Bash(flutter analyze lib/features/dialog/ljn_dialog_service.dart --no-fatal-infos)",
+      "Bash(flutter analyze lib/tools/dialog/ljn_dialog_service.dart --no-fatal-infos)",
+      "Bash(flutter analyze lib/screens/user/settings/ljn_switch_account_page.dart)",
+      "Bash(flutter analyze lib/screens/user/settings/ljn_switch_account_page.dart lib/models/ljn_account_model.dart lib/routing/app_router.dart lib/screens/user/settings/ljn_setting_page.dart)",
+      "Bash(flutter analyze lib/routing/app_router.dart lib/screens/user/settings/ljn_setting_page.dart)"
     ],
     "deny": [],
     "ask": []

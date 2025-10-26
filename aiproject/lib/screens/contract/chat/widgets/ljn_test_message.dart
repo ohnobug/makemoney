@@ -145,7 +145,7 @@ class _LJNTestMessage extends State<LJNTestMessage>
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        '/friendprofile',
+                        '/chat/friend_profile',
                         arguments: <String, String>{
                           'name': userState.userinfoName!,
                           'avatar': userState.userinfoAvatar!,

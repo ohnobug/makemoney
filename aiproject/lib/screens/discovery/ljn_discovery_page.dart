@@ -6,11 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_function_item.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:vigaviga/widgets/ljn_section_header.dart';
+import 'package:vigaviga/tools/dialog/ljn_dialog_service.dart';
 
 // Data model for trend items
 class TrendItem {
@@ -135,35 +137,43 @@ class _LJNDiscoveryPageState extends State<LJNDiscoveryPage> {
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       primary: false,
-      appBar: null,
-      // 使用 SafeArea 来确保内容不会被系统UI（如状态栏）遮挡
-      body: SafeArea(
-        // 使用 ListView 来组织页面内容
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.only(
-            top: systemState.appbarHeight,
-            bottom: 50.w,
+      appBar: LJNAppBar(
+        title: l10n.tabbar_label_discover,
+        leading: SizedBox(),
+        actions: [
+          // 点击出来弹窗
+          LJNAppBarActionIconButton(
+            iconData: const IconData(0xe726, fontFamily: 'Iconfont'),
+            onTap: () {
+              showPopupMenu(context);
+            },
           ),
-          children: [
-            // 搜索框
-            _buildSearchBar(theme),
-            // Banner
-            _buildBanner(),
-            // 【间距调整】
-            SizedBox(height: 50.w),
-            // 服务与功能
-            _buildServicesSection(theme, l10n, systemState),
-            // 【间距调整】
-            SizedBox(height: 50.w),
-            // 热门趋势
-            _buildTrendingSection(theme),
-            // 【间距调整】
-            SizedBox(height: 50.w),
-            // 【核心改动】调用新的“热门分类”构建方法
-            _buildHotCategoriesSection(theme),
-          ],
+        ],
+      ),
+      // 使用 SafeArea 来确保内容不会被系统UI（如状态栏）遮挡
+      body: ListView(
+        physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.only(
+          bottom: 50.w,
         ),
+        children: [
+          // 搜索框
+          _buildSearchBar(theme),
+          // Banner
+          _buildBanner(),
+          // 【间距调整】
+          SizedBox(height: 50.w),
+          // 服务与功能
+          _buildServicesSection(theme, l10n, systemState),
+          // 【间距调整】
+          SizedBox(height: 50.w),
+          // 热门趋势
+          _buildTrendingSection(theme),
+          // 【间距调整】
+          SizedBox(height: 50.w),
+          // 【核心改动】调用新的“热门分类”构建方法
+          _buildHotCategoriesSection(theme),
+        ],
       ),
     );
   }

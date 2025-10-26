@@ -71,6 +71,7 @@ class _LJNPopupMenuItemState extends State<LJNPopupMenuItem> {
         color: currentColor,
         child: Row(
           children: [
+            SizedBox(width: 10.w),
             // icon
             SizedBox(
               height: 105.w,

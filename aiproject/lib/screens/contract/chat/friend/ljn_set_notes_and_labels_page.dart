@@ -64,32 +64,12 @@ class _LJNSetNotesAndLabelsState extends State<LJNSetNotesAndLabelsPage> {
               ),
             ),
             actions: [
-              GestureDetector(
+              LJNAppBarActionTextButton(
                 onTap: () {
                   Navigator.pushNamed(context, '/settings/security/bind_phone');
                 },
-                child: Container(
-                  height: 60.w,
-                  constraints: BoxConstraints(minWidth: 98.w),
-                  margin: EdgeInsets.only(right: 30.w),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: AppColors.brandGreenVibrant3,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(8.w),
-                    ),
-                  ),
-                  child: Text(
-                    l10n.done,
-                    // textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: AppColors.neutralWhite,
-                      fontSize: 25.w,
-                      fontWeight: FontWeight.w100,
-                    ),
-                  ),
-                ),
-              )
+                title: l10n.done,
+              ),
             ],
           ),
           body: ColoredBox(

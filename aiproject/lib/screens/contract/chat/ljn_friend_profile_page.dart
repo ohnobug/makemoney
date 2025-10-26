@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_function_list.dart';
-import 'package:vigaviga/widgets/ljn_show_call_popup.dart';
+import 'package:vigaviga/tools/ljn_action_sheet.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_max_width_button.dart';
@@ -66,28 +66,15 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
             LJNAppBar(
               title: "",
               actions: [
-                GestureDetector(
+                LJNAppBarActionIconButton(
+                  iconData: const IconData(0xe659, fontFamily: 'Iconfont'),
                   onTap: () {
-                    // 点击事件
                     Navigator.pushNamed(
                       context,
                       '/chat/friend_data_setting',
                     );
                   },
-                  child: Container(
-                    height: 90.w,
-                    color: Colors.transparent,
-                    padding: EdgeInsets.only(right: 33.w), // 设置右侧内边距
-                    alignment: Alignment.center,
-                    child: Icon(
-                      const IconData(
-                        0xe659,
-                        fontFamily: 'Iconfont',
-                      ),
-                      size: 42.w, // 图标大小
-                    ),
-                  ),
-                )
+                ),
               ],
             ),
             Positioned(
@@ -550,7 +537,106 @@ class _LJNFriendProfile extends State<LJNFriendProfilePage>
                               ),
                               underline: false,
                               onPressed: () {
-                                showCallPopup(context, systemState);
+                                showLJNActionSheet(
+                                  context: context,
+                                  actions: [
+                                    LJNActionSheetAction(
+                                      text: Text.rich(
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        TextSpan(
+                                          children: [
+                                            WidgetSpan(
+                                              alignment:
+                                                  PlaceholderAlignment.middle,
+                                              style: const TextStyle(
+                                                decoration: TextDecoration.none,
+                                              ),
+                                              child: Baseline(
+                                                baseline: 31.w,
+                                                baselineType:
+                                                    TextBaseline.alphabetic,
+                                                child: Icon(
+                                                  const IconData(
+                                                    0xe64f,
+                                                    fontFamily: 'Iconfont',
+                                                  ),
+                                                  color: theme
+                                                      .colorScheme.onSurface,
+                                                  size: 40.w,
+                                                ),
+                                              ),
+                                            ),
+                                            WidgetSpan(
+                                              child: SizedBox(width: 20.w),
+                                            ),
+                                            TextSpan(
+                                              text: l10n.videoCall,
+                                              style: TextStyle(
+                                                height: 1.08,
+                                                fontSize: 30.w,
+                                                decoration: TextDecoration.none,
+                                                color:
+                                                    theme.colorScheme.onSurface,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, '/video_player');
+                                      },
+                                    ),
+                                    LJNActionSheetAction(
+                                      text: Text.rich(
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        TextSpan(children: [
+                                          WidgetSpan(
+                                            alignment:
+                                                PlaceholderAlignment.middle,
+                                            style: const TextStyle(
+                                              decoration: TextDecoration.none,
+                                            ),
+                                            child: Baseline(
+                                              baseline: 31.w,
+                                              baselineType:
+                                                  TextBaseline.alphabetic,
+                                              child: Icon(
+                                                const IconData(
+                                                  0xe64c,
+                                                  fontFamily: 'Iconfont',
+                                                ),
+                                                color:
+                                                    theme.colorScheme.onSurface,
+                                                size: 40.w,
+                                              ),
+                                            ),
+                                          ),
+                                          WidgetSpan(
+                                            child: SizedBox(width: 20.w),
+                                          ),
+                                          TextSpan(
+                                            text: l10n.voiceCall,
+                                            style: TextStyle(
+                                              height: 1.08,
+                                              fontSize: 30.w,
+                                              decoration: TextDecoration.none,
+                                              color:
+                                                  theme.colorScheme.onSurface,
+                                            ),
+                                          ),
+                                        ]),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, '/chat/dial');
+                                      },
+                                    ),
+                                  ],
+                                  cancelButtonText: l10n.cancel,
+                                );
                               },
                             ),
                           ],

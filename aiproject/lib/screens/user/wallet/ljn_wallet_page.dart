@@ -42,25 +42,12 @@ class _LJNWalletPage extends State<LJNWalletPage> {
       appBar: LJNAppBar(
         title: l10n.wallet,
         actions: [
-          GestureDetector(
+          LJNAppBarActionTextButton(
             onTap: () {
               Navigator.pushNamed(context, '/user/wallet/bill_details');
             },
-            child: Container(
-              color: Colors.transparent,
-              padding: EdgeInsets.only(right: 40.w),
-              alignment: Alignment.center,
-              child: Text(
-                l10n.bill,
-                style: TextStyle(
-                  // height: 1.08,
-                  color: theme.colorScheme.onSurface,
-                  fontSize: fontSizeScale(32.w),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          )
+            title: l10n.bill,
+          ),
         ],
       ),
       body: Container(

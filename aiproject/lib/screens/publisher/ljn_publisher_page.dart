@@ -6,8 +6,8 @@ import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/widgets/ljn_page_loading.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vigaviga/tools/dialog/ljn_dialog_service.dart';
 
-// [修复点 1] 将 LJNPublisherPage 转换为 StatefulWidget
 class LJNPublisherPage extends StatefulWidget {
   const LJNPublisherPage({super.key});
 
@@ -15,17 +15,13 @@ class LJNPublisherPage extends StatefulWidget {
   State<LJNPublisherPage> createState() => _LJNPublisherState();
 }
 
-// [修复点 2] 创建对应的 State 类
 class _LJNPublisherState extends State<LJNPublisherPage> {
   @override
   void initState() {
     super.initState();
 
-    // 在 initState 中不能直接使用 context.read，需要延迟到第一帧绘制后
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // mounted 检查是好习惯，确保 Widget 仍在树中
       if (mounted) {
-        // [修复点 3] 统一使用 mainpage3isload
         context.read<LJNSystemCubit>().updateMainpage3isload(true);
       }
     });
@@ -51,8 +47,17 @@ class _LJNPublisherState extends State<LJNPublisherPage> {
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: LJNAppBar(
-        title: l10n.tabbar_label_publisher,
-      ),
+          title: l10n.tabbar_label_publisher,
+          leading: SizedBox(),
+          actions: [
+            // 点击出来弹窗
+            LJNAppBarActionIconButton(
+              iconData: const IconData(0xe726, fontFamily: 'Iconfont'),
+              onTap: () {
+                showPopupMenu(context);
+              },
+            ),
+          ]),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),

@@ -32,6 +32,7 @@ class _LJNArtsPageState extends State<LJNArtsPage>
 
   bool _isPanelOpen = false;
   bool _isCommentPanel = false;
+  bool _hideVideoInfo = false;
 
   final List<CommentData> _comments = [
     CommentData(
@@ -78,9 +79,12 @@ class _LJNArtsPageState extends State<LJNArtsPage>
       value: 1.0,
     );
 
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light));
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
 
     _systemCubit = context.read<LJNSystemCubit>();
     _videoControllers = {};
@@ -177,7 +181,7 @@ class _LJNArtsPageState extends State<LJNArtsPage>
       controller.dispose();
     });
     _systemCubit.updateVideoProgress(progress: 0.0, show: false);
-    _systemCubit.updateShowCommentsPanel(false);
+    _systemCubit.updateShowHomeTabbar(true);
     _scrollableController.dispose();
     _videoAnimationController.dispose();
     super.dispose();
@@ -192,11 +196,12 @@ class _LJNArtsPageState extends State<LJNArtsPage>
 
   void _showCommentsPanel() {
     _systemCubit.updateVideoProgress(show: false);
-    _systemCubit.updateShowCommentsPanel(true);
+    _systemCubit.updateShowHomeTabbar(false);
 
     setState(() {
       _isPanelOpen = true;
       _isCommentPanel = true;
+      _hideVideoInfo = true;
     });
 
     late Animation<double> transitionAnimation;
@@ -273,8 +278,9 @@ class _LJNArtsPageState extends State<LJNArtsPage>
         setState(() {
           _isPanelOpen = false;
           _isCommentPanel = false;
+          _hideVideoInfo = false;
           _systemCubit.updateVideoProgress(show: true);
-          _systemCubit.updateShowCommentsPanel(false);
+          _systemCubit.updateShowHomeTabbar(true);
         });
       });
     }
@@ -457,7 +463,7 @@ class _LJNArtsPageState extends State<LJNArtsPage>
                             ),
                           ),
                         ),
-                      if (!(_isPanelOpen && _isCommentPanel))
+                      if (!_hideVideoInfo)
                         Stack(
                           children: [
                             Positioned(
