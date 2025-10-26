@@ -90,10 +90,10 @@ import 'package:vigaviga/screens/publisher/ai_publisher_page.dart';
 import 'package:vigaviga/screens/publisher/ljn_resource_publisher_page.dart';
 import 'package:vigaviga/features/payment/screens/ljn_alipay_success_page.dart';
 import 'package:vigaviga/features/payment/screens/ljn_payment_demo_page.dart';
-import 'package:vigaviga/screens/user/settings/account_and_security/verification_page.dart';
-import 'package:vigaviga/screens/user/settings/account_and_security/change_account.dart';
-import 'package:vigaviga/screens/user/settings/account_and_security/change_phone.dart';
-import 'package:vigaviga/screens/user/settings/account_and_security/country.dart';
+import 'package:vigaviga/screens/user/settings/account_and_security/ljn_verification_page.dart';
+import 'package:vigaviga/screens/user/settings/account_and_security/ljn_change_account.dart';
+import 'package:vigaviga/screens/user/settings/account_and_security/ljn_change_phone.dart';
+import 'package:vigaviga/screens/user/settings/account_and_security/ljn_country.dart';
 
 
 class AppRouter {
