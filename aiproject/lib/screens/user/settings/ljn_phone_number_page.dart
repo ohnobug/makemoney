@@ -165,7 +165,7 @@ class _LJNPhoneNumberPage extends State<LJNPhoneNumberPage> {
                               title: l10n.changePhoneNumber,
                               // color: AppColors.neutralWhite,
                               // backgroundColor: AppColors.brandGreenVibrant5,
-                              link: "/verify_phone",
+                              link: "/change_phone",
                               readonly: false,
                             ),
                           ],

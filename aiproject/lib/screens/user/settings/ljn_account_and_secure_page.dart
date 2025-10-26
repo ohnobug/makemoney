@@ -87,24 +87,24 @@ class _LJNAaccountAndSecure extends State<LJNAccountAndSecurePage> {
                               underline: true,
                             ),
                             // 声音锁
-                            LJNFunctionItem(
+                            /* LJNFunctionItem(
                               icon: "$cdnBase/avatar/02.png",
                               title: l10n.voiceprint,
                               link: '/settings/sound_lock',
                               underline: false,
-                            ),
+                            ), */
                           ],
                         ),
 
                         // 应急联系人
                         LJNFunctionList(
                           children: [
-                            LJNFunctionItem(
+                            /* LJNFunctionItem(
                               icon: "$cdnBase/avatar/02.png",
                               title: l10n.emergencyContacts,
                               link: '/settings/emergency_contact',
                               underline: true,
-                            ),
+                            ), */
                             // 登录过的设备
                             LJNFunctionItem(
                               icon: "$cdnBase/avatar/02.png",
