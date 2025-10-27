@@ -4,10 +4,9 @@ services:
     image: mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: Vigaviga2026
       MYSQL_DATABASE: viga
-      # 创建一个名为 viga_user 的用户
-      MYSQL_USER: user
+      MYSQL_USER: vigaviga
     ports:
       - "3306:3306"
     volumes:

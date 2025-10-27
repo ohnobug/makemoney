@@ -28,3 +28,4 @@ jose
 aiosmtplib==2.0.1 
 aioredis==2.0.1
 redis==5.2.0
+boto3
