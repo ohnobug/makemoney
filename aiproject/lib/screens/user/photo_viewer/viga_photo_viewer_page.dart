@@ -58,7 +58,6 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
 
   // --- 手势处理 ---
 
-  // 【改动 1】方法名从 onVerticalDragStart 改为 onPanStart
   void _onPanStart(DragStartDetails details) {
     if (_currentState == ViewerState.idle) {
       setState(() {
@@ -67,14 +66,11 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
     }
   }
 
-  // 【改动 2】方法名从 onVerticalDragUpdate 改为 onPanUpdate
   void _onPanUpdate(DragUpdateDetails details) {
     if (_currentState != ViewerState.dragging) return;
     setState(() {
-      // 【核心改动】让 _dragOffset 接收完整的 delta (包含 dx 和 dy)
       _dragOffset += details.delta;
 
-      // 【保持不变】计算缩放比例的逻辑，依然只依赖垂直拖拽距离
       final verticalDragDistance = _dragOffset.dy.abs();
       final screenHeight = MediaQuery.of(context).size.height;
       final ratio = (verticalDragDistance / (screenHeight / 3)).clamp(0.0, 1.0);
@@ -82,11 +78,9 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
     });
   }
 
-  // 【改动 3】方法名从 onVerticalDragEnd 改为 onPanEnd
   void _onPanEnd(DragEndDetails details) {
     if (_currentState != ViewerState.dragging) return;
 
-    // 结束逻辑完全不变
     if (_dragScale < 0.8 || details.primaryVelocity!.abs() > 500) {
       Navigator.of(context).pop();
     } else {
@@ -125,13 +119,6 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
 
   @override
   Widget build(BuildContext context) {
-    final Offset currentOffset = _currentState == ViewerState.animating
-        ? _offsetAnimation.value
-        : _dragOffset;
-    final double currentScale = _currentState == ViewerState.animating
-        ? _scaleAnimation.value
-        : _dragScale;
-
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -146,21 +133,32 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
                 Navigator.of(context).pop();
               }
             },
-            // 【改动 4】将手势回调绑定到 onPan 系列
             onPanStart: _onPanStart,
             onPanUpdate: _onPanUpdate,
             onPanEnd: _onPanEnd,
+            // 【核心修正】将计算偏移和缩放的逻辑移入 AnimatedBuilder 的 builder 内部
             child: AnimatedBuilder(
               animation: _animationController,
               builder: (context, child) {
+                // 在这里计算，保证动画每一帧都能获取最新值
+                final Offset currentOffset =
+                    _currentState == ViewerState.animating
+                        ? _offsetAnimation.value
+                        : _dragOffset;
+                final double currentScale =
+                    _currentState == ViewerState.animating
+                        ? _scaleAnimation.value
+                        : _dragScale;
+
                 return Transform.translate(
                   offset: currentOffset,
                   child: Transform.scale(
                     scale: currentScale,
-                    child: child,
+                    child: child, // child 就是下面的 _buildPageView()
                   ),
                 );
               },
+              // 这个 child 不会随着动画重建，提高了性能
               child: _buildPageView(),
             ),
           ),
@@ -195,14 +193,11 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
               ) {
                 final toHero = toHeroContext.widget as Hero;
                 if (flightDirection == HeroFlightDirection.pop) {
-                  // 【重要】您之前的修改，这里应该是 cover 才能解决形变问题
-                  return ClipRect(
-                    child: Image.network(
-                      widget.imageSources[index],
-                      width: widget.initialRect.width,
-                      height: widget.initialRect.height,
-                      fit: BoxFit.cover,
-                    ),
+                  return Image.network(
+                    widget.imageSources[index],
+                    width: widget.initialRect.width,
+                    height: widget.initialRect.height,
+                    fit: BoxFit.contain,
                   );
                 }
                 return toHero.child;
