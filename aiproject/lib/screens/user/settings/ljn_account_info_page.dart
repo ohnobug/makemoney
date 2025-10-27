@@ -111,7 +111,7 @@ class _LJNAccountInfoPage extends State<LJNAccountInfoPage> {
                       padding: EdgeInsets.only(bottom: 180.w),
                       child: LJNChangeAccountButton(
                         title: l10n.changeVigavigaID,
-                        link: "/change_account",
+                        link: "/verification",
                       ),
                     )
                   ],

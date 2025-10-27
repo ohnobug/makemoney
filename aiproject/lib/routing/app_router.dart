@@ -90,6 +90,11 @@ import 'package:vigaviga/screens/publisher/ai_publisher_page.dart';
 import 'package:vigaviga/screens/publisher/ljn_resource_publisher_page.dart';
 import 'package:vigaviga/features/payment/screens/ljn_alipay_success_page.dart';
 import 'package:vigaviga/features/payment/screens/ljn_payment_demo_page.dart';
+import 'package:vigaviga/screens/user/settings/account_and_security/ljn_verification_page.dart';
+import 'package:vigaviga/screens/user/settings/account_and_security/ljn_change_account.dart';
+import 'package:vigaviga/screens/user/settings/account_and_security/ljn_change_phone.dart';
+import 'package:vigaviga/screens/user/settings/account_and_security/ljn_country.dart';
+
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -120,13 +125,23 @@ class AppRouter {
       case '/resource_publisher':
         return pageRouteBuilderNotAnimation(
             const LJNResourceSearchPage()); // 资源发布搜索页面
-
+      case '/verification':
+        return pageRouteBuilderNotAnimation(
+            const VerificationPage());
+      case '/change_phone':
+        return pageRouteBuilderNotAnimation(
+            const ChangePhoneNumberScreen());
+      case '/change_account':
+        return pageRouteBuilderNotAnimation(
+            const ChangeAccount());
+      case '/country':
+        return pageRouteBuilderNotAnimation(
+            const SelectCountryPage());
       case '/discovery/qrcode_scanner':
         return pageRouteBuilderNotAnimation(
             const LJNQRCodeScanner()); // 二维码扫描页面
       case '/video_player':
         return pageRouteBuilderAnimation(const LJNVideoPage()); // 视频播放页面
-
       // 设置相关路由
       case '/settings':
         return pageRouteBuilderAnimation(const LJNSettingPage()); // 设置主页面
