@@ -58,7 +58,8 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
 
   // --- 手势处理 ---
 
-  void _onVerticalDragStart(DragStartDetails details) {
+  // 【改动 1】方法名从 onVerticalDragStart 改为 onPanStart
+  void _onPanStart(DragStartDetails details) {
     if (_currentState == ViewerState.idle) {
       setState(() {
         _currentState = ViewerState.dragging;
@@ -66,19 +67,26 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
     }
   }
 
-  void _onVerticalDragUpdate(DragUpdateDetails details) {
+  // 【改动 2】方法名从 onVerticalDragUpdate 改为 onPanUpdate
+  void _onPanUpdate(DragUpdateDetails details) {
     if (_currentState != ViewerState.dragging) return;
     setState(() {
+      // 【核心改动】让 _dragOffset 接收完整的 delta (包含 dx 和 dy)
       _dragOffset += details.delta;
+
+      // 【保持不变】计算缩放比例的逻辑，依然只依赖垂直拖拽距离
+      final verticalDragDistance = _dragOffset.dy.abs();
       final screenHeight = MediaQuery.of(context).size.height;
-      final ratio = (_dragOffset.dy.abs() / (screenHeight / 3)).clamp(0.0, 1.0);
+      final ratio = (verticalDragDistance / (screenHeight / 3)).clamp(0.0, 1.0);
       _dragScale = 1.0 - (ratio * 0.4); // 最小缩放到0.6倍
     });
   }
 
-  void _onVerticalDragEnd(DragEndDetails details) {
+  // 【改动 3】方法名从 onVerticalDragEnd 改为 onPanEnd
+  void _onPanEnd(DragEndDetails details) {
     if (_currentState != ViewerState.dragging) return;
 
+    // 结束逻辑完全不变
     if (_dragScale < 0.8 || details.primaryVelocity!.abs() > 500) {
       Navigator.of(context).pop();
     } else {
@@ -129,7 +137,8 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
       body: Stack(
         children: [
           Container(
-            color: Colors.black.withOpacity(_dragScale.clamp(0.4, 1.0)),
+            color: Colors.black
+                .withAlpha((_dragScale.clamp(0.4, 1.0) * 255).toInt()),
           ),
           GestureDetector(
             onTap: () {
@@ -137,9 +146,10 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
                 Navigator.of(context).pop();
               }
             },
-            onVerticalDragStart: _onVerticalDragStart,
-            onVerticalDragUpdate: _onVerticalDragUpdate,
-            onVerticalDragEnd: _onVerticalDragEnd,
+            // 【改动 4】将手势回调绑定到 onPan 系列
+            onPanStart: _onPanStart,
+            onPanUpdate: _onPanUpdate,
+            onPanEnd: _onPanEnd,
             child: AnimatedBuilder(
               animation: _animationController,
               builder: (context, child) {
@@ -176,7 +186,6 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
           itemBuilder: (context, index) {
             return Hero(
               tag: widget.imageSources[index],
-              // 【最终修复】在这里处理形变问题
               flightShuttleBuilder: (
                 flightContext,
                 animation,
@@ -185,18 +194,17 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
                 toHeroContext,
               ) {
                 final toHero = toHeroContext.widget as Hero;
-
-                // 当页面关闭时 (pop), 我们返回一个在动画过程中始终保持 BoxFit.cover 的 Image
                 if (flightDirection == HeroFlightDirection.pop) {
-                  return Image.network(
-                    widget.imageSources[index],
-                    width: widget.initialRect.width,
-                    height: widget.initialRect.height,
-                    fit: BoxFit.contain,
+                  // 【重要】您之前的修改，这里应该是 cover 才能解决形变问题
+                  return ClipRect(
+                    child: Image.network(
+                      widget.imageSources[index],
+                      width: widget.initialRect.width,
+                      height: widget.initialRect.height,
+                      fit: BoxFit.cover,
+                    ),
                   );
                 }
-
-                // 默认行为（打开时）
                 return toHero.child;
               },
               child: Center(
