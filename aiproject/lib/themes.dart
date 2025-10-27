@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/tools/viga_tools.dart';
 
 // Your AppColors class remains exactly the same...
 class AppColors {
   // ===========================================================================
-  // 核心品牌色 (映射为 紫/品红色系 - 源自 "VIGAVIGA" 字体和蜂鸟)
+  // 核心品牌色 (映射为 紫/品红色系 - 源自 "VigaViga" 字体和蜂鸟)
   // Core Brand Colors (Mapped to Purples/Magentas from logo text)
   // ===========================================================================
 

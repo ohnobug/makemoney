@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vigaviga/store/ljn_popup_cubit.dart';
-import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/store/viga_popup_cubit.dart';
+import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/app.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
-import 'package:vigaviga/store/ljn_user_cubit.dart';
-import 'package:vigaviga/store/ljn_payment_cubit.dart';
+import 'package:vigaviga/tools/viga_logger.dart';
+import 'package:vigaviga/store/viga_user_cubit.dart';
+import 'package:vigaviga/store/viga_payment_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,9 +38,9 @@ void main() async {
   );
 
   runApp(MultiBlocProvider(providers: [
-    BlocProvider(create: (_) => LJNSystemCubit()),
-    BlocProvider(create: (_) => LJNUserCubit()),
-    BlocProvider(create: (_) => LJNPopupCubit()),
-    BlocProvider(create: (_) => LJNPaymentCubit()),
+    BlocProvider(create: (_) => VigaSystemCubit()),
+    BlocProvider(create: (_) => VigaUserCubit()),
+    BlocProvider(create: (_) => VigaPopupCubit()),
+    BlocProvider(create: (_) => VigaPaymentCubit()),
   ], child: const App()));
 }
