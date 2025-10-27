@@ -59,7 +59,10 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
   // --- 手势处理 ---
 
   void _onPanStart(DragStartDetails details) {
-    if (_currentState == ViewerState.idle) {
+    if (_animationController.isAnimating) {
+      _animationController.stop();
+    }
+    if (_currentState != ViewerState.dragging) {
       setState(() {
         _currentState = ViewerState.dragging;
       });
@@ -81,9 +84,12 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
   void _onPanEnd(DragEndDetails details) {
     if (_currentState != ViewerState.dragging) return;
 
-    if (_dragScale < 0.8 || details.primaryVelocity!.abs() > 500) {
+    // 【核心修正】移除所有关于速度的判断，只根据拖拽后的缩放比例来决定。
+    if (_dragScale < 0.8) {
+      // 如果缩放小于0.8，则关闭页面
       Navigator.of(context).pop();
     } else {
+      // 否则，执行回弹动画
       _runSnapBackAnimation();
     }
   }
@@ -108,11 +114,13 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
         CurvedAnimation(parent: _animationController, curve: Curves.easeOut));
 
     _animationController.forward().whenComplete(() {
-      setState(() {
-        _dragOffset = Offset.zero;
-        _dragScale = 1.0;
-        _currentState = ViewerState.idle;
-      });
+      if (_currentState == ViewerState.animating) {
+        setState(() {
+          _dragOffset = Offset.zero;
+          _dragScale = 1.0;
+          _currentState = ViewerState.idle;
+        });
+      }
       _animationController.reset();
     });
   }
@@ -136,11 +144,9 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
             onPanStart: _onPanStart,
             onPanUpdate: _onPanUpdate,
             onPanEnd: _onPanEnd,
-            // 【核心修正】将计算偏移和缩放的逻辑移入 AnimatedBuilder 的 builder 内部
             child: AnimatedBuilder(
               animation: _animationController,
               builder: (context, child) {
-                // 在这里计算，保证动画每一帧都能获取最新值
                 final Offset currentOffset =
                     _currentState == ViewerState.animating
                         ? _offsetAnimation.value
@@ -154,11 +160,10 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
                   offset: currentOffset,
                   child: Transform.scale(
                     scale: currentScale,
-                    child: child, // child 就是下面的 _buildPageView()
+                    child: child,
                   ),
                 );
               },
-              // 这个 child 不会随着动画重建，提高了性能
               child: _buildPageView(),
             ),
           ),
