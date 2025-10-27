@@ -5,6 +5,7 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 import 'package:vigaviga/widgets/ljn_text_spans.dart';
 
 class ChatListItem extends StatefulWidget {
@@ -97,12 +98,10 @@ class _ChatListItem extends State<ChatListItem> {
                     ClipRRect(
                       borderRadius:
                           BorderRadius.circular(widget.avatarRadius ?? 8.0.w),
-                      child: Image.asset(
-                        assetPath(widget.avatar),
+                      child: LJNAppNetworkImage(
+                        imageUrl: widget.avatar,
                         width: 90.0.w,
                         height: 90.0.w,
-                        cacheHeight: 180.w.toInt(),
-                        cacheWidth: 180.w.toInt(),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -149,7 +148,6 @@ class _ChatListItem extends State<ChatListItem> {
                                     color: widget.notice
                                         ? AppColors.accentRedPure
                                         : theme.colorScheme.onSurface,
-                                    fontFamily: "AlibabaPuHuiTi",
                                   ),
                                   emojiStyle: TextStyle(
                                     height: 1.08,

@@ -96,7 +96,7 @@ class _LJNInputButtonState extends State<LJNInputButton> {
             color: fontColor,
             fontWeight: FontWeight.bold,
             fontSize: fontSizeScale(32.w),
-            fontFamily: "AlibabaPuHuiTi",
+            
           ),
         ),
       ),

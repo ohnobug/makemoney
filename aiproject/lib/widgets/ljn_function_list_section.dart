@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_text_spans.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 class LJNFunctionListSection extends StatelessWidget {
   final String title;
@@ -141,10 +142,8 @@ class _ChatListItemState extends State<LJNChatListItem> {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(95).w,
-              child: Image.asset(
-                assetPath(widget.avatar),
-                cacheWidth: 190.w.toInt(),
-                cacheHeight: 190.w.toInt(),
+              child: LJNAppNetworkImage(
+                imageUrl: widget.avatar,
                 width: 95.w,
                 height: 95.w,
                 fit: BoxFit.cover,
@@ -163,7 +162,6 @@ class _ChatListItemState extends State<LJNChatListItem> {
                       height: 1.08,
                       fontSize: fontSizeScale(28.0.w),
                       color: theme.colorScheme.onSurface,
-                      fontFamily: "AlibabaPuHuiTi",
                     ),
                     emojiStyle: TextStyle(
                       height: 1.08,

@@ -3,13 +3,11 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  emoji_picker_flutter
   file_selector_windows
+  flutter_inappwebview_windows
   permission_handler_windows
   record_windows
-  screen_retriever_windows
-  video_player_win
-  webview_windows
-  window_manager
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 class LJNFunctionItem extends StatefulWidget {
   final String? icon;
@@ -124,23 +125,24 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
             if (widget.icon != null) ...[
               // 头像
               Container(
-                width: 40.0.w,
-                height: 40.0.w,
+                width: 55.0.w,
+                height: 55.0.w,
                 margin: widget.margin ??
                     const EdgeInsets.only(
-                      left: 30.0,
-                      right: 0.0,
+                      left: 25.0,
+                      right: 5.0,
                     ).w,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  image: DecorationImage(
-                    image: AssetImage(
-                      assetPath(widget.icon!),
-                    ),
+                child: ClipRRect(
+                  borderRadius: BorderRadiusGeometry.circular(25.w),
+                  child: LJNAppNetworkImage(
+                    imageUrl: widget.icon!,
+                    width: 55.w,
+                    height: 55.w,
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
+
               SizedBox(width: 15.w)
             ],
             Expanded(
@@ -172,9 +174,8 @@ class _LJNFunctionItemState extends State<LJNFunctionItem> {
                                 style: TextStyle(
                                   height: 1.08,
                                   fontSize: fontSizeScale(32.0.w),
-                                  fontFamily: "AlibabaPuHuiTi",
                                 ),
-                                maxLines: 1,
+                                maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),

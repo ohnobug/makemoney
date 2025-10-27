@@ -506,7 +506,7 @@
   "address": "Address",
   "deviceInfo": "Device Info",
   "userInfoDuringUse": "User Info During Use",
-  "imagesAndVideos": "Images & Videos",
+  "$cdnBaseAndVideos": "$cdnBase & Videos",
   "socialAndContentInfo": "Social & Content Info",
   "status": "Status",
   "contactInfo": "Contact Info",
@@ -616,7 +616,7 @@
   "consumerProtection": "Consumer Protection",
   "taskCompleted": "Task Completed",
   "cancelDelayedTask": "Cancel Delayed Task",
-  "startGroupChat": "Start a Group Chat",
+  "startGroupChat": "New Group",
   "label_yield": "Yield: {value}",
   "@label_yield": {
     "description": "Label for displaying a yield rate",

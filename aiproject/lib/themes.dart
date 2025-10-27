@@ -255,7 +255,7 @@ class AppColors {
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
-  fontFamily: "AlibabaPuHuiTi",
+
   fontFamilyFallback: const ['Noto Sans SC'],
   dividerColor: AppColors.brandGreenLightest,
   colorScheme: ColorScheme.fromSeed(
@@ -289,8 +289,7 @@ ThemeData lightTheme = ThemeData(
       height: 1.08,
       fontSize: fontSizeScale(32.w),
       color: AppColors.neutralDarkGrey18,
-      fontWeight: FontWeight.bold,
-      fontFamily: "AlibabaPuHuiTi-Medium",
+      fontWeight: FontWeight.normal,
     ),
   ),
   tabBarTheme: TabBarThemeData(
@@ -400,6 +399,7 @@ ThemeData lightTheme = ThemeData(
         style: BorderStyle.solid,
       ),
     ),
+    titleTextStyle: const TextStyle(color: AppColors.neutralGrey62),
     tileColor: AppColors.neutralWhite,
     selectedTileColor: AppColors.brandGreenLightest,
     iconColor: AppColors.neutralDarkGrey1,
@@ -425,7 +425,7 @@ ThemeData lightTheme = ThemeData(
 ThemeData darkTheme = ThemeData(
   useMaterial3: true,
   brightness: Brightness.dark,
-  fontFamily: "AlibabaPuHuiTi",
+
   fontFamilyFallback: const ['Noto Sans SC'],
   dividerColor: AppColors.brandGreenDarker1,
   colorScheme: ColorScheme.fromSeed(
@@ -459,8 +459,7 @@ ThemeData darkTheme = ThemeData(
       height: 1.08,
       fontSize: fontSizeScale(32.w),
       color: AppColors.neutralGrey5,
-      fontWeight: FontWeight.bold,
-      fontFamily: "AlibabaPuHuiTi-Medium",
+      fontWeight: FontWeight.normal,
     ),
   ),
   tabBarTheme: TabBarThemeData(
@@ -570,6 +569,7 @@ ThemeData darkTheme = ThemeData(
         style: BorderStyle.solid,
       ),
     ),
+    titleTextStyle: const TextStyle(color: AppColors.neutralGrey68),
     tileColor: AppColors.brandGreenDarker2,
     selectedTileColor: AppColors.brandGreenDarker3,
     iconColor: AppColors.neutralGrey5,

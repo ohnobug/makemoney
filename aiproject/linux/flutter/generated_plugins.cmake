@@ -3,10 +3,9 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  emoji_picker_flutter
   file_selector_linux
   record_linux
-  screen_retriever_linux
-  window_manager
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

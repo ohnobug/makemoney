@@ -71,18 +71,18 @@ class LJNPopupCubit extends Cubit<PopupState> {
 
 // 系统状态
 class PopupState {
-  Size openBoxSize;
-  Offset openPosition;
-  String sourcePath;
-  bool showFullScreenVideo;
-  bool showFullScreenImage;
-  bool returnButtonEvent;
+  final Size openBoxSize;
+  final Offset openPosition;
+  final String? sourcePath; // <--- 修改 1: 字段类型变为可空
+  final bool showFullScreenVideo;
+  final bool showFullScreenImage;
+  final bool returnButtonEvent;
 
   // 构造函数
   PopupState({
     this.openBoxSize = const Size(0, 0),
     this.openPosition = const Offset(0, 0),
-    this.sourcePath = '',
+    this.sourcePath, // <--- 修改 2: 移除默认值, 它会自动默认为 null
     this.showFullScreenVideo = false,
     this.showFullScreenImage = false,
     this.returnButtonEvent = false,
@@ -92,7 +92,7 @@ class PopupState {
   PopupState copyWith({
     Size? openBoxSize,
     Offset? openPosition,
-    String? sourcePath,
+    String? sourcePath, // <--- 修改 3: 这里的类型已经是 String?，保持一致即可
     bool? showFullScreenVideo,
     bool? showFullScreenImage,
     bool? returnButtonEvent,

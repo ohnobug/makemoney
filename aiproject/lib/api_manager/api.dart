@@ -3,30 +3,33 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/store/ljn_popup_cubit.dart';
+import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_chatlist_item.dart';
 import 'package:vigaviga/widgets/ljn_contact_item.dart';
-import 'package:vigaviga/screens/chat/widgets/ljn_my_message.dart';
-import 'package:vigaviga/screens/chat/widgets/ljn_receive_message.dart';
-import 'package:vigaviga/screens/chat/widgets/ljn_receive_video_message.dart';
-import 'package:vigaviga/screens/chat/widgets/ljn_video_message.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/ljn_my_message.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/ljn_receive_message.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/ljn_receive_video_message.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/ljn_video_message.dart';
 
 // 得到最近聊天的列表
 List<ChatListItem> getChatItems(BuildContext context) {
+  String cdnBase = context.read<LJNSystemCubit>().state.cdnBase;
+
   return [
     ChatListItem(
       friendName: "花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数",
       notice: true,
       underline: true,
       message: "今天天气真好，阳光明媚，让人心情愉悦。",
-      avatar: "images/avatar_webp/chat_1.webp",
+      avatar: "$cdnBase/avatar/chat_1.jpg",
       lastedTime: "16:56",
       badge: 100,
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数",
-          'icon': "images/avatar_webp/chat_1.webp",
+          'icon': "$cdnBase/avatar/chat_1.jpg",
         });
         logger.info('花重月数被点击~');
       },
@@ -36,13 +39,13 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "[图片]",
-      avatar: "images/avatar/webwxgeticon.jpg",
+      avatar: "$cdnBase/avatar/webwxgeticon.jpg",
       lastedTime: "16:49",
       badge: -1,
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': AppLocalizations.of(context)!.fileTransferHelper,
-          'icon': "images/avatar/webwxgeticon.jpg",
+          'icon': "$cdnBase/avatar/webwxgeticon.jpg",
         });
         logger.info('文件传输助手~');
       },
@@ -52,13 +55,13 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "这个怎么样调试?",
-      avatar: "images/avatar/webwxgetheadimg.jpg",
+      avatar: "$cdnBase/avatar/webwxgetheadimg.jpg",
       lastedTime: "16:40",
       badge: 9,
       onPressed: () {
         Navigator.pushNamed(context, '/group_chat', arguments: <String, String>{
           'title': "华南理工大学 软件开发群",
-          'icon': "images/avatar/webwxgetheadimg.jpg",
+          'icon': "$cdnBase/avatar/webwxgetheadimg.jpg",
         });
         logger.info('华南理工大学 软件开发群被点击~');
       },
@@ -68,13 +71,13 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你最近过得如何？工作顺利吗？有没有遇到什么有趣的事情？",
-      avatar: "images/avatar_webp/chat_4.webp",
+      avatar: "$cdnBase/avatar/chat_4.jpg",
       lastedTime: "16:33",
       badge: -1,
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "邓子乔",
-          'icon': "images/avatar_webp/chat_4.webp",
+          'icon': "$cdnBase/avatar/chat_4.jpg",
         });
         logger.info('绿逾初夏被点击~');
       },
@@ -84,13 +87,13 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "今天上班/上学累吗？要注意休息哦。",
-      avatar: "images/avatar_webp/chat_5.webp",
+      avatar: "$cdnBase/avatar/chat_5.jpg",
       lastedTime: "16:25",
       badge: -1,
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "余笙南吟",
-          'icon': "images/avatar_webp/chat_5.webp",
+          'icon': "$cdnBase/avatar/chat_5.jpg",
         });
         logger.info('余笙南吟被点击~');
       },
@@ -100,13 +103,13 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "这个周末有什么计划？有没有想好去哪里玩？",
-      avatar: "images/avatar_webp/chat_6.webp",
+      avatar: "$cdnBase/avatar/chat_6.jpg",
       lastedTime: "16:18",
       badge: -1,
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "陈情匿旧酒",
-          'icon': "images/avatar_webp/chat_6.webp",
+          'icon': "$cdnBase/avatar/chat_6.jpg",
         });
         logger.info('陈情匿旧酒被点击~');
       },
@@ -116,12 +119,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你喜欢看什么电影？我最近看了一部不错的电影，推荐给你！",
-      avatar: "images/avatar_webp/chat_7.webp",
+      avatar: "$cdnBase/avatar/chat_7.jpg",
       lastedTime: "16:13",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "白桃乌龙",
-          'icon': "images/avatar_webp/chat_7.webp",
+          'icon': "$cdnBase/avatar/chat_7.jpg",
         });
         logger.info('白桃乌龙被点击~');
       },
@@ -131,12 +134,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你最近有没有去旅行？去了哪些地方？感觉怎么样？",
-      avatar: "images/avatar_webp/chat_8.webp",
+      avatar: "$cdnBase/avatar/chat_8.jpg",
       lastedTime: "16:03",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "清浅ˋ旧时光",
-          'icon': "images/avatar_webp/chat_8.webp",
+          'icon': "$cdnBase/avatar/chat_8.jpg",
         });
         logger.info('清浅ˋ旧时光被点击~');
       },
@@ -146,12 +149,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "我听说你最近升职了，恭喜你！一定能够做得更好！",
-      avatar: "images/avatar_webp/chat_9.webp",
+      avatar: "$cdnBase/avatar/chat_9.jpg",
       lastedTime: "15:54",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "荒碎梦残",
-          'icon': "images/avatar_webp/chat_9.webp",
+          'icon': "$cdnBase/avatar/chat_9.jpg",
         });
         logger.info('荒碎梦残被点击~');
       },
@@ -161,12 +164,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你今天穿得很漂亮，看起来很有气质。",
-      avatar: "images/avatar_webp/chat_10.webp",
+      avatar: "$cdnBase/avatar/chat_10.jpg",
       lastedTime: "15:49",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "无梦相赠",
-          'icon': "images/avatar_webp/chat_10.webp",
+          'icon': "$cdnBase/avatar/chat_10.jpg",
         });
         logger.info('无梦相赠被点击~');
       },
@@ -176,12 +179,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你最喜欢的颜色是什么？是不是很时尚？",
-      avatar: "images/avatar_webp/chat_11.webp",
+      avatar: "$cdnBase/avatar/chat_11.jpg",
       lastedTime: "15:43",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "离人泪",
-          'icon': "images/avatar_webp/chat_11.webp",
+          'icon': "$cdnBase/avatar/chat_11.jpg",
         });
         logger.info('离人泪被点击~');
       },
@@ -191,12 +194,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你最近有没有去尝试新的餐厅？有没有吃到什么特别好吃的菜？",
-      avatar: "images/avatar_webp/chat_12.webp",
+      avatar: "$cdnBase/avatar/chat_12.jpg",
       lastedTime: "15:36",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "伊人在水一方",
-          'icon': "images/avatar_webp/chat_12.webp",
+          'icon': "$cdnBase/avatar/chat_12.jpg",
         });
         logger.info('伊人在水一方被点击~');
       },
@@ -206,12 +209,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你的生日是今天吗？生日快乐啊！有没有想好怎么庆祝？",
-      avatar: "images/avatar_webp/chat_13.webp",
+      avatar: "$cdnBase/avatar/chat_13.jpg",
       lastedTime: "15:26",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "与我共梦",
-          'icon': "images/avatar_webp/chat_13.webp",
+          'icon': "$cdnBase/avatar/chat_13.jpg",
         });
         logger.info('与我共梦被点击~');
       },
@@ -221,12 +224,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你平常喜欢做什么样的运动？我最近喜欢上了瑜伽。",
-      avatar: "images/avatar_webp/chat_14.webp",
+      avatar: "$cdnBase/avatar/chat_14.jpg",
       lastedTime: "15:19",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "挽弦暮笙",
-          'icon': "images/avatar_webp/chat_14.webp",
+          'icon': "$cdnBase/avatar/chat_14.jpg",
         });
         logger.info('挽弦暮笙被点击~');
       },
@@ -236,12 +239,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "我觉得你很有创造力，一定能够做出很多很棒的东西。",
-      avatar: "images/avatar_webp/chat_15.webp",
+      avatar: "$cdnBase/avatar/chat_15.jpg",
       lastedTime: "15:13",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "开始厌倦",
-          'icon': "images/avatar_webp/chat_15.webp",
+          'icon': "$cdnBase/avatar/chat_15.jpg",
         });
         logger.info('开始厌倦被点击~');
       },
@@ -251,12 +254,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你最近有没有追什么好剧？有没有推荐的电视剧？",
-      avatar: "images/avatar_webp/chat_16.webp",
+      avatar: "$cdnBase/avatar/chat_16.jpg",
       lastedTime: "15:05",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "仙女收纳盒",
-          'icon': "images/avatar_webp/chat_16.webp",
+          'icon': "$cdnBase/avatar/chat_16.jpg",
         });
         logger.info('仙女收纳盒被点击~');
       },
@@ -266,12 +269,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "我很喜欢你的发型，看起来很时尚，一定是精心打理过的。",
-      avatar: "images/avatar_webp/chat_17.webp",
+      avatar: "$cdnBase/avatar/chat_17.jpg",
       lastedTime: "15:00",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "華燈初上",
-          'icon': "images/avatar_webp/chat_17.webp",
+          'icon': "$cdnBase/avatar/chat_17.jpg",
         });
         logger.info('華燈初上被点击~');
       },
@@ -281,12 +284,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你是什么星座的？我最近对星座运势感兴趣了。",
-      avatar: "images/avatar_webp/chat_18.webp",
+      avatar: "$cdnBase/avatar/chat_18.jpg",
       lastedTime: "14:51",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "袖手今生",
-          'icon': "images/avatar_webp/chat_18.webp",
+          'icon': "$cdnBase/avatar/chat_18.jpg",
         });
         logger.info('袖手今生被点击~');
       },
@@ -296,12 +299,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "我觉得你笑起来很好看，让人感觉很温暖。",
-      avatar: "images/avatar_webp/chat_19.webp",
+      avatar: "$cdnBase/avatar/chat_19.jpg",
       lastedTime: "14:41",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "ら道不清的忧伤",
-          'icon': "images/avatar_webp/chat_19.webp",
+          'icon': "$cdnBase/avatar/chat_19.jpg",
         });
         logger.info('ら道不清的忧伤被点击~');
       },
@@ -311,12 +314,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你愿意和我一起去旅行吗？我们可以一起去探索未知的地方。",
-      avatar: "images/avatar_webp/chat_20.webp",
+      avatar: "$cdnBase/avatar/chat_20.jpg",
       lastedTime: "14:31",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "凉生",
-          'icon': "images/avatar_webp/chat_20.webp",
+          'icon': "$cdnBase/avatar/chat_20.jpg",
         });
         logger.info('凉生被点击~');
       },
@@ -326,12 +329,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你的梦想是什么？我最近梦想成为一名优秀的厨师。",
-      avatar: "images/avatar_webp/chat_21.webp",
+      avatar: "$cdnBase/avatar/chat_21.jpg",
       lastedTime: "14:21",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "墨香九歌",
-          'icon': "images/avatar_webp/chat_21.webp",
+          'icon': "$cdnBase/avatar/chat_21.jpg",
         });
         logger.info('墨香九歌被点击~');
       },
@@ -341,12 +344,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你最近有没有学到什么新知识？我最近在学习一门新技能。",
-      avatar: "images/avatar_webp/chat_22.webp",
+      avatar: "$cdnBase/avatar/chat_22.jpg",
       lastedTime: "14:13",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "暖栀",
-          'icon': "images/avatar_webp/chat_22.webp",
+          'icon': "$cdnBase/avatar/chat_22.jpg",
         });
         logger.info('暖栀被点击~');
       },
@@ -356,12 +359,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "我听说你要搬家了，是吗？祝贺你！新家在哪里？是不是很期待？",
-      avatar: "images/avatar_webp/chat_23.webp",
+      avatar: "$cdnBase/avatar/chat_23.jpg",
       lastedTime: "14:05",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "等待许了苍老",
-          'icon': "images/avatar_webp/chat_23.webp",
+          'icon': "$cdnBase/avatar/chat_23.jpg",
         });
         logger.info('等待许了苍老被点击~');
       },
@@ -371,12 +374,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你喜欢什么样的音乐？我最近迷上了一种新的音乐风格。",
-      avatar: "images/avatar_webp/chat_24.webp",
+      avatar: "$cdnBase/avatar/chat_24.jpg",
       lastedTime: "13:55",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "笙歌白云",
-          'icon': "images/avatar_webp/chat_24.webp",
+          'icon': "$cdnBase/avatar/chat_24.jpg",
         });
         logger.info('笙歌白云被点击~');
       },
@@ -386,12 +389,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "我觉得你非常有魅力，你的个性很吸引人。",
-      avatar: "images/avatar_webp/chat_25.webp",
+      avatar: "$cdnBase/avatar/chat_25.jpg",
       lastedTime: "13:48",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "万幸得以相识",
-          'icon': "images/avatar_webp/chat_25.webp",
+          'icon': "$cdnBase/avatar/chat_25.jpg",
         });
         logger.info('万幸得以相识被点击~');
       },
@@ -401,12 +404,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "💖我很喜欢和你聊天，每次都能学到很多东西。",
-      avatar: "images/avatar_webp/chat_26.webp",
+      avatar: "$cdnBase/avatar/chat_26.jpg",
       lastedTime: "13:40",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "凤鸣寂寥",
-          'icon': "images/avatar_webp/chat_26.webp",
+          'icon': "$cdnBase/avatar/chat_26.jpg",
         });
         logger.info('凤鸣寂寥被点击~');
       },
@@ -416,12 +419,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你会做饭吗？🤗我最近学会了做一道新菜，很好吃哦。",
-      avatar: "images/avatar_webp/chat_27.webp",
+      avatar: "$cdnBase/avatar/chat_27.jpg",
       lastedTime: "13:33",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "余生不过一盏茶",
-          'icon': "images/avatar_webp/chat_27.webp",
+          'icon': "$cdnBase/avatar/chat_27.jpg",
         });
         logger.info('余生不过一盏茶被点击~');
       },
@@ -431,12 +434,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你喜欢看什么类型的书？我最近在读一本很有趣的小说。",
-      avatar: "images/avatar_webp/chat_28.webp",
+      avatar: "$cdnBase/avatar/chat_28.jpg",
       lastedTime: "13:25",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "丢了梦想的猎手",
-          'icon': "images/avatar_webp/chat_28.webp",
+          'icon': "$cdnBase/avatar/chat_28.jpg",
         });
         logger.info('丢了梦想的猎手被点击~');
       },
@@ -446,12 +449,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: true,
       message: "你最近有没有参加什么有趣的活动？有没有结识到新朋友？",
-      avatar: "images/avatar_webp/chat_29.webp",
+      avatar: "$cdnBase/avatar/chat_29.jpg",
       lastedTime: "13:15",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "今朝有酒今朝醉",
-          'icon': "images/avatar_webp/chat_29.webp",
+          'icon': "$cdnBase/avatar/chat_29.jpg",
         });
         logger.info('今朝有酒今朝醉被点击~');
       },
@@ -461,12 +464,12 @@ List<ChatListItem> getChatItems(BuildContext context) {
       notice: false,
       underline: false,
       message: "我听说你最近去旅游了，怎么样？玩得开心吗？",
-      avatar: "images/avatar_webp/chat_30.webp",
+      avatar: "$cdnBase/avatar/chat_30.jpg",
       lastedTime: "13:05",
       onPressed: () {
         Navigator.pushNamed(context, '/chat', arguments: <String, String>{
           'title': "旧事酒浓",
-          'icon': "images/avatar_webp/chat_30.webp",
+          'icon': "$cdnBase/avatar/chat_30.jpg",
         });
       },
     ),
@@ -474,75 +477,79 @@ List<ChatListItem> getChatItems(BuildContext context) {
 }
 
 // 返回联系人信息
-List<dynamic> getContactDataList() {
+List<dynamic> getContactDataList(BuildContext context) {
+  String cdnBase = context.read<LJNSystemCubit>().state.cdnBase;
+
   return [
     FunctionItemData(
         titleKey: 'newFriends',
-        icon: "images/avatar/01.png",
-        link: '/new_friends',
+        icon: "$cdnBase/avatar/01.png",
+        link: '/contact/new_friends',
         underline: true),
     FunctionItemData(
         titleKey: 'chatOnlyFriends',
-        icon: "images/avatar/02.png",
-        link: '/friends_who_only_chat',
+        icon: "$cdnBase/avatar/02.png",
+        link: '/contact/friends_who_only_chat',
         underline: true),
     FunctionItemData(
         titleKey: 'groupChats',
-        icon: "images/avatar/03.png",
-        link: '/contact_group',
+        icon: "$cdnBase/avatar/03.png",
+        link: '/contact/group',
         underline: true),
     FunctionItemData(
         titleKey: 'tags',
-        icon: "images/avatar/04.png",
-        link: '/contact_tags',
+        icon: "$cdnBase/avatar/04.png",
+        link: '/contact/tags',
         underline: true),
     FunctionItemData(
         titleKey: 'officialAccounts',
-        icon: "images/avatar/05.png",
-        link: '/official_accounts',
+        icon: "$cdnBase/avatar/05.png",
+        link: '/contact/official_accounts',
         underline: false),
     'A', // 字母
-    ContactItemData(
-        title: "天空飘来五个字那都不是事", icon: "images/avatar_webp/chat_1.webp"),
-    ContactItemData(title: "本因", icon: "images/avatar_webp/chat_10.webp"),
-    ContactItemData(title: "赵洵", icon: "images/avatar_webp/chat_11.webp"),
-    ContactItemData(title: "定静师太", icon: "images/avatar_webp/chat_12.webp"),
-    ContactItemData(title: "李秋水", icon: "images/avatar_webp/chat_13.webp"),
-    ContactItemData(title: "谭婆", icon: "images/avatar_webp/chat_14.webp"),
-    ContactItemData(title: "李傀儡", icon: "images/avatar_webp/chat_15.webp"),
-    ContactItemData(title: "貂禅", icon: "images/avatar_webp/chat_16.webp"),
-    ContactItemData(title: "何三七", icon: "images/avatar_webp/chat_17.webp"),
-    ContactItemData(title: "孔融", icon: "images/avatar_webp/chat_18.webp"),
-    ContactItemData(title: "齐堂主", icon: "images/avatar_webp/chat_19.webp"),
-    ContactItemData(title: "博尔术", icon: "images/avatar_webp/chat_20.webp"),
-    ContactItemData(title: "王语嫣", icon: "images/avatar_webp/chat_21.webp"),
-    ContactItemData(title: "秦红棉", icon: "images/avatar_webp/chat_22.webp"),
+    ContactItemData(title: "天空飘来五个字那都不是事", icon: "$cdnBase/avatar/chat_1.jpg"),
+    ContactItemData(title: "本因", icon: "$cdnBase/avatar/chat_10.jpg"),
+    ContactItemData(title: "赵洵", icon: "$cdnBase/avatar/chat_11.jpg"),
+    ContactItemData(title: "定静师太", icon: "$cdnBase/avatar/chat_12.jpg"),
+    ContactItemData(title: "李秋水", icon: "$cdnBase/avatar/chat_13.jpg"),
+    ContactItemData(title: "谭婆", icon: "$cdnBase/avatar/chat_14.jpg"),
+    ContactItemData(title: "李傀儡", icon: "$cdnBase/avatar/chat_15.jpg"),
+    ContactItemData(title: "貂禅", icon: "$cdnBase/avatar/chat_16.jpg"),
+    ContactItemData(title: "何三七", icon: "$cdnBase/avatar/chat_17.jpg"),
+    ContactItemData(title: "孔融", icon: "$cdnBase/avatar/chat_18.jpg"),
+    ContactItemData(title: "齐堂主", icon: "$cdnBase/avatar/chat_19.jpg"),
+    ContactItemData(title: "博尔术", icon: "$cdnBase/avatar/chat_20.jpg"),
+    ContactItemData(title: "王语嫣", icon: "$cdnBase/avatar/chat_21.jpg"),
+    ContactItemData(title: "秦红棉", icon: "$cdnBase/avatar/chat_22.jpg"),
     ContactItemData(
       title: "天竺僧人",
-      icon: "images/avatar_webp/chat_23.webp",
+      icon: "$cdnBase/avatar/chat_23.jpg",
       underline: false,
     ),
     'B',
-    ContactItemData(title: "段延庆", icon: "images/avatar_webp/chat_33.webp"),
-    ContactItemData(title: "令狐冲", icon: "images/avatar_webp/chat_34.webp"),
-    ContactItemData(title: "英白罗", icon: "images/avatar_webp/chat_35.webp"),
-    ContactItemData(title: "黄药师", icon: "images/avatar_webp/chat_36.webp"),
-    ContactItemData(title: "李煜", icon: "images/avatar_webp/chat_37.webp"),
-    ContactItemData(title: "云中鹤", icon: "images/avatar_webp/chat_38.webp"),
-    ContactItemData(title: "劳德诺", icon: "images/avatar_webp/chat_39.webp"),
-    ContactItemData(title: "包惜弱", icon: "images/avatar_webp/chat_40.webp"),
-    ContactItemData(title: "游驹", icon: "images/avatar_webp/chat_41.webp"),
-    ContactItemData(title: "钟万仇", icon: "images/avatar_webp/chat_42.webp"),
-    ContactItemData(title: "渔人", icon: "images/avatar_webp/chat_43.webp"),
-    ContactItemData(title: "单叔山", icon: "images/avatar_webp/chat_44.webp"),
-    ContactItemData(title: "段誉", icon: "images/avatar_webp/chat_45.webp"),
-    ContactItemData(title: "林震南", icon: "images/avatar_webp/chat_46.webp"),
-    ContactItemData(title: "商鞅", icon: "images/avatar_webp/chat_47.webp"),
+    ContactItemData(title: "段延庆", icon: "$cdnBase/avatar/chat_33.jpg"),
+    ContactItemData(title: "令狐冲", icon: "$cdnBase/avatar/chat_34.jpg"),
+    ContactItemData(title: "英白罗", icon: "$cdnBase/avatar/chat_35.jpg"),
+    ContactItemData(title: "黄药师", icon: "$cdnBase/avatar/chat_36.jpg"),
+    ContactItemData(title: "李煜", icon: "$cdnBase/avatar/chat_37.jpg"),
+    ContactItemData(title: "云中鹤", icon: "$cdnBase/avatar/chat_38.jpg"),
+    ContactItemData(title: "劳德诺", icon: "$cdnBase/avatar/chat_39.jpg"),
+    ContactItemData(title: "包惜弱", icon: "$cdnBase/avatar/chat_40.jpg"),
+    ContactItemData(title: "游驹", icon: "$cdnBase/avatar/chat_41.jpg"),
+    ContactItemData(title: "钟万仇", icon: "$cdnBase/avatar/chat_42.jpg"),
+    ContactItemData(title: "渔人", icon: "$cdnBase/avatar/chat_43.jpg"),
+    ContactItemData(title: "单叔山", icon: "$cdnBase/avatar/chat_44.jpg"),
+    ContactItemData(title: "段誉", icon: "$cdnBase/avatar/chat_45.jpg"),
+    ContactItemData(title: "林震南", icon: "$cdnBase/avatar/chat_46.jpg"),
+    ContactItemData(title: "商鞅", icon: "$cdnBase/avatar/chat_47.jpg"),
   ];
 }
 
 // 聊天消息
 List<Widget> mockMessages(BuildContext context, String icon, String title) {
+  var systemCubit = context.read<LJNSystemCubit>();
+  String cdnBase = systemCubit.state.cdnBase;
+
   final List<Widget> mockMessages = [
     const LJNMyMessage(
       message: '今晚，我们开始吧，准备好了吗？',
@@ -669,7 +676,9 @@ List<Widget> mockMessages(BuildContext context, String icon, String title) {
       showName: false,
     ),
     LJNVideoMessage(
-      video: 'images/ins/test.mp4',
+      video: Uri.parse(
+        '$cdnBase/ins/test.mp4',
+      ),
       width: 768,
       height: 576,
       showName: false,
@@ -679,13 +688,15 @@ List<Widget> mockMessages(BuildContext context, String icon, String title) {
         context.read<LJNPopupCubit>().updateVideoPopup(
               openBoxSize: size,
               openPosition: position,
-              sourcePath: 'images/ins/test.mp4',
+              sourcePath: '$cdnBase/ins/test.mp4',
               showFullScreenVideo: true,
             );
       },
     ),
     LJNVideoMessage(
-      video: 'images/ins/video2.mp4',
+      video: Uri.parse(
+        '$cdnBase/ins/video2.mp4',
+      ),
       width: 576,
       height: 1024,
       showName: false,
@@ -695,13 +706,15 @@ List<Widget> mockMessages(BuildContext context, String icon, String title) {
         context.read<LJNPopupCubit>().updateVideoPopup(
               openBoxSize: size,
               openPosition: position,
-              sourcePath: 'images/ins/video2.mp4',
+              sourcePath: '$cdnBase/ins/video2.mp4',
               showFullScreenVideo: true,
             );
       },
     ),
     LJNReceiveVideoMessage(
-      video: 'images/ins/video2.mp4',
+      video: Uri.parse(
+        '$cdnBase/ins/test.mp4',
+      ),
       width: 576,
       height: 1024,
       showName: false,
@@ -713,7 +726,7 @@ List<Widget> mockMessages(BuildContext context, String icon, String title) {
         context.read<LJNPopupCubit>().updateVideoPopup(
               openBoxSize: size,
               openPosition: position,
-              sourcePath: 'images/ins/video2.mp4',
+              sourcePath: '$cdnBase/ins/test.mp4',
               showFullScreenVideo: true,
             );
       },
@@ -736,302 +749,306 @@ class TagInfoData {
   });
 }
 
-List<TagInfoData> getTagInfoData() {
+List<TagInfoData> getTagInfoData(BuildContext context) {
+  var systemCubit = context.read<LJNSystemCubit>();
+  String cdnBase = systemCubit.state.cdnBase;
+
   return [
-    TagInfoData(title: "天空飘来五个字那都不是事", icon: "images/avatar_webp/chat_1.webp"),
-    TagInfoData(title: "本因", icon: "images/avatar_webp/chat_10.webp"),
-    TagInfoData(title: "赵洵", icon: "images/avatar_webp/chat_11.webp"),
-    TagInfoData(title: "定静师太", icon: "images/avatar_webp/chat_12.webp"),
-    TagInfoData(title: "李秋水", icon: "images/avatar_webp/chat_13.webp"),
-    TagInfoData(title: "谭婆", icon: "images/avatar_webp/chat_14.webp"),
-    TagInfoData(title: "李傀儡", icon: "images/avatar_webp/chat_15.webp"),
-    TagInfoData(title: "貂禅", icon: "images/avatar_webp/chat_16.webp"),
-    TagInfoData(title: "何三七", icon: "images/avatar_webp/chat_17.webp"),
-    TagInfoData(title: "孔融", icon: "images/avatar_webp/chat_18.webp"),
-    TagInfoData(title: "齐堂主", icon: "images/avatar_webp/chat_19.webp"),
-    TagInfoData(title: "博尔术", icon: "images/avatar_webp/chat_20.webp"),
-    TagInfoData(title: "王语嫣", icon: "images/avatar_webp/chat_21.webp"),
-    TagInfoData(title: "秦红棉", icon: "images/avatar_webp/chat_22.webp"),
+    TagInfoData(title: "天空飘来五个字那都不是事", icon: "$cdnBase/avatar/chat_1.jpg"),
+    TagInfoData(title: "本因", icon: "$cdnBase/avatar/chat_10.jpg"),
+    TagInfoData(title: "赵洵", icon: "$cdnBase/avatar/chat_11.jpg"),
+    TagInfoData(title: "定静师太", icon: "$cdnBase/avatar/chat_12.jpg"),
+    TagInfoData(title: "李秋水", icon: "$cdnBase/avatar/chat_13.jpg"),
+    TagInfoData(title: "谭婆", icon: "$cdnBase/avatar/chat_14.jpg"),
+    TagInfoData(title: "李傀儡", icon: "$cdnBase/avatar/chat_15.jpg"),
+    TagInfoData(title: "貂禅", icon: "$cdnBase/avatar/chat_16.jpg"),
+    TagInfoData(title: "何三七", icon: "$cdnBase/avatar/chat_17.jpg"),
+    TagInfoData(title: "孔融", icon: "$cdnBase/avatar/chat_18.jpg"),
+    TagInfoData(title: "齐堂主", icon: "$cdnBase/avatar/chat_19.jpg"),
+    TagInfoData(title: "博尔术", icon: "$cdnBase/avatar/chat_20.jpg"),
+    TagInfoData(title: "王语嫣", icon: "$cdnBase/avatar/chat_21.jpg"),
+    TagInfoData(title: "秦红棉", icon: "$cdnBase/avatar/chat_22.jpg"),
     TagInfoData(
-        title: "天竺僧人",
-        icon: "images/avatar_webp/chat_23.webp",
-        underline: false),
-    TagInfoData(title: "段延庆", icon: "images/avatar_webp/chat_33.webp"),
-    TagInfoData(title: "令狐冲", icon: "images/avatar_webp/chat_34.webp"),
-    TagInfoData(title: "英白罗", icon: "images/avatar_webp/chat_35.webp"),
-    TagInfoData(title: "黄药师", icon: "images/avatar_webp/chat_36.webp"),
-    TagInfoData(title: "李煜", icon: "images/avatar_webp/chat_37.webp"),
-    TagInfoData(title: "云中鹤", icon: "images/avatar_webp/chat_38.webp"),
-    TagInfoData(title: "劳德诺", icon: "images/avatar_webp/chat_39.webp"),
-    TagInfoData(title: "包惜弱", icon: "images/avatar_webp/chat_40.webp"),
-    TagInfoData(title: "游驹", icon: "images/avatar_webp/chat_41.webp"),
-    TagInfoData(title: "钟万仇", icon: "images/avatar_webp/chat_42.webp"),
-    TagInfoData(title: "渔人", icon: "images/avatar_webp/chat_43.webp"),
-    TagInfoData(title: "单叔山", icon: "images/avatar_webp/chat_44.webp"),
-    TagInfoData(title: "段誉", icon: "images/avatar_webp/chat_45.webp"),
-    TagInfoData(title: "林震南", icon: "images/avatar_webp/chat_46.webp"),
-    TagInfoData(title: "商鞅", icon: "images/avatar_webp/chat_47.webp"),
+        title: "天竺僧人", icon: "$cdnBase/avatar/chat_23.jpg", underline: false),
+    TagInfoData(title: "段延庆", icon: "$cdnBase/avatar/chat_33.jpg"),
+    TagInfoData(title: "令狐冲", icon: "$cdnBase/avatar/chat_34.jpg"),
+    TagInfoData(title: "英白罗", icon: "$cdnBase/avatar/chat_35.jpg"),
+    TagInfoData(title: "黄药师", icon: "$cdnBase/avatar/chat_36.jpg"),
+    TagInfoData(title: "李煜", icon: "$cdnBase/avatar/chat_37.jpg"),
+    TagInfoData(title: "云中鹤", icon: "$cdnBase/avatar/chat_38.jpg"),
+    TagInfoData(title: "劳德诺", icon: "$cdnBase/avatar/chat_39.jpg"),
+    TagInfoData(title: "包惜弱", icon: "$cdnBase/avatar/chat_40.jpg"),
+    TagInfoData(title: "游驹", icon: "$cdnBase/avatar/chat_41.jpg"),
+    TagInfoData(title: "钟万仇", icon: "$cdnBase/avatar/chat_42.jpg"),
+    TagInfoData(title: "渔人", icon: "$cdnBase/avatar/chat_43.jpg"),
+    TagInfoData(title: "单叔山", icon: "$cdnBase/avatar/chat_44.jpg"),
+    TagInfoData(title: "段誉", icon: "$cdnBase/avatar/chat_45.jpg"),
+    TagInfoData(title: "林震南", icon: "$cdnBase/avatar/chat_46.jpg"),
+    TagInfoData(title: "商鞅", icon: "$cdnBase/avatar/chat_47.jpg"),
   ];
 }
 
-List getTweetList() {
+List getTweetList(BuildContext context) {
+  var systemCubit = context.read<LJNSystemCubit>();
+  String cdnBase = systemCubit.state.cdnBase;
+
   return [
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_1.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_1.jpg',
       "name": "李珣🐞",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
-      "imageList": const [
-        'images/avatar_webp/chat_1.webp',
-        'images/avatar_webp/chat_2.webp',
-        'images/avatar_webp/chat_3.webp',
-        'images/avatar_webp/chat_4.webp',
-        'images/avatar_webp/chat_5.webp',
-        'images/avatar_webp/chat_6.webp',
-        'images/avatar_webp/chat_7.webp',
-        'images/avatar_webp/chat_8.webp',
-        'images/avatar_webp/chat_9.webp',
+      "imageList": [
+        '$cdnBase/avatar/chat_1.jpg',
+        '$cdnBase/avatar/chat_2.jpg',
+        '$cdnBase/avatar/chat_3.jpg',
+        '$cdnBase/avatar/chat_4.jpg',
+        '$cdnBase/avatar/chat_5.jpg',
+        '$cdnBase/avatar/chat_6.jpg',
+        '$cdnBase/avatar/chat_7.jpg',
+        '$cdnBase/avatar/chat_8.jpg',
+        '$cdnBase/avatar/chat_9.jpg',
       ],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_2.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_2.jpg',
       "name": "西宝✨",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_5.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_5.jpg',
       "name": "史登达",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
-      "imageList": const [
-        'images/avatar_webp/chat_8.webp',
-        'images/avatar_webp/chat_9.webp',
-        'images/avatar_webp/chat_10.webp',
-        'images/avatar_webp/chat_11.webp',
-        'images/avatar_webp/chat_12.webp',
-        'images/avatar_webp/chat_13.webp',
+      "imageList": [
+        '$cdnBase/avatar/chat_8.jpg',
+        '$cdnBase/avatar/chat_9.jpg',
+        '$cdnBase/avatar/chat_10.jpg',
+        '$cdnBase/avatar/chat_11.jpg',
+        '$cdnBase/avatar/chat_12.jpg',
+        '$cdnBase/avatar/chat_13.jpg',
       ],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_8.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_8.jpg',
       "name": "平婆婆",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
-      "imageList": const [
-        'images/avatar_webp/chat_8.webp',
-        'images/avatar_webp/chat_11.webp',
+      "imageList": [
+        '$cdnBase/avatar/chat_8.jpg',
+        '$cdnBase/avatar/chat_11.jpg',
         '',
-        'images/avatar_webp/chat_12.webp',
-        'images/avatar_webp/chat_13.webp',
+        '$cdnBase/avatar/chat_12.jpg',
+        '$cdnBase/avatar/chat_13.jpg',
       ],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_9.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_9.jpg',
       "name": "哑梢公💖👉🫖",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
-      "imageList": const [
-        'images/avatar_webp/chat_15.webp',
-        'images/avatar_webp/chat_16.webp',
-        'images/avatar_webp/chat_17.webp',
-        'images/avatar_webp/chat_18.webp',
-        'images/avatar_webp/chat_19.webp',
+      "imageList": [
+        '$cdnBase/avatar/chat_15.jpg',
+        '$cdnBase/avatar/chat_16.jpg',
+        '$cdnBase/avatar/chat_17.jpg',
+        '$cdnBase/avatar/chat_18.jpg',
+        '$cdnBase/avatar/chat_19.jpg',
       ],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_60.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_60.jpg',
       "name": "余兆兴",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_65.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_65.jpg',
       "name": "云中鹤",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
-      "imageList": const [
-        'images/avatar_webp/chat_20.webp',
-        'images/avatar_webp/chat_21.webp',
-        'images/avatar_webp/chat_22.webp',
-        'images/avatar_webp/chat_23.webp',
-        'images/avatar_webp/chat_24.webp',
-        'images/avatar_webp/chat_25.webp',
+      "imageList": [
+        '$cdnBase/avatar/chat_20.jpg',
+        '$cdnBase/avatar/chat_21.jpg',
+        '$cdnBase/avatar/chat_22.jpg',
+        '$cdnBase/avatar/chat_23.jpg',
+        '$cdnBase/avatar/chat_24.jpg',
+        '$cdnBase/avatar/chat_25.jpg',
       ],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_52.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_52.jpg',
       "name": "农夫",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
-      "imageList": const [
-        'images/avatar_webp/chat_28.webp',
-        'images/avatar_webp/chat_29.webp',
-        'images/avatar_webp/chat_30.webp',
-        'images/avatar_webp/chat_31.webp',
-        'images/avatar_webp/chat_32.webp',
-        'images/avatar_webp/chat_33.webp',
-        'images/avatar_webp/chat_34.webp',
+      "imageList": [
+        '$cdnBase/avatar/chat_28.jpg',
+        '$cdnBase/avatar/chat_29.jpg',
+        '$cdnBase/avatar/chat_30.jpg',
+        '$cdnBase/avatar/chat_31.jpg',
+        '$cdnBase/avatar/chat_32.jpg',
+        '$cdnBase/avatar/chat_33.jpg',
+        '$cdnBase/avatar/chat_34.jpg',
       ],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_43.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_43.jpg',
       "name": "贾人达",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_47.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_47.jpg',
       "name": "段正明",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_35.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_35.jpg',
       "name": "易堂主",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"
     },
     {
       "time": "一分钟前",
-      "avatarUrl": 'images/avatar_webp/chat_80.webp',
+      "avatarUrl": '$cdnBase/avatar/chat_80.jpg',
       "name": "钟镇",
       "likes": ["刘德华💖", "周杰伦", "王菲", "张学友", "李宇春💖", "特朗普", "史泰龙", "阿诺舒华"],
       "tweetContent": "用坚持和努力,定义自己的未来。每一天,都是一次新的开始。早安☀️"

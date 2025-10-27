@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 class LJNFunctionButton extends StatefulWidget {
   final String icon;
@@ -77,26 +78,22 @@ class LJNFunctionButtonState extends State<LJNFunctionButton> {
           mainAxisAlignment: MainAxisAlignment.start, // 关键：使图标顶部对齐
           crossAxisAlignment: CrossAxisAlignment.center, // 水平居中
           children: [
-            SizedBox(height: 15.w), // 可以增加一个顶部的内边距，让图标和按钮顶部有一点距离
-            ClipOval(
-              child: Image.asset(
-                assetPath(widget.icon),
-                width: 68.w,
-                height: 68.w,
-                cacheHeight: 180.w.toInt(),
-                cacheWidth: 180.w.toInt(),
-                fit: BoxFit.cover, // 让图片完全填满圆形区域
-              ),
+            SizedBox(height: 20.w), // 可以增加一个顶部的内边距，让图标和按钮顶部有一点距离
+            LJNAppNetworkImage(
+              imageUrl: widget.icon,
+              width: 68.w,
+              height: 68.w,
+              fit: BoxFit.cover, // 让图片完全填满圆形区域
             ),
             SizedBox(height: 15.w), // 图标和标题之间的间距
             Container(
               height: twoLinesTextHeight, // 关键：为文本区域提供一个固定的、能容纳两行的高度
               alignment: Alignment.topCenter, // 使单行文本也能顶部对齐
-              padding: EdgeInsets.symmetric(horizontal: 5.w),
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
               child: Text(
                 widget.title,
                 maxLines: 1,
-                overflow: TextOverflow.fade,
+                overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
                 style: textStyle,
               ),

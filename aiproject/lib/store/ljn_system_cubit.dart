@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 
-// 定义父级 TabBar 拖拽状态的枚举
-enum ParentDragState { idle, dragging, animating }
-
 // 系统的 Cubit
 class LJNSystemCubit extends Cubit<SystemState> {
   LJNSystemCubit()
@@ -16,58 +13,6 @@ class LJNSystemCubit extends Cubit<SystemState> {
             navigatorKey: GlobalKey<NavigatorState>(),
           ),
         );
-
-  // =======================================================================
-  // 用于代理子页面拖拽事件的方法
-  // =======================================================================
-
-  /// 当子页面决定将手势移交给父级时调用此方法。
-  /// 这只是一个状态标记，通知父级手势已开始。
-  void onParentDragStart() {
-    if (state.parentDragState == ParentDragState.idle) {
-      emit(state.copyWith(
-        parentDragState: ParentDragState.dragging,
-      ));
-    }
-  }
-
-  /// 当子页面检测到手势结束时调用。
-  void onParentDragEnd(double velocity) {
-    if (state.parentDragState == ParentDragState.dragging) {
-      emit(state.copyWith(
-        parentDragState: ParentDragState.animating,
-        parentDragEndVelocity: velocity,
-      ));
-    }
-  }
-
-  /// 当父级 TabBar 的动画处理完毕后，重置状态。
-  void onParentDragHandled() {
-    emit(state.copyWith(
-      parentDragState: ParentDragState.idle,
-      clearParentDragEndVelocity: true,
-    ));
-  }
-
-  /// 当子页面开始自己处理手势时，调用 lock(true) 来锁定父级滚动。
-  /// 手势结束后，调用 lock(false) 来解锁。
-  void lockParentPageView(bool lock) {
-    if (state.isParentPageViewLocked != lock) {
-      emit(state.copyWith(isParentPageViewLocked: lock));
-    }
-  }
-
-  // =======================================================================
-  // 其他状态管理方法
-  // =======================================================================
-
-  void updateMainTabIndex(int index) {
-    emit(state.copyWith(mainTabIndex: index));
-  }
-
-  void updateHomescrollpixels(double homescrollpixels) {
-    emit(state.copyWith(homescrollpixels: homescrollpixels));
-  }
 
   void updateContactazshow(bool contactazshow) {
     emit(state.copyWith(contactazshow: contactazshow));
@@ -101,8 +46,16 @@ class LJNSystemCubit extends Cubit<SystemState> {
     emit(state.copyWith(statusHeight: statusHeight));
   }
 
-  void updateShowMiniProgramDrawer(bool showMiniProgramDrawer) {
-    emit(state.copyWith(showMiniProgramDrawer: showMiniProgramDrawer));
+  void updateTabbarHeight(double tabbarHeight) {
+    emit(state.copyWith(tabbarHeight: tabbarHeight));
+  }
+
+  void updateAppbarHeight(double appbarHeight) {
+    emit(state.copyWith(appbarHeight: appbarHeight));
+  }
+
+  void updateShowHomeTabbar(bool showHomeTabbar) {
+    emit(state.copyWith(showHomeTabbar: showHomeTabbar));
   }
 
   void updateThemeMode(ThemeMode themeMode) {
@@ -122,14 +75,23 @@ class LJNSystemCubit extends Cubit<SystemState> {
     emit(state.copyWith(videoProgress: progress, showVideoProgress: show));
   }
 
-  void updateTabbarHeight(double tabbarHeight) {
-    emit(state.copyWith(tabbarHeight: tabbarHeight));
+  void updateVideoProgressBottomOffset(double offset) {
+    emit(state.copyWith(videoProgressBottomOffset: offset));
+  }
+
+  void updateCdnBase(String s) {
+    emit(state.copyWith(
+      cdnBase: s,
+    ));
+  }
+
+  void updateMainTabIndex(int index) {
+    emit(state.copyWith(mainTabIndex: index));
   }
 }
 
 // 系统的 State
 class SystemState extends Equatable {
-  final double homescrollpixels;
   final bool contactazshow;
   final bool? mainpage1isload;
   final bool? mainpage2isload;
@@ -138,24 +100,19 @@ class SystemState extends Equatable {
   final bool? mainpage5isload;
   final GlobalKey<NavigatorState> navigatorKey;
   final Size screenSize;
+  final double appbarHeight;
   final double statusHeight;
-  final bool showMiniProgramDrawer;
+  final double tabbarHeight;
+  final bool showHomeTabbar;
   final ThemeMode themeMode;
   final Locale currentLocale;
   final double videoProgress;
   final bool showVideoProgress;
+  final double videoProgressBottomOffset;
   final int mainTabIndex;
-  final double tabbarHeight;
-
-  // 拖拽代理状态
-  final ParentDragState parentDragState;
-  final double? parentDragEndVelocity;
-
-  // 父级 PageView 滚动锁
-  final bool isParentPageViewLocked;
+  final String cdnBase;
 
   const SystemState({
-    this.homescrollpixels = 0,
     this.contactazshow = false,
     this.mainpage1isload = false,
     this.mainpage2isload = false,
@@ -163,22 +120,21 @@ class SystemState extends Equatable {
     this.mainpage4isload = false,
     this.mainpage5isload = false,
     this.screenSize = const Size(0, 0),
+    this.appbarHeight = 0,
     this.statusHeight = 0,
-    this.showMiniProgramDrawer = false,
+    this.tabbarHeight = 100,
+    this.showHomeTabbar = true,
     this.currentLocale = const Locale('en'),
     this.themeMode = ThemeMode.system,
     required this.navigatorKey,
     this.videoProgress = 0.0,
     this.showVideoProgress = false,
+    this.videoProgressBottomOffset = 0.0,
     this.mainTabIndex = 0,
-    this.parentDragState = ParentDragState.idle,
-    this.parentDragEndVelocity,
-    this.isParentPageViewLocked = false,
-    this.tabbarHeight = 100,
+    this.cdnBase = "",
   });
 
   SystemState copyWith({
-    double? homescrollpixels,
     bool? contactazshow,
     bool? mainpage1isload,
     bool? mainpage2isload,
@@ -187,21 +143,22 @@ class SystemState extends Equatable {
     bool? mainpage5isload,
     Size? screenSize,
     double? statusHeight,
-    bool? showMiniProgramDrawer,
+    double? tabbarHeight,
+    double? appbarHeight,
+    bool? showHomeTabbar,
     ThemeMode? themeMode,
     Locale? currentLocale,
     GlobalKey<NavigatorState>? navigatorKey,
     double? videoProgress,
     bool? showVideoProgress,
+    double? videoProgressBottomOffset,
     int? mainTabIndex,
-    ParentDragState? parentDragState,
     double? parentDragEndVelocity,
     bool clearParentDragEndVelocity = false,
     bool? isParentPageViewLocked,
-    double? tabbarHeight,
+    String? cdnBase,
   }) {
     return SystemState(
-      homescrollpixels: homescrollpixels ?? this.homescrollpixels,
       contactazshow: contactazshow ?? this.contactazshow,
       mainpage1isload: mainpage1isload ?? this.mainpage1isload,
       mainpage2isload: mainpage2isload ?? this.mainpage2isload,
@@ -210,27 +167,23 @@ class SystemState extends Equatable {
       mainpage5isload: mainpage5isload ?? this.mainpage5isload,
       screenSize: screenSize ?? this.screenSize,
       statusHeight: statusHeight ?? this.statusHeight,
-      showMiniProgramDrawer:
-          showMiniProgramDrawer ?? this.showMiniProgramDrawer,
+      tabbarHeight: tabbarHeight ?? this.tabbarHeight,
+      appbarHeight: appbarHeight ?? this.appbarHeight,
+      showHomeTabbar: showHomeTabbar ?? this.showHomeTabbar,
       themeMode: themeMode ?? this.themeMode,
       navigatorKey: navigatorKey ?? this.navigatorKey,
       currentLocale: currentLocale ?? this.currentLocale,
       videoProgress: videoProgress ?? this.videoProgress,
       showVideoProgress: showVideoProgress ?? this.showVideoProgress,
+      videoProgressBottomOffset:
+          videoProgressBottomOffset ?? this.videoProgressBottomOffset,
       mainTabIndex: mainTabIndex ?? this.mainTabIndex,
-      parentDragState: parentDragState ?? this.parentDragState,
-      parentDragEndVelocity: clearParentDragEndVelocity
-          ? null
-          : parentDragEndVelocity ?? this.parentDragEndVelocity,
-      isParentPageViewLocked:
-          isParentPageViewLocked ?? this.isParentPageViewLocked,
-      tabbarHeight: tabbarHeight ?? this.tabbarHeight,
+      cdnBase: cdnBase ?? this.cdnBase,
     );
   }
 
   @override
   List<Object?> get props => [
-        homescrollpixels,
         contactazshow,
         mainpage1isload,
         mainpage2isload,
@@ -240,15 +193,15 @@ class SystemState extends Equatable {
         navigatorKey,
         screenSize,
         statusHeight,
-        showMiniProgramDrawer,
+        appbarHeight,
+        tabbarHeight,
+        showHomeTabbar,
         themeMode,
         currentLocale,
         videoProgress,
         showVideoProgress,
+        videoProgressBottomOffset,
         mainTabIndex,
-        parentDragState,
-        parentDragEndVelocity,
-        isParentPageViewLocked,
-        statusHeight
+        cdnBase
       ];
 }

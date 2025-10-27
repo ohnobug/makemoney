@@ -2342,11 +2342,11 @@ abstract class AppLocalizations {
   /// **'User Info During Use'**
   String get userInfoDuringUse;
 
-  /// No description provided for @imagesAndVideos.
+  /// No description provided for @$cdnBaseAndVideos.
   ///
   /// In en, this message translates to:
-  /// **'Images & Videos'**
-  String get imagesAndVideos;
+  /// **'\$cdnBase & Videos'**
+  String get $cdnBaseAndVideos;
 
   /// No description provided for @socialAndContentInfo.
   ///
@@ -2879,7 +2879,7 @@ abstract class AppLocalizations {
   /// No description provided for @startGroupChat.
   ///
   /// In en, this message translates to:
-  /// **'Start a Group Chat'**
+  /// **'New Group'**
   String get startGroupChat;
 
   /// Label for displaying a yield rate

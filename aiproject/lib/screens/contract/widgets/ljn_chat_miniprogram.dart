@@ -7,13 +7,18 @@ import 'package:vigaviga/widgets/ljn_appbar.dart';
 import 'package:vigaviga/tools/ljn_logger.dart';
 import 'package:vigaviga/store/ljn_system_cubit.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
-import 'package:vigaviga/widgets/ljn_function_button.dart';
-import 'package:vigaviga/widgets/ljn_function_buttons_section.dart';
+import 'package:vigaviga/widgets/ljn_miniprogram_buttons_section.dart';
+import 'package:vigaviga/widgets/ljn_miniprogram_button.dart';
 
 class LJNChatMiniProgram extends StatefulWidget {
   final Function reverse;
+  final double homescrollpixels;
 
-  const LJNChatMiniProgram({super.key, required this.reverse});
+  const LJNChatMiniProgram({
+    super.key,
+    required this.reverse,
+    required this.homescrollpixels,
+  });
 
   @override
   State<LJNChatMiniProgram> createState() => _LJNChatMiniProgram();
@@ -52,7 +57,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
             //     _scrollController.jumpTo(0);
             //     context
             //         .read<LJNSystemCubit>()
-            //         .updateShowMiniProgramDrawer(false);
+            //         .updateshowHomeTabbar(false);
             //   });
             // });
           }
@@ -75,13 +80,14 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
 
     return BlocBuilder<LJNSystemCubit, SystemState>(
       builder: (context, systemState) {
-        double newAppbarHeight = 90.w + 17.w;
+        var systemCubit = context.read<LJNSystemCubit>();
+        String cdnBase = systemCubit.state.cdnBase;
+
+        double newAppbarHeight = systemState.appbarHeight + 17.w;
 
         double miniprogramboxScale = 0.8 +
             (0.2 *
-                ((systemState.homescrollpixels +
-                        systemState.statusHeight -
-                        400.w) /
+                ((widget.homescrollpixels + systemState.statusHeight - 400.w) /
                     (MediaQuery.of(context).size.height -
                         newAppbarHeight -
                         400.w)));
@@ -93,10 +99,10 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
 
         return Container(
           width: 750.w,
-          height: systemState.homescrollpixels +
-              (90.w + systemState.statusHeight + 200.w),
+          height: widget.homescrollpixels +
+              (systemState.appbarHeight + systemState.statusHeight + 200.w),
           color: Color.fromARGB(
-            (255 * 0.8).toInt(),
+            (255 * 0.2).toInt(),
             50,
             48,
             70,
@@ -191,36 +197,37 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                           child: Column(
                             children: [
                               // 听一听
-                              LJNFunctionButtonsSection(
+                              LJNMiniprogramButtonsSection(
                                 title: l10n.listen,
                                 buttons: [
-                                  LJNFunctionButton(
-                                    icon: "images/miniprogram_icon/duitang.jpg",
+                                  LJNMiniprogramButton(
+                                    icon:
+                                        "$cdnBase/miniprogram_icon/duitang.jpg",
                                     title: "堆糖",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/tiankongyueduqi.jpg",
+                                        "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
                                     title: "天空阅读器",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                 ],
                               ),
 
                               // 最近使用的小程序
-                              LJNFunctionButtonsSection(
+                              LJNMiniprogramButtonsSection(
                                 title: l10n.recentMiniPrograms,
                                 rightWidget: GestureDetector(
                                   onTap: () {
-                                    Navigator.of(context)
-                                        .pushNamed("/miniprogram_list");
+                                    openMiniprogram(context,
+                                        "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                   },
                                   child: Text.rich(
                                     TextSpan(
@@ -246,8 +253,7 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                                 0xed9d,
                                                 fontFamily: 'Iconfont',
                                               ),
-                                              color: theme.colorScheme.onSurface
-                                                  .withAlpha(100),
+                                              color: AppColors.neutralGrey42,
                                               size: 26.w,
                                             ),
                                           ),
@@ -260,153 +266,155 @@ class _LJNChatMiniProgram extends State<LJNChatMiniProgram> {
                                   ),
                                 ),
                                 buttons: [
-                                  LJNFunctionButton(
-                                    icon: "images/miniprogram_icon/duitang.jpg",
+                                  LJNMiniprogramButton(
+                                    icon:
+                                        "$cdnBase/miniprogram_icon/duitang.jpg",
                                     title: "堆糖",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/tiankongyueduqi.jpg",
+                                        "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
                                     title: "天空阅读器",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/qishuwang.jpg",
+                                        "$cdnBase/miniprogram_icon/qishuwang.jpg",
                                     title: "奇书网",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/xueyouyoujiao.jpg",
+                                        "$cdnBase/miniprogram_icon/xueyouyoujiao.jpg",
                                     title: "学有优教",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/haiziwang.jpg",
+                                        "$cdnBase/miniprogram_icon/haiziwang.jpg",
                                     title: "孩子王",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/qianbixiaoshuo.jpg",
+                                        "$cdnBase/miniprogram_icon/qianbixiaoshuo.jpg",
                                     title: "铅笔小说",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/chengquanshipin.jpg",
+                                        "$cdnBase/miniprogram_icon/chengquanshipin.jpg",
                                     title: "成全视频",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/xiaomishangcheng.jpg",
+                                        "$cdnBase/miniprogram_icon/xiaomishangcheng.jpg",
                                     title: "小米商城",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                 ],
                               ),
 
                               // 我的常用小程序
-                              LJNFunctionButtonsSection(
+                              LJNMiniprogramButtonsSection(
                                 title: l10n.myMiniPrograms,
                                 buttons: [
-                                  LJNFunctionButton(
-                                    icon: "images/miniprogram_icon/duitang.jpg",
+                                  LJNMiniprogramButton(
+                                    icon:
+                                        "$cdnBase/miniprogram_icon/duitang.jpg",
                                     title: "堆糖",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/tiankongyueduqi.jpg",
+                                        "$cdnBase/miniprogram_icon/tiankongyueduqi.jpg",
                                     title: "天空阅读器",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/qishuwang.jpg",
+                                        "$cdnBase/miniprogram_icon/qishuwang.jpg",
                                     title: "奇书网",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/xueyouyoujiao.jpg",
+                                        "$cdnBase/miniprogram_icon/xueyouyoujiao.jpg",
                                     title: "学有优教",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/chengquanshipin.jpg",
+                                        "$cdnBase/miniprogram_icon/chengquanshipin.jpg",
                                     title: "成全视频",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/xiaomishangcheng.jpg",
+                                        "$cdnBase/miniprogram_icon/xiaomishangcheng.jpg",
                                     title: "小米商城",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/meituxiuxiu.jpg",
+                                        "$cdnBase/miniprogram_icon/meituxiuxiu.jpg",
                                     title: "美图秀秀",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
-                                  LJNFunctionButton(
+                                  LJNMiniprogramButton(
                                     icon:
-                                        "images/miniprogram_icon/luobokuaipao.jpg",
+                                        "$cdnBase/miniprogram_icon/luobokuaipao.jpg",
                                     title: "萝卜快跑",
                                     onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          "/open_miniprogram?link=${Uri.encodeComponent('http://inner_list_of_third_party_information_sharing/')}");
+                                      openMiniprogram(context,
+                                          "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
                                     },
                                   ),
                                 ],

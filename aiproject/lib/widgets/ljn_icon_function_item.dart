@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/tools/ljn_tools.dart';
 import 'package:vigaviga/widgets/ljn_text_spans.dart';
+import 'package:vigaviga/widgets/ljn_app_network_image.dart';
 
 class LJNIconFunctionItem extends StatefulWidget {
   final String avatar;
@@ -88,12 +89,10 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
             // 头像
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0.w),
-              child: Image.asset(
-                assetPath(widget.avatar),
+              child: LJNAppNetworkImage(
+                imageUrl: widget.avatar,
                 width: 75.0.w,
                 height: 75.0.w,
-                cacheHeight: 150.w.toInt(),
-                cacheWidth: 150.w.toInt(),
                 fit: BoxFit.cover,
               ),
             ),
@@ -124,7 +123,6 @@ class _LJNIconFunctionItem extends State<LJNIconFunctionItem> {
                             style: TextStyle(
                               fontSize: fontSizeScale(31.0.w),
                               color: theme.colorScheme.onSurface,
-                              fontFamily: "AlibabaPuHuiTi",
                             ),
                           ),
                           SizedBox(height: 10.w),

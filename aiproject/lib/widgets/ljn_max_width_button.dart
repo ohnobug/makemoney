@@ -99,7 +99,7 @@ class _LJNMaxWidthButtonState extends State<LJNMaxWidthButton> {
                       height: 1.08,
                       fontSize: fontSizeScale(32.0.w),
                       decoration: TextDecoration.none,
-                      fontFamily: "AlibabaPuHuiTi",
+                      
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

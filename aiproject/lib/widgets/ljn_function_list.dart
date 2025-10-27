@@ -27,13 +27,13 @@ class LJNFunctionList extends StatelessWidget {
 
         Container(
           // height: 1.w,
-          width: 750.w,
+          width: 710.w,
           margin: EdgeInsets.symmetric(horizontal: 20.w),
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
             borderRadius: BorderRadius.all(
-              Radius.circular(26.w),
+              Radius.circular(10.w),
             ),
           ),
           child: Column(

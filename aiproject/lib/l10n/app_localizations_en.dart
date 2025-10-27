@@ -1214,7 +1214,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userInfoDuringUse => 'User Info During Use';
 
   @override
-  String get imagesAndVideos => 'Images & Videos';
+  String get $cdnBaseAndVideos => '\$cdnBase & Videos';
 
   @override
   String get socialAndContentInfo => 'Social & Content Info';
@@ -1498,7 +1498,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelDelayedTask => 'Cancel Delayed Task';
 
   @override
-  String get startGroupChat => 'Start a Group Chat';
+  String get startGroupChat => 'New Group';
 
   @override
   String label_yield(String value) {

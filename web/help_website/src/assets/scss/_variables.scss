@@ -1,0 +1,37 @@
+// 全局设计变量
+// 颜色变量
+$primary-color: #007AFF;
+$text-primary: #333;
+$text-secondary: #666;
+$text-muted: #999;
+$background-primary: white;
+$background-secondary: #f8f8f8;
+$border-color: #e0e0e0;
+$border-light: #f0f0f0;
+$hover-background: #f5f5f5;
+
+// 阴影
+$shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+// 圆角 - 增大圆角让元素更饱满
+$radius-sm: 12px;
+$radius-md: 16px;
+$radius-lg: 20px;
+
+// 间距 - 增大间距让布局更饱满
+$spacing-xs: 8px;
+$spacing-sm: 12px;
+$spacing-md: 20px;
+$spacing-lg: 28px;
+$spacing-xl: 36px;
+
+// 字体大小 - 增大字体让内容更易读
+$font-xs: 12px;
+$font-sm: 14px;
+$font-md: 16px;
+$font-lg: 18px;
+$font-xl: 20px;
+$font-2xl: 24px;
+$font-3xl: 28px;
