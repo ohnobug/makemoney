@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/tools/viga_tools.dart';
 
 // Your AppColors class remains exactly the same...
 class AppColors {
   // ===========================================================================
-  // 核心品牌色 (映射为 紫/品红色系 - 源自 "VIGAVIGA" 字体和蜂鸟)
+  // 核心品牌色 (映射为 紫/品红色系 - 源自 "VigaViga" 字体和蜂鸟)
   // Core Brand Colors (Mapped to Purples/Magentas from logo text)
   // ===========================================================================
 
@@ -247,6 +247,19 @@ class AppColors {
   // -- 完全透明 --
   static const Color transparent = Color.fromARGB(0, 0, 0, 0);
   static const Color transparentRed = Color.fromARGB(0, 255, 0, 0);
+
+  // ===========================================================================
+  // 新UI认证页面颜色定义
+  // New UI Authentication Page Colors
+  // ===========================================================================
+
+  static const Color darkBackground = Color(0xFF1A1D21);
+  static const Color inputBackground = Color(0xFF252A31);
+  static const Color fontPrimary = Colors.white;
+  static const Color fontSecondary = Color(0xFF7D8B99);
+  static const Color accentGradientStart = Color(0xFF3EECB8);
+  static const Color accentGradientEnd = Color(0xFF2BACE3);
+  static const Color accentLink = Color(0xFF2EC2E3);
 }
 
 // -----------------------------------------------------------------------------

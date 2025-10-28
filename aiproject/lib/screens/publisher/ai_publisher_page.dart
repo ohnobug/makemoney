@@ -1,4 +1,4 @@
-import 'package:vigaviga/widgets/ljn_app_network_image.dart';
+import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:flutter/material.dart';
 
 // --- Data Model for LoRA ---
@@ -301,7 +301,7 @@ class _LoRAItemState extends State<LoRAItem> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: LJNAppNetworkImage(
+                child: VigaAppNetworkImage(
                   imageUrl: widget.lora.imagePath,
                   fit: BoxFit.cover,
                 ),
@@ -318,7 +318,7 @@ class _LoRAItemState extends State<LoRAItem> {
                 ),
                 child: Stack(
                   children: [
-                    LJNAppNetworkImage(
+                    VigaAppNetworkImage(
                       imageUrl: widget.lora.imagePath,
                       fit: BoxFit.cover,
                       width: double.infinity,

@@ -41,6 +41,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.13.0"
+  azlistview:
+    dependency: "direct main"
+    description:
+      name: azlistview
+      sha256: "93e865f11777a271b439f0d6b00799c0797e9daeec2e082a2e01373809c4b90d"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   bloc:
     dependency: "direct main"
     description:
@@ -185,6 +193,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.1.2"
+  country_code_picker:
+    dependency: "direct main"
+    description:
+      name: country_code_picker
+      sha256: f0411f4833b6f98e8b7215f4fa3813bcc88e50f13925f70a170dbd36e3e447f5
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.4.1"
   coverage:
     dependency: transitive
     description:
@@ -233,6 +249,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "7.0.3"
+  diacritic:
+    dependency: transitive
+    description:
+      name: diacritic
+      sha256: "12981945ec38931748836cd76f2b38773118d0baef3c68404bdfde9566147876"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.6"
   diff_match_patch:
     dependency: transitive
     description:
@@ -257,6 +281,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
+  dlibphonenumber:
+    dependency: "direct main"
+    description:
+      name: dlibphonenumber
+      sha256: "0691c8e9040574252b54217309cb4464b8cda5333dacb230afe5a2b4c847db92"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.50"
   dotted_border:
     dependency: "direct main"
     description:
@@ -501,6 +533,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "9.0.0"
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      sha256: b9011df3a1fa02993630b8fb83526368cf2206a711259830325bab2f1d2a4eb0
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "10.12.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -741,6 +781,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.3.2"
+  lpinyin:
+    dependency: "direct main"
+    description:
+      name: lpinyin
+      sha256: "0bb843363f1f65170efd09fbdfc760c7ec34fc6354f9fcb2f89e74866a0d814a"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.3"
   matcher:
     dependency: transitive
     description:
@@ -965,6 +1013,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.0.3"
+  protobuf:
+    dependency: transitive
+    description:
+      name: protobuf
+      sha256: "826d6a306be26f29e5cd9faeb0c97aad5897270341dab6dbd7b8acd675937006"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.0.0"
   provider:
     dependency: transitive
     description:
@@ -1053,8 +1109,16 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.28.0"
-  shared_preferences:
+  scrollable_positioned_list:
     dependency: transitive
+    description:
+      name: scrollable_positioned_list
+      sha256: "9566352ab9ba05794ee6c8864f154afba5d36c5637d0e3e32c615ba4ceb92772"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.3"
+  shared_preferences:
+    dependency: "direct main"
     description:
       name: shared_preferences
       sha256: "6e8bf70b7fef813df4e9a36f658ac46d107db4b4cfe1048b477d4e453a8159f5"
@@ -1299,7 +1363,7 @@ packages:
     source: hosted
     version: "1.4.0"
   universal_io:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: universal_io
       sha256: "1722b2dcc462b4b2f3ee7d188dad008b6eb4c40bbd03a3de451d82c78bba9aad"

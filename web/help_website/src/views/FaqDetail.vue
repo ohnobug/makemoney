@@ -1,7 +1,7 @@
 <template>
   <div class="faq-detail-page">
     <!-- App Bar -->
-    <div class="app-bar">
+    <div class="app-bar" :style="{ paddingTop: statusBarHeight }">
       <div class="app-bar-content">
         <button class="back-button" @click="goBack">‹</button>
         <h1 class="app-title">问题详情</h1>
@@ -82,8 +82,17 @@ const feedbackSubmitted = ref(false)
 // Generate HTML answer based on question
 const htmlAnswer = ref('')
 
+// Status bar height handling
+const statusBarHeight = ref('0px')
+
 // Load question and answer when component mounts
 onMounted(async () => {
+  // Listen for Flutter status bar height event
+  window.addEventListener('flutterStatusBarHeightReady', function (event) {
+    const statusBarHeightPx = event.detail.statusBarHeightPx
+    console.log('状态栏高度:', statusBarHeightPx)
+    statusBarHeight.value = `${statusBarHeightPx}px`
+  })
   question.value = decodeURIComponent(route.params.id)
   // For demo purposes, set category based on question content
   if (question.value.includes('账号') || question.value.includes('密码')) {

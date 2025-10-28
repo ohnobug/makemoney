@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:vigaviga/config/app_config.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
+import 'package:vigaviga/tools/viga_logger.dart';
 
 class ApiClient {
   late Dio _dio;
