@@ -94,7 +94,7 @@ import 'package:vigaviga/screens/user/settings/account_and_security/ljn_verifica
 import 'package:vigaviga/screens/user/settings/account_and_security/ljn_change_account.dart';
 import 'package:vigaviga/screens/user/settings/account_and_security/ljn_change_phone.dart';
 import 'package:vigaviga/screens/user/settings/account_and_security/ljn_country.dart';
-
+import 'package:vigaviga/screens/user/ljn_user_info_page.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -137,6 +137,9 @@ class AppRouter {
       case '/country':
         return pageRouteBuilderNotAnimation(
             const SelectCountryPage());
+      case '/user/user_info':
+        return pageRouteBuilderNotAnimation(
+            const UserInfoPage());
       case '/discovery/qrcode_scanner':
         return pageRouteBuilderNotAnimation(
             const LJNQRCodeScanner()); // 二维码扫描页面

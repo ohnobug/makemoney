@@ -51,6 +51,7 @@ dependencies:
   azlistview: ^2.0.0
   lpinyin: ^2.0.3
   country_code_picker: ^3.4.1
+  image_gallery_saver_plus: ^4.0.1
 dev_dependencies:
   bloc_test: ^10.0.0
   flutter_test:
