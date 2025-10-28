@@ -57,7 +57,6 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
   }
 
   // --- 手势处理 ---
-
   void _onPanStart(DragStartDetails details) {
     if (_animationController.isAnimating) {
       _animationController.stop();
@@ -84,9 +83,8 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
   void _onPanEnd(DragEndDetails details) {
     if (_currentState != ViewerState.dragging) return;
 
-    // 【核心修正】移除所有关于速度的判断，只根据拖拽后的缩放比例来决定。
-    if (_dragScale < 0.8) {
-      // 如果缩放小于0.8，则关闭页面
+    if (_dragScale < 0.9) {
+      // 如果缩放小于0.9，则关闭页面
       Navigator.of(context).pop();
     } else {
       // 否则，执行回弹动画
@@ -95,7 +93,6 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
   }
 
   // --- 动画 ---
-
   void _runSnapBackAnimation() {
     setState(() {
       _currentState = ViewerState.animating;
@@ -105,13 +102,21 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
       begin: _dragOffset,
       end: Offset.zero,
     ).animate(
-        CurvedAnimation(parent: _animationController, curve: Curves.easeOut));
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeOut,
+      ),
+    );
 
     _scaleAnimation = Tween<double>(
       begin: _dragScale,
       end: 1.0,
     ).animate(
-        CurvedAnimation(parent: _animationController, curve: Curves.easeOut));
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeOut,
+      ),
+    );
 
     _animationController.forward().whenComplete(() {
       if (_currentState == ViewerState.animating) {
@@ -132,8 +137,9 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
       body: Stack(
         children: [
           Container(
-            color: Colors.black
-                .withAlpha((_dragScale.clamp(0.4, 1.0) * 255).toInt()),
+            color: Colors.black.withAlpha(
+              (_dragScale.clamp(0.4, 1.0) * 255).toInt(),
+            ),
           ),
           GestureDetector(
             onTap: () {
@@ -187,42 +193,53 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
             });
           },
           itemBuilder: (context, index) {
-            return Hero(
-              tag: widget.imageSources[index],
-              flightShuttleBuilder: (
-                flightContext,
-                animation,
-                flightDirection,
-                fromHeroContext,
-                toHeroContext,
-              ) {
-                final toHero = toHeroContext.widget as Hero;
-                if (flightDirection == HeroFlightDirection.pop) {
-                  return Image.network(
-                    widget.imageSources[index],
-                    width: widget.initialRect.width,
-                    height: widget.initialRect.height,
-                    fit: BoxFit.contain,
-                  );
-                }
-                return toHero.child;
-              },
-              child: Center(
-                child: Image.network(
-                  widget.imageSources[index],
-                  fit: BoxFit.contain,
-                ),
+            // 【核心修正】在这里定义图片内容，以便复用
+            final Widget imageContent = Center(
+              child: Image.network(
+                widget.imageSources[index],
+                width: double.infinity,
+                fit: BoxFit.fitWidth,
               ),
             );
+
+            // 【核心逻辑】判断是否应该激活 Hero
+            // 激活条件：1. 处于正常浏览状态；或者 2. 正在拖拽且这张图是主图。
+            final bool isHeroActive =
+                (_currentState == ViewerState.idle) || (index == _currentIndex);
+            if (isHeroActive) {
+              return Hero(
+                tag: widget.imageSources[index],
+                flightShuttleBuilder: (
+                  flightContext,
+                  animation,
+                  flightDirection,
+                  fromHeroContext,
+                  toHeroContext,
+                ) {
+                  final toHero = toHeroContext.widget as Hero;
+                  if (flightDirection == HeroFlightDirection.pop) {
+                    return Image.network(
+                      widget.imageSources[index],
+                      width: widget.initialRect.width,
+                      height: widget.initialRect.height,
+                      fit: BoxFit.contain,
+                    );
+                  }
+                  return toHero.child;
+                },
+                child: imageContent,
+              );
+            } else {
+              return imageContent;
+            }
           },
         ),
         Positioned(
           bottom: MediaQuery.of(context).padding.bottom + 20,
           left: 0,
           right: 0,
-          child: AnimatedOpacity(
-            opacity: _currentState == ViewerState.idle ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 200),
+          child: Visibility(
+            visible: _currentState == ViewerState.idle ? true : false,
             child: Text(
               "${_currentIndex + 1} / ${widget.imageSources.length}",
               textAlign: TextAlign.center,

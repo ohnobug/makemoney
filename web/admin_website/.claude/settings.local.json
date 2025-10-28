@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git checkout .)",
+      "Bash(git reset --hard HEAD)",
+      "Bash(git ls-tree -r HEAD)",
+      "Bash(git config --list)",
+      "Bash(git checkout HEAD -- .)",
+      "Bash(git ls-tree -r HEAD --name-only)",
+      "Bash(git submodule status)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
