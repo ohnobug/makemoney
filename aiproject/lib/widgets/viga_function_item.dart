@@ -18,6 +18,7 @@ class VigaFunctionItem extends StatefulWidget {
   final Color? backgroundColor;
   final EdgeInsetsGeometry? margin;
   final Function? onPress;
+  final double size;
 
   const VigaFunctionItem({
     super.key,
@@ -33,6 +34,7 @@ class VigaFunctionItem extends StatefulWidget {
     this.backgroundColor,
     this.margin,
     this.onPress,
+    this.size = 55.0,
   });
 
   @override
@@ -125,25 +127,23 @@ class _VigaFunctionItemState extends State<VigaFunctionItem> {
             if (widget.icon != null) ...[
               // 头像
               Container(
-                width: 55.0.w,
-                height: 55.0.w,
+                width: widget.size.w,
+                height: widget.size.w,
                 margin: widget.margin ??
                     const EdgeInsets.only(
                       left: 25.0,
-                      right: 5.0,
+                      right: 25.0,
                     ).w,
-                child: ClipRRect(
-                  borderRadius: BorderRadiusGeometry.circular(25.w),
+                child: ClipOval(
+                  // borderRadius: BorderRadius.circular(widget.size.w / 2),
                   child: VigaAppNetworkImage(
                     imageUrl: widget.icon!,
-                    width: 55.w,
-                    height: 55.w,
+                    width: widget.size.w,
+                    height: widget.size.w,
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-
-              SizedBox(width: 15.w)
             ],
             Expanded(
               child: Container(

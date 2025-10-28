@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/api_manager/api.dart';
+import 'package:vigaviga/screens/user/photo_viewer/viga_photo_viewer_page.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_custom_physics.dart';
@@ -722,10 +723,16 @@ class _TweetWidgetState extends State<TweetWidget> {
                               spacing: 6.w, // 水平间距
                               runSpacing: 6.w, // 垂直间距
                               children: widget.imageList!
+                                  .asMap()
+                                  .entries
                                   .map(
-                                    (path) => path.isEmpty
+                                    (entry) => entry.value.isEmpty
                                         ? const SizedBox.shrink()
-                                        : VigaTweenImage(imagePath: path),
+                                        : VigaTweenImage(
+                                            imagePath: entry.value,
+                                            allImages: widget.imageList,
+                                            imageIndex: entry.key,
+                                          ),
                                   )
                                   .toList(),
                             ),
@@ -890,45 +897,89 @@ class _TweetWidgetState extends State<TweetWidget> {
 // --- 九宫格中的单个图片组件 ---
 class VigaTweenImage extends StatelessWidget {
   final String imagePath;
+  final List<String>? allImages;
+  final int imageIndex;
+
   const VigaTweenImage({
     super.key,
     required this.imagePath,
+    this.allImages,
+    this.imageIndex = 0,
   });
 
   @override
   Widget build(BuildContext context) {
     final imageContainerKey = GlobalKey(); // 用于获取图片的位置和大小
-    return BlocBuilder<VigaPopupCubit, PopupState>(
-      builder: (context, popupState) {
-        return GestureDetector(
-          onTap: () {
-            // 点击图片
-            final RenderBox? renderBox = imageContainerKey.currentContext
-                ?.findRenderObject() as RenderBox?;
-            if (renderBox == null) return;
 
-            // 获取图片在屏幕上的绝对位置和大小
-            Offset position = renderBox.localToGlobal(Offset.zero);
-            Size size = renderBox.size;
+    return GestureDetector(
+      onTap: () {
+        // 点击图片
+        final RenderBox? renderBox = imageContainerKey.currentContext
+            ?.findRenderObject() as RenderBox?;
+        if (renderBox == null) return;
 
-            // 通知 VigaPopupCubit 更新状态，显示全屏图片
-            // 传递图片的初始位置、大小和路径，用于实现平滑的放大动画
-            context.read<VigaPopupCubit>().updateImagePopup(
-                  openBoxSize: size,
-                  openPosition: position,
-                  imagePath: imagePath,
-                  showFullScreenimage: true,
-                );
-          },
-          child: Image.network(
-            key: imageContainerKey, // 绑定 GlobalKey
-            imagePath.toString(),
-            width: 186.w,
-            height: 186.w,
-            fit: BoxFit.cover,
+        // 获取图片在屏幕上的绝对位置和大小
+        final position = renderBox.localToGlobal(Offset.zero);
+        final size = renderBox.size;
+        final initialRect = Rect.fromLTWH(
+            position.dx, position.dy, size.width, size.height);
+
+        // 获取所有图片列表，如果没有提供则使用当前图片
+        final imageSources = allImages ?? [imagePath];
+        final currentIndex = allImages != null ? imageIndex : 0;
+
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            // 核心：页面本身不绘制背景，让路由的过渡动画处理
+            opaque: false,
+            barrierColor: Colors.transparent,
+            pageBuilder: (context, animation, secondaryAnimation) {
+              return VigaPhotoViewerPage(
+                imageSources: imageSources,
+                initialIndex: currentIndex,
+                initialRect: initialRect, // 传递精确的初始位置
+              );
+            },
+            // 使用路由自带的动画来实现背景的淡入淡出，这是最稳定可靠的方式
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              // animation 由路由管理, push时 0->1, pop时 1->0
+              // 我们用它来包裹整个查看器页面，实现完美的淡入淡出
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
           ),
         );
       },
+      child: SizedBox(
+        width: 186.w,
+        height: 186.w,
+        child: Image.network(
+          key: imageContainerKey, // 绑定 GlobalKey
+          imagePath.toString(),
+          width: 186.w,
+          height: 186.w,
+          fit: BoxFit.cover,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Center(
+              child: SizedBox(
+                width: 24.w,
+                height: 24.w,
+                child: CircularProgressIndicator(strokeWidth: 2.w),
+              ),
+            );
+          },
+          errorBuilder: (context, error, stackTrace) {
+            return Center(
+              child: Icon(Icons.error, size: 24.w, color: Colors.grey),
+            );
+          },
+        ),
+      ),
     );
   }
 }
