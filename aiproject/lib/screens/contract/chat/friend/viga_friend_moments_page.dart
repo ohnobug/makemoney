@@ -957,27 +957,22 @@ class VigaTweenImage extends StatelessWidget {
       child: SizedBox(
         width: 186.w,
         height: 186.w,
-        child: Image.network(
-          key: imageContainerKey, // 绑定 GlobalKey
-          imagePath.toString(),
-          width: 186.w,
-          height: 186.w,
-          fit: BoxFit.cover,
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child;
-            return Center(
-              child: SizedBox(
-                width: 24.w,
-                height: 24.w,
-                child: CircularProgressIndicator(strokeWidth: 2.w),
-              ),
-            );
-          },
-          errorBuilder: (context, error, stackTrace) {
-            return Center(
-              child: Icon(Icons.error, size: 24.w, color: Colors.grey),
-            );
-          },
+        child: Hero(
+          tag: imagePath, // 使用图片 URL 作为 Hero 标签，确保唯一性
+          child: Image.network(
+            key: imageContainerKey, // 绑定 GlobalKey
+            imagePath.toString(),
+            width: 186.w,
+            height: 186.w,
+            fit: BoxFit.cover,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return const Center(child: CircularProgressIndicator());
+            },
+            errorBuilder: (context, error, stackTrace) {
+              return const Icon(Icons.error);
+            },
+          ),
         ),
       ),
     );

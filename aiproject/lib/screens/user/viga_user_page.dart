@@ -31,12 +31,12 @@ class _VigaUserPageState extends State<VigaUserPage>
   late PageController _pageController;
 
   final List<String> _works = List.generate(
-      27, (i) => 'https://picsum.photos/400/400?random=${i + 500}');
+      100, (i) => 'https://picsum.photos/400/400?random=${i + 500}');
 
   final List<String> _collections = [];
 
   final List<String> _praised = List.generate(
-      27, (i) => 'https://picsum.photos/400/400?random=${i + 500}');
+      30, (i) => 'https://picsum.photos/400/400?random=${i + 5000}');
 
   @override
   void initState() {
