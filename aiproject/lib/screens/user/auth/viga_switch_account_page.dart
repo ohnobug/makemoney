@@ -5,7 +5,8 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/models/viga_account_model.dart';
 import 'package:vigaviga/store/viga_user_cubit.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
-import 'package:vigaviga/widgets/viga_appbar.dart';
+import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/tools/viga_tools.dart';
 
 class VigaSwitchAccountPage extends StatefulWidget {
   const VigaSwitchAccountPage({super.key});
@@ -48,47 +49,90 @@ class _VigaSwitchAccountPageState extends State<VigaSwitchAccountPage> {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      primary: false,
-      appBar: VigaAppBar(
-        title: l10n.switchAccount,
-      ),
-      body: Container(
-        color: theme.colorScheme.surfaceContainer,
-        child: ListView.builder(
-          padding: EdgeInsets.symmetric(vertical: 20.w),
-          itemCount: _accounts.length,
-          itemBuilder: (context, index) {
-            final account = _accounts[index];
-            return _buildAccountItem(account, theme);
-          },
-        ),
-      ),
+    return BlocBuilder<VigaSystemCubit, SystemState>(
+      builder: (context, systemState) {
+        return Scaffold(
+          backgroundColor: AppColors.darkBackground,
+          body: SafeArea(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 110.w,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      // 标题
+                      Text(
+                        l10n.switchAccount,
+                        style: TextStyle(
+                          color: AppColors.fontPrimary,
+                          fontSize: 68.w, // 对应 34.sp
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      // 关闭按钮
+                      Positioned(
+                        left: 30.w,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Container(
+                            width: 80.w,
+                            height: 80.w,
+                            alignment: Alignment.center,
+                            child: Icon(
+                              Icons.close,
+                              size: 40.w,
+                              color: AppColors.fontSecondary,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: ScrollConfiguration(
+                    behavior:
+                        ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                    child: ListView(
+                      physics: const AlwaysScrollableScrollPhysics(
+                        parent: BouncingScrollPhysics(),
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 48.w),
+                      children: [
+                        ...List.generate(_accounts.length, (index) {
+                          final account = _accounts[index];
+                          return _buildAccountItem(account, theme);
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
   Widget _buildAccountItem(Account account, ThemeData theme) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.w),
+      margin: EdgeInsets.symmetric(vertical: 10.w),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(12.w),
+        color: AppColors.inputBackground,
+        borderRadius: BorderRadius.circular(28.w),
         border: Border.all(
           color: account.statusColor,
           width: 2.w,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(25),
-            blurRadius: 8.w,
-            offset: Offset(0, 2.w),
-          ),
-        ],
       ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(12.w),
+          borderRadius: BorderRadius.circular(28.w),
           onTap: () => _handleAccountTap(account),
           child: Padding(
             padding: EdgeInsets.all(24.w),
@@ -113,11 +157,11 @@ class _VigaSwitchAccountPageState extends State<VigaSwitchAccountPage> {
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
-                          color: theme.colorScheme.primaryContainer,
+                          color: AppColors.inputBackground,
                           child: Icon(
                             Icons.person,
                             size: 40.w,
-                            color: theme.colorScheme.onPrimaryContainer,
+                            color: AppColors.fontSecondary,
                           ),
                         );
                       },
@@ -139,7 +183,7 @@ class _VigaSwitchAccountPageState extends State<VigaSwitchAccountPage> {
                               style: TextStyle(
                                 fontSize: fontSizeScale(32.w),
                                 fontWeight: FontWeight.bold,
-                                color: theme.colorScheme.onSurface,
+                                color: AppColors.fontPrimary,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -176,7 +220,7 @@ class _VigaSwitchAccountPageState extends State<VigaSwitchAccountPage> {
                         '@${account.account}',
                         style: TextStyle(
                           fontSize: fontSizeScale(26.w),
-                          color: theme.colorScheme.onSurface.withAlpha(179),
+                          color: AppColors.fontSecondary,
                         ),
                       ),
                       SizedBox(height: 8.w),
@@ -185,7 +229,7 @@ class _VigaSwitchAccountPageState extends State<VigaSwitchAccountPage> {
                         '最后登录：${account.formattedLastLoginTime}',
                         style: TextStyle(
                           fontSize: fontSizeScale(22.w),
-                          color: theme.colorScheme.onSurface.withAlpha(128),
+                          color: AppColors.fontSecondary.withAlpha(179),
                         ),
                       ),
                     ],
@@ -242,10 +286,5 @@ class _VigaSwitchAccountPageState extends State<VigaSwitchAccountPage> {
         'account': account.account,
       },
     );
-  }
-
-  // 字体大小缩放函数
-  double fontSizeScale(double size) {
-    return size;
   }
 }

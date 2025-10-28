@@ -14,6 +14,7 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/widgets/viga_page_loading.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
+import 'package:vigaviga/screens/user/photo_viewer/viga_photo_viewer_page.dart';
 
 class VigaUserPage extends StatefulWidget {
   const VigaUserPage({super.key});
@@ -30,12 +31,12 @@ class _VigaUserPageState extends State<VigaUserPage>
   late PageController _pageController;
 
   final List<String> _works = List.generate(
-      500, (i) => 'https://picsum.photos/300/400?random=${i + 500}');
+      27, (i) => 'https://picsum.photos/400/400?random=${i + 500}');
 
   final List<String> _collections = [];
 
   final List<String> _praised = List.generate(
-      3, (i) => 'https://picsum.photos/300/400?random=${i + 100}');
+      27, (i) => 'https://picsum.photos/400/400?random=${i + 500}');
 
   @override
   void initState() {
@@ -645,7 +646,7 @@ class _VigaUserPageState extends State<VigaUserPage>
   }
 }
 
-class _UserWorksGrid extends StatelessWidget {
+class _UserWorksGrid extends StatefulWidget {
   final List<String> items;
   final String emptyMessage;
   final String buttonText;
@@ -662,22 +663,30 @@ class _UserWorksGrid extends StatelessWidget {
   });
 
   @override
+  State<_UserWorksGrid> createState() => __UserWorksGridState();
+}
+
+class __UserWorksGridState extends State<_UserWorksGrid> {
+  // 使用 GlobalKey 来更精确地获取每个图片的位置和大小
+  final Map<int, GlobalKey> _imageKeys = {};
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<VigaSystemCubit, SystemState>(
         builder: (context, systemState) {
-      return items.isEmpty
+      return widget.items.isEmpty
           ? _buildEmptyState(context, systemState)
           : _buildGridContent(context, systemState);
     });
   }
 
   Widget _buildEmptyState(BuildContext context, SystemState systemState) {
-    if (buttonText == '发布作品') {
+    if (widget.buttonText == '发布作品') {
       return Container(
         color: Theme.of(context).colorScheme.surfaceContainer,
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(
-          primary: isActive,
+          primary: widget.isActive,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -697,7 +706,7 @@ class _UserWorksGrid extends StatelessWidget {
               ),
               SizedBox(height: 40.w),
               ElevatedButton(
-                onPressed: onButtonPressed,
+                onPressed: widget.onButtonPressed,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.accentRedVibrant1,
                   foregroundColor: Colors.white,
@@ -711,7 +720,7 @@ class _UserWorksGrid extends StatelessWidget {
                   elevation: 0,
                 ),
                 child: Text(
-                  buttonText,
+                  widget.buttonText,
                   style: TextStyle(
                     fontSize: 28.w,
                     fontWeight: FontWeight.bold,
@@ -729,7 +738,7 @@ class _UserWorksGrid extends StatelessWidget {
       color: Theme.of(context).colorScheme.surfaceContainer,
       alignment: Alignment.topCenter,
       child: SingleChildScrollView(
-        primary: isActive,
+        primary: widget.isActive,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -741,7 +750,7 @@ class _UserWorksGrid extends StatelessWidget {
             ),
             SizedBox(height: 30.w),
             Text(
-              emptyMessage,
+              widget.emptyMessage,
               style: TextStyle(
                 fontSize: 28.w,
                 color: Colors.grey.shade600,
@@ -749,7 +758,7 @@ class _UserWorksGrid extends StatelessWidget {
             ),
             SizedBox(height: 40.w),
             ElevatedButton(
-              onPressed: onButtonPressed,
+              onPressed: widget.onButtonPressed,
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.accentRedVibrant1,
                 foregroundColor: Colors.white,
@@ -765,7 +774,7 @@ class _UserWorksGrid extends StatelessWidget {
                 elevation: 0,
               ),
               child: Text(
-                buttonText,
+                widget.buttonText,
                 style: TextStyle(
                   fontSize: 28.w,
                   fontWeight: FontWeight.bold,
@@ -783,10 +792,10 @@ class _UserWorksGrid extends StatelessWidget {
     return Container(
       color: Theme.of(context).colorScheme.surfaceContainer,
       child: GridView.builder(
-        primary: isActive,
-        key: PageStorageKey<String>(emptyMessage),
+        primary: widget.isActive,
+        key: PageStorageKey<String>(widget.emptyMessage),
         padding: EdgeInsets.symmetric(horizontal: 2.w),
-        itemCount: items.length,
+        itemCount: widget.items.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           crossAxisSpacing: 2.w,
@@ -794,13 +803,60 @@ class _UserWorksGrid extends StatelessWidget {
           childAspectRatio: 9 / 14,
         ),
         itemBuilder: (context, index) {
-          return Stack(
-            fit: StackFit.expand,
-            children: [
-              VigaAppNetworkImage(
-                imageUrl: items[index],
-                fit: BoxFit.cover,
-              ),
+          // 为每个图片生成一个唯一的 key
+          _imageKeys.putIfAbsent(index, () => GlobalKey());
+          final imageUrl = widget.items[index];
+
+          return GestureDetector(
+            onTap: () {
+              // 通过 key 获取图片在屏幕中的精确位置和大小
+              final RenderBox? renderBox = _imageKeys[index]
+                  ?.currentContext
+                  ?.findRenderObject() as RenderBox?;
+              if (renderBox == null) return;
+              final position = renderBox.localToGlobal(Offset.zero);
+              final size = renderBox.size;
+              final initialRect = Rect.fromLTWH(
+                  position.dx, position.dy, size.width, size.height);
+
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  // 核心：页面本身不绘制背景，让路由的过渡动画处理
+                  opaque: false,
+                  barrierColor: Colors.transparent,
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return VigaPhotoViewerPage(
+                      imageSources: widget.items,
+                      initialIndex: index,
+                      initialRect: initialRect, // 传递精确的初始位置
+                    );
+                  },
+                  // 使用路由自带的动画来实现背景的淡入淡出，这是最稳定可靠的方式
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    // animation 由路由管理, push时 0->1, pop时 1->0
+                    // 我们用它来包裹整个查看器页面，实现完美的淡入淡出
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            },
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Hero(
+                  tag: imageUrl,
+                  child: VigaAppNetworkImage(
+                    // 将 key 绑定到 Image 组件上
+                    key: _imageKeys[index],
+                    imageUrl: imageUrl,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -853,7 +909,8 @@ class _UserWorksGrid extends StatelessWidget {
                 ),
               ),
             ],
-          );
+          ),
+        );
         },
       ),
     );

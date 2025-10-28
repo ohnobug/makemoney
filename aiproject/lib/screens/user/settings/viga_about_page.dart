@@ -85,8 +85,8 @@ class _VigaAbout extends State<VigaAboutPage> {
                   width: 750.w,
                   // padding: EdgeInsets.only(left: 90.w, right: 90.w),
                   constraints: BoxConstraints(
-                    minHeight: MediaQuery.of(context).size.height -
-                        (systemState.statusHeight + 90.w),
+                    minHeight: systemState.screenSize.height -
+                        (systemState.statusHeight + systemState.appbarHeight),
                   ),
                   // color: AppColors.accentRedDark2,
                   child: Column(

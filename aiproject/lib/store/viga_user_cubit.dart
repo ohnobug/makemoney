@@ -1,52 +1,78 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'viga_storage_service.dart';
+import 'package:vigaviga/tools/viga_logger.dart';
 
 class VigaUserCubit extends Cubit<UserState> {
-  VigaUserCubit()
-      : super(
-          UserState(),
-        );
+  VigaUserCubit() : super(UserState()) {
+    _loadSavedUserState();
+  }
+
+  // 加载保存的用户状态
+  Future<void> _loadSavedUserState() async {
+    try {
+      final savedState = await VigaStorageService.loadUserState();
+
+      if (savedState != null) {
+        final loadedState = UserState.fromJson(savedState);
+        emit(loadedState);
+      }
+    } catch (e) {
+      // 如果加载失败，保持默认状态
+      logger.warning('加载用户状态失败: $e');
+    }
+  }
+
+  // 保存用户状态到本地存储
+  Future<void> _saveUserState() async {
+    try {
+      final stateMap = state.toJson();
+      await VigaStorageService.saveUserState(stateMap);
+    } catch (e) {
+      logger.warning('保存用户状态失败: $e');
+    }
+  }
 
 // 更新昵称
   void updateName(String name) {
-    emit(
-      state.copyWith(userinfoName: name),
-    );
+    final newState = state.copyWith(userinfoName: name);
+    emit(newState);
+    _saveUserState();
   }
 
   // 更新账户信息
   void updateAccount(String account) {
-    emit(
-      state.copyWith(userinfoAccount: account),
-    );
+    final newState = state.copyWith(userinfoAccount: account);
+    emit(newState);
+    _saveUserState();
   }
 
   // 更新手机号
   void updatePhone(String phone) {
-    emit(
-      state.copyWith(userinfoPhone: phone),
-    );
+    final newState = state.copyWith(userinfoPhone: phone);
+    emit(newState);
+    _saveUserState();
   }
 
   // 更新余额
   void updateWalletBalance(double balance) {
-    emit(
-      state.copyWith(walletBalance: balance),
-    );
+    final newState = state.copyWith(walletBalance: balance);
+    emit(newState);
+    _saveUserState();
   }
 
   // 更新基金余额
   void updateWalletFoundationBalance(double balance) {
-    emit(
-      state.copyWith(walletFoundationBalance: balance),
-    );
+    final newState = state.copyWith(walletFoundationBalance: balance);
+    emit(newState);
+    _saveUserState();
   }
 
   // 更新头像
   void updateAvatar(String avatar) {
-    emit(
-      state.copyWith(userinfoAvatar: avatar),
-    );
+    final newState = state.copyWith(userinfoAvatar: avatar);
+    emit(newState);
+    _saveUserState();
   }
 
   // 用户登录
@@ -58,41 +84,43 @@ class VigaUserCubit extends Cubit<UserState> {
     String? account,
     String? avatar,
   }) {
-    emit(
-      state.copyWith(
-        isLoggedIn: true,
-        userId: userId,
-        authToken: authToken,
-        userinfoPhone: phone ?? state.userinfoPhone,
-        userinfoName: name ?? state.userinfoName,
-        userinfoAccount: account ?? state.userinfoAccount,
-        userinfoAvatar: avatar ?? state.userinfoAvatar,
-      ),
+    final newState = state.copyWith(
+      isLoggedIn: true,
+      userId: userId,
+      authToken: authToken,
+      userinfoPhone: phone ?? state.userinfoPhone,
+      userinfoName: name ?? state.userinfoName,
+      userinfoAccount: account ?? state.userinfoAccount,
+      userinfoAvatar: avatar ?? state.userinfoAvatar,
     );
+    emit(newState);
+    _saveUserState();
   }
 
   // 用户登出
   void logout() {
-    emit(
-      state.copyWith(
-        isLoggedIn: false,
-        userId: null,
-        authToken: null,
-        userinfoName: '',
-        userinfoAccount: '',
-        userinfoPhone: '',
-        userinfoAvatar: '',
-        walletBalance: 0.0,
-        walletFoundationBalance: 0.0,
-      ),
+    final newState = state.copyWith(
+      isLoggedIn: false,
+      userId: null,
+      authToken: null,
+      userinfoName: '',
+      userinfoAccount: '',
+      userinfoPhone: '',
+      userinfoAvatar: '',
+      walletBalance: 0.0,
+      walletFoundationBalance: 0.0,
     );
+    emit(newState);
+    _saveUserState();
+    // 同时清除存储
+    VigaStorageService.clearUserState();
   }
 
   // 更新认证令牌
   void updateAuthToken(String token) {
-    emit(
-      state.copyWith(authToken: token),
-    );
+    final newState = state.copyWith(authToken: token);
+    emit(newState);
+    _saveUserState();
   }
 
   // 检查是否已登录
@@ -166,5 +194,35 @@ class UserState extends Equatable {
       userId: userId ?? this.userId,
       authToken: authToken ?? this.authToken,
     );
+  }
+
+  // 从JSON创建UserState
+  factory UserState.fromJson(Map<String, dynamic> json) {
+    return UserState(
+      userinfoName: json['userinfoName'] ?? '',
+      userinfoAccount: json['userinfoAccount'] ?? '',
+      userinfoPhone: json['userinfoPhone'] ?? '',
+      walletBalance: json['walletBalance']?.toDouble() ?? 0.0,
+      walletFoundationBalance: json['walletFoundationBalance']?.toDouble() ?? 0.0,
+      userinfoAvatar: json['userinfoAvatar'] ?? '',
+      isLoggedIn: json['isLoggedIn'] ?? false,
+      userId: json['userId'],
+      authToken: json['authToken'],
+    );
+  }
+
+  // 转换为JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'userinfoName': userinfoName,
+      'userinfoAccount': userinfoAccount,
+      'userinfoPhone': userinfoPhone,
+      'walletBalance': walletBalance,
+      'walletFoundationBalance': walletFoundationBalance,
+      'userinfoAvatar': userinfoAvatar,
+      'isLoggedIn': isLoggedIn,
+      'userId': userId,
+      'authToken': authToken,
+    };
   }
 }

@@ -1,6 +1,7 @@
 // G:\t\detection\aiproject\lib\screens\user\photo_viewer\viga_photo_grid_page.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'viga_photo_viewer_page.dart';
 
 class VigaPhotoGridPage extends StatefulWidget {
@@ -21,14 +22,14 @@ class _VigaPhotoGridPageState extends State<VigaPhotoGridPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('图片查看器 (最终版)'),
+        title: const Text('图片查看器'),
       ),
       body: GridView.builder(
-        padding: const EdgeInsets.all(8.0),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        padding: EdgeInsets.all(2.w),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 8.0,
+          crossAxisSpacing: 2.w,
+          mainAxisSpacing: 2.w,
         ),
         itemCount: imageSources.length,
         itemBuilder: (context, index) {

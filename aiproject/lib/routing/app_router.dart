@@ -75,8 +75,8 @@ import 'package:vigaviga/screens/user/wallet/viga_change_details_page.dart';
 import 'package:vigaviga/screens/user/follow/viga_follow_page.dart';
 import 'package:vigaviga/screens/user/like/viga_like_page.dart';
 import 'package:vigaviga/screens/user/auth/viga_switch_account_page.dart';
-import 'package:vigaviga/screens/user/auth/viga_login_page.dart';
-import 'package:vigaviga/screens/user/auth/viga_register_page.dart';
+import 'package:vigaviga/screens/user/auth/viga_sign_in_page.dart';
+import 'package:vigaviga/screens/user/auth/viga_sign_up_page.dart';
 import 'package:vigaviga/screens/user/auth/viga_forgot_password_page.dart';
 import 'package:vigaviga/screens/user/photo_viewer/viga_photo_grid_page.dart';
 import 'package:vigaviga/screens/contract/chat/viga_dial_page.dart';
@@ -364,9 +364,9 @@ class AppRouter {
 
       // 用户认证相关路由
       case '/user/auth/login':
-        return pageRouteBuilderNotAnimation(const VigaLoginPage()); // 用户登录页面
+        return pageRouteBuilderNotAnimation(const VigaSignInPage()); // 用户登录页面
       case '/user/auth/register':
-        return pageRouteBuilderAnimation(const VigaRegisterPage()); // 用户注册页面
+        return pageRouteBuilderAnimation(const VigaSignUpPage()); // 用户注册页面
       case '/user/auth/forgot_password':
         return pageRouteBuilderAnimation(
             const VigaForgotPasswordPage()); // 忘记密码页面

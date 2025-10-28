@@ -247,6 +247,19 @@ class AppColors {
   // -- 完全透明 --
   static const Color transparent = Color.fromARGB(0, 0, 0, 0);
   static const Color transparentRed = Color.fromARGB(0, 255, 0, 0);
+
+  // ===========================================================================
+  // 新UI认证页面颜色定义
+  // New UI Authentication Page Colors
+  // ===========================================================================
+
+  static const Color darkBackground = Color(0xFF1A1D21);
+  static const Color inputBackground = Color(0xFF252A31);
+  static const Color fontPrimary = Colors.white;
+  static const Color fontSecondary = Color(0xFF7D8B99);
+  static const Color accentGradientStart = Color(0xFF3EECB8);
+  static const Color accentGradientEnd = Color(0xFF2BACE3);
+  static const Color accentLink = Color(0xFF2EC2E3);
 }
 
 // -----------------------------------------------------------------------------

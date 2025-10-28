@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vigaviga/themes.dart';
-import 'package:vigaviga/widgets/viga_appbar.dart';
-import 'package:vigaviga/widgets/viga_change_account_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/store/viga_user_cubit.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
@@ -12,16 +10,17 @@ class VigaForgotPasswordPage extends StatefulWidget {
   const VigaForgotPasswordPage({super.key});
 
   @override
-  State<VigaForgotPasswordPage> createState() => _VigaForgotPasswordPage();
+  State<VigaForgotPasswordPage> createState() => _VigaForgotPasswordPageState();
 }
 
-class _VigaForgotPasswordPage extends State<VigaForgotPasswordPage> {
-  final TextEditingController _phoneController = TextEditingController();
+class _VigaForgotPasswordPageState extends State<VigaForgotPasswordPage> {
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _codeController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
   bool _isLoading = false;
   bool _showCodeInput = false;
   bool _showPasswordInput = false;
+  bool _isPasswordVisible = false;
 
   @override
   void initState() {
@@ -29,8 +28,7 @@ class _VigaForgotPasswordPage extends State<VigaForgotPasswordPage> {
   }
 
   void _handleSendCode() async {
-    if (_phoneController.text.isEmpty) {
-      logger.info("请输入手机号");
+    if (_emailController.text.isEmpty) {
       return;
     }
 
@@ -53,7 +51,6 @@ class _VigaForgotPasswordPage extends State<VigaForgotPasswordPage> {
 
   void _handleVerifyCode() async {
     if (_codeController.text.isEmpty) {
-      logger.info("请输入验证码");
       return;
     }
 
@@ -76,7 +73,6 @@ class _VigaForgotPasswordPage extends State<VigaForgotPasswordPage> {
 
   void _handleResetPassword() async {
     if (_newPasswordController.text.isEmpty) {
-      logger.info("请输入新密码");
       return;
     }
 
@@ -107,265 +103,181 @@ class _VigaForgotPasswordPage extends State<VigaForgotPasswordPage> {
     } else if (_showCodeInput) {
       return _buildCodeStep();
     } else {
-      return _buildPhoneStep();
+      return _buildEmailStep();
     }
   }
 
-  Widget _buildPhoneStep() {
+  Widget _buildEmailStep() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: 110.w,
-          alignment: Alignment.bottomCenter,
-          child: Text(
-            "找回密码",
-            style: TextStyle(
-                fontSize: 42.w,
-                fontWeight: FontWeight.bold,
-                ),
-          ),
-        ),
-        SizedBox(height: 30.w),
+        _buildHeader('忘记密码'),
+        SizedBox(height: 80.w),
         Text(
-          "请输入您的手机号以接收验证码",
-          style: TextStyle(
-            fontSize: 30.w,
-            
-          ),
+          '请输入您的邮箱以接收验证码',
+          style: TextStyle(color: AppColors.fontSecondary, fontSize: 28.w),
         ),
         SizedBox(height: 60.w),
-
-        // 手机号输入框
-        Container(
-          height: 110.w,
-          width: 610.w,
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: Theme.of(context).dividerColor,
-                width: 1.0.w,
-                style: BorderStyle.solid,
-              ),
-              bottom: BorderSide(
-                color: Theme.of(context).dividerColor,
-                width: 1.0.w,
-                style: BorderStyle.solid,
-              ),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "手机号",
-                style: TextStyle(
-                  fontSize: 30.w,
-                  height: 1.08,
-                ),
-              ),
-              SizedBox(width: 50.w),
-              Expanded(
-                flex: 1,
-                child: TextField(
-                  controller: _phoneController,
-                  keyboardType: TextInputType.phone,
-                  cursorColor: AppColors.brandGreenDarker4,
-                  cursorWidth: 1.w,
-                  onTapOutside: (event) {
-                    FocusScope.of(context).unfocus();
-                  },
-                  decoration: InputDecoration(
-                    hintText: "请输入手机号",
-                    labelText: '',
-                    isDense: true,
-                    border: const OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                    contentPadding: const EdgeInsets.all(0),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        _buildEmailField(),
       ],
     );
   }
 
   Widget _buildCodeStep() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: 110.w,
-          alignment: Alignment.bottomCenter,
-          child: Text(
-            "验证手机号",
-            style: TextStyle(
-                fontSize: 42.w,
-                fontWeight: FontWeight.bold,
-                ),
-          ),
-        ),
-        SizedBox(height: 30.w),
+        _buildHeader('验证邮箱'),
+        SizedBox(height: 80.w),
         Text(
-          "请输入发送到 ${_phoneController.text} 的验证码",
-          style: TextStyle(
-            fontSize: 30.w,
-            
-          ),
+          '请输入发送到 ${_emailController.text} 的验证码',
+          style: TextStyle(color: AppColors.fontSecondary, fontSize: 28.w),
         ),
         SizedBox(height: 60.w),
-
-        // 验证码输入框
-        Container(
-          height: 110.w,
-          width: 610.w,
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: Theme.of(context).dividerColor,
-                width: 1.0.w,
-                style: BorderStyle.solid,
-              ),
-              bottom: BorderSide(
-                color: Theme.of(context).dividerColor,
-                width: 1.0.w,
-                style: BorderStyle.solid,
-              ),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "验证码",
-                style: TextStyle(
-                  fontSize: 30.w,
-                  height: 1.08,
-                ),
-              ),
-              SizedBox(width: 50.w),
-              Expanded(
-                flex: 1,
-                child: TextField(
-                  controller: _codeController,
-                  keyboardType: TextInputType.number,
-                  cursorColor: AppColors.brandGreenDarker4,
-                  cursorWidth: 1.w,
-                  onTapOutside: (event) {
-                    FocusScope.of(context).unfocus();
-                  },
-                  decoration: InputDecoration(
-                    hintText: "请输入验证码",
-                    labelText: '',
-                    isDense: true,
-                    border: const OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                    contentPadding: const EdgeInsets.all(0),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        _buildCodeField(),
       ],
     );
   }
 
   Widget _buildPasswordStep() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: 110.w,
-          alignment: Alignment.bottomCenter,
-          child: Text(
-            "设置新密码",
-            style: TextStyle(
-                fontSize: 42.w,
-                fontWeight: FontWeight.bold,
-                ),
-          ),
-        ),
-        SizedBox(height: 30.w),
+        _buildHeader('设置新密码'),
+        SizedBox(height: 80.w),
         Text(
-          "请设置您的新密码",
-          style: TextStyle(
-            fontSize: 30.w,
-            
-          ),
+          'Set your new password',
+          style: TextStyle(color: AppColors.fontSecondary, fontSize: 28.w),
         ),
         SizedBox(height: 60.w),
+        _buildPasswordField(),
+      ],
+    );
+  }
 
-        // 新密码输入框
-        Container(
-          height: 110.w,
-          width: 610.w,
-          decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: Theme.of(context).dividerColor,
-                width: 1.0.w,
-                style: BorderStyle.solid,
-              ),
-              bottom: BorderSide(
-                color: Theme.of(context).dividerColor,
-                width: 1.0.w,
-                style: BorderStyle.solid,
+  Widget _buildHeader(String title) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            color: AppColors.fontPrimary,
+            fontSize: 68.w, // 对应 34.sp
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Positioned(
+          left: 0,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Container(
+              width: 80.w,
+              height: 80.w,
+              alignment: Alignment.center,
+              child: Icon(
+                Icons.close,
+                size: 40.w,
+                color: AppColors.fontSecondary,
               ),
             ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "新密码",
-                style: TextStyle(
-                  fontSize: 30.w,
-                  height: 1.08,
-                ),
-              ),
-              SizedBox(width: 50.w),
-              Expanded(
-                flex: 1,
-                child: TextField(
-                  controller: _newPasswordController,
-                  obscureText: true,
-                  cursorColor: AppColors.brandGreenDarker4,
-                  cursorWidth: 1.w,
-                  onTapOutside: (event) {
-                    FocusScope.of(context).unfocus();
-                  },
-                  decoration: InputDecoration(
-                    hintText: "请输入新密码",
-                    labelText: '',
-                    isDense: true,
-                    border: const OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                    ),
-                    contentPadding: const EdgeInsets.all(0),
-                  ),
-                ),
-              ),
-            ],
           ),
         ),
       ],
     );
   }
 
+  Widget _buildEmailField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '邮箱',
+          style: TextStyle(color: AppColors.fontPrimary, fontSize: 32.w),
+        ),
+        SizedBox(height: 16.w),
+        TextFormField(
+          controller: _emailController,
+          keyboardType: TextInputType.emailAddress,
+          style: TextStyle(color: AppColors.fontPrimary, fontSize: 32.w),
+          decoration: _buildInputDecoration(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCodeField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '验证码',
+          style: TextStyle(color: AppColors.fontPrimary, fontSize: 32.w),
+        ),
+        SizedBox(height: 16.w),
+        TextFormField(
+          controller: _codeController,
+          keyboardType: TextInputType.number,
+          style: TextStyle(color: AppColors.fontPrimary, fontSize: 32.w),
+          decoration: _buildInputDecoration(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPasswordField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '新密码',
+          style: TextStyle(color: AppColors.fontPrimary, fontSize: 32.w),
+        ),
+        SizedBox(height: 16.w),
+        TextFormField(
+          controller: _newPasswordController,
+          obscureText: !_isPasswordVisible,
+          style: TextStyle(color: AppColors.fontPrimary, fontSize: 32.w),
+          decoration: _buildInputDecoration().copyWith(
+            suffixIcon: IconButton(
+              icon: Icon(
+                _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                color: AppColors.fontSecondary,
+                size: 44.w,
+              ),
+              onPressed: () {
+                setState(() {
+                  _isPasswordVisible = !_isPasswordVisible;
+                });
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  InputDecoration _buildInputDecoration() {
+    return InputDecoration(
+      filled: true,
+      fillColor: AppColors.inputBackground,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(28.w), // 对应 14.r
+        borderSide: BorderSide.none,
+      ),
+      contentPadding: EdgeInsets.symmetric(vertical: 36.w, horizontal: 32.w),
+    );
+  }
+
   Widget _buildCurrentButton() {
     if (_isLoading) {
       return Container(
-        width: 610.w,
-        height: 100.w,
+        width: double.infinity,
+        height: 112.w, // 对应 56.h
         alignment: Alignment.center,
-        child: CircularProgressIndicator(
-          color: AppColors.brandGreenDarker4,
-        ),
+        child: const CircularProgressIndicator(color: Colors.white),
       );
     }
 
@@ -376,7 +288,7 @@ class _VigaForgotPasswordPage extends State<VigaForgotPasswordPage> {
       buttonText = "重置密码";
       onTap = _handleResetPassword;
     } else if (_showCodeInput) {
-      buttonText = "验证";
+      buttonText = "验证验证码";
       onTap = _handleVerifyCode;
     } else {
       buttonText = "发送验证码";
@@ -385,87 +297,84 @@ class _VigaForgotPasswordPage extends State<VigaForgotPasswordPage> {
 
     return GestureDetector(
       onTap: onTap,
-      child: VigaChangeAccountButton(
-        title: buttonText,
-        link: "",
-        readonly: false,
+      child: Container(
+        width: double.infinity,
+        height: 112.w, // 对应 56.h
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(28.w), // 对应 14.r
+          gradient: const LinearGradient(
+            colors: [
+              AppColors.accentGradientStart,
+              AppColors.accentGradientEnd
+            ],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+        ),
+        child: Text(
+          buttonText,
+          style: TextStyle(
+            color: AppColors.fontPrimary,
+            fontSize: 36.w, // 对应 18.sp
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
+    );
+  }
+
+  Widget _buildSignInLink() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          "记得密码？",
+          style: TextStyle(color: AppColors.fontSecondary, fontSize: 28.w),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/user/auth/login');
+          },
+          style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+              minimumSize: Size.zero,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+          child: Text(
+            '登录',
+            style: TextStyle(
+                color: AppColors.accentLink,
+                fontSize: 28.w,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-
     return BlocBuilder<VigaSystemCubit, SystemState>(
       builder: (context, systemState) {
-        return Theme(
-          data: theme.copyWith(
-            appBarTheme: theme.appBarTheme.copyWith(
-              backgroundColor: Colors.transparent,
-            ),
-          ),
-          child: Scaffold(
-            primary: false,
-            resizeToAvoidBottomInset: false,
-            appBar: const VigaAppBar(),
-            body: ScrollConfiguration(
-              behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: Container(
-                constraints: BoxConstraints(
-                    minHeight: MediaQuery.of(context).size.height -
-                        systemState.appbarHeight -
-                        systemState.statusHeight),
-                color: AppColors.neutralWhite,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(
-                    parent: BouncingScrollPhysics(),
-                  ),
-                  child: Container(
-                    width: 750.w,
-                    padding: EdgeInsets.only(left: 70.w, right: 70.w),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _buildCurrentStep(),
-                        SizedBox(height: 25.w),
-
-                        // 返回登录链接（仅在第一步显示）
-                        if (!_showCodeInput && !_showPasswordInput)
-                          SizedBox(
-                            width: 610.w,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, '/user/auth/login');
-                                  },
-                                  child: Text(
-                                    "返回登录",
-                                    style: TextStyle(
-                                      fontSize: 24.w,
-                                      color: AppColors.brandPurpleDark3,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                        SizedBox(height: 780.w),
-
-                        // 按钮
-                        Container(
-                          padding: EdgeInsets.only(bottom: 180.w),
-                          child: _buildCurrentButton(),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+        return Scaffold(
+          backgroundColor: AppColors.darkBackground,
+          body: SafeArea(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: 48.w), // 调整了边距以适配750宽度
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 100.w),
+                  _buildCurrentStep(),
+                  SizedBox(height: 60.w),
+                  _buildCurrentButton(),
+                  SizedBox(height: 40.w),
+                  // 仅在第一步显示返回登录链接
+                  if (!_showCodeInput && !_showPasswordInput)
+                    _buildSignInLink(),
+                  SizedBox(height: 40.w),
+                ],
               ),
             ),
           ),
