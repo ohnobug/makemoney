@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
-import 'package:vigaviga/widgets/ljn_appbar.dart';
+import 'package:vigaviga/tools/viga_tools.dart';
+import 'package:vigaviga/widgets/viga_appbar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // 关键改动 1：使用条件导入
 // 如果环境支持 'dart:html' (即 Web)，则导入 'web_saver.dart'。
@@ -83,39 +84,39 @@ class _UserInfoPageState extends State<UserInfoPage> {
     // ... 你的 build 方法完全不需要改变
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: LJNAppBar(
+      appBar: VigaAppBar(
         title: '',
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding:  EdgeInsets.symmetric(horizontal: 40.0.w),
           child: Column(
             children: [
-              const SizedBox(height: 40),
+               SizedBox(height: 100.h),
               SizedBox(
-                width: 280,
+                width: 560.w,
                 child: Row(
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.asset(assetPath('images/test.png'), width: 70, height: 70, fit: BoxFit.cover),
+                      borderRadius: BorderRadius.circular(16.0.r),
+                      child: Image.asset(assetPath('images/test.png'), width: 140.w, height: 140.h, fit: BoxFit.cover),
                     ),
-                    const SizedBox(width: 16),
-                    const Column(
+                    SizedBox(width: 32.w),
+                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('李俊杰', style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.black)),
-                        SizedBox(height: 8),
-                        Text('广东 广州', style: TextStyle(fontSize: 16, color: Colors.grey)),
+                        Text('李俊杰', style: TextStyle(fontSize: 44.w, fontWeight: FontWeight.w600, color: Colors.black)),
+                        SizedBox(height: 16.h),
+                        Text('广东 广州', style: TextStyle(fontSize: 32.w, color: Colors.grey)),
                       ],
                     )
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
-              Image.asset(assetPath('images/test.png'), width: 280),
-              const SizedBox(height: 30),
-              const Text('扫一扫上面的二维码图案，加我为朋友。', style: TextStyle(color: Color(0xFFB2B2B2), fontSize: 14)),
+               SizedBox(height: 40.h),
+              Image.asset(assetPath('images/test.png'), width: 560.w),
+               SizedBox(height: 60.h),
+               Text('扫一扫上面的二维码图案，加我为朋友。', style: TextStyle(color: Color(0xFFB2B2B2), fontSize: 28.w)),
               const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -135,7 +136,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                   }),
                 ],
               ),
-              const SizedBox(height: 50),
+               SizedBox(height: 100.h),
             ],
           ),
         ),
@@ -147,13 +148,13 @@ class _UserInfoPageState extends State<UserInfoPage> {
     return GestureDetector(
       onTap: onPressed,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Text(text, style: const TextStyle(color: Color(0xFF6E7D93), fontSize: 16)),
+        padding:  EdgeInsets.symmetric(horizontal: 32.0.w),
+        child: Text(text, style:  TextStyle(color: Color(0xFF6E7D93), fontSize: 32.w)),
       ),
     );
   }
 
   Widget _buildDivider() {
-    return const Text('|', style: TextStyle(color: Color(0xFFE0E0E0), fontSize: 14));
+    return  Text('|', style: TextStyle(color: Color(0xFFE0E0E0), fontSize: 28.w));
   }
 }

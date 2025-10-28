@@ -87,7 +87,7 @@ import 'package:vigaviga/widgets/viga_custom_tabbar.dart';
 import 'package:vigaviga/screens/publisher/viga_publish_work_page.dart';
 import 'package:vigaviga/screens/publisher/geolocator_page.dart';
 import 'package:vigaviga/screens/publisher/ai_publisher_page.dart';
-import 'package:vigaviga/screens/user/ljn_user_info_page.dart';
+import 'package:vigaviga/screens/user/viga_user_info_page.dart';
 import 'package:vigaviga/screens/publisher/viga_resource_publisher_page.dart';
 import 'package:vigaviga/features/payment/screens/viga_alipay_success_page.dart';
 import 'package:vigaviga/features/payment/screens/viga_payment_demo_page.dart';
