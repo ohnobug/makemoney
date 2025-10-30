@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
+import 'package:vigaviga/tools/viga_tools.dart';
 // import 'package:vigaviga/tools/tools.dart';
 import 'package:video_player/video_player.dart';
 
-class LJNVideoPage extends StatefulWidget {
-  const LJNVideoPage({super.key});
+class VigaVideoPage extends StatefulWidget {
+  const VigaVideoPage({super.key});
 
   @override
-  State<LJNVideoPage> createState() => _LJNVideoState();
+  State<VigaVideoPage> createState() => _VigaVideoState();
 }
 
-class _LJNVideoState extends State<LJNVideoPage> {
+class _VigaVideoState extends State<VigaVideoPage> {
   late VideoPlayerController _controller;
 
   @override

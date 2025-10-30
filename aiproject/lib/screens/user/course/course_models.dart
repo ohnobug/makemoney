@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// --- Model for LJNCourseListPage ---
+// --- Model for VigaCourseListPage ---
 class Course {
   final String id;
   final String universityName;
@@ -17,7 +17,7 @@ class Course {
   });
 }
 
-// --- Models for LJNCourseDetailPage & LJNLessonContentPage ---
+// --- Models for VigaCourseDetailPage & VigaLessonContentPage ---
 
 enum LessonType {
   video,
