@@ -1,1 +1,1 @@
-flutter build web --release --source-maps
+flutter build web --release
