@@ -87,6 +87,7 @@ import 'package:vigaviga/widgets/viga_custom_tabbar.dart';
 import 'package:vigaviga/screens/publisher/viga_publish_work_page.dart';
 import 'package:vigaviga/screens/publisher/viga_geolocator_page.dart';
 import 'package:vigaviga/screens/publisher/viga_ai_publisher_page.dart';
+import 'package:vigaviga/screens/user/viga_user_info_page.dart';
 import 'package:vigaviga/screens/publisher/viga_resource_publisher_page.dart';
 import 'package:vigaviga/features/payment/screens/viga_alipay_success_page.dart';
 import 'package:vigaviga/features/payment/screens/viga_payment_demo_page.dart';
@@ -133,7 +134,10 @@ class AppRouter {
       case '/change_account':
         return pageRouteBuilderNotAnimation(const VigaChangeAccount());
       case '/country':
-        return pageRouteBuilderNotAnimation(const VigaSelectCountryPage());
+            return pageRouteBuilderNotAnimation(const VigaSelectCountryPage());
+      case '/user/user_info':
+        return pageRouteBuilderNotAnimation(
+            const UserInfoPage());
       case '/discovery/qrcode_scanner':
         return pageRouteBuilderNotAnimation(
             const VigaQRCodeScanner()); // 二维码扫描页面

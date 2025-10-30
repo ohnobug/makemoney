@@ -384,7 +384,7 @@ class _VigaUserPageState extends State<VigaUserPage>
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.pushNamed(context,
-                                          '/user/collection_and_payment');
+                                          '/user/user_info');
                                     },
                                     child: Icon(
                                       Icons.qr_code_2_outlined,
