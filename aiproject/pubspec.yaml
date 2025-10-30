@@ -77,6 +77,9 @@ flutter:
     - family: Iconfont
       fonts:
         - asset: ./assets/fonts/iconfont/iconfont.ttf
+          weight: 400
+        - asset: ./assets/fonts/iconfont/iconfont.ttf
+          weight: 700
 
 flutter_launcher_icons:
   android: false

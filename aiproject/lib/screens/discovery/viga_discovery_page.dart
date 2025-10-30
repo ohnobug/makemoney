@@ -49,9 +49,10 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
   // Mock data for trending topics
   final List<TrendItem> trendingTopics = [
     TrendItem(
-        title: "#夏日Vlog",
-        views: "1.2亿次播放",
-        icon: Icons.local_fire_department_rounded),
+      title: "#夏日Vlog",
+      views: "1.2亿次播放",
+      icon: Icons.local_fire_department_rounded,
+    ),
     TrendItem(
       title: "#美食探店",
       views: "8876万次播放",

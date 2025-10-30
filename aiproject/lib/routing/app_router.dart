@@ -30,9 +30,6 @@ import 'package:vigaviga/screens/contract/chat/friend/viga_set_friend_tags_page.
 import 'package:vigaviga/screens/contract/chat/friend/viga_set_notes_and_labels_page.dart';
 import 'package:vigaviga/screens/contract/chat/group/viga_group_chat_page.dart';
 import 'package:vigaviga/screens/contract/chat/group/viga_group_message_record_page.dart';
-import 'package:vigaviga/screens/user/course/viga_course_detail_page.dart';
-import 'package:vigaviga/screens/user/course/viga_course_list_page.dart';
-import 'package:vigaviga/screens/user/course/viga_lesson_content_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_about_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_feature_introduction_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_complain_page.dart';
@@ -350,19 +347,7 @@ class AppRouter {
       case '/user/more_info':
         return pageRouteBuilderAnimation(
             const VigaUserMoreInfoPage()); // 用户更多信息页面
-      case '/user/course_list':
-        return pageRouteBuilderAnimation(const VigaCourseListPage()); // 课程列表页面
-      case '/user/course_detail':
-        final args = settings.arguments as Map<String, String>? ?? {};
-        return pageRouteBuilderAnimation(VigaCourseDetailPage(
-          courseId: args['course_id'] ?? "",
-        )); // 课程详情页面
-      case '/user/lesson_content':
-        final args = settings.arguments as Map<String, String>? ?? {};
-        return pageRouteBuilderAnimation(VigaLessonContentPage(
-          lessonId: args['lesson_id'] ?? "",
-        )); // 课程内容页面
-
+  
       // 作者详情页面
       case '/author/detail':
         final args = settings.arguments as Map<String, String>? ?? {};
