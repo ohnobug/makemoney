@@ -15,6 +15,7 @@ import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/widgets/viga_page_loading.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:vigaviga/screens/user/photo_viewer/viga_photo_viewer_page.dart';
+import 'package:vigaviga/screens/discovery/search/viga_user_search_results_page.dart';
 
 class VigaUserPage extends StatefulWidget {
   const VigaUserPage({super.key});
@@ -172,7 +173,7 @@ class _VigaUserPageState extends State<VigaUserPage>
                           ),
                         ),
                         child: IconButton(
-                          onPressed: () => logger.info("搜索按钮被点击"),
+                          onPressed: () => _navigateToSearchPage(context),
                           icon: Icon(
                             Icons.search,
                             size: 44.w,
@@ -641,6 +642,36 @@ class _VigaUserPageState extends State<VigaUserPage>
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // 导航到搜索结果页面
+  void _navigateToSearchPage(BuildContext context) {
+    String searchType;
+    switch (_tabController.index) {
+      case 0:
+        searchType = 'works';
+        break;
+      case 1:
+        searchType = 'collections';
+        break;
+      case 2:
+        searchType = 'praised';
+        break;
+      default:
+        searchType = 'works';
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VigaSearchResultsPage(
+          initialSearchType: searchType,
+          works: _works,
+          collections: _collections,
+          praised: _praised,
+        ),
       ),
     );
   }

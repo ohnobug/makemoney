@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
+import 'package:vigaviga/themes.dart';
 
 // 数据模型
 class ModelItem {
@@ -41,7 +43,7 @@ class _ModelSearchPageState extends State<VigaResourceSearchPage> {
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
-              _scrollController.position.maxScrollExtent - 200 &&
+              _scrollController.position.maxScrollExtent - 400.w && // 200 * 2
           !_isLoading &&
           _hasMore) {
         _fetchModels();
@@ -121,52 +123,76 @@ class _ModelSearchPageState extends State<VigaResourceSearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.colorScheme.surfaceContainer,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.5,
+        backgroundColor: theme.colorScheme.surfaceContainer,
+        elevation: 0,
+        surfaceTintColor: Colors.transparent,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new,
-              color: Colors.black54, size: 20),
+          icon: Icon(Icons.arrow_back_ios_new,
+              color: theme.colorScheme.onSurface, size: 40.w), // 20 * 2
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('模型',
-            style: TextStyle(color: Colors.black, fontSize: 18)),
+        title: Text('灵感库',
+            style: TextStyle(
+              color: theme.colorScheme.onSurface,
+              fontSize: 36.w,
+              fontWeight: FontWeight.w600,
+            )), // 18 * 2
         centerTitle: true,
       ),
       body: Column(
         children: [
-          _buildSearchBar(),
+          _buildSearchBar(theme),
           Expanded(
-            child: _buildContentBody(),
+            child: _buildContentBody(theme),
           ),
         ],
       ),
     );
   }
 
-  // [MODIFIED] 这是唯一被修改的方法
-  Widget _buildSearchBar() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 8.0),
-      // 移除外层Container的固定高度，让TextField自适应
+  Widget _buildSearchBar(ThemeData theme) {
+    return Container(
+      margin: EdgeInsets.all(24.w),
       child: TextField(
         controller: _searchController,
-        style: const TextStyle(fontSize: 14), // 确保输入文字大小和提示文字大小一致
-        decoration: const InputDecoration(
-          // 1. isDense设为true，使输入框更紧凑
+        style: TextStyle(fontSize: 28.w, color: theme.colorScheme.onSurface), // 14 * 2
+        decoration: InputDecoration(
           isDense: true,
-          hintText: '搜索模型名称',
-          hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-          prefixIcon: Icon(Icons.search, color: Colors.grey, size: 20),
-          // 2. 设置对称的垂直内边距，以实现完美的垂直居中对齐
-          contentPadding: EdgeInsets.symmetric(vertical: 12.0),
+          hintText: '搜索灵感模型...',
+          hintStyle: TextStyle(
+            fontSize: 28.w,
+            color: theme.colorScheme.onSurfaceVariant,
+          ), // 14 * 2
+          prefixIcon: Icon(
+            Icons.search_outlined,
+            color: theme.colorScheme.onSurfaceVariant,
+            size: 40.w
+          ), // 20 * 2
+          contentPadding: EdgeInsets.symmetric(vertical: 24.0.w, horizontal: 20.w), // 12 * 2
           filled: true,
-          fillColor: Color(0xFFF5F5F5), // 使用一个具体的浅灰色
+          fillColor: theme.colorScheme.surface,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-            borderSide: BorderSide.none, // 无边框
+            borderRadius: BorderRadius.all(Radius.circular(50.0.w)), // 25 * 2
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(50.0.w)), // 25 * 2
+            borderSide: BorderSide(
+              color: theme.dividerColor,
+              width: 1.w,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(50.0.w)), // 25 * 2
+            borderSide: BorderSide(
+              color: theme.colorScheme.primary,
+              width: 2.w,
+            ),
           ),
         ),
         onSubmitted: _performSearch,
@@ -174,18 +200,39 @@ class _ModelSearchPageState extends State<VigaResourceSearchPage> {
     );
   }
 
-  Widget _buildContentBody() {
+  Widget _buildContentBody(ThemeData theme) {
     if (_modelItems.isEmpty) {
       if (_isLoading) {
-        return const Align(
-          alignment: Alignment.topCenter,
+        return Center(
           child: Padding(
-            padding: EdgeInsets.only(top: 20.0),
-            child: CircularProgressIndicator(),
+            padding: EdgeInsets.only(top: 40.0.w), // 20 * 2
+            child: CircularProgressIndicator(
+              color: theme.colorScheme.primary,
+              strokeWidth: 4.w,
+            ),
           ),
         );
       } else {
-        return const Center(child: Text("没有找到相关模型"));
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.search_off_outlined,
+                size: 80.w,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+              SizedBox(height: 16.w),
+              Text(
+                "没有找到相关模型",
+                style: TextStyle(
+                  color: theme.colorScheme.onSurfaceVariant,
+                  fontSize: 28.w,
+                ),
+              ),
+            ],
+          ),
+        );
       }
     }
 
@@ -194,34 +241,49 @@ class _ModelSearchPageState extends State<VigaResourceSearchPage> {
         Expanded(
           child: GridView.builder(
             controller: _scrollController,
-            padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            padding: EdgeInsets.fromLTRB(24.0.w, 0, 24.0.w, 24.0.w), // 12 * 2
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 8.0,
-              mainAxisSpacing: 8.0,
-              childAspectRatio: 0.68,
+              crossAxisSpacing: 16.0.w, // 8 * 2
+              mainAxisSpacing: 16.0.w, // 8 * 2
+              childAspectRatio: 0.68, // Ratios are not adapted
             ),
             itemCount: _modelItems.length,
             itemBuilder: (context, index) {
-              return _buildModelCard(_modelItems[index]);
+              return _buildModelCard(_modelItems[index], theme);
             },
           ),
         ),
         if (_isLoading)
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: Center(child: CircularProgressIndicator()),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 32.0.w), // 16 * 2
+            child: Center(
+              child: CircularProgressIndicator(
+                color: theme.colorScheme.primary,
+                strokeWidth: 4.w,
+              ),
+            ),
           ),
       ],
     );
   }
 
-  Widget _buildModelCard(ModelItem item) {
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-        side: BorderSide(color: Colors.grey.shade200, width: 1),
+  Widget _buildModelCard(ModelItem item, ThemeData theme) {
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(20.w),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha((0.05 * 255).toInt()),
+            blurRadius: 10.w,
+            offset: Offset(0, 2.w),
+          ),
+        ],
+        border: Border.all(
+          color: theme.dividerColor.withAlpha((0.3 * 255).toInt()),
+          width: 1.w,
+        ),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -238,66 +300,85 @@ class _ModelSearchPageState extends State<VigaResourceSearchPage> {
                   ),
                 ),
                 Positioned(
-                  top: 8,
-                  left: 8,
+                  top: 12.w, // 6 * 2
+                  left: 12.w, // 6 * 2
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 12.w, vertical: 6.w), // 6*2, 3*2
                     decoration: BoxDecoration(
-                      color: Colors.black.withAlpha(128),
-                      borderRadius: BorderRadius.circular(4),
+                      color: AppColors.brandGreenVibrant5.withAlpha((0.9 * 255).toInt()),
+                      borderRadius: BorderRadius.circular(12.w), // 6 * 2
                     ),
-                    child: const Text('LORA',
-                        style: TextStyle(color: Colors.white, fontSize: 12)),
+                    child: Text('LoRA',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22.w,
+                            fontWeight: FontWeight.w600)), // 11 * 2
                   ),
                 ),
               ],
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
-            child: Text(item.title,
-                style:
-                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            padding: EdgeInsets.all(16.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                          radius: 12,
-                          backgroundColor: Colors.grey[300],
-                          backgroundImage: NetworkImage(item.authorAvatarUrl)),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          item.author,
-                          style:
-                              TextStyle(fontSize: 12, color: Colors.grey[600]),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
+                Text(
+                  item.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 26.w,
+                    color: theme.colorScheme.onSurface,
+                    height: 1.2,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(
-                  height: 28,
-                  child: TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.blue.withAlpha(25),
-                      foregroundColor: Colors.blue[700],
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14)),
-                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                SizedBox(height: 12.w),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 20.w, // 10 * 2
+                      backgroundColor: theme.colorScheme.surfaceContainerHighest,
+                      backgroundImage: NetworkImage(item.authorAvatarUrl),
                     ),
-                    child: const Text('使用', style: TextStyle(fontSize: 12)),
+                    SizedBox(width: 12.w), // 6 * 2
+                    Expanded(
+                      child: Text(
+                        item.author,
+                        style: TextStyle(
+                          fontSize: 22.w,
+                          color: theme.colorScheme.onSurfaceVariant,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16.w),
+                SizedBox(
+                  width: double.infinity,
+                  height: 48.w, // 24 * 2
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: theme.colorScheme.primary,
+                      foregroundColor: theme.colorScheme.onPrimary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24.w), // 12 * 2
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w), // 10 * 2
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      '使用',
+                      style: TextStyle(
+                        fontSize: 24.w,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
               ],

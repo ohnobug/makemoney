@@ -362,7 +362,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
                 ? _currentVideoController!.value.aspectRatio
                 : 9.0 / 16.0;
         final shrunkVideoWidth = shrunkVideoHeight * videoAspectRatio;
-        final normalVideoHeight = screenHeight - systemState.tabbarHeight;
+        final normalVideoHeight = screenHeight - systemState.bottomNavigationBarHeight;
 
         double interpolate(double start, double end, double progress) {
           return start + (end - start) * progress;

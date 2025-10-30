@@ -11,6 +11,7 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/widgets/viga_page_loading.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
+import 'package:vigaviga/screens/discovery/search/viga_home_search_results_page.dart';
 
 // 作品数据模型
 class WorkItem {
@@ -174,6 +175,26 @@ class _VigaAuthorDetailPageState extends State<VigaAuthorDetailPage>
                               child: Text("作品 ${_works.length}"),
                             ),
                           ],
+                        ),
+                      ),
+                      Container(
+                        height: customkToolbarHeight,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              width: 1.0.w,
+                              color: theme.tabBarTheme.dividerColor!,
+                            ),
+                          ),
+                        ),
+                        child: IconButton(
+                          onPressed: () => _navigateToAuthorSearchPage(context),
+                          icon: Icon(
+                            Icons.search,
+                            size: 44.w,
+                            color: theme.hintColor,
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 32.w),
                         ),
                       ),
                     ],
@@ -402,6 +423,23 @@ class _VigaAuthorDetailPageState extends State<VigaAuthorDetailPage>
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // 导航到作者作品搜索页面
+  void _navigateToAuthorSearchPage(BuildContext context) {
+    final workUrls = _works.map((workItem) => workItem.imageUrl).toList();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VigaHomeSearchResultsPage(
+          initialSearchType: 'author_search',
+          works: workUrls,
+          collections: [],
+          praised: [],
+        ),
       ),
     );
   }

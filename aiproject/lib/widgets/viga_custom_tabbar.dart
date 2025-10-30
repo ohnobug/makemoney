@@ -86,7 +86,7 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
     );
 
     var systemCubit = context.read<VigaSystemCubit>();
-    systemCubit.updateTabbarHeight(95.w);
+    systemCubit.updateBottomNavigationBarHeight(95.w);
     systemCubit.updateAppbarHeight(90.w);
 
     _tabController = TabController(
@@ -102,8 +102,8 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
           systemCubit.updateStatusHeight(0);
         } else {
           systemCubit.updateStatusHeight(MediaQuery.of(context).padding.top);
-          systemCubit
-              .updateTabbarHeight(95.w + MediaQuery.of(context).padding.bottom);
+          systemCubit.updateBottomNavigationBarHeight(
+              95.w + MediaQuery.of(context).padding.bottom);
         }
       }
     });
@@ -173,7 +173,7 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
                     bottomNavigationBar: Visibility(
                       visible: systemState.showHomeTabbar,
                       child: Container(
-                        height: systemState.tabbarHeight + 1.0.w,
+                        height: systemState.bottomNavigationBarHeight + 1.0.w,
                         decoration: BoxDecoration(
                           // 3. 使用 'newContext' 来获取颜色，这样就能正确读到黑色背景
                           color: Theme.of(newContext).bottomAppBarTheme.color,
@@ -247,7 +247,7 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
 
             // 视频进度条
             Positioned(
-              bottom: systemState.tabbarHeight +
+              bottom: systemState.bottomNavigationBarHeight +
                   systemState.videoProgressBottomOffset,
               left: 0,
               right: 0,

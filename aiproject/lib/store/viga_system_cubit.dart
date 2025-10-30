@@ -46,8 +46,8 @@ class VigaSystemCubit extends Cubit<SystemState> {
     emit(state.copyWith(statusHeight: statusHeight));
   }
 
-  void updateTabbarHeight(double tabbarHeight) {
-    emit(state.copyWith(tabbarHeight: tabbarHeight));
+  void updateBottomNavigationBarHeight(double bottomNavigationBarHeight) {
+    emit(state.copyWith(bottomNavigationBarHeight: bottomNavigationBarHeight));
   }
 
   void updateAppbarHeight(double appbarHeight) {
@@ -102,7 +102,7 @@ class SystemState extends Equatable {
   final Size screenSize;
   final double appbarHeight;
   final double statusHeight;
-  final double tabbarHeight;
+  final double bottomNavigationBarHeight;
   final bool showHomeTabbar;
   final ThemeMode themeMode;
   final Locale currentLocale;
@@ -122,7 +122,7 @@ class SystemState extends Equatable {
     this.screenSize = const Size(0, 0),
     this.appbarHeight = 0,
     this.statusHeight = 0,
-    this.tabbarHeight = 100,
+    this.bottomNavigationBarHeight = 100,
     this.showHomeTabbar = true,
     this.currentLocale = const Locale('en'),
     this.themeMode = ThemeMode.system,
@@ -143,7 +143,7 @@ class SystemState extends Equatable {
     bool? mainpage5isload,
     Size? screenSize,
     double? statusHeight,
-    double? tabbarHeight,
+    double? bottomNavigationBarHeight,
     double? appbarHeight,
     bool? showHomeTabbar,
     ThemeMode? themeMode,
@@ -167,7 +167,7 @@ class SystemState extends Equatable {
       mainpage5isload: mainpage5isload ?? this.mainpage5isload,
       screenSize: screenSize ?? this.screenSize,
       statusHeight: statusHeight ?? this.statusHeight,
-      tabbarHeight: tabbarHeight ?? this.tabbarHeight,
+      bottomNavigationBarHeight: bottomNavigationBarHeight ?? this.bottomNavigationBarHeight,
       appbarHeight: appbarHeight ?? this.appbarHeight,
       showHomeTabbar: showHomeTabbar ?? this.showHomeTabbar,
       themeMode: themeMode ?? this.themeMode,
@@ -194,7 +194,7 @@ class SystemState extends Equatable {
         screenSize,
         statusHeight,
         appbarHeight,
-        tabbarHeight,
+        bottomNavigationBarHeight,
         showHomeTabbar,
         themeMode,
         currentLocale,
